@@ -1,0 +1,24 @@
+{% extends "!layout.html" %}
+
+{% block rootrellink %}
+        <li><a href="{{ pathto('index') }}">Home</a>&nbsp;|&nbsp;</li>
+        <li><a href="{{ pathto('download') }}">Download</a>&nbsp;|&nbsp;</li>
+        <li><a href="{{ pathto('tutorial') }}">Getting Started</a>&nbsp;|&nbsp;</li>
+        <li><a href="{{ pathto('core') }}">User Reference</a>&nbsp;|&nbsp;</li>
+        <li><a href="{{ pathto('sdk') }}">Developer Reference</a>&nbsp;|&nbsp;</li>
+        <li><a href="{{ pathto('faq') }}">Frequently Asked Questions</a></li>
+</ul>
+<ul>
+        <li><a href="{{ pathto('contents') }}">Documentation</a>&nbsp;&raquo;&nbsp;<br></li>
+{% endblock %}
+
+{% block relbaritems %}
+  {%- if current_page_name != 'index' %}
+    {%- if current_page_name != 'contents' %}
+    <li><a href="{{ link|e }}">{{title }}</a></li>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block relbar2 %}{% endblock %}
+
