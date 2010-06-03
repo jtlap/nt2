@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Project Name="documentation" InternalType="Console">
+  <VirtualDirectory Name="doc">
+    <VirtualDirectory Name="source">
+      <VirtualDirectory Name="sdk">
+        <VirtualDirectory Name="config">
+          <File Name="doc/source/sdk/config/compiler.rst"/>
+          <File Name="doc/source/sdk/config/platform.rst"/>
+          <File Name="doc/source/sdk/config/function.rst"/>
+          <File Name="doc/source/sdk/config/flags.rst"/>
+          <File Name="doc/source/sdk/config/architecture.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/config.rst"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="boost">
+        <File Name="doc/source/boost/todo.py"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="_templates">
+        <File Name="doc/source/_templates/layout.html"/>
+        <File Name="doc/source/_templates/indexsidebar.html"/>
+        <File Name="doc/source/_templates/index.html"/>
+      </VirtualDirectory>
+      <File Name="doc/source/reference.rst"/>
+      <File Name="doc/source/extension.rst"/>
+      <File Name="doc/source/conf.py"/>
+      <File Name="doc/source/tutorial.rst"/>
+      <File Name="doc/source/performance.rst"/>
+      <File Name="doc/source/contents.rst"/>
+      <File Name="doc/source/core.rst"/>
+      <File Name="doc/source/sdk.rst"/>
+      <File Name="doc/source/license.rst"/>
+      <File Name="doc/source/acknowledgements.rst"/>
+      <File Name="doc/source/features.rst"/>
+      <File Name="doc/source/howto.rst"/>
+      <File Name="doc/source/latest.rst"/>
+      <File Name="doc/source/rationale.rst"/>
+      <File Name="doc/source/faq.rst"/>
+      <File Name="doc/source/bibliography.rst"/>
+      <File Name="doc/source/install.rst"/>
+      <File Name="doc/source/download.rst"/>
+      <File Name="doc/source/glossary.rst"/>
+      <File Name="doc/source/version.rst"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Executable">
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" Required="no" PreCompiledHeader="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="no"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <Target Name="Display">firefox build/html/index.html</Target>
+        <RebuildCommand>make clean &amp;&amp; make html</RebuildCommand>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make html</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>/home/joel/Documents/development/github/nt2/doc</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O2" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <GlobalSettings>
+      <Compiler Options="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+  </Settings>
+</CodeLite_Project>

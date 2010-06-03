@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Project Name="library" InternalType="Library">
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Static Library">
+    <GlobalSettings>
+      <Compiler Options="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/lib$(ProjectName).a" IntermediateDirectory="./Debug" Command="" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" Required="yes" PreCompiledHeader="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/lib$(ProjectName).a" IntermediateDirectory="./Release" Command="" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+    </Configuration>
+  </Settings>
+  <VirtualDirectory Name="src"/>
+  <VirtualDirectory Name="include">
+    <VirtualDirectory Name="nt2">
+      <VirtualDirectory Name="sdk">
+        <VirtualDirectory Name="config">
+          <VirtualDirectory Name="compiler">
+            <File Name="include/nt2/sdk/config/compiler/gcc_xml.hpp"/>
+            <File Name="include/nt2/sdk/config/compiler/none.hpp"/>
+            <File Name="include/nt2/sdk/config/compiler/visualc.hpp"/>
+            <File Name="include/nt2/sdk/config/compiler/gcc.hpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="os">
+            <File Name="include/nt2/sdk/config/os/none.hpp"/>
+            <File Name="include/nt2/sdk/config/os/nix.hpp"/>
+            <File Name="include/nt2/sdk/config/os/windows.hpp"/>
+            <File Name="include/nt2/sdk/config/os/macos.hpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="arch">
+            <File Name="include/nt2/sdk/config/arch/x86.hpp"/>
+            <File Name="include/nt2/sdk/config/arch/none.hpp"/>
+            <File Name="include/nt2/sdk/config/arch/ia64.hpp"/>
+            <File Name="include/nt2/sdk/config/arch/powerpc.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/config/arch.hpp"/>
+          <File Name="include/nt2/sdk/config/version.hpp"/>
+          <File Name="include/nt2/sdk/config/reporter.hpp"/>
+          <File Name="include/nt2/sdk/config/compiler.hpp"/>
+          <File Name="include/nt2/sdk/config/os.hpp"/>
+          <File Name="include/nt2/sdk/config/status.hpp"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
+</CodeLite_Project>
