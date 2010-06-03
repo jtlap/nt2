@@ -60,19 +60,20 @@ namespace nt2 { namespace details
 // status reporter global instance
 // When called, display the current list fo all status reporter
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2
+namespace nt2 { namespace config
 {
   details::reporter const status = {details::status_headers,0};
-}
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Status reporter registration macro
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_REGISTER_STATUS(FUNC)                                               \
-nt2::details::reporter const  BOOST_PP_CAT(FUNC,_reporter)                      \
-                            = { FUNC                                            \
-                              , nt2::status.link(&BOOST_PP_CAT(FUNC,_reporter)) \
-                              }                                                 \
+#define NT2_REGISTER_STATUS(FUNC)                                     \
+nt2::details::reporter const                                          \
+BOOST_PP_CAT(FUNC,_reporter) = { FUNC                                 \
+                               , nt2::config::status                  \
+                                .link(&BOOST_PP_CAT(FUNC,_reporter))  \
+                              }                                       \
 /**/
 
 #endif

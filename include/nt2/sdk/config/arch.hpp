@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_CONFIG_ARCH_HPP_INCLUDED
 #define NT2_SDK_CONFIG_ARCH_HPP_INCLUDED
 
-#include <nt2/sdk/config/configure.hpp>
+#include <nt2/sdk/config/bootstrap.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Architecture configuration headers
@@ -30,7 +30,7 @@
   #include <boost/version.hpp>
   #include <boost/config.hpp>
 
-  #include <nt2/extensions/arch.hpp>
+//  #include <nt2/extensions/arch.hpp>
   #include <nt2/sdk/config/arch/powerpc.hpp>
   #include <nt2/sdk/config/arch/x86.hpp>
   #include <nt2/sdk/config/arch/ia64.hpp>
