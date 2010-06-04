@@ -39,7 +39,7 @@ namespace nt2 { namespace details
     }
 
     // Display all its registered status
-    void display() const
+    void operator()() const
     {
       reporter const* curr = this;
       while(curr != 0) { curr->call(); curr = curr->next; }
