@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CodeLite_Workspace Name="nt2" Database="./nt2.tags">
   <Project Name="library" Path="library.project" Active="No"/>
-  <Project Name="documentation" Path="documentation.project" Active="Yes"/>
+  <Project Name="documentation" Path="documentation.project" Active="No"/>
+  <Project Name="quick_test" Path="quick_test.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Project Name="library" ConfigName="Debug"/>
       <Project Name="documentation" ConfigName="Debug"/>
+      <Project Name="quick_test" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Project Name="library" ConfigName="Release"/>
       <Project Name="documentation" ConfigName="Release"/>
+      <Project Name="quick_test" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
