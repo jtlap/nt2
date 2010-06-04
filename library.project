@@ -93,11 +93,11 @@
             <File Name="include/nt2/sdk/config/arch/powerpc.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/config/arch.hpp"/>
-          <File Name="include/nt2/sdk/config/version.hpp"/>
           <File Name="include/nt2/sdk/config/reporter.hpp"/>
           <File Name="include/nt2/sdk/config/compiler.hpp"/>
           <File Name="include/nt2/sdk/config/os.hpp"/>
           <File Name="include/nt2/sdk/config/status.hpp"/>
+          <File Name="include/nt2/sdk/config/bootstrap.hpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
     </VirtualDirectory>
