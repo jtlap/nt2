@@ -6,11 +6,12 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_NT2_SDK_CONFIG_CONFIG_HPP_INCLUDED
-#define NT2_NT2_SDK_CONFIG_CONFIG_HPP_INCLUDED
+#ifndef NT2_NT2_SDK_CONFIG_DETAILS_REPORTER_HPP_INCLUDED
+#define NT2_NT2_SDK_CONFIG_DETAILS_REPORTER_HPP_INCLUDED
 
 #include <cstdio>
 #include <boost/preprocessor/cat.hpp>
+#include <nt2/sdk/config/details/boost.hpp>
 
 namespace nt2 { namespace details
 {
@@ -53,6 +54,7 @@ namespace nt2 { namespace details
     puts("/****************************************************************\\");
     puts( "|                   NT2 v3.0 - Ophelia release                   |");
     puts("\\****************************************************************/");
+    puts(" Last compilation        : " __DATE__ " @ " __TIME__ );
   }
 } }
 

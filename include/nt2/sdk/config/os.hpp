@@ -9,32 +9,34 @@
 #ifndef NT2_SDK_CONFIG_OS_HPP_INCLUDED
 #define NT2_SDK_CONFIG_OS_HPP_INCLUDED
 
-#include <nt2/sdk/config/configure.hpp>
+#include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/config/details/boost.hpp>
+#include <nt2/sdk/config/details/reporter.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// OS configuration headers
-// Defines OS specific symbols for compile-time switch over OS related
-// variation points.
-// Documentation: reference/sdk/config/platform.rst
+// Architecture configuration headers
+// Defines architecture symbols for architecture related variation point.
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/version.hpp>
+#include <boost/config.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Performs sanity check - We never knows ...
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_HAVE_BOOST)
-  #error NT2 Configuration Error: No Boost library detected
-#else
+//#include <nt2/extensions/sdk/config/os.hpp>
+#include <nt2/sdk/config/os/nix.hpp>
+#include <nt2/sdk/config/os/windows.hpp>
+#include <nt2/sdk/config/os/macos.hpp>
+#include <nt2/sdk/config/os/none.hpp>
+
+namespace nt2 { namespace details
+{
   //////////////////////////////////////////////////////////////////////////////
-  // Includes BOOST configuration files
+  // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  #include <boost/version.hpp>
-  #include <boost/config.hpp>
+  static void os()
+  {
+    puts(" Operating System        : " NT2_OS_STRING );
+  }
 
-  #include <nt2/extensions/os.hpp>
-  #include <nt2/sdk/config/os/nix.hpp>
-  #include <nt2/sdk/config/os/windows.hpp>
-  #include <nt2/sdk/config/os/macos.hpp>
-  #include <nt2/sdk/config/os/none.hpp>
-#endif
+  NT2_REGISTER_STATUS(os);
+} }
 
 #endif

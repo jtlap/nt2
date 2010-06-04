@@ -9,32 +9,34 @@
 #ifndef NT2_SDK_CONFIG_COMPILER_HPP_INCLUDED
 #define NT2_SDK_CONFIG_COMPILER_HPP_INCLUDED
 
-#include <nt2/sdk/config/configure.hpp>
+#include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/config/details/boost.hpp>
+#include <nt2/sdk/config/details/reporter.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Compiler configuration headers
-// Defines compiler-specific symbols for compile-time switch over compiler
-// related variation point.
-// Documentation: reference/sdk/config/compiler.rst
+// Architecture configuration headers
+// Defines architecture symbols for architecture related variation point.
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/version.hpp>
+#include <boost/config.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Performs sanity check - We never knows ...
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_HAVE_BOOST)
-  #error NT2 Configuration Error: No Boost library detected
-#else
+#include <nt2/sdk/config/compiler/gcc_xml.hpp>
+// #include <nt2/extensions/sdk/config/compiler.hpp>
+#include <nt2/sdk/config/compiler/gcc.hpp>
+#include <nt2/sdk/config/compiler/visualc.hpp>
+#include <nt2/sdk/config/compiler/none.hpp>
+
+namespace nt2 { namespace details
+{
   //////////////////////////////////////////////////////////////////////////////
-  // Includes BOOST configuration files
+  // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  #include <boost/version.hpp>
-  #include <boost/config.hpp>
+  static void compiler()
+  {
+    puts(" Compiler                : " NT2_COMPILER_STRING);
+    puts(" Boost libraries version : " BOOST_LIB_VERSION);
+  }
 
-  #include <nt2/sdk/config/compiler/gcc_xml.hpp>
-  #include <nt2/extensions/compiler.hpp>
-  #include <nt2/sdk/config/compiler/gcc.hpp>
-  #include <nt2/sdk/config/compiler/visualc.hpp>
-  #include <nt2/sdk/config/compiler/none.hpp>
-#endif
-
+  NT2_REGISTER_STATUS(compiler);
+} }
 #endif

@@ -10,34 +10,36 @@
 #define NT2_SDK_CONFIG_ARCH_HPP_INCLUDED
 
 #include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/config/details/boost.hpp>
+#include <nt2/sdk/config/details/reporter.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Architecture configuration headers
-// Defines architecture symbols for compile-time switch over architecture
-// related variation point.
-// Documentation: reference/sdk/config/architecture.rst
+// Defines architecture symbols for architecture related variation point.
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/version.hpp>
+#include <boost/config.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Performs sanity check - We never knows ...
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_HAVE_BOOST)
-  #error NT2 Configuration Error: No Boost library detected
-#else
-  //////////////////////////////////////////////////////////////////////////////
-  // Includes BOOST configuration files
-  //////////////////////////////////////////////////////////////////////////////
-  #include <boost/version.hpp>
-  #include <boost/config.hpp>
-
-//  #include <nt2/extensions/arch.hpp>
-  #include <nt2/sdk/config/arch/powerpc.hpp>
-  #include <nt2/sdk/config/arch/x86.hpp>
-  #include <nt2/sdk/config/arch/ia64.hpp>
-  #include <nt2/sdk/config/arch/none.hpp>
+//  #include <nt2/extensions/sdk/config/arch.hpp>
+#include <nt2/sdk/config/arch/powerpc.hpp>
+#include <nt2/sdk/config/arch/x86.hpp>
+#include <nt2/sdk/config/arch/ia64.hpp>
+#include <nt2/sdk/config/arch/none.hpp>
 
 //#include <nt2/support/config/arch/spec.hpp>
 //#include <nt2/support/config/arch/endian.hpp>
-#endif
 
+namespace nt2 { namespace details
+{
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Status header reporter - Head for the reporter list
+  //////////////////////////////////////////////////////////////////////////////
+  static void architecture()
+  {
+    puts(" CPU Architecture        : " NT2_ARCH_STRING );
+  }
+
+  NT2_REGISTER_STATUS(architecture);
+} }
 #endif
