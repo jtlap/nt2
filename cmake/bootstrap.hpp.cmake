@@ -11,12 +11,10 @@
 
 #if defined(NT2_USE_CUSTOM_MACHINE_MODEL)
 #include <boost/preprocessor/stringize.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
 
-#define NT2_CONFIG_BASE()	 nt2/extensions/config/
-#define NT2_CONFIG_INCLUDE(File) BOOST_PP_STRINGIZE(NT2_CONFIG_BASE()File)
-
-#include NT2_CONFIG_INCLUDE(NT2_USE_CUSTOM_MACHINE_MODEL)
-
+#define NT2_CONFIG_BASE()	nt2/extensions/config/
+#include NT2_PP_INCLUDE(NT2_CONFIG_BASE,NT2_USE_CUSTOM_MACHINE_MODEL)
 #else
 ////////////////////////////////////////////////////////////////////////////////
 // Software Support
