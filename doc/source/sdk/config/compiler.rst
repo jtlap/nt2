@@ -67,5 +67,5 @@ This macro is defined when a Microsoft Visual Studio compiler is detected.
 
 .. rubric:: Example
 
-.. literalinclude:: ../../../../examples/src/compiler.cpp
+.. literalinclude:: ../../../../examples/sdk/config/compiler.cpp
    :language: cpp

@@ -12,7 +12,7 @@ informations about current settings as a human-readable string.
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/config/status.hpp>
+  #include <nt2/sdk/config.hpp>
 
 .. rubric:: Synopsis
 
@@ -20,76 +20,31 @@ informations about current settings as a human-readable string.
 
   namespace nt2 { namespace config
   {
-    const char* status();
-    const char* os();
-    const char* compiler();
-    const char* architecture();
+    unspecified-type status;
   } }
 
 .. _config_function_status:
 
-status()
-^^^^^^^^
+status
+^^^^^^
 
 .. index::
-    single: status()
+    single: status
+    single: config; status
 
 **Synopsis:**
 
 .. code-block:: cpp
 
-  const char* status()
+  unspecified-type status
 
-**Description:** Returns a constant string containing a human-readable summary
-of all active compile-time configuration settings of the current application.
+**Description:** ``status`` is a nullary function object that carry out
+compile-time information about |nt2| which can be displayed on the standard
+output.
 
-.. _config_function_os:
 
-os()
-^^^^
+.. rubric:: Example
 
-.. index::
-    single: os()
+.. literalinclude:: ../../../../examples/sdk/config/status.cpp
+   :language: cpp
 
-**Synopsis:**
-
-.. code-block:: cpp
-
-  const char* os()
-
-**Description:** Returns a constant string containing the OS settings
-of the current application.
-
-.. _config_function_compiler:
-
-compiler()
-^^^^^^^^^^
-
-.. index::
-    single: compiler()
-
-**Synopsis:**
-
-.. code-block:: cpp
-
-  const char* compiler()
-
-**Description:** Returns a constant string containing the compiler used to compile
-current application.
-
-.. _config_function_arch:
-
-architecture()
-^^^^^^^^^^^^^^
-
-.. index::
-    single: architecture()
-
-**Synopsis:**
-
-.. code-block:: cpp
-
-  const char* architecture()
-
-**Description:** Returns a constant string containing the architecture settings
-of the current application.

@@ -67,5 +67,5 @@ This macro is defined when |nt2| is compiled on Windows.
 
 .. rubric:: Example
 
-.. literalinclude:: ../../../../examples/src/platform.cpp
+.. literalinclude:: ../../../../examples/sdk/config/platform.cpp
    :language: cpp

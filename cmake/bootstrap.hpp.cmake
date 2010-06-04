@@ -9,6 +9,15 @@
 #ifndef NT2_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 #define NT2_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 
+#if defined(NT2_USE_CUSTOM_MACHINE_MODEL)
+#include <boost/preprocessor/stringize.hpp>
+
+#define NT2_CONFIG_BASE()	 nt2/extensions/config/
+#define NT2_CONFIG_INCLUDE(File) BOOST_PP_STRINGIZE(NT2_CONFIG_BASE()File)
+
+#include NT2_CONFIG_INCLUDE(NT2_USE_CUSTOM_MACHINE_MODEL)
+
+#else
 ////////////////////////////////////////////////////////////////////////////////
 // Software Support
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +46,6 @@
 // Python Support
 ////////////////////////////////////////////////////////////////////////////////
 #cmakedefine NT2_HAS_PYTHON_SUPPORT
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // CPU Hardware Specification
@@ -83,6 +91,8 @@
 #cmakedefine NT2_HAS_SSE4A_SUPPORT
 #cmakedefine NT2_HAS_AVX_SUPPORT
 #cmakedefine NT2_HAS_ALTIVEC_SUPPORT
+
+#endif
 
 #endif
 

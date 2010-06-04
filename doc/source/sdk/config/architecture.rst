@@ -78,5 +78,5 @@ This macro is defined when |nt2| is compiled on X86 architecture.
 
 .. rubric:: Example
 
-.. literalinclude:: ../../../../examples/src/architecture.cpp
+.. literalinclude:: ../../../../examples/sdk/config/architecture.cpp
    :language: cpp
