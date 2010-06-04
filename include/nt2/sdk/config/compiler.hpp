@@ -35,6 +35,21 @@ namespace nt2 { namespace details
   {
     puts(" Compiler                : " NT2_COMPILER_STRING);
     puts(" Boost libraries version : " BOOST_LIB_VERSION);
+    puts(" C++1x rvalue references : "
+    #if   defined(BOOST_NO_RVALUE_REFERENCES)
+          "unsupported"
+    #else
+          "supported"
+    #endif
+        );
+
+    puts(" C++1x variadic templates: "
+    #if   defined(BOOST_NO_VARIADIC_TEMPLATES)
+          "unsupported"
+    #else
+          "supported"
+    #endif
+        );
   }
 
   NT2_REGISTER_STATUS(compiler);
