@@ -1,4 +1,4 @@
-COnfigurable Include Directive
+Configurable Include Directive
 ==============================
 
 

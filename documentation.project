@@ -16,6 +16,13 @@
           <File Name="doc/source/sdk/config/architecture.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/config.rst"/>
+        <VirtualDirectory Name="details">
+          <File Name="doc/source/sdk/details/ignore_unused.rst"/>
+          <File Name="doc/source/sdk/details/include.rst"/>
+          <File Name="doc/source/sdk/details/preprocessor.rst"/>
+          <File Name="doc/source/sdk/details/type_id.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/details.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>
