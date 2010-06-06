@@ -9,7 +9,7 @@ type_id
 Description
 ^^^^^^^^^^^
 
-Returns a human-readabel, demangled type name.
+Returns a human-readable, demangled type name.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -65,6 +65,6 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/details/type_id.cpp
+.. literalinclude:: ../../../../examples/sdk/details/type_id.cpp
    :language: cpp
 
