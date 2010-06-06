@@ -44,11 +44,11 @@ machine:
 
 .. _nt2_use_custom_machine_model:
 
-NT2_USE_CUSTOM_MACHINE_MODEL
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NT2_CUSTOM_BOOTSTRAP
+^^^^^^^^^^^^^^^^^^^^
 
 .. index::
-    single: NT2_USE_CUSTOM_MACHINE_MODEL
+    single: NT2_CUSTOM_BOOTSTRAP
 
 When defined, this macro forces |nt2| to look for an external ``bootstrap.hpp``
 file located in the ``nt2/extensions/config`` folder.
@@ -60,7 +60,7 @@ The compilation of the following code sample:
 
 .. code-block:: cpp
 
-  #define NT2_USE_CUSTOM_MACHINE_MODEL arm_model.hpp
+  #define NT2_CUSTOM_BOOTSTRAP arm_model.hpp
   #include <nt2/include/config.hpp>
 
   int main() {}
