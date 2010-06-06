@@ -10,7 +10,7 @@ or platform.
 .. rubric:: Content
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    details/ignore_unused
    details/include

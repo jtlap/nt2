@@ -14,8 +14,8 @@
 #endif
 
 #include <string>
+#include <cstdlib>
 #include <typeinfo>
-#include <boost/config.hpp>
 
 namespace nt2 { namespace details
 {
