@@ -9,12 +9,12 @@
 #ifndef NT2_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 #define NT2_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 
-#if defined(NT2_USE_CUSTOM_MACHINE_MODEL)
+#if defined(NT2_CUSTOM_BOOTSTRAP)
 #include <boost/preprocessor/stringize.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 
 #define NT2_CONFIG_BASE()	nt2/extensions/config/
-#include NT2_PP_INCLUDE(NT2_CONFIG_BASE,NT2_USE_CUSTOM_MACHINE_MODEL)
+#include NT2_PP_INCLUDE(NT2_CONFIG_BASE,NT2_CUSTOM_BOOTSTRAP)
 #else
 ////////////////////////////////////////////////////////////////////////////////
 // Software Support

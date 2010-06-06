@@ -67,4 +67,3 @@ Example
 
 .. literalinclude:: ../../../../examples/sdk/details/type_id.cpp
    :language: cpp
-
