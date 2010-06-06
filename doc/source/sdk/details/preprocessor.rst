@@ -17,7 +17,7 @@ In addition to the preprocessor macros provided by
 .. _nt2_pp_debug:
 
 NT2_PP_DEBUG
-^^^^^^^^^^^
+^^^^^^^^^^^^
 
 .. index::
     single: NT2_PP_DEBUG
