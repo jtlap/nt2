@@ -9,8 +9,6 @@
 #ifndef NT2_SDK_DETAILS_IGNORE_UNUSED_HPP_INCLUDED
 #define NT2_SDK_DETAILS_IGNORE_UNUSED_HPP_INCLUDED
 
-#include <boost/config.hpp>
-
 namespace nt2{ namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -18,12 +16,7 @@ namespace nt2{ namespace details
   // but not used in a given implementation. Calling this function on such
   // parameters prevent compilers to generate spurious warnings.
   //////////////////////////////////////////////////////////////////////////////
-  #if defined(BOOST_NO_RVALUE_REFERENCES)
-  template<class T> void ignore_unused( T& )        {}
   template<class T> void ignore_unused( T const& )  {}
-  #else
-  template<class T> void ignore_unused( T&& )       {}
-  #endif
 } }
 
 #endif
