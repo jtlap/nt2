@@ -10,4 +10,5 @@ A0 return_first(A0 const& a0, A1 const& a1)
 int main()
 {
   int k = return_first(1,"k");
+  nt2::details::ignore_unused(k);
 }
