@@ -14,12 +14,7 @@
 ################################################################################
 # Find MMX
 ################################################################################
-SET(SIMD_VAR      MMX_FOUND    )
-SET(SIMD_FLAGS    mmx          )
-SET(SIMD_INCLUDE  mmintrin.h   )
-SET(SIMD_TYPE     __m64        )
-SET(SIMD_OP       _mm_add_pi32 )
-include(FindSIMDExtensions)
+include(FindMMX)
 
 ################################################################################
 # Find SSE2
