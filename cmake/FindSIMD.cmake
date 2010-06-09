@@ -8,50 +8,16 @@
 ################################################################################
 
 ################################################################################
-# Check for SIMD extensions availability
+# Check for SIMD extensions availability on Intel machines
 ################################################################################
 include(FindMMX)
 include(FindSSE2)
 include(FindSSSE3)
 include(FindSSE3)
+include(FindSSE4)
+include(FindAVX)
 
 ################################################################################
-# Find SSE4_1
+# Check for SIMD extensions availability on PPC machines
 ################################################################################
-SET(SIMD_VAR      SSE4_1_FOUND )
-SET(SIMD_FLAGS    ssse4.1      )
-SET(SIMD_INCLUDE  smmintrin.h  )
-SET(SIMD_TYPE     __m128d      )
-SET(SIMD_OP       _mm_add_pd   )
-include(FindSIMDExtensions)
-
-################################################################################
-# Find SSE4_2
-################################################################################
-SET(SIMD_VAR      SSE4_2_FOUND )
-SET(SIMD_FLAGS    ssse4.2      )
-SET(SIMD_INCLUDE  smmintrin.h  )
-SET(SIMD_TYPE     __m128d      )
-SET(SIMD_OP       _mm_add_pd   )
-include(FindSIMDExtensions)
-
-################################################################################
-# Find SSE4A
-################################################################################
-SET(SIMD_VAR      SSE4A_FOUND )
-SET(SIMD_FLAGS    ssse4a      )
-SET(SIMD_INCLUDE  ammintrin.h )
-SET(SIMD_TYPE     __m128d     )
-SET(SIMD_OP       _mm_add_pd  )
-include(FindSIMDExtensions)
-
-################################################################################
-# Find AVX
-################################################################################
-SET(SIMD_VAR      AVX_FOUND     )
-SET(SIMD_FLAGS    avx           )
-SET(SIMD_INCLUDE  imintrin.h    )
-SET(SIMD_TYPE     __m256        )
-SET(SIMD_OP       _mm256_add_ps )
-include(FindSIMDExtensions)
-
+#include(FindAltivec)

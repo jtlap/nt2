@@ -8,28 +8,48 @@
 ################################################################################
 
 ################################################################################
-# Check for AVX extensions availability
+# Check for AVX availability
 ################################################################################
 
-try_run(AVX_RUN_RESULT_VAR AVX_COMPILE_RESULT_VAR
-        ${CMAKE_BINARY_DIR} 
-        ${CMAKE_MODULE_PATH}/has_avx.cpp
-        CMAKE_FLAGS 
-          -DCOMPILE_DEFINITIONS:STRING=-mAVX
+################################################################################
+# Set proper flag setter depending on compiler
+################################################################################
+IF(CMAKE_COMPILER_IS_GNUCXX)
+SET(SIMD_FLAGS -mavx)
+ENDIF()
+
+IF(CMAKE_COMPILER_IS_MSVC)
+SET(SIMD_FLAGS \arch:AVX)
+ENDIF()
+
+################################################################################
+# Try to compile and run said file
+################################################################################
+try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+        ${CMAKE_MODULE_PATH}
+        ${CMAKE_MODULE_PATH}/avx.cpp
+        CMAKE_FLAGS
+          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
        )
 
-IF(${AVX_COMPILE_RESULT_VAR})
-IF( ${AVX_RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "AVX Extension not available")
+################################################################################
+# If file compiles and run, we're set
+################################################################################
+IF(${COMPILE_RESULT_VAR})
+IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
+  message(STATUS "AVX not available")
   set(AVX_FOUND FALSE)
 ELSE()
-  message(STATUS "AVX Extension available")
+  message(STATUS "AVX available")
   set(AVX_FOUND TRUE)
 ENDIF()
 ELSE()
-  message(STATUS "AVX Extension not available")
+  message(STATUS "AVX not available")
   set(AVX_FOUND FALSE)
 ENDIF()
 
+################################################################################
+# Advance current test
+################################################################################
 mark_as_advanced(AVX_FOUND)
 

@@ -8,39 +8,28 @@
 ################################################################################
 
 ################################################################################
-# Check for SIMD extensions availability
+# Check for SSE4 availability
 ################################################################################
 
 ################################################################################
 # Set proper flag setter depending on compiler
 ################################################################################
 IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_OPT -m)
+SET(SIMD_FLAGS -msse4)
 ENDIF()
 
 IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_OPT \arch:)
+SET(SIMD_FLAGS \arch:SSE4.1)
 ENDIF()
-
-################################################################################
-# Write the test file
-################################################################################
-file(WRITE ${CMAKE_BINARY_DIR}/find.cpp
-     "#include <${SIMD_INCLUDE}>\n"
-     "int main() {\n" 
-     "  ${SIMD_TYPE} x;\n"
-     "  x = ${SIMD_OP}(x,x);\n"
-     "  return 1; }\n" 
-     )
 
 ################################################################################
 # Try to compile and run said file
 ################################################################################
 try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
-        ${CMAKE_BINARY_DIR} 
-        ${CMAKE_BINARY_DIR}/find.cpp
-        CMAKE_FLAGS 
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_OPT}${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}
+        ${CMAKE_MODULE_PATH}/sse4.cpp
+        CMAKE_FLAGS
+          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
        )
 
 ################################################################################
@@ -48,19 +37,19 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "${SIMD_FLAGS} not available")
-  set(${SIMD_VAR} FALSE)
+  message(STATUS "SSE4 not available")
+  set(SSE4_FOUND FALSE)
 ELSE()
-  message(STATUS "${SIMD_FLAGS} available")
-  set(${SIMD_VAR} TRUE)
+  message(STATUS "SSE4 available")
+  set(SSE4_FOUND TRUE)
 ENDIF()
 ELSE()
-  message(STATUS "${SIMD_FLAGS} not available")
-  set(${SIMD_VAR} FALSE)
+  message(STATUS "SSE4 not available")
+  set(SSE4_FOUND FALSE)
 ENDIF()
 
 ################################################################################
-# Advacne current test
+# Advance current test
 ################################################################################
-mark_as_advanced(${SIMD_VAR})
+mark_as_advanced(SSE4_FOUND)
 
