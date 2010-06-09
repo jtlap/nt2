@@ -10,41 +10,10 @@
 ################################################################################
 # Check for SIMD extensions availability
 ################################################################################
-
-################################################################################
-# Find MMX
-################################################################################
 include(FindMMX)
-
-################################################################################
-# Find SSE2
-################################################################################
-SET(SIMD_VAR      SSE2_FOUND  )
-SET(SIMD_FLAGS    sse2        )
-SET(SIMD_INCLUDE  emmintrin.h )
-SET(SIMD_TYPE     __m128d     )
-SET(SIMD_OP       _mm_add_pd  )
-include(FindSIMDExtensions)
-
-################################################################################
-# Find SSE3
-################################################################################
-SET(SIMD_VAR      SSE3_FOUND  )
-SET(SIMD_FLAGS    sse3        )
-SET(SIMD_INCLUDE  pmmintrin.h )
-SET(SIMD_TYPE     __m128d     )
-SET(SIMD_OP       _mm_add_pd  )
-include(FindSIMDExtensions)
-
-################################################################################
-# Find SSSE3
-################################################################################
-SET(SIMD_VAR      SSSE3_FOUND )
-SET(SIMD_FLAGS    ssse3       )
-SET(SIMD_INCLUDE  tmmintrin.h )
-SET(SIMD_TYPE     __m128d     )
-SET(SIMD_OP       _mm_add_pd  )
-include(FindSIMDExtensions)
+include(FindSSE2)
+include(FindSSSE3)
+include(FindSSE3)
 
 ################################################################################
 # Find SSE4_1
