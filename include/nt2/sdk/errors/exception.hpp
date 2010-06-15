@@ -1,0 +1,57 @@
+/*******************************************************************************
+ *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+ *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
+#ifndef NT2_SDK_ERRORS_EXCEPTION_HPP_INCLUDED
+#define NT2_SDK_ERRORS_EXCEPTION_HPP_INCLUDED
+
+////////////////////////////////////////////////////////////////////////////////
+// Exception interface with std::exception and boost::exception
+////////////////////////////////////////////////////////////////////////////////
+#include <iosfwd>
+#include <sstream>
+#include <exception>
+#include <boost/exception/all.hpp>
+
+namespace nt2
+{
+  struct exception;
+  inline std::ostream& operator<<( std::ostream& os, exception const& e );
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Exception base class
+  //////////////////////////////////////////////////////////////////////////////
+  struct exception : virtual boost::exception, virtual std::exception
+  {
+    virtual const char* what() const throw()
+    {
+      std::ostringstream msg;
+      msg << *this;
+      return msg.str().c_str();
+    }
+
+    virtual void display(std::ostream& os) const throw() =0;
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Exception stream insertion operator
+  // Displays basic infos then jump into the virtual display method.
+  //////////////////////////////////////////////////////////////////////////////
+  inline std::ostream& operator<<( std::ostream& os, exception const& e )
+  {
+    os  << "************************** NT2 Exception **************************\n"
+        << "File: " << *boost::get_error_info<boost::throw_file>(e)    << "\n"
+        << "Line: " << *boost::get_error_info<boost::throw_line>(e)    << "\n"
+        << "In  : " << *boost::get_error_info<boost::throw_function>(e)<< "\n"
+        << "*******************************************************************\n";
+    e.display(os);
+    os << "*******************************************************************\n";
+    return os;
+  }
+}
+
+#endif
