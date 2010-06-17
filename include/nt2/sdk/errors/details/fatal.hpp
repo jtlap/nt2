@@ -6,31 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_NT2_SDK_ERRORS_DETAILS_WARNING_HPP_INCLUDED
-#define NT2_NT2_SDK_ERRORS_DETAILS_WARNING_HPP_INCLUDED
+#ifndef NT2_SDK_ERRORS_DETAILS_FATAL_HPP_INCLUDED
+#define NT2_SDK_ERRORS_DETAILS_FATAL_HPP_INCLUDED
 
-#include <nt2/sdk/sys/string.hpp>
-#include <nt2/sdk/sys/timestamp.hpp>
 #include <nt2/sdk/errors/details/message.hpp>
+#include <nt2/sdk/errors/details/warning.hpp>
 #include <nt2/sdk/errors/details/exception.hpp>
 
 namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
-  // warning infos type
+  // error infos type
   //////////////////////////////////////////////////////////////////////////////
-  namespace details { NT2_ERROR_INFO(warning_,char const*); }
+  namespace details { NT2_ERROR_INFO(error_,char const*); }
 
   //////////////////////////////////////////////////////////////////////////////
-  // warning_exception is defined if warning are upgraded to errors
+  // error_exception is defined if warning are upgraded to errors
   //////////////////////////////////////////////////////////////////////////////
-  struct NT2_EXCEPTION_BASE(warning_exception)
+  struct NT2_EXCEPTION_BASE(error_exception)
   {
     #if !defined(BOOST_NO_EXCEPTIONS)
     virtual void display(std::ostream& os) const throw()
     {
-      os  << " NT2 Warning: "
-          << *boost::get_error_info<details::warning_>(*this) << "\n";
+      os  << "FATAL ERROR: "
+          << *boost::get_error_info<details::error_>(*this) << "\n";
     }
     #endif
   };
@@ -39,28 +38,27 @@ namespace nt2
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Build a warning string from warning/assertion info
+  // Forward a fatal error string to the proper default or user-defined logger
   //////////////////////////////////////////////////////////////////////////////
-  inline sys::string
-  warning ( const char* msg, const char* fn, const char* file, int line )
+  inline void emit_fatal( const char* msg )
   {
-    return message("NT2 WARNING", msg, fn, file, line);
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Forward a warning string to the proper default or user-defined logger
-  //////////////////////////////////////////////////////////////////////////////
-  inline void emit_warning( const char* msg )
-  {
-    #if !defined(NT2_WARNING_HANDLER)
+    #if !defined(NT2_FATAL_HANDLER)
     fprintf(stderr,"%s\n",msg);
     #else
-    nt2::ext::emit_warning(msg);
+    nt2::ext::emit_fatal(msg);
     #endif
   }
 
   template<class String>
-  inline void emit_warning( String const& msg ) { emit_warning(msg.c_str()); }
+  inline void emit_fatal( String const& msg ) { emit_fatal(msg.c_str()); }
 } }
+
+#define NT2_EMIT_FATAL(Message)                             \
+nt2::details::emit_fatal(                                   \
+    nt2::details::message ( "NT2 FATAL ERROR"               \
+                          , Message,BOOST_CURRENT_FUNCTION  \
+                          , __FILE__,__LINE__)              \
+                          )                                 \
+/**/
 
 #endif

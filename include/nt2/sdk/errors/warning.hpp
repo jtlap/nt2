@@ -12,6 +12,13 @@
 #include <nt2/sdk/errors/details/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
+// Option to set exit code for fatal warning
+////////////////////////////////////////////////////////////////////////////////
+#ifndef NT2_WARNING_AS_FATAL_EXIT_CODE
+#define NT2_WARNING_AS_FATAL_EXIT_CODE EXIT_FAILURE
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
 // Warning can be requalified as FATAL
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(NT2_WARNING_AS_FATAL)
@@ -21,24 +28,21 @@
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// We force the usage of boost assert here
+// Fatal warning display an error then exit in FAILURE
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_ENABLE_ASSERT_HANDLER
-#undef  BOOST_DISABLE_ASSERTS
-#include <stdio.h>
-#include <stdlib.h>
-#include <boost/assert.hpp>
+#include <boost/current_function.hpp>
 
-namespace boost
-{
-  void assertion_failed(char const* x, char const * fn, char const * f, long l)
-  {
-    fprintf(stderr,"%s\n", nt2::details::warning(x,fn,f,l).c_str());
-    abort();
-  }
-}
-
-#define NT2_WARNING(Message)  BOOST_ASSERT( !Message )
+#define NT2_WARNING(Message)                                    \
+do {                                                            \
+  fprintf ( stderr,"%s\n"                                       \
+          , nt2::details::message ( "NT2 FATAL ERROR",  Message \
+                                  , BOOST_CURRENT_FUNCTION      \
+                                  , __FILE__, __LINE__          \
+                                  ).c_str()                     \
+          );                                                    \
+  exit(NT2_WARNING_AS_FATAL_EXIT_CODE);                         \
+} while(0)                                                      \
+/**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Warning can be requalified as ERROR
@@ -77,7 +81,7 @@ nt2::details::emit_warning(                                                 \
 #else
 
 #if defined(NT2_VERBOSE)
-#warning NT2 Warning deactivated
+#warning NT2 Warning disabled
 #endif
 
 #define NT2_WARNING(Message)
