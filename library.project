@@ -108,6 +108,26 @@
           <File Name="include/nt2/sdk/details/preprocessor.hpp"/>
           <File Name="include/nt2/sdk/details/type_id.hpp"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="sys">
+          <File Name="include/nt2/sdk/sys/string.hpp"/>
+          <File Name="include/nt2/sdk/sys/timestamp.hpp"/>
+          <File Name="include/nt2/sdk/sys/config.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="errors">
+          <VirtualDirectory Name="details">
+            <File Name="include/nt2/sdk/errors/details/warning.hpp"/>
+            <File Name="include/nt2/sdk/errors/details/error.hpp"/>
+            <File Name="include/nt2/sdk/errors/details/exception.hpp"/>
+            <File Name="include/nt2/sdk/errors/details/message.hpp"/>
+            <File Name="include/nt2/sdk/errors/details/fatal.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/errors/warning.hpp"/>
+          <File Name="include/nt2/sdk/errors/concepts.hpp"/>
+          <File Name="include/nt2/sdk/errors/static_assert.hpp"/>
+          <File Name="include/nt2/sdk/errors/error.hpp"/>
+          <File Name="include/nt2/sdk/errors/fatal.hpp"/>
+          <File Name="include/nt2/sdk/errors/config.hpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>

@@ -56,6 +56,8 @@
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Executable">
     <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" Required="no" PreCompiledHeader="">
@@ -71,7 +73,7 @@
       <PreBuild/>
       <PostBuild/>
       <CustomBuild Enabled="yes">
-        <Target Name="Display">firefox build/html/index.html</Target>
+        <Target Name="Run">firefox build/html/index.html</Target>
         <RebuildCommand>make clean &amp;&amp; make html</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
         <BuildCommand>make html</BuildCommand>
@@ -124,6 +126,4 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>

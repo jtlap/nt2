@@ -10,9 +10,11 @@
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
   </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Executable">
     <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-O3" Required="yes" PreCompiledHeader="">
+      <Compiler Options="-O3 -fno-exceptions" Required="yes" PreCompiledHeader="">
         <IncludePath Value="./include"/>
         <IncludePath Value="/usr/local/include/boost-latest"/>
       </Compiler>
@@ -78,6 +80,4 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>
