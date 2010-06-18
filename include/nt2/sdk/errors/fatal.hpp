@@ -28,6 +28,8 @@
 #warning NT2 Fatal requalified as errors
 #endif
 
+#define NT2_FATAL_CONFIG_STRING "enabled as errors"
+
 #define NT2_FATAL(Condition,Message)              \
 do                                                \
 {                                                 \
@@ -46,6 +48,8 @@ do                                                \
 #warning NT2 Fatal requalified as warning
 #endif
 
+#define NT2_FATAL_CONFIG_STRING "enabled as warnings"
+
 #define NT2_FATAL(Condition,Message)        \
 do                                          \
 {                                           \
@@ -57,6 +61,7 @@ do                                          \
 ////////////////////////////////////////////////////////////////////////////////
 #elif !defined(NT2_NO_FATAL)
 
+
 #define NT2_FATAL(Condition,Message)  \
 do                                    \
 {                                     \
@@ -67,6 +72,13 @@ do                                    \
   }                                   \
 } while(0)                            \
 /**/
+
+#if defined(NT2_FATAL_HANDLER)
+#define NT2_FATAL_CONFIG_STRING "user-defined"
+#else
+#define NT2_FATAL_CONFIG_STRING "enabled"
+#endif
+
 #else
 ////////////////////////////////////////////////////////////////////////////////
 // Fatal can be disabled
@@ -76,6 +88,8 @@ do                                    \
 #if defined(NT2_VERBOSE)
 #warning NT2 Fatal disabled
 #endif
+
+#define NT2_FATAL_CONFIG_STRING "disabled"
 
 #endif
 

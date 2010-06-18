@@ -47,18 +47,23 @@ namespace boost
     // When error becomes fatal, log+exit
     ////////////////////////////////////////////////////////////////////////////
     #if defined( NT2_ERROR_AS_FATAL )
+    #define NT2_ERROR_CONFIG_STRING "enabled as fatal errors"
     nt2::details::emit_warning( e.what() );
     exit(NT2_ERROR_AS_FATAL_EXIT_CODE);
     ////////////////////////////////////////////////////////////////////////////
     // When error becomes warning, log
     ////////////////////////////////////////////////////////////////////////////
     #elif defined(NT2_ERROR_AS_WARNING)
+    #define NT2_ERROR_CONFIG_STRING "enabled as warnings"
     nt2::details::emit_warning( e.what() );
     ////////////////////////////////////////////////////////////////////////////
-    // If not use custom handler if possiblr
+    // If not use custom handler if possible
     ////////////////////////////////////////////////////////////////////////////
     #elif defined(NT2_USE_CUSTOM_ERROR_HANDLER)
+    #define NT2_ERROR_CONFIG_STRING "user-defined"
     nt2::ext::throw_exception(e);
+    #else
+    #define NT2_ERROR_CONFIG_STRING "disabled"
     #endif
     ////////////////////////////////////////////////////////////////////////////
     // If not, error are disabled

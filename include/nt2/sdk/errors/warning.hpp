@@ -27,6 +27,8 @@
 #warning NT2 Warning requalified as fatal errors
 #endif
 
+#define NT2_WARNING_CONFIG_STRING "enabled as fatal errors"
+
 ////////////////////////////////////////////////////////////////////////////////
 // Fatal warning display an error then exit in FAILURE
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,6 +55,8 @@ do {                                                            \
 #warning NT2 Warning requalified as regular errors
 #endif
 
+#define NT2_WARNING_CONFIG_STRING "enabled as errors"
+
 #define NT2_WARNING(Message)                                    \
 BOOST_THROW_EXCEPTION ( nt2::warning_exception()                \
                           << nt2::details::warning_( Message )  \
@@ -67,6 +71,8 @@ BOOST_THROW_EXCEPTION ( nt2::warning_exception()                \
 #if defined(NT2_VERBOSE)
 #warning NT2 Warning activated
 #endif
+
+#define NT2_WARNING_CONFIG_STRING "enabled"
 
 #include <boost/current_function.hpp>
 
@@ -83,6 +89,8 @@ nt2::details::emit_warning(                                                 \
 #if defined(NT2_VERBOSE)
 #warning NT2 Warning disabled
 #endif
+
+#define NT2_WARNING_CONFIG_STRING "disabled"
 
 #define NT2_WARNING(Message)
 
