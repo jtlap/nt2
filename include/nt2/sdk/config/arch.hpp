@@ -36,9 +36,10 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   static void architecture()
   {
-    puts(" CPU Architecture        : " NT2_ARCH_STRING );
+    puts(" CPU Architecture        : " NT2_ARCH_STRING "\n");
   }
 
   NT2_REGISTER_STATUS(architecture);
 } }
+
 #endif

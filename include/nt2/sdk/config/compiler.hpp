@@ -34,7 +34,6 @@ namespace nt2 { namespace details
   static void compiler()
   {
     puts(" Compiler                : " NT2_COMPILER_STRING);
-    puts(" Boost libraries version : " BOOST_LIB_VERSION);
     puts(" C++1x rvalue references : "
     #if   defined(BOOST_NO_RVALUE_REFERENCES)
           "unsupported"
@@ -49,6 +48,7 @@ namespace nt2 { namespace details
     #else
           "supported"
     #endif
+        "\n"
         );
   }
 

@@ -54,7 +54,7 @@ namespace nt2 { namespace details
     puts("/****************************************************************\\");
     puts( "|                   NT2 v3.0 - Ophelia release                   |");
     puts("\\****************************************************************/");
-    puts(" Last compilation        : " __DATE__ " @ " __TIME__ );
+    puts(" Last compilation        : " __DATE__ " @ " __TIME__ "\n");
   }
 } }
 
