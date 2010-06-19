@@ -25,6 +25,13 @@ namespace nt2 { namespace sys
   {
     string() : data(0),sz(0) {}
 
+    string(string const& src) : sz(src.sz)
+    {
+      if(sz)  data = (char*)malloc(sizeof(char)*(sz+1));
+      std::copy(src.data,src.data+sz,data);
+    }
+
+
     string(std::size_t n) : data(0),sz(n)
     {
       if(sz)  data = (char*)malloc(sizeof(char)*(sz+1));
@@ -63,7 +70,6 @@ namespace nt2 { namespace sys
     }
 
     char const* c_str() const { return data; }
-    char*       c_str()       { return data; }
 
     private:
     char*       data;
