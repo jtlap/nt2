@@ -8,9 +8,21 @@
 ################################################################################
 cmake_minimum_required(VERSION 2.8)
 
+################################################################################
+# Add all examples directories for core/
+################################################################################
+#ADD_SUBDIRECTORY(core/time)
 
 ################################################################################
-# Add all examples directory
+# Add all examples directories for sdk/
 ################################################################################
 ADD_SUBDIRECTORY(sdk/config)
 ADD_SUBDIRECTORY(sdk/details)
+ADD_SUBDIRECTORY(sdk/sys)
+#ADD_SUBDIRECTORY(sdk/errors)
+#ADD_SUBDIRECTORY(sdk/memory)
+#ADD_SUBDIRECTORY(sdk/aligned) ???
+#ADD_SUBDIRECTORY(sdk/functions)
+#ADD_SUBDIRECTORY(sdk/constants)
+#ADD_SUBDIRECTORY(sdk/simd)
+

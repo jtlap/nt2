@@ -14,8 +14,9 @@ Those tools are gathered in five categories:
    :maxdepth: 1
 
    sdk/config
-   sdk/meta
    sdk/details
+   sdk/sys
+   sdk/meta
 
 .. rubric:: Numeric Fundations
 
