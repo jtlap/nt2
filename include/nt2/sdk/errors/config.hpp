@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_ERRORS_CONFIG_HPP_INCLUDED
 #define NT2_SDK_ERRORS_CONFIG_HPP_INCLUDED
 
-#include <nt2/sdk/errors/fatal.hpp>
+#include <nt2/sdk/errors/failure.hpp>
 #include <nt2/sdk/errors/error.hpp>
 #include <nt2/sdk/errors/warning.hpp>
 
@@ -20,9 +20,9 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   static void errors()
   {
-    puts(" Warnings                : " NT2_WARNING_CONFIG_STRING);
-    puts(" Errors                  : " NT2_ERROR_CONFIG_STRING  );
-    puts(" Fatal Errors            : " NT2_FATAL_CONFIG_STRING  );
+    puts(" Warnings                : " NT2_WARNINGS_CONFIG_STRING );
+    puts(" Errors                  : " NT2_ERRORS_CONFIG_STRING   );
+    puts(" Failures                : " NT2_FAILURES_CONFIG_STRING );
   }
 
   NT2_REGISTER_STATUS(errors);

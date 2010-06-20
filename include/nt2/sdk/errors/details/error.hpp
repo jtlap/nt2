@@ -13,28 +13,6 @@
 #include <nt2/sdk/errors/details/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Option to set exit code for fatal error
-////////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_ERROR_AS_FATAL_EXIT_CODE
-#define NT2_ERROR_AS_FATAL_EXIT_CODE EXIT_FAILURE
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
-// Verbose configuration
-////////////////////////////////////////////////////////////////////////////////
-#if defined( NT2_VERBOSE )
-  #if defined( NT2_ERROR_AS_FATAL )
-  #warning NT2 Errors requalified as fatal errors
-  #elif defined(NT2_ERROR_AS_WARNING)
-  #warning NT2 Errors requalified as warning
-  #elif defined(NT2_USE_CUSTOM_ERROR_HANDLER)
-  #warning NT2 Errors uses custom handler
-  #else
-  #warning NT2 Errors disabled
-  #endif
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
 // When exception are disabled via -fno-exceptions, one can specify how to
 // handle exception all together
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +27,7 @@ namespace boost
     #if defined( NT2_ERROR_AS_FATAL )
     #define NT2_ERROR_CONFIG_STRING "enabled as fatal errors"
     nt2::details::emit_warning( e.what() );
-    exit(NT2_ERROR_AS_FATAL_EXIT_CODE);
+    exit(NT2_ERROR_EXIT_CODE);
     ////////////////////////////////////////////////////////////////////////////
     // When error becomes warning, log
     ////////////////////////////////////////////////////////////////////////////
@@ -59,7 +37,7 @@ namespace boost
     ////////////////////////////////////////////////////////////////////////////
     // If not use custom handler if possible
     ////////////////////////////////////////////////////////////////////////////
-    #elif defined(NT2_USE_CUSTOM_ERROR_HANDLER)
+    #elif defined(NT2_ERROR_HANDLER)
     #define NT2_ERROR_CONFIG_STRING "user-defined"
     nt2::ext::throw_exception(e);
     #else
@@ -70,7 +48,8 @@ namespace boost
     ////////////////////////////////////////////////////////////////////////////
   }
 }
-
+#else
+#define NT2_ERROR_CONFIG_STRING "enabled"
 #endif
 
 #endif

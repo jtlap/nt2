@@ -12,24 +12,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exception interface with std::exception and boost::exception
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/exception/all.hpp>
 #include <nt2/sdk/sys/timestamp.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Include if exceptions are on
+// If exceptions are enabled, we use standard stream to build up the exception
+// diagnostic and Boost.Exception for the exception handling
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_NO_EXCEPTIONS)
 #include <iosfwd>
 #include <sstream>
-#include <exception>
-#endif
+#include <boost/exception/all.hpp>
 
-#if !defined(BOOST_NO_EXCEPTIONS)
 #define NT2_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
-/**/
-
-#define NT2_EXCEPTION_BASE(Class) Class : virtual nt2::exception
 
 namespace nt2
 {
@@ -68,22 +62,5 @@ namespace nt2
     return os;
   }
 }
-#else
-
-#define NT2_ERROR_INFO(NAME,TYPE) struct NAME {}
-#define NT2_EXCEPTION_BASE(Class) Class
-
-namespace nt2
-{
-  struct exception;
-  inline std::ostream& operator<<( std::ostream& os, exception const& e );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Exception base class
-  //////////////////////////////////////////////////////////////////////////////
-  struct exception {};
-}
-
-#endif
 
 #endif
