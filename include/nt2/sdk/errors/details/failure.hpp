@@ -17,26 +17,26 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Forward a fatal error string to the proper default or user-defined logger
   //////////////////////////////////////////////////////////////////////////////
-  inline void emit_fatal( sys::string const& msg )
+  inline void emit_failure( sys::string const& msg )
   {
     #if !defined(NT2_FATAL_HANDLER)
     fprintf(stderr,"%s\n",msg.c_str());
     #else
-    nt2::ext::emit_fatal(msg.c_str());
+    nt2::ext::emit_failure(msg.c_str());
     #endif
   }
 
 } }
 
 #define NT2_EMIT_FAILURE(Message)                           \
-nt2::details::emit_fatal(                                   \
+nt2::details::emit_failure(                                   \
     nt2::details::message ( "NT2 FAILURE"                   \
                           , Message,BOOST_CURRENT_FUNCTION  \
                           , __FILE__,__LINE__)              \
                           )                                 \
 /**/
 
-#if defined(NT2_FAILURES_AS_ERRORS) && !defined(NT2_DISABLE_ERRORS)
+#if defined(NT2_FAILURE_AS_ERROR) && !defined(NT2_DISABLE_ERROR)
 #include <nt2/sdk/errors/details/exception.hpp>
 namespace nt2
 {

@@ -39,7 +39,7 @@ namespace boost
     ////////////////////////////////////////////////////////////////////////////
     #elif defined(NT2_ERROR_HANDLER)
     #define NT2_ERROR_CONFIG_STRING "user-defined"
-    nt2::ext::throw_exception(e);
+    nt2::ext::emit_error(e);
     #else
     #define NT2_ERROR_CONFIG_STRING "disabled"
     #endif

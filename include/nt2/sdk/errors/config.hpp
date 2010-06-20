@@ -20,9 +20,9 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   static void errors()
   {
-    puts(" Warnings                : " NT2_WARNINGS_CONFIG_STRING );
-    puts(" Errors                  : " NT2_ERRORS_CONFIG_STRING   );
-    puts(" Failures                : " NT2_FAILURES_CONFIG_STRING );
+    puts(" Warnings                : " NT2_WARNING_CONFIG_STRING );
+    puts(" Errors                  : " NT2_ERROR_CONFIG_STRING   );
+    puts(" Failures                : " NT2_FAILURE_CONFIG_STRING );
   }
 
   NT2_REGISTER_STATUS(errors);

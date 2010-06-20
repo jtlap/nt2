@@ -16,13 +16,13 @@
 // Verbose report
 ////////////////////////////////////////////////////////////////////////////////
 #if defined( NT2_VERBOSE )
-  #if defined(NT2_FAILURES_AS_WARNINGS)
+  #if defined(NT2_FAILURE_AS_WARNING)
     #warning Failures requalified as warnings
-  #elif defined(NT2_FAILURES_AS_ERRORS)
+  #elif defined(NT2_FAILURE_AS_ERROR)
     #warning Failures requalified as errors
-  #elif defined(NT2_CUSTOM_FAILURES)
+  #elif defined(NT2_CUSTOM_FAILURE)
     #warning Failures handled by user
-  #elif defined( NT2_DISABLE_FAILURES)
+  #elif defined( NT2_DISABLE_FAILURE)
     #warning Failures disabled
   #else
     #warning Failures enabled
@@ -32,16 +32,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Configuration string
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_FAILURES_AS_WARNINGS)
-  #define NT2_FAILURES_CONFIG_STRING "enabled as warnings"
-#elif defined(NT2_FAILURES_AS_ERRORS)
-  #define NT2_FAILURES_CONFIG_STRING "enabled as errors"
-#elif defined(NT2_CUSTOM_FAILURES)
-  #define NT2_FAILURES_CONFIG_STRING "user-defined"
-#elif defined( NT2_DISABLE_FAILURES)
-  #define NT2_FAILURES_CONFIG_STRING "disabled"
+#if defined(NT2_FAILURE_AS_WARNING)
+  #define NT2_FAILURE_CONFIG_STRING "enabled as warnings"
+#elif defined(NT2_FAILURE_AS_ERROR)
+  #define NT2_FAILURE_CONFIG_STRING "enabled as errors"
+#elif defined(NT2_CUSTOM_FAILURE)
+  #define NT2_FAILURE_CONFIG_STRING "user-defined"
+#elif defined( NT2_DISABLE_FAILURE)
+  #define NT2_FAILURE_CONFIG_STRING "disabled"
 #else
-  #define NT2_FAILURES_CONFIG_STRING "enabled"
+  #define NT2_FAILURE_CONFIG_STRING "enabled"
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Failures can be requalified as warnings
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_FAILURES_AS_WARNINGS)
+#if defined(NT2_FAILURE_AS_WARNING)
 #define NT2_FAILURE(COND,MSG)                       \
 do { if(!(COND)) NT2_EMIT_WARNING(MSG); } while(0)  \
 /**/
@@ -62,7 +62,7 @@ do { if(!(COND)) NT2_EMIT_WARNING(MSG); } while(0)  \
 ////////////////////////////////////////////////////////////////////////////////
 // Failures can be requalified as errors
 ////////////////////////////////////////////////////////////////////////////////
-#elif defined(NT2_FAILURES_AS_ERRORS)
+#elif defined(NT2_FAILURE_AS_ERROR)
 #define NT2_FAILURE(COND,MSG)                                               \
 do  { if(!(COND))                                                           \
       NT2_ERROR( nt2::failure_exception, ((nt2::details::failure_,MSG)) );  \
@@ -72,7 +72,7 @@ do  { if(!(COND))                                                           \
 ////////////////////////////////////////////////////////////////////////////////
 // Enabled failures
 ////////////////////////////////////////////////////////////////////////////////
-#elif !defined(NT2_DISABLE_FAILURES)
+#elif !defined(NT2_DISABLE_FAILURE)
 #define NT2_FAILURE(COND,MSG)                                                   \
 do { if(!(COND)) NT2_EMIT_FAILURE(MSG); exit(NT2_FAILURE_EXIT_CODE); } while(0) \
 /**/

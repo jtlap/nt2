@@ -15,13 +15,13 @@
 // Verbose report
 ////////////////////////////////////////////////////////////////////////////////
 #if defined( NT2_VERBOSE )
-  #if defined(NT2_WARNINGS_AS_FAILURES)
+  #if defined(NT2_WARNING_AS_FAILURE)
     #warning Warnings requalified as failures
-  #elif defined(NT2_WARNINGS_AS_ERRORS)
+  #elif defined(NT2_WARNING_AS_ERROR)
     #warning Warnings requalified as errors
-  #elif defined(NT2_CUSTOM_WARNINGS)
+  #elif defined(NT2_CUSTOM_WARNING)
     #warning Warnings handled by user
-  #elif defined( NT2_DISABLE_WARNINGS)
+  #elif defined( NT2_DISABLE_WARNING)
     #warning Warnings disabled
   #else
     #warning Warnings enabled
@@ -31,22 +31,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Configuration string
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_WARNINGS_AS_FAILURES)
-  #define NT2_WARNINGS_CONFIG_STRING "enabled as failures"
-#elif defined(NT2_WARNINGS_AS_ERRORS)
-  #define NT2_WARNINGS_CONFIG_STRING "enabled as errors"
-#elif defined(NT2_CUSTOM_WARNINGS)
-  #define NT2_WARNINGS_CONFIG_STRING "user-defined"
-#elif defined( NT2_DISABLE_WARNINGS)
-  #define NT2_WARNINGS_CONFIG_STRING "disabled"
+#if defined(NT2_WARNING_AS_FAILURE)
+  #define NT2_WARNING_CONFIG_STRING "enabled as failures"
+#elif defined(NT2_WARNING_AS_ERROR)
+  #define NT2_WARNING_CONFIG_STRING "enabled as errors"
+#elif defined(NT2_CUSTOM_WARNING)
+  #define NT2_WARNING_CONFIG_STRING "user-defined"
+#elif defined( NT2_DISABLE_WARNING)
+  #define NT2_WARNING_CONFIG_STRING "disabled"
 #else
-  #define NT2_WARNINGS_CONFIG_STRING "enabled"
+  #define NT2_WARNING_CONFIG_STRING "enabled"
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Warning can be requalified as Failure
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_WARNINGS_AS_FAILURES)
+#if defined(NT2_WARNING_AS_FAILURE)
 
   //////////////////////////////////////////////////////////////////////////////
   // Option to set exit code for failure warning
@@ -66,7 +66,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Warning can be requalified as Errors
 ////////////////////////////////////////////////////////////////////////////////
-#elif defined(NT2_WARNINGS_AS_ERRORS)
+#elif defined(NT2_WARNING_AS_ERROR)
 #define NT2_WARNING(MSG)                                            \
 NT2_ERROR( nt2::warning_exception, ((nt2::details::warning_,MSG)) ) \
 /**/
@@ -74,7 +74,7 @@ NT2_ERROR( nt2::warning_exception, ((nt2::details::warning_,MSG)) ) \
 ////////////////////////////////////////////////////////////////////////////////
 // Regular warning
 ////////////////////////////////////////////////////////////////////////////////
-#elif !defined(NT2_DISABLE_WARNINGS)
+#elif !defined(NT2_DISABLE_WARNING)
 #include <boost/current_function.hpp>
 
 #define NT2_WARNING(MSG) NT2_EMIT_WARNING(MSG)

@@ -23,20 +23,20 @@
 #if defined( NT2_VERBOSE )
 #warning Exceptions globally disabled
 #endif
-#define NT2_DISABLE_ERRORS
+#define NT2_DISABLE_ERROR
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Verbose report
 ////////////////////////////////////////////////////////////////////////////////
 #if defined( NT2_VERBOSE )
-  #if defined(NT2_ERRORS_AS_WARNINGS)
+  #if defined(NT2_ERROR_AS_WARNING)
     #warning Errors requalified as warnings
-  #elif defined(NT2_ERRORS_AS_FAILURES)
+  #elif defined(NT2_ERROR_AS_FAILURE)
     #warning Errors requalified as failures
-  #elif defined(NT2_CUSTOM_ERRORS)
+  #elif defined(NT2_CUSTOM_ERROR)
     #warning Errors handled by user
-  #elif defined(NT2_DISABLE_ERRORS)
+  #elif defined(NT2_DISABLE_ERROR)
     #warning Errors disabled
   #else
     #warning Errors enabled
@@ -46,23 +46,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Configuration string
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_ERRORS_AS_WARNINGS)
-  #define NT2_ERRORS_CONFIG_STRING "enabled as warnings"
-#elif defined(NT2_ERRORS_AS_FAILURES)
-  #define NT2_ERRORS_CONFIG_STRING "enabled as failures"
-#elif defined(NT2_CUSTOM_ERRORS)
-  #define NT2_ERRORS_CONFIG_STRING "user-defined"
-#elif defined(NT2_DISABLE_ERRORS)
+#if defined(NT2_ERROR_AS_WARNING)
+  #define NT2_ERROR_CONFIG_STRING "enabled as warnings"
+#elif defined(NT2_ERROR_AS_FAILURE)
+  #define NT2_ERROR_CONFIG_STRING "enabled as failures"
+#elif defined(NT2_CUSTOM_ERROR)
+  #define NT2_ERROR_CONFIG_STRING "user-defined"
+#elif defined(NT2_DISABLE_ERROR)
   #if defined(BOOST_NO_EXCEPTIONS)
-  #define NT2_ERRORS_CONFIG_STRING "globally disabled"
+  #define NT2_ERROR_CONFIG_STRING "globally disabled"
   #else
-  #define NT2_ERRORS_CONFIG_STRING "disabled"
+  #define NT2_ERROR_CONFIG_STRING "disabled"
   #endif
 #else
   #if defined(NT2_DISABLE_DAIGNOSTICS)
-  #define NT2_ERRORS_CONFIG_STRING "enabled without diagnostic"
+  #define NT2_ERROR_CONFIG_STRING "enabled without diagnostic"
   #else
-  #define NT2_ERRORS_CONFIG_STRING "enabled"
+  #define NT2_ERROR_CONFIG_STRING "enabled"
   #endif
 #endif
 
@@ -76,7 +76,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // try ... catch macro handlers
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_DISABLE_ERRORS)
+#if defined(NT2_DISABLE_ERROR)
 #define NT2_TRY()
 #define NT2_CATCH(X)    if(0)
 #define NT2_RETHROW()
@@ -98,7 +98,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Errors can be requalified as warnings
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_ERRORS_AS_WARNINGS)
+#if defined(NT2_ERROR_AS_WARNING)
 #define NT2_ERROR(TYPE,INFOS)                         \
 NT2_EMIT_WARNING(BOOST_PP_STRINGIZE(TYPE) " thrown.") \
 /**/
@@ -106,7 +106,7 @@ NT2_EMIT_WARNING(BOOST_PP_STRINGIZE(TYPE) " thrown.") \
 ////////////////////////////////////////////////////////////////////////////////
 // errors can be requalified as failures
 ////////////////////////////////////////////////////////////////////////////////
-#elif defined(NT2_ERRORS_AS_FAILURES)
+#elif defined(NT2_ERROR_AS_FAILURE)
 #define NT2_ERROR(TYPE,INFOS)                                 \
 do  {  NT2_EMIT_FAILURE(BOOST_PP_STRINGIZE(TYPE) " thrown."); \
       exit(NT2_ERROR_EXIT_CODE);                              \
@@ -116,7 +116,7 @@ do  {  NT2_EMIT_FAILURE(BOOST_PP_STRINGIZE(TYPE) " thrown."); \
 ////////////////////////////////////////////////////////////////////////////////
 // Enabled errors
 ////////////////////////////////////////////////////////////////////////////////
-#elif !defined(NT2_DISABLE_ERRORS)
+#elif !defined(NT2_DISABLE_ERROR)
 #include <boost/exception/all.hpp>
 
 #define NT2_ERROR_GENERATOR(r,d,e)                          \
