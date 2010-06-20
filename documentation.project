@@ -23,6 +23,21 @@
           <File Name="doc/source/sdk/details/type_id.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/details.rst"/>
+        <File Name="doc/source/sdk/sys.rst"/>
+        <VirtualDirectory Name="sys">
+          <File Name="doc/source/sdk/sys/string.rst"/>
+          <File Name="doc/source/sdk/sys/timestamp.rst"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="errors">
+          <File Name="doc/source/sdk/errors/concept.rst"/>
+          <File Name="doc/source/sdk/errors/static_assert.rst"/>
+          <File Name="doc/source/sdk/errors/error.rst"/>
+          <File Name="doc/source/sdk/errors/fatal.rst"/>
+          <File Name="doc/source/sdk/errors/warning.rst"/>
+          <File Name="doc/source/sdk/errors/config.rst"/>
+          <File Name="doc/source/sdk/errors/mode.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/errors.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>

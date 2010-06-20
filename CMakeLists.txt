@@ -50,8 +50,8 @@ include(nt2.threading)
 ################################################################################
 # Generate bootstrap.hpp
 ################################################################################
-CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake 
-                ${PROJECT_SOURCE_DIR}/include/nt2/sdk/config/bootstrap.hpp 
+CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
+                ${PROJECT_SOURCE_DIR}/include/nt2/sdk/config/bootstrap.hpp
               )
 
 ################################################################################
@@ -68,12 +68,12 @@ include(nt2.compiler.options)
 ################################################################################
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
 include_directories( ${PROJECT_SOURCE_DIR}/include)
-file( GLOB_RECURSE source_files  
-      ${PROJECT_SOURCE_DIR}/src/*  
-      ${PROJECT_SOURCE_DIR}/include/* 
+file( GLOB_RECURSE source_files
+      ${PROJECT_SOURCE_DIR}/src/*
+      ${PROJECT_SOURCE_DIR}/include/*
     )
 
-#add_library(nt2 SHARED ${source_files} )
+add_library(nt2 ${source_files} )
 
 ################################################################################
 # Install libnt2

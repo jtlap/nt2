@@ -7,6 +7,7 @@
         <File Name="../../../Documents/development/github/nt2/examples/sdk/config/platform.cpp"/>
         <File Name="../../../Documents/development/github/nt2/examples/sdk/config/architecture.cpp"/>
         <File Name="../../../Documents/development/github/nt2/examples/sdk/config/status.cpp"/>
+        <File Name="examples/sdk/config/CMakeLists.txt"/>
       </VirtualDirectory>
       <VirtualDirectory Name="details">
         <File Name="examples/sdk/details/type_id.cpp"/>
@@ -16,9 +17,15 @@
         <File Name="examples/sdk/details/pp_enum_value.cpp"/>
         <File Name="examples/sdk/details/pp_enum_shifted_value.cpp"/>
         <File Name="examples/sdk/details/pp_include.cpp"/>
+        <File Name="examples/sdk/details/CMakeLists.txt"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="sys">
+        <File Name="examples/sdk/sys/string.cpp"/>
+        <File Name="examples/sdk/sys/CMakeLists.txt"/>
+        <File Name="examples/sdk/sys/timestamp.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
-    <File Name="../../../Documents/development/github/nt2/examples/.gitignore"/>
+    <File Name="examples/CMakeLists.txt"/>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
