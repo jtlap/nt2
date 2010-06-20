@@ -23,23 +23,23 @@ namespace nt2 { namespace sys
   //////////////////////////////////////////////////////////////////////////////
   struct string
   {
-    string() : data(0),sz(0) {}
+    inline string() : data(0),sz(0) {}
 
-    string(string const& src) : sz(src.sz)
+    inline string(string const& src) : sz(src.sz)
     {
       if(sz)  data = (char*)malloc(sizeof(char)*(sz+1));
       std::copy(src.data,src.data+sz,data);
     }
 
 
-    string(std::size_t n) : data(0),sz(n)
+    inline string(std::size_t n) : data(0),sz(n)
     {
       if(sz)  data = (char*)malloc(sizeof(char)*(sz+1));
     }
 
-    ~string() { if(data) free(data); }
+    inline ~string() { if(data) free(data); }
 
-    string(char const* format, ...) : data(0)
+    inline string(char const* format, ...) : data(0)
     {
       va_list ap;
       va_start( ap, format );
@@ -61,20 +61,22 @@ namespace nt2 { namespace sys
       va_end( ap );
     }
 
-    string& operator=( string src ) { swap(src); return *this; }
+    inline string& operator=( string src ) { swap(src); return *this; }
 
-    void swap( string& src )
+    inline void swap( string& src )
     {
       std::swap(data,src.data);
       std::swap(sz,src.sz);
     }
 
-    char const* c_str() const { return data; }
+    inline char const* c_str() const { return data; }
 
     private:
     char*       data;
     std::size_t sz;
   };
+
+  inline  void swap( sys::string& a, sys::string& b ) { a.swap(b); }
 } }
 
 #endif
