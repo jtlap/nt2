@@ -6,27 +6,20 @@ Developer Reference
 |nt2| is designed upon a layer of low-level software components that take care of
 various aspects of the library features. Those components are available as tools
 for |nt2| contributors to allow them to interact with its inner systems easily.
-Those tools are gathered in five categories:
+Those tools are gathered in four categories:
 
-.. rubric:: Core Systems
+.. rubric:: System Abstraction and Configuration
 
 .. toctree::
    :maxdepth: 1
 
    sdk/config
-   sdk/details
    sdk/sys
+   sdk/errors
+   sdk/details
    sdk/meta
 
-.. rubric:: Numeric Fundations
-
-.. toctree::
-   :maxdepth: 1
-
-   sdk/functor
-   sdk/constant
-
-.. rubric:: Architecture Management
+.. rubric:: Architecture Abstraction and Configuration
 
 .. toctree::
    :maxdepth: 1
@@ -36,14 +29,13 @@ Those tools are gathered in five categories:
    sdk/simd
    sdk/threading
 
-.. rubric:: Error Handling
+.. rubric:: Numeric Fundations
 
 .. toctree::
    :maxdepth: 1
 
-   sdk/concepts
-   sdk/errors
-   sdk/exceptions
+   sdk/functor
+   sdk/constant
 
 .. rubric:: Testing
 
