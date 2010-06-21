@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_NT2_SDK_SYS_STRING_HPP_INCLUDED
-#define NT2_NT2_SDK_SYS_STRING_HPP_INCLUDED
+#ifndef NT2_SDK_SYS_STRING_HPP_INCLUDED
+#define NT2_SDK_SYS_STRING_HPP_INCLUDED
 
 #include <stdio.h>
 #include <cstddef>
@@ -23,23 +23,22 @@ namespace nt2 { namespace sys
   //////////////////////////////////////////////////////////////////////////////
   struct string
   {
-    inline string() : data(0),sz(0) {}
+    string() : data(0), sz(0) {}
 
-    inline string(string const& src) : sz(src.sz)
+    string(string const& src) : sz(src.sz)
     {
       if(sz)  data = (char*)malloc(sizeof(char)*(sz+1));
       std::copy(src.data,src.data+sz,data);
     }
 
-
-    inline string(std::size_t n) : data(0),sz(n)
+    string(std::size_t n) : data(0),sz(n)
     {
       if(sz)  data = (char*)malloc(sizeof(char)*(sz+1));
     }
 
-    inline ~string() { if(data) free(data); }
+    ~string() { if(data) free(data); }
 
-    inline string(char const* format, ...) : data(0)
+    string(char const* format, ...) : data(0)
     {
       va_list ap;
       va_start( ap, format );
@@ -61,22 +60,22 @@ namespace nt2 { namespace sys
       va_end( ap );
     }
 
-    inline string& operator=( string src ) { swap(src); return *this; }
+    string& operator=( string src ) { swap(src); return *this; }
 
-    inline void swap( string& src )
+    void swap( string& src )
     {
       std::swap(data,src.data);
       std::swap(sz,src.sz);
     }
 
-    inline char const* c_str() const { return data; }
+    char const* c_str() const { return data; }
 
     private:
     char*       data;
     std::size_t sz;
   };
 
-  inline  void swap( sys::string& a, sys::string& b ) { a.swap(b); }
+  void swap( sys::string& a, sys::string& b ) { a.swap(b); }
 } }
 
 #endif

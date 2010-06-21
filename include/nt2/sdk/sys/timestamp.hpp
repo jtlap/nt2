@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_NT2_SDK_SYS_TIMESTAMP_HPP_INCLUDED
-#define NT2_NT2_SDK_SYS_TIMESTAMP_HPP_INCLUDED
+#ifndef NT2_SDK_SYS_TIMESTAMP_HPP_INCLUDED
+#define NT2_SDK_SYS_TIMESTAMP_HPP_INCLUDED
 
 #include <nt2/sdk/sys/string.hpp>
 
