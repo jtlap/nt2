@@ -64,6 +64,21 @@
           <File Name="include/nt2/sdk/errors/config.hpp"/>
           <File Name="include/nt2/sdk/errors/failure.hpp"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="unit">
+          <File Name="include/nt2/sdk/unit/module.hpp"/>
+          <VirtualDirectory Name="details">
+            <File Name="include/nt2/sdk/unit/details/register.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/suite.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/stats.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/tests.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/unit/tests.hpp"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+      <VirtualDirectory Name="include">
+        <File Name="include/nt2/include/config.hpp"/>
+        <File Name="include/nt2/include/errors.hpp"/>
+        <File Name="include/nt2/include/sys.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
