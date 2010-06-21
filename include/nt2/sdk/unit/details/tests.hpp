@@ -29,7 +29,7 @@
     else                                                                        \
     {                                                                           \
       std::cout << "  Test '"<< x1 << " "<< #OP << " " << x2                    \
-                << "' failed failed in function " << fn << " (" << line << ")"  \
+                << "' failed in function " << fn << " (" << line << ")"  \
                 << ":  '" << t << " "<< #COP << " " << u << "'"                 \
                 << std::endl;                                                   \
       ++error_count();                                                          \

@@ -40,7 +40,7 @@ namespace nt2 { namespace details
 
   inline void error(char const* m, int ln, char const* fn)
   {
-    printf("  %s in function %s (%d)\n",m,fn,ln,m);
+    printf("  %s in function %s (%d)\n",m,fn,ln);
     ++error_count();
   }
 } }
