@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <cstddef>
 #include <stdlib.h>
+#include <string.h>
 #include <stdarg.h>
 #include <algorithm>
 #include <nt2/sdk/config/compiler.hpp>
@@ -23,7 +24,11 @@ namespace nt2 { namespace sys
   //////////////////////////////////////////////////////////////////////////////
   struct string
   {
-    string() : data(0), sz(0) {}
+    string() : sz(0)
+    {
+      data = (char*)malloc(sizeof(char));
+      *data = '\0';
+    }
 
     string(string const& src) : sz(src.sz)
     {
@@ -62,6 +67,13 @@ namespace nt2 { namespace sys
 
     string& operator=( string src ) { swap(src); return *this; }
 
+    string& operator=( char const* src )
+    {
+      string tmp(src);
+      swap(tmp);
+      return *this;
+    }
+
     void swap( string& src )
     {
       std::swap(data,src.data);
@@ -70,12 +82,34 @@ namespace nt2 { namespace sys
 
     char const* c_str() const { return data; }
 
+    std::size_t size() const { return sz; }
+
     private:
     char*       data;
     std::size_t sz;
   };
 
   void swap( sys::string& a, sys::string& b ) { a.swap(b); }
+
+  bool operator==( sys::string const& a, sys::string const& b )
+  {
+    return (strcmp(a.c_str(),b.c_str()) == 0);
+  }
+
+  bool operator!=( sys::string const& a, sys::string const& b )
+  {
+    return !(a==b);
+  }
+
+  bool operator==( sys::string const& a, char const* b )
+  {
+    return (strcmp(a.c_str(),b) == 0);
+  }
+
+  bool operator!=( sys::string const& a, char const* b )
+  {
+    return !(a==b);
+  }
 } }
 
 #endif
