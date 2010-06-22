@@ -12,14 +12,26 @@
 ################################################################################
 
 IF(UNIX)
-execute_process(COMMAND getconf _NPROCESSORS_ONLN 
+execute_process(COMMAND getconf _NPROCESSORS_ONLN
                 OUTPUT_VARIABLE NT2_CONFIG_CPU_COUNT
                )
-ENDIF(UNIX)
+ENDIF()
 
 if(DARWIN)
 endif(DARWIN)
 
-if(WINDOWS)
-endif(WINDOWS)
+IF(WINDOWS)
+################################################################################
+# Compile a small cpu counter program then run it
+################################################################################
+try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+        ${CMAKE_MODULE_PATH}
+        ${CMAKE_MODULE_PATH}/cpu.cpp
+       )
 
+IF(${COMPILE_RESULT_VAR})
+  message(STATUS "cpu count ${RUN_RESULT_VAR}")
+  set(${NT2_CONFIG_CPU_COUNT} ${RUN_RESULT_VAR})
+ENDIF()
+
+ENDIF()
