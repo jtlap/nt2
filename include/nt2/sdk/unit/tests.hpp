@@ -35,7 +35,7 @@
 ( ::nt2::details::test_eq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
-#define NT2_UNIT_TEST_NON_EQUAL(A,B)                                          \
+#define NT2_UNIT_TEST_NOT_EQUAL(A,B)                                          \
 ( ::nt2::details::test_neq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
 /**/
 
