@@ -26,7 +26,7 @@
 #include <nt2/sdk/config/os/macos.hpp>
 #include <nt2/sdk/config/os/none.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list

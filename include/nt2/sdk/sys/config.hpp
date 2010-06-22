@@ -12,7 +12,7 @@
 #include <limits.h>
 #include <boost/preprocessor/stringize.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list

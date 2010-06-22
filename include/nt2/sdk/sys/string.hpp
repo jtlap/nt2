@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <stdarg.h>
-#include <nt2/sdk/config/compiler.hpp>
 
 namespace nt2 { namespace sys
 {

@@ -29,7 +29,7 @@
 //#include <nt2/support/config/arch/spec.hpp>
 //#include <nt2/support/config/arch/endian.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list

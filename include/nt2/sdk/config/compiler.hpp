@@ -26,7 +26,7 @@
 #include <nt2/sdk/config/compiler/visualc.hpp>
 #include <nt2/sdk/config/compiler/none.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list
@@ -34,7 +34,7 @@ namespace nt2 { namespace details
   static void compiler()
   {
     puts(" Compiler                : " NT2_COMPILER_STRING);
-    puts(" C++1x rvalue references : "
+    puts(" Rvalue references       : "
     #if   defined(BOOST_NO_RVALUE_REFERENCES)
           "unsupported"
     #else
@@ -42,7 +42,7 @@ namespace nt2 { namespace details
     #endif
         );
 
-    puts(" C++1x variadic templates: "
+    puts(" Variadic templates       : "
     #if   defined(BOOST_NO_VARIADIC_TEMPLATES)
           "unsupported"
     #else
