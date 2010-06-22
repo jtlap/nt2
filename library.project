@@ -5,6 +5,7 @@
   <VirtualDirectory Name="src">
     <File Name="src/errors.cpp"/>
     <File Name="src/sys.cpp"/>
+    <File Name="src/string.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <VirtualDirectory Name="nt2">
@@ -74,6 +75,20 @@
           </VirtualDirectory>
           <File Name="include/nt2/sdk/unit/tests.hpp"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="functor"/>
+        <VirtualDirectory Name="concept">
+          <File Name="include/nt2/sdk/concept/allocator.hpp"/>
+          <File Name="include/nt2/sdk/concept/fusion_associative_sequence.hpp"/>
+          <File Name="include/nt2/sdk/concept/fusion_bidirectionnal_sequence.hpp"/>
+          <File Name="include/nt2/sdk/concept/fusion_forward_sequence.hpp"/>
+          <File Name="include/nt2/sdk/concept/fusion_random_access_sequence.hpp"/>
+          <File Name="include/nt2/sdk/concept/same_type.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="dsl"/>
+        <VirtualDirectory Name="memory"/>
+        <VirtualDirectory Name="meta"/>
+        <VirtualDirectory Name="settings"/>
+        <VirtualDirectory Name="simd"/>
       </VirtualDirectory>
       <VirtualDirectory Name="include">
         <File Name="include/nt2/include/config.hpp"/>

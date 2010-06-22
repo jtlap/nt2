@@ -7,7 +7,7 @@
       <VirtualDirectory Name="sdk">
         <VirtualDirectory Name="sys">
           <File Name="unit/sdk/sys/CMakeLists.txt"/>
-          <File Name="unit/sdk/sys/test_string.cpp"/>
+          <File Name="unit/sdk/sys/string.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
