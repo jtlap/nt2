@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::sys::string"
 
-#include <iostream>
 #include <nt2/sdk/sys/string.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -16,9 +15,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Local streaming operator
 ////////////////////////////////////////////////////////////////////////////////
-std::ostream& operator<<( std::ostream& os, nt2::sys::string const& s )
+#include <iostream>
+inline std::ostream& operator<<( std::ostream& os, nt2::sys::string const& s )
 {
-   return os << s.c_str();
+  return os << s.c_str();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,33 +44,72 @@ NT2_UNIT_TEST_CASE(format_ctor)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//
+// Test sys::string copy constructor
 ////////////////////////////////////////////////////////////////////////////////
 NT2_UNIT_TEST_CASE(copy_ctor)
 {
+  nt2::sys::string origin("origin");
+  nt2::sys::string copy(origin);
 
+  NT2_UNIT_TEST_EQUAL(origin,copy);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-NT2_UNIT_TEST_CASE(assign_string)
-{
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-NT2_UNIT_TEST_CASE(assign_cstr)
-{
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
+// Test sys::string swap method and function
 ////////////////////////////////////////////////////////////////////////////////
 NT2_UNIT_TEST_CASE(swap)
 {
+  nt2::sys::string a("a");
+  nt2::sys::string b("b");
 
+  b.swap(a);
+  NT2_UNIT_TEST_EQUAL(a,"b");
+  NT2_UNIT_TEST_EQUAL(b,"a");
+
+  b.swap(a);
+  NT2_UNIT_TEST_EQUAL(a,"a");
+  NT2_UNIT_TEST_EQUAL(b,"b");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test sys::string operator=(string)
+////////////////////////////////////////////////////////////////////////////////
+NT2_UNIT_TEST_CASE(compare_string)
+{
+  nt2::sys::string string1("string1");
+  nt2::sys::string string2("string2");
+  nt2::sys::string string1b(string1);
+
+  NT2_UNIT_TEST_EQUAL(string1,string1b);
+  NT2_UNIT_TEST_EQUAL(string1b,string1);
+  NT2_UNIT_TEST_EQUAL(string1,"string1");
+  NT2_UNIT_TEST_EQUAL("string1",string1);
+
+  NT2_UNIT_TEST_NOT_EQUAL(string1,string2);
+  NT2_UNIT_TEST_NOT_EQUAL(string2,string1);
+  NT2_UNIT_TEST_NOT_EQUAL(string1,"string2");
+  NT2_UNIT_TEST_NOT_EQUAL("string2",string1);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test sys::string operator=(string)
+////////////////////////////////////////////////////////////////////////////////
+NT2_UNIT_TEST_CASE(assign_string)
+{
+  nt2::sys::string origin("origin");
+  nt2::sys::string copy;
+  copy = origin;
+
+  NT2_UNIT_TEST_EQUAL(origin,copy);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test sys::string operator=(char const*)
+////////////////////////////////////////////////////////////////////////////////
+NT2_UNIT_TEST_CASE(assign_cstr)
+{
+  nt2::sys::string copy;
+  copy = "origin";
+
+  NT2_UNIT_TEST_EQUAL(copy,"origin");
 }

@@ -22,11 +22,13 @@ FOREACH( EXAMPLE ${SOURCES_CPP})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".exe" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".test.exe" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".test" TEST "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  ADD_TEST(${TEST} ${CMAKE_CURRENT_SOURCE_DIR}/${EXECUTABLE})
 ENDFOREACH()
-
