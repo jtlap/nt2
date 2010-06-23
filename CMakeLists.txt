@@ -35,7 +35,7 @@ include(nt2.sphinx)
 include(nt2.python)
 
 ################################################################################
-# Find number CPU coutn and cache infos
+# Find number CPU information
 ################################################################################
 include(nt2.cpucount)
 include(nt2.cpucache)

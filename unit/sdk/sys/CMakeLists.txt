@@ -22,8 +22,8 @@ FOREACH( EXAMPLE ${SOURCES_CPP})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".test.exe" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" ".test" TEST "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".test" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" "-test" TEST "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target
