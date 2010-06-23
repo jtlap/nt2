@@ -39,11 +39,22 @@ Synopsis
       ~string();
 
       string& operator=( string src );
+      string& operator=( char const* src );
       void swap( string& src );
 
       char const* c_str() const;
       char*       c_str();
     };
+
+    void swap( string& a, string& b );
+
+    bool operator==( string const& a, string const& b );
+    bool operator==( char const*   a, string const& b );
+    bool operator==( string const& a, char const* b   );
+
+    bool operator!=( string const& a, string const& b );
+    bool operator!=( char const*   a, string const& b );
+    bool operator!=( string const& a, char const* b   );
   } }
 
 Constructors
@@ -156,6 +167,56 @@ c_str()
       char const* c_str() const;
 
 **Description:** Return the null-terminated C string held by the current string.
+
+Functions
+^^^^^^^^^
+
+operator==
+-----------
+
+.. index::
+    single: string (sys); operator==
+
+**Synopsis:**
+
+.. code-block:: cpp
+
+    bool operator==( string const& a, string const& b );
+    bool operator==( char const*   a, string const& b );
+    bool operator==( string const& a, char const* b   );
+
+**Description:** Returns ``true`` if the two string are equals.
+
+operator!=
+-----------
+
+.. index::
+    single: string (sys); operator!=
+
+**Synopsis:**
+
+.. code-block:: cpp
+
+    bool operator!=( string const& a, string const& b );
+    bool operator!=( char const*   a, string const& b );
+    bool operator!=( string const& a, char const* b   );
+
+**Description:** Returns ``true`` if the two string are different.
+
+swap( string&, string& )
+------------------------
+
+.. index::
+    single: string (sys); swap
+
+**Synopsis:**
+
+.. code-block:: cpp
+
+    void swap( string& a, string& b)
+
+**Description:** Swap the contents of two strings references. Provided as a generic
+programming facility.
 
 Example
 ^^^^^^^

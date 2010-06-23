@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <nt2/sdk/sys/string.hpp>
+#include <nt2/sdk/config/compiler.hpp>
 
 namespace nt2 { namespace sys
 {

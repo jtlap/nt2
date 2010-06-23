@@ -42,4 +42,4 @@ Those tools are gathered in four categories:
 .. toctree::
    :maxdepth: 1
 
-  sdk/unit
+   sdk/unit
