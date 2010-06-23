@@ -38,6 +38,7 @@
           <File Name="doc/source/sdk/errors/mode.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/errors.rst"/>
+        <File Name="doc/source/sdk/unit.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>

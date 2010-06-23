@@ -95,6 +95,9 @@
         <File Name="include/nt2/include/errors.hpp"/>
         <File Name="include/nt2/include/sys.hpp"/>
       </VirtualDirectory>
+      <VirtualDirectory Name="core"/>
+      <VirtualDirectory Name="extension"/>
+      <VirtualDirectory Name="toolbox"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
