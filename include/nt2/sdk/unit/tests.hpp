@@ -9,7 +9,6 @@
 #ifndef NT2_SDK_UNIT_TESTS_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_HPP_INCLUDED
 
-#include <iostream>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
 
@@ -39,12 +38,12 @@
 ( ::nt2::details::test_neq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
 /**/
 
-#define NT2_UNIT_TEST_LESSER(A,B)                                          \
-( ::nt2::details::test_lt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
+#define NT2_UNIT_TEST_LESSER(A,B)                                             \
+( ::nt2::details::test_lt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
-#define NT2_UNIT_TEST_GREATER(A,B)                                          \
-( ::nt2::details::test_gt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
+#define NT2_UNIT_TEST_GREATER(A,B)                                            \
+( ::nt2::details::test_gt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
 #define NT2_UNIT_TEST_LESSER_EQUAL(A,B)                                      \

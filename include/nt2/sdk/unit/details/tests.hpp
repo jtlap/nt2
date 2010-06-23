@@ -9,8 +9,9 @@
 #ifndef NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 
+#include <iostream>
 ////////////////////////////////////////////////////////////////////////////////
-// Helpers for building impelmentation fo some predicate based tests
+// Helpers for building implementation fo some predicate based tests
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_MAKE_TEST_FUNC(NAME,OP,COP)                                         \
   template<class T, class U>                                                    \
@@ -29,7 +30,7 @@
     else                                                                        \
     {                                                                           \
       std::cout << "  Test '"<< x1 << " "<< #OP << " " << x2                    \
-                << "' failed in function " << fn << " (" << line << ")"  \
+                << "' failed in function " << fn << " (" << line << ")"         \
                 << ":  '" << t << " "<< #COP << " " << u << "'"                 \
                 << std::endl;                                                   \
       ++error_count();                                                          \
