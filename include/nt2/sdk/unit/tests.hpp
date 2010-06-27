@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluates an expression and checks if it evaluates to true or not
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_TEST(X)                                                        \
+#define NT2_TEST(X)                                                             \
 (::nt2::details::test_count()++, (X) ? ::nt2::details::pass(#X)                 \
                   : ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION)) \
 /**/
@@ -23,39 +23,35 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Emit a strong error message
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_ERROR(X)                                   \
+#define NT2_ERROR(X)                                        \
 ::nt2::details::error(X, __LINE__, BOOST_CURRENT_FUNCTION)  \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Predicate based tests
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_TEST_EQUAL(A,B)                                              \
+#define NT2_TEST_EQUAL(A,B)                                                   \
 ( ::nt2::details::test_eq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
-#define NT2_UNIT_TEST_NOT_EQUAL(A,B)                                          \
+#define NT2_TEST_NOT_EQUAL(A,B)                                               \
 ( ::nt2::details::test_neq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
 /**/
 
-#define NT2_UNIT_TEST_LESSER(A,B)                                             \
+#define NT2_TEST_LESSER(A,B)                                                  \
 ( ::nt2::details::test_lt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
-#define NT2_UNIT_TEST_GREATER(A,B)                                            \
+#define NT2_TEST_GREATER(A,B)                                                 \
 ( ::nt2::details::test_gt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
-#define NT2_UNIT_TEST_LESSER_EQUAL(A,B)                                      \
+#define NT2_TEST_LESSER_EQUAL(A,B)                                           \
 ( ::nt2::details::test_le(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
 /**/
 
-#define NT2_UNIT_TEST_GREATER_EQUAL(A,B)                                     \
-( ::nt2::details::test_ge(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
+#define NT2_TEST_GREATER_EQUAL(A,B)                                           \
+( ::nt2::details::test_ge(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
-
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
 
 #endif

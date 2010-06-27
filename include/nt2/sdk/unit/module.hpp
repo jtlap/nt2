@@ -25,7 +25,7 @@ int main(int,char const**)
 ////////////////////////////////////////////////////////////////////////////////
 // Macro for starting a test module
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_TEST_CASE(FUNC)                                              \
+#define NT2_TEST_CASE(FUNC)                                                   \
 void FUNC();                                                                  \
 nt2::details::test const                                                      \
 FUNC ## test = { FUNC, #FUNC, nt2::details::main_suite.link(&FUNC ## test) }; \
