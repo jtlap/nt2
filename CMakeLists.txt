@@ -73,11 +73,19 @@ file( GLOB_RECURSE source_files
       ${PROJECT_SOURCE_DIR}/include/*
     )
 
-add_library(nt2 ${source_files} )
+add_library(nt2 STATIC ${source_files} )
 
 ################################################################################
 # Install libnt2
 ################################################################################
+
+################################################################################
+# Add Documentation target
+################################################################################
+ADD_CUSTOM_TARGET ( doc
+                    COMMAND make html
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
+                  )
 
 ################################################################################
 # Add Examples
