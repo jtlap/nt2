@@ -39,6 +39,11 @@
         </VirtualDirectory>
         <File Name="doc/source/sdk/errors.rst"/>
         <File Name="doc/source/sdk/unit.rst"/>
+        <VirtualDirectory Name="unit">
+          <File Name="doc/source/sdk/unit/module.rst"/>
+          <File Name="doc/source/sdk/unit/report.rst"/>
+          <File Name="doc/source/sdk/unit/tests.rst"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>
