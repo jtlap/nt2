@@ -9,16 +9,16 @@
 #ifndef NT2_SDK_CONFIG_COMPILER_HPP_INCLUDED
 #define NT2_SDK_CONFIG_COMPILER_HPP_INCLUDED
 
-#include <nt2/sdk/config/bootstrap.hpp>
-#include <nt2/sdk/config/details/boost.hpp>
-#include <nt2/sdk/config/details/reporter.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // Architecture configuration headers
 // Defines architecture symbols for architecture related variation point.
+// Documentation: http://nt2.lri.fr/sdk/config/compiler.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/version.hpp>
 #include <boost/config.hpp>
+#include <boost/version.hpp>
+#include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/config/details/boost.hpp>
+#include <nt2/sdk/config/details/reporter.hpp>
 
 #include <nt2/sdk/config/compiler/gcc_xml.hpp>
 // #include <nt2/extensions/sdk/config/compiler.hpp>

@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_ERRORS_FAILURE_HPP_INCLUDED
 #define NT2_SDK_ERRORS_FAILURE_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Failure Reporting System
+// Documentation: http://nt2.lri.fr/sdk/errors/fatal.html
+// Documentation: http://nt2.lri.fr/sdk/errors/config.html
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/details/warning.hpp>
 #include <nt2/sdk/errors/details/failure.hpp>
 

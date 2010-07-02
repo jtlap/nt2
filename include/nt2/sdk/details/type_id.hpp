@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 #define NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Type name display
+// Documentation: http://nt2.lri.fr/sdk/details/sdk/details/type_id.html
+////////////////////////////////////////////////////////////////////////////////
+
 #if (__GNUC__ && __cplusplus && __GNUC__ >= 3)
 ////////////////////////////////////////////////////////////////////////////////
 // Includes abi::__cxa_demangle
@@ -16,19 +21,16 @@
 #include <cxxabi.h>
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Includes std::string, ::free and typeid
-////////////////////////////////////////////////////////////////////////////////
-#include <string>
 #include <cstdlib>
 #include <typeinfo>
+#include <nt2/sdk/sys/string.hpp>
 
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // demangle a type name retrieved through typeid()
   //////////////////////////////////////////////////////////////////////////////
-  inline std::string demangle(const char* name)
+  inline sys::string demangle(const char* name)
   {
     ////////////////////////////////////////////////////////////////////////////
     // use g++ ABI interface to perform demangling
@@ -37,17 +39,17 @@ namespace nt2 { namespace details
     std::size_t len;
     int         stat;
 
-    char* realname = abi::__cxa_demangle(name,NULL,&len,&stat);
+    char* realname = ::abi::__cxa_demangle(name,NULL,&len,&stat);
 
     if(realname != NULL)
     {
-      std::string out(realname);
-      free(realname);
+      sys::string out(realname);
+      ::free(realname);
       return out;
     }
     else
     {
-      return std::string("?");
+      return sys::string("?");
     }
     #else
     ////////////////////////////////////////////////////////////////////////////
@@ -63,18 +65,18 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   // Return a string containing the demangled typename of a given variable
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline std::string type_id(const T& )
+  template<class T> inline sys::string type_id(const T& )
   {
-    std::string const demangled = details::demangle(typeid(T).name());
+    sys::string const demangled = details::demangle(typeid(T).name());
     return demangled;
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Return a string containing the demangled typename of a given type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline std::string type_id()
+  template<class T> inline sys::string type_id()
   {
-    std::string const demangled = details::demangle(typeid(T).name());
+    sys::string const demangled = details::demangle(typeid(T).name());
     return demangled;
   }
 }

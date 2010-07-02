@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_ERRORS_ERROR_HPP_INCLUDED
 #define NT2_SDK_ERRORS_ERROR_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Error Reporting System
+// Documentation: http://nt2.lri.fr/sdk/errors/error.html
+// Documentation: http://nt2.lri.fr/sdk/errors/config.html
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/details/error.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <nt2/sdk/errors/details/failure.hpp>

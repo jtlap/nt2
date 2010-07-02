@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_UNIT_TESTS_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Unit test predicates macros
+// Documentation: http://nt2.lri.fr/sdk/unit/tests.html
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
 

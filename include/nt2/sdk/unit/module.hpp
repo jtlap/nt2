@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_UNIT_MODULE_HPP_INCLUDED
 #define NT2_SDK_UNIT_MODULE_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Unit test framework
+// Documentation: http://nt2.lri.fr/sdk/unit/module.html
+////////////////////////////////////////////////////////////////////////////////
 #include <cstdio>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
