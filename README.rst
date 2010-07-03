@@ -6,7 +6,7 @@ The Numerical Template Toolbox - C++ High Performance Computing Made Easy
 =========================================================================
 
 .. image:: http://www.lri.fr/~falcou/nt2.png
-   :align: left
+   :align: right
 
 .. contents:: Index
 
