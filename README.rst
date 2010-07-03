@@ -5,7 +5,7 @@
 C++ High Performance Computing Made Easy
 ================================================================
 
-.. image:: ./doc/source/nt2.png
+.. image:: http://www.lri.fr/~falcou/nt2.png
    :align: right
 
 .. contents:: Index
