@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_CONCEPT_FUSION_RANDOM_ACCESS_SEQUENCE_HPP_INCLUDED
 #define NT2_SDK_CONCEPT_FUSION_RANDOM_ACCESS_SEQUENCE_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Boost.Fusion Random Access Sequence concept
+// Documentation:
+// http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/sequence/concepts/random_access_sequence.html
+////////////////////////////////////////////////////////////////////////////////
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/errors/concepts.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>

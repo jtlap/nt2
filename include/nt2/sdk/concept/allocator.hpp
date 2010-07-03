@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_CONCEPT_ALLOCATOR_HPP_INCLUDED
 #define NT2_SDK_CONCEPT_ALLOCATOR_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// STD Allocator concept
+// Documentation: TBD
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/concepts.hpp>
 #include <nt2/sdk/concepts/same_type.hpp>
 

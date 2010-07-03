@@ -6,9 +6,14 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONCEPT_FUSION_BIDERECTIONNAL_SEQUENCE_HPP_INCLUDED
-#define NT2_SDK_CONCEPT_FUSION_BIDERECTIONNAL_SEQUENCE_HPP_INCLUDED
+#ifndef NT2_SDK_CONCEPT_FUSION_BIDIRECTIONAL_SEQUENCE_HPP_INCLUDED
+#define NT2_SDK_CONCEPT_FUSION_BIDIRECTIONAL_SEQUENCE_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Boost.Fusion Forward Sequence concept
+// Documentation:
+// http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/sequence/concepts/bidirectional_sequence.html
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/concepts.hpp>
 #include <boost/fusion/include/back.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
@@ -17,11 +22,11 @@
 namespace nt2
 {
   template<class S>
-  struct  FusionBidirectionnalSequence
+  struct  FusionBidirectionalSequence
         : FusionForwardSequence<S>
   {
     typedef typename boost::fusion::result_of::back<S>::type back_type;
-    BOOST_CONCEPT_USAGE(FusionBidirectionnalSequence)
+    BOOST_CONCEPT_USAGE(FusionBidirectionalSequence)
     {
       back_type b = back(s);
       details::ignore_unused(b);

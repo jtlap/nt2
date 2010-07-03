@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_CONCEPT_FUSION_FORWARD_SEQUENCE_HPP_INCLUDED
 #define NT2_SDK_CONCEPT_FUSION_FORWARD_SEQUENCE_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Boost.Fusion Forward Sequence concept
+// Documentation:
+// http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/sequence/concepts/forward_sequence.html
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/concepts.hpp>
 #include <boost/fusion/include/end.hpp>
 #include <boost/fusion/include/size.hpp>

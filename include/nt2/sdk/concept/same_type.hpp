@@ -12,6 +12,10 @@
 #include <nt2/sdk/errors/concepts.hpp>
 #include <boost/type_traits/is_same.hpp>
 
+////////////////////////////////////////////////////////////////////////////////
+// SameType concept
+//* TODO Documentation: http://nt2.lri.fr/sdk/concepts/same_type.html
+////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
   template<class T1,class T2, bool EnableIf = boost::is_same<T1,T2>::value>
@@ -26,7 +30,6 @@ namespace nt2
     BOOST_CONCEPT_USAGE(SameType) { types_are_not_the_same(t1,t2); }
 
     private:
-    int i;
     T1 t1;
     T2 t2;
   };
