@@ -1,7 +1,7 @@
 .. _unit_tests:
 
-Testing Macros
-==============
+Predicates Macros
+=================
 
 Description
 ^^^^^^^^^^^
