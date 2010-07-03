@@ -1,12 +1,12 @@
 .. title:: NT2 - C++ High Performance Computing Made Easy
 
 
-================================================================
-C++ High Performance Computing Made Easy
-================================================================
+=========================================================================
+The Numerical Template Toolbox - C++ High Performance Computing Made Easy
+=========================================================================
 
 .. image:: http://www.lri.fr/~falcou/nt2.png
-   :align: right
+   :align: left
 
 .. contents:: Index
 
