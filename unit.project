@@ -9,6 +9,10 @@
           <File Name="unit/sdk/sys/CMakeLists.txt"/>
           <File Name="unit/sdk/sys/string.cpp"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="meta">
+          <File Name="unit/sdk/meta/CMakeLists.txt"/>
+          <File Name="unit/sdk/meta/set.cpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
     </VirtualDirectory>

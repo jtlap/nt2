@@ -24,6 +24,12 @@
         <File Name="examples/sdk/sys/CMakeLists.txt"/>
         <File Name="examples/sdk/sys/timestamp.cpp"/>
       </VirtualDirectory>
+      <VirtualDirectory Name="meta">
+        <File Name="examples/sdk/meta/is_set.cpp"/>
+        <File Name="examples/sdk/meta/CMakeLists.txt"/>
+        <File Name="examples/sdk/meta/join.cpp"/>
+        <File Name="examples/sdk/meta/has_key.cpp"/>
+      </VirtualDirectory>
     </VirtualDirectory>
     <File Name="examples/CMakeLists.txt"/>
   </VirtualDirectory>

@@ -20,6 +20,7 @@ ADD_SUBDIRECTORY(sdk/config)
 ADD_SUBDIRECTORY(sdk/details)
 ADD_SUBDIRECTORY(sdk/sys)
 #ADD_SUBDIRECTORY(sdk/errors)
+ADD_SUBDIRECTORY(sdk/meta)
 #ADD_SUBDIRECTORY(sdk/memory)
 #ADD_SUBDIRECTORY(sdk/aligned) ???
 #ADD_SUBDIRECTORY(sdk/functions)
