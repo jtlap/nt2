@@ -44,6 +44,16 @@
           <File Name="doc/source/sdk/unit/report.rst"/>
           <File Name="doc/source/sdk/unit/tests.rst"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="meta">
+          <VirtualDirectory Name="set">
+            <File Name="doc/source/sdk/meta/set/set.rst"/>
+            <File Name="doc/source/sdk/meta/set/has_key.rst"/>
+            <File Name="doc/source/sdk/meta/set/is_set.rst"/>
+            <File Name="doc/source/sdk/meta/set/join.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/meta/sets.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/meta.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>
@@ -73,6 +83,9 @@
       <File Name="doc/source/download.rst"/>
       <File Name="doc/source/glossary.rst"/>
       <File Name="doc/source/version.rst"/>
+      <VirtualDirectory Name="extension">
+        <File Name="doc/source/extension/parameters.rst"/>
+      </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
   <Description/>

@@ -15,7 +15,7 @@ Header File
 
   #include <nt2/sdk/errors/failure.hpp>
 
-.. nt2_failure:
+.. _nt2_failure:
 
 NT2_FAILURE
 ^^^^^^^^^^^

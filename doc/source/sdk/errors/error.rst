@@ -16,7 +16,7 @@ Header File
 
   #include <nt2/sdk/errors/error.hpp>
 
-.. nt2_error:
+.. _nt2_error:
 
 NT2_ERROR
 ^^^^^^^^^

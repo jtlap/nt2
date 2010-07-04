@@ -5,12 +5,13 @@ Extending |nt2|
 
 .. rubric:: Description
 
-This section describes how developers can extend variosu |nt2| sub-systems.
+This section describes how developers can extend various |nt2| modules and the
+related configuration files.
 
 .. rubric:: Content
 
 .. toctree::
    :maxdepth: 1
 
-   extension/custom_exception
+   extension/parameters
    extension/custom_function

@@ -13,7 +13,6 @@ application.
 the library to resolve as much code generation choices as possible at compile-time,
 thus ensuring a fast runtime behavior.
 
-
 .. rubric:: Header File
 
 .. code-block:: cpp
