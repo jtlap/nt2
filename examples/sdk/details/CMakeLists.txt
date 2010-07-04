@@ -9,16 +9,20 @@
 cmake_minimum_required(VERSION 2.8)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
-
-################################################################################
-# Retrieve examples filename list
-################################################################################
-FILE(GLOB SOURCES_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+SET(SOURCES
+    ignore_unused.cpp
+    pp_enum_value.cpp
+    pp_enum_shifted_value.cpp
+    pp_include.cpp
+    pp_index.cpp
+    pp_text.cpp
+    type_id.cpp
+    )
 
 ################################################################################
 # For each filename
 ################################################################################
-FOREACH( EXAMPLE ${SOURCES_CPP})
+FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
@@ -28,5 +32,7 @@ FOREACH( EXAMPLE ${SOURCES_CPP})
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
 ENDFOREACH()
+
 
