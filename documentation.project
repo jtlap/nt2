@@ -51,6 +51,7 @@
             <File Name="doc/source/sdk/meta/set/is_set.rst"/>
             <File Name="doc/source/sdk/meta/set/join.rst"/>
           </VirtualDirectory>
+          <File Name="doc/source/sdk/meta/set/na.rst"/>
           <File Name="doc/source/sdk/meta/sets.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/meta.rst"/>
