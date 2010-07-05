@@ -88,6 +88,7 @@
           <File Name="include/nt2/sdk/concept/fusion_forward_sequence.hpp"/>
           <File Name="include/nt2/sdk/concept/fusion_random_access_sequence.hpp"/>
           <File Name="include/nt2/sdk/concept/same_type.hpp"/>
+          <File Name="include/nt2/sdk/concept/categorizable.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="dsl"/>
         <VirtualDirectory Name="memory"/>
@@ -100,6 +101,7 @@
           <File Name="include/nt2/sdk/meta/adapted_traits.hpp"/>
           <File Name="include/nt2/sdk/meta/behave_as.hpp"/>
           <File Name="include/nt2/sdk/meta/category_of.hpp"/>
+          <File Name="include/nt2/sdk/meta/unknown.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="settings"/>
         <VirtualDirectory Name="simd"/>

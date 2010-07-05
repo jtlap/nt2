@@ -51,8 +51,16 @@
             <File Name="doc/source/sdk/meta/set/is_set.rst"/>
             <File Name="doc/source/sdk/meta/set/join.rst"/>
           </VirtualDirectory>
-          <File Name="doc/source/sdk/meta/set/na.rst"/>
           <File Name="doc/source/sdk/meta/sets.rst"/>
+          <File Name="doc/source/sdk/meta/na.rst"/>
+          <VirtualDirectory Name="tag">
+            <File Name="doc/source/sdk/meta/tag/unknown.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/meta/tags.rst"/>
+          <VirtualDirectory Name="category">
+            <File Name="doc/source/sdk/meta/category/category_of.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/meta/categories.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/meta.rst"/>
       </VirtualDirectory>
