@@ -11,3 +11,4 @@ Boost.Fusion or Boost.TypeTraits.
 
    meta/na
    meta/sets
+   meta/tags
