@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_SET_HPP_INCLUDED
 #define NT2_SDK_META_SET_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// lightweight MPL set like class with minimal support
+// Documentation: http://nt2.lri.fr/sdk/meta/set.hpp
+////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/na.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
@@ -25,9 +29,6 @@
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // hierarchy of types - lightweight MPL set like class with minimal support
-  //////////////////////////////////////////////////////////////////////////////
   template<BOOST_PP_ENUM_BINARY_PARAMS( NT2_META_SET_SIZE
                                       , class A
                                       , = meta::na_ BOOST_PP_INTERCEPT
