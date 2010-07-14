@@ -59,10 +59,15 @@
           <File Name="doc/source/sdk/meta/tags.rst"/>
           <VirtualDirectory Name="category">
             <File Name="doc/source/sdk/meta/category/category_of.rst"/>
+            <File Name="doc/source/sdk/meta/category/category.rst"/>
           </VirtualDirectory>
           <File Name="doc/source/sdk/meta/categories.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/meta.rst"/>
+        <VirtualDirectory Name="concept">
+          <File Name="doc/source/sdk/concepts/category.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/concepts.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>
@@ -95,6 +100,7 @@
       <VirtualDirectory Name="extension">
         <File Name="doc/source/extension/parameters.rst"/>
       </VirtualDirectory>
+      <VirtualDirectory Name="_static"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Description/>
@@ -102,7 +108,7 @@
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
   <Settings Type="Executable">
-    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+    <Configuration Name="Debug" CompilerType="gnu g++-4.3" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" Required="no" PreCompiledHeader="">
         <IncludePath Value="."/>
       </Compiler>
@@ -116,7 +122,7 @@
       <PreBuild/>
       <PostBuild/>
       <CustomBuild Enabled="yes">
-        <Target Name="Run">firefox build/html/index.html</Target>
+        <Target Name="Display HTML">firefox build/html/index.html</Target>
         <RebuildCommand>make clean &amp;&amp; make html</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
         <BuildCommand>make html</BuildCommand>
