@@ -9,16 +9,17 @@
 cmake_minimum_required(VERSION 2.8)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
-
-################################################################################
-# Retrieve examples filename list
-################################################################################
-FILE(GLOB SOURCES_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+SET(SOURCES
+    architecture.cpp
+    compiler.cpp
+    platform.cpp
+    status.cpp
+   )
 
 ################################################################################
 # For each filename
 ################################################################################
-FOREACH( EXAMPLE ${SOURCES_CPP})
+FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
