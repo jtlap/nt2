@@ -62,8 +62,6 @@ namespace nt2 { namespace meta
   struct  category_of<volatile T const>   : details::category_of_impl<T> {};
   template<class T>
   struct  category_of<volatile T const&>  : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<T&>                 : details::category_of_impl<T> {};
 
   //* TODO : add scalar specialization in functor/
 } }
