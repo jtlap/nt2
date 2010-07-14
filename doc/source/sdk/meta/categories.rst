@@ -9,4 +9,5 @@ in said components. This module provides tools and types for this task.
 .. toctree::
    :maxdepth: 1
 
+   category/category
    category/category_of
