@@ -103,9 +103,11 @@ rst_epilog = """
 .. |altivec|   replace:: Altivec
 .. |sse|       replace:: SSE Extensions
 .. |result_of|    replace:: result_of protocol
+.. |mpl_int|    replace:: Boost.MPL Integral Constant
 .. _Altivec: http://en.wikipedia.org/wiki/Altivec
 .. _SSE: http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions
-.. _result_of: http://www.boost.org/doc/libs/1_41_0/libs/utility/utility.htm#result_of
+.. _result_of: http://www.boost.org/doc/libs/release/libs/utility/utility.htm#result_of
+.. _mpl_int: http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html
 """
 
 
