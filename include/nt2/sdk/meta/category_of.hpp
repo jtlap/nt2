@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Retrieves the type category as defined by the Categorizable Concept
-//* TODO Documentation: http://nt2.lri.fr/sdk/meta/category_of.html
+// Documentation: http://nt2.lri.fr/sdk/meta/category/category_of.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/has_xxx.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
@@ -23,7 +23,7 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Try to find a nt2_category_tag in T. If none are found and no explicit
   // specialization of category_of is available, T is considered to have an
-  // unknown_ category.
+  // unknown category.
   //////////////////////////////////////////////////////////////////////////////
   template< class T
           , bool EnableIf = details::has_nt2_category_tag<T>::value
@@ -44,21 +44,26 @@ namespace nt2 { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
   // User interface for category_of
+  // Including specialization for volatile and cv-qualified types
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct  category_of
-        : details::category_of_impl<T> {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Specialization for volatile and cv-qualifiers
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct category_of<         T&      > : category_of<T> {};
-  template<class T> struct category_of<         T const&> : category_of<T> {};
-  template<class T> struct category_of<         T const > : category_of<T> {};
-  template<class T> struct category_of<volatile T       > : category_of<T> {};
-  template<class T> struct category_of<volatile T&      > : category_of<T> {};
-  template<class T> struct category_of<volatile T const&> : category_of<T> {};
-  template<class T> struct category_of<volatile T const > : category_of<T> {};
+  struct  category_of                     : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<T const>            : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<T&>                 : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<T const&>           : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<volatile T>         : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<volatile T&>        : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<volatile T const>   : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<volatile T const&>  : details::category_of_impl<T> {};
+  template<class T>
+  struct  category_of<T&>                 : details::category_of_impl<T> {};
 
   //* TODO : add scalar specialization in functor/
 } }
