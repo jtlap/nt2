@@ -13,9 +13,15 @@
 // Category tag for types not handled by nt2
 // Documentation: http://nt2.lri.fr/sdk/meta/tag/unknown.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/cstdint.hpp>
+
 namespace nt2 { namespace tag
 {
-  struct unknown {};
+  struct unknown
+  {
+    typedef unknown tag;
+    BOOST_STATIC_CONSTANT(boost::uint32_t, rank = boost::uint32_t(~0));
+  };
 } }
 
 #endif
