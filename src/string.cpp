@@ -52,15 +52,13 @@ namespace nt2 { namespace sys
     va_end( ap );
 
     ////////////////////////////////////////////////////////////////////////////
-    // the va_list has to be regenerated as ap is an
-    // undefined behavior after each call to vsnprintf
-    // See man vsnprintf
+    // the va_list has to be regenerated as ap is in an undefined behavior
+    // after each call to vsnprintf. See man vsnprintf
     ////////////////////////////////////////////////////////////////////////////
     va_start( ap, format );
     #if defined(NT2_COMPILER_MSVC)
     _vsnprintf_s( data, sz, _TRUNCATE, format, ap );
     #else
-    printf("dat : %p\n",data);
     vsnprintf( data, sz+1, format, ap );
     #endif
     va_end( ap );
