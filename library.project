@@ -64,6 +64,7 @@
           <File Name="include/nt2/sdk/errors/error.hpp"/>
           <File Name="include/nt2/sdk/errors/config.hpp"/>
           <File Name="include/nt2/sdk/errors/failure.hpp"/>
+          <File Name="include/nt2/sdk/errors/trap.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="unit">
           <File Name="include/nt2/sdk/unit/module.hpp"/>
@@ -77,9 +78,22 @@
         </VirtualDirectory>
         <VirtualDirectory Name="functor">
           <File Name="include/nt2/sdk/functor/hierarchy.hpp"/>
-          <VirtualDirectory Name="details"/>
-          <VirtualDirectory Name="meta"/>
+          <VirtualDirectory Name="details">
+            <File Name="include/nt2/sdk/functor/details/validate_0x.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/validate_98.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/dominant.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/validate.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/call_0x.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/call.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/call_98.hpp"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="meta">
+            <File Name="include/nt2/sdk/functor/meta/validate.hpp"/>
+            <File Name="include/nt2/sdk/functor/meta/dominant.hpp"/>
+            <File Name="include/nt2/sdk/functor/meta/enable_call.hpp"/>
+          </VirtualDirectory>
           <File Name="include/nt2/sdk/functor/functor.hpp"/>
+          <File Name="include/nt2/sdk/functor/forward.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="concept">
           <File Name="include/nt2/sdk/concept/allocator.hpp"/>
@@ -89,6 +103,7 @@
           <File Name="include/nt2/sdk/concept/fusion_random_access_sequence.hpp"/>
           <File Name="include/nt2/sdk/concept/same_type.hpp"/>
           <File Name="include/nt2/sdk/concept/categorizable.hpp"/>
+          <File Name="include/nt2/sdk/concept/category.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="dsl"/>
         <VirtualDirectory Name="memory"/>
@@ -102,6 +117,7 @@
           <File Name="include/nt2/sdk/meta/behave_as.hpp"/>
           <File Name="include/nt2/sdk/meta/category_of.hpp"/>
           <File Name="include/nt2/sdk/meta/unknown.hpp"/>
+          <File Name="include/nt2/sdk/meta/category.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="settings"/>
         <VirtualDirectory Name="simd"/>
@@ -114,7 +130,7 @@
       </VirtualDirectory>
       <VirtualDirectory Name="core"/>
       <VirtualDirectory Name="extension">
-        <File Name="include/nt2/parameters.hpp"/>
+        <File Name="include/nt2/extension/parameters.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="toolbox"/>
     </VirtualDirectory>

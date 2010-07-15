@@ -13,13 +13,13 @@
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
   <Settings Type="Executable">
-    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-O3" Required="yes" PreCompiledHeader="">
+    <Configuration Name="Debug" CompilerType="gnu g++-4.5" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O3 -msse2 --std=c++0x" Required="yes" PreCompiledHeader="">
         <IncludePath Value="./include"/>
-        <IncludePath Value="/usr/local/include/boost-latest"/>
+        <IncludePath Value="/usr/local/include/boost-trunk"/>
       </Compiler>
       <Linker Options="" Required="yes">
-        <LibraryPath Value="./"/>
+        <LibraryPath Value="./lib"/>
         <Library Value="nt2"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
