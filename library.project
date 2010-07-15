@@ -57,6 +57,7 @@
             <File Name="include/nt2/sdk/errors/details/exception.hpp"/>
             <File Name="include/nt2/sdk/errors/details/message.hpp"/>
             <File Name="include/nt2/sdk/errors/details/failure.hpp"/>
+            <File Name="include/nt2/sdk/errors/details/trap.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/errors/warning.hpp"/>
           <File Name="include/nt2/sdk/errors/concepts.hpp"/>
@@ -135,8 +136,6 @@
       <VirtualDirectory Name="toolbox"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <Settings Type="Static Library">
     <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" Required="yes" PreCompiledHeader="">
@@ -206,4 +205,6 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

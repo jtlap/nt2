@@ -14,6 +14,11 @@
           <File Name="unit/sdk/meta/set.cpp"/>
           <File Name="unit/sdk/meta/category_of.cpp"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="functor">
+          <File Name="unit/sdk/functor/CMakeLists.txt"/>
+          <File Name="unit/sdk/functor/dominant.cpp"/>
+          <File Name="unit/sdk/functor/hierarchy.cpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
     </VirtualDirectory>
