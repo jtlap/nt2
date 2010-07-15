@@ -9,6 +9,7 @@
 #ifndef NT2_INCLUDE_ERRORS_HPP_INCLUDED
 #define NT2_INCLUDE_ERRORS_HPP_INCLUDED
 
+#include <nt2/sdk/errors/trap.hpp>
 #include <nt2/sdk/errors/error.hpp>
 #include <nt2/sdk/errors/failure.hpp>
 #include <nt2/sdk/errors/warning.hpp>
