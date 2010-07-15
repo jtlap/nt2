@@ -69,6 +69,10 @@
           <File Name="doc/source/sdk/concepts/category.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/concepts.rst"/>
+        <VirtualDirectory Name="functor">
+          <File Name="doc/source/sdk/functor/rationale.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/functor.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>
@@ -100,6 +104,7 @@
       <File Name="doc/source/version.rst"/>
       <VirtualDirectory Name="extension">
         <File Name="doc/source/extension/parameters.rst"/>
+        <File Name="doc/source/extension/custom_function.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="_static"/>
     </VirtualDirectory>

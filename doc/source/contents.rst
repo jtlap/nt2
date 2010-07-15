@@ -5,7 +5,7 @@ Downloading and Installing |nt2|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    latest
    download
@@ -35,7 +35,7 @@ Other Sections
 ^^^^^^^^^^^^^^
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    faq
    glossary
@@ -47,6 +47,6 @@ References
 ^^^^^^^^^^
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    bibliography
