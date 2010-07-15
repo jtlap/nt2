@@ -14,8 +14,8 @@
 //* TODO Documentation: http://nt2.lri.fr/sdk/functor/hierarchy.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/cstdint.hpp>
-#include <nt2/sdk/functor/meta/set.hpp>
-#include <nt2/sdk/functor/meta/join.hpp>
+#include <nt2/sdk/meta/set.hpp>
+#include <nt2/sdk/meta/join.hpp>
 
 namespace nt2 { namespace functors
 {

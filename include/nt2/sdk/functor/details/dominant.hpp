@@ -35,8 +35,14 @@ namespace nt2 { namespace details
   struct dominant;
   #endif
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Trivial dominant for unary calls
+  //////////////////////////////////////////////////////////////////////////////
   template<class A0> struct dominant<1,A0> : meta::category_of<A0> {};
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Binary calls compare category rank
+  //////////////////////////////////////////////////////////////////////////////
   template<class A0,class A1>
   struct  dominant<2,A0,A1>
         : boost::mpl::eval_if_c<  ( meta::category_of<A0>::type::rank
@@ -47,6 +53,13 @@ namespace nt2 { namespace details
                                 >
   {};
 
+  // Optimization for dominant(A,A) - save a few template instanciations
+  template<class A>
+  struct  dominant<2,A,A> : meta::category_of<A> {};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Ternary calls compare category rank recursively
+  //////////////////////////////////////////////////////////////////////////////
   template<class A0,class A1,class A2>
   struct  dominant<3,A0,A1,A2>
         : boost::mpl::eval_if_c<  ( dominant<2,A0,A1>::type::rank
@@ -57,6 +70,13 @@ namespace nt2 { namespace details
                                 >
   {};
 
+  // Optimization for dominant(A,A,A) - save a few template instanciations
+  template<class A>
+  struct  dominant<3,A,A,A> : meta::category_of<A> {};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // 4-ary calls compare category ranks recursively using dominant<2>
+  //////////////////////////////////////////////////////////////////////////////
   template<class A0,class A1,class A2,class A3>
   struct  dominant<4,A0,A1,A2,A3>
         : boost::mpl::eval_if_c<  ( dominant<2,A0,A1>::type::rank
@@ -66,6 +86,10 @@ namespace nt2 { namespace details
                                 , dominant<2,A0,A1>
                                 >
   {};
+
+  // Optimization for dominant(A,A,A,A) - save a few template instanciations
+  template<class A>
+  struct  dominant<4,A,A,A,A> : meta::category_of<A> {};
 } }
 
 #endif
