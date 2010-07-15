@@ -21,12 +21,16 @@ namespace nt2 { namespace tag
   struct category
   {
     typedef T type;
-    BOOST_STATIC_CONSTANT ( boost::uint32_t
-                          , rank = (  ( (Family << 24) & 0xFF000000  )
-                                      | (Grain         & 0x00FFFFFF  )
-                                    )
-                          );
+    static const boost::uint32_t rank = (  ( (Family << 24) & 0xFF000000  )
+                                        | (Grain         & 0x00FFFFFF  )
+                                        );
   };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Required to prevent spurrious link errors
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T, boost::uint32_t Family, boost::uint32_t Grain>
+  const boost::uint32_t category<T,Family,Grain>::rank;
 } }
 
 #endif

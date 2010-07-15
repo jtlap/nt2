@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::category_of"
 
+#include <nt2/sdk/meta/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -37,7 +38,6 @@ NT2_TEST_CASE(tagged_types)
   NT2_TEST( (boost::is_same< category_of<foo>::type, foo::foo_tag >::value) );
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Test category of type with overlaoded category_of
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,4 +52,27 @@ NT2_TEST_CASE(overloading_types)
 {
   using nt2::meta::category_of;
   NT2_TEST( (boost::is_same< category_of<man>::type, man::man_tag >::value) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test category rank & type values
+////////////////////////////////////////////////////////////////////////////////
+struct some_category {};
+
+NT2_TEST_CASE(category_values)
+{
+  using nt2::tag::category;
+  using nt2::tag::unknown;
+
+  typedef category<some_category,42,1337> my_category;
+
+  // Do category forward type properly ?
+  NT2_TEST( (boost::is_same< my_category::type, some_category >::value) );
+
+  // Check for category rank composition
+  NT2_TEST_EQUAL( (my_category::rank & 0x00FFFFFF)    , 1337u );
+  NT2_TEST_EQUAL( (my_category::rank & 0xFF000000)>>24, 42u   );
+
+  // INVARIANT: unknwon is always bigger
+  NT2_TEST_LESSER( my_category::rank,  unknown::rank );
 }
