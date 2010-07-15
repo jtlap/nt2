@@ -102,14 +102,15 @@ rst_epilog = """
 .. |nt2|       replace:: **NT**:sup:`2`
 .. |altivec|   replace:: Altivec
 .. |sse|       replace:: SSE Extensions
-.. |result_of|    replace:: result_of protocol
-.. |mpl_int|    replace:: Boost.MPL Integral Constant
+.. |result_of| replace:: result_of protocol
+.. |mpl_int|   replace:: Boost.MPL Integral Constant
+.. |pfo|       replace:: Polymorphic Function Object
 .. _Altivec: http://en.wikipedia.org/wiki/Altivec
 .. _SSE: http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions
 .. _result_of: http://www.boost.org/doc/libs/release/libs/utility/utility.htm#result_of
 .. _mpl_int: http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html
+.. _pfo: http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/poly.html
 """
-
 
 # -- Options for HTML output ---------------------------------------------------
 
