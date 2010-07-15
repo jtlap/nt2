@@ -18,5 +18,6 @@ user.
    errors/warning
    errors/error
    errors/fatal
+   errors/trap
    errors/config
    errors/mode

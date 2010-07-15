@@ -36,6 +36,7 @@
           <File Name="doc/source/sdk/errors/warning.rst"/>
           <File Name="doc/source/sdk/errors/config.rst"/>
           <File Name="doc/source/sdk/errors/mode.rst"/>
+          <File Name="doc/source/sdk/errors/trap.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/errors.rst"/>
         <File Name="doc/source/sdk/unit.rst"/>
@@ -105,8 +106,6 @@
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <Settings Type="Executable">
     <Configuration Name="Debug" CompilerType="gnu g++-4.3" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" Required="no" PreCompiledHeader="">
@@ -175,4 +174,6 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>
