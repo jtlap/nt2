@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::dominant"
 
+#include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/meta/category.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/dominant.hpp>
@@ -40,6 +41,8 @@ struct bar_ { typedef bar_category nt2_category_tag; };
 struct chu_ { typedef chu_category nt2_category_tag; };
 struct moo_ { typedef moo_category nt2_category_tag; };
 
+struct unk {};
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test dominant type of f(A0)
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,12 +63,17 @@ NT2_TEST_CASE(unary_dominant)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(binary_dominant)
 {
-  using nt2::meta::dominant;
   using boost::is_same;
   using boost::result_of;
+  using nt2::tag::unknown;
+  using nt2::meta::dominant;
 
   // Same type, trivial categorization
   NT2_TEST( (is_same<result_of<dominant(foo_,foo_)>::type, foo_category >::value) );
+
+  // unknown wins everytime
+  NT2_TEST( (is_same<result_of<dominant(foo_,unk)>::type, unknown >::value) );
+  NT2_TEST( (is_same<result_of<dominant(unk,foo_)>::type, unknown >::value) );
 
   // Same familly, bigger grain wins
   NT2_TEST( (is_same<result_of<dominant(foo_,bar_)>::type, bar_category >::value) );
@@ -76,7 +84,6 @@ NT2_TEST_CASE(binary_dominant)
   NT2_TEST( (is_same<result_of<dominant(chu_,foo_)>::type, chu_category >::value) );
   NT2_TEST( (is_same<result_of<dominant(foo_,moo_)>::type, moo_category >::value) );
   NT2_TEST( (is_same<result_of<dominant(moo_,foo_)>::type, moo_category >::value) );
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,12 +91,18 @@ NT2_TEST_CASE(binary_dominant)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(ternary_dominant)
 {
-  using nt2::meta::dominant;
   using boost::is_same;
   using boost::result_of;
+  using nt2::tag::unknown;
+  using nt2::meta::dominant;
 
   // Same type, trivial categorization
   NT2_TEST( (is_same<result_of<dominant(foo_,foo_,foo_)>::type, foo_category >::value) );
+
+  // unknown wins everytime (evenwith bigger boys)
+  NT2_TEST( (is_same<result_of<dominant(unk,foo_,bar_)>::type, unknown >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,unk,chu_)>::type, unknown >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,unk)>::type, unknown >::value) );
 
   // Same familly, bigger grain wins
   NT2_TEST( (is_same<result_of<dominant(bar_,foo_,foo_)>::type, bar_category >::value) );
@@ -100,5 +113,79 @@ NT2_TEST_CASE(ternary_dominant)
   NT2_TEST( (is_same<result_of<dominant(bar_,bar_,foo_)>::type, bar_category >::value) );
 
   // Biggest familly wins whatever grain
+  NT2_TEST( (is_same<result_of<dominant(chu_,foo_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,chu_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,chu_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,chu_,chu_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,foo_,chu_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,chu_,foo_)>::type, chu_category >::value) );
 
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,moo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,moo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,moo_,foo_)>::type, moo_category >::value) );
+
+  NT2_TEST( (is_same<result_of<dominant(foo_,moo_,chu_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,chu_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,chu_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,foo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,moo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,chu_,foo_)>::type, moo_category >::value) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test dominant type of f(A0,A1,A2,A3)
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(quaternary_dominant)
+{
+  using boost::is_same;
+  using boost::result_of;
+  using nt2::tag::unknown;
+  using nt2::meta::dominant;
+
+  // Same type, trivial categorization
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,foo_,foo_)>::type, foo_category >::value) );
+
+  // unknown wins everytime (evenwith bigger boys)
+  NT2_TEST( (is_same<result_of<dominant(unk,foo_,bar_,chu_)>::type, unknown >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,unk,moo_,chu_)>::type, unknown >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,unk,bar_)>::type, unknown >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,chu_,unk)>::type, unknown >::value) );
+
+  // Same familly, bigger grain wins
+  NT2_TEST( (is_same<result_of<dominant(bar_,foo_,foo_,foo_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,bar_,foo_,foo_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,bar_,foo_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,foo_,bar_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(bar_,bar_,foo_,foo_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(bar_,foo_,bar_,foo_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(bar_,foo_,foo_,bar_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,bar_,bar_,foo_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,bar_,foo_,bar_)>::type, bar_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,bar_,bar_)>::type, bar_category >::value) );
+
+  // Biggest familly wins whatever grain
+  NT2_TEST( (is_same<result_of<dominant(chu_,foo_,foo_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,chu_,foo_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,chu_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,foo_,chu_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,chu_,foo_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,foo_,chu_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(chu_,foo_,foo_,chu_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,chu_,chu_,foo_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,chu_,foo_,chu_)>::type, chu_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,chu_,chu_)>::type, chu_category >::value) );
+
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,foo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,moo_,foo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,moo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,foo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,moo_,foo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,moo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(moo_,foo_,foo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,moo_,moo_,foo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,moo_,foo_,moo_)>::type, moo_category >::value) );
+  NT2_TEST( (is_same<result_of<dominant(foo_,foo_,moo_,moo_)>::type, moo_category >::value) );
 }
