@@ -21,9 +21,10 @@ set(UNIT_TEST_PATH ${PROJECT_SOURCE_DIR}/bin/unit)
 ADD_SUBDIRECTORY(sdk/sys)
 #ADD_SUBDIRECTORY(sdk/errors)
 ADD_SUBDIRECTORY(sdk/meta)
+ADD_SUBDIRECTORY(sdk/functor)
 #ADD_SUBDIRECTORY(sdk/memory)
 #ADD_SUBDIRECTORY(sdk/aligned) ???
-#ADD_SUBDIRECTORY(sdk/functions)
-#ADD_SUBDIRECTORY(sdk/constants)
+#ADD_SUBDIRECTORY(sdk/constant)
+#ADD_SUBDIRECTORY(sdk/scalar)
 #ADD_SUBDIRECTORY(sdk/simd)
 
