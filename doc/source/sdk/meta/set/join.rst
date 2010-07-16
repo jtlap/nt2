@@ -9,7 +9,7 @@ join
 
 Description
 ^^^^^^^^^^^
-Given two :ref:`meta_set`, lazyly builds a set which is the union of its two
+Given two :ref:`meta_set`, lazily builds a set which is the union of its two
 arguments.
 
 Header File

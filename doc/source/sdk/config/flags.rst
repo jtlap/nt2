@@ -19,7 +19,7 @@ NT2_VERBOSE
     single: NT2_VERBOSE
 
 When defined, this macro triggers additional warning messages at compile time
-that give informations about the actual configuration of |nt2|.
+that give information about the actual configuration of |nt2|.
 
 Example
 -------

@@ -5,7 +5,7 @@ Unit Tests Framework
 
 Description
 ^^^^^^^^^^^
-The following macro helps build up a unit test module by specifying the moduel
+The following macro helps build up a unit test module by specifying the module
 name and registering the test functions. See :ref:`_howto_unit_test` for details
 about how to design your own |nt2| unit test.
 

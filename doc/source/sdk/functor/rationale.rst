@@ -45,7 +45,7 @@ and forward it to the proper functor implementation.
 
   template<class T>  typename boost::result_of<functor<sqrt_>(T)>::type sqrt( T const& v )
   {
-    functor<sqrt_> callee;  // instanciate the polymorphic sqrt functor
+    functor<sqrt_> callee;  // instantiate the polymorphic sqrt functor
     return callee(v);        // call said functor
   }
 
@@ -53,7 +53,7 @@ and forward it to the proper functor implementation.
 type of the function with respect to its arguments type. As the implementation,
 and therefore the semantic, of the function is actually bound to the tag and not
 the function itself, one can create various functions with different  names - for
-following coding syle or domain-specific nomenclature - that uses the same function
+following coding style or domain-specific nomenclature - that uses the same function
 implementation.
 
 .. note::
@@ -130,7 +130,7 @@ system in which types are sorted on two properties:
 
 Determining which :ref:`functor_call` specialization to call is done by ordering
 all argument types by **granularity** and then by **rank**. This is done internally
-via the :ref:`meta_dominant` meta-function which commputes such a type from a type
+via the :ref:`meta_dominant` meta-function which computes such a type from a type
 list. The so-called **dominant** argument type is then used to compute the call
 category to select via the :ref:`meta_category_of` meta-function.
 
@@ -156,7 +156,7 @@ Here is the synopsis of :ref:`functor_validate`:
     };
   }
 
-Let's say we want to prevent the function ``sqrt`` , associated ot the tag ``sqrt_``, to be called on non-real scalar types.
+Let's say we want to prevent the function ``sqrt`` , associated to the tag ``sqrt_``, to be called on non-real scalar types.
 :ref:`functor_validate` has to be overloaded as such:
 
 .. code-block:: cpp
@@ -173,7 +173,7 @@ Let's say we want to prevent the function ``sqrt`` , associated ot the tag ``sqr
       }
   };
 
-Advantages of this approach is that the fine tuning of which types or familly of types are allowed to be used with any specific function
+Advantages of this approach is that the fine tuning of which types or family of types are allowed to be used with any specific function
 is completely externalized with respect to the actual :ref:`functor` class. Note that the flexibility of the :ref:`functor_category` mechanism
 helps the specification process by allowing wide or narrow type category selection.
 
@@ -188,8 +188,8 @@ In our example, the ``sqrt`` function then takes this final form:
                                   >::type
   sqrt( T const& v )
   {
-    nt2::functors::functor<sqrt_> callee;  // instanciate the polymorphic sqrt functor
-    return calle(v);                       // call said functor
+    nt2::functors::functor<sqrt_> callee;  // instantiate the polymorphic sqrt functor
+    return callee(v);                       // call said functor
   }
 
 By default, :ref:`functor_validate` is defined so it checks if, for a given set of argument types, calling

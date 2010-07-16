@@ -6,7 +6,7 @@ Configuration Status
 .. rubric:: Description
 
 The configuration module provide function to retrieve either complete or partial
-informations about current settings as a human-readable string.
+information about current settings as a human-readable string.
 
 .. rubric:: Header File
 

@@ -1,4 +1,4 @@
-Miscenaleous Components
+Miscellaneous Components
 ========================
 
 .. rubric:: Description
