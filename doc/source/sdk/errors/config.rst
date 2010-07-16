@@ -6,11 +6,11 @@ Error Reporting Configuration
 Description
 -----------
 The error handling in |nt2| is fully customizable by the user. The main intent is
-to allow easy debugging sessions by being able to force various behavior on differebt
+to allow easy debugging sessions by being able to force various behavior on different
 type of runtime error and to be able to strip down error handling to the bare minimum
 for release mode.
 
-Disbaling Reports
+Disabling Reports
 -----------------
 
 .. index::
@@ -59,7 +59,7 @@ Reports Exit Codes
   single: NT2_FAILURE_EXIT_CODE
 
 By default, or when an :ref:`warnings` or :ref:`errors` report is upgraded as a
-:ref:`failures` report, the faulty application exits whiel returning the `EXIT_FAILURE`
+:ref:`failures` report, the faulty application exits while returning the `EXIT_FAILURE`
 value. The following symbols can be set to modify this value.
 
 * ``NT2_WARNING_EXIT_CODE``

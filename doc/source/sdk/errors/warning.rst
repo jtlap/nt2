@@ -7,7 +7,7 @@ Description
 ^^^^^^^^^^^
 
 Some function or methods may want to report some misbehavior by warning the user
-that something strange but not necesseraliy wrong happened. The ``NT2_WARNING``
+that something strange but not necessarily wrong happened. The ``NT2_WARNING``
 macro actually reports a message to the user by sending it to some predefined
 output that can be examined later.
 

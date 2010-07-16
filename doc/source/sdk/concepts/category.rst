@@ -7,7 +7,7 @@ Description
 -----------
 
 A :ref:`concept_category` discriminates types in the context of a |nt2| function
-call or functor instanciation and helps dispatching said call to the proper
+call or functor instantiation and helps dispatching said call to the proper
 function implementation.
 
 Header File

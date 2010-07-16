@@ -6,7 +6,7 @@ Predicates Macros
 Description
 ^^^^^^^^^^^
 The following macros encapsulate a whole test routine based on some expected behavior
-on some expression-based predicates. In case of failure, the proper coutners are
+on some expression-based predicates. In case of failure, the proper counters are
 updated and reported at the end of the test suite.
 
 Header File
@@ -103,5 +103,5 @@ NT2_TEST_GREATER_EQUAL
 
   #define NT2_TEST_GREATER_EQUAL(A,B)
 
-**Description:** Check if ``A`` is greater or equalt to ``B``. If not, report the
+**Description:** Check if ``A`` is greater or equal to ``B``. If not, report the
 test as failed.

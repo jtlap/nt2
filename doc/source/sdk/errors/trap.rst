@@ -7,7 +7,7 @@ Description
 ^^^^^^^^^^^
 The ``trap`` template function insert a platform specific debugging trap if a
 given meta-function evaluates to ``true``. Its main usage is to generate template
-based breakpoint in some instanciations of template classes.
+based breakpoint in some instantiations of template classes.
 
 Header File
 ^^^^^^^^^^^

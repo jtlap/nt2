@@ -5,7 +5,7 @@ Compile-time Configuration
 
 .. rubric:: Description
 
-This module defines a compile-time machine model gathering informations
+This module defines a compile-time machine model gathering information
 about the architecture, compiler, operating systems used to compile current
 application.
 
