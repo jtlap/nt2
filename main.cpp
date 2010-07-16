@@ -1,4 +1,3 @@
-/*
 #include <iostream>
 #include <complex>
 
@@ -10,7 +9,6 @@ namespace nt2 { namespace tag
   struct arithmetic_  {};
 
   struct simd_        {};
-
   struct complex_     {};
 } }
 
@@ -32,19 +30,12 @@ template<class T, std::size_t R> struct expr_   : nt2::tag::category<expr_<T,R>,
 template<class T, std::size_t R> struct const_  : nt2::tag::category<const_<T,R>,3,R>  {  typedef T tag; };
 
 #include <nt2/sdk/functor/functor.hpp>
+#include <nt2/sdk/details/type_id.hpp>
 
 struct foo_op {};
 
 namespace nt2 { namespace functors
 {
-  template<class X,class I>
-  struct call<foo_op,tag::scalar_(X),I>
-  {
-    typedef float result_type;
-
-    float operator()(float d, float s) { return (d+s); }
-  };
-
   template<class I>
   struct call<foo_op,tag::scalar_(tag::arithmetic_),I>
   {
@@ -52,11 +43,11 @@ namespace nt2 { namespace functors
     template<class This,class T, class U>
     struct result<This(T,U)>
     {
-      typedef T& type;
+      typedef T type;
     };
 
     template<class T, class U> inline
-    T& operator()(T& d, U const& s) { return (d=s); }
+    T operator()(T const & d, U const& s) { return (d+s); }
   };
 } }
 
@@ -70,27 +61,25 @@ namespace nt2 { namespace meta
   struct category_of< std::complex<T> > : scalar_< tag::complex_,0 > {};
 } }
 
+
+#include <nt2/sdk/meta/any.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+  using nt2::meta::any;
+  using boost::is_same;
+  using boost::mpl::_1;
+
+template<class... Args> struct test : any< is_same<_1,bool>, Args...>::type {};
+
 int main()
 {
-  float u;
+  float u = 4;
   nt2::functors::functor<foo_op> f;
-  f(u,3.f);
-  std::cout << u << std::endl;
+  std::cout << f(u,3.f) << std::endl;
 
-}
-*/
-
-#include <nt2/sdk/errors/trap.hpp>
-#include <boost/mpl/bool.hpp>
-
-template<int N> static inline void foo()
-{
-  nt2::sys::trap< boost::mpl::bool_<(N<4)> >();
-}
-
-int main()
-{
-  foo<7>();
-  foo<1>();
-  foo<3>();
+  std::cout << test<float>::value << std::endl;
+  std::cout << test<bool>::value << std::endl;
+  std::cout << test<boost::mpl::vector<float,float,float,bool,float> >::value << std::endl;
 }

@@ -13,6 +13,7 @@
           <File Name="unit/sdk/meta/CMakeLists.txt"/>
           <File Name="unit/sdk/meta/set.cpp"/>
           <File Name="unit/sdk/meta/category_of.cpp"/>
+          <File Name="unit/sdk/meta/any.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="functor">
           <File Name="unit/sdk/functor/CMakeLists.txt"/>

@@ -12,6 +12,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET( SOURCES
     set.cpp
     category_of.cpp
+    any.cpp
    )
 
 ################################################################################

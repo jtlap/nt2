@@ -95,6 +95,7 @@
           </VirtualDirectory>
           <File Name="include/nt2/sdk/functor/functor.hpp"/>
           <File Name="include/nt2/sdk/functor/forward.hpp"/>
+          <VirtualDirectory Name="preprocessor"/>
         </VirtualDirectory>
         <VirtualDirectory Name="concept">
           <File Name="include/nt2/sdk/concept/allocator.hpp"/>
@@ -119,6 +120,9 @@
           <File Name="include/nt2/sdk/meta/category_of.hpp"/>
           <File Name="include/nt2/sdk/meta/unknown.hpp"/>
           <File Name="include/nt2/sdk/meta/category.hpp"/>
+          <File Name="include/nt2/sdk/meta/is_result_of_supported.hpp"/>
+          <File Name="include/nt2/sdk/meta/enable_if_type.hpp"/>
+          <File Name="include/nt2/sdk/meta/any.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="settings"/>
         <VirtualDirectory Name="simd"/>

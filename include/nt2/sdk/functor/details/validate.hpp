@@ -18,6 +18,12 @@
 #include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/meta/is_result_of_supported.hpp>
 
+#if !defined(BOOST_HAS_VARIADIC_TMPL)
+#include <nt2/extension/parameters.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#endif
+
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -29,19 +35,29 @@ namespace nt2 { namespace functors
   template<class Function,class Category,class Info>
   struct validate
   {
-      template<class Sig> struct result;
-      #if defined(BOOST_HAS_VARIADIC_TMPL)
-      template<class This, class... Args>
-      struct  result<This(Args...)>
-      {
-        typedef call<Function,Category,Info>                      callee;
-        typedef typename
-        nt2::meta::is_result_of_supported<callee(Args...)>::type  type;
-      };
-
-      #else
-
-      #endif
+    template<class Sig> struct result;
+    #if defined(BOOST_HAS_VARIADIC_TMPL)
+    template<class This, class... Args>
+    struct  result<This(Args...)>
+    {
+      typedef call<Function,Category,Info>                      callee;
+      typedef typename
+      nt2::meta::is_result_of_supported<callee(Args...)>::type  type;
+    };
+    #else
+    #define M0(z,n,t)                                                         \
+    template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                     \
+    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                           \
+    {                                                                         \
+      typedef call<Function,Category,Info>                      callee;       \
+      typedef typename                                                        \
+      nt2::meta::                                                             \
+      is_result_of_supported<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;  \
+    };                                                                        \
+    /**/
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
+    #undef M0
+    #endif
   };
 
   template<class Function,class Info>

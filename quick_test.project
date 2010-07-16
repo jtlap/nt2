@@ -13,8 +13,8 @@
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
   <Settings Type="Executable">
-    <Configuration Name="Debug" CompilerType="gnu g++-4.5" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="--std=c++0x -g" Required="yes" PreCompiledHeader="">
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O3 --std=c++0x" Required="yes" PreCompiledHeader="">
         <IncludePath Value="./include"/>
         <IncludePath Value="/usr/local/include/boost-trunk"/>
       </Compiler>
