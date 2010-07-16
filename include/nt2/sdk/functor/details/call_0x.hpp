@@ -19,9 +19,9 @@ struct  result<This(Args...)>
 
 template<class... Args> inline
 typename meta::enable_call<Function(Args...)>::type
-operator()( Args&& ...args )
+operator()( Args const& ...args )
 {
   typedef typename boost::result_of<meta::dominant(Args...)>::type::tag dom;
   call<Function,dom,Info> callee;
-  return callee( std::forward<Args>(args)... );
+  return callee( args... );
 }

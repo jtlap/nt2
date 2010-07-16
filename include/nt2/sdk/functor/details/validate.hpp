@@ -14,27 +14,46 @@
 //* TODO : Documentation:http://nt2.lri.fr/sdk/howto/functor.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
+//#include <nt2/sdk/meta/any.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
+#include <nt2/sdk/meta/is_result_of_supported.hpp>
 
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
-  // By default, any call is valid
+  // A functor call is validated iff :
+  //  * a call<Function,Category,Info> overload exists wiht a proper result_of
+  //  * no bool appears in the list of argument types
+  //  * Category is not tag::unknwon
   //////////////////////////////////////////////////////////////////////////////
   template<class Function,class Category,class Info>
   struct validate
   {
-    typedef boost::mpl::true_ result_type;
+      template<class Sig> struct result;
+      #if defined(BOOST_HAS_VARIADIC_TMPL)
+      template<class This, class... Args>
+      struct  result<This(Args...)>
+      {
+        typedef call<Function,Category,Info>                      callee;
+        typedef typename
+        nt2::meta::is_result_of_supported<callee(Args...)>::type  type;
+      };
+
+      #else
+
+      #endif
   };
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Except for unknown type sequence that we want to prohibite
-  //////////////////////////////////////////////////////////////////////////////
   template<class Function,class Info>
   struct validate<Function,tag::unknown,Info>
   {
     typedef boost::mpl::false_ result_type;
   };
+/*
+    typedef typename meta::any_<args, boost::is_same<boost::mpl::_,bool> >::type any_bool;
+    typedef boost::mpl::bool_<support::value && !any_bool::value>           type;
+*/
+
 } }
 
 #endif
