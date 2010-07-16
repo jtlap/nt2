@@ -17,16 +17,16 @@ Generic Terms
       Acronym for the Flynn's **Single Instruction, Multiple Data** architectures.
       SIMD architectures revolve around various techniques to achieve data level parallelism.
       The term SIMD extension is usually used to design a large set of intra-processor vector
-      unit used for multimedia and gaming like the SSE extensions familly or the Altivec extension.
+      unit used for multimedia and gaming like the SSE extensions family or the Altivec extension.
       See also `the Wikipedia page about SIMD <http://en.wikipedia.org/wiki/SIMD>`_
 
   SSE
-      Acronym for **Streaming SIMD Extensions** architecture familly including
+      Acronym for **Streaming SIMD Extensions** architecture family including
       Intel SSE, SSE2, SSE3, SSSE3, AMD SSE4 and Intel AVX. See also
       `the Wikipedia page about SSE <http://en.wikipedia.org/wiki/SSE2>`_
 
   VMX
-      Acronym for **Vector Multimedia Extensions** architecture familly including
+      Acronym for **Vector Multimedia Extensions** architecture family including
       Freescale AltiVec, IBM Altivec, VSX and the XBOX VMX128. See also `the Wikipedia page about Altivec <http://en.wikipedia.org/wiki/AltiVec>`_
 
 C++ Related Terms

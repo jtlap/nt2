@@ -6,7 +6,7 @@ Failures
 Description
 ^^^^^^^^^^^
 The ``NT2_FAILURE`` macro notify the users that an unrecoverable error occurred
-and that the applciation msut terminate.
+and that the application must terminate.
 
 Header File
 ^^^^^^^^^^^
@@ -30,5 +30,5 @@ NT2_FAILURE
   #define NT2_FAILURE(COND,MSG)
 
 **Description:** If ``COND`` evaluates to ``false``, then the ``MSG`` string
-is logged and the applciation terminates in error.
+is logged and the application terminates in error.
 

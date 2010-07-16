@@ -36,7 +36,7 @@ Those tools are gathered in five categories:
    sdk/simd
    sdk/threading
 
-.. rubric:: Numeric Fundations
+.. rubric:: Numeric Foundations
 
 .. toctree::
    :maxdepth: 1

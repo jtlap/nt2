@@ -7,7 +7,7 @@ Description
 ^^^^^^^^^^^
 
 The ``NT2_ERROR`` reports misbehavior by throwing an exception containing
-potential diagnostic informations.
+potential diagnostic information.
 
 Header File
 ^^^^^^^^^^^
@@ -32,5 +32,5 @@ NT2_ERROR
 
 **Description:**
 By default, this macro throw an exception of type ``EXC`` filled with the
-diagnostic information extarcted from ``INFOSEQ``.
+diagnostic information extracted from ``INFOSEQ``.
 
