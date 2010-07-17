@@ -45,14 +45,22 @@ namespace nt2 { namespace functors
   typedef boost::proto::tag::greater_equal      is_greater_equal_;
   typedef boost::proto::tag::shift_left         shift_left_;
   typedef boost::proto::tag::shift_right        shift_right_;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Ternary operators
+  //////////////////////////////////////////////////////////////////////////////
   typedef boost::proto::tag::if_else_           if_else_;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Self-operators require special support
+  //////////////////////////////////////////////////////////////////////////////
   typedef boost::proto::tag::pre_inc            pre_inc_;
   typedef boost::proto::tag::pre_dec            pre_dec_;
   typedef boost::proto::tag::post_inc           post_inc_;
   typedef boost::proto::tag::post_dec           post_dec_;
 
   //////////////////////////////////////////////////////////////////////////////
-  // Assignment oeprators - requires special functor
+  // Assignment operators - requires special functor
   //////////////////////////////////////////////////////////////////////////////
   typedef boost::proto::tag::assign             assign_;
   typedef boost::proto::tag::plus_assign        plus_assign_;
