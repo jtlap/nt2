@@ -15,12 +15,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/utility/result_of.hpp>
-//#include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
 #include <nt2/sdk/functor/forward.hpp>
+#include <nt2/sdk/functor/details/call.hpp>
+#include <nt2/sdk/errors/static_assert.hpp>
 #include <nt2/sdk/functor/meta/dominant.hpp>
 #include <nt2/sdk/functor/meta/enable_call.hpp>
-#include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/functor/details/validate.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
