@@ -29,25 +29,18 @@ namespace nt2 { namespace meta
     template<class Sig> struct result;
 
     #if defined(BOOST_HAS_VARIADIC_TMPL)
-
     template<class This, class... Args>
-    struct  result<This(Args...)>
-          : details::dominant< sizeof...(Args),Args... >
+    struct  result<This(Args...)> : details::dominant< Args... >
     {};
-
     #else
-
     #define M0(z,n,t)                                       \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >  \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>         \
-          : details::dominant<n,BOOST_PP_ENUM_PARAMS(n,A)>  \
+          : details::dominant<BOOST_PP_ENUM_PARAMS(n,A)>    \
     {};                                                     \
     /**/
-
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
-
     #undef M0
-
     #endif
   };
 } }

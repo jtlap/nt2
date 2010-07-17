@@ -13,83 +13,87 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/utility/result_of.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/sdk/meta/na.hpp>
-#include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
 namespace nt2 { namespace details
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // Recursive variadics implementation
+  //////////////////////////////////////////////////////////////////////////////
   #if defined(BOOST_HAS_VARIADIC_TMPL)
-  template<std::size_t N, class... Args> struct dominant;
+  template<class... Args> struct dominant;
+
+  template<class Head, class... Tails>
+  struct  dominant<Head,Tails...>
+        : boost::mpl::eval_if_c<  ( meta::category_of<Head>::type::rank
+                                  < dominant<Tails...>::type::rank
+                                  )
+                                , dominant<Tails...>
+                                , meta::category_of<Head>
+                                >
+  {};
+
+  template<class Head>  struct dominant<Head> : meta::category_of<Head> {};
   #else
-  template< std::size_t N
-          , BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
+  //////////////////////////////////////////////////////////////////////////////
+  // Macro based implementation
+  //////////////////////////////////////////////////////////////////////////////
+  template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
                                         , class A
                                         , = meta::na_ BOOST_PP_INTERCEPT
                                         )
           >
   struct dominant;
+
+  template<class A> struct dominant<A> : meta::category_of<A> {};
+
+  #define M0(z,n,t)                                                                   \
+  template<BOOST_PP_ENUM_PARAMS(n,class A)>                                           \
+  struct  dominant<BOOST_PP_ENUM_PARAMS(n,A)>                                         \
+  : boost::mpl::eval_if_c<  ( meta::category_of<A0>::type::rank                       \
+                            < dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(n,A)>::type::rank \
+                            )                                                         \
+                          , dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(n,A)>               \
+                          , meta::category_of<A0>                                     \
+                          >                                                           \
+  {};                                                                                 \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M0,~)
+
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY, class A)>
+  struct dominant
+  : boost::mpl::eval_if_c<  ( meta::category_of<A0>::type::rank
+                            < dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(NT2_MAX_ARITY,A)>::type::rank
+                            )
+                          , dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(NT2_MAX_ARITY,A)>
+                          , meta::category_of<A0>
+                          >
+  {};
+
+  #undef M0
   #endif
 
   //////////////////////////////////////////////////////////////////////////////
-  // Trivial dominant for unary calls
+  // Some specialization for improving compile-time
   //////////////////////////////////////////////////////////////////////////////
-  template<class A0> struct dominant<1,A0> : meta::category_of<A0> {};
+  #define M0(z,n,t)                                               \
+  template<class A>                                               \
+  struct dominant<NT2_PP_ENUM_VALUE(n,A)> : meta::category_of<A>  \
+  {};                                                             \
+  /**/
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Binary calls compare category rank
-  //////////////////////////////////////////////////////////////////////////////
-  template<class A0,class A1>
-  struct  dominant<2,A0,A1>
-        : boost::mpl::eval_if_c<  ( meta::category_of<A0>::type::rank
-                                  < meta::category_of<A1>::type::rank
-                                  )
-                                , meta::category_of<A1>
-                                , meta::category_of<A0>
-                                >
-  {};
+  BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
 
-  // Optimization for dominant(A,A) - save a few template instanciations
-  template<class A>
-  struct  dominant<2,A,A> : meta::category_of<A> {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Ternary calls compare category rank recursively
-  //////////////////////////////////////////////////////////////////////////////
-  template<class A0,class A1,class A2>
-  struct  dominant<3,A0,A1,A2>
-        : boost::mpl::eval_if_c<  ( dominant<2,A0,A1>::type::rank
-                                  < meta::category_of<A2>::type::rank
-                                  )
-                                , meta::category_of<A2>
-                                , dominant<2,A0,A1>
-                                >
-  {};
-
-  // Optimization for dominant(A,A,A) - save a few template instanciations
-  template<class A>
-  struct  dominant<3,A,A,A> : meta::category_of<A> {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // 4-ary calls compare category ranks recursively using dominant<2>
-  //////////////////////////////////////////////////////////////////////////////
-  template<class A0,class A1,class A2,class A3>
-  struct  dominant<4,A0,A1,A2,A3>
-        : boost::mpl::eval_if_c<  ( dominant<2,A0,A1>::type::rank
-                                  < dominant<2,A2,A3>::type::rank
-                                  )
-                                , dominant<2,A2,A3>
-                                , dominant<2,A0,A1>
-                                >
-  {};
-
-  // Optimization for dominant(A,A,A,A) - save a few template instanciations
-  template<class A>
-  struct  dominant<4,A,A,A,A> : meta::category_of<A> {};
+  #undef M0
 } }
 
 #endif
