@@ -16,8 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
-#include <nt2/sdk/config/details/boost.hpp>
-#include <nt2/sdk/config/details/reporter.hpp>
 
 namespace nt2
 {
