@@ -13,7 +13,7 @@
 // tag type for defining new category
 // Documentation: http://nt2.lri.fr/sdk/meta/category/category.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/cstdint.hpp>
+#include <nt2/sdk/config/types.hpp>
 
 namespace nt2 { namespace tag
 {
