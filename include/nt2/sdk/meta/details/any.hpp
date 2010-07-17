@@ -62,8 +62,8 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Macro based version
   //////////////////////////////////////////////////////////////////////////////
-  #define M1(z,n,t)                                         \
-  typename boost::mpl::apply1<Pred,BOOST_PP_CAT(A,n)>::type \
+  #define M1(z,n,t)                                           \
+  || boost::mpl::apply1<Pred,BOOST_PP_CAT(A,n)>::type::value  \
   /**/
 
   template< class Pred
@@ -73,7 +73,7 @@ namespace nt2 { namespace details
                                         )
           >
   struct  any_impl
-        : boost::mpl::or_<BOOST_PP_ENUM(NT2_MAX_META_ARITY,M1,~)>
+        : boost::mpl::bool_<false BOOST_PP_REPEAT(NT2_MAX_META_ARITY,M1,~)>
   {};
 
   template< class Pred, class T>
@@ -90,11 +90,11 @@ namespace nt2 { namespace details
                                 >::type
   {};
 
-  #define M0(z,n,t)                                     \
-  template<class Pred, BOOST_PP_ENUM_PARAMS(n,class A)> \
-  struct  any_impl<Pred,BOOST_PP_ENUM_PARAMS(n,A)>      \
-        : boost::mpl::or_<BOOST_PP_ENUM(n,M1,~)>        \
-  {};                                                   \
+  #define M0(z,n,t)                                         \
+  template<class Pred, BOOST_PP_ENUM_PARAMS(n,class A)>     \
+  struct  any_impl<Pred,BOOST_PP_ENUM_PARAMS(n,A)>          \
+        : boost::mpl::bool_<false BOOST_PP_REPEAT(n,M1,~)>  \
+  {};                                                       \
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_META_ARITY,M0,~)
