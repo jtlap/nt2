@@ -14,7 +14,7 @@
 //* TODO : Documentation:http://nt2.lri.fr/sdk/howto/functor.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
-//#include <nt2/sdk/meta/any.hpp>
+#include <nt2/sdk/meta/any.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/meta/is_result_of_supported.hpp>
 
@@ -40,20 +40,25 @@ namespace nt2 { namespace functors
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
-      typedef call<Function,Category,Info>                      callee;
+      typedef call<Function,Category,Info>                            callee;
       typedef typename
-      nt2::meta::is_result_of_supported<callee(Args...)>::type  type;
+      nt2::meta::is_result_of_supported<callee(Args...)>::type        callable;
+      typedef meta::any<boost::is_same<boost::mpl::_,bool>, Args... > bools;
+      typedef boost::mpl::bool_<callable::value && !bools::value>     type;
     };
     #else
-    #define M0(z,n,t)                                                         \
-    template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                     \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                           \
-    {                                                                         \
-      typedef call<Function,Category,Info>                      callee;       \
-      typedef typename                                                        \
-      nt2::meta::                                                             \
-      is_result_of_supported<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;  \
-    };                                                                        \
+    #define M0(z,n,t)                                                           \
+    template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                       \
+    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
+    {                                                                           \
+      typedef call<Function,Category,Info>                            callee;   \
+      typedef typename                                                          \
+      nt2::meta::                                                               \
+      is_result_of_supported<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type callable; \
+      typedef meta::any < boost::is_same<boost::mpl::_,bool >                   \
+                        , BOOST_PP_ENUM_PARAMS(n,A)         >         bools;    \
+      typedef boost::mpl::bool_<callable::value && !bools::value>     type;     \
+    };                                                                          \
     /**/
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
     #undef M0
@@ -66,8 +71,8 @@ namespace nt2 { namespace functors
     typedef boost::mpl::false_ result_type;
   };
 /*
-    typedef typename meta::any_<args, boost::is_same<boost::mpl::_,bool> >::type any_bool;
-    typedef boost::mpl::bool_<support::value && !any_bool::value>           type;
+
+
 */
 
 } }
