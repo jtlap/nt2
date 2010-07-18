@@ -12,15 +12,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // For a given type and a list of hierarchy, find the first hierarchy in which
 // the type can be found. Used in internal call<> tag dispatching
-//* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/enable_call.html
+//* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/find_type.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/if.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <nt2/sdk/functor/meta/belong_to.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_shifted_params.hpp>
 #endif
 
 namespace nt2 { namespace meta
