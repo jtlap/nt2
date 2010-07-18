@@ -32,6 +32,12 @@
       </VirtualDirectory>
     </VirtualDirectory>
     <File Name="examples/CMakeLists.txt"/>
+    <VirtualDirectory Name="core">
+      <VirtualDirectory Name="timing">
+        <File Name="examples/core/timing/cycle_timer.cpp"/>
+        <File Name="examples/core/timing/second_timer.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
