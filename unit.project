@@ -19,6 +19,9 @@
           <File Name="unit/sdk/functor/CMakeLists.txt"/>
           <File Name="unit/sdk/functor/dominant.cpp"/>
           <File Name="unit/sdk/functor/hierarchy.cpp"/>
+          <File Name="unit/sdk/functor/category.cpp"/>
+          <File Name="unit/sdk/functor/belong_to.cpp"/>
+          <File Name="unit/sdk/functor/find_type.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>

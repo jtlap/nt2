@@ -38,6 +38,7 @@
             <File Name="include/nt2/sdk/config/details/reporter.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/config/flags.hpp"/>
+          <File Name="include/nt2/sdk/config/types.hpp"/>
         </VirtualDirectory>
         <File Name="include/nt2/sdk/config.hpp"/>
         <VirtualDirectory Name="details">
@@ -87,15 +88,27 @@
             <File Name="include/nt2/sdk/functor/details/call_0x.hpp"/>
             <File Name="include/nt2/sdk/functor/details/call.hpp"/>
             <File Name="include/nt2/sdk/functor/details/call_98.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/tags.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/if_else.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/comma.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/boolean.hpp"/>
+            <File Name="include/nt2/sdk/functor/details/arithmetic.hpp"/>
           </VirtualDirectory>
           <VirtualDirectory Name="meta">
             <File Name="include/nt2/sdk/functor/meta/validate.hpp"/>
             <File Name="include/nt2/sdk/functor/meta/dominant.hpp"/>
             <File Name="include/nt2/sdk/functor/meta/enable_call.hpp"/>
+            <File Name="include/nt2/sdk/functor/meta/find_type.hpp"/>
+            <File Name="include/nt2/sdk/functor/meta/belong_to.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/functor/functor.hpp"/>
           <File Name="include/nt2/sdk/functor/forward.hpp"/>
-          <VirtualDirectory Name="preprocessor"/>
+          <VirtualDirectory Name="preprocessor">
+            <File Name="include/nt2/sdk/functor/preprocessor/function.hpp"/>
+            <File Name="include/nt2/sdk/functor/preprocessor/call.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/functor/category.hpp"/>
+          <File Name="include/nt2/sdk/functor/operators.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="concept">
           <File Name="include/nt2/sdk/concept/allocator.hpp"/>
@@ -135,6 +148,7 @@
         <File Name="include/nt2/include/errors.hpp"/>
         <File Name="include/nt2/include/sys.hpp"/>
         <File Name="include/nt2/include/unit.hpp"/>
+        <File Name="include/nt2/include/functor.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="core"/>
       <VirtualDirectory Name="extension">
