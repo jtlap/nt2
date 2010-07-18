@@ -69,10 +69,26 @@
           <File Name="doc/source/sdk/concepts/category.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/concepts.rst"/>
+        <File Name="doc/source/sdk/functor.rst"/>
         <VirtualDirectory Name="functor">
+          <VirtualDirectory Name="entity">
+            <File Name="doc/source/sdk/functor/entity/call.rst"/>
+            <File Name="doc/source/sdk/functor/entity/functor.rst"/>
+            <File Name="doc/source/sdk/functor/entity/hierarchy.rst"/>
+            <File Name="doc/source/sdk/functor/entity/validate.rst"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="macros">
+            <File Name="doc/source/sdk/functor/macros/function.rst"/>
+            <File Name="doc/source/sdk/functor/macros/call.rst"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="meta">
+            <File Name="doc/source/sdk/functor/meta/belong_to.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/functor/entity.rst"/>
+          <File Name="doc/source/sdk/functor/macros.rst"/>
+          <File Name="doc/source/sdk/functor/meta.rst"/>
           <File Name="doc/source/sdk/functor/rationale.rst"/>
         </VirtualDirectory>
-        <File Name="doc/source/sdk/functor.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>

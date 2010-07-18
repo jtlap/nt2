@@ -22,3 +22,6 @@ users to extend those behaviors.
    :maxdepth: 2
 
    functor/rationale
+   functor/entity
+   functor/meta
+   functor/macros
