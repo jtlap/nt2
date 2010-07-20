@@ -35,7 +35,7 @@ boost::result_of<call(BOOST_PP_ENUM_PARAMS(N,A))> \
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_FUNCTOR_CALL(N)                                     \
 template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                \
-typename NT2_CALL_RETURN_TYPE(N)::type const                    \
+typename NT2_CALL_RETURN_TYPE(N)::type                          \
 operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) ) const  \
 /**/
 
