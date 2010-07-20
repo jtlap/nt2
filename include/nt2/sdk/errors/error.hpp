@@ -79,66 +79,52 @@
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// try ... catch macro handlers
-////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_DISABLE_ERROR)
-#define NT2_TRY()
-#define NT2_CATCH(X)    if(0)
-#define NT2_RETHROW()
-#define NT2_OTHERWISE() if(0)
-#else
-#define NT2_TRY()       try
-#define NT2_CATCH(X)    catch( X )
-#define NT2_RETHROW()   throw
-#define NT2_OTHERWISE() catch( ... )
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
 // Option to set exit code for failure
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_ERROR_EXIT_CODE
   #define NT2_ERROR_EXIT_CODE EXIT_FAILURE
 #endif
 
+#include <sstream>
+#include <nt2/sdk/errors/details/exception.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Errors can be requalified as warnings
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(NT2_ERROR_AS_WARNING)
-#define NT2_ERROR(TYPE,INFOS)                         \
-NT2_EMIT_WARNING(BOOST_PP_STRINGIZE(TYPE) " thrown.") \
+#define NT2_ERROR(EXP)                    \
+{                                         \
+  std::ostringstream s; (EXP).display(s); \
+  do{ NT2_EMIT_WARNING(s.str().c_str());  \
+    } while(0);                           \
+}                                         \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // errors can be requalified as failures
 ////////////////////////////////////////////////////////////////////////////////
 #elif defined(NT2_ERROR_AS_FAILURE)
-#define NT2_ERROR(TYPE,INFOS)                                 \
-do  {  NT2_EMIT_FAILURE(BOOST_PP_STRINGIZE(TYPE) " thrown."); \
-      exit(NT2_ERROR_EXIT_CODE);                              \
-    } while(0)                                                \
+#define NT2_ERROR(EXP)                    \
+{                                         \
+  std::ostringstream s; (EXP).display(s); \
+  do{ NT2_EMIT_FAILURE(s.str().c_str());  \
+      exit(NT2_ERROR_EXIT_CODE);          \
+    } while(0);                           \
+}                                         \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Enabled errors
 ////////////////////////////////////////////////////////////////////////////////
 #elif !defined(NT2_DISABLE_ERROR)
-#include <boost/exception/all.hpp>
-
-#define NT2_ERROR_GENERATOR(r,d,e)                          \
-<< BOOST_PP_TUPLE_ELEM(2,0,e)( BOOST_PP_TUPLE_ELEM(2,1,e) ) \
-/**/
-
-#define NT2_ERROR(TYPE,INFOS)                                                 \
-BOOST_THROW_EXCEPTION ( TYPE()                                                \
-                        BOOST_PP_SEQ_FOR_EACH(NT2_ERROR_GENERATOR, _, INFOS)  \
-                      )                                                       \
+#define NT2_ERROR(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Disabled errors
 ////////////////////////////////////////////////////////////////////////////////
 #else
-#define NT2_ERROR(TYPE,INFOS)
+#define NT2_ERROR(EXP)
 #endif
 
 #endif

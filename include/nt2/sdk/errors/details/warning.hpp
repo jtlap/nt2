@@ -25,12 +25,12 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Forward a warning string to the proper default or user-defined logger
   //////////////////////////////////////////////////////////////////////////////
-  inline void emit_warning( sys::string const& msg )
+  inline void emit_warning( const sys::string& msg )
   {
     #if !defined(NT2_WARNING_HANDLER)
     fprintf(stderr,"%s\n",msg.c_str());
     #else
-    nt2::ext::emit_warning(msg.c_str());
+    nt2::ext::emit_warning(msg);
     #endif
   }
 } }
