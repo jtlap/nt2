@@ -31,7 +31,7 @@ namespace nt2
 
       type toc( bool display ) const
       {
-        if(empty()) NT2_ERROR(time::unbalanced_timing,);
+        if(empty()) NT2_ERROR(time::unbalanced_timing());
         type t = time()-times().top();
         times().pop();
         if(display) timer_type::Print(t);
