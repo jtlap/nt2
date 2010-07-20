@@ -11,8 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Types injection into nt2
-// Injects or define some absic types in NT2 namespace for consistency sake.
-//* TODO : Documentation: http://nt2.lri.fr/doc/build/html/sdk/config/types.html
+// Injects or define some basic types in NT2 namespace for consistency sake.
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>

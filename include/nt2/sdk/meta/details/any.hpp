@@ -10,8 +10,7 @@
 #define NT2_SDK_META_DETAILS_ANY_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Check if any elements of a sequence matches some lambda function
-//* TODO :  Documentation: http://nt2.lri.fr/sdk/meta/any.html
+// Internals for meta::any_
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/not.hpp>

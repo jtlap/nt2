@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Check if a type "belong to" another aka is the first a key in the second one
 // if it's an AssociativeSequence, or are they the same otherwise
-//* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/belong_to.html
+// Documentation: http://nt2.lri.fr/sdk/functor/meta/belong_to.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/meta/is_set.hpp>

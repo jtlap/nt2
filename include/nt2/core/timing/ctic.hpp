@@ -16,8 +16,6 @@
 #include <nt2/core/timing/timer.hpp>
 #include <nt2/core/timing/impl/cycles.hpp>
 
-//* TODO : Replace all that with Boost.Chrono chronometer concept models
-
 namespace nt2 { namespace details
 {
   struct cycle_based_timer
