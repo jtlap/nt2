@@ -123,6 +123,20 @@
         <File Name="doc/source/extension/custom_function.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="_static"/>
+      <VirtualDirectory Name="core">
+        <File Name="doc/source/core/timing.rst"/>
+        <VirtualDirectory Name="timing">
+          <File Name="doc/source/core/timing/classes.rst"/>
+          <File Name="doc/source/core/timing/ctic.rst"/>
+          <File Name="doc/source/core/timing/ctoc.rst"/>
+          <File Name="doc/source/core/timing/cycle_timer.rst"/>
+          <File Name="doc/source/core/timing/functions.rst"/>
+          <File Name="doc/source/core/timing/second_timer.rst"/>
+          <File Name="doc/source/core/timing/tic.rst"/>
+          <File Name="doc/source/core/timing/toc.rst"/>
+          <File Name="doc/source/core/timing/unbalanced_timing.rst"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
   <Description/>

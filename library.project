@@ -40,7 +40,6 @@
           <File Name="include/nt2/sdk/config/flags.hpp"/>
           <File Name="include/nt2/sdk/config/types.hpp"/>
         </VirtualDirectory>
-        <File Name="include/nt2/sdk/config.hpp"/>
         <VirtualDirectory Name="details">
           <File Name="include/nt2/sdk/details/ignore_unused.hpp"/>
           <File Name="include/nt2/sdk/details/preprocessor.hpp"/>
@@ -75,8 +74,11 @@
             <File Name="include/nt2/sdk/unit/details/suite.hpp"/>
             <File Name="include/nt2/sdk/unit/details/stats.hpp"/>
             <File Name="include/nt2/sdk/unit/details/tests.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/unary_benchmark.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/helpers.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/unit/tests.hpp"/>
+          <File Name="include/nt2/sdk/unit/benchmark.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="functor">
           <File Name="include/nt2/sdk/functor/hierarchy.hpp"/>
@@ -120,8 +122,24 @@
           <File Name="include/nt2/sdk/concept/categorizable.hpp"/>
           <File Name="include/nt2/sdk/concept/category.hpp"/>
         </VirtualDirectory>
-        <VirtualDirectory Name="dsl"/>
-        <VirtualDirectory Name="memory"/>
+        <VirtualDirectory Name="dsl">
+          <File Name="include/nt2/sdk/dsl/low_level.hpp"/>
+          <File Name="include/nt2/sdk/dsl/process_leaf.hpp"/>
+          <File Name="include/nt2/sdk/dsl/process_node.hpp"/>
+          <File Name="include/nt2/sdk/dsl/push_back.hpp"/>
+          <File Name="include/nt2/sdk/dsl/push_front.hpp"/>
+          <File Name="include/nt2/sdk/dsl/recursive_process.hpp"/>
+          <File Name="include/nt2/sdk/dsl/value_c.hpp"/>
+          <File Name="include/nt2/sdk/dsl/compile.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="memory">
+          <File Name="include/nt2/sdk/memory/load.hpp"/>
+          <VirtualDirectory Name="details">
+            <File Name="include/nt2/sdk/memory/details/load.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/store.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/memory/store.hpp"/>
+        </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>
           <File Name="include/nt2/sdk/meta/set.hpp"/>
@@ -138,10 +156,24 @@
           <File Name="include/nt2/sdk/meta/any.hpp"/>
           <VirtualDirectory Name="details">
             <File Name="include/nt2/sdk/meta/details/any.hpp"/>
+            <File Name="include/nt2/sdk/meta/details/gcd.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/meta/gcd.hpp"/>
+          <File Name="include/nt2/sdk/meta/scalar_of.hpp"/>
+          <File Name="include/nt2/sdk/meta/cardinal_of.hpp"/>
+          <File Name="include/nt2/sdk/meta/is_scalar.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="settings">
+          <File Name="include/nt2/sdk/config.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="simd"/>
+        <VirtualDirectory Name="machine"/>
+        <VirtualDirectory Name="constant">
+          <File Name="include/nt2/sdk/constant/splat.hpp"/>
+          <VirtualDirectory Name="details">
+            <File Name="include/nt2/sdk/constant/details/splat.hpp"/>
           </VirtualDirectory>
         </VirtualDirectory>
-        <VirtualDirectory Name="settings"/>
-        <VirtualDirectory Name="simd"/>
       </VirtualDirectory>
       <VirtualDirectory Name="include">
         <File Name="include/nt2/include/config.hpp"/>
@@ -149,8 +181,25 @@
         <File Name="include/nt2/include/sys.hpp"/>
         <File Name="include/nt2/include/unit.hpp"/>
         <File Name="include/nt2/include/functor.hpp"/>
+        <File Name="include/nt2/include/timing.hpp"/>
       </VirtualDirectory>
-      <VirtualDirectory Name="core"/>
+      <VirtualDirectory Name="core">
+        <VirtualDirectory Name="timing">
+          <VirtualDirectory Name="impl">
+            <File Name="include/nt2/core/timing/impl/cycles.hpp"/>
+            <File Name="include/nt2/core/timing/impl/gettimeofday.hpp"/>
+            <File Name="include/nt2/core/timing/impl/none.hpp"/>
+            <File Name="include/nt2/core/timing/impl/queryperformancecounter.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/core/timing/timer.hpp"/>
+          <File Name="include/nt2/core/timing/tic.hpp"/>
+          <File Name="include/nt2/core/timing/second_timer.hpp"/>
+          <File Name="include/nt2/core/timing/now.hpp"/>
+          <File Name="include/nt2/core/timing/exceptions.hpp"/>
+          <File Name="include/nt2/core/timing/cycle_timer.hpp"/>
+          <File Name="include/nt2/core/timing/ctic.hpp"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
       <VirtualDirectory Name="extension">
         <File Name="include/nt2/extension/parameters.hpp"/>
       </VirtualDirectory>
