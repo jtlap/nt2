@@ -9,6 +9,7 @@
 #ifndef NT2_INCLUDE_FUNCTOR_HPP_INCLUDED
 #define NT2_INCLUDE_FUNCTOR_HPP_INCLUDED
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
