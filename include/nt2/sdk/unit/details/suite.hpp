@@ -24,9 +24,9 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     ~suite()
     {
+      #if !defined(NT2_TEST_SILENT)
       int t = details::test_count();
       int e = details::error_count();
-      #if !defined(NT2_TEST_SILENT)
       puts("===============================================================");
       printf( "[%s] : %d test - %d passed - %d failure.\n"
             , NT2_UNIT_MODULE, t, (t-e), e

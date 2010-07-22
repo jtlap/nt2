@@ -24,7 +24,7 @@ namespace nt2
       unsigned long hi = 0, lo = 0;
 
       // lfence force code serialization of previous instruction
-      __asm__ __volatile__ ("lfence\n\trdtsc" : "=a"(lo), "=d"(hi));
+      __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
       cycles_t that = uint64_t(lo) | ((uint64_t(hi))<<32 );
       return that;
     }

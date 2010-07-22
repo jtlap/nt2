@@ -54,12 +54,21 @@ void timing_test( Func callee, size_t size
     std::cout << name << "("
                       << nt2::type_id<r_in0>().c_str()
               << ", " << nt2::type_id<r_in1>().c_str()
-              << ") " << std::flush;
+              << ") "
+              << " in "
+              << "[" << min0 << ", "<< max0<<"["
+              << " x "
+              << "[" << min1 << ", "<< max1<<"[ = "
+              << std::flush;
   }
   else
   {
     std::cout << function_name<Func(r_in0,r_in1)>()
-              << "  " << std::flush;
+              << " in "
+              << "[" << min0 << ", "<< max0<<"["
+              << " x "
+              << "[" << min1 << ", "<< max1<<"[ = "
+              << std::flush;
   }
 
   std::vector<double> timings;
