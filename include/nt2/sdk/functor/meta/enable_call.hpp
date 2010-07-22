@@ -14,7 +14,7 @@
 //* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/enable_call.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/tr1/functional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/functor/meta/validate.hpp>
 
@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
   template<class F, class... Args>
   struct enable_call< F(Args...)
                     , typename boost::
-                      enable_if_c < boost::
+					enable_if_c < std::tr1::
                                     result_of<validate<F>(Args...)>::type::value
                                   >::type
                     >
@@ -45,11 +45,11 @@ namespace nt2 { namespace meta
   template<class F, BOOST_PP_ENUM_PARAMS(n,class A)>                          \
   struct enable_call< F(BOOST_PP_ENUM_PARAMS(n,A))                            \
                     , typename boost::                                        \
-                      enable_if < typename boost::result_of<validate<F>       \
+					enable_if < typename std::tr1::result_of<validate<F>       \
                                     (BOOST_PP_ENUM_PARAMS(n,A))>::type        \
                                   >::type                                     \
                     >                                                         \
-    : boost::result_of<functors::functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>       \
+					: std::tr1::result_of<functors::functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>       \
   {};                                                                         \
   /**/
 

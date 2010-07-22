@@ -34,7 +34,7 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::category_of<T>::type::tag    dominant;
       typedef functors::call<splat_<T>,dominant,Info>     callee;
-      typedef typename boost::result_of<callee(A0)>::type type;
+	  typedef typename std::tr1::result_of<callee(A0)>::type type;
     };
 
       template<class A0> inline

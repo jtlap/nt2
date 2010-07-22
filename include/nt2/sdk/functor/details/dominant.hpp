@@ -11,7 +11,7 @@
 
 #include <boost/config.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>

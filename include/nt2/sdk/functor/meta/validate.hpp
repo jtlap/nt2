@@ -14,7 +14,7 @@
 //* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/validate.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
@@ -31,13 +31,13 @@ namespace nt2 { namespace meta
     #if defined(BOOST_HAS_VARIADIC_TMPL)
     template<class This, class... Args>
     struct  result<This(Args...)>
-          : boost::result_of<typename functors::functor<Tag>::validate(Args...)>
+		: std::tr1::result_of<typename functors::functor<Tag>::validate(Args...)>
     {};
     #else
     #define M0(z,n,t)                                                     \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                 \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                       \
-          : boost::result_of<typename functors::functor<Tag>              \
+	: std::tr1::result_of<typename functors::functor<Tag>              \
                                     ::validate(BOOST_PP_ENUM_PARAMS(n,A)) \
                             >                                             \
     {};                                                                   \

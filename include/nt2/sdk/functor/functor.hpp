@@ -14,7 +14,7 @@
 // Documentation: http://nt2.lri.fr/sdk/functor/entity/functor.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/errors/static_assert.hpp>

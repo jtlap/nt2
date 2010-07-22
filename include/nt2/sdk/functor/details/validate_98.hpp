@@ -15,10 +15,10 @@ template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                        \
 struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                               \
 {                                                                             \
   typedef typename                                                            \
-  boost::result_of<meta::dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type::tag dom; \
+  std::tr1::result_of<meta::dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type::tag dom; \
   typedef functors::validate<Function,dom,Info>                       callee; \
   typedef typename                                                            \
-  boost::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;            \
+  std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
 };                                                                            \
 /**/
 

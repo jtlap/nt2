@@ -23,24 +23,18 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // load tag with type and offset info
   //////////////////////////////////////////////////////////////////////////////
-  template<class T, int32_t Offset> struct load_ {};
+  template<class T, int Offset=0> struct load_ {};
 
   ////////////////////////////////////////////////////////////////////////////
   // load perform type dispatching based on the category of its target type
   // Hence, we need a specialized functor all together.
   ////////////////////////////////////////////////////////////////////////////
-  template<class T, int32_t Offset, class Info>
+  template<class T, int Offset, class Info>
   struct functor< load_<T,Offset>, Info >
   {
     struct validate
     {
-      template<class Sig> struct result;
-      template<class This,class A0,class A1>
-      struct  result<This(A0,A1)>
-            : boost::mpl::and_< boost::is_pointer<A0>
-                              , boost::is_integral<A1>
-                              >
-            {};
+	  typedef boost::mpl::true_ result_type;
     };
 
     template<class Sig> struct result;
@@ -48,12 +42,12 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::category_of<T>::type::tag        dominant;
       typedef functors::call<load_<T,Offset>,dominant,Info>   callee;
-      typedef typename boost::result_of<callee(A0,A1)>::type  type;
+      typedef typename std::tr1::result_of<callee(A0,A1)>::type  type;
     };
 
     template<class A0,class A1> inline
     typename meta::enable_call<load_<T,Offset>(A0,A1)>::type
-    operator()(A0 const& a0, A1 const& a1) const
+    operator()(A0* const& a0, A1 const& a1) const
     {
       typedef typename meta::category_of<T>::type::tag  dominant;
       functors::call<load_<T,Offset>,dominant,Info>     callee;
@@ -65,16 +59,16 @@ namespace nt2 { namespace functors
 namespace nt2
 {
   template<class T, class A0,class A1> inline
-  typename nt2::meta::enable_call<functors::load_<T,0>(A0,A1)>::type
-  load(A0 const& a0,A1 const& a1 )
+  typename nt2::meta::enable_call<functors::load_<T>(A0,A1)>::type
+  load(A0* const& a0,A1 const& a1 )
   {
-    nt2::functors::functor< nt2::functors::load_<T,0> > callee;
+    nt2::functors::functor< nt2::functors::load_<T> > callee;
     return callee(a0,a1);
   }
 
-  template<class T, int32_t Offset, class A0,class A1> inline
+  template<class T, int Offset, class A0,class A1> inline
   typename nt2::meta::enable_call<functors::load_<T,Offset>(A0,A1)>::type
-  load(A0 const& a0,A1 const& a1 )
+  load(A0* const& a0,A1 const& a1 )
   {
     nt2::functors::functor< nt2::functors::load_<T,Offset> > callee;
     return callee(a0,a1);

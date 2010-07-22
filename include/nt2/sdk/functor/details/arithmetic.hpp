@@ -15,7 +15,7 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 #define NT2_LOCAL_TYPE(Z,N,T)                 \
-static BOOST_PP_CAT(A,N)&  BOOST_PP_CAT(a,N); \
+static typename boost::add_reference<BOOST_PP_CAT(A,N)>::type  BOOST_PP_CAT(a,N); \
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                             \
