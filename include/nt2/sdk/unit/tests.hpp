@@ -19,15 +19,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluates an expression and checks if it evaluates to true or not
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_TEST(X)                                                             \
-(::nt2::details::test_count()++, (X) ? ::nt2::details::pass(#X)                 \
-                  : ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION)) \
+#define NT2_TEST(X)                                                 \
+( ::nt2::details::test_count()++                                    \
+, (X) ? ::nt2::details::pass(#X)                                    \
+      : ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION)  \
+)                                                                   \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Emit a strong error message
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_ERROR(X)                                        \
+#define NT2_TEST_ERROR(X)                                   \
 ::nt2::details::error(X, __LINE__, BOOST_CURRENT_FUNCTION)  \
 /**/
 

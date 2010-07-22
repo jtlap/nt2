@@ -41,8 +41,10 @@ namespace nt2 { namespace details
     {
       if(name)
       {
+        #if !defined(NT2_TEST_SILENT)
         puts("===============================================================");
         printf("Running: %s\n",name);
+        #endif
       }
       if(call) call();
       if(next) next->process();

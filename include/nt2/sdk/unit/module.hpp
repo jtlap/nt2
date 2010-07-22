@@ -14,6 +14,8 @@
 // Documentation: http://nt2.lri.fr/sdk/unit/module.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <cstdio>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/stringize.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 
@@ -30,10 +32,13 @@ int main(int,char const**)
 // Macro for starting a test module
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_TEST_CASE(FUNC)                                                   \
-void FUNC();                                                                  \
+void BOOST_PP_CAT(test,FUNC)();                                               \
 nt2::details::test const                                                      \
-FUNC ## test = { FUNC, #FUNC, nt2::details::main_suite.link(&FUNC ## test) }; \
-void FUNC()                                                                   \
+BOOST_PP_CAT(FUNC,test) = { BOOST_PP_CAT(test,FUNC)                           \
+                          , BOOST_PP_STRINGIZE(BOOST_PP_CAT(FUNC,test))       \
+                          , nt2::details                                      \
+                               ::main_suite.link(&BOOST_PP_CAT(FUNC,test)) }; \
+void BOOST_PP_CAT(test,FUNC)()                                                \
 /**/
 
 #endif
