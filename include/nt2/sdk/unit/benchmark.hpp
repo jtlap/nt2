@@ -46,7 +46,7 @@
 NT2_TEST_CASE( benchmark )
 {
   nt2::details::cycles_t seed = NT2_TEST_RANDOM_SEED;
-  srand( seed );
+  srand( static_cast<int>(seed) );
   printf("Benchmark Random Seed: %d\n",seed);
 }
 
