@@ -76,6 +76,8 @@
             <File Name="include/nt2/sdk/unit/details/tests.hpp"/>
             <File Name="include/nt2/sdk/unit/details/unary_benchmark.hpp"/>
             <File Name="include/nt2/sdk/unit/details/helpers.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/binary_benchmark.hpp"/>
+            <File Name="include/nt2/sdk/unit/details/ternary_benchmark.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/unit/tests.hpp"/>
           <File Name="include/nt2/sdk/unit/benchmark.hpp"/>
