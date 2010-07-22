@@ -14,6 +14,7 @@
 //* TODO : Documentation: http://nt2.lri.fr/sdk/unit/benchmark.html
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_TEST_SILENT
+#include <nt2/include/timing.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
@@ -36,7 +37,7 @@
 #endif
 
 #if !defined(NT2_TEST_RANDOM_SEED)
-#define NT2_TEST_RANDOM_SEED ((int)(time(NULL)))
+#define NT2_TEST_RANDOM_SEED (nt2::details::read_cycles())
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +45,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( benchmark )
 {
-  int seed = NT2_TEST_RANDOM_SEED;
+  nt2::details::cycles_t seed = NT2_TEST_RANDOM_SEED;
   srand( seed );
   printf("Benchmark Random Seed: %d\n",seed);
 }
