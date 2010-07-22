@@ -22,7 +22,7 @@ namespace nt2 { namespace details
   {
     static inline cycles_t Time() { return read_cycles(); }
 
-    static inline void Print(const double& val)
+    static inline void Print(const cycles_t& val)
     {
       std::cout << "Elapsed time is " << val << " CPU cycles.\n";
     }
