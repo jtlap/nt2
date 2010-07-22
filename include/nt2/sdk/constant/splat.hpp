@@ -10,7 +10,7 @@
 #define NT2_CORE_NUMERIC_FUNCTION_SPLAT_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-//#include <nt2/sdk/functor/meta/is_scalar.hpp>
+#include <nt2/sdk/meta/is_scalar.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -24,12 +24,9 @@ namespace nt2 { namespace functors
   {
     struct validate
     {
-      /*
       template<class Sig> struct result;
       template<class This,class A0>
       struct  result<This(A0)> : meta::is_scalar<A0> {};
-      */
-      typedef boost::mpl::true_ result_type;
     };
 
     template<class Sig> struct result;
