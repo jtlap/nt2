@@ -20,7 +20,9 @@
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/sdk/meta/na.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_shifted_params.hpp>
 #endif
 
 namespace nt2 { namespace details
@@ -59,10 +61,10 @@ namespace nt2 { namespace details
   template<BOOST_PP_ENUM_PARAMS(n,class A)>                                           \
   struct  dominant<BOOST_PP_ENUM_PARAMS(n,A)>                                         \
   : boost::mpl::eval_if_c<  ( meta::category_of<A0>::type::rank                       \
-                            < dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(n,A)>::type::rank \
+                            > dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(n,A)>::type::rank \
                             )                                                         \
-                          , dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(n,A)>               \
                           , meta::category_of<A0>                                     \
+                          , dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(n,A)>               \
                           >                                                           \
   {};                                                                                 \
   /**/
@@ -72,14 +74,15 @@ namespace nt2 { namespace details
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY, class A)>
   struct dominant
   : boost::mpl::eval_if_c<  ( meta::category_of<A0>::type::rank
-                            < dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(NT2_MAX_ARITY,A)>::type::rank
+                            > dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(NT2_MAX_ARITY,A)>::type::rank
                             )
-                          , dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(NT2_MAX_ARITY,A)>
                           , meta::category_of<A0>
+                          , dominant<BOOST_PP_ENUM_SHIFTED_PARAMS(NT2_MAX_ARITY,A)>
                           >
   {};
 
   #undef M0
+  
   #endif
 
   //////////////////////////////////////////////////////////////////////////////

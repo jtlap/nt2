@@ -45,8 +45,8 @@ namespace nt2 { namespace meta
   template<class F, BOOST_PP_ENUM_PARAMS(n,class A)>                          \
   struct enable_call< F(BOOST_PP_ENUM_PARAMS(n,A))                            \
                     , typename boost::                                        \
-                      enable_if_c < boost::result_of<validate<F>              \
-                                    (BOOST_PP_ENUM_PARAMS(n,A))>::type::value \
+                      enable_if < typename boost::result_of<validate<F>       \
+                                    (BOOST_PP_ENUM_PARAMS(n,A))>::type        \
                                   >::type                                     \
                     >                                                         \
     : boost::result_of<functors::functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>       \
