@@ -13,6 +13,7 @@
 // Runtime benchmark for functor<unary_plus_>
 ////////////////////////////////////////////////////////////////////////////////
 using nt2::functors::unary_plus_;
+using namespace nt2;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Symmetric range
@@ -32,4 +33,3 @@ NT2_TIMING( unary_plus_ , ((uint64_t, 0, ~0ULL)) )
 NT2_TIMING( unary_plus_ , ((uint32_t, 0, ~0U)) )
 NT2_TIMING( unary_plus_ , ((uint16_t, 0, 65535)) )
 NT2_TIMING( unary_plus_ , ((uint8_t , 0, 255)) )
-
