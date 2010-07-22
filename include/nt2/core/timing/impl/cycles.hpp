@@ -10,6 +10,7 @@
 #define NT2_CORE_TIMING_IMPL_CYCLES_HPP_INCLUDED
 
 #include <nt2/sdk/config/arch.hpp>
+#include <nt2/sdk/config/types.hpp>
 
 namespace nt2
 {
@@ -17,19 +18,19 @@ namespace nt2
   {
   #if    (defined(__GNUC__)     || defined(__ICC)        ) \
       && (defined(NT2_ARCH_X86) || defined(NT2_ARCH_IA64))
-    typedef boost::uint64_t  cycles_t;
+    typedef uint64_t  cycles_t;
     static cycles_t read_cycles()
     {
       unsigned long hi = 0, lo = 0;
 
       // lfence force code serialization of previous instruction
       __asm__ __volatile__ ("lfence\n\trdtsc" : "=a"(lo), "=d"(hi));
-      cycles_t that = ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
+      cycles_t that = uint64_t(lo) | ((uint64_t(hi))<<32 );
       return that;
     }
   #elif defined(BOOST_MSVC) && (_MSC_VER >= 1200 && _M_IX86 >= 500)
   #include <windows.h>
-  typedef boost::uint64_t  cycles_t;
+  typedef uint64_t  cycles_t;
   static cycles_t read_cycles()
   {
      LARGEINTEGER retval;
