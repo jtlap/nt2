@@ -29,11 +29,13 @@ namespace nt2
       return that;
     }
   #elif defined(BOOST_MSVC) && (_MSC_VER >= 1200 && _M_IX86 >= 500)
+
   #include <windows.h>
-  typedef uint64_t  cycles_t;
+  typedef nt2::uint64_t  cycles_t;
+
   static cycles_t read_cycles()
   {
-     LARGEINTEGER retval;
+     LARGE_INTEGER retval;
 
     __asm
     {

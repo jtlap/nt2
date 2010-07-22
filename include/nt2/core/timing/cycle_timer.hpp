@@ -10,38 +10,16 @@
 #define NT2_CORE_TIMING_CYCLE_TIMER_HPP_INCLUDED
 
 #include <nt2/core/timing/ctic.hpp>
+#include <nt2/core/timing/impl/cycles.hpp>
 
 namespace nt2 { namespace time
 {
-  /*!
-    cycle_timer is a RAII-based timing class that performs safe timing
-    in a given code block and prevent the misuse of the tic/toc functions pair.
-
-    @example cycle_timer.cpp
-   **/
   struct cycle_timer
   {
-    /*!
-      @ingroup Constructors and Destructors
-
-      Creates an instance of cycle_timer, links it to an user-defined variable
-      that will contains the result of the timing when the current instance will
-      go out of scope and starts a timing section calling ctic. The display
-      parameters controls if the inner ctoc call will display the elapsed time
-      automatically or not.
-     **/
-     cycle_timer(double& e, bool d = true) : elapsed(e), display(d) { ctic(); }
-
-    /*!
-      @ingroup Constructors and Destructors
-
-      When a cycle_timer instance is destroyed, complete the cycle-based timing
-      section, store it into the user-defined variable and, depending on the display
-      state, displays the measurement.
-     **/
+     cycle_timer(nt2::details::cycles_t& e, bool d = true) : elapsed(e), display(d) { ctic(); }
     ~cycle_timer() { elapsed = ctoc(display); }
 
-    double& elapsed;
+	nt2::details::cycles_t& elapsed;
     bool display;
   };
 } }
