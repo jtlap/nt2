@@ -74,6 +74,12 @@ void timing_test( Func callee, size_t size
   std::vector<double> timings;
   double c(0.),t(0.);
 
+  #ifdef __clang__
+  static r_in0 x0;
+  #else
+  r_in0 x0;
+  #endif
+
   do
   {
     nt2::tic();
@@ -81,7 +87,9 @@ void timing_test( Func callee, size_t size
       nt2::ctic();
       for(size_t i=0; i<size/nt2::meta::cardinal_of<r_in0>::value; i++)
       {
-        out = callee(nt2::load<r_in0>(&in0[0],i),nt2::load<r_in1>(&in1[0],i));
+        x0 = nt2::load<r_in0>(&in0[0],i);
+
+        out = callee(x0,nt2::load<r_in1>(&in1[0],i));
       }
       c = nt2::ctoc(false) / double(size);
     }

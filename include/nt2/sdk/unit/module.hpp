@@ -35,7 +35,7 @@ int main(int,char const**)
 void BOOST_PP_CAT(test,FUNC)();                                               \
 nt2::details::test const                                                      \
 BOOST_PP_CAT(FUNC,test) = { BOOST_PP_CAT(test,FUNC)                           \
-                          , BOOST_PP_STRINGIZE(BOOST_PP_CAT(FUNC,test))       \
+                          , BOOST_PP_STRINGIZE(BOOST_PP_CAT(FUNC,_test))      \
                           , nt2::details                                      \
                                ::main_suite.link(&BOOST_PP_CAT(FUNC,test)) }; \
 void BOOST_PP_CAT(test,FUNC)()                                                \
