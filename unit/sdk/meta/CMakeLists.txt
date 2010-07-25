@@ -10,10 +10,23 @@ cmake_minimum_required(VERSION 2.8)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET( SOURCES
-    set.cpp
-    category_of.cpp
     any.cpp
+    cardinal_of.cpp
+    category_of.cpp
+    gcd.cpp
+    is_result_of_supported.cpp
+    is_scalar.cpp
+    scalar_of.cpp
+    set.cpp
    )
+
+#####
+# TODO:
+# *adapted_traits.cpp
+# *behave_as.cpp
+# gcd.cpp
+# lcm.cpp
+#####
 
 ################################################################################
 # For each filename
