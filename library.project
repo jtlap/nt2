@@ -164,6 +164,7 @@
           <File Name="include/nt2/sdk/meta/scalar_of.hpp"/>
           <File Name="include/nt2/sdk/meta/cardinal_of.hpp"/>
           <File Name="include/nt2/sdk/meta/is_scalar.hpp"/>
+          <File Name="include/nt2/sdk/meta/lcm.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="settings">
           <File Name="include/nt2/sdk/config.hpp"/>

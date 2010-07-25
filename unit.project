@@ -14,6 +14,11 @@
           <File Name="unit/sdk/meta/set.cpp"/>
           <File Name="unit/sdk/meta/category_of.cpp"/>
           <File Name="unit/sdk/meta/any.cpp"/>
+          <File Name="unit/sdk/meta/cardinal_of.cpp"/>
+          <File Name="unit/sdk/meta/is_scalar.cpp"/>
+          <File Name="unit/sdk/meta/is_result_of_supported.cpp"/>
+          <File Name="unit/sdk/meta/scalar_of.cpp"/>
+          <File Name="unit/sdk/meta/gcd.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="functor">
           <File Name="unit/sdk/functor/CMakeLists.txt"/>
