@@ -9,8 +9,6 @@
 #define NT2_UNIT_MODULE "nt2::sys::string"
 
 #include <nt2/sdk/sys/string.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Local streaming operator
@@ -20,6 +18,9 @@ inline std::ostream& operator<<( std::ostream& os, nt2::sys::string const& s )
 {
   return os << s.c_str();
 }
+
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test sys::string default constructor
