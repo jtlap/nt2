@@ -38,20 +38,10 @@ void timing_test( Func callee, size_t size
   // Filling samples randomly
   for(size_t i=0; i<size; ++i) in0[i] = roll<t_in0>(min0,max0);
 
-  if(name)
-  {
-    std::cout << name << "(" << nt2::type_id<r_in0>().c_str() << ")"
-              << " in "
-              << "[" << min0 << ", "<< max0<<"[ = "
-              << std::flush;
-  }
-  else
-  {
-    std::cout << function_name<Func(r_in0)>()
-              << " in "
-              << "[" << min0 << ", "<< max0<<"[ = "
-              << std::flush;
-  }
+  std::cout << name << "(" << nt2::type_id<r_in0>().c_str() << ")"
+            << " in "
+            << "[" << min0 << ", "<< max0<<"[ = "
+            << std::flush;
 
   std::vector<double> timings;
   double c(0.),t(0.);

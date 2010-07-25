@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_ERRORS_DETAILS_WARNING_HPP_INCLUDED
 #define NT2_SDK_ERRORS_DETAILS_WARNING_HPP_INCLUDED
 
-#include <nt2/sdk/sys/string.hpp>
+#include <iostream>
 #include <nt2/sdk/errors/details/message.hpp>
 
 #define NT2_EMIT_WARNING(MSG)                           \
@@ -25,10 +25,10 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Forward a warning string to the proper default or user-defined logger
   //////////////////////////////////////////////////////////////////////////////
-  inline void emit_warning( const sys::string& msg )
+  template<class T> static inline void emit_warning( T const& msg )
   {
     #if !defined(NT2_WARNING_HANDLER)
-    fprintf(stderr,"%s\n",msg.c_str());
+    std::cerr << msg << "\n";
     #else
     nt2::ext::emit_warning(msg);
     #endif

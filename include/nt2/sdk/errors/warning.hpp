@@ -63,17 +63,17 @@
   //////////////////////////////////////////////////////////////////////////////
   // Fatal warning display an error then exit
   //////////////////////////////////////////////////////////////////////////////
-  #include <nt2/sdk/errors/details/fatal.hpp>
+  #include <nt2/sdk/errors/details/failure.hpp>
 
   #define NT2_WARNING(MSG)                                          \
-  do { NT2_EMIT_FATAL(MSG); exit(NT2_WARNING_EXIT_CODE); } while(0) \
+  do { NT2_EMIT_FAILURE(MSG); exit(NT2_WARNING_EXIT_CODE); } while(0) \
 
 ////////////////////////////////////////////////////////////////////////////////
 // Warning can be requalified as Errors
 ////////////////////////////////////////////////////////////////////////////////
 #elif defined(NT2_WARNING_AS_ERROR)
-#define NT2_WARNING(MSG)                                            \
-NT2_ERROR( nt2::warning_exception, ((nt2::details::warning_,MSG)) ) \
+#define NT2_WARNING(MSG)                                              \
+NT2_ERROR( nt2::warning_exception() << nt2::details::warning_(MSG) )  \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////

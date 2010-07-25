@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
-SET(SOURCES string.cpp timestamp.cpp)
+SET(SOURCES timestamp.cpp)
 
 ################################################################################
 # For each filename

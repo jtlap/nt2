@@ -14,7 +14,7 @@ namespace nt2 { namespace sys
   //////////////////////////////////////////////////////////////////////////////
   // Return a string with time stamp in readable human format
   //////////////////////////////////////////////////////////////////////////////
-  sys::string timestamp()
+  std::string timestamp()
   {
     time_t rawtime;
     char buffer[64];
@@ -22,6 +22,6 @@ namespace nt2 { namespace sys
     time(&rawtime);
     strftime(buffer,64,"%c",localtime(&rawtime));
 
-    return sys::string(buffer);
+    return std::string(buffer);
   }
 } }

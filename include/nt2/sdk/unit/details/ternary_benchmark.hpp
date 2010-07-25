@@ -54,19 +54,11 @@ void timing_test( Func callee, size_t size
     in2[i] = roll<t_in2>(min2,max2);
   }
 
-  if(name)
-  {
-    std::cout << name << "("
-                      << nt2::type_id<r_in0>().c_str()
-              << ", " << nt2::type_id<r_in1>().c_str()
-              << ", " << nt2::type_id<r_in2>().c_str()
-              << ") " << std::flush;
-  }
-  else
-  {
-    std::cout << function_name<Func(r_in0,r_in1,r_in2)>()
-              << "  " << std::flush;
-  }
+  std::cout << name << "("
+                    << nt2::type_id<r_in0>().c_str()
+            << ", " << nt2::type_id<r_in1>().c_str()
+            << ", " << nt2::type_id<r_in2>().c_str()
+            << ") " << std::flush;
 
   std::vector<double> timings;
   double c(0.),t(0.);

@@ -13,11 +13,11 @@
 // Date to string formatting function
 // Documentation: http://nt2.lri.fr/sdk/sys/timestamp.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/sys/string.hpp>
+#include <string>
 
 namespace nt2 { namespace sys
 {
-  sys::string timestamp();
+  std::string timestamp();
 } }
 
 #endif

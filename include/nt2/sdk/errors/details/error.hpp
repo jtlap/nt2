@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_ERRORS_DETAILS_ERROR_HPP_INCLUDED
 #define NT2_SDK_ERRORS_DETAILS_ERROR_HPP_INCLUDED
 
-#include <nt2/sdk/sys/string.hpp>
+#include <string>
 #include <boost/exception/all.hpp>
 #include <nt2/sdk/errors/details/warning.hpp>
 
@@ -26,7 +26,7 @@ namespace boost
     // When error becomes fatal, log+exit
     ////////////////////////////////////////////////////////////////////////////
     #if defined( NT2_ERROR_AS_FATAL )
-    nt2::details::emit_warning( sys::string(e.what()) );
+    nt2::details::emit_warning( std::string(e.what()) );
     exit(NT2_ERROR_EXIT_CODE);
     ////////////////////////////////////////////////////////////////////////////
     // When error becomes warning, log

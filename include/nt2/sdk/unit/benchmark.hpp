@@ -82,6 +82,7 @@ NT2_TEST_CASE( BOOST_PP_CAT(timing,__LINE__) )      \
   >                                                 \
   ( callee, NT2_TEST_SAMPLES                        \
     BOOST_PP_SEQ_FOR_EACH(NT2_MIN_MAX,~,SEQ)        \
+  , BOOST_PP_STRINGIZE(TAG)                         \
   );                                                \
 }                                                   \
 /**/
