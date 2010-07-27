@@ -51,7 +51,7 @@ include(nt2.threading)
 # Generate bootstrap.hpp
 ################################################################################
 CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
-                ${PROJECT_SOURCE_DIR}/include/nt2/sdk/config/bootstrap.hpp
+                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
               )
 
 ################################################################################
@@ -66,11 +66,16 @@ include(nt2.compiler.options)
 ################################################################################
 # Build libnt2
 ################################################################################
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
+
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
+
 include_directories( ${PROJECT_SOURCE_DIR}/include)
+include_directories( ${PROJECT_BINARY_DIR}/include)
+
 file( GLOB_RECURSE source_files
       ${PROJECT_SOURCE_DIR}/src/*
       ${PROJECT_SOURCE_DIR}/include/*
+		${PROJECT_BINARY_DIR}/include/*
     )
 
 add_library(nt2 STATIC ${source_files} )
@@ -79,12 +84,21 @@ add_library(nt2 STATIC ${source_files} )
 # Install libnt2
 ################################################################################
 
+INSTALL( DIRECTORY ${PROJECT_SOURCE_DIR}/include
+         DESTINATION ${CMAKE_INSTALL_PREFIX} )
+INSTALL( DIRECTORY ${PROJECT_BINARY_DIR}/include
+         DESTINATION ${CMAKE_INSTALL_PREFIX} )
+
+INSTALL( TARGETS nt2
+	      LIBRARY DESTINATION lib/
+	      ARCHIVE DESTINATION lib/)
+
 ################################################################################
 # Add Documentation target
 ################################################################################
 ADD_CUSTOM_TARGET ( doc
                     COMMAND make html
-                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/doc
                   )
 
 ################################################################################

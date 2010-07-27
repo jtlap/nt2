@@ -6,9 +6,8 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.8)
 
-set(UNIT_TEST_PATH ${PROJECT_SOURCE_DIR}/bin/unit)
+set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/unit)
 
 ################################################################################
 # Add all unit directories for core/
