@@ -6,9 +6,7 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.8)
 
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET( SOURCES
     any.cpp
     cardinal_of.cpp
@@ -43,5 +41,5 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  ADD_TEST(${TEST} ${CMAKE_CURRENT_SOURCE_DIR}/${EXECUTABLE})
+  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()

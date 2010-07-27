@@ -8,7 +8,7 @@
 ################################################################################
 cmake_minimum_required(VERSION 2.8)
 
-set(UNIT_TEST_PATH ${PROJECT_SOURCE_DIR}/bin/bench)
+set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/bench)
 
 ################################################################################
 # Add all directories for benchmark/
