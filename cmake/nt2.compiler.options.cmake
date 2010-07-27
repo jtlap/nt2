@@ -16,7 +16,7 @@ include(CheckCXXCompilerFlag)
 # g++ command line
 ################################################################################
 IF(CMAKE_COMPILER_IS_GNUCXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_THREAD_LIBS_INIT}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 
@@ -92,6 +92,18 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
 message(STATUS "Enabling pedantic compilation")
 ENDIF(HAS_PEDANTIC)
 ENDIF(NT2_PEDANTIC)
+
+################################################################################
+# Add --std=c++0x
+################################################################################
+OPTION(NT2_0X "Enable/Disable C++0x" OFF)
+IF(NT2_0X)
+check_cxx_compiler_flag("--std=c++0x" HAS_0X)
+IF(HAS_0X)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x")
+message(STATUS "Enabling C++0x")
+ENDIF(HAS_0X)
+ENDIF(NT2_0X)
 
 ################################################################################
 # Handle all type of BUILD_TYPE:

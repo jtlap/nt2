@@ -16,7 +16,7 @@ Header File
 
   #include <nt2/sdk/errors/trap.hpp>
 
-.. _nt2_failure:
+.. _nt2_trap:
 
 Synopsis
 ^^^^^^^^

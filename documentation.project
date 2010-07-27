@@ -69,10 +69,26 @@
           <File Name="doc/source/sdk/concepts/category.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/concepts.rst"/>
+        <File Name="doc/source/sdk/functor.rst"/>
         <VirtualDirectory Name="functor">
+          <VirtualDirectory Name="entity">
+            <File Name="doc/source/sdk/functor/entity/call.rst"/>
+            <File Name="doc/source/sdk/functor/entity/functor.rst"/>
+            <File Name="doc/source/sdk/functor/entity/hierarchy.rst"/>
+            <File Name="doc/source/sdk/functor/entity/validate.rst"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="macros">
+            <File Name="doc/source/sdk/functor/macros/function.rst"/>
+            <File Name="doc/source/sdk/functor/macros/call.rst"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="meta">
+            <File Name="doc/source/sdk/functor/meta/belong_to.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/functor/entity.rst"/>
+          <File Name="doc/source/sdk/functor/macros.rst"/>
+          <File Name="doc/source/sdk/functor/meta.rst"/>
           <File Name="doc/source/sdk/functor/rationale.rst"/>
         </VirtualDirectory>
-        <File Name="doc/source/sdk/functor.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
         <File Name="doc/source/boost/todo.py"/>
@@ -107,6 +123,20 @@
         <File Name="doc/source/extension/custom_function.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="_static"/>
+      <VirtualDirectory Name="core">
+        <File Name="doc/source/core/timing.rst"/>
+        <VirtualDirectory Name="timing">
+          <File Name="doc/source/core/timing/classes.rst"/>
+          <File Name="doc/source/core/timing/ctic.rst"/>
+          <File Name="doc/source/core/timing/ctoc.rst"/>
+          <File Name="doc/source/core/timing/cycle_timer.rst"/>
+          <File Name="doc/source/core/timing/functions.rst"/>
+          <File Name="doc/source/core/timing/second_timer.rst"/>
+          <File Name="doc/source/core/timing/tic.rst"/>
+          <File Name="doc/source/core/timing/toc.rst"/>
+          <File Name="doc/source/core/timing/unbalanced_timing.rst"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
     </VirtualDirectory>
   </VirtualDirectory>
   <Description/>

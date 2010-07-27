@@ -9,14 +9,14 @@
 #ifndef NT2_SDK_ERRORS_DETAILS_MESSAGE_HPP_INCLUDED
 #define NT2_SDK_ERRORS_DETAILS_MESSAGE_HPP_INCLUDED
 
-#include <nt2/sdk/sys/string.hpp>
+#include <string>
 
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // Build a warning string from warning/assertion info
   //////////////////////////////////////////////////////////////////////////////
-  sys::string
+  std::string
   message ( const char* header, const char* msg
           , const char* fn, const char* file
           , int line

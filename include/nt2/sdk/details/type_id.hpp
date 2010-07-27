@@ -23,14 +23,14 @@
 
 #include <cstdlib>
 #include <typeinfo>
-#include <nt2/sdk/sys/string.hpp>
+#include <string>
 
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // demangle a type name retrieved through typeid()
   //////////////////////////////////////////////////////////////////////////////
-  inline sys::string demangle(const char* name)
+  inline std::string demangle(const char* name)
   {
     ////////////////////////////////////////////////////////////////////////////
     // use g++ ABI interface to perform demangling
@@ -43,19 +43,20 @@ namespace nt2 { namespace details
 
     if(realname != NULL)
     {
-      sys::string out(realname);
+      std::string out(realname);
       ::free(realname);
       return out;
     }
     else
     {
-      return sys::string("?");
+      return std::string("?");
     }
     #else
     ////////////////////////////////////////////////////////////////////////////
     // Other compiler don't need or can't do that, so just return the type name
     ////////////////////////////////////////////////////////////////////////////
-    return name;
+    std::string out(name);
+    return out;
     #endif
   }
 } }
@@ -65,19 +66,17 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   // Return a string containing the demangled typename of a given variable
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline sys::string type_id(const T& )
+  template<class T> inline std::string type_id(const T& )
   {
-    sys::string const demangled = details::demangle(typeid(T).name());
-    return demangled;
+    return details::demangle(typeid(T).name());
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // Return a string containing the demangled typename of a given type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline sys::string type_id()
+  template<class T> inline std::string type_id()
   {
-    sys::string const demangled = details::demangle(typeid(T).name());
-    return demangled;
+    return details::demangle(typeid(T).name());
   }
 }
 

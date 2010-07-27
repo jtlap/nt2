@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_ERRORS_DETAILS_ERROR_HPP_INCLUDED
 #define NT2_SDK_ERRORS_DETAILS_ERROR_HPP_INCLUDED
 
+#include <string>
 #include <boost/exception/all.hpp>
 #include <nt2/sdk/errors/details/warning.hpp>
 
@@ -25,31 +26,24 @@ namespace boost
     // When error becomes fatal, log+exit
     ////////////////////////////////////////////////////////////////////////////
     #if defined( NT2_ERROR_AS_FATAL )
-    #define NT2_ERROR_CONFIG_STRING "enabled as fatal errors"
-    nt2::details::emit_warning( e.what() );
+    nt2::details::emit_warning( std::string(e.what()) );
     exit(NT2_ERROR_EXIT_CODE);
     ////////////////////////////////////////////////////////////////////////////
     // When error becomes warning, log
     ////////////////////////////////////////////////////////////////////////////
     #elif defined(NT2_ERROR_AS_WARNING)
-    #define NT2_ERROR_CONFIG_STRING "enabled as warnings"
-    nt2::details::emit_warning( e.what() );
+    nt2::details::emit_warning( nt2::sys::string(e.what()) );
     ////////////////////////////////////////////////////////////////////////////
     // If not use custom handler if possible
     ////////////////////////////////////////////////////////////////////////////
     #elif defined(NT2_ERROR_HANDLER)
-    #define NT2_ERROR_CONFIG_STRING "user-defined"
     nt2::ext::emit_error(e);
-    #else
-    #define NT2_ERROR_CONFIG_STRING "disabled"
     #endif
     ////////////////////////////////////////////////////////////////////////////
     // If not, error are disabled
     ////////////////////////////////////////////////////////////////////////////
   }
 }
-#else
-#define NT2_ERROR_CONFIG_STRING "enabled"
 #endif
 
 #endif

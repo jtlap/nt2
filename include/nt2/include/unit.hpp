@@ -13,7 +13,7 @@
 // Unit Test components header
 // Documentation: http://nt2.lri.fr/sdk/unit.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/sys/string.hpp>
-#include <nt2/sdk/sys/timestamp.hpp>
+//#include <nt2/sdk/sys/string.hpp>
+//#include <nt2/sdk/sys/timestamp.hpp>
 
 #endif

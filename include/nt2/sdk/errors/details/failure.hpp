@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_ERRORS_DETAILS_FAILURE_HPP_INCLUDED
 #define NT2_SDK_ERRORS_DETAILS_FAILURE_HPP_INCLUDED
 
+#include <iostream>
 #include <nt2/sdk/errors/details/message.hpp>
 //#include <nt2/sdk/errors/details/exception.hpp>
 
@@ -17,19 +18,19 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Forward a fatal error string to the proper default or user-defined logger
   //////////////////////////////////////////////////////////////////////////////
-  inline void emit_failure( sys::string const& msg )
+  template<class T> static inline void emit_failure( T const& msg )
   {
     #if !defined(NT2_FATAL_HANDLER)
-    fprintf(stderr,"%s\n",msg.c_str());
+    std::cerr << msg << "\n";
     #else
-    nt2::ext::emit_failure(msg.c_str());
+    nt2::ext::emit_failure(msg);
     #endif
   }
 
 } }
 
 #define NT2_EMIT_FAILURE(Message)                           \
-nt2::details::emit_failure(                                   \
+nt2::details::emit_failure(                                 \
     nt2::details::message ( "NT2 FAILURE"                   \
                           , Message,BOOST_CURRENT_FUNCTION  \
                           , __FILE__,__LINE__)              \

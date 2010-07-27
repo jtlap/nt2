@@ -9,7 +9,10 @@
 cmake_minimum_required(VERSION 2.8)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
-SET(SOURCES string.cpp)
+SET(SOURCES
+    cycle_timer.cpp
+    second_timer.cpp    
+   )
 
 ################################################################################
 # For each filename
@@ -18,13 +21,12 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".test" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-test" TEST "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".sample" EXECUTABLE "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  ADD_TEST(${TEST} ${CMAKE_CURRENT_SOURCE_DIR}/${EXECUTABLE})
 ENDFOREACH()
+

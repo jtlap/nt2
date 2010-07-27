@@ -206,7 +206,7 @@ htmlhelp_basename = 'nt2doc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'nt2.tex', u'nt2 Documentation',
+  ('contents', 'nt2.tex', u'nt2 Documentation',
    u'Joel Falcou, Jean-Thierry Lapresté', 'manual'),
 ]
 

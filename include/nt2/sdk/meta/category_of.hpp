@@ -46,24 +46,14 @@ namespace nt2 { namespace meta
   // User interface for category_of
   // Including specialization for volatile and cv-qualified types
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  category_of                     : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<T const>            : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<T&>                 : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<T const&>           : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<volatile T>         : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<volatile T&>        : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<volatile T const>   : details::category_of_impl<T> {};
-  template<class T>
-  struct  category_of<volatile T const&>  : details::category_of_impl<T> {};
-
-  //* TODO : add scalar specialization in functor/
+  template<class T> struct  category_of       : details::category_of_impl<T> {};
+  template<class T> struct  category_of<T const>            : category_of<T> {};
+  template<class T> struct  category_of<T&>                 : category_of<T> {};
+  template<class T> struct  category_of<T const&>           : category_of<T> {};
+  template<class T> struct  category_of<volatile T>         : category_of<T> {};
+  template<class T> struct  category_of<volatile T&>        : category_of<T> {};
+  template<class T> struct  category_of<volatile T const>   : category_of<T> {};
+  template<class T> struct  category_of<volatile T const&>  : category_of<T> {};
 } }
 
 #endif

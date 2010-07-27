@@ -25,16 +25,16 @@ struct chu_tag {};
 struct moo_tag {};
 
 struct  foo_category
-      : nt2::tag::category<foo_category,0,0> { typedef foo_tag tag; };
+      : nt2::tag::category<foo_category,0,1> { typedef foo_tag tag; };
 
 struct  bar_category
-      : nt2::tag::category<bar_category,0,1> { typedef bar_tag tag; };
+      : nt2::tag::category<bar_category,0,2> { typedef bar_tag tag; };
 
 struct  chu_category
-      : nt2::tag::category<chu_category,1,0> { typedef chu_tag tag; };
+      : nt2::tag::category<chu_category,1,1> { typedef chu_tag tag; };
 
 struct  moo_category
-      : nt2::tag::category<moo_category,1,1> { typedef moo_tag tag; };
+      : nt2::tag::category<moo_category,1,2> { typedef moo_tag tag; };
 
 struct foo_ { typedef foo_category nt2_category_tag; };
 struct bar_ { typedef bar_category nt2_category_tag; };

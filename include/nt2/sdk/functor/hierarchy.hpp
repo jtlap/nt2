@@ -13,7 +13,7 @@
 // Pre-made types hierarchy used for internal tag dispatching.
 //* TODO Documentation: http://nt2.lri.fr/sdk/functor/hierarchy.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/cstdint.hpp>
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/join.hpp>
 

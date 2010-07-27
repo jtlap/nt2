@@ -36,7 +36,8 @@ namespace nt2 { namespace meta
                                       >
   struct set
   {
-    typedef void is_set_type;
+    typedef void  is_set_type;
+    typedef set   type;
     template<class T,class X=void> struct has_key : boost::mpl::false_ {};
   };
 
@@ -49,7 +50,8 @@ namespace nt2 { namespace meta
   template<BOOST_PP_ENUM_PARAMS(n,class A)>     \
   struct  set<BOOST_PP_ENUM_PARAMS(n,A)>        \
   {                                             \
-    typedef void is_set_type;                   \
+    typedef void  is_set_type;                  \
+    typedef set   type;                         \
     template<class T,class X=void>              \
     struct has_key : boost::mpl::false_ {};     \
     BOOST_PP_REPEAT(n,M0,~)                     \
