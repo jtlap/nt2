@@ -10,10 +10,11 @@
 #define NT2_INCLUDE_ERRORS_HPP_INCLUDED
 
 #include <nt2/sdk/errors/trap.hpp>
-#include <nt2/sdk/errors/error.hpp>
-#include <nt2/sdk/errors/failure.hpp>
-#include <nt2/sdk/errors/warning.hpp>
-#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/errors/debug.hpp>
+#include <nt2/sdk/errors/assert.hpp>
+//#include <nt2/sdk/errors/error.hpp>
 #include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/errors/warning.hpp>
 
 #endif

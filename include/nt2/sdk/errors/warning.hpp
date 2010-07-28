@@ -10,85 +10,35 @@
 #define NT2_SDK_ERRORS_WARNING_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Warning Reporting System
+// Compile-time warning
 // Documentation: http://nt2.lri.fr/sdk/errors/warning.html
-// Documentation: http://nt2.lri.fr/sdk/errors/config.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/details/warning.hpp>
+#include <nt2/sdk/config/compiler.hpp>
+#include <boost/preprocessor/stringize.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Verbose report
+// Activate only in VERBOSE MODE
 ////////////////////////////////////////////////////////////////////////////////
-#if defined( NT2_VERBOSE )
-  #if defined(NT2_WARNING_AS_FAILURE)
-    #warning Warnings requalified as failures
-  #elif defined(NT2_WARNING_AS_ERROR)
-    #warning Warnings requalified as errors
-  #elif defined(NT2_CUSTOM_WARNING)
-    #warning Warnings handled by user
-  #elif defined( NT2_DISABLE_WARNING)
-    #warning Warnings disabled
-  #else
-    #warning Warnings enabled
-  #endif
+#if defined(NT2_VERBOSE)
+#if defined(NT2_COMPILER_MSVC)
+////////////////////////////////////////////////////////////////////////////////
+// #pragma message on MSVC is dim so we add some info
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_WARNING_LOCATION __FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) ") : "
+#define NT2_WARN(exp) (NT2_WARNING_LOCATION "[NT2 WARNING] -- " exp)
+#define NT2_WARNING(X) __pragma( BOOST_PP_STRINGIZE(message NT2_WARN(X)) )
+#elif defined(NT2_COMPILER_GNU_C)
+////////////////////////////////////////////////////////////////////////////////
+// #pragma message on g++ just need a call to _Pragma
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_WARN(exp) "[NT2 WARNING] -- " #exp
+#define NT2_WARNING(X) _Pragma( BOOST_PP_STRINGIZE(message NT2_WARN(X)) )
 #endif
-
-////////////////////////////////////////////////////////////////////////////////
-// Configuration string
-////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_WARNING_AS_FAILURE)
-  #define NT2_WARNING_CONFIG_STRING "enabled as failures"
-#elif defined(NT2_WARNING_AS_ERROR)
-  #define NT2_WARNING_CONFIG_STRING "enabled as errors"
-#elif defined(NT2_CUSTOM_WARNING)
-  #define NT2_WARNING_CONFIG_STRING "user-defined"
-#elif defined( NT2_DISABLE_WARNING)
-  #define NT2_WARNING_CONFIG_STRING "disabled"
 #else
-  #define NT2_WARNING_CONFIG_STRING "enabled"
-#endif
-
 ////////////////////////////////////////////////////////////////////////////////
-// Warning can be requalified as Failure
+// In non-VERBOSE MODE, NT2_WARNING is no-op
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_WARNING_AS_FAILURE)
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Option to set exit code for failure warning
-  //////////////////////////////////////////////////////////////////////////////
-  #ifndef NT2_WARNING_EXIT_CODE
-    #define NT2_WARNING_EXIT_CODE EXIT_FAILURE
-  #endif
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Fatal warning display an error then exit
-  //////////////////////////////////////////////////////////////////////////////
-  #include <nt2/sdk/errors/details/failure.hpp>
-
-  #define NT2_WARNING(MSG)                                          \
-  do { NT2_EMIT_FAILURE(MSG); exit(NT2_WARNING_EXIT_CODE); } while(0) \
-
-////////////////////////////////////////////////////////////////////////////////
-// Warning can be requalified as Errors
-////////////////////////////////////////////////////////////////////////////////
-#elif defined(NT2_WARNING_AS_ERROR)
-#define NT2_WARNING(MSG)                                              \
-NT2_ERROR( nt2::warning_exception() << nt2::details::warning_(MSG) )  \
-/**/
-
-////////////////////////////////////////////////////////////////////////////////
-// Regular warning
-////////////////////////////////////////////////////////////////////////////////
-#elif !defined(NT2_DISABLE_WARNING)
-#include <boost/current_function.hpp>
-
-#define NT2_WARNING(MSG) NT2_EMIT_WARNING(MSG)
-
-////////////////////////////////////////////////////////////////////////////////
-// Disabled warnings
-////////////////////////////////////////////////////////////////////////////////
-#else
-#define NT2_WARNING(MSG)
+#define NT2_WARNING(X)
 #endif
 
 #endif
