@@ -15,10 +15,6 @@
     ||  defined(_M_PPC)       || defined(_ARCH_PPC)   \
     ||  defined(DOXYGEN_ONLY)
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: Power PC architecture detected.
-    #endif
-
     #define NT2_ARCH_DETECTED
     #define NT2_ARCH_POWERPC
     #define NT2_ARCH_STRING "Power  PC"

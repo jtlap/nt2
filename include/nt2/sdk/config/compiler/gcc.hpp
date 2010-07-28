@@ -10,11 +10,7 @@
 #define NT2_SDK_CONFIG_COMPILER_GCC_HPP_INCLUDED
 
 #if !defined(NT2_COMPILER_DETECTED)
-  #if defined(__GNUC__) || defined(DOXYGEN_ONLY)
-
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: GNU C/C++ compiler detected.
-    #endif
+  #if defined(__GNUC__)
 
     #define NT2_COMPILER_DETECTED
     #define NT2_COMPILER_GNU_C

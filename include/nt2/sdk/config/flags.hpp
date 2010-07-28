@@ -9,18 +9,7 @@
 #ifndef NT2_SDK_CONFIG_FLAGS_HPP_INCLUDED
 #define NT2_SDK_CONFIG_FLAGS_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// VERBOSE Mode informations on additional config macros
-// Documentation: http://nt2.lri.fr/sdk/config/flags.html
-////////////////////////////////////////////////////////////////////////////////
-#ifdef NT2_VERBOSE
-  #if !defined(BOOST_NO_EXCEPTIONS)
-    #warning NT2 Configuration: Exception enabled
-  #endif
-  #if defined(NT2_USE_CONCEPTS)
-    #warning NT2 Configuration: Concepts checking activated
-  #endif
-#endif
+#include <nt2/sdk/errors/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Setup some additional string macros

@@ -13,10 +13,6 @@
   #if     defined(__i386__)       || defined(_M_IX86)     \
       ||  defined(__THW_INTEL__)  || defined(DOXYGEN_ONLY)\
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: X86 architecture detected.
-    #endif
-
     #define NT2_ARCH_DETECTED
     #define NT2_ARCH_X86
     #define NT2_ARCH_STRING "Intel x86"

@@ -14,10 +14,6 @@
       defined(__amd64__) || defined(__amd64) || defined(__x86_64__) ||\
       defined(__x86_64)  || defined(DOXYGEN_ONLY)                     \
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: Intel IA64 architecture detected.
-    #endif
-
     #define NT2_ARCH_DETECTED
     #define NT2_ARCH_IA64
     #define NT2_ARCH_STRING "Intel 64"

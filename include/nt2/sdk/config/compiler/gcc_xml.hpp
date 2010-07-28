@@ -12,11 +12,8 @@
 #if !defined(NT2_COMPILER_DETECTED)
   #if defined(__GCCXML__) || defined(DOXYGEN_ONLY)
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: GNU XML C/C++ compiler detected.
-    #endif
-
     #define NT2_COMPILER_DETECTED
+    #define NT2_COMPILER_GNU_C
     #define NT2_COMPILER_GNU_C_XML
     #define NT2_COMPILER_STRING   BOOST_COMPILER
 

@@ -89,7 +89,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_HAS_MMX_SUPPORT
 #define NT2_HAS_SSE2_SUPPORT
-/* #undef NT2_HAS_SSE3_SUPPORT */
+#define NT2_HAS_SSE3_SUPPORT
 #define NT2_HAS_SSSE3_SUPPORT
 /* #undef NT2_HAS_SSE4_1_SUPPORT */
 /* #undef NT2_HAS_SSE4_2_SUPPORT */
