@@ -10,9 +10,6 @@
 #define NT2_CORE_TIMING_IMPL_NONE_HPP_INCLUDED
 
 #if !defined(NT2_TIMING_DETECTED)
-#if defined(NT2_VERBOSE)
-#warning NT2 Timing : Using std::clock
-#endif
 
 #define NT2_TIMING_DETECTED
 #include <ctime>
