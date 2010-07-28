@@ -6,18 +6,22 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SYS_TIMESTAMP_HPP_INCLUDED
-#define NT2_SDK_SYS_TIMESTAMP_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// Date to string formatting function
-// Documentation: http://nt2.lri.fr/sdk/sys/timestamp.html
-////////////////////////////////////////////////////////////////////////////////
-#include <string>
+#include <time.h>
+#include <nt2/sdk/details/timestamp.hpp>
 
 namespace nt2 { namespace sys
 {
-  std::string timestamp();
-} }
+  //////////////////////////////////////////////////////////////////////////////
+  // Return a string with time stamp in readable human format
+  //////////////////////////////////////////////////////////////////////////////
+  std::string timestamp()
+  {
+    time_t rawtime;
+    char buffer[64];
 
-#endif
+    time(&rawtime);
+    strftime(buffer,64,"%c",localtime(&rawtime));
+
+    return std::string(buffer);
+  }
+} }

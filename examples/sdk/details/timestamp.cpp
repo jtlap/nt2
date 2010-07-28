@@ -1,5 +1,5 @@
 #include <cstdio>
-#include <nt2/sdk/sys/timestamp.hpp>
+#include <nt2/sdk/details/timestamp.hpp>
 
 int main()
 {

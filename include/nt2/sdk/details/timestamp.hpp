@@ -6,21 +6,18 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_ERRORS_DETAILS_MESSAGE_HPP_INCLUDED
-#define NT2_SDK_ERRORS_DETAILS_MESSAGE_HPP_INCLUDED
+#ifndef NT2_SDK_DETAILS_TIMESTAMP_HPP_INCLUDED
+#define NT2_SDK_DETAILS_TIMESTAMP_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Date to string formatting function
+// Documentation: http://nt2.lri.fr/sdk/sys/timestamp.html
+////////////////////////////////////////////////////////////////////////////////
 #include <string>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace sys
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a warning string from warning/assertion info
-  //////////////////////////////////////////////////////////////////////////////
-  std::string
-  message ( const char* header, const char* msg
-          , const char* fn, const char* file
-          , int line
-          );
+  std::string timestamp();
 } }
 
 #endif
