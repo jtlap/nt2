@@ -14,9 +14,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/warning.hpp>
 
-#if defined(NT2_DEBUG) && defined(NT2_RELEASE)
+#if defined(NT2_RELEASE)
+#define NDEBUG
+#define NT2_DISABLE_ASSERTS
+#define BOOST_DISABLE_ASSERTS
 #undef NT2_DEBUG
-NT2_WARNING(Compiling in both Debug and Release - Forcing Release Mode)
+NT2_WARNING(Compiling In Release Configuration)
 #endif
 
 #if defined(NT2_DEBUG)
@@ -26,13 +29,9 @@ NT2_WARNING(Compiling in both Debug and Release - Forcing Release Mode)
 NT2_WARNING(Compiling with Debug Informations)
 #endif
 
-#if defined(NT2_RELEASE)
-#define NDEBUG
-#define NT2_DISABLE_ASSERTS
-#define BOOST_DISABLE_ASSERTS
-NT2_WARNING(Compiling In Release Configuration)
-#endif
-
+////////////////////////////////////////////////////////////////////////////////
+// Assertions disabled in one way are disbaled the other way around
+////////////////////////////////////////////////////////////////////////////////
 #if defined(BOOST_DISABLE_ASSERTS) && !defined(NT2_DISABLE_ASSERTS)
 #define NT2_DISABLE_ASSERTS
 #endif

@@ -41,14 +41,14 @@ NT2_WARNING(Exceptions globally disabled)
 ////////////////////////////////////////////////////////////////////////////////
 #if !defined(NT2_DISABLE_ERROR)
 #include <nt2/sdk/errors/details/exception.hpp>
-#define NT2_ERROR(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
+#define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Disabled errors
 ////////////////////////////////////////////////////////////////////////////////
 #else
-#define NT2_ERROR(EXP)
+#define NT2_THROW(EXP)
 #endif
 
 #endif

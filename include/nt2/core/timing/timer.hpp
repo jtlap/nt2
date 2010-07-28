@@ -10,8 +10,7 @@
 #define NT2_CORE_TIMING_TIMER_HPP_INCLUDED
 
 #include <stack>
-#include <nt2/sdk/errors/error.hpp>
-#include <nt2/core/timing/exceptions.hpp>
+#include <nt2/sdk/errors/assert.hpp>
 
 namespace nt2
 {
@@ -31,7 +30,7 @@ namespace nt2
 
       type toc( bool display ) const
       {
-        if(empty()) NT2_ERROR(time::unbalanced_timing());
+        NT2_ASSERT(!empty() && "Unbalanced timing calls");
         type t = time()-times().top();
         times().pop();
         if(display) timer_type::Print(t);
