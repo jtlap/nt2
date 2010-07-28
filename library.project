@@ -3,9 +3,7 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="src/errors.cpp"/>
-    <File Name="src/sys.cpp"/>
-    <File Name="src/string.cpp"/>
+    <File Name="src/timestamp.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <VirtualDirectory Name="nt2">
@@ -39,33 +37,27 @@
           </VirtualDirectory>
           <File Name="include/nt2/sdk/config/flags.hpp"/>
           <File Name="include/nt2/sdk/config/types.hpp"/>
+          <File Name="include/nt2/sdk/config/software.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="details">
           <File Name="include/nt2/sdk/details/ignore_unused.hpp"/>
           <File Name="include/nt2/sdk/details/preprocessor.hpp"/>
           <File Name="include/nt2/sdk/details/type_id.hpp"/>
-        </VirtualDirectory>
-        <VirtualDirectory Name="sys">
-          <File Name="include/nt2/sdk/sys/string.hpp"/>
-          <File Name="include/nt2/sdk/sys/timestamp.hpp"/>
-          <File Name="include/nt2/sdk/sys/config.hpp"/>
+          <File Name="include/nt2/sdk/details/timestamp.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="errors">
           <VirtualDirectory Name="details">
-            <File Name="include/nt2/sdk/errors/details/warning.hpp"/>
-            <File Name="include/nt2/sdk/errors/details/error.hpp"/>
             <File Name="include/nt2/sdk/errors/details/exception.hpp"/>
-            <File Name="include/nt2/sdk/errors/details/message.hpp"/>
-            <File Name="include/nt2/sdk/errors/details/failure.hpp"/>
             <File Name="include/nt2/sdk/errors/details/trap.hpp"/>
+            <File Name="include/nt2/sdk/errors/details/error.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/errors/warning.hpp"/>
           <File Name="include/nt2/sdk/errors/concepts.hpp"/>
           <File Name="include/nt2/sdk/errors/static_assert.hpp"/>
           <File Name="include/nt2/sdk/errors/error.hpp"/>
-          <File Name="include/nt2/sdk/errors/config.hpp"/>
-          <File Name="include/nt2/sdk/errors/failure.hpp"/>
           <File Name="include/nt2/sdk/errors/trap.hpp"/>
+          <File Name="include/nt2/sdk/errors/assert.hpp"/>
+          <File Name="include/nt2/sdk/errors/debug.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="unit">
           <File Name="include/nt2/sdk/unit/module.hpp"/>
@@ -141,6 +133,15 @@
             <File Name="include/nt2/sdk/memory/details/store.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/memory/store.hpp"/>
+          <VirtualDirectory Name="meta">
+            <File Name="include/nt2/sdk/memory/meta/is_power_of_2.hpp"/>
+            <File Name="include/nt2/sdk/memory/meta/next_power_of_2.hpp"/>
+            <File Name="include/nt2/sdk/memory/meta/is_aligned.hpp"/>
+            <File Name="include/nt2/sdk/memory/meta/align_on.hpp"/>
+          </VirtualDirectory>
+          <File Name="include/nt2/sdk/memory/is_aligned.hpp"/>
+          <File Name="include/nt2/sdk/memory/align_on.hpp"/>
+          <File Name="include/nt2/sdk/memory/pointer.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>
@@ -166,9 +167,7 @@
           <File Name="include/nt2/sdk/meta/is_scalar.hpp"/>
           <File Name="include/nt2/sdk/meta/lcm.hpp"/>
         </VirtualDirectory>
-        <VirtualDirectory Name="settings">
-          <File Name="include/nt2/sdk/config.hpp"/>
-        </VirtualDirectory>
+        <VirtualDirectory Name="settings"/>
         <VirtualDirectory Name="simd"/>
         <VirtualDirectory Name="machine"/>
         <VirtualDirectory Name="constant">
@@ -177,6 +176,7 @@
             <File Name="include/nt2/sdk/constant/details/splat.hpp"/>
           </VirtualDirectory>
         </VirtualDirectory>
+        <File Name="include/nt2/sdk/config.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="include">
         <File Name="include/nt2/include/config.hpp"/>

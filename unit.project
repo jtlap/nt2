@@ -5,10 +5,6 @@
   <VirtualDirectory Name="nt2">
     <VirtualDirectory Name="unit">
       <VirtualDirectory Name="sdk">
-        <VirtualDirectory Name="sys">
-          <File Name="unit/sdk/sys/CMakeLists.txt"/>
-          <File Name="unit/sdk/sys/string.cpp"/>
-        </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="unit/sdk/meta/CMakeLists.txt"/>
           <File Name="unit/sdk/meta/set.cpp"/>
@@ -27,6 +23,14 @@
           <File Name="unit/sdk/functor/category.cpp"/>
           <File Name="unit/sdk/functor/belong_to.cpp"/>
           <File Name="unit/sdk/functor/find_type.cpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="memory">
+          <File Name="unit/sdk/memory/align_on.cpp"/>
+          <File Name="unit/sdk/memory/CMakeLists.txt"/>
+          <File Name="unit/sdk/memory/is_power_of_2.cpp"/>
+          <File Name="unit/sdk/memory/next_power_of_2.cpp"/>
+          <File Name="unit/sdk/memory/is_aligned.cpp"/>
+          <File Name="unit/sdk/memory/pointer.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
