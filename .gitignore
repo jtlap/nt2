@@ -16,6 +16,7 @@
 *.session
 *.sample
 *.test
+*.bench
 
 ################################################################################
 # Ignore CMake generated files
