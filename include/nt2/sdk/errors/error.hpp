@@ -16,7 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/details/error.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
-#include <nt2/sdk/errors/details/failure.hpp>
 #include <nt2/sdk/errors/details/warning.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 
@@ -36,15 +35,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 #if defined( NT2_VERBOSE )
   #if defined(NT2_ERROR_AS_WARNING)
-    #warning Errors requalified as warnings
+//    #warning Errors requalified as warnings
   #elif defined(NT2_ERROR_AS_FAILURE)
-    #warning Errors requalified as failures
+//    #warning Errors requalified as failures
   #elif defined(NT2_CUSTOM_ERROR)
-    #warning Errors handled by user
+    //#warning Errors handled by user
   #elif defined(NT2_DISABLE_ERROR)
-    #warning Errors disabled
+    //#warning Errors disabled
   #else
-    #warning Errors enabled
+    //#warning Errors enabled
   #endif
 #endif
 
