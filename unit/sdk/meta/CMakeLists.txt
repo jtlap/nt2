@@ -22,7 +22,6 @@ SET( SOURCES
 # TODO:
 # *adapted_traits.cpp
 # *behave_as.cpp
-# gcd.cpp
 # lcm.cpp
 #####
 
