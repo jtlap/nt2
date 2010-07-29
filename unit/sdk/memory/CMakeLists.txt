@@ -14,6 +14,8 @@ SET( SOURCES
     next_power_of_2.cpp
     align_on.cpp
     is_aligned.cpp
+    make_aligned.cpp
+    pointer.cpp
   )
 
 ####
