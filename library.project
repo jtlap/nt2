@@ -58,6 +58,7 @@
           <File Name="include/nt2/sdk/errors/trap.hpp"/>
           <File Name="include/nt2/sdk/errors/assert.hpp"/>
           <File Name="include/nt2/sdk/errors/debug.hpp"/>
+          <File Name="include/nt2/sdk/errors/config.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="unit">
           <File Name="include/nt2/sdk/unit/module.hpp"/>
@@ -138,10 +139,12 @@
             <File Name="include/nt2/sdk/memory/meta/next_power_of_2.hpp"/>
             <File Name="include/nt2/sdk/memory/meta/is_aligned.hpp"/>
             <File Name="include/nt2/sdk/memory/meta/align_on.hpp"/>
+            <File Name="include/nt2/sdk/memory/meta/make_aligned.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/memory/is_aligned.hpp"/>
           <File Name="include/nt2/sdk/memory/align_on.hpp"/>
           <File Name="include/nt2/sdk/memory/pointer.hpp"/>
+          <File Name="include/nt2/sdk/memory/config.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>
