@@ -11,6 +11,7 @@
 
 #include <cstddef>
 #include <boost/utility/enable_if.hpp>
+#include <nt2/sdk/config/bootstrap.hpp>
 #include <nt2/sdk/memory/meta/is_power_of_2.hpp>
 
 namespace nt2 { namespace memory
@@ -39,6 +40,22 @@ namespace nt2 { namespace memory
   align_on( T* ptr )
   {
     return reinterpret_cast<T*>(align_on<N>(reinterpret_cast<std::size_t>(ptr)));
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Align a runtime value onto current alignment value
+  //////////////////////////////////////////////////////////////////////////////
+  static inline std::size_t align_on( std::size_t value )
+  {
+    return align_on<NT2_CONFIG_ALIGNMENT>(value);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Align a pointer onto current alignment value
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T> static inline T* align_on( T* ptr )
+  {
+    return align_on<NT2_CONFIG_ALIGNMENT>(ptr);
   }
 } }
 
