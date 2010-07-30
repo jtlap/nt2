@@ -1,15 +1,14 @@
 .. _warnings:
 
-Warnings
-========
+Compile-time Warnings
+=====================
 
 Description
 ^^^^^^^^^^^
 
-Some function or methods may want to report some misbehavior by warning the user
-that something strange but not necessarily wrong happened. The ``NT2_WARNING``
-macro actually reports a message to the user by sending it to some predefined
-output that can be examined later.
+Some configuration or file inclusion need to warn the user about some errors or
+incorrect parametrization during compile-time. If ``gcc`` provide a helpful
+``#pragma warning`` construct, it is not portable. The followign macro fix this.
 
 Header File
 ^^^^^^^^^^^
@@ -35,5 +34,5 @@ Synopsis
 
 Description
 ------------
-By default, this macro send a formatted message including date, time, file, line,
-function name and user message indicating that a warning was emitted.
+Emit a message during compile-time to warn about a file-level error or
+misconfiguration.
