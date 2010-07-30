@@ -17,9 +17,6 @@ execute_process(COMMAND getconf _NPROCESSORS_ONLN
                )
 ENDIF()
 
-if(DARWIN)
-endif(DARWIN)
-
 IF(WINDOWS)
 ################################################################################
 # Compile a small cpu counter program then run it
@@ -30,8 +27,8 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
        )
 
 IF(${COMPILE_RESULT_VAR})
-  message(STATUS "cpu count ${RUN_RESULT_VAR}")
   set(${NT2_CONFIG_CPU_COUNT} ${RUN_RESULT_VAR})
 ENDIF()
 
 ENDIF()
+
