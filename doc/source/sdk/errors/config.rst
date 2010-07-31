@@ -32,7 +32,8 @@ NT2_DISABLE_ASSERTS
   single: NT2_DISABLE_ASSERTS
 
 If defined, runtime assertion are suppressed, forcing :ref:`nt2_assert` to
-perform a no-op instead. THis options takes precedence over :ref:`nt2_`
+perform a no-op instead. This options takes precedence over
+:ref:`nt2_asserts_as_exceptions`
 
 Reports Custom Handlers
 -----------------------
@@ -49,15 +50,3 @@ The user-defined function that must be implemented in those case are:
 
 Reports Downgrade
 -----------------
-
-.. index::
-  single: NT2_ERROR_AS_WARNING
-  single: NT2_FAILURE_AS_WARNING
-  single: NT2_FAILURE_AS_ERROR
-
-Any reporting macro can be downgraded to the previous level by using one of the following
-symbol.
-
-* ``NT2_ERROR_AS_WARNING``: If defined, all calls to :ref:`nt2_error` will emit :ref:`warnings`
-* ``NT2_FAILURE_AS_WARNING``: If defined, all calls to :ref:`nt2_failures` will emit :ref:`warnings`
-* ``NT2_FAILURE_AS_ERROR``: If defined, all calls to :ref:`nt2_failures` will emit :ref:`errors`

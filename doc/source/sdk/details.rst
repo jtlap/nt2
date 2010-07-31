@@ -15,4 +15,5 @@ or platform.
    details/ignore_unused
    details/include
    details/preprocessor
+   details/timestamp
    details/type_id

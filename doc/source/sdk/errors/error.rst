@@ -27,7 +27,7 @@ NT2_THROW
 
 .. code-block:: cpp
 
-  #define NT2_ERROR(X)
+  #define NT2_THROW(X)
 
 **Description:**
 If exceptions are enabled, throws the exception passed as arguments. If not,

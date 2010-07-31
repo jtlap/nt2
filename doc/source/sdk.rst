@@ -24,14 +24,12 @@ Those tools are gathered in five categories:
    sdk/config
    sdk/errors
    sdk/details
-   sdk/sys
 
 .. rubric:: Architecture Abstraction and Configuration
 
 .. toctree::
    :maxdepth: 1
 
-   sdk/aligned
    sdk/memory
    sdk/simd
    sdk/threading

@@ -7,20 +7,22 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add all examples directories for core/
-################################################################################
-ADD_SUBDIRECTORY(core/timing)
+SET(SOURCES
+    belong_to.cpp
+   )
 
 ################################################################################
-# Add all examples directories for sdk/
+# For each filename
 ################################################################################
-ADD_SUBDIRECTORY(sdk/config)
-ADD_SUBDIRECTORY(sdk/details)
-#ADD_SUBDIRECTORY(sdk/errors)
-ADD_SUBDIRECTORY(sdk/meta)
-ADD_SUBDIRECTORY(sdk/functor)
-#ADD_SUBDIRECTORY(sdk/memory)
-#ADD_SUBDIRECTORY(sdk/constants)
-#ADD_SUBDIRECTORY(sdk/simd)
+FOREACH( EXAMPLE ${SOURCES})
+  ##############################################################################
+  # Build the executable filename from the example source filename
+  ##############################################################################
+  STRING(REGEX REPLACE ".cpp" ".sample" EXECUTABLE "${EXAMPLE}")
+
+  ##############################################################################
+  # Add as a target
+  ##############################################################################
+  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
+ENDFOREACH()
 

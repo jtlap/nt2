@@ -67,5 +67,5 @@ If not, equivalent to:
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../examples/src/belong_to.cpp
+.. literalinclude:: ../../../../../examples/sdk/functor/belong_to.cpp
    :language: cpp

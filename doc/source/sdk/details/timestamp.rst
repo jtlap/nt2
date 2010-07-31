@@ -45,5 +45,5 @@ formatted date and time.
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../examples/sdk/sys/timestamp.cpp
+.. literalinclude:: ../../../../examples/sdk/details/timestamp.cpp
    :language: cpp
