@@ -67,17 +67,13 @@ namespace nt2 {  namespace memory
                                           >::type* = 0
             )
     {
-      NT2_ASSERT(   is_aligned(src)
-                &&  "pointer_ built from invalid raw pointer"
-                );
+      NT2_ASSERT( is_aligned(src) );
       px = src;
     }
 
     explicit pointer_( void* src )
     {
-      NT2_ASSERT(   is_aligned(src)
-                &&  "pointer_ built from invalid raw pointer"
-                );
+      NT2_ASSERT( is_aligned(src) );
       px = reinterpret_cast<T*>(src);
     }
 
@@ -172,17 +168,13 @@ namespace nt2 {  namespace memory
     typename boost::enable_if_c< boost::is_convertible<U*,T*>::value >::type
     reset( U* src )
     {
-      NT2_ASSERT(   is_aligned(src)
-                &&  "pointer_ reset with invalid raw pointer"
-                );
+      NT2_ASSERT( is_aligned(src) );
       px = src;
     }
 
     void reset( void* src )
     {
-      NT2_ASSERT(   is_aligned(src)
-                &&  "pointer_ reset with invalid raw pointer"
-                );
+      NT2_ASSERT( is_aligned(src) );
       px = reinterpret_cast<T*>(src);
     }
 
