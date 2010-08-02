@@ -21,13 +21,9 @@
           <File Name="doc/source/sdk/details/include.rst"/>
           <File Name="doc/source/sdk/details/preprocessor.rst"/>
           <File Name="doc/source/sdk/details/type_id.rst"/>
+          <File Name="doc/source/sdk/details/timestamp.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/details.rst"/>
-        <File Name="doc/source/sdk/sys.rst"/>
-        <VirtualDirectory Name="sys">
-          <File Name="doc/source/sdk/sys/string.rst"/>
-          <File Name="doc/source/sdk/sys/timestamp.rst"/>
-        </VirtualDirectory>
         <VirtualDirectory Name="errors">
           <File Name="doc/source/sdk/errors/concept.rst"/>
           <File Name="doc/source/sdk/errors/static_assert.rst"/>
@@ -53,7 +49,6 @@
             <File Name="doc/source/sdk/meta/set/join.rst"/>
           </VirtualDirectory>
           <File Name="doc/source/sdk/meta/sets.rst"/>
-          <File Name="doc/source/sdk/meta/na.rst"/>
           <VirtualDirectory Name="tag">
             <File Name="doc/source/sdk/meta/tag/unknown.rst"/>
           </VirtualDirectory>
@@ -63,6 +58,15 @@
             <File Name="doc/source/sdk/meta/category/category.rst"/>
           </VirtualDirectory>
           <File Name="doc/source/sdk/meta/categories.rst"/>
+          <File Name="doc/source/sdk/meta/helper.rst"/>
+          <VirtualDirectory Name="helper">
+            <File Name="doc/source/sdk/meta/helper/enable_if_type.rst"/>
+            <File Name="doc/source/sdk/meta/helper/na.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/meta/algo.rst"/>
+          <VirtualDirectory Name="algo">
+            <File Name="doc/source/sdk/meta/algo/any.rst"/>
+          </VirtualDirectory>
         </VirtualDirectory>
         <File Name="doc/source/sdk/meta.rst"/>
         <VirtualDirectory Name="concept">
@@ -88,6 +92,25 @@
           <File Name="doc/source/sdk/functor/macros.rst"/>
           <File Name="doc/source/sdk/functor/meta.rst"/>
           <File Name="doc/source/sdk/functor/rationale.rst"/>
+        </VirtualDirectory>
+        <File Name="doc/source/sdk/memory.rst"/>
+        <VirtualDirectory Name="memory">
+          <VirtualDirectory Name="function">
+            <File Name="doc/source/sdk/memory/function/align_on.rst"/>
+            <File Name="doc/source/sdk/memory/function/is_aligned.rst"/>
+          </VirtualDirectory>
+          <VirtualDirectory Name="meta">
+            <File Name="doc/source/sdk/memory/meta/align_on.rst"/>
+            <File Name="doc/source/sdk/memory/meta/align_on_c.rst"/>
+            <File Name="doc/source/sdk/memory/meta/is_aligned.rst"/>
+            <File Name="doc/source/sdk/memory/meta/is_aligned_c.rst"/>
+            <File Name="doc/source/sdk/memory/meta/is_power_of_2.rst"/>
+            <File Name="doc/source/sdk/memory/meta/is_power_of_2_c.rst"/>
+            <File Name="doc/source/sdk/memory/meta/next_power_of_2.rst"/>
+            <File Name="doc/source/sdk/memory/meta/next_power_of_2_c.rst"/>
+          </VirtualDirectory>
+          <File Name="doc/source/sdk/memory/meta.rst"/>
+          <File Name="doc/source/sdk/memory/function.rst"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="boost">
@@ -122,7 +145,11 @@
         <File Name="doc/source/extension/parameters.rst"/>
         <File Name="doc/source/extension/custom_function.rst"/>
       </VirtualDirectory>
-      <VirtualDirectory Name="_static"/>
+      <VirtualDirectory Name="_static">
+        <File Name="doc/source/_static/basic.css"/>
+        <File Name="doc/source/_static/pygments.css"/>
+        <File Name="doc/source/_static/sphinxdoc.css"/>
+      </VirtualDirectory>
       <VirtualDirectory Name="core">
         <File Name="doc/source/core/timing.rst"/>
         <VirtualDirectory Name="timing">

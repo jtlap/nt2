@@ -13,11 +13,11 @@ user.
 .. toctree::
    :maxdepth: 1
 
+   errors/config
+   errors/mode
    errors/static_assert
    errors/concept
    errors/warning
    errors/error
    errors/fatal
    errors/trap
-   errors/config
-   errors/mode
