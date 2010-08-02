@@ -64,20 +64,26 @@ NT2_WARNING(Assertion Failures emit Debug Traps)
 #define NT2_VERIFY(XPR) BOOST_VERIFY(XPR)
 
 ////////////////////////////////////////////////////////////////////////////////
-// Define the handler
+// Define the handler if needed
 ////////////////////////////////////////////////////////////////////////////////
+#if defined(BOOST_ENABLE_ASSERT_HANDLER)
+#include <cstdio>
+#include <nt2/sdk/config/attributes.hpp>
 namespace boost
 {
-  void assertion_failed(char const* expr,char const*,char const*,long)
+  void NT2_FORCE_INLINE
+  assertion_failed(char const* expr,char const* fn,char const* f,int l)
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_DISABLE_ERROR)
     NT2_THROW( (nt2::assert_exception() << nt2::details::assert_info(expr) ) );
     #elif defined(NT2_DEBUG)
+    fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
     ::nt2::sys::trap();
     #endif
   }
 }
 
 #undef BOOST_ENABLE_ASSERT_HANDLER
+#endif
 
 #endif
