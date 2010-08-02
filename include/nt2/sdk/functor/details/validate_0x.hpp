@@ -13,8 +13,8 @@
 template<class This, class... Args>
 struct  result<This(Args...)>
 {
-  typedef typename boost::result_of<meta::dominant(Args...)>::type::tag dom;
-  typedef functors::validate<Function,dom,Info>                         callee;
-  typedef typename boost::result_of<callee(Args...)>::type              type;
+  typedef typename std::tr1::result_of<meta::dominant(Args...)>::type::tag  dom;
+  typedef functors::validate<Function,dom,Info>                             callee;
+  typedef typename std::tr1::result_of<callee(Args...)>::type               type;
 };
 

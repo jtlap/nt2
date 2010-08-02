@@ -73,21 +73,21 @@ eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT )  \
 // Main functor entry point which performs type matching and forwarding to the
 // proper overload. Also takes care of unsupported types.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_CALL_DISPATCH(N,Type,Sets)                    \
-NT2_FUNCTOR_CALL(N)                                               \
-{                                                                 \
-  typedef typename NT2_CALL_RETURN_TYPE(N)::type return_type;     \
-  typedef typename meta::find_type< Type                          \
-                                  , BOOST_PP_TUPLE_REM_CTOR (     \
-                                        BOOST_PP_ARRAY_SIZE(Sets) \
-                                      , BOOST_PP_ARRAY_DATA(Sets) \
-                                                            )     \
-                                  , empty_>::type* fnd_;          \
-  return eval( BOOST_PP_ENUM_PARAMS(N,a),fnd_(0));                \
-}                                                                 \
-private:                                                          \
-NT2_FUNCTOR_CALL_DEFAULT(N)                                       \
-public:                                                           \
+#define NT2_FUNCTOR_CALL_DISPATCH(N,Type,Sets)                      \
+NT2_FUNCTOR_CALL(N)                                                 \
+{                                                                   \
+  typedef typename NT2_CALL_RETURN_TYPE(N)::type return_type;       \
+  typedef typename meta::find_type< Type                            \
+                                  , BOOST_PP_TUPLE_REM_CTOR (       \
+                                        BOOST_PP_ARRAY_SIZE(Sets)   \
+                                      , BOOST_PP_ARRAY_DATA(Sets)   \
+                                                            )       \
+                                  , functors::empty_>::type* fnd_;  \
+  return eval( BOOST_PP_ENUM_PARAMS(N,a),fnd_(0));                  \
+}                                                                   \
+private:                                                            \
+NT2_FUNCTOR_CALL_DEFAULT(N)                                         \
+public:                                                             \
 /**/
 
 #endif
