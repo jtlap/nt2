@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
   template<class Lambda,class Type>
   struct behave_as : details::behave_as_impl<Lambda
                                             ,Type
-                                            ,typename category_of<Type>::type
+                                            ,typename category_of<Type>::type::tag
                                             > {};
 } }
 
