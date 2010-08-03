@@ -45,7 +45,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct  as_simd<T,tag::vmx_>
   {
-    template<class Key, class Dummy=void> struct entry;
+    template<class Key, class Dummy=void> struct entry  { typedef na_ type; };
 
     template<class Dummy>
     struct entry<float,Dummy>     { typedef __vector float          type; };

@@ -35,8 +35,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct  as_simd<T,tag::xop_>
   {
-    template<class Key, class Dummy=void> struct entry;
-
+    template<class Key, class Dummy=void> struct entry  { typedef na_     type; };
     template<class Dummy> struct entry<float    ,Dummy> { typedef __m256  type; };
     template<class Dummy> struct entry<double   ,Dummy> { typedef __m256d type; };
     template<class Dummy> struct entry<uint64_t ,Dummy> { typedef __m256i type; };

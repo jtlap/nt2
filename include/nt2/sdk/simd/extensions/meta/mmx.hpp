@@ -34,8 +34,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct  as_simd<T,tag::mmx_>
   {
-    template<class Key, class Dummy=void> struct entry;
-
+    template<class Key, class Dummy=void> struct entry  { typedef na_   type; };
     template<class Dummy> struct entry<uint32_t ,Dummy> { typedef __m64 type; };
     template<class Dummy> struct entry<uint16_t ,Dummy> { typedef __m64 type; };
     template<class Dummy> struct entry<uint8_t  ,Dummy> { typedef __m64 type; };
