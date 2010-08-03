@@ -6,13 +6,23 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.8)
 
-set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/bench)
+SET( SOURCES
+    abs.cpp
+   )
 
 ################################################################################
-# Add all directories for benchmark/
+# For each filename
 ################################################################################
-ADD_SUBDIRECTORY(operators)
-ADD_SUBDIRECTORY(function)
+FOREACH( EXAMPLE ${SOURCES})
+  ##############################################################################
+  # Build the executable filename from the example source filename
+  ##############################################################################
+  STRING(REGEX REPLACE ".cpp" ".bench" EXECUTABLE "${EXAMPLE}")
 
+  ##############################################################################
+  # Add as a target
+  ##############################################################################
+  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+ENDFOREACH()
