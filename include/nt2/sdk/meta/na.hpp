@@ -15,7 +15,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  struct na_ {};
+  struct na_
+  {
+    typedef na_ type;
+  };
 } }
 
 #endif
