@@ -14,6 +14,7 @@ SET( SOURCES
     gcd.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
+    is_signed.cpp
     make_integer.cpp
     scalar_of.cpp
     set.cpp
