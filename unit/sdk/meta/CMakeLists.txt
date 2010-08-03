@@ -14,14 +14,15 @@ SET( SOURCES
     gcd.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
+    make_integer.cpp
     scalar_of.cpp
     set.cpp
    )
 
 #####
 # TODO:
-# *adapted_traits.cpp
-# *behave_as.cpp
+# adapted_traits.cpp
+# behave_as.cpp
 # lcm.cpp
 #####
 
