@@ -10,6 +10,7 @@
 #define NT2_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/boolean.hpp>
 #include <nt2/sdk/simd/details/impl/splat.hpp>
 
@@ -30,28 +31,22 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
-                              , (3, (double,float,integer_))
+                              , (2, (real_,integer_))
                               )
 
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
+    NT2_FUNCTOR_CALL_EVAL_IF(1,real_)
     {
-      typedef union { uint64_t bits; double val; } type;
-      type const that = { ~0 };
-      return splat<typename A0::type>(that.val);
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-    {
-      typedef union { uint32_t bits; float val; } type;
-      type const that = { ~0 };
+      typedef typename meta::as_integer<A0>::type int_type;
+      typedef union { int_type bits; double val; } type;
+      type const that = { ~int_type(0) };
       return splat<typename A0::type>(that.val);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,integer_)
     {
       typedef typename meta::scalar_of<typename A0::type>::type type;
-      type const that = ~base(0);
+      type const that = ~type(0);
       return splat<typename A0::type>(that);
     }
   };

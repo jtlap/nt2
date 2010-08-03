@@ -43,6 +43,9 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // Return trues or false depending on T is signed or not
+  //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  is_signed
         : details::is_signed<T,typename meta::category_of<T>::type::tag>
