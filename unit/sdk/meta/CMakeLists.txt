@@ -18,6 +18,7 @@ SET( SOURCES
     make_integer.cpp
     scalar_of.cpp
     set.cpp
+    sign_of.cpp
    )
 
 #####
