@@ -12,8 +12,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Base class for generating an integral constant
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/functor/category.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 namespace nt2 { namespace details
 {
@@ -30,39 +31,43 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // For any real target, generate a precise value using a bitfield
   //////////////////////////////////////////////////////////////////////////////
-  template<class Values,class Category> struct real_constant;
-
-  //////////////////////////////////////////////////////////////////////////////
-  // base overload for arithmetic scalar value
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Values>
-  struct real_constant<Values, tag::scalar_(tag::arithmetic_)>
+  template<class Values,class Category> struct real_constant
   {
+    template< class Target
+            , bool EnableIf = boost::is_floating_point<Target>::value
+            > struct inner
+    {};
+
+    template<class Target> struct inner<Target,true>
+    {
+      typedef Target type;
+    };
+
     template<class Sig> struct result;
 
-    template<class This>
-    struct result<This(meta::as_<float>)>  { typedef float type;   };
-
-    template<class This>
-    struct result<This(meta::as_<double>)> { typedef double type;  };
+    template<class This,class Target>
+    struct result<This(meta::as_<Target>)> : inner<Target> {};
 
     // Let's cheat to reuse FUNCTOR_CALL macros ;)
     typedef real_constant call;
 
-    NT2_FUNCTOR_CALL_DISPATCH(1,typename A0::type,(2,(double,float)) )
+    NT2_FUNCTOR_CALL_DISPATCH ( 1
+                              , typename meta::scalar_of<typename A0::type>::type
+                              , (2,(double,float))
+                              )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
       typedef union { uint64_t bits; double val; } type;
       type const that = {Values::double_value};
-      return that.val;
+      return splat<typename A0::type>(that.val);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
       typedef union { uint32_t bits; float val; } type;
       type const that = {Values::float_value};
-      return that.val;
+      return splat<typename A0::type>(that.val);
     }
   };
 } }

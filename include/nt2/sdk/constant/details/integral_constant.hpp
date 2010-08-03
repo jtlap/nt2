@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Base class for generating an integral constant
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/functor/category.hpp>
 
 namespace nt2 { namespace details
@@ -20,13 +21,7 @@ namespace nt2 { namespace details
   // For any type Target that can be constructed from an integer, generate
   // the proper conversion and value return.
   //////////////////////////////////////////////////////////////////////////////
-  template<class Value,class Category> struct integral_constant;
-
-  //////////////////////////////////////////////////////////////////////////////
-  // base overload for scalar value
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Type,class Value>
-  struct integral_constant<Value, tag::scalar_(Type)>
+  template<class Value,class Category> struct integral_constant
   {
     template<class Sig> struct result;
     template<class This,class Target>
@@ -38,7 +33,7 @@ namespace nt2 { namespace details
     template<class Target> inline typename Target::type const
     operator()( Target const& ) const
     {
-      static typename Target::type const that = Value::value;
+      typename Target::type that = splat<typename Target::type>(Value::value);
       return that;
     }
   };
