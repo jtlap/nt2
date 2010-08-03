@@ -9,6 +9,7 @@
 
 SET( SOURCES
     any.cpp
+    as_integer.cpp
     cardinal_of.cpp
     category_of.cpp
     gcd.cpp
