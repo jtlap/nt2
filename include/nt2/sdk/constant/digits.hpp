@@ -73,37 +73,8 @@ namespace nt2 { namespace functors
 {
   template<int N, class Category,class Info>
   struct  call<constants::digit_<N>,Category,Info>
-        : details::integral_constant< boost::mpl::int_<N>, Category>
+        : details::integral_constant< boost::mpl::int_<N>, Category >
   {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Invalidate integral value greater than their static limits
-  //////////////////////////////////////////////////////////////////////////////
-  template<int N, class Category,class Info>
-  struct  validate<constants::digit_<N>,Category,Info>
-  {
-    template<class T, bool EnableIf= boost::is_signed<T>::value>
-    struct  inner
-          : boost::mpl::bool_ <   ((1LL << (sizeof(T)*CHAR_BIT)) > N )
-                              &&  ( N >= 0  )
-                              > {};
-
-    template<class T>
-    struct  inner<T,true>
-          : boost::mpl::bool_ <   (((1LL << (sizeof(T)*CHAR_BIT-1))-1) >=  N )
-                              &&  ( (1LL << (sizeof(T)*CHAR_BIT-1))    >= -N )
-                              > {};
-
-
-    template<class Sig> struct result;
-    template<class This,class Target>
-    struct result<This(nt2::meta::as_<Target>)>
-      : boost::mpl::bool_<  inner<Target>::value
-                            || boost::is_floating_point<Target>::value
-                          >
-    {};
-  };
-
 } }
 
 /*

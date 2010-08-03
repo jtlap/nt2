@@ -13,8 +13,8 @@
 // Base class for generating an integral constant
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 
 namespace nt2 { namespace details
 {
@@ -34,7 +34,7 @@ namespace nt2 { namespace details
   template<class Values,class Category> struct real_constant
   {
     template< class Target
-            , bool EnableIf = boost::is_floating_point<Target>::value
+            , bool EnableIf = nt2::meta::is_floating_point<Target>::value
             > struct inner
     {};
 
