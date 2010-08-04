@@ -2,6 +2,7 @@ Types Set
 =========
 
 .. rubric:: Description
+
 This component defines a compile-time set containing types and meta-functions to
 query and manipulate such set.
 

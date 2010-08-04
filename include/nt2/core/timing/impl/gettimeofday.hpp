@@ -13,10 +13,6 @@
 
 #if defined( BOOST_HAS_GETTIMEOFDAY )
 
-#if defined(NT2_VERBOSE)
-#warning NT2 Timing : Using gettimeofday
-#endif
-
 #define NT2_TIMING_DETECTED
 #include <sys/time.h>
 #include <boost/cstdint.hpp>

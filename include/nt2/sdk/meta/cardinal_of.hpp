@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  cardinal_of
-        : details::cardinal_of_impl<T, typename category_of<T>::type> {};
+        : details::cardinal_of_impl<T, typename category_of<T>::type::tag> {};
 } }
 
 #endif

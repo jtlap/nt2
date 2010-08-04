@@ -2,6 +2,7 @@ General Parameters
 ==================
 
 .. rubric:: Description
+
 Various global settings of |nt2| can be customized by being redefined by the
 users.
 
@@ -12,6 +13,7 @@ users.
   #include <nt2/extension/parameters.hpp>
 
 .. rubric:: Preprocessor Symbols
+
 NT2_DEFAULT_INDEX
 -----------------
 

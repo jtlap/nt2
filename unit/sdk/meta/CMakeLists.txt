@@ -9,20 +9,23 @@
 
 SET( SOURCES
     any.cpp
+    as_integer.cpp
     cardinal_of.cpp
     category_of.cpp
     gcd.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
+    is_signed.cpp
+    make_integer.cpp
     scalar_of.cpp
     set.cpp
+    sign_of.cpp
    )
 
 #####
 # TODO:
-# *adapted_traits.cpp
-# *behave_as.cpp
-# gcd.cpp
+# adapted_traits.cpp
+# behave_as.cpp
 # lcm.cpp
 #####
 

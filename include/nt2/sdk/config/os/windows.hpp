@@ -21,10 +21,6 @@
     #define WIN32_LEAN_AND_MEAN
     #endif
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: Windows platform detected.
-    #endif
-
     #define NT2_OS_DETECTED
     #define NT2_OS_WINDOWS
     #define NT2_OS_STRING BOOST_PLATFORM

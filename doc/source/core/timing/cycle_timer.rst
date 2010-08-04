@@ -58,5 +58,5 @@ not.
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../examples/src/cycle_timer.cpp
+.. literalinclude:: ../../../../examples/core/timing/cycle_timer.cpp
    :language: cpp

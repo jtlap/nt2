@@ -13,10 +13,6 @@
   #if     defined(macintosh)    || defined(__APPLE__)     \
       ||  defined(__APPLE_CC__) || defined(DOXYGEN_ONLY)  \
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: MAC OS platform detected.
-    #endif
-
     #define NT2_OS_DETECTED
     #define NT2_OS_MAC_OS
     #define NT2_OS_STRING BOOST_PLATFORM

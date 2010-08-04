@@ -9,22 +9,43 @@
 #ifndef NT2_SDK_ERRORS_CONFIG_HPP_INCLUDED
 #define NT2_SDK_ERRORS_CONFIG_HPP_INCLUDED
 
-#include <nt2/sdk/errors/failure.hpp>
-#include <nt2/sdk/errors/error.hpp>
-#include <nt2/sdk/errors/warning.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// Memory config header
+////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/config.hpp>
+#include <nt2/sdk/errors/debug.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Status header reporter - Head for the reporter list
+  // Memory configuration status reporter
   //////////////////////////////////////////////////////////////////////////////
   static void errors()
   {
-    puts(" Warnings                : " NT2_WARNING_CONFIG_STRING );
-    puts(" Errors                  : " NT2_ERROR_CONFIG_STRING   );
-    puts(" Failures                : " NT2_FAILURE_CONFIG_STRING );
+    #if defined(NT2_RELEASE)
+    puts(" Compilation mode        : release");
+    #elif defined(NT2_DEBUG)
+    puts(" Compilation mode        : debug");
+    #else
+    puts(" Compilation mode        : normal");
+    #endif
+
+    #if defined(NT2_DISABLE_ASSERTS)
+    puts(" Assertion Failures      : disabled");
+    #elif defined(NT2_ASSERTS_AS_EXCEPTIONS)
+    puts(" Assertion Failures      : as exceptions");
+    #else
+    puts(" Assertion Failures      : enabled");
+    #endif
+
+    #if defined(NT2_USE_CONCEPTS)
+    puts(" Concepts checks         : enabled\n");
+    #else
+    puts(" Concepts checks         : disabled\n");
+    #endif
   }
 
   NT2_REGISTER_STATUS(errors);
 } }
+
 #endif

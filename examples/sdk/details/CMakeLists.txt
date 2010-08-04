@@ -8,6 +8,7 @@
 ################################################################################
 
 SET(SOURCES
+    timestamp.cpp
     ignore_unused.cpp
     pp_enum_value.cpp
     pp_enum_shifted_value.cpp

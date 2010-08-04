@@ -16,7 +16,7 @@ import sys, os, subprocess
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.append(os.path.abspath('.'))
+#sys.path.append(os.path.abspath('.'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -104,12 +104,14 @@ rst_epilog = """
 .. |sse|       replace:: SSE Extensions
 .. |result_of| replace:: result_of protocol
 .. |mpl_int|   replace:: Boost.MPL Integral Constant
+.. |mpl_lambda| replace:: MPL Lambda Expression
 .. |pfo|       replace:: Polymorphic Function Object
 .. _Altivec: http://en.wikipedia.org/wiki/Altivec
 .. _SSE: http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions
 .. _result_of: http://www.boost.org/doc/libs/release/libs/utility/utility.htm#result_of
 .. _mpl_int: http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html
 .. _pfo: http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/poly.html
+.. _mpl_lambda: http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/lambda-expression.html
 """
 
 # -- Options for HTML output ---------------------------------------------------

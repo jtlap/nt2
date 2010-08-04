@@ -19,7 +19,8 @@ namespace nt2 { namespace details
 namespace nt2 { namespace meta
 {
   template<class T>
-  struct scalar_of : details::scalar_of_impl<T, typename category_of<T>::type> {};
+  struct  scalar_of
+        : details::scalar_of_impl<T, typename category_of<T>::type::tag> {};
 } }
 
 #endif

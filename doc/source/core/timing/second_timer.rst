@@ -72,5 +72,5 @@ the linked variable and display it if specified.
 
 Example
 ^^^^^^^
-.. literalinclude:: ../../../../examples/src/second_timer.cpp
+.. literalinclude:: ../../../../examples/core/timing/second_timer.cpp
    :language: cpp

@@ -13,10 +13,6 @@
   #if     defined(linux)      ||  defined(__linux)                          \
       ||  defined(__linux__)  ||  defined(__unix)  || defined(DOXYGEN_ONLY) \
 
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: Linux platform detected.
-    #endif
-
     #define NT2_OS_DETECTED
     #define NT2_OS_LINUX
     #define NT2_OS_STRING BOOST_PLATFORM

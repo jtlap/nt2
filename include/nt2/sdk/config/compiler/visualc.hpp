@@ -12,7 +12,7 @@
 #if !defined(NT2_COMPILER_DETECTED)
   #if defined(BOOST_MSVC) || defined(DOXYGEN_ONLY)
 
-    // Check for compliance to:
+    // TODO: Check for compliance to:
     // http://www.boost.org/development/requirements.html#Design_and_Programming
     //#undef min
     //#undef max
@@ -21,10 +21,6 @@
     #pragma warning( disable : 4244 ) // converting types to double
     #pragma warning( disable : 4804 ) // unsafe use of >
     #pragma warning( disable : 4996 ) // unsafe iostream call
-
-    #ifdef NT2_VERBOSE
-    #warning NT2 Configuration: MSVC compiler detected.
-    #endif
 
     #define NT2_COMPILER_DETECTED
     #define NT2_COMPILER_MSVC

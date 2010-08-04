@@ -16,6 +16,7 @@
 *.session
 *.sample
 *.test
+*.bench
 
 ################################################################################
 # Ignore CMake generated files
@@ -33,5 +34,5 @@ Release
 ################################################################################
 # Ignore local bootstrap file
 ################################################################################
-include/nt2/sdk/config/bootstrap.hpp
+./include/nt2/sdk/config/bootstrap.hpp
 

@@ -19,7 +19,7 @@ set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/unit)
 ################################################################################
 ADD_SUBDIRECTORY(sdk/meta)
 ADD_SUBDIRECTORY(sdk/functor)
-#ADD_SUBDIRECTORY(sdk/memory)
+ADD_SUBDIRECTORY(sdk/memory)
 #ADD_SUBDIRECTORY(sdk/aligned) ???
 #ADD_SUBDIRECTORY(sdk/constant)
 #ADD_SUBDIRECTORY(sdk/scalar)

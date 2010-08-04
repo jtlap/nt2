@@ -37,7 +37,7 @@ namespace nt2 { namespace meta
                                     result_of<validate<F>(Args...)>::type::value
                                   >::type
                     >
-    : boost::result_of<functors::functor<F>(Args...)>
+    : std::tr1::result_of<functors::functor<F>(Args...)>
   {};
   #else
 

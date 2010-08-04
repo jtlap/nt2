@@ -14,4 +14,5 @@ set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/bench)
 # Add all directories for benchmark/
 ################################################################################
 ADD_SUBDIRECTORY(operators)
+ADD_SUBDIRECTORY(function)
 

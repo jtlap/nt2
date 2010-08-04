@@ -13,10 +13,6 @@
 
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
 
-#if defined(NT2_VERBOSE)
-#warning NT2 Timing : Using QueryPerformanceCounter
-#endif
-
 #define NT2_TIMING_DETECTED
 #if !defined(VC_EXTRALEAN)
 #define VC_EXTRALEAN

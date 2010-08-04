@@ -4,6 +4,7 @@ Preprocessor Helpers
 ====================
 
 .. rubric:: Description
+
 In addition to the preprocessor macros provided by
 `Boost.Preprocessor <http://www.boost.org/doc/libs/release/libs/preprocessor/doc/index.html>`_,
 |nt2| provides some macros that simplify some code design.

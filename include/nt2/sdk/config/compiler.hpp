@@ -42,7 +42,7 @@ namespace nt2 { namespace config
     #endif
         );
 
-    puts(" Variadic templates       : "
+    puts(" Variadic templates      : "
     #if   defined(BOOST_NO_VARIADIC_TEMPLATES)
           "unsupported"
     #else

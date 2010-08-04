@@ -1,34 +1,37 @@
 .. _failures:
 
-Failures
-========
+Runtime Assertions
+==================
 
 Description
 ^^^^^^^^^^^
-The ``NT2_FAILURE`` macro notify the users that an unrecoverable error occurred
-and that the application must terminate.
+Runtime assertions report precondition violations by halting the current
+application at runtime.
 
 Header File
 ^^^^^^^^^^^
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/errors/failure.hpp>
+  #include <nt2/sdk/errors/assert.hpp>
 
-.. _nt2_failure:
+.. _nt2_assert:
 
-NT2_FAILURE
-^^^^^^^^^^^
+NT2_ASSERT
+^^^^^^^^^^
 
 .. index::
-    single: NT2_FAILURE
+    single: NT2_ASSERT
 
 **Synopsis:**
 
 .. code-block:: cpp
 
-  #define NT2_FAILURE(COND,MSG)
+  #define NT2_ASSERT(COND)
 
-**Description:** If ``COND`` evaluates to ``false``, then the ``MSG`` string
-is logged and the application terminates in error.
+**Description:** If ``COND`` evaluates to ``false``, then a runtime assertion
+is emitted, halting the program either via an abort or, if :ref:`nt2_debug` is defined,
+by firing a debug trap. If assertions are disabled by :ref`nt2_disable_asserts`,
+nothign happens. If :ref:`nt2_asserts_as_exceptions` is defined, an
+:ref:`nt2_assertion_failure` exception is thrown instead.
 
