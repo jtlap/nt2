@@ -17,6 +17,11 @@
 *.sample
 *.test
 *.bench
+*.user
+*.vcproj
+*.ncb
+*.sln
+*.suo
 
 ################################################################################
 # Ignore CMake generated files
