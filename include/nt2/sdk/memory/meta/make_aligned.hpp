@@ -16,7 +16,7 @@
 // Intrinsic platform dependant alignment attribute
 ////////////////////////////////////////////////////////////////////////////////
 #if (defined(BOOST_MSVC))
-#define NT2_ALIGN_ON(x)  __declspec(align((x)))
+#define NT2_ALIGN_ON(x)  __declspec(align(x))
 #elif (defined(__GNUC__))
 #define NT2_ALIGN_ON(x)  __attribute__(( __aligned__((x)) ))
 #else
@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct make_aligned
   {
-    typedef T NT2_ALIGN_ON( (NT2_CONFIG_ALIGNMENT) ) type;
+    typedef T NT2_ALIGN_ON(NT2_CONFIG_ALIGNMENT) type;
   };
 } }
 
