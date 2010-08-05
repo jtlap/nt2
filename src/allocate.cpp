@@ -28,7 +28,7 @@ namespace nt2 { namespace memory
     //////////////////////////////////////////////////////////////////////////////
     // MSVC systems use _aligned_malloc
     //////////////////////////////////////////////////////////////////////////////
-    if( !(result = _aligned_malloc(nbytes, align) )
+    if( !(result = _aligned_malloc(nbytes, align) ) )
     {
       NT2_THROW( std::bad_alloc() );
       result = 0;

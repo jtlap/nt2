@@ -23,7 +23,7 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // MSVC systems use _aligned_realloc
     ////////////////////////////////////////////////////////////////////////////
-    result = _aligned_realloc(ptr, nbytes, NT2_CONFIG_ALIGNMENT);
+    result = reinterpret_cast<byte*>(_aligned_realloc(ptr, nbytes, NT2_CONFIG_ALIGNMENT));
     #else
     ////////////////////////////////////////////////////////////////////////////
     // Other systems allocate/copy/deallocate
@@ -39,7 +39,7 @@ namespace nt2 { namespace memory
     {
       result = ptr;
     }
-    return result;
     #endif
+    return result;
   }
 } }
