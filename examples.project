@@ -25,6 +25,12 @@
         <File Name="examples/sdk/meta/CMakeLists.txt"/>
         <File Name="examples/sdk/meta/join.cpp"/>
         <File Name="examples/sdk/meta/has_key.cpp"/>
+        <File Name="examples/sdk/meta/enable_if_type.cpp"/>
+        <File Name="examples/sdk/meta/any.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="functor">
+        <File Name="examples/sdk/functor/belong_to.cpp"/>
+        <File Name="examples/sdk/functor/CMakeLists.txt"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <File Name="examples/CMakeLists.txt"/>

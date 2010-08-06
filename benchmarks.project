@@ -13,6 +13,10 @@
       <File Name="benchmark/operators/CMakeLists.txt"/>
     </VirtualDirectory>
     <File Name="benchmark/CMakeLists.txt"/>
+    <VirtualDirectory Name="function">
+      <File Name="benchmark/function/CMakeLists.txt"/>
+      <File Name="benchmark/function/abs.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
