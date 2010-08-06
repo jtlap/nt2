@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_SPLAT_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_SPLAT_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
