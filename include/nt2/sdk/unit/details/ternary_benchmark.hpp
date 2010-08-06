@@ -18,6 +18,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/memory/allocator.hpp>
 
 template<class T0,class T1, class T2
         ,class Dummy,class Func
@@ -42,9 +43,9 @@ void timing_test( Func callee, size_t size
   static out_t                                                      out;
 
   // Input samples
-  static std::vector<t_in0/*, nt2::simd::allocator<t_in0> */>  in0(size);
-  static std::vector<t_in1/*, nt2::simd::allocator<t_in1> */>  in1(size);
-  static std::vector<t_in2/*, nt2::simd::allocator<t_in1> */>  in2(size);
+  static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);
+  static std::vector<t_in1, nt2::memory::allocator<t_in1> >  in1(size);
+  static std::vector<t_in2, nt2::memory::allocator<t_in1> >  in2(size);
 
   // Filling samples randomly
   for(size_t i=0; i<size; ++i)
@@ -63,12 +64,6 @@ void timing_test( Func callee, size_t size
   std::vector<double> timings;
   double c(0.),t(0.);
 
-  #ifdef __clang__
-  static r_in0 x0;
-  #else
-  r_in0 x0;
-  #endif
-
   do
   {
     nt2::tic();
@@ -76,10 +71,9 @@ void timing_test( Func callee, size_t size
       nt2::ctic();
       for(size_t i=0; i<size/nt2::meta::cardinal_of<r_in0>::value; i++)
       {
-        x0 = nt2::load<r_in0>(&in0[0],i);
-        out = callee(x0
-                    ,nt2::load<r_in1>(&in1[0],i)
-                    ,nt2::load<r_in2>(&in2[0],i)
+        out = callee( nt2::load<r_in0>(&in0[0],i)
+                    , nt2::load<r_in1>(&in1[0],i)
+                    , nt2::load<r_in2>(&in2[0],i)
                     );
       }
       c = nt2::ctoc(false) / double(size);
