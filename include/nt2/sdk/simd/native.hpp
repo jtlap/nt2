@@ -147,6 +147,7 @@ namespace nt2 { namespace simd
 #include <nt2/sdk/simd/details/native/meta.hpp>
 #include <nt2/sdk/simd/details/native/fusion.hpp>
 #include <nt2/sdk/simd/details/native/constants.hpp>
-//#include <nt2/sdk/simd/native/details/functions.hpp>
+#include <nt2/sdk/simd/details/native/functions.hpp>
+//#include <nt2/sdk/simd/native/details/operators.hpp>
 
 #endif

@@ -18,11 +18,11 @@
 
 namespace nt2 { namespace functors
 {
-  template<class T, class Category, class Info>
-  struct call<load_<T>,tag::scalar_(Category), Info>
+  template<class T, int Offset, class Category, class Info>
+  struct call<load_<T,Offset>,tag::scalar_(Category), Info>
   {
     typedef T result_type;
-    NT2_FUNCTOR_CALL(2) { return a0[a1]; }
+    NT2_FUNCTOR_CALL(2) { return a0[a1+Offset]; }
   };
 } }
 
