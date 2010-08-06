@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_SIMD_IO_HPP_INCLUDED
 #define NT2_SDK_SIMD_IO_HPP_INCLUDED
 
+#include <nt2/sdk/simd/details/check.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/integral_promotion.hpp>
