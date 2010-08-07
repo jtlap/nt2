@@ -6,14 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_FUNCTIONS_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_NATIVE_FUNCTIONS_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_NEG_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_NEG_HPP_INCLUDED
 
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/memory/store.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/details/impl/load.hpp>
-#include <nt2/sdk/simd/details/impl/store.hpp>
-#include <nt2/sdk/simd/details/impl/map.hpp>
+namespace nt2 { namespace functors
+{
+  template<class C,class X,class Info>
+  struct call<boost::proto::tag::negate,tag::simd_(C,X),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A)> { typedef A type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      A0 that = Zero<A0>()-a0;
+      return that;
+    }
+  };
+} }
 
 #endif
