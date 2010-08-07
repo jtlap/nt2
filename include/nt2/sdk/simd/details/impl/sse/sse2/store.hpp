@@ -18,8 +18,8 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // Store a vector
   //////////////////////////////////////////////////////////////////////////////
-  template<class C, class X, class Info>
-  struct call<store_,tag::simd_(C,X), Info>
+  template<class Info>
+  struct call<store_,tag::simd_(tag::arithmetic_,tag::sse_), Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1, class A2>

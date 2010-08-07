@@ -19,8 +19,8 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // load with no offset
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class C, class X, class Info>
-  struct call<load_<T,0>,tag::simd_(C,X), Info>
+  template<class T,class Info>
+  struct call<load_<T,0>,tag::simd_(tag::arithmetic_,tag::sse_), Info>
   {
     typedef T result_type;
 
@@ -50,8 +50,8 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // load with a scalar offset
   //////////////////////////////////////////////////////////////////////////////
-  template<class T, int Offset,class C, class X, class Info>
-  struct call<load_<T,Offset>,tag::simd_(C,X), Info>
+  template<class T, int Offset,class Info>
+  struct call<load_<T,Offset>,tag::simd_(tag::arithmetic_,tag::sse_), Info>
   {
     BOOST_STATIC_CONSTANT(std::size_t, card = meta::cardinal_of<T>::value );
     typedef T result_type;
