@@ -20,13 +20,8 @@ namespace nt2 { namespace tag
   struct unknown
   {
     typedef unknown tag;
-    static const boost::uint32_t rank = boost::uint32_t(~0);
+    BOOST_STATIC_CONSTANT(boost::uint32_t rank, = boost::uint32_t(~0));
   };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Required to prevent spurrious link errors
-  //////////////////////////////////////////////////////////////////////////////
-  const boost::uint32_t unknown::rank;
 } }
 
 #endif

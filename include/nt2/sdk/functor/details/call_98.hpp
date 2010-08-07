@@ -15,18 +15,18 @@ template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                          
 struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
 {                                                                               \
   typedef typename                                                              \
-  std::tr1::result_of<meta::dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type::tag dom;   \
+  std::tr1::result_of<meta::dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type::tag dom;\
   typedef call<Function,dom,Info>                  callee;                      \
   typedef typename                                                              \
-  std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;              \
+  std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;           \
 };                                                                              \
                                                                                 \
 template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                                \
 typename meta::enable_call<Function(BOOST_PP_ENUM_PARAMS(n,A))>::type           \
-operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a)  )                        \
+operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a)  ) const                  \
 {                                                                               \
   typedef typename                                                              \
-  std::tr1::result_of<meta::dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type::tag dom;   \
+  std::tr1::result_of<meta::dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type::tag dom;\
   call<Function,dom,Info>                  callee;                              \
   return callee( BOOST_PP_ENUM_PARAMS(n,a) );                                   \
 }                                                                               \

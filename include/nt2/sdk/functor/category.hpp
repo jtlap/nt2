@@ -43,33 +43,33 @@ namespace nt2 { namespace functors
   };
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// Register all arithmetic types by giving them a category
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
+  /////////////////////////////////////////////////////////////////////////////
+  // Register all arithmetic types by giving them a category
+  //////////////////////////////////////////////////////////////////////////////
   template<>
-  struct category_of<bool     > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<bool     > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<double   > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<double   > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<float    > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<float    > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<int8_t   > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<int8_t   > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<uint8_t  > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<uint8_t  > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<int16_t  > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<int16_t  > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<uint16_t > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<uint16_t > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<int32_t  > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<int32_t  > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<uint32_t > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<uint32_t > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<int64_t  > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<int64_t  > : functors::scalar_<tag::arithmetic_,1> {};
   template<>
-  struct category_of<uint64_t > : functors::scalar_<tag::arithmetic_,0> {};
+  struct category_of<uint64_t > : functors::scalar_<tag::arithmetic_,1> {};
 } }
 
 #endif
