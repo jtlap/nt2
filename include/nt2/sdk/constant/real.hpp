@@ -18,6 +18,7 @@
 namespace nt2 { namespace constants
 {
   // Real only constants
+  struct nan_         {};
   struct m_half_      {};
   struct m_zero_      {};
   struct half_        {};
@@ -27,11 +28,12 @@ namespace nt2 { namespace constants
 
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(constants::m_half_    , MHalf     )
-  NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_    , MZero     )
-  NT2_CONSTANT_IMPLEMENTATION(constants::half_      , Half      )
-  NT2_CONSTANT_IMPLEMENTATION(constants::third_     , Third     )
-  NT2_CONSTANT_IMPLEMENTATION(constants::quarter_   , Quarter   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::nan_       , Nan     )
+  NT2_CONSTANT_IMPLEMENTATION(constants::m_half_    , MHalf   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_    , MZero   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::half_      , Half    )
+  NT2_CONSTANT_IMPLEMENTATION(constants::third_     , Third   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::quarter_   , Quarter )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +52,7 @@ namespace nt2 { namespace functors                                        \
 ////////////////////////////////////////////////////////////////////////////////
 // Real only constants
 ////////////////////////////////////////////////////////////////////////////////
+NT2_CONSTANT_MAKE_REAL(constants::nan_    , 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
 NT2_CONSTANT_MAKE_REAL(constants::m_half_ , 0xBFE0000000000000LL, 0xBF000000  )
 NT2_CONSTANT_MAKE_REAL(constants::m_zero_ , 0x8000000000000000LL, 0x80000000  )
 NT2_CONSTANT_MAKE_REAL(constants::half_   , 0x3FE0000000000000LL, 0x3F000000  )
