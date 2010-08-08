@@ -33,6 +33,5 @@ namespace nt2 { namespace simd
 } }
 
 #include <nt2/sdk/simd/details/impl/operators.hpp>
-//#include<nt2/sdk/simd/details/native/impl/comparisons.hpp>
 
 #endif

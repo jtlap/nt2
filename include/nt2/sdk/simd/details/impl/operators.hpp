@@ -22,6 +22,9 @@
 #elif defined( NT2_SIMD_SSE2)
 #endif
 
+////////////////////////////////////////////////////////////////////////////////
+// Include all specific implementation of operators
+////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
 #include NT2_SIMD_INCLUDE(complement.hpp)
@@ -40,13 +43,14 @@
 //#include NT2_SIMD_INCLUDE(logical_or.hpp)
 //#include NT2_SIMD_INCLUDE(logical_not.hpp)
 #include NT2_SIMD_INCLUDE(minus.hpp)
-////#include NT2_SIMD_INCLUDE(modulo.hpp) // TO REMOVE ? TO REDO ?
 //#include NT2_SIMD_INCLUDE(multiplies.hpp)
 #include NT2_SIMD_INCLUDE(plus.hpp)
 //#include NT2_SIMD_INCLUDE(shift_left.hpp)
 //#include NT2_SIMD_INCLUDE(shift_right.hpp)
+
+////#include NT2_SIMD_INCLUDE(modulo.hpp) // TO REMOVE ? TO REDO ?
 ////#include NT2_SIMD_INCLUDE(all.hpp)        // REDUNDANT
-////#include NT2_SIMD_INCLUDE(hmsb.hpp)       // SSE details - make comparison functor
+////#include NT2_SIMD_INCLUDE(hmsb.hpp)       // SSE details - make comparisons functor
 
 ////////////////////////////////////////////////////////////////////////////////
 // Extension variability points

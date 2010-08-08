@@ -149,5 +149,6 @@ namespace nt2 { namespace simd
 #include <nt2/sdk/simd/details/native/constants.hpp>
 #include <nt2/sdk/simd/details/native/functions.hpp>
 #include <nt2/sdk/simd/details/native/operators.hpp>
+//#include <nt2/sdk/simd/details/native/comparisons.hpp>
 
 #endif
