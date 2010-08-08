@@ -19,7 +19,8 @@ static typename boost::add_reference<BOOST_PP_CAT(A,N)>::type  BOOST_PP_CAT(a,N)
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                             \
-template<class Category,class Info> struct call<TAG,Category,Info>  \
+template<class Category,class Info>                                 \
+struct call<TAG,tag::scalar_(Category),Info>                        \
 {                                                                   \
   template<class Sig> struct result;                                \
   template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>              \
