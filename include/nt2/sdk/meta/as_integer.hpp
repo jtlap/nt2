@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign=typename meta::sign_of<T>::type >
   struct  as_integer
-        : details::as_integer<T,Sign,typename category_of<T>::type > {};
+        : details::as_integer<T,Sign,typename category_of<T>::type::tag > {};
 } }
 
 #endif
