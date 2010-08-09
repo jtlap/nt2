@@ -86,7 +86,8 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     pointer resize(pointer p, size_type n, size_type o )
     {
-      byte* ptr = memory::reallocate(p,n*sizeof(value_type),o*sizeof(value_type));
+      byte* bp  = reinterpret_cast<byte*>(p);
+      byte* ptr = memory::reallocate(bp,n*sizeof(value_type),o*sizeof(value_type));
       return reinterpret_cast<pointer>(ptr);
     }
   };
