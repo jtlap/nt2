@@ -18,25 +18,23 @@
 
 namespace nt2 { namespace memory
 {
-  template< class Type, class Lower, class Upper
-          , class Allocator = allocator<Type>
-          >
+  template<class Type, class Base, class Size, class Allocator>
   class buffer
-      : public details::buffer_base<Type,Lower,Upper,Allocator>
+      : public details::buffer_base<Type,Base,Size,Allocator>
   {
     public:
     ////////////////////////////////////////////////////////////////////////////
     // Public types
     ////////////////////////////////////////////////////////////////////////////
-    typedef details::buffer_base< Type,Lower,Upper,Allocator> parent;
-    typedef typename parent::allocator_type                   allocator_type;
-    typedef typename parent::value_type                       value_type;
-    typedef typename parent::pointer                          pointer;
-    typedef typename parent::const_pointer                    const_pointer;
-    typedef typename parent::reference                        reference;
-    typedef typename parent::const_reference                  const_reference;
-    typedef typename parent::size_type                        size_type;
-    typedef typename parent::difference_type                  difference_type;
+    typedef details::buffer_base<Type,Base,Size,Allocator>  parent;
+    typedef typename parent::allocator_type                 allocator_type;
+    typedef typename parent::value_type                     value_type;
+    typedef typename parent::pointer                        pointer;
+    typedef typename parent::const_pointer                  const_pointer;
+    typedef typename parent::reference                      reference;
+    typedef typename parent::const_reference                const_reference;
+    typedef typename parent::size_type                      size_type;
+    typedef typename parent::difference_type                difference_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Inherited data
@@ -49,10 +47,9 @@ namespace nt2 { namespace memory
     buffer()  : parent()                      { parent::default_init(); }
     buffer( Allocator const& a )  : parent(a) { parent::default_init(); }
 
-    buffer( Lower const& l, Upper const& u) : parent()
+    buffer( Base const& b, Size const& s) : parent()
     {
-      NT2_ASSERT(l <= u);
-      parent::init(l,u);
+      parent::init(b,s);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -90,7 +87,8 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Access to raw data
     ////////////////////////////////////////////////////////////////////////////
-    pointer begin()   const { return impl.origin_; }
+    pointer origin()  const { return impl.origin_;  }
+    pointer begin()   const { return impl.begin_;   }
   };
 
   //////////////////////////////////////////////////////////////////////////////

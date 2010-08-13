@@ -35,27 +35,19 @@ namespace nt2 { namespace details
       origin_ = capacity_ = begin_ = end_ = 0;
     }
 
-    size_type allocate(difference_type l, difference_type u)
+    void allocate(difference_type b, size_type s)
     {
-      size_type sz  = u-l+1;
-      size_type asz = align_on(sz);
-
+      size_type asz = align_on(s);
       origin_       = base::allocate(asz);
-      scale(asz, sz, l);
-
-      return sz;
+      scale(asz, s, b);
     }
 
-    size_type resize(difference_type l, difference_type u)
+    void resize(difference_type b, size_type s)
     {
-      size_type sz  = u-l+1;
-      size_type asz = align_on(sz);
+      size_type asz = align_on(s);
       size_type osz = capacity_ - origin_;
-
       origin_       = base::resize(origin_,asz,osz);
-      scale(asz, sz, l);
-
-      return sz;
+      scale(asz, s, b);
     }
 
     void scale(size_type capa, size_type size, difference_type lower)

@@ -20,7 +20,7 @@
 
 namespace nt2 { namespace details
 {
-  template<class Type, class Lower, class Upper, class Allocator>
+  template<class Type, class Base, class Size, class Allocator>
   class buffer_base
   {
     public:
@@ -40,8 +40,8 @@ namespace nt2 { namespace details
     // Is buffer size completely static
     ////////////////////////////////////////////////////////////////////////////
     BOOST_STATIC_CONSTANT ( bool, is_static_value =
-                                  !boost::is_arithmetic<Lower>::value
-                              &&  !boost::is_arithmetic<Upper>::value
+                                  !boost::is_arithmetic<Base>::value
+                              &&  !boost::is_arithmetic<Size>::value
                           );
     typedef boost::mpl::bool_<is_static_value> is_static;
 
@@ -101,10 +101,10 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // init allocates memory and performs construction iif T is not trivial
     ////////////////////////////////////////////////////////////////////////////
-    void init( Lower const& l, Upper const& u )
+    void init( Base const& b, Size const& s )
     {
-      size_type sz = impl.allocate(l,u);
-      construct(sz,typename boost::has_trivial_constructor<value_type>::type());
+      impl.allocate(b,s);
+      construct(s,typename boost::has_trivial_constructor<value_type>::type());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -113,8 +113,8 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     void assign(buffer_base const& src)
     {
-      if(!capacity()) impl.allocate(src.lower(),src.upper());
-      else            impl.resize  (src.lower(),src.upper());
+      if(!capacity()) impl.allocate(src.lower(),src.size());
+      else            impl.resize  (src.lower(),src.size());
 
       copy(src,typename boost::has_trivial_assign<value_type>::type());
     }
@@ -122,7 +122,7 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // resize current buffer
     ////////////////////////////////////////////////////////////////////////////
-    void resize( Lower const& l, Upper const& u ) { resize(l,u,is_static()); }
+    void resize( Base const& b, Size const& s ) { resize(b,s,is_static()); }
 
     ////////////////////////////////////////////////////////////////////////////
     // clear empties the data by putting its size back to 0.
@@ -149,29 +149,29 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     void default_init( boost::mpl::true_ const&)
     {
-      init(Lower(),Upper());
+      init(Base(),Size());
     }
 
-    void resize( Lower const&, Upper const&, boost::mpl::true_ const&) {}
+    void resize( Base const&, Size const&, boost::mpl::true_ const&) {}
 
     size_type size( boost::mpl::true_ const&) const
     {
-      return Upper::value - Lower::value + 1;
+      return Size::value;
     }
 
     size_type capacity( boost::mpl::true_ const&) const
     {
-      return meta::align_on_c<(Upper::value-Lower::value+1)>::value;
+      return meta::align_on_c<(Size::value)>::value;
     }
 
     difference_type lower( boost::mpl::true_ const&) const
     {
-      return Lower::value;
+      return Base::value;
     }
 
     difference_type upper( boost::mpl::true_ const&) const
     {
-      return Upper::value;
+      return Size::value + Base::value - 1;
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -179,9 +179,9 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     void default_init( boost::mpl::false_ const&) {}
 
-    void resize( Lower const& l, Upper const& u, boost::mpl::false_ const&)
+    void resize( Base const& b, Size const& s, boost::mpl::false_ const&)
     {
-      impl.resize(l,u);
+      impl.resize(b,s);
     }
 
     size_type size( boost::mpl::false_ const&) const
