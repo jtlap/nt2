@@ -23,40 +23,49 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// call::operator() result type
+// operator() result type
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_CALL_RETURN_TYPE(N)                   \
-std::tr1::result_of<call(BOOST_PP_ENUM_PARAMS(N,A))> \
+#define NT2_RETURN_TYPE(N,C)                      \
+std::tr1::result_of<C(BOOST_PP_ENUM_PARAMS(N,A))> \
 /**/
+
+////////////////////////////////////////////////////////////////////////////////
+// operator() result type for call<Tag,Cat,Info>
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_CALL_RETURN_TYPE(N) NT2_RETURN_TYPE(N,call)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main functor entry point:
 // Takes care of retrieving the function result, making it const and prepare
 // the operator() prototype.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_CALL(N)                                     \
+#define NT2_FUNCTOR(N,C)                                        \
 template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                \
-typename NT2_CALL_RETURN_TYPE(N)::type                          \
+typename NT2_RETURN_TYPE(N,C)::type                             \
 operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) ) const  \
 /**/
+
+#define NT2_FUNCTOR_CALL(N) NT2_FUNCTOR(N,call)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Boilerplate macro to start an eval() overload with N parameters and
 // dispatching for types belonging to Set
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_CALL_EVAL_IF(N,Set)                               \
+#define NT2_FUNCTOR_EVAL_IF(N,Set,C)                                  \
 template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                      \
-typename NT2_CALL_RETURN_TYPE(N)::type                                \
+typename NT2_RETURN_TYPE(N,C)::type                                   \
 eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a), Set* const&) const  \
 /**/
+
+#define NT2_FUNCTOR_CALL_EVAL_IF(N,Set) NT2_FUNCTOR_EVAL_IF(N,Set,call)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Default dispatch implementation. When a type don't trigger any regular
 // overload, we trigger a static assertion;
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_CALL_DEFAULT(N)                                 \
+#define NT2_FUNCTOR_DEFAULT(N,C)                                    \
 template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                    \
-typename NT2_CALL_RETURN_TYPE(N)::type                              \
+typename NT2_RETURN_TYPE(N,C)::type                                 \
 eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT )  \
     , nt2::functors::empty_* const&                                 \
     ) const                                                         \
@@ -65,18 +74,20 @@ eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT )  \
                     , UNSUPPORTED_TYPE_FOR_FUNCTOR_CALL             \
                     , (BOOST_PP_ENUM_PARAMS(N,A))                   \
                     );                                              \
-  return typename NT2_CALL_RETURN_TYPE(N)::type();                  \
+  return typename NT2_RETURN_TYPE(N,C)::type();                     \
 }                                                                   \
 /**/
+
+#define NT2_FUNCTOR_CALL_DEFAULT(N) NT2_FUNCTOR_DEFAULT(N,call)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main functor entry point which performs type matching and forwarding to the
 // proper overload. Also takes care of unsupported types.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_CALL_DISPATCH(N,Type,Sets)                      \
-NT2_FUNCTOR_CALL(N)                                                 \
+#define NT2_FUNCTOR_DISPATCH(N,Type,Sets,C)                         \
+NT2_FUNCTOR(N,C)                                                    \
 {                                                                   \
-  typedef typename NT2_CALL_RETURN_TYPE(N)::type return_type;       \
+  typedef typename NT2_RETURN_TYPE(N,C)::type return_type;          \
   typedef typename meta::find_type< Type                            \
                                   , BOOST_PP_TUPLE_REM_CTOR (       \
                                         BOOST_PP_ARRAY_SIZE(Sets)   \
@@ -86,8 +97,13 @@ NT2_FUNCTOR_CALL(N)                                                 \
   return eval( BOOST_PP_ENUM_PARAMS(N,a),fnd_(0));                  \
 }                                                                   \
 private:                                                            \
-NT2_FUNCTOR_CALL_DEFAULT(N)                                         \
+NT2_FUNCTOR_DEFAULT(N,C)                                            \
 public:                                                             \
 /**/
+
+#define NT2_FUNCTOR_CALL_DISPATCH(N,Type,Sets)  \
+NT2_FUNCTOR_DISPATCH(N,Type,Sets,call)          \
+/**/
+
 
 #endif
