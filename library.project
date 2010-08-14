@@ -109,6 +109,7 @@
           </VirtualDirectory>
           <File Name="include/nt2/sdk/functor/category.hpp"/>
           <File Name="include/nt2/sdk/functor/operators.hpp"/>
+          <File Name="include/nt2/sdk/functor/common.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="concept">
           <File Name="include/nt2/sdk/concept/allocator.hpp"/>
@@ -135,7 +136,8 @@
           <VirtualDirectory Name="details">
             <File Name="include/nt2/sdk/memory/details/load.hpp"/>
             <File Name="include/nt2/sdk/memory/details/store.hpp"/>
-            <File Name="include/nt2/sdk/memory/details/stash.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/buffer_base.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/buffer_impl.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/memory/store.hpp"/>
           <VirtualDirectory Name="meta">
@@ -154,6 +156,7 @@
           <File Name="include/nt2/sdk/memory/reallocate.hpp"/>
           <File Name="include/nt2/sdk/memory/overload.hpp"/>
           <File Name="include/nt2/sdk/memory/allocator.hpp"/>
+          <File Name="include/nt2/sdk/memory/buffer.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>
@@ -183,6 +186,9 @@
           <File Name="include/nt2/sdk/meta/as_integer.hpp"/>
           <File Name="include/nt2/sdk/meta/is_signed.hpp"/>
           <File Name="include/nt2/sdk/meta/sign_of.hpp"/>
+          <File Name="include/nt2/sdk/meta/irrelevant.hpp"/>
+          <File Name="include/nt2/sdk/meta/make_real.hpp"/>
+          <File Name="include/nt2/sdk/meta/as_real.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="settings"/>
         <VirtualDirectory Name="simd">
@@ -217,6 +223,7 @@
             <File Name="include/nt2/sdk/simd/meta/extension_of.hpp"/>
             <File Name="include/nt2/sdk/simd/meta/is_simd_specific.hpp"/>
             <File Name="include/nt2/sdk/simd/meta/is_vectorizable.hpp"/>
+            <File Name="include/nt2/sdk/simd/meta/is_native.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/simd/category.hpp"/>
           <File Name="include/nt2/sdk/simd/native.hpp"/>
@@ -230,28 +237,150 @@
                 <File Name="include/nt2/sdk/simd/details/native/meta/cardinal_of.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/native/meta/scalar_of.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/native/meta/as_integer.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/native/meta/as_real.hpp"/>
               </VirtualDirectory>
               <File Name="include/nt2/sdk/simd/details/native/meta.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/native/functions.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/native/operators.hpp"/>
             </VirtualDirectory>
             <VirtualDirectory Name="impl">
               <VirtualDirectory Name="sse">
                 <VirtualDirectory Name="sse2">
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/splat.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/load.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/store.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/bitwise_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/bitwise_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/bitwise_xor.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/complement.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/divides.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/is_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/is_greater.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/is_greater_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/is_less.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/is_less_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/is_not_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/logical_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/logical_not.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/logical_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/minus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/multiplies.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/neg.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/plus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/shift_left.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/shift_right.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/map.hpp"/>
                 </VirtualDirectory>
                 <VirtualDirectory Name="sse3">
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/splat.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/load.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/store.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/bitwise_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/bitwise_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/bitwise_xor.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/complement.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/divides.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/is_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/is_greater.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/is_greater_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/is_less.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/is_less_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/is_not_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/logical_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/logical_not.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/logical_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/minus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/multiplies.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/neg.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/plus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/shift_left.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/shift_right.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/map.hpp"/>
                 </VirtualDirectory>
                 <VirtualDirectory Name="ssse3">
                   <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/splat.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/load.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/store.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/bitwise_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/bitwise_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/bitwise_xor.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/complement.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/divides.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_greater.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_greater_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_less.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_less_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_not_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/is_not_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/logical_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/logical_not.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/logical_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/minus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/multiplies.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/neg.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/plus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/shift_left.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/ssse3/shift_right.hpp"/>
                 </VirtualDirectory>
                 <VirtualDirectory Name="sse4_1">
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/splat.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/load.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/store.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/bitwise_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/bitwise_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/bitwise_xor.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/complement.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/divides.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/is_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/is_greater.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/is_greater_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/is_less.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/is_less_equal.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/is_not_equal_to.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/logical_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/logical_not.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/logical_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/make_native.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/minus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/multiplies.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/neg.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/plus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/shift_left.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse4_1/shift_right.hpp"/>
                 </VirtualDirectory>
                 <VirtualDirectory Name="avx"/>
                 <VirtualDirectory Name="xop"/>
                 <VirtualDirectory Name="mmx"/>
               </VirtualDirectory>
-              <VirtualDirectory Name="avx"/>
+              <VirtualDirectory Name="vmx"/>
+              <File Name="include/nt2/sdk/simd/details/impl/splat.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/impl/load.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/impl/store.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/impl/operators.hpp"/>
+              <VirtualDirectory Name="common">
+                <File Name="include/nt2/sdk/simd/details/impl/common/complement.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/neg.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/bitwise_and.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/bitwise_or.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/bitwise_xor.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/divides.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/is_equal_to.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/is_greater.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/is_greater_equal.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/is_less.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/is_less_equal.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/is_not_equal_to.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/logical_and.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/logical_not.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/logical_or.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/minus.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/multiplies.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/plus.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/shift_left.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/impl/common/shift_right.hpp"/>
+              </VirtualDirectory>
+              <File Name="include/nt2/sdk/simd/details/impl/map.hpp"/>
             </VirtualDirectory>
           </VirtualDirectory>
           <VirtualDirectory Name="preprocessor">
@@ -260,12 +389,12 @@
             <File Name="include/nt2/sdk/simd/preprocessor/vmx.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/simd/details/check.hpp"/>
+          <File Name="include/nt2/sdk/simd/native_cast.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="constant">
           <File Name="include/nt2/sdk/constant/splat.hpp"/>
           <VirtualDirectory Name="details">
             <File Name="include/nt2/sdk/constant/details/splat.hpp"/>
-            <File Name="include/nt2/sdk/constant/details/integral_constant.hpp"/>
             <File Name="include/nt2/sdk/constant/details/real_constant.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/constant/constant.hpp"/>
@@ -273,6 +402,7 @@
           <File Name="include/nt2/sdk/constant/digits.hpp"/>
           <File Name="include/nt2/sdk/constant/properties.hpp"/>
           <File Name="include/nt2/sdk/constant/real.hpp"/>
+          <File Name="include/nt2/sdk/constant/category.hpp"/>
         </VirtualDirectory>
         <File Name="include/nt2/sdk/config.hpp"/>
       </VirtualDirectory>
