@@ -6,14 +6,14 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_DETAILS_BLOCK_BASE_HPP_INCLUDED
-#define NT2_SDK_MEMORY_DETAILS_BLOCK_BASE_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_DETAILS_BUFFER_BASE_HPP_INCLUDED
+#define NT2_SDK_MEMORY_DETAILS_BUFFER_BASE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Base clas for memory block
+// Base class for memory buffer
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/memory/meta/align_on.hpp>
-#include <nt2/sdk/memory/details/block_impl.hpp>
+#include <nt2/sdk/memory/details/buffer_impl.hpp>
 #include <boost/type_traits/has_trivial_assign.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/type_traits/has_trivial_constructor.hpp>
@@ -43,7 +43,9 @@ namespace nt2 { namespace details
                                   !boost::is_arithmetic<Base>::value
                               &&  !boost::is_arithmetic<Size>::value
                           );
-    typedef boost::mpl::bool_<is_static_value> is_static;
+    typedef boost::mpl::bool_<!boost::is_arithmetic<Base>::value> has_static_base;
+    typedef boost::mpl::bool_<!boost::is_arithmetic<Size>::value> has_static_size;
+    typedef boost::mpl::bool_<is_static_value>                    is_static;
 
     ////////////////////////////////////////////////////////////////////////////
     // Buffer data holder type
@@ -81,10 +83,10 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // Size related helpers
     ////////////////////////////////////////////////////////////////////////////
-    size_type size()        const { return size(is_static());      }
-    size_type capacity()    const { return capacity(is_static());  }
-    difference_type lower() const { return lower(is_static());     }
-    difference_type upper() const { return upper(is_static());     }
+    size_type size()        const { return size(has_static_size());     }
+    size_type capacity()    const { return capacity(has_static_size()); }
+    difference_type lower() const { return lower(has_static_base());    }
+    difference_type upper() const { return upper(is_static());          }
 
     ////////////////////////////////////////////////////////////////////////////
     // Multi-pass components

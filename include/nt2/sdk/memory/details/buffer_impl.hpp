@@ -6,11 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_DETAILS_BLOCK_IMPL_HPP_INCLUDED
-#define NT2_SDK_MEMORY_DETAILS_BLOCK_IMPL_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_DETAILS_BUFFER_IMPL_HPP_INCLUDED
+#define NT2_SDK_MEMORY_DETAILS_BUFFER_IMPL_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Raw structure to handle exception safe block allocation
+// Raw structure to handle exception safe buffer allocation
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/swap.hpp>
 #include <nt2/sdk/memory/align_on.hpp>

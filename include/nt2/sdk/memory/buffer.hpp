@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/details/block_base.hpp>
+#include <nt2/sdk/memory/details/buffer_base.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -94,8 +94,10 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   // swap for ADL
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class L, class U, class A>
-  void swap(buffer<T,L,U,A>& a, buffer<T,L,U,A>& b)
+  template<class T,class Base, class Size, class Allocator>
+  void swap ( buffer<T,Base,Size,Allocator>& a
+            , buffer<T,Base,Size,Allocator>& b
+            )
   {
     a.swap(b);
   }
