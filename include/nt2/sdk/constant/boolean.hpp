@@ -29,7 +29,7 @@ namespace nt2
 namespace nt2 { namespace functors
 {
   template<class Category,class Info>
-  struct  call<constants::true_,Category,Info>
+  struct  call<constants::true_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
     template<class This,class Target>
@@ -43,7 +43,7 @@ namespace nt2 { namespace functors
   };
 
   template<class Category,class Info>
-  struct  call<constants::false_,Category,Info>
+  struct  call<constants::false_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
     template<class This,class Target>

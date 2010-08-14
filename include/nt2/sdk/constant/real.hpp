@@ -43,7 +43,7 @@ namespace nt2
 namespace nt2 { namespace functors                                        \
 {                                                                         \
   template<class Category,class Info>                                     \
-  struct  call<NAME,Category,Info>                                        \
+  struct  call<NAME,tag::constant_(Category),Info>                        \
         : details::real_constant<details::pattern<DOUBLE,FLOAT>,Category> \
   {};                                                                     \
 } }                                                                       \

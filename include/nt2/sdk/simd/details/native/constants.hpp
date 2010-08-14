@@ -20,7 +20,7 @@
 namespace nt2 { namespace functors
 {
   template<class C, class X,class Info>
-  struct  call<constants::true_,tag::simd_(C,X),Info>
+  struct  call<constants::true_,tag::constant_(tag::simd_(C,X)),Info>
   {
     template<class Sig> struct result;
     template<class This,class Target>

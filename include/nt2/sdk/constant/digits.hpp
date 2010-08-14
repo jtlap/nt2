@@ -12,10 +12,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // List all basic -10,-9,...,0,...,10,100,1000 constants
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/constant/constant.hpp>
-#include <boost/type_traits/is_signed.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <nt2/sdk/constant/details/integral_constant.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constant tag
@@ -59,7 +57,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<1000> , Thousand )
 
   ////////////////////////////////////////////////////////////////////////////////
-  // Values sueful for trigo and what not
+  // Values useful for trigo and what not
   ////////////////////////////////////////////////////////////////////////////////
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 45> , FortyFive         )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 90> , Ninety            )
@@ -72,14 +70,22 @@ namespace nt2
 namespace nt2 { namespace functors
 {
   template<int N, class Category,class Info>
-  struct  call<constants::digit_<N>,Category,Info>
-        : details::integral_constant< boost::mpl::int_<N>, Category >
-  {};
+  struct  call<constants::digit_<N>,tag::constant_(Category),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class Target>
+    struct result<This(nt2::meta::as_<Target>)>
+    {
+      typedef Target type;
+    };
+
+    template<class Target> inline typename Target::type const
+    operator()( Target const& ) const
+    {
+      typename Target::type that = splat<typename Target::type>(N);
+      return that;
+    }
+  };
 } }
-
-/*
-NT2_CONSTANT(not_one_ , Notone  ) // ~1
-
-*/
 
 #endif
