@@ -22,20 +22,6 @@ namespace nt2 { namespace functors
     struct  result<This(A0,A1)>
           : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
-
-  template<class C, class X,class Info>
-  struct call<bitwise_or_,tag::simd_(C,X),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> { typedef A0 type; };
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = map(functor<bitwise_or_>(), a0, a1);
-      return that;
-    }
-  };
 } }
 
 #endif
