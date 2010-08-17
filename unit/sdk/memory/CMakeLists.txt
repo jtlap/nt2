@@ -15,13 +15,12 @@ SET( SOURCES
     align_on.cpp
     is_aligned.cpp
     make_aligned.cpp
-    pointer.cpp
+# access.cpp
+    allocate.cpp
+    overload.cpp
+    allocator.cpp
+    buffer.cpp
   )
-
-####
-# load.cpp
-# store.cpp
-####
 
 ################################################################################
 # For each filename

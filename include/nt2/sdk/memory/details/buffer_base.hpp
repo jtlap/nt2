@@ -83,10 +83,10 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // Size related helpers
     ////////////////////////////////////////////////////////////////////////////
-    size_type size()        const { return size(has_static_size());     }
-    size_type capacity()    const { return capacity(has_static_size()); }
-    difference_type lower() const { return lower(has_static_base());    }
-    difference_type upper() const { return upper(is_static());          }
+    size_type       size()      const { return impl.end_ - impl.begin_;       }
+    size_type       capacity()  const { return impl.capacity_ - impl.origin_; }
+    difference_type lower()     const { return impl.origin_ - impl.begin_;    }
+    difference_type upper()     const { return size() - 1 + lower();          }
 
     ////////////////////////////////////////////////////////////////////////////
     // Multi-pass components
@@ -113,12 +113,15 @@ namespace nt2 { namespace details
     // assign performs optimized copy that is compatible with move semantic.
     // Note that if T is trivial, copy uses memcpy as an optimization
     ////////////////////////////////////////////////////////////////////////////
-    void assign(buffer_base const& src)
+    template<class Buffer> void assign(Buffer const& src)
     {
+      typedef boost::has_trivial_constructor<value_type>              trivial;
+      typedef boost::is_same<typename Buffer::value_type, value_type> same;
+
       if(!capacity()) impl.allocate(src.lower(),src.size());
       else            impl.resize  (src.lower(),src.size());
 
-      copy(src,typename boost::has_trivial_assign<value_type>::type());
+      copy(src,typename boost::mpl::bool_<same::value && trivial::value>());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -156,26 +159,6 @@ namespace nt2 { namespace details
 
     void resize( Base const&, Size const&, boost::mpl::true_ const&) {}
 
-    size_type size( boost::mpl::true_ const&) const
-    {
-      return Size::value;
-    }
-
-    size_type capacity( boost::mpl::true_ const&) const
-    {
-      return meta::align_on_c<(Size::value)>::value;
-    }
-
-    difference_type lower( boost::mpl::true_ const&) const
-    {
-      return Base::value;
-    }
-
-    difference_type upper( boost::mpl::true_ const&) const
-    {
-      return Size::value + Base::value - 1;
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // Dynamically computed related members
     ////////////////////////////////////////////////////////////////////////////
@@ -184,26 +167,6 @@ namespace nt2 { namespace details
     void resize( Base const& b, Size const& s, boost::mpl::false_ const&)
     {
       impl.resize(b,s);
-    }
-
-    size_type size( boost::mpl::false_ const&) const
-    {
-      return impl.end_ - impl.begin_;
-    }
-
-    size_type capacity( boost::mpl::false_ const&) const
-    {
-      return impl.capacity_ - impl.origin_;
-    }
-
-    difference_type lower( boost::mpl::false_ const&) const
-    {
-      return impl.origin_ - impl.begin_;
-    }
-
-    difference_type upper( boost::mpl::bool_<false> const&) const
-    {
-      return size() - 1 + lower();
     }
 
     protected:
@@ -218,7 +181,9 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     void construct(size_type, boost::mpl::true_ const&) {}
     void destroy(boost::mpl::true_ const&)              {}
-    void copy(buffer_base const& src, boost::mpl::true_ const&)
+
+    template<class Buffer>
+    void copy(Buffer const& src, boost::mpl::true_ const&)
     {
       ::memcpy(impl.origin_,src.impl.origin_,src.size()*sizeof(value_type));
     }
@@ -239,7 +204,8 @@ namespace nt2 { namespace details
       for(size_type i=0;i<size();++i) impl.destroy(&impl.origin_[i]);
     }
 
-    void copy(buffer_base const& src, boost::mpl::false_ const&)
+    template<class Buffer>
+    void copy(Buffer const& src, boost::mpl::false_ const&)
     {
       for(size_type i=0;i<src.size();++i) impl.origin_[i] = src.impl.origin_[i];
     }

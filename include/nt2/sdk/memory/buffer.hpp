@@ -14,6 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/errors/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
+#include <nt2/sdk/memory/details/is_assignment_compatible.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 
 namespace nt2 { namespace memory
@@ -27,6 +28,8 @@ namespace nt2 { namespace memory
     // Public types
     ////////////////////////////////////////////////////////////////////////////
     typedef details::buffer_base<Type,Base,Size,Allocator>  parent;
+    typedef Base                                            base_value_type;
+    typedef Size                                            size_value_type;
     typedef typename parent::allocator_type                 allocator_type;
     typedef typename parent::value_type                     value_type;
     typedef typename parent::pointer                        pointer;
@@ -35,12 +38,17 @@ namespace nt2 { namespace memory
     typedef typename parent::const_reference                const_reference;
     typedef typename parent::size_type                      size_type;
     typedef typename parent::difference_type                difference_type;
+    typedef typename parent::has_static_base                has_static_base;
+    typedef typename parent::has_static_size                has_static_size;
+    typedef typename parent::is_static                      is_static;
 
+    private:
     ////////////////////////////////////////////////////////////////////////////
     // Inherited data
     ////////////////////////////////////////////////////////////////////////////
     using parent::impl;
 
+    public:
     ////////////////////////////////////////////////////////////////////////////
     // Constructors
     ////////////////////////////////////////////////////////////////////////////
@@ -52,12 +60,36 @@ namespace nt2 { namespace memory
       parent::init(b,s);
     }
 
+    template<class Buffer>
+    buffer( Buffer const& src
+          , typename boost::enable_if_c<
+                        details::is_assignment_compatible<buffer,Buffer>::value
+                                      >::type* = 0
+          )
+    {
+      parent::assign((typename Buffer::parent const&)(src));
+    }
+
     ////////////////////////////////////////////////////////////////////////////
-    // Assign by resize/copy
+    // Assign by resize/copy if same type
     ////////////////////////////////////////////////////////////////////////////
-    buffer&  operator=( buffer const& src )
+    buffer& operator=( buffer const& src )
     {
       if(this != &src) parent::assign(src);
+      return *this;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Assign by resize/copy if compatible size
+    ////////////////////////////////////////////////////////////////////////////
+    template<class Buffer>
+    typename boost::enable_if_c < details::is_assignment_compatible<buffer,Buffer>::value
+                                , buffer&
+                                >::type
+    operator=( Buffer const& src )
+    {
+      NT2_ASSERT((details::is_assignment_compatible<buffer,Buffer>()(*this,src)));
+      parent::assign((typename Buffer::parent const&)(src));
       return *this;
     }
 
