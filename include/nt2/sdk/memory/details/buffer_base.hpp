@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Base class for memory buffer
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/memory/meta/align_on.hpp>
 #include <nt2/sdk/memory/details/buffer_impl.hpp>
 #include <boost/type_traits/has_trivial_assign.hpp>
@@ -116,12 +117,12 @@ namespace nt2 { namespace details
     template<class Buffer> void assign(Buffer const& src)
     {
       typedef boost::has_trivial_constructor<value_type>              trivial;
-      typedef boost::is_same<typename Buffer::value_type, value_type> same;
+      typedef boost::is_same<typename Buffer::value_type, value_type> types;
 
       if(!capacity()) impl.allocate(src.lower(),src.size());
       else            impl.resize  (src.lower(),src.size());
 
-      copy(src,typename boost::mpl::bool_<same::value && trivial::value>());
+      copy(src,typename boost::mpl::bool_<types::value && trivial::value>());
     }
 
     ////////////////////////////////////////////////////////////////////////////

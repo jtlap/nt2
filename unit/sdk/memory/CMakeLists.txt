@@ -19,7 +19,7 @@ SET( SOURCES
     allocate.cpp
     overload.cpp
     allocator.cpp
-    buffer.cpp
+    dynamic_buffer.cpp
   )
 
 ################################################################################
