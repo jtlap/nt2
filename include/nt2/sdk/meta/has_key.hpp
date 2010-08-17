@@ -13,9 +13,17 @@
 // Check if a type T is a member of set S
 // Documentation: http://nt2.lri.fr/sdk/meta/has_key.hpp
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/typeof/typeof.hpp>
+
 namespace nt2 { namespace meta
 {
-  template<class S,class K> struct has_key : S::template has_key<K> {};
+  template<class S,class K> struct has_key
+  {
+    static K* keyptr;
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, S::key(keyptr) );
+    typedef typename nested::type type;
+    BOOST_STATIC_CONSTANT( bool, value = type::value );
+  };
 } }
 
 #endif

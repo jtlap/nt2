@@ -29,6 +29,8 @@
 
 namespace nt2 { namespace meta
 {
+  #define M0(z,n,t) static boost::mpl::true_ key(BOOST_PP_CAT(A,n)*);
+
   template<BOOST_PP_ENUM_BINARY_PARAMS( NT2_META_SET_SIZE
                                       , class A
                                       , = meta::na_ BOOST_PP_INTERCEPT
@@ -38,24 +40,19 @@ namespace nt2 { namespace meta
   {
     typedef void  is_set_type;
     typedef set   type;
-    template<class T,class X=void> struct has_key : boost::mpl::false_ {};
+    template<class T> static boost::mpl::false_ key(T*);
+    BOOST_PP_REPEAT(NT2_META_SET_SIZE,M0,~)
   };
 
-  #define M0(z,n,t)                                           \
-  template<class X>                                           \
-  struct has_key<BOOST_PP_CAT(A,n),X> : boost::mpl::true_ {}; \
-  /**/
-
-  #define M1(z,n,t)                             \
-  template<BOOST_PP_ENUM_PARAMS(n,class A)>     \
-  struct  set<BOOST_PP_ENUM_PARAMS(n,A)>        \
-  {                                             \
-    typedef void  is_set_type;                  \
-    typedef set   type;                         \
-    template<class T,class X=void>              \
-    struct has_key : boost::mpl::false_ {};     \
-    BOOST_PP_REPEAT(n,M0,~)                     \
-  };                                            \
+  #define M1(z,n,t)                                       \
+  template<BOOST_PP_ENUM_PARAMS(n,class A)>               \
+  struct  set<BOOST_PP_ENUM_PARAMS(n,A)>                  \
+  {                                                       \
+    typedef void  is_set_type;                            \
+    typedef set   type;                                   \
+    template<class T> static boost::mpl::false_ key(T*);  \
+    BOOST_PP_REPEAT(n,M0,~)                               \
+  };                                                      \
   /**/
 
   //////////////////////////////////////////////////////////////////////////////
