@@ -74,5 +74,7 @@ NT2_TEST_CASE(category_values)
   NT2_TEST_EQUAL( (my_category::rank & 0xFF000000)>>24, 42u   );
 
   // INVARIANT: unknwon is always bigger
-  NT2_TEST_LESSER( my_category::rank,  unknown::rank );
+  std::size_t my_category_rank = my_category::rank;
+  std::size_t unknown_rank     = unknown::rank;
+  NT2_TEST_LESSER( my_category_rank, unknown_rank );
 }
