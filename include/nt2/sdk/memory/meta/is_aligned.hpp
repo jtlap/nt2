@@ -12,7 +12,7 @@
 #include <cstddef>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/memory/parameters.hpp>
 #include <nt2/sdk/errors/static_assert.hpp>
 #include <nt2/sdk/memory/meta/is_power_of_2.hpp>
 

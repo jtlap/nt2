@@ -11,7 +11,7 @@
 
 #include <cstddef>
 #include <boost/utility/enable_if.hpp>
-#include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/memory/parameters.hpp>
 #include <nt2/sdk/memory/meta/is_power_of_2.hpp>
 
 namespace nt2 { namespace memory
