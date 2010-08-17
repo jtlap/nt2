@@ -14,29 +14,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Helpers for building implementation fo some predicate based tests
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_MAKE_TEST_FUNC(NAME,OP,COP)                                 \
-  template<class T, class U>                                            \
-  inline void NAME( char const* x1, char const* x2                      \
-                  , int line, char const * fn                           \
-                  , T const & t, U const & u                            \
-                  )                                                     \
-  {                                                                     \
-    test_count()++;                                                     \
-    if( t OP u )                                                        \
-    {                                                                   \
-      std::cout << "  Test '"                                           \
-                << x1 << " " << #OP << " " << x2                        \
-                << "' passed." << std::endl;                            \
-    }                                                                   \
-    else                                                                \
-    {                                                                   \
-      std::cout << "  Test '"<< x1 << " "<< #OP << " " << x2            \
-                << "' failed in function " << fn << " (" << line << ")" \
-                << ":  '" << t << " "<< #COP << " " << u << "'"         \
-                << std::endl;                                           \
-      ++error_count();                                                  \
-    }                                                                   \
-  }                                                                     \
+#define NT2_MAKE_TEST_FUNC(NAME,OP,COP)                                     \
+  template<class T, class U>                                                \
+  inline void NAME( char const* x1, char const* x2                          \
+                  , int line, char const * fn                               \
+                  , T const & t, U const & u                                \
+                  )                                                         \
+  {                                                                         \
+    test_count()++;                                                         \
+    if( t OP u )                                                            \
+    {                                                                       \
+      std::cout << " * Test `"                                              \
+                << x1 << " " << #OP << " " << x2                            \
+                << "` **passed**." << std::endl;                            \
+    }                                                                       \
+    else                                                                    \
+    {                                                                       \
+      std::cout << " * Test `"<< x1 << " "<< #OP << " " << x2               \
+                << "` **failed** in function " << fn << " (" << line << ")" \
+                << ":  '" << t << " "<< #COP << " " << u << "'"             \
+                << std::endl;                                               \
+      ++error_count();                                                      \
+    }                                                                       \
+  }                                                                         \
 /**/
 
 namespace nt2 { namespace details
