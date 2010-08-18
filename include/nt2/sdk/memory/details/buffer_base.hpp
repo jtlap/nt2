@@ -36,6 +36,7 @@ namespace nt2 { namespace details
     typedef typename allocator_type::const_reference          const_reference;
     typedef typename allocator_type::size_type                size_type;
     typedef typename allocator_type::difference_type          difference_type;
+    typedef typename allocator_type::difference_type          index_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Is buffer size completely static
@@ -82,12 +83,17 @@ namespace nt2 { namespace details
     ~buffer_base() { cleanup(); }
 
     ////////////////////////////////////////////////////////////////////////////
+    // Swapping
+    ////////////////////////////////////////////////////////////////////////////
+    void swap( buffer_base& src ) { impl.swap(src.impl); }
+
+    ////////////////////////////////////////////////////////////////////////////
     // Size related helpers
     ////////////////////////////////////////////////////////////////////////////
-    size_type       size()      const { return impl.end_ - impl.begin_;       }
-    size_type       capacity()  const { return impl.capacity_ - impl.origin_; }
-    difference_type lower()     const { return impl.origin_ - impl.begin_;    }
-    difference_type upper()     const { return size() - 1 + lower();          }
+    size_type   size()      const { return impl.end_ - impl.begin_;       }
+    size_type   capacity()  const { return impl.capacity_ - impl.origin_; }
+    index_type  lower()     const { return impl.origin_ - impl.begin_;    }
+    index_type  upper()     const { return size() - 1 + lower();          }
 
     ////////////////////////////////////////////////////////////////////////////
     // Multi-pass components

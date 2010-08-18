@@ -37,14 +37,14 @@ namespace nt2 { namespace details
 
     void allocate(difference_type b, size_type s)
     {
-      size_type asz = align_on(s);
+      size_type asz = memory::align_on(s);
       origin_       = base::allocate(asz);
       scale(asz, s, b);
     }
 
     void resize(difference_type b, size_type s)
     {
-      size_type asz = align_on(s);
+      size_type asz = memory::align_on(s);
       size_type osz = capacity_ - origin_;
       origin_       = base::resize(origin_,asz,osz);
       scale(asz, s, b);

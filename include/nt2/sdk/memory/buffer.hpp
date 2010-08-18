@@ -38,6 +38,7 @@ namespace nt2 { namespace memory
     typedef typename parent::const_reference                const_reference;
     typedef typename parent::size_type                      size_type;
     typedef typename parent::difference_type                difference_type;
+    typedef typename parent::index_type                     index_type;
     typedef typename parent::has_static_base                has_static_base;
     typedef typename parent::has_static_size                has_static_size;
     typedef typename parent::is_static                      is_static;
@@ -77,6 +78,14 @@ namespace nt2 { namespace memory
     {
       if(this != &src) parent::assign(src);
       return *this;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Swapping
+    ////////////////////////////////////////////////////////////////////////////
+    void swap( buffer& src )
+    {
+      parent::swap(src);
     }
 
     ////////////////////////////////////////////////////////////////////////////
