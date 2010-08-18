@@ -20,6 +20,8 @@ SET( SOURCES
     overload.cpp
     allocator.cpp
     dynamic_buffer.cpp
+#   hybrid_buffer.cpp
+    static_buffer.cpp
   )
 
 ################################################################################

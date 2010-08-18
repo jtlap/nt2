@@ -6,8 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::memory::buffer - dynamic mode"
+#define NT2_UNIT_MODULE "nt2::memory::buffer - static mode"
 
+#include <boost/mpl/int.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -21,11 +22,13 @@ NT2_TEST_CASE(buffer_static_properties)
   using nt2::memory::buffer;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
+  typedef boost::mpl::int_<0> base_;
+  typedef boost::mpl::int_<5> size_;
+  typedef buffer<float,base_,size_,allocator<float> > buffer_type;
 
-  NT2_TEST( !buffer_type::is_static::value );
-  NT2_TEST( !buffer_type::has_static_base::value );
-  NT2_TEST( !buffer_type::has_static_size::value );
+  NT2_TEST( buffer_type::is_static::value );
+  NT2_TEST( buffer_type::has_static_base::value );
+  NT2_TEST( buffer_type::has_static_size::value );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,18 +37,28 @@ NT2_TEST_CASE(buffer_static_properties)
 NT2_TEST_CASE(buffer_default_ctor)
 {
   using nt2::memory::buffer;
+  using nt2::memory::align_on;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
+  typedef boost::mpl::int_<0> base_;
+  typedef boost::mpl::int_<5> size_;
+  typedef buffer<float,base_,size_,allocator<float> > buffer_type;
 
   buffer_type b;
 
-  NT2_TEST_EQUAL( b.size()    , 0U          );
-  NT2_TEST_EQUAL( b.capacity(), 0U          );
-  NT2_TEST_EQUAL( b.lower()   ,  0          );
-  NT2_TEST_EQUAL( b.upper()   , -1          );
-  NT2_TEST_EQUAL( b.origin()  , (float*)(0) );
-  NT2_TEST_EQUAL( b.begin()   , (float*)(0) );
+  NT2_TEST_EQUAL( b.size()    , 5U              );
+  NT2_TEST_EQUAL( b.capacity(), align_on(5U)    );
+  NT2_TEST_EQUAL( b.lower()   ,  0              );
+  NT2_TEST_EQUAL( b.upper()   ,  4              );
+  NT2_TEST_NOT_EQUAL( b.origin()  , (float*)(0) );
+  NT2_TEST_NOT_EQUAL( b.begin()   , (float*)(0) );
+  NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+
+  for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+    b[i] = 1+i;
+
+  for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+    NT2_TEST_EQUAL( b[i], 1+i );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,19 +67,29 @@ NT2_TEST_CASE(buffer_default_ctor)
 NT2_TEST_CASE(buffer_allocator_ctor)
 {
   using nt2::memory::buffer;
+  using nt2::memory::align_on;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
+  typedef boost::mpl::int_<0> base_;
+  typedef boost::mpl::int_<5> size_;
+  typedef buffer<float,base_,size_,allocator<float> > buffer_type;
 
   allocator<float> a;
   buffer_type b(a);
 
-  NT2_TEST_EQUAL( b.size()    , 0U          );
-  NT2_TEST_EQUAL( b.capacity(), 0U          );
-  NT2_TEST_EQUAL( b.lower()   ,  0          );
-  NT2_TEST_EQUAL( b.upper()   , -1          );
-  NT2_TEST_EQUAL( b.origin()  , (float*)(0) );
-  NT2_TEST_EQUAL( b.begin()   , (float*)(0) );
+  NT2_TEST_EQUAL( b.size()    , 5U              );
+  NT2_TEST_EQUAL( b.capacity(), align_on(5U)    );
+  NT2_TEST_EQUAL( b.lower()   ,  0              );
+  NT2_TEST_EQUAL( b.upper()   ,  4              );
+  NT2_TEST_NOT_EQUAL( b.origin()  , (float*)(0) );
+  NT2_TEST_NOT_EQUAL( b.begin()   , (float*)(0) );
+  NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+
+  for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+    b[i] = 1+i;
+
+  for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+    NT2_TEST_EQUAL( b[i], 1+i );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -78,8 +101,13 @@ NT2_TEST_CASE(buffer_ctor)
   using nt2::memory::align_on;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
-  buffer_type b(0,5);
+  typedef boost::mpl::int_<0> base_;
+  typedef boost::mpl::int_<5> size_;
+  typedef buffer<float,base_,size_,allocator<float> > buffer_type;
+
+  base_ bb;
+  size_ ss;
+  buffer_type b(bb,ss);
 
   NT2_TEST_EQUAL( b.size()      , 5U                  );
   NT2_TEST_EQUAL( b.capacity()  , align_on(5U)        );
@@ -105,8 +133,10 @@ NT2_TEST_CASE(buffer_assignment)
   using nt2::memory::align_on;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
-  buffer_type b,x(0,5);
+  typedef boost::mpl::int_<0> base_;
+  typedef boost::mpl::int_<5> size_;
+  typedef buffer<float,base_,size_,allocator<float> > buffer_type;
+  buffer_type b,x;
   for ( buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     x[i] = 1+i;
 
@@ -133,8 +163,11 @@ NT2_TEST_CASE(buffer_swap)
   using nt2::memory::align_on;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
-  buffer_type b(-1,3),x(0,5);
+  typedef boost::mpl::int_<0> base_;
+  typedef boost::mpl::int_<5> size_;
+  typedef buffer<float,base_,size_,allocator<float> > buffer_type;
+
+  buffer_type b,x;
   for ( buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     x[i] = 1+i;
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
@@ -150,10 +183,10 @@ NT2_TEST_CASE(buffer_swap)
   NT2_TEST_NOT_EQUAL( b.begin() , (float*)(0)         );
   NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
 
-  NT2_TEST_EQUAL( x.size()      , 3U                  );
-  NT2_TEST_EQUAL( x.capacity()  , align_on(3U)        );
-  NT2_TEST_EQUAL( x.lower()     ,  -1                 );
-  NT2_TEST_EQUAL( x.upper()     ,   1                 );
+  NT2_TEST_EQUAL( x.size()      , 5U                  );
+  NT2_TEST_EQUAL( x.capacity()  , align_on(5U)        );
+  NT2_TEST_EQUAL( x.lower()     ,   0                 );
+  NT2_TEST_EQUAL( x.upper()     ,   4                 );
   NT2_TEST_NOT_EQUAL( x.origin(), (float*)(0)         );
   NT2_TEST_NOT_EQUAL( x.begin() , (float*)(0)         );
   NT2_TEST_EQUAL( x.origin()    , x.begin()+x.lower() );
