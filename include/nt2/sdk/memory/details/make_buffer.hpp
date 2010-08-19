@@ -18,10 +18,10 @@
 
 namespace nt2 { namespace details
 {
-  template<int N, class T, class B, class S, class A>
+  template<int N, class T, class B, class S, class P, class A>
   struct make_buffer
   {
-    typedef make_buffer<N-1,T,B,S,A>                                     prev;
+    typedef make_buffer<N-1,T,B,S,P,A>                                   prev;
     typedef typename  boost
                     ::add_pointer<typename prev::value_type>::type value_type;
     typedef typename A::template rebind<value_type>::other     allocator_type;
@@ -30,13 +30,13 @@ namespace nt2 { namespace details
     typedef memory::buffer<value_type,base_type,size_type,allocator_type> type;
   };
 
-  template<class T, class B, class S, class A>
-  struct make_buffer<1,T,B,S,A>
+  template<class T, class B, class S, class P, class A>
+  struct make_buffer<1,T,B,S,P,A>
   {
-    typedef T                                               value_type;
-    typedef typename boost::mpl::at_c<B,0>::type            base_type;
-    typedef typename boost::mpl::at_c<S,0>::type            size_type;
-    typedef memory::buffer<value_type,base_type,size_type,A> type;
+    typedef T                                                     value_type;
+    typedef typename boost::mpl::at_c<B,0>::type                  base_type;
+    typedef typename boost::result_of<typename P::size(S)>::type  size_type;
+    typedef memory::buffer<value_type,base_type,size_type,A>      type;
   };
 } }
 

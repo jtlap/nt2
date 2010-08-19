@@ -26,12 +26,12 @@ namespace nt2 { namespace details
           >
   struct  is_assignment_compatible
         : boost::mpl::bool_ <   B1::size_value_type::value
-                            ==  B2::size_value_type::value
+                            >=  B2::size_value_type::value
                             >
   {
     bool operator()(B1 const& ,B2 const& ) const
     {
-      return B1::size_value_type::value == B2::size_value_type::value;
+      return B1::size_value_type::value >= B2::size_value_type::value;
     }
   };
 
@@ -46,7 +46,7 @@ namespace nt2 { namespace details
   {
     bool operator()(B1 const& s1,B2 const& s2) const
     {
-      return s2.size() == (typename B2::size_type)(B1::size_value_type::value);
+      return s2.size() >= (typename B2::size_type)(B1::size_value_type::value);
     }
   };
 

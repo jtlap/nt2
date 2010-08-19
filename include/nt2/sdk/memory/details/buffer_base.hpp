@@ -122,11 +122,15 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     template<class Buffer> void assign(Buffer const& src)
     {
-      typedef boost::has_trivial_constructor<value_type>              trivial;
-      typedef boost::is_same<typename Buffer::value_type, value_type> types;
-
       if(!capacity()) impl.allocate(src.lower(),src.size());
       else            impl.resize  (src.lower(),src.size());
+      fill(src);
+    }
+
+    template<class Buffer> void fill(Buffer const& src)
+    {
+      typedef boost::has_trivial_constructor<value_type>              trivial;
+      typedef boost::is_same<typename Buffer::value_type, value_type> types;
 
       copy(src,typename boost::mpl::bool_<types::value && trivial::value>());
     }
