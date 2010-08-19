@@ -14,6 +14,7 @@
 // Documentation: http://nt2.lri.fr/sdk/functor/macros/call.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/hierarchy.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/sdk/errors/static_assert.hpp>
 #include <boost/preprocessor/tuple/rem.hpp>
 #include <boost/preprocessor/array/data.hpp>
@@ -51,10 +52,11 @@ operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) ) const  \
 // Boilerplate macro to start an eval() overload with N parameters and
 // dispatching for types belonging to Set
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_EVAL_IF(N,Set,C)                                  \
-template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                      \
-typename NT2_RETURN_TYPE(N,C)::type                                   \
-eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a), Set* const&) const  \
+#define NT2_FUNCTOR_EVAL_IF(N,Set,C)              \
+template<BOOST_PP_ENUM_PARAMS(N,class A)> inline  \
+typename NT2_RETURN_TYPE(N,C)::type               \
+eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a)  \
+    , NT2_PP_STRIP(Set)* const&) const            \
 /**/
 
 #define NT2_FUNCTOR_CALL_EVAL_IF(N,Set) NT2_FUNCTOR_EVAL_IF(N,Set,call)
@@ -80,25 +82,27 @@ eval( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT )  \
 
 #define NT2_FUNCTOR_CALL_DEFAULT(N) NT2_FUNCTOR_DEFAULT(N,call)
 
+#define NT2_FUNCTOR_SETS(z,n,t) NT2_PP_STRIP( BOOST_PP_ARRAY_ELEM(n,t) )
+
 ////////////////////////////////////////////////////////////////////////////////
 // Main functor entry point which performs type matching and forwarding to the
 // proper overload. Also takes care of unsupported types.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR_DISPATCH(N,Type,Sets,C)                         \
-NT2_FUNCTOR(N,C)                                                    \
-{                                                                   \
-  typedef typename NT2_RETURN_TYPE(N,C)::type return_type;          \
-  typedef typename meta::find_type< Type                            \
-                                  , BOOST_PP_TUPLE_REM_CTOR (       \
-                                        BOOST_PP_ARRAY_SIZE(Sets)   \
-                                      , BOOST_PP_ARRAY_DATA(Sets)   \
-                                                            )       \
-                                  , functors::empty_>::type* fnd_;  \
-  return eval( BOOST_PP_ENUM_PARAMS(N,a),fnd_(0));                  \
-}                                                                   \
-private:                                                            \
-NT2_FUNCTOR_DEFAULT(N,C)                                            \
-public:                                                             \
+#define NT2_FUNCTOR_DISPATCH(N,Type,Sets,C)                                   \
+NT2_FUNCTOR(N,C)                                                              \
+{                                                                             \
+  typedef typename NT2_RETURN_TYPE(N,C)::type return_type;                    \
+  typedef typename meta::find_type< NT2_PP_STRIP(Type)                        \
+                                  , BOOST_PP_ENUM ( BOOST_PP_ARRAY_SIZE(Sets) \
+                                                  , NT2_FUNCTOR_SETS          \
+                                                  , Sets                      \
+                                                  )                           \
+                                  , functors::empty_>::type* fnd_;            \
+  return eval( BOOST_PP_ENUM_PARAMS(N,a),fnd_(0));                            \
+}                                                                             \
+private:                                                                      \
+NT2_FUNCTOR_DEFAULT(N,C)                                                      \
+public:                                                                       \
 /**/
 
 #define NT2_FUNCTOR_CALL_DISPATCH(N,Type,Sets)  \
