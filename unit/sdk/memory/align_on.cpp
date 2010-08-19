@@ -22,30 +22,30 @@ NT2_TEST_CASE(align_on_int)
 {
   using nt2::memory::align_on;
 
-  NT2_TEST_EQUAL( align_on<0x01>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x02>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x04>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x08>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x10>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x20>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x40>(0x00), 0x00U );
-  NT2_TEST_EQUAL( align_on<0x80>(0x00), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x01>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x02>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x04>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x08>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x10>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x20>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x40>(0x00U), 0x00U );
+  NT2_TEST_EQUAL( align_on<0x80>(0x00U), 0x00U );
 
-  NT2_TEST_EQUAL( align_on<0x02>(0x01), 0x02U );
-  NT2_TEST_EQUAL( align_on<0x04>(0x03), 0x04U );
-  NT2_TEST_EQUAL( align_on<0x08>(0x07), 0x08U );
-  NT2_TEST_EQUAL( align_on<0x10>(0x0F), 0x10U );
-  NT2_TEST_EQUAL( align_on<0x20>(0x1F), 0x20U );
-  NT2_TEST_EQUAL( align_on<0x40>(0x3F), 0x40U );
-  NT2_TEST_EQUAL( align_on<0x80>(0x7F), 0x80U );
+  NT2_TEST_EQUAL( align_on<0x02>(0x01U), 0x02U );
+  NT2_TEST_EQUAL( align_on<0x04>(0x03U), 0x04U );
+  NT2_TEST_EQUAL( align_on<0x08>(0x07U), 0x08U );
+  NT2_TEST_EQUAL( align_on<0x10>(0x0FU), 0x10U );
+  NT2_TEST_EQUAL( align_on<0x20>(0x1FU), 0x20U );
+  NT2_TEST_EQUAL( align_on<0x40>(0x3FU), 0x40U );
+  NT2_TEST_EQUAL( align_on<0x80>(0x7FU), 0x80U );
 
-  NT2_TEST_EQUAL( align_on<0x02>(0x02), 0x02U );
-  NT2_TEST_EQUAL( align_on<0x04>(0x04), 0x04U );
-  NT2_TEST_EQUAL( align_on<0x08>(0x08), 0x08U );
-  NT2_TEST_EQUAL( align_on<0x10>(0x10), 0x10U );
-  NT2_TEST_EQUAL( align_on<0x20>(0x20), 0x20U );
-  NT2_TEST_EQUAL( align_on<0x40>(0x40), 0x40U );
-  NT2_TEST_EQUAL( align_on<0x80>(0x80), 0x80U );
+  NT2_TEST_EQUAL( align_on<0x02>(0x02U), 0x02U );
+  NT2_TEST_EQUAL( align_on<0x04>(0x04U), 0x04U );
+  NT2_TEST_EQUAL( align_on<0x08>(0x08U), 0x08U );
+  NT2_TEST_EQUAL( align_on<0x10>(0x10U), 0x10U );
+  NT2_TEST_EQUAL( align_on<0x20>(0x20U), 0x20U );
+  NT2_TEST_EQUAL( align_on<0x40>(0x40U), 0x40U );
+  NT2_TEST_EQUAL( align_on<0x80>(0x80U), 0x80U );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +58,43 @@ NT2_TEST_CASE(align_on_ptr)
   void* null_  = reinterpret_cast<void*>(0);
   void* exact_ = reinterpret_cast<void*>(0xABCD8000);
   void* under_ = reinterpret_cast<void*>(0xABCD7FFF);
+
+  NT2_TEST_EQUAL( align_on<0x01>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x02>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x04>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x08>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x10>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x20>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x40>(null_), null_ );
+  NT2_TEST_EQUAL( align_on<0x80>(null_), null_ );
+
+  NT2_TEST_EQUAL( align_on<0x02>(under_), exact_);
+  NT2_TEST_EQUAL( align_on<0x04>(under_), exact_);
+  NT2_TEST_EQUAL( align_on<0x08>(under_), exact_);
+  NT2_TEST_EQUAL( align_on<0x10>(under_), exact_);
+  NT2_TEST_EQUAL( align_on<0x20>(under_), exact_);
+  NT2_TEST_EQUAL( align_on<0x40>(under_), exact_);
+  NT2_TEST_EQUAL( align_on<0x80>(under_), exact_);
+
+  NT2_TEST_EQUAL( align_on<0x02>(exact_), exact_);
+  NT2_TEST_EQUAL( align_on<0x04>(exact_), exact_);
+  NT2_TEST_EQUAL( align_on<0x08>(exact_), exact_);
+  NT2_TEST_EQUAL( align_on<0x10>(exact_), exact_);
+  NT2_TEST_EQUAL( align_on<0x20>(exact_), exact_);
+  NT2_TEST_EQUAL( align_on<0x40>(exact_), exact_);
+  NT2_TEST_EQUAL( align_on<0x80>(exact_), exact_);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test the align_on on mpl::int_
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(align_on_int_)
+{
+  using nt2::memory::align_on;
+
+  boost::mpl::int_<0>           null_;
+  boost::mpl::int_<0xABCD8000> exact_;
+  boost::mpl::int_<0xABCD7FFF> under_;
 
   NT2_TEST_EQUAL( align_on<0x01>(null_), null_ );
   NT2_TEST_EQUAL( align_on<0x02>(null_), null_ );
