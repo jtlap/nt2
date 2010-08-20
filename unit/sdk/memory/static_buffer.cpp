@@ -53,6 +53,7 @@ NT2_TEST_CASE(buffer_default_ctor)
   NT2_TEST_NOT_EQUAL( b.origin()  , (float*)(0) );
   NT2_TEST_NOT_EQUAL( b.begin()   , (float*)(0) );
   NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+  NT2_TEST( align_on(b.origin()) );
 
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     b[i] = 1+i;
@@ -84,6 +85,7 @@ NT2_TEST_CASE(buffer_allocator_ctor)
   NT2_TEST_NOT_EQUAL( b.origin()  , (float*)(0) );
   NT2_TEST_NOT_EQUAL( b.begin()   , (float*)(0) );
   NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+  NT2_TEST( align_on(b.origin()) );
 
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     b[i] = 1+i;
@@ -116,6 +118,7 @@ NT2_TEST_CASE(buffer_ctor)
   NT2_TEST_NOT_EQUAL( b.origin(), (float*)(0)         );
   NT2_TEST_NOT_EQUAL( b.begin() , (float*)(0)         );
   NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+  NT2_TEST( align_on(b.origin()) );
 
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     b[i] = 1+i;
@@ -149,6 +152,7 @@ NT2_TEST_CASE(buffer_assignment)
   NT2_TEST_NOT_EQUAL( b.origin(), (float*)(0)         );
   NT2_TEST_NOT_EQUAL( b.begin() , (float*)(0)         );
   NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+  NT2_TEST( align_on(b.origin()) );
 
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     NT2_TEST_EQUAL( b[i], 1+i );
@@ -182,6 +186,7 @@ NT2_TEST_CASE(buffer_swap)
   NT2_TEST_NOT_EQUAL( b.origin(), (float*)(0)         );
   NT2_TEST_NOT_EQUAL( b.begin() , (float*)(0)         );
   NT2_TEST_EQUAL( b.origin()    , b.begin()+b.lower() );
+  NT2_TEST( align_on(b.origin()) );
 
   NT2_TEST_EQUAL( x.size()      , 5U                  );
   NT2_TEST_EQUAL( x.capacity()  , align_on(5U)        );
@@ -190,6 +195,7 @@ NT2_TEST_CASE(buffer_swap)
   NT2_TEST_NOT_EQUAL( x.origin(), (float*)(0)         );
   NT2_TEST_NOT_EQUAL( x.begin() , (float*)(0)         );
   NT2_TEST_EQUAL( x.origin()    , x.begin()+x.lower() );
+  NT2_TEST( align_on(x.origin()) );
 
   for ( buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], i );

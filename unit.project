@@ -40,6 +40,8 @@
           <File Name="unit/sdk/memory/allocator.cpp"/>
           <File Name="unit/sdk/memory/dynamic_buffer.cpp"/>
           <File Name="unit/sdk/memory/static_buffer.cpp"/>
+          <File Name="unit/sdk/memory/static_dynamic_buffer.cpp"/>
+          <File Name="unit/sdk/memory/dynamic_static_buffer.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
