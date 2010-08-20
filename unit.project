@@ -34,8 +34,14 @@
           <File Name="unit/sdk/memory/is_power_of_2.cpp"/>
           <File Name="unit/sdk/memory/next_power_of_2.cpp"/>
           <File Name="unit/sdk/memory/is_aligned.cpp"/>
-          <File Name="unit/sdk/memory/pointer.cpp"/>
           <File Name="unit/sdk/memory/make_aligned.cpp"/>
+          <File Name="unit/sdk/memory/allocate.cpp"/>
+          <File Name="unit/sdk/memory/overload.cpp"/>
+          <File Name="unit/sdk/memory/allocator.cpp"/>
+          <File Name="unit/sdk/memory/dynamic_buffer.cpp"/>
+          <File Name="unit/sdk/memory/static_buffer.cpp"/>
+          <File Name="unit/sdk/memory/static_dynamic_buffer.cpp"/>
+          <File Name="unit/sdk/memory/dynamic_static_buffer.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
@@ -44,7 +50,7 @@
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
   <Settings Type="Executable">
-    <Configuration Name="Debug" CompilerType="gnu g++-4.3" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+    <Configuration Name="Debug" CompilerType="gnu g++-4.5" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" Required="no" PreCompiledHeader="">
         <IncludePath Value="."/>
       </Compiler>

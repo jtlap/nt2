@@ -130,6 +130,7 @@
           <File Name="include/nt2/sdk/dsl/recursive_process.hpp"/>
           <File Name="include/nt2/sdk/dsl/value_c.hpp"/>
           <File Name="include/nt2/sdk/dsl/compile.hpp"/>
+          <File Name="include/nt2/sdk/constant/digits.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="memory">
           <File Name="include/nt2/sdk/memory/load.hpp"/>
@@ -138,6 +139,12 @@
             <File Name="include/nt2/sdk/memory/details/store.hpp"/>
             <File Name="include/nt2/sdk/memory/details/buffer_base.hpp"/>
             <File Name="include/nt2/sdk/memory/details/buffer_impl.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/is_assignment_compatible.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/make_buffer.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/times.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/global_padding.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/lead_padding.hpp"/>
+            <File Name="include/nt2/sdk/memory/details/no_padding.hpp"/>
           </VirtualDirectory>
           <File Name="include/nt2/sdk/memory/store.hpp"/>
           <VirtualDirectory Name="meta">
@@ -149,7 +156,6 @@
           </VirtualDirectory>
           <File Name="include/nt2/sdk/memory/is_aligned.hpp"/>
           <File Name="include/nt2/sdk/memory/align_on.hpp"/>
-          <File Name="include/nt2/sdk/memory/pointer.hpp"/>
           <File Name="include/nt2/sdk/memory/config.hpp"/>
           <File Name="include/nt2/sdk/memory/allocate.hpp"/>
           <File Name="include/nt2/sdk/memory/deallocate.hpp"/>
@@ -157,6 +163,9 @@
           <File Name="include/nt2/sdk/memory/overload.hpp"/>
           <File Name="include/nt2/sdk/memory/allocator.hpp"/>
           <File Name="include/nt2/sdk/memory/buffer.hpp"/>
+          <File Name="include/nt2/sdk/memory/parameters.hpp"/>
+          <File Name="include/nt2/sdk/memory/block.hpp"/>
+          <File Name="include/nt2/sdk/memory/padding.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>
@@ -190,7 +199,6 @@
           <File Name="include/nt2/sdk/meta/make_real.hpp"/>
           <File Name="include/nt2/sdk/meta/as_real.hpp"/>
         </VirtualDirectory>
-        <VirtualDirectory Name="settings"/>
         <VirtualDirectory Name="simd">
           <VirtualDirectory Name="extensions">
             <File Name="include/nt2/sdk/simd/extensions/altivec.hpp"/>
@@ -364,31 +372,27 @@
                 <File Name="include/nt2/sdk/simd/details/impl/common/bitwise_and.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/bitwise_or.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/bitwise_xor.hpp"/>
-                <File Name="include/nt2/sdk/simd/details/impl/common/divides.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/is_equal_to.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/is_greater.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/is_greater_equal.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/is_less.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/is_less_equal.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/is_not_equal_to.hpp"/>
-                <File Name="include/nt2/sdk/simd/details/impl/common/logical_and.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/logical_not.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/logical_or.hpp"/>
-                <File Name="include/nt2/sdk/simd/details/impl/common/minus.hpp"/>
-                <File Name="include/nt2/sdk/simd/details/impl/common/multiplies.hpp"/>
-                <File Name="include/nt2/sdk/simd/details/impl/common/plus.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/shift_left.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/impl/common/shift_right.hpp"/>
               </VirtualDirectory>
               <File Name="include/nt2/sdk/simd/details/impl/map.hpp"/>
             </VirtualDirectory>
+            <File Name="include/nt2/sdk/simd/details/common.hpp"/>
+            <File Name="include/nt2/sdk/simd/details/check.hpp"/>
           </VirtualDirectory>
           <VirtualDirectory Name="preprocessor">
             <File Name="include/nt2/sdk/simd/preprocessor/include.hpp"/>
             <File Name="include/nt2/sdk/simd/preprocessor/sse.hpp"/>
             <File Name="include/nt2/sdk/simd/preprocessor/vmx.hpp"/>
           </VirtualDirectory>
-          <File Name="include/nt2/sdk/simd/details/check.hpp"/>
           <File Name="include/nt2/sdk/simd/native_cast.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="constant">
@@ -399,7 +403,6 @@
           </VirtualDirectory>
           <File Name="include/nt2/sdk/constant/constant.hpp"/>
           <File Name="include/nt2/sdk/constant/boolean.hpp"/>
-          <File Name="include/nt2/sdk/constant/digits.hpp"/>
           <File Name="include/nt2/sdk/constant/properties.hpp"/>
           <File Name="include/nt2/sdk/constant/real.hpp"/>
           <File Name="include/nt2/sdk/constant/category.hpp"/>

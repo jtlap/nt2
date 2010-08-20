@@ -74,7 +74,7 @@ namespace nt2 { namespace result
         )
     {
       std::size_t ptr = reinterpret_cast<std::size_t>(v);
-      return reinterpret_cast<T*>(this->operator()(ptr,a));
+      return reinterpret_cast<T>(this->operator()(ptr,a));
     }
 
     template<class T, class Align> inline
