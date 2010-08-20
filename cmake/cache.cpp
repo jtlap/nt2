@@ -13,7 +13,7 @@ int lcm(int a, int b )
 
 int main()
 {
-  int L1,L2,L3,value;
+  int L1,L2,L3,value,cache;
 
   value = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
   L1 = value ? value : 1;
@@ -24,6 +24,7 @@ int main()
   value = sysconf(_SC_LEVEL3_CACHE_LINESIZE);
   L3 = value ? value : 1;
   
-  return lcm( L3, lcm(L2,L1) );
+  cache = lcm( L3, lcm(L2,L1) );
+  return (cache>1 ? cache : 16);
 }
 
