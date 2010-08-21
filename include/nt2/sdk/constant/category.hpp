@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Category for constants
-//* TODO:  Documentation: http://nt2.lri.fr/sdk/constant/entity/constant.html
+//* TODO:  Documentation: http://nt2.lri.fr/sdk/constant/meta/category.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/category.hpp>

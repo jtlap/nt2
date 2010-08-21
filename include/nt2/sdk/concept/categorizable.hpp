@@ -16,12 +16,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Categorizable concept: defines types with a NT2 category tag
-//* TODO: Documentation: http://nt2.lri.fr/sdk/concept/categorizable.hpp
+// Documentation: http://nt2.lri.fr/sdk/concept/categorizable.hpp
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
   template< class T
-          , bool Enable = boost::is_same< typename meta::category_of<T>::type
+          , bool Enable = boost::is_same< typename
+                                          meta::category_of<T>::type::tag
                                         , tag::unknown
                                         >::value
           >
