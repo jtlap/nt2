@@ -38,8 +38,8 @@
         <File Name="doc/source/sdk/unit.rst"/>
         <VirtualDirectory Name="unit">
           <File Name="doc/source/sdk/unit/module.rst"/>
-          <File Name="doc/source/sdk/unit/report.rst"/>
           <File Name="doc/source/sdk/unit/tests.rst"/>
+          <File Name="doc/source/sdk/unit/benchmark.rst"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <VirtualDirectory Name="set">
@@ -71,6 +71,7 @@
         <File Name="doc/source/sdk/meta.rst"/>
         <VirtualDirectory Name="concept">
           <File Name="doc/source/sdk/concepts/category.rst"/>
+          <File Name="doc/source/sdk/concepts/categorizable.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/concepts.rst"/>
         <File Name="doc/source/sdk/functor.rst"/>
@@ -98,6 +99,7 @@
           <VirtualDirectory Name="function">
             <File Name="doc/source/sdk/memory/function/align_on.rst"/>
             <File Name="doc/source/sdk/memory/function/is_aligned.rst"/>
+            <File Name="doc/source/sdk/memory/function/load.rst"/>
           </VirtualDirectory>
           <VirtualDirectory Name="meta">
             <File Name="doc/source/sdk/memory/meta/align_on.rst"/>
