@@ -102,7 +102,7 @@ namespace nt2 { namespace functors
       BOOST_STATIC_CONSTANT(std::ptrdiff_t, shifta  = bytes*(N%card)              );
       BOOST_STATIC_CONSTANT(std::ptrdiff_t, shiftb  = bytes*(card-N%card)         );
 
-      // Reuse NT2_FUNCTION_xxx
+      // TODO: Reuse NT2_FUNCTION_xxx
       typedef T result_type;
       typedef loader_ call;
 

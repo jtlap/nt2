@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load from memory functor and function
-//* TODO: Documentation: http://nt2.lri.fr/sdk/memory/load.html
+// Documentation: http://nt2.lri.fr/sdk/memory/function/load.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/functor.hpp>
 #include <boost/type_traits/is_pointer.hpp>
