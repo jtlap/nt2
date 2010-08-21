@@ -11,5 +11,6 @@ to ease the writings of |nt2| unit tests.
 .. toctree::
    :maxdepth: 1
 
+   unit/benchmark
    unit/module
    unit/tests
