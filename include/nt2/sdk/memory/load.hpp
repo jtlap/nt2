@@ -14,9 +14,6 @@
 // Documentation: http://nt2.lri.fr/sdk/memory/function/load.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/functor.hpp>
-#include <boost/type_traits/is_pointer.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <nt2/sdk/functor/preprocessor/function.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -32,10 +29,7 @@ namespace nt2 { namespace functors
   template<class T, int Offset, class Info>
   struct functor< load_<T,Offset>, Info >
   {
-    struct validate
-    {
-	  typedef boost::mpl::true_ result_type;
-    };
+    struct validate { typedef boost::mpl::true_ result_type; };
 
     template<class Sig> struct result;
     template<class This,class A0,class A1> struct result<This(A0,A1)>
