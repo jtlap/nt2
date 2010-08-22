@@ -83,7 +83,7 @@ namespace nt2 { namespace functors
       typedef T result_type;
 
       template<class A0,class A1> inline
-      result_type operator()(A0 const& a0, A1 const& a1 )
+      result_type operator()(A0 const& a0, A1 const& a1 ) const
       {
         BOOST_STATIC_CONSTANT(std::ptrdiff_t, shift_fwd = N/card );
         return load<T>(a0,a1+shift_fwd);
@@ -102,15 +102,13 @@ namespace nt2 { namespace functors
       BOOST_STATIC_CONSTANT(std::ptrdiff_t, shifta  = bytes*(N%card)              );
       BOOST_STATIC_CONSTANT(std::ptrdiff_t, shiftb  = bytes*(card-N%card)         );
 
-      // TODO: Reuse NT2_FUNCTION_xxx
       typedef T result_type;
-      typedef loader_ call;
 
-      NT2_FUNCTOR_CALL_DISPATCH (   2, typename meta::scalar_of<T>::type
-                                , ( 3, (double,float,integer_) )
-                                )
+      NT2_FUNCTOR_DISPATCH( 2 , typename meta::scalar_of<T>::type
+                          , ( 3, (double,float,integer_) ), loader_
+                          )
 
-      NT2_FUNCTOR_CALL_EVAL_IF(2,double   )
+      NT2_FUNCTOR_EVAL_IF(2,double, loader_)
       {
         T a     = load<T>(a0,a1+offset);
         T b     = load<T>(a0,a1+offset+1);
@@ -121,7 +119,7 @@ namespace nt2 { namespace functors
         return that;
       }
 
-      NT2_FUNCTOR_CALL_EVAL_IF(2,float    )
+      NT2_FUNCTOR_EVAL_IF(2,float, loader_)
       {
         T a     = load<T>(a0,a1+offset);
         T b     = load<T>(a0,a1+offset+1);
@@ -132,7 +130,7 @@ namespace nt2 { namespace functors
         return that;
       }
 
-      NT2_FUNCTOR_CALL_EVAL_IF(2,integer_ )
+      NT2_FUNCTOR_EVAL_IF(2,integer_, loader_)
       {
         T a     = load<T>(a0,a1+offset);
         T b     = load<T>(a0,a1+offset+1);
@@ -155,15 +153,13 @@ namespace nt2 { namespace functors
       BOOST_STATIC_CONSTANT(uint8_t       , shifta  = loader_<-N>::shifta );
       BOOST_STATIC_CONSTANT(uint8_t       , shiftb  = loader_<-N>::shiftb );
 
-      // Reuse NT2_FUNCTION_xxx
       typedef T result_type;
-      typedef loader_ call;
 
-      NT2_FUNCTOR_CALL_DISPATCH (   2, typename meta::scalar_of<T>::type
-                                , ( 3, (double,float,integer_) )
-                                )
+      NT2_FUNCTOR_DISPATCH( 2, typename meta::scalar_of<T>::type
+                          , ( 3, (double,float,integer_) ), loader_
+                          )
 
-      NT2_FUNCTOR_CALL_EVAL_IF(2,double   )
+      NT2_FUNCTOR_EVAL_IF(2,double, loader_)
       {
         T a     = load<T>(a0,a1-offset);
         T b     = load<T>(a0,a1-(offset+1));
@@ -174,7 +170,7 @@ namespace nt2 { namespace functors
         return that;
       }
 
-      NT2_FUNCTOR_CALL_EVAL_IF(2,float    )
+      NT2_FUNCTOR_EVAL_IF(2,float, loader_)
       {
         T a     = load<T>(a0,a1+offset);
         T b     = load<T>(a0,a1+offset-1);
@@ -185,7 +181,7 @@ namespace nt2 { namespace functors
         return that;
       }
 
-      NT2_FUNCTOR_CALL_EVAL_IF(2,integer_ )
+      NT2_FUNCTOR_EVAL_IF(2,integer_, loader_)
       {
         T a     = load<T>(a0,a1+offset);
         T b     = load<T>(a0,a1+offset-1);
