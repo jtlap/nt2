@@ -10,21 +10,20 @@
 ################################################################################
 # Find cache size and cache line size
 ################################################################################
-IF(UNIX OR WINDOWS)
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
-        ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/cache.cpp        
-       )
-
-SET( NT2_CONFIG_ALIGNMENT ${RUN_RESULT_VAR} )
-
-ENDIF()
-
 IF(APPLE)
 execute_process(COMMAND sysctl -n hw.cachelinesize
                 OUTPUT_VARIABLE NT2_CONFIG_ALIGNMENT
                )
+ELSE()
+try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+        ${CMAKE_MODULE_PATH}
+        ${CMAKE_MODULE_PATH}/cache.cpp
+       )
+
+SET( NT2_CONFIG_ALIGNMENT ${RUN_RESULT_VAR} )
 ENDIF()
+
+MESSAGE( STATUS "Cache line size: " ${NT2_CONFIG_ALIGNMENT} )
 
 
 
