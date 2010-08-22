@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Compute the dominant category of a list of types
-//* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/dominant.html
+// Documentation:http://nt2.lri.fr/sdk/functor/meta/dominant.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <nt2/sdk/functor/details/dominant.hpp>

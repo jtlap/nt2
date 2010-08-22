@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // User-overloadable call meta-function
-//* TODO : Documentation:http://nt2.lri.fr/sdk/howto/functor.html
+// Documentation:http://nt2.lri.fr/extension/custom_function.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/unknown.hpp>

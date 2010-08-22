@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Validate the call to a given functor with a given list of arguments
-//* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/validate.html
+// Documentation:http://nt2.lri.fr/sdk/functor/meta/validate.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
