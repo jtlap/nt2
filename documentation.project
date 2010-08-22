@@ -102,6 +102,7 @@
             <File Name="doc/source/sdk/memory/function/align_on.rst"/>
             <File Name="doc/source/sdk/memory/function/is_aligned.rst"/>
             <File Name="doc/source/sdk/memory/function/load.rst"/>
+            <File Name="doc/source/sdk/memory/function/store.rst"/>
           </VirtualDirectory>
           <VirtualDirectory Name="meta">
             <File Name="doc/source/sdk/memory/meta/align_on.rst"/>
