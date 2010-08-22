@@ -95,6 +95,8 @@ namespace nt2 { namespace details
     index_type  lower()     const { return impl.origin_ - impl.begin_;    }
     index_type  upper()     const { return size() - 1 + lower();          }
 
+    typename data_type::pointer origin() const { return impl.origin_; }
+
     ////////////////////////////////////////////////////////////////////////////
     // Multi-pass components
     // We choose to split construction in two pass to help having proper
@@ -196,7 +198,7 @@ namespace nt2 { namespace details
     template<class Buffer>
     void copy(Buffer const& src, boost::mpl::true_ const&)
     {
-      ::memcpy(impl.origin_,src.impl.origin_,src.size()*sizeof(value_type));
+      ::memcpy(impl.origin_,src.origin(),src.size()*sizeof(value_type));
     }
 
     ////////////////////////////////////////////////////////////////////////////
