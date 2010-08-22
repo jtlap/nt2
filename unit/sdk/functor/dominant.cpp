@@ -10,6 +10,7 @@
 
 #include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/meta/category.hpp>
+#include <boost/utility/result_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/dominant.hpp>
 
