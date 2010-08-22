@@ -5,7 +5,7 @@ align_on
 
 .. index::
     single: align_on
-    single: aligned; align_on
+    single: memory; align_on
 
 Description
 ^^^^^^^^^^^
@@ -39,19 +39,17 @@ Header File
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/alignment/align_on.hpp>
+  #include <nt2/sdk/memory/align_on.hpp>
 
 Synopsis
 ^^^^^^^^
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace aligned
+  namespace nt2 { namespace memory
   {
-                                    std::size_t align_on( std::size_t v );
-    template<class T>               T*          align_on( T* v );
-    template<std::size_t N>         std::size_t align_on( std::size_t v );
-    template<std::size_t N,class T> T*          align_on( T* v );
+    template<class T>               unspecified_type align_on( T const& v );
+    template<std::size_t N,class T> unspecified_type align_on( T const& v );
   } }
 
 Expression Semantics

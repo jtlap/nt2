@@ -71,7 +71,7 @@ address ``ptr+offset``.
 
 **Semantics:** Return an instance of ``T`` containing the data loaded from the
 address ``ptr+offset+N`` if ``T`` is a scalar type and from an implementation
-specific address greater than ``ptr+offset`` otherwise.
+specific address otherwise (see other load function specialization documentation).
 
 Example
 ^^^^^^^

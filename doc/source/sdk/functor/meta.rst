@@ -13,4 +13,5 @@ support within |nt2| functors.
 
    meta/belong_to
    meta/dominant
+   meta/validate
 

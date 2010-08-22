@@ -5,6 +5,7 @@ belong_to
 
 .. index::
     single: belong_to
+    single: meta; belong_to
 
 Description
 ^^^^^^^^^^^

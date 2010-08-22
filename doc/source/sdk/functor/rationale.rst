@@ -1,3 +1,5 @@
+.. _functors_rationale:
+
 Design Notes
 ============
 
@@ -118,21 +120,14 @@ Tag Dispatching Strategy
 |nt2| functions are inherently polymorphic as they can be (except with specific
 validation clause) called with any types. To be able to discriminate parameters
 types and choose the proper implementation, we rely on a type categorization
-system in which types are sorted on two properties:
-
-* The **granularity** of the type, i.e. the usual data quantity it's able to store.
-  By default, |nt2| distinguish **value** from **container** types, the former
-  having a smaller granularity than the later.
-
-* The **rank** of the type, i.e. it's relative position among other types of same
-  granularity. For example, an arithmetic type has a lower rank than a complex type;
-  :term:`SIMD` vectors have greater rank than their associated scalar types.
+system in which types are sorted based on their **rank**. The **rank** is a
+32 bits numerical values that uniquely identify a type among all others.
 
 Determining which :ref:`functor_call` specialization to call is done by ordering
-all argument types by **granularity** and then by **rank**. This is done internally
-via the :ref:`meta_dominant` meta-function which computes such a type from a type
-list. The so-called **dominant** argument type is then used to compute the call
-category to select via the :ref:`meta_category_of` meta-function.
+all argument types their **rank**. This is done internally via the :ref:`meta_dominant`
+meta-function which computes such a type from a type list. The so-called **dominant**
+argument type is then used to compute the category using the :ref:`meta_category_of` meta-function.
+This category will then be used by :ref:`functor_call` to select the proper implementation.
 
 .. seealso::
   :ref:`functor_category` and

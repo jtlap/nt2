@@ -21,8 +21,12 @@ Header File
 
   #include <nt2/sdk/functor/preprocessor/function.hpp>
 
+.. _nt2_function_implementation:
+
 NT2_FUNCTION_IMPLEMENTATION
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. index:: NT2_FUNCTION_IMPLEMENTATION
 
 Synopsis
 --------

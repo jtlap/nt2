@@ -88,6 +88,8 @@
           </VirtualDirectory>
           <VirtualDirectory Name="meta">
             <File Name="doc/source/sdk/functor/meta/belong_to.rst"/>
+            <File Name="doc/source/sdk/functor/meta/validate.rst"/>
+            <File Name="doc/source/sdk/functor/meta/dominant.rst"/>
           </VirtualDirectory>
           <File Name="doc/source/sdk/functor/entity.rst"/>
           <File Name="doc/source/sdk/functor/macros.rst"/>
