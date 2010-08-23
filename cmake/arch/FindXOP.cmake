@@ -8,28 +8,15 @@
 ################################################################################
 
 ################################################################################
-# Check for MMX availability
+# Check for XOP availability
 ################################################################################
 
-################################################################################
-# Set proper flag setter depending on compiler
-################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_FLAGS -mmmx)
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_FLAGS \arch:MMX)
-ENDIF()
-
-################################################################################
-# Try to compile and run said file
-################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/mmx.cpp
-        CMAKE_FLAGS
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
+        ARGS xop
        )
 
 ################################################################################
@@ -37,19 +24,24 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "MMX not available")
-  set(MMX_FOUND FALSE)
+  message(STATUS "XOP not available")
+  set(XOP_FOUND FALSE)
 ELSE()
-  message(STATUS "MMX available")
-  set(MMX_FOUND TRUE)
+  set(XOP_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "MMX not available")
-  set(MMX_FOUND FALSE)
+  message(STATUS "XOP not available")
+  set(XOP_FOUND FALSE)
+ENDIF()
+
+IF( ${XOP_FOUND} )
+MESSAGE( STATUS "XOP available")
+ELSE()
+MESSAGE( STATUS "XOP not available")
 ENDIF()
 
 ################################################################################
 # Advance current test
 ################################################################################
-mark_as_advanced(MMX_FOUND)
+mark_as_advanced(XOP_FOUND)
 

@@ -67,9 +67,10 @@
 #cmakedefine NT2_HAS_SSSE3_SUPPORT
 #cmakedefine NT2_HAS_SSE4_1_SUPPORT
 #cmakedefine NT2_HAS_SSE4_2_SUPPORT
-#cmakedefine NT2_HAS_SSE4A_SUPPORT
 #cmakedefine NT2_HAS_AVX_SUPPORT
-#cmakedefine NT2_HAS_ALTIVEC_SUPPORT
+#cmakedefine NT2_HAS_XOP_SUPPORT
+#cmakedefine NT2_HAS_FMA4_SUPPORT
+#cmakedefine NT2_HAS_VMX_SUPPORT
 
 #endif
 

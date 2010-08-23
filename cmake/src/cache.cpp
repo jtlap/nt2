@@ -1,3 +1,12 @@
+/*******************************************************************************
+ *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+ *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
+
 int gcd(int a, int b )
 {
   if(b == 0) return a; else return gcd(b, a%b);
@@ -44,7 +53,7 @@ void getcachesizes(int& L1, int& L2, int& L3)
   PCACHE_DESCRIPTOR Cache;
 
   glpi = (LPFN_GLPI) GetProcAddress(GetModuleHandle(TEXT("kernel32")),"GetLogicalProcessorInformation");
-  if (NULL == glpi) 
+  if (NULL == glpi)
   {
     L1 = L2 = L3 = 16;
     return;
@@ -54,11 +63,11 @@ void getcachesizes(int& L1, int& L2, int& L3)
   {
     DWORD rc = glpi(buffer, &returnLength);
 
-    if (FALSE == rc) 
+    if (FALSE == rc)
     {
       if (buffer) free(buffer);
       buffer = (PSYSTEM_LOGICAL_PROCESSOR_INFORMATION)malloc(returnLength);
-    } 
+    }
     else
     {
       done = TRUE;
@@ -67,10 +76,10 @@ void getcachesizes(int& L1, int& L2, int& L3)
 
   ptr = buffer;
 
-  while (byteOffset + sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION) <= returnLength) 
+  while (byteOffset + sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION) <= returnLength)
   {
-    if(ptr->Relationship == RelationCache) 
-    {       
+    if(ptr->Relationship == RelationCache)
+    {
       Cache = &ptr->Cache;
       if (Cache->Level == 1)       L1 = (Cache->LineSize > 0) ?  Cache->LineSize  : 1;
       else if (Cache->Level == 2)  L2 = (Cache->LineSize > 0) ?  Cache->LineSize  : 1;
@@ -83,8 +92,6 @@ void getcachesizes(int& L1, int& L2, int& L3)
   free(buffer);
 }
 #endif
-
-#include <stdio.h>
 
 int main()
 {

@@ -8,28 +8,15 @@
 ################################################################################
 
 ################################################################################
-# Check for SSE3 availability
+# Check for FMA4 availability
 ################################################################################
 
-################################################################################
-# Set proper flag setter depending on compiler
-################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_FLAGS -msse3)
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_FLAGS \arch:SSE3)
-ENDIF()
-
-################################################################################
-# Try to compile and run said file
-################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/sse3.cpp
-        CMAKE_FLAGS
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
+        ARGS fma4
        )
 
 ################################################################################
@@ -37,19 +24,24 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSE3 not available")
-  set(SSE3_FOUND FALSE)
+  message(STATUS "FMA4 not available")
+  set(FMA4_FOUND FALSE)
 ELSE()
-  message(STATUS "SSE3 available")
-  set(SSE3_FOUND TRUE)
+  set(FMA4_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSE3 not available")
-  set(SSE3_FOUND FALSE)
+  message(STATUS "FMA4 not available")
+  set(FMA4_FOUND FALSE)
+ENDIF()
+
+IF( ${FMA4_FOUND} )
+MESSAGE( STATUS "FMA4 available")
+ELSE()
+MESSAGE( STATUS "FMA4 not available")
 ENDIF()
 
 ################################################################################
 # Advance current test
 ################################################################################
-mark_as_advanced(SSE3_FOUND)
+mark_as_advanced(FMA4_FOUND)
 

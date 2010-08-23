@@ -8,28 +8,15 @@
 ################################################################################
 
 ################################################################################
-# Check for SSE4 availability
+# Check for SSSE3 availability
 ################################################################################
 
-################################################################################
-# Set proper flag setter depending on compiler
-################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_FLAGS -msse4)
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_FLAGS \arch:SSE4.1)
-ENDIF()
-
-################################################################################
-# Try to compile and run said file
-################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/sse4.cpp
-        CMAKE_FLAGS
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
+        ARGS ssse3
        )
 
 ################################################################################
@@ -37,19 +24,24 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSE4 not available")
-  set(SSE4_FOUND FALSE)
+  message(STATUS "SSSE3 not available")
+  set(SSSE3_FOUND FALSE)
 ELSE()
-  message(STATUS "SSE4 available")
-  set(SSE4_FOUND TRUE)
+  set(SSSE3_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSE4 not available")
-  set(SSE4_FOUND FALSE)
+  message(STATUS "SSSE3 not available")
+  set(SSE3_FOUND FALSE)
+ENDIF()
+
+IF( ${SSE3_FOUND} )
+MESSAGE( STATUS "SSSE3 available")
+ELSE()
+MESSAGE( STATUS "SSSE3 not available")
 ENDIF()
 
 ################################################################################
 # Advance current test
 ################################################################################
-mark_as_advanced(SSE4_FOUND)
+mark_as_advanced(SSSE3_FOUND)
 

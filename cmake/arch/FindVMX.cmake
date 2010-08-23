@@ -8,14 +8,19 @@
 ################################################################################
 
 ################################################################################
-# Check for SIMD extensions availability
+# Check for Altivec VMX availability
 ################################################################################
-include(FindMMX)
-include(FindSSE2)
-include(FindSSE3)
-include(FindSSSE3)
-include(FindSSE4)
-include(FindAVX)
-include(FindXOP)
-include(FindFMA4)
-include(FindVMX)
+
+set(VMX_FOUND FALSE)
+
+IF( ${VMX_FOUND} )
+MESSAGE( STATUS "PPC Altivec available")
+ELSE()
+MESSAGE( STATUS "PPC Altivec not available")
+ENDIF()
+
+################################################################################
+# Advance current test
+################################################################################
+mark_as_advanced(AVX_FOUND)
+

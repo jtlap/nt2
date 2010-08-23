@@ -8,28 +8,15 @@
 ################################################################################
 
 ################################################################################
-# Check for SSE2 availability
+# Check for MMX availability
 ################################################################################
 
-################################################################################
-# Set proper flag setter depending on compiler
-################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_FLAGS -msse2)
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_FLAGS \arch:SSE2)
-ENDIF()
-
-################################################################################
-# Try to compile and run said file
-################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/sse2.cpp
-        CMAKE_FLAGS
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
+        ARGS mmx
        )
 
 ################################################################################
@@ -37,19 +24,24 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSE2 not available")
-  set(SSE2_FOUND FALSE)
+  message(STATUS "MMX not available")
+  set(MMX_FOUND FALSE)
 ELSE()
-  message(STATUS "SSE2 available")
-  set(SSE2_FOUND TRUE)
+  set(MMX_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSE2 not available")
-  set(SSE2_FOUND FALSE)
+  message(STATUS "MMX not available")
+  set(MMX_FOUND FALSE)
+ENDIF()
+
+IF( ${MMX_FOUND} )
+MESSAGE( STATUS "MMX available")
+ELSE()
+MESSAGE( STATUS "MMX not available")
 ENDIF()
 
 ################################################################################
 # Advance current test
 ################################################################################
-mark_as_advanced(SSE2_FOUND)
+mark_as_advanced(MMX_FOUND)
 

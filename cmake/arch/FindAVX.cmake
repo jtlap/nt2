@@ -8,28 +8,15 @@
 ################################################################################
 
 ################################################################################
-# Check for SSSE3 availability
+# Check for AVX availability
 ################################################################################
 
-################################################################################
-# Set proper flag setter depending on compiler
-################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_FLAGS -mssse3)
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_FLAGS \arch:SSSE3)
-ENDIF()
-
-################################################################################
-# Try to compile and run said file
-################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/ssse3.cpp
-        CMAKE_FLAGS
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
+        ARGS avx
        )
 
 ################################################################################
@@ -37,19 +24,24 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSSE3 not available")
-  set(SSSE3_FOUND FALSE)
+  message(STATUS "AVX not available")
+  set(AVX_FOUND FALSE)
 ELSE()
-  message(STATUS "SSSE3 available")
-  set(SSSE3_FOUND TRUE)
+  set(AVX_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSSE3 not available")
-  set(SSSE3_FOUND FALSE)
+  message(STATUS "AVX not available")
+  set(AVX_FOUND FALSE)
+ENDIF()
+
+IF( ${AVX_FOUND} )
+MESSAGE( STATUS "AVX available")
+ELSE()
+MESSAGE( STATUS "AVX not available")
 ENDIF()
 
 ################################################################################
 # Advance current test
 ################################################################################
-mark_as_advanced(SSSE3_FOUND)
+mark_as_advanced(AVX_FOUND)
 

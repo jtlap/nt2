@@ -8,28 +8,15 @@
 ################################################################################
 
 ################################################################################
-# Check for AVX availability
+# Check for SSE3 availability
 ################################################################################
 
-################################################################################
-# Set proper flag setter depending on compiler
-################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-SET(SIMD_FLAGS -mavx)
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_MSVC)
-SET(SIMD_FLAGS \arch:AVX)
-ENDIF()
-
-################################################################################
-# Try to compile and run said file
-################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/avx.cpp
-        CMAKE_FLAGS
-          -DCOMPILE_DEFINITIONS:STRING=${SIMD_FLAGS}
+        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
+        ARGS sse3
        )
 
 ################################################################################
@@ -37,19 +24,24 @@ try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "AVX not available")
-  set(AVX_FOUND FALSE)
+  message(STATUS "SSE3 not available")
+  set(SSE3_FOUND FALSE)
 ELSE()
-  message(STATUS "AVX available")
-  set(AVX_FOUND TRUE)
+  set(SSE3_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "AVX not available")
-  set(AVX_FOUND FALSE)
+  message(STATUS "SSE3 not available")
+  set(SSE3_FOUND FALSE)
+ENDIF()
+
+IF( ${SSE3_FOUND} )
+MESSAGE( STATUS "SSE3 available")
+ELSE()
+MESSAGE( STATUS "SSE3 not available")
 ENDIF()
 
 ################################################################################
 # Advance current test
 ################################################################################
-mark_as_advanced(AVX_FOUND)
+mark_as_advanced(SSE3_FOUND)
 
