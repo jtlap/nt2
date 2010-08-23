@@ -32,7 +32,7 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".test" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".test.exe" EXECUTABLE "${EXAMPLE}")
   STRING(REGEX REPLACE ".cpp" "-test" TEST "${EXAMPLE}")
 
   ##############################################################################
