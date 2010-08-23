@@ -8,46 +8,38 @@
 ################################################################################
 
 ################################################################################
-# Find Number of cores
+# Setup some compliler options
 ################################################################################
+include(CheckCXXCompilerFlag)
 
 ################################################################################
-# MAC OS X use sysctl
+# Add pedantic warning level
 ################################################################################
-IF(APPLE)
-EXECUTE_PROCESS(COMMAND sysctl -n hw.ncpu
-                OUTPUT_VARIABLE NT2_CONFIG_CPU_COUNT
-               )
-STRING(REGEX REPLACE "\n" "" NT2_CONFIG_CPU_COUNT ${TMP_CPU_COUNT})
+OPTION(NT2_PEDANTIC "Enable/Disable pedantic warnings" OFF)
+
+IF(NT2_PEDANTIC)
+################################################################################
+# Check for gcc style
+################################################################################
+check_cxx_compiler_flag("-pedantic" HAS_GCC_PEDANTIC)
+IF(HAS_GCC_PEDANTIC)
+set(NT2_FLAGS "${NT2_FLAGS} -pedantic")
+set(NT2_PEDANTIC_SET 1)
 ENDIF()
 
 ################################################################################
-# Unix use getconf
+# Check for MSVC style
 ################################################################################
-IF(UNIX)
-EXECUTE_PROCESS(COMMAND getconf _NPROCESSORS_ONLN
-                OUTPUT_VARIABLE TMP_CPU_COUNT
-               )
-STRING(REGEX REPLACE "\n" "" NT2_CONFIG_CPU_COUNT ${TMP_CPU_COUNT})
+check_cxx_compiler_flag("/W4" HAS_MSVC_PEDANTIC)
+IF(HAS_MSVC_PEDANTIC)
+set(NT2_FLAGS "${NT2_FLAGS} /W4")
+set(NT2_PEDANTIC_SET 1)
 ENDIF()
 
-################################################################################
-# Windows use a small cpp source
-################################################################################
-IF(WIN32)
-################################################################################
-# Compile a small cpu counter program then run it
-################################################################################
-TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
-        ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/src/win32_cpucount.cpp
-        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
-       )
-
-IF(${COMPILE_RESULT_VAR})
-  SET(${NT2_CONFIG_CPU_COUNT} ${RUN_RESULT_VAR})
+IF(NT2_PEDANTIC_SET)
+MESSAGE(STATUS "Enabling pedantic warnings")
 ENDIF()
-
 ENDIF()
-
-MESSAGE( STATUS "Cores found: ${NT2_CONFIG_CPU_COUNT}")
+################################################################################
+# Add pedantic warning level done
+################################################################################
