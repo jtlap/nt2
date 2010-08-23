@@ -10,12 +10,12 @@
 ################################################################################
 # Check for SIMD extensions availability
 ################################################################################
-include(FindMMX)
-include(FindSSE2)
-include(FindSSE3)
-include(FindSSSE3)
-include(FindSSE4)
-include(FindAVX)
-include(FindXOP)
-include(FindFMA4)
-include(FindVMX)
+include(arch/FindMMX)
+include(arch/FindSSE2)
+include(arch/FindSSE3)
+include(arch/FindSSSE3)
+include(arch/FindSSE4)
+include(arch/FindAVX)
+include(arch/FindXOP)
+include(arch/FindFMA4)
+include(arch/FindVMX)
