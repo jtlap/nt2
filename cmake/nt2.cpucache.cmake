@@ -17,9 +17,8 @@ execute_process(COMMAND sysctl -n hw.cachelinesize
 ELSE()
 try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/cache.cpp
+        ${CMAKE_MODULE_PATH}/src/cache.cpp
        )
-
 SET( NT2_CONFIG_ALIGNMENT ${RUN_RESULT_VAR} )
 ENDIF()
 

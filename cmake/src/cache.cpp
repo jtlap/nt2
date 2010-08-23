@@ -25,7 +25,6 @@ void getcachesizes(int& L1, int& L2, int& L3)
   L3 = value ? value : 1;
 }
 #else defined(__MSVC__)
-
 #include <windows.h>
 #include <malloc.h>
 
@@ -73,9 +72,9 @@ void getcachesizes(int& L1, int& L2, int& L3)
     if(ptr->Relationship == RelationCache) 
     {       
       Cache = &ptr->Cache;
-      if (Cache->Level == 1)       L1 = Cache->LineSize ? Cache->LineSize : 1;
-      else if (Cache->Level == 2)  L2 = Cache->LineSize ? Cache->LineSize : 1;
-      else if (Cache->Level == 3)  L3 = Cache->LineSize ? Cache->LineSize : 1;
+      if (Cache->Level == 1)       L1 = (Cache->LineSize > 0) ?  Cache->LineSize  : 1;
+      else if (Cache->Level == 2)  L2 = (Cache->LineSize > 0) ?  Cache->LineSize  : 1;
+      else if (Cache->Level == 3)  L3 = (Cache->LineSize > 0) ?  Cache->LineSize  : 1;
     }
     byteOffset += sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION);
     ptr++;
@@ -89,7 +88,7 @@ void getcachesizes(int& L1, int& L2, int& L3)
 
 int main()
 {
-  int L1,L2,L3;
+  int L1(1),L2(1),L3(1);
   getcachesizes(L1,L2,L3);
   return lcm( L3, lcm(L2,L1) );
 }
