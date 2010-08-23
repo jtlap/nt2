@@ -14,7 +14,9 @@ IF(APPLE)
 execute_process(COMMAND sysctl -n hw.cachelinesize
                 OUTPUT_VARIABLE NT2_CONFIG_ALIGNMENT
                )
-ELSE()
+ENDIF()
+
+IF(UNIX OR WIN32)
 try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cache.cpp
