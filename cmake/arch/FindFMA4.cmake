@@ -24,13 +24,11 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "FMA4 not available")
   set(FMA4_FOUND FALSE)
 ELSE()
   set(FMA4_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "FMA4 not available")
   set(FMA4_FOUND FALSE)
 ENDIF()
 

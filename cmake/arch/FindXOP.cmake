@@ -24,13 +24,11 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "XOP not available")
   set(XOP_FOUND FALSE)
 ELSE()
   set(XOP_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "XOP not available")
   set(XOP_FOUND FALSE)
 ENDIF()
 
