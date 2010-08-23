@@ -15,22 +15,20 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
         CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
-        OUTPUT_VARIABLE LOG
         ARGS mmx
        )
+
 
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "MMX not available")
   set(MMX_FOUND FALSE)
 ELSE()
   set(MMX_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "MMX not available")
   set(MMX_FOUND FALSE)
 ENDIF()
 

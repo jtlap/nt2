@@ -35,7 +35,7 @@ void __cpuidex(int CPUInfo[4],int InfoType,int ECXValue)
   );
 }
 
-#elif defined(__MSVC__)
+#elif defined(_MSC_VER)
 #include <intrin.h>
 #endif
 

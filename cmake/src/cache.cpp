@@ -33,7 +33,7 @@ void getcachesizes(int& L1, int& L2, int& L3)
   value = sysconf(_SC_LEVEL3_CACHE_LINESIZE);
   L3 = value ? value : 1;
 }
-#else defined(__MSVC__)
+#elif defined(_MSC_VER)
 #include <windows.h>
 #include <malloc.h>
 
