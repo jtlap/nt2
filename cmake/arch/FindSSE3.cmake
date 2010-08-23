@@ -24,13 +24,11 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSE3 not available")
   set(SSE3_FOUND FALSE)
 ELSE()
   set(SSE3_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSE3 not available")
   set(SSE3_FOUND FALSE)
 ENDIF()
 

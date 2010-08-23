@@ -24,13 +24,11 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSE4.1 not available")
   set(SSE41_FOUND FALSE)
 ELSE()
   set(SSE41_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSE4.1 not available")
   set(SSE41_FOUND FALSE)
 ENDIF()
 
@@ -57,13 +55,11 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 IF(${COMPILE_RESULT_VAR})
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  message(STATUS "SSE4.2 not available")
   set(SSE42_FOUND FALSE)
 ELSE()
   set(SSE42_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  message(STATUS "SSE4.2 not available")
   set(SSE42_FOUND FALSE)
 ENDIF()
 
