@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::functors::category"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -28,12 +29,12 @@ NT2_TEST_CASE(fundamental_category)
   NT2_TEST( (is_same<category_of<bool>::type::tag     , scalar_(arithmetic_)>::value) );
   NT2_TEST( (is_same<category_of<double>::type::tag   , scalar_(arithmetic_)>::value) );
   NT2_TEST( (is_same<category_of<float>::type::tag    , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<uint8_t>::type::tag  , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<uint16_t>::type::tag , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<uint32_t>::type::tag , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<uint64_t>::type::tag , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<int8_t>::type::tag   , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<int16_t>::type::tag  , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<int32_t>::type::tag  , scalar_(arithmetic_)>::value) );
-  NT2_TEST( (is_same<category_of<int64_t>::type::tag  , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::uint8_t>::type::tag  , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::uint16_t>::type::tag , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::uint32_t>::type::tag , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::uint64_t>::type::tag , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::int8_t>::type::tag   , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::int16_t>::type::tag  , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::int32_t>::type::tag  , scalar_(arithmetic_)>::value) );
+  NT2_TEST( (is_same<category_of<nt2::int64_t>::type::tag  , scalar_(arithmetic_)>::value) );
 }
