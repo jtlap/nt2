@@ -93,8 +93,7 @@ NT2_TEST_CASE(store)
   using nt2::store;
 
   float data[5];
-  for(int i=0;i<5;++i) store(i,&data[0],i);
-
+  for(nt2::int32_t i=0;i<5;++i) store(static_cast<float>(i),&data[0],i);  
   NT2_TEST_EQUAL( data[0], 0.f );
   NT2_TEST_EQUAL( data[1], 1.f );
   NT2_TEST_EQUAL( data[2], 2.f );
