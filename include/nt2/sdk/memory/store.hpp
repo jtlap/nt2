@@ -13,7 +13,9 @@
 // Store a value in memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/store.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/functor/functor.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
 namespace nt2 { namespace functors
@@ -31,17 +33,17 @@ namespace nt2 { namespace functors
       template<class Sig> struct result;
       template<class This,class A0,class A1,class A2>
       struct  result<This(A0,A1,A2)>
-            : boost::mpl::and_< boost::is_pointer<A1>
-                              , boost::is_integral<A2>
-                              >
-            {};
+		  : boost::mpl::and_< boost::is_pointer<typename boost::remove_reference<A1>::type>
+                            , boost::is_integral<typename boost::remove_reference<A2>::type>
+                            >            
+	  {};
     };
 
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
     struct result<This(A0,A1,A2)>
     {
-      typedef typename meta::category_of<A0>::type::tag         dominant;
+      typedef typename meta::category_of<A0>::type::tag       dominant;
       typedef functors::call<store_,dominant,Info>              callee;
       typedef typename std::tr1::result_of<callee(A0,A1,A2)>::type type;
     };
@@ -51,7 +53,7 @@ namespace nt2 { namespace functors
     operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
     {
       typedef typename meta::category_of<A0>::type::tag dominant;
-      functors::call<store_,dominant,Info>              callee;
+      functors::call<store_,dominant,Info>                callee;
       return callee(a0,a1,a2);
     }
   };
