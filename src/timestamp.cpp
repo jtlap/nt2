@@ -7,7 +7,13 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <time.h>
+#include <nt2/sdk/config/compiler.hpp>
 #include <nt2/sdk/details/timestamp.hpp>
+
+#if defined(NT2_COMPILER_MSVC)
+#pragma warning(push)
+#pragma warning(disable: 4996) 
+#endif
 
 namespace nt2 { namespace sys
 {
@@ -25,3 +31,7 @@ namespace nt2 { namespace sys
     return std::string(buffer);
   }
 } }
+
+#if defined(NT2_COMPILER_MSVC)
+#pragma warning(pop)
+#endif
