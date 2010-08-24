@@ -6,6 +6,7 @@
   <Project Name="unit" Path="unit.project" Active="No"/>
   <Project Name="benchmarks" Path="benchmarks.project" Active="No"/>
   <Project Name="quick_test" Path="quick_test.project" Active="No"/>
+  <Project Name="cmake" Path="cmake.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Project Name="library" ConfigName="Debug"/>
@@ -15,6 +16,7 @@
       <Project Name="unit" ConfigName="Debug"/>
       <Project Name="benchmarks" ConfigName="Debug"/>
       <Project Name="quick_test" ConfigName="Debug"/>
+      <Project Name="cmake" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Project Name="library" ConfigName="Release"/>
@@ -24,6 +26,7 @@
       <Project Name="unit" ConfigName="Release"/>
       <Project Name="benchmarks" ConfigName="Release"/>
       <Project Name="quick_test" ConfigName="Release"/>
+      <Project Name="cmake" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

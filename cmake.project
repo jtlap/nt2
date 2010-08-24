@@ -5,27 +5,33 @@
       <File Name="cmake/options/nt2.pedantic.cmake"/>
       <File Name="cmake/options/nt2.extra.warnings.cmake"/>
     </VirtualDirectory>
-    <File Name="cmake/FindAVX.cmake"/>
     <File Name="cmake/nt2.threading.cmake"/>
     <File Name="cmake/nt2.compiler.options.cmake"/>
     <File Name="cmake/nt2.cpucache.cmake"/>
     <File Name="cmake/nt2.cpucount.cmake"/>
     <File Name="cmake/nt2.python.cmake"/>
     <File Name="cmake/bootstrap.hpp.cmake"/>
-    <File Name="cmake/FindSSE2.cmake"/>
     <File Name="cmake/nt2.boost.cmake"/>
-    <File Name="cmake/FindSIMD.cmake"/>
     <File Name="cmake/FindSphinx.cmake"/>
-    <File Name="cmake/FindSSE4.cmake"/>
-    <File Name="cmake/FindMMX.cmake"/>
     <File Name="cmake/nt2.mpi.cmake"/>
     <File Name="cmake/nt2.simd.cmake"/>
-    <File Name="cmake/FindSSSE3.cmake"/>
-    <File Name="cmake/FindSSE3.cmake"/>
     <File Name="cmake/nt2.sphinx.cmake"/>
-    <VirtualDirectory Name="arch"/>
+    <VirtualDirectory Name="arch">
+      <File Name="cmake/arch/FindAVX.cmake"/>
+      <File Name="cmake/arch/FindFMA4.cmake"/>
+      <File Name="cmake/arch/FindMMX.cmake"/>
+      <File Name="cmake/arch/FindSSE2.cmake"/>
+      <File Name="cmake/arch/FindSSE3.cmake"/>
+      <File Name="cmake/arch/FindSSE4.cmake"/>
+      <File Name="cmake/arch/FindSSSE3.cmake"/>
+      <File Name="cmake/arch/FindVMX.cmake"/>
+      <File Name="cmake/arch/FindXOP.cmake"/>
+      <File Name="cmake/arch/FindSIMD.cmake"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="src">
       <File Name="cmake/src/win32_cpucount.cpp"/>
+      <File Name="cmake/src/cache.cpp"/>
+      <File Name="cmake/src/cpuid.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Description/>
