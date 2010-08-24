@@ -16,7 +16,7 @@
 ################################################################################
 IF(APPLE)
 EXECUTE_PROCESS(COMMAND sysctl -n hw.ncpu
-                OUTPUT_VARIABLE NT2_CONFIG_CPU_COUNT
+                OUTPUT_VARIABLE TMP_CPU_COUNT
                )
 STRING(REGEX REPLACE "\n" "" NT2_CONFIG_CPU_COUNT ${TMP_CPU_COUNT})
 ENDIF()
