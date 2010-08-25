@@ -12,8 +12,9 @@
 ################################################################################
 IF(APPLE)
 execute_process(COMMAND sysctl -n hw.cachelinesize
-                OUTPUT_VARIABLE NT2_CONFIG_ALIGNMENT
+                OUTPUT_VARIABLE TMP_ALIGNMENT
                )
+STRING(REGEX REPLACE "\n" "" NT2_CONFIG_ALIGNMENT ${TMP_ALIGNMENT})
 ENDIF()
 
 IF(UNIX OR WIN32)
