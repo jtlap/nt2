@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::functors::find_type"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/functor/meta/find_type.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,7 +39,7 @@ NT2_TEST_CASE(find_type_trivial_list)
   using nt2::meta::belong_to;
   using boost::is_same;
 
-  NT2_TEST( (is_same<find_type<float,double,float,int32_t>::type, float>::value) );
+  NT2_TEST( (is_same<find_type<float,double,float,nt2::int32_t>::type, float>::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

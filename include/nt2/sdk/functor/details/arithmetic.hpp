@@ -12,9 +12,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // boolean operators implementation
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/config/compiler.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define NT2_LOCAL_TYPE(Z,N,T)                 \
+#if defined(NT2_COMPILER_MSVC)
+#pragma warning(push)
+#pragma warning(disable: 4146) 
+#endif
+
+#define NT2_LOCAL_TYPE(Z,N,T)                                                     \
 static typename boost::add_reference<BOOST_PP_CAT(A,N)>::type  BOOST_PP_CAT(a,N); \
 /**/
 
@@ -55,5 +61,9 @@ namespace nt2 { namespace functors
 } }
 
 #undef NT2_MAKE_ARITHMETIC
+
+#if defined(NT2_COMPILER_MSVC)
+#pragma warning(pop)
+#endif
 
 #endif

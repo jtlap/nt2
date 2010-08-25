@@ -23,6 +23,9 @@ SET( SOURCES
     dynamic_static_buffer.cpp
     static_dynamic_buffer.cpp
     static_buffer.cpp
+    slice.cpp
+    stride.cpp
+    dynamic_block.cpp
   )
 
 ################################################################################
