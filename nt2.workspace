@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CodeLite_Workspace Name="nt2" Database="./nt2.tags">
   <Project Name="library" Path="library.project" Active="No"/>
-  <Project Name="documentation" Path="documentation.project" Active="Yes"/>
+  <Project Name="documentation" Path="documentation.project" Active="No"/>
   <Project Name="examples" Path="examples.project" Active="No"/>
-  <Project Name="unit" Path="unit.project" Active="No"/>
+  <Project Name="unit" Path="unit.project" Active="Yes"/>
   <Project Name="benchmarks" Path="benchmarks.project" Active="No"/>
   <Project Name="quick_test" Path="quick_test.project" Active="No"/>
   <Project Name="cmake" Path="cmake.project" Active="No"/>

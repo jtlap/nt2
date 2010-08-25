@@ -166,6 +166,10 @@
           <File Name="include/nt2/sdk/memory/parameters.hpp"/>
           <File Name="include/nt2/sdk/memory/block.hpp"/>
           <File Name="include/nt2/sdk/memory/padding.hpp"/>
+          <File Name="include/nt2/sdk/memory/slice.hpp"/>
+          <File Name="include/nt2/sdk/memory/stride.hpp"/>
+          <File Name="include/nt2/sdk/memory/global_padding.hpp"/>
+          <File Name="include/nt2/sdk/memory/no_padding.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>
