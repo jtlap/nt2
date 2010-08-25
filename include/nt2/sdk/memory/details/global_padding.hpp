@@ -6,40 +6,25 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_GLOBAL_PADDING_HPP_INCLUDED
-#define NT2_SDK_MEMORY_GLOBAL_PADDING_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_DETAILS_GLOBAL_PADDING_HPP_INCLUDED
+#define NT2_SDK_MEMORY_DETAILS_GLOBAL_PADDING_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Padding strategies for memory allocation
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/pair.hpp>
+#include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
-#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/memory/stride.hpp>
-#include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/value_at.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
+#include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/memory/details/times.hpp>
+#include <boost/fusion/include/value_at.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/memory/details/no_padding.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Various pre-made padding strategies
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace memory
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Global padding: global size is aligned_on
-  //////////////////////////////////////////////////////////////////////////////
-  struct global_padding
-  {
-    typedef boost::mpl::pair<tag::padding,global_padding> nt2_settings_type;
-  };
-} }
-
-////////////////////////////////////////////////////////////////////////////////
 // slice Functor implementation
-// We use the align_on<N> to check if we're computing on level 1 or not
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
@@ -48,41 +33,16 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Regular call slice<N> over sequence of size S
+    ////////////////////////////////////////////////////////////////////////////
     template<class This,class Seq,int N,int S>
     struct  result<This(Seq,boost::mpl::int_<N>,boost::mpl::int_<S>)>
-          :   std::tr1
-            ::result_of < result
-              ::align_on( typename std::tr1
-                          ::result_of < details
-                                        ::times ( typename boost::fusion
-                                                          ::result_of::value_at_c < Seq const
-                                                                                  , N-1
-                                                                                  >::type
-                                                , typename
-                                                  result < This ( Seq
-                                                                , boost::mpl::int_<N+1>
-                                                                , boost::mpl::int_<S>
-                                                                )
-                                                          >::type
-                                                )
-                                      >::type
-                        , boost::mpl::int_<((N==1)?NT2_CONFIG_ALIGNMENT:1)>
-                        )
-                        >
-    {};
-
-    template<class This,class Seq, int N>
-    struct  result< This(Seq,boost::mpl::int_<N>,boost::mpl::int_<N>)>
-          :   std::tr1
-            ::result_of < result
-                          ::align_on( typename  boost::fusion
-                                                ::result_of::value_at_c < Seq const
-                                                                        , N-1
-                                                                        >::type
-                                    , boost::mpl::int_<((N==1)?NT2_CONFIG_ALIGNMENT:1)>
-                                    )
-                        >
-    {};
+    {
+      static Seq const&     s;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, (slice<memory::no_padding,N>(s)) );
+      typedef typename nested::type type;
+    };
 
     template<class Seq,int N, int S>
     typename result<call(Seq,boost::mpl::int_<N>,boost::mpl::int_<S>)>::type
@@ -91,13 +51,16 @@ namespace nt2 { namespace functors
               , boost::mpl::int_<S> const&
               ) const
     {
-      details::times callee;
-      return memory::align_on<((N==1)?NT2_CONFIG_ALIGNMENT:1)>
-                              ( callee( slice<memory::no_padding,N+1>(s)
-                                      , boost::fusion::at_c<N-1>(s)
-                                      )
-                              );
+      return slice<memory::no_padding,N>(s);
     }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Regular call slice<N> over sequence of size N
+    ////////////////////////////////////////////////////////////////////////////
+    template<class This,class Seq, int N>
+    struct  result< This(Seq,boost::mpl::int_<N>,boost::mpl::int_<N>)>
+          : boost::fusion::result_of::at_c<Seq const, N-1>
+    {};
 
     template<class S,int N>
     typename result<call(S, boost::mpl::int_<N>, boost::mpl::int_<N>)>::type
@@ -106,8 +69,59 @@ namespace nt2 { namespace functors
               , boost::mpl::int_<N> const&
               ) const
     {
-      return  memory::align_on<((N==1)?NT2_CONFIG_ALIGNMENT:1)>
-                              (boost::fusion::at_c<N-1>(s));
+      return boost::fusion::at_c<N-1>(s);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Regular call slice<1> over sequence of size S
+    ////////////////////////////////////////////////////////////////////////////
+    template<class This,class Seq, int S>
+    struct  result< This(Seq,boost::mpl::int_<1>,boost::mpl::int_<S>)>
+    {
+      static Seq const&     s;
+
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , memory::align_on( slice<memory::no_padding,1>(s) )
+      );
+
+      typedef typename nested::type type;
+    };
+
+    template<class Seq,int S>
+    typename result<call(Seq,boost::mpl::int_<1>,boost::mpl::int_<S>)>::type
+    operator()( Seq const& s
+              , boost::mpl::int_<1> const&
+              , boost::mpl::int_<S> const&
+              ) const
+    {
+      return memory::align_on( slice<memory::no_padding,1>(s) );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Call of slcie<1> on sequence of size 1
+    ////////////////////////////////////////////////////////////////////////////
+    template<class This,class Seq>
+    struct  result< This(Seq,boost::mpl::int_<1>,boost::mpl::int_<1>)>
+    {
+      static Seq const&     s;
+
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , memory::align_on( boost::fusion::at_c<0>(s) )
+      );
+
+      typedef typename nested::type type;
+    };
+
+    template<class S>
+    typename result<call(S, boost::mpl::int_<1>, boost::mpl::int_<1>)>::type
+    operator()( S const& s
+              , boost::mpl::int_<1> const&
+              , boost::mpl::int_<1> const&
+              ) const
+    {
+      return  memory::align_on(boost::fusion::at_c<0>(s));
     }
   };
 } }

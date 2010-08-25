@@ -13,8 +13,8 @@
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/adapted/array.hpp>
-#include <nt2/sdk/memory/details/no_padding.hpp>
-#include <nt2/sdk/memory/details/global_padding.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/sdk/memory/global_padding.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
