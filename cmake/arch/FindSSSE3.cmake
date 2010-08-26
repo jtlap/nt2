@@ -10,7 +10,7 @@
 ################################################################################
 # Check for SSSE3 availability
 ################################################################################
-
+IF( NOT NT2_HAS_SSSE3_SUPPORT)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
@@ -38,8 +38,4 @@ ELSE()
 MESSAGE( STATUS "SSSE3 not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(SSSE3_FOUND)
-
+ENDIF()

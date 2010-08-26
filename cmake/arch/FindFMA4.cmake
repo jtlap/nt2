@@ -10,7 +10,7 @@
 ################################################################################
 # Check for FMA4 availability
 ################################################################################
-
+IF( NOT NT2_HAS_FMA4_SUPPORT)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
@@ -38,8 +38,4 @@ ELSE()
 MESSAGE( STATUS "FMA4 not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(FMA4_FOUND)
-
+ENDIF()

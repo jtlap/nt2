@@ -33,6 +33,7 @@
       <File Name="cmake/src/cache.cpp"/>
       <File Name="cmake/src/cpuid.cpp"/>
     </VirtualDirectory>
+    <File Name="cmake/nt2.info.cmake"/>
   </VirtualDirectory>
   <Description/>
   <Dependencies/>

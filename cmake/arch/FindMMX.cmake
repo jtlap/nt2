@@ -10,14 +10,13 @@
 ################################################################################
 # Check for MMX availability
 ################################################################################
-
+IF( NOT NT2_HAS_MMX_SUPPORT)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
         CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
         ARGS mmx
        )
-
 
 ################################################################################
 # If file compiles and run, we're set
@@ -38,8 +37,4 @@ ELSE()
 MESSAGE( STATUS "MMX not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(MMX_FOUND)
-
+ENDIF()

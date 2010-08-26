@@ -1,4 +1,4 @@
-################################################################################
+##########################################]#####################################
 #         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
 #         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 #
@@ -6,12 +6,6 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-
-################################################################################
-# Display Architecture info
-################################################################################
-MESSAGE( STATUS "[NT2] Target processor : ${CMAKE_SYSTEM_PROCESSOR}" )
-MESSAGE( STATUS "[NT2] Target system    : ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}" )
 
 ################################################################################
 # Sort out platform info to get a proper NT2_PLATFORM value
@@ -25,13 +19,44 @@ SET( NT2_PLATFORM_UNIX "Unix")
 ENDIF()
 
 IF(NT2_PLATFORM_WIN32)
-MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_WIN32N}" )
+MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_WIN32} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 ENDIF()
 
 IF(NT2_PLATFORM_OSX)
-MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_OSX}" )
+MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_OSX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 ENDIF()
 
 IF(NT2_PLATFORM_UNIX)
-MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_UNIX}" )
+MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_UNIX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 ENDIF()
+
+################################################################################
+# ARM processor
+################################################################################
+IF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm*")
+SET( NT2_PROCESSOR "ARM")
+################################################################################
+# AMD processor
+################################################################################
+ELSEIF(   (${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*")
+      OR  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd*")
+      )
+SET( NT2_PROCESSOR "AMD")
+################################################################################
+# X86 familly processor
+################################################################################
+ELSEIF(  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[4-9]86*")
+      OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86*")
+      OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*")
+      )
+SET( NT2_PROCESSOR "X86")
+################################################################################
+# Power PC processor
+################################################################################
+ELSEIF(   (${CMAKE_SYSTEM_PROCESSOR} MATCHES "ppc64*")
+      OR  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "powerpc*")
+      )
+SET( NT2_PROCESSOR "PowerPC")
+ENDIF()
+
+MESSAGE( STATUS "[NT2] Target processor : ${NT2_PROCESSOR}" )

@@ -10,8 +10,7 @@
 ################################################################################
 # Check for Altivec VMX availability
 ################################################################################
-
-set(VMX_FOUND FALSE)
+IF( NOT NT2_HAS_VMX_SUPPORT)
 
 IF( ${VMX_FOUND} )
 MESSAGE( STATUS "PPC Altivec available")
@@ -19,8 +18,6 @@ ELSE()
 MESSAGE( STATUS "PPC Altivec not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(AVX_FOUND)
+ENDIF()
+
 
