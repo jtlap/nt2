@@ -47,7 +47,6 @@ NT2_TEST_CASE(buffer_default_ctor)
   buffer_type b;
 
   NT2_TEST_EQUAL( b.size()    , 5U              );
-  NT2_TEST_EQUAL( b.capacity(), align_on(5U)    );
   NT2_TEST_EQUAL( b.lower()   ,  0              );
   NT2_TEST_EQUAL( b.upper()   ,  4              );
   NT2_TEST_NOT_EQUAL( b.origin()  , (float*)(0) );
@@ -79,7 +78,6 @@ NT2_TEST_CASE(buffer_allocator_ctor)
   buffer_type b(a);
 
   NT2_TEST_EQUAL( b.size()    , 5U              );
-  NT2_TEST_EQUAL( b.capacity(), align_on(5U)    );
   NT2_TEST_EQUAL( b.lower()   ,  0              );
   NT2_TEST_EQUAL( b.upper()   ,  4              );
   NT2_TEST_NOT_EQUAL( b.origin()  , (float*)(0) );
@@ -112,7 +110,6 @@ NT2_TEST_CASE(buffer_ctor)
   buffer_type b(bb,ss);
 
   NT2_TEST_EQUAL( b.size()      , 5U                  );
-  NT2_TEST_EQUAL( b.capacity()  , align_on(5U)        );
   NT2_TEST_EQUAL( b.lower()     ,  0                  );
   NT2_TEST_EQUAL( b.upper()     ,  4                  );
   NT2_TEST_NOT_EQUAL( b.origin(), (float*)(0)         );
@@ -146,7 +143,6 @@ NT2_TEST_CASE(buffer_assignment)
   b = x;
 
   NT2_TEST_EQUAL( b.size()      , 5U                  );
-  NT2_TEST_EQUAL( b.capacity()  , align_on(5U)        );
   NT2_TEST_EQUAL( b.lower()     ,  0                  );
   NT2_TEST_EQUAL( b.upper()     ,  4                  );
   NT2_TEST_NOT_EQUAL( b.origin(), (float*)(0)         );
@@ -180,7 +176,6 @@ NT2_TEST_CASE(buffer_swap)
   swap(b,x);
 
   NT2_TEST_EQUAL( b.size()      , 5U                  );
-  NT2_TEST_EQUAL( b.capacity()  , align_on(5U)        );
   NT2_TEST_EQUAL( b.lower()     ,  0                  );
   NT2_TEST_EQUAL( b.upper()     ,  4                  );
   NT2_TEST_NOT_EQUAL( b.origin(), (float*)(0)         );
@@ -189,7 +184,6 @@ NT2_TEST_CASE(buffer_swap)
   NT2_TEST( align_on(b.origin()) );
 
   NT2_TEST_EQUAL( x.size()      , 5U                  );
-  NT2_TEST_EQUAL( x.capacity()  , align_on(5U)        );
   NT2_TEST_EQUAL( x.lower()     ,   0                 );
   NT2_TEST_EQUAL( x.upper()     ,   4                 );
   NT2_TEST_NOT_EQUAL( x.origin(), (float*)(0)         );
