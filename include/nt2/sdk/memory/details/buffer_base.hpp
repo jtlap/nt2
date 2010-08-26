@@ -140,7 +140,13 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // resize current buffer
     ////////////////////////////////////////////////////////////////////////////
-    void resize( Base const& b, Size const& s ) { resize(b,s,is_static()); }
+    void resize( Size const& s )  { resize(s,has_static_size());  }
+    void rebase( Base const& b )  { rebase(b,has_static_base());  }
+    void restructure( Base const& b, Size const& s )
+    {
+      resize(s);
+      rebase(b);
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // clear empties the data by putting its size back to 0.
@@ -170,16 +176,22 @@ namespace nt2 { namespace details
       init(Base(),Size());
     }
 
-    void resize( Base const&, Size const&, boost::mpl::true_ const&) {}
+    void resize( Size const&, boost::mpl::true_ const&) {}
+    void rebase( Base const&, boost::mpl::true_ const&) {}
 
     ////////////////////////////////////////////////////////////////////////////
     // Dynamically computed related members
     ////////////////////////////////////////////////////////////////////////////
     void default_init( boost::mpl::false_ const&) {}
 
-    void resize( Base const& b, Size const& s, boost::mpl::false_ const&)
+    void resize( Size const& s, boost::mpl::false_ const&)
     {
-      impl.resize(b,s);
+      impl.resize(s);
+    }
+
+    void rebase( Base const& b,  boost::mpl::false_ const&)
+    {
+      impl.rebase(b);
     }
 
     protected:

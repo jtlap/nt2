@@ -42,12 +42,20 @@ namespace nt2 { namespace details
       scale(asz, s, b);
     }
 
-    void resize(difference_type b, size_type s)
+    void resize(size_type s)
     {
-      size_type asz = memory::align_on(s);
-      size_type osz = capacity_ - origin_;
-      origin_       = base::resize(origin_,asz,osz);
+      difference_type b = origin_ - begin_;
+      size_type asz     = memory::align_on(s);
+      size_type osz     = capacity_ - origin_;
+      origin_           = base::resize(origin_,asz,osz);
       scale(asz, s, b);
+    }
+
+    void rebase(difference_type b)
+    {
+      size_type sz   = end_ - begin_;
+      size_type cp   = capacity_ - origin_;
+      scale(cp, sz, b);
     }
 
     void scale(size_type capa, size_type size, difference_type lower)
