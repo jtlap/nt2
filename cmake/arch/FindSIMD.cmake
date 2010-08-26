@@ -10,12 +10,36 @@
 ################################################################################
 # Check for SIMD extensions availability
 ################################################################################
-include(arch/FindMMX)
-include(arch/FindSSE2)
-include(arch/FindSSE3)
-include(arch/FindSSSE3)
-include(arch/FindSSE4)
-include(arch/FindAVX)
-include(arch/FindXOP)
-include(arch/FindFMA4)
-include(arch/FindVMX)
+
+################################################################################
+# Intel/AMD SSE Familly
+################################################################################
+IF( (NT2_PROCESSOR STREQUAL X86) OR (NT2_PROCESSOR STREQUAL AMD) )
+INCLUDE(arch/FindMMX)
+INCLUDE(arch/FindSSE2)
+INCLUDE(arch/FindSSE3)
+INCLUDE(arch/FindSSSE3)
+INCLUDE(arch/FindSSE4)
+INCLUDE(arch/FindFMA4)
+ENDIF()
+
+################################################################################
+# Intel AVX Familly
+################################################################################
+IF(NT2_PROCESSOR STREQUAL X86)
+INCLUDE(arch/FindAVX)
+ENDIF()
+
+################################################################################
+# AMD XOP
+################################################################################
+IF( NT2_PROCESSOR STREQUAL AMD)
+INCLUDE(arch/FindXOP)
+ENDIF()
+
+################################################################################
+# IBM/Motorola/Apple VMX Familly
+################################################################################
+IF(NT2_PROCESSOR STREQUAL PowerPC)
+INCLUDE(arch/FindVMX)
+ENDIF()

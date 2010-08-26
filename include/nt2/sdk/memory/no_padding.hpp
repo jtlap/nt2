@@ -6,21 +6,29 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_PADDING_HPP_INCLUDED
-#define NT2_SDK_MEMORY_PADDING_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_NO_PADDING_HPP_INCLUDED
+#define NT2_SDK_MEMORY_NO_PADDING_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Padding strategies and related functors
+// Padding strategies for memory allocation
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/pair.hpp>
+#include <nt2/sdk/memory/padding.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Settings tag
+// Various pre-made padding strategies
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct padding {}; } }
+namespace nt2 { namespace memory
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // No padding: all data are allocated as specified
+  //////////////////////////////////////////////////////////////////////////////
+  struct no_padding
+  {
+    typedef boost::mpl::pair<tag::padding,no_padding> nt2_settings_type;
+  };
+} }
 
-////////////////////////////////////////////////////////////////////////////////
-// Forced fusion tag
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct fusion_ {}; } }
+#include <nt2/sdk/memory/details/no_padding.hpp>
 
 #endif

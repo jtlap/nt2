@@ -10,7 +10,7 @@
 ################################################################################
 # Check for SSE2 availability
 ################################################################################
-
+IF( NOT NT2_HAS_SSE2_SUPPORT)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
@@ -38,8 +38,4 @@ ELSE()
 MESSAGE( STATUS "SSE2 not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(SSE2_FOUND)
-
+ENDIF()

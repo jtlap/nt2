@@ -13,17 +13,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Multidimensional memory block with NRC style allocation
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/memory/padding.hpp>
-#include <boost/fusion/include/at.hpp>
+#include <nt2/sdk/memory/slice.hpp>
+#include <nt2/sdk/memory/stride.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/errors/static_assert.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-#include <nt2/sdk/memory/details/make_buffer.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+
+/*
+#include <boost/fusion/include/at.hpp>
+#include <nt2/sdk/memory/details/make_buffer.hpp>
 #include <boost/preprocessor/comparison/greater.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+*/
 
 namespace nt2 { namespace memory
 {
@@ -35,12 +39,14 @@ namespace nt2 { namespace memory
           , std::size_t Dimensions
           , class Bases
           , class Sizes
+          , class TargetArch
           , class Padding
           , class Allocator
           >
   class block;
 } }
 
+/*
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating the type of the nth data member
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,14 +63,14 @@ namespace nt2 { namespace memory
 #define NT2_MAKE_BUFFER_TYPE(z,n,t)                                             \
 typedef typename details::make_buffer<n,T,Bases,Sizes,Padding,Allocator>::type  \
 NT2_DATA_TYPE(BOOST_PP_DEC(n));                                                 \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating the list of inner buffer members
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_MAKE_DATA_MEMBER(z,n,t)                               \
 NT2_DATA_TYPE(BOOST_PP_DEC(n)) NT2_DATA_MEMBER(BOOST_PP_DEC(n));  \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating the list of inner buffer members default constructor
@@ -78,21 +84,21 @@ NT2_DATA_TYPE(BOOST_PP_DEC(n)) NT2_DATA_MEMBER(BOOST_PP_DEC(n));  \
 NT2_DATA_MEMBER(BOOST_PP_INC(n))( boost::fusion::at_c<BOOST_PP_INC(n)>(bs)  \
                                 , boost::fusion::at_c<BOOST_PP_INC(n)>(ss)  \
                                 )                                           \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a ?: chain for dimension access
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_DIM_SWITCH(z,n,t)                       \
 (N==BOOST_PP_INC(n)) ? boost::fusion::at_c<n>(t) :  \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of []
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_ACCESS(z,n,t)                                   \
 [ boost::fusion::at_c<BOOST_PP_SUB(BOOST_PP_DEC(t),n)>(p) ] \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of [] for under-access
@@ -108,7 +114,7 @@ access( Position const& p, boost::mpl::int_<n> const& ) const             \
 {                                                                         \
   return NT2_DATA_MEMBER(BOOST_PP_DEC(n))BOOST_PP_REPEAT(n,NT2_ACCESS,n); \
 }                                                                         \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of resize
@@ -117,7 +123,7 @@ access( Position const& p, boost::mpl::int_<n> const& ) const             \
 NT2_DATA_MEMBER(n).resize ( boost::fusion::at_c<n>(base_) \
                           , boost::fusion::at_c<n>(size_) \
                           );                              \
-/**/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of link between NRC levels
@@ -136,17 +142,16 @@ void link( boost::mpl::int_<n> const&, size_type prev = 1)                  \
   }                                                                         \
   link( boost::mpl::int_<n-1>(), sz);                                       \
 }                                                                           \
-/**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of assignment
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_ASSIGN(z,n,t) NT2_DATA_MEMBER(n) = src.NT2_DATA_MEMBER(n);
-
+*/
 #define  BOOST_PP_FILENAME_1        "nt2/sdk/memory/block.hpp"
 #define  BOOST_PP_ITERATION_LIMITS  (1, NT2_MAX_ARITY)
 #include BOOST_PP_ITERATE()
-
+/*
 #undef NT2_MAKE_BUFFER_TYPE
 #undef NT2_MAKE_DATA_MEMBER
 #undef NT2_MAKE_DEFAULT_CTOR
@@ -159,14 +164,13 @@ void link( boost::mpl::int_<n> const&, size_type prev = 1)                  \
 #undef NT2_RESIZE
 #undef NT2_LINK
 #undef NT2_ASSIGN
-
+*/
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Preprocessed Code
 ////////////////////////////////////////////////////////////////////////////////
 #else
-
 ////////////////////////////////////////////////////////////////////////////////
 // Current specialization being compiled
 ////////////////////////////////////////////////////////////////////////////////
@@ -174,8 +178,12 @@ void link( boost::mpl::int_<n> const&, size_type prev = 1)                  \
 
 namespace nt2 { namespace memory
 {
-  template<class T, class Bases, class Sizes, class Padding, class Allocator>
-  class block<T,CURRENT_DIM,Bases,Sizes,Padding,Allocator>
+  template< class T
+          , class Bases, class Sizes
+          , class TargetArch
+          , class Padding, class Allocator
+          >
+  class block<T,CURRENT_DIM,Bases,Sizes,TargetArch,Padding,Allocator>
   {
     public:
 
@@ -202,26 +210,24 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Public types
     ////////////////////////////////////////////////////////////////////////////
+    typedef boost::mpl::int_<CURRENT_DIM> dimension_value_type;
+/*
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(CURRENT_DIM),NT2_MAKE_BUFFER_TYPE,~)
 
     typedef typename buffer0_type::reference        reference;
     typedef typename buffer0_type::const_reference  const_reference;
     typedef typename buffer0_type::size_type        size_type;
     typedef typename buffer0_type::difference_type  difference_type;
+*/
 
     ////////////////////////////////////////////////////////////////////////////
     // Default constructor
     ////////////////////////////////////////////////////////////////////////////
+/*
     block() : BOOST_PP_ENUM(CURRENT_DIM, NT2_MAKE_DEFAULT_CTOR,~)
             , base_(), size_()
     {
-      //////////////////////////////////////////////////////////////////////////
-      // When the block has more than one dimension, we need to link the data
-      // togetehr through the index arrays if the block is static
-      //////////////////////////////////////////////////////////////////////////
-      #if (CURRENT_DIM > 1)
-      if(buffer0_type::is_static::value) link( boost::mpl::int_<CURRENT_DIM>() );
-      #endif
+      if(buffer0_type::is_static::value) link(dimension_value_type());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -238,9 +244,7 @@ namespace nt2 { namespace memory
       // When the block has more than one dimension, we need to link the data
       // together through the index arrays
       //////////////////////////////////////////////////////////////////////////
-      #if (CURRENT_DIM > 1)
       link( boost::mpl::int_<CURRENT_DIM>() );
-      #endif
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -258,9 +262,7 @@ namespace nt2 { namespace memory
         base_ = src.base_;
         size_ = src.size_;
         BOOST_PP_REPEAT(CURRENT_DIM, NT2_ASSIGN, ~ )
-        #if (CURRENT_DIM > 1)
         link( boost::mpl::int_<CURRENT_DIM>() );
-        #endif
       }
 
       return *this;
@@ -279,10 +281,7 @@ namespace nt2 { namespace memory
         // Same padding => copy + resize indexes
         data0_ = src.data();
         BOOST_PP_REPEAT_FROM_TO(1, CURRENT_DIM, NT2_RESIZE, ~ )
-
-        #if (CURRENT_DIM > 1)
         link( boost::mpl::int_<CURRENT_DIM>() );
-        #endif
       }
       else
       {
@@ -292,9 +291,7 @@ namespace nt2 { namespace memory
                       );
         BOOST_PP_REPEAT_FROM_TO(1, CURRENT_DIM, NT2_RESIZE, ~ )
 
-        #if (CURRENT_DIM > 1)
         link( boost::mpl::int_<CURRENT_DIM>() );
-        #endif
 
         #if (CURRENT_DIM > 1)
         for(difference_type i=lower<2>();i<=upper<2>();++i)
@@ -360,40 +357,57 @@ namespace nt2 { namespace memory
     // Access to base buffer
     ////////////////////////////////////////////////////////////////////////////
     buffer0_type const& data()  const { return data0_;  }
+*/
 
     ////////////////////////////////////////////////////////////////////////////
     // Access to bases and sizes
     ////////////////////////////////////////////////////////////////////////////
     Bases bases()  const { return base_;  }
     Sizes sizes()  const { return size_;  }
-
+/*
     ////////////////////////////////////////////////////////////////////////////
     // Size on dimension N
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N>
-    size_type size() const
+    typename boost::enable_if_c<(N>0 && N<=CURRENT_DIM),size_type>::type
+    size() const
     {
-      return BOOST_PP_REPEAT(CURRENT_DIM,NT2_DIM_SWITCH,size_) 1;
+      return boost::fusion::at_c<N-1>(size_);
+    }
+
+    template<std::size_t N>
+    typename boost::disable_if_c<(N>0 && N<=CURRENT_DIM),size_type>::type
+    size() const
+    {
+      return 1;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Lower bound of valid index on dimension N
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N>
-    difference_type lower() const
+    typename boost::enable_if_c<(N>0 && N<=CURRENT_DIM),difference_type>::type
+    lower() const
     {
-      return BOOST_PP_REPEAT(CURRENT_DIM,NT2_DIM_SWITCH,base_) 1;
+      return boost::fusion::at_c<N-1>(base_);
+    }
+
+    template<std::size_t N>
+    typename boost::disable_if_c<(N>0 && N<=CURRENT_DIM),difference_type>::type
+    lower() const
+    {
+      return 1;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Upper bound of valid index on dimension N
     ////////////////////////////////////////////////////////////////////////////
-    template<std::size_t N>
-    difference_type upper() const
+    template<std::size_t N> difference_type upper() const
     {
       return size<N>()+lower<N>()-1;
     }
-
+*/
+/*
     protected:
     ////////////////////////////////////////////////////////////////////////////
     // Access to a block with less index than needed
@@ -423,24 +437,28 @@ namespace nt2 { namespace memory
     #endif
 
     ////////////////////////////////////////////////////////////////////////////
-    //
+    // Link indexes and data
     ////////////////////////////////////////////////////////////////////////////
+    void link( boost::mpl::int_<1> const& ) {}
+
     #if (CURRENT_DIM > 1)
-    void link( boost::mpl::int_<2> const&, size_type prev = 1)
+    void link( boost::mpl::int_<2> const& )
     {
       data1_.origin()[0] = data0_.begin();
-      for(size_type i=1;i<data1_.size()*prev;++i)
+      for(size_type i=1;i<data1_.size();++i)
         data1_.origin()[i]  = data1_.origin()[i-1]
-                            + typename Padding::stride()(size_);
+                            + stride<Paddingn,1>(size_);
     }
 
     BOOST_PP_REPEAT_FROM_TO(3,BOOST_PP_INC(CURRENT_DIM),NT2_LINK,~)
     #endif
-
+*/
     private:
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(CURRENT_DIM),NT2_MAKE_DATA_MEMBER,~)
+  //  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(CURRENT_DIM),NT2_MAKE_DATA_MEMBER,~)
+
     Bases         base_;
     Sizes         size_;
   };
 } }
+
 #endif

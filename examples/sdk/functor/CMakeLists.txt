@@ -24,5 +24,6 @@ FOREACH( EXAMPLE ${SOURCES})
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
 ENDFOREACH()
 

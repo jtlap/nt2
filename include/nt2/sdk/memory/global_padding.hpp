@@ -6,21 +6,29 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_PADDING_HPP_INCLUDED
-#define NT2_SDK_MEMORY_PADDING_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_GLOBAL_PADDING_HPP_INCLUDED
+#define NT2_SDK_MEMORY_GLOBAL_PADDING_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Padding strategies and related functors
+// Padding strategies for memory allocation
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/pair.hpp>
+#include <nt2/sdk/memory/padding.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Settings tag
+// Various pre-made padding strategies
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct padding {}; } }
+namespace nt2 { namespace memory
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Global padding: global size is aligned_on
+  //////////////////////////////////////////////////////////////////////////////
+  struct global_padding
+  {
+    typedef boost::mpl::pair<tag::padding,global_padding> nt2_settings_type;
+  };
+} }
 
-////////////////////////////////////////////////////////////////////////////////
-// Forced fusion tag
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct fusion_ {}; } }
+#include <nt2/sdk/memory/details/global_padding.hpp>
 
 #endif

@@ -10,7 +10,7 @@
 ################################################################################
 # Check for SSE4.1 availability
 ################################################################################
-
+IF( NOT NT2_HAS_SSE4_1_SUPPORT)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
@@ -38,10 +38,12 @@ ELSE()
 MESSAGE( STATUS "SSE4.1 not available")
 ENDIF()
 
+ENDIF()
+
 ################################################################################
 # Check for SSE4.2 availability
 ################################################################################
-
+IF( NOT NT2_HAS_SSE4_2_SUPPORT)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
         ${CMAKE_MODULE_PATH}/src/cpuid.cpp
@@ -69,9 +71,4 @@ ELSE()
 MESSAGE( STATUS "SSE4.2 not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(SSE41_FOUND)
-mark_as_advanced(SSE42_FOUND)
-
+ENDIF()

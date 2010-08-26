@@ -7,6 +7,7 @@
     <File Name="src/allocate.cpp"/>
     <File Name="src/deallocate.cpp"/>
     <File Name="src/reallocate.cpp"/>
+    <File Name="src/version.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <VirtualDirectory Name="nt2">
@@ -41,6 +42,8 @@
           <File Name="include/nt2/sdk/config/types.hpp"/>
           <File Name="include/nt2/sdk/config/software.hpp"/>
           <File Name="include/nt2/sdk/config/attributes.hpp"/>
+          <File Name="include/nt2/sdk/config/versioning.hpp"/>
+          <File Name="include/nt2/sdk/config/version.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="details">
           <File Name="include/nt2/sdk/details/ignore_unused.hpp"/>
@@ -166,6 +169,11 @@
           <File Name="include/nt2/sdk/memory/parameters.hpp"/>
           <File Name="include/nt2/sdk/memory/block.hpp"/>
           <File Name="include/nt2/sdk/memory/padding.hpp"/>
+          <File Name="include/nt2/sdk/memory/slice.hpp"/>
+          <File Name="include/nt2/sdk/memory/stride.hpp"/>
+          <File Name="include/nt2/sdk/memory/global_padding.hpp"/>
+          <File Name="include/nt2/sdk/memory/no_padding.hpp"/>
+          <File Name="include/nt2/sdk/memory/linear_block.hpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="meta">
           <File Name="include/nt2/sdk/meta/na.hpp"/>

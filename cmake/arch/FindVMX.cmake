@@ -10,8 +10,27 @@
 ################################################################################
 # Check for Altivec VMX availability
 ################################################################################
+IF( NOT NT2_HAS_VMX_SUPPORT)
 
-set(VMX_FOUND FALSE)
+################################################################################
+# On UNIX, we grep the /proc/cpuinfo entry
+################################################################################
+IF(NT2_PLATFORM_UNIX)
+EXECUTE_PROCESS(COMMAND ${CMAKE_MODULE_PATH}/arch/altivec.sh
+                 OUTPUT_VARIABLE TMP_VMX
+                )
+ENDIF()
+
+################################################################################
+# On OS X, we use systcl
+################################################################################
+IF(NT2_PLATFORM_OSX)
+EXECUTE_PROCESS(COMMAND sysctl -n hw.optional.altivec
+                 OUTPUT_VARIABLE TMP_VMX
+                )
+ENDIF()
+
+STRING(REGEX REPLACE "\n" "" VMX_FOUND ${TMP_VMX})
 
 IF( ${VMX_FOUND} )
 MESSAGE( STATUS "PPC Altivec available")
@@ -19,8 +38,6 @@ ELSE()
 MESSAGE( STATUS "PPC Altivec not available")
 ENDIF()
 
-################################################################################
-# Advance current test
-################################################################################
-mark_as_advanced(AVX_FOUND)
+ENDIF()
+
 
