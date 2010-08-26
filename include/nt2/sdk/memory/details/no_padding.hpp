@@ -30,8 +30,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N,class S>
-    struct  result<This(Seq,Padder,N,S)>
+    template<class This,class Seq,class Padder,class N>
+    struct  result<This(Seq,Padder,N)>
     {
       static Seq    const&  s;
       static Padder const&  p;
@@ -44,26 +44,33 @@ namespace nt2 { namespace functors
 
       typedef boost::fusion::result_of::at_c<Seq const, N::value-1> same;
 
-      typedef typename boost::mpl::eval_if_c< (N::value==S::value)
+      typedef typename boost::mpl::eval_if_c< (   N::value
+                                              ==  boost::fusion
+                                                  ::result_of::size<Seq>::value
+                                              )
                                             , same
                                             , different
                                             >::type type;
     };
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 4
-                              , boost::mpl::bool_<(A2::value == A3::value)>
+    NT2_FUNCTOR_CALL_DISPATCH ( 3
+                              , boost::mpl::bool_<(     A2::value
+                                                    ==  boost::fusion
+                                                      ::result_of::size<A0>
+                                                                  ::value
+                                                  )>
                               , ( 2,( boost::mpl::true_
                                     , boost::mpl::false_
                                     )
                                 )
                               )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(4, boost::mpl::true_ )
+    NT2_FUNCTOR_CALL_EVAL_IF(3, boost::mpl::true_ )
     {
       return boost::fusion::at_c<A2::value-1>(a0);
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(4, boost::mpl::false_ )
+    NT2_FUNCTOR_CALL_EVAL_IF(3, boost::mpl::false_ )
     {
       details::times callee;
       return callee( slice<A2::value+1>(a0,a1), boost::fusion::at_c<A2::value-1>(a0));

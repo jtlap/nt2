@@ -41,10 +41,11 @@ namespace nt2 { namespace functors
     ////////////////////////////////////////////////////////////////////////////
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N,class S>
-    struct  result<This(Seq,Padder,N,S)>
+    template<class This,class Seq,class Padder,class N>
+    struct  result<This(Seq,Padder,N)>
     {
-      typedef status<(N::value==S::value),(N::value==1)> status_type;
+      typedef boost::fusion::result_of::size<Seq> seq_size;
+      typedef status<(N::value==seq_size::value),(N::value==1)> status_type;
 
       template<class Status, class Dummy=void> struct inner;
 
@@ -93,8 +94,13 @@ namespace nt2 { namespace functors
       typedef typename inner<status_type>::type type;
     };
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 4
-                              , (status<(A2::value==A3::value),(A2::value==1)>)
+    NT2_FUNCTOR_CALL_DISPATCH ( 3
+                              , (status<(     A2::value
+                                          ==  boost::fusion
+                                            ::result_of::size<A0>::value)
+                                        ,(A2::value==1)
+                                        >
+                                )
                               , ( 4,( (status<true  , true> )
                                     , (status<false , true> )
                                     , (status<true  , false>)
@@ -103,22 +109,22 @@ namespace nt2 { namespace functors
                                 )
                               )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(4, (status<false , false>) )
+    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<false , false>) )
     {
       return slice<A2::value>(a0,memory::no_padding());
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(4, (status<true , false>) )
+    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<true , false>) )
     {
       return boost::fusion::at_c<A2::value-1>(a0);
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(4, (status<false , true>) )
+    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<false , true>) )
     {
       return memory::align_on( slice<1>(a0,memory::no_padding()) );
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(4, (status<true , true>) )
+    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<true , true>) )
     {
       return memory::align_on(boost::fusion::at_c<0>(a0));
     }

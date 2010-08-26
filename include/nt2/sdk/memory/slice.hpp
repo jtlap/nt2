@@ -35,20 +35,20 @@ namespace nt2 { namespace functors
 
     template<class Sig> struct result;
 
-    template<class This,class Seq,class N,class S,class Padder>
-    struct result<This(Seq,Padder,N,S)>
+    template<class This,class Seq,class N,class Padder>
+    struct result<This(Seq,Padder,N)>
     {
       typedef call<slice_,tag::fusion_(Padder),Info>                callee;
       typedef typename  std::tr1
-                      ::result_of<callee( Seq, Padder, N, S)>::type type;
+                      ::result_of<callee( Seq, Padder, N)>::type type;
     };
 
-    template<class A0,class A1,class A2,class A3> inline
-    typename meta::enable_call<slice_(A0,A1,A2,A3)>::type
-    operator()(A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
+    template<class A0,class A1,class A2> inline
+    typename meta::enable_call<slice_(A0,A1,A2)>::type
+    operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
     {
       functors::call<slice_,tag::fusion_(A1),Info>  callee;
-      return callee(a0,a1,a2,a3);
+      return callee(a0,a1,a2);
     }
   };
 } }
@@ -57,18 +57,11 @@ namespace nt2
 {
   template<int N, class S,class P> inline
   typename  nt2::meta
-          ::enable_call<functors::slice_( S
-                                        , P
-                                        , boost::mpl::long_<N>
-                                        , typename  boost::fusion
-                                                  ::result_of::size<S>::type
-                                        )
-                                  >::type
+          ::enable_call<functors::slice_(S,P,boost::mpl::long_<N>)>::type
   slice(S const& s, P const& p)
   {
-    typedef boost::fusion::result_of::size<S> sz;
     functors::functor< functors::slice_> callee;
-    return callee(s,p,boost::mpl::long_<N>(),typename sz::type());
+    return callee(s,p,boost::mpl::long_<N>() );
   }
 }
 
