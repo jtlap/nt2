@@ -22,48 +22,50 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<class Strategy> struct stride_ {};
+  struct stride_  {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // stride<Padding,Level>(sz) computes the nbr of elements between two index
-  // at level Level
+  // slice<Level>(sz,padder) computes the nbr of element between the Level and
+  // size(sz)th index level of a dimension sets
   //////////////////////////////////////////////////////////////////////////////
-  template<class Strategy,class Info>
-  struct functor< stride_<Strategy>, Info >
+  template<class Info>
+  struct functor< stride_, Info >
   {
     struct validate { typedef boost::mpl::true_ result_type; };
 
     template<class Sig> struct result;
 
-    template<class This,class Seq,int N>
-    struct result<This(Seq,boost::mpl::int_<N>)>
+    template<class This,class Seq,class N,class Padder>
+    struct result<This(Seq,Padder,N)>
     {
-      typedef call<stride_<Strategy>,tag::fusion_,Info>          callee;
+      typedef call<stride_,tag::fusion_(Padder),Info>             callee;
       typedef typename  std::tr1
-                      ::result_of<callee(Seq,boost::mpl::int_<N>)>::type  type;
+                      ::result_of<callee( Seq, Padder, N)>::type  type;
     };
 
-    template<class A0,class A1> inline
-    typename meta::enable_call<stride_<Strategy>(A0,A1)>::type
-    operator()(A0 const& a0, A1 const& a1) const
+    template<class A0,class A1,class A2> inline
+    typename meta::enable_call<stride_(A0,A1,A2)>::type
+    operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
     {
-      functors::call<stride_<Strategy>,tag::fusion_,Info>  callee;
-      return callee(a0,a1);
+      functors::call<stride_,tag::fusion_(A1),Info>  callee;
+      return callee(a0,a1,a2);
     }
   };
 } }
 
 namespace nt2
 {
-  template<class P, int N, class Seq> inline
-  typename nt2::meta::enable_call<functors::stride_<P> ( Seq
-                                                      , boost::mpl::int_<N>
-                                                      )
+  template<int N, class S,class P> inline
+  typename  nt2::meta
+          ::enable_call<functors::stride_( S
+                                        , P
+                                        , boost::mpl::long_<N>
+                                        )
                                   >::type
-  stride(Seq const& s)
+  stride(S const& s, P const& p)
   {
-    functors::functor< functors::stride_<P> > callee;
-    return callee(s,boost::mpl::int_<N>());
+    functors::functor< functors::stride_> callee;
+    return callee(s,p,boost::mpl::long_<N>());
   }
 }
 

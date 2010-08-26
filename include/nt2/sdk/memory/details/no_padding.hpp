@@ -26,56 +26,47 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<slice_<memory::no_padding>,tag::fusion_,Info>
+  struct call<slice_,tag::fusion_(memory::no_padding),Info>
   {
     template<class Sig> struct result;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Call slice<N> on seuqence of size S
-    ////////////////////////////////////////////////////////////////////////////
-    template<class This,class Seq,int N,int S>
-    struct  result<This(Seq,boost::mpl::int_<N>,boost::mpl::int_<S>)>
+    template<class This,class Seq,class Padder,class N,class S>
+    struct  result<This(Seq,Padder,N,S)>
     {
-      static Seq const&     s;
+      static Seq    const&  s;
+      static Padder const&  p;
       static details::times callee;
 
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( nested
-      , callee( slice<memory::no_padding,N+1>(s), boost::fusion::at_c<N-1>(s) )
+      ( different
+      , callee( slice<N::value+1>(s,p), boost::fusion::at_c<N::value-1>(s) )
       );
 
-      typedef typename nested::type type;
+      typedef boost::fusion::result_of::at_c<Seq const, N::value-1> same;
+
+      typedef typename boost::mpl::eval_if_c< (N::value==S::value)
+                                            , same
+                                            , different
+                                            >::type type;
     };
 
-    template<class Seq,int N, int S>
-    typename result<call(Seq,boost::mpl::int_<N>,boost::mpl::int_<S>)>::type
-    operator()( Seq const& s
-              , boost::mpl::int_<N> const&
-              , boost::mpl::int_<S> const&
-              ) const
+    NT2_FUNCTOR_CALL_DISPATCH ( 4
+                              , boost::mpl::bool_<(A2::value == A3::value)>
+                              , ( 2,( boost::mpl::true_
+                                    , boost::mpl::false_
+                                    )
+                                )
+                              )
+
+    NT2_FUNCTOR_CALL_EVAL_IF(4, boost::mpl::true_ )
     {
-      details::times callee;
-      return callee ( slice<memory::no_padding,N+1>(s)
-                    , boost::fusion::at_c<N-1>(s)
-                    );
+      return boost::fusion::at_c<A2::value-1>(a0);
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Call slice<N> on sequence of size N
-    ////////////////////////////////////////////////////////////////////////////
-    template<class This,class Seq, int N>
-    struct  result< This(Seq,boost::mpl::int_<N>,boost::mpl::int_<N>)>
-          : boost::fusion::result_of::at_c<Seq const, N-1>
-    {};
-
-    template<class S,int N>
-    typename result<call(S, boost::mpl::int_<N>, boost::mpl::int_<N>)>::type
-    operator()( S const& s
-              , boost::mpl::int_<N> const&
-              , boost::mpl::int_<N> const&
-              ) const
+    NT2_FUNCTOR_CALL_EVAL_IF(4, boost::mpl::false_ )
     {
-      return boost::fusion::at_c<N-1>(s);
+      details::times callee;
+      return callee( slice<A2::value+1>(a0,a1), boost::fusion::at_c<A2::value-1>(a0));
     }
   };
 } }
@@ -86,20 +77,18 @@ namespace nt2 { namespace functors
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<stride_<memory::no_padding>,tag::fusion_,Info>
+  struct call<stride_,tag::fusion_(memory::no_padding),Info>
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,int N>
-    struct  result<This(Seq,boost::mpl::int_<N>)>
-          : boost::fusion::result_of::at_c<Seq const,N-1>
+    template<class This,class Seq,class Padder, class N>
+    struct  result<This(Seq,Padder,N)>
+          : boost::fusion::result_of::at_c<Seq const,N::value-1>
     {};
 
-    template<class Seq,int N>
-    typename result<call(Seq,boost::mpl::int_<N>)>::type
-    operator()( Seq const& s, boost::mpl::int_<N> const& ) const
+    NT2_FUNCTOR_CALL(3)
     {
-      return boost::fusion::at_c<N-1>(s);
+      return boost::fusion::at_c<A2::value-1>(a0);
     }
   };
 } }

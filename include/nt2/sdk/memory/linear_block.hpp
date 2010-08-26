@@ -29,9 +29,24 @@ namespace nt2 { namespace memory
     public:
 
     ////////////////////////////////////////////////////////////////////////////
-    // A linear block allocate everything as a single buffer of proper size
+    // Data related Type derived from Allocator
     ////////////////////////////////////////////////////////////////////////////
-    typedef BOOST_TYPEOF_TPL(( slice<Padding,1>(Sizes()) )) sizes_type;
+    typedef typename Allocator::template rebind<Type>::other  allocator_type;
+    typedef typename allocator_type::value_type               value_type;
+    typedef typename allocator_type::reference                reference;
+    typedef typename allocator_type::const_reference          const_reference;
+    typedef typename allocator_type::size_type                size_type;
+    typedef typename allocator_type::difference_type          difference_type;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Type related to internal buffer
+    // A linear_block holds a single [0,slice<1>(size)[ buffer
+    ////////////////////////////////////////////////////////////////////////////
+    typedef BOOST_TYPEOF_TPL(( slice<Padding,1>(Sizes()) )) size_value_type;
+    typedef boost::mpl::int_<0>                             base_value_type;
+
+
+    typedef buffer<Type, boost::mpl::int_<0>, sizes_type, Allocator> data_type;
 
     private:
     Bases                                                     bases_;

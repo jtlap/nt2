@@ -29,6 +29,8 @@ NT2_TEST_CASE(stride_no_padding)
   using boost::mpl::vector_c;
   using nt2::memory::no_padding;
 
+  no_padding p;
+
   vector_c<int,9,7,5,3> ss4;
   vector_c<int,7,5,3>   ss3;
   vector_c<int,5,3>     ss2;
@@ -39,27 +41,27 @@ NT2_TEST_CASE(stride_no_padding)
   array<int,2> ds2 = {{5,3}};
   array<int,1> ds1 = {{3}};
 
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ds4)), 9 );
-  NT2_TEST_EQUAL( (stride<no_padding,2>(ds4)), 7 );
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ds3)), 7 );
-  NT2_TEST_EQUAL( (stride<no_padding,3>(ds4)), 5 );
-  NT2_TEST_EQUAL( (stride<no_padding,2>(ds3)), 5 );
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ds2)), 5 );
-  NT2_TEST_EQUAL( (stride<no_padding,4>(ds4)), 3 );
-  NT2_TEST_EQUAL( (stride<no_padding,3>(ds3)), 3 );
-  NT2_TEST_EQUAL( (stride<no_padding,2>(ds2)), 3 );
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ds1)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ds4,p)), 9 );
+  NT2_TEST_EQUAL( (stride<2>(ds4,p)), 7 );
+  NT2_TEST_EQUAL( (stride<1>(ds3,p)), 7 );
+  NT2_TEST_EQUAL( (stride<3>(ds4,p)), 5 );
+  NT2_TEST_EQUAL( (stride<2>(ds3,p)), 5 );
+  NT2_TEST_EQUAL( (stride<1>(ds2,p)), 5 );
+  NT2_TEST_EQUAL( (stride<4>(ds4,p)), 3 );
+  NT2_TEST_EQUAL( (stride<3>(ds3,p)), 3 );
+  NT2_TEST_EQUAL( (stride<2>(ds2,p)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ds1,p)), 3 );
 
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ss4)), 9 );
-  NT2_TEST_EQUAL( (stride<no_padding,2>(ss4)), 7 );
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ss3)), 7 );
-  NT2_TEST_EQUAL( (stride<no_padding,3>(ss4)), 5 );
-  NT2_TEST_EQUAL( (stride<no_padding,2>(ss3)), 5 );
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ss2)), 5 );
-  NT2_TEST_EQUAL( (stride<no_padding,4>(ss4)), 3 );
-  NT2_TEST_EQUAL( (stride<no_padding,3>(ss3)), 3 );
-  NT2_TEST_EQUAL( (stride<no_padding,2>(ss2)), 3 );
-  NT2_TEST_EQUAL( (stride<no_padding,1>(ss1)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ss4,p)), 9 );
+  NT2_TEST_EQUAL( (stride<2>(ss4,p)), 7 );
+  NT2_TEST_EQUAL( (stride<1>(ss3,p)), 7 );
+  NT2_TEST_EQUAL( (stride<3>(ss4,p)), 5 );
+  NT2_TEST_EQUAL( (stride<2>(ss3,p)), 5 );
+  NT2_TEST_EQUAL( (stride<1>(ss2,p)), 5 );
+  NT2_TEST_EQUAL( (stride<4>(ss4,p)), 3 );
+  NT2_TEST_EQUAL( (stride<3>(ss3,p)), 3 );
+  NT2_TEST_EQUAL( (stride<2>(ss2,p)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ss1,p)), 3 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +74,8 @@ NT2_TEST_CASE(stride_global_padding)
   using boost::mpl::vector_c;
   using nt2::memory::global_padding;
 
+  global_padding p;
+
   vector_c<int,9,7,5,3> ss4;
   vector_c<int,7,5,3>   ss3;
   vector_c<int,5,3>     ss2;
@@ -82,25 +86,25 @@ NT2_TEST_CASE(stride_global_padding)
   array<int,2> ds2 = {{5,3}};
   array<int,1> ds1 = {{3}};
 
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ds4)), 9 );
-  NT2_TEST_EQUAL( (stride<global_padding,2>(ds4)), 7 );
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ds3)), 7 );
-  NT2_TEST_EQUAL( (stride<global_padding,3>(ds4)), 5 );
-  NT2_TEST_EQUAL( (stride<global_padding,2>(ds3)), 5 );
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ds2)), 5 );
-  NT2_TEST_EQUAL( (stride<global_padding,4>(ds4)), 3 );
-  NT2_TEST_EQUAL( (stride<global_padding,3>(ds3)), 3 );
-  NT2_TEST_EQUAL( (stride<global_padding,2>(ds2)), 3 );
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ds1)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ds4,p)), 9 );
+  NT2_TEST_EQUAL( (stride<2>(ds4,p)), 7 );
+  NT2_TEST_EQUAL( (stride<1>(ds3,p)), 7 );
+  NT2_TEST_EQUAL( (stride<3>(ds4,p)), 5 );
+  NT2_TEST_EQUAL( (stride<2>(ds3,p)), 5 );
+  NT2_TEST_EQUAL( (stride<1>(ds2,p)), 5 );
+  NT2_TEST_EQUAL( (stride<4>(ds4,p)), 3 );
+  NT2_TEST_EQUAL( (stride<3>(ds3,p)), 3 );
+  NT2_TEST_EQUAL( (stride<2>(ds2,p)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ds1,p)), 3 );
 
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ss4)), 9 );
-  NT2_TEST_EQUAL( (stride<global_padding,2>(ss4)), 7 );
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ss3)), 7 );
-  NT2_TEST_EQUAL( (stride<global_padding,3>(ss4)), 5 );
-  NT2_TEST_EQUAL( (stride<global_padding,2>(ss3)), 5 );
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ss2)), 5 );
-  NT2_TEST_EQUAL( (stride<global_padding,4>(ss4)), 3 );
-  NT2_TEST_EQUAL( (stride<global_padding,3>(ss3)), 3 );
-  NT2_TEST_EQUAL( (stride<global_padding,2>(ss2)), 3 );
-  NT2_TEST_EQUAL( (stride<global_padding,1>(ss1)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ss4,p)), 9 );
+  NT2_TEST_EQUAL( (stride<2>(ss4,p)), 7 );
+  NT2_TEST_EQUAL( (stride<1>(ss3,p)), 7 );
+  NT2_TEST_EQUAL( (stride<3>(ss4,p)), 5 );
+  NT2_TEST_EQUAL( (stride<2>(ss3,p)), 5 );
+  NT2_TEST_EQUAL( (stride<1>(ss2,p)), 5 );
+  NT2_TEST_EQUAL( (stride<4>(ss4,p)), 3 );
+  NT2_TEST_EQUAL( (stride<3>(ss3,p)), 3 );
+  NT2_TEST_EQUAL( (stride<2>(ss2,p)), 3 );
+  NT2_TEST_EQUAL( (stride<1>(ss1,p)), 3 );
 }
