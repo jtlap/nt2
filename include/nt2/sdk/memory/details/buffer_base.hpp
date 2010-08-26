@@ -125,7 +125,11 @@ namespace nt2 { namespace details
     template<class Buffer> void assign(Buffer const& src)
     {
       if(!capacity()) impl.allocate(src.lower(),src.size());
-      else            impl.resize  (src.lower(),src.size());
+      else            
+      {
+         impl.resize(src.size());
+         impl.rebase(src.lower());
+      }
       fill(src);
     }
 
