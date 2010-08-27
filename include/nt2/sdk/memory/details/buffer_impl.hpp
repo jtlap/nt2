@@ -28,39 +28,31 @@ namespace nt2 { namespace details
     typedef typename base::difference_type  difference_type;
     typedef typename base::size_type        size_type;
 
-    pointer origin_, capacity_, begin_, end_;
+    pointer origin_, begin_, end_;
 
     buffer_impl(base const& a)  : base(a)
     {
-      origin_ = capacity_ = begin_ = end_ = 0;
+      origin_ = begin_ = end_ = 0;
     }
 
     void allocate(difference_type b, size_type s)
     {
-      size_type asz = memory::align_on(s);
-      origin_       = base::allocate(asz);
-      scale(asz, s, b);
+      origin_       = base::allocate(s);
+      as_base(s, b);
     }
 
     void resize(size_type s)
     {
       difference_type b = origin_ - begin_;
-      size_type asz     = memory::align_on(s);
-      size_type osz     = capacity_ - origin_;
-      origin_           = base::resize(origin_,asz,osz);
-      scale(asz, s, b);
+      size_type osz     = end_    - begin_;
+      origin_           = base::resize(origin_,s,osz);
+      as_base(s, b);
     }
 
-    void rebase(difference_type b)
-    {
-      size_type sz   = end_ - begin_;
-      size_type cp   = capacity_ - origin_;
-      scale(cp, sz, b);
-    }
+    void rebase(difference_type b) { as_base(end_ - begin_, b); }
 
-    void scale(size_type capa, size_type size, difference_type lower)
+    void as_base(size_type size, difference_type lower)
     {
-      capacity_     = origin_ + capa;
       begin_        = origin_ - lower;
       end_          = begin_  + size;
     }
@@ -68,7 +60,6 @@ namespace nt2 { namespace details
     void swap(buffer_impl& src)
     {
       boost::swap(origin_     , src.origin_     );
-      boost::swap(capacity_   , src.capacity_   );
       boost::swap(begin_      , src.begin_      );
       boost::swap(end_        , src.end_        );
       boost::swap(allocator() , src.allocator() );

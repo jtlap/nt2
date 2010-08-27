@@ -71,8 +71,7 @@ namespace nt2 { namespace details
     #if defined(BOOST_HAS_RVALUE_REFS)
     buffer_base(buffer_base&& rhs) : impl( std::move(rhs.impl) )
     {
-      rhs.impl.origin_  = rhs.impl.capacity_
-                        = rhs.impl.begin_
+      rhs.impl.origin_  = rhs.impl.begin_
                         = rhs.impl.end_       = 0;
     }
     #endif
@@ -91,7 +90,6 @@ namespace nt2 { namespace details
     // Size related helpers
     ////////////////////////////////////////////////////////////////////////////
     size_type   size()      const { return impl.end_ - impl.begin_;       }
-    size_type   capacity()  const { return impl.capacity_ - impl.origin_; }
     index_type  lower()     const { return impl.origin_ - impl.begin_;    }
     index_type  upper()     const { return size() - 1 + lower();          }
 
@@ -107,7 +105,10 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // default_init checks for staticallity before calling init()
     ////////////////////////////////////////////////////////////////////////////
-    void default_init() { default_init(is_static()); }
+    void default_init()
+    {
+      if(is_static::value) init(Base(),Size());
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // init allocates memory and performs construction iif T is not trivial
@@ -124,8 +125,8 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     template<class Buffer> void assign(Buffer const& src)
     {
-      if(!capacity()) impl.allocate(src.lower(),src.size());
-      else            
+      if(!size()) impl.allocate(src.lower(),src.size());
+      else
       {
          impl.resize(src.size());
          impl.rebase(src.lower());
@@ -144,8 +145,16 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // resize current buffer
     ////////////////////////////////////////////////////////////////////////////
-    void resize( Size const& s )  { resize(s,has_static_size());  }
-    void rebase( Base const& b )  { rebase(b,has_static_base());  }
+    void resize( Size const& s )
+    {
+      if(!has_static_size::value) impl.resize(s);
+    }
+
+    void rebase( Base const& b )
+    {
+      if(!has_static_base::value) impl.rebase(b);
+    }
+
     void restructure( Base const& b, Size const& s )
     {
       resize(s);
@@ -162,46 +171,11 @@ namespace nt2 { namespace details
     }
 
     protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Internals elements
-    ////////////////////////////////////////////////////////////////////////////
     void cleanup()
     {
       clear();
-      if(impl.origin_) impl.deallocate(impl.origin_,capacity());
+      if(impl.origin_) impl.deallocate(impl.origin_,size());
     }
-
-    protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Specialized internals relative to staticality of buffer_base
-    ////////////////////////////////////////////////////////////////////////////
-    void default_init( boost::mpl::true_ const&)
-    {
-      init(Base(),Size());
-    }
-
-    void resize( Size const&, boost::mpl::true_ const&) {}
-    void rebase( Base const&, boost::mpl::true_ const&) {}
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Dynamically computed related members
-    ////////////////////////////////////////////////////////////////////////////
-    void default_init( boost::mpl::false_ const&) {}
-
-    void resize( Size const& s, boost::mpl::false_ const&)
-    {
-      impl.resize(s);
-    }
-
-    void rebase( Base const& b,  boost::mpl::false_ const&)
-    {
-      impl.rebase(b);
-    }
-
-    protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Specialized internals relative to type properties
-    ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
     // value_type is trivial
