@@ -26,8 +26,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // operator() result type
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_RETURN_TYPE(N,C)                      \
-std::tr1::result_of<C(BOOST_PP_ENUM_PARAMS(N,A))> \
+#define NT2_RETURN_TYPE(N,C)                                                  \
+std::tr1                                                                      \
+   ::result_of<C(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))> \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -108,6 +109,5 @@ public:                                                                       \
 #define NT2_FUNCTOR_CALL_DISPATCH(N,Type,Sets)  \
 NT2_FUNCTOR_DISPATCH(N,Type,Sets,call)          \
 /**/
-
 
 #endif

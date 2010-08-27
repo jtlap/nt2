@@ -4,6 +4,7 @@
   <Project Name="documentation" Path="documentation.project" Active="No"/>
   <Project Name="examples" Path="examples.project" Active="No"/>
   <Project Name="unit" Path="unit.project" Active="No"/>
+  <Project Name="benchmarks" Path="benchmarks.project" Active="No"/>
   <Project Name="quick_test" Path="quick_test.project" Active="Yes"/>
   <Project Name="cmake" Path="cmake.project" Active="No"/>
   <BuildMatrix>
