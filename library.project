@@ -416,6 +416,17 @@
           <File Name="include/nt2/sdk/constant/category.hpp"/>
         </VirtualDirectory>
         <File Name="include/nt2/sdk/config.hpp"/>
+        <VirtualDirectory Name="options">
+          <File Name="include/nt2/sdk/options/option.hpp"/>
+          <File Name="include/nt2/sdk/options/option_domain.hpp"/>
+          <File Name="include/nt2/sdk/options/option_expr.hpp"/>
+          <File Name="include/nt2/sdk/options/option_expr_fwd.hpp"/>
+          <File Name="include/nt2/sdk/options/option_not_found.hpp"/>
+          <File Name="include/nt2/sdk/options/option_pack.hpp"/>
+          <File Name="include/nt2/sdk/options/options.hpp"/>
+          <File Name="include/nt2/sdk/options/option_spec.hpp"/>
+          <File Name="include/nt2/sdk/options/option_term.hpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="include">
         <File Name="include/nt2/include/config.hpp"/>

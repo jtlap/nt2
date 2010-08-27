@@ -17,12 +17,15 @@
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/value_at.hpp>
+#include <boost/fusion/include/nview.hpp>
+#include <boost/mpl/min.hpp>
 
 namespace nt2 { namespace memory
 {
   template< int Dims
           , class Type
-          , class Bases, class Sizes
+          , class Bases, class Sizes, class Storage
           , class Padding
           , class Allocator
           >
@@ -42,12 +45,16 @@ namespace nt2 { namespace memory
 
     ////////////////////////////////////////////////////////////////////////////
     // Type related to internal buffer
-    // A linear_block holds a single [0,slice<1>(size)[ buffer
+    // A linear_block holds a single [0,slice<1>(storage(size),p)[ buffer
     ////////////////////////////////////////////////////////////////////////////
     struct size_helper
     {
       static Sizes& s; static Padding& p;
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested , ( slice<1>(s,p) ));
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , (slice<1>(boost::fusion::nview<Sizes const,Storage>(s),p))
+      );
+
       typedef typename nested::type type;
     };
 
@@ -62,7 +69,11 @@ namespace nt2 { namespace memory
     linear_block() : data_(), bases_(), sizes_(), padding_() {}
 
     linear_block( Bases const& b, Sizes const& s, Padding const& p )
-                : data_(base_value_type(),slice<1>(s,p))
+                : data_ ( base_value_type()
+                        , slice<1>( boost::fusion::nview<Sizes const,Storage>(s)
+                                  , p
+                                  )
+                        )
                 , bases_(b), sizes_(s), padding_(p)
     {}
 
@@ -71,14 +82,6 @@ namespace nt2 { namespace memory
                 , bases_(src.bases_), sizes_(src.sizes_)
                 , padding_(src.padding_)
     {}
-
-    template<class T2,class B2,class P2,class A2>
-    linear_block( linear_block<Dims,T2,B2,Sizes,P2,A2> const& src )
-    {
-      sizes_ = src.sizes_;
-      // same   padding == simple copy
-      // diff.  padding == copy by access via (2D)
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignment
@@ -96,9 +99,11 @@ namespace nt2 { namespace memory
     }
 
     template<class T2,class B2,class S2,class P2,class A2>
-    linear_block& operator=( linear_block<Dims,T2,B2,S2,P2,A2> const& src )
+    linear_block& operator=( linear_block<Dims,T2,B2,Sizes,S2,P2,A2> const& src )
     {
-
+      // same   padding == simple copy
+      // w/a storage order ?
+      // diff.  padding == copy by access via (2D)
       return *this;
     }
 
@@ -155,6 +160,9 @@ namespace nt2 { namespace memory
       return 1;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Lower index informations
+    ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N>
     typename boost::enable_if_c< (N>=1) && (N<=Dims), difference_type>::type
     lower() const
@@ -169,20 +177,32 @@ namespace nt2 { namespace memory
       return 1;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Upper index informations
+    ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N> difference_type upper() const
     {
       return size<N>() + lower<N>() - 1;
     }
 
-    //protected:
+    protected:
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Make a nD position into a linear index
+    // TODO : specialize for Dims != 1 and size<Position> == 1
+    ////////////////////////////////////////////////////////////////////////////
     template<class Position>
     difference_type linearize(Position const p) const
     {
-      return  boost::fusion::at_c<0>(p) - boost::fusion::at_c<0>(bases_)
-            + linearize ( p , boost::mpl::long_<1>()
-                            , typename  boost::fusion
-                                      ::result_of::size<Position>::type()
+      typedef boost::fusion::result_of::size<Position>        pos_size;
+      typedef boost::fusion::result_of::size<Sizes>           size_size;
+      typedef boost::fusion::result_of::value_at_c<Storage,0> storage;
+
+      return  boost::fusion::at<typename storage::type>(p)
+            - boost::fusion::at<typename storage::type>(bases_)
+            + linearize ( p
+                        , boost::mpl::long_<1>()
+                        , typename boost::mpl::min<pos_size,size_size>::type()
                         );
     }
 
@@ -190,9 +210,13 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<(N::value != S::value),difference_type>::type
     linearize(Position const p, N const&, S const& s) const
     {
-      difference_type i = boost::fusion::at<N>(p) - boost::fusion::at<N>(bases_);
-      return  boost::fusion::at_c<N::value-1>(sizes_)
-            * ( i + linearize(p,typename boost::mpl::next<N>::type(),s) );
+      typedef typename boost::fusion::result_of::value_at<Storage,N>::type  lut;
+      typedef typename boost::fusion::result_of::value_at_c<Storage,N::value-1>::type  lut0;
+
+      difference_type i = boost::fusion::at<lut>(p) - boost::fusion::at<lut>(bases_);
+      difference_type k = linearize(p,typename boost::mpl::next<N>::type(),s);
+
+      return  boost::fusion::at_c<lut0::value>(sizes_)* ( i + k );
     }
 
     template<class Position, class N, class S>
@@ -205,7 +229,8 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Data members : sizes,bases, buffer and padder
     ////////////////////////////////////////////////////////////////////////////
-    private:
+    //private:
+public:
     data_type   data_;
     Bases       bases_;
     Sizes       sizes_;
@@ -215,11 +240,11 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   // ADL swap
   //////////////////////////////////////////////////////////////////////////////
-  template< int Dims, class Type, class Bases, class Sizes
+  template< int Dims, class Type, class Bases, class Sizes, class Storage
           , class Padding, class Allocator
           >
-  void swap ( linear_block<Dims,Type,Bases,Sizes,Padding,Allocator>& a
-            , linear_block<Dims,Type,Bases,Sizes,Padding,Allocator>& b
+  void swap ( linear_block<Dims,Type,Bases,Sizes,Storage,Padding,Allocator>& a
+            , linear_block<Dims,Type,Bases,Sizes,Storage,Padding,Allocator>& b
             )
   {
     a.swap(b);
