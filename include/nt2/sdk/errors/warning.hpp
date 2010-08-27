@@ -26,7 +26,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_WARNING_LOCATION __FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) ") : "
 #define NT2_WARN(exp) (NT2_WARNING_LOCATION "[NT2 WARNING] -- " exp)
-#define NT2_WARNING(X) __pragma( BOOST_PP_STRINGIZE(message NT2_WARN(X)) )
+#define NT2_WARNING(X) __pragma( (message NT2_WARN(X)) )
 #elif defined(NT2_COMPILER_GNU_C)
 ////////////////////////////////////////////////////////////////////////////////
 // #pragma message on g++ just need a call to _Pragma
