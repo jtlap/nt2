@@ -17,43 +17,38 @@ namespace nt2 { namespace details
   ////////////////////////////////////////////////////////////////////////////
   // For any buffer instances, check if it is assignment compatible
   // at both compile-time and run-time with current one
-  // Two static buffer are assignment compatible if they have the same Size
-  // Any number of dynamic buffer to compare two
   ////////////////////////////////////////////////////////////////////////////
-  template< class B1,class B2
-          , bool IsB1Static = B1::is_static::value
-          , bool IsB2Static = B2::is_static::value
+  template< class Dst,class Src
+          , bool IsDstStatic = Dst::has_static_size::value
+          , bool IsSrcStatic = Src::has_static_size::value
           >
   struct  is_assignment_compatible
-        : boost::mpl::bool_ <   B1::size_value_type::value
-                            >=  B2::size_value_type::value
-                            >
+        : boost::mpl::bool_< (!IsDstStatic || !IsSrcStatic) >
   {
-    bool operator()(B1 const& ,B2 const& ) const
+    bool operator()(Dst const& d,Src const& s) const
     {
-      return B1::size_value_type::value >= B2::size_value_type::value;
+      return eval(d,s,Dst::has_static_size(),Src::has_static_size());
     }
-  };
 
-  template<class B1,class B2>
-  struct is_assignment_compatible<B1,B2,false,false> : boost::mpl::true_
-  {
-    bool operator()(B1 const& ,B2 const& ) const { return true; }
-  };
-
-  template<class B1,class B2>
-  struct is_assignment_compatible<B1,B2,true,false> : boost::mpl::true_
-  {
-    bool operator()(B1 const& s1,B2 const& s2) const
+    private:
+    bool eval ( Dst const& ,Src const&
+              , boost::mpl::true_ const&, boost::mpl::true_ const&
+              ) const
     {
-      return s2.size() >= (typename B2::size_type)(B1::size_value_type::value);
+      return Dst::size_value_type::value == Src::size_value_type::value;
     }
-  };
 
-  template<class B1,class B2>
-  struct is_assignment_compatible<B1,B2,false,true> : boost::mpl::true_
-  {
-    bool operator()(B1 const& s1,B2 const& s2) const
+    bool eval ( Dst const& , Src const& s
+              , boost::mpl::true_ const&, boost::mpl::false_ const&
+              ) const
+    {
+      return s.size() == (typename Src::size_type)(Dst::size_value_type::value);
+    }
+
+    template<class State>
+    bool eval ( Dst const& ,Src const&
+              , boost::mpl::false_ const&, State const&
+              ) const
     {
       return true;
     }

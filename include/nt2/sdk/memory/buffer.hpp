@@ -61,14 +61,14 @@ namespace nt2 { namespace memory
       parent::init(b,s);
     }
 
-    template<class Buffer>
-    buffer( Buffer const& src
+    template<class Src>
+    buffer( Src const& src
           , typename boost::enable_if_c<
-                        details::is_assignment_compatible<buffer,Buffer>::value
+                        details::is_assignment_compatible<buffer,Src>::value
                                       >::type* = 0
           )
     {
-      parent::assign((typename Buffer::parent const&)(src));
+      parent::assign((typename Src::parent const&)(src));
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -88,23 +88,24 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Assign by resize/copy if compatible size
     ////////////////////////////////////////////////////////////////////////////
-    template<class Buffer>
-    typename boost::enable_if_c < details::is_assignment_compatible<buffer,Buffer>::value
+    template<class Src>
+    typename boost::enable_if_c < details
+                                ::is_assignment_compatible<buffer,Src>::value
                                 , buffer&
                                 >::type
-    operator=( Buffer const& src )
+    operator=( Src const& src )
     {
-      NT2_ASSERT((details::is_assignment_compatible<buffer,Buffer>()(*this,src)));
-      parent::assign((typename Buffer::parent const&)(src));
+      NT2_ASSERT((details::is_assignment_compatible<buffer,Src>()(*this,src)));
+      parent::assign((typename Src::parent const&)(src));
       return *this;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Assign data by copy
     ////////////////////////////////////////////////////////////////////////////
-    template<class Buffer> void fill( Buffer const& src )
+    template<class Src> void fill( Src const& src )
     {
-      parent::fill((typename Buffer::parent const&)(src));
+      parent::fill((typename Src::parent const&)(src));
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -144,7 +145,7 @@ namespace nt2 { namespace memory
   };
 
   //////////////////////////////////////////////////////////////////////////////
-  // swap for ADL
+  // ADL swap
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Base, class Size, class Allocator>
   void swap ( buffer<T,Base,Size,Allocator>& a
