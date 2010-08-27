@@ -44,14 +44,9 @@ namespace nt2 { namespace functors
     template<class This,class Seq,class Padder,class N>
     struct  result<This(Seq const&,Padder const&,N const&)>
     {
-      typedef boost::fusion::result_of::size<Seq> seq_size;
-      typedef status<(N::value==seq_size::value),(N::value==1)> status_type;
+		typedef typename boost::fusion::result_of::size<Seq>::type seq_size;
 
-      template<class Status, class Dummy=void> struct inner;
-
-      // N!=S
-      template<class Dummy>
-      struct  inner<status<false,false>,Dummy>
+      template<bool Same, bool One, class Dummy=void> struct inner
       {
         static Seq const& s;
         static details::times callee;
@@ -66,13 +61,13 @@ namespace nt2 { namespace functors
 
       // N==S but N!=1
       template<class Dummy>
-      struct  inner<status<true,false>,Dummy>
+      struct  inner<true,false,Dummy>
             : boost::fusion::result_of::at_c<Seq const,N::value-1>
       {};
 
       // N==1 but N!=S
       template<class Dummy>
-      struct  inner<status<false,true>,Dummy>
+      struct  inner<false,true,Dummy>
       {
         static Seq const& s;
         static details::times callee;
@@ -87,7 +82,7 @@ namespace nt2 { namespace functors
 
       // N==1 and S==1
       template<class Dummy>
-      struct  inner<status<true,true>,Dummy>
+      struct  inner<true,true,Dummy>
       {
         static Seq const& s;
         BOOST_TYPEOF_NESTED_TYPEDEF_TPL
@@ -97,14 +92,11 @@ namespace nt2 { namespace functors
         typedef typename nested::type type;
       };
 
-      typedef typename inner<status_type>::type type;
+      typedef typename inner<(N::value==seq_size::value),(N::value==1)>::type type;
     };
 
     NT2_FUNCTOR_CALL_DISPATCH ( 3
-                              , (status<(     A2::value
-                                          ==  boost::fusion
-                                            ::result_of::size<A0>::value
-                                        )
+                              , (status< A2::value==  boost::fusion::result_of::size<A0>::value
                                         ,(A2::value==1)
                                         >
                                 )

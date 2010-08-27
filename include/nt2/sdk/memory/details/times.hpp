@@ -25,44 +25,24 @@ namespace nt2 { namespace details
     template<class Sig> struct result;
 
     template<class This, class A, class B>
-    struct result<This(A,B)>
+    struct result<This(A const&,B const&)>
     {
-      typedef typename boost::remove_reference<A>::type       a_type;
-      typedef typename boost::remove_reference<B>::type       b_type;
-
-      template< bool As, bool Bs , class Dummy = void >
-      struct inner;
-
-      template<class Dummy>
-      struct inner<true,true,Dummy>
-      {
-        BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, a_type() * b_type() );
+      template<bool As, bool Bs, int Dummy = 0 >
+      struct inner
+	  {
+        BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, A() * B() );
         typedef typename nested::type type;
       };
 
-      template<class Dummy> struct inner<true,false,Dummy>
-      {
-        typedef typename boost::remove_reference<B>::type::value_type b_type;
-        BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, a_type() * b_type() );
-        typedef typename nested::type type;
-      };
-
-      template<class Dummy> struct inner<false,true,Dummy>
-      {
-        typedef typename boost::remove_reference<A>::type::value_type a_type;
-        BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, a_type() * b_type() );
-        typedef typename nested::type type;
-      };
-
-      template<class Dummy>
+      template<int Dummy>
       struct inner<false,false,Dummy>
       {
-        typedef typename boost::mpl::times<a_type,b_type>::type type;
+        typedef typename boost::mpl::times<A,B>::type type;
       };
 
-      typedef typename inner< boost::is_arithmetic<a_type>::value
-                            , boost::is_arithmetic<b_type>::value
-                            >::type type;
+      typedef typename inner< boost::is_arithmetic<A>::value
+                                  , boost::is_arithmetic<B>::value
+                                  >::type type;
     };
 
     template<bool A0, bool A1> struct status {};
