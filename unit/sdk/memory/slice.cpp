@@ -15,6 +15,7 @@
 #include <boost/fusion/adapted/mpl.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/fusion/adapted/array.hpp>
+#include <nt2/sdk/memory/lead_padding.hpp>
 #include <nt2/sdk/memory/global_padding.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -105,6 +106,52 @@ NT2_TEST_CASE(slice_global_padding)
   NT2_TEST_EQUAL( (slice<3>(ss4,p)),               5*3 );
   NT2_TEST_EQUAL( (slice<2>(ss3,p)),               5*3 );
   NT2_TEST_EQUAL( (slice<1>(ss2,p)),     align_on(5*3) );
+  NT2_TEST_EQUAL( (slice<4>(ss4,p)),                 3 );
+  NT2_TEST_EQUAL( (slice<3>(ss3,p)),                 3 );
+  NT2_TEST_EQUAL( (slice<2>(ss2,p)),                 3 );
+  NT2_TEST_EQUAL( (slice<1>(ss1,p)),       align_on(3) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test for slice with lead_padding
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(slice_lead_padding)
+{
+  using nt2::slice;
+  using boost::array;
+  using nt2::memory::align_on;
+  using boost::mpl::vector_c;
+  using nt2::memory::lead_padding;
+
+  lead_padding p;
+
+  vector_c<int,9,7,5,3> ss4;
+  vector_c<int,7,5,3>   ss3;
+  vector_c<int,5,3>     ss2;
+  vector_c<int,3>       ss1;
+
+  array<int,4> ds4 = {{9,7,5,3}};
+  array<int,3> ds3 = {{7,5,3}};
+  array<int,2> ds2 = {{5,3}};
+  array<int,1> ds1 = {{3}};
+
+  NT2_TEST_EQUAL( (slice<1>(ds4,p)), align_on(9)*7*5*3 );
+  NT2_TEST_EQUAL( (slice<2>(ds4,p)),             7*5*3 );
+  NT2_TEST_EQUAL( (slice<1>(ds3,p)),   align_on(7)*5*3 );
+  NT2_TEST_EQUAL( (slice<3>(ds4,p)),               5*3 );
+  NT2_TEST_EQUAL( (slice<2>(ds3,p)),               5*3 );
+  NT2_TEST_EQUAL( (slice<1>(ds2,p)),     align_on(5)*3 );
+  NT2_TEST_EQUAL( (slice<4>(ds4,p)),                 3 );
+  NT2_TEST_EQUAL( (slice<3>(ds3,p)),                 3 );
+  NT2_TEST_EQUAL( (slice<2>(ds2,p)),                 3 );
+  NT2_TEST_EQUAL( (slice<1>(ds1,p)),       align_on(3) );
+
+  NT2_TEST_EQUAL( (slice<1>(ss4,p)), align_on(9)*7*5*3 );
+  NT2_TEST_EQUAL( (slice<2>(ss4,p)),             7*5*3 );
+  NT2_TEST_EQUAL( (slice<1>(ss3,p)),   align_on(7)*5*3 );
+  NT2_TEST_EQUAL( (slice<3>(ss4,p)),               5*3 );
+  NT2_TEST_EQUAL( (slice<2>(ss3,p)),               5*3 );
+  NT2_TEST_EQUAL( (slice<1>(ss2,p)),     align_on(5)*3 );
   NT2_TEST_EQUAL( (slice<4>(ss4,p)),                 3 );
   NT2_TEST_EQUAL( (slice<3>(ss3,p)),                 3 );
   NT2_TEST_EQUAL( (slice<2>(ss2,p)),                 3 );
