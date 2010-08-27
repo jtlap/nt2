@@ -42,7 +42,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
 
     template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq,Padder,N)>
+    struct  result<This(Seq const&,Padder const&,N const&)>
     {
       typedef boost::fusion::result_of::size<Seq> seq_size;
       typedef status<(N::value==seq_size::value),(N::value==1)> status_type;

@@ -31,7 +31,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
 
     template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq,Padder,N)>
+    struct  result<This(Seq const&,Padder const&,N const&)>
     {
       static Seq    const&  s;
       static Padder const&  p;
@@ -89,7 +89,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
 
     template<class This,class Seq,class Padder, class N>
-    struct  result<This(Seq,Padder,N)>
+    struct  result<This(Seq const&,Padder const& ,N const&)>
           : boost::fusion::result_of::at_c<Seq const,N::value-1>
     {};
 

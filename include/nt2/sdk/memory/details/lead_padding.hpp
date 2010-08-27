@@ -42,7 +42,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
 
     template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq,Padder,N)>
+    struct  result<This(Seq const&,Padder const&,N const&)>
     {
       typedef boost::fusion::result_of::size<Seq> seq_size;
       typedef status<(N::value==seq_size::value),(N::value==1)> status_type;
@@ -155,7 +155,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
 
     template<class This,class Seq,class Padder, class N>
-    struct  result<This(Seq,Padder,N)>
+    struct  result<This(Seq const&,Padder const&,N const&)>
     {
       typedef boost::fusion::result_of::at_c<Seq const,N::value-1> non_leading;
       static Seq const& s;
@@ -191,32 +191,3 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-
-//      struct  result<This(Seq)>
-//      {
-//        typedef typename boost::fusion::result_of::value_at_c<Seq,0>::type  elem0;
-//        typedef typename boost::fusion::result_of
-//                ::fold<
-//                        typename boost::fusion::result_of::pop_front<Seq>::type
-//                      , boost::mpl::int_<1>
-//                      , details::times
-//                      >::type                                               base;
-//
-//        typedef typename
-//                boost::result_of<nt2::result::align_on(elem0)>::type        first;
-//
-//        typedef typename boost::result_of<details::times(first,base)>::type type;
-//      };
-
-//      template<class Seq> typename result<size(Seq)>::type
-//      inline operator()(Seq const& sz) const
-//      {
-//        nt2::details::times callee;
-//        return callee ( align_on(boost::fusion::at_c<0>(sz))
-//                      , boost::fusion::fold ( boost::fusion::pop_front(sz)
-//                                            , boost::mpl::int_<1>()
-//                                            , callee
-//                                            )
-//                      );
-//      }
-//    };

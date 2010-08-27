@@ -36,18 +36,22 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
 
     template<class This,class Seq,class N,class Padder>
-    struct result<This(Seq,Padder,N)>
+    struct result<This(Seq const&,Padder const&,N const&)>
     {
-      typedef call<stride_,tag::fusion_(Padder),Info>             callee;
+      typedef call<stride_,tag::fusion_(Padder),Info>       callee;
       typedef typename  std::tr1
-                      ::result_of<callee( Seq, Padder, N)>::type  type;
+                      ::result_of < callee( Seq const&
+                                          , Padder const&
+                                          , N const&
+                                          )
+                                  >::type                   type;
     };
 
-    template<class A0,class A1,class A2> inline
-    typename meta::enable_call<stride_(A0,A1,A2)>::type
-    operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
+    template<class Seq,class N,class Padder> inline
+    typename meta::enable_call<stride_(Seq const&,Padder const&,N const&)>::type
+    operator()(Seq const& a0, Padder const& a1, N const& a2) const
     {
-      functors::call<stride_,tag::fusion_(A1),Info>  callee;
+      functors::call<stride_,tag::fusion_(Padder),Info>  callee;
       return callee(a0,a1,a2);
     }
   };
@@ -57,14 +61,14 @@ namespace nt2
 {
   template<int N, class S,class P> inline
   typename  nt2::meta
-          ::enable_call<functors::stride_( S
-                                        , P
-                                        , boost::mpl::long_<N>
-                                        )
-                                  >::type
+          ::enable_call < functors::stride_ ( S const&
+                                            , P const&
+                                            , boost::mpl::long_<N> const&
+                                            )
+                        >::type
   stride(S const& s, P const& p)
   {
-    functors::functor< functors::stride_> callee;
+    functors::functor<functors::stride_> callee;
     return callee(s,p,boost::mpl::long_<N>());
   }
 }
