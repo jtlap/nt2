@@ -9,6 +9,7 @@
 #include <nt2/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/memory/global_padding.hpp>
+#include <nt2/sdk/memory/lead_padding.hpp>
 
 using namespace std;
 
@@ -122,7 +123,7 @@ int main()
                                        , boost::array<int,3>
                                        , boost::mpl::vector_c<int,2,3,2>
                                        , boost::mpl::vector_c<int,0,1,2>
-                                       , nt2::memory::global_padding
+                                       , nt2::memory::lead_padding
                                        , nt2::memory::allocator<float>
                                        > st;
     boost::array<int,3> b = {{1,1,1}};
@@ -131,7 +132,7 @@ int main()
     boost::mpl::vector_c<int,2,3,2> ss;
 
     t  u(fb,ss,nt2::memory::global_padding());
-    st v(b,ss,nt2::memory::global_padding());
+    st v(b,ss,nt2::memory::lead_padding());
 
     int l(0),n(0);
     for(int k=u.lower<3>();k<=u.upper<3>();++k)
@@ -143,10 +144,6 @@ int main()
       v(p) = l++;
     }
 
-    for(int i=0;i<12;++i)
-    {
-      cout << "RAW u["<< i << "] = " << u.data_[i] << " -- v[" << i << "] = " << v.data_[i] << "\n";
-    }
     for(int k=u.lower<3>();k<=u.upper<3>();++k)
     for(int i=u.lower<2>();i<=u.upper<2>();++i)
      for(int j=u.lower<1>();j<=u.upper<1>();++j)
