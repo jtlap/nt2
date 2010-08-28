@@ -15,7 +15,11 @@ namespace nt2 { namespace functors
   struct call<complement_,tag::simd_(C,X),Info>
   {
     template<class Sig> struct result;
-    template<class This,class A> struct result<This(A)> { typedef A type; };
+    template<class This,class A>
+    struct result<This(A const&)>
+    {
+      typedef A type;
+    };
 
     NT2_FUNCTOR_CALL(1)
     {
