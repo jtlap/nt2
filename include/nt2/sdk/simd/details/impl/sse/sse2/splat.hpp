@@ -33,5 +33,4 @@ namespace nt2 { namespace functors
   };
 } }
 
-
 #endif
