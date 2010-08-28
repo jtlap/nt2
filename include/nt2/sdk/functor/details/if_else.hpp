@@ -31,7 +31,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)>
+    struct result<This(A0 const&,A1 const&,A2 const&)>
     {
       static A0& a0;  static A1& a1;  static A2& a2;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 ? a1 : a2)

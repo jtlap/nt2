@@ -29,10 +29,9 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T0>::type t_in0;
 
   // output value
-  typedef typename std::tr1::result_of<Func(r_in0)>::type   ret_t;
-  typedef typename boost::remove_reference<ret_t>::type     out_t;
-  typedef typename nt2::meta::scalar_of<out_t>::type        rout_t;
-  static out_t                                              out;
+  typedef typename std::tr1::result_of<Func(r_in0 const&)>::type  ret_t;
+  typedef typename nt2::meta::scalar_of<ret_t>::type              out_t;
+  static out_t                                                    out;
 
   // Input samples
   static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);
@@ -64,7 +63,7 @@ void timing_test( Func callee, size_t size
   } while(t < NT2_TEST_DURATION);
 
   std::sort(timings.begin(),timings.end());
-  std::cout << timings[timings.size()/2] << " cycles/value\n" << std::flush;
+  std::cout << timings[timings.size()/2] << " cycles/value" << std::endl;
 }
 
 #endif
