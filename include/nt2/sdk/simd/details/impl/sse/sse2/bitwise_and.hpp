@@ -19,7 +19,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
+    struct  result<This(A0 const&,A1 const&)>
           : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
 
@@ -28,7 +28,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
+    struct result<This(A0 const&,A1 const&)>
     {
       //////////////////////////////////////////////////////////////////////////
       // We allow bitwise operators between different vector types. However, we
