@@ -35,7 +35,7 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T1>::type t_in1;
 
   // output value
-  typedef typename std::tr1::result_of<Func(r_in0,r_in1)>::type  out_t;
+  typedef typename std::tr1::result_of<Func(r_in0 const&,r_in1 const&)>::type  out_t;
   typedef typename nt2::meta::scalar_of<out_t>::type          rout_t;
   static out_t                                                out;
 

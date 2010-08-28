@@ -30,7 +30,10 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-	struct result<This(A0)> : boost::remove_reference<A0> {};
+    struct result<This(A0 const&)>
+    {
+      typedef A0 type;
+    };
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1, A0
                               , ( 5,( float,int32_t,bool_,unsigned_, signed_))
