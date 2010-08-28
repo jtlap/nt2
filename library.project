@@ -286,7 +286,6 @@
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/plus.hpp"/>
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/shift_left.hpp"/>
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/shift_right.hpp"/>
-                  <File Name="include/nt2/sdk/simd/details/impl/sse/sse2/map.hpp"/>
                 </VirtualDirectory>
                 <VirtualDirectory Name="sse3">
                   <File Name="include/nt2/sdk/simd/details/impl/sse/sse3/splat.hpp"/>
