@@ -104,6 +104,7 @@ namespace nt2 { namespace memory
       // same   padding == simple copy
       // w/a storage order ?
       // diff.  padding == copy by access via (2D)
+      // make a private functor for all these I guess
       return *this;
     }
 
@@ -121,14 +122,12 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Element access
     ////////////////////////////////////////////////////////////////////////////
-    template<class Position>
-    const_reference operator()(Position const& p ) const
+    template<class Position> const_reference operator()(Position const& p ) const
     {
       return data_[ linearize(p) ];
     }
 
-    template<class Position>
-    reference operator()(Position const& p )
+    template<class Position> reference operator()(Position const& p )
     {
       return data_[ linearize(p) ];
     }
@@ -189,7 +188,8 @@ namespace nt2 { namespace memory
 
     ////////////////////////////////////////////////////////////////////////////
     // Make a nD position into a linear index
-    // TODO : specialize for Dims != 1 and size<Position> == 1
+    // TODO : specialize for Dims != 1 and size<Position> == 1 to take care of
+    // padding alogn Dim 1
     ////////////////////////////////////////////////////////////////////////////
     template<class Position>
     difference_type linearize(Position const p) const
