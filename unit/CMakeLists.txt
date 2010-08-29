@@ -18,5 +18,5 @@
 ADD_SUBDIRECTORY(sdk/meta)
 ADD_SUBDIRECTORY(sdk/functor)
 ADD_SUBDIRECTORY(sdk/memory)
-#ADD_SUBDIRECTORY(sdk/simd) <<< TODO NAO
+ADD_SUBDIRECTORY(sdk/simd)
 

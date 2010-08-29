@@ -16,9 +16,8 @@ SET( SOURCES
 #    is_signed.cpp
 #    make_integer.cpp
 #    make_real.cpp
-#    scalar_of.cpp
+    scalar_of.cpp
 #    sign_of.cpp
-#    strip.cpp
    )
 
 
@@ -29,13 +28,14 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".test" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-test" TEST "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".simd.test" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" "-simd.test" TEST "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_SIMD_FLAGS})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()

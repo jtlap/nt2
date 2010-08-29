@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on scalar is idempotent
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(scalar_of_scalar)
+NT2_TEST_CASE(scalar_of)
 {
   using nt2::meta::scalar_of;
   using boost::is_same;
@@ -33,22 +33,4 @@ NT2_TEST_CASE(scalar_of_scalar)
   NT2_TEST( (is_same<scalar_of<int32_t>::type , int32_t >::value) );
   NT2_TEST( (is_same<scalar_of<int16_t>::type , int16_t >::value) );
   NT2_TEST( (is_same<scalar_of<int8_t>::type  , int8_t  >::value) );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Test that scalar_of on simd::native<T,X> returns T
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(scalar_of_native_simd)
-{
-  using nt2::meta::scalar_of;
-  using boost::is_same;
-  using namespace nt2;
-
-  #if defined(NT2_HAS_SSE2_SUPPORT)
-
-  #elif defined(NT2_HAS_AVX_SUPPORT)
-
-  #elif defined(NT2_HAS_VMX_SUPPORT)
-
-  #endif
 }

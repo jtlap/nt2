@@ -18,6 +18,7 @@
           <File Name="unit/sdk/meta/is_signed.cpp"/>
           <File Name="unit/sdk/meta/sign_of.cpp"/>
           <File Name="unit/sdk/meta/as_integer.cpp"/>
+          <File Name="unit/sdk/meta/strip.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="functor">
           <File Name="unit/sdk/functor/CMakeLists.txt"/>
@@ -45,7 +46,10 @@
           <File Name="unit/sdk/memory/slice.cpp"/>
           <File Name="unit/sdk/memory/stride.cpp"/>
         </VirtualDirectory>
-        <VirtualDirectory Name="simd"/>
+        <VirtualDirectory Name="simd">
+          <File Name="unit/sdk/simd/CMakeLists.txt"/>
+          <File Name="unit/sdk/simd/scalar_of.cpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
     </VirtualDirectory>

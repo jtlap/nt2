@@ -21,6 +21,7 @@ SET( SOURCES
     scalar_of.cpp
     set.cpp
     sign_of.cpp
+    strip.cpp
    )
 
 
