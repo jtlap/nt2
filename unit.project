@@ -14,7 +14,6 @@
           <File Name="unit/sdk/meta/is_scalar.cpp"/>
           <File Name="unit/sdk/meta/is_result_of_supported.cpp"/>
           <File Name="unit/sdk/meta/scalar_of.cpp"/>
-          <File Name="unit/sdk/meta/gcd.cpp"/>
           <File Name="unit/sdk/meta/make_integer.cpp"/>
           <File Name="unit/sdk/meta/is_signed.cpp"/>
           <File Name="unit/sdk/meta/sign_of.cpp"/>
@@ -46,6 +45,7 @@
           <File Name="unit/sdk/memory/slice.cpp"/>
           <File Name="unit/sdk/memory/stride.cpp"/>
         </VirtualDirectory>
+        <VirtualDirectory Name="simd"/>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
     </VirtualDirectory>
