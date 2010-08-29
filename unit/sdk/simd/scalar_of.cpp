@@ -27,14 +27,18 @@ NT2_TEST_CASE(scalar_of_scalar)
 
   typedef NT2_SIMD_DEFAULT_EXTENSION ext_t;
 
+  #if defined(NT2_SIMD_SSE_FAMILY)
   NT2_TEST( (is_same<scalar_of<native<double  ,ext_t> >::type, double  >::value) );
-  NT2_TEST( (is_same<scalar_of<native<float   ,ext_t> >::type, float   >::value) );
   NT2_TEST( (is_same<scalar_of<native<uint64_t,ext_t> >::type, uint64_t>::value) );
+  NT2_TEST( (is_same<scalar_of<native<int64_t ,ext_t> >::type , int64_t >::value) );
+  #endif
+
+  NT2_TEST( (is_same<scalar_of<native<float   ,ext_t> >::type, float   >::value) );
   NT2_TEST( (is_same<scalar_of<native<uint32_t,ext_t> >::type, uint32_t>::value) );
   NT2_TEST( (is_same<scalar_of<native<uint16_t,ext_t> >::type, uint16_t>::value) );
   NT2_TEST( (is_same<scalar_of<native<uint8_t ,ext_t> >::type , uint8_t >::value) );
-  NT2_TEST( (is_same<scalar_of<native<int64_t ,ext_t> >::type , int64_t >::value) );
   NT2_TEST( (is_same<scalar_of<native<int32_t ,ext_t> >::type , int32_t >::value) );
   NT2_TEST( (is_same<scalar_of<native<int16_t ,ext_t> >::type , int16_t >::value) );
   NT2_TEST( (is_same<scalar_of<native<int8_t ,ext_t> >::type  , int8_t  >::value) );
+
 }

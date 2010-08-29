@@ -10,7 +10,7 @@
 SET( SOURCES
 #    as_integer.cpp
 #    as_real.cpp
-#    cardinal_of.cpp
+    cardinal_of.cpp
 #    category_of.cpp
 #    is_scalar.cpp
 #    is_signed.cpp
@@ -36,6 +36,6 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_SIMD_FLAGS})
+  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()
