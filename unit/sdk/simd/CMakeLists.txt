@@ -11,8 +11,7 @@ SET( SOURCES
 #    as_integer.cpp
 #    as_real.cpp
     cardinal_of.cpp
-#    category_of.cpp
-#    is_scalar.cpp
+    category_of.cpp
 #    is_signed.cpp
 #    make_integer.cpp
 #    make_real.cpp
