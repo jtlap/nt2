@@ -49,6 +49,7 @@
         <VirtualDirectory Name="simd">
           <File Name="unit/sdk/simd/CMakeLists.txt"/>
           <File Name="unit/sdk/simd/scalar_of.cpp"/>
+          <File Name="unit/sdk/simd/cardinal_of.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
