@@ -114,8 +114,10 @@ ENABLE_TESTING()
 ADD_SUBDIRECTORY(unit)
 
 ################################################################################
-# Add RT Benchmarks
+# Add RT Benchmarks and the driver rule
 ################################################################################
+ADD_CUSTOM_TARGET(benchmarks
+                  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/benchmark
+                 )
+
 ADD_SUBDIRECTORY(benchmark)
-
-
