@@ -26,14 +26,14 @@ NT2_TEST_CASE(make_integer)
   using boost::is_same;
   using namespace nt2;
 
-  NT2_TEST( (is_same<int8_t   , make_integer<1, signed  >::type >::value)  );
-  NT2_TEST( (is_same<int16_t  , make_integer<2, signed  >::type >::value)  );
-  NT2_TEST( (is_same<int32_t  , make_integer<4, signed  >::type >::value)  );
-  NT2_TEST( (is_same<int64_t  , make_integer<8, signed  >::type >::value)  );
-  NT2_TEST( (is_same<uint8_t  , make_integer<1,unsigned >::type >::value)  );
-  NT2_TEST( (is_same<uint16_t , make_integer<2,unsigned >::type >::value)  );
-  NT2_TEST( (is_same<uint32_t , make_integer<4,unsigned >::type >::value)  );
-  NT2_TEST( (is_same<uint64_t , make_integer<8,unsigned >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int8_t   , make_integer<1, signed  >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int16_t  , make_integer<2, signed  >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int32_t  , make_integer<4, signed  >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int64_t  , make_integer<8, signed  >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint8_t  , make_integer<1,unsigned >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint16_t , make_integer<2,unsigned >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint32_t , make_integer<4,unsigned >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint64_t , make_integer<8,unsigned >::type >::value)  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,12 +47,12 @@ NT2_TEST_CASE(make_integer_transform)
   using boost::mpl::_;
   using namespace nt2;
 
-  NT2_TEST( (is_same<int8_t*  , make_integer<1, signed , add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<int16_t* , make_integer<2, signed , add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<int32_t* , make_integer<4, signed , add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<int64_t* , make_integer<8, signed , add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<uint8_t* , make_integer<1,unsigned, add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<uint16_t*, make_integer<2,unsigned, add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<uint32_t*, make_integer<4,unsigned, add_pointer<_> >::type >::value)  );
-  NT2_TEST( (is_same<uint64_t*, make_integer<8,unsigned, add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int8_t*  , make_integer<1, signed , add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int16_t* , make_integer<2, signed , add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int32_t* , make_integer<4, signed , add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::int64_t* , make_integer<8, signed , add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint8_t* , make_integer<1,unsigned, add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint16_t*, make_integer<2,unsigned, add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint32_t*, make_integer<4,unsigned, add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<nt2::uint64_t*, make_integer<8,unsigned, add_pointer<_> >::type >::value)  );
 }

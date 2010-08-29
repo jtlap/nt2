@@ -22,19 +22,18 @@ NT2_TEST_CASE(as_integer_native_sign)
 {
   using nt2::meta::as_integer;
   using boost::is_same;
-  using namespace nt2;
 
-  NT2_TEST( (is_same<as_integer<double  >::type,int64_t >::value ));
-  NT2_TEST( (is_same<as_integer<float   >::type,int32_t >::value ));
-  NT2_TEST( (is_same<as_integer<int64_t >::type,int64_t >::value ));
-  NT2_TEST( (is_same<as_integer<int32_t >::type,int32_t >::value ));
-  NT2_TEST( (is_same<as_integer<int16_t >::type,int16_t >::value ));
-  NT2_TEST( (is_same<as_integer<int8_t  >::type,int8_t  >::value ));
-  NT2_TEST( (is_same<as_integer<uint64_t>::type,uint64_t>::value ));
-  NT2_TEST( (is_same<as_integer<uint32_t>::type,uint32_t>::value ));
-  NT2_TEST( (is_same<as_integer<uint16_t>::type,uint16_t>::value ));
-  NT2_TEST( (is_same<as_integer<uint8_t >::type,uint8_t >::value ));
-  NT2_TEST( (is_same<as_integer<bool    >::type,uint8_t >::value ));
+  NT2_TEST( (is_same<as_integer<double  >::type,nt2::int64_t >::value ));
+  NT2_TEST( (is_same<as_integer<float   >::type,nt2::int32_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int64_t >::type,nt2::int64_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int32_t >::type,nt2::int32_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int16_t >::type,nt2::int16_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int8_t  >::type,nt2::int8_t  >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint64_t>::type,nt2::uint64_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint32_t>::type,nt2::uint32_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint16_t>::type,nt2::uint16_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint8_t >::type,nt2::uint8_t >::value ));
+  NT2_TEST( (is_same<as_integer<bool    >::type,nt2::uint8_t >::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,17 +45,17 @@ NT2_TEST_CASE(as_integer_native_forced_signed)
   using boost::is_same;
   using namespace nt2;
 
-  NT2_TEST( (is_same<as_integer<double  ,unsigned>::type,uint64_t >::value ));
-  NT2_TEST( (is_same<as_integer<float   ,unsigned>::type,uint32_t >::value ));
-  NT2_TEST( (is_same<as_integer<int64_t ,unsigned>::type,uint64_t >::value ));
-  NT2_TEST( (is_same<as_integer<int32_t ,unsigned>::type,uint32_t >::value ));
-  NT2_TEST( (is_same<as_integer<int16_t ,unsigned>::type,uint16_t >::value ));
-  NT2_TEST( (is_same<as_integer<int8_t  ,unsigned>::type,uint8_t  >::value ));
-  NT2_TEST( (is_same<as_integer<uint64_t,unsigned>::type,uint64_t >::value ));
-  NT2_TEST( (is_same<as_integer<uint32_t,unsigned>::type,uint32_t >::value ));
-  NT2_TEST( (is_same<as_integer<uint16_t,unsigned>::type,uint16_t >::value ));
-  NT2_TEST( (is_same<as_integer<uint8_t ,unsigned>::type,uint8_t  >::value ));
-  NT2_TEST( (is_same<as_integer<bool    ,unsigned>::type,uint8_t >::value ));
+  NT2_TEST( (is_same<as_integer<double  ,unsigned>::type,nt2::uint64_t >::value ));
+  NT2_TEST( (is_same<as_integer<float   ,unsigned>::type,nt2::uint32_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int64_t ,unsigned>::type,nt2::uint64_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int32_t ,unsigned>::type,nt2::uint32_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int16_t ,unsigned>::type,nt2::uint16_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int8_t  ,unsigned>::type,nt2::uint8_t  >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint64_t,unsigned>::type,nt2::uint64_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint32_t,unsigned>::type,nt2::uint32_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint16_t,unsigned>::type,nt2::uint16_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint8_t ,unsigned>::type,nt2::uint8_t  >::value ));
+  NT2_TEST( (is_same<as_integer<bool    ,unsigned>::type,nt2::uint8_t >::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,15 +67,15 @@ NT2_TEST_CASE(as_integer_native_forced_unsigned)
   using boost::is_same;
   using namespace nt2;
 
-  NT2_TEST( (is_same<as_integer<double  ,signed>::type,int64_t>::value ));
-  NT2_TEST( (is_same<as_integer<float   ,signed>::type,int32_t>::value ));
-  NT2_TEST( (is_same<as_integer<int64_t ,signed>::type,int64_t>::value ));
-  NT2_TEST( (is_same<as_integer<int32_t ,signed>::type,int32_t>::value ));
-  NT2_TEST( (is_same<as_integer<int16_t ,signed>::type,int16_t>::value ));
-  NT2_TEST( (is_same<as_integer<int8_t  ,signed>::type,int8_t >::value ));
-  NT2_TEST( (is_same<as_integer<uint64_t,signed>::type,int64_t>::value ));
-  NT2_TEST( (is_same<as_integer<uint32_t,signed>::type,int32_t>::value ));
-  NT2_TEST( (is_same<as_integer<uint16_t,signed>::type,int16_t>::value ));
-  NT2_TEST( (is_same<as_integer<uint8_t ,signed>::type,int8_t >::value ));
-  NT2_TEST( (is_same<as_integer<bool    ,signed>::type,int8_t >::value ));
+  NT2_TEST( (is_same<as_integer<double  ,signed>::type,nt2::int64_t>::value ));
+  NT2_TEST( (is_same<as_integer<float   ,signed>::type,nt2::int32_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int64_t ,signed>::type,nt2::int64_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int32_t ,signed>::type,nt2::int32_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int16_t ,signed>::type,nt2::int16_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::int8_t  ,signed>::type,nt2::int8_t >::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint64_t,signed>::type,nt2::int64_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint32_t,signed>::type,nt2::int32_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint16_t,signed>::type,nt2::int16_t>::value ));
+  NT2_TEST( (is_same<as_integer<nt2::uint8_t ,signed>::type,nt2::int8_t >::value ));
+  NT2_TEST( (is_same<as_integer<bool    ,signed>::type,nt2::int8_t >::value ));
 }

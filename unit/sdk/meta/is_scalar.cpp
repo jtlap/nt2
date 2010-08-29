@@ -20,19 +20,18 @@
 NT2_TEST_CASE(is_scalar_scalar)
 {
   using nt2::meta::is_scalar;
-  using namespace nt2;
 
-  NT2_TEST( is_scalar<double>::value   );
-  NT2_TEST( is_scalar<float>::value    );
-  NT2_TEST( is_scalar<uint64_t>::value );
-  NT2_TEST( is_scalar<uint32_t>::value );
-  NT2_TEST( is_scalar<uint16_t>::value );
-  NT2_TEST( is_scalar<uint8_t>::value  );
-  NT2_TEST( is_scalar<int64_t>::value  );
-  NT2_TEST( is_scalar<int32_t>::value  );
-  NT2_TEST( is_scalar<int16_t>::value  );
-  NT2_TEST( is_scalar<int8_t>::value   );
-  NT2_TEST( is_scalar<bool>::value     );
+  NT2_TEST( is_scalar<double>::value        );
+  NT2_TEST( is_scalar<float>::value         );
+  NT2_TEST( is_scalar<nt2::uint64_t>::value );
+  NT2_TEST( is_scalar<nt2::uint32_t>::value );
+  NT2_TEST( is_scalar<nt2::uint16_t>::value );
+  NT2_TEST( is_scalar<nt2::uint8_t>::value  );
+  NT2_TEST( is_scalar<nt2::int64_t>::value  );
+  NT2_TEST( is_scalar<nt2::int32_t>::value  );
+  NT2_TEST( is_scalar<nt2::int16_t>::value  );
+  NT2_TEST( is_scalar<nt2::int8_t>::value   );
+  NT2_TEST( is_scalar<bool>::value          );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -24,16 +24,16 @@ NT2_TEST_CASE(is_signed)
   using nt2::meta::is_signed;
   using namespace nt2;
 
-  NT2_TEST( is_signed<double>::value    );
-  NT2_TEST( is_signed<float>::value     );
-  NT2_TEST( !is_signed<uint64_t>::value );
-  NT2_TEST( !is_signed<uint32_t>::value );
-  NT2_TEST( !is_signed<uint16_t>::value );
-  NT2_TEST( !is_signed<uint8_t>::value  );
-  NT2_TEST( is_signed<int64_t>::value   );
-  NT2_TEST( is_signed<int32_t>::value   );
-  NT2_TEST( is_signed<int16_t>::value   );
-  NT2_TEST( is_signed<int8_t>::value    );
-  NT2_TEST( !is_signed<bool>::value     );
-  NT2_TEST( !is_signed<foo>::value      );
+  NT2_TEST( is_signed<double>::value        );
+  NT2_TEST( is_signed<float>::value         );
+  NT2_TEST( !is_signed<nt2::uint64_t>::value);
+  NT2_TEST( !is_signed<nt2::uint32_t>::value);
+  NT2_TEST( !is_signed<nt2::uint16_t>::value);
+  NT2_TEST( !is_signed<nt2::uint8_t>::value );
+  NT2_TEST( is_signed<nt2::int64_t>::value  );
+  NT2_TEST( is_signed<nt2::int32_t>::value  );
+  NT2_TEST( is_signed<nt2::int16_t>::value  );
+  NT2_TEST( is_signed<nt2::int8_t>::value   );
+  NT2_TEST( !is_signed<bool>::value         );
+  NT2_TEST( !is_signed<foo>::value          );
 }
