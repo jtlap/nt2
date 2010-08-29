@@ -70,11 +70,6 @@ namespace nt2 { namespace functors
   {
     typedef boost::mpl::false_ result_type;
   };
-/*
-
-
-*/
-
 } }
 
 #endif

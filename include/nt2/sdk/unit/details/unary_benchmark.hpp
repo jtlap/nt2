@@ -29,9 +29,9 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T0>::type t_in0;
 
   // output value
-  typedef typename std::tr1::result_of<Func(r_in0 const&)>::type  ret_t;
+  typedef typename std::tr1::result_of<Func(r_in0)>::type  ret_t;
   typedef typename nt2::meta::scalar_of<ret_t>::type              out_t;
-  static out_t                                                    out;
+  static out_t out;
 
   // Input samples
   static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);

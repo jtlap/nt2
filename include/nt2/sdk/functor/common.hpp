@@ -17,6 +17,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/functor/category.hpp>
+#include <boost/type_traits/remove_reference/hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
 namespace nt2 { namespace functors
@@ -33,7 +34,8 @@ namespace nt2 { namespace functors
   struct call<genmask_,Category,Info>
   {
     template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> { typedef A0 type; };
+    template<class This,class A0>
+    struct result<This(A0)> : boost::remove_reference<A0>::type {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename nt2::meta::scalar_of<A0>::type
