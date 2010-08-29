@@ -34,6 +34,17 @@ STRING(REGEX REPLACE "\n" "" VMX_FOUND ${TMP_VMX})
 
 IF( ${VMX_FOUND} )
 MESSAGE( STATUS "PPC Altivec available")
+################################################################################
+# Find the proper options to compile
+################################################################################
+check_cxx_compiler_flag("-maltivec" HAS_GCC_VMX)
+
+IF(HAS_GCC_VMX)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -maltivec")
+ENDIF()
+
+################################################################################
+
 ELSE()
 MESSAGE( STATUS "PPC Altivec not available")
 ENDIF()

@@ -34,6 +34,21 @@ ENDIF()
 
 IF( ${XOP_FOUND} )
 MESSAGE( STATUS "XOP available")
+################################################################################
+# Find the proper options
+################################################################################
+check_cxx_compiler_flag("-mxop" HAS_GCC_XOP)
+check_cxx_compiler_flag("/arch:xop" HAS_MSVC_XOP)
+
+IF(HAS_GCC_SSE2)
+set(NT2_SIMD_FLAGS "-mxop")
+ENDIF()
+
+IF(HAS_MSVC_SSE2)
+set(NT2_SIMD_FLAGS "/arch:xop")
+ENDIF()
+################################################################################
+
 ELSE()
 MESSAGE( STATUS "XOP not available")
 ENDIF()

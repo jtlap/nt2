@@ -34,6 +34,22 @@ ENDIF()
 
 IF( ${AVX_FOUND} )
 MESSAGE( STATUS "AVX available")
+
+################################################################################
+# Find the proper options
+################################################################################
+check_cxx_compiler_flag("-mavx" HAS_GCC_AVX)
+check_cxx_compiler_flag("/arch:avx" HAS_MSVC_AVX)
+
+IF(HAS_GCC_SSE2)
+set(NT2_SIMD_FLAGS "-mavx")
+ENDIF()
+
+IF(HAS_MSVC_SSE2)
+set(NT2_SIMD_FLAGS "/arch:avx")
+ENDIF()
+################################################################################
+
 ELSE()
 MESSAGE( STATUS "AVX not available")
 ENDIF()

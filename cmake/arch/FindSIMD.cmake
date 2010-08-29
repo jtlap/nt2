@@ -12,18 +12,6 @@
 ################################################################################
 
 ################################################################################
-# Intel/AMD SSE Familly
-################################################################################
-IF( (NT2_PROCESSOR STREQUAL X86) OR (NT2_PROCESSOR STREQUAL AMD) )
-INCLUDE(arch/FindMMX)
-INCLUDE(arch/FindSSE2)
-INCLUDE(arch/FindSSE3)
-INCLUDE(arch/FindSSSE3)
-INCLUDE(arch/FindSSE4)
-INCLUDE(arch/FindFMA4)
-ENDIF()
-
-################################################################################
 # Intel AVX Familly
 ################################################################################
 IF(NT2_PROCESSOR STREQUAL X86)
@@ -38,8 +26,22 @@ INCLUDE(arch/FindXOP)
 ENDIF()
 
 ################################################################################
+# Intel/AMD SSE Familly
+################################################################################
+IF( (NT2_PROCESSOR STREQUAL X86) OR (NT2_PROCESSOR STREQUAL AMD) )
+INCLUDE(arch/FindFMA4)
+INCLUDE(arch/FindSSE4)
+INCLUDE(arch/FindSSSE3)
+INCLUDE(arch/FindSSE3)
+INCLUDE(arch/FindSSE2)
+INCLUDE(arch/FindMMX)
+ENDIF()
+
+################################################################################
 # IBM/Motorola/Apple VMX Familly
 ################################################################################
 IF(NT2_PROCESSOR STREQUAL PowerPC)
 INCLUDE(arch/FindVMX)
 ENDIF()
+
+MESSAGE( STATUS "SIMD flag: ${NT2_SIMD_FLAGS}")

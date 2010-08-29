@@ -33,6 +33,21 @@ ENDIF()
 
 IF( ${MMX_FOUND} )
 MESSAGE( STATUS "MMX available")
+################################################################################
+# Find the proper options to compile
+################################################################################
+check_cxx_compiler_flag("-mmmx" HAS_GCC_MMX)
+check_cxx_compiler_flag("/arch:mmx" HAS_MSVC_MMX)
+
+IF(HAS_GCC_MMX)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -mmmx")
+ENDIF()
+
+IF(HAS_MSVC_MMX)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:mmx")
+ENDIF()
+################################################################################
+
 ELSE()
 MESSAGE( STATUS "MMX not available")
 ENDIF()

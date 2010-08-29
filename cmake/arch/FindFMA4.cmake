@@ -34,6 +34,21 @@ ENDIF()
 
 IF( ${FMA4_FOUND} )
 MESSAGE( STATUS "FMA4 available")
+################################################################################
+# Find the proper options to compile
+################################################################################
+check_cxx_compiler_flag("-mfma4" HAS_GCC_FMA4)
+check_cxx_compiler_flag("/arch:fma4" HAS_MSVC_FMA4)
+
+IF(HAS_GCC_FMA4)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -mfma4")
+ENDIF()
+
+IF(HAS_MSVC_FMA4)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:fma4")
+ENDIF()
+################################################################################
+
 ELSE()
 MESSAGE( STATUS "FMA4 not available")
 ENDIF()
