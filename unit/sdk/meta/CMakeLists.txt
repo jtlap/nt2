@@ -10,14 +10,14 @@
 SET( SOURCES
     any.cpp
     as_integer.cpp
-# adapted_traits.cpp
-# behave_as.cpp
+#    as_real.cpp
     cardinal_of.cpp
     category_of.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp
     make_integer.cpp
+#    make_real.cpp
     scalar_of.cpp
     set.cpp
     sign_of.cpp
@@ -31,7 +31,7 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".test.exe" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".test" EXECUTABLE "${EXAMPLE}")
   STRING(REGEX REPLACE ".cpp" "-test" TEST "${EXAMPLE}")
 
   ##############################################################################
