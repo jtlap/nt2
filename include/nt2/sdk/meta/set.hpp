@@ -24,7 +24,7 @@
 // Maximum of elements in a type hierarchy.
 ////////////////////////////////////////////////////////////////////////////////
 #if !defined(NT2_META_SET_SIZE)
-#define NT2_META_SET_SIZE 5
+#define NT2_META_SET_SIZE 7
 #endif
 
 namespace nt2 { namespace meta

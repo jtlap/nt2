@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Extension>
+  template<class T>
   struct  is_simd_specific<T,tag::vmx_>
         : nt2::meta::has_key < nt2::meta::set < __vector float
                                               , __vector unsigned int
