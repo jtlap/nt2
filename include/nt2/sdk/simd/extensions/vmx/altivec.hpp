@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_ALTIVEC_SUPPORT)
+#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_VMX_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check for active Altivec extension
@@ -50,7 +50,7 @@ NT2_WARNING(AltiVec SIMD extension detected)
 #define NT2_SIMD_BYTES              16
 #define NT2_SIMD_BITS               128
 #define NT2_SIMD_CARDINALS          (4)(8)(16)
-#define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::simd::vmx_
+#define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::vmx_
 
 #include <nt2/sdk/simd/extensions/meta/altivec.hpp>
 
