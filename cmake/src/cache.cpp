@@ -19,20 +19,20 @@ int lcm(int a, int b )
 }
 
 #if defined(__GNUC__)
-#include <unistd.h>
+#include <fstream>
 
 void getcachesizes(int& L1, int& L2, int& L3)
 {
   int value;
-  value = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
-  L1 = value ? value : 1;
+  std::ifstream level1("/sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size");
+  std::ifstream level2("/sys/devices/system/cpu/cpu1/cache/index1/coherency_line_size");
+  std::ifstream level3("/sys/devices/system/cpu/cpu2/cache/index2/coherency_line_size");
 
-  value = sysconf(_SC_LEVEL2_CACHE_LINESIZE);
-  L2 = value ? value : 1;
-
-  value = sysconf(_SC_LEVEL3_CACHE_LINESIZE);
-  L3 = value ? value : 1;
+  if(level1.is_open()) level1 >> L1;
+  if(level2.is_open()) level2 >> L2;
+  if(level3.is_open()) level3 >> L3;
 }
+
 #elif defined(_MSC_VER)
 #include <windows.h>
 #include <malloc.h>
