@@ -23,12 +23,12 @@ using namespace nt2;
 ////////////////////////////////////////////////////////////////////////////////
 // Scalar benchmark
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TIMING( complement_ , RS(int64_t,2000000))
-NT2_TIMING( complement_ , RS(int32_t,2000000))
-NT2_TIMING( complement_ , RS(int16_t,32768))
-NT2_TIMING( complement_ , RS(int8_t,127))
-NT2_TIMING( complement_ , ((uint64_t, 0, ~0ULL)) )
-NT2_TIMING( complement_ , ((uint32_t, 0, ~0U)) )
-NT2_TIMING( complement_ , ((uint16_t, 0, 65535)) )
-NT2_TIMING( complement_ , ((uint8_t , 0, 255)) )
+NT2_TIMING( complement_ , RS(nt2::int64_t,2000000))
+NT2_TIMING( complement_ , RS(nt2::int32_t,2000000))
+NT2_TIMING( complement_ , RS(nt2::int16_t,32768))
+NT2_TIMING( complement_ , RS(nt2::int8_t,127))
+NT2_TIMING( complement_ , ((nt2::uint64_t, 0, ~0ULL)) )
+NT2_TIMING( complement_ , ((nt2::uint32_t, 0, ~0U)) )
+NT2_TIMING( complement_ , ((nt2::uint16_t, 0, 65535)) )
+NT2_TIMING( complement_ , ((nt2::uint8_t , 0, 255)) )
 
