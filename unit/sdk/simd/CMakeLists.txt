@@ -6,27 +6,19 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.8)
 
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET( SOURCES
-    is_power_of_2.cpp
-    next_power_of_2.cpp
-    align_on.cpp
-    is_aligned.cpp
-    make_aligned.cpp
-    access.cpp
-    allocate.cpp
-    overload.cpp
-    allocator.cpp
-    dynamic_buffer.cpp
-    dynamic_static_buffer.cpp
-    static_dynamic_buffer.cpp
-    static_buffer.cpp
-    slice.cpp
-    stride.cpp
-    dynamic_block.cpp
-  )
+#    as_integer.cpp
+#    as_real.cpp
+    cardinal_of.cpp
+    category_of.cpp
+#    is_signed.cpp
+#    make_integer.cpp
+#    make_real.cpp
+    scalar_of.cpp
+#    sign_of.cpp
+   )
+
 
 ################################################################################
 # For each filename
@@ -35,13 +27,14 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".test" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-test" TEST "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".simd.test" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" "-simd.test" TEST "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()

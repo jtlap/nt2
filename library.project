@@ -194,11 +194,9 @@
             <File Name="include/nt2/sdk/meta/details/any.hpp"/>
             <File Name="include/nt2/sdk/meta/details/gcd.hpp"/>
           </VirtualDirectory>
-          <File Name="include/nt2/sdk/meta/gcd.hpp"/>
           <File Name="include/nt2/sdk/meta/scalar_of.hpp"/>
           <File Name="include/nt2/sdk/meta/cardinal_of.hpp"/>
           <File Name="include/nt2/sdk/meta/is_scalar.hpp"/>
-          <File Name="include/nt2/sdk/meta/lcm.hpp"/>
           <File Name="include/nt2/sdk/meta/as.hpp"/>
           <File Name="include/nt2/sdk/meta/make_integer.hpp"/>
           <File Name="include/nt2/sdk/meta/as_integer.hpp"/>
