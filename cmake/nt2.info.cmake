@@ -35,6 +35,7 @@ ENDIF()
 ################################################################################
 IF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm*")
 SET( NT2_PROCESSOR "ARM")
+SET( NT2_ARM_PROCESSOR 1)
 ################################################################################
 # AMD processor
 ################################################################################
@@ -42,6 +43,7 @@ ELSEIF(   (${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*")
       OR  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd*")
       )
 SET( NT2_PROCESSOR "AMD")
+SET( NT2_AMD_PROCESSOR 1)
 ################################################################################
 # X86 familly processor
 ################################################################################
@@ -50,6 +52,7 @@ ELSEIF(  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[4-9]86*")
       OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*")
       )
 SET( NT2_PROCESSOR "X86")
+SET( NT2_X86_PROCESSOR 1)
 ################################################################################
 # Power PC processor
 ################################################################################
@@ -57,6 +60,7 @@ ELSEIF(   (${CMAKE_SYSTEM_PROCESSOR} MATCHES "ppc64*")
       OR  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "powerpc*")
       )
 SET( NT2_PROCESSOR "PowerPC")
+SET( NT2_PPC_PROCESSOR 1)
 ENDIF()
 
 MESSAGE( STATUS "[NT2] Target processor : ${NT2_PROCESSOR}" )
