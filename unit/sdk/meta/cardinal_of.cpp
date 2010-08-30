@@ -19,17 +19,16 @@
 NT2_TEST_CASE(cardinal_of_scalar)
 {
   using nt2::meta::cardinal_of;
-  using namespace nt2;
 
-  NT2_TEST_EQUAL( cardinal_of<double>::value  , 1 );
-  NT2_TEST_EQUAL( cardinal_of<float>::value   , 1 );
-  NT2_TEST_EQUAL( cardinal_of<uint64_t>::value, 1 );
-  NT2_TEST_EQUAL( cardinal_of<uint32_t>::value, 1 );
-  NT2_TEST_EQUAL( cardinal_of<uint16_t>::value, 1 );
-  NT2_TEST_EQUAL( cardinal_of<uint8_t>::value , 1 );
-  NT2_TEST_EQUAL( cardinal_of<int64_t>::value , 1 );
-  NT2_TEST_EQUAL( cardinal_of<int32_t>::value , 1 );
-  NT2_TEST_EQUAL( cardinal_of<int16_t>::value , 1 );
-  NT2_TEST_EQUAL( cardinal_of<int8_t>::value  , 1 );
-  NT2_TEST_EQUAL( cardinal_of<bool>::value    , 1 );
+  NT2_TEST_EQUAL( cardinal_of<double>::value        , 1 );
+  NT2_TEST_EQUAL( cardinal_of<float>::value         , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::uint64_t>::value , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::uint32_t>::value , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::uint16_t>::value , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::uint8_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::int64_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::int32_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::int16_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<nt2::int8_t>::value   , 1 );
+  NT2_TEST_EQUAL( cardinal_of<bool>::value          , 1 );
 }

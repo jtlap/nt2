@@ -17,20 +17,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on scalar is idempotent
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(scalar_of)
+NT2_TEST_CASE(scalar_of_scalar)
 {
   using nt2::meta::scalar_of;
   using boost::is_same;
-  using namespace nt2;
 
-  NT2_TEST( (is_same<scalar_of<double>::type  , double  >::value) );
-  NT2_TEST( (is_same<scalar_of<float>::type   , float   >::value) );
-  NT2_TEST( (is_same<scalar_of<uint64_t>::type, uint64_t>::value) );
-  NT2_TEST( (is_same<scalar_of<uint32_t>::type, uint32_t>::value) );
-  NT2_TEST( (is_same<scalar_of<uint16_t>::type, uint16_t>::value) );
-  NT2_TEST( (is_same<scalar_of<uint8_t>::type , uint8_t >::value) );
-  NT2_TEST( (is_same<scalar_of<int64_t>::type , int64_t >::value) );
-  NT2_TEST( (is_same<scalar_of<int32_t>::type , int32_t >::value) );
-  NT2_TEST( (is_same<scalar_of<int16_t>::type , int16_t >::value) );
-  NT2_TEST( (is_same<scalar_of<int8_t>::type  , int8_t  >::value) );
+  NT2_TEST( (is_same<scalar_of<double>::type        , double        >::value) );
+  NT2_TEST( (is_same<scalar_of<float>::type         , float         >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::uint64_t>::type , nt2::uint64_t >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::uint32_t>::type , nt2::uint32_t >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::uint16_t>::type , nt2::uint16_t >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::uint8_t>::type  , nt2::uint8_t  >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::int64_t>::type  , nt2::int64_t  >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::int32_t>::type  , nt2::int32_t  >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::int16_t>::type  , nt2::int16_t  >::value) );
+  NT2_TEST( (is_same<scalar_of<nt2::int8_t>::type   , nt2::int8_t   >::value) );
 }

@@ -15,17 +15,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
+#include <nt2/sdk/meta/make_integer.hpp>
 
 namespace nt2
 {
-  using ::boost::uint8_t;
-  using ::boost::uint16_t;
-  using ::boost::uint32_t;
-  using ::boost::uint64_t;
-  using ::boost::int8_t;
-  using ::boost::int16_t;
-  using ::boost::int32_t;
-  using ::boost::int64_t;
+  typedef meta::make_integer<1,unsigned>::type uint8_t;
+  typedef meta::make_integer<2,unsigned>::type uint16_t;
+  typedef meta::make_integer<4,unsigned>::type uint32_t;
+  typedef meta::make_integer<8,unsigned>::type uint64_t;
+  typedef meta::make_integer<1,signed>::type   int8_t;
+  typedef meta::make_integer<2,signed>::type   int16_t;
+  typedef meta::make_integer<4,signed>::type   int32_t;
+  typedef meta::make_integer<8,signed>::type   int64_t;
 }
 
 #endif
