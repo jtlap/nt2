@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> { typedef A0 type; };
+    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 3
                               , typename boost::remove_pointer<A1>::type

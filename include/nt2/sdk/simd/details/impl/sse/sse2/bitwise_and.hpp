@@ -19,7 +19,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct  result<This(A0 const&,A1 const&)>
+    struct  result<This(A0,A1)>
           : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
 
@@ -28,16 +28,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0 const&,A1 const&)>
-    {
-      //////////////////////////////////////////////////////////////////////////
-      // We allow bitwise operators between different vector types. However, we
-      // keep the following notation : value & mask, so the return type is the
-      // type of the first argument.
-      //////////////////////////////////////////////////////////////////////////
-      typedef A0 type;
-    };
-
+    struct result<This(A0,A1)> : meta::strip<A0> {};
+    
     NT2_FUNCTOR_CALL_DISPATCH ( 2
                               , typename nt2::meta::scalar_of<A0>::type
                               , (3,(double,float,arithmetic_))
