@@ -13,6 +13,7 @@
 // boolean operators implementation
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config/compiler.hpp>
+#include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 #if defined(NT2_COMPILER_MSVC)
@@ -20,8 +21,13 @@
 #pragma warning(disable: 4146)
 #endif
 
-#define NT2_LOCAL_TYPE(Z,N,T)                                                     \
-static typename boost::add_reference<BOOST_PP_CAT(A,N)>::type  BOOST_PP_CAT(a,N); \
+#define NT2_LOCAL_TYPE(Z,N,T)                                                   \
+typedef typename                                                                \
+        boost::remove_const < typename                                          \
+                              boost::remove_reference<BOOST_PP_CAT(A,N)>::type  \
+                            >::type BOOST_PP_CAT(base,N);                       \
+static typename boost::add_reference<BOOST_PP_CAT(base,N)>::type                \
+BOOST_PP_CAT(a,N);                                                              \
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                                     \
@@ -30,7 +36,7 @@ struct call<TAG,tag::scalar_(Category),Info>                                \
 {                                                                           \
   template<class Sig> struct result;                                        \
   template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct              \
-  result<This(BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& BOOST_PP_INTERCEPT))>  \
+  result<This(BOOST_PP_ENUM_PARAMS(N,A))>  \
   {                                                                         \
     BOOST_PP_REPEAT(N,NT2_LOCAL_TYPE,~)                                     \
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                            \

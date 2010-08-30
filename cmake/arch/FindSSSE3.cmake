@@ -34,6 +34,21 @@ ENDIF()
 
 IF( ${SSE3_FOUND} )
 MESSAGE( STATUS "SSSE3 available")
+################################################################################
+# Find the proper options to compile
+################################################################################
+check_cxx_compiler_flag("-mssse3" HAS_GCC_SSSE3)
+check_cxx_compiler_flag("/arch:ssse3" HAS_MSVC_SSSE3)
+
+IF(HAS_GCC_SSSE3)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -mssse3")
+ENDIF()
+
+IF(HAS_MSVC_SSSE3)
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:ssse3")
+ENDIF()
+################################################################################
+
 ELSE()
 MESSAGE( STATUS "SSSE3 not available")
 ENDIF()

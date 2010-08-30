@@ -10,6 +10,7 @@
 #define NT2_CORE_NUMERIC_FUNCTION_DETAILS_SCALAR_ABS_HPP_INCLUDED
 
 #include <cmath>
+#include <boost/type_traits/remove_reference.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -30,10 +31,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0 const&)>
-    {
-      typedef A0 type;
-    };
+    struct result<This(A0)> : boost::remove_reference<A0> {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1, A0
                               , ( 5,( float,int32_t,bool_,unsigned_, signed_))
@@ -53,7 +51,3 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of abs.hpp
-// /////////////////////////////////////////////////////////////////////////////
