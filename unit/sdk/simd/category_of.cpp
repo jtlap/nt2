@@ -36,10 +36,10 @@ NT2_TEST_CASE(simd_category)
   #endif
 
   NT2_TEST((is_same<category_of<native<float    ,ext_t> >::type , cat_t >::value));
-  NT2_TEST((is_same<category_of<native<uint32_t ,ext_t> >::type , cat_t >::value));
-  NT2_TEST((is_same<category_of<native<uint16_t ,ext_t> >::type , cat_t >::value));
-  NT2_TEST((is_same<category_of<native<uint8_t  ,ext_t> >::type , cat_t >::value));
-  NT2_TEST((is_same<category_of<native<int32_t  ,ext_t> >::type , cat_t >::value));
-  NT2_TEST((is_same<category_of<native<int16_t  ,ext_t> >::type , cat_t >::value));
-  NT2_TEST((is_same<category_of<native<int8_t   ,ext_t> >::type , cat_t >::value));
+  NT2_TEST((is_same<category_of<native<nt2::uint32_t ,ext_t> >::type , cat_t >::value));
+  NT2_TEST((is_same<category_of<native<nt2::uint16_t ,ext_t> >::type , cat_t >::value));
+  NT2_TEST((is_same<category_of<native<nt2::uint8_t  ,ext_t> >::type , cat_t >::value));
+  NT2_TEST((is_same<category_of<native<nt2::int32_t  ,ext_t> >::type , cat_t >::value));
+  NT2_TEST((is_same<category_of<native<nt2::int16_t  ,ext_t> >::type , cat_t >::value));
+  NT2_TEST((is_same<category_of<native<nt2::int8_t   ,ext_t> >::type , cat_t >::value));
 }
