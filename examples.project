@@ -31,6 +31,8 @@
       <VirtualDirectory Name="functor">
         <File Name="examples/sdk/functor/belong_to.cpp"/>
         <File Name="examples/sdk/functor/CMakeLists.txt"/>
+        <File Name="examples/sdk/functor/dominant.cpp"/>
+        <File Name="examples/sdk/functor/validate.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <File Name="examples/CMakeLists.txt"/>
