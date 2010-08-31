@@ -8,6 +8,7 @@
 ################################################################################
 
 SET(SOURCES
+    assertion_failed.cpp
     timestamp.cpp
     ignore_unused.cpp
     pp_enum_value.cpp
