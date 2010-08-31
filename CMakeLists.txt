@@ -6,7 +6,7 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.6)
 
 ################################################################################
 # Project nt2 - See toolbox/CMakeLists.txt for toolbox CMake scripts
