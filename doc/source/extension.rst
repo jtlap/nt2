@@ -13,6 +13,7 @@ related configuration files.
 .. toctree::
    :maxdepth: 1
 
-   extension/parameters
+   extension/category
    extension/custom_function
+   extension/parameters
    extension/unit_test
