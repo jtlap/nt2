@@ -48,6 +48,9 @@ Arguments
   | ``N``     | Number of function arguments          |
   +-----------+---------------------------------------+
 
+
+.. _functor_call_dispatch:
+
 NT2_FUNCTOR_CALL_DISPATCH
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -80,6 +83,8 @@ Arguments
   +-----------+-----------------------------------------------------------------+
   | ``SETS``  | Preprocessor array containing the list of dispatch target types |
   +-----------+-----------------------------------------------------------------+
+
+.. _functor_call_eval_if:
 
 NT2_FUNCTOR_CALL_EVAL_IF
 ^^^^^^^^^^^^^^^^^^^^^^^^
