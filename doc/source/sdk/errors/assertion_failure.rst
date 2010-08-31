@@ -9,7 +9,7 @@ assert_exception
 Description
 ^^^^^^^^^^^
 :ref:`assertion_failure` is used when |nt2| assertions are handled as exceptions
-via the :ref:`nt2_assert_as_exception` preprocessor symbol.
+via the :ref:`nt2_asserts_as_exceptions` preprocessor symbol.
 
 Header File
 ^^^^^^^^^^^
