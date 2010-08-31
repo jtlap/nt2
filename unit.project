@@ -51,6 +51,7 @@
           <File Name="unit/sdk/simd/scalar_of.cpp"/>
           <File Name="unit/sdk/simd/cardinal_of.cpp"/>
           <File Name="unit/sdk/simd/category_of.cpp"/>
+          <File Name="unit/sdk/simd/access.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>

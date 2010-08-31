@@ -33,6 +33,7 @@
           <File Name="doc/source/sdk/errors/config.rst"/>
           <File Name="doc/source/sdk/errors/mode.rst"/>
           <File Name="doc/source/sdk/errors/trap.rst"/>
+          <File Name="doc/source/sdk/errors/assertion_failure.rst"/>
         </VirtualDirectory>
         <File Name="doc/source/sdk/errors.rst"/>
         <File Name="doc/source/sdk/unit.rst"/>
@@ -149,6 +150,8 @@
       <VirtualDirectory Name="extension">
         <File Name="doc/source/extension/parameters.rst"/>
         <File Name="doc/source/extension/custom_function.rst"/>
+        <File Name="doc/source/extension/unit_test.rst"/>
+        <File Name="doc/source/extension/category.rst"/>
       </VirtualDirectory>
       <VirtualDirectory Name="_static">
         <File Name="doc/source/_static/basic.css"/>
