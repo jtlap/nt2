@@ -35,18 +35,37 @@ If defined, runtime assertion are suppressed, forcing :ref:`nt2_assert` to
 perform a no-op instead. This options takes precedence over
 :ref:`nt2_asserts_as_exceptions`
 
-Reports Custom Handlers
------------------------
+Reports Customization
+---------------------
+
+.. _nt2_asserts_as_exceptions:
+
+NT2_ASSERTS_AS_EXCEPTIONS
+^^^^^^^^^^^^^^^^^^^^^^^^^
+.. index::
+  single: NT2_ASSERTS_AS_EXCEPTIONS
+
+If defined, runtime assertion throw a :ref:`assertion_failure` instead of
+a runtime assertion.
+
+.. _nt2_custom_error:
+
+NT2_CUSTOM_ERROR
+^^^^^^^^^^^^^^^^
 
 .. index::
   single: NT2_CUSTOM_ERROR
 
-Each reporting macro can be forwarded to an external, user-defined function if
-one of these symbol is defined.
+If ``NT2_CUSTOM_ERROR`` is defined and exceptions are disabled, a special
+exception handling function can be specified. The user-defined function that
+must be implemented in this case must follow the followign prototype:
 
-The user-defined function that must be implemented in those case are:
+.. code-block:: cpp
 
-* :ref:`_nt2_ext_emit_error`
+  namespace nt2 { namespace ext
+  {
+    void throw_exception(std::exception const& e);
+  } }
 
-Reports Downgrade
------------------
+By default, if exceptions are disabled and no handler is defined, a link time
+error will be raised.
