@@ -1,7 +1,7 @@
 .. _store:
 
 store
-====
+=====
 
 .. index::
     single: store
@@ -28,9 +28,9 @@ Parameters
 ^^^^^^^^^^
 
   +-----------+-------------------------------------------+
-  | Parameter | Description                              |
+  | Parameter | Description                               |
   +===========+===========================================+
-  | v         | value to store into memory               |
+  | v         | value to store into memory                |
   +-----------+-------------------------------------------+
   | ptr       | Base address of the memory block to store |
   +-----------+-------------------------------------------+

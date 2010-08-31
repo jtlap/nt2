@@ -21,8 +21,7 @@ Invariant
 
 The following invariants always hold:
 
-* ``boost::is_same< meta::category_of<T>::type::tag, tag::unknown>::value``
-evaluates to ``false``.
+* ``boost::is_same< meta::category_of<T>::type::tag, tag::unknown>::value`` evaluates to ``false``.
 
 Models
 ------
