@@ -15,3 +15,4 @@ related configuration files.
 
    extension/parameters
    extension/custom_function
+   extension/unit_test
