@@ -17,6 +17,7 @@
 #include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+// Remove ?
 #if defined(NT2_COMPILER_MSVC)
 #pragma warning(push)
 #pragma warning(disable: 4146)
