@@ -22,17 +22,17 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
-IF(${COMPILE_RESULT_VAR})
+IF(COMPILE_RESULT_VAR STREQUAL TRUE)
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  set(SSSE3_FOUND FALSE)
+  set(SSSE3_FOUND 0)
 ELSE()
   set(SSSE3_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  set(SSE3_FOUND FALSE)
+  set(SSSE3_FOUND 0)
 ENDIF()
 
-IF( ${SSE3_FOUND} )
+IF( ${SSSE3_FOUND} )
 MESSAGE( STATUS "SSSE3 available")
 ################################################################################
 # Find the proper options to compile

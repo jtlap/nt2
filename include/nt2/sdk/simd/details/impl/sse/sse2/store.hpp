@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_STORE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_STORE_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
