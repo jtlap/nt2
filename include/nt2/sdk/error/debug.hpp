@@ -6,49 +6,55 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_ERRORS_ERROR_HPP_INCLUDED
-#define NT2_SDK_ERRORS_ERROR_HPP_INCLUDED
+#ifndef NT2_SDK_ERRORS_DEBUG_HPP_INCLUDED
+#define NT2_SDK_ERRORS_DEBUG_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Error Reporting System
-// Documentation: http://nt2.lri.fr/sdk/errors/error.html
-// Documentation: http://nt2.lri.fr/sdk/errors/config.html
+// Define/Undefine macros depending on compilation mode
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/details/error.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// No exception means no error unless they got requalified
+// NT2_RELEASE is triggered by NDEBUG
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/config.hpp>
-#if defined(BOOST_NO_EXCEPTIONS)
-NT2_WARNING(Exceptions globally disabled)
-#define NT2_DISABLE_ERROR
+#if defined(NDEBUG)
+#define NT2_RELEASE
+#endif
+
+#if defined(NT2_RELEASE)
+
+////////////////////////////////////////////////////////////////////////////////
+// And of course, NDEBUG is set by NT2_RELEASE
+////////////////////////////////////////////////////////////////////////////////
+#if !defined(NDEBUG)
+#define NDEBUG
+#endif
+
+#define NT2_DISABLE_ASSERTS
+#define BOOST_DISABLE_ASSERTS
+#undef NT2_DEBUG
+NT2_WARNING(Compiling In Release Configuration)
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// Verbose report
+// NT2_DEBUG removes all NDEBUG influence
 ////////////////////////////////////////////////////////////////////////////////
-#if defined( NT2_VERBOSE )
-  #if defined(NT2_CUSTOM_ERROR)
-  NT2_WARNING(Using user-defined exception handler)
-  #elif defined(NT2_DISABLE_ERROR)
-  NT2_WARNING(Exceptions disabled)
-  #endif
+#if defined(NT2_DEBUG)
+#undef NDEBUG
+#undef NT2_DISABLE_ASSERTS
+#undef BOOST_DISABLE_ASSERTS
+NT2_WARNING(Compiling with Debug Informations)
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// Enabled errors
+// Assertions disabled in one way are disbaled the other way around
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_DISABLE_ERROR)
-#include <nt2/sdk/errors/details/exception.hpp>
-#define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
-/**/
+#if defined(BOOST_DISABLE_ASSERTS) && !defined(NT2_DISABLE_ASSERTS)
+#define NT2_DISABLE_ASSERTS
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Disabled errors
-////////////////////////////////////////////////////////////////////////////////
-#else
-#define NT2_THROW(EXP)
+#if !defined(BOOST_DISABLE_ASSERTS) && defined(NT2_DISABLE_ASSERTS)
+#define BOOST_DISABLE_ASSERTS
 #endif
 
 #endif

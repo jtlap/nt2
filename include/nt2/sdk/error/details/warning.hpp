@@ -10,7 +10,7 @@
 #define NT2_SDK_ERRORS_DETAILS_WARNING_HPP_INCLUDED
 
 #include <iostream>
-#include <nt2/sdk/errors/details/message.hpp>
+#include <nt2/sdk/error/details/message.hpp>
 
 #define NT2_EMIT_WARNING(MSG)                           \
 nt2::details::emit_warning(                             \
@@ -36,7 +36,7 @@ namespace nt2 { namespace details
 } }
 
 #if defined(NT2_WARNING_AS_ERROR) && !defined(NT2_DISABLE_ERROR)
-#include <nt2/sdk/errors/details/exception.hpp>
+#include <nt2/sdk/error/details/exception.hpp>
 namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////

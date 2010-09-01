@@ -16,7 +16,7 @@
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/extension/parameters.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 

@@ -6,17 +6,17 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_OPTIONS_OPTION_DOMAIN_HPP_INCLUDED
-#define NT2_SDK_OPTIONS_OPTION_DOMAIN_HPP_INCLUDED
+#ifndef NT2_INCLUDE_ERRORS_HPP_INCLUDED
+#define NT2_INCLUDE_ERRORS_HPP_INCLUDED
 
-#include <nt2/sdk/options/option_expr_fwd.hpp>
-#include <boost/proto/core.hpp>
+#include <nt2/sdk/error/debug.hpp>
 
-namespace nt2 { namespace details
-{
-  struct  option_domain
-        : boost::proto::domain<boost::proto::pod_generator<option_expr> >
-  {};
-} }
+#include <nt2/sdk/error/trap.hpp>
+#include <nt2/sdk/error/assert.hpp>
+#include <nt2/sdk/error/error.hpp>
+
+#include <nt2/sdk/error/warning.hpp>
+#include <nt2/sdk/error/concepts.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 
 #endif

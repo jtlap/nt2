@@ -6,20 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_TIMING_EXCEPTIONS_HPP_INCLUDED
-#define NT2_CORE_TIMING_EXCEPTIONS_HPP_INCLUDED
+#ifndef NT2_SDK_OPTIONS_OPTION_SPEC_HPP_INCLUDED
+#define NT2_SDK_OPTIONS_OPTION_SPEC_HPP_INCLUDED
 
-#include <nt2/sdk/error/details/exception.hpp>
+#include <nt2/sdk/option/option_term.hpp>
+#include <boost/proto/core.hpp>
 
-namespace nt2 { namespace time
+namespace nt2 { namespace details
 {
-  struct unbalanced_timing : virtual nt2::exception
-  {
-    virtual void display(std::ostream& os) const throw()
-    {
-      os  << "Unbalanced timer use\n";
-    }
-  };
+  struct option_spec
+      : boost::proto::when<
+          boost::proto::assign<
+              option_term
+            , boost::proto::terminal<boost::proto::_>
+          >
+        , boost::proto::_value(boost::proto::_right)
+      >
+  {};
 } }
 
 #endif

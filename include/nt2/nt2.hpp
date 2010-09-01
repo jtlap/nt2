@@ -6,33 +6,21 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONCEPT_SAME_TYPE_HPP_INCLUDED
-#define NT2_SDK_CONCEPT_SAME_TYPE_HPP_INCLUDED
-
-#include <nt2/sdk/error/concepts.hpp>
-#include <boost/type_traits/is_same.hpp>
+#ifndef NT2_NT2_HPP_INCLUDED
+#define NT2_NT2_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// SameType concept
-// This helpers concept helps checking that two types are the same
+/*!
+  Provides direct access to all the base components of nt2 that makes it
+  behaves like Matlab. Note that it also greatly increases compilation times.
+  If you need to compile faster, you can decide to include the smallest set of
+  components your code requires by using the files in the nt2/include/ directory.
+ **/
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2
-{
-  template<class T1,class T2, bool EnableIf = boost::is_same<T1,T2>::value>
-  struct SameType
-  {
-    BOOST_CONCEPT_USAGE(SameType) {}
-  };
-
-  template<class T1,class T2> struct SameType<T1,T2,false>
-  {
-    void types_are_not_the_same();
-    BOOST_CONCEPT_USAGE(SameType) { types_are_not_the_same(t1,t2); }
-
-    private:
-    T1 t1;
-    T2 t2;
-  };
-}
+#include <nt2/include/config.hpp>
+#include <nt2/include/error.hpp>
+#include <nt2/include/timing.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/include/simd.hpp>
 
 #endif

@@ -2,18 +2,23 @@
 Pre-existing Configuration Mode
 ===============================
 
-.. rubric:: Description
+Description
+^^^^^^^^^^^
 
-As a convenience, some recurrent combination of error handling configuration settings
-are gathered as a single, easy to use preprocessor symbol. The following table sum up
-the effect of these pre-defined settings.
+|nt2| code can be compiled in different modes, each of them influencing how
+exceptions and assertions will be processed.
 
-  +---------------------+----------+----------+----------+-------+
-  | Preprocessor Symbol | Warning  | Error    | Fatal    | Notes |
-  +=====================+==========+==========+==========+=======+
-  | ``NT2_SILENT``      | Disabled | Disabled | Disabled |       |
-  +---------------------+----------+----------+----------+-------+
-  | ``NT2_RELEASE``     | Disabled | Disabled | Disabled |       |
-  +---------------------+----------+----------+----------+-------+
-  | ``NT2_PARANOID``    | Fatal    | Fatal    | Enabled  |       |
-  +---------------------+----------+----------+----------+-------+
+.. _nt2_debug:
+
+NT2_DEBUG
+^^^^^^^^^
+.. index::
+  single: NT2_DEBUG
+
+.. _nt2_release:
+
+NT2_RELEASE
+^^^^^^^^^^^
+.. index::
+  single: NT2_RELEASE
+

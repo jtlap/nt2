@@ -6,38 +6,49 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONFIG_HPP_INCLUDED
-#define NT2_SDK_CONFIG_HPP_INCLUDED
+#ifndef NT2_SDK_ERRORS_ERROR_HPP_INCLUDED
+#define NT2_SDK_ERRORS_ERROR_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Main config header
-// Documentation: http://nt2.lri.fr/sdk/config.html
+// Error Reporting System
+// Documentation: http://nt2.lri.fr/sdk/error/error.html
+// Documentation: http://nt2.lri.fr/sdk/error/config.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/error/details/error.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// NT2 configuration files
+// No exception means no error unless they got requalified
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/os.hpp>
-#include <nt2/sdk/config/arch.hpp>
-#include <nt2/sdk/config/compiler.hpp>
-#include <nt2/sdk/config/software.hpp>
-#include <nt2/sdk/config/attributes.hpp>
+#include <boost/config.hpp>
+#if defined(BOOST_NO_EXCEPTIONS)
+NT2_WARNING(Exceptions globally disabled)
+#define NT2_DISABLE_ERROR
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// Internal NT2 configuration files
+// Verbose report
 ////////////////////////////////////////////////////////////////////////////////
-//#include <nt2/sdk/simd/config.hpp>
-#include <nt2/sdk/memory/config.hpp>
-#include <nt2/sdk/error/config.hpp>
+#if defined( NT2_VERBOSE )
+  #if defined(NT2_CUSTOM_ERROR)
+  NT2_WARNING(Using user-defined exception handler)
+  #elif defined(NT2_DISABLE_ERROR)
+  NT2_WARNING(Exceptions disabled)
+  #endif
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// External NT2 configuration files
+// Enabled errors
 ////////////////////////////////////////////////////////////////////////////////
-//#include <nt2/extensions/sdk/config.hpp>
+#if !defined(NT2_DISABLE_ERROR)
+#include <nt2/sdk/error/details/exception.hpp>
+#define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
+/**/
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build a nt2 versioning symbol for binary conformance
+// Disabled errors
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/version.hpp>
+#else
+#define NT2_THROW(EXP)
+#endif
 
 #endif

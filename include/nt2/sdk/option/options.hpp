@@ -9,9 +9,9 @@
 #ifndef NT2_SDK_OPTIONS_OPTIONS_HPP_INCLUDED_INCLUDED
 #define NT2_SDK_OPTIONS_OPTIONS_HPP_INCLUDED_INCLUDED
 
-#include <nt2/sdk/options/option_pack.hpp>
-#include <nt2/sdk/options/option_expr.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/option/option_pack.hpp>
+#include <nt2/sdk/option/option_expr.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace details
 {

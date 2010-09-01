@@ -6,22 +6,16 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_OPTIONS_OPTION_SPEC_HPP_INCLUDED
-#define NT2_SDK_OPTIONS_OPTION_SPEC_HPP_INCLUDED
+#ifndef NT2_SDK_OPTIONS_OPTION_DOMAIN_HPP_INCLUDED
+#define NT2_SDK_OPTIONS_OPTION_DOMAIN_HPP_INCLUDED
 
-#include <nt2/sdk/options/option_term.hpp>
+#include <nt2/sdk/option/option_expr_fwd.hpp>
 #include <boost/proto/core.hpp>
 
 namespace nt2 { namespace details
 {
-  struct option_spec
-      : boost::proto::when<
-          boost::proto::assign<
-              option_term
-            , boost::proto::terminal<boost::proto::_>
-          >
-        , boost::proto::_value(boost::proto::_right)
-      >
+  struct  option_domain
+        : boost::proto::domain<boost::proto::pod_generator<option_expr> >
   {};
 } }
 

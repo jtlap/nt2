@@ -21,14 +21,14 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
-IF(${COMPILE_RESULT_VAR})
-IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  set(MMX_FOUND FALSE)
-ELSE()
+IF(COMPILE_RESULT_VAR STREQUAL TRUE)
+ IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
+  set(MMX_FOUND 0)
+ ELSE()
   set(MMX_FOUND ${RUN_RESULT_VAR})
-ENDIF()
+ ENDIF()
 ELSE()
-  set(MMX_FOUND FALSE)
+  set(MMX_FOUND 0)
 ENDIF()
 
 IF( ${MMX_FOUND} )

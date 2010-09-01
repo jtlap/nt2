@@ -9,7 +9,8 @@ dominant
 
 Description
 ^^^^^^^^^^^
-For a given list of types, return the type with the greatest category rank.
+For a given list of types, return the category of the type with the greatest
+category rank.
 
 Model
 ^^^^^
@@ -37,12 +38,22 @@ Expression Semantics
 
 .. code-block:: cpp
 
-  typedef result_of< dominant(Args....)>::type r;
+  typedef result_of<dominant(Args....)>::type r;
 
 **Return type:** an unspecified type
 
-**Semantic:** ``r`` is the first type within ``Args...`` for which its category
-rank is greater than all other types within ``Args..``
+**Semantic:** ``r`` is the category of the first type within ``Args...``
+for which its category rank is greater than all other types within ``Args..``
+
+.. code-block:: cpp
+
+  r = dominant(Args....);
+
+**Return type:** Equivalent to ``result_of<dominant(Args....)>::type``
+
+**Semantic:** ``r`` is an instance of the category type of the first type within
+``Args...`` for which its category rank is greater than all other types within
+``Args...``
 
 Example
 ^^^^^^^

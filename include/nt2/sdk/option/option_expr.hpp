@@ -9,14 +9,14 @@
 #ifndef NT2_SDK_OPTIONS_OPTION_EXPR_HPP_INCLUDED
 #define NT2_SDK_OPTIONS_OPTION_EXPR_HPP_INCLUDED
 
-#include <nt2/sdk/options/option_expr_fwd.hpp>
-#include <nt2/sdk/options/option_domain.hpp>
-#include <nt2/sdk/options/option_not_found.hpp>
-#include <nt2/sdk/options/option_term.hpp>
-#include <nt2/sdk/options/option_pack.hpp>
+#include <nt2/sdk/option/option_expr_fwd.hpp>
+#include <nt2/sdk/option/option_domain.hpp>
+#include <nt2/sdk/option/option_not_found.hpp>
+#include <nt2/sdk/option/option_term.hpp>
+#include <nt2/sdk/option/option_pack.hpp>
 
 #include <boost/proto/core.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace details
 {
