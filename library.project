@@ -777,6 +777,7 @@
         <File Name="include/nt2/extension/parameters.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="toolbox"/>
+      <File Name="include/nt2/nt2.hpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Settings Type="Static Library">
