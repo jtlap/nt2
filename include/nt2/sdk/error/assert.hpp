@@ -12,10 +12,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Define macro for asserting preconditions
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/trap.hpp>
-#include <nt2/sdk/errors/debug.hpp>
-#include <nt2/sdk/errors/error.hpp>
-#include <nt2/sdk/errors/warning.hpp>
+#include <nt2/sdk/error/trap.hpp>
+#include <nt2/sdk/error/debug.hpp>
+#include <nt2/sdk/error/error.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Prepare the cases where we need a special handler

@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 #include <boost/preprocessor/tuple/rem.hpp>
 #include <boost/preprocessor/array/data.hpp>
 #include <boost/preprocessor/array/size.hpp>

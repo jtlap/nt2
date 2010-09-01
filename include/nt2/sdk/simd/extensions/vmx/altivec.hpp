@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_VMX_ALTIVEC_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_VMX_ALTIVEC_HPP_INCLUDED
 
-#include <nt2/sdk/errors/warning.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet

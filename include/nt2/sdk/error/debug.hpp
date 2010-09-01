@@ -6,39 +6,55 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_ERRORS_WARNING_HPP_INCLUDED
-#define NT2_SDK_ERRORS_WARNING_HPP_INCLUDED
+#ifndef NT2_SDK_ERRORS_DEBUG_HPP_INCLUDED
+#define NT2_SDK_ERRORS_DEBUG_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Compile-time warning
-// Documentation: http://nt2.lri.fr/sdk/errors/warning.html
+// Define/Undefine macros depending on compilation mode
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/compiler.hpp>
-#include <boost/preprocessor/stringize.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Activate only in VERBOSE MODE
+// NT2_RELEASE is triggered by NDEBUG
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_VERBOSE)
-#if defined(NT2_COMPILER_MSVC)
-////////////////////////////////////////////////////////////////////////////////
-// #pragma message on MSVC is very light so we add some info
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_WARNING_LOCATION __FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) ":"
-#define NT2_WARN(exp) ( NT2_WARNING_LOCATION "[NT2 WARNING] -- "  BOOST_PP_STRINGIZE(exp) )
-#define NT2_WARNING(X) __pragma( message NT2_WARN(X) )
-#elif defined(NT2_COMPILER_GNU_C)
-////////////////////////////////////////////////////////////////////////////////
-// #pragma message on g++ just need a call to _Pragma
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_WARN(exp) "[NT2 WARNING] -- " #exp
-#define NT2_WARNING(X) _Pragma( BOOST_PP_STRINGIZE(message NT2_WARN(X)) )
+#if defined(NDEBUG)
+#define NT2_RELEASE
 #endif
-#else
+
+#if defined(NT2_RELEASE)
+
 ////////////////////////////////////////////////////////////////////////////////
-// In non-VERBOSE MODE, NT2_WARNING is no-op
+// And of course, NDEBUG is set by NT2_RELEASE
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_WARNING(X)
+#if !defined(NDEBUG)
+#define NDEBUG
+#endif
+
+#define NT2_DISABLE_ASSERTS
+#define BOOST_DISABLE_ASSERTS
+#undef NT2_DEBUG
+NT2_WARNING(Compiling In Release Configuration)
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+// NT2_DEBUG removes all NDEBUG influence
+////////////////////////////////////////////////////////////////////////////////
+#if defined(NT2_DEBUG)
+#undef NDEBUG
+#undef NT2_DISABLE_ASSERTS
+#undef BOOST_DISABLE_ASSERTS
+NT2_WARNING(Compiling with Debug Informations)
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+// Assertions disabled in one way are disbaled the other way around
+////////////////////////////////////////////////////////////////////////////////
+#if defined(BOOST_DISABLE_ASSERTS) && !defined(NT2_DISABLE_ASSERTS)
+#define NT2_DISABLE_ASSERTS
+#endif
+
+#if !defined(BOOST_DISABLE_ASSERTS) && defined(NT2_DISABLE_ASSERTS)
+#define BOOST_DISABLE_ASSERTS
 #endif
 
 #endif

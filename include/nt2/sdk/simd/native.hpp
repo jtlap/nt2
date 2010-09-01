@@ -15,7 +15,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/memory/overload.hpp>
 #include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
 
 namespace nt2 { namespace simd

@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data buffer with NRC like interface
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/assert.hpp>
+#include <nt2/sdk/error/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/details/is_assignment_compatible.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>

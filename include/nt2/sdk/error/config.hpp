@@ -13,7 +13,7 @@
 // Memory config header
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config.hpp>
-#include <nt2/sdk/errors/debug.hpp>
+#include <nt2/sdk/error/debug.hpp>
 
 namespace nt2 { namespace config
 {

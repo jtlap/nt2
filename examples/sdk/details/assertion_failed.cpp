@@ -1,6 +1,6 @@
 #define NT2_ASSERTS_AS_EXCEPTIONS
 #include <iostream>
-#include <nt2/sdk/errors/assert.hpp>
+#include <nt2/sdk/error/assert.hpp>
 
 using namespace std;
 

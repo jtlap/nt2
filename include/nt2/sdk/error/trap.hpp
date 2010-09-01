@@ -11,11 +11,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Template based SIGTRAP emitter
-// Documentation: http://nt2.lri.fr/sdk/errors/trap.html
+// Documentation: http://nt2.lri.fr/sdk/error/trap.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/config/attributes.hpp>
-#include <nt2/sdk/errors/details/trap.hpp>
+#include <nt2/sdk/error/details/trap.hpp>
 
 namespace nt2 { namespace sys
 {

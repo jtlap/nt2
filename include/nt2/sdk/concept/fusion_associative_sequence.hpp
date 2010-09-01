@@ -14,7 +14,7 @@
 // Documentation:
 // http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/sequence/concepts/associative_sequence.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/error/concepts.hpp>
 #include <boost/fusion/include/at_key.hpp>
 #include <boost/fusion/include/has_key.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>

@@ -11,10 +11,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Error Reporting System
-// Documentation: http://nt2.lri.fr/sdk/errors/error.html
-// Documentation: http://nt2.lri.fr/sdk/errors/config.html
+// Documentation: http://nt2.lri.fr/sdk/error/error.html
+// Documentation: http://nt2.lri.fr/sdk/error/config.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/details/error.hpp>
+#include <nt2/sdk/error/details/error.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // No exception means no error unless they got requalified
@@ -40,7 +40,7 @@ NT2_WARNING(Exceptions globally disabled)
 // Enabled errors
 ////////////////////////////////////////////////////////////////////////////////
 #if !defined(NT2_DISABLE_ERROR)
-#include <nt2/sdk/errors/details/exception.hpp>
+#include <nt2/sdk/error/details/exception.hpp>
 #define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
 
