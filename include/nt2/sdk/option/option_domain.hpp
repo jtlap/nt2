@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_OPTIONS_OPTION_DOMAIN_HPP_INCLUDED
 #define NT2_SDK_OPTIONS_OPTION_DOMAIN_HPP_INCLUDED
 
-#include <nt2/sdk/options/option_expr_fwd.hpp>
+#include <nt2/sdk/option/option_expr_fwd.hpp>
 #include <boost/proto/core.hpp>
 
 namespace nt2 { namespace details

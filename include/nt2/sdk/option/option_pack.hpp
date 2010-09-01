@@ -9,8 +9,8 @@
 #ifndef NT2_SDK_OPTIONS_OPTION_PACK_HPP_INCLUDED
 #define NT2_SDK_OPTIONS_OPTION_PACK_HPP_INCLUDED
 
-#include <nt2/sdk/options/option_spec.hpp>
-#include <nt2/sdk/options/option_not_found.hpp>
+#include <nt2/sdk/option/option_spec.hpp>
+#include <nt2/sdk/option/option_not_found.hpp>
 #include <boost/proto/core.hpp>
 #include <boost/proto/transform.hpp>
 

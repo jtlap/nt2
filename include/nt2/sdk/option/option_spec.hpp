@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_OPTIONS_OPTION_SPEC_HPP_INCLUDED
 #define NT2_SDK_OPTIONS_OPTION_SPEC_HPP_INCLUDED
 
-#include <nt2/sdk/options/option_term.hpp>
+#include <nt2/sdk/option/option_term.hpp>
 #include <boost/proto/core.hpp>
 
 namespace nt2 { namespace details
