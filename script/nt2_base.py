@@ -27,7 +27,9 @@ class Nt2 :
     Std_arbo = [
         ["include",
          "src",   
-         {"doc" : ["source", "build"] },
+         {"doc" : ["source"] },
+         {"unit": ["scalar"] },
+         {"benchmark": ["simd"] },
          {"function" :
           ["scalar",
            {"simd"   :
