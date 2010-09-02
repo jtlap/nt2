@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
+#include <nt2/sdk/constant/properties.hpp>
 
 namespace nt2 { namespace functors
 {
