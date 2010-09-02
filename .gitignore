@@ -41,4 +41,5 @@ Release
 # Ignore local bootstrap file
 ################################################################################
 include/nt2/sdk/config/bootstrap.hpp
-
+lib/*
+*tags
