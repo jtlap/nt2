@@ -17,10 +17,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Check for the most recent SSE familly extension
 ////////////////////////////////////////////////////////////////////////////////
-//* TODO: #include <nt2/sdk/simd/extensions/sse/fma4.hpp>
 #include <nt2/sdk/simd/extensions/sse/xop.hpp>
-#include <nt2/sdk/simd/extensions/sse/avx.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse4a.hpp>
+
+//* TODO: #include <nt2/sdk/simd/extensions/sse/fma4.hpp>
+#include <nt2/sdk/simd/extensions/sse/avx.hpp>
+#include <nt2/sdk/simd/extensions/sse/sse4_2.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse4_1.hpp>
 #include <nt2/sdk/simd/extensions/sse/ssse3.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse3.hpp>
