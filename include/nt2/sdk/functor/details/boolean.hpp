@@ -17,7 +17,8 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 #define NT2_MAKE_BOOLEAN(TAG,N,IMPL)                                \
-template<class Category,class Info> struct call<TAG,Category,Info>  \
+template<class Category,class Info>                                 \
+struct call<TAG,tag::scalar_(Category),Info>                        \
 {                                                                   \
   typedef bool result_type;                                         \
   NT2_FUNCTOR_CALL(N) { return IMPL; }                              \
