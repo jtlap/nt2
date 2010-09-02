@@ -33,8 +33,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct  result<This(A0)>
-          : meta::strip<A0>::type {};
+    struct  result<This(A0)> : meta::strip<A0>::type {};
 
     template<class Target> inline typename Target::type const
     operator()( Target const& ) const

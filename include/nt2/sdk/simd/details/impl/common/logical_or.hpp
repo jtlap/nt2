@@ -22,7 +22,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = is_neq( (a0 | a1), Zero<A0>() );
+      A0 that = neq( (a0 | a1), Zero<A0>() );
       return that;
     }
   };

@@ -6,21 +6,21 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_LOGICAL_NOT_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_LOGICAL_NOT_HPP_INCLUDED
-
-#include <nt2/sdk/meta/strip.hpp>
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_MODULO_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_MODULO_HPP_INCLUDED
 
 namespace nt2 { namespace functors
 {
-  template<class C, class X,class Info>
-  struct call<logical_not_,tag::simd_(C,X),Info>
+  //////////////////////////////////////////////////////////////////////////////
+  // Modulo operates on integers only
+  //////////////////////////////////////////////////////////////////////////////
+  template<class C,class X,class Info>
+  struct validate<modulo_,tag::simd_(C,X),Info>
   {
     template<class Sig> struct result;
     template<class This,class A>
-    struct result<This(A)> : meta::strip<A> {};
-
-    NT2_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
+    struct  result<This(A,A)>
+          : meta::is_integral<typename meta::strip<A>::type> {};
   };
 } }
 
