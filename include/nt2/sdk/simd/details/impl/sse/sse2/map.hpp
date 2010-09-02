@@ -56,7 +56,7 @@ namespace nt2 { namespace functors
     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_IMPL,(float ,4  ,_mm_setr_ps)    )
     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_IMPL,(int32_,4  ,_mm_setr_epi32) )
     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_IMPL,(int16_,8  ,_mm_setr_epi16) )
-    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_IMPL,(int8_ ,16 ,_mm_setr_epi16) )
+    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_IMPL,(int8_ ,16 ,_mm_setr_epi8 ) )
     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_IMPL_64,~ )
   };
 } }
