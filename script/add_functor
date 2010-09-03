@@ -1,0 +1,74 @@
+#! /usr/bin/env python
+# -*- coding: iso-8859-15  -*-
+
+
+"""User utility to add functor(s) to an existing Nt2 toolbox
+   usage:
+           add_functor <tool_box_name> <functor_name> <arity>
+         
+   <tool_box_name> (mandatory) is the name of the toolbox, it must
+                   a valid C++ variable name (please use lower case)
+
+   <functor_name>  (mandatory) is the name of the functor to be created
+
+   [arity]         [optionnal] is the number of parameters taken by the
+                   functor (1 is the default)
+
+   or
+           add_functor @<data_file_name>
+
+   <data_file_name> is the name of a text file the contain of which is:
+
+          <tool_box_name>
+          <functor_name_1> [arity_1]
+            ...
+          <functor_name_n> [arity_n]
+
+          in this case, all the n functors will be added to the toolbox.
+          Note: empty of fully blank lines are ignored
+   
+"""
+
+def add_one(fct,fct_name,arity) :
+    fct.add_functor(fct_name,arity)
+    print "adding functor %s of arity %d" % (fct_name, arity) 
+
+def modify_toolbox(tb_name) :
+    fct = Functor(tb_name,mode='modify')
+    print "opening toolbox %s" %fct.get_tb_name()
+    print "with %s mode" % fct.get_tb_mode()
+    return fct
+
+import sys
+import re
+from functors import Functor
+from file_utils import read
+
+if __name__ == "__main__" :
+    import nt2_logs
+    NT2_LOGS = nt2_logs.Nt2_logs()
+    length = len(sys.argv)
+    if length >= 3 :
+        tb_name = sys.argv[1]
+        fct_name = sys.argv[2]
+        arity = int(sys.argv[3]) if length > 3 else 1
+        fct = modify_toolbox(tb_name)
+        add_one(fct,fct_name,arity)
+    elif length == 2 :
+       data_file_name = sys.argv[1][1:] 
+       s = read(data_file_name)
+       tb_name = s[0]
+       fct = modify_toolbox(tb_name)
+       for ss in s[1:] :
+           ss = re.sub('\b',' ',ss)
+           if len(ss) == 0 : continue
+           l = ss.split()
+           if len(l) == 0 : continue
+           fct_name = l[0]
+           arity = 1 if len(l) <=1 else int(l[1])
+           add_one(fct,fct_name,arity)
+    else :
+        print __doc__
+           
+       
+
