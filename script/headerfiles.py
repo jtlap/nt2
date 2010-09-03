@@ -46,6 +46,7 @@ class Headers(Banner,Guard) :
                  year = None
                  ) :
         Banner.__init__(self, year, banner)
+#        print " ---- path %s " % path
         Guard.__init__(self,path,name,ext,guard_begin,guard_end)
         self.__inner = Headers.inner_text if (inner is None) else inner
 
@@ -56,10 +57,11 @@ class Headers(Banner,Guard) :
                          self.get_guard_end())
         
     def write_header(self,path=None,check=True,flag=None):
-##        print "self.total %s"%self.total
-##        print "path %s"%path
+        print "self.total %s"%self.get_total_path()
+        print "path %s"%path
 
         path2headerfile = os.path.join(nt2_dir() if path is None else path,self.get_total_path())
+        print "path2headerfile %s " % path2headerfile
         if flag is None :
             l = self.get_banner()+self.get_guard_begin()+self.__inner+self.get_guard_end()
         elif flag == 'inner' :

@@ -1,8 +1,12 @@
 
-namespace nt2 { namespace $self.tb_name$
+namespace nt2 { namespace $self.tb_namespace$
 {
-  template<class Dummy>
-  struct call<$self.name$_,tag::scalar_(tag::arithmetic_),Dummy>
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Compute $self.name$($self.call_list$)
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<$self.tb_taggedname$_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
 
@@ -13,6 +17,5 @@ namespace nt2 { namespace $self.tb_name$
   };
 } }
 
-#endif
 
       

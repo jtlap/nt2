@@ -1,1 +1,1 @@
-#include <nt2/core/numeric/function/details/simd/$self.previous$/$self.name$.hpp>
+#include <nt2/toolbox/function/simd/$self.previous$/$self.name$.hpp>

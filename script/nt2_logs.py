@@ -19,17 +19,17 @@ class Nt2_logs :
         # create logger with "nt2"
         self.logger = logging.getLogger("nt2")
         self.logger.setLevel(logging.DEBUG)
-#        self.logger.setLevel(0)
+        self.logger.setLevel(0)
         
         #create file handler and set level to debug
         self.fh = logging.FileHandler("nt2.log")
         self.fh.setLevel(fh_level)
-#        self.fh.setLevel(0)
+        self.fh.setLevel(0)
         
         # create console handler and set level to debug
         self.ch = logging.StreamHandler()
         self.ch.setLevel(ch_level)
-#        self.ch.setLevel(0)
+        self.ch.setLevel(0)
         
         # create formatter
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")

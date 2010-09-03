@@ -29,6 +29,8 @@ Model
 Header File
 ^^^^^^^^^^^
 
+This functor belongs to the namespace: ``$self.tb_namespace$``
+
 .. code-block:: cpp
 
   #include <nt2/toolbox/$self.tb_name$/function/$self.name$.hpp>
@@ -47,7 +49,7 @@ Synopsis
 .. code-block:: cpp
 
     <unspecified return type>  $self.name$(
-                      $self.param_lst$
+                      $self.call_list$
                      );
 
 Expression Semantics

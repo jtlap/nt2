@@ -13,6 +13,7 @@ __license__   = "Python"
 import os
 import re
 import logging
+from nt2_base import Nt2
 from re_list  import sub_list
 
 class Guard :
@@ -35,6 +36,7 @@ class Guard :
                  guard_end  = None
                  ) :
         self.logger = logging.getLogger("nt2.Headersguards.Guard")
+        self.__orig_path = path
         self.__path = os.path.expanduser(path)
         if self.__path[-1] != '/':
             self.__path += '/'
@@ -64,17 +66,21 @@ class Guard :
     def mk_total_path(self) :
         return self.__path + self.__name + self.__ext
     
+    def mk_guard_path(self) :
+        return self.__orig_path + self.__name + self.__ext
+    
     def mk_guard(self) :
         """create a file guard in two parts"""
-        path  = re.sub('[^(A-Z|0-9)]','_',self.__total_path.upper())        
+        path = self.mk_guard_path().upper()
+        path  = re.sub('[^(A-Z|0-9)]','_',path)
+        path  = re.sub('__','_',path)
+        if path[0]=='/' :
+            path=path[1:]
         self.__guard_begin = sub_list('<path>',path,self.__guard_begin)
-#        self.__guard ={ "begin" : self.__guard_begin, "end" :self.__guard_end}
-        
-    def __call__(self) :
-        return self.__guard
+
 
 if __name__ == "__main__":
     import nt2_logs
     NT2_LOGS = nt2_logs.Nt2_logs()
-    print Guard('./','ertyu')
+    print Guard('pipo/zz/','ertyu')
 

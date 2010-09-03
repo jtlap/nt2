@@ -15,15 +15,15 @@ import logging
 import re
 from nt2_env     import nt2_py_dir
 from headerfiles import Headers
-from toolbox     import Toolbox, ToolboxError
+from toolbox     import Toolbox
 import file_utils
 from file_utils  import exist, read, write
 from identities  import whoami
 
 class Functor(Toolbox) :
     """adding/removing functors to a toolbox"""
-    def __init__(self, tool_box_name, mode = 'modify') :
-        Toolbox.__init__(self, tool_box_name, mode=mode)
+    def __init__(self, tool_box_name, mode = 'modify',style='sys') :
+        Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
         if not self.get_status() : raise SystemExit
         self.logger = logging.getLogger("nt2.functors.Functor")
         self.ext='.hpp'
@@ -89,15 +89,21 @@ class Functor(Toolbox) :
         "adding a new functor"
         self.name = functor_name
         self.arity= arity
-        def strlist(tpl) :
-            s = tpl % 0
-            tpl =","+tpl
-            for i in range(1,self.arity) :
-                s += tpl % i
-                return s
+        print "******self.arity %s" % self.arity
+        def strlist(tpl,n=1) :
+            s = tpl % (n*(0,))
+            tpl =", "+tpl
+            for i in range(1,arity) :
+                s += tpl % (n*(i,))
+            return s
         self.class_list = strlist("class A%d")
         self.type_list  = strlist("A%d")
-        self.call_list  = strlist("type(a%d)")
+        self.call_list  = strlist("const A%d& a%d",2)
+        self.tb_namespace = self.get_tb_namespace()
+        if self.get_tb_style()=='usr' :
+            self.tb_taggedname =  self.get_tb_name()+'::'+self.name
+        else :
+            self.tb_taggedname = self.name       
         self.traversal(self.get_pathfnt2(),self.get_arbo(),
                        self.__mk_functor_item)
         self.update_includes(functor_name)
@@ -106,6 +112,8 @@ class Functor(Toolbox) :
         del self.class_list
         del self.type_list 
         del self.call_list 
+        del self.tb_taggedname
+        del self.tb_namespace
 
         
 
@@ -134,7 +142,11 @@ class Functor(Toolbox) :
             show(l)
             r = raw_input("are you sure? (y/N):")
         if r.upper() == 'Y' :
-            for ll in l : file_utils.rm(ll)
+            for ll in l :
+                try :
+                    file_utils.rm(ll)
+                except OSError :
+                    print "%s does not exist" % ll 
 
     def update_includes(self, func_name) :
         """update a toolbox include file
@@ -166,10 +178,9 @@ class Functor(Toolbox) :
                 text.insert(i,line2add)
                 write(file2modify,text,False)
 
-    def mk(self,path,func_name,flag=None) :
+    def mk(self,path,func_name,flag=None,check=True) :
         "wrapping for making different files"
 #        print "func_name %s"%func_name
-        self.tb_name = self.get_tb_name()
         self.logger.info(
             "\ncreating functor %s %s template for %s\n" % \
             (self.name, func_name[3:],self.get_tb_name()) +
@@ -177,11 +188,9 @@ class Functor(Toolbox) :
             )
         tplfilename = os.path.join(nt2_py_dir(),func_name+'.tpl')
         inner_text = self.__treat(read(tplfilename))
-        h = Headers(path,self.name,
-                    ext = self.ext,
-                    inner=inner_text)
-        h.write_header(path=self.get_path2nt2(),flag=flag)
-        del self.tb_name
+        print "PATH %s " % path
+        h = Headers(path,self.name, ext = self.ext,inner=inner_text)
+        h.write_header(path=self.get_path2nt2(),flag=flag,check=check)
         
     def lst(self,path,func_name) :
         #        print "func_name %s"%func_name
@@ -199,25 +208,36 @@ class Functor(Toolbox) :
                 s = re.sub('\$self.'+k+'\$',str(v),s)
             return s        
         elif type(s) is list :
+            self.tb_name = self.get_tb_name()
             l= [] 
             for ss in s :
                 l.append(self.__treat(ss))
+            del self.tb_name
             return l
         
    
     def mk_doc(self,path)     :
+        """ creation de <fctr>.rst dans nt2/<tb>/doc/source"""
         self.ext = ".rst"
-        self.mk(path,whoami(),'inner')
+        print " &&&&&&&& self.arity %d " % self.arity
+        print " &&&&&&&& self.call_list %s " % self.call_list 
+        self.mk(path,whoami(),'inner',check=False)
         self.ext = '.hpp'
-    def mk_include(self,path) : self.mk(path,whoami())
+    def mk_include(self,path) :
+        """ creation de <fctr>.hpp dans nt2/<tb>/include"""
+        self.mk(path,whoami(),check=False)
     def mk_define(self,path)  :
+        """ creation de <fctr>.hpp dans nt2/<tb>/function"""
         self.tb_nameupper =self.get_tb_name().upper()
-        self.mk(path,whoami())
+        self.mk(path,whoami(),check=False)
     def mk_scalar(self,path)  :
-        self.mk(path,whoami())
+        """ creation de <fctr>.hpp dans nt2/<tb>/function/scalar"""
+        self.mk(path,whoami(),check=False)
     def mk_common(self,path)  :
-        self.mk(path,whoami())
+        """ creation de <fctr>.hpp dans nt2/<tb>/function/simd/common"""
+        self.mk(path,whoami(),check=False)
     def mk_hierarchy(self, path, func_name, tree, action) :
+        """ creation des <fctr>.hpp dans les diverses specialisations simd"""
         #        print "func_name %s"%func_name
         self.logger.info(
             "\ncreating functor %s %s template for %s\n" % \
@@ -232,7 +252,7 @@ class Functor(Toolbox) :
                 inner_text = self.__treat(read(tplfilename))
                 h = Headers(os.path.join(path,k)+'/',self.name,
                             inner=inner_text)
-                h.write_header(path=self.get_path2nt2())
+                h.write_header(path=self.get_path2nt2(),check=False)
 
     def lst_doc(self,path)     : self.lst(path,self.name)
     def lst_include(self,path) : self.lst(path,self.name)
@@ -251,7 +271,7 @@ if __name__ == "__main__":
     import nt2_logs
     from list_utils import show
     NT2_LOGS = nt2_logs.Nt2_logs()
-    ftr = Functor("t_pipo",mode='update')
-    ftr.add_functor("zorglub",arity=2)
-    show(ftr.list_functor_files("zorglub"))
-##    ftr.rm_functor_files("zorro")
+    ftr = Functor("arithmetic",mode='update',style='sys')
+    ftr.add_functor("zorglub",arity=3)
+##    show(ftr.list_functor_files("abs"))
+ #   ftr.rm_functor_files("zorglub")

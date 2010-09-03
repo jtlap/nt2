@@ -20,35 +20,14 @@ from headerfiles   import Headers
 from nt2_base      import Nt2
 
 
-##class Functor :
-##    """Functor description parameters
-##    name:   Functor name
-##    arity:  Functor number of parameters
-##    """
-##    def __init__(self,name,arity=1) :
-##        self.name  = name
-##        self.arity = arity
-
-class ToolboxError(Exception):
-    def __init__(self, info):
-        self.info = info
-        
-    def __repr__(self) :
-        if type(self.info) is str :
-            return str
-        elif type(self.info) is list :
-            return '\n'.join(self.info)
-        
-    def __str__(self):
-        return repr(self.info)
-
-
 class Toolbox(Nt2) :
-    """create prerequisites for defining an nt2 toolbox"""
+    """create prerequisites for defining an nt2 toolbox
+    """
 
     def __init__(self, tool_box_name,
                  mode = 'create',
-                 p2nt2 = None) :
+                 p2nt2 = None,
+                 style = 'usr') :
         """creation or recovery of a toolbox
          <tool_box_name> is the name of the toolbox
 
@@ -60,10 +39,18 @@ class Toolbox(Nt2) :
              modify : creates a new toolbox tree or allow access to an
                   existing one to add or suppress functors extensions
 
-          <p2nt2> is the path to nt2. The path defaults to the computation furnished by
-                  Nt2 class
-         """
+          <p2nt2> is the path to nt2. The path defaults to the computation 
+                  furnished by the Nt2 class
+          <style> determines if the functors defined in the toolbox functors
+                  will reside in the namespace nt2 ('sys') or in the namespace
+                  <tool_box_name> ('usr'). It is only needed when mode is  
+                  'create' and is 'usr' by default. The other modes recover
+                  the creation parameter from existing data: in the present
+                  implementation, once created the toolbox mode cannot be
+                  modified.
+        """
         Mode = [ 'create', 'modify', 'update', 'check' ]
+        Style = ['usr','sys']
         Nt2.__init__(self,'toolbox')
         self.__status = True
         self.logger = logging.getLogger("nt2.toolbox.Toolbox")
@@ -72,6 +59,8 @@ class Toolbox(Nt2) :
         self.__tb_pathfnt2 = os.path.join(self.get_pathfnt2(),self.__tb_name)
         self.__tb          = os.path.join(self.get_path2nt2(),self.__tb_pathfnt2)
         self.__tb_path2mode= os.path.join(self.get_path2nt2(),self.get_pathfnt2())
+        self.__tb_style = style if style == "sys" else "usr"
+        self.__tb_namespace = "functors" if self.__tb_style == "sys" else self.__tb_name 
 ##          print "----------------------------"
 ##        print self.get_pathfnt2()
 ##        print self.get_path2nt2()
@@ -81,6 +70,7 @@ class Toolbox(Nt2) :
 ##          print "----------------------------"
         
         self.__test_status = True
+        self.__mode = mode
         if mode in Mode :
             self.logger.info(
                 "\nopening toolbox %s with mode '"% self.__tb_name +
@@ -101,7 +91,9 @@ class Toolbox(Nt2) :
     def get_tb(self) : return self.__tb 
     def get_tb_path2mode(self) : return self.__tb_path2mode
     def get_status(self) : return self.__status
-
+    def get_tb_style (self) : return self.__tb_style
+    def get_tb_namespace(self) : return self.__tb_namespace
+    def get_tb_mode(self) : return self.__mode
     
     def __str__(self) :
         if not self.check_arbo() :
@@ -165,6 +157,8 @@ class Toolbox(Nt2) :
                 "in path: %s\n" % self.__tb +
                 "please create it before modifying\n"
                 )
+            raise SystemExit
+        self.__tb_style = self.read_style()
         return self.__status
     
     def create_arbo(self):
@@ -177,11 +171,14 @@ class Toolbox(Nt2) :
                 "please use another toolbox name\n" +
                 "or delete the old one before creating the new one\n"
                 )
+            raise SystemExit
         else:
             mkdir(self.__tb)
             self.traversal(self.__tb_pathfnt2+'/',self.get_arbo(),self.__mkdir)
             self.create_toolbox_include_template()
             self.create_include_functors_template()
+            self.create_toolbox_macros_template(check=True)
+            self.create_toolbox_py_datas()
         return self.__status
 
     def update_arbo(self):
@@ -189,50 +186,101 @@ class Toolbox(Nt2) :
         if not os.path.exists(self.__tb) :
             return self.create_arbo()
         else :
+            self.__tb_style = self.read_style()
             self.traversal(self.__tb_pathfnt2+'/',self.get_arbo(),self.__mkdir_if)
             self.create_toolbox_include_template(check=True)
             self.create_include_functors_template(check=True)
+            self.create_toolbox_macros_template(check=True)
         return self.__status
         
     def create_include_functors_template(self,check=False):
-        """this file containing the include list of functors
+        """the created file will contain the include list of functors
         immediately available from the toolbox.
-        This file must only be created only in the 'toolbox' mode"""
+        """
         self.logger.warning(
             "\ncreating include template for %s\n" % self.__tb_name
             )
-        h = Headers(self.__tb_pathfnt2,self.__tb_name)
+        h = Headers(self.__tb_pathfnt2,'/'+self.__tb_name)
         h.write_header(path=self.get_path2nt2(),check=check)
 
     def create_toolbox_include_template(self,check=False):
-        """this file is the main include file for the toolboxes users.
-        This file must only be created only in the 'toolbox' mode"""
+        """the created file is the main include file for the toolboxes users.
+        """
         self.logger.warning(
             "\ncreating toolbox include template for %s\n" % self.__tb_name
             )
         inner_text = [
-            "",
-            "#define NT2_" + self.__tb_name.upper() + \
-             "_BASE() nt2/toolbox/" + self.__tb_name+"/function/details/",
-            "",
             "#include <nt2/nt2.hpp>",
             "#include <nt2/toolbox/" + self.__tb_name + "/"+ \
              self.__tb_name + ".hpp>",
             ""
             ]
-        h = Headers(self.__tb_path2mode,self.__tb_name,
+        h = Headers(self.get_pathfnt2(),self.__tb_name,
                     inner=inner_text)
         h.write_header(path=self.get_path2nt2(),check=check)
 
-    
+    def create_toolbox_macros_template(self,check=False):
+        """the created file  include.hpp contains the BASE_<tb>... MACROS
+        under toolbox/<tb>.
+        """
+        
+        self.logger.warning(
+            "\ncreating toolbox include template for %s\n" % self.__tb_name
+            )
+        inner_text = [
+            "#include <nt2/sdk/details/preprocessor.hpp>",
+            "",
+            "#define NT2_$tb_nameupper$_BASE() nt2/toolbox/$tb_name$/function/scalar/",
+            "#define NT2_$tb_nameupper$_RELATIVE() nt2/toolbox/$tb_name$/function/",
+            "",
+            "#if defined(NT2_SIMD_DETECTED)",
+            "#define NT2_$tb_nameupper$_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_$tb_nameupper$_RELATIVE, F)",
+            "#else",
+            "#define NT2_$tb_nameupper$_INCLUDE(F) NT2_PP_INCLUDE(NT2_$tb_nameupper$_BASE, F)",
+            "#endif",
+            ""
+            ]
+        r=[]
+        for l in inner_text :
+            z=re.sub('\$tb_nameupper\$',self.__tb_name.upper(),l)
+            z=re.sub('\$tb_name\$',self.__tb_name,z)
+            r.append(z)
+        h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/include",inner=r)
+        h.write_header(path=self.get_path2nt2(),check=check)
+
+    def create_toolbox_py_datas(self,check=True):
+        """this file contains python infos for pursuing the toolbox
+           completion
+        """
+        
+        self.logger.warning(
+            "\ncreating toolbox py datas for %s\n" % self.__tb_name
+            )
+        inner_text = [
+            "datas = {",
+            "'style' : '%s'" % self.__tb_style,
+            "}"
+            ]
+        h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/py_data",
+                    inner=inner_text, ext='.py')
+        h.write_header(path=self.get_path2nt2(),flag='inner',check=check)
+        
+    def read_style(self) :
+        dirname = os.path.join(self.get_path2nt2(),self.get_pathfnt2(),self.__tb_name)
+        sys.path.insert(0,dirname)
+        from py_data import datas
+        s = datas['style']
+        sys.path.pop(0)
+        return s
+        
 if __name__ == "__main__":
     import nt2_logs
     NT2_LOGS = nt2_logs.Nt2_logs()
     if len(sys.argv)==1:
-        name = "t_pipo"
+        name = "zorro"
         tb=Toolbox(name,"create")
-        print tb
-        print tb.check_arbo()
+##        print tb
+##        print tb.check_arbo()
     else:
         name = sys.argv[1]
         Toolbox(name)

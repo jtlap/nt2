@@ -34,7 +34,7 @@ def nt2_dir() :
         but non comprising the first /nt2/ occurence...
         This path can be sometimes erroneous
     or
-        arbort if the path does not contain /nt2/
+        abort if the path does not contain /nt2/
         """
     try :
         d = os.environ["NT2_DIR"]
@@ -57,7 +57,7 @@ def nt2_dir() :
                      ("defaulting to %s\n"%d)+
                      nt2_dir.__doc__
                      )
-    return os.path.expanduser(d)
+    return os.path.expanduser(os.path.join(d,"nt2/include/"))
 
 def nt2_py_dir() :
     return os.path.dirname(os.path.realpath(__file__))
