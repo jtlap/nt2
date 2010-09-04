@@ -6,18 +6,17 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_FUNCTIONS_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_NATIVE_FUNCTIONS_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPARE_GREATER_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPARE_GREATER_HPP_INCLUDED
 
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/memory/store.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/preprocessor/include.hpp>
-
-#include NT2_SIMD_INCLUDE(load.hpp)
-#include NT2_SIMD_INCLUDE(store.hpp)
-
-#include <nt2/sdk/simd/details/impl/map.hpp>
-#include <nt2/sdk/simd/details/impl/make.hpp>
+namespace nt2 { namespace functors
+{
+  template<class Info>
+  struct call<simd::is_greater_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  {
+    typedef bool result_type;
+    NT2_FUNCTOR_CALL(2) { return a1 < a0; }
+  };
+} }
 
 #endif

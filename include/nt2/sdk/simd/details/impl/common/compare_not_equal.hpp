@@ -6,10 +6,17 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_FUNCTION_LOAD_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_FUNCTION_LOAD_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPARE_NOT_EQUAL_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPARE_NOT_EQUAL_HPP_INCLUDED
 
-#include <nt2/sdk/simd/preprocessor/include.hpp>
-#include NT2_SIMD_INCLUDE(load.hpp)
+namespace nt2 { namespace functors
+{
+  template<class Info>
+  struct call<simd::is_not_equal_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  {
+    typedef bool result_type;
+    NT2_FUNCTOR_CALL(2) { return !(a0==a1); }
+  };
+} }
 
 #endif
