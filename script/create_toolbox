@@ -26,10 +26,10 @@
 
 import sys
 from toolbox import Toolbox
+from mylogging  import Mylogging
 
 if __name__ == "__main__" :
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('ERROR')
     length = len(sys.argv)
     if length==1 :
         print __doc__

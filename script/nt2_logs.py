@@ -21,10 +21,10 @@ class Nt2_logs :
         self.logger.setLevel(logging.DEBUG)
         self.logger.setLevel(0)
         
-        #create file handler and set level to debug
-        self.fh = logging.FileHandler("nt2.log")
-        self.fh.setLevel(fh_level)
-        self.fh.setLevel(0)
+##        #create file handler and set level to debug
+##        self.fh = logging.FileHandler("nt2.log")
+##        self.fh.setLevel(fh_level)
+##        self.fh.setLevel(0)
         
         # create console handler and set level to debug
         self.ch = logging.StreamHandler()

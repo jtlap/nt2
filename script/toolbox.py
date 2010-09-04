@@ -14,11 +14,11 @@ import os
 import sys
 import string
 import re
-import logging
+
 from file_utils    import write, exist, mkdir
 from headerfiles   import Headers
 from nt2_base      import Nt2
-
+from mylogging  import Mylogging
 
 class Toolbox(Nt2) :
     """create prerequisites for defining an nt2 toolbox
@@ -53,7 +53,7 @@ class Toolbox(Nt2) :
         Style = ['usr','sys']
         Nt2.__init__(self,'toolbox')
         self.__status = True
-        self.logger = logging.getLogger("nt2.toolbox.Toolbox")
+        self.logger = Mylogging("nt2.toolbox.Toolbox")
         if p2nt2 is None : p2nt2 = self.get_path2nt2()
         self.__tb_name     = tool_box_name
         self.__tb_pathfnt2 = os.path.join(self.get_pathfnt2(),self.__tb_name)
@@ -274,8 +274,7 @@ class Toolbox(Nt2) :
         return s
         
 if __name__ == "__main__":
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('INFO')
     if len(sys.argv)==1:
         name = "zorro"
         tb=Toolbox(name,"create")

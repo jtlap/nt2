@@ -29,14 +29,20 @@ def whosdad():
         return inspect.stack()[2][3]
     except IndexError :
         return None
-    
+
+def whosfile() :
+    """return the file name"""
+    return __name__
+
 if __name__ == "__main__":
     print "I am      %s"%whoami()
     print "My dad is %s" %whosdad()
     def pipo() :
-        print "I am      %s"%whoami()
-        print "My dad is %s" %whosdad()
+        print "I am        %s"%whoami()
+        print "My dad is   %s" %whosdad()
+        print "My file is  %s" %whosfile()
     pipo()
     def zorro() :
         pipo()
     zorro()
+    

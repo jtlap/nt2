@@ -14,9 +14,9 @@ import os
 import sys
 import string
 import inspect
-import logging
+from mylogging import Mylogging
 
-nt2_files_utils_logger = logging.getLogger("nt2.files_utils")
+nt2_files_utils_logger = Mylogging("nt2.files_utils")
 
 def rm(file):  
     os.remove(file)

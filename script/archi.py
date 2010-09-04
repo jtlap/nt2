@@ -14,14 +14,15 @@ class Sse :
     """hierarchy of sse implementations"""
     Variants = {
         "common_sse" : "common",
-        "sse2"   : "sse/common",
+        "sse2"   : "sse/common_sse",
         "sse3"   : "sse/sse2",
         "ssse3"  : "sse/sse3",
         "sse4_1" : "sse/ssse3",
         "sse4_2" : "sse/sse4_1",
         "sse4a"  : "sse/ssse3",
         "avx"    : "sse/sse4_2",
-        "xop"    : "sse/sse4a"
+        "xop"    : "sse/sse4a",
+        "fma4"   : "sse/xop"
         }
     def __init__(self) :
         pass
@@ -36,8 +37,8 @@ class Vmx :
     """hierarchy of sse implementations"""
     Variants = {
         "common_vmx"    : "common",
-        "altivec"       : "common_vmx",
-        "spu"           : "common_vmx"
+        "altivec"       : "vmx/common_vmx",
+        "spu"           : "vmx/common_vmx"
         }
     def __init__(self) :
         pass
@@ -47,3 +48,6 @@ class Vmx :
 
     def previous(self,tag) :
         return Vmx.Variants[tag]
+
+if __name__ == "__main__":
+    pass

@@ -12,9 +12,9 @@ __license__   = "Python"
 
 import os
 import re
-import logging
 from nt2_base import Nt2
 from re_list  import sub_list
+from mylogging  import Mylogging
 
 class Guard :
     """create nt2 guards for a C, C++ include file
@@ -35,7 +35,7 @@ class Guard :
                  guard_begin = None,
                  guard_end  = None
                  ) :
-        self.logger = logging.getLogger("nt2.Headersguards.Guard")
+        self.logger = Mylogging("nt2.Headersguards.Guard")
         self.__orig_path = path
         self.__path = os.path.expanduser(path)
         if self.__path[-1] != '/':
@@ -80,7 +80,6 @@ class Guard :
 
 
 if __name__ == "__main__":
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('INFO')
     print Guard('pipo/zz/','ertyu')
 

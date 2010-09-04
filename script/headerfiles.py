@@ -5,12 +5,12 @@
 """
 
 import os
-import logging
 from file_utils   import write, exist
 from nt2_base     import Nt2
 from nt2_env      import nt2_dir
 from banner       import Banner
 from headerguards import Guard
+from mylogging import Mylogging
 
 class Headers(Banner,Guard) :
     """create nt2 guards for an include file
@@ -57,11 +57,11 @@ class Headers(Banner,Guard) :
                          self.get_guard_end())
         
     def write_header(self,path=None,check=True,flag=None):
-        print "self.total %s"%self.get_total_path()
-        print "path %s"%path
+#        print "self.total %s"%self.get_total_path()
+#        print "path %s"%path
 
         path2headerfile = os.path.join(nt2_dir() if path is None else path,self.get_total_path())
-        print "path2headerfile %s " % path2headerfile
+#        print "path2headerfile %s " % path2headerfile
         if flag is None :
             l = self.get_banner()+self.get_guard_begin()+self.__inner+self.get_guard_end()
         elif flag == 'inner' :
@@ -70,8 +70,7 @@ class Headers(Banner,Guard) :
         write(path2headerfile,l,check)
     
 if __name__ == "__main__":
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('INFO')
     name = "zuttique"
     path = "nt2/toolbox/t_pipo"
     inner_text = [

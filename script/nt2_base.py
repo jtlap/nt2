@@ -12,7 +12,7 @@ __license__   = "Python"
 import os
 import sys
 import re
-import logging
+from mylogging  import Mylogging
 from nt2_env    import nt2_dir
 from archi      import Sse, Vmx
 
@@ -44,19 +44,20 @@ class Nt2 :
         ]
                                                                          
     Std_actions = {
-        "doc"     : ["doc",           'std',  'doc/source/'             ],    
-        "include" : ["include",       'std',  'include/'                ],          
-        "function": ["define",        'std',  'function/'               ],                   
-        "scalar"  : ["scalar",        'std',  'function/scalar/'        ],
-        "common"  : ["common",        'std',  'function/simd/common/'   ],     
-        "vmx"     : ["hierarchy",     'hie',  'function/simd/vmx/', Vmx ],
-        "sse"     : ["hierarchy",     'hie',  'function/simd/sse/', Sse ]
+        "benchmark": ["benchmark",     'std',  'benchmark'               ],     
+        "doc"      : ["doc",           'std',  'doc/source/'             ],    
+        "include"  : ["include",       'std',  'include/'                ],          
+        "function" : ["define",        'std',  'function/'               ],                   
+        "scalar"   : ["scalar",        'std',  'function/scalar/'        ],
+        "common"   : ["common",        'std',  'function/simd/common/'   ],     
+        "vmx"      : ["hierarchy",     'hie',  'function/simd/vmx/', Vmx ],
+        "sse"      : ["hierarchy",     'hie',  'function/simd/sse/', Sse ]
         }
     def __init__(self,
                  mode='toolbox',
                  arbo=None,
                  actions = None) :
-        self.logger = logging.getLogger("nt2.nt2_base.Nt2")
+        self.logger = Mylogging("nt2.nt2_base.Nt2")
         self.__mode = mode
         self.__pathfnt2 = self.path_from_nt2(self.__mode)
         self.__actions = (Nt2.Std_actions if actions is None else actions)
@@ -83,8 +84,7 @@ class Nt2 :
 
     
 if __name__ == "__main__":
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('INFO')
     nt2 = Nt2()
     print "nt2.get_path_from_nt2     %s" %nt2.get_path_from_nt2()
     print "nt2.get_path_to_nt2       %s" %nt2.get_path_to_nt2()

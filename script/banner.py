@@ -11,8 +11,8 @@ __copyright__ = "Copyleft (c) 2010 Jean-thierry Lapreste"
 __license__   = "Python"
 
 import time
-import logging
 
+from mylogging  import Mylogging
 from re_list   import sub_list
 
 class Banner :
@@ -42,7 +42,7 @@ class Banner :
                  banner_cpght = None,
                  banner_template_begin = None,
                  banner_template_end   = None) :
-        self.logger = logging.getLogger("nt2.banner.Banner")
+        self.logger = Mylogging("nt2.banner.Banner")
         self.__banner_begin = Banner.Std_begin if (banner_template_begin is None) else banner_template_begin
         self.__banner_end   = Banner.Std_end   if (banner_template_end   is None) else banner_template_end
         self.__banner_cpght = Banner.Std_cpght if (banner_cpght          is None) else banner_cpght 
@@ -104,8 +104,8 @@ class Banner :
         return self.__year
 
 if __name__ == "__main__":
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('INFO')
+    print Mylogging.get_level()
     banner = Banner()
     print banner
     banner = Banner(20)

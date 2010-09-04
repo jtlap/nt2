@@ -11,7 +11,7 @@ __date__      = "$Date: 2010 $"
 __copyright__ = "Copyleft (c) 2010 Jean-thierry Lapreste"
 __license__   = "Python"
 
-import logging
+
 import re
 from nt2_env     import nt2_py_dir
 from headerfiles import Headers
@@ -19,13 +19,14 @@ from toolbox     import Toolbox
 import file_utils
 from file_utils  import exist, read, write
 from identities  import whoami
+from mylogging import Mylogging
 
 class Functor(Toolbox) :
     """adding/removing functors to a toolbox"""
     def __init__(self, tool_box_name, mode = 'modify',style='sys') :
         Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
         if not self.get_status() : raise SystemExit
-        self.logger = logging.getLogger("nt2.functors.Functor")
+        self.logger = Mylogging("nt2.functors.Functor")
         self.ext='.hpp'
         
     def __lst_functor_item(self,base,local,tree =None) :
@@ -89,7 +90,6 @@ class Functor(Toolbox) :
         "adding a new functor"
         self.name = functor_name
         self.arity= arity
-        print "******self.arity %s" % self.arity
         def strlist(tpl,n=1) :
             s = tpl % (n*(0,))
             tpl =", "+tpl
@@ -171,7 +171,7 @@ class Functor(Toolbox) :
                 )
             return
         else :
-            # match for tag  //<include> ?
+            #### match for tag  //<include> 
             pattern = re.compile('//<include>')
             i = find_index(pattern)
             if i != 0 :
@@ -188,7 +188,6 @@ class Functor(Toolbox) :
             )
         tplfilename = os.path.join(nt2_py_dir(),func_name+'.tpl')
         inner_text = self.__treat(read(tplfilename))
-        print "PATH %s " % path
         h = Headers(path,self.name, ext = self.ext,inner=inner_text)
         h.write_header(path=self.get_path2nt2(),flag=flag,check=check)
         
@@ -219,8 +218,6 @@ class Functor(Toolbox) :
     def mk_doc(self,path)     :
         """ creation de <fctr>.rst dans nt2/<tb>/doc/source"""
         self.ext = ".rst"
-        print " &&&&&&&& self.arity %d " % self.arity
-        print " &&&&&&&& self.call_list %s " % self.call_list 
         self.mk(path,whoami(),'inner',check=False)
         self.ext = '.hpp'
     def mk_include(self,path) :
@@ -268,9 +265,7 @@ class Functor(Toolbox) :
 
     
 if __name__ == "__main__":
-    import nt2_logs
     from list_utils import show
-    NT2_LOGS = nt2_logs.Nt2_logs()
     ftr = Functor("arithmetic",mode='update',style='sys')
     ftr.add_functor("zorglub",arity=3)
 ##    show(ftr.list_functor_files("abs"))

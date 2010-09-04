@@ -18,9 +18,10 @@ __license__   = "Python"
 import os
 import sys
 import re
-import logging
 
-nt2_env_logger = logging.getLogger("nt2.nt2_env")
+from mylogging  import Mylogging
+
+nt2_env_logger = Mylogging("nt2.nt2_env")
 
 
 
@@ -64,8 +65,7 @@ def nt2_py_dir() :
 
         
 if __name__ == "__main__":
-    import nt2_logs
-    NT2_LOGS = nt2_logs.Nt2_logs()
+    Mylogging.set_level('INFO')
     print "nt2_dir %s" % nt2_dir()
     print "------------"
     print "sys.path[0] %s" % sys.path[0]
