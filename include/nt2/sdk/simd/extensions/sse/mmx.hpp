@@ -34,6 +34,7 @@ NT2_WARNING(MMX SIMD extention detected)
 #define NT2_SIMD_BYTES              8
 #define NT2_SIMD_BITS               64
 #define NT2_SIMD_CARDINALS          (1)(2)(4)(8)
+#define NT2_SIMD_TAG_SEQ            (::nt2::tag::mmx_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::mmx_
 
 #include <mmmintrin.h>
