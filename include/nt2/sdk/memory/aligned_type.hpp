@@ -6,18 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_META_MAKE_ALIGNED_HPP_INCLUDED
-#define NT2_SDK_MEMORY_META_MAKE_ALIGNED_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_META_ALIGNED_TYPE_HPP_INCLUDED
+#define NT2_SDK_MEMORY_META_ALIGNED_TYPE_HPP_INCLUDED
 
 #include <cstddef>
+#include <nt2/sdk/config/compiler.hpp>
 #include <nt2/sdk/memory/parameters.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Intrinsic platform dependant alignment attribute
 ////////////////////////////////////////////////////////////////////////////////
-#if (defined(BOOST_MSVC))
+#if (defined(NT2_COMPILER_MSVC))
 #define NT2_ALIGN_ON(x)  __declspec(align(x))
-#elif (defined(__GNUC__))
+#elif (defined(NT2_COMPILER_GNU_C))
 #define NT2_ALIGN_ON(x)  __attribute__(( __aligned__((x)) ))
 #else
 #error nt2::aligned - No Supported alignment attribute
