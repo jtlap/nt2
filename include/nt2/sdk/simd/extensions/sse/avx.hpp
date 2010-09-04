@@ -38,7 +38,6 @@ NT2_WARNING(AVX SIMD extension detected)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::avx_
 
 #include <immintrin.h>
-#include <nt2/sdk/simd/extensions/meta/mmx.hpp>
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 #include <nt2/sdk/simd/extensions/meta/avx.hpp>
 

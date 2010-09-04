@@ -38,7 +38,6 @@ NT2_WARNING(SSE4_2 SIMD extension detected)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::sse_
 
 #include <smmintrin.h>
-#include <nt2/sdk/simd/extensions/meta/mmx.hpp>
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 
 #endif

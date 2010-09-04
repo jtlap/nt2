@@ -36,13 +36,17 @@ struct vector_of< T ,Card                                               \
 
 namespace nt2 { namespace meta
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // vector_of<T,N> computes the proper type for pack of N elements of types T
+  // Either <T,N> maps onto a SIMD types, either to array<T,N>
+  //////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t Card, class Enable=void>
   struct vector_of
   {
     typedef boost::array<T,Card> type;
   };
 
-  BOOST_PP_SEQ_FOR_EACH ( NT2_LOCAL, ~, NT2_SIMD_TAG_SEQ )
+  BOOST_PP_SEQ_FOR_EACH(NT2_LOCAL,~,NT2_SIMD_TAG_SEQ)
 
 } }
 
