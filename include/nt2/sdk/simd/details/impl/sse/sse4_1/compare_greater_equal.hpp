@@ -6,18 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_FUNCTIONS_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_NATIVE_FUNCTIONS_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_1_COMPARE_GREATER_EQUAL_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_1_COMPARE_GREATER_EQUAL_HPP_INCLUDED
 
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/memory/store.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/preprocessor/include.hpp>
-
-#include NT2_SIMD_INCLUDE(load.hpp)
-#include NT2_SIMD_INCLUDE(store.hpp)
-
-#include <nt2/sdk/simd/details/impl/map.hpp>
-#include <nt2/sdk/simd/details/impl/make.hpp>
+#include <nt2/sdk/simd/details/impl/sse/ssse3/compare_greater_equal.hpp>
 
 #endif

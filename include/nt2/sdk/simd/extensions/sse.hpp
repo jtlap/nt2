@@ -27,7 +27,7 @@
 #include <nt2/sdk/simd/extensions/sse/ssse3.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse3.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse2.hpp>
-#include <nt2/sdk/simd/extensions/sse/mmx.hpp>
+
 #endif
 
 #endif
