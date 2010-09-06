@@ -1,0 +1,1 @@
+#include <nt2/toolbox/$self.tb_name$/function/$self.name$.hpp>
