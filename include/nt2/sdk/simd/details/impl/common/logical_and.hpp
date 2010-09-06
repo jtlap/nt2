@@ -6,14 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_INCLUDE_UNIT_HPP_INCLUDED
-#define NT2_INCLUDE_UNIT_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_COMMON_LOGICAL_AND_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_COMMON_LOGICAL_AND_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Unit Test components header
-// Documentation: http://nt2.lri.fr/sdk/unit.html
-////////////////////////////////////////////////////////////////////////////////
-//#include <nt2/sdk/sys/string.hpp>
-//#include <nt2/sdk/sys/timestamp.hpp>
+namespace nt2 { namespace functors
+{
+  template<class C, class X,class Info>
+  struct call<logical_and_,tag::simd_(C,X),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A>
+    struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());
+    }
+  };
+} }
 
 #endif

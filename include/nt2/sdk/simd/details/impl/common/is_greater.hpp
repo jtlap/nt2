@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_IS_GREATER_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_IS_GREATER_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/common.hpp>
 
 namespace nt2 { namespace functors
@@ -17,7 +18,8 @@ namespace nt2 { namespace functors
   struct call<is_greater_,tag::simd_(C,X),Info>
   {
     template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> { typedef A type; };
+    template<class This,class A>
+    struct result<This(A,A)> : meta::strip<A> {};
 
     NT2_FUNCTOR_CALL(2)
     {

@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPLEMENT_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPLEMENT_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
+
 namespace nt2 { namespace functors
 {
   template<class C,class X,class Info>
@@ -16,10 +18,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A>
-    struct result<This(A const&)>
-    {
-      typedef A type;
-    };
+    struct result<This(A)> : meta::strip<A> {};
 
     NT2_FUNCTOR_CALL(1)
     {

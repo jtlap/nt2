@@ -46,8 +46,9 @@ namespace nt2 { namespace details
 
     template<class Sig> struct result;
 
-    template<class This,class Target>
-    struct result<This(meta::as_<Target>)> : inner<Target> {};
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : inner< typename meta::strip<A0>::type::type > {};
 
     NT2_FUNCTOR_DISPATCH( 1
                         , typename meta::scalar_of<typename A0::type>::type

@@ -9,9 +9,10 @@
 #ifndef NT2_INCLUDE_TIMING_HPP_INCLUDED
 #define NT2_INCLUDE_TIMING_HPP_INCLUDED
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/core/timing/tic.hpp>
 #include <nt2/core/timing/ctic.hpp>
-#include <nt2/core/timing/second_timer.hpp>
 #include <nt2/core/timing/cycle_timer.hpp>
+#include <nt2/core/timing/second_timer.hpp>
 
 #endif

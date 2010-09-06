@@ -25,8 +25,7 @@
 
 #define NT2_LOCAL_TYPE(Z,N,T)                                               \
 typedef typename meta::strip<BOOST_PP_CAT(A,N)>::type BOOST_PP_CAT(base,N); \
-static typename boost::add_reference<BOOST_PP_CAT(base,N)>::type            \
-BOOST_PP_CAT(a,N);                                                          \
+static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                                     \
@@ -48,7 +47,7 @@ struct call<TAG,tag::scalar_(Category),Info>                                \
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Generating implemetnation from the macro
+  // Generating implementation for operators
   //////////////////////////////////////////////////////////////////////////////
   NT2_MAKE_ARITHMETIC(complement_      , 1 , (~a0)     );
   NT2_MAKE_ARITHMETIC(neg_             , 1 , (-a0)     );
