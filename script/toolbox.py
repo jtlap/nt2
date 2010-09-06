@@ -60,7 +60,7 @@ class Toolbox(Nt2) :
         self.__tb          = os.path.join(self.get_path2nt2(),self.__tb_pathfnt2)
         self.__tb_path2mode= os.path.join(self.get_path2nt2(),self.get_pathfnt2())
         self.__tb_style = style if style == "sys" else "usr"
-        self.__tb_namespace = "functors" if self.__tb_style == "sys" else self.__tb_name 
+##          self.__tb_namespace = "functors" if (self.__tb_style == "sys") else self.__tb_name 
 ##          print "----------------------------"
 ##        print self.get_pathfnt2()
 ##        print self.get_path2nt2()
@@ -92,7 +92,7 @@ class Toolbox(Nt2) :
     def get_tb_path2mode(self) : return self.__tb_path2mode
     def get_status(self) : return self.__status
     def get_tb_style (self) : return self.__tb_style
-    def get_tb_namespace(self) : return self.__tb_namespace
+    def get_tb_namespace(self) : return "functors" if (self.__tb_style == "sys") else self.__tb_name 
     def get_tb_mode(self) : return self.__mode
     
     def __str__(self) :

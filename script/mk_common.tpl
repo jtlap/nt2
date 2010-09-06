@@ -2,12 +2,16 @@
 
 namespace nt2 { namespace $self.tb_namespace$
 {
+  /////////////////////////////////////////////////////////////////////////////
+  // Compute $self.name$($self.const_type_call_list$)
+  /////////////////////////////////////////////////////////////////////////////
   template<class Extension,class Dummy>
-  struct call<$self.tb_taggedname$_,tag::simd_(tag::arithmetic_,Extension),Dummy>
+  struct call<$self.tb_taggedname$_,
+              tag::simd_(tag::arithmetic_,Extension),Dummy>
   {
     template<class Sig> struct result;
-    template<class This,$self.class_list$>
-    struct result<This($self.type_list$)> : meta::strip<A0>{};
+    template<class This,A0>
+    struct result<This($self.const_type_list$)> : meta::strip<A0>{};
 
     // see documentation http://nt2.lri.fr/extension/custom_function.html
     // for writing the functor implementation code 

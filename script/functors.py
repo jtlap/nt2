@@ -97,9 +97,12 @@ class Functor(Toolbox) :
                 s += tpl % (n*(i,))
             return s
         self.class_list = strlist("class A%d")
+        self.const_type_list = strlist("A0",0) 
         self.type_list  = strlist("A%d")
         self.call_list  = strlist("const A%d& a%d",2)
+        self.const_type_call_list = strlist("const A0& a%d",1)
         self.tb_namespace = self.get_tb_namespace()
+        print "--------------self.tb_namespace %s" % self.tb_namespace
         if self.get_tb_style()=='usr' :
             self.tb_taggedname =  self.get_tb_name()+'::'+self.name
         else :
@@ -111,7 +114,9 @@ class Functor(Toolbox) :
         del self.arity
         del self.class_list
         del self.type_list 
+        del self.const_type_list
         del self.call_list 
+        del self.const_type_call_list
         del self.tb_taggedname
         del self.tb_namespace
 
