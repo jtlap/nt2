@@ -34,10 +34,10 @@ NT2_WARNING(XOP SIMD extension detected)
 #define NT2_SIMD_BYTES              32
 #define NT2_SIMD_BITS               256
 #define NT2_SIMD_CARDINALS          (2)(4)(8)(16)(32)
+#define NT2_SIMD_TAG_SEQ            (::nt2::tag::xop_)(::nt2::tag::sse_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::xop_
 
 #include <immintrin.h>
-#include <nt2/sdk/simd/extensions/meta/mmx.hpp>
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 #include <nt2/sdk/simd/extensions/meta/xop.hpp>
 
