@@ -9,12 +9,12 @@
 #ifndef NT2_INCLUDE_ERRORS_HPP_INCLUDED
 #define NT2_INCLUDE_ERRORS_HPP_INCLUDED
 
-#include <nt2/sdk/error/debug.hpp>
+#include <nt2/sdk/config/types.hpp>
 
 #include <nt2/sdk/error/trap.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <nt2/sdk/error/debug.hpp>
 #include <nt2/sdk/error/error.hpp>
-
+#include <nt2/sdk/error/assert.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/sdk/error/concepts.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
