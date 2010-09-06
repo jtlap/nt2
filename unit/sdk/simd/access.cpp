@@ -12,7 +12,7 @@
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/meta/make_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <boost/mpl/int.hpp>
 #include <nt2/sdk/unit/tests.hpp>
