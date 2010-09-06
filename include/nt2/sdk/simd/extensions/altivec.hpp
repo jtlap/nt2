@@ -18,6 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #if !defined(NT2_SIMD_DETECTED)
 #include <nt2/sdk/simd/extensions/vmx/altivec.hpp>
+//#include <nt2/sdk/simd/extensions/vmx/spu.hpp>
 #endif
 
 #endif
