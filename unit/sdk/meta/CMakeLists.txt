@@ -17,7 +17,7 @@ SET( SOURCES
     is_scalar.cpp
     is_signed.cpp
     make_integer.cpp
-#    make_real.cpp
+    make_real.cpp
     scalar_of.cpp
     set.cpp
     sign_of.cpp
