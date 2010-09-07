@@ -10,6 +10,7 @@
 
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/simd/native.hpp>
+#include <unit/sdk/simd/types.hpp>
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
@@ -21,54 +22,88 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test load behavior
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(load)
+NT2_TEST_CASE_TPL(load, NT2_SIMD_TYPES )
 {
   using nt2::load;
   using nt2::simd::native;
+  using nt2::meta::cardinal_of;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             n_t;
 
-  NT2_ALIGNED_TYPE(float) data[]  = {1,2,3,4,5,6,7,8 };
+  NT2_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
+  for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
+    data[i] = 1+i;
 
-/*
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,-1>(&data[0],1)), 0.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,-1>(&data[0],2)), 1.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,-1>(&data[0],3)), 2.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,-1>(&data[0],4)), 3.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,-1>(&data[0],5)), 4.f );
-*/
-  NT2_TEST_EQUAL( (load< native<float,ext_t> >(&data[0],0)[0]), 1.f );
-  NT2_TEST_EQUAL( (load< native<float,ext_t> >(&data[0],1)[0]), 5.f );
-  NT2_TEST_EQUAL( (load< native<float,ext_t> >(&data[0],2)[0]), 9.f );
-  NT2_TEST_EQUAL( (load< native<float,ext_t> >(&data[0],3)[0]), 5.f );
+  for(std::size_t i=0;i<3;++i)
+  {
+    n_t v = load<n_t>(&data[0],i);
+    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    {
+      NT2_TEST_EQUAL( v[j], 1+i*cardinal_of<n_t>::value+j );
+    }
+  }
+}
 
-/*
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,0>(&data[0],0)), 0.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,0>(&data[0],1)), 1.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,0>(&data[0],2)), 2.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,0>(&data[0],3)), 3.f );
-  NT2_TEST_EQUAL( (load<native<float,ext_t>,0>(&data[0],4)), 4.f );
-*/
+////////////////////////////////////////////////////////////////////////////////
+// Test shifed load behavior
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(shifted_load, NT2_SIMD_TYPES )
+{
+  using nt2::load;
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             n_t;
+
+  NT2_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
+  for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
+    data[i] = 1+i;
+
+  n_t v = load<n_t,-2>(&data[0],1);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    NT2_TEST_EQUAL( v[j], 1+cardinal_of<n_t>::value+j-2 );
+
+  v = load<n_t,-1>(&data[0],1);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    NT2_TEST_EQUAL( v[j], 1+cardinal_of<n_t>::value+j-1 );
+
+  v = load<n_t,0>(&data[0],1);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    NT2_TEST_EQUAL( v[j], 1+cardinal_of<n_t>::value+j );
+
+  v = load<n_t,1>(&data[0],1);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    NT2_TEST_EQUAL( v[j], 1+cardinal_of<n_t>::value+j+1 );
+
+  v = load<n_t,2>(&data[0],1);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    NT2_TEST_EQUAL( v[j], 1+cardinal_of<n_t>::value+j+2 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test store behavior
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(store)
+NT2_TEST_CASE_TPL(store, NT2_SIMD_TYPES )
 {
   using nt2::store;
   using nt2::load;
   using nt2::simd::native;
+  using nt2::meta::cardinal_of;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             n_t;
 
-  NT2_ALIGNED_TYPE(float) data [] = { 1,2,3,4,5,6,7,8 };
+  NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value];
+  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
+    data[i] = 1+i;
 
-  native<float,ext_t> v = load< native<float,ext_t> >(&data[0],0);
+  n_t v = load<n_t>(&data[0],0);
   store(v,&data[0],1);
 
-  NT2_TEST_EQUAL( data[4], 1.f );
-  NT2_TEST_EQUAL( data[5], 2.f );
-  NT2_TEST_EQUAL( data[6], 3.f );
-  NT2_TEST_EQUAL( data[7], 4.f );
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+  {
+    NT2_TEST_EQUAL( data[j], data[j+cardinal_of<n_t>::value] );
+  }
 }

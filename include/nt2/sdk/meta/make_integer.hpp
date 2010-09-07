@@ -24,7 +24,10 @@ namespace nt2 { namespace meta
           , class Sign      = unsigned
           , class Transform = na_
           >
-  struct  make_integer
+  struct  make_integer;
+
+  template< std::size_t Size, class Transform>
+  struct  make_integer<Size,unsigned,Transform>
         : boost::mpl::apply<Transform,typename boost::uint_t<CHAR_BIT*Size>::fast> {};
 
   template< std::size_t Size, class Transform >

@@ -8,18 +8,24 @@
 ################################################################################
 
 SET( SOURCES
-#    as_integer.cpp
-#    as_real.cpp
+#    native.cpp
+    as_integer.cpp
+    as_real.cpp
     cardinal_of.cpp
     category_of.cpp
-#    is_signed.cpp
-#    make_integer.cpp
-#    make_real.cpp
+    is_signed.cpp
+    make_integer.cpp
+    make_real.cpp
     scalar_of.cpp
-#    sign_of.cpp
+    sign_of.cpp
     access.cpp
+#    add.cpp
+#    sub.cpp
+#    div.cpp
+#    mul.cpp
    )
 
+include_directories( ${PROJECT_SOURCE_DIR}/)
 
 ################################################################################
 # For each filename
