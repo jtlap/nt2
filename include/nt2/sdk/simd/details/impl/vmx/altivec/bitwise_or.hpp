@@ -6,28 +6,37 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_STORE_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_STORE_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_BITWISE_OR_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_BITWISE_OR_HPP_INCLUDED
 
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Store a vector
+  // Bitwise operators requires same bits size
   //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<store_,tag::simd_(tag::arithmetic_,tag::altivec_), Info>
+  struct validate<bitwise_or_,tag::simd_(tag::arithmetic_,tag::altivec_),Info>
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> { typedef A0 type; };
+    template<class This,class A0,class A1>
+    struct  result<This(A0,A1)>
+          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
+  };
 
-    NT2_FUNCTOR_CALL(3)
-    {
-      vec_st(a0.data_, a2 * meta::cardinal_of<A0>::value, a1);
-      return a0;
+  template<class Info,class C>
+  struct call<bitwise_or_,tag::simd_(C,tag::altivec_),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A>
+    struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2) 
+    { 
+      A0 that = { a1 }; 
+      that = vec_or(a0,that);
+      return that; 
     }
   };
 } }
