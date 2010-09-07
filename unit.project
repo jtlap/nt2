@@ -21,6 +21,7 @@
           <File Name="unit/sdk/meta/strip.cpp"/>
           <File Name="unit/sdk/meta/types.hpp"/>
           <File Name="unit/sdk/meta/as_real.cpp"/>
+          <File Name="unit/sdk/meta/make_real.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="functor">
           <File Name="unit/sdk/functor/CMakeLists.txt"/>

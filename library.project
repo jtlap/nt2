@@ -238,6 +238,8 @@
                 <File Name="include/nt2/sdk/simd/details/native/meta/scalar_of.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/native/meta/as_integer.hpp"/>
                 <File Name="include/nt2/sdk/simd/details/native/meta/as_real.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/native/meta/sign_of.hpp"/>
+                <File Name="include/nt2/sdk/simd/details/native/meta/is_signed.hpp"/>
               </VirtualDirectory>
               <File Name="include/nt2/sdk/simd/details/native/meta.hpp"/>
               <File Name="include/nt2/sdk/simd/details/native/functions.hpp"/>

@@ -3,13 +3,8 @@
   <Project Name="library" Path="library.project" Active="No"/>
   <Project Name="documentation" Path="documentation.project" Active="No"/>
   <Project Name="examples" Path="examples.project" Active="No"/>
-<<<<<<< HEAD
-  <Project Name="unit" Path="unit.project" Active="No"/>
-  <Project Name="benchmarks" Path="benchmarks.project" Active="Yes"/>
-=======
   <Project Name="unit" Path="unit.project" Active="Yes"/>
   <Project Name="benchmarks" Path="benchmarks.project" Active="No"/>
->>>>>>> sse
   <Project Name="cmake" Path="cmake.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
