@@ -22,9 +22,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename T::extraction_type that;
-      that.s[0] = a0;
-      return vec_splat(that.v, 0);
+      typename T::extraction_type v;
+      v.s[0] = a0;
+      T that = {vec_splat(v.v, 0)};
+      return that;
     }
   };
 } }
