@@ -22,14 +22,14 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
-IF(${COMPILE_RESULT_VAR})
+IF(COMPILE_RESULT_VAR STREQUAL TRUE)
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  set(SSE41_FOUND FALSE)
+  set(SSE41_FOUND 0)
 ELSE()
   set(SSE41_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  set(SSE41_FOUND FALSE)
+  set(SSE41_FOUND 0)
 ENDIF()
 
 IF( ${SSE41_FOUND} )
@@ -70,14 +70,14 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
-IF(${COMPILE_RESULT_VAR})
+IF(COMPILE_RESULT_VAR)
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  set(SSE42_FOUND FALSE)
+  set(SSE42_FOUND 0)
 ELSE()
   set(SSE42_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  set(SSE42_FOUND FALSE)
+  set(SSE42_FOUND 0)
 ENDIF()
 
 IF( ${SSE42_FOUND} )

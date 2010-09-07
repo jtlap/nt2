@@ -10,7 +10,7 @@
 #define NT2_CORE_NUMERIC_FUNCTION_DETAILS_SCALAR_ABS_HPP_INCLUDED
 
 #include <cmath>
-#include <boost/type_traits/remove_reference.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -30,8 +30,7 @@ namespace nt2 { namespace functors
   struct call<abs_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::remove_reference<A0> {};
+    template<class This,class A0> struct result<This(A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1, A0
                               , ( 5,( float,int32_t,bool_,unsigned_, signed_))

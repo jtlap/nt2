@@ -14,6 +14,7 @@
 // nothing is implemented for doing otherwise.
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -27,9 +28,10 @@ namespace nt2 { namespace functors
 
     #define NT2_LOCAL(z,n,t)                                              \
     template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                  \
-    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))> { typedef A0 type; };  \
+    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                       \
+          : meta::strip<A0> {};                                           \
                                                                           \
-    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline A0 const             \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline A0                   \
     operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a) ) const         \
     {                                                                     \
       A0 that = map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a) );         \

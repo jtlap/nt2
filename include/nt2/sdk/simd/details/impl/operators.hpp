@@ -33,24 +33,24 @@
 #include NT2_SIMD_INCLUDE(bitwise_and.hpp)
 #include NT2_SIMD_INCLUDE(bitwise_or.hpp)
 #include NT2_SIMD_INCLUDE(bitwise_xor.hpp)
-//#include NT2_SIMD_INCLUDE(divides.hpp)
-//#include NT2_SIMD_INCLUDE(is_equal_to.hpp)
-//#include NT2_SIMD_INCLUDE(is_greater.hpp)
-//#include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
-//#include NT2_SIMD_INCLUDE(is_less.hpp)
-//#include NT2_SIMD_INCLUDE(is_less_equal.hpp)
-//#include NT2_SIMD_INCLUDE(is_not_equal_to.hpp)
-//#include NT2_SIMD_INCLUDE(logical_and.hpp)
-//#include NT2_SIMD_INCLUDE(logical_or.hpp)
-//#include NT2_SIMD_INCLUDE(logical_not.hpp)
+#include NT2_SIMD_INCLUDE(divides.hpp)
+#include NT2_SIMD_INCLUDE(is_equal_to.hpp)
+#include NT2_SIMD_INCLUDE(is_greater.hpp)
+#include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
+#include NT2_SIMD_INCLUDE(is_less.hpp)
+#include NT2_SIMD_INCLUDE(is_less_equal.hpp)
+#include NT2_SIMD_INCLUDE(is_not_equal_to.hpp)
+#include NT2_SIMD_INCLUDE(logical_and.hpp)
+#include NT2_SIMD_INCLUDE(logical_or.hpp)
+#include NT2_SIMD_INCLUDE(logical_not.hpp)
 #include NT2_SIMD_INCLUDE(minus.hpp)
-//#include NT2_SIMD_INCLUDE(multiplies.hpp)
+#include NT2_SIMD_INCLUDE(modulo.hpp)
+#include NT2_SIMD_INCLUDE(multiplies.hpp)
 #include NT2_SIMD_INCLUDE(plus.hpp)
 //#include NT2_SIMD_INCLUDE(shift_left.hpp)
 //#include NT2_SIMD_INCLUDE(shift_right.hpp)
 
-////#include NT2_SIMD_INCLUDE(modulo.hpp) // TO REMOVE ? TO RESTRICT ?
-////#include NT2_SIMD_INCLUDE(all.hpp)    // REDUNDANT
 ////#include NT2_SIMD_INCLUDE(hmsb.hpp)   // SSE details - make comparisons functor
+
 
 #endif

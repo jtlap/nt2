@@ -10,7 +10,7 @@
 #define NT2_SDK_MEMORY_DEALLOCATE_HPP_INCLUDED
 
 #include <cstddef>
-#include <nt2/sdk/errors/error.hpp>
+#include <nt2/sdk/error/error.hpp>
 #include <nt2/sdk/memory/config.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
 

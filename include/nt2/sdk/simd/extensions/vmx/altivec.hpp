@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_VMX_ALTIVEC_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_VMX_ALTIVEC_HPP_INCLUDED
 
-#include <nt2/sdk/errors/warning.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
@@ -46,10 +46,10 @@ NT2_WARNING(AltiVec SIMD extension detected)
 #define NT2_SIMD_ALTIVEC
 #define NT2_SIMD_STRING  "Altivec"
 #define NT2_SIMD_VMX_FAMILY
-
 #define NT2_SIMD_BYTES              16
 #define NT2_SIMD_BITS               128
 #define NT2_SIMD_CARDINALS          (4)(8)(16)
+#define NT2_SIMD_TAG_SEQ            (::nt2::tag::vmx_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::vmx_
 
 #include <nt2/sdk/simd/extensions/meta/altivec.hpp>

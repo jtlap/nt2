@@ -22,14 +22,14 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
-IF(${COMPILE_RESULT_VAR})
+IF(COMPILE_RESULT_VAR STREQUAL TRUE)
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  set(XOP_FOUND FALSE)
+  set(XOP_FOUND 0)
 ELSE()
   set(XOP_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  set(XOP_FOUND FALSE)
+  set(XOP_FOUND 0)
 ENDIF()
 
 IF( ${XOP_FOUND} )

@@ -15,7 +15,10 @@
 #elif defined(NT2_SIMD_AVX)
   #define NT2_SIMD_INCLUDE_BASE() nt2/sdk/simd/details/impl/sse/avx/
   #define NT2_SIMD_RELATIVE_INCLUDE_BASE(X) X()simd/sse/avx/
-#elif (defined(NT2_SIMD_SSE4_1) || defined( NT2_SIMD_SSE4_2))
+#elif defined(NT2_SIMD_SSE4_2)
+  #define NT2_SIMD_INCLUDE_BASE() nt2/sdk/simd/details/impl/sse/sse4_2/
+  #define NT2_SIMD_RELATIVE_INCLUDE_BASE(X) X()simd/sse/sse4_2/
+#elif defined(NT2_SIMD_SSE4_1)
   #define NT2_SIMD_INCLUDE_BASE() nt2/sdk/simd/details/impl/sse/sse4_1/
   #define NT2_SIMD_RELATIVE_INCLUDE_BASE(X) X()simd/sse/sse4_1/
 #elif defined(NT2_SIMD_SSSE3)

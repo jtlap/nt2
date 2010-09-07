@@ -37,6 +37,43 @@ namespace nt2
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Custom local real functor
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace functors
+{
+  template<class Category,uint64_t Double, uint32_t Float,class Info>
+  struct  call<details::pattern<Double,Float>,tag::constant_(Category),Info>
+        : details::real_constant<details::pattern<Double,Float>,Category>
+  {};
+} }
+
+namespace nt2
+{
+  template<class Target, uint64_t D, uint32_t F> inline
+  typename meta::enable_call<details::pattern<D,F>(meta::as_<Target>)>::type
+  real_constant()
+  {
+    nt2::functors::functor< details::pattern<D,F> > callee;
+    return callee( nt2::meta::as_<Target>() );
+  }
+
+  template<class Target, uint32_t F> inline
+  typename meta::enable_call<details::pattern<0,F>(meta::as_<Target>)>::type
+  single_constant()
+  {
+    nt2::functors::functor< details::pattern<0,F> > callee;
+    return callee( nt2::meta::as_<Target>() );
+  }
+
+  template<class Target, uint64_t D> inline
+  typename meta::enable_call<details::pattern<D,0>(meta::as_<Target>)>::type
+  double_constant()
+  {
+    nt2::functors::functor< details::pattern<D,0> > callee;
+    return callee( nt2::meta::as_<Target>() );
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
 // Fill up the call needed for a real consatnt call
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_CONSTANT_MAKE_REAL(NAME,DOUBLE,FLOAT)                         \

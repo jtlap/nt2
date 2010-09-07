@@ -13,7 +13,7 @@
 // NT2 Allocator concept
 //* TODO: Documentation: http://nt2.lri.fr/sdk/concept/allocator.hpp
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/error/concepts.hpp>
 #include <nt2/sdk/concepts/same_type.hpp>
 
 namespace nt2

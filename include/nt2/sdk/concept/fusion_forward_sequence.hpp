@@ -14,7 +14,7 @@
 // Documentation:
 // http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/sequence/concepts/forward_sequence.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/error/concepts.hpp>
 #include <boost/fusion/include/end.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/fusion/include/begin.hpp>

@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_CONCEPT_SAME_TYPE_HPP_INCLUDED
 #define NT2_SDK_CONCEPT_SAME_TYPE_HPP_INCLUDED
 
-#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/error/concepts.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -19,6 +19,7 @@
         <File Name="examples/sdk/details/pp_include.cpp"/>
         <File Name="examples/sdk/details/CMakeLists.txt"/>
         <File Name="examples/sdk/details/timestamp.cpp"/>
+        <File Name="examples/sdk/details/assertion_failed.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="meta">
         <File Name="examples/sdk/meta/is_set.cpp"/>
@@ -31,6 +32,8 @@
       <VirtualDirectory Name="functor">
         <File Name="examples/sdk/functor/belong_to.cpp"/>
         <File Name="examples/sdk/functor/CMakeLists.txt"/>
+        <File Name="examples/sdk/functor/dominant.cpp"/>
+        <File Name="examples/sdk/functor/validate.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <File Name="examples/CMakeLists.txt"/>

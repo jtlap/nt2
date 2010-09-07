@@ -32,7 +32,8 @@ namespace nt2 { namespace simd
   template<class T,class U> inline
   typename boost::enable_if_c <     meta::is_native<T>::value
                                 &&  meta::is_simd_specific< U
-                                                          , typename T::extension_type
+                                                          , typename
+                                                            T::extension_type
                                                           >::value
                               , T
                               >::type

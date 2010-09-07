@@ -12,12 +12,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Commonly used generic functor
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/functor/category.hpp>
-#include <boost/type_traits/remove_reference/hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
 namespace nt2 { namespace functors
@@ -35,7 +35,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::remove_reference<A0>::type {};
+    struct result<This(A0)> : meta::strip<A0>::type {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename nt2::meta::scalar_of<A0>::type

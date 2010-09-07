@@ -15,7 +15,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/memory/overload.hpp>
 #include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
 
 namespace nt2 { namespace simd
@@ -107,20 +107,64 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // self-operator methods
     ////////////////////////////////////////////////////////////////////////////
-    NT2_FUNCTION_METHOD_SELF(operator+= ,functors::plus_assign_       , this_type )
-    NT2_FUNCTION_METHOD_SELF(operator-= ,functors::minus_assign_      , this_type )
-    NT2_FUNCTION_METHOD_SELF(operator*= ,functors::multiplies_assign_ , this_type )
-    NT2_FUNCTION_METHOD_SELF(operator/= ,functors::divides_assign_    , this_type )
-    NT2_FUNCTION_METHOD_SELF(operator&= ,functors::bitwise_and_assign_, this_type )
-    NT2_FUNCTION_METHOD_SELF(operator|= ,functors::bitwise_or_assign_ , this_type )
-    NT2_FUNCTION_METHOD_SELF(operator^= ,functors::bitwise_xor_assign_, this_type )
-    NT2_FUNCTION_METHOD_SELF(operator<<=,functors::shift_left_assign_ , this_type )
-    NT2_FUNCTION_METHOD_SELF(operator>>=,functors::shift_right_assign_, this_type )
-
     this_type const& operator+() const { return *this; }
 
+    this_type& operator+=(this_type const& src)
+    {
+      *this = *this + src;
+      return *this;
+    }
+
+    this_type& operator-=(this_type const& src)
+    {
+      *this = *this - src;
+      return *this;
+    }
+
+    this_type& operator*=(this_type const& src)
+    {
+      *this = *this * src;
+      return *this;
+    }
+
+    this_type& operator/=(this_type const& src)
+    {
+      *this = *this / src;
+      return *this;
+    }
+
+    this_type& operator&=(this_type const& src)
+    {
+      *this = *this & src;
+      return *this;
+    }
+
+    this_type& operator|=(this_type const& src)
+    {
+      *this = *this | src;
+      return *this;
+    }
+
+    this_type& operator^=(this_type const& src)
+    {
+      *this = *this ^ src;
+      return *this;
+    }
+
+    this_type& operator>>=(this_type const& src)
+    {
+      *this = *this >> src;
+      return *this;
+    }
+
+    this_type& operator<<=(this_type const& src)
+    {
+      *this = *this << src;
+      return *this;
+    }
+
     ////////////////////////////////////////////////////////////////////////////
-    // Pre/Post Increment thingy
+    // Pre/Post Increment/Decrement
     ////////////////////////////////////////////////////////////////////////////
     this_type& operator++() { *this += One<this_type>();  return *this; }
     this_type& operator--() { *this -= One<this_type>();  return *this; }
@@ -149,6 +193,6 @@ namespace nt2 { namespace simd
 #include <nt2/sdk/simd/details/native/constants.hpp>
 #include <nt2/sdk/simd/details/native/functions.hpp>
 #include <nt2/sdk/simd/details/native/operators.hpp>
-//#include <nt2/sdk/simd/details/native/comparisons.hpp>
+#include <nt2/sdk/simd/details/native/comparisons.hpp>
 
 #endif

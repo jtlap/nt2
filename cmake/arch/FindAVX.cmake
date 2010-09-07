@@ -22,14 +22,14 @@ TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
 ################################################################################
 # If file compiles and run, we're set
 ################################################################################
-IF(${COMPILE_RESULT_VAR})
+IF(COMPILE_RESULT_VAR STREQUAL TRUE)
 IF( ${RUN_RESULT_VAR} MATCHES "FAILED_TO_RUN")
-  set(AVX_FOUND FALSE)
+  set(AVX_FOUND 0)
 ELSE()
   set(AVX_FOUND ${RUN_RESULT_VAR})
 ENDIF()
 ELSE()
-  set(AVX_FOUND FALSE)
+  set(AVX_FOUND 0)
 ENDIF()
 
 IF( ${AVX_FOUND} )

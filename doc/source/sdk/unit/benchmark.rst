@@ -33,7 +33,7 @@ NT2_TIMING
 by its ``TAG`` and working on inputs which types and value ranges are passed
 as the preprocessor sequence of tuples ``ARGS``.
 
-**Example:** The following code performs the timing of :ref:`plus` over double
+**Example:** The following code performs the timing of `plus` over double
 and float within a [-1,1] range.
 
 .. code-block:: cpp

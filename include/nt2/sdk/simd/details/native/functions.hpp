@@ -12,8 +12,12 @@
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/details/impl/load.hpp>
-#include <nt2/sdk/simd/details/impl/store.hpp>
+#include <nt2/sdk/simd/preprocessor/include.hpp>
+
+#include NT2_SIMD_INCLUDE(load.hpp)
+#include NT2_SIMD_INCLUDE(store.hpp)
+
 #include <nt2/sdk/simd/details/impl/map.hpp>
+#include <nt2/sdk/simd/details/impl/make.hpp>
 
 #endif

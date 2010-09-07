@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // List all basic -10,-9,...,0,...,10,100,1000 constants
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 
@@ -62,6 +63,17 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 45> , FortyFive         )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 90> , Ninety            )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , OneHundredEighty  )
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Local digit based constant generator
+  ////////////////////////////////////////////////////////////////////////////////
+  template<class Target, int N> inline
+  typename meta::enable_call<constants::digit_<N>(meta::as_<Target>)>::type
+  integral_constant()
+  {
+    nt2::functors::functor< constants::digit_<N> > callee;
+    return callee( nt2::meta::as_<Target>() );
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,11 +85,8 @@ namespace nt2 { namespace functors
   struct  call<constants::digit_<N>,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
-    template<class This,class Target>
-    struct result<This(nt2::meta::as_<Target>)>
-    {
-      typedef Target type;
-    };
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
 
     template<class Target> inline typename Target::type const
     operator()( Target const& ) const

@@ -130,7 +130,7 @@ argument type is then used to compute the category using the :ref:`meta_category
 This category will then be used by :ref:`functor_call` to select the proper implementation.
 
 .. seealso::
-  :ref:`functor_category` and
+  :ref:`meta_category` and
   :ref:`meta_dominant`
 
 Restricting function domain
@@ -168,9 +168,11 @@ Let's say we want to prevent the function ``sqrt`` , associated to the tag ``sqr
       }
   };
 
-Advantages of this approach is that the fine tuning of which types or family of types are allowed to be used with any specific function
-is completely externalized with respect to the actual :ref:`functor` class. Note that the flexibility of the :ref:`functor_category` mechanism
-helps the specification process by allowing wide or narrow type category selection.
+Advantages of this approach is that the fine tuning of which types or family of
+types are allowed to be used with any specific function is completely externalized
+with respect to the actual :ref:`functor` class. Note that the flexibility of the
+:ref:`meta_category` mechanism helps the specification process by allowing wide
+or narrow type category selection.
 
 In our example, the ``sqrt`` function then takes this final form:
 
@@ -189,7 +191,7 @@ In our example, the ``sqrt`` function then takes this final form:
 
 By default, :ref:`functor_validate` is defined so it checks if, for a given set of argument types, calling
 the corresponding :ref:`functor_call` specialization is well-defined. This means that the signature
-of the function call operator of the :ref:`call` function can also helps refining validation process.
+of the function call operator of the :ref:`functor_call` function can also helps refining validation process.
 A striking example is how the :term:`SIMD` function overload are defined. Most of them don't provide
 any special validation even if they can't be called with two different vector types. The following
 code sample shows how it is achieved.

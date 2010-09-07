@@ -23,11 +23,8 @@ namespace nt2 { namespace functors
   struct  call<constants::true_,tag::constant_(tag::simd_(C,X)),Info>
   {
     template<class Sig> struct result;
-    template<class This,class Target>
-    struct result<This(nt2::meta::as_<Target>)>
-    {
-      typedef Target type;
-    };
+    template<class This,class A0>
+    struct  result<This(A0)> : meta::strip<A0>::type {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type

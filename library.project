@@ -51,21 +51,6 @@
           <File Name="include/nt2/sdk/details/type_id.hpp"/>
           <File Name="include/nt2/sdk/details/timestamp.hpp"/>
         </VirtualDirectory>
-        <VirtualDirectory Name="errors">
-          <VirtualDirectory Name="details">
-            <File Name="include/nt2/sdk/errors/details/exception.hpp"/>
-            <File Name="include/nt2/sdk/errors/details/trap.hpp"/>
-            <File Name="include/nt2/sdk/errors/details/error.hpp"/>
-          </VirtualDirectory>
-          <File Name="include/nt2/sdk/errors/warning.hpp"/>
-          <File Name="include/nt2/sdk/errors/concepts.hpp"/>
-          <File Name="include/nt2/sdk/errors/static_assert.hpp"/>
-          <File Name="include/nt2/sdk/errors/error.hpp"/>
-          <File Name="include/nt2/sdk/errors/trap.hpp"/>
-          <File Name="include/nt2/sdk/errors/assert.hpp"/>
-          <File Name="include/nt2/sdk/errors/debug.hpp"/>
-          <File Name="include/nt2/sdk/errors/config.hpp"/>
-        </VirtualDirectory>
         <VirtualDirectory Name="unit">
           <File Name="include/nt2/sdk/unit/module.hpp"/>
           <VirtualDirectory Name="details">
@@ -414,22 +399,36 @@
           <File Name="include/nt2/sdk/constant/category.hpp"/>
         </VirtualDirectory>
         <File Name="include/nt2/sdk/config.hpp"/>
-        <VirtualDirectory Name="options">
-          <File Name="include/nt2/sdk/options/option.hpp"/>
-          <File Name="include/nt2/sdk/options/option_domain.hpp"/>
-          <File Name="include/nt2/sdk/options/option_expr.hpp"/>
-          <File Name="include/nt2/sdk/options/option_expr_fwd.hpp"/>
-          <File Name="include/nt2/sdk/options/option_not_found.hpp"/>
-          <File Name="include/nt2/sdk/options/option_pack.hpp"/>
-          <File Name="include/nt2/sdk/options/options.hpp"/>
-          <File Name="include/nt2/sdk/options/option_spec.hpp"/>
-          <File Name="include/nt2/sdk/options/option_term.hpp"/>
+        <VirtualDirectory Name="option">
+          <File Name="include/nt2/sdk/option/option.hpp"/>
+          <File Name="include/nt2/sdk/option/option_domain.hpp"/>
+          <File Name="include/nt2/sdk/option/option_expr.hpp"/>
+          <File Name="include/nt2/sdk/option/option_expr_fwd.hpp"/>
+          <File Name="include/nt2/sdk/option/option_not_found.hpp"/>
+          <File Name="include/nt2/sdk/option/option_pack.hpp"/>
+          <File Name="include/nt2/sdk/option/options.hpp"/>
+          <File Name="include/nt2/sdk/option/option_spec.hpp"/>
+          <File Name="include/nt2/sdk/option/option_term.hpp"/>
+        </VirtualDirectory>
+        <VirtualDirectory Name="error">
+          <File Name="include/nt2/sdk/error/assert.hpp"/>
+          <File Name="include/nt2/sdk/error/concepts.hpp"/>
+          <File Name="include/nt2/sdk/error/config.hpp"/>
+          <File Name="include/nt2/sdk/error/debug.hpp"/>
+          <File Name="include/nt2/sdk/error/error.hpp"/>
+          <File Name="include/nt2/sdk/error/static_assert.hpp"/>
+          <File Name="include/nt2/sdk/error/trap.hpp"/>
+          <File Name="include/nt2/sdk/error/warning.hpp"/>
+          <VirtualDirectory Name="details">
+            <File Name="include/nt2/sdk/error/details/error.hpp"/>
+            <File Name="include/nt2/sdk/error/details/exception.hpp"/>
+            <File Name="include/nt2/sdk/error/details/trap.hpp"/>
+            <File Name="include/nt2/sdk/error/details/warning.hpp"/>
+          </VirtualDirectory>
         </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="include">
         <File Name="include/nt2/include/config.hpp"/>
-        <File Name="include/nt2/include/errors.hpp"/>
-        <File Name="include/nt2/include/sys.hpp"/>
         <File Name="include/nt2/include/unit.hpp"/>
         <File Name="include/nt2/include/functor.hpp"/>
         <File Name="include/nt2/include/timing.hpp"/>
@@ -737,6 +736,8 @@
           <File Name="include/nt2/include/functions/y1.hpp"/>
           <File Name="include/nt2/include/functions/yni.hpp"/>
         </VirtualDirectory>
+        <File Name="include/nt2/include/simd.hpp"/>
+        <File Name="include/nt2/include/error.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="core">
         <VirtualDirectory Name="timing">
@@ -776,6 +777,7 @@
         <File Name="include/nt2/extension/parameters.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="toolbox"/>
+      <File Name="include/nt2/nt2.hpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Settings Type="Static Library">

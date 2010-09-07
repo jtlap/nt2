@@ -21,3 +21,4 @@ user.
    errors/error
    errors/fatal
    errors/trap
+   errors/assertion_failure
