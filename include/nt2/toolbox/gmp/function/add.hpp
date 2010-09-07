@@ -12,7 +12,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/numeric/preprocessor/include.hpp>
 
-namespace nt2 { namespace functors
+namespace nt2 { namespace ============= functors
   {	       
     struct add_ {};
   }
@@ -20,6 +20,7 @@ namespace nt2 { namespace functors
 }
  
 #include <nt2/core/numeric/function/details/scalar/add.hpp>
+========= #include NT2_GMP_INCLUDE(sub.hpp) 
 // Uncomment the following line if you implement a proper simd version
 //#include NT2_INCLUDE_FROM(NT2_GMP_BASE,add.hpp) 
 

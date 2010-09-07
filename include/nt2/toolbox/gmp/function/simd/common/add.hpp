@@ -12,6 +12,8 @@
 
 namespace nt2 { namespace functors
 {
+
+  // you can put an implementation
   template<class Extension,class Dummy>
   struct call<gmp::add_,tag::simd_(tag::arithmetic_,Extension),Dummy>
   {

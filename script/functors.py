@@ -183,7 +183,7 @@ class Functor(Toolbox) :
                 text.insert(i,line2add)
                 write(file2modify,text,False)
 
-    def mk(self,path,func_name,flag=None,check=True) :
+    def mk(self,path,func_name,flag=None,check=True,comment='//') :
         "wrapping for making different files"
 #        print "func_name %s"%func_name
         self.logger.info(
@@ -193,7 +193,7 @@ class Functor(Toolbox) :
             )
         tplfilename = os.path.join(nt2_py_dir(),func_name+'.tpl')
         inner_text = self.__treat(read(tplfilename))
-        h = Headers(path,self.name, ext = self.ext,inner=inner_text)
+        h = Headers(path,self.name, ext = self.ext,inner=inner_text,comment=comment)
         h.write_header(path=self.get_path2nt2(),flag=flag,check=check)
         
     def lst(self,path,func_name) :
@@ -220,6 +220,16 @@ class Functor(Toolbox) :
             return l
         
    
+##    def mk_benchmark(self,path)     :
+##        """ creation de CMakelist.txt dans nt2/<tb>/doc/benchmark"""
+##        self.ext = ".txt"
+##        inner_text = [
+##            "##<INCLUDE> PLEASE DON'T MODIFY BETWEEN THESE TAGS",
+##            "##<\INCLUDE>",
+##        ]
+ 
+##        self.mk(path,whoami(),'banner+inner',check=False,comment='##')
+##        self.ext = '.hpp'
     def mk_doc(self,path)     :
         """ creation de <fctr>.rst dans nt2/<tb>/doc/source"""
         self.ext = ".rst"

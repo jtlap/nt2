@@ -179,6 +179,7 @@ class Toolbox(Nt2) :
             self.create_include_functors_template()
             self.create_toolbox_macros_template(check=True)
             self.create_toolbox_py_datas()
+            self.create_cmakelists()
         return self.__status
 
     def update_arbo(self):
@@ -253,7 +254,7 @@ class Toolbox(Nt2) :
            completion
         """
         
-        self.logger.warning(
+        self.logger.info(
             "\ncreating toolbox py datas for %s\n" % self.__tb_name
             )
         inner_text = [
@@ -264,6 +265,25 @@ class Toolbox(Nt2) :
         h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/py_data",
                     inner=inner_text, ext='.py')
         h.write_header(path=self.get_path2nt2(),flag='inner',check=check)
+
+    def create_cmakelists(self,check=True)     :
+        """ creation de CMakelist.txt dans nt2/<tb>/doc/benchmark"""
+        self.logger.info(
+            "\ncreating CMakeLists.txt for %s benchmarks\n" % self.__tb_name
+            )
+
+        inner_text = [
+            "################################################################################"
+            "# Toolbox GMP benchmark"
+            "################################################################################"
+            "ADD_SUBDIRECTORY(scalar_bch)"
+            "ADD_SUBDIRECTORY(simd_bch)"
+            ]
+        h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/benchmark/CMakelists",
+                    inner=inner_text, ext='.txt')
+        h.write_header(path=self.get_path2nt2(),flag='inner',check=check)
+
+
         
     def read_style(self) :
         dirname = os.path.join(self.get_path2nt2(),self.get_pathfnt2(),self.__tb_name)
