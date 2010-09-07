@@ -26,7 +26,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(3)
     {
-      vec_st(a0, a2 * meta::cardinal_of<A0>::value, a1);
+      vec_st(a0.data_, a2*16, a1);
       return a0;
     }
   };

@@ -26,7 +26,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      result_type that = { vec_ld(a1*meta::cardinal_of<T>::value,a0) };
+      result_type that = { vec_ld(a1*16,a0) };
       return that;
     }
   };
