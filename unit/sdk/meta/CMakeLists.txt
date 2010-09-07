@@ -10,7 +10,7 @@
 SET( SOURCES
     any.cpp
     as_integer.cpp
-#    as_real.cpp
+    as_real.cpp
     cardinal_of.cpp
     category_of.cpp
     is_result_of_supported.cpp
@@ -24,6 +24,7 @@ SET( SOURCES
     strip.cpp
    )
 
+include_directories( ${PROJECT_SOURCE_DIR}/)
 
 ################################################################################
 # For each filename
