@@ -52,6 +52,13 @@
           <File Name="unit/sdk/simd/cardinal_of.cpp"/>
           <File Name="unit/sdk/simd/category_of.cpp"/>
           <File Name="unit/sdk/simd/access.cpp"/>
+          <File Name="unit/sdk/simd/types.hpp"/>
+          <File Name="unit/sdk/simd/sign_of.cpp"/>
+          <File Name="unit/sdk/simd/make_real.cpp"/>
+          <File Name="unit/sdk/simd/make_integer.cpp"/>
+          <File Name="unit/sdk/simd/is_signed.cpp"/>
+          <File Name="unit/sdk/simd/as_real.cpp"/>
+          <File Name="unit/sdk/simd/as_integer.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
       <File Name="unit/CMakeLists.txt"/>
