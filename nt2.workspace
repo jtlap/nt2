@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CodeLite_Workspace Name="nt2" Database="./nt2.tags">
-  <Project Name="library" Path="library.project" Active="No"/>
+  <Project Name="library" Path="library.project" Active="Yes"/>
   <Project Name="documentation" Path="documentation.project" Active="No"/>
   <Project Name="examples" Path="examples.project" Active="No"/>
-<<<<<<< HEAD
   <Project Name="unit" Path="unit.project" Active="No"/>
-  <Project Name="benchmarks" Path="benchmarks.project" Active="Yes"/>
-=======
-  <Project Name="unit" Path="unit.project" Active="Yes"/>
   <Project Name="benchmarks" Path="benchmarks.project" Active="No"/>
->>>>>>> sse
   <Project Name="cmake" Path="cmake.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
