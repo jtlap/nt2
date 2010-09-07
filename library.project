@@ -352,7 +352,21 @@
                 <VirtualDirectory Name="xop"/>
                 <VirtualDirectory Name="mmx"/>
               </VirtualDirectory>
-              <VirtualDirectory Name="vmx"/>
+              <VirtualDirectory Name="vmx">
+                <VirtualDirectory Name="altivec">
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/bitwise_and.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/bitwise_or.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/bitwise_xor.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/complement.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/load.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/map.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/minus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/neg.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/plus.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/splat.hpp"/>
+                  <File Name="include/nt2/sdk/simd/details/impl/vmx/altivec/store.hpp"/>
+                </VirtualDirectory>
+              </VirtualDirectory>
               <File Name="include/nt2/sdk/simd/details/impl/splat.hpp"/>
               <File Name="include/nt2/sdk/simd/details/impl/load.hpp"/>
               <File Name="include/nt2/sdk/simd/details/impl/store.hpp"/>
@@ -375,6 +389,8 @@
                 <File Name="include/nt2/sdk/simd/details/impl/common/shift_right.hpp"/>
               </VirtualDirectory>
               <File Name="include/nt2/sdk/simd/details/impl/map.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/impl/comparisons.hpp"/>
+              <File Name="include/nt2/sdk/simd/details/impl/make.hpp"/>
             </VirtualDirectory>
             <File Name="include/nt2/sdk/simd/details/common.hpp"/>
             <File Name="include/nt2/sdk/simd/details/check.hpp"/>
