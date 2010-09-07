@@ -179,7 +179,13 @@ class Toolbox(Nt2) :
             self.create_include_functors_template()
             self.create_toolbox_macros_template(check=True)
             self.create_toolbox_py_datas()
-            self.create_cmakelists()
+            self.create_cmakelists(name="benchmark")
+            self.create_cmakelists(name="unit")
+            self.create_inner_cmakelists(name="benchmark",mode="scalar_bch")
+            self.create_inner_cmakelists(name="benchmark",mode="simd_bch")
+            self.create_cmakelists(name="unit")
+            self.create_inner_cmakelists(name="unit",mode="scalar_ut")
+            self.create_inner_cmakelists(name="unit",mode="simd_ut")
         return self.__status
 
     def update_arbo(self):
@@ -192,6 +198,8 @@ class Toolbox(Nt2) :
             self.create_toolbox_include_template(check=True)
             self.create_include_functors_template(check=True)
             self.create_toolbox_macros_template(check=True)
+            self.create_cmakelists(name="benchmark")
+            self.create_cmakelists(name="unit")
         return self.__status
         
     def create_include_functors_template(self,check=False):
@@ -266,22 +274,62 @@ class Toolbox(Nt2) :
                     inner=inner_text, ext='.py')
         h.write_header(path=self.get_path2nt2(),flag='inner',check=check)
 
-    def create_cmakelists(self,check=True)     :
+    def create_cmakelists(self,check=True, name = None)     :
         """ creation de CMakelist.txt dans nt2/<tb>/doc/benchmark"""
         self.logger.info(
             "\ncreating CMakeLists.txt for %s benchmarks\n" % self.__tb_name
             )
 
         inner_text = [
-            "################################################################################"
-            "# Toolbox GMP benchmark"
-            "################################################################################"
-            "ADD_SUBDIRECTORY(scalar_bch)"
+            "",
+            "##****************************************************************************",
+            "##*     Toolbox %s %s tests" % (self.__tb_name,name),
+            "##****************************************************************************",
+            "",
+            "ADD_SUBDIRECTORY(scalar_bch)",
             "ADD_SUBDIRECTORY(simd_bch)"
             ]
-        h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/benchmark/CMakelists",
-                    inner=inner_text, ext='.txt')
-        h.write_header(path=self.get_path2nt2(),flag='inner',check=check)
+        h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/%s/CMakelists"%name,
+                    inner=inner_text, ext='.txt',comment='##')
+        h.write_header(path=self.get_path2nt2(),flag='banner+inner',check=check)
+
+
+    def create_inner_cmakelists(self,check=True, name = None, mode=None)     :
+        """ creation de CMakelist.txt dans nt2/<tb>/doc/benchmark"""
+        self.logger.info(
+            "\ncreating CMakeLists.txt for %s benchmarks\n" % self.__tb_name
+            )
+
+        inner_text = [
+            "",
+            "SET( SOURCES",
+            "# List of files for toolbox %s"% self.__tb_name,
+            "   )",
+            "",
+            "##****************************************************************************",
+            "# For each filename",
+            "##****************************************************************************",
+            "FOREACH( EXAMPLE ${SOURCES})",
+            "  ##**************************************************************************",
+            "  ## Build the executable filename from the example source filename",
+            "  ##**************************************************************************",
+            '  STRING(REGEX REPLACE ".cpp" ".%s.scalar.bench" EXECUTABLE "${EXAMPLE}")'%(self.__tb_name,),
+            '  STRING(REGEX REPLACE ".cpp" "-%s.scalar.bench" TEST "${EXAMPLE}")'%(self.__tb_name,),
+            "",
+            "  ##**************************************************************************",
+            "  ## Add as a target",
+            "  ##**************************************************************************",
+            "  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})",
+            "  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)",
+            "  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})",
+            "ENDFOREACH()",
+            ]
+        h = Headers(os.path.join(self.get_pathfnt2(),self.__tb_name),"/%s/%s/CMakelists"%(name,mode),
+                    inner=inner_text, ext='.txt',comment='##')
+        h.write_header(path=self.get_path2nt2(),flag='banner+inner',check=check)
+
+
+
 
 
         
