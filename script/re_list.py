@@ -22,14 +22,14 @@ def sub_list(pattern, repl, stringlist, count=0):
         outlist.append(re.sub(pattern, repl, string, count))
     return outlist
 
-def search_list(pattern, stringlist, flags=None):
-    "apply re.search to all elements of a list" 
-    outlist=[]
-    if type(pattern) is str :
-      pattern = re.compile(pattern)
-    for string in stringlist :
-        outlist.append(re.sub(pattern, repl, string, flags))
-    return outlist
+##def search_list(pattern, stringlist, flags=None):
+##    "apply re.search to all elements of a list" 
+##    outlist=[]
+##    if type(pattern) is str :
+##      pattern = re.compile(pattern)
+##    for string in stringlist :
+##        outlist.append(re.sub(pattern, repl, string, flags))
+##    return outlist
 
 def sub_if_match_list(start, pattern, repl, stringlist, count=0, flags=None):
     "apply re.sub to all elements of a list that begin with start" 

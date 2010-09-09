@@ -2,7 +2,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/numeric/preprocessor/include.hpp>
 
-namespace nt2 { namespace functors
+namespace nt2 { namespace $self.tb_namespace$
   {	       
     struct $self.name$_ {};
   }

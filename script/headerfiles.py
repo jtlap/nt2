@@ -11,7 +11,7 @@ from nt2_env      import nt2_dir
 from re_list      import sub_if_match_list
 from banner       import Banner
 from headerguards import Guard
-from mylogging import Mylogging
+from mylogging    import Mylogging
 
 class Headers(Banner,Guard) :
     """create nt2 guards for an include file
@@ -66,7 +66,23 @@ class Headers(Banner,Guard) :
 
         path2headerfile = os.path.join(nt2_dir() if path is None else path,self.get_total_path())
 #        print "path2headerfile %s " % path2headerfile
-        if flag is None :
+        if (flag is None) or (flag == 'full') :
+            l = self.get_banner()+self.get_guard_begin()+self.__inner+self.get_guard_end()
+        elif flag == 'inner' :
+            l = self.__inner
+        elif flag == 'banner+inner' :
+            l = self.get_banner()+self.__inner
+        else :
+            print "unexpected *** flag : %s " %flag
+            raise SystemExit
+        if len(self.__fill)==1 :
+            l=sub_if_match_list(" *"+self.__comment, "\*", self.__fill, l)
+        
+        self.logger.info( "header written to:\n %s\n" % path2headerfile)
+        write(path2headerfile,l,check)
+
+    def write_header2(self,path,check=True,flag=None):
+        if (flag is None) or (flag == 'full') :
             l = self.get_banner()+self.get_guard_begin()+self.__inner+self.get_guard_end()
         elif flag == 'inner' :
             l = self.__inner
@@ -77,9 +93,7 @@ class Headers(Banner,Guard) :
             raise SystemExit
         if len(self.__fill)==1 :
             l=sub_if_match_list(" *"+self.__comment, "\*", self.__fill, l)
-        
-        self.logger.info( "header written to:\n %s\n" % path2headerfile)
-        write(path2headerfile,l,check)
+        write(path,l,check)
     
 if __name__ == "__main__":
     Mylogging.set_level('INFO')

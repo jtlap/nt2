@@ -220,16 +220,6 @@ class Functor(Toolbox) :
             return l
         
    
-##    def mk_benchmark(self,path)     :
-##        """ creation de CMakelist.txt dans nt2/<tb>/doc/benchmark"""
-##        self.ext = ".txt"
-##        inner_text = [
-##            "##<INCLUDE> PLEASE DON'T MODIFY BETWEEN THESE TAGS",
-##            "##<\INCLUDE>",
-##        ]
- 
-##        self.mk(path,whoami(),'banner+inner',check=False,comment='##')
-##        self.ext = '.hpp'
     def mk_doc(self,path)     :
         """ creation de <fctr>.rst dans nt2/<tb>/doc/source"""
         self.ext = ".rst"

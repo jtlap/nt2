@@ -64,10 +64,10 @@ class Guard :
     def get_ext(self) : return self.__ext
 
     def mk_total_path(self) :
-        return self.__path + self.__name + self.__ext
+        return os.path.join(self.__path,self.__name + self.__ext)
     
     def mk_guard_path(self) :
-        return self.__orig_path + self.__name + self.__ext
+        return os.path.join(self.__orig_path, self.__name + self.__ext)
     
     def mk_guard(self) :
         """create a file guard in two parts"""

@@ -21,7 +21,7 @@ class Mylogging :
         'WARNING'  : 30, 
         'INFO'     : 20, 
         'DEBUG'    : 10, 
-        'NOTSET'   :  0 
+        'ALWAYS'   :  0 
         }
     Dtags = {
         50:'CRITICAL' ,  
@@ -29,7 +29,7 @@ class Mylogging :
         30:'WARNING'  ,  
         20:'INFO'     ,  
         10:'DEBUG'    ,  
-        0 :'NOTSET'   ,  
+        0 :'ALWAYS'   ,  
         }
     def __init__(self, name, tag=None) :
         self.__name = name
@@ -47,7 +47,8 @@ class Mylogging :
     def error   (self,msg) : self.__print_if(msg,'ERROR'   ,whosdad())      
     def warning (self,msg) : self.__print_if(msg,'WARNING' ,whosdad())    
     def info    (self,msg) : self.__print_if(msg,'INFO'    ,whosdad())       
-    def debug   (self,msg) : self.__print_if(msg,'DEBUG'   ,whosdad())      
+    def debug   (self,msg) : self.__print_if(msg,'DEBUG'   ,whosdad())
+    def always  (self,msg) : self.__print_if(msg,'ALWAYS'  ,whosdad())    
     @classmethod    
     def set_level(cls,tag) : 
          Mylogging.Level_tag = tag

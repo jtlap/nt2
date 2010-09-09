@@ -35,13 +35,13 @@ def add_one(fct,fct_name,arity) :
 
 def modify_toolbox(tb_name) :
     fct = Functor(tb_name,mode='modify')
-    print "opening toolbox %s" %fct.get_tb_name()
-    print "with %s mode" % fct.get_tb_mode()
+    print ("opening toolbox %s" %fct.get_tb_name())+ \
+          " with %s mode" % fct.get_tb_mode()
     return fct
 
 import sys
 import re
-from functors import Functor
+from fctor      import Functor
 from file_utils import read
 from mylogging  import Mylogging
 

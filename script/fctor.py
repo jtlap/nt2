@@ -1,0 +1,281 @@
+#! /usr/bin/env python
+# -*- coding: iso-8859-15  -*-
+################################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+################################################################################
+
+"""Tools for playing (adding/removing) nt2 Functor templates
+   to an existing nt2 toolbox
+"""
+
+__author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"
+__version__   = "$Revision: 1.0 $"
+__date__      = "$Date: 2010    $"
+__copyright__ = """ Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+                    Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI"""
+__license__   = "Boost Software License, Version 1.0"
+
+import os
+import string
+import re
+from tbox        import Toolbox
+from mylogging   import Mylogging
+from archi       import Sse, Vmx
+from identities  import whoami
+from nt2_env     import nt2_py_dir
+from list_utils  import show
+from file_utils  import read, write
+from headerfiles import Headers
+
+class Functor(Toolbox) :
+    """adding/removing functors to a toolbox"""
+    Fct_actions = {
+        "" : {
+            'mdy'   : {
+                "file" : "$root_name$.hpp",
+                "l2ad" : "#include <$self.tb_pathfnt2$/include/$fct_name$.hpp>",
+                "tokn" : "//<\include>",
+                },
+            },
+        "benchmark/scalar"       : {
+            'add'   : {
+                "file" : "$fct_name$.cpp",
+                "tmpl" : "mk_cppbench.tpl",
+                "cmmt" : "//",
+                "head" : 'banner+inner'
+                },
+            'mdy'   : {
+                "file" : "CMakelists.txt",
+                "l2ad" : "  $fct_name$.cpp",
+                "tokn" : "SET\( SOURCES",
+                },
+            },
+        "benchmark/simd"       : {
+            'add'   : {
+                "file" : "$fct_name$.cpp",
+                "tmpl" : "mk_cppbench.tpl",
+                "cmmt" : "//",
+                "head" : 'banner+inner'
+                },
+            'mdy'   : {
+                "file" : "CMakelists.txt",
+                "l2ad" : "  $fct_name$.cpp",
+                "tokn" : "SET\( SOURCES",
+                },
+            },
+        "doc/source"             : {
+            "add"   : {
+                "file" : "$fct_name$.rst",
+                "tmpl" : "mk_doc.tpl",
+                "cmmt" : "  ",
+                "head" : 'inner'
+                },
+            }, 
+        "include"                : {
+            "add"   : {
+                "file" : "$fct_name$.hpp",
+                "tmpl" : "mk_include.tpl",
+                "cmmt" : "//",
+                "head" : "full"
+                }
+            },
+        "function"               : {
+            "add"   : {
+                "file" : "$fct_name$.hpp",
+                "tmpl" : "mk_define.tpl",
+                "cmmt" : "//",
+                "head" : "full"
+                }
+            },                  
+        "function/scalar"        : {
+            "add"   : {
+                "file" : "$fct_name$.hpp",
+                "tmpl" : "mk_scalar.tpl",
+                "cmmt" : "//",
+                "head" : "full"
+                }
+            },
+        "function/simd/common"   : {
+            "add"   : {
+                "file" : "$fct_name$.hpp",
+                "tmpl" : "mk_common.tpl",
+                "cmmt" : "//",
+                "head" : "full"
+                }
+            },   
+        "function/simd/vmx"      : {
+            "hie"   : {
+                "file" : "$fct_name$.hpp",
+                "hier" : Vmx(),
+                "cmmt" : "//",
+                "head" : "full"
+                }
+            },
+        "function/simd/sse"      : {
+            "hie"   : {
+                "file" : "$fct_name$.hpp",
+                "hier" : Sse(),
+                "cmmt" : "//",
+                "head" : "full"
+                }
+            },
+        "unit/scalar"       : {
+            'add'   : {
+                "file" : "$fct_name$.cpp",
+                "tmpl" : "mk_cppunit.tpl",
+                "cmmt" : "//",
+                "head" : 'banner+inner'
+                },
+            'mdy'   : {
+                "file" : "CMakelists.txt",
+                "l2ad" : "  $fct_name$.cpp",
+                "tokn" : "SET\( SOURCES",
+                },
+            },
+        "unit/simd"       : {
+            'add'   : {
+                "file" : "$fct_name$.cpp",
+                "tmpl" : "mk_cppunit.tpl",
+                "cmmt" : "//",
+                "head" : 'banner+inner'
+                },
+            'mdy'   : {
+                "file" : "CMakelists.txt",
+                "l2ad" : "  $fct_name$.cpp",
+                "tokn" : "SET\( SOURCES",
+                },
+            },
+        }
+    def __init__(self, tool_box_name,
+                 mode = 'modify',
+                 style='sys',
+                 actions = None) :
+        Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
+        if not self.get_status() : raise SystemExit
+        self.logger = Mylogging("nt2.fctor.Functor")
+        self.__fct_actions = Functor.Fct_actions if actions is None else actions
+        self.ext='.hpp'
+        
+    def get_fct_actions(self) : return self.__fct_actions
+        
+    def add_functor(self,fct_name,fct_arity=1) :
+        "adding a new functor"
+        def strlist(tpl,n=1) :
+            s = tpl % (n*(0,))
+            tpl =", "+tpl
+            for i in range(1,fct_arity) :
+                s += tpl % (n*(i,))
+            return s
+        if self.get_tb_style()=='usr' :
+            tb_taggedname =  self.get_tb_name()+'::'+fct_name
+        else :
+            tb_taggedname = fct_name       
+        subs_dict = {
+            "\$self.tb_name\$"              : self.get_tb_name(),
+            "\$self.name\$"                 : fct_name,
+            "\$self.arity\$"                : fct_arity,
+            "\$self.class_list\$"           : strlist("class A%d"),
+            "\$self.const_type_list\$"      : strlist("A0",0), 
+            "\$self.type_list\$"            : strlist("A%d"),
+            "\$self.call_list\$"            : strlist("const A%d& a%d",2),
+            "\$self.const_type_call_list\$" : strlist("const A0& a%d",1),
+            "\$self.tb_namespace\$"         : self.get_tb_namespace(),
+            "\$self.tb_taggedname\$"        : tb_taggedname,
+            }
+        for acts, datas in self.get_fct_actions().items() :
+            action_names = self.get_fct_actions()[acts]
+            for action_name, action_data in action_names.items() :
+                action = getattr(Functor,action_name,None)
+                action(self,fct_name,acts,subs_dict,action_data,check=True)
+
+    def add(self,fct_name,acts,subs_dict,action_data,check=True) :
+        fname = action_data["file"].replace('$fct_name$',fct_name)
+        fct_name_path = os.path.join(self.get_tb_abs_path(),acts,fname)
+        rel_path = os.path.join(self.get_tb_pathfnt2(),acts)
+        tplname = action_data["tmpl"]
+        tpl_name_path = os.path.join(nt2_py_dir(),tplname)
+        inner_text = self.__treat(read(tpl_name_path),subs_dict)
+#        show(inner_text)
+        comment = action_data["cmmt"]
+        flag    = action_data["head"]
+        h = Headers(rel_path,fct_name,inner=inner_text,comment=comment)
+        h.write_header2(fct_name_path,flag=flag,check=check)
+         
+    def mdy(self,fct_name,acts,subs_dict,action_data,check=True) :
+        fname = action_data["file"].replace('$root_name$',self.get_tb_name())
+        file2modify = os.path.join(self.get_tb_abs_path(),acts,fname)
+        
+        text = read(file2modify)
+        subs_dict["\$self.tb_pathfnt2\$"]=self.get_tb_pathfnt2()
+        subs_dict["\$fct_name\$"]=fct_name
+        line2add = self.__treat(action_data["l2ad"], subs_dict) 
+        token = action_data["tokn"]
+        test, text = self.__add_line(text, line2add, token)
+        if test :
+            self.logger.info(
+                "\nmodifying \n%s\nfor definition of functor %s\n" % (file2modify,fct_name)
+                )
+            write(file2modify,text,False)
+        else :
+            self.logger.warning(
+                "\nFile %s was already included\n" % fct_name +
+                "in file\n%s\n" %  file2modify
+                )
+                
+    def hie(self,fct_name,acts,subs_dict,action_data,check=True) :
+        fname = action_data["file"].replace('$fct_name$',fct_name)
+        path = os.path.join(self.get_tb_abs_path(),acts) 
+        hierarchy = action_data["hier"]
+        cmmt = action_data["cmmt"]
+        head = action_data["head"]
+        relpath = os.path.join(self.get_tb_pathfnt2(),acts)
+        relpathm1 = '/'.join(relpath.split('/')[:-1])
+        for base, prev in hierarchy.Variants.items() :
+            file = os.path.join(path,base,fct_name+'.hpp')
+            inner_text = ["#include <" + os.path.join(relpathm1, prev,fct_name + '.hpp>')]
+            rpath = os.path.join(relpath,base)
+            h = Headers(rpath,fct_name, inner=inner_text)
+            h.write_header2(file,flag='full',check=check)
+             
+    def __treat(self,s, subs_dict) :
+        """__treat substitutes all $self.<id>$ chains in the
+           string s with the value of the variable self.<id> if it
+           exist else leaves it as is"""
+        if type(s) is str :
+            for k,v in subs_dict.items() :
+                s = re.sub(k,str(v),s)
+            return s        
+        elif type(s) is list :
+            self.tb_name = self.get_tb_name()
+            l= [] 
+            for ss in s :
+                l.append(self.__treat(ss, subs_dict))
+            del self.tb_name
+            return l
+        
+    def __add_line(self,text, line2add, token) :
+        pattern = re.compile(line2add)
+        def find_index(p) :
+            for i,l in enumerate(text) :
+                if p.match(l) : return i+1
+            return 0
+        if find_index(pattern) :
+          return (False,text)
+        else :
+            #### match for token
+            pattern = re.compile(token)
+            i = find_index(pattern)
+            if i != 0 :
+                text.insert(i,line2add)
+            return (True,text)
+
+if __name__ == "__main__":
+    Mylogging.set_level('ERROR')
+    tb = Functor("pipo3")
+    tb.add_functor("zorro",fct_arity=2)
+    print "done"
