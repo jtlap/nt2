@@ -23,6 +23,7 @@ import os
 import sys
 import string
 import re
+import shutil
 
 from file_utils    import read, write, exist, mkdir
 from headerfiles   import Headers
@@ -198,12 +199,20 @@ class Toolbox(Nt2,Tb_files) :
         """
         return self.check_tb_tree() and self.check_tb_files()
     
+    def rm_tbox(self):
+        """ remove a toolbox tree and global files"""
+        if os.path.exists(self.get_tb_abs_path()) :
+            path = self.get_tb_abs_path()
+            os.remove( path+'.hpp')
+            shutil.rmtree(path,True)
+            
+        
     def modify_tbox(self):
         if not os.path.exists(self.get_tb_abs_path()) :
-            self.logger.error(
+            self.logger.warning(
                 "\ntoolbox %s does not exists\n" % self.get_tb_name() +
                 "in path: %s\n" % self.get_tb_abs_path() +
-                "\nIt will be created usind 'usr' style"
+                "\nIt will be created using 'usr' style"
                 )
             self.__tb_style = 'usr'
             self.create_tbox()

@@ -46,7 +46,7 @@ from file_utils import read
 from mylogging  import Mylogging
 
 if __name__ == "__main__" :
-    Mylogging.set_level('ERROR')
+    Mylogging.set_level('CRITICAL')
     length = len(sys.argv)
     if length >= 3 :
         tb_name = sys.argv[1]

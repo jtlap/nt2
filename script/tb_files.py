@@ -288,22 +288,22 @@ if __name__ == "__main__":
             "root_include" : "include.hpp",
             },
         "benchmark" :            {
-            "inner"        : "CMakelists.txt"
+            "inner"        : "CMakeLists.txt"
             },
         "benchmark/scalar_bch" : {
-            "scalar"       : "CMakelists.txt"
+            "scalar"       : "CMakeLists.txt"
             },
         "benchmark/simd_bch" :   {  
-            "simd"         : "CMakelists.txt",
+            "simd"         : "CMakeLists.txt",
             },
         "unit" :                 {
-            "inner"        : "CMakelists.txt"
+            "inner"        : "CMakeLists.txt"
             },
         "unit/scalar_ut" :      {
-            "scalar"       : "CMakelists.txt"
+            "scalar"       : "CMakeLists.txt"
             },
         "unit/simd_ut" :        {  
-            "simd"         : "CMakelists.txt",
+            "simd"         : "CMakeLists.txt",
             },
          }
     from list_utils import show
