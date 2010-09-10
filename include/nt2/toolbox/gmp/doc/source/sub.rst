@@ -29,7 +29,7 @@ Model
 Header File
 ^^^^^^^^^^^
 
-This functor belongs to the namespace: ``functors``
+This functor belongs to the namespace: ``gmp``
 
 .. code-block:: cpp
 
