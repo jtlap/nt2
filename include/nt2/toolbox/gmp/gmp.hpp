@@ -10,10 +10,9 @@
 #define _GMP_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/gmp/include/abs.hpp>
-#include <nt2/toolbox/gmp/include/compare.hpp>
-#include <nt2/toolbox/gmp/include/sub.hpp>
 #include <nt2/toolbox/gmp/include/add.hpp>
+#include <nt2/toolbox/gmp/include/sub.hpp>
+#include <nt2/toolbox/gmp/include/compare.hpp>
 //<\include>
 
 #endif

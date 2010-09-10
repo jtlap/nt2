@@ -6,12 +6,4 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_GMP_HPP_INCLUDED
-#define NT2_TOOLBOX_GMP_HPP_INCLUDED
-
-// Please do not remove or modify the next line comment
-// This toolbox is of usr type
-#include <nt2/nt2.hpp>
-#include <nt2/toolbox/gmp/gmp.hpp>
-
-#endif
+// Je ne sais qu'y mettre
