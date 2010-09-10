@@ -17,17 +17,11 @@
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/extension/parameters.hpp>
+#include <boost/fusion/include/nview.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <nt2/sdk/memory/details/make_buffer.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-
-/*
-#include <boost/preprocessor/comparison/greater.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-*/
 
 namespace nt2 { namespace memory
 {
@@ -109,7 +103,7 @@ namespace nt2 { namespace memory
     public:
 
     ////////////////////////////////////////////////////////////////////////////
-    // Check that we don't pass incorrect Base/Size containers
+    // Check that we don't pass incorrect Base/Size/Storage containers
     ////////////////////////////////////////////////////////////////////////////
     NT2_STATIC_ASSERT ( (boost::mpl::size<Bases>::value == DIM)
                       , BOOST_PP_CAT(BASES_EXTENT_IS_NOT_,DIM)
@@ -121,10 +115,29 @@ namespace nt2 { namespace memory
                       , (Sizes)
                       );
 
+    NT2_STATIC_ASSERT ( (boost::mpl::size<Storage>::value == DIM)
+                      , BOOST_PP_CAT(STORAGE_EXTENT_IS_NOT_,DIM)
+                      , (Sizes)
+                      );
+
     NT2_STATIC_ASSERT ( (   boost::mpl::size<Bases>::value
                         ==  boost::mpl::size<Sizes>::value
                         )
                       , BASES_AND_SIZES_EXTENTS_MISMATCH
+                      , (Bases,Sizes)
+                      );
+
+    NT2_STATIC_ASSERT ( (   boost::mpl::size<Bases>::value
+                        ==  boost::mpl::size<Storage>::value
+                        )
+                      , BASES_AND_STORAGE_EXTENTS_MISMATCH
+                      , (Bases,Sizes)
+                      );
+
+    NT2_STATIC_ASSERT ( (   boost::mpl::size<Storage>::value
+                        ==  boost::mpl::size<Sizes>::value
+                        )
+                      , STORAGE_AND_SIZES_EXTENTS_MISMATCH
                       , (Bases,Sizes)
                       );
 
@@ -142,6 +155,26 @@ namespace nt2 { namespace memory
     typedef typename allocator_type::const_reference          const_reference;
     typedef typename allocator_type::size_type                size_type;
     typedef typename allocator_type::difference_type          difference_type;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Typedefs for real Bases and Sizes and their Storage counterpart
+    ////////////////////////////////////////////////////////////////////////////
+    typedef Bases   bases_type;
+    typedef Sizes   sizes_type;
+    typedef Storage storage_order_type;
+    
+    struct storage_helper
+    {
+      static Sizes& s;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , boost::fusion::nview<Sizes const,Storage>(s)
+      );
+
+      typedef typename nested::type type;
+    };
+
+    typedef storage_helper::sizes_type stored_sizes_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Aggregated buffers type
