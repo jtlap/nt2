@@ -8,8 +8,7 @@ $self.name$
 
 Description
 ^^^^^^^^^^^
-Returns the integral type with a given signedness and the same ``sizeof`` than its
-argument.
+
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -21,10 +20,6 @@ Template Parameters
   +-----------+-----------------------------------+--------------------+
   |           |                                   |                    |
   +-----------+-----------------------------------+--------------------+
-
-Model
-^^^^^
-
 
 Header File
 ^^^^^^^^^^^
