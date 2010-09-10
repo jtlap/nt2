@@ -47,7 +47,8 @@ class Functor(Toolbox) :
                 "file" : "$fct_name$.cpp",
                 "tmpl" : "mk_cppbench.tpl",
                 "cmmt" : "//",
-                "head" : 'banner+inner'
+                "head" : 'banner+inner',
+                "parm" : "nt2::uint32_t",
                 },
             'mdy'   : {
                 "file" : "CMakelists.txt",
@@ -60,7 +61,8 @@ class Functor(Toolbox) :
                 "file" : "$fct_name$.cpp",
                 "tmpl" : "mk_cppbench.tpl",
                 "cmmt" : "//",
-                "head" : 'banner+inner'
+                "head" : 'banner+inner',
+                "parm" : "nt2::simd::native<float,nt2::tag::sse_>",
                 },
             'mdy'   : {
                 "file" : "CMakelists.txt",
@@ -165,9 +167,9 @@ class Functor(Toolbox) :
         
     def add_functor(self,fct_name,fct_arity=1) :
         "adding a new functor"
-        def strlist(tpl,n=1) :
+        def strlist(tpl,n=1,sep = ", ") :
             s = tpl % (n*(0,))
-            tpl =", "+tpl
+            tpl =sep+tpl
             for i in range(1,fct_arity) :
                 s += tpl % (n*(i,))
             return s
@@ -186,6 +188,7 @@ class Functor(Toolbox) :
             "\$self.const_type_call_list\$" : strlist("const A0& a%d",1),
             "\$self.tb_namespace\$"         : self.get_tb_namespace(),
             "\$self.tb_taggedname\$"        : tb_taggedname,
+            "\$parms_type_and_ranges\$"     : strlist("(($parm$, -10, 10))",0,"\n//"+(17+len(fct_name))*' ')
             }
         for acts, datas in self.get_fct_actions().items() :
             action_names = self.get_fct_actions()[acts]
@@ -193,20 +196,42 @@ class Functor(Toolbox) :
                 action = getattr(Functor,action_name,None)
                 action(self,fct_name,acts,subs_dict,action_data,check=True)
 
+    def rmv_functor(self,fct_name) :
+        "removing an existing functor"
+        for acts, datas in self.get_fct_actions().items() :
+            action_names = self.get_fct_actions()[acts]
+            for action_name, action_data in action_names.items() :
+                action_name = action_name[::-1]
+                action = getattr(Functor,action_name,None)
+                action(self,fct_name,acts,{},action_data,check=True)
+
+
     def add(self,fct_name,acts,subs_dict,action_data,check=True) :
+        """add a file"""
         fname = action_data["file"].replace('$fct_name$',fct_name)
         fct_name_path = os.path.join(self.get_tb_abs_path(),acts,fname)
         rel_path = os.path.join(self.get_tb_pathfnt2(),acts)
         tplname = action_data["tmpl"]
         tpl_name_path = os.path.join(nt2_py_dir(),tplname)
+        if "parm" in action_data.keys() :
+            s = subs_dict["\$parms_type_and_ranges\$"]
+            subs_dict["\$parms_type_and_ranges\$"] =  re.sub('\$parm\$', action_data["parm"], s)
         inner_text = self.__treat(read(tpl_name_path),subs_dict)
-#        show(inner_text)
+        if "parm" in action_data.keys() :
+            subs_dict["\$parms_type_and_ranges\$"] = s
         comment = action_data["cmmt"]
         flag    = action_data["head"]
         h = Headers(rel_path,fct_name,inner=inner_text,comment=comment)
         h.write_header2(fct_name_path,flag=flag,check=check)
          
+    def dda(self,fct_name,acts,subs_dict,action_data,check=True) :
+        """remove a file: reverse of add"""
+        fname = action_data["file"].replace('$fct_name$',fct_name)
+        fct_name_path = os.path.join(self.get_tb_abs_path(),acts,fname)
+        os.remove(fct_name_path)  
+
     def mdy(self,fct_name,acts,subs_dict,action_data,check=True) :
+        """modify a file, inserting a line"""
         fname = action_data["file"].replace('$root_name$',self.get_tb_name())
         file2modify = os.path.join(self.get_tb_abs_path(),acts,fname)
         
@@ -226,8 +251,31 @@ class Functor(Toolbox) :
                 "\nFile %s was already included\n" % fct_name +
                 "in file\n%s\n" %  file2modify
                 )
+
+    def ydm(self,fct_name,acts,subs_dict,action_data,check=True) :
+        """modify a file (reverse of mdy): deleting a line"""
+        fname = action_data["file"].replace('$root_name$',self.get_tb_name())
+        file2modify = os.path.join(self.get_tb_abs_path(),acts,fname)
+        text = read(file2modify)
+        subs_dict["\$self.tb_pathfnt2\$"]=self.get_tb_pathfnt2()
+        subs_dict["\$fct_name\$"]=fct_name
+        line2rmv = self.__treat(action_data["l2ad"], subs_dict) 
+        test, text = self.__rmv_line(text, line2rmv)
+        if test :
+            self.logger.info(
+                "\nmodifying \n%s\nfor definition of functor %s\n" % (file2modify,fct_name)
+                )
+            write(file2modify,text,False)
+        else :
+            self.logger.warning(
+                "\nFile %s was not present in file\n%s\n" %  (fct_name,file2modify)
+                )
+
+
+
                 
     def hie(self,fct_name,acts,subs_dict,action_data,check=True) :
+        """create an include hierarchy for simd"""
         fname = action_data["file"].replace('$fct_name$',fct_name)
         path = os.path.join(self.get_tb_abs_path(),acts) 
         hierarchy = action_data["hier"]
@@ -242,6 +290,14 @@ class Functor(Toolbox) :
             h = Headers(rpath,fct_name, inner=inner_text)
             h.write_header2(file,flag='full',check=check)
              
+    def eih(self,fct_name,acts,subs_dict,action_data,check=True) :
+        """delete an include hierarchy for simd(reverse of hie)"""
+        path = os.path.join(self.get_tb_abs_path(),acts) 
+        hierarchy = action_data["hier"]
+        for base, prev in hierarchy.Variants.items() :
+            file = os.path.join(path,base,fct_name+'.hpp')
+            os.remove(file)
+            
     def __treat(self,s, subs_dict) :
         """__treat substitutes all $self.<id>$ chains in the
            string s with the value of the variable self.<id> if it
@@ -274,8 +330,17 @@ class Functor(Toolbox) :
                 text.insert(i,line2add)
             return (True,text)
 
+    def __rmv_line(self,text, line2rmv) :
+        if line2rmv in text :
+            text.remove(line2rmv)
+            return (True,text)
+        else :
+            return (False,text)
+
 if __name__ == "__main__":
     Mylogging.set_level('ERROR')
     tb = Functor("pipo3")
     tb.add_functor("zorro",fct_arity=2)
+#    tb.add_functor("zzo",fct_arity=2)
     print "done"
+#    tb.rmv_functor("zorro")

@@ -28,8 +28,8 @@ class Nt2 :
 ##        ["include",
 ##         "src",   
 ##         {"doc" : ["source"] },
-##         {"unit": ["scalar_ut","simd_ut"] },
-##         {"benchmark": ["scalar_bch","simd_bch"] },
+##         {"unit": ["scalar","simd"] },
+##         {"benchmark": ["scalar","simd"] },
 ##         {"function" :
 ##          ["scalar",
 ##           {"simd"   :

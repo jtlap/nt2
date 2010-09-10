@@ -91,7 +91,7 @@ class Tb_files(Tb_tree) :
             "\ncreating include template for %s\n" % self.get_root_name()
             )
         rp = os.path.join('nt2/toolbox/',r)
-        h = Headers(rp,'/'+self.get_root_name())
+        h = Headers(rp,self.get_root_name())
         h.write_header2(fname,check=check)
         return True
 
@@ -148,7 +148,7 @@ class Tb_files(Tb_tree) :
             z=re.sub('\$tb_name\$',self.get_root_name(),z)
             inn.append(z)
         rp = os.path.join('nt2/toolbox/',r)
-        h = Headers(rp,"/include",inner=inn)
+        h = Headers(rp,"include",inner=inn)
         h.write_header2(fname,check=check)
 
     def mk_base(self,check,a,r,name,key) :
@@ -194,8 +194,8 @@ class Tb_files(Tb_tree) :
             "##*     Toolbox %s %s tests" % (self.get_root_name(),key),
             "##****************************************************************************",
             "",
-            "ADD_SUBDIRECTORY(scalar_bch)",
-            "ADD_SUBDIRECTORY(simd_bch)"
+            "ADD_SUBDIRECTORY(scalar)",
+            "ADD_SUBDIRECTORY(simd)"
             ]
         rp = os.path.join('nt2/toolbox/',r)
         h = Headers(rp,"/%s/CMakelists"%key, inner=inner_text, ext='.txt',comment='##')
@@ -255,11 +255,11 @@ if __name__ == "__main__":
         "doc",
         "doc/source",
         "unit",
-        "unit/scalar_ut",
-        "unit/simd_ut",
+        "unit/scalar",
+        "unit/simd",
         "benchmark",
-        "benchmark/scalar_bch",
-        "benchmark/simd_bch",
+        "benchmark/scalar",
+        "benchmark/simd",
         "function",
         "function/scalar",
         "function/simd",
@@ -290,19 +290,19 @@ if __name__ == "__main__":
         "benchmark" :            {
             "inner"        : "CMakeLists.txt"
             },
-        "benchmark/scalar_bch" : {
+        "benchmark/scalar" : {
             "scalar"       : "CMakeLists.txt"
             },
-        "benchmark/simd_bch" :   {  
+        "benchmark/simd" :   {  
             "simd"         : "CMakeLists.txt",
             },
         "unit" :                 {
             "inner"        : "CMakeLists.txt"
             },
-        "unit/scalar_ut" :      {
+        "unit/scalar" :      {
             "scalar"       : "CMakeLists.txt"
             },
-        "unit/simd_ut" :        {  
+        "unit/simd" :        {  
             "simd"         : "CMakeLists.txt",
             },
          }
