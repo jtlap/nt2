@@ -1,5 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: iso-8859-15  -*-
+##############################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
 
 
 """User utility to create a Nt2 toolbox
@@ -25,6 +33,9 @@
 """
 
 import sys
+import os
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'source'))
+
 from tbox       import Toolbox
 from mylogging  import Mylogging
 
@@ -39,4 +50,5 @@ if __name__ == "__main__" :
         tb = Toolbox(tb_name,style=style)
         print "creating toolbox %s" %tb.get_tb_name()
         print "with %s style" % tb.get_tb_style() 
+sys.path.pop(0)
 

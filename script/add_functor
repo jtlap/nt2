@@ -1,5 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: iso-8859-15  -*-
+##############################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
 
 
 """User utility to add functor(s) to an existing Nt2 toolbox
@@ -28,6 +36,10 @@
           Note: empty of fully blank lines are ignored
    
 """
+
+import sys
+import os
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'source'))
 
 def add_one(fct,fct_name,arity) :
     fct.add_functor(fct_name,arity)
@@ -69,6 +81,7 @@ if __name__ == "__main__" :
            add_one(fct,fct_name,arity)
     else :
         print __doc__
+sys.path.pop(0)
            
        
 

@@ -211,7 +211,7 @@ class Functor(Toolbox) :
         fname = action_data["file"].replace('$fct_name$',fct_name)
         fct_name_path = os.path.join(self.get_tb_abs_path(),acts,fname)
         rel_path = os.path.join(self.get_tb_pathfnt2(),acts)
-        tplname = action_data["tmpl"]
+        tplname = '../tpl/'+action_data["tmpl"]
         tpl_name_path = os.path.join(nt2_py_dir(),tplname)
         if "parm" in action_data.keys() :
             s = subs_dict["\$parms_type_and_ranges\$"]
