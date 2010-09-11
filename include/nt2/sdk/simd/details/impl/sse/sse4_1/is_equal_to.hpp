@@ -11,7 +11,7 @@
 
 namespace nt2 { namespace functors
 {
-  template<,class Dummy>
+  template<class Dummy>
   struct call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),Dummy>
   {
     template<class Sig> struct result;
