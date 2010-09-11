@@ -104,7 +104,7 @@ and produce an error thanks to :term:`SFINAE`. To do so, we have to specialize
 
 In our case, we specialize :ref:`functor_validate` so that ``fibonnacci`` only
 accept integral types as input. To do so, we just reuse ``boost::is_integral``
-and apply it to the input type. Note the use of :ref:`strip` to be sure we
+and apply it to the input type. Note the use of :ref:`meta_strip` to be sure we
 work on the naked type and some const qualified or reference type.
 
 Internal Tag Dispatching
