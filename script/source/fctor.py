@@ -51,7 +51,7 @@ class Functor(Toolbox) :
                 "parm" : "nt2::uint32_t",
                 },
             'mdy'   : {
-                "file" : "CMakelists.txt",
+                "file" : "CMakeLists.txt",
                 "l2ad" : "  $fct_name$.cpp",
                 "tokn" : "SET\( SOURCES",
                 },
@@ -65,7 +65,7 @@ class Functor(Toolbox) :
                 "parm" : "nt2::simd::native<float,nt2::tag::sse_>",
                 },
             'mdy'   : {
-                "file" : "CMakelists.txt",
+                "file" : "CMakeLists.txt",
                 "l2ad" : "  $fct_name$.cpp",
                 "tokn" : "SET\( SOURCES",
                 },
@@ -134,7 +134,7 @@ class Functor(Toolbox) :
                 "head" : 'banner+inner'
                 },
             'mdy'   : {
-                "file" : "CMakelists.txt",
+                "file" : "CMakeLists.txt",
                 "l2ad" : "  $fct_name$.cpp",
                 "tokn" : "SET\( SOURCES",
                 },
@@ -147,7 +147,7 @@ class Functor(Toolbox) :
                 "head" : 'banner+inner'
                 },
             'mdy'   : {
-                "file" : "CMakelists.txt",
+                "file" : "CMakeLists.txt",
                 "l2ad" : "  $fct_name$.cpp",
                 "tokn" : "SET\( SOURCES",
                 },
@@ -216,6 +216,7 @@ class Functor(Toolbox) :
         if "parm" in action_data.keys() :
             s = subs_dict["\$parms_type_and_ranges\$"]
             subs_dict["\$parms_type_and_ranges\$"] =  re.sub('\$parm\$', action_data["parm"], s)
+        subs_dict["\$acts\$"] = acts
         inner_text = self.__treat(read(tpl_name_path),subs_dict)
         if "parm" in action_data.keys() :
             subs_dict["\$parms_type_and_ranges\$"] = s

@@ -72,22 +72,22 @@ class Toolbox(Nt2,Tb_files) :
             "root_include" : "include.hpp",
             },
         "benchmark" :            {
-            "inner"        : "CMakelists.txt"
+            "inner"        : "CMakeLists.txt"
             },
         "benchmark/scalar" : {
-            "scalar"       : "CMakelists.txt"
+            "scalar"       : "CMakeLists.txt"
             },
         "benchmark/simd" :   {  
-            "simd"         : "CMakelists.txt",
+            "simd"         : "CMakeLists.txt",
             },
         "unit" :                 {
-            "inner"        : "CMakelists.txt"
+            "inner"        : "CMakeLists.txt"
             },
         "unit/scalar" :      {
-            "scalar"       : "CMakelists.txt"
+            "scalar"       : "CMakeLists.txt"
             },
         "unit/simd" :        {  
-            "simd"         : "CMakelists.txt",
+            "simd"         : "CMakeLists.txt",
             },
          }
     def __init__(self, tool_box_name,

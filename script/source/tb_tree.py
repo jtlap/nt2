@@ -81,6 +81,9 @@ class Tb_tree :
                self.logger.info("\ncreating : \n%s" % l)
                mkdir(l)
 
+    def list_tb_tree(self) : return self.get_abs_tree()
+
+
     def check_tb_tree(self) :
         for l in  self.get_abs_tree() :
             r = exist(l)

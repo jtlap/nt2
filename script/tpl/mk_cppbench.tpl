@@ -7,7 +7,7 @@
 using nt2::$self.tb_namespace$::$self.name$_;
 
 //////////////////////////////////////////////////////////////////////////////
-// Scalar benchmark
+// $acts$
 // E.G:
 // NT2_TIMING( $fct_name$_ , $parms_type_and_ranges$ ) 
 //           )

@@ -179,7 +179,7 @@ class Tb_files(Tb_tree) :
         return True
         
     def mk_inner(self,check,a,r,name,key) :
-        """ creation de CMakelists.txt dans nt2/<tb>/doc/<name>"""
+        """ creation de CMakeLists.txt dans nt2/<tb>/doc/<name>"""
         fname = os.path.join(a,name)
         if check == 'check_only' : 
             r = exist(fname)
@@ -209,7 +209,7 @@ class Tb_files(Tb_tree) :
         return self.__mk_s(check,a,r,name,key,"simd")
         
     def __mk_s(self,check,a,r,name,key,st) :
-        """ creation de CMakelists.txt dans nt2/<tb>/doc/<name>"""
+        """ creation de CMakeLists.txt dans nt2/<tb>/doc/<name>"""
         fname = os.path.join(a,name)
         if check == 'check_only' : 
             r = exist(fname)
