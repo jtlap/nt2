@@ -9,6 +9,7 @@
 
 SET( SOURCES
     any.cpp
+    arithmetic.cpp
     as_integer.cpp
     as_bits.cpp
     as_real.cpp
