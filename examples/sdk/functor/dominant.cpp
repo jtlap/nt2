@@ -1,5 +1,4 @@
 #include <iostream>
-#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/meta/category.hpp>
 #include <nt2/sdk/details/type_id.hpp>
@@ -25,13 +24,9 @@ struct unk {};
 int main()
 {
   using nt2::meta::dominant;
-  dominant callee;
-  foo_ f;
-  bar_ b;
-  chu_ c;
 
-  std::cout << "dominant(foo_,foo_,foo_) : " << nt2::type_id(callee(f,f,f)) << "\n";
-  std::cout << "dominant(foo_,unk ,chu_) : " << nt2::type_id(callee(f,unk(),c)) << "\n";
-  std::cout << "dominant(foo_,bar_,bar_) : " << nt2::type_id(callee(f,b,b)) << "\n";
-  std::cout << "dominant(foo_,bar_,chu_) : " << nt2::type_id(callee(f,b,c)) << "\n";
+  std::cout << "dominant<foo_,foo_,foo_> : " << nt2::type_id<dominant<foo_,foo_,foo_>::type>() << "\n";
+  std::cout << "dominant<foo_,unk ,chu_> : " << nt2::type_id<dominant<foo_,unk ,chu_>::type>() << "\n";
+  std::cout << "dominant<foo_,bar_,bar_> : " << nt2::type_id<dominant<foo_,bar_,bar_>::type>() << "\n";
+  std::cout << "dominant<foo_,bar_,chu_> : " << nt2::type_id<dominant<foo_,bar_,chu_>::type>() << "\n";
 }

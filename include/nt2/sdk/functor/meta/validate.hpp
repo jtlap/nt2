@@ -31,13 +31,13 @@ namespace nt2 { namespace meta
     #if defined(BOOST_HAS_VARIADIC_TMPL)
     template<class This, class... Args>
     struct  result<This(Args...)>
-		: std::tr1::result_of<typename functors::functor<Tag>::validate(Args...)>
+					: std::tr1::result_of<typename functors::functor<Tag>::validate(Args...)>
     {};
     #else
     #define M0(z,n,t)                                                     \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                 \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                       \
-	: std::tr1::result_of<typename functors::functor<Tag>              \
+					: std::tr1::result_of<typename functors::functor<Tag>						\
                                     ::validate(BOOST_PP_ENUM_PARAMS(n,A)) \
                             >                                             \
     {};                                                                   \
