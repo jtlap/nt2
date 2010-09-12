@@ -10,9 +10,11 @@
 SET( SOURCES
     any.cpp
     as_integer.cpp
+    as_bits.cpp
     as_real.cpp
     cardinal_of.cpp
     category_of.cpp
+    from_bits.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp
