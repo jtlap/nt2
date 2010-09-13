@@ -10,7 +10,10 @@
 #define NT2_INCLUDE_SIMD_HPP_INCLUDED
 
 #include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/simd/extensions.hpp>
+#if defined(NT2_SIMD_DETECTED)
 #include <nt2/sdk/simd/io.hpp>
 #include <nt2/sdk/simd/native.hpp>
+#endif
 
 #endif
