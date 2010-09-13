@@ -8,11 +8,11 @@ Timing
 
 .. rubric:: Description
 
-This module provides Matlab-like functions to perform timing of code fragment
-in a platform, compiler independant way. Those functions either measure elapsed
-seconds or CPU cycles and can, optionnaly, reports those measures to the standard
-output. All those functions works in pair and can be nested or cross functions
-calls as long as their form well-formed enclosing calls.
+This module provides |MT|-like functions to perform timing of code fragments
+in a platform and compiler independent way. These functions either measure elapsed
+seconds or CPU cycles and can, optionally, report those measures to standard
+output. All these functions works in pairs and can be nested or cross function calls 
+as long as they form well-formed enclosing calls.
 
 .. rubric:: Header File
 

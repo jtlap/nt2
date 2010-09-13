@@ -9,15 +9,15 @@ Motivation
 The simplest entry point to extend |nt2| is to provide new user or internal
 polymorphic functions. Use-cases are aplenty: forwarding some third-party
 library calls, building a new domain-specific set of operations or creating
-new internal helpers. This section will describe the process of creating such
-a function using the various element from the :ref:`functors` components as
-specified in its :ref:`functors_rationale` by trying to implement a ``fibonnaccci``
-function for scalar arithmetic values.
+new internal helpers are a few examples. This section described the process
+of creating such a function using the various element from the :ref:`functors`
+components as specified in its :ref:`functors_rationale` by implement
+a ``fibonacci`` function for scalar arithmetic values.
 
 Registering the function
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-First step is to register the function in |nt2|. This is done by creating a
+The first step is to register the function in |nt2|. This is done by creating a
 **functor tag** and generating the function body.
 
 .. code-block:: cpp
@@ -27,19 +27,19 @@ First step is to register the function in |nt2|. This is done by creating a
 
   namespace nt2
   {
-    namespace functors { struct fibonnacci_ {}; }
+    namespace functors { struct fibonacci_ {}; }
 
-    NT2_FUNCTION_IMPLEMENTATION(functors::fibonnacci_,fibonnacci,1)
+    NT2_FUNCTION_IMPLEMENTATION(functors::fibonacci_,fibonacci,1)
   }
 
-Once done, the function ``fibonnacci`` is ready to use. Except currently, any call
-to this function will result in a statis assertion telling you that there is no
-implementation for ``fibonnacci`` available.
+Once done, the function ``fibonacci`` is ready to use. Without further work,
+though, any call to this function will result in a static assertion telling
+you that there is no implementation for ``fibonacci`` available.
 
 Implementing the function
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The next step is then to give ``fibonnacci`` an actual implementation. This is
+The next step is to give ``fibonacci`` an actual implementation. This is
 done by creating an specialization of :ref:`functor_call`. :ref:`functor_call`
 is just a |pfo|_ that will contains the code needed to compute any given
 function represented by its tag for a given category of types.
@@ -53,7 +53,7 @@ function represented by its tag for a given category of types.
   namespace nt2 { namespace functors
   {
     template<class Info>
-    struct call<fibonnacci_,tag::scalar_(tag::arithmetic_),Info>
+    struct call<fibonacci_,tag::scalar_(tag::arithmetic_),Info>
     {
       typedef double result_type;
 
@@ -74,17 +74,17 @@ function represented by its tag for a given category of types.
   } }
 
 Here, we provide a simple, straightforward implementation of the Fibonnacci
-serie (I will urge our numerician readers to not burn us right now, this is
-just an example). As said earlier, ``call`` follow the |result_of|_. To help
+sequence (I will urge our mathematician readers to not burn us right now, this
+is just an example). As said earlier, ``call`` follows the |result_of|_. To help
 users, we provide various macros to generate the boilerplate code for the
 main `operator()` required.
 
 Restricting function domain
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-At this point, one is able to call ``fibonnacci`` over arguments of any types,
-including non-sensical thing like ``fibonnacci(4.734f)``. The nest step in defining
-a |nt2| functon is to restrict its domain so that incorrect calls are caught early
+At this point, one is able to call ``fibonacci`` over arguments of any types,
+including non-nonsensical things like ``fibonacci(4.734f)``. The nest step in defining
+a |nt2| function is to restrict its domain so that incorrect calls are caught early
 and produce an error thanks to :term:`SFINAE`. To do so, we have to specialize
 :ref:`functor_validate` for our functor and type set.
 
@@ -93,7 +93,7 @@ and produce an error thanks to :term:`SFINAE`. To do so, we have to specialize
   namespace nt2 { namespace functors
   {
     template<class Info>
-    struct validate<fibonnacci_,tag::scalar_(tag::arithmetic_),Info>
+    struct validate<fibonacci_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;
       template<class This, class A0>
@@ -102,7 +102,7 @@ and produce an error thanks to :term:`SFINAE`. To do so, we have to specialize
     };
   } }
 
-In our case, we specialize :ref:`functor_validate` so that ``fibonnacci`` only
+In our case, we specialize :ref:`functor_validate` so that ``fibonacci`` only
 accept integral types as input. To do so, we just reuse ``boost::is_integral``
 and apply it to the input type. Note the use of :ref:`meta_strip` to be sure we
 work on the naked type and some const qualified or reference type.
@@ -111,11 +111,11 @@ Internal Tag Dispatching
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this implementation, we focus on the integral support of the function. One
-may want to provide an implementation of ``fibonnacci`` for real numbers. This
+may want to provide an implementation of ``fibonacci`` for real numbers. This
 implementation rationale could be that if the real argument is in fact an integer,
 the call is forwarded to the integral version. If not, a runtime assertion is
 triggered. |nt2| provides :ref:`functor_hierarchy` to help simplifying the dispatch
-of function calls over type or set if types. This dispacthing reduce the amount
+of function calls over type or set if types. This dispatching reduce the amount
 of code one need to replicate between variations thanks to :ref:`functor_call_macro`.
 The ``call`` code is then modified accordingly.
 
@@ -128,7 +128,7 @@ The ``call`` code is then modified accordingly.
   namespace nt2 { namespace functors
   {
     template<class Info>
-    struct call<fibonnacci_,tag::scalar_(tag::arithmetic_),Info>
+    struct call<fibonacci_,tag::scalar_(tag::arithmetic_),Info>
     {
       typedef double result_type;
 
@@ -154,7 +154,7 @@ The ``call`` code is then modified accordingly.
       NT2_FUNCTOR_EVAL_IF(1, real_)
       {
         NT2_ASSERT(is_integral(a0));
-        return fibonnacci(static_cast<typename meta::as_integer<A0>::type>(a0));
+        return fibonacci(static_cast<typename meta::as_integer<A0>::type>(a0));
       }
     };
   } }
@@ -175,25 +175,25 @@ handle integers or real types differently.
 
 This macros builds dispatching handler for a given dispatching target. Here we
 define two such dispatching handler - one for `int_`, one for `real_` - and implement
-them. Notice how the real type can just freely reuse the `fibonnacci` function directly.
+them. Notice how the real type can just freely reuse the `fibonacci` function directly.
 
 Handling template parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In some case, we may want to pass additional template parameters to our
 function to specify special strategies, policies or to force the return type.
-In our case, we may want ``fibonnacci`` to return something else than a double.
-To do so, we'll slighty modify the ``fibonnacci_`` tag so it can pass these
+In our case, we may want ``fibonacci`` to return something else than a double.
+To do so, we'll slightly modify the ``fibonacci_`` tag so it can pass these
 types down to the calling site and see how to open up :ref:`nt2_function_implementation`
 to take care of it.
 
-First we make ``fibonnacci_`` a template class.
+First we make ``fibonacci_`` a template class.
 
 .. code-block:: cpp
 
   namespace nt2 { namespace functors
   {
-    template<class ReturnType> struct fibonnacci_ {};
+    template<class ReturnType> struct fibonacci_ {};
   } }
 
 Then we change the :ref:`functor_call` specialization to take care of this.
@@ -203,7 +203,7 @@ Then we change the :ref:`functor_call` specialization to take care of this.
   namespace nt2 { namespace functors
   {
     template<class ReturnType, class Info>
-    struct call<fibonnacci_<ReturnType>,tag::scalar_(tag::arithmetic_),Info>
+    struct call<fibonacci_<ReturnType>,tag::scalar_(tag::arithmetic_),Info>
     {
       typedef ReturnType result_type;
 
@@ -229,12 +229,12 @@ Then we change the :ref:`functor_call` specialization to take care of this.
       NT2_FUNCTOR_EVAL_IF(1, real_)
       {
         NT2_ASSERT(is_flint(a0));
-        return fibonnacci<ReturnType>(static_cast<typename meta::as_integer<A0>::type>(a0));
+        return fibonacci<ReturnType>(static_cast<typename meta::as_integer<A0>::type>(a0));
       }
     };
   } }
 
-The last part is to build the fibonnacci function itself. We'll make the choice
+The last part is to build the fibonacci function itself. We'll make the choice
 to have both a non-templated function which will return double and a template
 one. By looking at the internals of :ref:`nt2_function_implementation`, we can
 see that it basically gather various smaller macro calls.
@@ -257,17 +257,17 @@ The function declaration then become:
 .. code-block:: cpp
 
   template<class A0> inline
-  typename nt2::meta::enable_call<functors::fibonnacci_<double>(A0)>::type
-  fibonnacci( A0 const& a0 )
+  typename nt2::meta::enable_call<functors::fibonacci_<double>(A0)>::type
+  fibonacci( A0 const& a0 )
   {
-    nt2::functors::functor< functors::fibonnacci_<double> > callee;
+    nt2::functors::functor< functors::fibonacci_<double> > callee;
     return callee(a0);
   }
 
   template<class ReturnType, class A0> inline
-  typename nt2::meta::enable_call<functors::fibonnacci_<ReturnType>(A0)>::type
-  fibonnacci( A0 const& a0 )
+  typename nt2::meta::enable_call<functors::fibonacci_<ReturnType>(A0)>::type
+  fibonacci( A0 const& a0 )
   {
-    nt2::functors::functor< functors::fibonnacci_<ReturnType> > callee;
+    nt2::functors::functor< functors::fibonacci_<ReturnType> > callee;
     return callee(a0);
   }

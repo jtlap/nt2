@@ -9,7 +9,7 @@ second_timer
 Description
 ^^^^^^^^^^^
 :ref:`class_second_timer` is a RAII-based timing class that performs safe timing
-in a given code block and prevent the misuse of the :ref:`timing_function_tic`/
+in a given code block and prevents the misuse of the :ref:`timing_function_tic`/
 :ref:`timing_function_toc` function pair.
 
 Header File
@@ -48,12 +48,12 @@ second_timer(double&, bool)
 
   second_timer(double& elapsed, bool display = true)
 
-**Description:**  Creates an instance of :ref:`class_second_timer`, links it to
-a user-defined variable that will contains the result of the timing when the
-current instance will go out of scope and starts a timing section calling
-:ref:`timing_function_tic`. The display parameters controls if the inner
-:ref:`timing_function_toc` call will display the elapsed time automatically or
-not.
+**Description:** Creates an instance of :ref:`class_second_timer`, links it to
+a user-defined variable that will contain the result of the timing when the
+current instance goes out of scope and starts a timing section by calling
+:ref:`timing_function_tic`. The display parameters specifies if the inner
+:ref:`timing_function_toc` call will display the elapsed time to standard
+output or not.
 
 .. _second_timer_dtor:
 
@@ -67,8 +67,8 @@ not.
   ~second_timer()
 
 **Description:**  When an instance of scoped_timer goes out of scope, the
-destructor ends a timing section by calling toc or ctoc, put the result into
-the linked variable and display it if specified.
+destructor ends a timing section by calling toc or ctoc, puts the result into
+the linked variable and options displays it.
 
 Example
 ^^^^^^^
