@@ -168,13 +168,13 @@ namespace nt2 { namespace memory
       static Sizes& s;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( nested
-      , boost::fusion::nview<Sizes const,Storage>(s)
+      , (boost::fusion::nview<Sizes const,Storage>(s))
       );
 
       typedef typename nested::type type;
     };
 
-    typedef storage_helper::sizes_type stored_sizes_type;
+    typedef typename storage_helper::type stored_sizes_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Aggregated buffers type
@@ -216,7 +216,7 @@ namespace nt2 { namespace memory
     {
       if( this != &src)
       {
-	data_ = src.data_;
+				data_ = src.data_;
         base_ = src.base_;
         size_ = src.size_;
         link( boost::mpl::int_<DIM>() );
@@ -328,11 +328,20 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Upper bound of valid index on dimension N
     ////////////////////////////////////////////////////////////////////////////
-    template<std::size_t N> difference_type upper() const
+    template<std::size_t N>
+    typename boost::enable_if_c<(N>0 && N<=DIM),difference_type>::type
+    upper() const
     {
       return size<N>()+lower<N>()-1;
     }
 
+    template<std::size_t N>
+    typename boost::disable_if_c<(N>0 && N<=DIM),difference_type>::type
+    upper() const
+    {
+      return 1;
+    }
+		
     protected:
     ////////////////////////////////////////////////////////////////////////////
     // Access to a block with less index than needed
