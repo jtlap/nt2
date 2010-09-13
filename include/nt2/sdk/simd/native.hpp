@@ -9,7 +9,6 @@
 #ifndef NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 #define NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 
-#include <nt2/sdk/simd/details/check.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/constant/digits.hpp>
