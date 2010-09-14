@@ -11,6 +11,6 @@ namespace nt2 { namespace $self.tb_namespace$
  
 #include <nt2/core/numeric/function/details/scalar/$self.name$.hpp>
 // Uncomment the following line if you implement a proper simd version
-//#include NT2_INCLUDE_FROM(NT2_$self.tb_nameupper$_BASE,$self.name$.hpp) 
+//#include NT2_$self.tb_nameupper$_INCLUDE($self.name$.hpp) 
 
  

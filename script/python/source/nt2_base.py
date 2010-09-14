@@ -29,7 +29,7 @@ class Nt2 :
 ##         "src",   
 ##         {"doc" : ["source"] },
 ##         {"unit": ["scalar","simd"] },
-##         {"benchmark": ["scalar","simd"] },
+##         {"bench": ["scalar","simd"] },
 ##         {"function" :
 ##          ["scalar",
 ##           {"simd"   :
@@ -44,7 +44,7 @@ class Nt2 :
 ##        ]
                                                                          
 ##    Std_actions = {
-##        "benchmark": ["benchmark",     'std',  'benchmark'               ],     
+##        "bench": ["bench",     'std',  'bench'               ],     
 ##        "doc"      : ["doc",           'std',  'doc/source/'             ],    
 ##        "include"  : ["include",       'std',  'include/'                ],          
 ##        "function" : ["define",        'std',  'function/'               ],                   

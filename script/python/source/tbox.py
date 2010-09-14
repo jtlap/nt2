@@ -41,9 +41,9 @@ class Toolbox(Nt2,Tb_files) :
         "unit",
         "unit/scalar",
         "unit/simd",
-        "benchmark",
-        "benchmark/scalar",
-        "benchmark/simd",
+        "bench",
+        "bench/scalar",
+        "bench/simd",
         "function",
         "function/scalar",
         "function/simd",
@@ -71,13 +71,13 @@ class Toolbox(Nt2,Tb_files) :
             "root"         : "$root_name$",
             "root_include" : "include.hpp",
             },
-        "benchmark" :            {
+        "bench" :            {
             "inner"        : "CMakeLists.txt"
             },
-        "benchmark/scalar" : {
+        "bench/scalar" : {
             "scalar"       : "CMakeLists.txt"
             },
-        "benchmark/simd" :   {  
+        "bench/simd" :   {  
             "simd"         : "CMakeLists.txt",
             },
         "unit" :                 {

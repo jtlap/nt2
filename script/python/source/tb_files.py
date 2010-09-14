@@ -186,7 +186,7 @@ class Tb_files(Tb_tree) :
             if not r : self.logger.info("\nfile %s does not exist" % fname)
             return r
         self.logger.info(
-            "\ncreating CMakeLists.txt for %s benchmarks\n" % self.get_root_name()
+            "\ncreating CMakeLists.txt for %s benches/unit tests\n" % self.get_root_name()
             )
         inner_text = [
             "",
@@ -209,8 +209,9 @@ class Tb_files(Tb_tree) :
         return self.__mk_s(check,a,r,name,key,"simd")
         
     def __mk_s(self,check,a,r,name,key,st) :
-        """ creation de CMakeLists.txt dans nt2/<tb>/doc/<name>"""
+        """ creation de CMakeLists.txt dans nt2/<tb>/<unit/bench>/<name>"""
         fname = os.path.join(a,name)
+        benchortest = key.split('/')[0] 
         if check == 'check_only' : 
             r = exist(fname)
             if not r : self.logger.info("\nfile %s does not exist" % fname)
@@ -231,14 +232,15 @@ class Tb_files(Tb_tree) :
             "  ##**************************************************************************",
             "  ## Build the executable filename from the example source filename",
             "  ##**************************************************************************",
-            '  STRING(REGEX REPLACE ".cpp" ".%s.%s.bench" EXECUTABLE "${EXAMPLE}")'%(self.get_root_name(),st),
-            '  STRING(REGEX REPLACE ".cpp" "-%s.%s.bench" TEST "${EXAMPLE}")'%(self.get_root_name(),st),
+            '  STRING(REGEX REPLACE ".cpp" ".%s.%s.%s" EXECUTABLE "${EXAMPLE}")'%(self.get_root_name(),st,benchortest),
+            '  STRING(REGEX REPLACE ".cpp" "-%s.%s.%s" TEST "${EXAMPLE}")'%(self.get_root_name(),st,benchortest),
             "",
             "  ##**************************************************************************",
             "  ## Add as a target",
             "  ##**************************************************************************",
             "  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})",
             "  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)",
+            "  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})" if st=="simd" else "",         
             "  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})",
             "ENDFOREACH()",
             ]
@@ -257,9 +259,9 @@ if __name__ == "__main__":
         "unit",
         "unit/scalar",
         "unit/simd",
-        "benchmark",
-        "benchmark/scalar",
-        "benchmark/simd",
+        "bench",
+        "bench/scalar",
+        "bench/simd",
         "function",
         "function/scalar",
         "function/simd",
@@ -287,13 +289,13 @@ if __name__ == "__main__":
             "root"         : "$root_name$",
             "root_include" : "include.hpp",
             },
-        "benchmark" :            {
+        "bench" :            {
             "inner"        : "CMakeLists.txt"
             },
-        "benchmark/scalar" : {
+        "bench/scalar" : {
             "scalar"       : "CMakeLists.txt"
             },
-        "benchmark/simd" :   {  
+        "bench/simd" :   {  
             "simd"         : "CMakeLists.txt",
             },
         "unit" :                 {

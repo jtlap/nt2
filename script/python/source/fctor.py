@@ -42,7 +42,7 @@ class Functor(Toolbox) :
                 "tokn" : "//<\include>",
                 },
             },
-        "benchmark/scalar"       : {
+        "bench/scalar"       : {
             'add'   : {
                 "file" : "$fct_name$.cpp",
                 "tmpl" : "mk_cppbench.tpl",
@@ -56,7 +56,7 @@ class Functor(Toolbox) :
                 "tokn" : "SET\( SOURCES",
                 },
             },
-        "benchmark/simd"       : {
+        "bench/simd"       : {
             'add'   : {
                 "file" : "$fct_name$.cpp",
                 "tmpl" : "mk_cppbench.tpl",
