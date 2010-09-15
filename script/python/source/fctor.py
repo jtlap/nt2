@@ -157,9 +157,14 @@ class Functor(Toolbox) :
                  mode = 'modify',
                  style='usr',
                  actions = None) :
-        Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
-        if not self.get_status() : raise SystemExit
         self.logger = Mylogging("nt2.fctor.Functor")
+        Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
+        if not self.get_tb_status() and mode !='check' :
+            self.logger.error(
+                "\ntoolbox %s has invalid status\n" % self.get_tb_name() +
+                "aborting"
+                )
+            raise SystemExit
         self.__fct_actions = Functor.Fct_actions if actions is None else actions
         self.ext='.hpp'
         

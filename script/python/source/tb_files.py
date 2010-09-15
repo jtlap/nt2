@@ -84,7 +84,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,name+'.hpp')
         if check == 'check_only' :
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\nroot file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating include template for %s\n" % self.get_root_name()
@@ -101,14 +101,14 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,name)
         if check == 'check_only' :
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\npy_data file %s does not exist" % fname)
             return r 
         self.logger.info(
             "\ncreating toolbox py datas for %s\n" % self.get_root_name()
             )
         inner_text = [
             "datas = {",
-            "'style' : '%s'" % __tb_style,
+            "'style' : '%s'" % self.__tb_style(),
             "}"
             ]
         rp = os.path.join('nt2/toolbox/',r)
@@ -123,7 +123,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,'include.hpp')
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\nroot include file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating toolbox include template for %s\n" % self.get_root_name()
@@ -157,7 +157,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(na,name+'.hpp')
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\nbase file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating toolbox include template for %s\n" % self.get_root_name()
@@ -182,7 +182,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,name)
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\ninner file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating CMakeLists.txt for %s benches/unit tests\n" % self.get_root_name()
@@ -213,7 +213,7 @@ class Tb_files(Tb_tree) :
         benchortest = key.split('/')[0] 
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\ns file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating CMakeLists.txt for %s benchmarks\n" % self.get_root_name()

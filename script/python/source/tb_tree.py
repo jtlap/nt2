@@ -88,7 +88,7 @@ class Tb_tree :
         for l in  self.get_abs_tree() :
             r = exist(l)
             if not r :
-                self.logger.info("\nfile %s does not exist" % fname)
+                self.logger.info("\ndirectory %s\ndoes not exist\n" % l)
                 return False
         return True       
 

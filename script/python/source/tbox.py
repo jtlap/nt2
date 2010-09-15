@@ -159,7 +159,7 @@ class Toolbox(Nt2,Tb_files) :
     def get_tb_pathfnt2(self) : return self.__tb_pathfnt2
     def get_tb_abs_path(self) : return self.__tb 
     def get_tb_path2mode(self) : return self.__tb_path2mode
-    def get_status(self) : return self.__status
+#    def get_status(self) : return self.__status
     def get_tb_style (self) : return self.__tb_style
     def get_tb_namespace(self) :
         return "functors" if (self.__tb_style == "sys") else self.__tb_name 
@@ -167,7 +167,7 @@ class Toolbox(Nt2,Tb_files) :
     def get_tb_status(self) : return self.__status
     def get_tb_tree(self) : return self.__tb_tree
     def get_tb_files(self) : return self.__tb_files
-
+    def exist_tb(self) : return os.path.exists(self.get_tb_abs_path())
     def create_tbox(self):
         """ create a toolbox tree and global files only if it does not exist"""
         if os.path.exists(self.get_tb_abs_path()) :
@@ -195,11 +195,12 @@ class Toolbox(Nt2,Tb_files) :
         return self.__status
 
     def check_tbox(self):
-        """ add missing directory and files to a toolbox
-            without modifying any existing ones
+        """ check the toolbox integrity
         """
-        return self.check_tb_tree() and self.check_tb_files()
-    
+        self.__status = self.check_tb_tree() and self.check_tb_files()
+        if self.__status : self.read_style()
+        return self.__status
+   
     def rm_tbox(self):
         """ remove a toolbox tree and global files"""
         if os.path.exists(self.get_tb_abs_path()) :
@@ -233,7 +234,6 @@ class Toolbox(Nt2,Tb_files) :
 
         dirname = self.get_tb_path2mode()
         filename = os.path.join(dirname,self.get_tb_name()+'.hpp')
-        print "filename %s " % filename
         if exist(filename) :
             s = read(filename)
             pattern = re.compile("^// This toolbox is of (.*) type")
