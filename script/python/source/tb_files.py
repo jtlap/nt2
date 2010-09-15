@@ -47,7 +47,6 @@ class Tb_files(Tb_tree) :
         self.__tb_files = files
         Tb_tree.__init__(self,root_name, root_abs_path, rel_tree)
 
-    def get_tb_style(self) : return self.__tb_style
     def get_tb_files(self) : return self.__tb_files
     
     def __mk_tb_files(self,check=False) :
@@ -109,7 +108,7 @@ class Tb_files(Tb_tree) :
             )
         inner_text = [
             "datas = {",
-            "'style' : '%s'" % self.get_tb_style(),
+            "'style' : '%s'" % __tb_style,
             "}"
             ]
         rp = os.path.join('nt2/toolbox/',r)
@@ -166,7 +165,7 @@ class Tb_files(Tb_tree) :
         inner_text = [
             "",
             "// Please do not remove or modify the next line comment",
-            "// This toolbox is of %s type" % self.get_tb_style(),
+            "// This toolbox is of %s type" % __tb_style(),
             "#include <nt2/nt2.hpp>",
             "#include <nt2/toolbox/" + self.get_root_name() + "/"+ \
              self.get_root_name() + ".hpp>",

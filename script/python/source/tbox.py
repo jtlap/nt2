@@ -131,6 +131,7 @@ class Toolbox(Nt2,Tb_files) :
         self.__tb          = os.path.join(self.get_path2nt2(),self.__tb_pathfnt2)
         self.__tb_path2mode= os.path.join(self.get_path2nt2(),self.get_pathfnt2())
         self.__tb_style = style if style == "sys" else "usr"
+        if os.path.exists(self.get_tb_abs_path()) : self.read_style()    
         self.__test_status = True
         self.__mode = mode
         self.__tb_tree = Toolbox.Tb_tree
@@ -220,8 +221,19 @@ class Toolbox(Nt2,Tb_files) :
         return self.__status
     
     def read_style(self) :
+        dirname = self.get_tb_abs_path()
+        filename = os.path.join(dirname,'py_data.py')
+        if exist(filename) :
+            sys.path.insert(0,dirname)
+            from py_data import datas
+            s = datas['style']
+            sys.path.pop(0)
+            self.__tb_style = s
+            return s
+
         dirname = self.get_tb_path2mode()
         filename = os.path.join(dirname,self.get_tb_name()+'.hpp')
+        print "filename %s " % filename
         if exist(filename) :
             s = read(filename)
             pattern = re.compile("^// This toolbox is of (.*) type")
@@ -231,16 +243,7 @@ class Toolbox(Nt2,Tb_files) :
                     self.__tb_style = d1.groups()
                     return d1
             
-        dirname = self.get_tb_abs_path()
-        filename = os.path.join(dirname,'py_data.py')
-        if exist(filename) : 
-            sys.path.insert(0,dirname)
-            from py_data import datas
-            s = datas['style']
-            sys.path.pop(0)
-            self.__tb_style = s
-            return s
-        
+      
         self.logger.warning(
             "\nno file allowing to determine the style of " % self.get_tb_name() +
             "longer exists.\nAssuming an usr toolbox.\n" 
@@ -257,7 +260,7 @@ if __name__ == "__main__":
     print "get_tb_abs_path()  %s   "%tb.get_tb_abs_path()
     print "get_tb_path2mode() %s   "%tb.get_tb_path2mode()   
     print "get_status()       %s   "%tb.get_status()         
-    print "get_tb_style ()    %s   "%tb.get_tb_style ()      
+#    print "get_tb_style ()    %s   "%tb.get_tb_style ()      
     print "get_tb_namespace() %s   "%tb.get_tb_namespace()   
     print "get_tb_mode()      %s   "%tb.get_tb_mode()         
     print "get_tb_status()    %s   "%tb.get_tb_status()
