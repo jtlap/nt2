@@ -190,6 +190,7 @@ class Functor(Toolbox) :
             "\$self.arity\$"                : fct_arity,
             "\$self.class_list\$"           : strlist("class A%d"),
             "\$self.const_type_list\$"      : strlist("A0",0), 
+            "\$self.const_class_list\$"     : strlist("class A0",0), 
             "\$self.type_list\$"            : strlist("A%d"),
             "\$self.call_list\$"            : strlist("const A%d& a%d",2),
             "\$self.const_type_call_list\$" : strlist("const A0& a%d",1),

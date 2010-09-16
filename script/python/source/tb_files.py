@@ -150,6 +150,26 @@ class Tb_files(Tb_tree) :
         h = Headers(rp,"include",inner=inn)
         h.write_header2(fname,check=check)
 
+        # phase 2 creation of the CMakeLists global file
+        print "phase 2 "
+        fname = os.path.join(a,'CMakeLists.txt')
+        inner_text = [
+            "",
+            "ADD_SUBDIRECTORY(bench)",
+            "ADD_SUBDIRECTORY(unit)",
+            "",
+            "##############################################################################",
+            "## TODO: Write command for building your own sources",
+            "##############################################################################"
+            ]
+        rp = os.path.join('nt2/toolbox/',r)
+        print "rp %s" % rp
+        print "fname %s" % fname
+        print "r %s " % r
+        h = Headers(rp, "/%s/CMakelists"%key,inner=inner_text, ext='.txt',comment='##')
+        h.write_header2(fname,flag='banner+inner',check=check)
+        return True
+
     def mk_base(self,check,a,r,name,key) :
         """the created file is the main include file for the toolboxes users.
         """
