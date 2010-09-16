@@ -6,25 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_SPLAT_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_SPLAT_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_EQUAL_TO_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_EQUAL_TO_HPP_INCLUDED
 
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace functors
 {
-  template<class T, class Info>
-  struct call<splat_<T>,tag::simd_(tag::arithmetic_,tag::altivec_), Info>
+  template<class Info>
+  struct call<is_equal_,tag::simd_(tag::arithmetic_,tag::altivec_),Info>
   {
-    typedef T result_type;
+    template<class Sig> struct result;
+    template<class This,class A>
+    struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL(1)
+    NT2_FUNCTOR_CALL(2)
     {
-      typename T::extraction_type v;
-      v.s[0] = a0;
-      T that = {vec_splat(v.v, 0)};
+      A0   that     = { vec_cmpeq(a0,a1) };
       return that;
     }
   };
