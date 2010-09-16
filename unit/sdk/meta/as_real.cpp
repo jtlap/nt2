@@ -6,26 +6,27 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::cardinal_of SIMD"
+#define NT2_UNIT_MODULE "nt2::meta::as_real"
 
-#include <unit/sdk/simd/types.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/functor/category.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that cardinal_of on SIMD types
+// Test that as_real is correct w/r to original sign
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(cardinal_of, NT2_SIMD_TYPES )
+NT2_TEST_CASE(as_real)
 {
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
+  using nt2::meta::as_real;
   using boost::is_same;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
-  typedef native<T,ext_t>                 native_t;
-  NT2_TEST_EQUAL( (cardinal_of<native_t>::value), NT2_SIMD_BYTES/sizeof(T) );
+  NT2_TEST( (is_same<as_real<double       >::type,double  >::value ));
+  NT2_TEST( (is_same<as_real<float        >::type,float   >::value ));
+  NT2_TEST( (is_same<as_real<nt2::int64_t >::type,double  >::value ));
+  NT2_TEST( (is_same<as_real<nt2::int32_t >::type,float   >::value ));
+  NT2_TEST( (is_same<as_real<nt2::uint64_t>::type,double  >::value ));
+  NT2_TEST( (is_same<as_real<nt2::uint32_t>::type,float   >::value ));
 }

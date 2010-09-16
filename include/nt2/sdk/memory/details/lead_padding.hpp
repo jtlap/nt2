@@ -21,7 +21,7 @@
 #include <nt2/sdk/memory/details/times.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <nt2/sdk/memory/details/no_padding.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // slice Functor implementation

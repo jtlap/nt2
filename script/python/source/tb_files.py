@@ -47,7 +47,6 @@ class Tb_files(Tb_tree) :
         self.__tb_files = files
         Tb_tree.__init__(self,root_name, root_abs_path, rel_tree)
 
-    def get_tb_style(self) : return self.__tb_style
     def get_tb_files(self) : return self.__tb_files
     
     def __mk_tb_files(self,check=False) :
@@ -85,7 +84,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,name+'.hpp')
         if check == 'check_only' :
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\nroot file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating include template for %s\n" % self.get_root_name()
@@ -102,14 +101,14 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,name)
         if check == 'check_only' :
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\npy_data file %s does not exist" % fname)
             return r 
         self.logger.info(
             "\ncreating toolbox py datas for %s\n" % self.get_root_name()
             )
         inner_text = [
             "datas = {",
-            "'style' : '%s'" % self.get_tb_style(),
+            "'style' : '%s'" % self.__tb_style,
             "}"
             ]
         rp = os.path.join('nt2/toolbox/',r)
@@ -124,7 +123,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,'include.hpp')
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\nroot include file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating toolbox include template for %s\n" % self.get_root_name()
@@ -158,7 +157,7 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(na,name+'.hpp')
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\nbase file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating toolbox include template for %s\n" % self.get_root_name()
@@ -166,7 +165,7 @@ class Tb_files(Tb_tree) :
         inner_text = [
             "",
             "// Please do not remove or modify the next line comment",
-            "// This toolbox is of %s type" % self.get_tb_style(),
+            "// This toolbox is of %s type" % self.__tb_style,
             "#include <nt2/nt2.hpp>",
             "#include <nt2/toolbox/" + self.get_root_name() + "/"+ \
              self.get_root_name() + ".hpp>",
@@ -183,10 +182,10 @@ class Tb_files(Tb_tree) :
         fname = os.path.join(a,name)
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\ninner file %s does not exist" % fname)
             return r
         self.logger.info(
-            "\ncreating CMakeLists.txt for %s benchmarks\n" % self.get_root_name()
+            "\ncreating CMakeLists.txt for %s benches/unit tests\n" % self.get_root_name()
             )
         inner_text = [
             "",
@@ -209,11 +208,12 @@ class Tb_files(Tb_tree) :
         return self.__mk_s(check,a,r,name,key,"simd")
         
     def __mk_s(self,check,a,r,name,key,st) :
-        """ creation de CMakeLists.txt dans nt2/<tb>/doc/<name>"""
+        """ creation de CMakeLists.txt dans nt2/<tb>/<unit/bench>/<name>"""
         fname = os.path.join(a,name)
+        benchortest = key.split('/')[0] 
         if check == 'check_only' : 
             r = exist(fname)
-            if not r : self.logger.info("\nfile %s does not exist" % fname)
+            if not r : self.logger.info("\ns file %s does not exist" % fname)
             return r
         self.logger.info(
             "\ncreating CMakeLists.txt for %s benchmarks\n" % self.get_root_name()
@@ -231,14 +231,15 @@ class Tb_files(Tb_tree) :
             "  ##**************************************************************************",
             "  ## Build the executable filename from the example source filename",
             "  ##**************************************************************************",
-            '  STRING(REGEX REPLACE ".cpp" ".%s.%s.bench" EXECUTABLE "${EXAMPLE}")'%(self.get_root_name(),st),
-            '  STRING(REGEX REPLACE ".cpp" "-%s.%s.bench" TEST "${EXAMPLE}")'%(self.get_root_name(),st),
+            '  STRING(REGEX REPLACE ".cpp" ".%s.%s.%s" EXECUTABLE "${EXAMPLE}")'%(self.get_root_name(),st,benchortest),
+            '  STRING(REGEX REPLACE ".cpp" "-%s.%s.%s" TEST "${EXAMPLE}")'%(self.get_root_name(),st,benchortest),
             "",
             "  ##**************************************************************************",
             "  ## Add as a target",
             "  ##**************************************************************************",
             "  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})",
             "  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)",
+            "  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})" if st=="simd" else "",         
             "  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})",
             "ENDFOREACH()",
             ]
@@ -257,9 +258,9 @@ if __name__ == "__main__":
         "unit",
         "unit/scalar",
         "unit/simd",
-        "benchmark",
-        "benchmark/scalar",
-        "benchmark/simd",
+        "bench",
+        "bench/scalar",
+        "bench/simd",
         "function",
         "function/scalar",
         "function/simd",
@@ -287,13 +288,13 @@ if __name__ == "__main__":
             "root"         : "$root_name$",
             "root_include" : "include.hpp",
             },
-        "benchmark" :            {
+        "bench" :            {
             "inner"        : "CMakeLists.txt"
             },
-        "benchmark/scalar" : {
+        "bench/scalar" : {
             "scalar"       : "CMakeLists.txt"
             },
-        "benchmark/simd" :   {  
+        "bench/simd" :   {  
             "simd"         : "CMakeLists.txt",
             },
         "unit" :                 {

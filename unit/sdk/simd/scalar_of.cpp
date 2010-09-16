@@ -8,36 +8,25 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::scalar_of SIMD"
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/simd/native.hpp>
+#include <unit/sdk/simd/types.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that scalar_of on scalar is idempotent
+// Test that scalar_of on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(scalar_of_scalar)
+NT2_TEST_CASE_TPL(scalar_of_simd, NT2_SIMD_TYPES)
 {
   using nt2::simd::native;
   using nt2::meta::scalar_of;
   using boost::is_same;
-  using namespace nt2;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef native<T,ext_t>                 native_t;
 
-  #if defined(NT2_SIMD_SSE_FAMILY)
-  NT2_TEST( (is_same<scalar_of<native<double  ,ext_t>      >::type, double        >::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::uint64_t,ext_t> >::type, nt2::uint64_t >::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::int64_t ,ext_t> >::type, nt2::int64_t  >::value) );
-  #endif
-
-  NT2_TEST( (is_same<scalar_of<native<float   ,ext_t> >::type, float   >::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::uint32_t,ext_t> >::type , nt2::uint32_t>::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::uint16_t,ext_t> >::type , nt2::uint16_t>::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::uint8_t ,ext_t> >::type , nt2::uint8_t >::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::int32_t ,ext_t> >::type , nt2::int32_t >::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::int16_t ,ext_t> >::type , nt2::int16_t >::value) );
-  NT2_TEST( (is_same<scalar_of<native<nt2::int8_t ,ext_t> >::type  , nt2::int8_t  >::value) );
+  NT2_TEST( (is_same<typename scalar_of<native_t>::type, T >::value) );
 }

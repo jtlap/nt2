@@ -88,7 +88,7 @@ class Tb_tree :
         for l in  self.get_abs_tree() :
             r = exist(l)
             if not r :
-                self.logger.info("\nfile %s does not exist" % fname)
+                self.logger.info("\ndirectory %s\ndoes not exist\n" % l)
                 return False
         return True       
 
@@ -122,19 +122,19 @@ if __name__ == "__main__":
         "unit",
         "unit/scalar",
         "unit/simd",
-        "benchmark",
-        "benchmark/scalar",
-        "benchmark/simd",
+        "bench",
+        "bench/scalar",
+        "bench/simd",
         "function",
         "function/scalar",
         "function/simd",
         "function/simd/common",
         "function/simd/vmx", 
-        "function/simd/vmx/common_vmx",
+        "function/simd/vmx/common",
         "function/simd/vmx/altivec",
         "function/simd/vmx/spu",
         "function/simd/sse",
-        "function/simd/sse/common_sse",
+        "function/simd/sse/common",
         "function/simd/sse/sse2",
         "function/simd/sse/sse3",
         "function/simd/sse/ssse3",

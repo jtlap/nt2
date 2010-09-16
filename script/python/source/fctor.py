@@ -42,7 +42,7 @@ class Functor(Toolbox) :
                 "tokn" : "//<\include>",
                 },
             },
-        "benchmark/scalar"       : {
+        "bench/scalar"       : {
             'add'   : {
                 "file" : "$fct_name$.cpp",
                 "tmpl" : "mk_cppbench.tpl",
@@ -56,7 +56,7 @@ class Functor(Toolbox) :
                 "tokn" : "SET\( SOURCES",
                 },
             },
-        "benchmark/simd"       : {
+        "bench/simd"       : {
             'add'   : {
                 "file" : "$fct_name$.cpp",
                 "tmpl" : "mk_cppbench.tpl",
@@ -155,11 +155,16 @@ class Functor(Toolbox) :
         }
     def __init__(self, tool_box_name,
                  mode = 'modify',
-                 style='sys',
+                 style='usr',
                  actions = None) :
-        Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
-        if not self.get_status() : raise SystemExit
         self.logger = Mylogging("nt2.fctor.Functor")
+        Toolbox.__init__(self, tool_box_name, mode=mode, style=style)
+        if not self.get_tb_status() and mode !='check' :
+            self.logger.error(
+                "\ntoolbox %s has invalid status\n" % self.get_tb_name() +
+                "aborting"
+                )
+            raise SystemExit
         self.__fct_actions = Functor.Fct_actions if actions is None else actions
         self.ext='.hpp'
         
@@ -167,18 +172,20 @@ class Functor(Toolbox) :
         
     def add_functor(self,fct_name,fct_arity=1) :
         "adding a new functor"
+        self.read_style()
         def strlist(tpl,n=1,sep = ", ") :
             s = tpl % (n*(0,))
             tpl =sep+tpl
             for i in range(1,fct_arity) :
                 s += tpl % (n*(i,))
             return s
-        if self.get_tb_style()=='usr' :
+        if self.get_tb_style()[0] != 's' :
             tb_taggedname =  self.get_tb_name()+'::'+fct_name
         else :
-            tb_taggedname = fct_name       
+            tb_taggedname = fct_name
         subs_dict = {
             "\$self.tb_name\$"              : self.get_tb_name(),
+            "\$self.tb_nameupper\$"         : self.get_tb_name().upper()
             "\$self.name\$"                 : fct_name,
             "\$self.arity\$"                : fct_arity,
             "\$self.class_list\$"           : strlist("class A%d"),

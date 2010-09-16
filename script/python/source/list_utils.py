@@ -19,9 +19,11 @@ def show(l,empty="input list is empty "):
     warn for emptyness"""
     if not l :
         print(empty)
-    else :
+    elif type(l) is list :
         for ll in l : print ll
-    
+    elif type(l) is dict :
+        for k,v in l.items() : print "%s -> %s" %(k,v)
+
 
 
 if __name__ == "__main__":

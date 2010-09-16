@@ -24,7 +24,7 @@ SET( SOURCES
     static_buffer.cpp
     slice.cpp
     stride.cpp
-    dynamic_block.cpp
+#    dynamic_block.cpp
   )
 
 ################################################################################
