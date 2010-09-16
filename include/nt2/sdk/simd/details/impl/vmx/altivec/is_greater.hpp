@@ -14,7 +14,7 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<is_gretaer_,tag::simd_(tag::arithmetic_,tag::altivec_),Info>
+  struct call<is_greater_,tag::simd_(tag::arithmetic_,tag::altivec_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A>
