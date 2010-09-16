@@ -1,6 +1,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace $self.tb_namespace$
+namespace nt2 { namespace functors
 {
   /////////////////////////////////////////////////////////////////////////////
   // Compute $self.name$($self.const_type_call_list$)

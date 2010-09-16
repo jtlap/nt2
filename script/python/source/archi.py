@@ -14,7 +14,7 @@ class Sse :
     """hierarchy of sse implementations"""
     Variants = {
         "common" : "common",
-        "sse2"   : "sse/common_sse",
+        "sse2"   : "sse/common",
         "sse3"   : "sse/sse2",
         "ssse3"  : "sse/sse3",
         "sse4_1" : "sse/ssse3",

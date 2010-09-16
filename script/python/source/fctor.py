@@ -185,6 +185,7 @@ class Functor(Toolbox) :
             tb_taggedname = fct_name
         subs_dict = {
             "\$self.tb_name\$"              : self.get_tb_name(),
+            "\$self.tb_nameupper\$"         : self.get_tb_name().upper()
             "\$self.name\$"                 : fct_name,
             "\$self.arity\$"                : fct_arity,
             "\$self.class_list\$"           : strlist("class A%d"),
