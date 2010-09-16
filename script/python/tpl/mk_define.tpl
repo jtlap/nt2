@@ -1,4 +1,4 @@
-#include <nt2/include/simd.hpp>,
+#include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/$self.tb_name$/include.hpp>
 
