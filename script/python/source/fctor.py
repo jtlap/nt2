@@ -346,6 +346,15 @@ class Functor(Toolbox) :
         else :
             return (False,text)
 
+    def read_functor(self,fct_name,type) :
+        fct_name_path = os.path.join(self.get_tb_abs_path(),'function',type,fct_name+'.hpp')
+        r = read(fct_name_path)
+        return r
+
+    def write_functor(self,fct_name,type,s,check) :
+        fct_name_path = os.path.join(self.get_tb_abs_path(),'function',type,fct_name+'.hpp')
+        r = write(fct_name_path,s,check)
+
 if __name__ == "__main__":
     Mylogging.set_level('ERROR')
     tb = Functor("pipo3")
