@@ -75,8 +75,6 @@ include_directories( ${PROJECT_BINARY_DIR}/include)
 
 file( GLOB_RECURSE source_files
       ${PROJECT_SOURCE_DIR}/src/*
-      ${PROJECT_SOURCE_DIR}/include/*
-		  ${PROJECT_BINARY_DIR}/include/*
     )
 
 add_library(nt2 STATIC ${source_files} )

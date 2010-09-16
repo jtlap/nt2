@@ -26,43 +26,17 @@
 
 namespace nt2 { namespace meta
 {
-  struct dominant
-  {
-    template<class Sig> struct result;
-
-    #if defined(BOOST_HAS_VARIADIC_TMPL)
-    template<class This, class... Args>
-    struct  result<This(Args...)> : details::dominant< Args... >
-    {};
-
-    template<class... Args>
-    typename result<dominant(Args...)>::type
-    operator()(Args&& ... ) const
-    {
-      typename result<dominant(Args...)>::type that;
-      return that;
-    };
-
-    #else
-    #define M0(z,n,t)                                                     \
-    template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                       \
-          : details::dominant<BOOST_PP_ENUM_PARAMS(n,A)>                  \
-    {};                                                                   \
-                                                                          \
-    template<BOOST_PP_ENUM_PARAMS(n,class A) >                            \
-    typename result<dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type            \
-    operator()                                                            \
-    (BOOST_PP_ENUM_BINARY_PARAMS(n,A, const & BOOST_PP_INTERCEPT)) const  \
-    {                                                                     \
-      typename result<dominant(BOOST_PP_ENUM_PARAMS(n,A))>::type that;    \
-      return that;                                                        \
-    }                                                                     \
-    /**/
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
-    #undef M0
-    #endif
-  };
+	#if defined(BOOST_HAS_VARIADIC_TMPL)
+  template<class... Args> struct dominant : details::dominant<Args...>  {};
+	#else
+  template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
+                                        , class A
+                                        , = meta::na_ BOOST_PP_INTERCEPT
+                                        )
+          >
+  struct dominant : details::dominant<BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY,A)>
+  {};
+  #endif
 } }
 
 #endif

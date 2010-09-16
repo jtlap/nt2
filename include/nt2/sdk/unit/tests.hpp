@@ -13,8 +13,10 @@
 // Unit test predicates macros
 // Documentation: http://nt2.lri.fr/sdk/unit/tests.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluates an expression and checks if it evaluates to true or not

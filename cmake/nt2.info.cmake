@@ -47,7 +47,7 @@ SET( NT2_AMD_PROCESSOR 1)
 ################################################################################
 # X86 familly processor
 ################################################################################
-ELSEIF(  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[4-9]86*")
+ELSEIF(  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[3-9]86*")
       OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86*")
       OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*")
       )
