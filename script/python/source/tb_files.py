@@ -108,7 +108,7 @@ class Tb_files(Tb_tree) :
             )
         inner_text = [
             "datas = {",
-            "'style' : '%s'" % self.__tb_style(),
+            "'style' : '%s'" % self.__tb_style,
             "}"
             ]
         rp = os.path.join('nt2/toolbox/',r)
@@ -165,7 +165,7 @@ class Tb_files(Tb_tree) :
         inner_text = [
             "",
             "// Please do not remove or modify the next line comment",
-            "// This toolbox is of %s type" % __tb_style(),
+            "// This toolbox is of %s type" % self.__tb_style,
             "#include <nt2/nt2.hpp>",
             "#include <nt2/toolbox/" + self.get_root_name() + "/"+ \
              self.get_root_name() + ".hpp>",
