@@ -25,7 +25,7 @@ import sys
 import string
 import re
 
-from file_utils    import write, exist, mkdir
+from file_utils    import write, exist, mkdir, read
 from headerfiles   import Headers
 from nt2_base      import Nt2
 from mylogging     import Mylogging
@@ -45,10 +45,11 @@ class Tb_files(Tb_tree) :
         self.logger = Mylogging("nt2.tb_files.Tb_files")
         self.__tb_style = style
         self.__tb_files = files
+        self.__root_abs_path = root_abs_path
         Tb_tree.__init__(self,root_name, root_abs_path, rel_tree)
 
     def get_tb_files(self) : return self.__tb_files
-    
+
     def __mk_tb_files(self,check=False) :
         """ calling this method suppose that create_tree
         was invoked earlier
@@ -66,6 +67,7 @@ class Tb_files(Tb_tree) :
                     if callable(action) : 
                         value = action(self,check,a,r,name,key)
                         if (check == "check_only") and not value : return False
+        if self.__tb_style == 'sys' : self.update_CMake(check)
         return True
     
     def create_tb_files(self) :
@@ -76,6 +78,17 @@ class Tb_files(Tb_tree) :
 
     def check_tb_files(self) :
         return self.__mk_tb_files(check='check_only')
+
+    def update_CMake(self,check) :
+        lp = self.__root_abs_path.split('/')
+        p = os.path.join('/'.join(lp[:-4]),'CMakeLists.txt')
+        s= read(p)
+        pattern = "ADD_SUBDIRECTORY\(\${PROJECT_BINARY_DIR}/include/nt2/toolbox/"+self.get_tb_name()+'\)'
+        for l in s :
+            m = re.match(pattern, l)
+            if m : return
+        s.append(string.replace(pattern,'\\',''))    
+        write(p,s,False)
 
     def mk_root(self,check,a,r,name,key) :
         """the created file will contain the include list of functors
@@ -151,7 +164,7 @@ class Tb_files(Tb_tree) :
         h.write_header2(fname,check=check)
 
         # phase 2 creation of the CMakeLists global file
-        print "phase 2 "
+
         fname = os.path.join(a,'CMakeLists.txt')
         inner_text = [
             "",
@@ -163,9 +176,6 @@ class Tb_files(Tb_tree) :
             "##############################################################################"
             ]
         rp = os.path.join('nt2/toolbox/',r)
-        print "rp %s" % rp
-        print "fname %s" % fname
-        print "r %s " % r
         h = Headers(rp, "/%s/CMakelists"%key,inner=inner_text, ext='.txt',comment='##')
         h.write_header2(fname,flag='banner+inner',check=check)
         return True

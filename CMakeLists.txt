@@ -119,3 +119,8 @@ ADD_CUSTOM_TARGET(benchmarks
                  )
 
 ADD_SUBDIRECTORY(benchmark)
+
+################################################################################
+# sys toolboxes inclusions
+################################################################################
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/<tbname>)
