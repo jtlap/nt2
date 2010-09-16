@@ -10,7 +10,7 @@ namespace nt2 { namespace functors
               tag::simd_(tag::arithmetic_,Extension),Dummy>
   {
     template<class Sig> struct result;
-    template<class This,$self.class_list$>
+    template<class This,class A0>
     struct result<This($self.const_type_list$)> : meta::strip<A0>{};
 
     // see documentation http://nt2.lri.fr/extension/custom_function.html

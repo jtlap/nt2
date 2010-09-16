@@ -6,7 +6,7 @@ namespace nt2 { namespace $self.tb_namespace$
   {	       
     struct $self.name$_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION($self.tb_name$::$self.name$_, $self.name$, $self.arity$)
+  NT2_FUNCTION_IMPLEMENTATION($self.tb_namespace$::$self.name$_, $self.name$, $self.arity$)
 }
  
 #include <nt2/toolbox/$self.tb_name$/function/scalar/$self.name$.hpp>
