@@ -9,6 +9,9 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_MODULO_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_MODULO_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
+
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
