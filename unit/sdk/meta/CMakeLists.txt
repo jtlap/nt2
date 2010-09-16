@@ -9,21 +9,25 @@
 
 SET( SOURCES
     any.cpp
+    arithmetic.cpp
     as_integer.cpp
-#    as_real.cpp
+    as_bits.cpp
+    as_real.cpp
     cardinal_of.cpp
     category_of.cpp
+    from_bits.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp
     make_integer.cpp
-#    make_real.cpp
+    make_real.cpp
     scalar_of.cpp
     set.cpp
     sign_of.cpp
     strip.cpp
    )
 
+include_directories( ${PROJECT_SOURCE_DIR}/)
 
 ################################################################################
 # For each filename
