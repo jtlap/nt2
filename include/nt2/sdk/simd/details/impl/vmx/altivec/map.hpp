@@ -13,13 +13,13 @@
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 
-#define NT2_MAP_INTERFACE(z,n,t)                                          \
-template<class This,class F,class A>                                      \
-struct result<This(F,NT2_PP_ENUM_VALUE(n,A))> : meta::strip<A> {};        \
-NT2_FUNCTOR_CALL_DISPATCH( BOOST_PP_INC(n)                                \
-                         , typename nt2::meta::scalar_of<A1>::type        \
-                         , (4,(float,int8_,int16_,int32_))  \
-                         )                                                \
+#define NT2_MAP_INTERFACE(z,n,t)									\
+template<class This,class F,class A>								\
+struct result<This(F,NT2_PP_ENUM_VALUE(n,A))> : meta::strip<A> {};	\
+NT2_FUNCTOR_CALL_DISPATCH( BOOST_PP_INC(n)							\
+                         , typename nt2::meta::scalar_of<A1>::type	\
+                         , (4,(float,int8_,int16_,int32_))  		\
+                         )											\
 /**/
 
 #define NT2_MAP_ARGS(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t] \
@@ -43,7 +43,7 @@ NT2_FUNCTOR_CALL_EVAL_IF(BOOST_PP_INC(n),BOOST_PP_TUPLE_ELEM(2,0,t))  \
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<map_,tag::simd_(tag::arithmetic_,tag::vmx_),Info>
+  struct call<map_,tag::simd_(tag::arithmetic_,tag::altivec_),Info>
   {
     template<class Sig> struct result;
     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_INTERFACE,~)
