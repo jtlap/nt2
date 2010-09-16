@@ -20,25 +20,26 @@ namespace nt2 { namespace functors
   // load with no offset
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Info>
-  struct call<load_<T,0>,tag::simd_(tag::arithmetic_,tag::vmx_), Info>
+  struct call<load_<T,0>,tag::simd_(tag::arithmetic_,tag::altivec_), Info>
   {
     typedef T result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      result_type that = { vec_ld(a1*meta::cardinal_of<T>::value,a0) };
+      result_type that = { vec_ld(a1*16,a0) };
       return that;
     }
   };
-/*
+
   //////////////////////////////////////////////////////////////////////////////
   // load with a scalar offset
   //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset,class Info>
-  struct call<load_<T,Offset>,tag::simd_(tag::arithmetic_,tag::vmx_), Info>
+  struct call<load_<T,Offset>,tag::simd_(tag::arithmetic_,tag::altivec_), Info>
   {
     BOOST_STATIC_CONSTANT(std::size_t, card = meta::cardinal_of<T>::value );
     typedef T result_type;
+
 
     ////////////////////////////////////////////////////////////////////////////
     // Internal offset based load generation
@@ -74,6 +75,7 @@ namespace nt2 { namespace functors
       }
     };
 
+/*
     ////////////////////////////////////////////////////////////////////////////
     // Offset is a fragment of vector cardinal and goes forward
     // TODO: Refactor using | and sli/sri
@@ -175,9 +177,8 @@ namespace nt2 { namespace functors
                   };
         return that;
       }
-    };
+    };*/
   };
-*/
 } }
 
 
