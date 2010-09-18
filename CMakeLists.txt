@@ -128,4 +128,16 @@ ADD_SUBDIRECTORY(benchmark)
 # System-level toolbox inclusion
 ################################################################################
 
-
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/trigonometric)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/predicates)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/fuzzy)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/hyperbolic)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/exponential)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/reduction)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/elliptic)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bessel)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/combinatorial)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/euler)

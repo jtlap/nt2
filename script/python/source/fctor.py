@@ -36,7 +36,13 @@ class Functor(Toolbox) :
     """adding/removing functors to a toolbox"""
     Fct_actions = {
         "" : {
-            'mdy'   : {
+            'add'   : {
+                "file" : "../../include/functions/$fct_name$.hpp",
+                "tmpl" : "gbl_include.tpl",
+                "cmmt" : "//",
+                "head" : 'full',
+                },
+             'mdy'   : {
                 "file" : "$root_name$.hpp",
                 "l2ad" : "#include <$self.tb_pathfnt2$/include/$fct_name$.hpp>",
                 "tokn" : "//<\include>",
@@ -217,9 +223,13 @@ class Functor(Toolbox) :
     def add(self,fct_name,acts,subs_dict,action_data,check=True) :
         """add a file"""
         fname = action_data["file"].replace('$fct_name$',fct_name)
-        fct_name_path = os.path.join(self.get_tb_abs_path(),acts,fname)
-        rel_path = os.path.join(self.get_tb_pathfnt2(),acts)
+        fct_name_path = os.path.abspath(os.path.join(self.get_tb_abs_path(),acts,fname))
+        if acts != "" :
+            rel_path = os.path.join(self.get_tb_pathfnt2(),acts)
+        else :
+            rel_path = 'nt2/include/functions'
         tplname = '../tpl/'+action_data["tmpl"]
+        # print  "action_data[tmpl] %s" % action_data["tmpl"]
         tpl_name_path = os.path.join(nt2_py_dir(),tplname)
         if "parm" in action_data.keys() :
             s = subs_dict["\$parms_type_and_ranges\$"]
@@ -231,12 +241,13 @@ class Functor(Toolbox) :
         comment = action_data["cmmt"]
         flag    = action_data["head"]
         h = Headers(rel_path,fct_name,inner=inner_text,comment=comment)
+        # print "fct_name_path %s" % fct_name_path
         h.write_header2(fct_name_path,flag=flag,check=check)
          
     def dda(self,fct_name,acts,subs_dict,action_data,check=True) :
         """remove a file: reverse of add"""
         fname = action_data["file"].replace('$fct_name$',fct_name)
-        fct_name_path = os.path.join(self.get_tb_abs_path(),acts,fname)
+        fct_name_path = os.path.abspath(os.path.join(self.get_tb_abs_path(),acts,fname))
         os.remove(fct_name_path)  
 
     def mdy(self,fct_name,acts,subs_dict,action_data,check=True) :
