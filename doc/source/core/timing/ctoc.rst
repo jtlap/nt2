@@ -46,7 +46,7 @@ Expression Semantic
 
 **Semantics:** Returns the amount of cycles elapsed since the nearest
 :ref:`timing_function_ctic` call. If ``display`` is set to true, a message is
-send to the standard output.
+send to standard output.
 
 **Exception:** Throws an :ref:`unbalanced_timing` if called without a previous
 call to :ref:`timing_function_ctic`.

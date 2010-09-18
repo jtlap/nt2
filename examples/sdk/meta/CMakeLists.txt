@@ -13,6 +13,7 @@ SET(SOURCES
     join.cpp
     any.cpp
     enable_if_type.cpp
+    strip.cpp
     )
 
 ################################################################################

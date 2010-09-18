@@ -14,3 +14,4 @@ Boost.Fusion or Boost.TypeTraits.
    meta/helper
    meta/sets
    meta/tags
+   meta/traits

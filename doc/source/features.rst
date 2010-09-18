@@ -10,7 +10,7 @@ Features
            :target: http://www.gitorious.org
 
 
-Matlab-like Interface
+MATLAB-like Interface
 ^^^^^^^^^^^^^^^^^^^^^
 
 Architectural Support
