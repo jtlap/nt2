@@ -1,6 +1,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace $self.tb_namespace$
+namespace nt2 { namespace functors
 {
   /////////////////////////////////////////////////////////////////////////////
   // Compute $self.name$($self.const_type_call_list$)
@@ -10,7 +10,7 @@ namespace nt2 { namespace $self.tb_namespace$
               tag::simd_(tag::arithmetic_,Extension),Dummy>
   {
     template<class Sig> struct result;
-    template<class This,A0>
+    template<class This,class A0>
     struct result<This($self.const_type_list$)> : meta::strip<A0>{};
 
     // see documentation http://nt2.lri.fr/extension/custom_function.html

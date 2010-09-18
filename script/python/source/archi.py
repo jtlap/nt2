@@ -13,8 +13,8 @@ __license__   = "Python"
 class Sse :
     """hierarchy of sse implementations"""
     Variants = {
-        "common_sse" : "common",
-        "sse2"   : "sse/common_sse",
+        "common" : "common",
+        "sse2"   : "sse/common",
         "sse3"   : "sse/sse2",
         "ssse3"  : "sse/sse3",
         "sse4_1" : "sse/ssse3",
@@ -36,9 +36,9 @@ class Sse :
 class Vmx :
     """hierarchy of sse implementations"""
     Variants = {
-        "common_vmx"    : "common",
-        "altivec"       : "vmx/common_vmx",
-        "spu"           : "vmx/common_vmx"
+        "common"        : "common",
+        "altivec"       : "vmx/common",
+        "spu"           : "vmx/common"
         }
     def __init__(self) :
         pass

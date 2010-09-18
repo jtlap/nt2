@@ -48,3 +48,4 @@ include/nt2/sdk/config/bootstrap.hpp
 lib/*
 *tags
 *.pyc
+*#*

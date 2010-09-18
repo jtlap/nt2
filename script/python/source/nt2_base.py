@@ -24,35 +24,35 @@ class Nt2 :
         'core'    : "nt2/core/",
         'sdk'     : "nt2/sdk/"
         }
-    Std_arbo = [
-        ["include",
-         "src",   
-         {"doc" : ["source"] },
-         {"unit": ["scalar_ut","simd_ut"] },
-         {"benchmark": ["scalar_bch","simd_bch"] },
-         {"function" :
-          ["scalar",
-           {"simd"   :
-            ["common",
-             {"vmx" : Vmx.Variants.keys() },
-             {"sse" : Sse.Variants.keys() }
-             ]
-            }
-           ]
-          }
-         ]
-        ]
+##    Std_arbo = [
+##        ["include",
+##         "src",   
+##         {"doc" : ["source"] },
+##         {"unit": ["scalar","simd"] },
+##         {"bench": ["scalar","simd"] },
+##         {"function" :
+##          ["scalar",
+##           {"simd"   :
+##            ["common",
+##             {"vmx" : Vmx.Variants.keys() },
+##             {"sse" : Sse.Variants.keys() }
+##             ]
+##            }
+##           ]
+##          }
+##         ]
+##        ]
                                                                          
-    Std_actions = {
-        "benchmark": ["benchmark",     'std',  'benchmark'               ],     
-        "doc"      : ["doc",           'std',  'doc/source/'             ],    
-        "include"  : ["include",       'std',  'include/'                ],          
-        "function" : ["define",        'std',  'function/'               ],                   
-        "scalar"   : ["scalar",        'std',  'function/scalar/'        ],
-        "common"   : ["common",        'std',  'function/simd/common/'   ],     
-        "vmx"      : ["hierarchy",     'hie',  'function/simd/vmx/', Vmx ],
-        "sse"      : ["hierarchy",     'hie',  'function/simd/sse/', Sse ]
-        }
+##    Std_actions = {
+##        "bench": ["bench",     'std',  'bench'               ],     
+##        "doc"      : ["doc",           'std',  'doc/source/'             ],    
+##        "include"  : ["include",       'std',  'include/'                ],          
+##        "function" : ["define",        'std',  'function/'               ],                   
+##        "scalar"   : ["scalar",        'std',  'function/scalar/'        ],
+##        "common"   : ["common",        'std',  'function/simd/common/'   ],     
+##        "vmx"      : ["hierarchy",     'hie',  'function/simd/vmx/', Vmx ],
+##        "sse"      : ["hierarchy",     'hie',  'function/simd/sse/', Sse ]
+##        }
     def __init__(self,
                  mode='toolbox',
                  arbo=None,
@@ -60,8 +60,8 @@ class Nt2 :
         self.logger = Mylogging("nt2.nt2_base.Nt2")
         self.__mode = mode
         self.__pathfnt2 = self.path_from_nt2(self.__mode)
-        self.__actions = (Nt2.Std_actions if actions is None else actions)
-        self.__arbo    = (Nt2.Std_arbo if arbo is None else arbo)
+#        self.__actions = (Nt2.Std_actions if actions is None else actions)
+#        self.__arbo    = (Nt2.Std_arbo if arbo is None else arbo)
         self.__path2nt2=nt2_dir()
 
     def get_path_from_nt2(self) : return self.__pathfnt2
@@ -79,7 +79,7 @@ class Nt2 :
                             self.path_from_nt2(mode))
     def get_mode(self) : return self.__mode
     def get_arbo(self) : return self.__arbo
-    def get_actions(self) : return self.__actions
+#    def get_actions(self) : return self.__actions
 
 
     

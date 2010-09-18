@@ -24,37 +24,44 @@ class Banner :
        you can also define or add to the default list banner_cprth (copyrights)
     """
     Std_begin = [
-        "/******************************************************************************",
+        "//****************************************************************************",
         ]
     Std_end = [
-        " *                                                                             ",
-        " *          Distributed under the Boost Software License, Version 1.0.         ",
-        " *                 See accompanying file LICENSE.txt or copy at                ",
-        " *                     http://www.boost.org/LICENSE_1_0.txt                    ",
-        " *****************************************************************************/",
+        "//*",
+        "//*          Distributed under the Boost Software License, Version 1.0",
+        "//*                 See accompanying file LICENSE.txt or copy at",
+        "//*                     http://www.boost.org/LICENSE_1_0.txt",
+        "//****************************************************************************",
         ]
     Std_cpght = [
-        " *        Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand      ",  
-        " *        Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI           ",
+        "//*   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand",  
+        "//*   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI",
         ]
     def __init__(self,
                  year = None,
                  banner_cpght = None,
                  banner_template_begin = None,
-                 banner_template_end   = None) :
+                 banner_template_end   = None,
+                 comment = '//') :
         self.logger = Mylogging("nt2.banner.Banner")
         self.__banner_begin = Banner.Std_begin if (banner_template_begin is None) else banner_template_begin
         self.__banner_end   = Banner.Std_end   if (banner_template_end   is None) else banner_template_end
         self.__banner_cpght = Banner.Std_cpght if (banner_cpght          is None) else banner_cpght 
         self.__year = year
+        self.__comment=comment
         self.set_year()
-
+        self.cpght = sub_list('^//',self.__comment,self.__banner_cpght)
+        self.__banner_begin = sub_list('^//',self.__comment,self.__banner_begin)
+        self.__banner_end = sub_list('^//',self.__comment,self.__banner_end)
+        self.__banner_cpght = sub_list('<year>',self.__year,self.__banner_cpght)
+        self.__banner_cpght = sub_list('^//',self.__comment,self.__banner_cpght)
     def add_cpght(self, cpght) :
         if type(cpght) is str :
             self.__banner_cpght.append(cpght)
         elif type(cpght) is list :
             self.__banner_cpght.extend(cpght)
         self.__banner_cpght = sub_list('<year>',self.__year,self.__banner_cpght)
+        self.__banner_cpght = sub_list('^//',self.__comment,self.__banner_cpght)
                   
     def __str__(self) :
         return "\n".join(self.__call__())
@@ -114,6 +121,10 @@ if __name__ == "__main__":
     print banner
     banner = Banner('z')
     print banner
-    banner.add_cpght(" *        Copyright 1907-<year> ZORGLUB THE GREAT      ") 
+    banner.add_cpght("//*      Copyright 1907-<year> ZORGLUB THE GREAT      ") 
+    print banner
+    banner = Banner('z',comment='##')
+    print banner
+    banner.add_cpght("//*      Copyright 1907-<year> ZORGLUB THE GREAT      ") 
     print banner
 
