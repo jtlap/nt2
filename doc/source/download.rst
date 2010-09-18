@@ -17,11 +17,11 @@ repository from GitHub via the following command:
 
   git clone git@github.com:jfalcou/nt2.git
 
-You can play it safe by staying in the ``master`` branch, participate into some
-of our development effort in one of the other branches or create a new branch
+You can play it safe by staying in the ``master`` branch, participate in some
+of our development efforts in one of the other branches or create a new branch
 yourself to fix bugs or extend |nt2| to your liking. Patches and feature requests 
 are of course accepted and will be reviewed before inclusion in the ``master`` branch.
 
-What's Next ?
-^^^^^^^^^^^^^
+What's Next?
+^^^^^^^^^^^^
 

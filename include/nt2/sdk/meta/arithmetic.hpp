@@ -59,9 +59,7 @@ namespace nt2	{ namespace meta
     template<class This,class A0>
 		struct result<This(A0)> : strip<A0> {};
 
-		#define M0(z,n,t)  static BOOST_PP_CAT(A,n)& BOOST_PP_CAT(a,n);
-		#define M1(z,n,t)  + BOOST_PP_CAT(a,n)
-		#define M2(z,n,t)																																\
+		#define M3(z,n,t)																																\
 		template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>														\
 		struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>																	\
 		{																																								\
@@ -71,10 +69,8 @@ namespace nt2	{ namespace meta
 		};																																							\
 		/**/
 
-		BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M2,~)
-		#undef M2
-		#undef M1
-		#undef M0
+		BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M3,~)
+		#undef M3
 	};
 } }
 

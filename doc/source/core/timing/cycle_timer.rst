@@ -9,7 +9,7 @@ cycle_timer
 Description
 ^^^^^^^^^^^
 :ref:`class_cycle_timer` is a RAII-based timing class that performs safe timing in a given
-code block and prevent the misuse of the :ref:`timing_function_ctic`/
+code block and prevents the misuse of the :ref:`timing_function_ctic`/
 :ref:`timing_function_ctoc` function pairs.
 
 Header File
@@ -48,12 +48,12 @@ cycle_timer(double&, bool)
 
   cycle_timer(double& elapsed, bool display = true);
 
-**Description:**  Creates an instance of :ref:`class_cycle_timer`, links it to
-a user-defined variable that will contains the result of the timing when the
-current instance will go out of scope and starts a timing section calling
-:ref:`timing_function_ctic`. The display parameters controls if the inner
-:ref:`timing_function_ctoc` call will display the elapsed time automatically or
-not.
+**Description:** Creates an instance of :ref:`class_cycle_timer`, links it to
+a user-defined variable that will contain the result of the timing when the
+current instance goes out of scope and starts a timing section by calling
+:ref:`timing_function_ctic`. The display parameters specifies if the inner
+:ref:`timing_function_ctoc` call will display the elapsed time to standard
+output or not.
 
 Example
 ^^^^^^^

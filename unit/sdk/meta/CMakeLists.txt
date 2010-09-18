@@ -15,6 +15,7 @@ SET( SOURCES
     as_real.cpp
     cardinal_of.cpp
     category_of.cpp
+    downgrade.cpp
     from_bits.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
@@ -25,6 +26,7 @@ SET( SOURCES
     set.cpp
     sign_of.cpp
     strip.cpp
+    upgrade.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)

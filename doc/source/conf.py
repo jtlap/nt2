@@ -100,6 +100,7 @@ rst_epilog = """
 .. |us|       replace:: ``uint16_t``
 .. |uc|       replace:: ``uint8_t``
 .. |nt2|       replace:: **NT**:sup:`2`
+.. |mt|        replace:: **MATLAB**:sup:`TM`
 .. |altivec|   replace:: Altivec
 .. |sse|       replace:: SSE Extensions
 .. |result_of| replace:: result_of protocol

@@ -83,7 +83,6 @@ add_library(nt2 STATIC ${source_files} )
 ################################################################################
 # Install libnt2
 ################################################################################
-
 INSTALL( DIRECTORY ${PROJECT_SOURCE_DIR}/include
          DESTINATION ${CMAKE_INSTALL_PREFIX} )
 INSTALL( DIRECTORY ${PROJECT_BINARY_DIR}/include
@@ -104,6 +103,10 @@ ADD_CUSTOM_TARGET ( doc
 ################################################################################
 # Add Examples
 ################################################################################
+ADD_CUSTOM_TARGET(examples
+                  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/examples
+                 )
+
 ADD_SUBDIRECTORY(examples)
 
 ################################################################################
@@ -126,5 +129,3 @@ ADD_SUBDIRECTORY(benchmark)
 ################################################################################
 
 
-ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic)
-ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise)

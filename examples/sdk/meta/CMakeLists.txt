@@ -13,6 +13,7 @@ SET(SOURCES
     join.cpp
     any.cpp
     enable_if_type.cpp
+    strip.cpp
     )
 
 ################################################################################
@@ -29,5 +30,6 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  ADD_DEPENDENCIES(examples ${EXECUTABLE})
 ENDFOREACH()
 
