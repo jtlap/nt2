@@ -129,5 +129,3 @@ ADD_SUBDIRECTORY(benchmark)
 ################################################################################
 
 
-ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic)
-ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise)
