@@ -1,0 +1,156 @@
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Sat Sep 18 10:22:41 2010
+;; Emacs version 21.4 (patch 22) "Instant Classic" XEmacs Lucid
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq search-ring '("vali" "val" "pat" "wh" "trea" "mode" "Pna" "sty"))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+
+;; Buffer section:
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/source/tbox.py"
+  "tbox.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  2993
+  '(nil nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/local_source/scalar_extract.py"
+  "scalar_extract.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  2035
+  '(929 nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/local_source/mk_tb_txt.py"
+  "mk_tb_txt.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  1957
+  '(1942 nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/local_source/trigonometric.txt"
+  "trigonometric.txt"
+  'text-mode
+  '(line-number-mode column-number-mode pending-delete-mode)
+  679
+  '(nil nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/source/headerguards.py"
+  "headerguards.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  1033
+  '(nil nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/include/nt2/toolbox/arithmetic/function/simd/common/abs.hpp"
+  "abs.hpp"
+  'c++-mode
+  '(abbrev-mode line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/source/nt2_base.py"
+  "nt2_base.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  1175
+  '(nil nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/source/archi.py"
+  "archi.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  724
+  '(439 nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/source/fctor.py"
+  "fctor.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  14231
+  '(8552 nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/usr/lib/python2.6/genericpath.py"
+  "genericpath.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  1326
+  '(nil nil)
+  t
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/local_source/predicates.txt"
+  "predicates.txt"
+  'text-mode
+  '(line-number-mode column-number-mode pending-delete-mode)
+  814
+  '(654 nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/source/file_utils.py"
+  "file_utils.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  351
+  '(nil nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+
+(desktop-create-buffer 205
+  "/home/jt/DevC++/dev_lasmea/github/nt2/script/python/local_source/recover_sys_toolboxes.py"
+  "recover_sys_toolboxes.py"
+  'python-mode
+  '(line-number-mode column-number-mode font-lock-mode pending-delete-mode)
+  6024
+  '(6917 nil)
+  nil
+  nil
+  '((overwrite-mode) (fill-column . 70) (case-fold-search . t) (truncate-lines)))
+

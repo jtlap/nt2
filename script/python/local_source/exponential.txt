@@ -1,0 +1,14 @@
+exponential
+ 
+cbrt                          1
+exp                           1
+exp10                         1
+exp2                          1
+expm1                         1
+log                           1
+log10                         1
+log1p                         1
+log2                          1
+nthroot                       2
+pow                           2
+powi                          2

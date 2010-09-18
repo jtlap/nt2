@@ -1,0 +1,8 @@
+elliptic
+ 
+ellie                         2
+ellik                         2
+ellint_1                      1
+ellint_2                      1
+ellpe                         1
+ellpk                         1

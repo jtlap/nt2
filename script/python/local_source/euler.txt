@@ -1,0 +1,6 @@
+euler
+ 
+beta                          2
+gamma                         1
+gammaln                       1
+signgam                       1

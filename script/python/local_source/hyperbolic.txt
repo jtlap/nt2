@@ -1,0 +1,14 @@
+hyperbolic
+ 
+acosh                         1
+acoth                         1
+acsch                         1
+asech                         1
+asinh                         1
+atanh                         1
+cosh                          1
+coth                          1
+csch                          1
+sech                          1
+sinh                          1
+tanh                          1
