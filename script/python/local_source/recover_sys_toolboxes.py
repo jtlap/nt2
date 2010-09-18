@@ -139,7 +139,7 @@ class Recover :
             fct.add_functor(fct_name,arity)
             st = fct.read_functor(fct_name,path)
             print "in toolbox %s adding functor %s of arity %d" % (tb_name,fct_name, arity) 
-#            sys.stdout.flush()
+            sys.stdout.flush()
             src = os.path.join(Recover.Pname,path,fct_name+'.hpp')
             if exist(src) :
                 d = read(src)
@@ -172,7 +172,7 @@ class Recover :
             src = os.path.join(Recover.Pname,path,fct_name+'.hpp')
             if exist(src) and (os.path.getsize(src) > 1536) :
                 print "adding functor %s of arity %d in variant %s (size %s)" % (fct_name, arity, variant,os.path.getsize(src))
-#                sys.stdout.flush()
+                sys.stdout.flush()
                 #                print"orig-----------------"
                 #show(st)
                 d = read(src)
@@ -212,7 +212,7 @@ class Recover :
     def insert_validate_and_call(self,d,v,c,i,style,tb_name,fct_name,mode) :
         if c is not None :
             if mode == "scalar" :
-                d = d[:20] + c[4:]+d[27:]
+                d = d[:20] + c[3:]+d[27:]
             else :
                 d = d[:22] + c[4:]+d[30:]
         if v is not None :
@@ -229,6 +229,7 @@ class Recover :
             d = d[:14]  + ["  //  no special validate for %s" % fct_name, ""] + d[14:]
         if i is not None :
             d = d[:11]+i+d[11:]
+        d = self.modify_result_of(d,mode) 
         return d
 
     def insert_variants(self,d,v,c,i,style,tb_name,fct_name,mode) :
@@ -250,18 +251,26 @@ class Recover :
             d1 = d1[:14]  + ["  //  no special validate for %s" % fct_name, ""] + d1[14:]
         if i is not None :
             d1 = d1[:12]+i+d1[12:]
-        d1 = self.modify_result_of(d1)    
+        d1 = self.modify_result_of(d1,mode)    
         return d1
 
-    def modify_result_of(self,d) :
-        target1 = "{ typedef A0 type; };"
-        nst1=" : meta::strip<A0>{};"
-        for i,ld in enumerate(d) :
-            if re.search("struct result<This\(",ld):
+    def modify_result_of(self,d,mode) :
+        if mode == "simd" :
+            target1 = "{ typedef A0 type; };"
+            nst1=" : meta::strip<A0>{};"
+            for i,ld in enumerate(d) :
+                if re.search("struct result<This\(",ld):
+                    if re.search(target1,ld) :
+                        d[i]=ld.replace(target1,nst1)
+                        if (i+1<len(d)) and re.search(target1,d[i+1]) :
+                            d[i+1]=d[i+1].replace(target1,nst1)
+                d[i] = ld.replace("Dummy","Info")
+        else :
+            target1 ="typename nt2::meta::scalar_of<A0>::type,"
+            nst1 = "A0,"
+            for i,ld in enumerate(d) :
                 if re.search(target1,ld) :
                     d[i]=ld.replace(target1,nst1)
-                if (i+1<len(d)) and re.search(target1,d[i+1]) :
-                    d[i+1]=d[i+1].replace(target1,nst1)
         return d    
 
     def provide_dir(self,path,directory) :
@@ -298,9 +307,9 @@ class Recover :
         
 if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
-##    r = Recover()
-##    r.treat_all(["scalar","simd"])
-##    r.treat_variants()
+    r = Recover()
+    r.treat_all(["scalar","simd"])
+    r.treat_variants()
 ##    show(r.Dirs_to_create)
     create_impl_dirs()
 sys.path.pop(0)
