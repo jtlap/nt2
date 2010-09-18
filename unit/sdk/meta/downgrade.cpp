@@ -22,8 +22,8 @@ NT2_TEST_CASE(downgrad_ints)
   using nt2::meta::downgrade;
   using boost::is_same;
 
-  NT2_TEST( (is_same<downgrade<double  			>::type,nt2::int32_t 	>::value ));
-  NT2_TEST( (is_same<downgrade<float   			>::type,nt2::int16_t 	>::value ));
+  NT2_TEST( (is_same<downgrade<double  			>::type,float 				>::value ));
+  NT2_TEST( (is_same<downgrade<float   			>::type,float					>::value ));
   NT2_TEST( (is_same<downgrade<nt2::int64_t >::type,nt2::int32_t 	>::value ));
   NT2_TEST( (is_same<downgrade<nt2::int32_t >::type,nt2::int16_t 	>::value ));
   NT2_TEST( (is_same<downgrade<nt2::int16_t >::type,nt2::int8_t 	>::value ));
@@ -40,8 +40,8 @@ NT2_TEST_CASE(downgrade_ints_forced_signed)
   using nt2::meta::downgrade;
   using boost::is_same;
 
-	NT2_TEST( (is_same<downgrade<double  			,	unsigned>::type,nt2::uint32_t >::value ));
-  NT2_TEST( (is_same<downgrade<float   			,	unsigned>::type,nt2::uint16_t >::value ));
+	NT2_TEST( (is_same<downgrade<double  			,	unsigned>::type,float 				>::value ));
+  NT2_TEST( (is_same<downgrade<float   			,	unsigned>::type,float 				>::value ));
   NT2_TEST( (is_same<downgrade<nt2::int64_t ,	unsigned>::type,nt2::uint32_t >::value ));
   NT2_TEST( (is_same<downgrade<nt2::int32_t ,	unsigned>::type,nt2::uint16_t >::value ));
   NT2_TEST( (is_same<downgrade<nt2::int16_t ,	unsigned>::type,nt2::uint8_t 	>::value ));
@@ -49,14 +49,14 @@ NT2_TEST_CASE(downgrade_ints_forced_signed)
   NT2_TEST( (is_same<downgrade<nt2::uint32_t,	unsigned>::type,nt2::uint16_t >::value ));
   NT2_TEST( (is_same<downgrade<nt2::uint16_t,	unsigned>::type,nt2::uint8_t  >::value ));
 
-	NT2_TEST( (is_same<downgrade<double  			,	signed>::type,nt2::int32_t >::value ));
-  NT2_TEST( (is_same<downgrade<float   			,	signed>::type,nt2::int16_t >::value ));
-  NT2_TEST( (is_same<downgrade<nt2::int64_t ,	signed>::type,nt2::int32_t >::value ));
-  NT2_TEST( (is_same<downgrade<nt2::int32_t ,	signed>::type,nt2::int16_t >::value ));
+	NT2_TEST( (is_same<downgrade<double  			,	signed>::type,float 				>::value ));
+  NT2_TEST( (is_same<downgrade<float   			,	signed>::type,float					>::value ));
+  NT2_TEST( (is_same<downgrade<nt2::int64_t ,	signed>::type,nt2::int32_t 	>::value ));
+  NT2_TEST( (is_same<downgrade<nt2::int32_t ,	signed>::type,nt2::int16_t 	>::value ));
   NT2_TEST( (is_same<downgrade<nt2::int16_t ,	signed>::type,nt2::int8_t 	>::value ));
-  NT2_TEST( (is_same<downgrade<nt2::uint64_t,	signed>::type,nt2::int32_t >::value ));
-  NT2_TEST( (is_same<downgrade<nt2::uint32_t,	signed>::type,nt2::int16_t >::value ));
-  NT2_TEST( (is_same<downgrade<nt2::uint16_t,	signed>::type,nt2::int8_t  >::value ));
+  NT2_TEST( (is_same<downgrade<nt2::uint64_t,	signed>::type,nt2::int32_t 	>::value ));
+  NT2_TEST( (is_same<downgrade<nt2::uint32_t,	signed>::type,nt2::int16_t 	>::value ));
+  NT2_TEST( (is_same<downgrade<nt2::uint16_t,	signed>::type,nt2::int8_t  	>::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

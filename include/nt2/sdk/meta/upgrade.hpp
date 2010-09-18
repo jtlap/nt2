@@ -29,11 +29,24 @@ namespace nt2 { namespace details
 
 	//////////////////////////////////////////////////////////////////////////////
 	// If type size is 8, return the type itself for any category
-	// TODO: Find a more portbale and extensible way to do that
 	//////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign>
   struct 	upgrade<T,8,Sign,tag::scalar_(tag::arithmetic_)>
 				: meta::make_integer<8,Sign> {};
+
+
+  template<class Sign>
+  struct upgrade<double,sizeof(double),Sign,tag::scalar_(tag::arithmetic_)>
+	{
+		typedef double type;
+	};
+
+  template<class Sign>
+  struct upgrade<float,sizeof(float),Sign,tag::scalar_(tag::arithmetic_)>
+	{
+		typedef double type;
+	};
+
 } }
 
 namespace nt2 { namespace meta

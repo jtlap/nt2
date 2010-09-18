@@ -20,12 +20,25 @@ namespace nt2 { namespace details
   struct downgrade;
 
 	//////////////////////////////////////////////////////////////////////////////
-	// Scalar arithmetic types are downgraded using make_integer
+	// Scalar arithmetic types are downgraded using make_integer unless they're
+	// floating point types
 	//////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t Size, class Sign>
   struct 	downgrade<T,Size,Sign,tag::scalar_(tag::arithmetic_)>
 				: meta::make_integer<Size/2,Sign>
 	{};
+
+  template<class Sign>
+  struct downgrade<double,sizeof(double),Sign,tag::scalar_(tag::arithmetic_)>
+	{
+		typedef float type;
+	};
+
+  template<class Sign>
+  struct downgrade<float,sizeof(float),Sign,tag::scalar_(tag::arithmetic_)>
+	{
+		typedef float type;
+	};
 
 	//////////////////////////////////////////////////////////////////////////////
 	// If type size is 1, return the type itself for any category
