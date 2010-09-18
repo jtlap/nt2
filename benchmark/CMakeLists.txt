@@ -11,5 +11,5 @@
 # Add all directories for benchmark/
 ################################################################################
 ADD_SUBDIRECTORY(operators)
-ADD_SUBDIRECTORY(function)
+
 
