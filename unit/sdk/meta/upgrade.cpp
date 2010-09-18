@@ -22,7 +22,8 @@ NT2_TEST_CASE(upgrade_ints)
   using nt2::meta::upgrade;
   using boost::is_same;
 
-  NT2_TEST( (is_same<upgrade<float   			>::type,nt2::int64_t 	>::value ));
+  NT2_TEST( (is_same<upgrade<double  			>::type,double 				>::value ));
+  NT2_TEST( (is_same<upgrade<float   			>::type,double 				>::value ));
   NT2_TEST( (is_same<upgrade<nt2::int32_t >::type,nt2::int64_t 	>::value ));
   NT2_TEST( (is_same<upgrade<nt2::int16_t >::type,nt2::int32_t 	>::value ));
   NT2_TEST( (is_same<upgrade<nt2::int8_t 	>::type,nt2::int16_t 	>::value ));
@@ -39,15 +40,17 @@ NT2_TEST_CASE(upgrade_ints_forced_signed)
   using nt2::meta::upgrade;
   using boost::is_same;
 
-  NT2_TEST( (is_same<upgrade<float   			,signed>::type,nt2::int64_t 	>::value ));
-  NT2_TEST( (is_same<upgrade<nt2::int32_t ,signed>::type,nt2::int64_t 	>::value ));
-  NT2_TEST( (is_same<upgrade<nt2::int16_t ,signed>::type,nt2::int32_t 	>::value ));
-  NT2_TEST( (is_same<upgrade<nt2::int8_t 	,signed>::type,nt2::int16_t 	>::value ));
+  NT2_TEST( (is_same<upgrade<double  			,signed>::type,double				>::value ));
+  NT2_TEST( (is_same<upgrade<float   			,signed>::type,double				>::value ));
+  NT2_TEST( (is_same<upgrade<nt2::int32_t ,signed>::type,nt2::int64_t >::value ));
+  NT2_TEST( (is_same<upgrade<nt2::int16_t ,signed>::type,nt2::int32_t >::value ));
+  NT2_TEST( (is_same<upgrade<nt2::int8_t 	,signed>::type,nt2::int16_t	>::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint32_t,signed>::type,nt2::int64_t >::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint16_t,signed>::type,nt2::int32_t >::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint8_t	,signed>::type,nt2::int16_t	>::value ));
 
-  NT2_TEST( (is_same<upgrade<float   			,unsigned>::type,nt2::uint64_t>::value ));
+  NT2_TEST( (is_same<upgrade<double  			,unsigned>::type,double				>::value ));
+  NT2_TEST( (is_same<upgrade<float   			,unsigned>::type,double				>::value ));
   NT2_TEST( (is_same<upgrade<nt2::int32_t ,unsigned>::type,nt2::uint64_t>::value ));
   NT2_TEST( (is_same<upgrade<nt2::int16_t ,unsigned>::type,nt2::uint32_t>::value ));
   NT2_TEST( (is_same<upgrade<nt2::int8_t 	,unsigned>::type,nt2::uint16_t>::value ));
@@ -64,13 +67,10 @@ NT2_TEST_CASE(upgrade_sizeof_8)
   using nt2::meta::upgrade;
   using boost::is_same;
 
-  NT2_TEST( (is_same<upgrade<double									>::type,nt2::int64_t >::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint64_t					>::type,nt2::uint64_t>::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint64_t					>::type,nt2::uint64_t>::value ));
-  NT2_TEST( (is_same<upgrade<double				,signed		>::type,nt2::int64_t >::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint64_t,signed		>::type,nt2::int64_t>::value 	));
   NT2_TEST( (is_same<upgrade<nt2::uint64_t,signed		>::type,nt2::int64_t>::value 	));
-  NT2_TEST( (is_same<upgrade<double				,unsigned	>::type,nt2::uint64_t>::value	));
   NT2_TEST( (is_same<upgrade<nt2::uint64_t,unsigned	>::type,nt2::uint64_t>::value ));
   NT2_TEST( (is_same<upgrade<nt2::uint64_t,unsigned	>::type,nt2::uint64_t>::value ));
 }
