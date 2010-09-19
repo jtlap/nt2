@@ -17,6 +17,7 @@
 ################################################################################
 ADD_SUBDIRECTORY(sdk/meta)
 ADD_SUBDIRECTORY(sdk/functor)
+ADD_SUBDIRECTORY(sdk/constant)
 ADD_SUBDIRECTORY(sdk/memory)
 ADD_SUBDIRECTORY(sdk/simd)
 

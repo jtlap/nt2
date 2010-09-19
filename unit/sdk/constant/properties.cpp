@@ -1,0 +1,52 @@
+/*******************************************************************************
+ *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+ *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
+#define NT2_UNIT_MODULE "nt2::constants properties"
+
+#include <nt2/sdk/constant/properties.hpp>
+
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+
+////////////////////////////////////////////////////////////////////////////////
+// Test values for sigmask
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(signmask)
+{
+	NT2_TEST_EQUAL( nt2::Signmask<double>(), -0. 	);
+	NT2_TEST_EQUAL( nt2::Signmask<float>() , -0.f );
+	
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::uint64_t>(), 0 );
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::uint32_t>(), 0 );
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::uint16_t>(), 0 );
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::uint8_t >(), 0 );
+
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::int64_t>(), 0x8000000000000000LL );
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::int32_t>(), 0x80000000	        	);
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::int16_t>(), nt2::int16_t(0x8000)	);
+	NT2_TEST_EQUAL( nt2::Signmask<nt2::int8_t >(), nt2::int8_t(0x80)		);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test values for valmax
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(valmax)
+{
+	NT2_TEST_EQUAL( nt2::Valmax<double>() , 1.7976931348623157e+308 );
+	NT2_TEST_EQUAL( nt2::Valmax<float>()	, 3.4028235e+38f					);
+	
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::uint64_t>(), 0xFFFFFFFFFFFFFFFFLL 	);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::uint32_t>(), 0xFFFFFFFF 						);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::uint16_t>(), 0xFFFF 								);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::uint8_t >(), 0xFF 									);
+
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int64_t>(), 0x7FFFFFFFFFFFFFFFLL );
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int32_t>(), 0x7FFFFFFF	        	);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int16_t>(), 0x7FFF								);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int8_t >(), 0x7F									);
+}
