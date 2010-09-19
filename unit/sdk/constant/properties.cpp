@@ -45,10 +45,31 @@ NT2_TEST_CASE(valmax)
 	NT2_TEST_EQUAL( nt2::Valmax<nt2::uint16_t>(), 0xFFFF 								);
 	NT2_TEST_EQUAL( nt2::Valmax<nt2::uint8_t >(), 0xFF 									);
 
-	NT2_TEST_EQUAL( nt2::Valmax<nt2::int64_t>(), 0x7FFFFFFFFFFFFFFFLL );
-	NT2_TEST_EQUAL( nt2::Valmax<nt2::int32_t>(), 0x7FFFFFFF	        	);
-	NT2_TEST_EQUAL( nt2::Valmax<nt2::int16_t>(), 0x7FFF								);
-	NT2_TEST_EQUAL( nt2::Valmax<nt2::int8_t >(), 0x7F									);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int64_t>(), 9223372036854775807LL);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int32_t>(), 2147483647       		);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int16_t>(), 32767								);
+	NT2_TEST_EQUAL( nt2::Valmax<nt2::int8_t >(), 127									);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test values for valmin
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(valmin)
+{
+	NT2_TEST_EQUAL( nt2::Valmin<double>() , -1.7976931348623157e+308);
+	NT2_TEST_EQUAL( nt2::Valmin<float>()	, -3.4028235e+38f					);
+	
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::uint64_t>(), 0 );
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::uint32_t>(), 0	);
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::uint16_t>(), 0	);
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::uint8_t >(), 0	);
+
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::int64_t>(), -9223372036854775808ULL);
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::int32_t>(), -2147483648U						);
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::int16_t>(), -32768									);
+	NT2_TEST_EQUAL( nt2::Valmin<nt2::int8_t >(), -128										);
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////

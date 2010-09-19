@@ -54,7 +54,7 @@ namespace nt2
 // Constant function implementation
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/constant/details/valmax.hpp>
-//#include <nt2/sdk/constant/details/valmin.hpp>
+#include <nt2/sdk/constant/details/valmin.hpp>
 //#include <nt2/sdk/constant/details/smallestposval.hpp>
 #include <nt2/sdk/constant/details/signmask.hpp>
 #include <nt2/sdk/constant/details/ieee_spec.hpp>
@@ -65,12 +65,6 @@ namespace nt2
 NT2_SPECIALIZE_CONSTANT ( max_left_shift_  , Category
 			                  , meta::as_integer<boost::mpl::_>
                         , ((arithmetic_,8*sizeof(T)-1         ))
-                        )
-NT2_SPECIALIZE_CONSTANT ( val_min_  , Category, boost::mpl::_
-                        , ((double   ,0xffefffffffffffffLL      ))
-                          ((float    ,0xff7fffff                ))
-                          ((signed_,  (1LL<<(8*sizeof(T)-1))    ))
-                          ((unsigned_,0                         ))
                         )
 
 NT2_SPECIALIZE_CONSTANT ( smallest_pos_val_, Category , boost::mpl::_
