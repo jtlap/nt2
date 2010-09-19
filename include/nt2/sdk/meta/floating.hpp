@@ -13,6 +13,7 @@
 #include <boost/typeof/typeof.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/functor/category.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/functor/meta/dominant.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
