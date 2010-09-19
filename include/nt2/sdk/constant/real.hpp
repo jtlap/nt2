@@ -25,6 +25,7 @@ namespace nt2 { namespace constants
   struct third_       {};
   struct quarter_     {};
   struct ldexp_mask_  {};
+  struct two_to_m10_  {};
 } }
 
 namespace nt2
@@ -35,7 +36,11 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(constants::half_      , Half    )
   NT2_CONSTANT_IMPLEMENTATION(constants::third_     , Third   )
   NT2_CONSTANT_IMPLEMENTATION(constants::quarter_   , Quarter )
+<<<<<<< Updated upstream
   NT2_CONSTANT_IMPLEMENTATION(constants::ldexp_mask_, Ldexpmask)
+=======
+	NT2_CONSTANT_IMPLEMENTATION(constants::two_to_m10_, Twotom10)
+>>>>>>> Stashed changes
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,19 +102,20 @@ NT2_CONSTANT_MAKE_REAL(constants::m_zero_ , 0x8000000000000000LL, 0x80000000  )
 NT2_CONSTANT_MAKE_REAL(constants::half_   , 0x3FE0000000000000LL, 0x3F000000  )
 NT2_CONSTANT_MAKE_REAL(constants::third_  , 0x3FD5555555555555LL, 0x3EAAAAAB  )
 NT2_CONSTANT_MAKE_REAL(constants::quarter_, 0x3FD0000000000000LL, 0x3E800000  )
+<<<<<<< Updated upstream
 NT2_CONSTANT_MAKE_REAL(constants::ldexp_mask_,9218868437227405312ll, 2139095040) 
+=======
+NT2_CONSTANT_MAKE_REAL(constants::two_to_m10_,0x804D558B7EB8AD0ll,0x3a800000 )
+>>>>>>> Stashed changes
 
 /*
   namespace nt2 { namespace constants
   {
-    struct two_to_m10_  {};
   } }
 
   namespace nt2
   {
-    NT2_CONSTANT_IMPLEMENTATION(constants::two_to_m10_, Twotom10  )
   }
-  NT2_CONSTANT_MAKE_REAL(constants::two_to_m10_, 0x804d558b7eb8ad0ll,0x3a800000 )
 */
 
 ////////////////////////////////////////////////////////////////////////////////
