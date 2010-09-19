@@ -7,11 +7,12 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #ifndef NT2_SDK_CONSTANT_DETAILS_SIGNMASK_HPP_INCLUDED
-#define NT2_SDK_CONSTANT_DETAILS_SIGNMASK_CONSTANT_HPP_INCLUDED
+#define NT2_SDK_CONSTANT_DETAILS_SIGNMASK_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Base class for generating an integral constant
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
@@ -62,16 +63,14 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
-      typedef union { nt2::uint32_t bits; float val; } type;
-      type const that = {0x80000000};
-      return splat<typename A0::type>(that.val);
+      meta::from_bits<float>::type const that = {0x80000000};
+      return splat<typename A0::type>(that.value);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
-      typedef union { nt2::uint64_t bits; double val; } type;
-      type const that = {0x8000000000000000LL};
-      return splat<typename A0::type>(that.val);
+      meta::from_bits<double>::type const that = {0x8000000000000000LL};
+      return splat<typename A0::type>(that.value);
     }
   };
 } }
