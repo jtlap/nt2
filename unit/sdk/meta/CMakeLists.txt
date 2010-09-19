@@ -16,6 +16,7 @@ SET( SOURCES
     cardinal_of.cpp
     category_of.cpp
     downgrade.cpp
+    floating.cpp
     from_bits.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
