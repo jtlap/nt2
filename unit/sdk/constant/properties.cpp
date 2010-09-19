@@ -50,3 +50,21 @@ NT2_TEST_CASE(valmax)
 	NT2_TEST_EQUAL( nt2::Valmax<nt2::int16_t>(), 0x7FFF								);
 	NT2_TEST_EQUAL( nt2::Valmax<nt2::int8_t >(), 0x7F									);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Test values for IEEE specs
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(ieee)
+{
+	NT2_TEST_EQUAL( nt2::Nbmantissabits<double>() , 52);
+	NT2_TEST_EQUAL( nt2::Nbmantissabits<float>()	, 23);	
+
+	NT2_TEST_EQUAL( nt2::Nbexponentbits<double>() , 11);
+	NT2_TEST_EQUAL( nt2::Nbexponentbits<float>()	, 8	);	
+
+	NT2_TEST_EQUAL( nt2::Maxexponent<double>(), 1023	);
+	NT2_TEST_EQUAL( nt2::Maxexponent<float>()	, 127		);	
+
+	NT2_TEST_EQUAL( nt2::Minexponent<double>(), -1022	);
+	NT2_TEST_EQUAL( nt2::Minexponent<float>()	, -126	);
+}
