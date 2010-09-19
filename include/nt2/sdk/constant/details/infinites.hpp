@@ -17,17 +17,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-
-namespace nt2 { namespace constants
-{
-    struct inf_ 	{};
-    struct m_inf_       {}; 
-} }
-
-namespace nt2 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::inf_         , Inf         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::m_inf_       , Minf        )
-}
+#include <nt2/sdk/constant/properties.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -40,19 +30,12 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
-                              , ( 4, (double, float, unsigned_, signed_) )
+                              , ( 3, (double, float, arithmetic_) )
                               )
 															
-    NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
+    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
     {
-      typedef typename meta::scalar_of<typename A0::type>::type bits;
-      return splat<typename A0::type>(~bits(0));
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,signed_)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type bits;
-      return splat<typename A0::type>(~(1ULL << (8*sizeof(bits)-1)));
+      return Valmax<typename A0::type>();
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
@@ -75,19 +58,12 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
-                              , ( 4, (double, float, unsigned_, signed_) )
+                              , ( 3, (double, float, arithmetic_) )
                               )
 															
-    NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
+    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
     {
-      typedef typename meta::scalar_of<typename A0::type>::type bits;
-      return splat<typename A0::type>(0);
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,signed_)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type bits;
-      return splat<typename A0::type>(1ULL << (8*sizeof(bits)-1));
+      return Valmin<typename A0::type>();
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
