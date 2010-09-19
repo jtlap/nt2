@@ -24,16 +24,18 @@ namespace nt2 { namespace constants
   struct half_        {};
   struct third_       {};
   struct quarter_     {};
+  struct ldexp_mask_  {};
 } }
 
 namespace nt2
 {
   NT2_CONSTANT_IMPLEMENTATION(constants::nan_       , Nan     )
   NT2_CONSTANT_IMPLEMENTATION(constants::m_half_    , MHalf   )
-  NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_    , MZero   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_    , Mzero   )
   NT2_CONSTANT_IMPLEMENTATION(constants::half_      , Half    )
   NT2_CONSTANT_IMPLEMENTATION(constants::third_     , Third   )
   NT2_CONSTANT_IMPLEMENTATION(constants::quarter_   , Quarter )
+  NT2_CONSTANT_IMPLEMENTATION(constants::ldexp_mask_, Ldexpmask)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +97,7 @@ NT2_CONSTANT_MAKE_REAL(constants::m_zero_ , 0x8000000000000000LL, 0x80000000  )
 NT2_CONSTANT_MAKE_REAL(constants::half_   , 0x3FE0000000000000LL, 0x3F000000  )
 NT2_CONSTANT_MAKE_REAL(constants::third_  , 0x3FD5555555555555LL, 0x3EAAAAAB  )
 NT2_CONSTANT_MAKE_REAL(constants::quarter_, 0x3FD0000000000000LL, 0x3E800000  )
+NT2_CONSTANT_MAKE_REAL(constants::ldexp_mask_,9218868437227405312ll, 2139095040) 
 
 /*
   namespace nt2 { namespace constants
