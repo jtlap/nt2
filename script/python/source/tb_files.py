@@ -67,7 +67,7 @@ class Tb_files(Tb_tree) :
                     if callable(action) : 
                         value = action(self,check,a,r,name,key)
                         if (check == "check_only") and not value : return False
-        if self.__tb_style == 'sys' : self.update_CMake(check)
+#NO UPDATE#        if self.__tb_style == 'sys' : self.update_CMake(check)
         return True
     
     def create_tb_files(self) :

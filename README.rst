@@ -1,4 +1,4 @@
-.. title:: NT2 - C++ High Performance Computing Made Easy
+	.. title:: NT2 - C++ High Performance Computing Made Easy
 
 
 ==============================
