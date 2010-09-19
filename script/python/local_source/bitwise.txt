@@ -3,6 +3,9 @@ bitwise
 bits                          1
 bitwise_notor                 2
 bitwise_ornot                 2
+bitwise_andnot                2
+bitwise_notand                2
+bitwise_select                3
 ffs                           1
 firstbitset                   1
 firstbitunset                 1
@@ -22,3 +25,6 @@ shift_right                   2
 shrai                         2
 shri                          2
 twopower                      1
+select                        3
+seladd                        3
+selsub                        3

@@ -18,6 +18,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+
 namespace nt2 { namespace functors
 {
   template<class Category,class Info>

@@ -27,3 +27,6 @@ sqrt                          1
 two_add                       2
 two_prod                      2
 two_split                     1
+floor                         1
+round                         1
+ceil                          1

@@ -297,6 +297,7 @@ class Recover :
                 r.append("//  of the old nt2")
                 continue
             m = re.match("^#include <nt2/core/numeric/function/(.*)>$",ls)
+            if not m : m = re.match("^#include <nt2/include/functions/(.*)>$",ls)
             if m :
                 lr = "#include <nt2/include/functions/"+m.groups()[0]+">"
                 ##            print "lr %s " % lr
@@ -306,7 +307,7 @@ class Recover :
         
 if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
-    r = Recover(tb_list=["arithmetic"])
+    r = Recover(tb_list=["bitwise"])
     r.treat_all(["scalar","simd"])
     r.treat_variants()
 ##    show(r.Dirs_to_create)

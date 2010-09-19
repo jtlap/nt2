@@ -19,7 +19,7 @@
 NT2_TEST_CASE_TPL	(	real_value, (double)(float) )
 {
 	NT2_TEST_EQUAL( nt2::MHalf<T>()		, static_cast<T>(-1./2.) );
-	NT2_TEST_EQUAL( nt2::MZero<T>()		, static_cast<T>(-0.) );
+	NT2_TEST_EQUAL( nt2::Mzero<T>()		, static_cast<T>(-0.) );
 	NT2_TEST_EQUAL( nt2::Half<T>()		, static_cast<T>(1./2.) );
 	NT2_TEST_EQUAL( nt2::Third<T>()		, static_cast<T>(1./3.) );
 	NT2_TEST_EQUAL( nt2::Quarter<T>()	, static_cast<T>(1./4.) );
