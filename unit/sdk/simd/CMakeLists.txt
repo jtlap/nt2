@@ -11,6 +11,8 @@ SET( SOURCES
 #    native.cpp
     as_integer.cpp
     as_real.cpp
+    as_signed.cpp
+    as_unsigned.cpp
     cardinal_of.cpp
     category_of.cpp
     is_signed.cpp
