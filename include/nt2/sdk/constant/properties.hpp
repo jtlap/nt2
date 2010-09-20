@@ -20,16 +20,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace constants
 {
-  struct val_max_ 					{};
-  struct val_min_ 					{};
-  struct smallest_pos_val_ 	{};
-  struct signmask_ 					{};
-  struct max_left_shift_ 		{};
-  struct min_denormal_ 			{};
-	struct nb_mantissa_bits_	{};
-	struct nb_exponent_bits_	{};
-	struct max_exponent_			{};
-	struct min_exponent_			{};
+  struct val_max_           {};
+  struct val_min_           {};
+  struct smallest_pos_val_  {};
+  struct signmask_          {};
+  struct max_left_shift_    {};
+  struct min_denormal_      {};
+  struct nb_mantissa_bits_  {};
+  struct nb_exponent_bits_  {};
+  struct max_exponent_      {};
+  struct min_exponent_      {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,17 +37,17 @@ namespace nt2 { namespace constants
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_max_         , Valmax         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_min_         , Valmin         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::smallest_pos_val_, Smallestposval )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::signmask_        , Signmask       )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_left_shift_  , Maxleftshift   )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_denormal_    , Mindenormal    )
-	
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_mantissa_bits_	, Nbmantissabits	)
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_exponent_bits_	, Nbexponentbits	)
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_exponent_			, Maxexponent			)
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_exponent_			, Minexponent			)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_max_          , Valmax         )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_min_          , Valmin         )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::smallest_pos_val_ , Smallestposval )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::signmask_         , Signmask       )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_left_shift_   , Maxleftshift   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_denormal_     , Mindenormal    )
+  
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_mantissa_bits_ , Nbmantissabits )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_exponent_bits_ , Nbexponentbits )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_exponent_     , Maxexponent    )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_exponent_     , Minexponent    )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ namespace nt2
 
 /*
 NT2_SPECIALIZE_CONSTANT ( max_left_shift_  , Category
-			                  , meta::as_integer<boost::mpl::_>
+                        , meta::as_integer<boost::mpl::_>
                         , ((arithmetic_,8*sizeof(T)-1         ))
                         )
 
@@ -79,5 +79,5 @@ NT2_SPECIALIZE_CONSTANT ( min_denormal_, Category , boost::mpl::_
                           ((bool     ,1                     ))
                         )
 */
-												
+                        
 #endif

@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_CONSTANT_INFINITES_HPP_INCLUDED
 #define NT2_SDK_CONSTANT_INFINITES_HPP_INCLUDED
+#include <nt2/sdk/constant/constant.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Base class for generating an integral constant
