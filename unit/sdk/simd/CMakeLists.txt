@@ -25,6 +25,12 @@ SET( SOURCES
 #    sub.cpp
 #    div.cpp
 #    mul.cpp
+#    eq.cpp
+#    neq.cpp
+#    lt.cpp
+#    gt.cpp
+#    le.cpp
+#    ge.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)
@@ -36,8 +42,8 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".simd.test" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-simd.test" TEST "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" ".simd.unit" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" "-simd.unit" TEST "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target

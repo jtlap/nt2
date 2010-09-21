@@ -15,7 +15,7 @@
 *.mk
 *.session
 *.sample
-*.test
+*.unit
 *.bench
 *.user
 *.vcproj
