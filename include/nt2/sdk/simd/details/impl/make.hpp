@@ -62,15 +62,24 @@ namespace nt2 { namespace functors
 
 namespace nt2
 {
-  #define NT2_LOCAL(z,d,n)                                                      \
-  template<class T, class A> inline                                             \
-  typename meta::enable_call<functors::make_<T>(boost::array<A,n>)>::type       \
-  make( BOOST_PP_ENUM_PARAMS(n,A const& a) )                                    \
-  {                                                                             \
-    functors::functor< functors::make_<T> > callee;                             \
-    boost::array<A,n> data = {BOOST_PP_ENUM_PARAMS(n,a)};                       \
-    return callee(data);                                                        \
-  }                                                                             \
+  #define NT2_LOCAL(z,d,n)                                                      				\
+  template<class T, class A> inline                                             				\
+  typename meta::enable_call<functors::make_<T>(boost::array<A,n>)>::type       				\
+  make( BOOST_PP_ENUM_PARAMS(n,A const& a) )                                    				\
+  {                                                                             				\
+    functors::functor< functors::make_<T> > callee;                             				\
+    boost::array<A,n> data = {BOOST_PP_ENUM_PARAMS(n,a)};                       				\
+    return callee(data);                                                        				\
+  }                                                                             				\
+	namespace simd																																				\
+	{																																											\
+		template<class T, class X> inline																										\
+		typename meta::enable_call<functors::make_< native<T,X> >(boost::array<T,n>)>::type	\
+		make_native( BOOST_PP_ENUM_PARAMS(n,T const& a) )																		\
+		{                                                                           				\
+			return nt2::make< native<T,X> >(BOOST_PP_ENUM_PARAMS(n,a));												\
+		}                                                                           				\
+	}																																											\
   /**/
 
   BOOST_PP_SEQ_FOR_EACH(NT2_LOCAL, ~, NT2_SIMD_CARDINALS)
