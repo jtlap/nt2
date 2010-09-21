@@ -39,39 +39,39 @@ namespace nt2 { namespace functors
 															
     NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
     {
-      return NT2_CONSTANT_SPLAT(typename A0::type, ~0);
+      return splat<typename A0::type>(static_cast<typename A0::type>(~0));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int8_t)
     {
-      return NT2_CONSTANT_SPLAT(typename A0::type, ~0x80);
+      return splat<typename A0::type>(static_cast<typename A0::type>(~0x80));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int16_t)
     {
-      return NT2_CONSTANT_SPLAT(typename A0::type, ~0x8000);
+      return splat<typename A0::type>(static_cast<typename A0::type>(~0x8000));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int32_t)
     {
-      return NT2_CONSTANT_SPLAT(typename A0::type, ~0x80000000);
+      return splat<typename A0::type>(static_cast<typename A0::type>(~0x80000000));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)
     {
-      return NT2_CONSTANT_SPLAT(typename A0::type, ~0x8000000000000000LL);
+      return splat<typename A0::type>(static_cast<typename A0::type>(~0x8000000000000000LL));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
 			meta::from_bits<float>::type const that = {0x7f7fffff};
-      return NT2_CONSTANT_SPLAT(typename A0::type, that.value);
+      return splat<typename A0::type>(static_cast<typename A0::type>(that.value));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
 			meta::from_bits<double>::type const that = {0x7fefffffffffffffLL};
-      return NT2_CONSTANT_SPLAT(typename A0::type, that.value);
+      return splat<typename A0::type>(static_cast<typename A0::type>(that.value));
     }
   };
 } }

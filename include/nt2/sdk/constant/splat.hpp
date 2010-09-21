@@ -60,8 +60,4 @@ namespace nt2
 
 #include <nt2/sdk/constant/details/splat.hpp>
 
-#define NT2_CONSTANT_SPLAT(Type, Value) \
-  nt2::splat<Type>((Type) Value)        \
-  /**/
-
 #endif
