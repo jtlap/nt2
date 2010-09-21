@@ -77,6 +77,6 @@ namespace nt2
   #undef NT2_LOCAL
 }
 
-//#include NT2_SIMD_INCLUDE(make.hpp)
+#include NT2_SIMD_INCLUDE(make.hpp)
 
 #endif
