@@ -34,7 +34,7 @@ namespace nt2 { namespace constants
 namespace nt2
 {
   NT2_CONSTANT_IMPLEMENTATION(constants::nan_         , Nan     )
-  NT2_CONSTANT_IMPLEMENTATION(constants::m_half_      , MHalf   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::m_half_      , Mhalf   )
   NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_      , Mzero   )
   NT2_CONSTANT_IMPLEMENTATION(constants::half_        , Half    )
   NT2_CONSTANT_IMPLEMENTATION(constants::third_       , Third   )

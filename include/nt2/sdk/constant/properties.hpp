@@ -30,6 +30,7 @@ namespace nt2 { namespace constants
   struct nb_exponent_bits_  {};
   struct max_exponent_      {};
   struct min_exponent_      {};
+  struct nb_digits_         {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +49,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_exponent_bits_ , Nbexponentbits )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_exponent_     , Maxexponent    )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_exponent_     , Minexponent    )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_digits_        , Nbdigits       )  
 }
 
 ////////////////////////////////////////////////////////////////////////////////

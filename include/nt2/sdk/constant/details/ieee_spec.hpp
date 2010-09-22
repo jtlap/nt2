@@ -27,9 +27,9 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-				:	 meta::as_integer	<	typename meta::strip<A0>::type::type
-														,	signed
-														> {};
+        :   meta::as_integer  <  typename meta::strip<A0>::type::type
+                            ,  signed
+                            > {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
@@ -37,102 +37,130 @@ namespace nt2 { namespace functors
                               )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(23);
-		}
-		
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(23);
+    }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(52);
-		}
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(52);
+    }
   };
 
-	template<class Category,class Info>
+  template<class Category,class Info>
   struct  call<constants::nb_exponent_bits_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-				:	 meta::as_integer	<	typename meta::strip<A0>::type::type
-														,	signed
-														> {};
+        :   meta::as_integer  <  typename meta::strip<A0>::type::type
+                            ,  signed
+                            > {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
                               , ( 2 , ( double, float) )
                               )
 
-		NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(8);
-		}
-		
+    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(8);
+    }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(11);
-		}
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(11);
+    }
   };
-	
-	template<class Category,class Info>
+  
+  template<class Category,class Info>
   struct  call<constants::max_exponent_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-				:	 meta::as_integer	<	typename meta::strip<A0>::type::type
-														,	signed
-														> {};
+        :   meta::as_integer  <  typename meta::strip<A0>::type::type
+                            ,  signed
+                            > {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
                               , ( 2 , ( double, float) )
                               )
 
-		NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-		{
-			typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(127);
-		}
-		
+    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(127);
+    }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(1023);
-		}
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(1023);
+    }
   };
 
 
-	template<class Category,class Info>
+  template<class Category,class Info>
   struct  call<constants::min_exponent_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-				:	 meta::as_integer	<	typename meta::strip<A0>::type::type
-														,	signed
-														> {};
+        :   meta::as_integer  <  typename meta::strip<A0>::type::type
+                            ,  signed
+                            > {};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , typename meta::scalar_of<typename A0::type>::type
                               , ( 2 , ( double, float) )
                               )
 
-		NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(-126);
-		}
-		
+    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(-126);
+    }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
-		{
-			typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-			return splat<type>(-1022);
-		}
-  };	
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(-1022);
+    }
+  };
+
+  template<class Category,class Info>
+  struct  call<constants::nb_digits_,tag::constant_(Category),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+        :   meta::as_integer  <  typename meta::strip<A0>::type::type
+                            ,  signed
+                            > {};
+
+    NT2_FUNCTOR_CALL_DISPATCH ( 1
+                              , typename meta::scalar_of<typename A0::type>::type
+                              , ( 2 , ( double, float) )
+                              )
+
+    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(24);
+    }
+    
+    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
+    {
+      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+      return splat<type>(53);
+    }
+  };    
 } }
 
 #endif
