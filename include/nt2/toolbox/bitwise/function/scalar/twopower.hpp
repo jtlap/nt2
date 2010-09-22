@@ -9,14 +9,20 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
-
-#include <nt2/include/functions/exp2.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for twopower
+  template<class Info>
+  struct validate<twopower_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+     meta::is_integral<A0>{}; 
+  };
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute twopower(const A0& a0)
@@ -32,13 +38,9 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       A0,
-      (3, (real_,unsigned,arithmetic_))
+      (2, (unsigned,arithmetic_))
     )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
-    {
-      nt2::exp2(a0); 
-    }
     NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
     {
        return One<A0>()<<a0;

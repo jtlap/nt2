@@ -15,11 +15,19 @@
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
-
+#include <nt2/sdk/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace functors
 {
-  //  no special validate for twopower
+  template<class Extension, class Info>
+  struct validate<twopower_,tag::simd_(tag::arithmetic_,Extension),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+     meta::is_integral<A0>{};  
+  };
+
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute twopower(const A0& a0)
@@ -58,10 +66,7 @@ namespace nt2 { namespace functors
     {
       return Zero<A0>(); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
-    {
-      return exp2(a0); 
-    }
+
   };
 } }
 
