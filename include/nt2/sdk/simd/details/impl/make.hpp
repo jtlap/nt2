@@ -60,6 +60,7 @@ namespace nt2 { namespace functors
   };
 } }
 
+// TODO : Remove make_native
 namespace nt2
 {
   #define NT2_LOCAL(z,d,n)                                                      				\
