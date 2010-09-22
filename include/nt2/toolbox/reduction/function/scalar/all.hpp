@@ -13,24 +13,24 @@
 
 namespace nt2 { namespace functors
 {
-
-  //  no special validate for all
-
+  /////////////////////////////////////////////////////////////////////////////
+  // Works on bool
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct validate<all_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
+  
   /////////////////////////////////////////////////////////////////////////////
   // Compute all(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct call<all_,tag::scalar_(tag::arithmetic_),Info>
   {
-    template<class Sig> struct result;
-
-    // see documentation http://nt2.lri.fr/extension/custom_function.html
-    // for writing the functor implementation code 
-    // with or without type dispatching
-
+    typedef bool result_type;
+    NT2_FUNCTOR_CALL(1) { return is_nez(a0); };
   };
 } }
-
-
       
 #endif

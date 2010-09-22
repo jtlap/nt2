@@ -13,23 +13,15 @@
 
 namespace nt2 { namespace functors
 {
-
-  template<class Info>
-  struct validate<any_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
   /////////////////////////////////////////////////////////////////////////////
-  // Compute any(const A0& a0)
+  // Compute all(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct call<any_,tag::scalar_(tag::arithmetic_),Info>
   {
     typedef bool result_type;
-    NT2_FUNCTOR_CALL(1) { return is_nez(a0); }
+    NT2_FUNCTOR_CALL(1) { return is_nez(a0); };
   };
 } }
-
-
       
 #endif

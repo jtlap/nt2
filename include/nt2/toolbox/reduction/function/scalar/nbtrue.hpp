@@ -13,26 +13,16 @@
 
 namespace nt2 { namespace functors
 {
-
-  //  no special validate for nbtrue
-
   /////////////////////////////////////////////////////////////////////////////
   // Compute nbtrue(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct call<nbtrue_,tag::scalar_(tag::arithmetic_),Info>
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> {typedef int32_t type; };
+    typedef int32_t result_type;
 
-    NT2_FUNCTOR_CALL(1)
-    {
-       return nt2::is_nez(a0);
-    }
+    NT2_FUNCTOR_CALL(1) { return nt2::is_nez(a0); }
   };
 } }
 
-
-      
 #endif

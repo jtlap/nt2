@@ -8,24 +8,18 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_POSMIN_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_POSMIN_HPP_INCLUDED
-#include <nt2/sdk/details/ignore_unused.hpp>
 
+#include <nt2/sdk/details/ignore_unused.hpp>
 
 namespace nt2 { namespace functors
 {
-
-  //  no special validate for posmin
-
   /////////////////////////////////////////////////////////////////////////////
   // Compute posmin(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct call<posmin_,tag::scalar_(tag::arithmetic_),Info>
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
+    typedef std::size_t result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -34,7 +28,5 @@ namespace nt2 { namespace functors
     }
   };
 } }
-
-
-      
+  
 #endif

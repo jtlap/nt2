@@ -9,12 +9,10 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_MINIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_MINIMUM_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace functors
 {
-
-  //  no special validate for minimum
-
   /////////////////////////////////////////////////////////////////////////////
   // Compute minimum(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
@@ -22,16 +20,10 @@ namespace nt2 { namespace functors
   struct call<minimum_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>{typedef A0 type; };
+    template<class This,class A0> struct result<This(A0)> : meta::strip<A0> {};  
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0; 
-    }
+    NT2_FUNCTOR_CALL(1) { return a0; }
   };
 } }
 
-
-      
 #endif
