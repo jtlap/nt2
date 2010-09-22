@@ -8,8 +8,24 @@
 ##############################################################################
 
 ##############################################################################
-###     Toolbox reduction unit tests
+# Toolbox reduction unit tests
 ##############################################################################
 
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(reduction.scalar.unit)
+ADD_CUSTOM_TARGET(reduction.simd.unit)
+ADD_CUSTOM_TARGET(reduction.unit)
+
+################################################################################
+# Incldue actual test cmake script
+################################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(reduction.unit reduction.scalar.unit)  
+ADD_DEPENDENCIES(reduction.unit reduction.simd.unit)
