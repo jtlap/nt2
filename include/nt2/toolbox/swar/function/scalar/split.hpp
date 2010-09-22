@@ -9,32 +9,8 @@
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_SPLIT_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_SPLIT_HPP_INCLUDED
 
+/////////////////////////////////////////////////////////////////////////////
+// split as currently no meaning in scalar mode
+/////////////////////////////////////////////////////////////////////////////
 
-namespace nt2 { namespace functors
-{
-
-  //  no special validate for split
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute split(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<split_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> {
-      typedef A0  type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0; 
-    }
-
-  };
-} }
-
-
-      
 #endif

@@ -9,30 +9,8 @@
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_GROUP_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_GROUP_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
-
-  //  no special validate for group
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute group(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-//   template<class Info>
-//   struct call<group_,tag::scalar_(tag::arithmetic_),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0>
-//     struct result<This(A0)> {typedef simd::native < int64_t,tag::sse_> type; };
-
-//     NT2_FUNCTOR_CALL(2)
-//     {
-//       simd::native<int64_t,tag::sse_> a = {a0, a1};
-//       return a; 
-//     }
-
-//   };
-} }
-
-
+/////////////////////////////////////////////////////////////////////////////
+// group as currently no meaning in scalar mode
+/////////////////////////////////////////////////////////////////////////////
       
 #endif

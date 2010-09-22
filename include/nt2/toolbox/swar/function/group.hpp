@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_GROUP_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_GROUP_HPP_INCLUDED
+
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/swar/include.hpp>
@@ -22,5 +23,4 @@ namespace nt2 { namespace functors
 #include <nt2/toolbox/swar/function/scalar/group.hpp>
 #include NT2_SWAR_INCLUDE(group.hpp) 
 
- 
 #endif
