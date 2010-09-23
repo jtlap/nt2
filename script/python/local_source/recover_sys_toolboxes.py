@@ -85,7 +85,8 @@ class Recover :
     """recovery of the sys toolboxes from old nt2"""
     Toolbox_List = [
         "trigonometric","predicates","ieee","arithmetic","bitwise","fuzzy","hyperbolic",
-        "exponential","reduction","elliptic","bessel","combinatorial","euler"]
+        "exponential","reduction","elliptic","bessel","combinatorial","euler","models","polynomials",
+        "swar"]
     Pname = '/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/core/numeric/function/details'
     Iname = '/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/include/functions'
     SseVariants = ["sse2","sse3","ssse3","sse4_1","sse4_2","sse4a","avx","xop","fma4"]
@@ -307,11 +308,11 @@ class Recover :
         
 if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
-    r = Recover(tb_list=["bitwise"])
-    r.treat_all(["scalar","simd"])
-    r.treat_variants()
+    r = Recover()#tb_list=["bitwise"])
+##    r.treat_all(["scalar","simd"])
+##   r.treat_variants()
 ##    show(r.Dirs_to_create)
-##    create_impl_dirs()
+    create_impl_dirs()
 sys.path.pop(0)
            
        

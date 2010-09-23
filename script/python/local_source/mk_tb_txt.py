@@ -21,21 +21,22 @@ sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../s
 
 import re
 from fctor      import Functor
-from file_utils import read,write 
+from file_utils import read,write,exist 
 from mylogging  import Mylogging
 from list_utils    import show
 
 def get_arity(pname) :
-    s = read(pname)
-    r = []
-    for l in s :
-        m = re.search('  NT2_FUNCTION_IMPLEMENTATION',l)
-        if m :
-#            print "l = %s " % l
-            m = re.search('([0-9]+)\)',l)
+    if exist(pname) :
+        s = read(pname)
+        r = []
+        for l in s :
+            m = re.search('  NT2_FUNCTION_IMPLEMENTATION',l)
             if m :
-#                print " arity %s "% m.groups()[0]
-                return m.groups()[0]
+                #            print "l = %s " % l
+                m = re.search('([0-9]+)\)',l)
+                if m :
+                    #                print " arity %s "% m.groups()[0]
+                    return m.groups()[0]
     return ""
 
 def create_txt(tb_name,s) :
@@ -46,7 +47,8 @@ def create_txt(tb_name,s) :
             fct_name =m.groups()[0][:-4]
             p=os.path.join('/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/core/numeric/function/',fct_name+'.hpp')
             arity = get_arity(p)
-            r.append(fct_name+(30-len(fct_name))*' '+arity)
+            if arity !="" :
+                r.append(fct_name+(30-len(fct_name))*' '+arity)
     return r    
 
 

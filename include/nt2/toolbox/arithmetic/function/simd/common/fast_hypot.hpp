@@ -17,7 +17,6 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/exponent.hpp>
-#include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/sqrt.hpp>

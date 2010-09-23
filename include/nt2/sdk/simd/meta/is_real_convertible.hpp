@@ -9,17 +9,16 @@
 #ifndef NT2_SDK_SIMD_META_IS_REAL_CONVERTIBLE_HPP_INCLUDED
 #define NT2_SDK_SIMD_META_IS_REAL_CONVERTIBLE_HPP_INCLUDED
 
-#include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace meta
 {
   template<class T>
   struct  is_real_convertible
-        : boost::mpl::bool_	<	(		sizeof(float)
-															<=	sizeof(typename meta::scalar_of<T>::type)
-															)
-														> {};
+        : boost::mpl::bool_  <  (    sizeof(float)
+                              <=  sizeof(typename meta::scalar_of<T>::type)
+                              )
+                            > {};
 } }
 
 #endif

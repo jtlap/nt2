@@ -12,3 +12,4 @@ csch                          1
 sech                          1
 sinh                          1
 tanh                          1
+sinhc                         1

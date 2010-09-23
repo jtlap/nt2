@@ -53,6 +53,7 @@ include(nt2.threading)
 
 ################################################################################
 # Find number CPU information
+
 ################################################################################
 include(nt2.cpucount)
 include(nt2.cpucache)
@@ -67,6 +68,7 @@ CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
 ################################################################################
 # Build libnt2
 ################################################################################
+
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
 
 include_directories( ${PROJECT_SOURCE_DIR}/include)
@@ -140,6 +142,9 @@ ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bessel)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/combinatorial)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/euler)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/polynomials)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/swar)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/trigonometric)
 
 
 ################################################################################

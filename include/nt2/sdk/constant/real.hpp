@@ -8,7 +8,6 @@
  ******************************************************************************/
 #ifndef NT2_SDK_CONSTANT_REAL_HPP_INCLUDED
 #define NT2_SDK_CONSTANT_REAL_HPP_INCLUDED
-
 ////////////////////////////////////////////////////////////////////////////////
 // Make True and False
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +16,6 @@
 
 namespace nt2 { namespace constants
 {
-  // Real only constants
   struct nan_         {};
   struct m_half_      {};
   struct m_zero_      {};
@@ -150,5 +148,6 @@ NT2_CONSTANT_MAKE_REAL(constants::one_o_120_ , Category , boost::mpl::_
                         , 0x3f81111111111111ll,0x3c088889
                         );
 */
+
 
 #endif

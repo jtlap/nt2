@@ -3,6 +3,7 @@ trigonometric
 acos                          1
 acosd                         1
 acot                          1
+acotd                         1
 acsc                          1
 acscd                         1
 asec                          1
@@ -50,3 +51,4 @@ sinpi                         1
 tan                           1
 tand                          1
 tanpi                         1
+rem_pio2                      1

@@ -12,3 +12,5 @@ log2                          1
 nthroot                       2
 pow                           2
 powi                          2
+expni                         2
+expx2                         1

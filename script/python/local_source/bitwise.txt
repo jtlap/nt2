@@ -28,3 +28,5 @@ twopower                      1
 select                        3
 seladd                        3
 selsub                        3
+genmask                       1
+negif                         2

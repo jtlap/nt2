@@ -60,9 +60,10 @@ namespace nt2
   ////////////////////////////////////////////////////////////////////////////////
   // Values useful for trigo and what not
   ////////////////////////////////////////////////////////////////////////////////
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 45> , FortyFive         )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 45> , Fortyfive         )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 90> , Ninety            )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , OneHundredEighty  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , Onehundredeighty  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , C_180             )
 
   ////////////////////////////////////////////////////////////////////////////////
   // Local digit based constant generator

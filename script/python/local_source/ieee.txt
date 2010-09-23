@@ -30,3 +30,10 @@ tofloat                       1
 toint                         1
 ulp                           1
 ulpdist                       2
+next                          1
+prev                          1
+signnz                        1
+sbits                         1
+negation                      2
+sign                          1
+negate                        2

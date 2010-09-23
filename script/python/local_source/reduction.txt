@@ -1,6 +1,7 @@
 reduction
  
 any                           1
+all                           1
 at                            2
 dot                           2
 first                         1
