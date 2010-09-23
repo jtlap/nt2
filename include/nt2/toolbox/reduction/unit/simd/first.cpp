@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - first simd Mode"
 
 #include <nt2/toolbox/reduction/include/first.hpp>
 #include <nt2/sdk/unit/tests.hpp>

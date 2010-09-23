@@ -9,8 +9,40 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_AT_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_AT_HPP_INCLUDED
 
-/////////////////////////////////////////////////////////////////////////////
-// at as currently no meaning in scalar mode
-/////////////////////////////////////////////////////////////////////////////
-      
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
+
+namespace nt2 { namespace functors
+{
+  /////////////////////////////////////////////////////////////////////////////
+  // Works only if a1 is an integral index
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct validate<at_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;   
+    template<class This,class A0,class A1>
+    struct  result<This(A0,A1)>
+          : boost::is_integral<typename meta::strip<A1>::type>
+    {};
+  };
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Compute all(const A0& a0)
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<at_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;   
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0>  {};
+    
+    NT2_FUNCTOR_CALL(2)
+    {
+      details::ignore_unused(a1);
+      return a0;
+    };
+  };
+} }
+        
 #endif

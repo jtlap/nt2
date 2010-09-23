@@ -14,12 +14,21 @@
 namespace nt2 { namespace functors
 {
   /////////////////////////////////////////////////////////////////////////////
+  // Works on bool
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct validate<nbtrue_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
+  
+  /////////////////////////////////////////////////////////////////////////////
   // Compute nbtrue(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct call<nbtrue_,tag::scalar_(tag::arithmetic_),Info>
   {
-    typedef int32_t result_type;
+    typedef nt2::uint32_t result_type;
 
     NT2_FUNCTOR_CALL(1) { return nt2::is_nez(a0); }
   };

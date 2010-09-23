@@ -12,6 +12,15 @@
 namespace nt2 { namespace functors
 {
   /////////////////////////////////////////////////////////////////////////////
+  // Works on bool
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct validate<sum_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
+  
+  /////////////////////////////////////////////////////////////////////////////
   // Compute prod(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
@@ -19,7 +28,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : std::tr1::result_of<meta::arithmetic(A0)>{};
       
     NT2_FUNCTOR_CALL(1) { return a0;  }
   };
