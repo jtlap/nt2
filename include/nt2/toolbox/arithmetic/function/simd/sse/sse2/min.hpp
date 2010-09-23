@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MIN_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MIN_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/seladd.hpp>
 
 namespace nt2 { namespace functors
@@ -21,8 +21,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
@@ -47,7 +46,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-       return seladd(is_gt(a0,a1),a0,a1-a0);
+       return seladd(gt(a0,a1),a0,a1-a0);
     }
   };
 } }

@@ -8,21 +8,18 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MAX_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MAX_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/seladd.hpp>
 
 namespace nt2 { namespace functors
 {
-  //  no special validate for max
-
-  template<class Extension,class Info>
-  struct call<max_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class Info>
+  struct call<max_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
@@ -48,7 +45,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-       return seladd( is_lt(a0,a1),a0,a1-a0);
+       return seladd( lt(a0,a1),a0,a1-a0);
     }
   };
 } }
