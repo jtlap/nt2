@@ -6,26 +6,27 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOS_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_LEGENDRE_HPP_INCLUDED
+#define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_LEGENDRE_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/real.hpp>
 
-#include <nt2/toolbox/trigonometric/function/scalar/impl/invtrig.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/oneminus.hpp>
 
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for acos
-
+  template<class Info>
+  struct validate<legendre_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :boost::is_integral<A0>{};
+  };
   /////////////////////////////////////////////////////////////////////////////
-  // Compute acos(const A0& a0)
+  // Compute legendre(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<acos_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<legendre_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -33,21 +34,38 @@ namespace nt2 { namespace functors
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
-      1,
+      2,
       A0,
       (2, (real_,arithmetic_))
     )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
-      return impl::invtrig_base<A0,radian_tag,trig_tag,tag::not_simd_type>::acos(a0);
+      if(abs(a1) > 1) return Nan<A0>(); 
+      A0 p0, p1;
+      p0 = One<A0>();
+      p1 = a1;
+      if(a0 == 0)  return p0;
+      uint32_t n = 1;
+      
+      while(n < a0)
+	{
+	  std::swap(p0, p1);
+	  p1 = legendre_next(n, a1, p0, p1);
+	  ++n;
+	}
+      return p1;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      if(isgt(abs(a0), One<A0>())) return Nan<type>();
-      return oneminus(nt2::sign(a0))*Pio_2<type>();
+      return legendre(type(a0));
     }
-
+    template <class T>
+    static inline T 
+    legendre_next(uint32_t  l, T x, T Pl, T Plm1)
+    {
+      return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
+    }
   };
 } }
 

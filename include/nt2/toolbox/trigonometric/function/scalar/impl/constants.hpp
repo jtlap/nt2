@@ -64,9 +64,9 @@ NT2_CONSTANT_MAKE_REAL(constants::one_o_180_   , 0x3f76c16c16c16c17ll, 0x3bb60b6
 NT2_CONSTANT_MAKE_REAL(constants::one_o_6_     , 0x3fc5555555555555ll, 0x3e2aaaab)
 NT2_CONSTANT_MAKE_REAL(constants::mone_o_6_    , 0xbfc5555555555555ll, 0xbe2aaaab)
 NT2_CONSTANT_MAKE_REAL(constants::one_o_120_   , 0x3f81111111111111ll, 0x3c088889)
-NT2_CONSTANT_MAKE_REAL(constants::deg_in_rad_  , 0x3f91df46a2529d39LL,0x3c8efa35 )
-NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_  , 0x404ca5dc1a63c1f8LL,0x42652ee1 )
-NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_r_, 0xbce1e7ab456405f8ll,0xb53387c1 )
+NT2_CONSTANT_MAKE_REAL(constants::deg_in_rad_  , 0x3f91df46a2529d39LL, 0x3c8efa35)
+NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_  , 0x404ca5dc1a63c1f8LL, 0x42652ee1)
+NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_r_, 0xbce1e7ab456405f8ll, 0xb53387c1)
 
 
 
