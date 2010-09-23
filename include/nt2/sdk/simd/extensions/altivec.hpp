@@ -19,6 +19,15 @@
 #if !defined(NT2_SIMD_DETECTED)
 #include <nt2/sdk/simd/extensions/vmx/altivec.hpp>
 //#include <nt2/sdk/simd/extensions/vmx/spu.hpp>
+
+#if !defined(NT2_SIMD_TYPES)
+#define NT2_SIMD_TYPES  (nt2::uint32_t)(nt2::int32_t)(float)  \
+                        (nt2::uint16_t)(nt2::int16_t)         \
+                        (nt2::uint8_t)(nt2::int8_t)           \
+/**/
+
+#endif
+
 #endif
 
 #endif
