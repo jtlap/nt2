@@ -6,9 +6,21 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_INVTRIG_SELECTION_TAGS_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_INVTRIG_SELECTION_TAGS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_SELECTION_TAGS_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_SELECTION_TAGS_HPP_INCLUDED
+#include <nt2/toolbox/common/tags.hpp>
 
-#include <nt2/toolbox/trigonometric/function/scalar/impl/selection_tags.hpp>
+namespace nt2
+{
+  // tags allowing to choose angle unit in trigonometric functions
+  struct radian_tag{};
+  struct degree_tag{};
+  struct pi_tag{};
+
+  struct trig_tag{};        // nt2 implementation speed choice for trigo
+
+
+}
+
 
 #endif

@@ -6,13 +6,26 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_SELECTION_TAGS_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_SELECTION_TAGS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_COMMON_TAGS_HPP_INCLUDED
+#define NT2_TOOLBOX_COMMON_TAGS_HPP_INCLUDED
 
-#include <nt2/toolbox/trigonometric/function/scalar/impl/selection_tags.hpp>
+
+
+namespace nt2
+{
+
+  // tags allowing to choose computation standard for some toolboxes
+  struct fast_tag{};        // extra-speed
+                            // but very small validity range with trigo
+                            //     no rouding for exp2(n) or exp10(n) if n is a flint
+  struct accu_tag{};        // full range and precision at expanse of slowness
+  struct nt2_tag{};        // nt2 implementation choices
+
+}
+
 
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////
-// End of selection_tags.hpp
+// End of tags.hpp
 // /////////////////////////////////////////////////////////////////////////////

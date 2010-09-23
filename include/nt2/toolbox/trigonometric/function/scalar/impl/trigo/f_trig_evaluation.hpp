@@ -1,13 +1,14 @@
 /*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *         Copyright 2003-2010 LASMEA UMR 6602 CNRS/U.B.P
+ *         Copyright 2009-2010 LRI    UMR 8623 CNRS/Univ Paris Sud XI
  *
  *          Distributed under the Boost Software License, Version 1.0.
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_NUMERIC_FUNCTION_DETAILS_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
-#define NT2_CORE_NUMERIC_FUNCTION_DETAILS_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
+
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/rec.hpp>
