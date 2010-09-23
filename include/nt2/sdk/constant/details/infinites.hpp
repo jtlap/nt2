@@ -40,12 +40,14 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
-      return splat<typename A0::type>(0x7F800000);
+      meta::from_bits<float>::type const that = {0x7F800000};
+      return splat<typename A0::type>(that.value);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
-      return splat<typename A0::type>(0x7FF0000000000000LL);
+      meta::from_bits<double>::type const that = {0x7FF0000000000000LL};
+      return splat<typename A0::type>(that.value);      
     }
   };
 
@@ -68,13 +70,15 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
-      return splat<typename A0::type>(0xFF800000);
+      meta::from_bits<float>::type const that = {0xFF800000};
+      return splat<typename A0::type>(that.value);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
-      return splat<typename A0::type>(0xFFF0000000000000LL);
-    }
+      meta::from_bits<double>::type const that = {0xFFF0000000000000LL};
+      return splat<typename A0::type>(that.value);      
+    }   
   };
 } }
 

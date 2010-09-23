@@ -10,7 +10,7 @@
 #define NT2_SDK_CONSTANT_DETAILS_VALMAX_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Base class for generating an integral constant
+// Base class for generating valmax constant
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
@@ -39,39 +39,44 @@ namespace nt2 { namespace functors
 															
     NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
     {
-      return splat<typename A0::type>(static_cast<typename A0::type>(~0));
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      return splat<typename A0::type>(static_cast<base>(~0));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int8_t)
     {
-      return splat<typename A0::type>(static_cast<typename A0::type>(~0x80));
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      return splat<typename A0::type>(static_cast<base>(~0x80));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int16_t)
     {
-      return splat<typename A0::type>(static_cast<typename A0::type>(~0x8000));
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      return splat<typename A0::type>(static_cast<base>(~0x8000));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int32_t)
     {
-      return splat<typename A0::type>(static_cast<typename A0::type>(~0x80000000));
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      return splat<typename A0::type>(static_cast<base>(~0x80000000));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)
     {
-      return splat<typename A0::type>(static_cast<typename A0::type>(~0x8000000000000000LL));
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      return splat<typename A0::type>(static_cast<base>(~0x8000000000000000LL));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
 			meta::from_bits<float>::type const that = {0x7f7fffff};
-      return splat<typename A0::type>(static_cast<typename A0::type>(that.value));
+      return splat<typename A0::type>(that.value);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
 			meta::from_bits<double>::type const that = {0x7fefffffffffffffLL};
-      return splat<typename A0::type>(static_cast<typename A0::type>(that.value));
+      return splat<typename A0::type>(that.value);
     }
   };
 } }
