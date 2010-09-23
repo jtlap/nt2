@@ -8,21 +8,20 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_MINIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_MINIMUM_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/include/functions/min.hpp>
 
 namespace nt2 { namespace functors
 {
-  //  no special validate for minimum
-
-  template<class Extension,class Info>
-  struct call<minimum_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-      { typedef typename meta::scalar_of<A0>::type type; };
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -66,8 +65,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_)
     {
-      typedef typename meta::category_of<A0>::type::type cat; 
-      typedef simd::native<double, cat> rtype;
+      typedef simd::native<typename meta::double_<A0>::type,tag::sse_> rtype;
       rtype v0 = simd::native_cast<rtype>(a0);
       A0 pack = simd::native_cast<A0>(_mm_unpackhi_pd(v0,v0));
       A0 min1 = nt2::min(a0,pack);
