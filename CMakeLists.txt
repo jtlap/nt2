@@ -53,7 +53,6 @@ include(nt2.threading)
 
 ################################################################################
 # Find number CPU information
-
 ################################################################################
 include(nt2.cpucount)
 include(nt2.cpucache)
@@ -68,7 +67,6 @@ CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
 ################################################################################
 # Build libnt2
 ################################################################################
-
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
 
 include_directories( ${PROJECT_SOURCE_DIR}/include)
@@ -107,13 +105,13 @@ ADD_CUSTOM_TARGET(examples
                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/examples
                  )
 
-ADD_SUBDIRECTORY(examples)
+ADD_SUBDIRECTORY(examples EXCLUDE_FROM_ALL)
 
 ################################################################################
 # Add Unit Tests
 ################################################################################
 ENABLE_TESTING()
-ADD_SUBDIRECTORY(unit)
+ADD_SUBDIRECTORY(unit EXCLUDE_FROM_ALL)
 
 ################################################################################
 # Add RT Benchmarks and the driver rule
@@ -122,21 +120,22 @@ ADD_CUSTOM_TARGET(benchmarks
                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/benchmark
                  )
 
-ADD_SUBDIRECTORY(benchmark)
+ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 
 ################################################################################
 # System-level toolbox inclusion
 ################################################################################
 
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/trigonometric)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/predicates)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/predicates EXCLUDE_FROM_ALL)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/fuzzy)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/hyperbolic)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/exponential)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/reduction)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/reduction EXCLUDE_FROM_ALL)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/elliptic)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bessel)
 #ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/combinatorial)
