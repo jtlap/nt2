@@ -8,45 +8,35 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_AT_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_AT_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/put_first.hpp>
-#include <nt2/include/functions/first.hpp>
 
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/is_scalar.hpp>
 
 namespace nt2 { namespace functors
 {
-  template<class Extension,class Info>
+  template<class Extension, class Info>
   struct validate<at_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
 
-    template<class This,class A0>
-    struct result<This(A0)> : boost::mpl::true_ {};
-
     template<class This,class A0,class A1>
     struct result<This(A0,A1)>
-         : boost::mpl::and_ < meta::is_scalar<A1>
-                            , meta::is_integral<A1>
+         : boost::mpl::and_ < meta::is_scalar<typename meta::strip<A1>::type>
+                            , meta::is_integral<typename meta::strip<A1>::type>
                             > {};
   };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute at(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<at_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  template<class Extension, class Info>
+  struct call<at_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::scalar_of<A0> {};
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)> : meta::scalar_of<A0> {};
+    struct  result<This(A0, A1)>
+          : meta::scalar_of<typename meta::strip<A0>::type>
+    {};
 
-    NT2_FUNCTOR_CALL(2) { return first(put_first(a0, a1)); }
-    NT2_FUNCTOR_CALL(1) { return a0[Idx];    }
-
+    NT2_FUNCTOR_CALL(2) { return a0[a1]; }
   };
 } }
 
-      
 #endif
