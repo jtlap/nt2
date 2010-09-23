@@ -8,24 +8,23 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_SECOND_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_SECOND_HPP_INCLUDED
-#include <nt2/sdk/meta/from_bits.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_bits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_bits.hpp>
+#include <nt2/sdk/meta/from_bits.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace functors
 {
-  //  no special validate for second
-
   template<class Extension,class Info>
   struct call<second_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::scalar_of<A0>{};
-
+    struct  result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+          
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       typename nt2::meta::scalar_of<A0>::type,
@@ -36,23 +35,27 @@ namespace nt2 { namespace functors
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       int that = _mm_extract_epi16(a0, 0);
-      return that >> 8;
+      return (that >> 8) & 0xFF;
     }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,    types16_)
     {
       return _mm_extract_epi16(a0, 1);
     }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,    float)
     {
       typedef typename meta::as_integer<A0>::type type;
       meta::from_bits<float>::type t = {_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<type>(a0), 4))};
       return t.value;
     }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,    types32_)
     {
       typedef typename meta::as_integer<A0>::type type;
       return _mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<type>(a0), 4));
     }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,    types64_)
     {
       typedef typename meta::as_integer<A0>::type type;
@@ -60,13 +63,13 @@ namespace nt2 { namespace functors
       meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))};
       return t.bits;
     }
+    
     NT2_FUNCTOR_CALL_EVAL_IF(1,    double)
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
       return _mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)));
     }
-
   };
 } }
 
