@@ -21,13 +21,11 @@ namespace nt2 { namespace constants
   struct pi_o_4_   {};
   struct pi_x_4_   {};
   struct pi_x_2_   {};
+  struct sqrt_2pi_ {};
   struct _4_o_pi_  {};
   struct inv_pi_   {};
   struct pi_o_180_ {};
   struct one_o_180_{};
-  struct one_o_6_  {};
-  struct mone_o_6_ {};
-  struct one_o_120_{};
   struct deg_in_rad_  {};
   struct rad_in_deg_  {};
   struct rad_in_deg_r_{};
@@ -44,13 +42,10 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(constants::inv_pi_       , Invpi   )
   NT2_CONSTANT_IMPLEMENTATION(constants::pi_o_180_     , Pio_180 )
   NT2_CONSTANT_IMPLEMENTATION(constants::one_o_180_    , Oneo_180)
-  NT2_CONSTANT_IMPLEMENTATION(constants::one_o_6_      , Oneo_6  )
-  NT2_CONSTANT_IMPLEMENTATION(constants::mone_o_6_     , Moneo_6 ) 
-  NT2_CONSTANT_IMPLEMENTATION(constants::one_o_120_    , Oneo_120) 
   NT2_CONSTANT_IMPLEMENTATION(constants::deg_in_rad_   , Deginrad )
   NT2_CONSTANT_IMPLEMENTATION(constants::rad_in_deg_   , Radindeg )
   NT2_CONSTANT_IMPLEMENTATION(constants::rad_in_deg_r_ , Radindegr)
-
+  NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2pi_     , Sqrt_2pi)
 }
 
 NT2_CONSTANT_MAKE_REAL(constants::pi_o_2_      , 0x3ff921fb54442d18LL, 0x3fc90fdb)
@@ -61,13 +56,10 @@ NT2_CONSTANT_MAKE_REAL(constants::_4_o_pi_     , 0x3ff45f306dc9c883LL, 0x3fa2f98
 NT2_CONSTANT_MAKE_REAL(constants::inv_pi_      , 0x3fd45f306dc9c883LL, 0x3ea2f983)
 NT2_CONSTANT_MAKE_REAL(constants::pi_o_180_    , 0x3f91df46a2529d3all, 0x3c8efa35)
 NT2_CONSTANT_MAKE_REAL(constants::one_o_180_   , 0x3f76c16c16c16c17ll, 0x3bb60b61)
-NT2_CONSTANT_MAKE_REAL(constants::one_o_6_     , 0x3fc5555555555555ll, 0x3e2aaaab)
-NT2_CONSTANT_MAKE_REAL(constants::mone_o_6_    , 0xbfc5555555555555ll, 0xbe2aaaab)
-NT2_CONSTANT_MAKE_REAL(constants::one_o_120_   , 0x3f81111111111111ll, 0x3c088889)
 NT2_CONSTANT_MAKE_REAL(constants::deg_in_rad_  , 0x3f91df46a2529d39LL, 0x3c8efa35)
 NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_  , 0x404ca5dc1a63c1f8LL, 0x42652ee1)
 NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_r_, 0xbce1e7ab456405f8ll, 0xb53387c1)
-
-
+NT2_CONSTANT_MAKE_REAL(constants::sqrt_2pi_    , 0x40040d931ff62704ll, 0x40206c99)
+ 
 
 #endif
