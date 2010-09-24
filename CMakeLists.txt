@@ -113,6 +113,7 @@ ADD_SUBDIRECTORY(examples EXCLUDE_FROM_ALL)
 # Add Unit Tests
 ################################################################################
 ENABLE_TESTING()
+ADD_CUSTOM_TARGET(unit)
 ADD_SUBDIRECTORY(unit EXCLUDE_FROM_ALL)
 
 ################################################################################
@@ -128,23 +129,21 @@ ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 # System-level toolbox inclusion
 ################################################################################
 
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/trigonometric)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/predicates EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/fuzzy)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/hyperbolic)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/exponential)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/reduction EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/elliptic)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bessel)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/combinatorial)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/euler)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/polynomials)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/swar)
-#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/trigonometric)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/trigonometric EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/predicates EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee EXCLUDE_FROM_ALL)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/fuzzy EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/hyperbolic EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/exponential EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/reduction EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/bessel EXCLUDE_FROM_ALL)
+#ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/combinatorial EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/euler EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_BINARY_DIR}/include/nt2/toolbox/polynomials EXCLUDE_FROM_ALL)
 
 
 ################################################################################

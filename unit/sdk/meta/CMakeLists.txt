@@ -10,7 +10,7 @@
 SET( SOURCES
     any.cpp
     all.cpp
-    arithmetic.cpp
+    m_arithmetic.cpp
     as_integer.cpp
     as_bits.cpp
     as_real.cpp
@@ -35,6 +35,9 @@ SET( SOURCES
 
 include_directories( ${PROJECT_SOURCE_DIR}/)
 
+ADD_CUSTOM_TARGET(sdk.meta.unit)
+ADD_DEPENDENCIES(sdk.unit sdk.meta.unit)  
+
 ################################################################################
 # For each filename
 ################################################################################
@@ -51,4 +54,5 @@ FOREACH( EXAMPLE ${SOURCES})
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
+  ADD_DEPENDENCIES(sdk.meta.unit ${EXECUTABLE})  
 ENDFOREACH()

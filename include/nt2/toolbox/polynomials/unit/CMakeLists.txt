@@ -7,9 +7,22 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox polynomials unit tests
-##############################################################################
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(polynomials.scalar.unit)
+ADD_CUSTOM_TARGET(polynomials.simd.unit)
+ADD_CUSTOM_TARGET(polynomials.unit)
 
+##############################################################################
+# Toolbox polynomials unit tests
+##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(polynomials.unit polynomials.scalar.unit)  
+ADD_DEPENDENCIES(polynomials.unit polynomials.simd.unit)
+ADD_DEPENDENCIES(unit polynomials.unit)

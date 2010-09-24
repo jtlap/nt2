@@ -7,9 +7,22 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox exponential unit tests
-##############################################################################
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(exponential.scalar.unit)
+ADD_CUSTOM_TARGET(exponential.simd.unit)
+ADD_CUSTOM_TARGET(exponential.unit)
 
+##############################################################################
+# Toolbox exponential unit tests
+##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(exponential.unit exponential.scalar.unit)  
+ADD_DEPENDENCIES(exponential.unit exponential.simd.unit)
+ADD_DEPENDENCIES(unit exponential.unit)

@@ -10,19 +10,18 @@
 ################################################################################
 # Display a post-configuration installation directives list
 ################################################################################
-MESSAGE ("
+MESSAGE ( STATUS "
 ################################################################################
 
  NT2 is now configured. 
  * If you use make or GNU make, you may run:
-   - make nt2 to build the library and install it
+   - make all to build the library
+   - make install to install the compiled binary and library headers on your 
+     system
    - make doc to build the HTML documentation
    - make examples to build the documentation examples
    - make benchmarks to build the performance test
-   - make tests to build the unit test
-   - make all to run everything
-   - make install to install the compiled binary and library headers on your 
-     system
+   - make unit to build the unit test
 
  * If you use Microsoft Visual C++ or XCode, you may open the IDE-specific 
    project and build those targets.

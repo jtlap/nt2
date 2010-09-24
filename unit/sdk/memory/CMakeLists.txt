@@ -8,6 +8,7 @@
 ################################################################################
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
+
 SET( SOURCES
     is_power_of_2.cpp
     next_power_of_2.cpp
@@ -27,6 +28,9 @@ SET( SOURCES
 #    dynamic_block.cpp
   )
 
+ADD_CUSTOM_TARGET(sdk.memory.unit)
+ADD_DEPENDENCIES(sdk.unit sdk.memory.unit)  
+
 ################################################################################
 # For each filename
 ################################################################################
@@ -43,4 +47,5 @@ FOREACH( EXAMPLE ${SOURCES})
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
+  ADD_DEPENDENCIES(sdk.memory.unit ${EXECUTABLE})  
 ENDFOREACH()

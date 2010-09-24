@@ -7,9 +7,22 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox elliptic unit tests
-##############################################################################
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(elliptic.scalar.unit)
+ADD_CUSTOM_TARGET(elliptic.simd.unit)
+ADD_CUSTOM_TARGET(elliptic.unit)
 
+##############################################################################
+# Toolbox elliptic unit tests
+##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(elliptic.unit elliptic.scalar.unit)  
+ADD_DEPENDENCIES(elliptic.unit elliptic.simd.unit)
+ADD_DEPENDENCIES(unit elliptic.unit)
