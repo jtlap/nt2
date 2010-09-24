@@ -10,7 +10,7 @@
 SET( SOURCES
     any.cpp
     all.cpp
-    arithmetic.cpp
+    m_arithmetic.cpp
     as_integer.cpp
     as_bits.cpp
     as_real.cpp

@@ -7,9 +7,22 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox hyperbolic unit tests
-##############################################################################
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(hyperbolic.scalar.unit)
+ADD_CUSTOM_TARGET(hyperbolic.simd.unit)
+ADD_CUSTOM_TARGET(hyperbolic.unit)
 
+##############################################################################
+# Toolbox hyperbolic unit tests
+##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(hyperbolic.unit hyperbolic.scalar.unit)  
+ADD_DEPENDENCIES(hyperbolic.unit hyperbolic.simd.unit)
+ADD_DEPENDENCIES(unit hyperbolic.unit)

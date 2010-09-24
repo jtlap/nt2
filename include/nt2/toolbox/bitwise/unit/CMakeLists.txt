@@ -7,9 +7,22 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox bitwise unit tests
-##############################################################################
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(bitwise.scalar.unit)
+ADD_CUSTOM_TARGET(bitwise.simd.unit)
+ADD_CUSTOM_TARGET(bitwise.unit)
 
+##############################################################################
+# Toolbox bitwise unit tests
+##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(bitwise.unit bitwise.scalar.unit)  
+ADD_DEPENDENCIES(bitwise.unit bitwise.simd.unit)
+ADD_DEPENDENCIES(unit bitwise.unit)
