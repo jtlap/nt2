@@ -47,9 +47,9 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(constants::one_o_6_      , Oneo_6  )
   NT2_CONSTANT_IMPLEMENTATION(constants::mone_o_6_     , Moneo_6 ) 
   NT2_CONSTANT_IMPLEMENTATION(constants::one_o_120_    , Oneo_120) 
-  NT2_CONSTANT_IMPLEMENTATION( constants::deg_in_rad_  , Deginrad )
-  NT2_CONSTANT_IMPLEMENTATION( constants::rad_in_deg_  , Radindeg )
-  NT2_CONSTANT_IMPLEMENTATION( constants::rad_in_deg_r_, Radindegr)
+  NT2_CONSTANT_IMPLEMENTATION(constants::deg_in_rad_   , Deginrad )
+  NT2_CONSTANT_IMPLEMENTATION(constants::rad_in_deg_   , Radindeg )
+  NT2_CONSTANT_IMPLEMENTATION(constants::rad_in_deg_r_ , Radindegr)
 
 }
 

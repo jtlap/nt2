@@ -50,6 +50,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 8 > , Eight )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 9 > , Nine  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 10> , Ten   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 20> , Twenty)
 
   ////////////////////////////////////////////////////////////////////////////////
   // Larger values

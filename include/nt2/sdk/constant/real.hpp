@@ -27,6 +27,9 @@ namespace nt2 { namespace constants
   struct two_to_nmb_  {};
   struct pi_          {};
   struct split_factor_{};
+  struct sqrt_2_o_2_  {};
+  struct gold_        {};
+  struct c_gold_      {};
 }  }
 
 namespace nt2
@@ -42,6 +45,9 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(constants::two_to_nmb_  , Two2nmb )
   NT2_CONSTANT_IMPLEMENTATION(constants::pi_          , Pi      ) 
   NT2_CONSTANT_IMPLEMENTATION(constants::split_factor_, Splitfactor) 
+  NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2_o_2_  , Sqrt_2o_2) 
+  NT2_CONSTANT_IMPLEMENTATION(constants::gold_        , Gold    ) 
+  NT2_CONSTANT_IMPLEMENTATION(constants::c_gold_      , Cgold   ) 
 
 }
 
@@ -98,17 +104,20 @@ namespace nt2 { namespace functors                                        \
 ////////////////////////////////////////////////////////////////////////////////
 // Real only constants
 ////////////////////////////////////////////////////////////////////////////////
-NT2_CONSTANT_MAKE_REAL(constants::nan_    ,   0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
-NT2_CONSTANT_MAKE_REAL(constants::m_half_ ,   0xBFE0000000000000LL, 0xBF000000  )
-NT2_CONSTANT_MAKE_REAL(constants::m_zero_ ,   0x8000000000000000LL, 0x80000000  )
-NT2_CONSTANT_MAKE_REAL(constants::half_   ,   0x3FE0000000000000LL, 0x3F000000  )
-NT2_CONSTANT_MAKE_REAL(constants::third_  ,   0x3FD5555555555555LL, 0x3EAAAAAB  )
-NT2_CONSTANT_MAKE_REAL(constants::quarter_,   0x3FD0000000000000LL, 0x3E800000  )
-NT2_CONSTANT_MAKE_REAL(constants::ldexp_mask_,0x7FF0000000000000ll, 0x7F800000  ) //      9218868437227405312ll, 2139095040) 
-NT2_CONSTANT_MAKE_REAL(constants::two_to_m10_,0x0804D558B7EB8AD0ll, 0x3a800000  )
-NT2_CONSTANT_MAKE_REAL(constants::two_to_nmb_,0x4330000000000000ll, 0x4b000000  )
-NT2_CONSTANT_MAKE_REAL(constants::pi_,        0x400921fb54442d18ll, 0x40490fdb  )
-NT2_CONSTANT_MAKE_REAL(constants::split_factor_, 0x41a0000000000000ll,0x46000000) 
+NT2_CONSTANT_MAKE_REAL(constants::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
+NT2_CONSTANT_MAKE_REAL(constants::m_half_      ,0xBFE0000000000000LL, 0xBF000000  )
+NT2_CONSTANT_MAKE_REAL(constants::m_zero_      ,0x8000000000000000LL, 0x80000000  )
+NT2_CONSTANT_MAKE_REAL(constants::half_        ,0x3FE0000000000000LL, 0x3F000000  )
+NT2_CONSTANT_MAKE_REAL(constants::third_       ,0x3FD5555555555555LL, 0x3EAAAAAB  )
+NT2_CONSTANT_MAKE_REAL(constants::quarter_     ,0x3FD0000000000000LL, 0x3E800000  )
+NT2_CONSTANT_MAKE_REAL(constants::ldexp_mask_  ,0x7FF0000000000000ll, 0x7F800000  ) //      9218868437227405312ll, 2139095040) 
+NT2_CONSTANT_MAKE_REAL(constants::two_to_m10_  ,0x0804D558B7EB8AD0ll, 0x3a800000  )
+NT2_CONSTANT_MAKE_REAL(constants::two_to_nmb_  ,0x4330000000000000ll, 0x4b000000  )
+NT2_CONSTANT_MAKE_REAL(constants::pi_          ,0x400921fb54442d18ll, 0x40490fdb  )
+NT2_CONSTANT_MAKE_REAL(constants::split_factor_,0x41a0000000000000ll, 0x46000000  ) 
+NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_o_2_  ,0x3fe6a09e667f3bcdLL, 0x3f3504f3  )
+NT2_CONSTANT_MAKE_REAL(constants::gold_        ,0x3ff9e3779b97f4a8LL, 0x3fcf1bbd  )
+NT2_CONSTANT_MAKE_REAL(constants::c_gold_      ,0x3fd8722191a02d61LL, 0x3ec3910d  )
 
 
 /*
