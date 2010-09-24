@@ -6,15 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
-#define NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
-
-//<include> please don't modify between these tags
-#include <nt2/toolbox/polynomials/include/polevl.hpp>
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-#include <nt2/toolbox/polynomials/include/legendre.hpp>
-#include <nt2/toolbox/polynomials/include/hermite.hpp>
-#include <nt2/toolbox/polynomials/include/laguerre.hpp>
-//<\include>
-
+#ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SIMD_SSE_SSSE3_POLEVL_HPP_INCLUDED
+#define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SIMD_SSE_SSSE3_POLEVL_HPP_INCLUDED
+#include <nt2/toolbox/polynomials/function/simd/sse/sse3/polevl.hpp>
 #endif

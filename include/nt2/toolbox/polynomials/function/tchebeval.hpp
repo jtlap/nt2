@@ -6,15 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
-#define NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_TCHEBEVAL_HPP_INCLUDED
+#define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_TCHEBEVAL_HPP_INCLUDED
+#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/toolbox/polynomials/include.hpp>
 
-//<include> please don't modify between these tags
-#include <nt2/toolbox/polynomials/include/polevl.hpp>
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-#include <nt2/toolbox/polynomials/include/legendre.hpp>
-#include <nt2/toolbox/polynomials/include/hermite.hpp>
-#include <nt2/toolbox/polynomials/include/laguerre.hpp>
-//<\include>
+namespace nt2 { namespace functors
+  {	       
+    struct tchebeval_ {};
+  }
+  NT2_FUNCTION_IMPLEMENTATION(functors::tchebeval_, tchebeval, 2)
+}
+ 
+#include <nt2/toolbox/polynomials/function/scalar/tchebeval.hpp>
+#include NT2_POLYNOMIALS_INCLUDE(tchebeval.hpp) 
 
+ 
 #endif

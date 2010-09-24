@@ -6,15 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
-#define NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
-
-//<include> please don't modify between these tags
-#include <nt2/toolbox/polynomials/include/polevl.hpp>
+#ifndef NT2_INCLUDE_FUNCTIONS_TCHEBEVAL_HPP_INCLUDED
+#define NT2_INCLUDE_FUNCTIONS_TCHEBEVAL_HPP_INCLUDED
 #include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-#include <nt2/toolbox/polynomials/include/legendre.hpp>
-#include <nt2/toolbox/polynomials/include/hermite.hpp>
-#include <nt2/toolbox/polynomials/include/laguerre.hpp>
-//<\include>
 
+
+ 
 #endif

@@ -15,6 +15,7 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/to_seq.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2
 {

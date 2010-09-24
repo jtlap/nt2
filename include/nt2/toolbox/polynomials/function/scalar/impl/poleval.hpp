@@ -8,7 +8,6 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_IMPL_POLEVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_IMPL_POLEVAL_HPP_INCLUDED
-#include <nt2/core/numeric/function/splat.hpp>
 ///////////////////////////////////////////////////////////////////////////////
 // unrolled polynomial evaluation
 // coeff are stored in an array that can be any direct 0 based access 
@@ -74,7 +73,5 @@ namespace nt2
   }    
   
 }
-}
-
 
 #endif

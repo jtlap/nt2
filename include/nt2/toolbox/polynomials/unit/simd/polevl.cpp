@@ -6,15 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
-#define NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
+#define NT2_UNIT_MODULE "nt2 polynomials toolbox - unit/simd Mode"
 
-//<include> please don't modify between these tags
 #include <nt2/toolbox/polynomials/include/polevl.hpp>
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-#include <nt2/toolbox/polynomials/include/legendre.hpp>
-#include <nt2/toolbox/polynomials/include/hermite.hpp>
-#include <nt2/toolbox/polynomials/include/laguerre.hpp>
-//<\include>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
-#endif
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of polynomials components using NT2_TEST_CASE
+//////////////////////////////////////////////////////////////////////////////
+
