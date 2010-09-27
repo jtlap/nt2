@@ -193,19 +193,21 @@ class Functor(Toolbox) :
             "\$self.tb_name\$"              : self.get_tb_name(),
             "\$self.tb_nameupper\$"         : self.get_tb_name().upper(),
             "\$self.name\$"                 : fct_name,
-            "\$self.arity\$"                : fct_arity,
+            "\$self.arity\$"                : str(fct_arity),
             "\$self.class_list\$"           : strlist("class A%d"),
             "\$self.const_type_list\$"      : strlist("A0",0), 
             "\$self.const_class_list\$"     : strlist("class A0",0), 
             "\$self.type_list\$"            : strlist("A%d"),
             "\$self.parm_list\$"            : strlist("a%d"),
             "\$self.parm_list_j\$"          : strlist("a%d[j]"),
+            "\$self.const_type_T_list\$"    : strlist("T",0),
+            "\$self.const_type_n_t_list\$"  : strlist("n_t",0), 
             "\$self.gl_list\$"              : strlist("//    n_t a%d = load<n_t>(&data[0],%d);",2,"\n"),
             "\$self.call_list\$"            : strlist("const A%d& a%d",2),
             "\$self.const_type_call_list\$" : strlist("const A0& a%d",1),
             "\$self.tb_namespace\$"         : self.get_tb_namespace(),
             "\$self.tb_taggedname\$"        : tb_taggedname,
-            "\$parms_type_and_ranges\$"     : strlist("(($parm$, -10, 10))",0,"\n//"+(17+len(fct_name))*' ')
+            "\$parms_type_and_ranges\$"     : strlist("(($parm$, -10, 10))",0,"\n//"+(17+len(fct_name))*' '),
             }
         for acts, datas in self.get_fct_actions().items() :
             action_names = self.get_fct_actions()[acts]

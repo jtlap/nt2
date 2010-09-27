@@ -76,7 +76,7 @@ class Headers(Banner,Guard) :
             print "unexpected *** flag : %s " %flag
             raise SystemExit
         if len(self.__fill)==1 :
-            l=sub_if_match_list(" *"+self.__comment, "\*", self.__fill, l)
+            l=sub_if_match_list(" @"+self.__comment, "@", self.__fill, l)
         
         self.logger.info( "header written to:\n %s\n" % path2headerfile)
         write(path2headerfile,l,check)
@@ -92,7 +92,7 @@ class Headers(Banner,Guard) :
             print "unexpected flag : %s " %flag
             raise SystemExit
         if len(self.__fill)==1 :
-            l=sub_if_match_list(" *"+self.__comment, "\*", self.__fill, l)
+            l=sub_if_match_list(" @"+self.__comment, "@", self.__fill, l)
         write(path,l,check)
     
 if __name__ == "__main__":
