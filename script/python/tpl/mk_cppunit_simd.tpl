@@ -26,8 +26,8 @@
 //                            >::value)
 //          );
 //NT2_TEST_CASE_TPL($self.name$, NT2_SIMD_TYPES )
-//  NT2_ALIGNED_TYPE(T) data[$self.arity$\*cardinal_of<n_t>::value];
-//  for(std::size_t i=0;i<$self.arity$\*cardinal_of<n_t>::value;++i)
+//  NT2_ALIGNED_TYPE(T) data[$self.arity$*cardinal_of<n_t>::value];
+//  for(std::size_t i=0;i<$self.arity$*cardinal_of<n_t>::value;++i)
 //    data[i] = i; // good value here for $self.name$
 //
 $self.gl_list$
