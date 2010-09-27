@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // if_else operators implementation
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/strip.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -23,7 +24,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct  result<This(A0,A1,A2)> : boost::is_convertible<A0,bool> {};
+    struct  result<This(A0,A1,A2)>
+					: boost::is_convertible<A0,bool> {};
   };
 
   template<class Category, class Info>
@@ -31,9 +33,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0 const&,A1 const&,A2 const&)>
+    struct result<This(A0,A1,A2)>
     {
-      static A0& a0;  static A1& a1;  static A2& a2;
+			typedef typename meta::strip<A0>::type t0;
+			typedef typename meta::strip<A1>::type t1;
+			typedef typename meta::strip<A2>::type t2;
+      static t0& a0;  static t1& a1;  static t2& a2;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 ? a1 : a2)
       typedef typename nested::type type;
     };
