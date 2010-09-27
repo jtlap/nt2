@@ -17,6 +17,7 @@ namespace nt2 { namespace functors
     struct bitwise_ornot_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_ornot_, bitwise_ornot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_ornot_, b_ornot, 2)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_ornot.hpp>

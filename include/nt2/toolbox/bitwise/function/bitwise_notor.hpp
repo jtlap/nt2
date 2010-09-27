@@ -17,6 +17,7 @@ namespace nt2 { namespace functors
     struct bitwise_notor_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_notor_, bitwise_notor, 2)
+  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_notor_, b_notor, 2)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_notor.hpp>

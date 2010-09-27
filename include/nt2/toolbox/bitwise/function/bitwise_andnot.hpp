@@ -17,6 +17,7 @@ namespace nt2 { namespace functors
     struct bitwise_andnot_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_andnot_, bitwise_andnot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_andnot_, b_andnot, 2)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_andnot.hpp>

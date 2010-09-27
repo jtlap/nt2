@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_RSHL_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_RSHL_HPP_INCLUDED
 #include <nt2/sdk/meta/as_bits.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 
 namespace nt2 { namespace functors
@@ -20,7 +21,8 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::is_integral<A1>{}; 
+      boost::is_integral<typename meta::strip<A1>::type >{}; 
+
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute rshl(const A0& a0, const A1& a1)
@@ -30,8 +32,9 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::arithmetic(A0,A1)>{};
+    struct result<This(A0,A1)> : meta::strip<A0>{};
+
+
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,

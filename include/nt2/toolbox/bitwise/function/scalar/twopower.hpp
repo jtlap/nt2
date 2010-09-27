@@ -11,6 +11,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -21,7 +22,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-     meta::is_integral<A0>{}; 
+      boost::is_integral<typename meta::strip<A0>::type>{}; 
   };
 
   /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +48,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-       return (isltz(a0))?Zero<A0>():(One<A0>()<<a0);
+       return (is_ltz(a0))?Zero<A0>():(One<A0>()<<a0);
     }
   };
 } }

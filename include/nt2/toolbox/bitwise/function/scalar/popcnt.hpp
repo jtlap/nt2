@@ -12,6 +12,7 @@
 
 #include <nt2/include/functions/lo.hpp>
 #include <nt2/include/functions/hi.hpp>
+#include <nt2/include/functions/sbits.hpp>
 
 namespace nt2 { namespace functors
 {
