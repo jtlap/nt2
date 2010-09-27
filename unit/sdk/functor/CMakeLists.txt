@@ -14,6 +14,7 @@ SET(SOURCES
     dominant.cpp
     belong_to.cpp
     find_type.cpp
+    operators.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.functor.unit)
