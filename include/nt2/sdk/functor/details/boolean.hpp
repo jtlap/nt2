@@ -18,6 +18,11 @@
 
 #define NT2_MAKE_BOOLEAN(TAG,N,IMPL)                                \
 template<class Category,class Info>                                 \
+struct validate<TAG,tag::scalar_(Category),Info>										\
+{                                                                   \
+  typedef boost::mpl::true_ result_type;														\
+};																																	\
+template<class Category,class Info>                                 \
 struct call<TAG,tag::scalar_(Category),Info>                        \
 {                                                                   \
   typedef bool result_type;                                         \
