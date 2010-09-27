@@ -19,9 +19,10 @@
 //  using nt2::$self.name$;
 //  using nt2::functors::$self.name$_;
 //
-//  NT2_TEST( (boost::is_same<typename nt2::meta::call<$self.tb_name$_($self.const_type_list$)>::type,
-//                            typename nt2::meta::floating<$self.const_type_list$>::type
+//  NT2_TEST( (boost::is_same<typename nt2::meta::call<$self.tb_name$_($self.const_type_T_list$)>::type,
+//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
 //                            >::value)
 //          );
 //}
 
+typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type
