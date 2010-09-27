@@ -56,9 +56,6 @@ namespace nt2	{ namespace meta
 	{
 		template<class Sig> struct result;
 
-    template<class This,class A0>
-		struct result<This(A0)> : strip<A0> {};
-
 		#define M3(z,n,t)																																\
 		template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>														\
 		struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>																	\
@@ -71,6 +68,10 @@ namespace nt2	{ namespace meta
 
 		BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M3,~)
 		#undef M3
+
+    // Force integral promotion by computin arithmetic(A0,A0)
+    template<class This,class A0>
+		struct result<This(A0)> : result<This(A0,A0)> {};
 	};
 } }
 
