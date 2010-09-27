@@ -148,7 +148,7 @@ class Functor(Toolbox) :
         "unit/simd"       : {
             'add'   : {
                 "file" : "$fct_name$.cpp",
-                "tmpl" : "mk_cppunit.tpl",
+                "tmpl" : "mk_cppunit_simd.tpl",
                 "cmmt" : "//",
                 "head" : 'banner+inner'
                 },

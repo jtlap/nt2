@@ -74,7 +74,7 @@ class Nt2 :
                          if (mode in Nt2.Std_paths_from_nt2)
                          else 'nt2/'+mode+'/')
     def absolute_path_to_mode    (self,mode = None) :
-        if mode is None : mode = self.__mode
+        if mode is None : mode = self.get_mode()
         return os.path.join(self.__path2nt2,
                             self.path_from_nt2(mode))
     def get_mode(self) : return self.__mode

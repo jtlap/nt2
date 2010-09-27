@@ -219,12 +219,26 @@ class Tb_files(Tb_tree) :
             )
         inner_text = [
             "",
+            "################################################################################",
+            "# Add global unit driver rules",
+            "################################################################################",
+            "ADD_CUSTOM_TARGET(%s.scalar.unit)" % self.get_root_name(),
+            "ADD_CUSTOM_TARGET(%s.simd.unit)"% self.get_root_name(),
+            "ADD_CUSTOM_TARGET(%s.unit)"% self.get_root_name(),
+            "",
             "##****************************************************************************",
             "##*     Toolbox %s %s tests" % (self.get_root_name(),key),
             "##****************************************************************************",
             "",
             "ADD_SUBDIRECTORY(scalar)",
-            "ADD_SUBDIRECTORY(simd)"
+            "ADD_SUBDIRECTORY(simd)",
+            "",
+            "################################################################################",
+            "# Add driver rule dependencies",
+            "################################################################################",
+            "ADD_DEPENDENCIES(%s.unit %s.scalar.unit)" % (self.get_root_name(),self.get_root_name()),  
+            "ADD_DEPENDENCIES(%s.unit %s.simd.unit)"% (self.get_root_name(),self.get_root_name()),
+            "ADD_DEPENDENCIES(unit %s.unit)"% self.get_root_name(),
             ]
         rp = os.path.join('nt2/toolbox/',r)
         h = Headers(rp,"/%s/CMakelists"%key, inner=inner_text, ext='.txt',comment='##')
