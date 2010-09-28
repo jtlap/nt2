@@ -23,16 +23,15 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // bitwise operators on scalar arithmetic types works on real types too
   //////////////////////////////////////////////////////////////////////////////
-#define LOCAL_VALIDATE(OP)						\
-  template<class Info>							\
-  struct validate<OP,							\
-		  tag::scalar_(tag::arithmetic_),Info>			\
-  {									\
-    template<class Sig> struct result;					\
-    template<class This,class A0,class A1>				\
-      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};	\
-  }									\
-    /**/
+#define LOCAL_VALIDATE(OP)						                        \
+template<class Info>							                            \
+struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			  \
+{									                                            \
+  template<class Sig> struct result;					                \
+  template<class This,class A0,class A1>				              \
+  struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{}; \
+}									                                            \
+/**/
 
   LOCAL_VALIDATE(bitwise_and_);
   LOCAL_VALIDATE(bitwise_or_ );
@@ -46,7 +45,7 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
     
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,integer_)))
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
     {
@@ -56,7 +55,7 @@ namespace nt2 { namespace functors
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 & a1;
     }     
@@ -68,7 +67,7 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
     
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,integer_)))
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
     {
@@ -78,7 +77,7 @@ namespace nt2 { namespace functors
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 | a1;
     }     
@@ -90,7 +89,7 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
     
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,integer_)))
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
     {
@@ -100,7 +99,7 @@ namespace nt2 { namespace functors
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 ^ a1;
     }     
