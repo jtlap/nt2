@@ -19,17 +19,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with 1 types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL	(	unary_arithmetic
-									, (double)(float)
-										(nt2::int64_t)(nt2::int32_t)(nt2::int16_t)(nt2::int8_t)
-										(nt2::uint64_t)(nt2::uint32_t)(nt2::uint16_t)(nt2::uint8_t)
-									)
+NT2_TEST_CASE( unary_arithmetic )
 {
 	using nt2::meta::arithmetic;
 	using std::tr1::result_of;
 	using boost::is_same;
 
-	NT2_TEST( (is_same<T, typename result_of<arithmetic(T)>::type >::value ) );
+	NT2_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
+	NT2_TEST( (is_same<float, result_of<arithmetic(float )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::uint64_t, result_of<arithmetic(nt2::uint64_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::uint32_t, result_of<arithmetic(nt2::uint32_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint16_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint8_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::int64_t, result_of<arithmetic(nt2::int64_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int32_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int16_t )>::type >::value ) );
+	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int8_t )>::type >::value ) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
