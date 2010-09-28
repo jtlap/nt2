@@ -15,6 +15,7 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
+#include <nt2/sdk/meta/size.hpp> 
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace functors
@@ -22,7 +23,24 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // bitwise operators on scalar arithmetic types works on real types too
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info> struct call<bitwise_and_,tag::scalar_(tag::arithmetic_),Info>                        
+#define LOCAL_VALIDATE(OP)						\
+  template<class Info>							\
+  struct validate<OP,							\
+		  tag::scalar_(tag::arithmetic_),Info>			\
+  {									\
+    template<class Sig> struct result;					\
+    template<class This,class A0,class A1>				\
+      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};	\
+  }									\
+    /**/
+
+  LOCAL_VALIDATE(bitwise_and_);
+  LOCAL_VALIDATE(bitwise_or_ );
+  LOCAL_VALIDATE(bitwise_xor_);
+
+  #undef LOCAL_VALIDATE
+  
+  template<class Info> struct call<bitwise_and_,tag::scalar_(tag::arithmetic_),Info>      
   {                                                                   
     template<class Sig> struct result;                                    
     template<class This,class A0,class A1>
