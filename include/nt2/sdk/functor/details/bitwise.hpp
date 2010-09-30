@@ -23,16 +23,15 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // bitwise operators on scalar arithmetic types works on real types too
   //////////////////////////////////////////////////////////////////////////////
-#define LOCAL_VALIDATE(OP)						\
-  template<class Info>							\
-  struct validate<OP,							\
-		  tag::scalar_(tag::arithmetic_),Info>			\
-  {									\
-    template<class Sig> struct result;					\
-    template<class This,class A0,class A1>				\
-      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};	\
-  }									\
-    /**/
+#define LOCAL_VALIDATE(OP)						                        \
+template<class Info>							                            \
+struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			  \
+{									                                            \
+  template<class Sig> struct result;					                \
+  template<class This,class A0,class A1>				              \
+  struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{}; \
+}									                                            \
+/**/
 
   LOCAL_VALIDATE(bitwise_and_);
   LOCAL_VALIDATE(bitwise_or_ );

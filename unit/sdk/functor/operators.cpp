@@ -60,15 +60,53 @@ NT2_TEST_CASE_TPL ( complement, (nt2::uint64_t)(nt2::int64_t)
   T value  = 42;
   NT2_TEST_EQUAL( nt2::complement(value) , ~value );
   NT2_TEST_EQUAL( nt2::bitwise_not(value), ~value );
+  NT2_TEST_EQUAL( nt2::b_not(value), ~value );
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Test behavior for neg
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( neg	, (double)(nt2::uint64_t)(nt2::int64_t)
+													(float)(nt2::uint32_t)(nt2::int32_t)
+													(nt2::uint16_t)(nt2::int16_t)         
+													(nt2::uint8_t)(nt2::int8_t)
+                  )
+{
+  using boost::is_same;
+  using nt2::functors::neg_;
 
-/*
-  NT2_FUNCTION_IMPLEMENTATION(functors::complement_ , b_not       , 1 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::logical_not_, logical_not , 1 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::logical_not_, l_not       , 1 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::neg_        , neg         , 1 )
-*/
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<neg_(T)>::type
+                            , typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type
+                            >::value
+            )
+          );
+
+  T value  = 42;
+  NT2_TEST_EQUAL( nt2::neg(value) , -value );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test behavior for neg
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( not	, (double)(nt2::uint64_t)(nt2::int64_t)
+													(float)(nt2::uint32_t)(nt2::int32_t)
+													(nt2::uint16_t)(nt2::int16_t)         
+													(nt2::uint8_t)(nt2::int8_t)(bool)
+                  )
+{
+  using boost::is_same;
+  using nt2::functors::logical_not_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<logical_not_(T)>::type
+                            , bool
+                            >::value
+            )
+          );
+
+  T value  = 42;
+  NT2_TEST_EQUAL( nt2::logical_not(value) , !value );
+  NT2_TEST_EQUAL( nt2::l_not(value) , !value );
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test behavior for plus
@@ -164,36 +202,71 @@ NT2_TEST_CASE_TPL ( div,  (double)(nt2::uint64_t)(nt2::int64_t)
   NT2_TEST_EQUAL( nt2::divides(value ,value ), value/value );
 }
 
-
 /*
   NT2_FUNCTION_IMPLEMENTATION(functors::modulo_           , modulo          , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_xor_      , bitwise_xor     , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_xor_      , b_xor           , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_or_       , bitwise_or      , 2 )
+
+	NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_or_       , bitwise_or      , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_or_       , b_or            , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_and_      , bitwise_and     , 2 )
+
+	NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_and_      , bitwise_and     , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_and_      , b_and           , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_equal_         , is_equal        , 2 )
+
+	NT2_FUNCTION_IMPLEMENTATION(functors::is_equal_         , is_equal        , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::is_equal_         , eq              , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_not_equal_     , is_not_equal    , 2 )
+
+	NT2_FUNCTION_IMPLEMENTATION(functors::is_not_equal_     , is_not_equal    , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::is_not_equal_     , neq             , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_less_          , is_less         , 2 )
+
+	NT2_FUNCTION_IMPLEMENTATION(functors::is_less_          , is_less         , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::is_less_          , lt              , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_greater_       , is_greater      , 2 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_greater_       , gt              , 2 )
+
+	NT2_FUNCTION_IMPLEMENTATION(functors::is_greater_       , is_greater      , 2 )
+	NT2_FUNCTION_IMPLEMENTATION(functors::is_greater_       , gt              , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::is_less_equal_    , is_less_equal   , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::is_less_equal_    , le              , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::is_greater_equal_ , is_greater_equal, 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::is_greater_equal_ , ge              , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::logical_or_       , logical_or      , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::logical_or_       , l_or            , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::logical_and_      , logical_and     , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::logical_and_      , l_and           , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_right_      , shift_right     , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_right_      , shr             , 2 )
+
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_left_       , shift_left      , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_left_       , shl             , 2 )
-
-  NT2_FUNCTION_IMPLEMENTATION(functors::if_else_  , if_else , 3 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::if_else_  , where   , 3 )
 */
+
+////////////////////////////////////////////////////////////////////////////////
+// Test behavior for if_else
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( if_else,(double)(nt2::uint64_t)(nt2::int64_t)
+														(float)(nt2::uint32_t)(nt2::int32_t)
+														(nt2::uint16_t)(nt2::int16_t)         
+														(nt2::uint8_t)(nt2::int8_t)
+                  )
+{
+  using boost::is_same;
+  using nt2::functors::if_else_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<if_else_(bool,T,T)>::type
+                            , T
+                            >::value
+            )
+          );
+
+  T true_value   = 4;
+  T false_value  = 7;
+  NT2_TEST_EQUAL( nt2::if_else(true,true_value ,false_value ), true_value 	);
+  NT2_TEST_EQUAL( nt2::if_else(false,true_value ,false_value), false_value	);
+  NT2_TEST_EQUAL( nt2::where(true,true_value ,false_value 	), true_value 	);
+  NT2_TEST_EQUAL( nt2::where(false,true_value ,false_value 	), false_value 	);
+}
