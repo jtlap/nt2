@@ -12,6 +12,7 @@
 #include <nt2/sdk/constant/boolean.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/boolean.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
 #include <nt2/include/functions/is_ltz.hpp>
@@ -25,8 +26,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)>: meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -48,7 +48,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-        return is_lt(a0,Zero<A0>());
+        return lt(a0,Zero<A0>());
     }
   };
 } }

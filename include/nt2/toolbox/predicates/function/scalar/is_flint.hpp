@@ -17,7 +17,11 @@
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for is_flint
+  template<class Info>
+  struct validate<is_flint_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_flint(const A0& a0)
@@ -25,7 +29,9 @@ namespace nt2 { namespace functors
   template<class Info>
   struct call<is_flint_,tag::scalar_(tag::arithmetic_),Info>
   {
-    typedef bool result_type; 
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {  typedef  bool type; };
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,

@@ -27,12 +27,15 @@ namespace nt2 { namespace functors
   template<class Info>
   struct call<is_gez_,tag::scalar_(tag::arithmetic_),Info>
   {
-    typedef bool result_type; 
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {typedef bool type; };
+
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       A0,
-      (2, (unsigned,arithmetic_))
+      (2, (unsigned,fundamental_))
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
@@ -40,7 +43,7 @@ namespace nt2 { namespace functors
       details::ignore_unused(a0);
       return True<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+    NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
     {
       return a0 >= Zero<A0>();
     }

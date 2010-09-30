@@ -10,13 +10,18 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_EVEN_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 #include <nt2/include/functions/is_flint.hpp>
 
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for is_even
+  template<class Info>
+  struct validate<is_even_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_even(const A0& a0)
@@ -24,18 +29,21 @@ namespace nt2 { namespace functors
   template<class Info>
   struct call<is_even_,tag::scalar_(tag::arithmetic_),Info>
   {
-    typedef bool result_type; 
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {typedef bool type; };
+
     NT2_FUNCTOR_CALL_DISPATCH(
 			      1,
 			      A0,
-			      (2, (real_,arithmetic_))
+			      (2, (real_,fundamental_))
 			      )
       
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       return is_flint(a0*Half<A0>());
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+    NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
     {
       return !(a0 & One<A0>());      
     }

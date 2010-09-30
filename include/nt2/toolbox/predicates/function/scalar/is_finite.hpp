@@ -16,7 +16,11 @@
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for is_finite
+  template<class Info>
+  struct validate<is_finite_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_finite(const A0& a0)
@@ -24,7 +28,9 @@ namespace nt2 { namespace functors
   template<class Info>
   struct call<is_finite_,tag::scalar_(tag::arithmetic_),Info>
   {
-    typedef bool result_type; 
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {  typedef  bool type; };
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -34,7 +40,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return iseqz(a0-a0);
+      return is_eqz(a0-a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
     {

@@ -47,7 +47,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-       return is_le(a0,Zero<A0>());
+       return le(a0,Zero<A0>());
     }
   };
 } }
