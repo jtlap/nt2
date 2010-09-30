@@ -13,6 +13,7 @@
 
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -49,7 +50,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,     signed_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
-      return (isltz(a0))*Pi<rtype>();
+      return (is_ltz(a0))*Pi<rtype>();
     }
  
   };

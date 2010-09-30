@@ -27,8 +27,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::arithmetic(A0,A1)>{};
+    struct result<This(A0,A1)>  
+      {  typedef  bool type; };
 
     NT2_FUNCTOR_CALL(2)
     {

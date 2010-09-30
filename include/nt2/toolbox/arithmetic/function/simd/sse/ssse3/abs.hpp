@@ -13,7 +13,7 @@
 
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_lez.hpp>
-//#include <nt2/include/functions/details/simd/sse/ssse3/is_lez.hpp>
+#include <nt2/include/functions/bitwise_notand.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -24,8 +24,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -34,7 +33,7 @@ namespace nt2 { namespace functors
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,real_)     { return b_notand(Mzero<A0>(),a0);   }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)   { return sel(islez(a0),neg(a0),a0); }
+    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)   { return select(is_lez(a0),neg(a0),a0); }
     NT2_FUNCTOR_CALL_EVAL_IF(1,int32_t)   { A0 that = {_mm_abs_epi32(a0)};return that;}
     NT2_FUNCTOR_CALL_EVAL_IF(1,int16_t)   { A0 that = {_mm_abs_epi16(a0)};return that;}
     NT2_FUNCTOR_CALL_EVAL_IF(1,int8_t)    { A0 that = {_mm_abs_epi8(a0) };return that;}

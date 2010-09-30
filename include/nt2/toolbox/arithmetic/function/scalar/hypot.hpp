@@ -60,7 +60,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
       return nt2::hypot(type(a0), type(a1)); 
     }
   private:

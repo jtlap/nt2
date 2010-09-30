@@ -12,6 +12,7 @@
 
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/round2even.hpp>
+#include <nt2/sdk/constant/digits.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -38,7 +39,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       const A0 d0 = round2even(a0);
-      return seladd(isgt(d0,a0),d0,Mone<A0>());
+      return seladd(gt(d0,a0),d0,Mone<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {

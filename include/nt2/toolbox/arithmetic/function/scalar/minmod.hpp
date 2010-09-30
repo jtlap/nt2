@@ -11,6 +11,8 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 #include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/functions/is_gez.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -36,7 +38,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
-      return islez(a0*a1) ? Zero<A0>() : min(a0,a1);
+      return is_lez(a0*a1) ? Zero<A0>() : min(a0,a1);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,   unsigned_)
     {
@@ -44,7 +46,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      return isgez(a0^a1)? Zero<A0>(): nt2::min(a0, a1);
+      return is_lez(a0^a1)? Zero<A0>(): nt2::min(a0, a1);
     }
   };
 } }

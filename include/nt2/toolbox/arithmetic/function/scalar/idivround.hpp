@@ -41,7 +41,10 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-       return rdivide(a0+a1/Two<A0>(), a1);
+      if(a0*a1 > 0)
+	return rdivide(a0+a1/Two<A0>(), a1);
+      else
+	return -rdivide(-a0+a1/Two<A0>(), a1);
     }
   };
 } }

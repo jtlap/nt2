@@ -11,7 +11,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/round2even.hpp>
+#include <nt2/include/functions/round.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -30,7 +30,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return round2even(a0); 
+      return round(a0); 
     }
   };
 } }

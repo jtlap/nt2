@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_SQRT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_SQRT_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
-
 #include <nt2/include/functions/is_ltz.hpp>
 
 namespace nt2 { namespace functors
@@ -39,11 +38,11 @@ namespace nt2 { namespace functors
       // libc has a very poor treatment of exceptions regarding performance
       // this test is at almost no cost but improve drastically performances
       // in case negative arguments are common.
-      return (isltz(a0)) ? nt2::Nan<A0>() : ::sqrtf(a0);
+      return (is_ltz(a0)) ? nt2::Nan<A0>() : ::sqrtf(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-      return (isltz(a0)) ?  nt2::Nan<A0>() : ::sqrt(a0);
+      return (is_ltz(a0)) ?  nt2::Nan<A0>() : ::sqrt(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
