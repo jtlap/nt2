@@ -53,7 +53,8 @@ namespace nt2 { namespace functors
     template<class Target> inline typename Target::type const
     operator()( Target const& ) const
     {
-      return false;
+      typedef typename meta::scalar_of<typename Target::type>::type type;
+      return splat<typename Target::type>(0);
     }
   };
 } }
