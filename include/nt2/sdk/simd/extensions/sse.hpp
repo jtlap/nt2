@@ -30,12 +30,35 @@
 
 #if !defined(NT2_SIMD_TYPES)
 #define NT2_SIMD_TYPES  (nt2::uint64_t)(nt2::int64_t)(double) \
-                        (nt2::uint32_t)(nt2::int32_t)(float)  \
-                        (nt2::uint16_t)(nt2::int16_t)         \
-                        (nt2::uint8_t)(nt2::int8_t)           \
+    (nt2::uint32_t)(nt2::int32_t)(float)		      \
+    (nt2::uint16_t)(nt2::int16_t)			      \
+    (nt2::uint8_t) (nt2::int8_t)			      \
+/**/
+#endif
+
+#if !defined(NT2_SIMD_REAL_CONVERTIBLE_TYPES)
+#define NT2_SIMD_REAL_CONVERTIBLE_TYPES			      \
+  (nt2::uint64_t)(nt2::int64_t)(double)			      \
+    (nt2::uint32_t)(nt2::int32_t)(float)		      \
+/**/
+#endif
+
+#if !defined(NT2_SIMD_SIGNED_TYPES)
+#define NT2_SIMD_SIGNED_TYPES  (nt2::int64_t)(double)	\
+    (nt2::int32_t)(float)				\
+    (nt2::int16_t)					\
+    (nt2::int8_t)					\
+/**/
+#endif
+
+#if !defined(NT2_SIMD_UNSIGNED_TYPES)
+#define NT2_SIMD_UNSIGNED_TYPES  (nt2::uint64_t)	\
+    (nt2::uint32_t)					\
+    (nt2::uint16_t)					\
+    (nt2::uint8_t)					\
 /**/
 #endif
 
 #endif
-
 #endif
+

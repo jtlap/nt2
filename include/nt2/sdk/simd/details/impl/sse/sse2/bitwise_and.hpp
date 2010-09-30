@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
+#include <nt2/sdk/meta/size.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -19,8 +20,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
+      struct  result<This(A0,A1)> : meta::has_same_size < A0, A1 >{}; 
+      //          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
 
   template<class Info,class C>

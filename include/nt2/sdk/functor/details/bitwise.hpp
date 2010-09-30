@@ -46,7 +46,7 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
     
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,integer_)))
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
     {
@@ -56,11 +56,12 @@ namespace nt2 { namespace functors
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 & a1;
     }     
-  };
+
+ };
 
   template<class Info> struct call<bitwise_or_,tag::scalar_(tag::arithmetic_),Info>                        
   {                                                                   
@@ -68,7 +69,7 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
     
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,integer_)))
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
     {
@@ -78,7 +79,7 @@ namespace nt2 { namespace functors
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 | a1;
     }     
@@ -90,7 +91,7 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
     
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,integer_)))
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
     {
@@ -100,7 +101,7 @@ namespace nt2 { namespace functors
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 ^ a1;
     }     
