@@ -12,10 +12,8 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/constant/properties.hpp>
-<<<<<<< Updated upstream:include/nt2/toolbox/ieee/function/scalar/round2even.hpp
 #include <nt2/sdk/meta/strip.hpp>
-=======
->>>>>>> Stashed changes:include/nt2/toolbox/ieee/function/scalar/round2even.hpp
+
 
 namespace nt2 { namespace functors
 {
@@ -46,7 +44,6 @@ namespace nt2 { namespace functors
        type d0 = (v+t2n);
        type d = (d0-t2n);
        d = (v < t2n)?d:v;
-       //       type q =  d; // TO DO verify if volatile is useful
        return b_xor(d, nt2::bitofsign(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
