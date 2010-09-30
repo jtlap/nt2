@@ -20,8 +20,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result; 
     template<class This,class A0>
-    struct result<This(A0)> : 
-             meta::is_floating_point<A0>{};
+    struct result<This(A0)> :
+      meta::is_floating_point<typename meta::strip<A0>::type>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute exponent(const A0& a0)
@@ -31,13 +31,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::as_integer<A0, signed>{};
+    struct result<This(A0)> : meta::as_integer<A0, signed>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       A0,
-      (3, (float,double, arithmetic_))
+      (2, (float,double))
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)

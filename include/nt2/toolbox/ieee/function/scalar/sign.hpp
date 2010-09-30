@@ -11,6 +11,8 @@
 
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -36,15 +38,15 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-       return isnan(a0)?a0:isgtz(a0)-isltz(a0);
+       return is_nan(a0)?a0:is_gtz(a0)-is_ltz(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_)
     {
-        return isnez(a0);
+        return is_nez(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     signed_)
     {
-       return isgtz(a0)-isltz(a0);
+       return is_gtz(a0)-is_ltz(a0);
     }
   };
 } }

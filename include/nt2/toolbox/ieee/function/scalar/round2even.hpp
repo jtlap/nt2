@@ -11,6 +11,8 @@
 
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -25,10 +27,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef A0 type;
-    };
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -41,9 +40,10 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
        const type v = abs(a0);
        const type t2n = Two2nmb<type>();
-       volatile type d0 = (v+t2n);
-       volatile type d = (d0-t2n);
+       type d0 = (v+t2n);
+       type d = (d0-t2n);
        d = (v < t2n)?d:v;
+       //       type q =  d; // TO DO verify if volatile is useful
        return b_xor(d, nt2::bitofsign(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)

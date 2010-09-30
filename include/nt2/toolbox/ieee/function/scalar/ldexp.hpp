@@ -14,6 +14,7 @@
 
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/bitwise_andnot.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -53,7 +54,7 @@ namespace nt2 { namespace functors
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
       e += int_type(a1) << Nbmantissabits<result_type>(); //nmb;
-      if (isnez(a0)&&isfin(a0)) return  b_or(x, e);
+      if (is_nez(a0)&&is_finite(a0)) return  b_or(x, e);
       return a0; 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
