@@ -18,7 +18,6 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/iround.cpp
 NT2_TEST_CASE_TPL ( signed_iround,  (double)(nt2::int64_t) 
                           (float)(nt2::int32_t)  
                           (nt2::int16_t)         
@@ -54,20 +53,11 @@ NT2_TEST_CASE_TPL ( unsigned_iround,  (nt2::uint64_t)(nt2::uint32_t)
 }
 
 NT2_TEST_CASE_TPL ( real_iround2even,  (double)(float)
-=======
-
-NT2_TEST_CASE_TPL ( iround,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/iround.cpp
                   )
 {
   using nt2::iround;
   using nt2::functors::iround_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/iround.cpp
  NT2_TEST( (boost::is_same < typename nt2::meta::call<iround_(T)>::type
              ,typename nt2::meta::as_integer<T>::type
              >::value)
@@ -77,17 +67,4 @@ NT2_TEST_CASE_TPL ( iround,  (double)(nt2::uint64_t)(nt2::int64_t)
  NT2_TEST_EQUAL(  iround( T(-42.1) ), T(-42) );
  NT2_TEST_EQUAL(  iround( T(-46.7) ), T(-47) );
 }
-  
-                    
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<iround_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  iround( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  iround( T(-42) ), -T(-42) );
-  //NT2_TEST(  iround(T(1337))  );
-  //NT2_TEST( !iround(T(0))     );
-}
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/iround.cpp
-          
+

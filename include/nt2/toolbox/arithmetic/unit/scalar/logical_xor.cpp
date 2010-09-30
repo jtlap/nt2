@@ -23,33 +23,17 @@ NT2_TEST_CASE_TPL ( logical_xor,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/logical_xor.cpp
-		    (bool)
-=======
                           (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/logical_xor.cpp
                   )
 {
   using nt2::logical_xor;
   using nt2::functors::logical_xor_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/logical_xor.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<logical_xor_(T, T)>::type
               , bool
               >::value)
            );
   NT2_TEST_EQUAL(  logical_xor( T(1), T(1)), 0 );
   NT2_TEST_EQUAL(  logical_xor( T(0), T(1)), 1 );
-
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<logical_xor_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  logical_xor( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  logical_xor( T(-42) ), -T(-42) );
-  //NT2_TEST(  logical_xor(T(1337))  );
-  //NT2_TEST( !logical_xor(T(0))     );
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/logical_xor.cpp
 }
           

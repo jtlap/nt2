@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL ( abs, (double)(nt2::int64_t)
   NT2_TEST_EQUAL(  abs( T(42) ), T(42) );
   NT2_TEST_EQUAL(  abs( T(-42) ), -T(-42) );
 }
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/abs.cpp
 NT2_TEST_CASE_TPL ( real_abs, (double)(float)
 		    )
 {
@@ -52,21 +51,5 @@ NT2_TEST_CASE_TPL ( real_abs, (double)(float)
   NT2_TEST_EQUAL(  abs( T(-42) ), -T(-42) );
   NT2_TEST( nt2::is_nan(abs(nt2::Nan<T>()))); 
 }
-=======
-// NT2_TEST_CASE_TPL ( abs, (double)(float)
-// 		    )
-// {
-//   using nt2::abs;
-//   using nt2::functors::abs_;
-
-//    NT2_TEST( (boost::is_same < typename nt2::meta::call<abs_(T)>::type
-// 	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
-//  	     >::value)
-//  	    );
-
-//   NT2_TEST_EQUAL(  abs( T(42) ), T(42) );
-//   NT2_TEST_EQUAL(  abs( T(-42) ), -T(-42) );
-// }
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/abs.cpp
 
 
