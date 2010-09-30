@@ -8,7 +8,9 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
+
 #include <nt2/sdk/meta/size.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -24,8 +26,8 @@ namespace nt2 { namespace functors
       //          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
 
-  template<class Info,class C>
-  struct call<bitwise_and_,tag::simd_(C,tag::sse_),Info>
+  template<class Info>
+  struct call<bitwise_and_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -38,21 +40,21 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,double)
     {
-      A0 that = { a1 };
+      A0 that = simd::native_cast<A0>( a1 );
       that    =  _mm_and_pd(a0, that);
       return that;
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,float )
     {
-      A0 that = { a1 };
+      A0 that = simd::native_cast<A0>( a1 );
       that    =  _mm_and_ps(a0, that);
       return that;
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,arithmetic_)
     {
-      A0 that = { a1 };
+      A0 that = simd::native_cast<A0>( a1 );
       that    =  _mm_and_si128(a0,that);
       return that;
     }
