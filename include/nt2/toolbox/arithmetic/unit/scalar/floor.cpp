@@ -29,7 +29,6 @@ NT2_TEST_CASE_TPL ( floor,  (double)(nt2::uint64_t)(nt2::int64_t)
   using nt2::functors::floor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<floor_(T)>::type
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/floor.cpp
              ,typename  boost::result_of<nt2::meta::arithmetic(T)>::type
              >::value)
           );
@@ -37,6 +36,7 @@ NT2_TEST_CASE_TPL ( floor,  (double)(nt2::uint64_t)(nt2::int64_t)
   NT2_TEST_EQUAL(  floor( T(-42) ), T(-42) );
  
 }
+
 NT2_TEST_CASE_TPL ( real_floor,  (double)(float)
                   )
 {
@@ -51,14 +51,4 @@ NT2_TEST_CASE_TPL ( real_floor,  (double)(float)
  NT2_TEST_EQUAL(  floor( T(-42.1) ), T(-43) );
 
 }
-              
-=======
-             , T
-             >::value)
-          );
-  //NT2_TEST_EQUAL(  floor( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  floor( T(-42) ), -T(-42) );
- 
-}
-          
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/floor.cpp
+

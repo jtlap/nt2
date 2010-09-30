@@ -17,24 +17,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/two_prod.cpp
 NT2_TEST_CASE_TPL ( two_prod,  (double)
                           (float)
-=======
-
-NT2_TEST_CASE_TPL ( two_prod,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/two_prod.cpp
                   )
 {
   using nt2::two_prod;
   using nt2::functors::two_prod_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/two_prod.cpp
   typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rtype;
   typedef typename boost::fusion::tuple<rtype,rtype>              type;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<two_prod_(T, T)>::type
@@ -44,15 +33,3 @@ NT2_TEST_CASE_TPL ( two_prod,  (double)(nt2::uint64_t)(nt2::int64_t)
   
 }
 
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<two_prod_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  two_prod( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  two_prod( T(-42) ), -T(-42) );
-  //NT2_TEST(  two_prod(T(1337))  );
-  //NT2_TEST( !two_prod(T(0))     );
-}
-          
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/two_prod.cpp
