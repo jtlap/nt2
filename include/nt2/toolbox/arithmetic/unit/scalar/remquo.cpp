@@ -24,15 +24,11 @@ NT2_TEST_CASE_TPL ( remquo,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
                   )
 {
   using nt2::remquo;
   using nt2::functors::remquo_;
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+
   typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rem;
   typedef typename nt2::meta::as_integer<T,signed>::type             quo;
   typedef boost::fusion::tuple<rem,quo>                         type;
@@ -40,11 +36,6 @@ NT2_TEST_CASE_TPL ( remquo,  (double)(nt2::uint64_t)(nt2::int64_t)
               , type
               >::value)
            );
-//TO DO
-//NT2_TEST_EQUAL(  remquo( T(4), T(3)), boost::fusion::make_tuple(1, 1 ));
-		   //  NT2_TEST_EQUAL(  remquo( T(5), T(3)), 2);
-		   //  NT2_TEST_EQUAL(  remquo( T(6), T(3)), 0 );
-=======
 
   //NT2_TEST( (boost::is_same < typename nt2::meta::call<remquo_(T)>::type
   //            , bool
@@ -54,6 +45,5 @@ NT2_TEST_CASE_TPL ( remquo,  (double)(nt2::uint64_t)(nt2::int64_t)
   //NT2_TEST_EQUAL(  remquo( T(-42) ), -T(-42) );
   //NT2_TEST(  remquo(T(1337))  );
   //NT2_TEST( !remquo(T(0))     );
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 }
           

@@ -17,8 +17,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-
-
 NT2_TEST_CASE_TPL ( ceil_int,  (nt2::uint64_t)(nt2::int64_t) 
                           (nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
@@ -36,7 +34,6 @@ NT2_TEST_CASE_TPL ( ceil_int,  (nt2::uint64_t)(nt2::int64_t)
    NT2_TEST_EQUAL(  ceil( T(-42) ), T(-42) );
 
 }
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/ceil.cpp
 
 NT2_TEST_CASE_TPL ( real_ceil,  (double)(float)
                   )
@@ -52,21 +49,4 @@ NT2_TEST_CASE_TPL ( real_ceil,  (double)(float)
  NT2_TEST_EQUAL(  ceil( T(-42.1) ), T(-42) );
 
 }
-=======
-// TO DO
-// NT2_TEST_CASE_TPL ( ceil_real,  (double)(float)
-//                   )
-// {
-//   using nt2::ceil;
-//   using nt2::functors::ceil_;
 
-//  NT2_TEST( (boost::is_same < typename nt2::meta::call<ceil_(T)>::type
-//              ,T
-//              >::value)
-//           );
-//  NT2_TEST_EQUAL(  ceil( T(42.1) ), T(43) );
-//  NT2_TEST_EQUAL(  ceil( T(-42.1) ), T(-42) );
-
-// }
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/ceil.cpp
-          

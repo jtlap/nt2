@@ -18,8 +18,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-
-
 NT2_TEST_CASE_TPL ( iceil,  (double)(nt2::uint64_t)(nt2::int64_t) 
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
@@ -33,10 +31,11 @@ NT2_TEST_CASE_TPL ( iceil,  (double)(nt2::uint64_t)(nt2::int64_t)
               , typename nt2::meta::as_integer<T>::type
               >::value)
            );
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/iceil.cpp
+
   NT2_TEST_EQUAL(  iceil( T(42) ), 42 );
   NT2_TEST_EQUAL(  iceil( T(-42) ), -42 );
 }
+
 NT2_TEST_CASE_TPL ( real_iceil,  (double)(float)
                   )
 {
@@ -50,9 +49,4 @@ NT2_TEST_CASE_TPL ( real_iceil,  (double)(float)
  NT2_TEST_EQUAL(  iceil( T(42.1) ), 43 );
  NT2_TEST_EQUAL(  iceil( T(-42.1) ), -42 );
 }        
-=======
-//   NT2_TEST_EQUAL(  iceil( T(42) ), 42 );
-//   NT2_TEST_EQUAL(  iceil( T(-42) ), -42 );
-}
-          
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/iceil.cpp
+

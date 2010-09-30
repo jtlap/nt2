@@ -17,27 +17,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-
-
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/round.cpp
-         
 NT2_TEST_CASE_TPL ( round_int,  (nt2::uint64_t)(nt2::int64_t) 
                           (nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-=======
-NT2_TEST_CASE_TPL ( round,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/round.cpp
                   )
 {
   using nt2::round;
   using nt2::functors::round_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/round.cpp
  NT2_TEST( (boost::is_same < typename nt2::meta::call<round_(T)>::type
              ,T
              >::value)
@@ -61,16 +49,5 @@ NT2_TEST_CASE_TPL ( real_round,  (double)(float)
  NT2_TEST_EQUAL(  round( T(-42.1) ), T(-42) );
  NT2_TEST_EQUAL(  round( T(46.7) ), T(47) );
  NT2_TEST_EQUAL(  round( T(-46.7) ), T(-47) );
- 
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<round_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  round( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  round( T(-42) ), -T(-42) );
-  //NT2_TEST(  round(T(1337))  );
-  //NT2_TEST( !round(T(0))     );
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/round.cpp
 }
           
