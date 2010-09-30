@@ -10,17 +10,18 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_NOTOR_HPP_INCLUDED
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
+#include <nt2/sdk/meta/size.hpp>
 
 namespace nt2 { namespace functors
 {
 
-//   template<class Info>
-//   struct validate<bitwise_notor_,tag::scalar_(tag::arithmetic_),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0,class A1>
-//     struct result<This(A0,A1)> : meta::has_same_size<A0,A1>{};
-//   };
+  template<class Info>
+  struct validate<bitwise_notor_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::has_same_size<A0,A1>{};
+  };
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitwise_notor(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////

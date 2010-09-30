@@ -14,15 +14,14 @@
 
 namespace nt2 { namespace functors
 {
-
-//   template<class Info>
-//   struct validate<bitwise_andnot_,tag::scalar_(tag::arithmetic_),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0,class A1>
-//     struct result<This(A0,A1)> :
-//       meta::has_same_size<A0,A1>{};
-//   };
+  
+  template<class Info>
+  struct validate<bitwise_andnot_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};
+  };
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitwise_andnot(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
