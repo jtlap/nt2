@@ -23,11 +23,16 @@ NT2_TEST_CASE_TPL ( mod,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/mod.cpp
+=======
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/mod.cpp
                   )
 {
   using nt2::mod;
   using nt2::functors::mod_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/mod.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<mod_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
@@ -35,5 +40,15 @@ NT2_TEST_CASE_TPL ( mod,  (double)(nt2::uint64_t)(nt2::int64_t)
   NT2_TEST_EQUAL(  mod( T(4), T(3)), 1 );
   NT2_TEST_EQUAL(  mod( T(5), T(3)), 2);
   NT2_TEST_EQUAL(  mod( T(6), T(3)), 0 ); 
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<mod_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  mod( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  mod( T(-42) ), -T(-42) );
+  //NT2_TEST(  mod(T(1337))  );
+  //NT2_TEST( !mod(T(0))     );
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/mod.cpp
 }
           

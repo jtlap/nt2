@@ -19,15 +19,24 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/minmod.cpp
 NT2_TEST_CASE_TPL ( minmod,  (double)(nt2::int64_t) 
                           (float)(nt2::int32_t)  
                           (nt2::int16_t)         
                           (nt2::int8_t)
+=======
+NT2_TEST_CASE_TPL ( minmod,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/minmod.cpp
                   )
 {
   using nt2::minmod;
   using nt2::functors::minmod_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/minmod.cpp
  NT2_TEST( (boost::is_same < typename nt2::meta::call<minmod_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
@@ -52,3 +61,15 @@ NT2_TEST_CASE_TPL ( unsigned_minmod,  (nt2::uint64_t)
   NT2_TEST_EQUAL(  minmod( T(3), T(4)), 3 );
 }
            
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<minmod_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  minmod( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  minmod( T(-42) ), -T(-42) );
+  //NT2_TEST(  minmod(T(1337))  );
+  //NT2_TEST( !minmod(T(0))     );
+}
+          
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/minmod.cpp

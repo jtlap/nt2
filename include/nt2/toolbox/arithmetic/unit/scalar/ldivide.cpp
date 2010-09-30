@@ -20,15 +20,24 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/ldivide.cpp
 NT2_TEST_CASE_TPL ( ldivide,  (nt2::uint64_t)(nt2::int64_t) 
                           (nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
+=======
+NT2_TEST_CASE_TPL ( ldivide,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/ldivide.cpp
                   )
 {
   using nt2::ldivide;
   using nt2::functors::ldivide_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/ldivide.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ldivide_(T, T)>::type
 	     ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
@@ -51,5 +60,15 @@ NT2_TEST_CASE_TPL ( real_ldivide,  (double)
   NT2_TEST_EQUAL(  ldivide( T(42), T(3)), T(3)/T(42) );
   NT2_TEST_EQUAL(  ldivide( T(-42), T(3)),T(3)/T(-42) );
   NT2_TEST_EQUAL(  ldivide( T(0),   T(1)), nt2::Inf<T>()); 
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<ldivide_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  ldivide( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  ldivide( T(-42) ), -T(-42) );
+  //NT2_TEST(  ldivide(T(1337))  );
+  //NT2_TEST( !ldivide(T(0))     );
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/ldivide.cpp
 }
           

@@ -12,7 +12,10 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/constant/properties.hpp>
+<<<<<<< Updated upstream:include/nt2/toolbox/ieee/function/scalar/round2even.hpp
 #include <nt2/sdk/meta/strip.hpp>
+=======
+>>>>>>> Stashed changes:include/nt2/toolbox/ieee/function/scalar/round2even.hpp
 
 namespace nt2 { namespace functors
 {

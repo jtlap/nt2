@@ -23,11 +23,16 @@ NT2_TEST_CASE_TPL ( ifloor,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/ifloor.cpp
+=======
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/ifloor.cpp
                   )
 {
   using nt2::ifloor;
   using nt2::functors::ifloor_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/ifloor.cpp
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ifloor_(T)>::type
               , typename nt2::meta::as_integer<T>::type
@@ -51,3 +56,15 @@ NT2_TEST_CASE_TPL ( real_ifloor,  (double)(float)
 
 }
               
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<ifloor_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  ifloor( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  ifloor( T(-42) ), -T(-42) );
+  //NT2_TEST(  ifloor(T(1337))  );
+  //NT2_TEST( !ifloor(T(0))     );
+}
+          
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/ifloor.cpp

@@ -23,16 +23,31 @@ NT2_TEST_CASE_TPL ( rsqrt,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/rsqrt.cpp
+=======
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/rsqrt.cpp
                   )
 {
   using nt2::rsqrt;
   using nt2::functors::rsqrt_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/rsqrt.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rsqrt_(T)>::type
 	     , typename boost::result_of<nt2::meta::floating(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  rsqrt( T(16) ), 0.25 );
   NT2_TEST_EQUAL(  rsqrt( T(4) ), 0.5 );
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<rsqrt_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  rsqrt( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  rsqrt( T(-42) ), -T(-42) );
+  //NT2_TEST(  rsqrt(T(1337))  );
+  //NT2_TEST( !rsqrt(T(0))     );
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/rsqrt.cpp
 }
           

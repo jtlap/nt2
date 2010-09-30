@@ -19,13 +19,22 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/idivfloor.cpp
 NT2_TEST_CASE_TPL ( real_idivfloor,  (double)
                           (float)
+=======
+NT2_TEST_CASE_TPL ( idivfloor,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/idivfloor.cpp
                   )
 {
   using nt2::idivfloor;
   using nt2::functors::idivfloor_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/idivfloor.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfloor_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
@@ -65,3 +74,15 @@ NT2_TEST_CASE_TPL ( unsigned_idivfloor,  (nt2::uint64_t)(nt2::uint32_t)
   NT2_TEST_EQUAL(  idivfloor( T(22), T(3)), T(7) );
 }
              
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfloor_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  idivfloor( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  idivfloor( T(-42) ), -T(-42) );
+  //NT2_TEST(  idivfloor(T(1337))  );
+  //NT2_TEST( !idivfloor(T(0))     );
+}
+          
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/idivfloor.cpp

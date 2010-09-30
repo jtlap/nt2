@@ -19,15 +19,24 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/idivround.cpp
 NT2_TEST_CASE_TPL ( signed_idivround,  (double)(nt2::int64_t) 
                           (float)(nt2::int32_t)  
                           (nt2::int16_t)         
                           (nt2::int8_t)
+=======
+NT2_TEST_CASE_TPL ( idivround,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/idivround.cpp
                   )
 {
   using nt2::idivround;
   using nt2::functors::idivround_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/idivround.cpp
  NT2_TEST( (boost::is_same < typename nt2::meta::call<idivround_(T, T)>::type
 	    ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
@@ -57,4 +66,15 @@ NT2_TEST_CASE_TPL ( idivround,  (nt2::uint64_t)(nt2::uint32_t)
 }
           
           
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<idivround_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  idivround( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  idivround( T(-42) ), -T(-42) );
+  //NT2_TEST(  idivround(T(1337))  );
+  //NT2_TEST( !idivround(T(0))     );
+}
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/idivround.cpp
           

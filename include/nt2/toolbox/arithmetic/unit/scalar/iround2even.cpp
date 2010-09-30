@@ -19,15 +19,24 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/iround2even.cpp
 NT2_TEST_CASE_TPL ( signed_iround2even,  (double)(nt2::int64_t) 
                           (float)(nt2::int32_t)  
                           (nt2::int16_t)         
                           (nt2::int8_t)
+=======
+NT2_TEST_CASE_TPL ( iround2even,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/iround2even.cpp
                   )
 {
   using nt2::iround2even;
   using nt2::functors::iround2even_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/iround2even.cpp
  NT2_TEST( (boost::is_same < typename nt2::meta::call<iround2even_(T)>::type
              ,typename nt2::meta::as_integer<T>::type
              >::value)
@@ -69,3 +78,15 @@ NT2_TEST_CASE_TPL ( real_iround2even,  (double)(float)
  NT2_TEST_EQUAL(  iround2even( T(-46.7) ), T(-47) );
 }
   
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<iround2even_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  iround2even( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  iround2even( T(-42) ), -T(-42) );
+  //NT2_TEST(  iround2even(T(1337))  );
+  //NT2_TEST( !iround2even(T(0))     );
+}
+          
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/iround2even.cpp

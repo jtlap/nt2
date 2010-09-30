@@ -23,14 +23,30 @@ NT2_TEST_CASE_TPL ( max,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/max.cpp
+=======
+                          (bool)
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/max.cpp
                   )
 {
   using nt2::max;
   using nt2::functors::max_;
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/max.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<max_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  max( T(3), T(4)), 4 );
+=======
+
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<max_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  max( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  max( T(-42) ), -T(-42) );
+  //NT2_TEST(  max(T(1337))  );
+  //NT2_TEST( !max(T(0))     );
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/max.cpp
 }
           

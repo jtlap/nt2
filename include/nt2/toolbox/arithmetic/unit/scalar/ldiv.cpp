@@ -28,11 +28,22 @@ NT2_TEST_CASE_TPL ( ldiv,  (double)(nt2::uint64_t)(nt2::int64_t)
   using nt2::ldiv;
   using nt2::functors::ldiv_;
 
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/ldiv.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ldiv_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  ldiv( T(42), T(3)), T(3)/T(42) );
   NT2_TEST_EQUAL(  ldiv( T(-42), T(3)),T(3)/T(-42) );
+=======
+  //NT2_TEST( (boost::is_same < typename nt2::meta::call<ldiv_(T)>::type
+  //            , bool
+  //            >::value)
+  //         );
+  //NT2_TEST_EQUAL(  ldiv( T(42) ), T(42) );
+  //NT2_TEST_EQUAL(  ldiv( T(-42) ), -T(-42) );
+  //NT2_TEST(  ldiv(T(1337))  );
+  //NT2_TEST( !ldiv(T(0))     );
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/ldiv.cpp
 }
           
