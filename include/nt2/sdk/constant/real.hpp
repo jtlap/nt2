@@ -104,7 +104,7 @@ namespace nt2 { namespace functors                                        \
 ////////////////////////////////////////////////////////////////////////////////
 // Real only constants
 ////////////////////////////////////////////////////////////////////////////////
-NT2_CONSTANT_MAKE_REAL(constants::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
+
 NT2_CONSTANT_MAKE_REAL(constants::m_half_      ,0xBFE0000000000000LL, 0xBF000000  )
 NT2_CONSTANT_MAKE_REAL(constants::m_zero_      ,0x8000000000000000LL, 0x80000000  )
 NT2_CONSTANT_MAKE_REAL(constants::half_        ,0x3FE0000000000000LL, 0x3F000000  )
@@ -118,8 +118,41 @@ NT2_CONSTANT_MAKE_REAL(constants::split_factor_,0x41a0000000000000ll, 0x46000000
 NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_o_2_  ,0x3fe6a09e667f3bcdLL, 0x3f3504f3  )
 NT2_CONSTANT_MAKE_REAL(constants::gold_        ,0x3ff9e3779b97f4a8LL, 0x3fcf1bbd  )
 NT2_CONSTANT_MAKE_REAL(constants::c_gold_      ,0x3fd8722191a02d61LL, 0x3ec3910d  )
+NT2_CONSTANT_MAKE_REAL(constants::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
+#define NT2_CONSTANT_MAKE_REAL_INTEGER(TAG, DOUBLE, FLOAT, INT)		\
+  template<class Category,class Info>					\
+  struct  call<constants::TAG,tag::constant_(Category),Info>		\
+  {									\
+    template<class Sig> struct result;					\
+    template<class This,class A0>					\
+      struct result<This(A0)> : meta::strip<A0>::type {};		\
+      									\
+    NT2_FUNCTOR_CALL_DISPATCH ( 1					\
+		, typename meta::scalar_of<typename A0::type>::type     \
+		, (3, (double, float, arithmetic_) )	\
+				)					\
+      									\
+    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)				\
+      {									\
+	return splat<typename A0::type>(INT);				\
+      }									\
+    									\
+    NT2_FUNCTOR_CALL_EVAL_IF(1,float)					\
+      {									\
+	meta::from_bits<float>::type const that = {FLOAT};		\
+	return splat<typename A0::type>(that.value);			\
+      }									\
+    									\
+    NT2_FUNCTOR_CALL_EVAL_IF(1,double)					\
+      {									\
+	meta::from_bits<double>::type const that = {DOUBLE};		\
+	return splat<typename A0::type>(that.value);			\
+      }									\
+  }									\
+/**/
+//NT2_CONSTANT_MAKE_REAL_INTEGER(constants::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF, -1 ); 
 
-
+  
 /*
   namespace nt2 { namespace constants
   {

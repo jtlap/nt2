@@ -19,36 +19,36 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define LOCAL_CONST(TAG, DOUBLE, FLOAT, INT)		                                  \
-  template<class Category,class Info>			                                        \
-  struct  call<constants::TAG,tag::constant_(Category),Info>                      \
-  {							                                                                  \
-    template<class Sig> struct result;			                                      \
-    template<class This,class A0>			                                            \
-    struct result<This(A0)> : meta::strip<A0>::type {};                           \
-                                                                                  \
-    NT2_FUNCTOR_CALL_DISPATCH ( 1		                                              \
-                              , typename meta::scalar_of<typename A0::type>::type \
-                              , ( 3, (double, float, arithmetic_) )               \
-                              )                                                   \
-                                                                                  \
-    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)                                       \
-    {                                                                             \
-      return splat<typename A0::type>(INT);                                       \
-    }							                                                                \
-                                                                                  \
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)			                                        \
-    {							                                                                \
-      meta::from_bits<float>::type const that = {FLOAT};                          \
-      return splat<typename A0::type>(that.value);                                \
-    }							                                                                \
-                                                                                  \
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)                                            \
-    {							                                                                \
-      meta::from_bits<double>::type const that = {DOUBLE};                        \
-      return splat<typename A0::type>(that.value);                                \
-    }							                                                                \
-  }							                                                                  \
+#define LOCAL_CONST(TAG, DOUBLE, FLOAT, INT)				\
+  template<class Category,class Info>					\
+  struct  call<constants::TAG,tag::constant_(Category),Info>		\
+  {									\
+    template<class Sig> struct result;					\
+    template<class This,class A0>					\
+      struct result<This(A0)> : meta::strip<A0>::type {};		\
+      									\
+    NT2_FUNCTOR_CALL_DISPATCH ( 1					\
+		, typename meta::scalar_of<typename A0::type>::type     \
+		, (3, (double, float, arithmetic_) )	                \
+				)					\
+      									\
+    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)				\
+      {									\
+	return splat<typename A0::type>(INT);				\
+      }									\
+    									\
+    NT2_FUNCTOR_CALL_EVAL_IF(1,float)					\
+      {									\
+	meta::from_bits<float>::type const that = {FLOAT};		\
+	return splat<typename A0::type>(that.value);			\
+      }									\
+    									\
+    NT2_FUNCTOR_CALL_EVAL_IF(1,double)					\
+      {									\
+	meta::from_bits<double>::type const that = {DOUBLE};		\
+	return splat<typename A0::type>(that.value);			\
+      }									\
+  }									\
 /**/
 
 namespace nt2 { namespace functors
