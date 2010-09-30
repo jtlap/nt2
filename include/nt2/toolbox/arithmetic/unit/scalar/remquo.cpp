@@ -6,13 +6,38 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - remquo/scalar Mode"
 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/arithmetic/include/remquo.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/fusion/tuple.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 
+
+NT2_TEST_CASE_TPL ( remquo,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                  )
+{
+  using nt2::remquo;
+  using nt2::functors::remquo_;
+  typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rem;
+  typedef typename nt2::meta::as_integer<T,signed>::type             quo;
+  typedef boost::fusion::tuple<rem,quo>                         type;
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<remquo_(T, T)>::type
+              , type
+              >::value)
+           );
+//TO DO
+//NT2_TEST_EQUAL(  remquo( T(4), T(3)), boost::fusion::make_tuple(1, 1 ));
+		   //  NT2_TEST_EQUAL(  remquo( T(5), T(3)), 2);
+		   //  NT2_TEST_EQUAL(  remquo( T(6), T(3)), 0 );
+}
+          
