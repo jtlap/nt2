@@ -37,7 +37,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  real_)
     {
-        return iseqz(a0-a0);
+        return is_eqz(a0-a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,  arithmetic_)
     {

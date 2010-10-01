@@ -28,7 +28,7 @@ namespace nt2 { namespace functors
     struct result<This(A0)> : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL(1) {
-      return is_neq(a0,Zero<A0>());
+      return is_not_equal(a0,Zero<A0>());
     }
   };
 } }

@@ -31,7 +31,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,      arithmetic_)
     {
-      return is_eq(a0,Zero<A0>());
+      return eq(a0,Zero<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,      int64_)
     {

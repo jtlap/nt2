@@ -39,7 +39,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return   is_eq(abs(a0),Inf<A0>());
+      return   is_equal(abs(a0),Inf<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

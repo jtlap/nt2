@@ -12,7 +12,6 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
-
 namespace nt2 { namespace functors
 {
   //  no special validate for is_nez
@@ -42,7 +41,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      return is_neq(a0,Zero<A0>());
+      return is_not_equal(a0,Zero<A0>());
     }
   };
 } }

@@ -8,7 +8,6 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
-tag::sse_
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -33,7 +32,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,      arithmetic_)
     {
-      return is_eq(a0,Zero<A0>());
+      return eq(a0,Zero<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,      int64_)
     {
