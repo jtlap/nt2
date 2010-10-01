@@ -21,10 +21,12 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  scalar_of
-        : details::scalar_of_impl	< typename strip<T>::type
-																	, typename category_of<
-																												typename strip<T>::type
-																												>::type::tag> {};
+        : details::scalar_of_impl < typename strip<T>::type
+                                  , typename category_of<
+                                                        typename strip<T>::type
+                                                        >::type::tag
+                                  >
+          {};
 } }
 
 #endif
