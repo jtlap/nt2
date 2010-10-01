@@ -23,14 +23,14 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // bitwise operators on scalar arithmetic types works on real types too
   //////////////////////////////////////////////////////////////////////////////
-#define LOCAL_VALIDATE(OP)						                        \
-template<class Info>							                            \
-struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			  \
-{									                                            \
-  template<class Sig> struct result;					                \
-  template<class This,class A0,class A1>				              \
-  struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{}; \
-}									                                            \
+#define LOCAL_VALIDATE(OP)						\
+  template<class Info>							\
+struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
+  {									\
+    template<class Sig> struct result;					\
+    template<class This,class A0,class A1>				\
+      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};	\
+  }									\
 /**/
 
   LOCAL_VALIDATE(bitwise_and_);
@@ -39,7 +39,7 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			  \
 
   #undef LOCAL_VALIDATE
   
-  template<class Info> struct call<bitwise_and_,tag::scalar_(tag::arithmetic_),Info>      
+  template<class Info> struct call<bitwise_and_,tag::scalar_(tag::arithmetic_),Info>     // TO DO 
   {                                                                   
     template<class Sig> struct result;                                    
     template<class This,class A0,class A1>
@@ -55,9 +55,13 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			  \
       return t0.value;
     }     
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)    //  one can not rely on a1 being of integral type
     {
-      return a0 & a1;
+      typename meta::as_bits<A0>::type t0 = {a0};
+      typename meta::as_bits<A1>::type t1 = {a1};
+      t0.bits &= t1.bits;
+      return t0.value;
+      //      return a0 & a1;
     }     
 
  };

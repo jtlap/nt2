@@ -40,7 +40,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,integer_)
     {
-      return complement(eq(a0,a1));
+       return complement(eq(a0,a1));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,int64_)

@@ -26,7 +26,7 @@ namespace nt2 { namespace functors
       A0 that = map ( functor<genmask_>()
                     , map(functor<is_equal_to_>(), a0, a1)
                     );
-      return that;
+      return -that;
     }
   };
 } }
