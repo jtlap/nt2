@@ -20,8 +20,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/idivceil.cpp
-
 NT2_TEST_CASE_TPL ( real_idivceil,  (double)
                           (float)
                   )
@@ -57,35 +55,15 @@ NT2_TEST_CASE_TPL ( signed_idivceil,  (nt2::int64_t)(nt2::int32_t)
 }
 NT2_TEST_CASE_TPL ( unsigned_idivceil,  (nt2::uint64_t)(nt2::uint32_t)  
                           (nt2::uint16_t)(nt2::uint8_t)
-=======
-NT2_TEST_CASE_TPL ( idivceil,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/idivceil.cpp
                   )
 {
   using nt2::idivceil;
   using nt2::functors::idivceil_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/idivceil.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<idivceil_(T, T)>::type
 	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  idivceil( T(22), T(3)), T(nt2::ceil(22.0/3.0)) );
 }
-             
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<idivceil_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  idivceil( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  idivceil( T(-42) ), -T(-42) );
-  //NT2_TEST(  idivceil(T(1337))  );
-  //NT2_TEST( !idivceil(T(0))     );
-}
-          
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/idivceil.cpp
+

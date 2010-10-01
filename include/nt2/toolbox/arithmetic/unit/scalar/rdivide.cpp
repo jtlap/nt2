@@ -19,25 +19,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/rdivide.cpp
 NT2_TEST_CASE_TPL ( rdivide,  (nt2::uint64_t)(nt2::int64_t) 
                           (nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-=======
 
-NT2_TEST_CASE_TPL ( rdivide,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/rdivide.cpp
                   )
 {
   using nt2::rdivide;
   using nt2::functors::rdivide_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/rdivide.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rdivide_(T, T)>::type
 	     ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
@@ -62,16 +53,4 @@ NT2_TEST_CASE_TPL ( real_rdivide,  (double)
   NT2_TEST_EQUAL(  rdivide( T(1),   T(0)), nt2::Inf<T>()); 
 }
           
-          
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<rdivide_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  rdivide( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  rdivide( T(-42) ), -T(-42) );
-  //NT2_TEST(  rdivide(T(1337))  );
-  //NT2_TEST( !rdivide(T(0))     );
-}
-          
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/rdivide.cpp
+ 

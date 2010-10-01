@@ -23,30 +23,15 @@ NT2_TEST_CASE_TPL ( madd,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/madd.cpp
-=======
-                          (bool)
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/madd.cpp
                   )
 {
   using nt2::madd;
   using nt2::functors::madd_;
 
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/madd.cpp
   NT2_TEST( (boost::is_same < typename nt2::meta::call<madd_(T, T, T)>::type
 	     ,typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  madd( T(1), T(2), T(3)), T(5) );
-=======
-  //NT2_TEST( (boost::is_same < typename nt2::meta::call<madd_(T)>::type
-  //            , bool
-  //            >::value)
-  //         );
-  //NT2_TEST_EQUAL(  madd( T(42) ), T(42) );
-  //NT2_TEST_EQUAL(  madd( T(-42) ), -T(-42) );
-  //NT2_TEST(  madd(T(1337))  );
-  //NT2_TEST( !madd(T(0))     );
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/madd.cpp
 }
           

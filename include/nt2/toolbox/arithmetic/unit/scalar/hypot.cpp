@@ -32,13 +32,9 @@ NT2_TEST_CASE_TPL ( hypot,  (double)(nt2::uint64_t)(nt2::int64_t)
               , typename boost::result_of<nt2::meta::floating(T, T)>::type
               >::value)
            );
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/hypot.cpp
+
   NT2_TEST_EQUAL(  hypot( T(3), T(4)), 5 );
 }
           
  
-=======
-//  NT2_TEST_EQUAL(  hypot( T(3), T(4)), 5 );
-}
-          
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/hypot.cpp
+
