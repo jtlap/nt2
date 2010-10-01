@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_REDUCTION_REDUCTION_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/reduction/include/hmsb.hpp>
 #include <nt2/toolbox/reduction/include/sum.hpp>
 #include <nt2/toolbox/reduction/include/second.hpp>
 #include <nt2/toolbox/reduction/include/prod.hpp>
