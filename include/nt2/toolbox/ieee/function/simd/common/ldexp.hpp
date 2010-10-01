@@ -43,8 +43,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
@@ -70,7 +69,7 @@ namespace nt2 { namespace functors
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
       e += shli(a1, Nbmantissabits<s_type>()); 
-      return select( b_and(isnez(a0),isfin(a0))
+      return select( b_and(is_nez(a0),is_finite(a0))
                      , b_or(x, e)
                      , a0
                      );

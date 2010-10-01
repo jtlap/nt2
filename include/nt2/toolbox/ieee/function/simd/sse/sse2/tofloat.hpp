@@ -76,15 +76,17 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,    uint32_t)
     {
       typedef typename meta::as_real<A0>::type  result_type;
-      typedef typename meta::scalar_of<A0>::type stype;
-      typedef typename meta::as_integer<A0,signed>::type sint_type;
-      //      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
-      const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
-      const sint_type a00 = simd::native_cast<sint_type>(a0);
-      result_type v1 = {_mm_cvtepi32_ps(a00)};
-      result_type v2 = {_mm_cvtepi32_ps((b_andnot(a00, Signmask<sint_type>())))};
-      v2 = v2+offset;
-      return sel(is_gez(a00),v1,v2);
+      result_type z = {a0[0],a0[1],a0[2], a0[3]}; //TO DO
+      return z; 
+ //      typedef typename meta::scalar_of<A0>::type stype;
+//       typedef typename meta::as_integer<A0,signed>::type sint_type;
+//       //      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
+//       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
+//       const sint_type a00 = simd::native_cast<sint_type>(a0);
+//       result_type v1 = {_mm_cvtepi32_ps(a00)};
+//       result_type v2 = {_mm_cvtepi32_ps((b_andnot(a00, Signmask<sint_type>())))};
+//       v2 = v2+offset;
+//       return sel(is_gez(a00),v1,v2);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,    uint64_t)
     {

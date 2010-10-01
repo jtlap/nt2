@@ -8,28 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
-#include <nt2/sdk/meta/templatize.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace functors
-{
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute tofloat(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Dummy>
-  struct call<tofloat_,
-              tag::simd_(tag::arithmetic_,Extension),Dummy>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
-
-    // see documentation http://nt2.lri.fr/extension/custom_function.html
-    // for writing the functor implementation code 
-    // with or without type dispatching
-
-  };
-} }
-
-      
 #endif

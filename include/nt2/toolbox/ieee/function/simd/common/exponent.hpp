@@ -16,7 +16,6 @@
 #include <nt2/include/functions/exponentbits.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 
-
 namespace nt2 { namespace functors
 {
   template<class Extension,class Info>
@@ -46,7 +45,7 @@ namespace nt2 { namespace functors
       typedef typename meta::scalar_of<result_type>::type sint_type;
       const int nmb= Nbmantissabits<s_type>();
       const result_type x = shri(exponentbits(a0), nmb);
-      return x-b_and(isnez(x), Maxexponent<A0>());
+      return x-b_and(Maxexponent<A0>(), is_nez(a0));
     }
   };
 } }

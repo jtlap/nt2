@@ -52,7 +52,7 @@ namespace nt2 { namespace functors
       result_type const x(b_andnot(a0, Ldexpmask<A0>()));
 
       // extract exponent and compute the new one
-      int_type e    = b_and(Ldexpmask<A0>(), a0);
+      int_type e    = b_and(Ldexpmask<result_type>(), a0);
       e += int_type(a1) << Nbmantissabits<result_type>(); //nmb;
       if (is_nez(a0)&&is_finite(a0)) return  b_or(x, e);
       return a0; 
