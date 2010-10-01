@@ -31,6 +31,7 @@ namespace nt2 { namespace constants
   struct max_exponent_      {};
   struct min_exponent_      {};
   struct nb_digits_         {};
+  struct ldexp_mask_        {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +45,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::signmask_         , Signmask       )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_left_shift_   , Maxleftshift   )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_denormal_     , Mindenormal    )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::ldexp_mask_       , Ldexpmask      )
   
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_mantissa_bits_ , Nbmantissabits )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_exponent_bits_ , Nbexponentbits )
@@ -60,6 +62,7 @@ namespace nt2
 //#include <nt2/sdk/constant/details/smallestposval.hpp>
 #include <nt2/sdk/constant/details/signmask.hpp>
 #include <nt2/sdk/constant/details/ieee_spec.hpp>
+#include <nt2/sdk/constant/details/ldexp_mask.hpp>
 //#include <nt2/sdk/constant/details/maxleftshift.hpp>
 //#include <nt2/sdk/constant/details/mindenormal.hpp>
 
