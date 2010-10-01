@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_NATIVE_DETAILS_IMPL_SSE_SSSE3_IS_EQUAL_TO_HPP_INCLUDED
-#define NT2_SDK_SIMD_NATIVE_DETAILS_IMPL_SSE_SSSE3_IS_EQUAL_TO_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_NATIVE_DETAILS_IMPL_SSE_SSSE3_COMPARE_EQUAL_HPP_INCLUDED
+#define NT2_SDK_SIMD_NATIVE_DETAILS_IMPL_SSE_SSSE3_COMAPRE_EQUAL_HPP_INCLUDED
 #include <nt2/sdk/simd/details/impl/sse/sse3/compare_equal.hpp>
 #endif

@@ -22,4 +22,5 @@
 #include NT2_SIMD_INCLUDE(compare_greater.hpp)
 #include NT2_SIMD_INCLUDE(compare_greater_equal.hpp)
 */
+
 #endif

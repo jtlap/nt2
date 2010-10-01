@@ -22,7 +22,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-      struct  result<This(A0,A1)> : meta::has_same_size < A0, A1 >{}; 
+      struct  result<This(A0,A1)> : meta::has_same_size < A0, A1 >{};
       //          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
 
@@ -32,7 +32,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
-    
+
     NT2_FUNCTOR_CALL_DISPATCH ( 2
                               , typename nt2::meta::scalar_of<A0>::type
                               , (3,(double,float,arithmetic_))
