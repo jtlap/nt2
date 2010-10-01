@@ -21,8 +21,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_floating_point<A0>{};
+    struct result<This(A0)> : meta::is_floating_point<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute two_split(const A0& a0)
@@ -35,7 +34,8 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename boost::fusion::tuple<A0,A0>              type;
+      typedef typename meta::strip<A0>::type                    str_t; 
+      typedef typename boost::fusion::tuple<str_t, str_t>        type;
     };
 
     NT2_FUNCTOR_CALL(1)

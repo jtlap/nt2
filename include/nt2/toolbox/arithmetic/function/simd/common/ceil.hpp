@@ -27,8 +27,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -38,7 +37,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       const A0 d0 = round2even(a0);
-      return seladd(islt(d0,a0),d0,One<A0>());
+      return seladd(lt(d0,a0),d0,One<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

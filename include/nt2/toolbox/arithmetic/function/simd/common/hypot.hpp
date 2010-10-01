@@ -61,19 +61,19 @@ namespace nt2 { namespace functors
       A0 b =  nt2::min(x, y);
       int_type ea =   exponent(a);
       int_type eb  =  exponent(b);
-      int_type te1 = is_gt(ea,cts::C1());
-      int_type te2 = is_lt(eb,cts::MC1());
+      int_type te1 = gt(ea,cts::C1());
+      int_type te2 = lt(eb,cts::MC1());
       bool te3 = any(te1|te2);
       int_type e = Zero<int_type>();
       if (te3)
       {
         e = sel(te1, cts::MC2(), e);
-        e = sel(te2, cts::C1(),e );
+        e = sel(te2, cts::C1(),  e);
         a =  ldexp(a, e);
         b =  ldexp(b, e);
       }
       A0 w = a-b;
-      A0 test =  is_gt(w,b);
+      A0 test =  gt(w,b);
       A0 t1 = a& cts::M1();
       A0 t2 = a-t1;
       A0 w1_2  = (t1*t1-(b*(-b)-t2*(a+t1)));

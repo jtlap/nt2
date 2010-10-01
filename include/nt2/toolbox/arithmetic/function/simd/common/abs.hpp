@@ -47,7 +47,7 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<int_type>::type   sint_type;
-      A0 const s = shri(a0, Maxleftshift<sint_type>());
+      A0 const s = shri(a0, 8*sizeof(sint_type)-1);
       return (a0-s)^(-s);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)

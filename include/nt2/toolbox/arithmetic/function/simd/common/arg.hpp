@@ -18,13 +18,13 @@
 
 namespace nt2 { namespace functors
 {
-//   template<class Extension,class Info>
-//   struct validate<arg_,tag::simd_(tag::arithmetic_,Extension),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0>
-//     struct result<This(A0)> : meta::is_real_convertible<A0> {};
-//   };
+  template<class Extension,class Info>
+  struct validate<arg_,tag::simd_(tag::arithmetic_,Extension),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::is_real_convertible<A0> {};
+  };
   /////////////////////////////////////////////////////////////////////////////
   // Compute arg(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
-      return is_nan(a0)+b_and(is_ltz(a0),Pi<A0>());
+      return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)

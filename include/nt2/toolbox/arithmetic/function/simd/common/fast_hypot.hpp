@@ -20,6 +20,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 
 namespace nt2 { namespace functors
@@ -52,15 +53,15 @@ namespace nt2 { namespace functors
     {
       A0 x =  abs(a0);
       A0 y =  abs(a1);
-      A0 gtyx = is_gt(y,x); 
+      A0 gtyx = gt(y,x); 
       A0 xx = sel(gtyx,y,x);
       A0 yy = sel(gtyx,x,y);
       A0 r =  xx*sqrt(One<A0>()+sqr(yy/xx));
-      return sel(isge(xx*Eps<A0>(), yy), x, r);     
+      return sel(ge(xx*Eps<A0>(), yy), xx, r);     
    }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       return nt2::fast_hypot(tofloat(a0), tofloat(a1));
     }
   };
