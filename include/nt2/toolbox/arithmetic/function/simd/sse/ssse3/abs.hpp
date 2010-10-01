@@ -10,10 +10,13 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/properties.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
+#include <nt2/include/functions/shri.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -33,7 +36,13 @@ namespace nt2 { namespace functors
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,real_)     { return b_notand(Mzero<A0>(),a0);   }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)   { return select(is_lez(a0),neg(a0),a0); }
+    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)   {
+       typedef typename meta::as_integer<A0, signed>::type int_type;
+       typedef typename meta::scalar_of<int_type>::type   sint_type;
+       A0 const s = shri(a0, 8*sizeof(sint_type)-1);
+       return (a0-s)^(-s);
+       //      return select(is_lez(a0),-a0,a0);
+    }
     NT2_FUNCTOR_CALL_EVAL_IF(1,int32_t)   { A0 that = {_mm_abs_epi32(a0)};return that;}
     NT2_FUNCTOR_CALL_EVAL_IF(1,int16_t)   { A0 that = {_mm_abs_epi16(a0)};return that;}
     NT2_FUNCTOR_CALL_EVAL_IF(1,int8_t)    { A0 that = {_mm_abs_epi8(a0) };return that;}

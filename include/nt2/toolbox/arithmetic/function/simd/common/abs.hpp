@@ -30,8 +30,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+      struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -48,7 +47,6 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<int_type>::type   sint_type;
-      //    A0 s = Zero<A0>();
       A0 const s = shri(a0, Maxleftshift<sint_type>());
       return (a0-s)^(-s);
     }

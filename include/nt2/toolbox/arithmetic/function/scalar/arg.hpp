@@ -14,7 +14,7 @@
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nan.hpp>
-
+#include <iostream>
 namespace nt2 { namespace functors
 {
 
@@ -39,6 +39,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
+      std::cout << "--------------"<< nt2::type_id(a0) <<  std::endl; 
       if (is_nan(a0)) return a0;
       if (is_gez(a0)) return Zero<A0>();
       return Pi<A0>();

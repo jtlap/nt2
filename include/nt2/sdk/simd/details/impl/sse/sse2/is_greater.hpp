@@ -80,7 +80,6 @@ namespace nt2 { namespace functors
                                           >::type type;
       type sa0 = { a0 };
       type sa1 = { a1 };
-
       type al = { _mm_shuffle_epi32(sa0, _MM_SHUFFLE(2, 2, 0, 0)) };
       type bl = { _mm_shuffle_epi32(sa1, _MM_SHUFFLE(2, 2, 0, 0)) };
       type ah = { _mm_shuffle_epi32(sa0, _MM_SHUFFLE(3, 3, 1, 1)) };

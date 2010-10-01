@@ -46,6 +46,7 @@ namespace nt2 { namespace functors
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
       return is_nan(a0)+b_and(is_ltz(a0),Pi<A0>());
     }
+
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
