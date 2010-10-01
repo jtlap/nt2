@@ -11,6 +11,8 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/is_scalar.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
 
@@ -23,15 +25,15 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
       boost::mpl::and_<meta::is_scalar<A1>
-                      ,meta::is_integral<A1>
-                      > {};
+      ,meta::is_integral<A1>
+      > {};
   };
   template<class Extension,class Info>
   struct call<shri_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,

@@ -13,7 +13,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 #include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_lez.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -39,11 +38,12 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_t)
     {
-      typedef typename meta::int32_t_<A0>::type htype;
-      typedef simd::native<htype,tag::sse_> type;
-      const type tmp1 = is_lez(simd::native_cast<type>(a0));
-      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 2, 0, 0))};
-      return  simd::native_cast<A0>(tmp);
+      return is_less(a0, Zero<A0>()); //TO DO
+//       typedef typename meta::int32_t_<A0>::type htype;
+//       typedef simd::native<htype,tag::sse_> type;
+//       const type tmp1 = is_lez(simd::native_cast<type>(a0));
+//       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 2, 0, 0))};
+//       return  simd::native_cast<A0>(tmp);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
