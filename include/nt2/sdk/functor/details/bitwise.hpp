@@ -23,10 +23,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_MAKE_BITWISE(TAG,OP)                                \
 template<class Info>                                            \
-struct  dispatch<TAG,tag::scalar_(tag::arithmetic_),Info>       \
-      : boost::mpl::_1 {};                                      \
-                                                                \
-template<class Info>                                            \
 struct validate<TAG,tag::scalar_(tag::arithmetic_),Info>        \
 {                                                               \
   template<class Sig> struct result;                            \
@@ -45,7 +41,7 @@ struct  call<TAG,tag::scalar_(tag::arithmetic_),Hierarchy,Info> \
   {                                                             \
     typename meta::as_bits<A0>::type t0 = {a0};                 \
     typename meta::as_bits<A1>::type t1 = {a1};                 \
-    t0.bits OP t1.bits;                                        \
+    t0.bits OP t1.bits;                                         \
     return t0.value;                                            \
   }                                                             \
 }                                                               \
@@ -56,10 +52,6 @@ namespace nt2 { namespace functors
   NT2_MAKE_BITWISE(bitwise_and_, &= );
   NT2_MAKE_BITWISE(bitwise_or_ , |= );
   NT2_MAKE_BITWISE(bitwise_xor_, ^= );
-
-  template<class Info>
-  struct  dispatch<complement_,tag::scalar_(tag::arithmetic_),Info>
-        : boost::mpl::_1 {};
 
   template<class Info>
   struct  call<complement_,tag::scalar_(tag::arithmetic_),real_,Info>
