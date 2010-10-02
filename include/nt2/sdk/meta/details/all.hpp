@@ -44,14 +44,14 @@ namespace nt2 { namespace details
                           >
   {};
 
-	template< class Pred, class T>
+  template< class Pred, class T>
   struct  all_impl<Pred, T>
         : boost::mpl::eval_if_c < boost::mpl::is_sequence<T>::value
-                                ,	boost::is_same< typename boost::mpl::find_if<	T
-																																							,	boost::mpl::not_<Pred>
-																																							>::type
-																								, typename boost::mpl::end<T>::type
-																								>
+                                , boost::is_same< typename boost::mpl::find_if<  T
+                                                                              ,  boost::mpl::not_<Pred>
+                                                                              >::type
+                                                , typename boost::mpl::end<T>::type
+                                                >
                                 , boost::mpl::apply1<Pred,T>
                                 >::type
   {};
@@ -76,11 +76,11 @@ namespace nt2 { namespace details
   template< class Pred, class T>
   struct  all_impl<Pred, T>
         : boost::mpl::eval_if_c < boost::mpl::is_sequence<T>::value
-                                ,	boost::is_same< typename boost::mpl::find_if<	T
-																																							,	boost::mpl::not_<Pred>
-																																							>::type
-																								, typename boost::mpl::end<T>::type
-																								>
+                                ,  boost::is_same< typename boost::mpl::find_if<  T
+                                                                              ,  boost::mpl::not_<Pred>
+                                                                              >::type
+                                                , typename boost::mpl::end<T>::type
+                                                >
                                 , boost::mpl::apply1<Pred,T>
                                 >::type
   {};
@@ -88,7 +88,7 @@ namespace nt2 { namespace details
   #define M0(z,n,t)                                         \
   template<class Pred, BOOST_PP_ENUM_PARAMS(n,class A)>     \
   struct  all_impl<Pred,BOOST_PP_ENUM_PARAMS(n,A)>          \
-        : boost::mpl::bool_<true BOOST_PP_REPEAT(n,M1,~)>  	\
+        : boost::mpl::bool_<true BOOST_PP_REPEAT(n,M1,~)>    \
   {};                                                       \
   /**/
 
