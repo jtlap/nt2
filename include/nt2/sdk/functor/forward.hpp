@@ -14,9 +14,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template< class Function, class Category, class Info= void> struct call;
+  template<class Function,class Category,class Hierarchy,class Info=void>
+  struct call;
+  template< class Function, class Category,class Hierarchy, class Info= void>
+  struct validate;
+
   template< class Function                , class Info= void> struct functor;
-  template< class Function, class Category, class Info= void> struct validate;
 } }
 
 #endif
