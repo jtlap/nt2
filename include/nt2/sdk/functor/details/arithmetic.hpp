@@ -23,8 +23,8 @@ static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                                     \
-template<class Category>                                                    \
-struct dispatch<TAG,tag::scalar_(Category)> : boost::mpl::_1 {};            \
+template<class Category,class Info>                                         \
+struct dispatch<TAG,tag::scalar_(Category),Info> : boost::mpl::_1 {};       \
                                                                             \
 template<class Category,class Hierarchy,class Info>                         \
 struct  call<TAG,tag::scalar_(Category),Hierarchy,Info>                     \
