@@ -13,9 +13,9 @@
 // bitwise operators extended implementation
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
+#include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
-#include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,6 +56,37 @@ namespace nt2 { namespace functors
   NT2_MAKE_BITWISE(bitwise_and_, &= );
   NT2_MAKE_BITWISE(bitwise_or_ , |= );
   NT2_MAKE_BITWISE(bitwise_xor_, ^= );
+
+  template<class Info>
+  struct  dispatch<complement_,tag::scalar_(tag::arithmetic_),Info>
+        : boost::mpl::_1 {};
+
+  template<class Info>
+  struct  call<complement_,tag::scalar_(tag::arithmetic_),real_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename meta::as_bits<A0>::type t0 = {a0};
+      t0.bits = ~t0.bits;
+      return t0.value;
+    }
+  };
+
+  template<class Info>
+  struct  call<complement_,tag::scalar_(tag::arithmetic_),fundamental_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(1) { return ~a0; }
+  };
 } }
 
 #undef NT2_MAKE_BITWISE
