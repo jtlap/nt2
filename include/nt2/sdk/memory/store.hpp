@@ -13,7 +13,6 @@
 // Store a value in memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/store.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
@@ -35,7 +34,7 @@ namespace nt2 { namespace functors
       struct  result<This(A0,A1,A2)>
 		  : boost::mpl::and_< boost::is_pointer<typename boost::remove_reference<A1>::type>
                             , boost::is_integral<typename boost::remove_reference<A2>::type>
-                            >            
+                            >
 	  {};
     };
 
