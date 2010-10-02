@@ -12,8 +12,6 @@
 using namespace std;
 using namespace nt2;
 
-struct callable { typedef void callable_type; };
-
 template<class Tag,class Category,class Hierarchy,class Info=void>
 struct call;
 
@@ -112,23 +110,23 @@ namespace nt2 { namespace meta
 
 template<class Info>
 struct  call<functors::plus_, tag::scalar_(tag::arithmetic_),functors::real_,Info>
-      : callable {};
+      : functors::callable {};
 
 template<class Info>
 struct  call<functors::plus_, tag::scalar_(tag::arithmetic_),functors::integer_,Info>
-      : callable {};
+      : functors::callable {};
 
 template<class Info>
 struct  call<functors::plus_, tag::scalar_(tag::arithmetic_),functors::int8_,Info>
-      : callable {};
+      : functors::callable {};
 
 template<class Info>
 struct  call<functors::plus_, tag::scalar_(tag::arithmetic_),nt2::int8_t,Info>
-      : callable {};
+      : functors::callable {};
 
 template<class Info>
 struct  call<functors::plus_, tag::scalar_(tag::arithmetic_),double,Info>
-      : callable {};
+      : functors::callable {};
 
 int main()
 {
