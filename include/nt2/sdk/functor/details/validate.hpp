@@ -28,11 +28,11 @@ namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
   // A functor call is validated iff :
-  //  * a call<Function,Category,Info> overload exists wiht a proper result_of
+  //  * a call<Function,Category,Hierarchy,Info> overload exists
   //  * no bool appears in the list of argument types
   //  * Category is not tag::unknwon
   //////////////////////////////////////////////////////////////////////////////
-  template<class Function,class Category,class Info>
+  template<class Function,class Category,class Hierarchy,class Info>
   struct validate
   {
     template<class Sig> struct result;
@@ -40,7 +40,7 @@ namespace nt2 { namespace functors
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
-      typedef call<Function,Category,Info>                            callee;
+      typedef call<Function,Category,Hierarchy,Info>                  callee;
       typedef typename
       nt2::meta::is_result_of_supported<callee(Args...)>::type        callable;
       typedef meta::any<boost::is_same<boost::mpl::_,bool>, Args... > bools;
@@ -51,7 +51,7 @@ namespace nt2 { namespace functors
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                       \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
     {                                                                           \
-      typedef call<Function,Category,Info>                            callee;   \
+      typedef call<Function,Category,Hierarchy,Info>                  callee;   \
       typedef typename                                                          \
       nt2::meta::                                                               \
       is_result_of_supported<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type callable; \
@@ -65,8 +65,8 @@ namespace nt2 { namespace functors
     #endif
   };
 
-  template<class Function,class Info>
-  struct validate<Function,tag::unknown,Info>
+  template<class Function,class Hierarchy, class Info>
+  struct validate<Function,tag::unknown,Hierarchy,Info>
   {
     typedef boost::mpl::false_ result_type;
   };

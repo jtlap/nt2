@@ -17,20 +17,18 @@
 #include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-// Remove ?
-#if defined(NT2_COMPILER_MSVC)
-#pragma warning(push)
-#pragma warning(disable: 4146)
-#endif
-
 #define NT2_LOCAL_TYPE(Z,N,T)                                               \
 typedef typename meta::strip<BOOST_PP_CAT(A,N)>::type BOOST_PP_CAT(base,N); \
 static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                                     \
-template<class Category,class Info>                                         \
-struct call<TAG,tag::scalar_(Category),Info>                                \
+template<class Category>                                                    \
+struct dispatch<TAG,tag::scalar_(Category)> : boost::mpl::_1 {};            \
+                                                                            \
+template<class Category,class Hierarchy,class Info>                         \
+struct  call<TAG,tag::scalar_(Category),Hierarchy,Info>                     \
+      : callable                                                            \
 {                                                                           \
   template<class Sig> struct result;                                        \
   template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct              \
@@ -48,6 +46,9 @@ namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
   // Generating implementation for operators
+  // This generation is made of two step:
+  // - the dispatch<> which default to _1
+  // - the call<> that just use typeof and operator call
   //////////////////////////////////////////////////////////////////////////////
   NT2_MAKE_ARITHMETIC(complement_      , 1 , (~a0)     );
   NT2_MAKE_ARITHMETIC(neg_             , 1 , (-a0)     );
@@ -65,9 +66,5 @@ namespace nt2 { namespace functors
 } }
 
 #undef NT2_MAKE_ARITHMETIC
-
-#if defined(NT2_COMPILER_MSVC)
-#pragma warning(pop)
-#endif
 
 #endif
