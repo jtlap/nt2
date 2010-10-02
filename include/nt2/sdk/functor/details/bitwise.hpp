@@ -109,6 +109,27 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
       return a0 ^ a1;
     }     
   };  
+
+  template<class Info> struct call<complement_,tag::scalar_(tag::arithmetic_),Info>                        
+  {                                                                   
+    template<class Sig> struct result;                                    
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0> {};
+    
+    NT2_FUNCTOR_CALL_DISPATCH( 1, A0, (2, (real_,fundamental_)))
+
+    NT2_FUNCTOR_CALL_EVAL_IF(1, real_)
+    {
+      typename meta::as_bits<A0>::type t0 = {a0};
+      t0.bits = ~t0.bits;
+      return t0.value;
+    }     
+
+    NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
+    {
+      return ~a0;
+    }     
+  };
 } }
 
 #endif
