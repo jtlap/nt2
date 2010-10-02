@@ -16,18 +16,24 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define NT2_MAKE_BOOLEAN(TAG,N,IMPL)                                \
-template<class Category,class Info>                                 \
-struct validate<TAG,tag::scalar_(Category),Info>										\
-{                                                                   \
-  typedef boost::mpl::true_ result_type;														\
-};																																	\
-template<class Category,class Info>                                 \
-struct call<TAG,tag::scalar_(Category),Info>                        \
-{                                                                   \
-  typedef bool result_type;                                         \
-  NT2_FUNCTOR_CALL(N) { return IMPL; }                              \
-}                                                                   \
+#define NT2_MAKE_BOOLEAN(TAG,N,IMPL)                    \
+template<class Category,class Info>                     \
+struct  dispatch<TAG,tag::scalar_(Category),Info>       \
+      : boost::mpl::_1 {};                              \
+                                                        \
+template<class Category,class Info>                     \
+struct validate<TAG,tag::scalar_(Category),Info>        \
+{                                                       \
+  typedef boost::mpl::true_ result_type;                \
+};                                                      \
+                                                        \
+template<class Category,class Hierarchy,class Info>     \
+struct  call<TAG,tag::scalar_(Category),Hierarchy,Info> \
+      : callable                                        \
+{                                                       \
+  typedef bool result_type;                             \
+  NT2_FUNCTOR_CALL(N) { return IMPL; }                  \
+}                                                       \
 /**/
 
 namespace nt2 { namespace functors

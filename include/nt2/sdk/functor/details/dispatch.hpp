@@ -20,7 +20,7 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Tag,class Category> struct dispatch;
+  template<class Tag,class Category,class Info=void> struct dispatch;
 } }
 
 namespace nt2 { namespace meta
@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
   template<class Tag, class Category,class Info>
   struct dispatch
   {
-    typedef functors::dispatch<Tag,Category> dispatcher;
+    typedef functors::dispatch<Tag,Category,Info> dispatcher;
 
     template<class Sig> struct result;
 
