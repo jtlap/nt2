@@ -23,6 +23,9 @@ static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
 /**/
 
 #define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                                     \
+template<class Category>                                                    \
+struct dispatch<TAG,tag::scalar_(Category)> : boost::mpl::_1 {};            \
+                                                                            \
 template<class Category,class Hierarchy,class Info>                         \
 struct  call<TAG,tag::scalar_(Category),Hierarchy,Info>                     \
       : callable                                                            \
@@ -43,6 +46,9 @@ namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
   // Generating implementation for operators
+  // This generation is made of two step:
+  // - the dispatch<> which default to _1
+  // - the call<> that just use typeof and operator call
   //////////////////////////////////////////////////////////////////////////////
   NT2_MAKE_ARITHMETIC(complement_      , 1 , (~a0)     );
   NT2_MAKE_ARITHMETIC(neg_             , 1 , (-a0)     );
