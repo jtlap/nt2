@@ -26,11 +26,11 @@ namespace nt2 { namespace functors
     template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , A0
-                              , (3, (unsigned_,int64_t,arithmetic_))
+				, typename nt2::meta::scalar_of<A0>::type
+				, (3, (unsigned_,int64_t,arithmetic_))
                               )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_) { return is_gt(a0,Zero<A0>()); }
+    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_) { return gt(a0,Zero<A0>()); }
     NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_) { return is_nez(a0); }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_t)
     {

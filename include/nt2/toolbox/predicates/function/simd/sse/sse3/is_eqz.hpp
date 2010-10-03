@@ -37,7 +37,7 @@ namespace nt2 { namespace functors
     {
       typedef simd::native<int32_t, tag::sse_> itype;
       typedef simd::native<float, tag::sse_>   ftype;
-      ftype tmp1 = simd::native_cast<ftype>(is_eq(simd::native_cast<itype>(a0),Zero<itype>()));
+      ftype tmp1 = simd::native_cast<ftype>(eq(simd::native_cast<itype>(a0),Zero<itype>()));
       A0  l = simd::native_cast<A0>(_mm_moveldup_ps(tmp1));
       A0  h = simd::native_cast<A0>(_mm_movehdup_ps(tmp1));
       return b_and(l,h);

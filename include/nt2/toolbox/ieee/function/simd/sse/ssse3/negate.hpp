@@ -9,6 +9,12 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSSE3_NEGATE_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSSE3_NEGATE_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+
 
 
 namespace nt2 { namespace functors
@@ -31,9 +37,9 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,    real_)
     {
-      A0 tmp = isnez(a1)&a0;
-      tmp = select(isltz(a1), -a0, tmp);
-      tmp = seladd(isnan(a1), tmp, a1); //TODO signed Nan ?
+      A0 tmp = is_nez(a1)&a0;
+      tmp = select(is_ltz(a1), -a0, tmp);
+      tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
       return tmp;
     }
 

@@ -41,9 +41,10 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
        const type v = abs(a0);
        const type t2n = Two2nmb<type>();
-       type d0 = (v+t2n);
-       type d = (d0-t2n);
+       volatile type d0 = (v+t2n);
+       volatile type d = (d0-t2n);
        d = (v < t2n)?d:v;
+       //       type q =  d; 
        return b_xor(d, nt2::bitofsign(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
