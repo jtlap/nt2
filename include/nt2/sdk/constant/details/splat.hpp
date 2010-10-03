@@ -17,8 +17,9 @@
 
 namespace nt2 { namespace functors
 {
-  template<class T, class Category, class Info>
-  struct call<splat_<T>,tag::scalar_(Category), Info>
+  template<class T, class Category, class Hierarchy, class Info>
+  struct  call<splat_<T>,tag::scalar_(Category), Hierarchy, Info>
+        : callable
   {
     typedef T result_type;
 

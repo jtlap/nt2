@@ -32,17 +32,19 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0> struct result<This(A0)>
     {
-      typedef typename meta::category_of<T>::type::tag    dominant;
-      typedef functors::call<splat_<T>,dominant,Info>     callee;
-	  typedef typename std::tr1::result_of<callee(A0)>::type type;
+      typedef typename meta::category_of<T>::type::tag                dominant;
+      typedef meta::dispatch<splat_<T>,dominant,Info>                 dispatching;
+      typedef typename std::tr1::result_of<dispatching(A0)>::type     callee;
+      typedef typename std::tr1::result_of<callee(A0)>::type          type;
     };
 
       template<class A0> inline
       typename meta::enable_call<splat_<T>(A0)>::type
       operator()(A0 const& a0) const
       {
-        typedef typename meta::category_of<T>::type::tag    dominant;
-        functors::call<splat_<T>,dominant,Info>     callee;
+        typedef typename meta::category_of<T>::type::tag        dominant;
+        typedef meta::dispatch<splat_<T>,dominant,Info>         dispatching;
+        typename std::tr1::result_of<dispatching(A0)>::type  callee;
         return callee(a0);
       }
     };
