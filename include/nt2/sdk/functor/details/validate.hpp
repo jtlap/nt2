@@ -17,6 +17,7 @@
 #include <nt2/sdk/meta/any.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/meta/is_result_of_supported.hpp>
+#include <nt2/sdk/functor/details/dispatch.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>
@@ -32,7 +33,7 @@ namespace nt2 { namespace functors
   //  * no bool appears in the list of argument types
   //  * Category is not tag::unknwon
   //////////////////////////////////////////////////////////////////////////////
-  template<class Function,class Category,class Hierarchy,class Info>
+  template<class Function,class Category,class Info>
   struct validate
   {
     template<class Sig> struct result;
@@ -40,7 +41,9 @@ namespace nt2 { namespace functors
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
-      typedef call<Function,Category,Hierarchy,Info>                  callee;
+      typedef typename meta::dominant<Args...>::type::tag               dom;
+      typedef meta::dispatch<Function,dom,Info>                         dispatching;
+      typedef typename std::tr1::result_of<dispatching(Args...)>::type  callee;
       typedef typename
       nt2::meta::is_result_of_supported<callee(Args...)>::type        callable;
       typedef meta::any<boost::is_same<boost::mpl::_,bool>, Args... > bools;
@@ -51,7 +54,11 @@ namespace nt2 { namespace functors
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                       \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
     {                                                                           \
-      typedef call<Function,Category,Hierarchy,Info>                  callee;   \
+      typedef typename  \
+      meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag               dom; \
+      typedef meta::dispatch<Function,dom,Info>                         dispatching; \
+      typedef typename  \
+      std::tr1::result_of<dispatching(BOOST_PP_ENUM_PARAMS(n,A))>::type  callee;  \
       typedef typename                                                          \
       nt2::meta::                                                               \
       is_result_of_supported<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type callable; \
@@ -65,8 +72,8 @@ namespace nt2 { namespace functors
     #endif
   };
 
-  template<class Function,class Hierarchy, class Info>
-  struct validate<Function,tag::unknown,Hierarchy,Info>
+  template<class Function, class Info>
+  struct validate<Function,tag::unknown,Info>
   {
     typedef boost::mpl::false_ result_type;
   };

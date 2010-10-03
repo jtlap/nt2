@@ -20,17 +20,20 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Tag,class Category,class Info=void>
+  template<class Tag,class Category,class Info = void>
   struct dispatch : boost::mpl::_1 {};
 } }
 
 namespace nt2 { namespace meta
 {
-  template<class Tag,class Category>
+  template<class Tag,class Category, class Info>
   struct  make_dispatch_list
   {
-    typedef boost::mpl::if_ < meta::enable_dispatch<Tag,Category,boost::mpl::_2>
-                            , boost::mpl::push_back<boost::mpl::_1,boost::mpl::_2>
+    typedef boost::mpl::if_ < meta::
+                              enable_dispatch<Tag,Category,boost::mpl::_2,Info>
+                            , boost::mpl::push_back < boost::mpl::_1
+                                                    , boost::mpl::_2
+                                                    >
                             , boost::mpl::_1
                             > selector;
 
@@ -60,7 +63,7 @@ namespace nt2 { namespace meta
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename make_dispatch_list<Tag,Category>::type   pool;
+      typedef typename make_dispatch_list<Tag,Category,Info>::type   pool;
       typedef typename boost::mpl::apply1 < dispatcher
                                           , typename strip<A0>::type
                                           >::type               base;
@@ -71,7 +74,7 @@ namespace nt2 { namespace meta
     template<class This,class A0,class A1>
     struct result<This(A0,A1)>
     {
-      typedef typename make_dispatch_list<Tag,Category>::type pool;
+      typedef typename make_dispatch_list<Tag,Category,Info>::type pool;
       typedef typename boost::mpl::apply2 < dispatcher
                                           , typename strip<A0>::type
                                           , typename strip<A1>::type
@@ -83,7 +86,7 @@ namespace nt2 { namespace meta
     template<class This,class A0,class A1,class A2>
     struct result<This(A0,A1,A2)>
     {
-      typedef typename make_dispatch_list<Tag,Category>::type pool;
+      typedef typename make_dispatch_list<Tag,Category,Info>::type pool;
       typedef typename boost::mpl::apply3 < dispatcher
                                           , typename strip<A0>::type
                                           , typename strip<A1>::type
@@ -96,7 +99,7 @@ namespace nt2 { namespace meta
     template<class This,class A0,class A1,class A2,class A3>
     struct result<This(A0,A1,A2,A3)>
     {
-      typedef typename make_dispatch_list<Tag,Category>::type pool;
+      typedef typename make_dispatch_list<Tag,Category,Info>::type pool;
       typedef typename boost::mpl::apply4 < dispatcher
                                           , typename strip<A0>::type
                                           , typename strip<A1>::type
