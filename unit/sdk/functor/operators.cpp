@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( unary_plus, (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( unary_plus, (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( complement, (nt2::uint64_t)(nt2::int64_t)
                                 (nt2::uint32_t)(nt2::int32_t)
-                                (nt2::uint16_t)(nt2::int16_t)         
+                                (nt2::uint16_t)(nt2::int16_t)
                                 (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -52,15 +52,15 @@ NT2_TEST_CASE_TPL ( complement, (nt2::uint64_t)(nt2::int64_t)
   using nt2::functors::complement_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<complement_(T)>::type
-                            , typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type
+                            , T
                             >::value
             )
           );
 
   T value  = 42;
-  NT2_TEST_EQUAL( nt2::complement(value) , ~value );
-  NT2_TEST_EQUAL( nt2::bitwise_not(value), ~value );
-  NT2_TEST_EQUAL( nt2::b_not(value), ~value );
+  NT2_TEST_EQUAL( nt2::complement(value) , T(~value) );
+  NT2_TEST_EQUAL( nt2::bitwise_not(value), T(~value) );
+  NT2_TEST_EQUAL( nt2::b_not(value), T(~value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( complement, (nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( neg , (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -90,7 +90,7 @@ NT2_TEST_CASE_TPL ( neg , (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( not , (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)(bool)
                   )
 {
@@ -113,7 +113,7 @@ NT2_TEST_CASE_TPL ( not , (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( plus, (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -136,7 +136,7 @@ NT2_TEST_CASE_TPL ( plus, (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( minus,  (double)(nt2::uint64_t)(nt2::int64_t)
                             (float)(nt2::uint32_t)(nt2::int32_t)
-                            (nt2::uint16_t)(nt2::int16_t)         
+                            (nt2::uint16_t)(nt2::int16_t)
                             (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -159,7 +159,7 @@ NT2_TEST_CASE_TPL ( minus,  (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( mul,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -182,7 +182,7 @@ NT2_TEST_CASE_TPL ( mul,  (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( div,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -206,7 +206,7 @@ NT2_TEST_CASE_TPL ( div,  (double)(nt2::uint64_t)(nt2::int64_t)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( b_and,(nt2::uint64_t)(nt2::int64_t)
                           (nt2::uint32_t)(nt2::int32_t)
-                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint16_t)(nt2::int16_t)
                           (nt2::uint8_t)(nt2::int8_t)
                   )
 {
@@ -233,7 +233,7 @@ NT2_TEST_CASE_TPL ( real_b_and,(double)(float)
   using boost::is_same;
   using nt2::functors::bitwise_and_;
   typedef typename nt2::meta::as_integer<T>::type int_t;
-  
+
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_and_(T,int_t)>::type
                             , T
                             >::value
@@ -241,7 +241,7 @@ NT2_TEST_CASE_TPL ( real_b_and,(double)(float)
           );
 
   int_t mask = (1LL << (sizeof(T)*CHAR_BIT)-1);
-  
+
   NT2_TEST_EQUAL( nt2::b_and(T(-1.) ,mask ), T(-0.) );
   NT2_TEST_EQUAL( nt2::bitwise_and(T(-1.) ,mask ), T(-0.) );
 }
@@ -291,7 +291,7 @@ NT2_TEST_CASE_TPL ( real_b_and,(double)(float)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( if_else,(double)(nt2::uint64_t)(nt2::int64_t)
                             (float)(nt2::uint32_t)(nt2::int32_t)
-                            (nt2::uint16_t)(nt2::int16_t)         
+                            (nt2::uint16_t)(nt2::int16_t)
                             (nt2::uint8_t)(nt2::int8_t)
                   )
 {
