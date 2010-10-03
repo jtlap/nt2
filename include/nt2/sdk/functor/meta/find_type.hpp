@@ -18,6 +18,7 @@
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/is_sequence.hpp>
 #include <nt2/sdk/functor/meta/belong_to.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
