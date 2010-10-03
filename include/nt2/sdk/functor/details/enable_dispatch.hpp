@@ -11,13 +11,15 @@
 
 namespace nt2 { namespace meta
 {
-  template<class Tag,class Category, class Hierarchy, class Info = void>
+  template< class Tag,class Category, class Hierarchy, class Info
+          , class Enable = void
+          >
   struct  enable_dispatch : boost::mpl::false_
   {};
 
-  template<class Tag,class Category, class Hierarchy>
-  struct  enable_dispatch < Tag,Category,Hierarchy
-                          , typename functors ::call<Tag,Category,Hierarchy>
+  template<class Tag,class Category, class Hierarchy, class Info>
+  struct  enable_dispatch < Tag,Category,Hierarchy,Info
+                          , typename functors ::call<Tag,Category,Hierarchy,Info>
                                               ::callable_type
                           >
         : boost::mpl::true_ {};
