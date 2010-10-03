@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace constants
 {
-  template<nt2::int64_t N> struct digit_ {};
+  template<nt2::int64_t N> struct digit_ { BOOST_STATIC_CONSTANT(int, value = N); };
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,8 +83,9 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<nt2::int64_t N, class Category,class Info>
-  struct  call<constants::digit_<N>,tag::constant_(Category),Info>
+  template<nt2::int64_t N, class Category,class Hierarchy,class Info>
+  struct  call<constants::digit_<N>,tag::constant_(Category),Hierarchy,Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
