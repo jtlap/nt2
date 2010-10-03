@@ -8,16 +8,14 @@
  ******************************************************************************/
 #ifndef NT2_SDK_CONSTANT_REAL_HPP_INCLUDED
 #define NT2_SDK_CONSTANT_REAL_HPP_INCLUDED
-
 ////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
+// Make True and False
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/constant/constant.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/constant/details/real_constant.hpp>
 
 namespace nt2 { namespace constants
 {
@@ -37,11 +35,6 @@ namespace nt2 { namespace constants
   struct c_gold_      {};
 }  }
 
-namespace nt2 { namespace details
-{
-  template<nt2::uint64_t D, nt2::uint32_t F> struct pattern {};
-} }
-
 namespace nt2
 {
   NT2_CONSTANT_IMPLEMENTATION(constants::nan_         , Nan     )
@@ -58,7 +51,6 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2_      , Sqrt_2  )
   NT2_CONSTANT_IMPLEMENTATION(constants::gold_        , Gold    )
   NT2_CONSTANT_IMPLEMENTATION(constants::c_gold_      , Cgold   )
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -66,8 +58,14 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<nt2::uint64_t D, nt2::uint32_t F, class Category,class Info>
-  struct  call< details::pattern<D,F>
+  template<class Tag,class Category,class Info>
+  struct  dispatch<Tag,tag::constant_(Category),Info>
+  {
+    template<class T> struct apply : meta::scalar_of<T> {};
+  };
+
+  template< uint64_t Double, uint32_t Float, class Category,class Info>
+  struct  call< details::pattern<Double,Float>
               , tag::constant_(Category),double,Info
               >
         : callable
@@ -78,13 +76,13 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      meta::from_bits<double>::type const that = {D};
+      meta::from_bits<double>::type const that = {Double};
       return splat<typename A0::type>(that.value);
     }
   };
 
-  template<nt2::uint64_t D, nt2::uint32_t F, class Category,class Info>
-  struct  call< details::pattern<D,F>
+  template< uint64_t Double, uint32_t Float, class Category,class Info>
+  struct  call< details::pattern<Double,Float>
               , tag::constant_(Category),float,Info
               >
         : callable
@@ -95,7 +93,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      meta::from_bits<float>::type const that = {F};
+      meta::from_bits<float>::type const that = {Float};
       return splat<typename A0::type>(that.value);
     }
   };
@@ -103,7 +101,7 @@ namespace nt2 { namespace functors
 
 namespace nt2
 {
-  template<class Target, nt2::uint64_t D, nt2::uint32_t F> inline
+  template<class Target, uint64_t D, uint32_t F> inline
   typename meta::enable_call<details::pattern<D,F>(meta::as_<Target>)>::type
   real_constant()
   {
@@ -111,7 +109,7 @@ namespace nt2
     return callee( nt2::meta::as_<Target>() );
   }
 
-  template<class Target, nt2::uint32_t F> inline
+  template<class Target, uint32_t F> inline
   typename meta::enable_call<details::pattern<0,F>(meta::as_<Target>)>::type
   single_constant()
   {
@@ -119,7 +117,7 @@ namespace nt2
     return callee( nt2::meta::as_<Target>() );
   }
 
-  template<class Target, nt2::uint64_t D> inline
+  template<class Target, uint64_t D> inline
   typename meta::enable_call<details::pattern<D,0>(meta::as_<Target>)>::type
   double_constant()
   {
@@ -201,7 +199,8 @@ NT2_CONSTANT_MAKE_REAL(constants::two_to_nmb_  ,0x4330000000000000ll, 0x4b000000
 NT2_CONSTANT_MAKE_REAL(constants::pi_          ,0x400921fb54442d18ll, 0x40490fdb  )
 NT2_CONSTANT_MAKE_REAL(constants::split_factor_,0x41a0000000000000ll, 0x46000000  )
 NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_o_2_  ,0x3fe6a09e667f3bcdLL, 0x3f3504f3  )
-NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_      ,0x3ff6a09e667f3bccll, 0x3fb504f3  )  
+NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_      ,0x3ff6a09e667f3bccll, 0x3fb504f3  )
+  
 NT2_CONSTANT_MAKE_REAL(constants::gold_        ,0x3ff9e3779b97f4a8LL, 0x3fcf1bbd  )
 NT2_CONSTANT_MAKE_REAL(constants::c_gold_      ,0x3fd8722191a02d61LL, 0x3ec3910d  )
 NT2_CONSTANT_MAKE_REAL(constants::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
