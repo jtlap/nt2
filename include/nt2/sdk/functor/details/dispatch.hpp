@@ -20,7 +20,8 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Tag,class Category,class Info=void> struct dispatch;
+  template<class Tag,class Category,class Info=void>
+  struct dispatch : boost::mpl::_1 {};
 } }
 
 namespace nt2 { namespace meta
