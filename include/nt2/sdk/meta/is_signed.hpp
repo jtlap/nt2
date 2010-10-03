@@ -48,7 +48,8 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  is_signed
-        : details::is_signed<T,typename meta::category_of<T>::type::tag>
+        : details::is_signed< typename strip<T>::type
+                            , typename meta::category_of<T>::type::tag>
   {};
 } }
 
