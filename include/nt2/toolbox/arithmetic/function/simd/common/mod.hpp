@@ -27,8 +27,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
@@ -38,7 +37,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      return selsub(isnez(a1), a0,idivfloor(a0,a1)*a1);
+      return selsub(is_nez(a1), a0,idivfloor(a0,a1)*a1);
     }
   };
 } }

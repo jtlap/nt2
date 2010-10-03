@@ -11,7 +11,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/toint.hpp>
 
 
 namespace nt2 { namespace functors

@@ -32,7 +32,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      return selsub(isnez(a1), a0,idivfix(a0,a1)*a1);
+      return selsub(is_nez(a1), a0,idivfix(a0,a1)*a1);
     }
   };
 } }

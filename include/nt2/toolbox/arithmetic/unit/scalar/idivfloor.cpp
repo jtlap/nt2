@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( real_idivfloor,  (double)
               >::value)
            );
   NT2_TEST_EQUAL(  idivfloor( T(22), T(3)), T(7) );
-  NT2_TEST_EQUAL(  idivfloor( T(-22), T(3) ), T(-8) );
+  NT2_TEST_EQUAL(  idivfloor( T(-22), T(3) ), T(-8) ); 
   NT2_TEST_EQUAL(  idivfloor( T(22), T(-3) ), T(-8) );
 
 }

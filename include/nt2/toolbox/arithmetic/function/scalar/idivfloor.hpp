@@ -12,7 +12,7 @@
 #include <nt2/include/functions/idivceil.hpp>
 #include <nt2/include/functions/rdivide.hpp>
 #include <nt2/include/functions/floor.hpp>
-
+#include <iostream>
 namespace nt2 { namespace functors
 {
 
@@ -37,7 +37,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
-       return floor(a0/a1);
+      std::cout << "pipo" << std::endl;
+      std::cout << "      a0/a1  "  <<       a0/a1  << std::endl; 
+      std::cout << "floor(a0/a1) " << nt2::floor(a0/a1) << std::endl; 
+      return nt2::floor(a0/a1);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,     signed_)
     {

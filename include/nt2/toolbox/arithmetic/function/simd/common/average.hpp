@@ -26,8 +26,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,

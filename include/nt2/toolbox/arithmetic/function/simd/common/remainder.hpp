@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_REMAINDER_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_REMAINDER_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/negation.hpp>
+#include <nt2/include/functions/negate.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/idivfix.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -35,7 +35,7 @@ namespace nt2 { namespace functors
     {
       const A0 a = abs(a0);
       const A0 b = abs(a1);
-      return sel(b, negation(a-idivfix(a, b)*b, a), a);
+      return sel(b, negate(a-idivfix(a, b)*b, a), a);
     }
   };
 } }

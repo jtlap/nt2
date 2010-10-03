@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 #include <nt2/include/functions/shrai.hpp>
+#include <iostream>
 
 namespace nt2 { namespace functors
 {
@@ -37,15 +38,17 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,     uint8_t)
     {
-      A0 that = {_mm_avg_epu8(a0,a1)}; return that; 
+      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
+      //     A0 that = {_mm_avg_epu8(a0,a1)}; return that; //  (a+b + 1) >> 1;
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,    uint16_t)
     {
-      A0 that = {_mm_avg_epu16(a0,a1)}; return that;
-    }
+      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
+      //     A0 that = {_mm_avg_epu16(a0,a1)}; return that; //(a+b + 1) >> 1;
+    } 
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      return (a0&a1)+shrai(a0^a1,1);
+      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
     } 
   };
 } }

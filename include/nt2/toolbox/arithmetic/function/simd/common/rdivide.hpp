@@ -73,7 +73,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {
-      const A0 iseqza1 = iseqz(a1);
+      const A0 iseqza1 = is_eqz(a1);
       return (a0-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
     }
   };

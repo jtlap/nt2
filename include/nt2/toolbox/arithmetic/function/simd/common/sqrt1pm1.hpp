@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 // #include <nt2/include/functions/expm1.hpp>
 // #include <nt2/include/functions/log1p.hpp>
@@ -39,9 +38,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      //      return expm1(log1p(tofloat(a0))*Half<A0>());
-      return Pi<A0>(); 
-	//  TO DO
+      return expm1(log1p(tofloat(a0))*Half<A0>());
     }
   };
 } }

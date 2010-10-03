@@ -31,7 +31,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A0 iseqza0 = iseqz(a0);
+      const A0 iseqza0 = is_eqz(a0);
       return (a1-(iseqza0&a1))/(a0+(iseqza0&One<A0>()));
     }
   };

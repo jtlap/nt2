@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(iceil, (nt2::int32_t))//NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(iceil, NT2_SIMD_TYPES )
 {
  using nt2::iceil;
  using nt2::functors::iceil_;    
@@ -43,10 +43,10 @@ NT2_TEST_CASE_TPL(iceil, (nt2::int32_t))//NT2_SIMD_TYPES )
   }
  n_t a0 = load<n_t>(&data[0],0); 
  in_t v  = iceil(a0);
-//  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//    {
-//      NT2_TEST_EQUAL( v[j], iceil(a0[j]) );
-//    }
+ for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+   {
+     NT2_TEST_EQUAL( v[j], iceil(a0[j]) );
+   }
 }
 
 

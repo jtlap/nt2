@@ -14,6 +14,9 @@
 
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/shri.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -47,29 +50,29 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,    uint32_t)
     {
-      A0 const na = isnez(a0);
+      A0 const na = is_nez(a0);
       A0 const z1 = add(shri(a0, 6),    integral_constant<A0,16>());
       A0 const z2 = add(shri(a0,10),   integral_constant<A0,256>());
       A0 const z3 = add(shri(a0,13),  integral_constant<A0,2048>());
       A0 const z4 = add(shri(a0,16), integral_constant<A0,16384>());
       static A0 const one = One<A0>();
       
-      A0 n  = select( isgt(a0, integral_constant<A0,177155824>())
+      A0 n  = select( gt(a0, integral_constant<A0,177155824>())
 		      , z4
-		      , select( isgt(a0, integral_constant<A0,4084387>())
+		      , select( gt(a0, integral_constant<A0,4084387>())
 				, z3
-				, select( isgt(a0, integral_constant<A0,31679>())
+				, select( gt(a0, integral_constant<A0,31679>())
 					  , z2
 					  , z1
 					  )
 				)
 		      );
       
-      A0 ok =  isgtz(n);
+      A0 ok =  is_gtz(n);
       n = select(ok, n, one);
       A0 n1 = select(ok, shri(n+a0/n, 1), one);
       
-      ok = islt(n1, n);
+      ok = lt(n1, n);
       n  = select(ok, n1, n);
       n1 = select(ok, shri(n+a0/n, 1), n1);
       
@@ -81,7 +84,7 @@ namespace nt2 { namespace functors
       n  = select(ok, n1, n);
       
       A0 tmp = sub(n*sub(n, one), one);
-      n  = seladd( isge(tmp+n,a0), n, Mone<A0>());
+      n  = seladd( is_greater_equal(tmp+n,a0), n, Mone<A0>());
       n =  seladd(na, Zero<A0>(), n);
       
       return n;
@@ -89,45 +92,45 @@ namespace nt2 { namespace functors
     
     NT2_FUNCTOR_CALL_EVAL_IF(1,    uint16_t)
     {
-      A0 const  na = isnez(a0);
+      A0 const  na = is_nez(a0);
       A0 const  z1 = add(shri(a0, 6), integral_constant<A0, 16>());
       A0 const  z2 = add(shri(a0,10), integral_constant<A0, 256>());
       A0 const  C1 = integral_constant<A0, 31679>(); 
       //////////////////////////////////////////////////////////////////////////
       // choose a proper starting point for approximation
       //////////////////////////////////////////////////////////////////////////
-      A0 n  = select(islt(a0, C1), z1, z2);
-      A0 ok =  isgtz(n);
+      A0 n  = select(lt(a0, C1), z1, z2);
+      A0 ok =  is_gtz(n);
       static A0 const one = One<A0>();
       n  = select(ok, n, one);
       
       A0 n1 = select(ok, shri(n+a0/n, 1), one);
       
-      ok = islt(n1, n);
+      ok = lt(n1, n);
       n  = select(ok, n1, n);
       n1 = select(ok, shri(n+a0/n, 1), n1);
       
-      ok = islt(n1, n);
+      ok = lt(n1, n);
       n  = select(ok, n1, n);
       n1 = select(ok, shri(n+a0/n, 1), n1);
       
-      ok =  islt(n1, n);
+      ok =  lt(n1, n);
       n  = select(ok, n1, n);
-      n  = seladd( isgt(n*n,a0), n, Mone<A0>());
+      n  = seladd( gt(n*n,a0), n, Mone<A0>());
       
       return seladd(na, Zero<A0>(), n);
     }
     
     NT2_FUNCTOR_CALL_EVAL_IF(1,      uint8_t)
     {
-      A0 const na  = isnez(a0);
+      A0 const na  = is_nez(a0);
       A0 n   = add(shri(a0, 4), Four<A0>());
       A0 n1  = shri(n+a0/n, 1);
-      A0 msk = b_and(isle(n1,n), na);
+      A0 msk = b_and(is_less_equal(n1,n), na);
       
       n   = select(msk,n1,n);
       n1  = sqr(n);
-      msk = b_or(isgt(n1,a0), b_and(iseqz(n1), na));
+      msk = b_or(gt(n1,a0), b_and(is_eqz(n1), na));
       n   = seladd( msk, n, Mone<A0>());
       
       return seladd(na, Zero<A0>(), n);
@@ -137,7 +140,8 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::as_integer<A0,signed>::type     int_type;
       typedef typename meta::as_integer<A0,unsigned>::type  uint_type;
-      return seladd(isgtz(a0), Zero<int_type>(), simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));      
+      return seladd(is_gtz(a0), Zero<int_type>(),
+		    simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));      
     }
   };
 } }
