@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/shri.hpp>
 
 namespace nt2 { namespace functors
 {

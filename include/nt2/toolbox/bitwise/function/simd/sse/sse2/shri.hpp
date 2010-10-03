@@ -14,8 +14,8 @@
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
-
+#include <iostream>
+#include <nt2/sdk/details/type_id.hpp>
 namespace nt2 { namespace functors
 {
   template<class Extension,class Info>
@@ -57,13 +57,13 @@ namespace nt2 { namespace functors
     {
       A0 that = {_mm_srli_epi16(a0, a1)};
       return that;
-    }
+    } 
     NT2_FUNCTOR_CALL_EVAL_IF(2,      types8_)
     {
         typedef typename NT2_CALL_RETURN_TYPE(2)::type result_type;
-	typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_> gen_type; 
-        result_type const Mask1 =  simd::native_cast<result_type>(integral_constant<gen_type, 0x00ff00ff00ff00ffll>());
-	result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00ff00ff00ll>());
+	typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> gen_type;
+        result_type const Mask1 =  simd::native_cast<result_type>(integral_constant<gen_type, 0x00ff00ff>());
+	result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00>());
 	result_type tmp  = b_and(a0, Mask1);
         result_type tmp1 = {_mm_srli_epi16(tmp, a1)};
         tmp = b_and(a0, Mask2);
