@@ -38,13 +38,13 @@ NT2_TEST_CASE_TPL(ceil, NT2_SIMD_TYPES )
  for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
    data[i] = i-T(cardinal_of<n_t>::value)/2; // good value here for ceil
  }
-   n_t a0 = load<n_t>(&data[0],0); 
-   n_t v  = ceil(a0);
-   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+ n_t a0 = load<n_t>(&data[0],0); 
+ n_t v  = ceil(a0);
+ for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    {
      NT2_TEST_EQUAL( v[j], ceil(a0[j]) );
    }
- }
+}
 
 
 

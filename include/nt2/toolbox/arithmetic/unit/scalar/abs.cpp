@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( abs, (double)(nt2::int64_t)
   using nt2::functors::abs_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<abs_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+	      , T
  	     >::value)
  	    );
 
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( real_abs, (double)(float)
   using nt2::functors::abs_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<abs_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+	      , T
  	     >::value)
  	    );
 

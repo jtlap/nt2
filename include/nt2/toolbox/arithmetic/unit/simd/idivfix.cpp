@@ -7,7 +7,9 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/simd Mode"
-
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/arithmetic/include/idivfix.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -15,4 +17,5 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+
 
