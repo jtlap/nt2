@@ -15,7 +15,6 @@
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/constant/constant.hpp>
-#include <nt2/sdk/constant/details/real_constant.hpp>
 
 namespace nt2 { namespace constants
 {
