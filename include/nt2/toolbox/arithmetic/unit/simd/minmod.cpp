@@ -18,7 +18,7 @@
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
-
+#include <nt2/include/functions/is_gez.hpp>
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
@@ -37,16 +37,17 @@ NT2_TEST_CASE_TPL(minmod, NT2_SIMD_TYPES )
 
   NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
   NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value]; 
- for(std::size_t i=0;i<2*cardinal_of<n_t>::value;++i){    
+ for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
    data[i] = (5*i+1)/3; // good value here for minmod
- }
+ } 
    n_t a0 = load<n_t>(&data[0],0);   
-   n_t a1 = load<n_t>(&data[0],1);
+   n_t a1 = load<n_t>(&data[0],1);  
    n_t v  = minmod(a0, a1);
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
-       NT2_TEST_EQUAL( v[j], minmod(a0[j], a1[j]) );
+      NT2_TEST_EQUAL( v[j], minmod(a0[j], a1[j]) );
      }
  }
  
-
+ 
+   

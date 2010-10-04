@@ -19,10 +19,10 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
-NT2_TEST_CASE_TPL ( ifloor,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
+NT2_TEST_CASE_TPL ( ifloor,  (double)(nt2::int64_t) 
+                          (float)(nt2::int32_t)  
+                          (nt2::int16_t)         
+                          (nt2::int8_t)
                   )
 {
   using nt2::ifloor;
@@ -34,6 +34,22 @@ NT2_TEST_CASE_TPL ( ifloor,  (double)(nt2::uint64_t)(nt2::int64_t)
            );
   NT2_TEST_EQUAL(  ifloor( T(42) ), 42 );
   NT2_TEST_EQUAL(  ifloor( T(-42) ), -42 );
+}
+
+NT2_TEST_CASE_TPL ( unsigned_ifloor,  (nt2::uint64_t)
+                          (nt2::uint32_t) 
+                          (nt2::uint16_t)         
+                          (nt2::uint8_t) 
+                  )
+{
+  using nt2::ifloor;
+  using nt2::functors::ifloor_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<ifloor_(T)>::type
+              , typename nt2::meta::as_integer<T>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  ifloor( T(42) ), 42 );
 }
 
 NT2_TEST_CASE_TPL ( real_ifloor,  (double)(float)

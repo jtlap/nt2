@@ -21,7 +21,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(oneminus, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(oneminus, NT2_SIMD_SIGNED_TYPES )
 {
  using nt2::oneminus;
  using nt2::functors::oneminus_;    

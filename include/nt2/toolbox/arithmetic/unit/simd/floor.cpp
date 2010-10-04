@@ -18,6 +18,7 @@
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/constant/digits.hpp>
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
@@ -40,8 +41,10 @@ NT2_TEST_CASE_TPL(floor, NT2_SIMD_TYPES )
  }
    n_t a0 = load<n_t>(&data[0],0); 
    n_t v  = floor(a0);
-   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+   for(std::size_t j=0 ;j<cardinal_of<n_t>::value;++j)
    {
      NT2_TEST_EQUAL( v[j], floor(a0[j]) );
    }
+
+   std::cout << nt2::Mone<float>() << std::endl; 
  }

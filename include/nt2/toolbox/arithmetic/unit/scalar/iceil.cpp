@@ -18,10 +18,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( iceil,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
+NT2_TEST_CASE_TPL ( iceil,  (double)(nt2::int64_t) 
+                          (float)(nt2::int32_t)  
+                          (nt2::int16_t)         
+                          (nt2::int8_t)
                   )
 {
   using nt2::iceil;
@@ -34,6 +34,21 @@ NT2_TEST_CASE_TPL ( iceil,  (double)(nt2::uint64_t)(nt2::int64_t)
 
   NT2_TEST_EQUAL(  iceil( T(42) ), 42 );
   NT2_TEST_EQUAL(  iceil( T(-42) ), -42 );
+}
+NT2_TEST_CASE_TPL ( unsigned_ifloor,  (nt2::uint64_t)
+                          (nt2::uint32_t) 
+                          (nt2::uint16_t)         
+                          (nt2::uint8_t) 
+                  )
+{
+  using nt2::iceil;
+  using nt2::functors::iceil_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<iceil_(T)>::type
+              , typename nt2::meta::as_integer<T>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  iceil( T(42) ), 42 );
 }
 
 NT2_TEST_CASE_TPL ( real_iceil,  (double)(float)
