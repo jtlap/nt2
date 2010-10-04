@@ -284,7 +284,7 @@ class Tb_files(Tb_tree) :
             "  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})",
             "  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)",
             "  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})" if st=="simd" else "",         
-            "  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})",
+            "  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})" if benchortest == 'unit' else "",
             "ENDFOREACH()",
             ]
         rp = os.path.join('nt2/toolbox/',r)
