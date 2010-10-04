@@ -11,7 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-
+#include <iostream>
 namespace nt2 { namespace functors
 {
   template<class Info>
@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH( 2
                              , typename nt2::meta::scalar_of<A0>::type
-                             , (3,(double,float,integer_))
+                             , (3,(double,float,arithmetic_))
                              )
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,double)
@@ -38,9 +38,9 @@ namespace nt2 { namespace functors
       return that;
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,integer_)
+    NT2_FUNCTOR_CALL_EVAL_IF(2,arithmetic_)
     {
-      A0 that = { complement(lt(a0,a1) ) };
+      A0 that = { complement(is_less(a0,a1) ) };
       return that;
     }
   };

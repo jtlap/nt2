@@ -13,7 +13,11 @@
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for selsub
+  template<class Info>
+  struct validate<selsub_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute selsub(const A0& a0, const A1& a1, const A2& a2)
@@ -24,7 +28,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
     struct result<This(A0,A1,A2)> : 
-      boost::result_of<meta::arithmetic(A0,A1,A2)>{};
+      boost::result_of<meta::arithmetic(A1,A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
