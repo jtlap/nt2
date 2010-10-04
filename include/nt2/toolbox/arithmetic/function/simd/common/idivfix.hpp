@@ -35,7 +35,7 @@ namespace nt2 { namespace functors
       (2, (real_,arithmetic_))
     )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,        real_){ return trunc(a0/a1);    }
+    NT2_FUNCTOR_CALL_EVAL_IF(2,        real_){ return trunc(a0/a1);       }
     NT2_FUNCTOR_CALL_EVAL_IF(2,  arithmetic_){ return rdivide(a0, a1);    }
   };
 } }

@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_FLOOR_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 
-#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/selsub.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 
@@ -39,7 +39,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       const A0 d0 = nt2::round2even(a0);
-      return seladd(gt(d0,a0),d0,Mone<A0>());
+      return selsub(gt(d0,a0),d0,One<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {

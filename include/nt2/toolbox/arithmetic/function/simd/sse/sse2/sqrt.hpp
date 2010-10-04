@@ -27,8 +27,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -126,13 +125,41 @@ namespace nt2 { namespace functors
       A0 const na  = is_nez(a0);
       A0 n   = add(shri(a0, 4), Four<A0>());
       A0 n1  = shri(n+a0/n, 1);
+
+      A0 ok = lt(n1, n);
+      n  = select(ok, n1, n);
+      n1 = select(ok, shri(n+a0/n, 1), n1);
+      
+      ok = lt(n1, n);
+      n  = select(ok, n1, n);
+      n  = seladd( gt(n*n,a0), n, Mone<A0>());
+      
+      return seladd(na, Zero<A0>(), n);
+      
+//       A0 msk = b_and(is_less_equal(n1,n), na);
+      
+//       n   = select(msk,n1,n);
+//       n1  = sqr(n);
+//       msk = b_or(gt(n1,a0), b_and(is_eqz(n1), na));
+//       n   = seladd( msk, n, Mone<A0>());
+       
+      return seladd(na, Zero<A0>(), n);
+    }
+    
+    NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_t)
+    {
+      A0 const na  = is_nez(a0);
+      A0 n   = add(shri(a0, 4), Four<A0>());
+      A0 n1  = shri(n+a0/n, 1);
       A0 msk = b_and(is_less_equal(n1,n), na);
       
       n   = select(msk,n1,n);
       n1  = sqr(n);
       msk = b_or(gt(n1,a0), b_and(is_eqz(n1), na));
       n   = seladd( msk, n, Mone<A0>());
-      
+      n  = seladd( gt(n*n,a0), n, Mone<A0>());
+      n  = seladd( gt(n*n,a0), n, Mone<A0>());
+       
       return seladd(na, Zero<A0>(), n);
     }
     
@@ -140,8 +167,7 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::as_integer<A0,signed>::type     int_type;
       typedef typename meta::as_integer<A0,unsigned>::type  uint_type;
-      return seladd(is_gtz(a0), Zero<int_type>(),
-		    simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));      
+      return b_and(is_gtz(a0), simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));      
     }
   };
 } }

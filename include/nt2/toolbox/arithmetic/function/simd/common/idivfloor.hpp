@@ -13,7 +13,6 @@
 
 namespace nt2 { namespace functors
 {
-  //  no special validate for idivfloor
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute idivfloor(const A0& a0, const A0& a1)
@@ -29,12 +28,12 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
       typename nt2::meta::scalar_of<A0>::type,
-      (3, (real_,unsigned,arithmetic_))
+      (3, (real_,unsigned_, arithmetic_))
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_){ return floor(a0/a1);     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_){ return -idivceil(-a0,a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    unsigned){ return rdivide(a0,a1);   }
+    NT2_FUNCTOR_CALL_EVAL_IF(2,   unsigned_){ return rdivide(a0,a1);   }
 
   };
 } }

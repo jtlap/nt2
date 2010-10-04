@@ -10,11 +10,18 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ONEMINUS_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/sdk/meta/is_signed.hpp>
 
 namespace nt2 { namespace functors
 {
-  //  no special validate for oneminus
+  template<class Extension,class Info>
+  struct validate<oneminus_,tag::simd_(tag::arithmetic_,Extension),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::is_signed<A0>{};
+  };
+
 
   /////////////////////////////////////////////////////////////////////////////
   // Compute oneminus(const A0& a0)

@@ -46,7 +46,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      return is_lez(a0^a1)? Zero<A0>(): nt2::min(a0, a1);
+      return is_lez(a0*a1)? Zero<A0>(): nt2::min(a0, a1);
     }
   };
 } }

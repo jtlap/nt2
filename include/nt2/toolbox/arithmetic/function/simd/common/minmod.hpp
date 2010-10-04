@@ -13,7 +13,7 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/sign.hpp>
-
+#include <iostream>
 
 namespace nt2 { namespace functors
 {
@@ -51,5 +51,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-      
+        
 #endif
