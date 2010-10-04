@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_BITOFSIGN_HPP_INCLUDED
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <iostream>
 
 
 namespace nt2 { namespace functors
@@ -25,8 +26,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -40,7 +40,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      return a0&Signmask<A0>();
+      return b_and(a0, Signmask<A0>());
     }
   };
 } }

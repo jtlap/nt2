@@ -12,7 +12,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
-
+#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/functions/select.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -37,12 +38,12 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      const A0 v = abs(a0);
-      const A0 t2n = Two2nmb<A0>();
+      const A0 v = nt2::abs(a0);
+      A0 t2n = Two2nmb<A0>();
       const A0 d0 = (v+t2n);
-      A0 d = (d0-t2n);
-      d = sel(lt(v,t2n),d,v);
-      return (d^bitofsign(a0));
+      const A0 d = (d0-t2n);
+      const A0 d1 = sel(lt(v,t2n),d,v);
+      return (d1^bitofsign(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

@@ -13,7 +13,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <iostream>
 
 namespace nt2 { namespace functors
 {
@@ -44,8 +44,8 @@ namespace nt2 { namespace functors
        volatile type d0 = (v+t2n);
        volatile type d = (d0-t2n);
        d = (v < t2n)?d:v;
-       //       type q =  d; 
-       return b_xor(d, nt2::bitofsign(a0));
+       //      type q =  d;
+       return a0 < 0? -d : d; //b_xor(d, nt2::bitofsign(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
