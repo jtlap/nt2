@@ -38,11 +38,10 @@ namespace nt2 { namespace functors
       typedef boost::fusion::tuple<mantissa,exponent>             type;
     };
 
-    typedef boost::mpl::vector<float,double>       tag;
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_CALL_RETURN_TYPE(1)::type res;
-      typedef meta::find_type<A0,boost::mpl::vector<float,double>,empty_> set_t;
+      typedef meta::find_type<A0,float,double,empty_> set_t;
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
