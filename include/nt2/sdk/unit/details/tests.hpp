@@ -22,11 +22,15 @@
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    if( t OP u )                                                            \
+    volatile T tt(t);                                                       \
+    volatile U uu(u);                                                       \
+    if( tt OP uu )                                                          \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
-                << "` **passed**.\n" << std::endl;                          \
+                << "` **passed**.\n"                                        \
+                << " (" << line << ")"                                      \
+                << std::endl;                                               \
     }                                                                       \
     else                                                                    \
     {                                                                       \
