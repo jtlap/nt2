@@ -30,6 +30,6 @@ FOREACH( EXAMPLE ${SOURCES})
   ############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-
+  ADD_DEPENDENCIES(combinatorial.scalar.unit ${EXECUTABLE})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()
