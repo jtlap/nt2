@@ -17,10 +17,11 @@
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
+
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(idivround, (double)(float)(nt2::int32_t)(nt2::int64_t)(nt2::int8_t)(nt2::int16_t))
+NT2_TEST_CASE_TPL(idivround, (nt2::int64_t)) //(double)(float)(nt2::int32_t)(nt2::int64_t)(nt2::int8_t)(nt2::int16_t))
 {
  using nt2::idivround;
  using nt2::functors::idivround_;    
