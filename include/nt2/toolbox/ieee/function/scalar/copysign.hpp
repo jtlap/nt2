@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_COPYSIGN_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_COPYSIGN_HPP_INCLUDED
+#include <nt2/sdk/meta/strip.hpp>
 
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/signnz.hpp>
@@ -25,7 +26,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> {typedef A0 type; }; 
+      struct result<This(A0,A1)> : meta::strip<A0>{}; 
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,

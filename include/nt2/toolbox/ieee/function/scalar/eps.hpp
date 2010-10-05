@@ -11,11 +11,13 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 #include <nt2/include/functions/is_not_finite.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
+#include <iostream>
 
 namespace nt2 { namespace functors
 {

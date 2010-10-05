@@ -10,9 +10,10 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
-
+#include <iostream>
 namespace nt2 { namespace functors
 {
 
@@ -21,8 +22,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      		 boost::is_integral<A1> {};
+    struct result<This(A0,A1)> : meta::is_integral<A1> {};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_ldexp(const A0& a0, const A1& a1)
@@ -32,10 +32,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)>
-    {
-      typedef A0 type;
-    };
+      struct result<This(A0, A1)> : meta::strip<A0>{}; 
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,

@@ -13,6 +13,7 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/properties.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
 #include <boost/fusion/tuple.hpp>
 
 #include <nt2/include/functions/oneplus.hpp>

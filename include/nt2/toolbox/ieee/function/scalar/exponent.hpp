@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EXPONENT_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/constant/digits.hpp>
 
 
 namespace nt2 { namespace functors
@@ -41,11 +42,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
-        return ::ilogbf(a0);
+      return a0 ? ::ilogbf(a0) : Zero<A0>();
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-       return ::ilogb(a0);
+       return a0 ? ::ilogb(a0) : Zero<A0>();
     }
 
   };
