@@ -12,6 +12,8 @@
 
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/rdivide.hpp>
+#include <nt2/include/functions/iround.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 namespace nt2 { namespace functors
 {
