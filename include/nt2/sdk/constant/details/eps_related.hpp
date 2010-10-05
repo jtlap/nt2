@@ -59,7 +59,8 @@ namespace nt2 { namespace functors
   LOCAL_CONST(sqrt_eps_      ,0x3e50000000000000LL,0x39b504f3,3); 
   LOCAL_CONST(forth_root_eps_,0x3f20000000000000ll,0x3c9837f0,1); 
   LOCAL_CONST(third_root_eps_,0x3ed965fea53d6e42ll,0x3ba14518,1);
-  LOCAL_CONST(mlog_eps_2_    ,0x403205966f2b4f13LL,0x40ff1402,0); 
+  LOCAL_CONST(mlog_eps_2_    ,0x403205966f2b4f13LL,0x40ff1402,0);
+  LOCAL_CONST(min_denormal_  ,0x1ll               ,0x1       ,1);  
 } }
 
 #undef LOCAL_CONST

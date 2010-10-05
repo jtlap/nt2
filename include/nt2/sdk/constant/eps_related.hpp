@@ -25,6 +25,7 @@ namespace nt2 { namespace constants
   struct forth_root_eps_{};
   struct third_root_eps_{};
   struct mlog_eps_2_    {}; 
+  struct min_denormal_  {};
 } }
 
 namespace nt2
@@ -36,6 +37,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::forth_root_eps_ , Forthrooteps)
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::third_root_eps_ , Thirdrooteps)
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::mlog_eps_2_     , Mlogeps2    )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_denormal_   , Mindenormal )
 }
 
 #include <nt2/sdk/constant/details/eps_related.hpp>

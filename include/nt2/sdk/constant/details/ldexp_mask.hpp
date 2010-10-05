@@ -39,13 +39,13 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
     {
       typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-      return splat<type>(0x3E80000);//2139095040
+      return splat<type>(0x7F800000);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
       typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-      return splat<type>(0x7FF0000000000000ll); //9218868437227405312ll;
+      return splat<type>(0x7FF0000000000000ll); 
     }
   };
 } }
