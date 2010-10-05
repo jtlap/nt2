@@ -43,9 +43,9 @@
 /**/
 #endif
 
-#if !defined(NT2_SIMD_SIGNED_TYPES)
-#define NT2_SIMD_SIGNED_TYPES  (nt2::int64_t)(double)	\
-    (nt2::int32_t)(float)				\
+#if !defined(NT2_SIMD_INTEGRAL_SIGNED_TYPES)
+#define NT2_SIMD_INTEGRAL_SIGNED_TYPES  (nt2::int64_t)	\
+    (nt2::int32_t)					\
     (nt2::int16_t)					\
     (nt2::int8_t)					\
 /**/
@@ -56,6 +56,22 @@
     (nt2::uint32_t)					\
     (nt2::uint16_t)					\
     (nt2::uint8_t)					\
+/**/
+#endif
+
+#if !defined(NT2_SIMD_INTEGRAL_TYPES)
+#define NT2_SIMD_INTEGRAL_TYPES  (nt2::uint64_t)			\
+    (nt2::int64_t)(nt2::uint32_t)					\
+    (nt2::int32_t)(nt2::uint16_t)(nt2::int16_t)				\
+    (nt2::int8_t)(nt2::uint8_t)						\
+				 /**/
+#endif
+
+#if !defined(NT2_SIMD_SIGNED_TYPES)
+#define NT2_SIMD_SIGNED_TYPES (nt2::int64_t)(double)	\
+    (nt2::int32_t)(float)			\
+    (nt2::int16_t)				\
+    (nt2::int8_t)				\
 /**/
 #endif
 
