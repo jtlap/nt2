@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REMQUO_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
 
@@ -22,8 +23,8 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct  result<This(A0,A1)>
-          : boost::mpl::or_ < boost::is_floating_point<A0>
-                            , boost::is_floating_point<A1>
+          : boost::mpl::or_ < meta::is_floating_point<A0>
+                            , meta::is_floating_point<A1>
                             >
     {}; //TO RELAX ?
   };
@@ -45,7 +46,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
       typename NT2_CALL_RETURN_TYPE(2)::type res;
-      typedef meta::find_type<A0,boost::mpl::vector<float,double>,empty_> set_t;
+      typedef meta::find_type<A0,float,double,empty_> set_t;
       eval( a0, a1
           , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
           , typename set_t::type()
