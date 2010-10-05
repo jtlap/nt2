@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace constants
 {
-  template<int N> struct digit_ { BOOST_STATIC_CONSTANT(int, value = N); };
+  template<nt2::int64_t N> struct digit_ {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ namespace nt2
   ////////////////////////////////////////////////////////////////////////////////
   // Local digit based constant generator
   ////////////////////////////////////////////////////////////////////////////////
-  template<class Target, int N> inline
+  template<class Target, nt2::int64_t N> inline
   typename meta::enable_call<constants::digit_<N>(meta::as_<Target>)>::type
   integral_constant()
   {
@@ -83,7 +83,7 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<int N, class Category,class Info>
+  template<nt2::int64_t N, class Category,class Info>
   struct  call<constants::digit_<N>,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
