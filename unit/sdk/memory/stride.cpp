@@ -54,16 +54,16 @@ NT2_TEST_CASE(stride_no_padding)
   NT2_TEST_EQUAL( (stride<2>(ds2,p)), 3 );
   NT2_TEST_EQUAL( (stride<1>(ds1,p)), 3 );
 
-  NT2_TEST_EQUAL( (stride<1>(ss4,p)), 9 );
-  NT2_TEST_EQUAL( (stride<2>(ss4,p)), 7 );
-  NT2_TEST_EQUAL( (stride<1>(ss3,p)), 7 );
-  NT2_TEST_EQUAL( (stride<3>(ss4,p)), 5 );
-  NT2_TEST_EQUAL( (stride<2>(ss3,p)), 5 );
-  NT2_TEST_EQUAL( (stride<1>(ss2,p)), 5 );
-  NT2_TEST_EQUAL( (stride<4>(ss4,p)), 3 );
-  NT2_TEST_EQUAL( (stride<3>(ss3,p)), 3 );
-  NT2_TEST_EQUAL( (stride<2>(ss2,p)), 3 );
-  NT2_TEST_EQUAL( (stride<1>(ss1,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<1>(ss4,p)), 9 );
+  NT2_TEST_EQUAL( int(stride<2>(ss4,p)), 7 );
+  NT2_TEST_EQUAL( int(stride<1>(ss3,p)), 7 );
+  NT2_TEST_EQUAL( int(stride<3>(ss4,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<2>(ss3,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<1>(ss2,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<4>(ss4,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<3>(ss3,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<2>(ss2,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<1>(ss1,p)), 3 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -99,16 +99,16 @@ NT2_TEST_CASE(stride_global_padding)
   NT2_TEST_EQUAL( (stride<2>(ds2,p)), 3 );
   NT2_TEST_EQUAL( (stride<1>(ds1,p)), 3 );
 
-  NT2_TEST_EQUAL( (stride<1>(ss4,p)), 9 );
-  NT2_TEST_EQUAL( (stride<2>(ss4,p)), 7 );
-  NT2_TEST_EQUAL( (stride<1>(ss3,p)), 7 );
-  NT2_TEST_EQUAL( (stride<3>(ss4,p)), 5 );
-  NT2_TEST_EQUAL( (stride<2>(ss3,p)), 5 );
-  NT2_TEST_EQUAL( (stride<1>(ss2,p)), 5 );
-  NT2_TEST_EQUAL( (stride<4>(ss4,p)), 3 );
-  NT2_TEST_EQUAL( (stride<3>(ss3,p)), 3 );
-  NT2_TEST_EQUAL( (stride<2>(ss2,p)), 3 );
-  NT2_TEST_EQUAL( (stride<1>(ss1,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<1>(ss4,p)), 9 );
+  NT2_TEST_EQUAL( int(stride<2>(ss4,p)), 7 );
+  NT2_TEST_EQUAL( int(stride<1>(ss3,p)), 7 );
+  NT2_TEST_EQUAL( int(stride<3>(ss4,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<2>(ss3,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<1>(ss2,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<4>(ss4,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<3>(ss3,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<2>(ss2,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<1>(ss1,p)), 3 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,14 +145,14 @@ NT2_TEST_CASE(stride_lead_padding)
   NT2_TEST_EQUAL( (stride<2>(ds2,p)), 3 );
   NT2_TEST_EQUAL( (stride<1>(ds1,p)), align_on(3) );
 
-  NT2_TEST_EQUAL( (stride<1>(ss4,p)), align_on(9) );
-  NT2_TEST_EQUAL( (stride<2>(ss4,p)), 7 );
-  NT2_TEST_EQUAL( (stride<1>(ss3,p)), align_on(7) );
-  NT2_TEST_EQUAL( (stride<3>(ss4,p)), 5 );
-  NT2_TEST_EQUAL( (stride<2>(ss3,p)), 5 );
-  NT2_TEST_EQUAL( (stride<1>(ss2,p)), align_on(5) );
-  NT2_TEST_EQUAL( (stride<4>(ss4,p)), 3 );
-  NT2_TEST_EQUAL( (stride<3>(ss3,p)), 3 );
-  NT2_TEST_EQUAL( (stride<2>(ss2,p)), 3 );
-  NT2_TEST_EQUAL( (stride<1>(ss1,p)), align_on(3) );
+  NT2_TEST_EQUAL( int(stride<1>(ss4,p)), align_on(9) );
+  NT2_TEST_EQUAL( int(stride<2>(ss4,p)), 7 );
+  NT2_TEST_EQUAL( int(stride<1>(ss3,p)), align_on(7) );
+  NT2_TEST_EQUAL( int(stride<3>(ss4,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<2>(ss3,p)), 5 );
+  NT2_TEST_EQUAL( int(stride<1>(ss2,p)), align_on(5) );
+  NT2_TEST_EQUAL( int(stride<4>(ss4,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<3>(ss3,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<2>(ss2,p)), 3 );
+  NT2_TEST_EQUAL( int(stride<1>(ss1,p)), align_on(3) );
 }
