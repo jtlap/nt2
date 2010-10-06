@@ -42,7 +42,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,integer_ )
     {
-      result_type that = { _mm_load_si128(reinterpret_cast<__m128i*>(a0)+a1) };
+      result_type that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
       return that;
     }
   };
