@@ -1,13 +1,13 @@
-/*******************************************************************************
- *         Copyright 2003-2009 LASMEA UMR 6602 CNRS/U.B.P & ENSCCF   
- *         Copyright 2007-2009 IEF    UMR 8622 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#ifndef __NT2__SUPPORT__NUMERIC__SCALAR__FUNCTIONS__IMPLEMENTATION__EXPLOG__F_EXPO_FINALIZATION__HPP__INCLUDED
-#define __NT2__SUPPORT__NUMERIC__SCALAR__FUNCTIONS__IMPLEMENTATION__EXPLOG__F_EXPO_FINALIZATION__HPP__INCLUDED
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_EXPLOG_F_EXPO_FINALIZATION_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_EXPLOG_F_EXPO_FINALIZATION_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 

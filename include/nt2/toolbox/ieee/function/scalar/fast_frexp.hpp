@@ -17,13 +17,13 @@
 namespace nt2 { namespace functors
 {
 
-  template<class Info>
-  struct validate<fast_frexp_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::is_floating_point<A0> {};
-  };
+//   template<class Info>
+//   struct validate<fast_frexp_,tag::scalar_(tag::arithmetic_),Info>
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0)> : meta::is_floating_point<A0> {};
+//   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_frexp(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0> struct result<This(A0)>
     {
-      typedef typename boost::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::strip<A0>::type                      mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::tuple<mantissa,exponent>             type;
     };
@@ -45,7 +45,7 @@ namespace nt2 { namespace functors
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
-          , typename set_t::type() );
+	    , typename set_t::type() );
       return res;
     }
 

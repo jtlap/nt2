@@ -32,4 +32,5 @@ NT2_TEST_CASE_TPL ( eps,   NT2_SIMD_REAL_CONVERTIBLE_TYPES
            );
   NT2_TEST_EQUAL(  eps( T(1) ), nt2::Eps<T>() );
   NT2_TEST_EQUAL(  eps( T(0) ), nt2::Mindenormal<T>() );
+  std::cout <<  eps( T(1) )- nt2::Eps<T>() << std::endl; 
 }
