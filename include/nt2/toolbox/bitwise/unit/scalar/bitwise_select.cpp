@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( bitwise_select,  (nt2::uint64_t)(nt2::int64_t)
               >::value)
            );
 NT2_TEST_EQUAL(  bitwise_select( T(0), T(1), T(2)), T(2) );
-NT2_TEST_EQUAL(  bitwise_select( T(0), T(1), T(2)), T(1) );
+NT2_TEST_EQUAL(  bitwise_select( T(-1), T(1), T(2)), T(1) );
 }
 
 NT2_TEST_CASE_TPL ( real_bitwise_select,  (double) 

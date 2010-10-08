@@ -33,7 +33,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return sbits(a0) <= 0;
+      return sbits(a0) < 0;
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
