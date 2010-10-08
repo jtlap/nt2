@@ -18,7 +18,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( bitfloating,   NT2_SIMD_REAL_CONVERTIBLE_TYPES        
+NT2_TEST_CASE_TPL ( bitfloating,   NT2_REAL_CONVERTIBLE_TYPES        
                   )
 {
   using nt2::bitfloating;

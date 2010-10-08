@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 
 namespace nt2 { namespace functors
@@ -32,7 +33,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> {typedef A0 type; }; 
+      struct result<This(A0)> :meta::strip<A0>{}; 
 
 
     NT2_FUNCTOR_CALL(1)

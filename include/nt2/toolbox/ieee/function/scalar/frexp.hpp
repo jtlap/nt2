@@ -22,7 +22,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::is_floating_point<A0> {};
+    struct result<This(A0)> : meta::is_floating_point<A0> {};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute frexp(const A0& a0)
@@ -41,17 +41,19 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef boost::mpl::vector<float, double> tags;
+      typedef meta::find_type<A0,float,double,empty_> set_t;
       typename NT2_CALL_RETURN_TYPE(1)::type res;
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
-          , typename meta::find_type<A0,tags,empty_>::type()
+          , typename set_t::type()
           );
       return res;
     }
 
   private:
+    NT2_FUNCTOR_CALL_DEFAULT(1)
+
     template<class A0,class R0,class R1> inline void
     eval(A0 const& a0,R0& r0, R1& r1, double const &)const
     {

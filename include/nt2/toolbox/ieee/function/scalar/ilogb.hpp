@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-
+#include <nt2/include/functions/is_lez.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -36,11 +37,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
-      return ::ilogbf(a0);
+      return is_lez(a0)? 0: ::ilogbf(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-       return ::ilogb(a0); 
+       return is_lez(a0)? 0: ::ilogb(a0); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {

@@ -8,11 +8,58 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/maxnum.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of ieee components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+
+
+NT2_TEST_CASE_TPL ( maxnum,  NT2_INTEGRAL_SIGNED_TYPES
+                  )
+{
+  using nt2::maxnum;
+  using nt2::functors::maxnum_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnum_(T, T)>::type
+	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  maxnum( T(42), T(12)), T(42) );
+  NT2_TEST_EQUAL(  maxnum( T(-42), T(13) ), T(13) );
+}
+NT2_TEST_CASE_TPL ( real_maxnum,  NT2_REAL_TYPES
+                  )
+{
+  using nt2::maxnum;
+  using nt2::functors::maxnum_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnum_(T, T)>::type
+	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  maxnum( T(42), T(12)), T(42) );
+  NT2_TEST_EQUAL(  maxnum( T(-42), T(13) ), T(13) );
+  NT2_TEST_EQUAL(  maxnum( T(nt2::Nan<T>()), T(13) ), T(13) );
+}
+          
+NT2_TEST_CASE_TPL ( unsigned_maxnum,  NT2_UNSIGNED_TYPES
+                  )
+{
+  using nt2::maxnum;
+  using nt2::functors::maxnum_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnum_(T, T)>::type
+	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  maxnum( T(42), T(12)), T(42) );
+}
+          
+
 

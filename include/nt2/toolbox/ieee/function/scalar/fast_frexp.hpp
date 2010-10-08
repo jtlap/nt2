@@ -17,13 +17,13 @@
 namespace nt2 { namespace functors
 {
 
-//   template<class Info>
-//   struct validate<fast_frexp_,tag::scalar_(tag::arithmetic_),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0>
-//     struct result<This(A0)> : meta::is_floating_point<A0> {};
-//   };
+  template<class Info>
+  struct validate<fast_frexp_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::is_floating_point<A0> {};
+  };
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_frexp(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////

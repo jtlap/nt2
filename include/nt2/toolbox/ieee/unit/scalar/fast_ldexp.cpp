@@ -19,17 +19,17 @@
 //////////////////////////////////////////////////////////////////////////////
 
 
-// NT2_TEST_CASE_TPL ( fast_ldexp,  NT2_SIMD_SIGNED_TYPES
-//                   )
-// {
-//   using nt2::fast_ldexp;
-//   using nt2::functors::fast_ldexp_;
+NT2_TEST_CASE_TPL ( fast_ldexp, (double)(float)
+                  )
+{
+  using nt2::fast_ldexp;
+  using nt2::functors::fast_ldexp_;
 
-//   NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_ldexp_(T, T)>::type
-// 	     , T
-//               >::value)
-//            );
-//   NT2_TEST_EQUAL(  fast_ldexp( T(42), T(12)), T(42) );
-//   NT2_TEST_EQUAL(  fast_ldexp( T(42), T(-13) ), T(-42) );
-// }
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_ldexp_(T, T)>::type
+	     , T
+              >::value)
+           );
+  NT2_TEST_EQUAL(  fast_ldexp( T(1), 2), T(4) );
+  NT2_TEST_EQUAL(  fast_ldexp( T(-1), 3 ), T(-8) );
+}
 
