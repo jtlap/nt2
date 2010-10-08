@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_EXTENSIONS_SSE_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_SSE_HPP_INCLUDED
+#include <nt2/sdk/config/type_lists.hpp>
 
 #include <nt2/sdk/simd/meta/as_simd.hpp>
 #include <nt2/sdk/simd/meta/extension_of.hpp>
@@ -28,50 +29,32 @@
 #include <nt2/sdk/simd/extensions/sse/sse3.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse2.hpp>
 
-#if !defined(NT2_SIMD_TYPES)
-#define NT2_SIMD_TYPES  (nt2::uint64_t)(nt2::int64_t)(double) \
-    (nt2::uint32_t)(nt2::int32_t)(float)		      \
-    (nt2::uint16_t)(nt2::int16_t)			      \
-    (nt2::uint8_t) (nt2::int8_t)			      \
+#if !defined(NT2_TYPES)
+#define NT2_SIMD_TYPES  NT2_TYPES
 /**/
 #endif
 
 #if !defined(NT2_SIMD_REAL_CONVERTIBLE_TYPES)
-#define NT2_SIMD_REAL_CONVERTIBLE_TYPES			      \
-  (nt2::uint64_t)(nt2::int64_t)(double)			      \
-    (nt2::uint32_t)(nt2::int32_t)(float)		      \
 /**/
 #endif
 
 #if !defined(NT2_SIMD_INTEGRAL_SIGNED_TYPES)
-#define NT2_SIMD_INTEGRAL_SIGNED_TYPES  (nt2::int64_t)	\
-    (nt2::int32_t)					\
-    (nt2::int16_t)					\
-    (nt2::int8_t)					\
+#define NT2_SIMD_INTEGRAL_SIGNED_TYPES NT2_INTEGRAL_SIGNED_TYPES
 /**/
 #endif
 
 #if !defined(NT2_SIMD_UNSIGNED_TYPES)
-#define NT2_SIMD_UNSIGNED_TYPES  (nt2::uint64_t)	\
-    (nt2::uint32_t)					\
-    (nt2::uint16_t)					\
-    (nt2::uint8_t)					\
+#define NT2_SIMD_UNSIGNED_TYPES NT2_UNSIGNED_TYPES
 /**/
 #endif
 
 #if !defined(NT2_SIMD_INTEGRAL_TYPES)
-#define NT2_SIMD_INTEGRAL_TYPES  (nt2::uint64_t)			\
-    (nt2::int64_t)(nt2::uint32_t)					\
-    (nt2::int32_t)(nt2::uint16_t)(nt2::int16_t)				\
-    (nt2::int8_t)(nt2::uint8_t)						\
-				 /**/
+#define NT2_SIMD_INTEGRAL_TYPES NT2_INTEGRAL_TYPES
+/**/
 #endif
 
 #if !defined(NT2_SIMD_SIGNED_TYPES)
-#define NT2_SIMD_SIGNED_TYPES (nt2::int64_t)(double)	\
-    (nt2::int32_t)(float)			\
-    (nt2::int16_t)				\
-    (nt2::int8_t)				\
+#define NT2_SIMD_SIGNED_TYPES NT2_SIGNED_TYPES
 /**/
 #endif
 
