@@ -8,11 +8,46 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/round2even.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of ieee components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( round2even_int,  (nt2::uint64_t)(nt2::int64_t) 
+                          (nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                  )
+{
+  using nt2::round2even;
+  using nt2::functors::round2even_;
+
+ NT2_TEST( (boost::is_same < typename nt2::meta::call<round2even_(T)>::type
+             ,T
+             >::value)
+          );
+   NT2_TEST_EQUAL(  round2even( T(42) ), 42 );
+   NT2_TEST_EQUAL(  round2even( T(-42) ), T(-42) );
+
+}
+
+NT2_TEST_CASE_TPL ( real_round2even,  (double)(float)
+                  )
+{
+  using nt2::round2even;
+  using nt2::functors::round2even_;
+
+ NT2_TEST( (boost::is_same < typename nt2::meta::call<round2even_(T)>::type
+             ,T
+             >::value)
+          );
+ NT2_TEST_EQUAL(  round2even( T(42.1) ), T(42) );
+ NT2_TEST_EQUAL(  round2even( T(-42.1) ), T(-42) );
+ NT2_TEST_EQUAL(  round2even( T(46.7) ), T(47) );
+ NT2_TEST_EQUAL(  round2even( T(-46.7) ), T(-47) );
+}
 

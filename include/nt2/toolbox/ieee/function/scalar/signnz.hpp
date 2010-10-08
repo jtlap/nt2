@@ -14,6 +14,8 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_positive.hpp>
+#include <nt2/include/functions/is_negative.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -39,7 +41,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return is_nan(a0)?a0:is_gez(a0)-is_ltz(a0);
+      return is_nan(a0)?a0:is_positive(a0)-is_negative(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_)
     {

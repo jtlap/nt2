@@ -10,9 +10,12 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_NEXTPOW2_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 
 #include <nt2/include/functions/frexp.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/abs.hpp>
 
@@ -29,8 +32,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct  result<This(A0)>
-          : boost::result_of<meta::floating(A0)>{};
+      struct result<This(A0)> :
+      meta::as_integer<typename boost::result_of<meta::floating(A0)>::type, signed>{};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
                               , A0
@@ -47,8 +50,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return nt2::nextpow2(type(a0));
+      return nt2::nextpow2(tofloat(a0));
     }
   };
 } }

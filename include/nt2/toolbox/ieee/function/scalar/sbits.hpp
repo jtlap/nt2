@@ -26,13 +26,13 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-    {	typedef typename meta::as_integer<A0, signed>::type type;}; 
+      : meta::as_integer<A0, signed>{}; 
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_bits<A0, signed>::type type; 
       type that = {a0}; 
-       return that.bits; 
+      return that.bits; 
     }
   };
 } }
