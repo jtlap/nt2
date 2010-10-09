@@ -8,13 +8,16 @@
  ******************************************************************************/
 #ifndef NT2_SDK_CONSTANT_REAL_HPP_INCLUDED
 #define NT2_SDK_CONSTANT_REAL_HPP_INCLUDED
+
 ////////////////////////////////////////////////////////////////////////////////
-// Make True and False
+// Make soem r eal based constants
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/constant/constant.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace constants
 {
@@ -33,21 +36,26 @@ namespace nt2 { namespace constants
   struct c_gold_      {};
 }  }
 
+namespace nt2 { namespace details
+{
+  template<nt2::uint64_t D, nt2::uint32_t F> struct pattern {};
+} }
+
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(constants::nan_         , Nan     )
-  NT2_CONSTANT_IMPLEMENTATION(constants::m_half_      , Mhalf   )
-  NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_      , Mzero   )
-  NT2_CONSTANT_IMPLEMENTATION(constants::half_        , Half    )
-  NT2_CONSTANT_IMPLEMENTATION(constants::third_       , Third   )
-  NT2_CONSTANT_IMPLEMENTATION(constants::quarter_     , Quarter )
-  NT2_CONSTANT_IMPLEMENTATION(constants::two_to_m10_  , Twotom10)
-  NT2_CONSTANT_IMPLEMENTATION(constants::two_to_nmb_  , Two2nmb )
-  NT2_CONSTANT_IMPLEMENTATION(constants::pi_          , Pi      )
-  NT2_CONSTANT_IMPLEMENTATION(constants::split_factor_, Splitfactor)
-  NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2_o_2_  , Sqrt_2o_2)
-  NT2_CONSTANT_IMPLEMENTATION(constants::gold_        , Gold    )
-  NT2_CONSTANT_IMPLEMENTATION(constants::c_gold_      , Cgold   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::nan_         , Nan         )
+  NT2_CONSTANT_IMPLEMENTATION(constants::m_half_      , Mhalf       )
+  NT2_CONSTANT_IMPLEMENTATION(constants::m_zero_      , Mzero       )
+  NT2_CONSTANT_IMPLEMENTATION(constants::half_        , Half        )
+  NT2_CONSTANT_IMPLEMENTATION(constants::third_       , Third       )
+  NT2_CONSTANT_IMPLEMENTATION(constants::quarter_     , Quarter     )
+  NT2_CONSTANT_IMPLEMENTATION(constants::two_to_m10_  , Twotom10    )
+  NT2_CONSTANT_IMPLEMENTATION(constants::two_to_nmb_  , Two2nmb     )
+  NT2_CONSTANT_IMPLEMENTATION(constants::pi_          , Pi          )
+  NT2_CONSTANT_IMPLEMENTATION(constants::split_factor_, Splitfactor )
+  NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2_o_2_  , Sqrt_2o_2   )
+  NT2_CONSTANT_IMPLEMENTATION(constants::gold_        , Gold        )
+  NT2_CONSTANT_IMPLEMENTATION(constants::c_gold_      , Cgold       )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,14 +63,8 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<class Tag,class Category,class Info>
-  struct  dispatch<Tag,tag::constant_(Category),Info>
-  {
-    template<class T> struct apply : meta::scalar_of<T> {};
-  };
-
-  template< uint64_t Double, uint32_t Float, class Category,class Info>
-  struct  call< details::pattern<Double,Float>
+  template<nt2::uint64_t D, nt2::uint32_t F, class Category,class Info>
+  struct  call< details::pattern<D,F>
               , tag::constant_(Category),double,Info
               >
         : callable
@@ -73,13 +75,13 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      meta::from_bits<double>::type const that = {Double};
+      meta::from_bits<double>::type const that = {D};
       return splat<typename A0::type>(that.value);
     }
   };
 
-  template< uint64_t Double, uint32_t Float, class Category,class Info>
-  struct  call< details::pattern<Double,Float>
+  template<nt2::uint64_t D, nt2::uint32_t F, class Category,class Info>
+  struct  call< details::pattern<D,F>
               , tag::constant_(Category),float,Info
               >
         : callable
@@ -90,7 +92,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      meta::from_bits<float>::type const that = {Float};
+      meta::from_bits<float>::type const that = {F};
       return splat<typename A0::type>(that.value);
     }
   };
@@ -98,7 +100,7 @@ namespace nt2 { namespace functors
 
 namespace nt2
 {
-  template<class Target, uint64_t D, uint32_t F> inline
+  template<class Target, nt2::uint64_t D, nt2::uint32_t F> inline
   typename meta::enable_call<details::pattern<D,F>(meta::as_<Target>)>::type
   real_constant()
   {
@@ -106,7 +108,7 @@ namespace nt2
     return callee( nt2::meta::as_<Target>() );
   }
 
-  template<class Target, uint32_t F> inline
+  template<class Target, nt2::uint32_t F> inline
   typename meta::enable_call<details::pattern<0,F>(meta::as_<Target>)>::type
   single_constant()
   {
@@ -114,7 +116,7 @@ namespace nt2
     return callee( nt2::meta::as_<Target>() );
   }
 
-  template<class Target, uint64_t D> inline
+  template<class Target, nt2::uint64_t D> inline
   typename meta::enable_call<details::pattern<D,0>(meta::as_<Target>)>::type
   double_constant()
   {
