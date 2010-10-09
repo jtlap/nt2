@@ -27,8 +27,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -42,7 +41,7 @@ namespace nt2 { namespace functors
     //    if( (*val & 0x7FF0000000000000ll) = 0x7FF0000000000000ll )
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return isnan(a0-a0);
+      return is_nan(a0-a0);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
