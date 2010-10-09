@@ -11,7 +11,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_gez.hpp>
-
+//#include <iostream>
 
 namespace nt2 { namespace functors
 {
@@ -42,6 +42,8 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       typedef typename meta::as_integer<A0, signed>::type type;
+//       std::cout << "simd::native_cast<type>(a0) "<< simd::native_cast<type>(a0) << std::endl;
+//       std::cout << "is_gez ?                    "<< is_gez(simd::native_cast<type>(a0)) << std::endl;
       return simd::native_cast<A0>(is_gez(simd::native_cast<type>(a0)));
     }
   };

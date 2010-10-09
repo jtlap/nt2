@@ -13,7 +13,7 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <iostream>
+//#include <iostream>
 
 namespace nt2 { namespace functors
 {
@@ -43,8 +43,11 @@ namespace nt2 { namespace functors
       typedef typename meta::int32_t_<A0>::type htype;
       typedef simd::native<htype,tag::sse_> type;
       const type tmp1 = is_gez(simd::native_cast<type>(a0));
-      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 2, 0, 0))};
-     return  simd::native_cast<A0>(tmp);
+      //      std::cout << "tmp1 " << tmp1 << std::endl; 
+      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))}; //2, 2, 0, 0))};
+//       std::cout << "tmp " << tmp << std::endl;
+//       std::cout << "r   " <<  simd::native_cast<A0>(tmp) << std::endl;
+      return  simd::native_cast<A0>(tmp);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
