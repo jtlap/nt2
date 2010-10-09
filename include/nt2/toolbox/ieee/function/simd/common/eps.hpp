@@ -25,14 +25,7 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Extension,class Info>
-  struct validate<eps_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_floating_point<A0>{};
-  };
+
   /////////////////////////////////////////////////////////////////////////////
   // Compute eps(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
@@ -42,11 +35,10 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
-                                , A0
+                                , typename nt2::meta::scalar_of<A0>::type
                                 , (2, (real_,arithmetic_))
                                 )
 
@@ -54,8 +46,8 @@ namespace nt2 { namespace functors
       {
       typedef typename meta::as_integer<A0, signed>::type        int_type;
       const A0 a = abs(a0);
-      return seladd(isinvalid(a),
-		    select(islt(a, Smallestposval<A0>()), 
+      return seladd(is_invalid(a),
+		    select(is_less(a, Smallestposval<A0>()), 
 			   Mindenormal<A0>(),   
 			   ldexp(One<A0>(), exponent(a)-Nbmantissabits<A0>())
   			   ),

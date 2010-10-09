@@ -15,6 +15,7 @@
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_positive.hpp>
 #include <nt2/include/functions/seladd.hpp>
 
 
@@ -41,7 +42,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,    real_)
     {
-      return seladd(isnan(a0), seladd(isgez(a0), -One<A0>(),Two<A0>()), a0);
+      return seladd(isnan(a0), seladd(is_positive(a0), -One<A0>(),Two<A0>()), a0);
     }
      NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
     {
@@ -50,7 +51,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      return isltz(a0)-isgtz(a0); // here True is -1 False 0 !
+      return is_ltz(a0)-is_gtz(a0); // here True is -1 False 0 !
     }
   };
 } }
