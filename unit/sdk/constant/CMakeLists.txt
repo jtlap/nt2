@@ -11,10 +11,11 @@ SET(SOURCES
     digits.cpp
     real.cpp
     properties.cpp
+    infinites.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.constant.unit)
-ADD_DEPENDENCIES(sdk.unit sdk.constant.unit)  
+ADD_DEPENDENCIES(sdk.unit sdk.constant.unit)
 
 ################################################################################
 # For each filename
@@ -32,5 +33,5 @@ FOREACH( EXAMPLE ${SOURCES})
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
-  ADD_DEPENDENCIES(sdk.constant.unit ${EXECUTABLE})  
+  ADD_DEPENDENCIES(sdk.constant.unit ${EXECUTABLE})
 ENDFOREACH()
