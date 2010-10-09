@@ -22,63 +22,85 @@
 namespace nt2 { namespace functors
 {
   template<class Category,class Info>
-  struct  call<constants::inf_,tag::constant_(Category),Info>
+  struct  call<constants::inf_,tag::constant_(Category),double,Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>::type {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename meta::scalar_of<typename A0::type>::type
-                              , ( 3, (double, float, arithmetic_) )
-                              )
-															
-    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
-    {
-      return Valmax<typename A0::type>();
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-    {
-      meta::from_bits<float>::type const that = {0x7F800000};
-      return splat<typename A0::type>(that.value);
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
+    NT2_FUNCTOR_CALL(1)
     {
       meta::from_bits<double>::type const that = {0x7FF0000000000000LL};
-      return splat<typename A0::type>(that.value);      
+      return splat<typename A0::type>(that.value);
     }
   };
 
   template<class Category,class Info>
-  struct  call<constants::m_inf_,tag::constant_(Category),Info>
+  struct  call<constants::inf_,tag::constant_(Category),float,Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>::type {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename meta::scalar_of<typename A0::type>::type
-                              , ( 3, (double, float, arithmetic_) )
-                              )
-															
-    NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
+    NT2_FUNCTOR_CALL(1)
     {
-      return Valmin<typename A0::type>();
+      meta::from_bits<float>::type const that = {0x7F800000};
+      return splat<typename A0::type>(that.value);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+  template<class Category,class Info>
+  struct  call<constants::inf_,tag::constant_(Category),arithmetic_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1) { return Valmax<typename A0::type>(); }
+  };
+
+  template<class Category,class Info>
+  struct  call<constants::m_inf_,tag::constant_(Category),double,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      meta::from_bits<double>::type const that = {0xFFF0000000000000LL};
+      return splat<typename A0::type>(that.value);
+    }
+  };
+
+  template<class Category,class Info>
+  struct  call<constants::m_inf_,tag::constant_(Category),float,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       meta::from_bits<float>::type const that = {0xFF800000};
       return splat<typename A0::type>(that.value);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
-    {
-      meta::from_bits<double>::type const that = {0xFFF0000000000000LL};
-      return splat<typename A0::type>(that.value);      
-    }   
+  template<class Category,class Info>
+  struct  call<constants::m_inf_,tag::constant_(Category),arithmetic_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1) { return Valmin<typename A0::type>(); }
   };
 } }
 

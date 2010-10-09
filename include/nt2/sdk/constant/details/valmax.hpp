@@ -14,68 +14,112 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-
 
 namespace nt2 { namespace functors
 {
   template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),Info>
+  struct  call<constants::val_max_,tag::constant_(Category),unsigned_, Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>::type {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename meta::scalar_of<typename A0::type>::type
-                              , ( 7 , ( unsigned_
-                                      , int8_t,int16_t,int32_t,int64_t
-                                      , double, float
-                                      )
-                                )
-                              )
-															
-    NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type base;
       return splat<typename A0::type>(static_cast<base>(~0));
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int8_t)
+  template<class Category,class Info>
+  struct  call<constants::val_max_,tag::constant_(Category),int8_t, Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type base;
       return splat<typename A0::type>(static_cast<base>(~0x80));
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int16_t)
+  template<class Category,class Info>
+  struct  call<constants::val_max_,tag::constant_(Category),int16_t, Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type base;
       return splat<typename A0::type>(static_cast<base>(~0x8000));
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int32_t)
+  template<class Category,class Info>
+  struct  call<constants::val_max_,tag::constant_(Category),int32_t, Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type base;
       return splat<typename A0::type>(static_cast<base>(~0x80000000));
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)
+  template<class Category,class Info>
+  struct  call<constants::val_max_,tag::constant_(Category),int64_t, Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type base;
       return splat<typename A0::type>(static_cast<base>(~0x8000000000000000LL));
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+  template<class Category,class Info>
+  struct  call<constants::val_max_,tag::constant_(Category),double, Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
-			meta::from_bits<float>::type const that = {0x7f7fffff};
+      meta::from_bits<double>::type const that = {0x7fefffffffffffffLL};
       return splat<typename A0::type>(that.value);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
+  template<class Category,class Info>
+  struct  call<constants::val_max_,tag::constant_(Category),float, Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
-			meta::from_bits<double>::type const that = {0x7fefffffffffffffLL};
+      meta::from_bits<float>::type const that = {0x7f7fffff};
       return splat<typename A0::type>(that.value);
     }
   };
