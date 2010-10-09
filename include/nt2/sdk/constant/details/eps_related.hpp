@@ -53,14 +53,15 @@
 
 namespace nt2 { namespace functors
 {
-  LOCAL_CONST(eps__          ,0x3cb0000000000000LL,0X34000000,1); 
-  LOCAL_CONST(half_eps__     ,0x3ca0000000000000ll,0x33800000,1); 
-  LOCAL_CONST(_3_x_eps_      ,0x3cde03af9ee75615ll,0x34c00000,1); 
-  LOCAL_CONST(sqrt_eps_      ,0x3e50000000000000ll,0x39b504f3,3); 
-  LOCAL_CONST(forth_root_eps_,0x3f20000000000000ll,0x3c9837f0,1); 
-  LOCAL_CONST(third_root_eps_,0x3ed965fea53d6e42ll,0x3ba14518,1);
-  LOCAL_CONST(mlog_eps_2_    ,0x403205966f2b4f13ll,0x40ff1402,0);
-  LOCAL_CONST(min_denormal_  ,0x1ll               ,0x1       ,1);  
+  LOCAL_CONST(eps__            ,0x3cb0000000000000LL,0X34000000,1); 
+  LOCAL_CONST(half_eps__       ,0x3ca0000000000000ll,0x33800000,1); 
+  LOCAL_CONST(_3_x_eps_        ,0x3cde03af9ee75615ll,0x34c00000,1); 
+  LOCAL_CONST(sqrt_eps_        ,0x3e50000000000000ll,0x39b504f3,3); 
+  LOCAL_CONST(forth_root_eps_  ,0x3f20000000000000ll,0x3c9837f0,1); 
+  LOCAL_CONST(third_root_eps_  ,0x3ed965fea53d6e42ll,0x3ba14518,1);
+  LOCAL_CONST(mlog_eps_2_      ,0x403205966f2b4f13ll,0x40ff1402,0);
+  LOCAL_CONST(min_denormal_    ,0x1ll               ,0x1       ,1);  
+  LOCAL_CONST(smallest_pos_val_,0x0010000000000000LL,0x00800000,1);  
 } }
 
 #undef LOCAL_CONST

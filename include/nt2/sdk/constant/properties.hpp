@@ -22,7 +22,6 @@ namespace nt2 { namespace constants
 {
   struct val_max_           {};
   struct val_min_           {};
-  struct smallest_pos_val_  {};
   struct signmask_          {};
   struct max_left_shift_    {};
   struct nb_mantissa_bits_  {};
@@ -40,7 +39,6 @@ namespace nt2
 {
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_max_          , Valmax         )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_min_          , Valmin         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::smallest_pos_val_ , Smallestposval )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::signmask_         , Signmask       )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_left_shift_   , Maxleftshift   )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::ldexp_mask_       , Ldexpmask      )
@@ -57,7 +55,7 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/constant/details/valmax.hpp>
 #include <nt2/sdk/constant/details/valmin.hpp>
-//#include <nt2/sdk/constant/details/smallestposval.hpp>
+//#include <nt2/sdk/constant/details/smallestposval.hpp>  //in eps_related
 #include <nt2/sdk/constant/details/signmask.hpp>
 #include <nt2/sdk/constant/details/ieee_spec.hpp>
 #include <nt2/sdk/constant/details/ldexp_mask.hpp>
