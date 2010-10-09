@@ -13,8 +13,18 @@
 // Main generic constant class
 //* TODO:  Documentation: http://nt2.lri.fr/sdk/constant/entity/constant.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/constant/category.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/functor/functor.hpp>
+#include <nt2/sdk/constant/category.hpp>
+
+namespace nt2 { namespace functors
+{
+  template<class Tag,class Category,class Info>
+  struct  dispatch<Tag,tag::constant_(Category),Info>
+  {
+    template<class T> struct apply : meta::scalar_of<T> {};
+  };
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a constant function as Name<Type>()
