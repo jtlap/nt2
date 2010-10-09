@@ -34,8 +34,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
@@ -51,10 +50,8 @@ namespace nt2 { namespace functors
       boost::fusion::tie(m1, e1) = nt2::frexp(a0);
       boost::fusion::tie(m2, e2) = nt2::frexp(a1);
       itype expo = -nt2::max(e1, e2);
-      //      double e = nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo));
       A0 e = sel(is_eq(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo))); 
       return sel((isnan(a0)&isnan(a1))|isnan(a0-a1),  Zero<A0>(), e/Eps<A0>());
-      //      return abs(tofloat(bitinteger(a0)-bitinteger(a1)));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {

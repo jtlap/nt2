@@ -15,7 +15,6 @@
 
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -49,9 +48,6 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
       typedef typename boost::result_of<meta::arithmetic(A0, A1) >::type type;
-//       return nt2::abs(tofloat(bitinteger(type(a0))-bitinteger(type(a1))));
-// std::cout << a0 <<  " ------ " << a1 <<" ------ " << a0-a1 << std::endl; 
-
       typedef typename meta::as_integer<A0>::type itype;
       if (isnan(a0)&&isnan(a1)) return Zero<type>();
       if (isnan(a0-a1))         return Zero<type>(); 
@@ -60,10 +56,8 @@ namespace nt2 { namespace functors
       boost::fusion::tie(m1, e1) = nt2::frexp(type(a0));
       boost::fusion::tie(m2, e2) = nt2::frexp(type(a1));
       itype expo = -nt2::max(e1, e2);
-      //      double e = nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo));
-      double e = (e1 == e2) ? nt2::abs(m1-m2) : nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo));
-      //std::cout << m1 <<  " ------ " << m2 <<" ------ " << m1-m2 << std::endl; 
-      //std::cout << e1 <<  " ------ " << e2 <<" ------ " << e1-e2 << std::endl; 
+      double e = (e1 == e2) ? nt2::abs(m1-m2)
+	: nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo));
       return e/Eps<type>();
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)

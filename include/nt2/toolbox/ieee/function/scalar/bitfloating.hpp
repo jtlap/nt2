@@ -36,14 +36,15 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
     {
-      typename meta::from_bits<A0, signed>::type  that =  {a0};
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
+      typename meta::from_bits<rtype, signed>::type  that =  {a0};
       return that.value; 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
       typedef typename meta::from_bits<rtype>::type  type;
-      type that =  {a0>=Zero<A0>()?a0:(1LL << (8*sizeof(A0)-1))-a0};//TOVERIFY PERFS
+      type that =  {a0>=Zero<A0>()?a0:((1LL << (8*sizeof(A0)-1))-a0)};//TOVERIFY PERFS
       return that.value; 
     }
   };

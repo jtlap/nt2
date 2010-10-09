@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_BITFLOATING_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_BITFLOATING_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_gez.hpp>
@@ -22,7 +23,9 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::is_integral<A0>{};
+      struct result<This(A0)> :
+      boost::mpl::and_ < meta::is_integral<A0>,
+                        meta::is_real_convertible<A0> >{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitfloating(const A0& a0)
@@ -33,7 +36,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::as_real<A0>{}; 
+      struct result<This(A0)> :meta::as_real<A0>{}; 
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -53,7 +56,7 @@ namespace nt2 { namespace functors
       //      type that = {sel(isgez(type(a0)), a0, s-a0)};
       type r;
       A0 s = simd::native_cast<A0>(Signmask<type>()); 
-      r = sel(isgez(a0)      , simd::native_cast<A0>(a0), simd::native_cast<A0>(s-a0));
+      r = sel(is_gez(a0) , simd::native_cast<type>(a0), simd::native_cast<type>(s-a0));
       return r; 
     }
   };
