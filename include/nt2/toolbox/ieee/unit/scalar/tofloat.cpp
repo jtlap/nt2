@@ -7,12 +7,42 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
-
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/tofloat.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of ieee components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( tofloat,   NT2_SIGNED_TYPES        
+                  )
+{
+  using nt2::tofloat;
+  using nt2::functors::tofloat_;
 
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<tofloat_(T)>::type
+	     , typename boost::result_of<nt2::meta::floating(T)>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  tofloat( T(0) ), 0 );
+  NT2_TEST_EQUAL(  tofloat( T(5) ), 5 );
+  NT2_TEST_EQUAL(  tofloat( T(-5) ), -5 );
+
+}
+NT2_TEST_CASE_TPL ( unsigned_tofloat,   NT2_UNSIGNED_TYPES        
+                  )
+{
+  using nt2::tofloat;
+  using nt2::functors::tofloat_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<tofloat_(T)>::type
+	     , typename boost::result_of<nt2::meta::floating(T)>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  tofloat( T(0) ), 0 );
+  NT2_TEST_EQUAL(  tofloat( T(5) ), 5 );
+}

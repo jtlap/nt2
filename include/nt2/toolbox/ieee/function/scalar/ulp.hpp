@@ -13,8 +13,8 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
-
-#include <nt2/include/functions/predecessor.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/functions/prev.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -44,9 +44,9 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       typedef typename meta::as_integer<A0,signed>::type int_type;
-      if (iseqz(a0)) return Smallestposval<A0>();
+      if (is_eqz(a0)) return Smallestposval<A0>();
       const A0 x = abs(a0);
-      if (x == Inf<A0>()) return  Valmax<A0>()-predecessor(Valmax<A0>());
+      if (x == Inf<A0>()) return  Valmax<A0>()-prev(Valmax<A0>());
       typename meta::as_bits<A0>::type aa = {x},  bb = aa;
       --bb.bits;
       ++aa.bits;

@@ -25,7 +25,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
-      meta::as_integer<A0, signed>{};
+      meta::as_integer<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
