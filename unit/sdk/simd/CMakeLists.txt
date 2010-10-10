@@ -21,6 +21,7 @@ SET( SOURCES
     scalar_of.cpp
     sign_of.cpp
     access.cpp
+    native_cast.cpp
     pack.cpp
 #    add.cpp
 #    sub.cpp

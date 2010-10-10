@@ -6,9 +6,10 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::simd::pack"
+#define NT2_UNIT_MODULE "nt2::simd::native_cast"
 
-#include <nt2/sdk/simd/pack.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
@@ -19,12 +20,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack default ctor
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(pack_default_ctor, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(native_cast, NT2_SIMD_TYPES )
 {
-  using nt2::simd::pack;
-  pack<T,1> x;
+  using nt2::simd::native;
+  using nt2::simd::native_cast;
 
-  x = x+x;
-
-  std::cout << x << "\n";
+  native<T,NT2_SIMD_DEFAULT_EXTENSION>  x;
+  native<nt2::int8_t  ,NT2_SIMD_DEFAULT_EXTENSION>    y;
+  y = native_cast< native<nt2::int8_t,NT2_SIMD_DEFAULT_EXTENSION> >(x);
 }
