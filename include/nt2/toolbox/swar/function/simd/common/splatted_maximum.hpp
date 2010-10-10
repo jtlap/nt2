@@ -21,20 +21,19 @@ namespace nt2 { namespace functors
   // Compute splatted_maximum(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Extension,class Info>
-  struct call<splatted_maximum_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      return splat<A0>(maximum(a0)); 
+      typedef typename meta::strip<A0>::type type;
+      type that = splat<type>(nt2::maximum(a0));
+      return that;
     }
   };
 } }
 
-      
 #endif

@@ -8,12 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/simd Mode"
 
-
 #include <nt2/toolbox/arithmetic/include/mod.hpp> 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <../unit/sdk/simd/types.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>

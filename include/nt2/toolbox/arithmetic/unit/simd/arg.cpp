@@ -12,14 +12,13 @@
 #include <nt2/sdk/unit/tests.hpp>   
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <../unit/sdk/simd/types.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp> 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp> 
 #include <nt2/sdk/meta/as_real.hpp>
-#include <iostream>
+
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component arg using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////

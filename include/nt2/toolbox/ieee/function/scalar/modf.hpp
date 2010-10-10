@@ -8,14 +8,12 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MODF_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MODF_HPP_INCLUDED
-#include <boost/fusion/tuple.hpp>
 
+#include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 namespace nt2 { namespace functors
 {
-
-  //  no special validate for modf
-
   /////////////////////////////////////////////////////////////////////////////
   // Compute modf(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +25,7 @@ namespace nt2 { namespace functors
     struct result<This(A0)>
     {
       typedef typename boost::result_of<meta::floating(A0)>::type etype;
-      typedef boost::fusion::tuple<etype, etype>                   type;
+      typedef boost::fusion::vector<etype, etype>                   type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -41,6 +39,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-
-      
 #endif
+

@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::cardinal_of SIMD"
 
-#include <unit/sdk/simd/types.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/type_traits/is_same.hpp>

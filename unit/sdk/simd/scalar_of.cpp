@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2::meta::scalar_of SIMD"
 
 #include <nt2/sdk/simd/native.hpp>
-#include <unit/sdk/simd/types.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 

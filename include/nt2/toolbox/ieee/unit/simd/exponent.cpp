@@ -7,11 +7,11 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/simd Mode"
+
 #include <nt2/include/functions/exponent.hpp>
 #include <nt2/sdk/unit/tests.hpp>   
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <../unit/sdk/simd/types.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp> 

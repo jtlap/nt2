@@ -12,17 +12,16 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <../unit/sdk/simd/types.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/include/functions/is_gez.hpp>
+
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-
 NT2_TEST_CASE_TPL(minmod, NT2_SIMD_TYPES )
 {
  using nt2::minmod;
@@ -47,7 +46,5 @@ NT2_TEST_CASE_TPL(minmod, NT2_SIMD_TYPES )
      {
       NT2_TEST_EQUAL( v[j], minmod(a0[j], a1[j]) );
      }
- }
+}
  
- 
-   

@@ -11,6 +11,7 @@
 
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 #define NT2_MAP_INTERFACE(z,n,t)                                          \
 template<class This,class F,class A>                                      \
