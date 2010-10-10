@@ -29,33 +29,31 @@
 #include <nt2/sdk/simd/extensions/sse/sse3.hpp>
 #include <nt2/sdk/simd/extensions/sse/sse2.hpp>
 
-#if !defined(NT2_TYPES)
-#define NT2_SIMD_TYPES  NT2_TYPES
-/**/
-#endif
+#if defined(NT2_SIMD_SSE_FAMILY)
+#define NT2_SIMD_TYPES  (double)(nt2::uint64_t)(nt2::int64_t) \
+                        (float)(nt2::uint32_t)(nt2::int32_t)  \
+                        (nt2::uint16_t)(nt2::int16_t)         \
+                        (nt2::uint8_t)(nt2::int8_t)           \
+                        /**/
 
-#if !defined(NT2_SIMD_REAL_CONVERTIBLE_TYPES)
-/**/
-#endif
+#define NT2_SIMD_REAL (double)(float)
 
-#if !defined(NT2_SIMD_INTEGRAL_SIGNED_TYPES)
-#define NT2_SIMD_INTEGRAL_SIGNED_TYPES NT2_INTEGRAL_SIGNED_TYPES
-/**/
-#endif
+#define NT2_SIMD_UNSIGNED_TYPES (nt2::uint64_t)(nt2::uint32_t)  \
+                                (nt2::uint16_t)(nt2::uint8_t)   \
+                                /**/
 
-#if !defined(NT2_SIMD_UNSIGNED_TYPES)
-#define NT2_SIMD_UNSIGNED_TYPES NT2_UNSIGNED_TYPES
-/**/
-#endif
+#define NT2_SIMD_SIGNED_TYPES (double)(nt2::int64_t)(nt2::int32_t)  \
+                              (float)(nt2::int16_t)(nt2::int8_t)    \
+                              /**/
 
-#if !defined(NT2_SIMD_INTEGRAL_TYPES)
-#define NT2_SIMD_INTEGRAL_TYPES NT2_INTEGRAL_TYPES
-/**/
-#endif
+#define NT2_SIMD_INTEGRAL_UNSIGNED_TYPES  (nt2::uint64_t)(nt2::uint32_t)  \
+                                          (nt2::uint16_t)(nt2::uint8_t)   \
+                                          /**/
 
-#if !defined(NT2_SIMD_SIGNED_TYPES)
-#define NT2_SIMD_SIGNED_TYPES NT2_SIGNED_TYPES
-/**/
+#define NT2_SIMD_INTEGRAL_SIGNED_TYPES  (nt2::int64_t)(nt2::int32_t)  \
+                                        (nt2::int16_t)(nt2::int8_t)   \
+                                        /**/
+
 #endif
 
 #endif

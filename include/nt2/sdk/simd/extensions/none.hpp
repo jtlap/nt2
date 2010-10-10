@@ -26,6 +26,15 @@ NT2_WARNING(No SIMD extensions detected)
 #define NT2_SIMD_STRING     "none"
 #define NT2_SIMD_CARDINALS (1)
 
+#if defined(NT2_SIMD_TYPES)
+#define NT2_SIMD_TYPES
+#define NT2_SIMD_REAL
+#define NT2_SIMD_UNSIGNED_TYPES
+#define NT2_SIMD_SIGNED_TYPES
+#define NT2_SIMD_INTEGRAL_SIGNED_TYPES
+#define NT2_SIMD_INTEGRAL_UNSIGNED_TYPES
+#endif
+
 #endif
 
 #endif
