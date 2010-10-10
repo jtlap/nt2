@@ -20,41 +20,35 @@
 #include <boost/proto/transform/make.hpp>
 #include <boost/proto/transform/impl.hpp>
 
-namespace boost { namespace proto {
-
-namespace detail {
-
-    template <typename Fun, typename Expr, typename State, typename Data, long Arity = arity_of<Expr>::value>
+namespace boost { namespace proto
+{
+  namespace detail
+  {
+    template< typename Fun, typename Expr
+            , typename State, typename Data
+            , long Arity = arity_of<Expr>::value
+            >
     struct unpack_impl;
 
-#define BOOST_PROTO_CHILD_N(_, N, __) \
-    proto::_child_c<N>
+    #define BOOST_PROTO_CHILD_N(_, N, __)   proto::_child_c<N>
+    #define BOOST_PROTO_CHILD_E_N(_, N, __) E(proto::_child_c<N>)
 
-#define BOOST_PROTO_CHILD_E_N(_, N, __) \
-    E(proto::_child_c<N>)
-
-#define BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_PROTO_MAX_ARITY, <boost/proto/transform/unpack.hpp>))
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_PROTO_MAX_ARITY, "nt2/sdk/dsl/proto/transform/unpack.hpp"))
     #include BOOST_PP_ITERATE()
 
-#undef BOOST_PROTO_CHILD_N
-#undef BOOST_PROTO_CHILD_E_N
-}
+    #undef BOOST_PROTO_CHILD_N
+    #undef BOOST_PROTO_CHILD_E_N
+  }
 
-template <typename Fun>
-struct unpack
-    : transform<unpack<Fun> >
-{
+  template<typename Fun> struct unpack : transform< unpack<Fun> >
+  {
     template <typename Expr, typename State, typename Data>
     struct impl
         : detail::unpack_impl<Fun, Expr, State, Data>
     {};
-};
+  };
 
-template <typename Fun>
-struct is_callable<unpack<Fun> >
-    : mpl::true_
-{};
-
+  template <typename Fun> struct is_callable<unpack<Fun> > : mpl::true_ {};
 }}
 
 #endif
