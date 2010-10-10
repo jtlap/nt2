@@ -21,6 +21,7 @@ SET( SOURCES
     scalar_of.cpp
     sign_of.cpp
     access.cpp
+    pack.cpp
 #    add.cpp
 #    sub.cpp
 #    div.cpp
@@ -36,7 +37,7 @@ SET( SOURCES
 include_directories( ${PROJECT_SOURCE_DIR}/)
 
 ADD_CUSTOM_TARGET(sdk.simd.unit)
-ADD_DEPENDENCIES(sdk.unit sdk.simd.unit)  
+ADD_DEPENDENCIES(sdk.unit sdk.simd.unit)
 
 ################################################################################
 # For each filename
@@ -55,5 +56,5 @@ FOREACH( EXAMPLE ${SOURCES})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
   SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
-  ADD_DEPENDENCIES(sdk.simd.unit ${EXECUTABLE})  
+  ADD_DEPENDENCIES(sdk.simd.unit ${EXECUTABLE})
 ENDFOREACH()
