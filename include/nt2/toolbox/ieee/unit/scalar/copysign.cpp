@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
 
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/supported_types.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/copysign.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -17,9 +18,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-
-
-NT2_TEST_CASE_TPL ( copysign,  NT2_SIMD_SIGNED_TYPES
+NT2_TEST_CASE_TPL ( copysign,  NT2_SIGNED_TYPES
                   )
 {
   using nt2::copysign;
