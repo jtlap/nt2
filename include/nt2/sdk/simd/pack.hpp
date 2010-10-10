@@ -27,12 +27,7 @@
  */
 
 /*
-
 #include <nt2/support/numeric/simd/dsl/traits.hpp>
-#include <nt2/support/numeric/simd/dsl/io.hpp>
-#include <nt2/support/numeric/simd/dsl/const.hpp>
-#include <nt2/support/numeric/simd/dsl/load.hpp>
-#include <nt2/support/numeric/simd/dsl/store.hpp>
 #include <nt2/support/numeric/simd/dsl/intrinsic.hpp>
 */
 

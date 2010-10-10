@@ -10,6 +10,8 @@
 #define NT2_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/dsl/compute.hpp>
+#include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace simd
@@ -28,9 +30,13 @@ namespace nt2 { namespace simd
     // Constructors from various sources
     ////////////////////////////////////////////////////////////////////////////
     data() : parent() {}
-    template<class Expr> data( Expr const& xpr )
-    {
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Fill current data by evaluating soem expression
+    ////////////////////////////////////////////////////////////////////////////
+    template<class X> void evaluate(expression<X,Type,Cardinal> const& xpr )
+    {
+      evaluate(xpr,typename meta::is_native<parent>::type());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -39,6 +45,37 @@ namespace nt2 { namespace simd
     parent const& value() const
     {
       return static_cast<parent const&>(*this);
+    }
+
+    private:
+    ////////////////////////////////////////////////////////////////////////////
+    // Inner evalaution dispatched on native category
+    // true_  => native
+    // false_ => array
+    ////////////////////////////////////////////////////////////////////////////
+    template<class X>
+    void evaluate ( expression<X,Type,Cardinal> const& xpr
+                  , boost::mpl::true_ const&
+                  )
+    {
+      // On simd native, use the native evaluator transform
+        static_cast<parent&>(*this) = Four<parent>();
+    }
+
+    template<class X>
+    void evaluate ( expression<X,Type,Cardinal> const& xpr
+                  , boost::mpl::false_ const&
+                  )
+    {
+      boost::proto::visitor < dsl::compute_transform
+                            , dsl::grammar
+                            >
+      evaluator;
+
+      // On array, iterate over values and evaluates the expressions
+      // for every index of the array
+      for(std::size_t i=0;i<Cardinal::value;++i)
+        (*this)[i] = evaluator(xpr,i,i);
     }
   };
 } }

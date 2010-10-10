@@ -29,47 +29,25 @@ namespace nt2 { namespace simd
     //////////////////////////////////////////////////////////////////////////
     pack() : parent() {}
 
-/*
-    //////////////////////////////////////////////////////////////////////////
-    // vec<T,C> can be splatted using a single scalar
-    //////////////////////////////////////////////////////////////////////////
-    template<class A0>
-    vec( A0 const& a0
-       , typename boost::enable_if<boost::is_arithmetic<A0> >::type* x = 0
-       )
-    {
-      ignore_unused_param(x);
-      bp::value(*this).fill(a0);
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    // vec<T,C> behaves like its underlying type
-    //////////////////////////////////////////////////////////////////////////
-    vec(inner_type v) { bp::value(*this).reset(v); }
-
-          operator  inner_type()  const { return vec::value(); }
-
-    vec&  operator=(inner_type v)
-    {
-      bp::value(*this).reset(v);
-      return *this;
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    // SIMD expression evaluates as vec<T,C>
-    //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    // SIMD expression evaluates as pack
+    ////////////////////////////////////////////////////////////////////////////
     template<class X>
-    vec(expr<X,info_type> const& v ) { bp::value(*this).eval(v); }
-
-    template<class X,class I> vec& operator=(expr<X,I> const& v )
+    pack(expression<X,Type,boost::mpl::size_t<Cardinal> > const& xpr )
     {
-      bp::value(*this).eval(v);
+      boost::proto::value(*this).evaluate(xpr);
+    }
+
+    template<class X> pack&
+    operator=(expression<X,Type,boost::mpl::size_t<Cardinal> > const& xpr )
+    {
+      boost::proto::value(*this).evaluate(xpr);
       return *this;
     }
-*/
-    //////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////
     // access to the scalar components of the vector type
-    //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     const_reference  operator[](int i) const
     {
       return boost::proto::value(*this)[i];
