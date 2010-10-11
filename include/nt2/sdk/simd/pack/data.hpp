@@ -10,21 +10,25 @@
 #define NT2_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/dsl/compute.hpp>
+#include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
   // data is a tag-dispatched SIMD entity that selects between a native
-  // or emulated implementation depedning on Type and Cardinal
+  // or emulated implementation depending on Type and Cardinal
   ////////////////////////////////////////////////////////////////////////////
   template<class Type,class Cardinal>
   struct  data
         : meta::vector_of<Type,Cardinal::value>::type
   {
     typedef typename meta::vector_of<Type,Cardinal::value>::type  parent;
+
+    typedef boost::proto::visitor < dsl::compute_transform<boost::mpl::_1>
+                                  , dsl::grammar<boost::mpl::_1>
+                                  >                               evaluator_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Constructors from various sources
@@ -49,7 +53,7 @@ namespace nt2 { namespace simd
 
     private:
     ////////////////////////////////////////////////////////////////////////////
-    // Inner evalaution dispatched on native category
+    // Inner evaluation dispatched on native category
     // true_  => native
     // false_ => array
     ////////////////////////////////////////////////////////////////////////////
@@ -58,8 +62,8 @@ namespace nt2 { namespace simd
                   , boost::mpl::true_ const&
                   )
     {
-      // On simd native, use the native evaluator transform
-        static_cast<parent&>(*this) = Four<parent>();
+      evaluator_type eval;
+      static_cast<parent&>(*this) = Four<parent>();
     }
 
     template<class X>
@@ -67,10 +71,9 @@ namespace nt2 { namespace simd
                   , boost::mpl::false_ const&
                   )
     {
-      // On array, iterate over values and evaluates the expressions
-      // for every index of the array
+      evaluator_type eval;
       for(std::size_t i=0;i<Cardinal::value;++i)
-        (*this)[i] = dsl::computer()(xpr,i,i);
+        (*this)[i] = eval(xpr,i,i);
     }
   };
 } }

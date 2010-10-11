@@ -22,7 +22,7 @@
 NT2_TEST_CASE_TPL(pack_default_ctor, NT2_SIMD_TYPES )
 {
   using nt2::simd::pack;
-  pack<T,1> x;
+  pack<T,3> x;
 
   x = x+x;
 

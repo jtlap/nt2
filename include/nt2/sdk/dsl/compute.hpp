@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace dsl
 {
-  template <typename Tag> struct grammar : boost::proto::_ {};
+  template<typename Tag> struct grammar : boost::proto::_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // Forward functor into compute for most tag
@@ -53,25 +53,28 @@ namespace nt2 { namespace dsl
   //////////////////////////////////////////////////////////////////////////////
   // Proto visitor for computing
   //////////////////////////////////////////////////////////////////////////////
-
-  template<class Tag>
-  struct  compute_transform;
-
-  // typedef the complete grammar which is needed to pass to default
-  typedef boost::proto::visitor<compute_transform, grammar> computer;
-
-  template<class Tag>
-  struct  compute_transform : boost::proto::unpack<compute<Tag>(computer)>
+  template<class Tag,class Locality = void>
+  struct  compute_transform
+        : boost::proto::
+          unpack< compute<Tag,Locality> ( boost::proto::
+                                          visitor <
+                                              compute_transform < boost::mpl::_1
+                                                                , Locality
+                                                                >
+                                            , grammar<boost::mpl::_1>
+                                                  >
+                                        )
+                >
   {};
 
-  // call compute<terminal>(value, state, data)
-  template<>
-  struct  compute_transform<functors::terminal_>
-        : boost::proto::call<compute<functors::terminal_> ( boost::proto::_value
-                                                          , boost::proto::_state
-                                                          , boost::proto::_data 
-                                                          )
-                            >
+  template<class Locality>
+  struct  compute_transform<functors::terminal_,Locality>
+        : boost::proto::
+          call<compute<functors::terminal_,Locality>( boost::proto::_value
+                                                    , boost::proto::_state
+                                                    , boost::proto::_data
+                                                    )
+                      >
   {};
 } }
 
@@ -80,4 +83,5 @@ namespace boost { namespace proto
   template<class Tag, class Locality>
   struct is_callable<nt2::dsl::compute<Tag,Locality> > : boost::mpl::true_  {};
 } }
+
 #endif
