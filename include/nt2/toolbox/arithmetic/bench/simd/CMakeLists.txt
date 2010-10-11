@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  random.cpp
   logical_xor.cpp
   ifloor.cpp
   fast_hypot.cpp

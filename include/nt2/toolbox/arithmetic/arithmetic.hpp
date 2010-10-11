@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_ARITHMETIC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/arithmetic/include/random.hpp>
 #include <nt2/toolbox/arithmetic/include/logical_xor.hpp>
 #include <nt2/toolbox/arithmetic/include/ifloor.hpp>
 #include <nt2/toolbox/arithmetic/include/fast_hypot.hpp>

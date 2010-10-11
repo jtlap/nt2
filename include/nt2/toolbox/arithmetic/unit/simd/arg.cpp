@@ -47,10 +47,6 @@ NT2_TEST_CASE_TPL(arg, (nt2::uint64_t)
 
  n_t a0 = load<n_t>(&data[0],0); 
  rn_t v  = nt2::arg(a0);
- std::cout << "nt2::type_id(a0)         "<< nt2::type_id(a0)         << std::endl; 
- std::cout << "nt2::type_id(arg(a0))    "<< nt2::type_id(arg(a0))    << std::endl;
- std::cout << "nt2::type_id(a0[0])      "<< nt2::type_id(a0[0])      << std::endl;
- std::cout << "nt2::type_id(arg(a0[0])) "<< nt2::type_id(arg(a0[0])) << std::endl;
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    { 
      NT2_TEST_EQUAL( v[j], arg(a0[j]) );
