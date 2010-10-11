@@ -19,7 +19,7 @@
 #include <boost/type_traits/is_same.hpp> 
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/functions/random.hpp>
-
+#include <cmath>
 #include <iostream>
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component predecessor using NT2_TEST_CASE
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(predecessor,
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    { 
      NT2_TEST_EQUAL( v[j], predecessor(a0[j]) );
-   } 
+   }
 }
 
 

@@ -14,10 +14,14 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/popcnt.hpp>
+#include <nt2/include/functions/group.hpp>
+#include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/firstbitset.hpp>
+#include <iostream>
 
 
 namespace nt2 { namespace functors
@@ -38,7 +42,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
+      (5, (real_,uint8_t,uint16_t,unsigned_,arithmetic_))
     )
       NT2_FUNCTOR_CALL_EVAL_IF(1,real_)
       {
@@ -46,15 +50,43 @@ namespace nt2 { namespace functors
 	A0 m;
 	int_type p;
 	boost::fusion::tie(m, p) = frexp(abs(a0));
-	return tofloat(seladd(is_equal(m, Half<A0>()), p, One<int_type>()));
+	return tofloat(seladd(is_equal(m, Half<A0>()), p, Mone<int_type>()));
+      }
+      NT2_FUNCTOR_CALL_EVAL_IF(1,uint8_t)
+      {
+	typedef typename meta::scalar_of<A0>::type           stype;
+	typedef typename meta::upgrade<stype>::type itype;
+	typedef typename simd::native<itype, Extension>                 ivtype;
+	ivtype a0l, a0h;
+	boost::fusion::tie(a0l, a0h) = split(a0);
+	return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
+	//seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
+      }
+      NT2_FUNCTOR_CALL_EVAL_IF(1,uint16_t)
+      {
+	typedef typename meta::scalar_of<A0>::type           stype;
+	typedef typename meta::upgrade<stype>::type itype;
+	typedef typename simd::native<itype,Extension>                 ivtype;
+	ivtype a0l, a0h;
+	boost::fusion::tie(a0l, a0h) = split(a0);
+	return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
+	//seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
+      }
+      NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
+      {
+	typedef typename meta::as_real<A0>::type rtype; 
+	typedef typename meta::as_integer<A0, signed>::type itype;
+	rtype m;
+	itype p;
+	boost::fusion::tie(m, p) = frexp(tofloat(a0));
+	//	std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl; 
+	return simd::native_cast<A0>(seladd(is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
       NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
       {
-	return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
-	//return a0;  //TO DO
-	//        return firstbitset(a0); 
-// 	const A0 tmp = nt2::log2(abs(a0));
-// 	return seladd(islt(exp2(tmp), abs(a0)), tmp, One<A0>());
+	typedef typename meta::as_integer<A0, unsigned>::type utype;
+	return simd::native_cast<A0>(nextpow2(simd::native_cast<utype >(abs(a0)))); 
+	//	return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
       }
 
   };
