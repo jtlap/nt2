@@ -59,17 +59,9 @@ namespace nt2 { namespace dsl
   // typedef the complete grammar which is needed to pass to default
   typedef boost::proto::visitor<compute_transform, grammar> computer;
 
-  /*
   template<class Tag>
   struct  compute_transform
-        : boost::proto::unpack<compute<Tag>(boost::proto::_default<computer>)>
-  {};
-  */
-
-  // generic case is to call _default, don't know what the above will be used for
-  template<typename Tag>
-  struct  compute_transform//<boost::proto::tag::plus>
-        : boost::proto::_default<computer>
+        : boost::proto::unpack<compute<Tag>(computer)>
   {};
 
   // call compute<terminal>(value, state, data)
