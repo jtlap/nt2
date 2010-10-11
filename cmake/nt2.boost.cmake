@@ -10,9 +10,9 @@
 ################################################################################
 # Find and detect Boost libraries and setup the bootstrap macro
 ################################################################################
-SET(Boost_ADDITIONAL_VERSIONS "1.43" "1.43.0")
+SET(Boost_ADDITIONAL_VERSIONS "1.44" "1.44.0")
 INCLUDE(FindBoost)
-FIND_PACKAGE( Boost 1.43.0 )
+FIND_PACKAGE( Boost 1.44.0 )
 
 IF(Boost_FOUND)
  SET(NT2_HAVE_BOOST TRUE)

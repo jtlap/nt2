@@ -9,6 +9,8 @@
 
 SET(SOURCES
     belong_to.cpp
+    dominant.cpp
+    validate.cpp
    )
 
 ################################################################################
@@ -24,5 +26,7 @@ FOREACH( EXAMPLE ${SOURCES})
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  ADD_DEPENDENCIES(examples ${EXECUTABLE})
 ENDFOREACH()
 

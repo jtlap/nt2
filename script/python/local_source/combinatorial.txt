@@ -1,0 +1,6 @@
+combinatorial
+ 
+anp                           2
+cnp                           2
+gcd                           2
+lcm                           2

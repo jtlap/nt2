@@ -100,6 +100,7 @@ rst_epilog = """
 .. |us|       replace:: ``uint16_t``
 .. |uc|       replace:: ``uint8_t``
 .. |nt2|       replace:: **NT**:sup:`2`
+.. |mt|        replace:: **MATLAB**:sup:`TM`
 .. |altivec|   replace:: Altivec
 .. |sse|       replace:: SSE Extensions
 .. |result_of| replace:: result_of protocol
@@ -130,7 +131,7 @@ html_theme_path = ['.']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = 'The Numerical Template Toolbox'
+html_title = 'NT2 - The Numerical Template Toolbox'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None

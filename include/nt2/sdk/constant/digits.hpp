@@ -12,17 +12,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // List all basic -10,-9,...,0,...,10,100,1000 constants
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/constant/constant.hpp>
-#include <boost/type_traits/is_signed.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <nt2/sdk/constant/details/integral_constant.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constant tag
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace constants
 {
-  template<int N> struct digit_ { BOOST_STATIC_CONSTANT(int, value = N); };
+  template<nt2::int64_t N> struct digit_ {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,16 +29,16 @@ namespace nt2 { namespace constants
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-10> , MTen  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-9 > , MNine )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-8 > , MEight)
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-7 > , MSeven)
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-6 > , MSix  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-5 > , MFive )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-4 > , MFour )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-3 > , MThree)
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-2 > , MTwo  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-1 > , MOne  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-10> , Mten  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-9 > , Mnine )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-8 > , Meight)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-7 > , Mseven)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-6 > , Msix  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-5 > , Mfive )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-4 > , Mfour )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-3 > , Mthree)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-2 > , Mtwo  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<-1 > , Mone  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 0 > , Zero  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 1 > , One   )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 2 > , Two   )
@@ -51,6 +50,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 8 > , Eight )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 9 > , Nine  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 10> , Ten   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 20> , Twenty)
 
   ////////////////////////////////////////////////////////////////////////////////
   // Larger values
@@ -59,11 +59,23 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<1000> , Thousand )
 
   ////////////////////////////////////////////////////////////////////////////////
-  // Values sueful for trigo and what not
+  // Values useful for trigo and what not
   ////////////////////////////////////////////////////////////////////////////////
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 45> , FortyFive         )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 45> , Fortyfive         )
   NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_< 90> , Ninety            )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , OneHundredEighty  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , Onehundredeighty  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::digit_<180> , C_180             )
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Local digit based constant generator
+  ////////////////////////////////////////////////////////////////////////////////
+  template<class Target, nt2::int64_t N> inline
+  typename meta::enable_call<constants::digit_<N>(meta::as_<Target>)>::type
+  integral_constant()
+  {
+    nt2::functors::functor< constants::digit_<N> > callee;
+    return callee( nt2::meta::as_<Target>() );
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,15 +83,20 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<int N, class Category,class Info>
-  struct  call<constants::digit_<N>,Category,Info>
-        : details::integral_constant< boost::mpl::int_<N>, Category >
-  {};
+  template<nt2::int64_t N, class Category,class Info>
+  struct  call<constants::digit_<N>,tag::constant_(Category),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>::type {};
+
+    template<class Target> inline typename Target::type const
+    operator()( Target const& ) const
+    {
+      typename Target::type that = splat<typename Target::type>(N);
+      return that;
+    }
+  };
 } }
-
-/*
-NT2_CONSTANT(not_one_ , Notone  ) // ~1
-
-*/
 
 #endif

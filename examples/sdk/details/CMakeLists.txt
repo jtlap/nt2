@@ -8,6 +8,7 @@
 ################################################################################
 
 SET(SOURCES
+    assertion_failed.cpp
     timestamp.cpp
     ignore_unused.cpp
     pp_enum_value.cpp
@@ -32,6 +33,7 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  ADD_DEPENDENCIES(examples ${EXECUTABLE})
 ENDFOREACH()
 
 

@@ -13,15 +13,15 @@
 template<class This, class... Args>
 struct  result<This(Args...)>
 {
-  typedef typename std::tr1::result_of<meta::dominant(Args...)>::type::tag      dom;
+  typedef typename meta::dominant<Args...>::type::tag      											dom;
   typedef typename std::tr1::result_of<call<Function,dom,Info>(Args...)>::type  type;
 };
 
 template<class... Args> inline
 typename meta::enable_call<Function(Args...)>::type
-operator()( Args const& ...args )
+operator()( Args const& ...args ) const
 {
-  typedef typename std::tr1::result_of<meta::dominant(Args...)>::type::tag dom;
+  typedef typename meta::dominant<Args...>::type::tag dom;
   call<Function,dom,Info> callee;
   return callee( args... );
 }

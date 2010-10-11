@@ -15,8 +15,12 @@
 
 namespace nt2 { namespace details
 {
-  template<class T, class Sign, class Category>
-  struct as_integer : meta::make_integer<sizeof(T),Sign> {};
+  template<class T, class Sign, class Category> struct as_integer;
+
+  template<class T, class Sign>
+  struct 	as_integer<T,Sign,tag::scalar_(tag::arithmetic_)>
+				: meta::make_integer<sizeof(T),Sign> {};
+	
 } }
 
 namespace nt2 { namespace meta
@@ -26,7 +30,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign=typename meta::sign_of<T>::type >
   struct  as_integer
-        : details::as_integer<T,Sign,typename category_of<T>::type > {};
+        : details::as_integer<T,Sign,typename category_of<T>::type::tag > {};
 } }
 
 #endif

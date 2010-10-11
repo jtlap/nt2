@@ -5,6 +5,7 @@ belong_to
 
 .. index::
     single: belong_to
+    single: meta; belong_to
 
 Description
 ^^^^^^^^^^^
@@ -52,7 +53,7 @@ Expression Semantics
 
 **Return type:** a Boolean |mpl_int|_
 
-**Semantic:** If ``S`` is a :ref:`.. _meta_set:`, equivalent to:
+**Semantic:** If ``S`` is a :ref:`meta_set`, equivalent to:
 
 .. code-block:: cpp
 

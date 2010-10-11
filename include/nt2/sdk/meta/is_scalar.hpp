@@ -10,6 +10,7 @@
 #define NT2_SDK_META_IS_SCALAR_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 
@@ -26,7 +27,10 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  is_scalar
-        : details::is_scalar<typename meta::category_of<T>::type::tag>
+        : details::is_scalar<typename category_of	<
+                                                  typename strip<T>::type
+																									>::type::tag
+													  >
   {};
 } }
 

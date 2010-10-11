@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Base class for generating an integral constant
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -45,25 +46,24 @@ namespace nt2 { namespace details
 
     template<class Sig> struct result;
 
-    template<class This,class Target>
-    struct result<This(meta::as_<Target>)> : inner<Target> {};
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : inner< typename meta::strip<A0>::type::type > {};
 
-    // Let's cheat to reuse FUNCTOR_CALL macros ;)
-    typedef real_constant call;
+    NT2_FUNCTOR_DISPATCH( 1
+                        , typename meta::scalar_of<typename A0::type>::type
+                        , (2,(double,float))
+                        , real_constant
+                        )
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename meta::scalar_of<typename A0::type>::type
-                              , (2,(double,float))
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
+    NT2_FUNCTOR_EVAL_IF(1,double,real_constant)
     {
       typedef union { uint64_t bits; double val; } type;
       type const that = {Values::double_value};
       return splat<typename A0::type>(that.val);
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+    NT2_FUNCTOR_EVAL_IF(1,float,real_constant)
     {
       typedef union { uint32_t bits; float val; } type;
       type const that = {Values::float_value};

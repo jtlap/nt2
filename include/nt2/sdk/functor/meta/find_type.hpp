@@ -14,8 +14,11 @@
 // the type can be found. Used in internal call<> tag dispatching
 //* TODO : Documentation:http://nt2.lri.fr/sdk/functor/meta/find_type.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/end.hpp>
+#include <boost/mpl/find.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/is_sequence.hpp>
 #include <nt2/sdk/functor/meta/belong_to.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
@@ -24,6 +27,23 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_shifted_params.hpp>
 #endif
+
+namespace nt2 { namespace details
+{
+  template<class T, class Seq, class Default>
+  struct find_type
+  {
+    typedef typename boost::mpl::find_if< Seq
+                                        , meta::belong_to<T,boost::mpl::_1>
+                                        >::type                           iter;
+    typedef typename boost::mpl::end<Seq>::type                           end_;
+    typedef boost::mpl::eval_if_c < boost::is_same<iter,end_>::value
+                                  , boost::mpl::identity<Default>
+                                  , boost::mpl::deref<iter>
+                                  >                                       base;
+    typedef typename base::type type;
+  };
+} }
 
 namespace nt2 { namespace meta
 {
@@ -63,10 +83,13 @@ namespace nt2 { namespace meta
 
   template<class Type, class Set>
   struct  find_type<Type,Set>
-        : boost::mpl::if_c< nt2::meta::belong_to<Type,Set>::value
-                          , Set
-                          , nt2::functors::empty_
-                          >
+        : boost::mpl::eval_if_c < boost::mpl::is_sequence<Set>::value
+                                , details::find_type<Type,Set,nt2::functors::empty_>
+                                , boost::mpl::if_c< nt2::meta::belong_to<Type,Set>::value
+                                                  , Set
+                                                  , nt2::functors::empty_
+                                                  >
+                                >
   {};
 
   #define M0(z,n,t)                                                           \

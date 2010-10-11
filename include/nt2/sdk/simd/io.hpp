@@ -10,8 +10,6 @@
 #define NT2_SDK_SIMD_IO_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/integral_promotion.hpp>
 
 namespace nt2 { namespace simd
 {
@@ -21,10 +19,10 @@ namespace nt2 { namespace simd
   template<class S,class E> static inline
   std::ostream& operator<<( std::ostream& os, native<S,E> const & v )
   {
-    // We want to display (u)int8_t as number not value
+    // We want to display (u)int8_t as a number
     typedef typename
-            boost::mpl::if_c< boost::is_integral<S>::value
-                            , typename  boost::integral_promotion<S>::type
+            boost::mpl::if_c< (sizeof(S)==1)
+                            , int
                             , typename native<S,E>::value_type
                             >::type display_type;
 

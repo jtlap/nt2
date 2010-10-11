@@ -27,20 +27,20 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Report a passed test
   //////////////////////////////////////////////////////////////////////////////
-  inline void pass(char const* x) { printf("  Test '%s' passed\n",x); }
+  inline void pass(char const* x) { printf(" * Test `%s` **passed**\n",x); }
 
   //////////////////////////////////////////////////////////////////////////////
   // Report a failed test & increment error count
   //////////////////////////////////////////////////////////////////////////////
   inline void fail(char const* x, int ln, char const* fn)
   {
-    printf("  Test '%s' failed in function %s (%d)\n", x,fn,ln);
+    printf(" * Test `%s` **failed** in function `%s (%d)`\n", x,fn,ln);
     ++error_count();
   }
 
   inline void error(char const* m, int ln, char const* fn)
   {
-    printf("  %s in function %s (%d)\n",m,fn,ln);
+    printf(" * %s in function `%s (%d)`\n",m,fn,ln);
     ++error_count();
   }
 } }

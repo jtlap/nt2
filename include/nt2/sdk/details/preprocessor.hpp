@@ -44,9 +44,29 @@
 #define NT2_PP_ENUM_SHIFTED_VALUE(n,v)  BOOST_PP_ENUM_SHIFTED(n,NT2_PP_TEXT,v)
 
 ////////////////////////////////////////////////////////////////////////////////
-// Programamble include directive
+// Programmable include directive
 // Documentation: http://nt2.lri.fr/sdk/details/include.html
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_PP_INCLUDE(Base,File) BOOST_PP_STRINGIZE(Base()File)
+
+////////////////////////////////////////////////////////////////////////////////
+// Strip potential parens around macro parameters.
+//        **!** SERIOUS STUFF BY STEVEN WATANABE SO YEAH IT WORKS**!**
+// Details are in http://article.gmane.org/gmane.comp.lib.boost.user/61011
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_PP_DETAILS_APPLY(macro, args)   NT2_PP_DETAILS_APPLY_I(macro, args)
+#define NT2_PP_DETAILS_APPLY_I(macro, args) macro args
+#define NT2_PP_DETAILS_STRIP_PARENS_I(...) 1,1
+#define NT2_PP_DETAILS_EVAL(test, x) NT2_PP_DETAILS_EVAL_I(test, x)
+#define NT2_PP_DETAILS_EVAL_I(test, x) NT2_PP_DETAILS_MAYBE_STRIP_PARENS(NT2_PP_DETAILS_TEST_ARITY test, x)
+#define NT2_PP_DETAILS_TEST_ARITY(...) NT2_PP_DETAILS_APPLY(NT2_PP_DETAILS_TEST_ARITY_I, (__VA_ARGS__, 2, 1))
+#define NT2_PP_DETAILS_TEST_ARITY_I(a,b,c,...) c
+#define NT2_PP_DETAILS_MAYBE_STRIP_PARENS(cond, x) NT2_PP_DETAILS_MAYBE_STRIP_PARENS_I(cond, x)
+#define NT2_PP_DETAILS_MAYBE_STRIP_PARENS_I(cond, x) BOOST_PP_CAT(NT2_PP_DETAILS_MAYBE_STRIP_PARENS_, cond)(x)
+#define NT2_PP_DETAILS_MAYBE_STRIP_PARENS_1(x) x
+#define NT2_PP_DETAILS_MAYBE_STRIP_PARENS_2(x) NT2_PP_DETAILS_APPLY(NT2_PP_DETAILS_MAYBE_STRIP_PARENS_2_I, x)
+#define NT2_PP_DETAILS_MAYBE_STRIP_PARENS_2_I(...) __VA_ARGS__
+
+#define NT2_PP_STRIP(x) NT2_PP_DETAILS_EVAL((NT2_PP_DETAILS_STRIP_PARENS_I x), x)
 
 #endif

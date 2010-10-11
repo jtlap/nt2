@@ -1,13 +1,13 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#ifndef NT2_SDK_SIMD_EXTENSOINS_META_ALTIVEC_HPP_INCLUDED
-#define NT2_SDK_SIMD_EXTENSOINS_META_ALTIVEC_HPP_INCLUDED
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#ifndef NT2_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
+#define NT2_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
 
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/has_key.hpp>
@@ -16,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Tag for Altivec PPC extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct vmx_ {}; } }
+namespace nt2 { namespace tag { struct altivec_ {}; } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec PPC extensions overload
@@ -26,8 +26,8 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Extension>
-  struct  is_simd_specific<T,tag::vmx_>
+  template<class T>
+  struct  is_simd_specific<T,tag::altivec_>
         : nt2::meta::has_key < nt2::meta::set < __vector float
                                               , __vector unsigned int
                                               , __vector unsigned short
@@ -43,7 +43,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct  as_simd<T,tag::vmx_>
+  template<class T> struct  as_simd<T,tag::altivec_>
   {
     template<class Key, class Dummy=void> struct entry  { typedef na_ type; };
 
@@ -69,19 +69,19 @@ namespace nt2 { namespace meta
   // For a given SIMD register type, return the associated SIMD extension tag
   //////////////////////////////////////////////////////////////////////////////
   template<class X>
-  struct extension_of<__vector float          ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector float          ,X> { typedef tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector unsigned int   ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector unsigned int   ,X> { typedef tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector unsigned short ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector unsigned short ,X> { typedef tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector unsigned char  ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector unsigned char  ,X> { typedef tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector signed int     ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector signed int     ,X> { typedef tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector signed short   ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector signed short   ,X> { typedef tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector signed char    ,X> { typedef tag::vmx_ type; };
+  struct extension_of<__vector signed char    ,X> { typedef tag::altivec_ type; };
 } }
 
 #endif

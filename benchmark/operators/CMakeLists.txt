@@ -26,10 +26,11 @@ FOREACH( EXAMPLE ${SOURCES})
   # Build the executable filename from the example source filename
   ##############################################################################
   STRING(REGEX REPLACE ".cpp" ".bench" EXECUTABLE "${EXAMPLE}")
-  
+
   ##############################################################################
   # Add as a target
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  ADD_DEPENDENCIES(operators.bench ${EXECUTABLE})
 ENDFOREACH()

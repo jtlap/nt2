@@ -13,3 +13,5 @@ allocation and access through a generic interface
 
    function/align_on
    function/is_aligned
+   function/load
+   function/store

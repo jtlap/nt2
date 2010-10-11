@@ -10,6 +10,7 @@
 #define NT2_SDK_META_IS_SIGNED_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 
@@ -44,11 +45,20 @@ namespace nt2 { namespace details
 namespace nt2 { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Return trues or false depending on T is signed or not
+  // Return true or false depending on T is signed or not
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  is_signed
-        : details::is_signed<T,typename meta::category_of<T>::type::tag>
+        : details::is_signed< typename strip<T>::type
+                            , typename meta::category_of<T>::type::tag>
+  {};
+  //////////////////////////////////////////////////////////////////////////////
+  // Return false or true depending on T is signed or not
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  struct  is_unsigned
+    : boost::mpl::not_ < details::is_signed< typename strip<T>::type
+                            , typename meta::category_of<T>::type::tag> > 
   {};
 } }
 

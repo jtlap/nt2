@@ -12,6 +12,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Make True and False
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/constant/splat.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 
 namespace nt2 { namespace constants
@@ -29,11 +31,11 @@ namespace nt2
 namespace nt2 { namespace functors
 {
   template<class Category,class Info>
-  struct  call<constants::true_,Category,Info>
+  struct  call<constants::true_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
-    template<class This,class Target>
-    struct result<This(nt2::meta::as_<Target>)> { typedef Target type; };
+    template<class This,class A0>
+    struct  result<This(A0)> : meta::strip<A0>::type {};
 
     template<class Target> inline typename Target::type const
     operator()( Target const& ) const
@@ -43,16 +45,18 @@ namespace nt2 { namespace functors
   };
 
   template<class Category,class Info>
-  struct  call<constants::false_,Category,Info>
+  struct  call<constants::false_,tag::constant_(Category),Info>
   {
     template<class Sig> struct result;
-    template<class This,class Target>
-    struct result<This(nt2::meta::as_<Target>)> { typedef Target type; };
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : meta::strip<A0>::type {};
 
     template<class Target> inline typename Target::type const
     operator()( Target const& ) const
     {
-      return false;
+      typedef typename meta::scalar_of<typename Target::type>::type type;
+      return splat<typename Target::type>(0);
     }
   };
 } }

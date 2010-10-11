@@ -14,8 +14,9 @@
 // if it's an AssociativeSequence, or are they the same otherwise
 // Documentation: http://nt2.lri.fr/sdk/functor/meta/belong_to.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/meta/has_key.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/is_set.hpp>
+#include <nt2/sdk/meta/has_key.hpp>
 
 namespace nt2 { namespace details
 {
@@ -36,7 +37,9 @@ namespace nt2 { namespace meta
 {
   template<class T, class S>
   struct  belong_to
-        : details::belong_to_impl<T,S,meta::is_set<S>::value> {};
+        : details::belong_to_impl < typename strip<T>::type
+                                  , S
+                                  ,meta::is_set<S>::value> {};
 } }
 
 #endif

@@ -10,113 +10,50 @@
 ################################################################################
 # Setup some compliler options
 ################################################################################
-include(CheckCXXCompilerFlag)
+SET( NT2_FLAGS "")
 
 ################################################################################
-# g++ command line
+# Fix CMAKE_BUILD_TYPE
 ################################################################################
-IF(CMAKE_COMPILER_IS_GNUCXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_THREAD_LIBS_INIT}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-
-################################################################################
-# Configuration options
-################################################################################
-IF(MMX_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmmx")
-ENDIF(MMX_FOUND)
-
-IF(SSE2_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2")
-ENDIF(SSE2_FOUND)
-
-IF(SSE3_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse3")
-ENDIF(SSE3_FOUND)
-
-IF(SSSE3_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mssse3")
-ENDIF(SSSE3_FOUND)
-
-IF(SSE4_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4")
-ENDIF(SSE4_FOUND)
-
-IF(SSE4_1_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4_1")
-ENDIF(SSE4_1_FOUND)
-
-IF(SSE4_2_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4_2")
-ENDIF(SSE4_2_FOUND)
-
-IF(SSE4A_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4a")
-ENDIF(SSE4A_FOUND)
-
-IF(AVX_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx")
-ENDIF(AVX_FOUND)
-
-IF(ALTIVEC_FOUND)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maltivec")
-ENDIF(ALTIVEC_FOUND)
-
-MESSAGE(STATUS "Compiling NT2 with" ${CMAKE_CXX_FLAGS})
+IF( NOT CMAKE_BUILD_TYPE )
+SET( CMAKE_BUILD_TYPE "Release")
+ENDIF()
 
 ################################################################################
-# User Options
+# Check for special options
 ################################################################################
+INCLUDE(CheckCXXCompilerFlag)
+INCLUDE(options/nt2.extra.warnings)
+INCLUDE(options/nt2.pedantic)
 
 ################################################################################
-# Build as static library
+# Add NT2_FLAGS to proper CMAKE_CXX_FLAGS
 ################################################################################
+SET( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${NT2_FLAGS}")
+SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${NT2_FLAGS}")
+SET( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${NT2_FLAGS} -DNT2_DEBUG")
+SET( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${NT2_FLAGS}")
+SET( CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} ${NT2_FLAGS}")
 
 ################################################################################
-# Add -Wextra
+# Log current choice
 ################################################################################
-OPTION(NT2_EXTRA_WARNINGS "Enable/Disable extra warnings" OFF)
-IF(NT2_EXTRA_WARNINGS)
-check_cxx_compiler_flag("-Wextra" HAS_WEXTRA)
-IF(HAS_WEXTRA)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
-message(STATUS "Enabling extra warnings")
-ENDIF(HAS_WEXTRA)
-ENDIF(NT2_EXTRA_WARNINGS)
+IF( ${CMAKE_BUILD_TYPE} STREQUAL Release )
+MESSAGE( STATUS "[NT2] Build type: Release mode (${CMAKE_CXX_FLAGS_RELEASE})" )
+SET( NT2_CURRENT_FLAGS ${CMAKE_CXX_FLAGS_RELEASE})
+ENDIF()
 
-################################################################################
-# Add -pedantic
-################################################################################
-OPTION(NT2_PEDANTIC "Enable/Disable pedantic compilation" OFF)
-IF(NT2_PEDANTIC)
-check_cxx_compiler_flag("-pedantic" HAS_PEDANTIC)
-IF(HAS_PEDANTIC)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
-message(STATUS "Enabling pedantic compilation")
-ENDIF(HAS_PEDANTIC)
-ENDIF(NT2_PEDANTIC)
+IF( ${CMAKE_BUILD_TYPE} STREQUAL Debug )
+MESSAGE( STATUS "[NT2] Build type: Debug mode (${CMAKE_CXX_FLAGS_DEBUG})" )
+SET( NT2_CURRENT_FLAGS ${CMAKE_CXX_FLAGS_DEBUG})
+ENDIF()
 
-################################################################################
-# Add --std=c++0x
-################################################################################
-OPTION(NT2_0X "Enable/Disable C++0x" OFF)
-IF(NT2_0X)
-check_cxx_compiler_flag("--std=c++0x" HAS_0X)
-IF(HAS_0X)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x")
-message(STATUS "Enabling C++0x")
-ENDIF(HAS_0X)
-ENDIF(NT2_0X)
+IF( ${CMAKE_BUILD_TYPE} STREQUAL RelWithDebInfo )
+MESSAGE( STATUS "[NT2] Build type: RelWithDebInfo mode (${CMAKE_CXX_FLAGS_RELWITHDEBINFO})" )
+SET( NT2_CURRENT_FLAGS ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+ENDIF()
 
-################################################################################
-# Handle all type of BUILD_TYPE:
-# None (CMAKE_C_FLAGS or CMAKE_CXX_FLAGS used)
-# Debug (CMAKE_C_FLAGS_DEBUG or CMAKE_CXX_FLAGS_DEBUG)
-# Release (CMAKE_C_FLAGS_RELEASE or CMAKE_CXX_FLAGS_RELEASE)
-# RelWithDebInfo (CMAKE_C_FLAGS_RELWITHDEBINFO or CMAKE_CXX_FLAGS_RELWITHDEBINFO
-# MinSizeRel (CMAKE_C_FLAGS_MINSIZEREL or CMAKE_CXX_FLAGS_MINSIZEREL) 
-################################################################################
-
-ENDIF(CMAKE_COMPILER_IS_GNUCXX)
-
+IF( ${CMAKE_BUILD_TYPE} STREQUAL MinSizeRel )
+MESSAGE( STATUS "[NT2] Build type: MinSizeRel mode (${CMAKE_CXX_FLAGS_MINSIZEREL})" )
+SET( NT2_CURRENT_FLAGS ${CMAKE_CXX_FLAGS_MINSIZEREL})
+ENDIF()

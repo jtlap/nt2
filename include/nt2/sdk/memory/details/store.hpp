@@ -13,7 +13,7 @@
 // load for scalar types
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/category.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace functors
@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> { typedef A0 type; };
+    struct  result<This(A0,A1,A2)> : boost::remove_reference<A0> {};
 
     NT2_FUNCTOR_CALL(3) { return a1[a2] = a0; }
   };

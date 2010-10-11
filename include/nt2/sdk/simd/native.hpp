@@ -10,18 +10,12 @@
 #define NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/extensions.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/memory/overload.hpp>
 #include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
-
-/*
-#include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/aligned/overload.hpp>
-#include <nt2/sdk/functor/details/operators.hpp>
-*/
 
 namespace nt2 { namespace simd
 {
@@ -44,7 +38,7 @@ namespace nt2 { namespace simd
     typedef Scalar                                          value_type;
     typedef Extension                                       extension_type;
     typedef functors::simd_<tag::arithmetic_,Extension,1>   nt2_category_tag;
-    typedef native<Scalar,Extension>                        self_type;
+    typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
     typedef value_type&                                     reference;
     typedef value_type                                      const_reference;
@@ -73,17 +67,17 @@ namespace nt2 { namespace simd
     // Assignment operator from compatible types
     ////////////////////////////////////////////////////////////////////////////
     template<class S2>
-    self_type& operator=(native<S2, extension_type> const& s)
+    this_type& operator=(native<S2, extension_type> const& s)
     {
       data_ = native_type(s.data_);
       return *this;
     }
 
-    self_type& operator=(native_type const& s) { data_ = s; return *this;}
+    this_type& operator=(native_type const& s) { data_ = s; return *this;}
 
     template<class V2>
     typename boost::enable_if_c< meta::is_simd_specific<V2,extension_type>::value
-                               , self_type&
+                               , this_type&
                                >::type
     operator=(V2 const& s) { data_ = native_type(s); return *this;}
 
@@ -94,7 +88,7 @@ namespace nt2 { namespace simd
 
     const_reference  operator[](int i) const
     {
-      // we need to return in memory as reinterpret_cast triggers UB
+      // we need to return in memory as using reinterpret_cast is an UB here
       extraction_type const that = {data_};
       return that.s[i];
     }
@@ -107,42 +101,84 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // new/delete operator to force alignment on heap of native values
     ////////////////////////////////////////////////////////////////////////////
-    //NT2_ALIGN_OVERLOAD_NEW_DELETE(NT2_SIMD_BYTES)
+    NT2_MEMORY_OVERLOAD_NEW_DELETE(this_type)
 
     ////////////////////////////////////////////////////////////////////////////
     // self-operator methods
     ////////////////////////////////////////////////////////////////////////////
-/*
-    NT2_FUNCTION_METHOD_SELF(operator+= ,functors::plus_assign_       , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator-= ,functors::minus_assign_      , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator*= ,functors::multiplies_assign_ , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator/= ,functors::divides_assign_    , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator%= ,functors::modulo_assign_     , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator&= ,functors::bitwise_and_assign_, self_type )
-    NT2_FUNCTION_METHOD_SELF(operator|= ,functors::bitwise_or_assign_ , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator^= ,functors::bitwise_xor_assign_, self_type )
-    NT2_FUNCTION_METHOD_SELF(operator<<=,functors::shift_left_assign_ , self_type )
-    NT2_FUNCTION_METHOD_SELF(operator>>=,functors::shift_right_assign_, self_type )
-*/
-    self_type const& operator+() const { return *this; }
+    this_type const& operator+() const { return *this; }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Pre/Post Increment thingy
-    ////////////////////////////////////////////////////////////////////////////
-    self_type& operator++() { *this += One<self_type>();  return *this; }
-    self_type& operator--() { *this -= One<self_type>();  return *this; }
-
-    self_type  operator++ (int)
+    this_type& operator+=(this_type const& src)
     {
-      self_type that = *this;
-      self_type::operator++();
+      *this = *this + src;
+      return *this;
+    }
+
+    this_type& operator-=(this_type const& src)
+    {
+      *this = *this - src;
+      return *this;
+    }
+
+    this_type& operator*=(this_type const& src)
+    {
+      *this = *this * src;
+      return *this;
+    }
+
+    this_type& operator/=(this_type const& src)
+    {
+      *this = *this / src;
+      return *this;
+    }
+
+    this_type& operator&=(this_type const& src)
+    {
+      *this = *this & src;
+      return *this;
+    }
+
+    this_type& operator|=(this_type const& src)
+    {
+      *this = *this | src;
+      return *this;
+    }
+
+    this_type& operator^=(this_type const& src)
+    {
+      *this = *this ^ src;
+      return *this;
+    }
+
+    this_type& operator>>=(this_type const& src)
+    {
+      *this = *this >> src;
+      return *this;
+    }
+
+    this_type& operator<<=(this_type const& src)
+    {
+      *this = *this << src;
+      return *this;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Pre/Post Increment/Decrement
+    ////////////////////////////////////////////////////////////////////////////
+    this_type& operator++() { *this += One<this_type>();  return *this; }
+    this_type& operator--() { *this -= One<this_type>();  return *this; }
+
+    this_type  operator++ (int)
+    {
+      this_type that = *this;
+      this_type::operator++();
       return that;
     }
 
-    self_type  operator-- (int)
+    this_type  operator-- (int)
     {
-      self_type that = *this;
-      self_type::operator--();
+      this_type that = *this;
+      this_type::operator--();
       return that;
     }
   };
@@ -154,11 +190,8 @@ namespace nt2 { namespace simd
 #include <nt2/sdk/simd/details/native/meta.hpp>
 #include <nt2/sdk/simd/details/native/fusion.hpp>
 #include <nt2/sdk/simd/details/native/constants.hpp>
-
-/*
-#include <nt2/sdk/simd/native/details/operators.hpp>
-#include <nt2/sdk/simd/native/details/functions.hpp>
-*/
-
+#include <nt2/sdk/simd/details/native/functions.hpp>
+#include <nt2/sdk/simd/details/native/operators.hpp>
+#include <nt2/sdk/simd/details/native/comparisons.hpp>
 
 #endif

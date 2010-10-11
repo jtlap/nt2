@@ -7,7 +7,11 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/unit)
+################################################################################
+# Add global unit driver rules
+################################################################################
+ADD_CUSTOM_TARGET(core.unit)
+ADD_CUSTOM_TARGET(sdk.unit)
 
 ################################################################################
 # Add all unit directories for core/
@@ -15,13 +19,16 @@ set(UNIT_TEST_PATH ${PROJECT_BINARY_DIR}/bin/unit)
 #ADD_SUBDIRECTORY(core/time)
 
 ################################################################################
-# Add all examples directories for unit/
+# Add all examples directories for sdk/
 ################################################################################
 ADD_SUBDIRECTORY(sdk/meta)
 ADD_SUBDIRECTORY(sdk/functor)
+ADD_SUBDIRECTORY(sdk/constant)
 ADD_SUBDIRECTORY(sdk/memory)
-#ADD_SUBDIRECTORY(sdk/aligned) ???
-#ADD_SUBDIRECTORY(sdk/constant)
-#ADD_SUBDIRECTORY(sdk/scalar)
-#ADD_SUBDIRECTORY(sdk/simd)
+ADD_SUBDIRECTORY(sdk/simd)
 
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(unit core.unit)  
+ADD_DEPENDENCIES(unit sdk.unit)

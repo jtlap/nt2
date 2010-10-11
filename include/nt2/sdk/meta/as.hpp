@@ -13,13 +13,9 @@
 // Type wrapper that acts *as* the type it boxes
 //* TODO: Documentation: http://nt2.lri.fr/sdk/meta/helpers/as.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/meta/category_of.hpp>
-
 namespace nt2 { namespace meta
 {
   template<class T> struct as_ { typedef T type; };
-
-  template<class T> struct category_of< as_<T> > : category_of<T> {};
 } }
 
 #endif

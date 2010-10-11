@@ -10,7 +10,7 @@
 
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/meta/make_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -21,20 +21,18 @@
 NT2_TEST_CASE(make_aligned)
 {
   using nt2::memory::is_aligned;
-  using nt2::meta::make_aligned;
-  using namespace nt2;
 
-  make_aligned<double>::type    ad;
-  make_aligned<float>::type     af;
-  make_aligned<uint64_t>::type  aui64;
-  make_aligned<uint32_t>::type  aui32;
-  make_aligned<uint16_t>::type  aui16;
-  make_aligned<uint8_t>::type   aui8;
-  make_aligned<int64_t>::type   ai64;
-  make_aligned<int32_t>::type   ai32;
-  make_aligned<int16_t>::type   ai16;
-  make_aligned<int8_t>::type    ai8;
-  make_aligned<bool>::type      ab;
+  NT2_ALIGNED_TYPE(double       ) ad;
+  NT2_ALIGNED_TYPE(float        ) af;
+  NT2_ALIGNED_TYPE(nt2::uint64_t) aui64;
+  NT2_ALIGNED_TYPE(nt2::uint32_t) aui32;
+  NT2_ALIGNED_TYPE(nt2::uint16_t) aui16;
+  NT2_ALIGNED_TYPE(nt2::uint8_t ) aui8;
+  NT2_ALIGNED_TYPE(nt2::int64_t ) ai64;
+  NT2_ALIGNED_TYPE(nt2::int32_t ) ai32;
+  NT2_ALIGNED_TYPE(nt2::int16_t ) ai16;
+  NT2_ALIGNED_TYPE(nt2::int8_t  ) ai8;
+  NT2_ALIGNED_TYPE(bool         ) ab;
 
   NT2_TEST( is_aligned(&ad) );
   NT2_TEST( is_aligned(&af) );
@@ -55,20 +53,18 @@ NT2_TEST_CASE(make_aligned)
 NT2_TEST_CASE(make_aligned_array)
 {
   using nt2::memory::is_aligned;
-  using nt2::meta::make_aligned;
-  using namespace nt2;
 
-  make_aligned<double[3]>::type    ad;
-  make_aligned<float[3]>::type     af;
-  make_aligned<uint64_t[3]>::type  aui64;
-  make_aligned<uint32_t[3]>::type  aui32;
-  make_aligned<uint16_t[3]>::type  aui16;
-  make_aligned<uint8_t[3]>::type   aui8;
-  make_aligned<int64_t[3]>::type   ai64;
-  make_aligned<int32_t[3]>::type   ai32;
-  make_aligned<int16_t[3]>::type   ai16;
-  make_aligned<int8_t[3]>::type    ai8;
-  make_aligned<bool[3]>::type      ab;
+  NT2_ALIGNED_TYPE(double       ) ad[3];
+  NT2_ALIGNED_TYPE(float        ) af[3];
+  NT2_ALIGNED_TYPE(nt2::uint64_t) aui64[3];
+  NT2_ALIGNED_TYPE(nt2::uint32_t) aui32[3];
+  NT2_ALIGNED_TYPE(nt2::uint16_t) aui16[3];
+  NT2_ALIGNED_TYPE(nt2::uint8_t ) aui8[3];
+  NT2_ALIGNED_TYPE(nt2::int64_t ) ai64[3];
+  NT2_ALIGNED_TYPE(nt2::int32_t ) ai32[3];
+  NT2_ALIGNED_TYPE(nt2::int16_t ) ai16[3];
+  NT2_ALIGNED_TYPE(nt2::int8_t  ) ai8[3];
+  NT2_ALIGNED_TYPE(bool         ) ab[3];
 
   NT2_TEST( is_aligned(&ad) );
   NT2_TEST( is_aligned(&af) );

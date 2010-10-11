@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/parall/metascale/!svn/ver/1720/nt2/branches/nt2-cleanup/nt2/core/numeric/function/details/scalar/impl/expo
+END
+d_expo_reduction.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/parall/metascale/!svn/ver/1710/nt2/branches/nt2-cleanup/nt2/core/numeric/function/details/scalar/impl/expo/d_expo_reduction.hpp
+END
+f_expo_reduction.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/parall/metascale/!svn/ver/1715/nt2/branches/nt2-cleanup/nt2/core/numeric/function/details/scalar/impl/expo/f_expo_reduction.hpp
+END
+expo_finalization.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/parall/metascale/!svn/ver/1720/nt2/branches/nt2-cleanup/nt2/core/numeric/function/details/scalar/impl/expo/expo_finalization.hpp
+END
+expo_base.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/parall/metascale/!svn/ver/1533/nt2/branches/nt2-cleanup/nt2/core/numeric/function/details/scalar/impl/expo/expo_base.hpp
+END

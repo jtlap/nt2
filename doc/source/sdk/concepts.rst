@@ -12,4 +12,5 @@ Concepts was deemed necessary.
 .. toctree::
    :maxdepth: 1
 
+   concepts/categorizable
    concepts/category

@@ -11,24 +11,43 @@
 # Find Number of cores
 ################################################################################
 
-IF(UNIX)
-execute_process(COMMAND getconf _NPROCESSORS_ONLN
-                OUTPUT_VARIABLE NT2_CONFIG_CPU_COUNT
+################################################################################
+# MAC OS X use sysctl
+################################################################################
+IF(APPLE)
+EXECUTE_PROCESS(COMMAND sysctl -n hw.ncpu
+                OUTPUT_VARIABLE TMP_CPU_COUNT
                )
+STRING(REGEX REPLACE "\n" "" NT2_CONFIG_CPU_COUNT ${TMP_CPU_COUNT})
 ENDIF()
 
-IF(WINDOWS)
+################################################################################
+# Unix use getconf
+################################################################################
+IF(UNIX)
+EXECUTE_PROCESS(COMMAND getconf _NPROCESSORS_ONLN
+                OUTPUT_VARIABLE TMP_CPU_COUNT
+               )
+STRING(REGEX REPLACE "\n" "" NT2_CONFIG_CPU_COUNT ${TMP_CPU_COUNT})
+ENDIF()
+
+################################################################################
+# Windows use a small cpp source
+################################################################################
+IF(WIN32)
 ################################################################################
 # Compile a small cpu counter program then run it
 ################################################################################
-try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
+TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/cpu.cpp
+        ${CMAKE_MODULE_PATH}/src/win32_cpucount.cpp
+        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
        )
 
 IF(${COMPILE_RESULT_VAR})
-  set(${NT2_CONFIG_CPU_COUNT} ${RUN_RESULT_VAR})
+  SET(NT2_CONFIG_CPU_COUNT ${RUN_RESULT_VAR})
 ENDIF()
 
 ENDIF()
 
+MESSAGE( STATUS "Cores found: ${NT2_CONFIG_CPU_COUNT}")

@@ -24,12 +24,15 @@ namespace nt2 { namespace meta
           , class Sign      = unsigned
           , class Transform = na_
           >
-  struct  make_integer
-        : boost::mpl::apply<Transform,typename boost::uint_t<8*Size>::fast> {};
+  struct  make_integer;
+
+  template< std::size_t Size, class Transform>
+  struct  make_integer<Size,unsigned,Transform>
+        : boost::mpl::apply<Transform,typename boost::uint_t<CHAR_BIT*Size>::fast> {};
 
   template< std::size_t Size, class Transform >
   struct  make_integer<Size,signed,Transform>
-        : boost::mpl::apply<Transform,typename boost::int_t<8*Size>::fast> {};
+        : boost::mpl::apply<Transform,typename boost::int_t<CHAR_BIT*Size>::fast> {};
 
   //////////////////////////////////////////////////////////////////////////////
   // Overload for long long to fix lack of boost::integer support
@@ -47,12 +50,12 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template< std::size_t Size> struct make_integer<Size,unsigned,na_>
   {
-    typedef typename boost::uint_t<8*Size>::fast type;
+    typedef typename boost::uint_t<CHAR_BIT*Size>::fast type;
   };
 
   template< std::size_t Size> struct make_integer<Size,signed,na_>
   {
-    typedef typename boost::int_t<8*Size>::fast type;
+    typedef typename boost::int_t<CHAR_BIT*Size>::fast type;
   };
 
   template<> struct make_integer<sizeof(boost::int64_t),unsigned,na_>

@@ -9,18 +9,13 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_NONE_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_NONE_HPP_INCLUDED
 
-#include <boost/cstdint.hpp>
-#include <boost/mpl/map.hpp>
-#include <boost/mpl/set.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <nt2/sdk/simd/meta/as_simd.hpp>
 #include <nt2/sdk/simd/meta/extension_of.hpp>
 #include <nt2/sdk/simd/meta/is_simd_specific.hpp>
 
 #if !defined(NT2_SIMD_DETECTED)
-#if defined(NT2_VERBOSE)
-#warning NT2 Configuration: No SIMD extensions detected.
-#endif
+NT2_WARNING(No SIMD extensions detected)
+#define NT2_NO_SIMD
 
 ////////////////////////////////////////////////////////////////////////////////
 // If no SIMD extension are set, we still need to align on 128 bits to allow
@@ -30,6 +25,15 @@
 #define NT2_SIMD_BITS       128
 #define NT2_SIMD_STRING     "none"
 #define NT2_SIMD_CARDINALS (1)
+
+#if defined(NT2_SIMD_TYPES)
+#define NT2_SIMD_TYPES
+#define NT2_SIMD_REAL
+#define NT2_SIMD_UNSIGNED_TYPES
+#define NT2_SIMD_SIGNED_TYPES
+#define NT2_SIMD_INTEGRAL_SIGNED_TYPES
+#define NT2_SIMD_INTEGRAL_UNSIGNED_TYPES
+#endif
 
 #endif
 

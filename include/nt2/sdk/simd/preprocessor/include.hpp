@@ -11,11 +11,11 @@
 
 #include <nt2/sdk/simd/extensions.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
-
-#define NT2_SIMD_INCLUDE(F)             NT2_PP_INCLUDE(NT2_SIMD_INCLUDE_BASE,F)
-#define NT2_SIMD_RELATIVE_INCLUDE(B,F)  NT2_PP_INCLUDE(NT2_SIMD_RELATIVE_INCLUDE_BASE(B),F)
-
 #include <nt2/sdk/simd/preprocessor/sse.hpp>
 #include <nt2/sdk/simd/preprocessor/vmx.hpp>
 
+#define NT2_SIMD_INCLUDE(F)             NT2_PP_INCLUDE(NT2_SIMD_INCLUDE_BASE,F)
+#define NT2_SIMD_RELATIVE_INCLUDE(B,F)  NT2_SIMD_RELATIVE_INCLUDE_BASE(B,F)
+
 #endif
+

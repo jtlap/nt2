@@ -27,9 +27,10 @@ namespace nt2 { namespace details
       #if !defined(NT2_TEST_SILENT)
       int t = details::test_count();
       int e = details::error_count();
-      puts("===============================================================");
-      printf( "[%s] : %d test - %d passed - %d failure.\n"
-            , NT2_UNIT_MODULE, t, (t-e), e
+      printf( "Results:\n"
+              "----------------------------------------------------------------\n"
+              "%d test - %d pass - %d fail.\n"
+            , t, (t-e), e
             );
       #endif
     }
@@ -40,7 +41,8 @@ namespace nt2 { namespace details
     void process() const
     {
       #if !defined(NT2_TEST_SILENT)
-      printf("[%s] Tests starting ...\n",NT2_UNIT_MODULE);
+      printf("[%s]\n",NT2_UNIT_MODULE);
+      puts("===============================================================");
       #endif
       if(tests) tests->process();
     }

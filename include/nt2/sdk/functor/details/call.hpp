@@ -11,19 +11,24 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // User-overloadable call meta-function
-//* TODO : Documentation:http://nt2.lri.fr/sdk/howto/functor.html
+// Documentation:http://nt2.lri.fr/extension/custom_function.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
+  // Flag call instanciation as callable
+  //////////////////////////////////////////////////////////////////////////////
+  struct callable { typedef void callable_type; };
+
+  //////////////////////////////////////////////////////////////////////////////
   // Call to non-categorizable types ends up in error
   //////////////////////////////////////////////////////////////////////////////
   template<class Function,class I>
-  struct call<Function,tag::unknown,I>
+  struct call<Function,tag::unknown,I> : callable
   {
     NT2_STATIC_ASSERT( (false), UNIMPLEMENTED_FUNCTOR, (Function) );
   };

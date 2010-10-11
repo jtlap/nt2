@@ -19,10 +19,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTION_INTERFACE(TAG,NAME,N)                            \
-template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                      \
-typename nt2::meta::enable_call<TAG(BOOST_PP_ENUM_PARAMS(N,A))>::type \
-NAME ( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) )                   \
+#define NT2_FUNCTION_INTERFACE(TAG,NAME,N)                                      \
+template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                                \
+typename nt2::meta::enable_call<TAG (                                           \
+                    BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT) \
+                                    )>::type                                    \
+NAME ( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) )                             \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,13 +47,13 @@ NT2_FUNCTION_INTERFACE(TAG,NAME,N) { NT2_FUNCTION_BODY(TAG,N); }  \
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_FUNCTION_IMPLEMENTATION_SELF_1(NAME,TAG)  \
 template<class A0> inline                             \
-typename nt2::meta::enable_call<TAG(A0)>::type        \
+typename nt2::meta::enable_call<TAG(A0&)>::type       \
 NAME( A0& a0 )  { NT2_FUNCTION_BODY(TAG,1) }          \
 /**/
 
 #define NT2_FUNCTION_IMPLEMENTATION_SELF_2(NAME,TAG)        \
 template<class A0,class A1> inline                          \
-typename nt2::meta::enable_call<TAG(A0,A1)>::type           \
+typename nt2::meta::enable_call<TAG(A0&,A1 const&)>::type   \
 NAME( A0& a0, A1 const& a1 )  { NT2_FUNCTION_BODY(TAG,2) }  \
 /**/
 
@@ -62,14 +64,14 @@ BOOST_PP_CAT(NT2_FUNCTION_IMPLEMENTATION_SELF_,N)(NAME,TAG) \
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a method for self-operator overload
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTION_METHOD_SELF(NAME,TAG,SELF)     \
-template<class A0> inline                           \
-typename nt2::meta::enable_call<TAG(SELF,A0)>::type \
-NAME( A0 const& a0 )                                \
-{                                                   \
-  nt2::functors::functor<TAG> callee;               \
-  return callee(*this,a0);                          \
-}                                                   \
+#define NT2_FUNCTION_METHOD_SELF(NAME,TAG,SELF)             \
+template<class A0> inline                                   \
+typename nt2::meta::enable_call<TAG(SELF&,A0 const&)>::type \
+NAME( A0 const& a0 )                                        \
+{                                                           \
+  nt2::functors::functor<TAG> callee;                       \
+  return callee(*this,a0);                                  \
+}                                                           \
 /**/
 
 #endif

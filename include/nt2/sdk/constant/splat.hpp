@@ -1,13 +1,13 @@
-/******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#ifndef NT2_CORE_NUMERIC_FUNCTION_SPLAT_HPP_INCLUDED
-#define NT2_CORE_NUMERIC_FUNCTION_SPLAT_HPP_INCLUDED
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#ifndef NT2_SDK_CONSTANT_SPLAT_HPP_INCLUDED
+#define NT2_SDK_CONSTANT_SPLAT_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
@@ -34,18 +34,18 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::category_of<T>::type::tag    dominant;
       typedef functors::call<splat_<T>,dominant,Info>     callee;
-	  typedef typename std::tr1::result_of<callee(A0)>::type type;
+  	  typedef typename std::tr1::result_of<callee(A0)>::type type;
     };
 
-      template<class A0> inline
-      typename meta::enable_call<splat_<T>(A0)>::type
-      operator()(A0 const& a0) const
-      {
-        typedef typename meta::category_of<T>::type::tag    dominant;
-        functors::call<splat_<T>,dominant,Info>     callee;
-        return callee(a0);
-      }
-    };
+    template<class A0> inline
+    typename meta::enable_call<splat_<T>(A0)>::type
+    operator()(A0 const& a0) const
+    {
+      typedef typename meta::category_of<T>::type::tag    dominant;
+      functors::call<splat_<T>,dominant,Info>     callee;
+      return callee(a0);
+    }
+  };
 } }
 
 namespace nt2

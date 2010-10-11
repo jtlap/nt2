@@ -15,9 +15,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
+#include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
-#include <nt2/sdk/errors/static_assert.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/functor/meta/dominant.hpp>
 #include <nt2/sdk/functor/meta/enable_call.hpp>
 #include <nt2/sdk/functor/details/validate.hpp>

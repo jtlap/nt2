@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_TIMING_EXCEPTIONS_HPP_INCLUDED
 #define NT2_CORE_TIMING_EXCEPTIONS_HPP_INCLUDED
 
-#include <nt2/sdk/errors/details/exception.hpp>
+#include <nt2/sdk/error/details/exception.hpp>
 
 namespace nt2 { namespace time
 {

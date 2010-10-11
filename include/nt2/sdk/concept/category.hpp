@@ -10,11 +10,11 @@
 #define NT2_SDK_CONCEPT_CATEGORY_HPP_INCLUDED
 
 #include <nt2/sdk/meta/unknown.hpp>
-#include <nt2/sdk/errors/concepts.hpp>
+#include <nt2/sdk/error/concepts.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Categorizy concept: defines types usbale as NT2 category tag
-//* TODO: Documentation: http://nt2.lri.fr/sdk/concept/category.hpp
+// Documentation: http://nt2.lri.fr/sdk/concept/category.html
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {

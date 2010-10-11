@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_SPLAT_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_SPLAT_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
@@ -15,8 +15,8 @@
 
 namespace nt2 { namespace functors
 {
-  template<class T, class C, class X, class Info>
-  struct call<splat_<T>,tag::simd_(C,X), Info>
+  template<class T, class Info>
+  struct call<splat_<T>,tag::simd_(tag::arithmetic_,tag::sse_), Info>
   {
     typedef T result_type;
 
@@ -32,6 +32,5 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,int64_)  { T that = {{ a0, a0 }};            return that;  }
   };
 } }
-
 
 #endif

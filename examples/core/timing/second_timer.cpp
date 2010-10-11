@@ -13,7 +13,7 @@ int main()
 
   {
     nt2::time::second_timer s(d);
-    #if defined(NT2_OS_WINDOWS)
+    #if defined(NT2_COMPILER_MSVC)
     Sleep(1000*wait);
     #else
     sleep(wait);
