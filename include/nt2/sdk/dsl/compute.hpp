@@ -10,6 +10,7 @@
 #define NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
 
 #include <boost/proto/proto.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/dsl/proto/transform/unpack.hpp>
 
@@ -38,7 +39,7 @@ namespace nt2 { namespace dsl
     template<class This,class Value,class State,class Data>
     struct result<This(Value,State,Data)>
     {
-      typedef typename boost::proto::detail::uncvref<Value>::type::value_type type;
+      typedef typename meta::strip<Value>::type::value_type type;
     };
 
     template<class Value,class State,class Data> inline
@@ -60,14 +61,17 @@ namespace nt2 { namespace dsl
   typedef boost::proto::visitor<compute_transform, grammar> computer;
 
   template<class Tag>
-  struct  compute_transform
-        : boost::proto::unpack<compute<Tag>(computer)>
+  struct  compute_transform : boost::proto::unpack<compute<Tag>(computer)>
   {};
 
   // call compute<terminal>(value, state, data)
   template<>
   struct  compute_transform<functors::terminal_>
-        : boost::proto::call<compute<functors::terminal_>( boost::proto::_value, boost::proto::_state, boost::proto::_data )>
+        : boost::proto::call<compute<functors::terminal_> ( boost::proto::_value
+                                                          , boost::proto::_state
+                                                          , boost::proto::_data 
+                                                          )
+                            >
   {};
 } }
 

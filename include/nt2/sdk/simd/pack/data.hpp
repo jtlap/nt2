@@ -67,16 +67,10 @@ namespace nt2 { namespace simd
                   , boost::mpl::false_ const&
                   )
     {
-      /*boost::proto::visitor < dsl::compute_transform
-                            , dsl::grammar
-                            >*/
-      dsl::computer
-      evaluator;
-
       // On array, iterate over values and evaluates the expressions
       // for every index of the array
       for(std::size_t i=0;i<Cardinal::value;++i)
-        (*this)[i] = evaluator(xpr,i,i);
+        (*this)[i] = dsl::computer()(xpr,i,i);
     }
   };
 } }
