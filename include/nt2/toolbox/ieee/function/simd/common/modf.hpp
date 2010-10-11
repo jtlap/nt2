@@ -11,6 +11,8 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/trunc.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 
 namespace nt2 { namespace functors
@@ -28,7 +30,8 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef boost::fusion::tuple<A0, A0>                   type;
+      typedef typename meta::strip<A0>::type        A00; 
+      typedef boost::fusion::vector<A00, A00>       type;
     };
 
     NT2_FUNCTOR_CALL(1)

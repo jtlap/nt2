@@ -14,7 +14,8 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shri.hpp>
-
+#include <nt2/include/functions/bitwise_andnot.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -23,8 +24,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_floating_point<A0>{};
+    struct result<This(A0)> : meta::is_floating_point<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_frexp(const A0& a0)
@@ -37,9 +37,10 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
      {
-      typedef typename meta::as_integer<A0, signed>::type  exponent;
-      typedef boost::fusion::tuple<A0,exponent>                type;
-    };
+       typedef typename meta::strip<A0>::type                     A00; 
+       typedef typename meta::as_integer<A00, signed>::type  exponent;
+       typedef boost::fusion::vector<A00,exponent>                type;
+     };
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -62,8 +63,8 @@ namespace nt2 { namespace functors
       static const int_type vn1 = nt2::splat<int_type>((2*me+3)<<nmb);
       static const sint_type n2 = me<<nmb;
       r1 = b_and(vn1, a0);                                 //extract exponent
-      A0 x = b_andnot(a0, vn1);                            //clear exponent in a0//TODO andnot
-      r1 = sub(shri(r1,nmb), splat<int_type>(me));         //compute exponent
+      A0 x = b_andnot(a0, vn1);                            //clear exponent in a0
+      r1 = shri(r1,nmb) - splat<int_type>(me);             //compute exponent
       r0 = b_or(x,splat<int_type>(n2));                    //insert expon+1 in x
     }
   };

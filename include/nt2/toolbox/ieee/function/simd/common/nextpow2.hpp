@@ -33,8 +33,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -47,11 +46,11 @@ namespace nt2 { namespace functors
 	A0 m;
 	int_type p;
 	boost::fusion::tie(m, p) = frexp(abs(a0));
-	return tofloat(seladd(iseq(m, Half<A0>()), p, One<int_type>()));
+	return tofloat(seladd(is_equal(m, Half<A0>()), p, One<int_type>()));
       }
       NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
       {
-	return seladd(is_neq(popcnt(a0),One<A0>()), simd::native_cast<A0>(firstbitset(a0)), One<A0>());
+	return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
 	//return a0;  //TO DO
 	//        return firstbitset(a0); 
 // 	const A0 tmp = nt2::log2(abs(a0));

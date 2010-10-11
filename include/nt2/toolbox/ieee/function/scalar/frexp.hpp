@@ -11,7 +11,7 @@
 #include <boost/mpl/vector.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 
 namespace nt2 { namespace functors
@@ -36,7 +36,7 @@ namespace nt2 { namespace functors
     {
       typedef typename boost::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::tuple<mantissa,exponent>             type;
+      typedef boost::fusion::vector<mantissa,exponent>             type;
     };
 
     NT2_FUNCTOR_CALL(1)

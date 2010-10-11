@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MODF_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MODF_HPP_INCLUDED
-
+#include <nt2/sdk/meta/strip.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 
@@ -24,16 +24,15 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
-      typedef boost::fusion::vector<etype, etype>                   type;
+      typedef typename meta::strip<A0>::type            etype;
+      typedef boost::fusion::vector<etype, etype>        type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_CALL_RETURN_TYPE(1)::type res;
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
-      boost::fusion::at_c<0>(res) = trunc(a0);
-      boost::fusion::at_c<1>(res)= a0 - boost::fusion::at_c<0>(res);
+      boost::fusion::at_c<1>(res) = trunc(a0);
+      boost::fusion::at_c<0>(res)= a0 - boost::fusion::at_c<1>(res);
       return res;
     }
   };

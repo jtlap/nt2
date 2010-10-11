@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( fast_frexp,  (double)(float)
   for(int i = 0;  i < 2;  i++){
     type_t r = fast_frexp(d[i]);
     NT2_TEST_EQUAL(  boost::fusion::get<0>(r), m[i]);
-    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), e[i]); 
+    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), e[i]);
   }
 }
 

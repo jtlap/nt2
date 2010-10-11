@@ -12,13 +12,13 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-#include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/seladd.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 
 namespace nt2 { namespace functors
@@ -42,8 +42,9 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename meta::as_integer<A0, signed>::type  exponent;
-      typedef boost::fusion::tuple<A0,exponent>                type;
+      typedef typename meta::strip<A0>::type                     A00; 
+      typedef typename meta::as_integer<A00, signed>::type  exponent;
+      typedef boost::fusion::vector<A00,exponent>                type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -73,8 +74,8 @@ namespace nt2 { namespace functors
       A0 x = b_notand(ci_exp, a0);                        // clear exponent in a0
       r1 = sub(shri(r1,nmb), vme);                        // compute exponent
       r0 = b_or(x,splat<int_type>(n2));                   // insert exponent+1 in x
-      A0 test0 = isnez(a0);
-      int_type test1 = isgt(r1,vme);
+      A0 test0 = is_nez(a0);
+      int_type test1 = gt(r1,vme);
       r1 = b_and(r1, b_notand(test1, test0));     
       //      r1 = seladd((b_notand(test1, test0)), Zero<int_type>(), r1);
       //      r0 = seladd(test0,Zero<A0>(),seladd(test1,r0,a0));

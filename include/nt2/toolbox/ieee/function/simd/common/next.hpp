@@ -21,6 +21,7 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_finite.hpp>
 
 
 namespace nt2 { namespace functors
@@ -49,12 +50,12 @@ namespace nt2 { namespace functors
       A0 m;
       itype expon;
       boost::fusion::tie(m, expon) = fast_frexp(a0);
-      expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>()); 
+      expon =  seladd(is_equal(m, Mhalf<A0>()), expon, Mone<itype>()); 
       A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
-      diff = b_and(sel(iseqz(diff)||iseqz(a0),  Mindenormal<A0>(), diff), isfin(a0));
+      diff = b_and(sel(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
 //       std::cout << "diff  "<< diff << std::endl;
 //       std::cout << "a0    "<< a0   << std::endl;  
-      return sel(iseq(a0, Minf<A0>()), Valmin<A0>(), a0+diff); 
+      return sel(is_equal(a0, Minf<A0>()), Valmin<A0>(), a0+diff); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,    arithmetic_)
     {

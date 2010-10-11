@@ -45,7 +45,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      typedef typename  meta::as_real<A0>::type type;
+      typedef typename   boost::result_of<meta::floating(A0)>::type type;
       return nt2::ilogb(type(a0)); 
     }
   };

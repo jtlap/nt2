@@ -26,13 +26,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-    : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
       typename nt2::meta::scalar_of<A0>::type,
-      (5, (real_,int32_t,int16_t,int8_t,unsigned_))
+      (6, (real_,int32_t,int16_t,int8_t,unsigned_, arithmetic_))
      )
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,    real_)
@@ -60,9 +59,13 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, unsigned)
     {
-      return  b_and(a0, isnez(a1));
+      return  b_and(a0, is_nez(a1));
     }
-    };
+    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+    {
+      return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
+    }
+  };
 } }
 
 #endif

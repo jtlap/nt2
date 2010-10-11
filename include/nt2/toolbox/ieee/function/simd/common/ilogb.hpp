@@ -33,9 +33,9 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
       {
-	typedef typename meta::scalar_of<A0>::type sA0; 
-        typedef typename meta::is_signed<sA0>::type sgn; 
-	typedef typename meta::as_integer<A0, sgn>::type  type; };
+// 	typedef typename meta::scalar_of<A0>::type sA0; 
+//         typedef typename meta::is_signed<sA0>::type sgn; 
+	typedef typename meta::as_integer<A0>::type  type; };
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,

@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_NEXTAFTER_HPP_INCLUDED
 
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/sdk/constant/digits.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -30,7 +31,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
       A0,
-      (3, (float,double,arithmetic_))
+      (4, (float,double,unsigned_, arithmetic_))
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,  float)
@@ -40,6 +41,10 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2, double)
     {
       return ::nextafter(a0, a1);
+    }
+    NT2_FUNCTOR_CALL_EVAL_IF(2, unsigned_)
+    {
+      return (a1 == a0) ? a0 : (a1 > a0) ? a0+One<A0>() : a0-One<A0>(); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
