@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
+#include <boost/fusion/include/at.hpp>
 
 
 namespace nt2 { namespace functors

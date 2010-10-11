@@ -42,7 +42,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,    real_)
     {
-      return seladd(isnan(a0), seladd(is_positive(a0), -One<A0>(),Two<A0>()), a0);
+      return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
     }
      NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
     {

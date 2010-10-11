@@ -48,12 +48,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>       { typedef A0 type;  };
+    struct result<This(A0)>: meta::strip<A0>{};
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)>   { typedef A0 type;  };
+    struct result<This(A0, A1)>: meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , A0
+                              ,  typename meta::scalar_of<A0>::type
                               , (2, (real_,arithmetic_))
                               )
 
@@ -64,7 +64,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)  { return oneplus(a0); }
 
     NT2_FUNCTOR_CALL_DISPATCH ( 2
-                              , A0
+                              ,  typename meta::scalar_of<A0>::type
                               , (2, (real_,arithmetic_))
                               )
 

@@ -7,12 +7,50 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
-
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/predecessor.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of ieee components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( predecessor,   NT2_REAL_TYPES        
+                  )
+{
+  using nt2::predecessor;
+  using nt2::functors::predecessor_;
 
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<predecessor_(T)>::type
+	     , T
+              >::value)
+           );
+  NT2_TEST_EQUAL(  predecessor( T(2) ), T(2)-nt2::Eps<T>() );
+  NT2_TEST_EQUAL(  predecessor( T(1) ), T(1)-nt2::Eps<T>()/2 );
+//   NT2_TEST_EQUAL(  predecessor( T(2), 1), T(2)-nt2::Eps<T>() );
+//   NT2_TEST_EQUAL(  predecessor( T(1), 1), T(1)-nt2::Eps<T>()/2 );
+  
+    
+
+}
+
+NT2_TEST_CASE_TPL ( integral_predecessor,   NT2_INTEGRAL_TYPES        
+                  )
+{
+  using nt2::predecessor;
+  using nt2::functors::predecessor_;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<predecessor_(T)>::type
+	     , T
+              >::value)
+           );
+  NT2_TEST_EQUAL(  predecessor( T(42) ), T(41) );
+  NT2_TEST_EQUAL(  predecessor( T(-59) ), T(-60) );
+  
+    
+
+}

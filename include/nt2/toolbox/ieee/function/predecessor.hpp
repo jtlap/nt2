@@ -17,6 +17,7 @@ namespace nt2 { namespace functors
     struct predecessor_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(functors::predecessor_, predecessor, 2)
+  NT2_FUNCTION_IMPLEMENTATION(functors::predecessor_, predecessor, 1)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/predecessor.hpp>

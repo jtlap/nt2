@@ -13,7 +13,7 @@
 #include <nt2/toolbox/ieee/include/fast_frexp.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( fast_frexp,  (double)(float)
   using nt2::functors::fast_frexp_;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type mantissa;
   typedef typename nt2::meta::as_integer<T,signed>::type          exponent;
-  typedef boost::fusion::tuple<mantissa,exponent>                   type_t;
+  typedef boost::fusion::vector<mantissa,exponent>                   type_t;
  
   NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_frexp_(T)>::type
 	     , type_t
@@ -39,8 +39,8 @@ NT2_TEST_CASE_TPL ( fast_frexp,  (double)(float)
   T e[] = {1  , 1  };
   for(int i = 0;  i < 2;  i++){
     type_t r = fast_frexp(d[i]);
-    NT2_TEST_EQUAL(  boost::fusion::get<0>(r), m[i]);
-    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), e[i]);
+    NT2_TEST_EQUAL(  boost::fusion::at_c<0>(r), m[i]);
+    NT2_TEST_EQUAL(  boost::fusion::at_c<1>(r), e[i]);
   }
 }
 

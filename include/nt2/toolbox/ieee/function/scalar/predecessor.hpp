@@ -12,6 +12,7 @@
 
 #include <nt2/include/functions/bitfloating.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
+#include <nt2/include/functions/minusone.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -35,9 +36,9 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>  {typedef A0 type;};
+      struct result<This(A0)> : meta::strip<A0> {};
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)>  {typedef A0 type;};
+    struct result<This(A0, A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
