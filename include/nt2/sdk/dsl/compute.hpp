@@ -12,6 +12,7 @@
 #include <boost/proto/proto.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/functor.hpp>
+#include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/dsl/proto/transform/unpack.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
