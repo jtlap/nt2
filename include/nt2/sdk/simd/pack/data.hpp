@@ -10,8 +10,8 @@
 #define NT2_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/dsl/proto/visitor.hpp>
+#include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace simd
@@ -67,9 +67,10 @@ namespace nt2 { namespace simd
                   , boost::mpl::false_ const&
                   )
     {
-      boost::proto::visitor < dsl::compute_transform
+      /*boost::proto::visitor < dsl::compute_transform
                             , dsl::grammar
-                            >
+                            >*/
+      dsl::computer
       evaluator;
 
       // On array, iterate over values and evaluates the expressions
