@@ -38,7 +38,7 @@ namespace nt2 { namespace dsl
     template<class This,class Value,class State,class Data>
     struct result<This(Value,State,Data)>
     {
-      typedef typename Value::value_type type;
+      typedef typename boost::proto::detail::uncvref<Value>::type::value_type type;
     };
 
     template<class Value,class State,class Data> inline
@@ -52,14 +52,30 @@ namespace nt2 { namespace dsl
   //////////////////////////////////////////////////////////////////////////////
   // Proto visitor for computing
   //////////////////////////////////////////////////////////////////////////////
+
+  template<class Tag>
+  struct  compute_transform;
+
+  // typedef the complete grammar which is needed to pass to default
+  typedef boost::proto::visitor<compute_transform, grammar> computer;
+
+  /*
   template<class Tag>
   struct  compute_transform
-        : boost::proto::unpack<compute<Tag>(boost::proto::_)>
+        : boost::proto::unpack<compute<Tag>(boost::proto::_default<computer>)>
+  {};
+  */
+
+  // generic case is to call _default, don't know what the above will be used for
+  template<typename Tag>
+  struct  compute_transform//<boost::proto::tag::plus>
+        : boost::proto::_default<computer>
   {};
 
+  // call compute<terminal>(value, state, data)
   template<>
   struct  compute_transform<functors::terminal_>
-        : boost::proto::call<compute<functors::terminal_>( boost::proto::_ )>
+        : boost::proto::call<compute<functors::terminal_>( boost::proto::_value, boost::proto::_state, boost::proto::_data )>
   {};
 } }
 
