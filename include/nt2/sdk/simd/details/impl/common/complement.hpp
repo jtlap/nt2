@@ -22,7 +22,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = True<A0>() ^ a0;
+      A0 that = b_xor(True<A0>(), a0);
       return that;
     }
   };
