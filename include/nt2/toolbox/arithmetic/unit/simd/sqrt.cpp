@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/simd Mode"
 
 #include <nt2/toolbox/arithmetic/include/sqrt.hpp>
+#include <nt2/toolbox/arithmetic/random.hpp> 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
@@ -22,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(sqrt, (float))//NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(sqrt, NT2_SIMD_TYPES )
 {
  using nt2::sqrt;
  using nt2::functors::sqrt_;     
@@ -38,7 +39,7 @@ NT2_TEST_CASE_TPL(sqrt, (float))//NT2_SIMD_TYPES )
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
  for(int n = 0;  n <128; n+= 16){
    for(int i=0;i<1*cardinal_of<n_t>::value;++i){
-     data[i] = i+n; // good value here for sqrt
+     data[i] = nt2::random(0.0, 127.0); // good value here for sqrt
    }
    n_t a0 = load<n_t>(&data[0],0); 
    n_t v  = sqrt(a0);
@@ -46,7 +47,6 @@ NT2_TEST_CASE_TPL(sqrt, (float))//NT2_SIMD_TYPES )
      {
        T z = T(nt2::sqrt(a0[j])); 
        NT2_TEST_EQUAL( v[j], T(nt2::sqrt(a0[j])) );
-       std::cout << z - v[j] <<  std::endl; 
      }
  }
 
