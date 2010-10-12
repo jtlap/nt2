@@ -15,7 +15,7 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
-#include <nt2/sdk/meta/size.hpp> 
+#include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace functors
@@ -23,14 +23,14 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // bitwise operators on scalar arithmetic types works on real types too
   //////////////////////////////////////////////////////////////////////////////
-#define LOCAL_VALIDATE(OP)						\
-  template<class Info>							\
-struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
-  {									\
-    template<class Sig> struct result;					\
-    template<class This,class A0,class A1>				\
-      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};	\
-  }									\
+#define LOCAL_VALIDATE(OP)            \
+  template<class Info>              \
+struct validate<OP,tag::scalar_(tag::arithmetic_),Info>      \
+  {                  \
+    template<class Sig> struct result;          \
+    template<class This,class A0,class A1>        \
+      struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};  \
+  }                  \
 /**/
 
   LOCAL_VALIDATE(bitwise_and_);
@@ -38,13 +38,13 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
   LOCAL_VALIDATE(bitwise_xor_);
 
   #undef LOCAL_VALIDATE
-  
-  template<class Info> struct call<bitwise_and_,tag::scalar_(tag::arithmetic_),Info>     // TO DO 
-  {                                                                   
-    template<class Sig> struct result;                                    
+
+  template<class Info> struct call<bitwise_and_,tag::scalar_(tag::arithmetic_),Info>     // TO DO
+  {
+    template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
-    
+
     NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
@@ -53,7 +53,7 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
       typename meta::as_bits<A1>::type t1 = {a1};
       t0.bits &= t1.bits;
       return t0.value;
-    }     
+    }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)    //  one can not rely on a1 being of integral type
     {
@@ -62,16 +62,16 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
       t0.bits &= t1.bits;
       return t0.value;
       //      return a0 & a1;
-    }     
+    }
 
  };
 
-  template<class Info> struct call<bitwise_or_,tag::scalar_(tag::arithmetic_),Info>                        
-  {                                                                   
-    template<class Sig> struct result;                                    
+  template<class Info> struct call<bitwise_or_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
-    
+
     NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
@@ -80,20 +80,20 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
       typename meta::as_bits<A1>::type t1 = {a1};
       t0.bits |= t1.bits;
       return t0.value;
-    }     
+    }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 | a1;
-    }     
+    }
   };
 
-  template<class Info> struct call<bitwise_xor_,tag::scalar_(tag::arithmetic_),Info>                        
-  {                                                                   
-    template<class Sig> struct result;                                    
+  template<class Info> struct call<bitwise_xor_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
-    
+
     NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
@@ -102,20 +102,20 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
       typename meta::as_bits<A1>::type t1 = {a1};
       t0.bits ^= t1.bits;
       return t0.value;
-    }     
+    }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2, fundamental_)
     {
       return a0 ^ a1;
-    }     
-  };  
+    }
+  };
 
-  template<class Info> struct call<complement_,tag::scalar_(tag::arithmetic_),Info>                        
-  {                                                                   
-    template<class Sig> struct result;                                    
+  template<class Info> struct call<complement_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0> {};
-    
+
     NT2_FUNCTOR_CALL_DISPATCH( 1, A0, (2, (real_,fundamental_)))
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, real_)
@@ -123,12 +123,12 @@ struct validate<OP,tag::scalar_(tag::arithmetic_),Info>			\
       typename meta::as_bits<A0>::type t0 = {a0};
       t0.bits = ~t0.bits;
       return t0.value;
-    }     
+    }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
     {
       return ~a0;
-    }     
+    }
   };
 } }
 

@@ -19,6 +19,7 @@
 #include <nt2/sdk/functor/details/if_else.hpp>
 #include <nt2/sdk/functor/details/boolean.hpp>
 #include <nt2/sdk/functor/details/bitwise.hpp>
+#include <nt2/sdk/functor/details/terminal.hpp>
 #include <nt2/sdk/functor/details/arithmetic.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
