@@ -34,10 +34,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,real_)
     {
-      typedef typename meta::as_integer<A0>::type int_type;
-      typedef union { int_type bits; double val; } type;
+      typedef typename meta::scalar_of<typename A0::type>::type stype;
+      typedef typename meta::as_integer<stype>::type int_type;
+      typedef union { int_type bits; stype value; } type;
       type const that = { ~int_type(0) };
-      return splat<typename A0::type>(that.val);
+      return splat<typename A0::type>(that.value);
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,integer_)
