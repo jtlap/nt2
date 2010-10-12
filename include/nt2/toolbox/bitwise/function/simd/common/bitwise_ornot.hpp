@@ -24,12 +24,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return b_or(a0,b_not(a1)); 
+      return b_or(a0,complement(a1)); 
     }
   };
 } }
