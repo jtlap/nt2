@@ -9,7 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/simd Mode"
 
 #include <nt2/toolbox/arithmetic/include/sqrt.hpp>
-#include <nt2/toolbox/arithmetic/random.hpp> 
+#include <nt2/toolbox/arithmetic/include/random.hpp> 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
