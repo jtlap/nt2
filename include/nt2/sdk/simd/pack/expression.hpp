@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 
+#include <nt2/sdk/meta/category.hpp>
+#include <nt2/sdk/simd/meta/extension_of.hpp>
 #include <nt2/sdk/dsl/proto/extends.hpp>
 
 namespace nt2 { namespace simd
@@ -21,6 +23,11 @@ namespace nt2 { namespace simd
   {
     typedef domain<Type,Cardinal>                 domain_type;
     typedef expression<Expr,Type,Cardinal,Dummy>  self_type;
+
+    typedef typename meta::vector_of<Type,Cardinal::value>::type  inner_type;
+    typedef typename meta::extension_of<inner_type>::type         ext_type;
+    typedef typename meta::category_of<Type>::type::tag           base_type;
+    typedef functors::simd_<tag::ast_,base_type,1>                nt2_category_tag;
 
     typedef Type& reference;
     typedef Type  const_reference;

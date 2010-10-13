@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/dsl/compute.hpp>
+#include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
@@ -22,18 +23,30 @@ namespace nt2 { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   template<class Type,class Cardinal>
   struct  data
-        : meta::vector_of<Type,Cardinal::value>::type
   {
     typedef typename meta::vector_of<Type,Cardinal::value>::type  parent;
 
-    typedef boost::proto::visitor < dsl::compute_transform<boost::mpl::_1>
+    typedef boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
+                                                          , parent
+                                                          >
                                   , dsl::grammar<boost::mpl::_1>
                                   >                               evaluator_type;
+
+    typedef typename meta::category_of<parent>::type  parent_tag;
+    typedef functors::ast_<parent_tag>                nt2_category_tag;
+    typedef typename parent::value_type               value_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Constructors from various sources
     ////////////////////////////////////////////////////////////////////////////
-    data() : parent() {}
+    data() : mData() {}
+
+    void fill(Type const& a0)
+    {
+      fill(a0,typename meta::is_native<parent>::type());
+    }
+
+    Type operator[](int i) const { return mData[i]; }
 
     ////////////////////////////////////////////////////////////////////////////
     // Fill current data by evaluating soem expression
@@ -48,22 +61,37 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     parent const& value() const
     {
-      return static_cast<parent const&>(*this);
+      return mData;
     }
+
+    private:
+    parent mData;
 
     private:
     ////////////////////////////////////////////////////////////////////////////
     // Inner evaluation dispatched on native category
     // true_  => native
-    // false_ => array
     ////////////////////////////////////////////////////////////////////////////
+    void fill(Type const& a0, boost::mpl::true_ const&)
+    {
+      mData = splat<parent>(a0);
+    }
+
     template<class X>
     void evaluate ( expression<X,Type,Cardinal> const& xpr
                   , boost::mpl::true_ const&
                   )
     {
       evaluator_type eval;
-      static_cast<parent&>(*this) = Four<parent>();
+      mData = eval(xpr);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // false_ => array
+    ////////////////////////////////////////////////////////////////////////////
+    void fill(Type const& a0, boost::mpl::false_ const&)
+    {
+      mData.fill(a0);
     }
 
     template<class X>
@@ -73,7 +101,7 @@ namespace nt2 { namespace simd
     {
       evaluator_type eval;
       for(std::size_t i=0;i<Cardinal::value;++i)
-        (*this)[i] = eval(xpr,i,i);
+        mData[i] = eval(xpr,i,i);
     }
   };
 } }

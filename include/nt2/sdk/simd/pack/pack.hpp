@@ -28,6 +28,10 @@ namespace nt2 { namespace simd
     // Constructors
     //////////////////////////////////////////////////////////////////////////
     pack() : parent() {}
+    explicit pack(Type const& a0)
+    {
+      boost::proto::value(*this).fill(a0);
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // SIMD expression evaluates as pack
