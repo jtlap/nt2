@@ -16,17 +16,6 @@
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Generates sequence of supported real types for SIMD
-////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_SIMD_SSE_FAMILY)
-#define NT2_SIMD_REAL_TYPES (double)(nt2::uint64_t)(nt2::int64_t) \
-                            (float)(nt2::uint32_t)(nt2::int32_t)  \
-/**/
-#elif defined(NT2_SIMD_VMX_FAMILY)
-#define NT2_SIMD_REAL_TYPES  (float)(nt2::uint32_t)(nt2::int32_t)
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
 // Test that make_real on SIMD
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(make_real_simd, NT2_SIMD_REAL_TYPES)
