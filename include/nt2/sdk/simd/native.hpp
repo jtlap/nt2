@@ -107,7 +107,27 @@ namespace nt2 { namespace simd
     // self-operator methods
     ////////////////////////////////////////////////////////////////////////////
     this_type const& operator+() const { return *this; }
+    this_type operator!() const
+    {
+      functors::functor<functors::logical_not_> callee;
+      return callee(*this);
+    }
 
+    this_type operator-() const
+    {
+      functors::functor<functors::neg_> callee;
+      return callee(*this);
+    }
+
+    this_type operator~()  const
+    {
+      functors::functor<functors::complement_> callee;
+      return callee(*this);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // assignment-operator methods
+    ////////////////////////////////////////////////////////////////////////////
     this_type& operator+=(this_type const& src)
     {
       *this = *this + src;

@@ -12,26 +12,45 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/operators.hpp>
 
+#define NT2_MAKE_NATIVE_OP(TAG,OP)                                \
+template<class T1, class T2,class X> inline                       \
+typename meta::enable_call<TAG(native<T1,X>,native<T2,X>)>::type  \
+OP(native<T1,X> const& a0, native<T2,X> const& a1)                \
+{                                                                 \
+  functors::functor<TAG> callee;                                  \
+  return callee(a0,a1);                                           \
+}                                                                 \
+/**/
+
 namespace nt2 { namespace simd
 {
-  NT2_FUNCTION_IMPLEMENTATION( functors::complement_      , operator~   , 1 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::logical_not_     , operator!   , 1 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::neg_             , operator-   , 1 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::bitwise_and_     , operator&   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::bitwise_or_      , operator|   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::bitwise_xor_     , operator^   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::divides_         , operator/   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::logical_and_     , operator&&  , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::logical_or_      , operator||  , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::minus_           , operator-   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::multiplies_      , operator*   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::plus_            , operator+   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::modulo_          , operator%   , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::shift_left_      , operator<<  , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::shift_right_     , operator>>  , 2 )
-  NT2_FUNCTION_IMPLEMENTATION( functors::if_else_         , if_else_    , 3 )
+  NT2_MAKE_NATIVE_OP( functors::bitwise_and_     , operator&  )
+  NT2_MAKE_NATIVE_OP( functors::bitwise_or_      , operator|  )
+  NT2_MAKE_NATIVE_OP( functors::bitwise_xor_     , operator^  )
+  NT2_MAKE_NATIVE_OP( functors::logical_and_     , operator&& )
+  NT2_MAKE_NATIVE_OP( functors::logical_or_      , operator|| )
+  NT2_MAKE_NATIVE_OP( functors::plus_            , operator+  )
+  NT2_MAKE_NATIVE_OP( functors::minus_           , operator-  )
+  NT2_MAKE_NATIVE_OP( functors::divides_         , operator/  )
+  NT2_MAKE_NATIVE_OP( functors::multiplies_      , operator*  )
+  NT2_MAKE_NATIVE_OP( functors::modulo_          , operator%  )
+  NT2_MAKE_NATIVE_OP( functors::shift_left_      , operator<< )
+  NT2_MAKE_NATIVE_OP( functors::shift_right_     , operator>> )
+
+  template<class T1,class T2,class T3,class X> inline
+  typename meta::enable_call<functors::if_else_ ( native<T1,X>
+                                                , native<T2,X>
+                                                , native<T3,X>
+                                                )
+                            >::type
+  if_else_(native<T1,X> const& a0, native<T2,X> const& a1, native<T3,X> const& a2)
+  {
+    functors::functor<functors::if_else_> callee;
+    return callee(a0,a1,a2);
+  }
 } }
 
 #include <nt2/sdk/simd/details/impl/operators.hpp>
 
+#undef NT2_MAKE_NATIVE_OP
 #endif
