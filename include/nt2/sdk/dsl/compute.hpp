@@ -26,30 +26,8 @@ namespace nt2 { namespace dsl
   // Forward functor into compute for most tag
   //////////////////////////////////////////////////////////////////////////////
   template<class Tag, class Locality = void>
-  struct  compute
-        : functors::functor<Tag,Locality>
+  struct  compute : functors::functor<Tag,Locality>
   {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Terminal tag require special handling
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Locality>
-  struct compute<functors::terminal_,Locality>
-  {
-    template<class Sig> struct result;
-    template<class This,class Value,class State,class Data>
-    struct result<This(Value,State,Data)>
-    {
-      typedef typename meta::strip<Value>::type::value_type type;
-    };
-
-    template<class Value,class State,class Data> inline
-    typename result<compute(Value,State,Data)>::type
-    operator()(Value& v, State& s, Data& ) const
-    {
-      return v[s];
-    }
-  };
 
   //////////////////////////////////////////////////////////////////////////////
   // Proto visitor for computing
