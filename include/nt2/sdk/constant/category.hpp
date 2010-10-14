@@ -17,6 +17,14 @@
 #include <nt2/sdk/meta/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 
+////////////////////////////////////////////////////////////////////////////////
+// constant_ wraps a constant type into a EDSL element
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace constants
+{
+  template<class Cst> struct constant_ { typedef Cst type; };
+} }
+
 namespace nt2 { namespace tag
 {
   struct constant_ {};
@@ -35,6 +43,8 @@ namespace nt2 { namespace functors
 namespace nt2 { namespace meta
 {
   template<class T> struct category_of< as_<T> > : functors::constant_<T> {};
+  template<class T>
+  struct  category_of< constants::constant_<T> > : category_of< as_<T> > {};
 } }
 
 #endif
