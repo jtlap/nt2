@@ -24,8 +24,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH ( 2
                               , typename nt2::meta::scalar_of<A0>::type
-                              , (7, ( double,float
-                                    , int8_,int16_,int32_t,uint32_t
+                              , (6, ( double,float
+                                    , int8_,int16_,int32_
                                     , arithmetic_
                                 )   )
                               )
@@ -39,12 +39,6 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,float )
     {
       A0 that = { _mm_mul_ps(a0,a1) };
-      return that;
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,uint32_t)
-    {
-      A0 that =  { _mm_mul_epu32(a0, a1) };
       return that;
     }
 
@@ -80,7 +74,7 @@ namespace nt2 { namespace functors
       return r;
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int32_t)
+    NT2_FUNCTOR_CALL_EVAL_IF(2,int32_)
     {
       A0 that = { _mm_or_si128(
                     _mm_and_si128 (
