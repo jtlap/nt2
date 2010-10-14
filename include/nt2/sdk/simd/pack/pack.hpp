@@ -37,14 +37,17 @@ namespace nt2 { namespace simd
     // SIMD expression evaluates as pack
     ////////////////////////////////////////////////////////////////////////////
     template<class X>
-    pack(expression<X,Type,boost::mpl::size_t<Cardinal> > const& xpr )
+    pack( X const& xpr
+        , typename boost::disable_if< boost::is_convertible<X,Type> >::type* = 0
+        )
     {
+      // TODO: check that X can be put in a pack via evaluation
       boost::proto::value(*this).evaluate(xpr);
     }
 
-    template<class X> pack&
-    operator=(expression<X,Type,boost::mpl::size_t<Cardinal> > const& xpr )
+    template<class X> pack& operator=(X const& xpr )
     {
+      // TODO: check that X can be put in a pack via evaluation
       boost::proto::value(*this).evaluate(xpr);
       return *this;
     }

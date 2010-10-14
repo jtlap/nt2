@@ -51,7 +51,7 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Fill current data by evaluating soem expression
     ////////////////////////////////////////////////////////////////////////////
-    template<class X> void evaluate(expression<X,Type,Cardinal> const& xpr )
+    template<class X> void evaluate(X const& xpr )
     {
       evaluate(xpr,typename meta::is_native<parent>::type());
     }
@@ -78,9 +78,7 @@ namespace nt2 { namespace simd
     }
 
     template<class X>
-    void evaluate ( expression<X,Type,Cardinal> const& xpr
-                  , boost::mpl::true_ const&
-                  )
+    void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
       evaluator_type eval;
       mData = eval(xpr);
@@ -95,9 +93,7 @@ namespace nt2 { namespace simd
     }
 
     template<class X>
-    void evaluate ( expression<X,Type,Cardinal> const& xpr
-                  , boost::mpl::false_ const&
-                  )
+    void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
       evaluator_type eval;
       for(std::size_t i=0;i<Cardinal::value;++i)
