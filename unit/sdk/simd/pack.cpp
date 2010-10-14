@@ -16,15 +16,30 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
+#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/real.hpp>
+
+boost::proto::terminal< nt2::constants::constant_< nt2::constants::digit_<12> > >::type zero_ = {{}};
+boost::proto::terminal< nt2::constants::constant_< nt2::constants::pi_ > >::type pi_ = {{}};
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack default ctor
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(pack_default_ctor, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(pack_default_ctor, (float) )//NT2_SIMD_TYPES )
 {
   using nt2::simd::pack;
-  pack<T,3> x;
-
-  x = x+x;
+  pack<int> x(0),z(10);
+  x = z+pi_;
 
   std::cout << x << "\n";
+}
+
+NT2_TEST_CASE_TPL(pack_default_ctor2, (float) )//NT2_SIMD_TYPES )
+{
+  using nt2::simd::pack;
+
+  pack<int,3> y;
+  y = y+pi_;
+
+  std::cout << y << "\n";
 }
