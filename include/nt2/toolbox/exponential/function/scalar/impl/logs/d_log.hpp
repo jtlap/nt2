@@ -8,6 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_LOGS_D_LOG_HPP_INCLUDED
+
+#include <boost/fusion/include/vector_tie.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_nan.hpp>
@@ -44,7 +46,7 @@ namespace nt2
 	  typedef typename meta::scalar_of<A0>::type               sA0;
 	  A0 x;
 	  int_type k;
-	  boost::fusion::tie(x, k) = fast_frexp(a0);
+	  boost::fusion::vector_tie(x, k) = fast_frexp(a0);
 	  const int_type x_lt_sqrthf = -isgt(Sqrt_2o_2<A0>(), x);
 	  k += x_lt_sqrthf;
 	  f = minusone(x+b_and(x, genmask<A0>(x_lt_sqrthf)));

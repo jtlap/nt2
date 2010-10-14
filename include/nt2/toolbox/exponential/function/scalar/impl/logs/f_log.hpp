@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
-
+#include <boost/fusion/include/vector_tie.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_nan.hpp>
@@ -50,7 +50,7 @@ namespace nt2
 	{
 	  typedef typename meta::as_integer<A0, signed>::type int_type;
 	  int_type e;
-	  boost::fusion::tie(x, e) = fast_frexp(a0);
+	  boost::fusion::vector_tie(x, e) = fast_frexp(a0);
 	  int_type x_lt_sqrthf = -(integral_constant<A0, 0x3f3504f3>() > x);
 	  e += x_lt_sqrthf;
 	  //     if (x_lt_sqrthf) x+= x;
