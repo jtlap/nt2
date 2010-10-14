@@ -14,15 +14,15 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Extension,class Info>
-  struct validate<rol_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::mpl::and_ < meta::is_integral<A1>,
-			 meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> > >{};
-  };
+//   template<class Extension,class Info>
+//   struct validate<rol_,tag::simd_(tag::arithmetic_,Extension),Info>
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0,class A1>
+//     struct result<This(A0,A1)> : 
+//       boost::mpl::and_ < meta::is_integral<A1>,
+// 			 meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> > >{};
+//   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute rol(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
@@ -32,14 +32,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-	A0 r; 
-	map(functor<rol_>(), a0, a1, r);
-	return r; 
+      return map(functor<rol_>(), a0, a1);
     }
   };
 } }

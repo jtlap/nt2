@@ -47,7 +47,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      typedef typename meta::as_integer<A0>::type type;     
+      typedef typename meta::as_integer<A0, unsigned>::type type;     
       return type(a0) >> a1;
     }
   };

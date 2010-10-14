@@ -66,6 +66,7 @@ namespace nt2 { namespace functors
 	result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00>());
 	result_type tmp  = b_and(a0, Mask1);
         result_type tmp1 = {_mm_srli_epi16(tmp, a1)};
+	tmp1 = b_and(tmp1, Mask1);
         tmp = b_and(a0, Mask2);
 	result_type tmp3 = {_mm_srli_epi16(tmp, a1)}; 
         result_type tmp2 = b_and(tmp3, Mask2);

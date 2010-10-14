@@ -13,6 +13,7 @@
 #include <nt2/include/functions/lo.hpp>
 #include <nt2/include/functions/hi.hpp>
 #include <nt2/include/functions/sbits.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -27,7 +28,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> {typedef int type; }; 
+      struct result<This(A0)> :meta::as_integer<A0, unsigned>{}; 
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,

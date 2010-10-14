@@ -19,6 +19,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/include/functions/random.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
@@ -46,7 +47,9 @@ NT2_TEST_CASE_TPL(bitwise_notor, NT2_SIMD_TYPES )
         n_t v  = bitwise_notor(a0, a1);
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
-       NT2_TEST_EQUAL( v[j], bitwise_notor(a0[j], a1[j]) );
+       NT2_TEST( (v[j] == bitwise_notor(a0[j], a1[j]))||
+		 (nt2::is_nan(v[j])&&nt2::is_nan(bitwise_notor(a0[j], a1[j])))
+		 ); 
      }
  
  }

@@ -8,11 +8,48 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/simd Mode"
 
-#include <nt2/toolbox/bitwise/include/firstbitunset.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/include/functions/firstbitunset.hpp>
+#include <nt2/include/functions/random.hpp>
+#include <nt2/sdk/unit/tests.hpp>   
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/sdk/memory/load.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp> 
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <iostream>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic component firstbitunset using NT2_TEST_CASE
+//////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(firstbitunset, NT2_SIMD_TYPES
+                         )
+{
+ using nt2::firstbitunset; 
+ using nt2::functors::firstbitunset_;
+ using nt2::load;  
+ using nt2::simd::native;
+ using nt2::meta::cardinal_of; 
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
+ typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+ typedef native<T,ext_t>             n_t;
+ typedef typename nt2::meta::call<firstbitunset_(n_t)>::type call_type;
+
+ typedef typename nt2::meta::as_integer<T, unsigned>::type rT;
+ typedef native<rT,ext_t>            rn_t;
+  
+ NT2_TEST( (boost::is_same<call_type, rn_t>::value) );
+ NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
+ for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i)
+   data[i] = i; // good value here for firstbitunset   
+
+ n_t a0 = load<n_t>(&data[0],0);  
+ rn_t v  = nt2::firstbitunset(a0);   
+ for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+   { 
+     NT2_TEST_EQUAL( v[j], firstbitunset(a0[j]) );
+     std::cout << int(a0[j]) << " -> " << int(v[j]) << "  " << int(firstbitunset(a0[j])) << std::endl; 
+   } 
+}
 

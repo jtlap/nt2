@@ -33,8 +33,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::as_integer<A0, unsigned>{};
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -44,45 +43,42 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       types8_)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-      typedef typename simd::native<uint64_t, typename meta::category_of<A0>::type::type> ltype;
+      typedef typename A0::extension_type ext;
+      typedef typename simd::native<uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
-      return b_or(b_or((-( is_nez(b_and(v, integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
+      return b_and(is_nez(v), b_or(b_or((-( is_nez(b_and(v, integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
 		       ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
-		  ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2)); 
+		  ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>()); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       types16_)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-      typedef typename simd::native<uint64_t,typename  meta::category_of<A0>::type::type> ltype;
+      typedef typename A0::extension_type ext;
+      typedef typename simd::native<uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
-      return  b_or(b_or(b_or((-( is_nez(b_and(v, integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
+      return  b_and(is_nez(v), b_or(b_or(b_or((-( is_nez(b_and(v, integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
 			     ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
 			,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
-		   ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3)); 
+				    ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>()); 
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       types32_)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-      typedef typename simd::native<uint64_t, typename meta::category_of<A0>::type::type> ltype;
+      typedef typename A0::extension_type ext; 
+      typedef typename simd::native<uint64_t, ext> ltype;
       rtype v = firstbitset(a0);
-      return  b_or(b_or(b_or(b_or((-( is_nez(b_and(v, integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
+      return  b_and(is_nez(v), b_or(b_or(b_or(b_or((-( is_nez(b_and(v, integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
 				  ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
 			     ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
 			,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))
-		   ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4)); 
+		   ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4))+One<rtype>()); 
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       types64_)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-      rtype r; 
-      map(functor<ffs_>(), a0, r);
-      return r; 
-//       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-//       typedef typename meta::scalar_of<rtype>::type        srtype;
-//       rtype that = simd::make_native<srtype, typename meta::category_of<A0>::type::type>( ffs(a0[0]), ffs(a0[1]));
-//       return that;
+      return  simd::native_cast<rtype>(map(functor<ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
 } }

@@ -33,16 +33,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> 
-      : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-	A0 r;
-// 	typedef typename meta::as_integer<A0>::type itype;
-// 	itype a11 =  splat<itype>(a1); 
-	map(functor<ror_>(), a0, a1, r);
-	return r; 
+	return map(functor<ror_>(), a0, a1);
     }
   };
 } }

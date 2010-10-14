@@ -13,8 +13,6 @@
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for negif
-
   /////////////////////////////////////////////////////////////////////////////
   // Compute negif(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
@@ -34,12 +32,12 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
-      return a1?-a0:a0; 
+      return a0?-a1:a1; 
     }
   
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      return a1?-a0:a0; 
+      return a0?-a1:a1; 
     }
   };
 } }

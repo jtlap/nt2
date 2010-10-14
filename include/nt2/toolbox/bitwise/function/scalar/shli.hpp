@@ -47,7 +47,10 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,    arithmetic_)
     {
-        return a0<<a1;
+      typedef typename meta::as_bits<A0>::type type;
+      type that = {a0};
+      that.bits <<= a1;
+      return that.value;
     }
    };
 } }

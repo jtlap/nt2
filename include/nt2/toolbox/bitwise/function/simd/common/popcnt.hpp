@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
-
+#include <iostream> 
 
 namespace nt2 { namespace functors
 {
@@ -28,7 +28,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0>{};
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
 
     ////////////////////////////////////////////////////////////////////////////
     // Functor entry point
@@ -41,12 +41,12 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-      typedef unsigned long long                          sint_type; 
+      typedef uint64_t                                    sint_type; 
       //      const sint_type b2= ~(~0ull/17ull);
       // |0xF0F0...|; flags positions $\cong4$--$7\pmod8$
       //      const sint_type b3= ~0ull/255;
       // |0x0101...|; flags the low bit of each octet
-      const unsigned int high_byte_shift=8*(sizeof(sint_type)-1);
+      const uint32_t high_byte_shift=8*(sizeof(sint_type)-1); 
 
       result_type x = simd::native_cast<result_type>(a0);
 
@@ -54,14 +54,12 @@ namespace nt2 { namespace functors
       x = x-shri(x & integral_constant<result_type,~(~0ull/3)>(), 1);
 
       // sideways add 2 groups of pairs of bits to 4-tuples of bits
-      x=b_notand(integral_constant<result_type,~(~0ull/5)>(),x)+shri(x & integral_constant<result_type,~(~0ull/5)>(), 2);
-
+      x=b_notand(integral_constant<result_type,~(~0ull/5)>(),x)+ (shri(x, 2) & integral_constant<result_type,~(~0ull/5)>());
       // the sums of octets (bytes) are now in lower 4-tuples of those octets
       x = x + shri(x, 4);
-
+ 
       // add lower 4-tuples of bytes in high octet
       x = b_notand(integral_constant<result_type,~(~0ull/17)>(),x) * integral_constant<result_type,~(~0ull/255)>();
-
       // extract
       result_type that = shri(x, high_byte_shift);
       return that;

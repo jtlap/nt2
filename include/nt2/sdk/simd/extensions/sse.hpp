@@ -42,6 +42,12 @@
                                 (nt2::uint16_t)(nt2::uint8_t)   \
                                 /**/
 
+#define NT2_SIMD_INTEGRAL_TYPES (nt2::uint64_t)(nt2::uint32_t)  \
+    (nt2::uint16_t)(nt2::uint8_t)				\
+    (nt2::int64_t)(nt2::int32_t)				\
+    (nt2::int16_t)(nt2::int8_t)					\
+		 /**/
+
 #define NT2_SIMD_SIGNED_TYPES (double)(nt2::int64_t)(nt2::int32_t)  \
                               (float)(nt2::int16_t)(nt2::int8_t)    \
                               /**/

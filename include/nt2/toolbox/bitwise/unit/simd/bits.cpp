@@ -23,20 +23,20 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component bits using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(bits, (double)(float)
+NT2_TEST_CASE_TPL(bits, NT2_SIMD_TYPES
                          )
 {
  using nt2::bits; 
  using nt2::functors::bits_;
  using nt2::load;  
- using nt2::simd::native;
+ using nt2::simd::native; 
  using nt2::meta::cardinal_of; 
 
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::call<bits_(n_t)>::type call_type;
 
- typedef typename nt2::meta::as_integer<T>::type rT;
+ typedef typename nt2::meta::as_integer<T, unsigned>::type rT;
  typedef native<rT,ext_t>            rn_t;
   
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );

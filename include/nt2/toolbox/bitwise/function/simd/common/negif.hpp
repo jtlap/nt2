@@ -11,19 +11,20 @@
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/is_signed.hpp>
 #include <nt2/include/functions/shli.hpp>
 
 
 namespace nt2 { namespace functors
 {
-//   template<class Extension,class Info>
-//   struct validate<negif_,tag::simd_(tag::arithmetic_,Extension),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0, class A1>
-//     struct result<This(A0,A1)> : 
-//       meta::has_same_size<A0,A1>{};
-//   };
+  template<class Extension,class Info>
+  struct validate<negif_,tag::simd_(tag::arithmetic_,Extension),Info>
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)> : 
+      meta::is_signed<A1>{};
+  };
   /////////////////////////////////////////////////////////////////////////////
   // Compute negif(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
