@@ -30,19 +30,11 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (4, (int64_, int32_, int16_, int8_))
-    )
-    ////////////////////////////////////////////////////////////////////////////
-    // Functor entry point
-    // The straight-line code below, taken from Knuth (pre-fascicle~1a ``Bitwise
-    // tricks and techniques'' to volume~4 of ``The Art of Computer Programming'',
-    // p.~11), is attributed to D.~B. Gillies and J.~C.~P. Miller. It is faster on
-    // the average (assuming non-sparse bitsets), without depending on the number
-    // of bits in int_type (except that it is a multiple of 8 less than 256)
-    ////////////////////////////////////////////////////////////////////////////
+      NT2_FUNCTOR_CALL_DISPATCH(
+        1,
+        typename nt2::meta::scalar_of<A0>::type,
+        (4, (int64_, int32_, int16_, int8_))
+      )
       NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
@@ -50,11 +42,6 @@ namespace nt2 { namespace functors
 	const result_type m1  = integral_constant<result_type,0x5555555555555555ULL>(); //binary: 0101...
 	const result_type m2  = integral_constant<result_type,0x3333333333333333ULL>(); //binary: 00110011..
 	const result_type m4  = integral_constant<result_type,0x0f0f0f0f0f0f0f0fULL>(); //binary:  4 zeros,  4 ones ...
-	const result_type m8  = integral_constant<result_type,0x00ff00ff00ff00ffULL>(); //binary:  8 zeros,  8 ones ...
-	const result_type m16 = integral_constant<result_type,0x0000ffff0000ffffULL>(); //binary: 16 zeros, 16 ones ...
-	const result_type m32 = integral_constant<result_type,0x00000000ffffffffULL>(); //binary: 32 zeros, 32 ones
-	const result_type hff = integral_constant<result_type,0xffffffffffffffffULL>(); //binary: all ones
-	const result_type h01 = integral_constant<result_type,0x0101010101010101ULL>(); //the sum of 256 to the power of 0,1,2,3...
 	result_type x = simd::native_cast<result_type>(a0);
 	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
 	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
@@ -72,10 +59,6 @@ namespace nt2 { namespace functors
 	const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
 	const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..
 	const result_type m4  = integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
-	const result_type m8  = integral_constant<result_type,0x00ff00ff>(); //binary:  8 zeros,  8 ones ...
-	const result_type m16 = integral_constant<result_type,0x0000ffff>(); //binary: 16 zeros, 16 ones ...
-	const result_type hff = integral_constant<result_type,0xffffffff>(); //binary: all ones
-	const result_type h01 = integral_constant<result_type,0x01010101>(); //the sum of 256 to the power of 0,1,2,3...
 	result_type x = simd::native_cast<result_type>(a0);
 	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
 	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
@@ -91,9 +74,6 @@ namespace nt2 { namespace functors
 	const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
 	const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
 	const result_type m4  = integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
-	const result_type m8  = integral_constant<result_type,0x00ff>(); //binary:  8 zeros,  8 ones ...
-	const result_type hff = integral_constant<result_type,0xffff>(); //binary: all ones
-	const result_type h01 = integral_constant<result_type,0x0101>(); //the sum of 256 to the power of 0,1,2,3...
 	result_type x = simd::native_cast<result_type>(a0);
 	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
 	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
@@ -108,8 +88,6 @@ namespace nt2 { namespace functors
 	const result_type m1  = integral_constant<result_type,0x55>(); //binary: 0101...
 	const result_type m2  = integral_constant<result_type,0x33>(); //binary: 00110011..
 	const result_type m4  = integral_constant<result_type,0x0f>(); //binary:  4 zeros,  4 ones ...
-	const result_type hff = integral_constant<result_type,0xff>(); //binary: all ones
-	const result_type h01 = integral_constant<result_type,0x01>(); //the sum of 256 to the power of 0,1,2,3...
 	result_type x = simd::native_cast<result_type>(a0);
 	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
 	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 

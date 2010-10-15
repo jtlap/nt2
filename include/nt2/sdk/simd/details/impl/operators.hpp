@@ -45,9 +45,9 @@
 #include NT2_SIMD_INCLUDE(logical_not.hpp)
 #include NT2_SIMD_INCLUDE(minus.hpp)
 #include NT2_SIMD_INCLUDE(modulo.hpp)
-#include NT2_SIMD_INCLUDE(multiplies.hpp) // almost done
+#include NT2_SIMD_INCLUDE(multiplies.hpp) 
 #include NT2_SIMD_INCLUDE(plus.hpp)
-//#include NT2_SIMD_INCLUDE(shift_left.hpp)
-//#include NT2_SIMD_INCLUDE(shift_right.hpp)
+#include NT2_SIMD_INCLUDE(shift_left.hpp)
+#include NT2_SIMD_INCLUDE(shift_right.hpp)
 
 #endif

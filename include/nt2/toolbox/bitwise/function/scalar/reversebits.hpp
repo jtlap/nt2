@@ -33,11 +33,14 @@ namespace nt2 { namespace functors
 
       NT2_FUNCTOR_CALL_EVAL_IF(1,       int8_)
       {
-	return ((a0 * 0x0802LU & 0x22110LU) | (a0 * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16; 
+	typedef union { A0 a; uint8_t b; } trick;
+	trick z = {a0}; 
+	z.b = ((z.b * 0x0802LU & 0x22110LU) | (z.b * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16;
+	return z.a; 
       }
       NT2_FUNCTOR_CALL_EVAL_IF(1,       int16_)
       {
-	typedef union { A0 a; int8_t b[2]; } trick;
+	typedef union { A0 a; uint8_t b[2]; } trick;
 	trick z = {a0}; 
 	z.b[0] = reversebits(z.b[0]);
 	z.b[1] = reversebits(z.b[1]);
@@ -46,7 +49,7 @@ namespace nt2 { namespace functors
       }
       NT2_FUNCTOR_CALL_EVAL_IF(1,       int32_)
       {
-	typedef union { A0 a; int16_t b[2]; } trick;
+	typedef union { A0 a; uint16_t b[2]; } trick;
 	trick z = {a0}; 
 	z.b[0] = reversebits(z.b[0]);
 	z.b[1] = reversebits(z.b[1]);
@@ -55,7 +58,7 @@ namespace nt2 { namespace functors
       }
       NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
       {
-	typedef union { A0 a; int32_t b[2]; } trick;
+	typedef union { A0 a; uint32_t b[2]; } trick;
 	trick z = {a0}; 
 	z.b[0] = reversebits(z.b[0]);
 	z.b[1] = reversebits(z.b[1]);

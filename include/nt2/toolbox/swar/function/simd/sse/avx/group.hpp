@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_GROUP_HPP_INCLUDED
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
-tag::sse_
 #include <nt2/sdk/meta/strip.hpp>
 
 
