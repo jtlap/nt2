@@ -38,9 +38,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-	A0 r; 
-	map(functor<rshr_>(), a0, a1, r);
-	return r; 
+      return map(functor<rshr_>(), a0, a1);
     }
   };
 } }

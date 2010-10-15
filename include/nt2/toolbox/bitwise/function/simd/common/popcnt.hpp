@@ -34,7 +34,6 @@ namespace nt2 { namespace functors
       1,
       typename nt2::meta::scalar_of<A0>::type,
       (4, (int64_, int32_, int16_, int8_))
-      //      (6, (int8_t, int16_, int32_, int64_,  double,  float))
     )
     ////////////////////////////////////////////////////////////////////////////
     // Functor entry point
@@ -117,33 +116,6 @@ namespace nt2 { namespace functors
 	x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits 
 	return x & integral_constant<result_type,0x7f > ();
       }
-    
- //    NT2_FUNCTOR_CALL(1)
-//     {
-//       typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-//       typedef uint64_t                                    sint_type; 
-//       //      const sint_type b2= ~(~0ull/17ull);
-//       // |0xF0F0...|; flags positions $\cong4$--$7\pmod8$
-//       //      const sint_type b3= ~0ull/255;
-//       // |0x0101...|; flags the low bit of each octet
-//       const uint32_t high_byte_shift=8*(sizeof(sint_type)-1); 
-
-//       result_type x = simd::native_cast<result_type>(a0);
-
-//       // replace pairs of bits $10\to 01$ and $11\to 10$
-//       x = x-shri(x & integral_constant<result_type,~(~0ull/3)>(), 1);
-
-//       // sideways add 2 groups of pairs of bits to 4-tuples of bits
-//       x=b_notand(integral_constant<result_type,~(~0ull/5)>(),x)+ (shri(x, 2) & integral_constant<result_type,~(~0ull/5)>());
-//       // the sums of octets (bytes) are now in lower 4-tuples of those octets
-//       x = x + shri(x, 4);
- 
-//       // add lower 4-tuples of bytes in high octet
-//       x = b_notand(integral_constant<result_type,~(~0ull/17)>(),x) * integral_constant<result_type,~(~0ull/255)>();
-//       // extract
-//       result_type that = shri(x, high_byte_shift);
-//       return that;
-//     }
   };
 } }
 
