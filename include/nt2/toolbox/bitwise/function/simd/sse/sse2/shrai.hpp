@@ -13,6 +13,8 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/shri.hpp>
+#include <nt2/include/functions/group.hpp>
+#include <nt2/include/functions/split.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -66,7 +68,11 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,      int8_t)
     {
-      return sel(is_gtz(a0), shri(a0, a1), -shri(-a0, a1));
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type result_type;
+      typedef simd::native<typename meta::int16_t_<A0>::type,tag::sse_> gen_type;
+      gen_type a0h, a0l;
+      boost::fusion::tie(a0l, a0h) = split(a0);
+      return simd::native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
 } }

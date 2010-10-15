@@ -23,13 +23,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component shrai using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(shrai, NT2_SIMD_INTEGRAL_TYPES   )
+NT2_TEST_CASE_TPL(shrai, (int16_t)(int32_t)(int64_t)(int8_t)   )
 {
  using nt2::shrai; 
  using nt2::functors::shrai_;
  using nt2::load;  
  using nt2::simd::native; 
- using nt2::meta::cardinal_of; 
+ using nt2::meta::cardinal_of;  
 
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
  typedef native<T,ext_t>             n_t;

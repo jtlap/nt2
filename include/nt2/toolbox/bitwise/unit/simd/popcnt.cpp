@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component popcnt using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(popcnt, NT2_SIMD_TYPES
+NT2_TEST_CASE_TPL(popcnt, (int64_t)(int32_t)(int16_t)(int8_t)
                          )
 {
  using nt2::popcnt; 
@@ -46,12 +46,12 @@ NT2_TEST_CASE_TPL(popcnt, NT2_SIMD_TYPES
 
  n_t a0 = load<n_t>(&data[0],0);  
  rn_t v  = nt2::popcnt(a0);
- for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+ for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
    { 
      NT2_TEST_EQUAL( v[j], popcnt(a0[j]) );
      std::cout << int(a0[j]) << "  " << int(v[j]) << "  " <<  int(popcnt(a0[j])) << std::endl; 
    } 
-}
+} 
  
  
   
