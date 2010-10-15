@@ -21,7 +21,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::is_integral<typename meta::strip<A1>::type >{}; 
+      meta::is_integral<A1>{}; 
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute rror(const A0& a0, const A1& a1)

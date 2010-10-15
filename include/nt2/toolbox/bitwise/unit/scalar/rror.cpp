@@ -18,10 +18,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( rror,  (nt2::uint64_t)(nt2::int64_t) 
+NT2_TEST_CASE_TPL ( rror,  (nt2::uint64_t)/*(nt2::int64_t) 
                           (nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
+                          (nt2::uint8_t)(nt2::int8_t)*/
                   )
 {
   using nt2::rror;
@@ -34,18 +34,7 @@ NT2_TEST_CASE_TPL ( rror,  (nt2::uint64_t)(nt2::int64_t)
   NT2_TEST_EQUAL(  rror( T(2), 1), T(1) );
   NT2_TEST_EQUAL(  rror( ~T(0), 1), ~T(0) );
 }
-NT2_TEST_CASE_TPL ( real_rror,  (double)(float)
-                  )
-{
-  using nt2::rror;
-  using nt2::functors::rror_;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<rror_(T, int)>::type
-	     , T
-              >::value)
-           );
-
-}
 
 
           

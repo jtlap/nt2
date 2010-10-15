@@ -54,3 +54,4 @@ NT2_TEST_CASE_TPL(rol, NT2_SIMD_INTEGRAL_TYPES )
      }
  }
  
+ 

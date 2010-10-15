@@ -22,7 +22,7 @@ namespace nt2 { namespace details
 	{
 		typedef union
 		{
-			T  																				value;
+			T value;
 			typename meta::as_integer<T, Sign>::type  bits;
 		} type;
 	};

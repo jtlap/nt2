@@ -23,13 +23,46 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return 0; // TO DO //PUT CODE HERE//
-    }
+      NT2_FUNCTOR_CALL_DISPATCH(
+      1,
+      A0, 
+      (4, (int64_, int32_, int16_, int8_))
+    )
+
+      NT2_FUNCTOR_CALL_EVAL_IF(1,       int8_)
+      {
+	return ((a0 * 0x0802LU & 0x22110LU) | (a0 * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16; 
+      }
+      NT2_FUNCTOR_CALL_EVAL_IF(1,       int16_)
+      {
+	typedef union { A0 a; int8_t b[2]; } trick;
+	trick z = {a0}; 
+	z.b[0] = reversebits(z.b[0]);
+	z.b[1] = reversebits(z.b[1]);
+	std::swap(z.b[0], z.b[1]); 
+	return z.a; 
+      }
+      NT2_FUNCTOR_CALL_EVAL_IF(1,       int32_)
+      {
+	typedef union { A0 a; int16_t b[2]; } trick;
+	trick z = {a0}; 
+	z.b[0] = reversebits(z.b[0]);
+	z.b[1] = reversebits(z.b[1]);
+	std::swap(z.b[0], z.b[1]); 
+	return z.a; 
+      }
+      NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
+      {
+	typedef union { A0 a; int32_t b[2]; } trick;
+	trick z = {a0}; 
+	z.b[0] = reversebits(z.b[0]);
+	z.b[1] = reversebits(z.b[1]);
+	std::swap(z.b[0], z.b[1]);
+	return z.a; 
+      }
+
   };
 } }
 
