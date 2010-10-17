@@ -27,6 +27,7 @@ namespace nt2 { namespace constants
   struct pi_          {};
   struct split_factor_{};
   struct sqrt_2_o_2_  {};
+  struct sqrt_2_      {};
   struct gold_        {};
   struct c_gold_      {};
 }  }
@@ -44,6 +45,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(constants::pi_          , Pi      )
   NT2_CONSTANT_IMPLEMENTATION(constants::split_factor_, Splitfactor)
   NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2_o_2_  , Sqrt_2o_2)
+  NT2_CONSTANT_IMPLEMENTATION(constants::sqrt_2_      , Sqrt_2  )
   NT2_CONSTANT_IMPLEMENTATION(constants::gold_        , Gold    )
   NT2_CONSTANT_IMPLEMENTATION(constants::c_gold_      , Cgold   )
 
@@ -85,6 +87,38 @@ namespace nt2
     nt2::functors::functor< details::pattern<D,0> > callee;
     return callee( nt2::meta::as_<Target>() );
   }
+  
+  template<class Target, uint64_t FD,
+	   class select = typename meta::scalar_of<Target>::type>
+  struct choose_pattern { };
+  
+  template<class Target, uint64_t FD>
+  struct choose_pattern < Target, FD, float > {
+    typedef details::pattern<0, FD> pat; 
+  };
+  
+  template<class Target, uint64_t FD>
+  struct choose_pattern < Target, FD, double > {
+    typedef details::pattern<FD, 0> pat; 
+  };
+  
+//   template<class Target, uint64_t FD> inline
+//   typename meta::enable_call<typename choose_pattern<Target,FD>::pat( nt2::meta::as_<Target>() ) >::type 
+//   Const()
+//   {
+//     nt2::functors::functor<typename choose_pattern<Target,FD>::pat > callee;
+//     return callee( nt2::meta::as_<Target>() );
+//   }
+
+  template<class Target, uint64_t F> inline
+  typename meta::enable_call<typename choose_pattern<Target,F>::pat(meta::as_<Target>)>::type
+  Const()
+  {
+    typedef typename choose_pattern<Target,F>::pat pat; 
+    nt2::functors::functor< pat > callee;
+    return callee( nt2::meta::as_<Target>() );
+  }
+  
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Fill up the call needed for a real consatnt call
@@ -114,6 +148,8 @@ NT2_CONSTANT_MAKE_REAL(constants::two_to_nmb_  ,0x4330000000000000ll, 0x4b000000
 NT2_CONSTANT_MAKE_REAL(constants::pi_          ,0x400921fb54442d18ll, 0x40490fdb  )
 NT2_CONSTANT_MAKE_REAL(constants::split_factor_,0x41a0000000000000ll, 0x46000000  )
 NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_o_2_  ,0x3fe6a09e667f3bcdLL, 0x3f3504f3  )
+NT2_CONSTANT_MAKE_REAL(constants::sqrt_2_      ,0x3ff6a09e667f3bccll, 0x3fb504f3  )
+  
 NT2_CONSTANT_MAKE_REAL(constants::gold_        ,0x3ff9e3779b97f4a8LL, 0x3fcf1bbd  )
 NT2_CONSTANT_MAKE_REAL(constants::c_gold_      ,0x3fd8722191a02d61LL, 0x3ec3910d  )
 NT2_CONSTANT_MAKE_REAL(constants::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )

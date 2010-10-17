@@ -10,8 +10,12 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOT_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-
+#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/atan.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <iostream>
 
 namespace nt2 { namespace functors
 {
@@ -35,17 +39,17 @@ namespace nt2 { namespace functors
 
       NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
       {
-	bool iinf = isinf(a0); 
-	if(a0 < 0 && iinf) return Pi<A0>();
-	if(iinf) return Zero<A0>();
-	return Pio_2<A0>()-nt2::atan(a0);
+	if(!a0)  return b_or(Inf<A0>(), bitofsign(a0));;
+	if(is_inf(a0)) return b_or(Zero<A0>(), bitofsign(a0));
+	return b_or(Pio_2<A0>()-nt2::atan(abs(a0)), bitofsign(a0));
       }
 
       NT2_FUNCTOR_CALL_EVAL_IF(1, double)
       {
-	if(a0 < 0 && isinf(a0)) return Pi<A0>(); 
+	if(!a0)  return b_or(Inf<A0>(), bitofsign(a0));;
+	if(is_inf(a0)) return b_or(Zero<A0>(), bitofsign(a0));
         //                                 6.123233995736765886130E-17
-        return (Pio_2<A0>()-nt2::atan(a0))+integral_constant<A0,0x3c91a62633145c07ll>();
+        return  b_or((Pio_2<A0>()-nt2::atan(abs(a0)))+double_constant<A0,0x3c91a62633145c07ll>(), bitofsign(a0));
       }
 
       NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)

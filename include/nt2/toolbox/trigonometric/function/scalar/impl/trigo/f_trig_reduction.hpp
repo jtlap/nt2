@@ -20,7 +20,9 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/all.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 namespace nt2
 {
@@ -82,14 +84,14 @@ namespace nt2
 
         static inline logic replacement_needed(const A0& a0)
         {
-          return is_gt(a0,integral_constant<A0,0x43490fdb>());
+          return gt(a0,single_constant<A0,0x43490fdb>());
         }
 
         static inline logic replacement_available()       { return True<A0>(); }
-        static inline logic isalreadyreduced(const A0&a0) { return is_le(a0,Pio_4<A0>()); }
+        static inline logic isalreadyreduced(const A0&a0) { return le(a0,Pio_4<A0>()); }
 
-        static inline logic ismedium (const A0&a0)  { return is_le(a0,integral_constant<A0,0x43490fdb>()); }
-        static inline logic issmall  (const A0&a0)  { return is_le(a0,integral_constant<A0,0x427b53d1>()); }
+        static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
+        static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
 
         static inline A0 cos_replacement(const A0& a0)
         {
@@ -115,8 +117,8 @@ namespace nt2
         {
           ::sincosf(a0, &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return iseqz(x)|isinvalid(x); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
@@ -150,7 +152,7 @@ namespace nt2
 
         static inline logic replacement_needed(const A0& a0)
         {
-          return is_nlt(a0,integral_constant<A0,0x4b7fffff>()); //16777215.0f
+          return is_nlt(a0,single_constant<A0,0x4b7fffff>()); //16777215.0f
         }
 
         static inline logic replacement_available() { return True<A0>(); }
@@ -179,14 +181,14 @@ namespace nt2
         {
           ::sincosf(inrad(a0), &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return isinvalid(x)|isflint(x/C_180<A0>()); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x)|isflint((x-Ninety<A0>())/C_180<A0>()); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x/C_180<A0>()); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint((x-Ninety<A0>())/C_180<A0>()); }
 
         static inline int_type reduce(A0 x, A0& xr, A0& xc)
         {
-          A0 xi = round2even(x*integral_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
+          A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
           x -= xi * Ninety<A0>();//90.0f
-          xr =  x*integral_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
+          xr =  x*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);
         }
@@ -205,7 +207,7 @@ namespace nt2
         ////////////////////////////////////////////////////////////////////////
         static inline logic replacement_needed(const A0& a0)
         {
-          return b_andnot(is_gt(a0,integral_constant<A0,0x4b000000>()), is_invalid(a0)); //2^23
+          return b_andnot(gt(a0,single_constant<A0,0x4b000000>()), is_invalid(a0)); //2^23
           // TODO: isn't it a registered constant ^
         }
 
@@ -225,8 +227,8 @@ namespace nt2
           c = cos_replacement(a0);
           s = sin_replacement(a0);
         }
-        static inline logic cot_invalid(const A0& x) { return isinvalid(x)|isflint(x); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 
         static inline int_type reduce(A0 x,  A0& xr, A0&xc)
         {

@@ -41,7 +41,7 @@ namespace nt2 { namespace functors
       NT2_FUNCTOR_CALL_EVAL_IF(1, double)
       {
         //                                  6.123233995736765886130E-17
-        return (Pio_2<A0>()-nt2::acsc(a0))+integral_constant<A0, 0x3c91a62633145c07ll>();
+        return (Pio_2<A0>()-nt2::acsc(a0)); //+double_constant<A0, 0x3c91a62633145c07ll>();
       }
 
       NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)

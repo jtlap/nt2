@@ -37,7 +37,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
 	typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-        return indeg(nt2::atan(type(a0)));
+        return nt2::indeg(nt2::atan(type(a0)));
     }
   };
 } }

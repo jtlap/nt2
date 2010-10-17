@@ -19,9 +19,12 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <iostream>
 
 namespace nt2
 {
@@ -46,7 +49,7 @@ namespace nt2
 	  //	bf::tie(sign, x) = sign_and_abs(a0);
 	  x = nt2::abs(a0);
 	  sign = bitofsign(a0);
-	  if ((x < integral_constant<A0,0x38d1b717>())) return a0;
+	  if ((x < single_constant<A0,0x38d1b717>())) return a0;
 	  if ((x >  One<A0>())) return Nan<A0>();
 	  bool bx_larger_05    = (x > Half<A0>());
 	  if (bx_larger_05)
@@ -58,10 +61,11 @@ namespace nt2
 	    {
 	      z = sqr(x);
 	    }
-	  A0 z1 = madd(z,  integral_constant<A0,0x3d2cb352>(), integral_constant<A0,0x3cc617e3>());
-	  z1 = madd(z1, z, integral_constant<A0,0x3d3a3ec7>());
-	  z1 = madd(z1, z, integral_constant<A0,0x3d9980f6>());
-	  z1 = madd(z1, z, integral_constant<A0,0x3e2aaae4>());
+	  A0 z1 = madd(z,  single_constant<A0,0x3d2cb352>(),
+		       single_constant<A0,0x3cc617e3>());
+	  z1 = madd(z1, z, single_constant<A0,0x3d3a3ec7>());
+	  z1 = madd(z1, z, single_constant<A0,0x3d9980f6>());
+	  z1 = madd(z1, z, single_constant<A0,0x3e2aaae4>());
 	  z1 = madd(z1, z*x, x);
 	  if(bx_larger_05)
 	    {
@@ -82,18 +86,18 @@ namespace nt2
 
 	static inline A0 atan(const  A0& a0)
 	{
-  	  if (iseqz(a0))  return a0;
-  	  if (isinf(a0)) return Pio_2<A0>()*sign(a0);
+  	  if (is_eqz(a0))  return a0;
+  	  if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
           A0 y;
 	  A0 x = abs(a0);
 	  A0 sgn =  bitofsign(a0);
-	  if( x >integral_constant<float,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
+	  if( x >single_constant<float,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
 	    {
 	      y = Pio_2<A0>();
 	      x = -rec(x);
 	    }
 
-	  else if( x > integral_constant<float,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
+	  else if( x > single_constant<float,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
 	    {
 	      y = Pio_4<A0>();
 	      x = minusone(x)/oneplus(x);
@@ -102,8 +106,8 @@ namespace nt2
 	    y = 0.0;
 
 	  A0 z = sqr(x);
- 	  A0 z1 = madd(z,  integral_constant<A0,0x3da4f0d1>(),integral_constant<A0,0xbe0e1b85>());
- 	  A0 z2 = madd(z,  integral_constant<A0,0x3e4c925f>(),integral_constant<A0,0xbeaaaa2a>());
+ 	  A0 z1 = madd(z,  single_constant<A0,0x3da4f0d1>(),single_constant<A0,0xbe0e1b85>());
+ 	  A0 z2 = madd(z,  single_constant<A0,0x3e4c925f>(),single_constant<A0,0xbeaaaa2a>());
  	  z1 = madd(z1, sqr(z), z2);
  	  y =  add(y, madd(x, mul( z1, z), x));
 // 	  y +=

@@ -40,28 +40,28 @@ namespace nt2
 	static inline int_type cephes_reduction(const A0& x, A0& xr, A0& xc)
 	{
 	  //	  A0 xi = round2even(x* Const<A0,invpio2>());
-	  int_type n = toint(x* integral_constant<A0,0x3f22f984>()+Half<A0>());
+	  int_type n = toint(x* single_constant<A0,0x3f22f984>()+Half<A0>());
 	  A0 xi =  tofloat(n);
-	  xr = x-xi*integral_constant<A0,0x3fc90f80>();
-	  xr -= xi*integral_constant<A0,0x37354400 >();
-	  xr -= xi*integral_constant<A0,0x2e85a300>();
+	  xr = x-xi*single_constant<A0,0x3fc90f80>();
+	  xr -= xi*single_constant<A0,0x37354400 >();
+	  xr -= xi*single_constant<A0,0x2e85a300>();
 	  xc = Zero<A0>();
 	  return n;
 	}
 
 	static inline int_type fdlibm_medium_reduction(A0 t, A0& xr, A0& xc)
 	{
-	  A0 fn = round2even(t*integral_constant<A0,0x3f22f984>());
-	  A0 r  = t-fn*integral_constant<A0,0x3fc90f80>();
-	  A0 w  = fn*integral_constant<A0,0x37354443>();	/* 1st round good to 40 bit */
+	  A0 fn = round2even(t*single_constant<A0,0x3f22f984>());
+	  A0 r  = t-fn*single_constant<A0,0x3fc90f80>();
+	  A0 w  = fn*single_constant<A0,0x37354443>();	/* 1st round good to 40 bit */
 	  t  = r;
-	  w  = fn*integral_constant<A0,0x37354400>();
+	  w  = fn*single_constant<A0,0x37354400>();
 	  r  = t-w;
-	  w  = fn*integral_constant<A0,0x2e85a308>()-((t-r)-w);
+	  w  = fn*single_constant<A0,0x2e85a308>()-((t-r)-w);
 	  t  = r;	                        /* 2nd round will cover all possible cases */
-	  w  = fn*integral_constant<A0,0x2e85a300>();
+	  w  = fn*single_constant<A0,0x2e85a300>();
 	  r  = t-w;
-	  w  = fn*integral_constant<A0,0x248d3132>()-((t-r)-w);
+	  w  = fn*single_constant<A0,0x248d3132>()-((t-r)-w);
 	  xr = r-w;
 	  xc = (r-xr)-w;
 	  return  toint(fn);

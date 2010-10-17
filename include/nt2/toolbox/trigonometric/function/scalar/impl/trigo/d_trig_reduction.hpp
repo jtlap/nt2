@@ -13,8 +13,11 @@
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_even.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/inrad.hpp>
+#include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 namespace nt2
 {
@@ -33,16 +36,16 @@ namespace nt2
 
         static inline logic replacement_needed(const A0& ) {return False<A0>(); }//a0 > const_<A0, Med>();}
         static inline logic replacement_available(){return True<A0>(); }
-        static inline logic isalreadyreduced(const A0&a0){ return is_lt(a0,Pio_4<A0>()); }
-        static inline logic ismedium (const A0&a0){return is_le(a0,integral_constant<A0,0x412921fb54442d18ll>()); }
-        static inline logic issmall  (const A0&a0){return is_le(a0,integral_constant<A0,0x404f6a7a2955385ell>()); }
+        static inline logic isalreadyreduced(const A0&a0){ return lt(a0,Pio_4<A0>()); }
+        static inline logic ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
+        static inline logic issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
         static inline A0 cos_replacement(const A0& a0){ return std::cos(a0); }
         static inline A0 sin_replacement(const A0& a0){ return std::sin(a0); }
         static inline A0 tan_replacement(const A0& a0){ return std::tan(a0); }
         static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(a0)); }
         static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ ::sincos(a0, &s, &c); }
-        static inline logic cot_invalid(const A0& x) { return iseqz(x)|isinvalid(x); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           // x is always positive here
@@ -75,16 +78,16 @@ namespace nt2
 	typedef typename meta::logical<A0>::type               logic;
 
 	//static const sint_type Med  = 0x412921fb54442d18ll; //2^18*pi   8.235496645826427e+05
-	static inline logic replacement_needed(const A0& a0) {return False<A0>();details::ignore_unused(a0); }//return a0 > integral_constant<A0, Med>();}//
+	static inline logic replacement_needed(const A0& a0) {return False<A0>();details::ignore_unused(a0); }//return a0 > double_constant<A0, Med>();}//
 	static inline logic replacement_available(){return True<A0>(); }
-	static inline logic isalreadyreduced(const A0&a0){return is_lt(a0,Pio_4<A0>()); }
-	static inline logic issmall  (const A0&a0){return is_le(a0,integral_constant<A0,0x404f6a7a2955385ell>()); }
+	static inline logic isalreadyreduced(const A0&a0){return lt(a0,Pio_4<A0>()); }
+	static inline logic issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
 	static inline A0 cos_replacement(const A0& a0){ return std::cos(a0); }
 	static inline A0 sin_replacement(const A0& a0){ return std::sin(a0); }
 	static inline A0 tan_replacement(const A0& a0){ return std::tan(a0); }
 	static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(a0)); }
-        static inline logic cot_invalid(const A0& x) { return iseqz(x)|isinvalid(x); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ ::sincosf(a0, &s, &c); }
 	static inline int_type reduce(const A0& x, A0& xr, A0& xc)
 	{
@@ -103,20 +106,20 @@ namespace nt2
 	typedef typename meta::scalar_of<int_type>::type    sint_type;
 	typedef typename meta::logical<A0>::type                logic;
 
-	static inline logic replacement_needed(const A0& a0) {return is_gt(a0,integral_constant<A0,0x416fffffe0000000ll>());}
+	static inline logic replacement_needed(const A0& a0) {return gt(a0,double_constant<A0,0x416fffffe0000000ll>());}
 	static inline logic replacement_available(){return True<A0>(); }
 	static inline A0 cos_replacement(const A0& a0){ return std::cos(inrad(a0)); }
 	static inline A0 sin_replacement(const A0& a0){ return std::sin(inrad(a0)); }
 	static inline A0 tan_replacement(const A0& a0){ return std::tan(inrad(a0)); }
 	static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(inrad(a0))); }
 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ ::sincos(inrad(a0), &s, &c); }
-        static inline logic cot_invalid(const A0& x) { return isinvalid(x)|iseven(x/Ninety<A0>()); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x)|isodd(x/Ninety<A0>()); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_even(x/Ninety<A0>()); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_odd(x/Ninety<A0>()); }
 	static inline int_type reduce(A0 x, A0& xr, A0& xc)
 	{
-	  A0 xi = round2even(x*integral_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02
+	  A0 xi = round2even(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02
 	  x -= xi * Ninety<A0>();//90.0f
-	  xr =  x*integral_constant<A0,0x3f91df46a2529d39ll>();//0.0174532925199432957692
+	  xr =  x*double_constant<A0,0x3f91df46a2529d39ll>();//0.0174532925199432957692
 	  xc = Zero<A0>();
 	  return toint(xi);
 	}
@@ -132,15 +135,15 @@ namespace nt2
 	// sin(pi*x) and tan(pi*x) are thus 0
 	// cos(pi*x) is thus (-1)^x
 	// cotpi*x) is thus Nan
-	static inline logic replacement_needed(const A0& ) {return False<A0>(); }//return a0 > integral_constant<A0,bm::integral_c<uint64_t, Big> >();}
+	static inline logic replacement_needed(const A0& ) {return False<A0>(); }//return a0 > double_constant<A0,bm::integral_c<uint64_t, Big> >();}
 	static inline logic replacement_available(){return True<A0>(); }
 	static inline A0 cos_replacement(const A0& a0){ return One<A0>()-(is_odd(a0)<<1); }
 	static inline A0 sin_replacement(const A0& ){ return Zero<A0>(); }
 	static inline A0 tan_replacement(const A0& ){ return Zero<A0>(); }
 	static inline A0 cot_replacement(const A0& ){ return Nan<A0>();  }
 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ c = cos_replacement(a0); s = sin_replacement(a0); }
-        static inline logic cot_invalid(const A0& x) { return isinvalid(x)|isflint(x); }
-        static inline logic tan_invalid(const A0& x) { return isinvalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 	static inline int_type reduce(A0 x,  A0& xr, A0&xc)
 	{
 	  A0 xi = round2even(x*Two<A0>());

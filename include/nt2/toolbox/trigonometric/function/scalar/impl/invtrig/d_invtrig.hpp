@@ -15,8 +15,11 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 namespace nt2
 {
@@ -34,7 +37,7 @@ namespace nt2
 	  if ((x >  One<A0>())) return Nan<A0>();
 	  if ((x <  Sqrteps<A0>())) return a0;
 	  A0 zz;
-	  if((x >  integral_constant<double,0x3fe4000000000000ll> ())) //0.625;
+	  if((x >  double_constant<double,0x3fe4000000000000ll> ())) //0.625;
 	    {
 	      zz = oneminus(x);
 	      const A0 vp = zz*horner< NT2_HORNER_COEFF_T(stype, 5,
@@ -53,7 +56,7 @@ namespace nt2
                      )>(zz);
 	      zz =  sqrt(zz+zz);
 	      A0 z = Pio_4<A0>()-zz;
-	      zz = madd(zz, vp, integral_constant<double,0xbc91a62633145c07ll>());
+	      zz = madd(zz, vp, double_constant<double,0xbc91a62633145c07ll>());
 	      z =  z-zz;
 	      zz = z+Pio_4<A0>();
 	    }
@@ -87,31 +90,31 @@ namespace nt2
 	  if( a0 > Half<A0>() )
 	    {
 // 	      A0 z = Pio_2<A0>() - asin( sqrt(Half<A0>() - Half<A0>()*a0) );
-// 	      z = z + integral_constant<double,0x3c91a62633145c07ll>();//6.123233995736765886130E-17
+// 	      z = z + double_constant<double,0x3c91a62633145c07ll>();//6.123233995736765886130E-17
 // 	      z = z - Pio_2<A0>();
 //	      return z+z; 
 	      return Two<A0>() * asin(  sqrt(Half<A0>() - Half<A0>()*a0) ) ;
 	    }
 	  A0 z = Pio_4<A0>() - asin(a0);
-	  z = z + integral_constant<double,0x3c91a62633145c07ll>();//6.123233995736765886130E-17
+	  z = z + double_constant<double,0x3c91a62633145c07ll>();//6.123233995736765886130E-17
 	  z = z + Pio_4<A0>();
 	  return( z );
 	}
 
 	static inline A0 atan(const  A0& a0)
 	{
-	  //	static const A0 tanpio8 = integral_constant<double, 0x3fda827999fcef31ll>();
-	  if (iseqz(a0))  return a0;
-	  if (isinf(a0)) return Pio_2<A0>()*sign(a0);
+	  //	static const A0 tanpio8 = double_constant<double, 0x3fda827999fcef31ll>();
+	  if (is_eqz(a0))  return a0;
+	  if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
 	  A0 x =  abs(a0);
 	  A0 y;
-	  A0 flag = (x >  integral_constant<double,0x4003504f333f9de6ll>());
+	  A0 flag = (x >  double_constant<double,0x4003504f333f9de6ll>());
 	  if (flag)
 	    {
 	      y =  Pio_2<A0>();
 	      x =  -rec(x);
 	    }
-	  else if ((x <=  integral_constant<double,0x3fe51eb851eb851fll>()))
+	  else if ((x <=  double_constant<double,0x3fe51eb851eb851fll>()))
 	    {
 	      y = Zero<A0>();
 	    }
@@ -138,10 +141,10 @@ namespace nt2
                 0x4068519efbbd62ecll)
                      )>(z);
 	  z = madd(x, z, x);
-	  static const A0 morebits = integral_constant<double,0x3c91a62633145c07ll>();
+	  static const A0 morebits = double_constant<double,0x3c91a62633145c07ll>();
 	  z += flag * morebits;
 	  y = y + z;
-	  if( isltz(a0) )  y = -y;
+	  if( is_ltz(a0) )  y = -y;
 	  return(y);
 	}
       }; 

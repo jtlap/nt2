@@ -28,10 +28,10 @@ namespace nt2 { namespace functors
       struct result<This(A0)> : boost::result_of<meta::floating(A0)>{}; 
 
       NT2_FUNCTOR_CALL(1) {
-	const bool iiinf = isinf(a0); 
-	if((a0 < 0) && iiinf) return A0(180);
-	if(iiinf) return Zero<A0>(); 
-	return Ninety<A0>()-atand(a0);
+	A0 s = bitofsign(a0); 
+	if(!a0)  return b_or(Inf<A0>(), s);;
+	if(is_inf(a0)) return b_or(Zero<A0>(), s);
+	return b_or(Ninety<A0>()-atand(abs(a0)), s);
       }
 
      };

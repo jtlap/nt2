@@ -8,7 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ATAN2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ATAN2_HPP_INCLUDED
-
+#include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
+#include <cmath>
 
 namespace nt2 { namespace functors
 {

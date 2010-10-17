@@ -38,30 +38,30 @@ namespace nt2
         static inline int_type cephes_reduction(const A0& x, A0& xr, A0& xc)
         {
                                 // 6.36619772367581382433e-01
-          A0 xi = round2even(x* integral_constant<A0,0x3FE45F306DC9C883ll> ());
+          A0 xi = round2even(x* double_constant<A0,0x3FE45F306DC9C883ll> ());
                     // 1.57079632673412561417e+00
-          xr = x-xi*integral_constant<A0,0x3FF921FB54400000ll>();
+          xr = x-xi*double_constant<A0,0x3FF921FB54400000ll>();
                     // 6.07710050630396597660e-11
-          xr -= xi*integral_constant<A0,0x3DD0B4611A600000ll>();
+          xr -= xi*double_constant<A0,0x3DD0B4611A600000ll>();
                     // 2.02226624871116645580e-21
-          xr -= xi*integral_constant<A0,0x3BA3198A2E000000ll>();
+          xr -= xi*double_constant<A0,0x3BA3198A2E000000ll>();
           xc = Zero<A0>();
           return toint(xi);
         }
 
         static inline int_type fdlibm_medium_reduction(A0 t, A0& xr, A0& xc)
         {
-          A0 fn = round2even(t*integral_constant<A0,0x3FE45F306DC9C883ll>());
-          A0 r  = t-fn*integral_constant<A0,0x3FF921FB54400000ll>();
-          A0 w  = fn*integral_constant<A0,0x3DD0B4611A626331ll>();	/* 1st round good to 85 bit */
+          A0 fn = round2even(t*double_constant<A0,0x3FE45F306DC9C883ll>());
+          A0 r  = t-fn*double_constant<A0,0x3FF921FB54400000ll>();
+          A0 w  = fn*double_constant<A0,0x3DD0B4611A626331ll>();	/* 1st round good to 85 bit */
           t  = r;
-          w  = fn*integral_constant<A0,0x3DD0B4611A600000ll>();
+          w  = fn*double_constant<A0,0x3DD0B4611A600000ll>();
           r  = t-w;
-          w  = fn*integral_constant<A0,0x3BA3198A2E037073ll>()-((t-r)-w);
+          w  = fn*double_constant<A0,0x3BA3198A2E037073ll>()-((t-r)-w);
           t  = r;	                        /* 2nd round will cover all possible cases */
-          w  = fn*integral_constant<A0,0x3BA3198A2E000000ll>();
+          w  = fn*double_constant<A0,0x3BA3198A2E000000ll>();
           r  = t-w;
-          w  = fn*integral_constant<A0,0x397B839A252049C1ll>()-((t-r)-w);
+          w  = fn*double_constant<A0,0x397B839A252049C1ll>()-((t-r)-w);
           xr = r-w;
           xc = (r-xr)-w;
           return  toint(fn);
