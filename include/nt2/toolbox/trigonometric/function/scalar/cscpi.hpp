@@ -37,8 +37,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      details::ignore_unused(a0);
-      return Nan<A0>();
+      if (!a0) return Nan<A0>(); 
+       return rec(nt2::sinpi(a0));
     }
   };
 } }

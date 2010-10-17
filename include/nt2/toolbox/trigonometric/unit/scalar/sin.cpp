@@ -35,5 +35,5 @@ NT2_TEST_CASE_TPL ( sin, (double)
    NT2_TEST_EQUAL(  nt2::sin( T(0) )  , 0 );
    NT2_TEST_LESSER(  nt2::ulpdist(nt2::sin(nt2::Pio_2<T>() ), T(1)),  N); 
    NT2_TEST_LESSER(  nt2::ulpdist(nt2::sin( nt2::Pi<T>() ) , T(0)),  N); 
-
+   NT2_TEST_LESSER(  nt2::ulpdist(nt2::sin( nt2::Pio_4<T>()  ) , nt2::Sqrt_2o_2<T>()),  N); 
 }

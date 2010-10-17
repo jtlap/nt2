@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( csc, (double)
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST(  nt2::is_nan(nt2::csc( T(0) )));
    NT2_TEST_EQUAL(  nt2::csc( nt2::Pio_2<T>() )  , 1 );
-   NT2_TEST_EQUAL(  nt2::csc(nt2::Pio_4<T>() ), nt2::Sqrt_2<T>()); 
-
+   NT2_TEST_LESSER(  nt2::ulpdist(nt2::csc(nt2::Pio_4<T>() ), nt2::Sqrt_2<T>()), N); 
 }
 
