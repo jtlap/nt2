@@ -16,7 +16,7 @@
 #include <boost/preprocessor/tuple/to_seq.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-
+#include <nt2/sdk/constant/real.hpp>
 namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ namespace nt2
         static_horner_<N-1,typename boost::mpl::pop_back<Seq>::type> callee;
         return madd ( x
                     , callee(x)
-                    , integral_constant<T,boost::mpl::at_c<Seq,N-1>::type::value>()
+                    , Const<T,boost::mpl::at_c<Seq,N-1>::type::value>()
                     );
       }
     };
@@ -53,7 +53,7 @@ namespace nt2
       typename boost::result_of<static_horner_(T)>::type
       operator()(T const& ) const
       {
-        return integral_constant<T, boost::mpl::at_c<Seq,0>::type::value >();
+        return Const<T, boost::mpl::at_c<Seq,0>::type::value >();
       }
     };
   }
