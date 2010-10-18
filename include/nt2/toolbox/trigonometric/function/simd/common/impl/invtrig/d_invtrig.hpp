@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -31,9 +32,9 @@ namespace nt2
 	  typedef typename meta::scalar_of<A0>::type sA0;
 	  A0 x = abs(a0);
 	  static const A0 pio4 =  Pio_4<A0>();
-	  static const A0 small=  islt(x, Sqrteps<A0>());
-	  static const A0 morebits = integral_constant<A0, 0xbc91a62633145c07ll>();
-	  static const A0 ct1      = integral_constant<A0, 0x3fe4000000000000ll>();
+	  static const A0 small=  lt(x, Sqrteps<A0>());
+	  static const A0 morebits = double_constant<A0, 0xbc91a62633145c07ll>();
+	  static const A0 ct1      = double_constant<A0, 0x3fe4000000000000ll>();
 	  A0 zz1 = oneminus(x);
 	  const A0 vp = zz1*horner< NT2_HORNER_COEFF_T(sA0, 5,
 						       (0x3f684fc3988e9f08ll,
@@ -74,33 +75,33 @@ namespace nt2
 	  zz2 = x*z+x;
 	  return b_or(b_xor(select(small,
 				   x,
-				   select(isgt(x, ct1),
+				   select(gt(x, ct1),
 					  zz1,
 					  zz2
 					  )
 				   ),
 			    bitofsign(a0)
 			    ),
-		      isgt(x, One<A0>())
+		      gt(x, One<A0>())
 		      );
 	}
 
         static inline A0 acos(const  A0& a0)
 	{
 	  A0 z1 = Two<A0>() * asin(  sqrt(Half<A0>() - Half<A0>()*a0) );
-	  A0 z2 = ((Pio_4<A0>() - asin(a0))+integral_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
-	  return b_or( is_gt(abs(a0),One<A0>()), sel( is_gt(a0,Half<A0>()), z1, z2));
+	  A0 z2 = ((Pio_4<A0>() - asin(a0))+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
+	  return b_or( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
 	}
 
 	static inline A0 atan(const  A0& a0)
 	{
 	  typedef typename meta::scalar_of<A0>::type sA0;
-	  static const A0 tan3pio8  = integral_constant<A0, 0x4003504f333f9de6ll>();
-	  static const A0 Twothird = integral_constant<A0, 0x3fe51eb851eb851fll>();
-	  static const A0 tanpio8 = integral_constant<A0, 0x3fda827999fcef31ll>();
+	  static const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
+	  static const A0 Twothird = double_constant<A0, 0x3fe51eb851eb851fll>();
+	  static const A0 tanpio8 = double_constant<A0, 0x3fda827999fcef31ll>();
 	  A0 x =  abs(a0);
-	  const A0 flag1 = islt(x,  integral_constant<A0, 0x4003504f333f9de6ll>());              //tan3pio8
-	  const A0 flag2 = b_and(isge(x, integral_constant<A0, 0x3fda827999fcef31ll>()), flag1); //tanpio8
+	  const A0 flag1 = lt(x,  double_constant<A0, 0x4003504f333f9de6ll>());              //tan3pio8
+	  const A0 flag2 = b_and(ge(x, double_constant<A0, 0x3fda827999fcef31ll>()), flag1); //tanpio8
 	  A0 yy =  b_notand(flag1, Pio_2<A0>());
 	  yy =  select(flag2, Pio_4<A0>(), yy);
 	  A0 xx =   select(flag1, x, -rec(x));
@@ -122,9 +123,9 @@ namespace nt2
 					0x4068519efbbd62ecll)
 				       )>(z);
 	  z = fma(xx, z, xx);
-	  //	static const A0 morebits = integral_constant<A0, 0x3c91a62633145c07ll>();
-	  z = seladd(flag2, z, mul(Half<A0>(),  integral_constant<A0, 0x3c91a62633145c07ll>()));
-	  z = z+b_notand(flag1, integral_constant<A0, 0x3c91a62633145c07ll>());
+	  //	static const A0 morebits = double_constant<A0, 0x3c91a62633145c07ll>();
+	  z = seladd(flag2, z, mul(Half<A0>(),  double_constant<A0, 0x3c91a62633145c07ll>()));
+	  z = z+b_notand(flag1, double_constant<A0, 0x3c91a62633145c07ll>());
 	  yy = yy + z;
 	  return b_xor(yy, bitofsign(a0));
 	}

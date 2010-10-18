@@ -52,9 +52,7 @@ namespace nt2
 	  A0 x = abs(a0);
 	  if (any(redu_t::replacement_needed(x)))
 	    {
- 	      A0 y;
-	      map(sredu_t::cos_replacement, a0, y);
- 	      return y; 
+	      return map(sredu_t::cos_replacement, a0);
 	    }
 	  else
 	    {
@@ -63,8 +61,9 @@ namespace nt2
 	      int_type swap_bit = n&One<int_type>();
 	      int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), de); 
 	      A0 z = sqr(xr);
-	      const A0 testnan = isinvalid(a0);
-	      z = b_xor(select(isnez(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)),sign_bit);
+	      const A0 testnan = is_invalid(a0);
+	      z = select(is_nez(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)); 
+	      z = b_xor(z,sign_bit);
 	      return b_or(testnan, z);
 	    }
 	}
@@ -75,9 +74,7 @@ namespace nt2
 	  A0 x = abs(a0);
 	  if (any(redu_t::replacement_needed(x)))
 	    {
- 	      A0 y;
-	      map(sredu_t::sin_replacement, a0, y);
-	      return y; 
+	      return map(sredu_t::sin_replacement, a0);
 	    }
 	  else
 	    {
@@ -86,8 +83,8 @@ namespace nt2
 	      int_type swap_bit = n&One<int_type>();
 	      A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
 	      A0 z = sqr(xr);
-	      z = b_xor(select(iseqz(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)),sign_bit); 
-	      const A0 testnan = isinvalid(a0);
+	      z = b_xor(select(is_eqz(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)),sign_bit); 
+	      const A0 testnan = is_invalid(a0);
 	      return b_or(testnan, z);
 	    }
 	}
@@ -97,9 +94,7 @@ namespace nt2
 	  A0 x =  abs(a0); 
 	  if (any(redu_t::replacement_needed(x)))
 	    {
- 	      A0 y;
-	      map(sredu_t::tan_replacement, a0, y);
- 	      return y; 
+	      return map(sredu_t::tan_replacement, a0);
 	    }
 	  else
 	    {	  
@@ -117,9 +112,7 @@ namespace nt2
 	  A0 x =  abs(a0); 
 	  if (any(redu_t::replacement_needed(x)))
 	    {
- 	      A0 y;
-	      map(sredu_t::cot_replacement, a0, y);
- 	      return y; 
+	      return map(sredu_t::cot_replacement, a0);
 	    }
 	  else
 	    {	   
@@ -150,8 +143,8 @@ namespace nt2
 	      int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), de-1), bitofsign(a0)); 
 	      A0 t1 = eval_t::sin_eval(z, xr, xc);
 	      A0 t2 = eval_t::cos_eval(z, xr, xc);
-	      int_type test = isnez(swap_bit);
-	      A0 invalid = isinvalid(a0); 
+	      int_type test = is_nez(swap_bit);
+	      A0 invalid = is_invalid(a0); 
 	      c = b_or(invalid,b_xor(sel(test, t1, t2),cos_sign_bit));
 	      s = b_or(invalid,b_xor(sel(test, t2, t1),sin_sign_bit)); 
 	    }

@@ -44,7 +44,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      if(isgt(abs(a0), One<A0>())) return Nan<type>();
+      if(gt(abs(a0), One<A0>())) return Nan<type>();
       return oneminus(nt2::sign(a0))*Pio_2<type>();
     }
 

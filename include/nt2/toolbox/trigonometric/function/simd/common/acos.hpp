@@ -50,7 +50,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return b_or(oneminus(nt2::sign(tofloat(a0)))*Pio_2<type>(), isgt(abs(a0), One<A0>()));
+      return b_or(oneminus(nt2::sign(tofloat(a0)))*Pio_2<type>(), gt(abs(a0), One<A0>()));
     }
   };
 } }

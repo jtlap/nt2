@@ -10,8 +10,10 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_ACOTD_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/constant/digits.hpp>
 #include <nt2/include/functions/atand.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+
 
 
 namespace nt2 { namespace functors
@@ -33,8 +35,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> :  meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
