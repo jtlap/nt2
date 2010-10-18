@@ -104,23 +104,8 @@ namespace nt2 { namespace functors
     typename result<call(Value,State,Data)>::type
     operator()(Value& v, State& s, Data& d) const
     {
-      eval(v,s,d, typename std::tr1::
-      result_of<meta::validate<Value>(meta::as_< simd::native<Type,Extension> >() )>::type());
-    }
-
-    template<class Value,class State,class Data> inline
-    typename result<call(Value,State,Data)>::type
-    eval(Value&, State& , Data&, boost::mpl::true_ const& ) const
-    {
       functors::functor<typename Value::type> callee;
       return callee( meta::as_< simd::native<Type,Extension> >() );
-    }
-
-    template<class Value,class State,class Data> inline
-    typename result<call(Value,State,Data)>::type
-    eval(Value&, State& , Data&, boost::mpl::false_ const& ) const
-    {
-      NT2_STATIC_ASSERT(false,INVALID_TYPE_FOR_CONSTANT_EVALUATION,(Type));
     }
   };
 
@@ -168,23 +153,8 @@ namespace nt2 { namespace functors
     typename result<call(Value,State,Data)>::type
     operator()(Value& v, State& s, Data& d) const
     {
-      eval(v,s,d, typename std::tr1::
-      result_of<meta::validate<Value>(meta::as_< Type >() )>::type());
-    }
-
-    template<class Value,class State,class Data> inline
-    typename result<call(Value,State,Data)>::type
-    eval(Value&, State& , Data&, boost::mpl::true_ const& ) const
-    {
       functors::functor<typename Value::type> callee;
       return callee( meta::as_< Type >() );
-    }
-
-    template<class Value,class State,class Data> inline
-    typename result<call(Value,State,Data)>::type
-    eval(Value&, State& , Data&, boost::mpl::false_ const& ) const
-    {
-      NT2_STATIC_ASSERT(false,INVALID_TYPE_FOR_CONSTANT_EVALUATION,(Type));
     }
   };
 
