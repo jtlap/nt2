@@ -18,9 +18,9 @@ namespace nt2
   // situations of selection or test.
   namespace details
   {
-    template<class T,class C> struct logical_impl  { typedef bool type; };
+    template<class T,class C> struct logical_impl  { typedef T type; };
+    template<class T >        struct logical_impl < T, nt2::functors::scalar_<nt2::tag::arithmetic_, 1u> > { typedef bool type; }; 
   }
-
   namespace meta
   {
     template<class T>

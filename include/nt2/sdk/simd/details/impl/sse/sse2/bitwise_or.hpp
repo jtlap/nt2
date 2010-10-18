@@ -37,24 +37,21 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,double)
     {
-      A0 that; //= { a1 };
-      that =  a1; 
+      A0 that =  simd::native_cast<A0>(a1) ;
       that    =  _mm_or_pd(a0, that);
       return that;
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,float )
     {
-      A0 that; //= { a1 };
-      that =  a1; 
+      A0 that =  simd::native_cast<A0>(a1) ;
       that    =  _mm_or_ps(a0, that);
       return that;
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,arithmetic_)
     {
-      A0 that; //= { a1 };
-      that =  a1; 
+      A0 that =  simd::native_cast<A0>(a1) ;
       that    =  _mm_or_si128(a0,that);
       return that;
     }
