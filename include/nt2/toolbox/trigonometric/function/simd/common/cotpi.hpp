@@ -12,10 +12,8 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+
 
 
 namespace nt2 { namespace functors
@@ -50,7 +48,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      typedef NT2_CALL_RETURN_TYPE(1) type;
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return Nan<type>();
     }
   };
