@@ -24,7 +24,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(fast_cospi, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
+NT2_TEST_CASE_TPL(fast_cospi, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
 {
  using nt2::fast_cospi;
  using nt2::functors::fast_cospi_;    
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(fast_cospi, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
  for(int num = 0; num < 10; num++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(-0.25, 0.25); // good value here for fast_cospi
+       data[i] = nt2::random(0.0, 0.25); // good value here for fast_cospi
      }
      n_t a0 = load<n_t>(&data[0],0); 
      rn_t v  = fast_cospi(a0);
