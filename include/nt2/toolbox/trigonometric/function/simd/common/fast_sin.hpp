@@ -50,7 +50,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return isnez(a0);
+      return is_nez(a0);
     }
   };
 } }

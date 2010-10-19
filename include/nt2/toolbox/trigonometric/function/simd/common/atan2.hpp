@@ -52,10 +52,10 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
         A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
-	z = sel(isgtz(a1), z, Pi<A0>()-z);
-	z = sel(isnez(a1), z, z*Half<A0>());
+	z = sel(is_gtz(a1), z, Pi<A0>()-z);
+	z = sel(is_nez(a1), z, z*Half<A0>());
 	z = z*signnz(a0);
-	return sel(iseqz(a0), sel(isltz(a0), Pi<A0>(), Zero<A0>()), z);
+	return sel(is_eqz(a0), sel(is_ltz(a0), Pi<A0>(), Zero<A0>()), z);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {

@@ -11,8 +11,49 @@
 #include <nt2/toolbox/trigonometric/include/fast_sinpi.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/include/functions/random.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <iostream>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of trigonometric components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(fast_sinpi, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
+{
+ using nt2::fast_sinpi;
+ using nt2::functors::fast_sinpi_;    
+ using nt2::load; 
+ using nt2::simd::native; 
+ using nt2::meta::cardinal_of;
 
+ typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+ typedef native<T,ext_t>             n_t;
+ typedef typename nt2::meta::call<fast_sinpi_(n_t)>::type call_type;
+ typedef typename nt2::meta::as_real<T>::type rT;
+ typedef native<rT,ext_t>             rn_t;
+ 
+   
+ NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
+ NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
+ double z, m = 0; 
+ for(int num = 0; num < 10; num++)
+   {
+     for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
+       data[i] = nt2::random(-0.25, 0.25); // good value here for fast_sinpi
+     }
+     n_t a0 = load<n_t>(&data[0],0); 
+     rn_t v  = fast_sinpi(a0);
+     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+       {
+	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], fast_sinpi(a0[j])), 1);
+	 if (z > m) m = z; 
+       }
+   }
+ std::cout << "ulp max = " << m << std::endl;
+}

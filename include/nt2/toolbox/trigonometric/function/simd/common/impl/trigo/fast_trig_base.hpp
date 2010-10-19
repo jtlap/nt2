@@ -75,7 +75,7 @@ namespace nt2
 	static inline A0 cota(const  A0& a0)
 	{
 	  A0 x =  scale(a0);
-	  return  b_or(b_or(not_in_range(a0), iseqz(a0)), rec(eval_t::base_tancot_eval(x)));
+	  return  b_or(b_or(not_in_range(a0), is_eqz(a0)), rec(eval_t::base_tancot_eval(x)));
 	}
 
 
@@ -91,7 +91,7 @@ namespace nt2
 	}
       private:
 	typedef typename meta::logical<A0>::type                                                          logic;
-        static inline A0    not_in_range(const A0& a0){return is_gt(abs(a0),trig_ranges<A0,unit_tag>::max_range()); }
+        static inline A0    not_in_range(const A0& a0){return gt(abs(a0),trig_ranges<A0,unit_tag>::max_range()); }
         static inline A0    scale       (const A0& a0){return a0*trig_ranges<A0,unit_tag>::scale();            }
 	//        static inline A0    max_range   (const A0& a0){return trig_ranges<A0,unit_tag>::max_range();           }
       };

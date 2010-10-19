@@ -37,8 +37,9 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      if (!a0) return Nan<A0>(); 
-       return rec(nt2::sinpi(a0));
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
+      if (!a0) return Nan<type>(); 
+      return rec(nt2::sinpi(a0));
     }
   };
 } }

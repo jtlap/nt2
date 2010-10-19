@@ -14,7 +14,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/rec.hpp>
-
+#include <nt2/include/functions/is_odd.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -39,7 +39,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(cospi(tofloat(a0))), isodd(a0*Two<A0>()));
+      return b_or(rec(cospi(tofloat(a0))), is_odd(a0*Two<A0>()));
     }
   };
 } }

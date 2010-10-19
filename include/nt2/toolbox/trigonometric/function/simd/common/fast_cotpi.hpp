@@ -12,10 +12,7 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/copysign.hpp>
 
 
@@ -43,7 +40,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       typename nt2::meta::scalar_of<A0>::type,
-      (3, (real_,signed_, unsigned))
+      (3, (real_,signed_, unsigned_))
     )
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
@@ -52,12 +49,12 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       signed_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return b_or(nt2::copysign(Inf<type>, a0), isnez(a0));
+      return b_or(nt2::copysign(Inf<type>(), simd::native_cast<type>(a0)), is_nez(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       unsigned_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return b_or(Inf<type>, isnez(a0)); 
+      return b_or(Inf<type>(), is_nez(a0)); 
     }    
   };
 } }

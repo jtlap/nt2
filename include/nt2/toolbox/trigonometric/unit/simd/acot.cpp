@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL(acot, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
    
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- double z, m; 
+ double z, m = 0; 
  for(int num = 0; num < 10; num++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){

@@ -32,7 +32,8 @@ namespace nt2 { namespace functors
     
     NT2_FUNCTOR_CALL(1)
     {
-      if (!a0) return Nan<A0>(); 
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      if (!a0) return Nan<type>(); 
       return rec(nt2::sin(a0));
     }
   };

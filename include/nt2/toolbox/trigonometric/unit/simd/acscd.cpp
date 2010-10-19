@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - unit/simd Mode"
 
-#include <nt2/toolbox/trigonometric/include/acsc.hpp>
+#include <nt2/toolbox/trigonometric/include/acscd.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
@@ -51,7 +51,8 @@ NT2_TEST_CASE_TPL(acscd, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
      rn_t v  = acscd(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( nt2::ulpdist(v[j], acscd(a0[j])), 1);
+	 NT2_TEST_LESSER_EQUAL( z = nt2::ulpdist(v[j], acscd(a0[j])), 1);
+	 std::cout << a0[j] << "  " << v[j] << "  " << acscd(a0[j]) << std::endl;
 	 if (z > m) m = z; 
        }
    }

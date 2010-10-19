@@ -11,11 +11,8 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
-
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -24,8 +21,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_floating_point<A0>{};
+    struct result<This(A0)> : meta::is_real_convertible<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_cospi(const A0& a0)
@@ -36,8 +32,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -51,7 +46,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return One<type>()+iseqz(a0);
+      return simd::native_cast<type>(One<A0>()+is_eqz(a0));
     }
   };
 } }
