@@ -32,7 +32,7 @@ namespace nt2 { namespace functors
     {
       for(int i=0; i < meta::cardinal_of<A0>::value; i++)
 	{
-	  if(!at(a0, i)) return 0; 
+	  if(!a0[i]) return 0; 
 	}
       return 1; 
     }
