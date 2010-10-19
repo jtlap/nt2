@@ -26,11 +26,7 @@ namespace nt2 { namespace simd
   {
     typedef typename meta::vector_of<Type,Cardinal::value>::type  parent;
 
-    typedef boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
-                                                          , parent
-                                                          >
-                                  , dsl::grammar<boost::mpl::_1>
-                                  >                               evaluator_type;
+    typedef dsl::compiler< dsl::compute<parent> >  evaluator_type;
 
     typedef typename meta::category_of<parent>::type  parent_tag;
     typedef functors::ast_<parent_tag>                nt2_category_tag;
