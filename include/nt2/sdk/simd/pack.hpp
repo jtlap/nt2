@@ -18,13 +18,14 @@
 #include <nt2/sdk/simd/pack/expression.hpp>
 #include <nt2/sdk/simd/pack/terminal.hpp>
 #include <nt2/sdk/simd/pack/domain.hpp>
+#include <nt2/sdk/simd/pack/call.hpp>
+
+// Define transforms for traits
+// #include <nt2/support/numeric/simd/dsl/traits.hpp>
+
 #include <nt2/sdk/simd/pack/pack.hpp>
 #include <nt2/sdk/simd/pack/io.hpp>
 
-// Define category and expression generation
-// #include <nt2/support/numeric/simd/dsl/intrinsic.hpp>
-// Define transforms for traits
-// #include <nt2/support/numeric/simd/dsl/traits.hpp>
 // pack is fusion compatible
 // #include <nt2/support/numeric/simd/dsl/fusion.hpp>
 

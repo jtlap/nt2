@@ -34,7 +34,7 @@ namespace nt2 { namespace functors
     template<BOOST_PP_ENUM_PARAMS(n,class A)> inline A0                   \
     operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a) ) const         \
     {                                                                     \
-      A0 that = map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a) );         \
+      A0 that = map( functor<Tag,Info>(), BOOST_PP_ENUM_PARAMS(n,a) );    \
       return that;                                                        \
     }                                                                     \
     /**/
