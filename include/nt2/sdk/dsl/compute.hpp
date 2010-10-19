@@ -22,9 +22,10 @@ namespace nt2 { namespace dsl
   template <class Rule, class Actions, class Dispatch = Rule>
   struct  bind
         : boost::proto::when<Rule, typename Actions::template action<Dispatch> >
+  {};
 
   template<class Actions>
-  struct compiler : proto::switch_<Actions> {};
+  struct compiler : boost::proto::switch_<Actions> {};
 
   //////////////////////////////////////////////////////////////////////////////
   // computation action
@@ -34,36 +35,30 @@ namespace nt2 { namespace dsl
   {
     template<class Tag>
     struct  case_
-          : boost::proto::bind< boost::proto::_
-                              , compute
-                              , boost::proto::tag_of<boost::proto::_>()
-                              >
+          : bind< boost::proto::_
+                , compute
+                , boost::proto::tag_of<boost::proto::_>()
+                >
     {};
 
     //////////////////////////////////////////////////////////////////////////////
     // Primary case captures any tag into appropriate functor and call it
-    // recursively
+    // recursively using unpack
     //////////////////////////////////////////////////////////////////////////////
     template<class Case,class Dummy=void>
     struct  action
           : boost::proto::
-            unpack< functors::functor<Tag,Locality> ( boost::proto::
-                                          visitor <
-                                              compute_transform < boost::mpl::_1
-                                                                , Locality
-                                                                >
-                                            , grammar<boost::mpl::_1>
-                                                  >
-                                        )
-                >
-  {};
+            unpack< boost::proto::
+                    call<functors::functor<Case,Locality>(compiler<compute>)>
+                  >
+    {};
   };
 
   //////////////////////////////////////////////////////////////////////////////
   // Captures terminal and forward their value, state and data to the functor
   //////////////////////////////////////////////////////////////////////////////
   template<class Locality> template<class Dummy>
-  struct  compute::action<functors::terminal_,Dummy>
+  struct  compute<Locality>::action<functors::terminal_,Dummy>
         : boost::proto::
           call<functors::functor< functors::terminal_
                                 , Locality
@@ -79,6 +74,9 @@ namespace boost { namespace proto
 {
   template<class Actions>
   struct is_callable<nt2::dsl::compiler<Actions> > : boost::mpl::true_  {};
+
+  template<class Locality>
+  struct is_callable<nt2::dsl::compute<Locality> > : boost::mpl::true_  {};
 } }
 
 #endif
