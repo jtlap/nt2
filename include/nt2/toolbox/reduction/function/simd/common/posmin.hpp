@@ -23,7 +23,12 @@ namespace nt2 { namespace functors
               tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
-    typedef int32_t result_type;
+     template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename meta::as_integer<stype, signed>::type type; 
+    };
     
     NT2_FUNCTOR_CALL(1)
     {
