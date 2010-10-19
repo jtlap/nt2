@@ -12,16 +12,25 @@
 #include <boost/proto/proto.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/dsl/proto/transform/unpack.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// compute actor and trasnform that evaluates some AST
+// compile take any NT2 AST and evaluate them based on actions
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace dsl
 {
-  template<typename Tag> struct grammar : boost::proto::_ {};
+  template<class Actions>
+  struct  compile
+        : boost::proto::when< boost::proto::_
+                            , Actions::template action<boost::proto::_>
+                            >
+  {};
 
+  //////////////////////////////////////////////////////////////////////////////
+  // computation action
+  //////////////////////////////////////////////////////////////////////////////
+
+/*
   //////////////////////////////////////////////////////////////////////////////
   // Forward functor into compute for most tag
   //////////////////////////////////////////////////////////////////////////////
@@ -55,12 +64,15 @@ namespace nt2 { namespace dsl
                                                     )
                       >
   {};
+  */
 } }
 
+/*
 namespace boost { namespace proto
 {
   template<class Tag, class Locality>
   struct is_callable<nt2::dsl::compute<Tag,Locality> > : boost::mpl::true_  {};
 } }
+*/
 
 #endif
