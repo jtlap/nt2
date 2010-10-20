@@ -41,13 +41,15 @@ NT2_TEST_CASE_TPL(shrai, (int16_t)(int32_t)(int64_t)(int8_t)   )
    data[i] =nt2::random(-100.0, 100.0); // good value here for shrai
 
  n_t a0 = load<n_t>(&data[0],0);
- for (int a1 =  0;  a1 < 8; a1++)
+ for (int a1 =  0;  a1 < sizeof(T)*8; a1++)
    {
-     n_t v  = nt2::shrai(a0, 1);
+     n_t v  = nt2::shrai(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL( v[j], shrai(a0[j], 1) );
-	 std::cout << int(a0[j]) << "   " << int(1) << "   "<< int(v[j]) << "  " << int(shrai(a0[j], 1)) << std::endl;       
+	 NT2_TEST_EQUAL( v[j], shrai(a0[j], a1) );
+	 std::cout << int(a0[j]) << "   "<< int(a1) << "   " << int(v[j]) << "  " << int(shrai(a0[j], a1)) << std::endl;       
        } 
    }
 } 
+ 
+ 
