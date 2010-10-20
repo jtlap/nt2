@@ -41,7 +41,7 @@ namespace nt2 { namespace simd
     typedef functors::simd_<tag::arithmetic_,Extension,1>   nt2_category_tag;
     typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
-    typedef value_type&                                     reference;
+    typedef value_type                                      reference;
     typedef value_type                                      const_reference;
     typedef std::size_t                                     size_type;
     typedef details::native_iterator<native>                iterator;
