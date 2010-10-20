@@ -16,6 +16,7 @@
 #include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
+#include <nt2/sdk/simd/details/native/iterator.hpp>
 
 namespace nt2 { namespace simd
 {
@@ -43,6 +44,8 @@ namespace nt2 { namespace simd
     typedef value_type&                                     reference;
     typedef value_type                                      const_reference;
     typedef std::size_t                                     size_type;
+    typedef details::native_iterator<native>                iterator;
+    typedef details::native_iterator<native>                const_iterator;
 
     ////////////////////////////////////////////////////////////////////////////
     // vector size
@@ -102,6 +105,12 @@ namespace nt2 { namespace simd
     // new/delete operator to force alignment on heap of native values
     ////////////////////////////////////////////////////////////////////////////
     NT2_MEMORY_OVERLOAD_NEW_DELETE(this_type)
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Range interface
+    ////////////////////////////////////////////////////////////////////////////
+    const_iterator begin() const { return const_iterator(*this,0);      };
+    const_iterator end()   const { return const_iterator(*this,size()); };
 
     ////////////////////////////////////////////////////////////////////////////
     // self-operator methods
