@@ -22,26 +22,22 @@ namespace nt2 { namespace details
                                 >
   {
     public:
-    native_iterator() : index(0) {}
+    native_iterator() : idx(0) {}
 
     explicit
-    native_iterator( Native const& v, std::size_t idx ) : data(v), index(idx){}
+    native_iterator( Native const& v, std::size_t i ) : data(v), idx(i) {}
 
     private:
     friend class boost::iterator_core_access;
 
-    void increment() { index++; }
-    void decrement() { index--; }
+    void increment() { idx++; }
+    void decrement() { idx--; }
 
-    bool equal(native_iterator const& other) const
-    {
-      return index == other.index;
-    }
-
-    typename Native::value_type dereference() const { return data[index]; }
+    bool equal(native_iterator const& other) const  { return idx == other.idx; }
+    typename Native::value_type dereference() const { return data[idx]; }
 
     Native        data;
-    std::size_t   index;
+    std::size_t   idx;
   };
 
 } }
