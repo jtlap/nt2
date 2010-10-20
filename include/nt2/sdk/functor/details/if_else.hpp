@@ -20,7 +20,7 @@
 namespace nt2 { namespace functors
 {
   template<class Category, class Info>
-  struct validate<if_else_,Category, Info>
+  struct validate<if_else_,tag::scalar_(Category), Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
@@ -29,7 +29,7 @@ namespace nt2 { namespace functors
   };
 
   template<class Category, class Info>
-  struct call<if_else_,Category, Info>
+  struct call<if_else_,tag::scalar_(Category), Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
