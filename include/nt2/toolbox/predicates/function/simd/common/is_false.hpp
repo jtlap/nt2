@@ -29,7 +29,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_eq(a0,Zero<A0>());
+      return eq(a0,Zero<A0>());
     }
   };
 } }

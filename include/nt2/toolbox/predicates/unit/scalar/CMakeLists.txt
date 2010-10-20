@@ -15,15 +15,11 @@ SET( SOURCES
   is_not_infinite.cpp
   majority.cpp
   sb2b.cpp
-  is_not_greater.cpp
   is_unord.cpp
   is_true.cpp
   is_positive.cpp
   is_ord.cpp
   is_odd.cpp
-  is_not_less_equal.cpp
-  is_not_less.cpp
-  is_not_greater_equal.cpp
   is_not_finite.cpp
   is_nltz.cpp
   is_nlez.cpp

@@ -42,7 +42,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
-       return iseqz(a0 & One<A0>());
+       return is_eqz(a0 & One<A0>());
     }
   };
 } }

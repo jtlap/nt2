@@ -38,7 +38,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
-      return islt(a0,a1);
+      return lt(a0,a1);
     }
   };
 } }

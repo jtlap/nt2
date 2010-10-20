@@ -44,11 +44,11 @@ namespace nt2 { namespace functors
       //      return A0(boolean(a0[0]),boolean(a0[1]));           //15 cycles
       //      return select(iseqz(a0),Zero<A0>(),One<A0>());      //17 cycles
       //     return seladd(isnez(a0),Zero<A0>(),One<A0>());         //3.8 cycles
-      return isnez(a0)&One<A0>();
+      return is_nez(a0)&One<A0>();
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      return isnez(a0)&One<A0>();
+      return is_nez(a0)&One<A0>();
     }
   };
 } }
