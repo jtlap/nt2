@@ -1,7 +1,10 @@
 #include <iostream>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/simd/pack.hpp>
+
+using namespace nt2;
 
 int main()
 {
-  std::cout << std::boolalpha << bool(nt2::Nan<float>() == true)<< "\n";
+  simd::pack<float> x,y;
+  x = x + y;
 }
