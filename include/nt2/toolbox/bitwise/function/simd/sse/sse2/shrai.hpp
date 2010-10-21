@@ -48,11 +48,9 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,     int64_t)
     {
-      typedef typename meta::as_integer<A0,signed>::type sint;
-      sint a00 =  simd::native_cast<sint>(a0);
-      sint const that = {{shrai(a00[0], a1),
-			  shrai(a00[1], a1)}}; 
-      return simd::native_cast<A0>(that);
+
+      A0 that = {shrai(a0[0], a1), shrai(a0[1], a1)}; 
+      return that;
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,     int32_t)
     {

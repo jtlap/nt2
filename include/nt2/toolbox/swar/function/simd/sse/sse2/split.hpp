@@ -29,13 +29,13 @@ namespace nt2 { namespace functors
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename meta::upgrade<stype>::type                  utype;
-      typedef simd::native<utype,tag::sse_>                                ttype;
+      typedef typename meta::upgrade<stype>::type                           utype;
+      typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef meta::is_floating_point<stype>                                 rtag;
-      typedef simd::native<typename  meta::double_<A0>::type,tag::sse_>    dtype;
+      typedef simd::native<typename  meta::double_<A0>::type,tag::sse_>     dtype;
       
       typedef typename boost::mpl::if_c < rtag::value
-                                        , dtype, ttype>::type              rtype;
+                                        , dtype, ttype>::type               rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              type;
     };
 

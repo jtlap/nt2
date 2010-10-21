@@ -25,7 +25,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::scalar_of<A0>{};
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -60,7 +64,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
     {
-      return firt(a0)+second(a0);
+      return first(a0)+second(a0);
     }
   };
 } }

@@ -25,7 +25,7 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)>
       {
-	typedef typename meta::as_integer<typename meta::scalar_of<A0>::type, signed>::type type;
+	typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
       };
 
     NT2_FUNCTOR_CALL_DISPATCH ( 1
@@ -38,7 +38,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
-      return _mm_movemask_epi8(a0); // TO CHECK
+      return _mm_movemask_epi8(a0);
     }
   };
 } }

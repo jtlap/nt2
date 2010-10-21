@@ -30,7 +30,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_and(a0, One<A0>());
+      return b_and(is_nez(a0), One<A0>());
     }
   };
 } }

@@ -11,6 +11,7 @@
 #include <nt2/sdk/constant/boolean.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 
 namespace nt2 { namespace functors
@@ -37,7 +38,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return isnan(a0-a0);
+      return is_nan(a0-a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

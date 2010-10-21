@@ -11,7 +11,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
-
+#include <nt2/sdk/details/ignore_unused.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -35,12 +35,13 @@ namespace nt2 { namespace functors
     )
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      return is_neq(abs(a0),Inf<A0>());
+      return is_not_equal(abs(a0),Inf<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return is_not_infinite(type(a0));
+      details::ignore_unused(a0);
+      return True<A0>();
     }
 
   };

@@ -20,18 +20,67 @@ namespace nt2 { namespace simd
   {
     typedef typename
     expression_facade<Type,boost::mpl::size_t<Cardinal> >::type parent;
-    typedef Type                                                scalar_type;
-    typedef Type&                                               reference;
-    typedef Type                                                const_reference;
+    typedef data<Type,boost::mpl::size_t<Cardinal> >            data_type;
 
-    //////////////////////////////////////////////////////////////////////////
+    typedef typename data_type::parent          base_type;
+    typedef typename data_type::value_type      value_type;
+    typedef typename data_type::reference       reference;
+    typedef typename data_type::const_reference const_reference;
+    typedef typename data_type::size_type       size_type;
+    typedef typename data_type::iterator        iterator;
+    typedef typename data_type::const_iterator  const_iterator;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // vector size
+    ////////////////////////////////////////////////////////////////////////////
+    BOOST_STATIC_CONSTANT(size_type, static_size = base_type::static_size);
+
+    ////////////////////////////////////////////////////////////////////////////
     // Constructors
-    //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     pack() : parent() {}
+
+    pack(pack const& src) { boost::proto::value(*this) = boost::proto::value(src);}
+
     explicit pack(Type const& a0)
     {
       boost::proto::value(*this).fill(a0);
     }
+
+    pack(base_type const& a0)
+    {
+      boost::proto::value(*this) = a0;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Assignments
+    ////////////////////////////////////////////////////////////////////////////
+    pack& operator=(pack const& src)
+    {
+      boost::proto::value(*this) = boost::proto::value(src);
+      return *this;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Array Interface
+    ////////////////////////////////////////////////////////////////////////////
+    reference  operator[](int i)
+    {
+      return boost::proto::value(*this)[i];
+    }
+
+    const_reference  operator[](int i) const
+    {
+      return boost::proto::value(*this)[i];
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Range interface
+    ////////////////////////////////////////////////////////////////////////////
+    iterator        begin()         { return boost::proto::value(*this).begin(); }
+    iterator        end()           { return boost::proto::value(*this).end();   }
+    const_iterator  begin()  const  { return boost::proto::value(*this).begin(); }
+    const_iterator  end()    const  { return boost::proto::value(*this).end();   }
 
     ////////////////////////////////////////////////////////////////////////////
     // SIMD expression evaluates as pack
@@ -52,13 +101,6 @@ namespace nt2 { namespace simd
       return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // access to the scalar components of the vector type
-    ////////////////////////////////////////////////////////////////////////////
-    const_reference  operator[](int i) const
-    {
-      return boost::proto::value(*this)[i];
-    }
   };
 } }
 

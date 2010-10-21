@@ -10,6 +10,11 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_NEGATIVE_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/shrai.hpp>
+#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 
 
 namespace nt2 { namespace functors
@@ -31,9 +36,14 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
+      (3, (real_,unsigned_, arithmetic_))
     )
 
+    NT2_FUNCTOR_CALL_EVAL_IF(1,       unsigned_)
+    {
+      details::ignore_unused(a0);
+      return False<A0>();
+    }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
       return is_ltz(a0);
@@ -41,7 +51,9 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       typedef typename meta::as_integer<A0, signed>::type type;
-      return simd::native_cast<A0>(is_ltz(simd::native_cast<type>(a0)));
+      const int32_t nb =  sizeof(typename meta::scalar_of <A0>::type)*8-1; 
+      return simd::native_cast<A0>(shrai(simd::native_cast<type>(a0), nb));
+      //     return simd::native_cast<A0>(is_nez(simd::native_cast<type>(b_and(a0, Signmask<A0>())))); 
     }
   };
 } }

@@ -28,7 +28,13 @@ namespace nt2 { namespace functors
   template<class Info>
   struct call<posmax_,tag::scalar_(tag::arithmetic_),Info>
   {
-   typedef nt2::uint32_t result_type;
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::as_integer<A0, signed>::type type; 
+    };
+
    
     NT2_FUNCTOR_CALL(1)
     {

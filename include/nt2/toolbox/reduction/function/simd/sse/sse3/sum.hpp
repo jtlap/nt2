@@ -23,7 +23,10 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-      : meta::strip<A0>{};//
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,

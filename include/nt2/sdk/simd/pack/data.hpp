@@ -25,28 +25,47 @@ namespace nt2 { namespace simd
   struct  data
   {
     typedef typename meta::vector_of<Type,Cardinal::value>::type  parent;
+    typedef typename meta::category_of<parent>::type              parent_tag;
+    typedef functors::ast_<parent_tag>                            nt2_category_tag;
 
-    typedef boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
-                                                          , parent
-                                                          >
-                                  , dsl::grammar<boost::mpl::_1>
-                                  >                               evaluator_type;
-
-    typedef typename meta::category_of<parent>::type  parent_tag;
-    typedef functors::ast_<parent_tag>                nt2_category_tag;
     typedef typename parent::value_type               value_type;
+    typedef typename parent::reference                reference;
+    typedef typename parent::const_reference          const_reference;
+    typedef typename parent::size_type                size_type;
+    typedef typename parent::iterator                 iterator;
+    typedef typename parent::const_iterator           const_iterator;
 
     ////////////////////////////////////////////////////////////////////////////
     // Constructors from various sources
     ////////////////////////////////////////////////////////////////////////////
     data() : mData() {}
 
+    data(parent const& a0) : mData(a0) {}
+
+    data& operator=(parent const& a0)
+    {
+      mData = a0;
+      return *this;
+    }
+
     void fill(Type const& a0)
     {
       fill(a0,typename meta::is_native<parent>::type());
     }
 
-    Type operator[](int i) const { return mData[i]; }
+    ////////////////////////////////////////////////////////////////////////////
+    // Array interface
+    ////////////////////////////////////////////////////////////////////////////
+    reference       operator[](int i)       { return mData[i]; }
+    const_reference operator[](int i) const { return mData[i]; }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Range interface
+    ////////////////////////////////////////////////////////////////////////////
+    const_iterator begin()  const { return mData.begin(); }
+    const_iterator end()    const { return mData.end();   }
+    iterator begin()  { return mData.begin(); }
+    iterator end()    { return mData.end();   }
 
     ////////////////////////////////////////////////////////////////////////////
     // Fill current data by evaluating soem expression
@@ -80,7 +99,11 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
-      evaluator_type eval;
+      boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
+                                                    , parent
+                                                    >
+                            , dsl::grammar<boost::mpl::_1>
+                            > eval;
       mData = eval(xpr);
     }
 
@@ -95,7 +118,12 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
-      evaluator_type eval;
+      boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
+                                                    , parent
+                                                    >
+                            , dsl::grammar<boost::mpl::_1>
+                            > eval;
+
       for(std::size_t i=0;i<Cardinal::value;++i)
         mData[i] = eval(xpr,i,i);
     }

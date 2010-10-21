@@ -54,5 +54,6 @@ NT2_TEST_CASE_TPL ( unsigned_is_eqz, (nt2::uint64_t)
 
   NT2_TEST_EQUAL(  is_eqz( T(42) ), 0 );
   NT2_TEST_EQUAL(  is_eqz( T(0) ), 1 );
+
 }
 
