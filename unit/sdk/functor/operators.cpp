@@ -286,28 +286,3 @@ NT2_TEST_CASE_TPL ( real_b_and,(double)(float)
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_left_       , shl             , 2 )
 */
 
-////////////////////////////////////////////////////////////////////////////////
-// Test behavior for if_else
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( if_else,(double)(nt2::uint64_t)(nt2::int64_t)
-                            (float)(nt2::uint32_t)(nt2::int32_t)
-                            (nt2::uint16_t)(nt2::int16_t)
-                            (nt2::uint8_t)(nt2::int8_t)
-                  )
-{
-  using boost::is_same;
-  using nt2::functors::if_else_;
-
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<if_else_(bool,T,T)>::type
-                            , T
-                            >::value
-            )
-          );
-
-  T true_value   = 4;
-  T false_value  = 7;
-  NT2_TEST_EQUAL( nt2::if_else(true,true_value ,false_value ), true_value   );
-  NT2_TEST_EQUAL( nt2::if_else(false,true_value ,false_value), false_value  );
-  NT2_TEST_EQUAL( nt2::where(true,true_value ,false_value   ), true_value   );
-  NT2_TEST_EQUAL( nt2::where(false,true_value ,false_value  ), false_value  );
-}
