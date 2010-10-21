@@ -12,6 +12,8 @@
 ################################################################################
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
+#   nan.cpp
+    simd.cpp
 #    simd_range.cpp
     )
 
