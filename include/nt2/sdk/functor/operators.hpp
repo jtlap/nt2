@@ -16,7 +16,6 @@
 #include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/functor/details/comma.hpp>
-#include <nt2/sdk/functor/details/if_else.hpp>
 #include <nt2/sdk/functor/details/boolean.hpp>
 #include <nt2/sdk/functor/details/bitwise.hpp>
 #include <nt2/sdk/functor/details/terminal.hpp>
@@ -77,12 +76,6 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_right_      , shr             , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_left_       , shift_left      , 2 )
   NT2_FUNCTION_IMPLEMENTATION(functors::shift_left_       , shl             , 2 )
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Ternary function wrappers
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTION_IMPLEMENTATION(functors::if_else_  , if_else , 3 )
-  NT2_FUNCTION_IMPLEMENTATION(functors::if_else_  , where   , 3 )
 }
 
 #endif
