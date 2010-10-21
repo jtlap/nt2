@@ -9,10 +9,9 @@
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLATTED_MAXIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLATTED_MAXIMUM_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/max.hpp>
-
 #include <nt2/include/functions/maximum.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -45,7 +44,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
     {
-      typedef typename simd::native<double, typename meta::category_of<A0>::type::type> ftype; 
+      typedef typename meta::as_real<A0>::type ftype; 
       A0 a00  =  simd::native_cast<A0>(_mm_shuffle_pd(simd::native_cast<ftype>(a0),
 						      simd::native_cast<ftype>(a0),0x01));     
       return  max(a0, a00); 
@@ -58,7 +57,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int16_)
     {
-      typedef typename simd::native<float, typename meta::category_of<A0>::type::type> ftype; 
+      typedef typename simd::native<float, Extension> ftype;
       A0 max1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          max1 = _mm_shufflelo_epi16(max1, _MM_SHUFFLE(1, 0, 3, 2));
          max1 = max(a0, max1);
@@ -67,10 +66,9 @@ namespace nt2 { namespace functors
          max2 = max(max1, max2);
       A0 max3 = {_mm_shuffle_epi32(max2, _MM_SHUFFLE(3, 2, 1, 0))};
       A0 max4 = {_mm_shufflelo_epi16(max3, _MM_SHUFFLE(0, 1, 2, 3))};
-      ftype max5 = simd::native_cast<ftype>(nt2::max(max3, max4));
-      ftype that = {_mm_unpacklo_ps(max5, max5)}; 
-         
-      return simd::native_cast<A0>(that);
+      ftype max5 = {simd::native_cast<ftype>(nt2::max(max3, max4))};
+      A0 that = {simd::native_cast<A0>(_mm_unpacklo_ps(max5, max5))}; 
+      return that;
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_)
     {
