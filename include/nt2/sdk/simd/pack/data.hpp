@@ -64,10 +64,10 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    const_iterator begin()  const { return mData.begin(); }
-    const_iterator end()    const { return mData.end();   }
-    iterator begin()  { return mData.begin(); }
-    iterator end()    { return mData.end();   }
+    const_iterator  begin()  const  { return mData.begin(); }
+    const_iterator  end()    const  { return mData.end();   }
+    iterator        begin()         { return mData.begin(); }
+    iterator        end()           { return mData.end();   }
 
     ////////////////////////////////////////////////////////////////////////////
     // Fill current data by evaluating soem expression
