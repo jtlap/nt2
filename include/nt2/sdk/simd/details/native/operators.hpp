@@ -36,18 +36,6 @@ namespace nt2 { namespace simd
   NT2_MAKE_NATIVE_OP( functors::modulo_          , operator%  )
   NT2_MAKE_NATIVE_OP( functors::shift_left_      , operator<< )
   NT2_MAKE_NATIVE_OP( functors::shift_right_     , operator>> )
-
-  template<class T1,class T2,class T3,class X> inline
-  typename meta::enable_call<functors::if_else_ ( native<T1,X>
-                                                , native<T2,X>
-                                                , native<T3,X>
-                                                )
-                            >::type
-  if_else_(native<T1,X> const& a0, native<T2,X> const& a1, native<T3,X> const& a2)
-  {
-    functors::functor<functors::if_else_> callee;
-    return callee(a0,a1,a2);
-  }
 } }
 
 #include <nt2/sdk/simd/details/impl/operators.hpp>

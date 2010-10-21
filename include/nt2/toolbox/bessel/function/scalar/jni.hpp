@@ -13,6 +13,7 @@
 #include <nt2/include/functions/j0.hpp>
 #include <nt2/include/functions/j1.hpp>
 #include <nt2/include/functions/cospi.hpp>
+#include <nt2/include/functions/select.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -80,7 +81,7 @@ namespace nt2 { namespace functors
 	  r = r-Two<result_type>();
 	}
 	while( --k > 0 );
-	return sign*where(gt(abs(pk), nt2::abs(pkm1)),nt2::j1(x)/pk, nt2::j0(x)/pkm1);
+	return sign*sel(gt(abs(pk), nt2::abs(pkm1)),nt2::j1(x)/pk, nt2::j0(x)/pkm1);
 	//	 return ::jnf(a0, a1);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, double)
