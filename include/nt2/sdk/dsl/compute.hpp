@@ -19,149 +19,135 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace dsl
 {
-  template <typename Grammar, typename Visitor, typename IsRule = void>
-  struct algorithm_case
-      : Grammar
-  {};
+    namespace detail
+    {
+        template<typename Rules, typename Actions, int RuleSize = Rules::count>
+        struct algorithm_case_impl;
 
-  template <typename Rule, typename Visitor, int RulesSize = Rule::size>
-  struct algorithm_case_rule;
+#define M0(Z, N, DATA)                                                                              \
+        boost::proto::when<                                                                                \
+                typename Rules::BOOST_PP_CAT(rule, N)                                                   \
+              , typename Actions::template action<typename Rules::BOOST_PP_CAT(rule, N), Actions>       \
+            >                                                                                           \
+            /**/
 
-  template <typename Rule, typename Visitor>
-  struct algorithm_case_rule<Rule, Visitor, 1>
-      : boost::proto::when<typename Rule::rule0, typename Visitor::template visit<typename Rule::rule0> >
-  {};
+#define M1(Z, N, DATA)                                                                              \
+        template<typename Rules, typename Actions>                                                      \
+        struct algorithm_case_impl<Rules, Actions, N>                                                   \
+          : boost::proto::or_<BOOST_PP_ENUM_ ## Z(N, M0, ~) >                                                  \
+        {};                                                                                             \
+        /**/
 
-  template <typename Rule, typename Visitor>
-  struct algorithm_case_rule<Rule, Visitor, 2>
-      : boost::proto::or_<
-          boost::proto::when<typename Rule::rule0, typename Visitor::template visit<typename Rule::rule0> >
-        , boost::proto::when<typename Rule::rule1, typename Visitor::template visit<typename Rule::rule1> >
-      >
-  {};
+        BOOST_PP_REPEAT(BOOST_PROTO_MAX_LOGICAL_ARITY, M1, ~)
+        #undef M1
+        #undef M0
 
-  template <typename Rule, typename Visitor>
-  struct algorithm_case_rule<Rule, Visitor, 3>
-      : boost::proto::or_<
-          boost::proto::when<typename Rule::rule0, typename Visitor::template visit<typename Rule::rule0> >
-        , boost::proto::when<typename Rule::rule1, typename Visitor::template visit<typename Rule::rule1> >
-        , boost::proto::when<typename Rule::rule2, typename Visitor::template visit<typename Rule::rule2> >
-      >
-  {};
+        template<typename Grammar, typename Actions, typename IsRule = void>
+        struct algorithm_case
+          : boost::proto::when<
+                Grammar
+              , typename Actions::template action<Grammar, Actions>
+            >
+        {};
 
-  template <typename Grammar, typename Visitor>
-  struct algorithm_case<Grammar, Visitor, typename Grammar::is_rule>
-      : algorithm_case_rule<Grammar, Visitor>
-  {};
+        template<typename Grammar, typename Actions>
+        struct algorithm_case<Grammar, Actions, typename Grammar::is_rule>
+          : algorithm_case_impl<Grammar, Actions>
+        {};
+    }
 
-  template <typename Cases, typename Visitor>
-  struct algorithm
-      : boost::proto::switch_<algorithm<Cases, Visitor> >
-  {
-      template <typename Tag>
-      struct case_
-          : algorithm_case<typename Cases::template case_<Tag>, Visitor>
-      {};
-  };
+    // A collection of grammar rules. Really, we could just use proto::or_ for this purpose.
+    template<BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(BOOST_PROTO_MAX_LOGICAL_ARITY, typename Rule, void), typename Dummy = void>
+    struct rules;
 
-  template <typename Grammar>
-  struct rule
-  {
-      typedef void is_rule;
+#define M0(Z, N, DATA)                                                                              \
+        typedef BOOST_PP_CAT(Rule, N) BOOST_PP_CAT(rule, N);                                            \
+        /**/
 
-      static int const size = 1;
-      typedef Grammar rule0;
-  };
+#define M1(Z, N, DATA)                                                                              \
+        template<BOOST_PP_ENUM_PARAMS_Z(Z, N, typename Rule)>                                           \
+        struct rules<BOOST_PP_ENUM_PARAMS_Z(Z, N, Rule)>                                                \
+        {                                                                                               \
+            typedef void is_rule;                                                                       \
+            static int const count = N;                                                                 \
+            BOOST_PP_REPEAT_ ## Z(N, M0, ~)                                                             \
+        };                                                                                              \
+        /**/
 
-  template <typename Grammar0 = void, typename Grammar1 = void, typename Grammar2 = void, typename Dummy = void>
-  struct rules;
+    BOOST_PP_REPEAT(BOOST_PROTO_MAX_LOGICAL_ARITY, M1, ~)
+#undef M1
+#undef M0
 
-  template <typename Grammar>
-  struct rules<Grammar>
-  {
-      typedef void is_rule;
+    // By default, just use the actions that have already been
+    // associated with the grammar rules. Could be in Proto.
+    struct default_actions
+    {
+        template<typename Rule, typename Actions>
+        struct action
+          : Rule
+        {};
+    };
 
-      static int const size = 1;
-      typedef Grammar rule0;
-  };
+    template<typename Cases, typename Actions = default_actions>
+    struct algorithm
+      : boost::proto::switch_<algorithm<Cases, Actions> >
+    {
+        template<typename Tag>
+        struct case_
+          : detail::algorithm_case<
+                typename Cases::template case_<Tag>
+              , Actions
+            >
+        {};
+    };
 
-  template <typename Grammar0, typename Grammar1>
-  struct rules<Grammar0, Grammar1>
-  {
-      typedef void is_rule;
-
-      static int const size = 2;
-      typedef Grammar0 rule0;
-      typedef Grammar1 rule1;
-  };
-
-  template <typename Grammar0, typename Grammar1, typename Grammar2>
-  struct rules<Grammar0, Grammar1, Grammar2>
-  {
-      typedef void is_rule;
-
-      static int const size = 3;
-      typedef Grammar0 rule0;
-      typedef Grammar1 rule1;
-      typedef Grammar2 rule2;
-  };
-
-  template <class Rule, class Actions, class Dispatch = Rule>
-  struct  bind
-        : boost::proto::when<Rule, typename Actions::template action<Dispatch> >
-  {};
-
-  template<class Tag, class Locality = void> struct compute;
-
-  template<class Locality> struct visitor
-  {
-      template<class Rule>
-      struct  visit
-            : boost::proto::lazy<compute<boost::proto::tag_of<boost::proto::_>(),Locality> >
-      {};
-  };
-
-  struct cases
-  {
-    template <typename Tag> struct case_ : rule<boost::proto::_> {};
-  };
+  template<class Tag, class Locality>
+  struct compute;
 
   template<class Locality>
-  struct compile : algorithm<cases, visitor<Locality> > {};
+  struct actions
+  {
+      template <typename Rule, typename Actions>
+      struct action
+        : default_actions::action<Rule, Actions>
+      {};
+  };
 
-/*
-  template <>
-  struct cases::case_<proto::tag::left_shift>
-      : rule<proto::left_shift<proto::_, proto::_> >
-  {};
+  template <typename Locality>
+  struct cases
+  {
+    template <typename Tag> struct case_ : boost::proto::otherwise<compute<Tag, Locality> > {};
+  };
 
-  template <>
-  struct cases::case_<proto::tag::plus>
-      : rule<proto::plus<proto::multiplies<proto::_, proto::_>, proto::_> >
-  {};
-*/
+  template<class Locality = void>
+  struct compile : algorithm<cases<Locality>, actions<Locality> > {};
 
-  template<class Tag,class Locality>
-  struct  compute
-        : boost::proto::
-          unpack< functors::functor<Tag,Locality> ( compile<Locality> )>
+  template <class Tag, class Locality>
+  struct compute
+    : boost::proto::
+      unpack<boost::proto::call<functors::functor<Tag, Locality> >(compile<Locality>)>
   {};
 
   template<class Locality>
   struct  compute<functors::terminal_,Locality>
         : boost::proto::
-          call<functors::functor<functors::terminal_,Locality>( boost::proto::_value
-                                                              , boost::proto::_state
-                                                              , boost::proto::_data
-                                                              )
-                      >
-  {};
+          call<
+            functors::functor<functors::terminal_,Locality>(
+                boost::proto::_value
+              , boost::proto::_state
+              , boost::proto::_data
+            )
+        >
+    {};
+
 } }
 
 namespace boost { namespace proto
 {
   template<class Locality>
   struct is_callable<nt2::dsl::compile<Locality> > : boost::mpl::true_  {};
+  template<typename Tag, class Locality>
+  struct is_callable<nt2::dsl::compute<Tag, Locality> > : boost::mpl::true_  {};
 } }
 
 #endif
