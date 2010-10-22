@@ -23,19 +23,19 @@ namespace nt2
       {
         static inline A0 isgemaxlog(const A0 & a0)
         {
-          return is_ge(a0,integral_constant<A0,0x4086232bdd7abcd2ll>());
+          return ge(a0,double_constant<A0,0x4086232bdd7abcd2ll>());
         }
 
         static inline A0 isleminlog(const A0 & a0)
         {
-          return is_le(a0,integral_constant<A0,0xc086232bdd7abcd2ll>());
+          return le(a0,double_constant<A0,0xc086232bdd7abcd2ll>());
         }
 
         static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
         {
           A0 k  = round2even(Invlog_2<A0>()*a0);
-          hi    = a0 - k * integral_constant<A0,0x3fe62e42fee00000ll>();
-          lo    =      k * integral_constant<A0,0x3dea39ef35793c76ll>();
+          hi    = a0 - k * double_constant<A0,0x3fe62e42fee00000ll>();
+          lo    =      k * double_constant<A0,0x3dea39ef35793c76ll>();
           x     = hi-lo;
           return k;
         }
@@ -57,12 +57,12 @@ namespace nt2
       {
         static inline A0 isgemaxlog(const A0 & a0)
         {
-          return is_ge(a0,integral_constant<A0,0x408ff80000000000ll>());
+          return ge(a0,double_constant<A0,0x408ff80000000000ll>());
         }
 
         static inline A0 isleminlog(const A0 & a0)
         {
-          return is_le(a0,integral_constant<A0,0xc08ff00000000000ll>());
+          return le(a0,double_constant<A0,0xc08ff00000000000ll>());
         }
 
         static inline A0 reduce(const A0& a0, A0 , A0 , A0& x)
@@ -91,19 +91,19 @@ namespace nt2
       {
         static inline A0 isgemaxlog(const A0 & a0)
         {
-          return is_ge(a0,integral_constant<A0,0x40734413509f79fell>());
+          return ge(a0,double_constant<A0,0x40734413509f79fell>());
         }
 
         static inline A0 isleminlog(const A0 & a0)
         {
-          return is_le(a0,integral_constant<A0,0xc0734413509f79fell>());
+          return le(a0,double_constant<A0,0xc0734413509f79fell>());
         }
 
         static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
         {
-          A0 k  = round2even(integral_constant<A0,0x400a934f0979a372ll>()*a0);
-          x     = a0-k*integral_constant<A0,0x3fd3440000000000ll>();
-          x    -=  k*integral_constant<A0,0x3ed3509f79fef312ll>();
+          A0 k  = round2even(double_constant<A0,0x400a934f0979a372ll>()*a0);
+          x     = a0-k*double_constant<A0,0x3fd3440000000000ll>();
+          x    -=  k*double_constant<A0,0x3ed3509f79fef312ll>();
           return k;
         }
 

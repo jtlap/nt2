@@ -14,6 +14,7 @@
 #include <nt2/sdk/constant/real.hpp>
 
 #include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 
 namespace nt2 { namespace functors

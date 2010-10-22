@@ -57,7 +57,7 @@ namespace nt2
 	  A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
 	  y = fast_ldexp(y, toint(k));
 	  // adjust for 2^n n flint
-	  return  sel(b_and(isgtz(a0), isflint(a0)),  round2even(y), y);
+	  return  sel(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
 	}
       };
 
@@ -69,7 +69,7 @@ namespace nt2
 	{
 	  A0 y = fast_ldexp(c, toint(k));
 	  //adjust for 10^n n flint
-	  return  sel(b_and(isgtz(a0), isflint(a0)),  round2even(y), y);
+	  return  sel(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
 	}
       };
 
