@@ -39,8 +39,8 @@ NT2_TEST_CASE_TPL ( modf,  (double)(float)
   T d[] = {1.25  , -1.35,  2};
   for(int i = 0;  i < 3;  i++){
     type_t r = modf(d[i]);
-    NT2_TEST_EQUAL(  boost::fusion::at_c<1>(r), nt2::frac(d[i]));
-    NT2_TEST_EQUAL(  boost::fusion::at_c<0>(r), nt2::trunc(d[i])); 
+    NT2_TEST_EQUAL(  boost::fusion::at_c<1>(r), nt2::trunc(d[i]));
+    NT2_TEST_EQUAL(  boost::fusion::at_c<0>(r), nt2::frac(d[i])); 
   }
 }
 
