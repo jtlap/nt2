@@ -59,7 +59,7 @@ namespace nt2 { namespace functors
 						       )) > (z);
           return n/d;
         }  
-      return neg(nt2::log(x+nt2::sqrt(sqr(x)+One<type>())), a0); //TODO better eval
+      return negate(nt2::log(x+nt2::sqrt(sqr(x)+One<type>())), a0); //TODO better eval
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
     {

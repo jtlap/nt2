@@ -11,6 +11,7 @@
 #include <nt2/sdk/constant/real.hpp>
 
 #include <nt2/include/functions/tanh.hpp>
+#include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace functors
 {
