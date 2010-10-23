@@ -11,11 +11,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-// TO DO put in exponentials
-// #include <nt2/toolbox/exponential/function/simd/impl/expo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/expo.hpp
-//  of the old nt2
+#include <nt2/toolbox/exponential/function/simd/common/impl/expo.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 
@@ -42,8 +38,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return Zero<type>(); 
-      //      return impl::exponential<type,two_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
+      return impl::exponential<type,two_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
     }
   };
 } }

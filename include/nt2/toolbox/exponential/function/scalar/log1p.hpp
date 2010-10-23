@@ -36,7 +36,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       A0,
-      (3, (float, double,arithmetic_))
+      (2, (real_,arithmetic_))
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
@@ -74,13 +74,13 @@ namespace nt2 { namespace functors
     //     0.63274283378L,
     //     0.055208404043L,
     //   }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
+    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      if (a0 < -One<A0>())   return Nan<A0>();
+      if (a0 < Mone<A0>())   return Nan<A0>();
       if (a0 == Inf<A0>())   return Inf<A0>();
-      type u = oneplus(a0);
-      type t =(minusone(u)-a0);
+      volatile type u = oneplus(a0);
+      volatile type t =(minusone(u)-a0);
       type r =nt2::log(u); 
       if (t) 
 	return r*(a0/minusone(u)); //-t/u; /* cancels errors with IEEE arithmetic */

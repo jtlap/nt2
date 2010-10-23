@@ -17,6 +17,8 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/exp10.hpp>
+#include <iostream>
+#include <iomanip>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
@@ -39,4 +41,16 @@ NT2_TEST_CASE_TPL ( log1p, (double)
    NT2_TEST_EQUAL(  nt2::log1p(nt2::Exp_1<T>()-1 ), T(1)); 
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::log1p(nt2::Eps<T>()), nt2::Eps<T>()), 1); 
    NT2_TEST(  nt2::is_nan(log1p(nt2::Nan<T>() )));
- }
+   T t[] ={    6.931471805599453e-01,     9.985023295895228e-04,     4.996252914324852e-04,     3.331667530401490e-04, 
+     2.499062864436910e-04,     1.999400186606686e-04,     1.666250107995764e-04,     1.428265374134045e-04, 
+     1.249765670563763e-04,     1.110925957927527e-04  }; 
+   T v[] ={    1.000000000000000e+00,     9.990009990009990e-04,     4.997501249375312e-04,     3.332222592469177e-04, 
+     2.499375156210947e-04,     1.999600079984003e-04,     1.666388935177471e-04,     1.428367376089130e-04, 
+     1.249843769528809e-04,     1.110987668036885e-04 };
+ 
+
+   for(int i=0; i < 10; i++)  
+     {
+       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(nt2::log1p(v[i]), t[i]), 3);
+       std::cout << std::setprecision(20) << v[i] << "  " << nt2::log1p(v[i]) << "  " << t[i] << std::endl; 
+     } }

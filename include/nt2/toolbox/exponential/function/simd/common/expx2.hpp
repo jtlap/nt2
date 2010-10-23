@@ -19,6 +19,16 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/floor.hpp>
 
+NT2_CONSTANT(expx2_C1_   , expx2_C1    )
+NT2_SPECIALIZE_CONSTANT( expx2_C1_, Category, boost::mpl::_
+		       , ((float   ,0x42000000        )) //32
+                         ((double  ,0x4060000000000000ll)) //128
+                       )
+NT2_CONSTANT(expx2_C2_   , expx2_C2    )
+NT2_SPECIALIZE_CONSTANT( expx2_C2_, Category, boost::mpl::_
+		       , ((float   ,0x3d000000          )) //1/32
+                         ((double  ,0x3f80000000000000ll)) //1/128
+                       )
 
 namespace nt2 { namespace functors
 {
@@ -56,7 +66,7 @@ namespace nt2 { namespace functors
       A0 u = sqr(m);
       A0 u1 = Two<A0>() * m * x  +  sqr(x);
       /* u is exact, u1 is small.  */
-      return sel(isgt(u+u1, Maxlog<A0>()), Inf<A0>(), exp(u) * exp(u1));
+      return sel(gt(u+u1, Maxlog<A0>()), Inf<A0>(), exp(u) * exp(u1));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
