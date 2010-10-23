@@ -18,6 +18,15 @@ namespace nt2 { namespace simd
   struct  pack
         : expression_facade<Type,boost::mpl::size_t<Cardinal> >::type
   {
+    ////////////////////////////////////////////////////////////////////////////
+    // If you trigger this assertion, you tried to use a pack with a non
+    // pwoer of two cardinal
+    ////////////////////////////////////////////////////////////////////////////
+    NT2_STATIC_ASSERT ( meta::is_power_of_2_c<Cardinal>::value
+                      , INVALID_ALIGNMENT_VALUE
+                      , (boost::mpl::int_<Cardinal>)
+                      );
+
     typedef typename
     expression_facade<Type,boost::mpl::size_t<Cardinal> >::type parent;
     typedef data<Type,boost::mpl::size_t<Cardinal> >            data_type;
@@ -100,7 +109,6 @@ namespace nt2 { namespace simd
       boost::proto::value(*this).evaluate(xpr);
       return *this;
     }
-
   };
 } }
 
