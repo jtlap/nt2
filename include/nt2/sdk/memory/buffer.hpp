@@ -14,7 +14,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/error/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/details/is_assignment_compatible.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 
 namespace nt2 { namespace memory
@@ -61,16 +60,6 @@ namespace nt2 { namespace memory
       parent::init(b,s);
     }
 
-    template<class Src>
-    buffer( Src const& src
-          , typename boost::enable_if_c<
-                        details::is_assignment_compatible<buffer,Src>::value
-                                      >::type* = 0
-          )
-    {
-      parent::assign((typename Src::parent const&)(src));
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // Assign by resize/copy if same type
     ////////////////////////////////////////////////////////////////////////////
@@ -84,21 +73,6 @@ namespace nt2 { namespace memory
     // Swapping
     ////////////////////////////////////////////////////////////////////////////
     void swap( buffer& src ) { parent::swap(src); }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Assign by resize/copy if compatible size
-    ////////////////////////////////////////////////////////////////////////////
-    template<class Src>
-    typename boost::enable_if_c < details
-                                ::is_assignment_compatible<buffer,Src>::value
-                                , buffer&
-                                >::type
-    operator=( Src const& src )
-    {
-      NT2_ASSERT((details::is_assignment_compatible<buffer,Src>()(*this,src)));
-      parent::assign((typename Src::parent const&)(src));
-      return *this;
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // Assign data by copy
