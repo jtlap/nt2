@@ -22,7 +22,8 @@ namespace nt2 { namespace functors
   template<class Tag,class Category,class Info>
   struct  dispatch<Tag,tag::constant_(Category),Info>
   {
-    template<class T> struct apply : meta::scalar_of<T> {};
+    template<class T> struct apply                 : meta::scalar_of<T> {};
+    template<class T> struct apply< meta::as_<T> > : meta::scalar_of<T> {};
   };
 } }
 
