@@ -15,9 +15,9 @@
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <nt2/sdk/constant/properties.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -59,7 +59,10 @@ namespace nt2 { namespace functors
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>::type {};
 
-    NT2_FUNCTOR_CALL(1) { return Valmax<typename A0::type>(); }
+    NT2_FUNCTOR_CALL(1)
+    {
+      return Valmax<typename A0::type>();
+    }
   };
 
   template<class Category,class Info>
