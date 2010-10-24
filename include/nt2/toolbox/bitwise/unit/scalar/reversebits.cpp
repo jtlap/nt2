@@ -14,20 +14,22 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/constant/properties.hpp>
+#include <iostream>
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( reversebits, NT2_INTEGRAL_TYPES
                   )
 {
-  using nt2::reversebits;
+  using nt2::reversebits; 
   using nt2::functors::reversebits_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<reversebits_(T)>::type
 	     , T
               >::value)
            );
-  NT2_TEST_EQUAL(reversebits(-1),  -1); 
-  NT2_TEST_EQUAL(reversebits(0), 0);
-  NT2_TEST_EQUAL(reversebits(1), nt2::Signmask<T>());  
+  NT2_TEST_EQUAL(reversebits(T(-1)),  T(-1)); 
+  NT2_TEST_EQUAL(reversebits(T(0)), 0);
+  NT2_TEST_EQUAL(reversebits(T(1)), T(1ull << sizeof(T)*8-1));
+  std::cout << std::hex << reversebits(T(1)) << "  " << nt2::Signmask<T>() << std::endl; 
 }
