@@ -1,0 +1,947 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/parall/metascale/!svn/ver/1761/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double
+END
+mtherr.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mtherr.c
+END
+rgamma.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/rgamma.c
+END
+pow.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/pow.c
+END
+setprec.688
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/setprec.688
+END
+pdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/pdtr.c
+END
+simpsn.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/simpsn.c
+END
+k0.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/k0.c
+END
+mtst.mak
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mtst.mak
+END
+iv.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/iv.c
+END
+cpmul.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/cpmul.c
+END
+floor.387
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/floor.387
+END
+floor.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/floor.c
+END
+setprelf.387
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/setprelf.387
+END
+mtransp.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mtransp.c
+END
+igami.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/igami.c
+END
+yn.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/yn.c
+END
+round.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/round.c
+END
+gels.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/gels.c
+END
+cheby.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/cheby.c
+END
+exp.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/exp.c
+END
+exp10.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/exp10.c
+END
+dflib.bat
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/dflib.bat
+END
+airy.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/airy.c
+END
+euclid.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/euclid.c
+END
+revers.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/revers.c
+END
+ellpj.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ellpj.c
+END
+zetac.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/zetac.c
+END
+nbdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/nbdtr.c
+END
+dawsn.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/dawsn.c
+END
+log10.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/log10.c
+END
+bc45.mak
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/bc45.mak
+END
+fltest2.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fltest2.c
+END
+clog.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/clog.c
+END
+const.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/const.c
+END
+sqrt.387
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sqrt.387
+END
+sqrt.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sqrt.c
+END
+msvc.rsp
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/msvc.rsp
+END
+ellie.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ellie.c
+END
+tanh.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/tanh.c
+END
+protos.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/protos.h
+END
+bdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/bdtr.c
+END
+monot.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/monot.c
+END
+ei.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ei.c
+END
+tandg.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/tandg.c
+END
+stdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/stdtr.c
+END
+fltest.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fltest.c
+END
+setprec.387
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/setprec.387
+END
+setpmsvc.c
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/setpmsvc.c
+END
+setprec.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/setprec.c
+END
+sqrt.87
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sqrt.87
+END
+mconf.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mconf.h
+END
+floorelf.387
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/floorelf.387
+END
+planck.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/planck.c
+END
+i0.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/i0.c
+END
+unity.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/unity.c
+END
+unix.mak
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/unix.mak
+END
+deinit.asm
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/deinit.asm
+END
+k1.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/k1.c
+END
+cmplx.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/cmplx.c
+END
+incbi.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/incbi.c
+END
+mtst.asm
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mtst.asm
+END
+mtst.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mtst.c
+END
+drand.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/drand.c
+END
+lmdif.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/lmdif.c
+END
+atanh.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/atanh.c
+END
+ftilib.rsp
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ftilib.rsp
+END
+lrand.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/lrand.c
+END
+gdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/gdtr.c
+END
+polevl.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polevl.c
+END
+chbevl.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/chbevl.c
+END
+jn.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/jn.c
+END
+ellpk.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ellpk.c
+END
+minv.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/minv.c
+END
+beta.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/beta.c
+END
+powi.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/powi.c
+END
+exp2.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/exp2.c
+END
+jv.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/jv.c
+END
+btdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/btdtr.c
+END
+sqrtelf.387
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sqrtelf.387
+END
+ndtri.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ndtri.c
+END
+tan.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/tan.c
+END
+atan.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/atan.c
+END
+fltest3.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fltest3.c
+END
+polylog.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polylog.c
+END
+fresnl.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fresnl.c
+END
+cosh.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/cosh.c
+END
+dflib.rsp
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/dflib.rsp
+END
+zeta.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/zeta.c
+END
+sindg.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sindg.c
+END
+levnsn.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/levnsn.c
+END
+expx2.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1759/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/expx2.c
+END
+ftiasm.bat
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ftiasm.bat
+END
+i1.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/i1.c
+END
+simq.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/simq.c
+END
+doubldoc.html
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/doubldoc.html
+END
+floor.asm
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/floor.asm
+END
+eltst.mak
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/eltst.mak
+END
+ftllib.dec
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ftllib.dec
+END
+fac.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fac.c
+END
+cbrt.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/cbrt.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/Makefile
+END
+acosh.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/acosh.c
+END
+msvc.mak
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/msvc.mak
+END
+hyperg.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/hyperg.c
+END
+polrt.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polrt.c
+END
+sinh.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sinh.c
+END
+chdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/chdtr.c
+END
+lsqrt.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/lsqrt.c
+END
+time-it.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/time-it.c
+END
+j0.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/j0.c
+END
+hyp2f1.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/hyp2f1.c
+END
+expn.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1761/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/expn.c
+END
+fabs.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fabs.c
+END
+arcdot.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/arcdot.c
+END
+igam.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/igam.c
+END
+coil.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/coil.c
+END
+sici.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sici.c
+END
+bernum.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/bernum.c
+END
+msvcdll.mak
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/msvcdll.mak
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1761/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/makefile
+END
+fdtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fdtr.c
+END
+ftilib.mak
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ftilib.mak
+END
+ellik.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ellik.c
+END
+polyn.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polyn.c
+END
+fftr.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/fftr.c
+END
+asinh.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/asinh.c
+END
+polyr.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polyr.c
+END
+ndtr.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ndtr.c
+END
+shichi.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/shichi.c
+END
+kn.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/kn.c
+END
+eigens.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/eigens.c
+END
+setprec.87
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/setprec.87
+END
+gamma.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/gamma.c
+END
+struve.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/struve.c
+END
+sqrt.spa
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sqrt.spa
+END
+eltst.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/eltst.c
+END
+kolmogorov.c
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/kolmogorov.c
+END
+sincos.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sincos.c
+END
+polevl.asm
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polevl.asm
+END
+ellpe.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ellpe.c
+END
+log2.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/log2.c
+END
+incbet.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/incbet.c
+END
+ftiasm.rsp
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ftiasm.rsp
+END
+polmisc.c
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/polmisc.c
+END
+dcalc.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/dcalc.c
+END
+isnan.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/isnan.c
+END
+j1.c
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/j1.c
+END
+spence.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1761/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/spence.c
+END
+log.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/log.c
+END
+dtestvec.c
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/dtestvec.c
+END
+sin.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sin.c
+END
+paranoia.c
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/paranoia.c
+END
+mod2pi.c
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/mod2pi.c
+END
+ltstd.c
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/ltstd.c
+END
+asin.c
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/asin.c
+END
+psi.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/psi.c
+END
+sqrt.688
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/parall/metascale/!svn/ver/1335/nt2/branches/nt2-cleanup/nt2/toolbox/cephes/src/cephes_double/sqrt.688
+END
