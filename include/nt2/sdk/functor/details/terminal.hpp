@@ -22,17 +22,19 @@ namespace nt2 { namespace functors
     template<class This,class V,class S,class D>
     struct result<This(V,S,D)>
     {
-      typedef typename meta::category_of<V>::type::tag          dom;
-      typedef functors::call<terminal_,dom,Info>                callee;
-      typedef typename std::tr1::result_of<callee(V,S,D)>::type type;
+      typedef typename meta::category_of<V>::type::tag                dominant;
+      typedef meta::dispatch<terminal_,dominant,Info>                 dispatching;
+      typedef typename std::tr1::result_of<dispatching(V,S,D)>::type  callee;
+      typedef typename std::tr1::result_of<callee(V,S,D)>::type       type;
     };
 
     template<class V,class S,class D> inline
     typename result<functor(V,S,D)>::type
     operator()(V& v, S s, D& d) const
     {
-      typedef typename meta::category_of<V>::type::tag  dom;
-      call<terminal_,dom,Info>                              callee;
+      typedef typename meta::category_of<V>::type::tag        dominant;
+      typedef meta::dispatch<terminal_,dominant,Info>         dispatching;
+      typename std::tr1::result_of<dispatching(V,S,D)>::type  callee;
       return callee(v,s,d);
     }
   };
