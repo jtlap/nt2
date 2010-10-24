@@ -65,12 +65,6 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
-  template<class Tag,class Category,class Info>
-  struct  dispatch<Tag,tag::constant_(Category),Info>
-  {
-    template<class T> struct apply : meta::scalar_of<T> {};
-  };
-
   template<nt2::uint64_t D, nt2::uint32_t F, class Category,class Info>
   struct  call< details::pattern<D,F>
               , tag::constant_(Category),double,Info
@@ -131,30 +125,30 @@ namespace nt2
     nt2::functors::functor< details::pattern<D,0> > callee;
     return callee( nt2::meta::as_<Target>() );
   }
-  
+
   template<class Target, uint64_t FD,
 	   class select = typename meta::scalar_of<Target>::type>
   struct choose_pattern { };
-  
+
   template<class Target, uint64_t FD>
   struct choose_pattern < Target, FD, float > {
-    typedef details::pattern<0, FD> pat; 
+    typedef details::pattern<0, FD> pat;
   };
-  
+
   template<class Target, uint64_t FD>
   struct choose_pattern < Target, FD, double > {
-    typedef details::pattern<FD, 0> pat; 
+    typedef details::pattern<FD, 0> pat;
   };
-  
+
   template<class Target, uint64_t F> inline
   typename meta::enable_call<typename choose_pattern<Target,F>::pat(meta::as_<Target>)>::type
   Const()
   {
-    typedef typename choose_pattern<Target,F>::pat pat; 
+    typedef typename choose_pattern<Target,F>::pat pat;
     nt2::functors::functor< pat > callee;
     return callee( nt2::meta::as_<Target>() );
   }
-  
+
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Fill up the call needed for a real constant call
