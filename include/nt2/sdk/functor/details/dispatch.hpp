@@ -20,14 +20,20 @@
 
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // Default dispatch just forward the type
+  //////////////////////////////////////////////////////////////////////////////
   template<class Tag,class Category,class Info = void>
   struct dispatch : boost::mpl::_1 {};
 } }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace details
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // Try to match a type onto an existing hierarchy
+  //////////////////////////////////////////////////////////////////////////////
   template<class Tag,class Category, class Info>
-  struct  make_dispatch_list
+  struct  make_list
   {
     typedef boost::mpl::if_ < meta::
                               enable_dispatch<Tag,Category,boost::mpl::_2,Info>
@@ -37,22 +43,46 @@ namespace nt2 { namespace meta
                             , boost::mpl::_1
                             > selector;
 
-    typedef typename  boost::mpl::fold< boost::mpl::
-                                        vector10< nt2::uint8_t  , nt2::int8_t
-                                                , nt2::uint16_t , nt2::int16_t
-                                                , nt2::uint32_t , nt2::int32_t
-                                                , nt2::uint64_t , nt2::int64_t
-                                                , float         , double
-                                                >
+    typedef typename  boost::mpl::fold< functors::hierarchies
                                       , boost::mpl::vector<>
                                       , selector
-                                      >::type base;
-
-    typedef typename  boost::mpl::fold< functors::hierarchies
-                                      , base, selector
                                       >::type type;
   };
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Build a call<> type by trying to fit a dispatched type either on a direct
+  // call<> specialization or a hierarchical call<>
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Tag,class Base,class Category,class Info>
+  struct build_caller
+  {
+    typedef meta::find_type < typename Base::type
+                            , typename details::make_list < Tag
+                                                          , Category
+                                                          , Info
+                                                          >::type
+                            >        hierarchized;
+    typedef typename
+          boost::mpl::eval_if < meta::enable_dispatch < Tag
+                                                      , Category
+                                                      , typename Base::type
+                                                      , Info
+                                                      >
+                              , Base
+                              , hierarchized
+                              >::type  hierarchy_type;
+
+    typedef functors::call<Tag,Category,hierarchy_type,Info> type;
+  };
+} }
+
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // For any given Tag in a given Category, construct the call<> able to process
+  // the current function call over said category of type by selecting the proper
+  // call<> specialization among all externals specializations available.
+  //////////////////////////////////////////////////////////////////////////////
   template<class Tag, class Category,class Info>
   struct dispatch
   {
@@ -60,55 +90,23 @@ namespace nt2 { namespace meta
 
     template<class Sig> struct result;
 
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename make_dispatch_list<Tag,Category,Info>::type   pool;
-      typedef typename boost::mpl::apply1 < dispatcher
-                                          , typename strip<A0>::type
-                                          >::type               base;
-      typedef typename meta::find_type<base, pool>::type        hierarchy_type;
-      typedef functors::call<Tag,Category,hierarchy_type,Info>  type;
-    };
+    #define M0(z,n,t) typename strip<BOOST_PP_CAT(t,n)>::type
 
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-    {
-      typedef typename make_dispatch_list<Tag,Category,Info>::type pool;
-      typedef typename boost::mpl::apply2 < dispatcher
-                                          , typename strip<A0>::type
-                                          , typename strip<A1>::type
-                                          >::type               base;
-      typedef typename meta::find_type<base, pool>::type        hierarchy_type;
-      typedef functors::call<Tag,Category,hierarchy_type,Info>  type;
-    };
+    #define M1(z,n,t)                                                             \
+    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                          \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                \
+    {                                                                             \
+      typedef BOOST_PP_CAT(boost::mpl::apply,n) < dispatcher                      \
+                                                , BOOST_PP_ENUM(n,M0,A)           \
+                                                >                           base; \
+      typedef typename details::build_caller<Tag,base,Category,Info>::type  type; \
+    };                                                                            \
+    /**/
 
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)>
-    {
-      typedef typename make_dispatch_list<Tag,Category,Info>::type pool;
-      typedef typename boost::mpl::apply3 < dispatcher
-                                          , typename strip<A0>::type
-                                          , typename strip<A1>::type
-                                          , typename strip<A2>::type
-                                          >::type               base;
-      typedef typename meta::find_type<base, pool>::type        hierarchy_type;
-      typedef functors::call<Tag,Category,hierarchy_type,Info>  type;
-    };
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
 
-    template<class This,class A0,class A1,class A2,class A3>
-    struct result<This(A0,A1,A2,A3)>
-    {
-      typedef typename make_dispatch_list<Tag,Category,Info>::type pool;
-      typedef typename boost::mpl::apply4 < dispatcher
-                                          , typename strip<A0>::type
-                                          , typename strip<A1>::type
-                                          , typename strip<A2>::type
-                                          , typename strip<A3>::type
-                                          >::type               base;
-      typedef typename meta::find_type<base, pool>::type        hierarchy_type;
-      typedef functors::call<Tag,Category,hierarchy_type,Info>  type;
-    };
+    #undef M1
+    #undef M0
   };
 } }
 

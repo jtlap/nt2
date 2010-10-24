@@ -21,30 +21,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 // bitwise operators on scalar arithmetic types works on real types too
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_MAKE_BITWISE(TAG,OP)                                \
-template<class Info>                                            \
-struct validate<TAG,tag::scalar_(tag::arithmetic_),Info>        \
-{                                                               \
-  template<class Sig> struct result;                            \
-  template<class This,class A0,class A1>                        \
-  struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};   \
-};                                                              \
-                                                                \
-template<class Hierarchy,class Info>                            \
-struct  call<TAG,tag::scalar_(tag::arithmetic_),Hierarchy,Info> \
-      : callable                                                \
-{                                                               \
-  template<class Sig> struct result;                            \
-  template<class This,class A0,class A1>                        \
-  struct result<This(A0,A1)> : meta::strip<A0> {};              \
-  NT2_FUNCTOR_CALL(2)                                           \
-  {                                                             \
-    typename meta::as_bits<A0>::type t0 = {a0};                 \
-    typename meta::as_bits<A1>::type t1 = {a1};                 \
-    t0.bits OP t1.bits;                                         \
-    return t0.value;                                            \
-  }                                                             \
-}                                                               \
+#define NT2_MAKE_BITWISE(TAG,OP)                                    \
+template<class Info>                                                \
+struct validate<TAG,tag::scalar_(tag::arithmetic_),Info>            \
+{                                                                   \
+  template<class Sig> struct result;                                \
+  template<class This,class A0,class A1>                            \
+  struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};       \
+};                                                                  \
+                                                                    \
+template<class Info>                                                \
+struct  call<TAG,tag::scalar_(tag::arithmetic_),fundamental_,Info>  \
+      : callable                                                    \
+{                                                                   \
+  template<class Sig> struct result;                                \
+  template<class This,class A0,class A1>                            \
+  struct result<This(A0,A1)> : meta::strip<A0> {};                  \
+  NT2_FUNCTOR_CALL(2)                                               \
+  {                                                                 \
+    typename meta::as_bits<A0>::type t0 = {a0};                     \
+    typename meta::as_bits<A1>::type t1 = {a1};                     \
+    t0.bits OP t1.bits;                                             \
+    return t0.value;                                                \
+  }                                                                 \
+}                                                                   \
 /**/
 
 namespace nt2 { namespace functors
