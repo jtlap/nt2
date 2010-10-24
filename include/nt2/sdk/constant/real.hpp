@@ -102,14 +102,6 @@ namespace nt2
     typedef details::pattern<FD, 0> pat; 
   };
   
-//   template<class Target, uint64_t FD> inline
-//   typename meta::enable_call<typename choose_pattern<Target,FD>::pat( nt2::meta::as_<Target>() ) >::type 
-//   Const()
-//   {
-//     nt2::functors::functor<typename choose_pattern<Target,FD>::pat > callee;
-//     return callee( nt2::meta::as_<Target>() );
-//   }
-
   template<class Target, uint64_t F> inline
   typename meta::enable_call<typename choose_pattern<Target,F>::pat(meta::as_<Target>)>::type
   Const()

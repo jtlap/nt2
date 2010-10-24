@@ -15,6 +15,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/log.hpp>
 
@@ -47,9 +48,9 @@ namespace nt2 { namespace functors
     )
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
-      return seladd(isnez(a0),
+      return seladd(is_nez(a0),
 		    Zero<A0>(),
-		    sel(iseqz(a1),
+		    sel(is_eqz(a1),
 			One<A0>(),
 			exp(a1*log(a0))
 			)

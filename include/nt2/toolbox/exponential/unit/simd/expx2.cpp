@@ -45,15 +45,15 @@ NT2_TEST_CASE_TPL(expx2, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
  for(int num = 0; num < 10; num++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(0.0, 100.0); // good value here for expx2
+       data[i] = nt2::random(0.0, 5.0); // good value here for expx2
      }
      n_t a0 = load<n_t>(&data[0],0); 
      rn_t v  = expx2(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], expx2(a0[j])), 1);
+	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], expx2(a0[j])), 10);
 	 if (z > m) m = z; 
        }
    }
- std::cout << "ulp max = " << m << std::endl;
+std::cout << "ulp max = " << m << std::endl;
 }

@@ -88,7 +88,7 @@ namespace nt2
 	  A0 z = madd(x,single_constant<A0, 0x3ee2a8ed>(),mul(y,single_constant<A0, 0x3ee2a8ed>()));// 0.44269504088896340735992
 	  A0 z1 = ((z+y)+x)+fe;
 	  A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing
-	  return seladd(isinf(y1),b_or(z1, b_or(is_ltz(a0), is_nan(a0))),y1);
+	  return seladd(is_inf(y1),b_or(z1, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
 
 	static inline A0 log10(const  A0& a0)

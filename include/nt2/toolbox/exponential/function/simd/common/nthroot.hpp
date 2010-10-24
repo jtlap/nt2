@@ -58,13 +58,13 @@ namespace nt2 { namespace functors
       A0 x =  abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
-      y = seladd(isnez(y), y, - (powi(y, a1) - x)/(aa1* powi(y, sub(a1, One<A1>()))));
+      y = seladd(is_nez(y), y, - (powi(y, a1) - x)/(aa1* powi(y, sub(a1, One<A1>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
-      return  b_and(isnez(a0),
-		    sel(iseq(a1, One<A1>()),
+      return  b_and(is_nez(a0),
+		    sel(is_equal(a1, One<A1>()),
 			a0,
-			sel(b_and(iseven(a1), isltz(a0)),
+			sel(b_and(is_even(a1), is_ltz(a0)),
 			    Nan<A0>(),
 			    y)
 			)

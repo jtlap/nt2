@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_EXPX2_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_EXPX2_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -18,17 +19,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/floor.hpp>
-
-NT2_CONSTANT(expx2_C1_   , expx2_C1    )
-NT2_SPECIALIZE_CONSTANT( expx2_C1_, Category, boost::mpl::_
-		       , ((float   ,0x42000000        )) //32
-                         ((double  ,0x4060000000000000ll)) //128
-                       )
-NT2_CONSTANT(expx2_C2_   , expx2_C2    )
-NT2_SPECIALIZE_CONSTANT( expx2_C2_, Category, boost::mpl::_
-		       , ((float   ,0x3d000000          )) //1/32
-                         ((double  ,0x3f80000000000000ll)) //1/128
-                       )
+#include <nt2/toolbox/exponential/function/scalar/impl/constants.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -48,8 +39,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
