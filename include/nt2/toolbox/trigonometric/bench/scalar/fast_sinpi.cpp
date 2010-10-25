@@ -8,15 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/fast_sinpi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<fast_sinpi_> from trigonometric
+// Scalar Runtime benchmark for functor<fast_sinpi_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::fast_sinpi_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( fast_sinpi_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::fast_sinpi_,(RS(float,-0.25,0.25)))
+NT2_TIMING(nt2::functors::fast_sinpi_,(RS(double,-0.25,0.25)))
+
+#undef RS

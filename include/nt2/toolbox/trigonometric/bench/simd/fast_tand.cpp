@@ -8,15 +8,24 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/fast_tand.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<fast_tand_> from trigonometric
+// Simd Runtime benchmark for functor<fast_tand_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::fast_tand_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( fast_tand_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::fast_tand_,(RS(vfloat,-45.0,45.0)))
+NT2_TIMING(nt2::functors::fast_tand_,(RS(vdouble,-45.0,45.0)))
+
+#undef RS

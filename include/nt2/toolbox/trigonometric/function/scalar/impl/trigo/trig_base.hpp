@@ -186,7 +186,7 @@ namespace nt2
 
 	static inline void sincosa(const  A0& a0, A0& s, A0& c)
 	{
-	  if (isinvalid(a0)) { s = c = Nan<A0>(); return; }
+	  if (is_invalid(a0)) { s = c = Nan<A0>(); return; }
 	  A0 x =  abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
@@ -202,7 +202,7 @@ namespace nt2
 	      int_type cos_sign_bit = shli(b_xor(swap_bit, (n&2)>>1), de);
 	      int_type sin_sign_bit = b_xor(bitofsign(a0), shli(n&2, de-1));
 
-	      if (isnez(swap_bit))
+	      if (is_nez(swap_bit))
 		{
 		  c = eval_t::sin_eval(z, xr, xc);
 		  s = eval_t::cos_eval(z, xr, xc);
