@@ -39,6 +39,13 @@ namespace nt2 { namespace memory
   class block;
 } }
 
+////////////////////////////////////////////////////////////////////////////////
+// Macro generating a chain of []
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_ACCESS(z,n,t)                                   \
+[ boost::fusion::at_c<BOOST_PP_SUB(BOOST_PP_DEC(t),n)>(p) ] \
+/**/
+
 /*
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating the list of inner buffer members constructor
@@ -48,11 +55,6 @@ NT2_DATA_MEMBER(BOOST_PP_INC(n))( boost::fusion::at_c<BOOST_PP_INC(n)>(bs)  \
                                 , boost::fusion::at_c<BOOST_PP_INC(n)>(ss)  \
                                 )                                           \
 
-////////////////////////////////////////////////////////////////////////////////
-// Macro generating a chain of []
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_ACCESS(z,n,t)                                   \
-[ boost::fusion::at_c<BOOST_PP_SUB(BOOST_PP_DEC(t),n)>(p) ] \
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of [] for under-access
@@ -105,45 +107,24 @@ namespace nt2 { namespace memory
     // Check that we don't pass incorrect Base/Size/Storage containers
     ////////////////////////////////////////////////////////////////////////////
     NT2_STATIC_ASSERT ( (boost::mpl::size<Bases>::value == DIM)
-                      , BOOST_PP_CAT(BASES_EXTENT_IS_NOT_,DIM)
+                      , BOOST_PP_CAT(BASES_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
                       , (Bases)
                       );
 
     NT2_STATIC_ASSERT ( (boost::mpl::size<Sizes>::value == DIM)
-                      , BOOST_PP_CAT(SIZES_EXTENT_IS_NOT_,DIM)
+                      , BOOST_PP_CAT(SIZES_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
                       , (Sizes)
                       );
 
     NT2_STATIC_ASSERT ( (boost::mpl::size<Storage>::value == DIM)
-                      , BOOST_PP_CAT(STORAGE_EXTENT_IS_NOT_,DIM)
-                      , (Sizes)
-                      );
-
-    NT2_STATIC_ASSERT ( (   boost::mpl::size<Bases>::value
-                        ==  boost::mpl::size<Sizes>::value
-                        )
-                      , BASES_AND_SIZES_EXTENTS_MISMATCH
-                      , (Bases,Sizes)
-                      );
-
-    NT2_STATIC_ASSERT ( (   boost::mpl::size<Bases>::value
-                        ==  boost::mpl::size<Storage>::value
-                        )
-                      , BASES_AND_STORAGE_EXTENTS_MISMATCH
-                      , (Bases,Sizes)
-                      );
-
-    NT2_STATIC_ASSERT ( (   boost::mpl::size<Storage>::value
-                        ==  boost::mpl::size<Sizes>::value
-                        )
-                      , STORAGE_AND_SIZES_EXTENTS_MISMATCH
-                      , (Bases,Sizes)
+                      , BOOST_PP_CAT(STORAGE_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
+                      , (Storage)
                       );
 
     ////////////////////////////////////////////////////////////////////////////
     // Public types
     ////////////////////////////////////////////////////////////////////////////
-    typedef boost::mpl::int_<DIM> dimension_value_type;
+    typedef boost::mpl::int_<DIM>                           dimension_value_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Data related Type derived from Allocator
@@ -161,25 +142,42 @@ namespace nt2 { namespace memory
     typedef Bases   bases_type;
     typedef Sizes   sizes_type;
     typedef Storage storage_order_type;
-    
-    struct storage_helper
+
+    ////////////////////////////////////////////////////////////////////////////
+    // If DIM > 1, compute the permuted bases and sizes type to take storage
+    // order into account.
+    // If DIM == 1, storage order makes no sense, so we save on compile time.
+    ////////////////////////////////////////////////////////////////////////////
+    #if (DIM > 1)
+    template<class T> struct storage_helper
     {
-      static Sizes& s;
+      static T& s;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( nested
-      , (boost::fusion::nview<Sizes const,Storage>(s))
+      , (boost::fusion::nview<T const,Storage>(s))
       );
 
       typedef typename nested::type type;
     };
 
-    typedef typename storage_helper::type stored_sizes_type;
+    typedef typename storage_helper<Bases>::type  stored_bases_type;
+    typedef typename storage_helper<Sizes>::type  stored_sizes_type;
+    #else
+    typedef Bases                                 stored_bases_type;
+    typedef Sizes                                 stored_sizes_type;
+    #endif
 
     ////////////////////////////////////////////////////////////////////////////
     // Aggregated buffers type
     ////////////////////////////////////////////////////////////////////////////
-    typedef  typename meta
-	   ::make_buffers<Type,DIM,Bases,Sizes,Padding,Allocator>::type data_type;
+    typedef typename  meta
+                    ::make_buffers< Type
+                                  , DIM
+                                  , stored_bases_type
+                                  , stored_sizes_type
+                                  , Padding
+                                  , Allocator
+                                  >::type               data_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Default constructor
@@ -189,20 +187,15 @@ namespace nt2 { namespace memory
 //      if(buffer0_type::is_static::value) link(dimension_value_type());
     }
 
-/*
     ////////////////////////////////////////////////////////////////////////////
     // Constructor from {bases,sizes}
     ////////////////////////////////////////////////////////////////////////////
-    block ( Bases const& bs, Sizes const& ss )
-        : data0_( boost::fusion::at_c<0>(bs), typename Padding::size()(ss) )
-        BOOST_PP_COMMA_IF(BOOST_PP_GREATER(DIM,1))
-        BOOST_PP_ENUM(BOOST_PP_DEC(DIM), NT2_MAKE_CTOR,~)
-        , base_(bs)
-        , size_(ss)
+    block ( Bases const& bs, Sizes const& ss )  : base_(bs), size_(ss)
     {
+      init( dimension_value_type() );
       link( dimension_value_type() );
     }
-*/
+
     ////////////////////////////////////////////////////////////////////////////
     // Destructor
     ////////////////////////////////////////////////////////////////////////////
@@ -215,15 +208,15 @@ namespace nt2 { namespace memory
     {
       if( this != &src)
       {
-				data_ = src.data_;
+        data_ = src.data_;
         base_ = src.base_;
         size_ = src.size_;
-        link( boost::mpl::int_<DIM>() );
+        link( dimension_value_type() );
       }
 
       return *this;
     }
-/*
+
     ////////////////////////////////////////////////////////////////////////////
     // Data accessor - proper case
     ////////////////////////////////////////////////////////////////////////////
@@ -233,8 +226,7 @@ namespace nt2 { namespace memory
                                 >::type
     operator()( Position const& p )
     {
-      return  NT2_DATA_MEMBER(BOOST_PP_DEC(DIM))
-              BOOST_PP_REPEAT(DIM,NT2_ACCESS,DIM);
+      return  data<DIM>() BOOST_PP_REPEAT(DIM,NT2_ACCESS,DIM);
     }
 
     template<class Position>
@@ -243,10 +235,9 @@ namespace nt2 { namespace memory
                                 >::type
     operator()( Position const& p ) const
     {
-      return  NT2_DATA_MEMBER(BOOST_PP_DEC(DIM))
-              BOOST_PP_REPEAT(DIM,NT2_ACCESS,DIM);
+      return  data<DIM>() BOOST_PP_REPEAT(DIM,NT2_ACCESS,DIM);
     }
-*/
+
     ////////////////////////////////////////////////////////////////////////////
     // Data accessor : smaller case
     ////////////////////////////////////////////////////////////////////////////
@@ -286,6 +277,16 @@ namespace nt2 { namespace memory
 					  ::at_c<data_type const,N-1>::type
 				>::type
     data() const
+    {
+      return boost::fusion::at_c<N-1>(data_);
+    }
+
+    template<std::size_t N>
+    typename boost::enable_if_c < (N>0 && N<=DIM)
+				, typename  boost::fusion::result_of
+					  ::at_c<data_type,N-1>::type
+				>::type
+    data()
     {
       return boost::fusion::at_c<N-1>(data_);
     }
@@ -340,7 +341,7 @@ namespace nt2 { namespace memory
     {
       return 1;
     }
-		
+
     protected:
     ////////////////////////////////////////////////////////////////////////////
     // Access to a block with less index than needed
@@ -372,36 +373,52 @@ namespace nt2 { namespace memory
 */
 
     ////////////////////////////////////////////////////////////////////////////
-    // Link indexes and data
+    // Recursively construct data buffers
     ////////////////////////////////////////////////////////////////////////////
-    void link( boost::mpl::int_<1> const& ) {}
-
-    #if (CURRENT_DIM > 1)
-/*   
-    void link( boost::mpl::int_<2> const& )
+    template<int N>
+    void init( boost::mpl::int_<N> const& d )
     {
-      data1_.origin()[0] = data0_.begin();
-      for(size_type i=1;i<data1_.size();++i)
-        data1_.origin()[i]  = data1_.origin()[i-1]
-                            + stride<Padding,1>(size_);
+      boost::fusion::nview<Sizes const,Storage> sz(size_);
+      init(d,sz);
     }
 
-void link( boost::mpl::int_<n> const&, size_type prev = 1)                  \
-{                                                                           \
-  size_type       sz = NT2_DATA_MEMBER(BOOST_PP_DEC(n)).size()*prev;        \
-  NT2_DATA_MEMBER(BOOST_PP_DEC(n)).origin()[0]                              \
-                              = NT2_DATA_MEMBER(BOOST_PP_SUB(n,2)).begin(); \
-  for(size_type i=1;i<sz;++i)                                               \
-  {                                                                         \
-    NT2_DATA_MEMBER(BOOST_PP_DEC(n)).origin()[i]                            \
-          = NT2_DATA_MEMBER(BOOST_PP_DEC(n)).origin()[i-1]                  \
-          + boost::fusion::at_c<BOOST_PP_SUB(n,2)>(size_);                  \
-  }                                                                         \
-  link( boost::mpl::int_<n-1>(), sz);                                       \
-}                                                                           \
+    template<class Sz>
+    void init( boost::mpl::int_<1> const&, Sz const& sz )
+    {
+      data<1>().restructure(lower<1>(),slice<1>(sz,Padding()));
+    }
 
-*/
-    #endif
+    template<class Sz,int N>
+    void init( boost::mpl::int_<N> const&, Sz const& sz )
+    {
+      data<N>().restructure(lower<N>(),slice<N>(sz,Padding()));
+      init( boost::mpl::int_<N-1>() );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Link indexes and data
+    ////////////////////////////////////////////////////////////////////////////
+    template<int N>
+    void link( boost::mpl::int_<N> const& d )
+    {
+      boost::fusion::nview<Sizes const,Storage> sz(size_);
+      link( d, sz );
+    }
+
+    template<class Sz>
+    void link( boost::mpl::int_<1> const&, Sz const& sz) {}
+
+    template<int N,class Sz>
+    void link( boost::mpl::int_<N> const&, Sz const& sz )
+    {
+      data<N>().origin()[0] = data<N-1>().begin();
+
+      for(size_type i=1;i<slice<N>(sz,Padding());++i)
+        data<N>().origin()[i]  = data<N>()[i-1]
+                                      + stride<N-1>(sz,Padding());
+
+      link( boost::mpl::int_<N-1>(), sz );
+    }
 
     private:
     data_type  data_;

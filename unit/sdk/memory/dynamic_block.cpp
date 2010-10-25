@@ -8,27 +8,102 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::memory::block - dynamic mode"
 
+#include <iostream>
 #include <nt2/sdk/memory/block.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/sdk/memory/lead_padding.hpp>
 
+#include <boost/array.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/fusion/adapted/mpl.hpp>
+#include <boost/fusion/adapted/array.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-/*
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer static properties
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(buffer_static_properties)
+NT2_TEST_CASE(block_1d_default_ctor)
 {
-  using nt2::memory::buffer;
+  using nt2::memory::block;
   using nt2::memory::allocator;
 
-  typedef buffer<float,int,int,allocator<float> > buffer_type;
+  boost::array<int,1> bs = {{1}};
+  boost::array<int,1> ss = {{5}};
 
-  NT2_TEST( !buffer_type::is_static::value );
-  NT2_TEST( !buffer_type::has_static_base::value );
-  NT2_TEST( !buffer_type::has_static_size::value );
+  typedef block < float,1
+                , boost::array<int,1>
+                , boost::array<int,1>
+                , boost::mpl::vector_c<int,0>
+                , nt2::memory::lead_padding
+                , allocator<float>
+                >
+  block_type;
+
+  block_type b(bs,ss);
 }
 
+NT2_TEST_CASE(block_2d_default_ctor)
+{
+  using nt2::memory::block;
+  using nt2::memory::allocator;
+
+  boost::array<int,2> bs = {{1,-1}};
+  boost::array<int,2> ss = {{5,3}};
+
+  typedef block < float,2
+                , boost::array<int,2>
+                , boost::array<int,2>
+                , boost::mpl::vector_c<int,0,1>
+                , nt2::memory::lead_padding
+                , allocator<float>
+                >
+  block_type;
+
+  block_type b(bs,ss);
+}
+
+NT2_TEST_CASE(block_3d_default_ctor)
+{
+  using nt2::memory::block;
+  using nt2::memory::allocator;
+
+  boost::array<int,3> bs = {{1,0,-1}};
+  boost::array<int,3> ss = {{5,7,3}};
+
+  typedef block < float,3
+                , boost::array<int,3>
+                , boost::array<int,3>
+                , boost::mpl::vector_c<int,0,1,2>
+                , nt2::memory::lead_padding
+                , allocator<float>
+                >
+  block_type;
+
+  block_type b(bs,ss);
+}
+
+NT2_TEST_CASE(block_4d_default_ctor)
+{
+  using nt2::memory::block;
+  using nt2::memory::allocator;
+
+  boost::array<int,4> bs = {{1,0,-1,-10}};
+  boost::array<int,4> ss = {{5,7,3,5}};
+
+  typedef block < float,4
+                , boost::array<int,4>
+                , boost::array<int,4>
+                , boost::mpl::vector_c<int,0,1,2,3>
+                , nt2::memory::lead_padding
+                , allocator<float>
+                >
+  block_type;
+
+  block_type b(bs,ss);
+}
+/*
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer default ctor
 ////////////////////////////////////////////////////////////////////////////////
