@@ -42,8 +42,9 @@ namespace nt2 { namespace memory
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of []
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_ACCESS(z,n,t)                                   \
-[ boost::fusion::at_c<BOOST_PP_SUB(BOOST_PP_DEC(t),n)>(p) ] \
+#define NT2_ACCESS(z,n,t)                                                 \
+[ boost::fusion::at_c <boost::mpl::at_c<Storage,BOOST_PP_SUB(BOOST_PP_DEC(t),n)>::type::value>(p)                                                \
+]                                                                         \
 /**/
 
 /*
@@ -226,7 +227,7 @@ namespace nt2 { namespace memory
                                 >::type
     operator()( Position const& p )
     {
-      return  data<DIM>() BOOST_PP_REPEAT(DIM,NT2_ACCESS,DIM);
+      return data<DIM>() BOOST_PP_REPEAT(DIM,NT2_ACCESS,DIM);
     }
 
     template<class Position>
@@ -379,19 +380,20 @@ namespace nt2 { namespace memory
     void init( boost::mpl::int_<N> const& d )
     {
       boost::fusion::nview<Sizes const,Storage> sz(size_);
-      init(d,sz);
+      boost::fusion::nview<Bases const,Storage> bz(base_);
+      init(d,bz,sz);
     }
 
-    template<class Sz>
-    void init( boost::mpl::int_<1> const&, Sz const& sz )
+    template<class Bz, class Sz>
+    void init( boost::mpl::int_<1> const&, Bz const& bz, Sz const& sz )
     {
-      data<1>().restructure(lower<1>(),slice<1>(sz,Padding()));
+      data<1>().restructure(boost::fusion::at_c<0>(bz),slice<1>(sz,Padding()));
     }
 
-    template<class Sz,int N>
-    void init( boost::mpl::int_<N> const&, Sz const& sz )
+    template<class Bz, class Sz, int N>
+    void init( boost::mpl::int_<N> const&, Bz const& bz, Sz const& sz )
     {
-      data<N>().restructure(lower<N>(),slice<N>(sz,Padding()));
+      data<N>().restructure(boost::fusion::at_c<N-1>(bz),slice<N>(sz,Padding()));
       init( boost::mpl::int_<N-1>() );
     }
 
@@ -411,12 +413,15 @@ namespace nt2 { namespace memory
     template<int N,class Sz>
     void link( boost::mpl::int_<N> const&, Sz const& sz )
     {
+      size_type offset = stride<N-1>(sz,Padding());
+      size_type nbrow  = slice<N>(sz,Padding());
+
       data<N>().origin()[0] = data<N-1>().begin();
-
-      for(size_type i=1;i<slice<N>(sz,Padding());++i)
-        data<N>().origin()[i]  = data<N>()[i-1]
-                                      + stride<N-1>(sz,Padding());
-
+      for(size_type i=1;i<nbrow;++i)
+      {
+        data<N>().origin()[i] = data<N>().origin()[i-1]
+                                + offset;
+      }
       link( boost::mpl::int_<N-1>(), sz );
     }
 
