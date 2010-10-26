@@ -45,13 +45,13 @@ NT2_TEST_CASE_TPL(log, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
  for(int num = 0; num < 10; num++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(1.0, 100.0); // good value here for log
+       data[i] = nt2::random(0.1, 100.0); // good value here for log
      }
      n_t a0 = load<n_t>(&data[0],0); 
      rn_t v  = log(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], log(a0[j])), 1);
+	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], log(a0[j])), 1); 
 	 if (z > m) m = z; 
        }
    }
