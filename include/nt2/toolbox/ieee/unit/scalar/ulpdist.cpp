@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
+#include <iostream>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
@@ -45,6 +46,11 @@ NT2_TEST_CASE_TPL ( real_ulpdist,  NT2_REAL_TYPES
               >::value)
            );
   NT2_TEST_EQUAL(  ulpdist( T(1), T(1+nt2::Eps<T>())), T(0.5) );
+  NT2_TEST_EQUAL(  ulpdist( T(1), T(1-nt2::Eps<T>()/2)), T(0.25) );
+  NT2_TEST_EQUAL(  ulpdist( T(1), T(1-nt2::Eps<T>()/4)), T(0) );
+  NT2_TEST_EQUAL(  ulpdist( T(1), T(1-nt2::Eps<T>())), T(0.5) );
+  NT2_TEST_EQUAL(  ulpdist( T(1), T(1+nt2::Eps<T>()/2)), T(0) );
+  std::cout << ulpdist(double(nt2::Pi<float>()), nt2::Pi<double>()) << std::endl; 
 }
           
 NT2_TEST_CASE_TPL ( unsigned_ulpdist,  NT2_UNSIGNED_TYPES
@@ -58,6 +64,7 @@ NT2_TEST_CASE_TPL ( unsigned_ulpdist,  NT2_UNSIGNED_TYPES
               >::value)
            );
   NT2_TEST_EQUAL(  ulpdist( T(42), T(12)), T(30) );
+  
 }
           
 
