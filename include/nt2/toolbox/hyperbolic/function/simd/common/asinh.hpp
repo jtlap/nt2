@@ -58,15 +58,15 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
     {
 	A0 x = abs(a0);
-	A0 lthalf = islt(x,Half<A0>());
+	A0 lthalf = lt(x,Half<A0>());
 	A0 x2 = sqr(x);
 	A0 z;
 	int32_t nb; 
 	if( ( nb = nbtrue(lthalf)) > 0)
 	  {
-	    z = madd(integral_constant<A0,(0x3ca4d6e6) >(),  x2, integral_constant<A0,(0xbd2ee581)>());
-	    z = madd(x2, z,  integral_constant<A0,(0x3d9949b1)>());
-	    z = madd(x2, z,  integral_constant<A0,(0xbe2aa9ad)>())* x2 * x + x;
+	    z = madd(single_constant<A0,(0x3ca4d6e6) >(),  x2, single_constant<A0,(0xbd2ee581)>());
+	    z = madd(x2, z,  single_constant<A0,(0x3d9949b1)>());
+	    z = madd(x2, z,  single_constant<A0,(0xbe2aa9ad)>())* x2 * x + x;
 	    if(nb >= meta::cardinal_of<A0>::value) return  b_xor(z, bitofsign(a0));
 	  }
 	A0 zz = log(x+sqrt(oneplus(x2)));
@@ -78,9 +78,9 @@ namespace nt2 { namespace functors
 	//	bf::tie(sign, xx)= sign_and_abs(a0);
 	xx =  abs(a0);
 	sign =  bitofsign(a0);
-        const A0 Infmask       = isinf(xx);
+        const A0 Infmask       = is_inf(xx);
         const A0 x2            = sqr(xx);
-        return b_xor(seladd(iseq(xx, Inf<A0>()),
+        return b_xor(seladd(is_equal(xx, Inf<A0>()),
 			    log1p(xx+x2/oneplus(sqrt(oneplus(x2)))),
 			    xx
 			    ),

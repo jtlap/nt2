@@ -15,6 +15,7 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/all.hpp>
 
 
 namespace nt2 { namespace functors
@@ -46,7 +47,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       const A0 x = abs(a0);
-      if (all(is_gt(x,splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
+      if (all(gt(x,splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
       const A0 tmp1=expm1(-(x+x));
       const A0 tmp2=-tmp1/(Two<A0>()+tmp1);
       return b_xor(tmp2, bitofsign(a0));

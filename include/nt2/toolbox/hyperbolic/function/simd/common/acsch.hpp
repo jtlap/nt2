@@ -14,6 +14,7 @@
 #include <nt2/include/functions/asinh.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <iostream>
 
 
 namespace nt2 { namespace functors
@@ -23,8 +24,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      meta::is_real_convertible<A0>{};
+    struct result<This(A0)> :  meta::is_real_convertible<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute acsch(const A0& a0)
@@ -39,7 +39,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return asinh(rec(tofloat(a0)));
+      //      std::cout <<  " acsch  " << a0 << "  " << tofloat(a0)<< "  " << rec(tofloat(a0)) <<  "  " <<asinh(rec(tofloat(a0))) <<  std::endl;
+      return nt2::asinh(rec(tofloat(a0)));
     }
   }; 
 } }

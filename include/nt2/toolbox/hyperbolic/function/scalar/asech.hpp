@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_ASECH_HPP_INCLUDED
 
 #include <nt2/include/functions/acosh.hpp>
+#include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace functors
 {

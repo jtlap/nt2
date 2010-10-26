@@ -17,6 +17,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace functors
 {
