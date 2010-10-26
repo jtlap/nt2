@@ -43,7 +43,7 @@ namespace nt2
 							     0xbf2a01a019bfdf03ll, 
 							     0x3f8111111110f7d0ll, 
 							     0xbfc5555555555548ll) ) > (z);
-          return fma(mul(y1,z),x,x);
+          return fma(y1*z),x,x);
 	}
 	static inline A0 base_tancot_eval(const A0 z)
 	{

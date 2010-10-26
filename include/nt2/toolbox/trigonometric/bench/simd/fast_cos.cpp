@@ -25,7 +25,7 @@ using nt2::functors::fast_cos_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::fast_cos_,(RS(vfloat,-0.785,0.785)))
-NT2_TIMING(nt2::functors::fast_cos_,(RS(vdouble,-0.785,0.785)))
+NT2_TIMING(nt2::functors::fast_cos_,(RS(vfloat,-nt2::Pio_4<float>(),nt2::Pio_4<float>())))
+NT2_TIMING(nt2::functors::fast_cos_,(RS(vdouble,-nt2::Pio_4<double>(),nt2::Pio_4<double>())))
 
 #undef RS
