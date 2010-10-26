@@ -8,16 +8,29 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/reduction/include/dot.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<dot_> from reduction
+// Scalar Runtime benchmark for functor<dot_> from reduction
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::dot_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( dot_ , ((nt2::uint32_t, -10, 10))
-//                    ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::dot_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::functors::dot_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::functors::dot_,(RS(int64_t,-10000,10000))(RS(int64_t,-10000,10000)))
+NT2_TIMING(nt2::functors::dot_,(RS(int32_t,-10000,10000))(RS(int32_t,-10000,10000)))
+NT2_TIMING(nt2::functors::dot_,(RS(int16_t,-32768,32767))(RS(int16_t,-32768,32767)))
+NT2_TIMING(nt2::functors::dot_,(RS(int8_t,-128,127))(RS(int8_t,-128,127)))
+NT2_TIMING(nt2::functors::dot_,(RS(uint64_t,0,65535))(RS(uint64_t,0,65535)))
+NT2_TIMING(nt2::functors::dot_,(RS(uint32_t,0,65535))(RS(uint32_t,0,65535)))
+NT2_TIMING(nt2::functors::dot_,(RS(uint16_t,0,65535))(RS(uint16_t,0,65535)))
+NT2_TIMING(nt2::functors::dot_,(RS(uint8_t,0,255))(RS(uint8_t,0,255)))
+
+#undef RS
