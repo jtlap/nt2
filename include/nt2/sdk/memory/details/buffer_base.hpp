@@ -18,6 +18,7 @@
 #include <boost/type_traits/has_trivial_assign.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/type_traits/has_trivial_constructor.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace details
 {
