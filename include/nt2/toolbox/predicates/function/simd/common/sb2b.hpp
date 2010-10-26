@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_SB2B_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+
 
 
 namespace nt2 { namespace functors
