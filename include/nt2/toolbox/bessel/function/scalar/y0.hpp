@@ -49,7 +49,7 @@ namespace nt2 { namespace functors
       if (a0 <= Two<A0>())
 	{
 	  A0 z = sqr(a0); 
-	  A0 p2 = (z-integral_constant<A0, 0x3edd4b3a>())*
+	  A0 p2 = (z-single_constant<A0, 0x3edd4b3a>())*
 	    horner< NT2_HORNER_COEFF_T(stype, 5,
 				    (0x33cb0920, 
 				     0xb71ded71, 
@@ -57,7 +57,7 @@ namespace nt2 { namespace functors
 				     0xbc81c8f4, 
 				     0x3e2edb4f
 				     ) ) > (z);
-	     return p2+integral_constant<A0, 0x3f22f983>()*nt2::log(a0)*nt2::j0(a0);
+	     return p2+single_constant<A0, 0x3f22f983>()*nt2::log(a0)*nt2::j0(a0);
 	}
 	 A0 q = rec(a0);
 	 A0 w = sqrt(q); 

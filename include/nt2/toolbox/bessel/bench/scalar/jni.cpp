@@ -8,16 +8,23 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bessel/include/jni.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<jni_> from bessel
+// Scalar Runtime benchmark for functor<jni_> from bessel
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::jni_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( jni_ , ((nt2::uint32_t, -10, 10))
-//                    ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+
+
+NT2_TIMING(nt2::functors::jni_,(RS(int64_t,0,63))(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::functors::jni_,(RS(int32_t,0,31))(RS(float,-10000.0f,10000.0f)))
+
+#undef RS

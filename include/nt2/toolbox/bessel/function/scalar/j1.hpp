@@ -45,13 +45,13 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
-      if (isltz(a0)) return Nan<A0>();
-      if (is_inf(a0) || iseqz(a0)) return Zero<A0>();
+      if (is_ltz(a0)) return Nan<A0>();
+      if (is_inf(a0) || is_eqz(a0)) return Zero<A0>();
       A0 x = nt2::abs(a0);
-      if (islt(x,Two<A0>()))
+      if (lt(x,Two<A0>()))
 	{
 	  A0 z = sqr(x);
-	  return (z-integral_constant<A0,0x416ae95a> ())*x*
+	  return (z-single_constant<A0,0x416ae95a> ())*x*
 	    horner< NT2_HORNER_COEFF_T(A0, 5,
 				     (0xb1a7a246,
 				      0x35214df5,
@@ -84,13 +84,13 @@ namespace nt2 { namespace functors
 				0x3eb364d9,
 				0xbe27bad7,
 				0x3ebfffdd
-				) ) > (w)-integral_constant<A0,0x4016cbe4> ();
+				) ) > (w)-single_constant<A0,0x4016cbe4> ();
           return p3*nt2::cos(xn+x);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-      if (isltz(a0)) return Nan<A0>();
-      if (is_inf(a0) || iseqz(a0)) return Zero<A0>();
+      if (is_ltz(a0)) return Nan<A0>();
+      if (is_inf(a0) || is_eqz(a0)) return Zero<A0>();
       return ::j1(a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
