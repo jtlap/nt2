@@ -33,4 +33,3 @@
 //          );
 //}
 
-typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type
