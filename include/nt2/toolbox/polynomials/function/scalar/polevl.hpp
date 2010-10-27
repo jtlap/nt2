@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_POLEVL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_POLEVL_HPP_INCLUDED
+#include <nt2/include/functions/tchebeval.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -25,7 +26,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
-      A0,
+      typename nt2::meta::scalar_of<A0>::type,
       (2, (real_,arithmetic_))
     )
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)

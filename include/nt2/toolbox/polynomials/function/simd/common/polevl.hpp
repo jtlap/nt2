@@ -41,7 +41,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      return (tofloat(a0));
+      return polevl(tofloat(a0));
     }
   };
 } }
