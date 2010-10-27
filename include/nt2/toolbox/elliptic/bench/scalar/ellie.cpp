@@ -8,16 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/elliptic/include/ellie.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<ellie_> from elliptic
+// Scalar Runtime benchmark for functor<ellie_> from elliptic
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::ellie_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( ellie_ , ((nt2::uint32_t, -10, 10))
-//                      ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::ellie_,(RS(float,-10000.0f,10000.0f))(RS(float,0.0f,1.0f)))
+NT2_TIMING(nt2::functors::ellie_,(RS(double,-10000.0,10000.0))(RS(double,0.0,1.0)))
+
+#undef RS

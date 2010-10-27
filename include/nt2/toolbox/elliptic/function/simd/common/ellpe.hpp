@@ -72,13 +72,11 @@ namespace nt2 { namespace functors
 					    0x3dc00000, 
 					    0x3e800000
 					    ) ) > (a0);
-      return select(iseqz(a0), One<A0>(), b_or(temp, b_or(isgt(a0, One<A0>()), isltz(a0)))); 
+      return select(is_eqz(a0), One<A0>(), b_or(temp, b_or(gt(a0, One<A0>()), is_ltz(a0)))); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-	A0 r; 
-	map(functor<ellpe_>(), a0, r);
-	return r; 
+      return map(functor<ellpe_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
