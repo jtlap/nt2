@@ -8,16 +8,29 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/swar/include/put_first.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<put_first_> from swar
+// Scalar Runtime benchmark for functor<put_first_> from swar
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::put_first_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( put_first_ , ((nt2::uint32_t, -10, 10))
-//                          ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::put_first_,(RS(float,-10000.0f,10000.0f))(RS(int32_t,0,31)))
+NT2_TIMING(nt2::functors::put_first_,(RS(double,-10000.0,10000.0))(RS(int64_t,0,63)))
+NT2_TIMING(nt2::functors::put_first_,(RS(int64_t,-10000,10000))(RS(int64_t,0,63)))
+NT2_TIMING(nt2::functors::put_first_,(RS(int32_t,-10000,10000))(RS(int32_t,0,31)))
+NT2_TIMING(nt2::functors::put_first_,(RS(int16_t,-32768,32767))(RS(int16_t,0,16)))
+NT2_TIMING(nt2::functors::put_first_,(RS(int8_t,-128,127))(RS(int8_t,0,7)))
+NT2_TIMING(nt2::functors::put_first_,(RS(uint64_t,0,65535))(RS(uint64_t,0,63)))
+NT2_TIMING(nt2::functors::put_first_,(RS(uint32_t,0,65535))(RS(uint32_t,0,31)))
+NT2_TIMING(nt2::functors::put_first_,(RS(uint16_t,0,65535))(RS(uint16_t,0,16)))
+NT2_TIMING(nt2::functors::put_first_,(RS(uint8_t,0,255))(RS(uint8_t,0,7)))
+
+#undef RS

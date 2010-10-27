@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shli.hpp>
+#include <nt2/include/functions/shri.hpp>
 
 namespace nt2 { namespace functors
 {
