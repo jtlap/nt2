@@ -85,7 +85,6 @@
  *    IEEE    -2, +3              100000     4.0e-7      5.6e-8
  *
  */
-
 /*							gamma.c	*/
 /*	gamma function	*/
 
@@ -191,7 +190,7 @@ x = xx;
 sgngamf = 1; 
 negative = 0;
 nz = 0.0;
- printf("icite\n");
+
 if( x < 0.0 )
 	{
 	negative = 1;
@@ -219,7 +218,7 @@ goverf:
 		nz = -nz;
 	x = q;
 	}
- printf("1-x= %f\n",x);
+
 if( x >= 10.0 )
 	{
 	  return stirf(x);
@@ -234,7 +233,7 @@ while( x >= 3.0 )
 	x -= 1.0;
 	z *= x;
 	}
- printf("2-x= %f\n",x);
+
 /*
 while( x < 0.0 )
 	{
@@ -251,7 +250,6 @@ while( x < 2.0 )
 	z *=x;
 	x += 1.0;
 	}
- printf("3-x= %f\n",x);
 
 if( direction )
 	z = 1.0/z;

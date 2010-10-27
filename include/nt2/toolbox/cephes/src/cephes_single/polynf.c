@@ -64,14 +64,9 @@
 #endif
 #include "mconf.h"
 
-#ifdef ANSIC
-void printf(), sprintf(), exit();
-void free(void *);
-void *malloc(int);
-#else
-void printf(), sprintf(), free(), exit();
-void *malloc();
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+
 /* near pointer version of malloc() */
 /*#define malloc _nmalloc*/
 /*#define free _nfree*/

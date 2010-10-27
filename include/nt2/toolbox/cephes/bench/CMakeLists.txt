@@ -10,9 +10,9 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(cephes.scalar.unit)
-ADD_CUSTOM_TARGET(cephes.simd.unit)
-ADD_CUSTOM_TARGET(cephes.unit)
+ADD_CUSTOM_TARGET(cephes.scalar.bench)
+ADD_CUSTOM_TARGET(cephes.simd.bench)
+ADD_CUSTOM_TARGET(cephes.bench)
 
 ##****************************************************************************
 ##*     Toolbox cephes bench tests
@@ -24,6 +24,6 @@ ADD_SUBDIRECTORY(simd)
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
-ADD_DEPENDENCIES(cephes.unit cephes.scalar.unit)
-ADD_DEPENDENCIES(cephes.unit cephes.simd.unit)
-ADD_DEPENDENCIES(unit cephes.unit)
+ADD_DEPENDENCIES(cephes.bench cephes.scalar.bench)
+ADD_DEPENDENCIES(cephes.bench cephes.simd.bench)
+#ADD_DEPENDENCIES(unit cephes.unit)

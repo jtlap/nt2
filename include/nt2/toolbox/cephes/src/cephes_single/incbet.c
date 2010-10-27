@@ -67,7 +67,8 @@ double aa, bb, xx;
 {
 double ans, a, b, t, x, onemx;
 double lgam(), exp(), log(), fabs();
-double incbd(), incbcf();
+double incbd();
+double incbcf();
 short flag;
 
 if( (xx <= 0.0) || ( xx >= 1.0) )
@@ -169,7 +170,7 @@ return( t );
  * for incomplete beta integral
  */
 
-static double incbcf( a, b, x )
+double incbcf( a, b, x )
 double a, b, x;
 {
 double xk, pk, pkm1, pkm2, qk, qkm1, qkm2;
@@ -262,7 +263,7 @@ return(ans);
  * for incomplete beta integral
  */
 
-static double incbd( a, b, x )
+double incbd( a, b, x )
 double a, b, x;
 {
 double xk, pk, pkm1, pkm2, qk, qkm1, qkm2;

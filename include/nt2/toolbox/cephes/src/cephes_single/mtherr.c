@@ -71,8 +71,6 @@ static char *ermsg[7] = {
 };
 
 
-void printf();
-
 int cephes_mtherr( name, code )
 char *name;
 int code;
