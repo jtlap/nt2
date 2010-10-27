@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 
 namespace nt2 { namespace functors
@@ -36,10 +37,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      type r; 
-      map(functor<gamma_>(), tofloat(a0), r);
-      return r; 
+      return map(functor<gamma_>(), tofloat(a0));
     }
   };
 } }

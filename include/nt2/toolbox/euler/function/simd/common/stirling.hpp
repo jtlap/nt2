@@ -37,8 +37,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)>: meta::as_real<A0>{};
 
 
     NT2_FUNCTOR_CALL_DISPATCH(
@@ -61,7 +60,7 @@ namespace nt2 { namespace functors
       w = fma(w, polevl( w, STIR), One<A0>());
       A0 r = Nan<A0>();
       A0 y = exp( -a0 );
-      A0 test = isgt(a0, MAXSTIR);
+      A0 test = gt(a0, MAXSTIR);
       const A0 v = pow( a0, fma(Half<A0>(), a0, - Quarter<A0>()) );
       y *= v;
       y *= v;

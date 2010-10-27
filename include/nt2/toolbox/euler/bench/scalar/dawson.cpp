@@ -8,15 +8,22 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/euler/include/dawson.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<dawson_> from euler
+// Scalar Runtime benchmark for functor<dawson_> from euler
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::dawson_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( dawson_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::dawson_,(RS(float,0.0f,100.0f)))
+NT2_TIMING(nt2::functors::dawson_,(RS(double,0.0,100.0)))
+NT2_TIMING(nt2::functors::dawson_,(RS(int32_t,0.0,100.0)))
+
+#undef RS

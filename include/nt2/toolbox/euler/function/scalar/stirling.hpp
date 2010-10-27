@@ -48,7 +48,7 @@ namespace nt2 { namespace functors
     )
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-      if (isnan(a0)) return Nan<A0>(); 
+      if (is_nan(a0)) return Nan<A0>(); 
       if (a0 > Stirlinglargelim<A0>()) return Inf<A0>(); 
 //       static const boost::array<A0, 3 > stirpoly = {{
 // 	  -2.705194986674176E-003f,
@@ -58,7 +58,7 @@ namespace nt2 { namespace functors
       A0 w = rec(a0);
       w = fma(w, polevl(w, stirpol<A0, A0>::sp()), One<A0>());
       A0 y = exp(-a0);
-      if(iseqz(y)) return Inf<A0>(); 
+      if(is_eqz(y)) return Inf<A0>(); 
       if( a0 > Stirlingsplitlim<A0>() )
 	{ /* Avoid overflow in pow() */
 	  const A0 v = pow(a0,fma(Half<A0>(),a0,-Quarter<A0>()));

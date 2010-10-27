@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_DAWSON_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_DAWSON_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
-
+#include <nt2/include/functions/plevl.hpp>
 #include <nt2/include/functions/polevl.hpp>
+
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -29,15 +30,15 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> :  boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       A0,
       (2, (real_, arithmetic_))
     )
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+
+    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       static const boost::array<A0, 10 > AN = {{
 	1.13681498971755972054E-11,
@@ -119,12 +120,12 @@ namespace nt2 { namespace functors
       x =  rec(x); 
       if( xx < 6.25 )
 	{
-	  A0 y = rec(xx) + x * polevl( x, BN) / (p1evl( x, BD) * xx);
+	  A0 y = rec(xx) + x * polevl( x, BN) / (plevl( x, BD) * xx);
 	  return copysign(Half<A0>()*y, a0);
 	}
       if( xx > 1.0e9 ) return Half<A0>()*copysign(rec(xx), a0); 
       /* 6.25 to 1.0e9 */
-      A0 y = rec(xx) + x * polevl( x, CN) / (p1evl( x, CD) * xx);
+      A0 y = rec(xx) + x * polevl( x, CN) / (plevl( x, CD) * xx);
       return copysign(Half<A0>()*y, a0);
     }
 

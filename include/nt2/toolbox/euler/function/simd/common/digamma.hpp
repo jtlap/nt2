@@ -49,8 +49,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -66,21 +65,21 @@ namespace nt2 { namespace functors
       //
       A0 result = Zero<A0>();
       A0 x = a0; 
-      A0 test = islez(a0);
+      A0 test = is_lez(a0);
       uint32_t nb, nb1; 
       if( (nb = nbtrue(test)) > 0)
 	{
 	  x = sel(test, oneminus(a0), a0); 
 	  A0 remainder = x - floor(x);
-          remainder =  selsub(isgt(remainder,Half<A0>()),remainder,One<A0>()); 
-	  result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),iseqz(remainder)), test);
+          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>()); 
+	  result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
 	  // we are ready to increment result that was
 	  // Pi<A0>()/tanpi(remainder) if a0 < 0  and remainder != 0
 	  // Nan<A0>                   if a0 < 0  and remainder == 0
 	  // 0                         in any other cases
 	}
       A0 r1, r2; 
-      test = isgt(x, Digammalargelim<A0>());
+      test = gt(x, Digammalargelim<A0>());
       if(nb = nbtrue(test))
 	{ // If we're above the lower-limit for the asymptotic expansion then use it:
 	  r1 = b_and(digamma_imp_large(x, sA0()), test)+result;
@@ -88,13 +87,13 @@ namespace nt2 { namespace functors
 	}
       // If x > 2 reduce to the interval [1,2]:
       A0 cond;
-      while(any(cond = isgt(x, Two<A0>())))
+      while(any(cond = gt(x, Two<A0>())))
 	{ 
 	  x      -= b_and(One<A0>(), cond);
 	  result += b_and(rec(x), cond);
 	}
       // If x < 1 use shift to > 1:
-      if(any(cond = islt(x, One<A0>())))
+      if(any(cond = lt(x, One<A0>())))
 	{ 
 	  result = sel(cond, -rec(x), result);
 	  x      += b_and(One<A0>(), cond);
@@ -128,7 +127,7 @@ namespace nt2 { namespace functors
       typedef typename meta::scalar_of<A>::type sA; 
       static const A Y = splat<A>(0.99558162689208984);
       static const A root = splat<A>(1532632.0 / 1048576);
-      static const A root_minor = splat<A>(0.3700660185912626595423257213284682051735604e-6L);
+      static const A root_minor = splat<A>(double(0.3700660185912626595423257213284682051735604e-6L));
       static const boost::array<sA, 4> P = {{    
 	0.25479851023250261e0,
 	-0.44981331915268368e0,
@@ -185,7 +184,7 @@ namespace nt2 { namespace functors
 
    static const A root1 = splat<A>(1569415565.0 / 1073741824uL);
    static const A root2 = splat<A>((381566830.0 / 1073741824uL) / 1073741824uL);
-   static const A root3 = splat<A>(0.9016312093258695918615325266959189453125e-19L);
+   static const A root3 = splat<A>(double(0.9016312093258695918615325266959189453125e-19L));
 
    static const boost::array<sA, 6> P = {{    
        0.25479851061131551L,
