@@ -8,17 +8,7 @@
 ##############################################################################
 
 ADD_SUBDIRECTORY(src/cephes_single)
+ADD_SUBDIRECTORY(src/cephes_double)
 ADD_SUBDIRECTORY(bench)
 ADD_SUBDIRECTORY(unit)
-
-##############################################################################
-## TODO: Write command for building your own sources
-##############################################################################
-
-file( GLOB_RECURSE cephes_double_src
-      ${PROJECT_SOURCE_DIR}/include/nt2/toolbox/cephes/src/cephes_double/*.c
-    )
-
-
-#add_library(nt2_cephesd STATIC ${cephes_double_src} )
 
