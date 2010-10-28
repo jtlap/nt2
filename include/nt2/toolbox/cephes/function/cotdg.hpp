@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/cotdg.hpp>
-#include NT2_CEPHES_INCLUDE(cotdg.hpp) 
+// #include NT2_CEPHES_INCLUDE(cotdg.hpp) 
 
  
 #endif

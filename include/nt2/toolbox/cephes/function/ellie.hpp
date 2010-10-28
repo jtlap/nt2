@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/ellie.hpp>
-#include NT2_CEPHES_INCLUDE(ellie.hpp) 
+// #include NT2_CEPHES_INCLUDE(ellie.hpp) 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/lbeta.hpp>
-#include NT2_CEPHES_INCLUDE(lbeta.hpp) 
+// #include NT2_CEPHES_INCLUDE(lbeta.hpp) 
 
  
 #endif

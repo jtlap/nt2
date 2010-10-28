@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/spence.hpp>
-#include NT2_CEPHES_INCLUDE(spence.hpp) 
+// #include NT2_CEPHES_INCLUDE(spence.hpp) 
 
  
 #endif

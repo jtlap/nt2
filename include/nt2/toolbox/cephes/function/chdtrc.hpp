@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/chdtrc.hpp>
-#include NT2_CEPHES_INCLUDE(chdtrc.hpp) 
+// #include NT2_CEPHES_INCLUDE(chdtrc.hpp) 
 
  
 #endif

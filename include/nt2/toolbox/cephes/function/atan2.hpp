@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/atan2.hpp>
-#include NT2_CEPHES_INCLUDE(atan2.hpp) 
+// #include NT2_CEPHES_INCLUDE(atan2.hpp) 
 
  
 #endif

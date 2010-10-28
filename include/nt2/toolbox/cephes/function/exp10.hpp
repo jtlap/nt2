@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/exp10.hpp>
-#include NT2_CEPHES_INCLUDE(exp10.hpp) 
+// #include NT2_CEPHES_INCLUDE(exp10.hpp) 
 
  
 #endif

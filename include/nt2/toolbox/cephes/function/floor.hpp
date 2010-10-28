@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/floor.hpp>
-#include NT2_CEPHES_INCLUDE(floor.hpp) 
+// #include NT2_CEPHES_INCLUDE(floor.hpp) 
 
  
 #endif

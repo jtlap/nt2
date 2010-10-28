@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes
 }
  
 #include <nt2/toolbox/cephes/function/scalar/sqrt.hpp>
-#include NT2_CEPHES_INCLUDE(sqrt.hpp) 
+// #include NT2_CEPHES_INCLUDE(sqrt.hpp) 
 
  
 #endif
