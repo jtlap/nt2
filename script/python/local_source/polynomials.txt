@@ -1,0 +1,5 @@
+polynomials
+ 
+laguerre                      2
+hermite                       2
+legendre                      2

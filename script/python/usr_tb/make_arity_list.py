@@ -12,7 +12,7 @@
 
 """creation of txt generation files from old nt2
    usage:
-           mk_tb_txt <tool_box_name> [<path to toolbox>]
+           mk_arity_list <tool_box_name> [<path to toolbox>]
    
 """
 import sys
@@ -39,19 +39,28 @@ def get_arity(pname) :
                     return m.groups()[0]
     return ""
 
-def create_txt(tb_name,s) :
+def get_includes(p) :
+    l = []
+    for name in os.listdir(p) :
+        if name[-4:]=='.hpp' :
+            h = name[:-4]
+            l.append(h)
+    return l
+
+
+def create_txt(tb_name,p) :
+    s = get_includes(p)
+#    show(s)
     r = [ tb_name, " "]
-    for l in s :
-        m= re.search('\#include <nt2/core/numeric/function/(.*)>',l)
-        if m :
-            fct_name =m.groups()[0][:-4]
-            p=os.path.join('/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/core/numeric/function/',fct_name+'.hpp')
-            arity = get_arity(p)
-            if arity !="" :
-                r.append(fct_name+(30-len(fct_name))*' '+arity)
+    for fct_name in s :
+#        print "fct_name : %s"% fct_name
+        p1=os.path.join(p,fct_name+'.hpp')
+#        print "p1 : %s" %p1
+        arity = get_arity(p1)
+#        print arity
+        if arity !="" :
+            r.append(fct_name+(30-len(fct_name))*' '+arity)
     return r    
-
-
 
 
 if __name__ == "__main__" :
@@ -59,9 +68,13 @@ if __name__ == "__main__" :
     length = len(sys.argv)
     if length >= 2 :
         tb_name = sys.argv[1]
-        pname = os.path.join('/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/include/functions',tb_name+'.hpp')
-        s = read(pname)
-        s = create_txt(tb_name,s)
+        if length == 2 :
+            p = '/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/core/numeric/function/'
+        else :
+            p = os.path.join('/home/jt/DevC++/dev_lasmea/docnt4/nt2-cleanup/nt2/toolbox',tb_name,'function')
+        print "p %s" % p    
+        s = create_txt(tb_name,p)
+        show(s)
         write(tb_name+'.txt',s)
     else :
         print __doc__

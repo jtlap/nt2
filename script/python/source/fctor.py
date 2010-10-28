@@ -227,27 +227,30 @@ class Functor(Toolbox) :
 
     def add(self,fct_name,acts,subs_dict,action_data,check=True) :
         """add a file"""
+        do_it = True
         fname = action_data["file"].replace('$fct_name$',fct_name)
         fct_name_path = os.path.abspath(os.path.join(self.get_tb_abs_path(),acts,fname))
         if acts != "" :
             rel_path = os.path.join(self.get_tb_pathfnt2(),acts)
         else :
             rel_path = 'nt2/include/functions'
-        tplname = '../tpl/'+action_data["tmpl"]
-        # print  "action_data[tmpl] %s" % action_data["tmpl"]
-        tpl_name_path = os.path.join(nt2_py_dir(),tplname)
-        if "parm" in action_data.keys() :
-            s = subs_dict["\$parms_type_and_ranges\$"]
-            subs_dict["\$parms_type_and_ranges\$"] =  re.sub('\$parm\$', action_data["parm"], s)
-        subs_dict["\$acts\$"] = acts
-        inner_text = self.__treat(read(tpl_name_path),subs_dict)
-        if "parm" in action_data.keys() :
-            subs_dict["\$parms_type_and_ranges\$"] = s
-        comment = action_data["cmmt"]
-        flag    = action_data["head"]
-        h = Headers(rel_path,fct_name,inner=inner_text,comment=comment)
-        # print "fct_name_path %s" % fct_name_path
-        h.write_header2(fct_name_path,flag=flag,check=check)
+            do_it = self.get_tb_style()[0]=='s'
+        if do_it :
+            tplname = '../tpl/'+action_data["tmpl"]
+            # print  "action_data[tmpl] %s" % action_data["tmpl"]
+            tpl_name_path = os.path.join(nt2_py_dir(),tplname)
+            if "parm" in action_data.keys() :
+                s = subs_dict["\$parms_type_and_ranges\$"]
+                subs_dict["\$parms_type_and_ranges\$"] =  re.sub('\$parm\$', action_data["parm"], s)
+            subs_dict["\$acts\$"] = acts
+            inner_text = self.__treat(read(tpl_name_path),subs_dict)
+            if "parm" in action_data.keys() :
+                subs_dict["\$parms_type_and_ranges\$"] = s
+            comment = action_data["cmmt"]
+            flag    = action_data["head"]
+            h = Headers(rel_path,fct_name,inner=inner_text,comment=comment)
+            # print "fct_name_path %s" % fct_name_path
+            h.write_header2(fct_name_path,flag=flag,check=check)
          
     def dda(self,fct_name,acts,subs_dict,action_data,check=True) :
         """remove a file: reverse of add"""
