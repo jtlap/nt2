@@ -28,99 +28,120 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // For global_padding slice, dispacth on the relative positino of the Level
+  //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<slice_,tag::fusion_(memory::global_padding),Info>
+  struct dispatch<slice_,tag::fusion_(memory::global_padding),Info>
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Template status for selecting between {N,S} state space
-    ////////////////////////////////////////////////////////////////////////////
-    template<bool Same, bool One> struct status {};
+    template<class A0,class A1,class A2> struct apply
+    {
+      typedef boost::mpl
+            ::pair< boost::mpl::bool_ <   A2::value
+                                      ==  boost::fusion::result_of
+                                          ::size<A0>::value
+                                      >
+                  , boost::mpl::bool_ <A2::value == 1>
+                  >
+                                                                    type;
+    };
+  };
 
-    ////////////////////////////////////////////////////////////////////////////
-    // result_of protocol
-    ////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call< slice_,tag::fusion_(memory::global_padding)
+              , boost::mpl::pair<boost::mpl::true_,boost::mpl::true_>
+              , Info
+              >
+        : callable
+  {
     template<class Sig> struct result;
 
     template<class This,class Seq,class Padder,class N>
     struct  result<This(Seq const&,Padder const&,N const&)>
     {
-      typedef typename boost::fusion::result_of::size<Seq>::type seq_size;
-      
-      // N!=S
-      template<bool Same, bool One, int Dummy=0> struct inner
-      {
-        static Seq const& s;
-        BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-        ( nested
-        , slice<N::value>(s,memory::no_padding())
-        );
-        typedef typename nested::type type;
-      };
-
-      // N==S int N!=1
-      template<int Dummy>
-      struct  inner<true,false,Dummy>
-            : boost::fusion::result_of::at_c<Seq const,N::value-1>
-      {};
-
-      // N==1 but N!=S
-      template<int Dummy>
-      struct inner<false,true,Dummy>
-      {
-        static Seq const& s;
-        BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-        ( nested
-        , memory::align_on( slice<1>(s,memory::no_padding()) )
-        );
-        typedef typename nested::type type;
-      };
-
-      // N==1 and S==1
-      template<int Dummy>
-      struct inner<true,true,Dummy>
-      {
-        static Seq const& s;
-        BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-        ( nested
-        , memory::align_on( boost::fusion::at_c<0>(s) )
-        );
-        typedef typename nested::type type;
-      };
-
-      typedef typename inner<(N::value==seq_size::value),(N::value==1)>::type type;
+      static Seq const& s;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , memory::align_on( boost::fusion::at_c<0>(s) )
+      );
+      typedef typename nested::type type;
     };
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 3
-                              , (status< A2::value == boost::fusion::result_of::size<A0>::value
-                                       , A2::value == 1
-                                       >
-                                )
-                              , ( 4,( (status<true  , true> )
-                                    , (status<false , true> )
-                                    , (status<true  , false>)
-                                    , (status<false , false>)
-                                    )
-                                )
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<false , false>) )
+    NT2_FUNCTOR_CALL(3)
     {
-      return slice<A2::value>(a0,memory::no_padding());
+      return memory::align_on(boost::fusion::at_c<0>(a0));
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<true , false>) )
+  template<class Info>
+  struct  call< slice_,tag::fusion_(memory::global_padding)
+              , boost::mpl::pair<boost::mpl::true_,boost::mpl::false_>
+              , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+
+    template<class This,class Seq,class Padder,class N>
+    struct  result<This(Seq const&,Padder const&,N const&)>
+            : boost::fusion::result_of::at_c<Seq const,N::value-1>
+    {};
+
+    NT2_FUNCTOR_CALL(3)
     {
       return boost::fusion::at_c<A2::value-1>(a0);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<false , true>) )
+  template<class Info>
+  struct  call< slice_,tag::fusion_(memory::global_padding)
+              , boost::mpl::pair<boost::mpl::false_,boost::mpl::true_>
+              , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+
+    template<class This,class Seq,class Padder,class N>
+    struct  result<This(Seq const&,Padder const&,N const&)>
+    {
+      static Seq const& s;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , memory::align_on( slice<1>(s,memory::no_padding()) )
+      );
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(3)
     {
       return memory::align_on( slice<1>(a0,memory::no_padding()) );
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(3, (status<true , true>) )
+  template<class Info>
+  struct  call< slice_,tag::fusion_(memory::global_padding)
+              , boost::mpl::pair<boost::mpl::false_,boost::mpl::false_>
+              , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+
+    template<class This,class Seq,class Padder,class N>
+    struct  result<This(Seq const&,Padder const&,N const&)>
     {
-      return memory::align_on(boost::fusion::at_c<0>(a0));
+      static Seq const& s;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , slice<N::value>(s,memory::no_padding())
+      );
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(3)
+    {
+      return slice<A2::value>(a0,memory::no_padding());
     }
   };
 } }
@@ -131,9 +152,21 @@ namespace nt2 { namespace functors
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // For global_padding stride, we just don't care about the dispatching
+  //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<stride_,tag::fusion_(memory::global_padding),Info>
-        : call<stride_,tag::fusion_(memory::no_padding),Info>
+  struct dispatch<stride_,tag::fusion_(memory::global_padding),Info>
+  {
+    template<class A0,class A1,class A2> struct apply
+    {
+      typedef fundamental_ type;
+    };
+  };
+
+  template<class Hierarchy, class Info>
+  struct  call<stride_,tag::fusion_(memory::global_padding),Hierarchy,Info>
+        : call<stride_,tag::fusion_(memory::no_padding),Hierarchy,Info>
   {};
 } }
 

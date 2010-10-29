@@ -25,11 +25,9 @@ namespace nt2 { namespace functors
   struct slice_  {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // slice<Level>(sz,padder) computes the nbr of element between the Level and
-  // size(sz)th index level of a dimension sets
+  // slice functor
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct functor< slice_, Info >
+  template<class Info> struct functor< slice_, Info >
   {
     struct validate { typedef boost::mpl::true_ result_type; };
 
@@ -38,20 +36,20 @@ namespace nt2 { namespace functors
     template<class This,class Seq,class N,class Padder>
     struct result<This(Seq const&,Padder const&,N const&)>
     {
-      typedef call<slice_,tag::fusion_(Padder),Info>                callee;
+      typedef meta::dispatch<slice_,tag::fusion_(Padder),Info>     dispatching;
+      typedef typename std::tr1
+            ::result_of<dispatching(Seq,Padder,N)>::type                  callee;
       typedef typename  std::tr1
-                      ::result_of<callee( Seq const&
-                                        , Padder const&
-                                        , N const&
-                                        )
-                                  >::type type;
+            ::result_of<callee(Seq const&,Padder const&,N const&)>::type  type;
     };
 
     template<class Seq,class N,class Padder> inline
     typename meta::enable_call<slice_(Seq const&,Padder const&,N const&)>::type
     operator()(Seq const& a0, Padder const& a1, N const& a2) const
     {
-      functors::call<slice_,tag::fusion_(Padder),Info>  callee;
+      typedef meta::dispatch<slice_,tag::fusion_(Padder),Info> dispatching;
+      typename std::tr1
+                ::result_of<dispatching(Seq,Padder,N)>::type  callee;
       return callee(a0,a1,a2);
     }
   };
@@ -59,16 +57,20 @@ namespace nt2 { namespace functors
 
 namespace nt2
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // slice<Level>(sz,padder) computes the nbr of element on a given index level
+  //////////////////////////////////////////////////////////////////////////////
   template<int N, class S,class P> inline
   typename  nt2::meta
-          ::enable_call<functors::slice_( S const&
-                                        , P const&
-                                        , boost::mpl::long_<N> const&
-                                        )>::type
+          ::enable_call < functors::slice_( S const&
+                                          , P const&
+                                          , boost::mpl::long_<N> const&
+                                          )
+                        >::type
   slice(S const& s, P const& p)
   {
-    functors::functor< functors::slice_> callee;
-    return callee(s,p,boost::mpl::long_<N>() );
+    functors::functor<functors::slice_> callee;
+    return callee(s,p,boost::mpl::long_<N>());
   }
 }
 

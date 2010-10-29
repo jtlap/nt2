@@ -25,11 +25,9 @@ namespace nt2 { namespace functors
   struct stride_  {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // slice<Level>(sz,padder) computes the nbr of element between the Level and
-  // size(sz)th index level of a dimension sets
+  // stride functor
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct functor< stride_, Info >
+  template<class Info> struct functor< stride_, Info >
   {
     struct validate { typedef boost::mpl::true_ result_type; };
 
@@ -38,20 +36,20 @@ namespace nt2 { namespace functors
     template<class This,class Seq,class N,class Padder>
     struct result<This(Seq const&,Padder const&,N const&)>
     {
-      typedef call<stride_,tag::fusion_(Padder),Info>       callee;
+      typedef meta::dispatch<stride_,tag::fusion_(Padder),Info>     dispatching;
+      typedef typename std::tr1
+            ::result_of<dispatching(Seq,Padder,N)>::type                  callee;
       typedef typename  std::tr1
-                      ::result_of < callee( Seq const&
-                                          , Padder const&
-                                          , N const&
-                                          )
-                                  >::type                   type;
+            ::result_of<callee(Seq const&,Padder const&,N const&)>::type  type;
     };
 
     template<class Seq,class N,class Padder> inline
     typename meta::enable_call<stride_(Seq const&,Padder const&,N const&)>::type
     operator()(Seq const& a0, Padder const& a1, N const& a2) const
     {
-      functors::call<stride_,tag::fusion_(Padder),Info>  callee;
+      typedef meta::dispatch<stride_,tag::fusion_(Padder),Info> dispatching;
+      typename std::tr1
+                ::result_of<dispatching(Seq,Padder,N)>::type  callee;
       return callee(a0,a1,a2);
     }
   };
@@ -59,6 +57,10 @@ namespace nt2 { namespace functors
 
 namespace nt2
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // stride<Level>(sz,padder) computes the nbr of element to skip to get to the
+  // next element of Level dimensions
+  //////////////////////////////////////////////////////////////////////////////
   template<int N, class S,class P> inline
   typename  nt2::meta
           ::enable_call < functors::stride_ ( S const&

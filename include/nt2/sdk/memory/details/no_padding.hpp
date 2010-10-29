@@ -25,8 +25,40 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // For no_padding stride, we dispatch on the fact the Level is the last one
+  //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<slice_,tag::fusion_(memory::no_padding),Info>
+  struct dispatch<slice_,tag::fusion_(memory::no_padding),Info>
+  {
+    template<class A0,class A1,class A2> struct apply
+    {
+      typedef boost::mpl::bool_ <   A2::value
+                                ==  boost::fusion::result_of::size<A0>::value
+                                >                     type;
+    };
+  };
+
+  template<class Info>
+  struct  call<slice_,tag::fusion_(memory::no_padding),boost::mpl::true_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+
+    template<class This,class Seq,class Padder,class N>
+    struct  result<This(Seq const&,Padder const&,N const&)>
+          : boost::fusion::result_of::at_c<Seq const, N::value-1>
+    {};
+
+    NT2_FUNCTOR_CALL(3)
+    {
+      return boost::fusion::at_c<A2::value-1>(a0);
+    }
+  };
+
+  template<class Info>
+  struct  call<slice_,tag::fusion_(memory::no_padding),boost::mpl::false_,Info>
+        : callable
   {
     template<class Sig> struct result;
 
@@ -38,42 +70,19 @@ namespace nt2 { namespace functors
       static details::times callee;
 
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( different
+      ( nested
       , callee( slice<N::value+1>(s,p), boost::fusion::at_c<N::value-1>(s) )
       );
 
-      typedef boost::fusion::result_of::at_c<Seq const, N::value-1> same;
-
-      typedef typename boost::mpl::eval_if_c< (   N::value
-                                              ==  boost::fusion
-                                                  ::result_of::size<Seq>::value
-                                              )
-                                            , same
-                                            , different
-                                            >::type type;
+      typedef typename nested::type type;
     };
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 3
-                              , boost::mpl::bool_<(     A2::value
-                                                    ==  boost::fusion
-                                                      ::result_of::size<A0>
-                                                                  ::value
-                                                  )>
-                              , ( 2,( boost::mpl::true_
-                                    , boost::mpl::false_
-                                    )
-                                )
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(3, boost::mpl::true_ )
-    {
-      return boost::fusion::at_c<A2::value-1>(a0);
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(3, boost::mpl::false_ )
+    NT2_FUNCTOR_CALL(3)
     {
       details::times callee;
-      return callee( slice<A2::value+1>(a0,a1), boost::fusion::at_c<A2::value-1>(a0));
+      return callee ( slice<A2::value+1>(a0,a1)
+                    , boost::fusion::at_c<A2::value-1>(a0)
+                    );
     }
   };
 } }
@@ -83,8 +92,21 @@ namespace nt2 { namespace functors
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // For no_padding stride, we just don't care about the dispatching
+  //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<stride_,tag::fusion_(memory::no_padding),Info>
+  struct dispatch<stride_,tag::fusion_(memory::no_padding),Info>
+  {
+    template<class A0,class A1,class A2> struct apply
+    {
+      typedef fundamental_ type;
+    };
+  };
+
+  template<class Hierarchy, class Info>
+  struct call<stride_,tag::fusion_(memory::no_padding),Hierarchy,Info>
+        : callable
   {
     template<class Sig> struct result;
 
