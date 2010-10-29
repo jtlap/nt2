@@ -10,21 +10,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 // This file is supposed to be included inside functors::functor code
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t)																																\
-template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >													\
-struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>																	\
-{																																								\
-  typedef typename meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag dom;		\
-  typedef call<Function,dom,Info>                 							 				callee;	\
-  typedef typename  																														\
-  std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;						\
+#define M0(z,n,t)                                                               \
+template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                          \
+struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                  \
+{                                                                               \
+  typedef typename                                                              \
+  meta::categorize<Function,Info,BOOST_PP_ENUM_PARAMS(n,A)>::type::tag  dom;    \
+  typedef call<Function,dom,Info>                                       callee; \
+  typedef typename                                                              \
+  std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;           \
 };                                                                              \
                                                                                 \
 template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                                \
-typename meta::enable_call<Function(BOOST_PP_ENUM_PARAMS(n,A))>::type						\
+typename meta::enable_call<Function(BOOST_PP_ENUM_PARAMS(n,A))>::type           \
 operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a)  ) const                  \
 {                                                                               \
-  typedef typename meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag dom;		\
+  typedef typename                                                              \
+  meta::categorize<Function,Info,BOOST_PP_ENUM_PARAMS(n,A)>::type::tag  dom;    \
   call<Function,dom,Info>                  callee;                              \
   return callee( BOOST_PP_ENUM_PARAMS(n,a) );                                   \
 }                                                                               \

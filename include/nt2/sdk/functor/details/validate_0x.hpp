@@ -13,8 +13,8 @@
 template<class This, class... Args>
 struct  result<This(Args...)>
 {
-  typedef typename meta::dominant<Args...>::type::tag  				dom;
-  typedef functors::validate<Function,dom,Info>               callee;
-  typedef typename std::tr1::result_of<callee(Args...)>::type	type;
+  typedef typename meta::categorize<Function,Info,Args...>::type::tag dom;
+  typedef functors::validate<Function,dom,Info>                       callee;
+  typedef typename std::tr1::result_of<callee(Args...)>::type         type;
 };
 

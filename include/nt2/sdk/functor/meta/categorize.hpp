@@ -6,15 +6,13 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_FUNCTOR_META_DOMINANT_HPP_INCLUDED
-#define NT2_SDK_FUNCTOR_META_DOMINANT_HPP_INCLUDED
+#ifndef NT2_SDK_FUNCTOR_META_CATEGORIZE_HPP_INCLUDED
+#define NT2_SDK_FUNCTOR_META_CATEGORIZE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Compute the dominant category of a list of types
-// Documentation:http://nt2.lri.fr/sdk/functor/meta/dominant.html
+// Defines how a functor categorize its arguments
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/config.hpp>
-#include <nt2/sdk/functor/details/dominant.hpp>
+#include <nt2/sdk/functor/meta/dominant.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>
@@ -27,14 +25,16 @@
 namespace nt2 { namespace meta
 {
   #if defined(BOOST_HAS_VARIADIC_TMPL)
-  template<class... Args> struct dominant : details::dominant<Args...>  {};
+  template<class Tag, class Info, class... Args>
+  struct  categorize : dominant<Args...> {};
   #else
-  template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
+  template< class Tag, class Info
+          , BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
                                         , class A
                                         , = meta::na_ BOOST_PP_INTERCEPT
                                         )
           >
-  struct dominant : details::dominant<BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY,A)>
+  struct categorize : dominant<BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY,A)>
   {};
   #endif
 } }
