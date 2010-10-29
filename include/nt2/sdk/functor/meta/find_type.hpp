@@ -63,9 +63,14 @@ namespace nt2 { namespace meta
 
   template<class Type, class Set>
   struct  find_type<Type,Set>
-        : boost::mpl::if_c< nt2::meta::belong_to<Type,Set>::value
-                          , Set
-                          , nt2::functors::empty_
+        : boost
+          ::mpl::eval_if_c< boost::mpl::is_sequence<Set>::value
+                          , details::find_type<Type,Set,nt2::functors::empty_>
+                          , boost::mpl::if_c< nt2::meta
+                                              ::belong_to<Type,Set>::value
+                                            , Set
+                                            , nt2::functors::empty_
+                                            >
                           >
   {};
 
@@ -83,13 +88,15 @@ namespace nt2 { namespace meta
 
   template<class Type, class Set>
   struct  find_type<Type,Set>
-        : boost::mpl::eval_if_c < boost::mpl::is_sequence<Set>::value
-                                , details::find_type<Type,Set,nt2::functors::empty_>
-                                , boost::mpl::if_c< nt2::meta::belong_to<Type,Set>::value
-                                                  , Set
-                                                  , nt2::functors::empty_
-                                                  >
-                                >
+        : boost
+          ::mpl::eval_if_c< boost::mpl::is_sequence<Set>::value
+                          , details::find_type<Type,Set,nt2::functors::empty_>
+                          , boost::mpl::if_c< nt2::meta
+                                              ::belong_to<Type,Set>::value
+                                            , Set
+                                            , nt2::functors::empty_
+                                            >
+                          >
   {};
 
   #define M0(z,n,t)                                                           \
