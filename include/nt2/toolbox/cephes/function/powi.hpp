@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct powi_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::powi_, powi, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::powi_, powi, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/powi.hpp>

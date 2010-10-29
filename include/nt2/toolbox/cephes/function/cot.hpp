@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct cot_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::cot_, cot, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::cot_, cot, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/cot.hpp>

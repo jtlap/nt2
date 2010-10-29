@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct sin_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::sin_, sin, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::sin_, sin, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/sin.hpp>

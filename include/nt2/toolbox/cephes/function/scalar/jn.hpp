@@ -8,6 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_JN_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_JN_HPP_INCLUDED
+#include <nt2/sdk/meta/adapted_traits.hpp>
+
 
 namespace nt2 { namespace functors
 {
@@ -16,12 +18,13 @@ namespace nt2 { namespace functors
     extern double cephes_jn ( int,double );
     extern long double cephes_jnl ( int,long double );
   }
+  template<class Info>
   struct validate<cephes::jn_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;
       template<class This,class A0, class A1>
       struct result<This(A0, A1)> :
-         boost::is_integral<A0>{};
+         meta::is_integral<A0>{};
     };
   /////////////////////////////////////////////////////////////////////////////
   // Compute jn(const A0& a0, const A1& a1)
@@ -40,7 +43,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      return nt2::cephes::jn(type(a0), type(a1));
+      return nt2::cephes::jn((a0), type(a1));
     }
   };
 } }

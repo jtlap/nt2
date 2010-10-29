@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct tandg_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::tandg_, tandg, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::tandg_, tandg, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/tandg.hpp>

@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct igami_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::igami_, igami, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::igami_, igami, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/igami.hpp>

@@ -6,31 +6,31 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 cephes toolbox - sqrt - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 cephes toolbox - sqrt/scalar Mode"
 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/cephes/include/sqrt.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of cephes component sqrt using NT2_TEST_CASE
+// Test behavior of cephes components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-//NT2_TEST_CASE_TPL ( cephes,  (double)(nt2::uint64_t)(nt2::int64_t) 
-//                          (float)(nt2::uint32_t)(nt2::int32_t)  
-//                          (nt2::uint16_t)(nt2::int16_t)         
-//                          (nt2::uint8_t)(nt2::int8_t)
-//                          (bool)
-//                  )
-//{
-//  using nt2::sqrt;
-//  using nt2::functors::sqrt_;
-//
-//  NT2_TEST( (boost::is_same<typename nt2::meta::call<cephes_(T)>::type,
-//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
-//                            >::value)
-//          );
-//}
+NT2_TEST_CASE_TPL ( sqrt,  (double)(nt2::uint64_t)(nt2::int64_t) 
+                          (float)(nt2::uint32_t)(nt2::int32_t)  
+                          (nt2::uint16_t)(nt2::int16_t)         
+                          (nt2::uint8_t)(nt2::int8_t)
+                  )
+{
+  using nt2::cephes::sqrt;
+  using nt2::cephes::sqrt_;
 
-typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<sqrt_(T)>::type
+	     , typename boost::result_of<nt2::meta::floating(T)>::type
+              >::value)
+           );
+  NT2_TEST_EQUAL(  sqrt( T(16) ), 4 );
+  NT2_TEST_EQUAL(  sqrt( T(4) ), 2 );
+}
+          

@@ -15,6 +15,7 @@ namespace nt2 { namespace functors
     extern float cephes_hypergf ( float,float,float );
     extern double cephes_hyperg ( double,double,double );
   }
+  template<class Info>
   struct validate<cephes::hyperg_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;

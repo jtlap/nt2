@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct floor_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::floor_, floor, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::floor_, floor, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/floor.hpp>

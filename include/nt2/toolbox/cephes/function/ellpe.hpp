@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct ellpe_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::ellpe_, ellpe, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::ellpe_, ellpe, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/ellpe.hpp>

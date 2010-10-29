@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct i1e_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::i1e_, i1e, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::i1e_, i1e, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/i1e.hpp>

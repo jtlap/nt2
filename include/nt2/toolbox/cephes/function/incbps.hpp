@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct incbps_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::incbps_, incbps, 3)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::incbps_, incbps, 3)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/incbps.hpp>

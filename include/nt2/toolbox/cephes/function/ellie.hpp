@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct ellie_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::ellie_, ellie, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::ellie_, ellie, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/ellie.hpp>

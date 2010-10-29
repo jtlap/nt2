@@ -13,17 +13,17 @@ namespace nt2 { namespace functors
 {
   extern "C"{
     extern float cephes_incbpsf ( float,float,float );
-    extern double cephes_incbps ( double,double,double );
   }
+  template<class Info>
   struct validate<cephes::incbps_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;
       template<class This,class A0, class A1, class A2>
       struct result<This(A0, A1, A2)> :
         boost::mpl::and_<
-           meta::has_smaller_size<A0,long double>,
-           meta::has_smaller_size<A1,long double>,
-           meta::has_smaller_size<A2,long double>
+           meta::has_smaller_size<A0, double>,
+           meta::has_smaller_size<A1, double>,
+           meta::has_smaller_size<A2, double>
         >{};
     };
   /////////////////////////////////////////////////////////////////////////////
@@ -36,9 +36,8 @@ namespace nt2 { namespace functors
     template<class This,class A0, class A1, class A2>
     struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 3, A0, (3, (float,double,arithmetic_)) )
-    NT2_FUNCTOR_CALL_EVAL_IF(3,  float){ return cephes_incbps(a0, a1, a2);}
-    NT2_FUNCTOR_CALL_EVAL_IF(3,  double){ return cephes_incbps(a0, a1, a2);}
+    NT2_FUNCTOR_CALL_DISPATCH( 3, A0, (2, (float,arithmetic_)) )
+    NT2_FUNCTOR_CALL_EVAL_IF(3,  float){ return cephes_incbpsf(a0, a1, a2);}
     NT2_FUNCTOR_CALL_EVAL_IF(3, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(3)::type type;

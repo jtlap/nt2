@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct igamc_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::igamc_, igamc, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::igamc_, igamc, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/igamc.hpp>

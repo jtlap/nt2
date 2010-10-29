@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct cotdg_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::cotdg_, cotdg, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::cotdg_, cotdg, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/cotdg.hpp>

@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct atan_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::atan_, atan, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::atan_, atan, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/atan.hpp>

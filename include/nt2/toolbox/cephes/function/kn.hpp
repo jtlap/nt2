@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct kn_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::kn_, kn, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::kn_, kn, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/kn.hpp>

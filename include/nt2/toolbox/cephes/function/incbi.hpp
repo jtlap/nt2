@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct incbi_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::incbi_, incbi, 3)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::incbi_, incbi, 3)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/incbi.hpp>

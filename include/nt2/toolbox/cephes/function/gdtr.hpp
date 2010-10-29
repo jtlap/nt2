@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct gdtr_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::gdtr_, gdtr, 3)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::gdtr_, gdtr, 3)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/gdtr.hpp>

@@ -391,13 +391,13 @@ extern double cephes_exp ( double );
 extern double cephes_log ( double );
 extern double fabs ( double );
 extern double cephes_sqrt ( double );
-extern double expx2 ( double, int );
+extern double cephes_expx2 ( double, int );
 double cephes_erf ( double );
 double cephes_erfc ( double );
 static double erfce ( double );
 #else
 double cephes_polevl(), cephes_p1evl(), cephes_exp(), cephes_log(), fabs();
-double cephes_erf(), cephes_erfc(), expx2(), cephes_sqrt();
+double cephes_erf(), cephes_erfc(), cephes_expx2(), cephes_sqrt();
 static double erfce();
 #endif
 
@@ -419,7 +419,7 @@ else
 	/* See below for erfce. */
 	y = 0.5 * erfce(z);
 	/* Multiply by cephes_exp(-x^2 / 2)  */
-	z = expx2(a, -1);
+	z = cephes_expx2(a, -1);
 	y = y * cephes_sqrt(z);
 #else
 	y = 0.5 * cephes_erfc(z);
@@ -460,7 +460,7 @@ under:
 
 #ifdef USE_EXPXSQ
 /* Compute z = cephes_exp(z).  */
-z = expx2(a, -1);
+z = cephes_expx2(a, -1);
 #else
 z = cephes_exp(z);
 #endif

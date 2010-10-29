@@ -15,6 +15,7 @@ namespace nt2 { namespace functors
     extern float cephes_cotdgf ( float );
     extern double cephes_cotdg ( double );
   }
+  template<class Info>
   struct validate<cephes::cotdg_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;

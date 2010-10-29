@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct struve_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::struve_, struve, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::struve_, struve, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/struve.hpp>

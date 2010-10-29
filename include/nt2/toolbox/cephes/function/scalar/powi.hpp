@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_POWI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_POWI_HPP_INCLUDED
+#include <nt2/sdk/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -16,12 +17,13 @@ namespace nt2 { namespace functors
     extern double cephes_powi ( double,int );
     extern long double cephes_powil ( long double,int );
   }
+  template<class Info>
   struct validate<cephes::powi_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;
       template<class This,class A0, class A1>
       struct result<This(A0, A1)> :
-         boost::is_integral<A1>{};
+	meta::is_integral<A1>{};
     };
   /////////////////////////////////////////////////////////////////////////////
   // Compute powi(const A0& a0, const A1& a1)

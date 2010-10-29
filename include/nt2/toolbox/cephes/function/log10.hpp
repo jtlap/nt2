@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct log10_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::log10_, log10, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::log10_, log10, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/log10.hpp>

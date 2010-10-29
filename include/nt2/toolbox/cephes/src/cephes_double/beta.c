@@ -137,7 +137,7 @@ return(y);
 
 /* Natural log of |beta|.  Return the sign of beta in sgngam.  */
 
-double lbeta( a, b )
+double cephes_lbeta( a, b )
 double a, b;
 {
 double y;

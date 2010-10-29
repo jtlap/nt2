@@ -8,16 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/beta.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<beta_> from cephes
+// Scalar Runtime benchmark for functor<beta_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::beta_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( beta_ , ((nt2::uint32_t, -10, 10))
-//                     ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::cephes::beta_,(RS(float,0.0f,1.0f))(RS(float,0.0f,1.0f)))
+NT2_TIMING(nt2::cephes::beta_,(RS(double,0.0,1.0))(RS(double,0.0,1.0)))
+
+#undef RS

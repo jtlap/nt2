@@ -8,15 +8,24 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/y1.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<y1_> from cephes
+// Scalar Runtime benchmark for functor<y1_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::y1_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( y1_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+
+NT2_TIMING(nt2::cephes::y1_,(RS(float,0.0f,100.0f)))
+NT2_TIMING(nt2::cephes::y1_,(RS(double,0.0,100.0)))
+NT2_TIMING(nt2::cephes::y1_,(RS(float,0.0f,2.0f)))
+NT2_TIMING(nt2::cephes::y1_,(RS(double,0.0,2.0)))
+
+#undef RS

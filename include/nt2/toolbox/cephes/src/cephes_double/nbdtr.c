@@ -91,9 +91,9 @@
  * SYNOPSIS:
  *
  * int k, n;
- * double p, y, nbdtri();
+ * double p, y, cephes_nbdtri();
  *
- * p = nbdtri( k, n, y );
+ * p = cephes_nbdtri( k, n, y );
  *
  * DESCRIPTION:
  *
@@ -165,7 +165,7 @@ return( cephes_incbet( dn, dk, p ) );
 
 
 
-double nbdtri( k, n, p )
+double cephes_nbdtri( k, n, p )
 int k, n;
 double p;
 {

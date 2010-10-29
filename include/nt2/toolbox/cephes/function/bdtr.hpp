@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct bdtr_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::bdtr_, bdtr, 3)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::bdtr_, bdtr, 3)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/bdtr.hpp>

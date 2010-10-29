@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct psi_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::psi_, psi, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::psi_, psi, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/psi.hpp>

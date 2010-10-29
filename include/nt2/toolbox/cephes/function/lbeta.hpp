@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct lbeta_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::lbeta_, lbeta, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::lbeta_, lbeta, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/lbeta.hpp>

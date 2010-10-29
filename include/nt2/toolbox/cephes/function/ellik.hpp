@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct ellik_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::ellik_, ellik, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::ellik_, ellik, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/ellik.hpp>

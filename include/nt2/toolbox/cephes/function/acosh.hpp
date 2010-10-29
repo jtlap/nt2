@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct acosh_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::acosh_, acosh, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::acosh_, acosh, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/acosh.hpp>

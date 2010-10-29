@@ -8,16 +8,23 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/powi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<powi_> from cephes
+// Scalar Runtime benchmark for functor<powi_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::powi_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( powi_ , ((nt2::uint32_t, -10, 10))
-//                     ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::cephes::powi_,(RS(float,-10.0f,10.0f))(RS(int32_t,-10,10)))
+NT2_TIMING(nt2::cephes::powi_,(RS(double,-10.0,1.0))(RS(int64_t,-10,10)))
+
+
+
+#undef RS

@@ -121,6 +121,8 @@ FOREACH( EXAMPLE ${SOURCES})
   ##**************************************************************************
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesf)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesd)
 
 
 ENDFOREACH()

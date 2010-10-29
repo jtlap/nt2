@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct expn_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::expn_, expn, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::expn_, expn, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/expn.hpp>

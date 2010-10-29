@@ -8,16 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/kn.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<kn_> from cephes
+// Scalar Runtime benchmark for functor<kn_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::kn_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( kn_ , ((nt2::uint32_t, -10, 10))
-//                   ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+// TO DO Check ranges
+NT2_TIMING(nt2::cephes::kn_,(RS(int32_t,-1.0f,1.0f))(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::cephes::kn_,(RS(int32_t,-1.0f,1.0f))(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::cephes::kn_,(RS(int32_t,-1,1))(RS(int32_t,-1,1)))
+
+#undef RS

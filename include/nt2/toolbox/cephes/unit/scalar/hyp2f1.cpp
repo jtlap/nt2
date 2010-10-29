@@ -7,7 +7,7 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 cephes toolbox - hyp2f1 - unit/scalar Mode"
-
+#include <nt2/include/functions/acos.hpp> 
 #include <nt2/toolbox/cephes/include/hyp2f1.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -15,22 +15,15 @@
 #include <boost/type_traits/is_same.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of cephes component hyp2f1 using NT2_TEST_CASE
+//Test behavior of cephes component hyp2f1 using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-//NT2_TEST_CASE_TPL ( cephes,  (double)(nt2::uint64_t)(nt2::int64_t) 
-//                          (float)(nt2::uint32_t)(nt2::int32_t)  
-//                          (nt2::uint16_t)(nt2::int16_t)         
-//                          (nt2::uint8_t)(nt2::int8_t)
-//                          (bool)
-//                  )
-//{
-//  using nt2::hyp2f1;
-//  using nt2::functors::hyp2f1_;
-//
-//  NT2_TEST( (boost::is_same<typename nt2::meta::call<cephes_(T, T, T, T)>::type,
-//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
-//                            >::value)
-//          );
-//}
+NT2_TEST_CASE_TPL ( hyp2f1,  (double)(float) )
+{
+  using nt2::cephes::hyp2f1;
+  using nt2::cephes::hyp2f1_;
 
-typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::hyp2f1_(T, T, T, T)>::type,
+                           T
+                           >::value)
+          );
+}

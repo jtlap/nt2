@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_FDTRI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_FDTRI_HPP_INCLUDED
+#include <nt2/sdk/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -16,14 +17,15 @@ namespace nt2 { namespace functors
     extern double cephes_fdtri ( int,int,double );
     extern long double cephes_fdtril ( int,int,long double );
   }
+  template<class Info>
   struct validate<cephes::fdtri_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;
       template<class This,class A0, class A1, class A2>
       struct result<This(A0, A1, A2)> :
         boost::mpl::and_<
-           boost::is_integral<A0>,
-           boost::is_integral<A1>
+           meta::is_integral<A0>,
+           meta::is_integral<A1>
         >{};
     };
   /////////////////////////////////////////////////////////////////////////////
@@ -43,7 +45,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(3, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(3)::type type;
-      return nt2::cephes::fdtri(type(a0), type(a1), type(a2));
+      return nt2::cephes::fdtri((a0), (a1), type(a2));
     }
   };
 } }

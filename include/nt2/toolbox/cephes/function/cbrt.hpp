@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct cbrt_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::cbrt_, cbrt, 1)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::cbrt_, cbrt, 1)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/cbrt.hpp>

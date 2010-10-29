@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes
   {	       
     struct jv_ {};
+    NT2_FUNCTION_IMPLEMENTATION(cephes::jv_, jv, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(cephes::jv_, jv, 2)
 }
  
 #include <nt2/toolbox/cephes/function/scalar/jv.hpp>

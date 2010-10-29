@@ -25,7 +25,8 @@ namespace nt2 { namespace functors
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (3, (double,long double,arithmetic_)) )
+    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (4, (float, double,long double,arithmetic_)) )
+    NT2_FUNCTOR_CALL_EVAL_IF(2,  float){ return cephes_lbeta(double(a0), double(a1));}
     NT2_FUNCTOR_CALL_EVAL_IF(2,  double){ return cephes_lbeta(a0, a1);}
     NT2_FUNCTOR_CALL_EVAL_IF(2,  long double){ return cephes_lbeta(a0, a1);}
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
