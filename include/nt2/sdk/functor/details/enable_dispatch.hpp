@@ -19,8 +19,12 @@ namespace nt2 { namespace meta
 
   template<class Tag,class Category, class Hierarchy, class Info>
   struct  enable_dispatch < Tag,Category,Hierarchy,Info
-                          , typename functors ::call<Tag,Category,Hierarchy,Info>
-                                              ::callable_type
+                          , typename functors
+                            ::call< Tag
+                                  , Category
+                                  , typename meta::strip<Hierarchy>::type
+                                  , Info
+                                  >::callable_type
                           >
         : boost::mpl::true_ {};
 } }
