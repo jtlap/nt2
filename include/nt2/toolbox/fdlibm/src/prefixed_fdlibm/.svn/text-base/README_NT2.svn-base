@@ -1,0 +1,15 @@
+              THIS IS EXACTLY fdlibm EXCEPT THAT 
+                    ALL FUNCTIONS DEFINED
+                   HERE ARE PREFIXED BY fd_ 
+                            AND
+        __HI AND __LO MACROS ARE MODIFIED IN fdlibm.h
+           TO INLINE CALLS fd___HI, fd___LO
+         and fd__set_HI, fd__set_LO INVOLVING UNIONS
+         TO AVOID NON ANSI TYPE PUNNED DEREFERENCING.
+
+
+The rationale is to allow the concurrent use of fdlibm
+with libc or any other C math library without name clashes,
+this, to the purpose  of testing, within C or C++ environment
+and permitting compilation with -O3 optimization (with gcc).
+
