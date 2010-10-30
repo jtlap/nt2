@@ -18,6 +18,7 @@
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/size.hpp>
 #include <nt2/sdk/memory/details/times.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -41,11 +42,15 @@ namespace nt2 { namespace functors
     ////////////////////////////////////////////////////////////////////////////
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0,class A1,class A2>
+    struct  result<This(A0,A1,A2)>
     {
+      typedef typename meta::strip<A0>::type Seq;
+      typedef typename meta::strip<A1>::type Padder;
+      typedef typename meta::strip<A2>::type N;
+
       typedef typename boost::fusion::result_of::size<Seq>::type seq_size;
-      
+
       // N!=S
       template<bool Same, bool One, int Dummy=0> struct inner
       {
