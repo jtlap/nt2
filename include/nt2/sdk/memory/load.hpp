@@ -25,7 +25,7 @@ namespace nt2 { namespace functors
   template<class T, int Offset=0> struct load_ {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // We only load from a pointer + an integral offset
+  // We only load from an iterator and an integral offset
   //////////////////////////////////////////////////////////////////////////////
   template<class T,int Offset,class Category, class Info>
   struct  validate< load_<T,Offset>, Category, Info>

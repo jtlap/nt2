@@ -21,51 +21,38 @@ namespace nt2 { namespace functors
 {
   struct store_ {};
 
-  ////////////////////////////////////////////////////////////////////////////
-  // store perform type dispatching based on the category of its 1st type
-  // Hence, we need a specialized functor all together.
-  ////////////////////////////////////////////////////////////////////////////
-  template<class Info> struct functor<store_, Info>
+  //////////////////////////////////////////////////////////////////////////////
+  // We only store into an iterator
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Category, class Info>
+  struct  validate< store_, Category, Info>
   {
-    struct validate
-    {
-      template<class Sig> struct result;
-      template<class This,class A0,class A1,class A2>
-      struct  result<This(A0,A1,A2)>
-      : boost::mpl::and_< boost::is_pointer<typename boost::remove_reference<A1>::type>
-                            , boost::is_integral<typename boost::remove_reference<A2>::type>
-                            >
-    {};
-    };
-
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)>
-    {
-      typedef typename meta::category_of<A0>::type::tag       dominant;
-      typedef functors::call<store_,dominant,Info>              callee;
-      typedef typename std::tr1::result_of<callee(A0,A1,A2)>::type type;
-    };
+    struct  result<This(A0,A1,A2)>
+      : boost::mpl::and_< meta::is_iterator<typename meta::strip<A1>::type>
+                        , boost::is_integral<typename meta::strip<A2>::type>
+                        >
+    {};
+  };
+} }
 
-    template<class A0,class A1,class A2> inline
-    typename meta::enable_call<store_(A0,A1,A2)>::type
-    operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
-    {
-      typedef typename meta::category_of<A0>::type::tag dominant;
-      functors::call<store_,dominant,Info>                callee;
-      return callee(a0,a1,a2);
-    }
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // store category is given by T
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Info,class A0,class A1,class A2>
+  struct  categorize<functors::store_,Info,A0,A1,A2>
+  {
+    typedef typename meta::strip<A0>::type              base;
+    typedef typename meta::category_of<base>::type::tag type;
   };
 } }
 
 namespace nt2
 {
-  template<class A0,class A1,class A2>
-  typename nt2::meta::enable_call<functors::store_(A0,A1,A2)>::type
-  store(A0 const& a0,A1 const& a1,A2 const& a2)
-  {
-    NT2_FUNCTION_BODY(functors::store_,3)
-  }
+  NT2_FUNCTION_IMPLEMENTATION(functors::store_,store,3)
 }
 
 #include <nt2/sdk/memory/details/store.hpp>

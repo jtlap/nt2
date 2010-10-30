@@ -25,7 +25,12 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1, class A2>
     struct  result<This(A0,A1,A2)> : boost::remove_reference<A0> {};
 
-    NT2_FUNCTOR_CALL(3) { return a1[a2] = a0; }
+    NT2_FUNCTOR_CALL(3)
+    {
+      A1 that = a1;
+      std::advance(that,a2);
+      return *that = a0;
+    }
   };
 } }
 
