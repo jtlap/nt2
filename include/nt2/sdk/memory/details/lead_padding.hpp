@@ -46,10 +46,10 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
     {
-      static Seq const& s;
+      static typename meta::strip<A0>::type const& s;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( nested
       , memory::align_on( boost::fusion::at_c<0>(s) )
@@ -72,9 +72,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
-            : boost::fusion::result_of::at_c<Seq const,N::value-1>
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
+          : boost::fusion::result_of::at_c< typename meta::strip<A0>::type const
+                                          , meta::strip<A2>::type::value-1
+                                          >
     {};
 
     NT2_FUNCTOR_CALL(3)
@@ -92,10 +94,10 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
     {
-      static Seq const& s;
+      static typename meta::strip<A0>::type const& s;
       static details::times callee;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( nested
@@ -124,15 +126,15 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
     {
-      static Seq const& s;
+      static typename meta::strip<A0>::type const& s;
       static details::times callee;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( nested
-      , callee( slice<N::value+1>(s,memory::lead_padding())
-              , boost::fusion::at_c<N::value-1>(s)
+      , callee( slice<meta::strip<A2>::type::value+1>(s,memory::lead_padding())
+              , boost::fusion::at_c<meta::strip<A2>::type::value-1>(s)
               )
       );
       typedef typename nested::type type;
@@ -172,10 +174,10 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder, class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
     {
-      static Seq const& s;
+      static typename meta::strip<A0>::type const& s;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( nested, memory::align_on( boost::fusion::at_c<0>(s) )  );
 
@@ -194,11 +196,13 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder, class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
     {
       typedef typename
-              boost::fusion::result_of::at_c<Seq const,N::value-1>::type  type;
+              boost::fusion::result_of::at_c< typename meta::strip<A0>::type const
+                                            , meta::strip<A2>::type::value-1
+                                            >::type  type;
     };
 
     NT2_FUNCTOR_CALL(3)
