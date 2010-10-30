@@ -26,7 +26,6 @@ import re
 from fctor      import Functor
 from file_utils import read, write,exist
 from mylogging  import Mylogging
-#from scalar_extract import get_validate, get_call
 from list_utils import show
 from re_list    import sub_list
 
@@ -195,7 +194,7 @@ class Get_old :
                rep = "  NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL("+k+")"
                s = sub_list(pattern,rep,s)
                show(s)
-#               write(p,s,False)
+               write(p,s,False)
 
 
 ##def set_one(fct,fct_name,arity,pname) :
@@ -225,10 +224,6 @@ if __name__ == "__main__" :
         old.add_functors(fct)
         #        show(old.create_arity_list())
     else :
-        old = Get_old("crlibm")
-        fct = Functor(old.get_tb_name(),mode='modify',style='usr')
-        old.add_functors(fct)
-        old.modify_tpl_defs()
         print __doc__
 
 sys.path.pop(0)

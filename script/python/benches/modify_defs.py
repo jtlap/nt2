@@ -10,9 +10,9 @@
 ##############################################################################
 
 
-"""User utility to suppress simd def in usr toolboxes
+"""User utility to modify simd def in usr toolboxes
    usage:
-           suppress_simd.py <tb_name>
+           modify_defs.py <tb_name>
 
    
 """
@@ -32,7 +32,7 @@ from re_list    import sub_list
 from shutil     import rmtree
 
 class Sup_simd :
-    def __init__(self, tb_name='cephes',
+    def __init__(self, tb_name,
                  mode = 'modify',
                  style='usr') :
         self.__tb_name    = tb_name
@@ -59,6 +59,7 @@ class Sup_simd :
     def modify_functors_def(self,fct_name) :
         s = self.get_def(fct_name)
         s = self.comment_simd_def(s)
+        s = self.interleave_impl(s)
         self.write_def_impl(fct_name,s)
 
     def get_def(self,fct_name) :
@@ -68,15 +69,22 @@ class Sup_simd :
         return s
         
     def write_def_impl(self,fct_name,s) :
+        print "writing %s def" % fct_name
         p = os.path.join(self.get_def_path(),fct_name+'.hpp')
         write(p,s,False)
-        show(s)
+        #show(s)
         return s
     
     def comment_simd_def(self,s):
         pattern = "^#include NT2_"+self.get_tb_name().upper()
         rep = "// "+pattern[1:]
         return sub_list(pattern,rep,s)
+
+    def interleave_impl(self,s):
+        pattern = "  NT2_FUNCTION_IMPLEMENTATION"
+        for i,l in enumerate(s) :
+            if re.match(pattern,l) :
+                return s[:i-1]+["  "+s[i]]+[s[i-1]]+s[i+1:]
 
     ###################################
     # bench modifications
@@ -90,18 +98,19 @@ class Sup_simd :
     def get_Cmake_benches_txt(self) :
         p = os.path.join(self.get_bench_path(),'CMakeLists.txt')
         s = read(p)
-        #        show(s)
+        show(s)
         return s
     
     def rep_unit(self,s):
-        pattern = "\.unit"
-        rep = ".bench"
+        pattern = "unit"
+        rep = "bench"
         return sub_list(pattern,rep,s)
         
     def write_Cmake_txt(self,s) :
+        print "writing CMakeLists.txt"
         p = os.path.join(self.get_bench_path(),'CMakeLists.txt')
         write(p,s,False)
-        show(s)
+        #show(s)
         return s
     
  

@@ -12,7 +12,7 @@
 
 """User utility to suppress simd def in usr toolboxes
    usage:
-           suppress_simd.py <tb_name>
+           modify_defs.py <tb_name>
 
    
 """
@@ -69,7 +69,7 @@ class Sup_simd :
         
     def write_def_impl(self,fct_name,s) :
         p = os.path.join(self.get_def_path(),fct_name+'.hpp')
-        write(p,s,False)
+        #write(p,s,False)
         show(s)
         return s
     
@@ -100,7 +100,7 @@ class Sup_simd :
         
     def write_Cmake_txt(self,s) :
         p = os.path.join(self.get_bench_path(),'CMakeLists.txt')
-        write(p,s,False)
+        #write(p,s,False)
         show(s)
         return s
     
@@ -119,6 +119,10 @@ if __name__ == "__main__" :
         old.modify_Cmake_benches_txt()
         old.modify_functors_defs() 
     else :
+        old = Sup_simd("cephes")
+        old.remove_simd_dir()
+        old.modify_Cmake_benches_txt()
+        old.modify_functors_defs()
         print __doc__
 
 sys.path.pop(0)
