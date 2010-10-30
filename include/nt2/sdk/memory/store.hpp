@@ -32,10 +32,10 @@ namespace nt2 { namespace functors
       template<class Sig> struct result;
       template<class This,class A0,class A1,class A2>
       struct  result<This(A0,A1,A2)>
-		  : boost::mpl::and_< boost::is_pointer<typename boost::remove_reference<A1>::type>
+      : boost::mpl::and_< boost::is_pointer<typename boost::remove_reference<A1>::type>
                             , boost::is_integral<typename boost::remove_reference<A2>::type>
                             >
-	  {};
+    {};
     };
 
     template<class Sig> struct result;
