@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( abs, (double)(nt2::int64_t)
   using nt2::libc::abs_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<abs_(T)>::type
-	      , T
+	      , typename boost::result_of<nt2::meta::floating(T)>::type
  	     >::value)
  	    );
 
@@ -49,7 +49,9 @@ NT2_TEST_CASE_TPL ( real_abs, (double)(float)
 
   NT2_TEST_EQUAL(  abs( T(42) ), T(42) );
   NT2_TEST_EQUAL(  abs( T(-42) ), -T(-42) );
-  NT2_TEST( nt2::is_nan(abs(nt2::Nan<T>()))); 
+  NT2_TEST      (nt2::is_nan(abs(nt2::Nan<T>()))); 
+//   if (! nt2::is_nan(abs(nt2::Nan<T>())))
+//     std::cout << "beware in libc: abs(" << nt2::Nan<T>() <<  ") = " << abs(nt2::Nan<T>()) << std::endl; 
 }
 
 

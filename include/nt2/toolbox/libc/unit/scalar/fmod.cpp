@@ -23,6 +23,7 @@ NT2_TEST_CASE_TPL ( fmod,  (double)(float) )
   using nt2::libc::fmod_;
 
   NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::libc::fmod_(T, T)>::type,
-                           bool
+                           T
                            >::value)
-          );}
+          );
+}

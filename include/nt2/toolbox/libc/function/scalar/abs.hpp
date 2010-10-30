@@ -24,13 +24,13 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH( 1, A0, (4, (long double,double,float,arithmetic_)) )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, long double) { return ::labs(a0);  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double) { return ::abs(a0);  }
+    NT2_FUNCTOR_CALL_EVAL_IF(1, long double) { return ::fabsl(a0);  }
+    NT2_FUNCTOR_CALL_EVAL_IF(1, double) { return ::fabs(a0);  }
     NT2_FUNCTOR_CALL_EVAL_IF(1, float)  { return ::fabs(a0); }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return nt2::libc::abs(type(a0));
+      return ::abs(a0);
     }
   };
 } }
