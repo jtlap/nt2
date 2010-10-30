@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/memory/padding.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <boost/fusion/include/size.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,36 +25,32 @@ namespace nt2 { namespace functors
   struct stride_  {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // slice<Level>(sz,padder) computes the nbr of element between the Level and
-  // size(sz)th index level of a dimension sets
+  // We only compute stride on a Fusion Sequence
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct functor< stride_, Info >
+  template<class Category, class Info>
+  struct  validate< stride_, Category, Info>
   {
-    struct validate { typedef boost::mpl::true_ result_type; };
-
     template<class Sig> struct result;
-
-    template<class This,class Seq,class N,class Padder>
-    struct result<This(Seq const&,Padder const&,N const&)>
-    {
-      typedef call<stride_,tag::fusion_(Padder),Info>       callee;
-      typedef typename  std::tr1
-                      ::result_of < callee( Seq const&
-                                          , Padder const&
-                                          , N const&
-                                          )
-                                  >::type                   type;
-    };
-
-    template<class Seq,class N,class Padder> inline
-    typename meta::enable_call<stride_(Seq const&,Padder const&,N const&)>::type
-    operator()(Seq const& a0, Padder const& a1, N const& a2) const
-    {
-      functors::call<stride_,tag::fusion_(Padder),Info>  callee;
-      return callee(a0,a1,a2);
-    }
+    template<class This,class A0,class A1,class A2>
+    struct  result<This(A0,A1,A2)>
+      : boost::fusion::traits::is_sequence<typename meta::strip<A0>::type>
+    {};
   };
+} }
+
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // stride_ category is given by the fact the sequence is correct
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Info, class A0,class A1,class A2>
+  struct  categorize<functors::stride_,Info,A0,A1,A2>
+        : boost::mpl::if_<  boost::fusion::traits
+                            ::is_sequence<typename meta::strip<A0>::type>
+                          , tag::fusion_(typename meta::strip<A1>::type)
+                          , tag::unknown
+                          >
+        {};
 } }
 
 namespace nt2
