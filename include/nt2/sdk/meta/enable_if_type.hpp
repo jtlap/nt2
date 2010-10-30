@@ -10,13 +10,12 @@
 #define NT2_SDK_META_ENABLE_IF_TYPE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Retrieves the type category as defined by the Categorizable Concept
+// enable SFINAE on type definition
 // Documentation: http://nt2.lri.fr/sdk/meta/helper/enable_if_type.html
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta {
-
+namespace nt2 { namespace meta
+{
   template<class T, class R=void>  struct enable_if_type { typedef R type; };
-
 } }
 
 #endif
