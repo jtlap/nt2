@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( floor,  (double)(nt2::uint64_t)(nt2::int64_t)
              >::value)
           );
   NT2_TEST_EQUAL(  floor( T(42) ), T(42) );
-  NT2_TEST_EQUAL(  floor( T(0) ), T(0) );
+  NT2_TEST_EQUAL(  floor( T(-42) ), T(-42) );
  
 }
 

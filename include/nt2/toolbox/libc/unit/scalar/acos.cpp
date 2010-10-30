@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
@@ -34,6 +33,6 @@ NT2_TEST_CASE_TPL ( acos, (double)
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  acos( T(0) )  , nt2::Pi<r_t>()/2 );
    NT2_TEST_EQUAL(  acos( T(1) )  , 0 );
-   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(acos( T(0.5) ), nt2::Pi<r_t>()/3), 1);
+   NT2_TEST_EQUAL(  acos( T(0.5) ), nt2::Pi<r_t>()/3 );
 }
 

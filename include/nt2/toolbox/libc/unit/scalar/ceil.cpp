@@ -27,11 +27,11 @@ NT2_TEST_CASE_TPL ( ceil_int,  (nt2::uint64_t)(nt2::int64_t)
   using nt2::libc::ceil_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<ceil_(T)>::type
-             ,typename boost::result_of<nt2::meta::floating(T)>::type
+             ,T
              >::value)
           );
    NT2_TEST_EQUAL(  ceil( T(42) ), 42 );
-   NT2_TEST_EQUAL(  ceil( T(0) ), T(0) );
+   NT2_TEST_EQUAL(  ceil( T(-42) ), T(-42) );
 
 }
 
