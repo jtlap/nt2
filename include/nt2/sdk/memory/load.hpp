@@ -14,6 +14,7 @@
 // Documentation: http://nt2.lri.fr/sdk/memory/function/load.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/functor.hpp>
+#include <nt2/sdk/functor/preprocessor/function.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -22,50 +23,57 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset=0> struct load_ {};
 
-  ////////////////////////////////////////////////////////////////////////////
-  // load perform type dispatching based on the category of its target type
-  // Hence, we need a specialized functor all together.
-  ////////////////////////////////////////////////////////////////////////////
-  template<class T, int Offset, class Info>
-  struct functor< load_<T,Offset>, Info >
+  //////////////////////////////////////////////////////////////////////////////
+  // We only load from a pointer + an integral offset
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,int Offset,class Category, class Info>
+  struct  validate< load_<T,Offset>, Category, Info>
   {
-    struct validate { typedef boost::mpl::true_ result_type; };
-
     template<class Sig> struct result;
-    template<class This,class A0,class A1> struct result<This(A0,A1)>
-    {
-      typedef typename meta::category_of<T>::type::tag        dominant;
-      typedef functors::call<load_<T,Offset>,dominant,Info>   callee;
-      typedef typename std::tr1::result_of<callee(A0,A1)>::type  type;
-    };
+    template<class This,class A0,class A1>
+    struct  result<This(A0,A1)>     // make it check for iterator
+      : boost::mpl::and_< boost::is_pointer<typename meta::strip<A0>::type>
+                        , boost::is_integral<typename meta::strip<A1>::type>
+                        >
+    {};
+  };
+} }
 
-    template<class A0,class A1> inline
-    typename meta::enable_call<load_<T,Offset>(A0,A1)>::type
-    operator()(A0* const& a0, A1 const& a1) const
-    {
-      typedef typename meta::category_of<T>::type::tag  dominant;
-      functors::call<load_<T,Offset>,dominant,Info>     callee;
-      return callee(a0,a1);
-    }
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // load category is given by T
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,int Offset, class Info, class A0,class A1>
+  struct  categorize<functors::load_<T,Offset>,Info,A0,A1>
+  {
+    typedef typename meta::category_of<T>::type::tag type;
   };
 } }
 
 namespace nt2
 {
-  template<class T, class A0,class A1> inline
-  typename nt2::meta::enable_call<functors::load_<T>(A0,A1)>::type
-  load(A0* const& a0,A1 const& a1 )
+  //////////////////////////////////////////////////////////////////////////////
+  // Load a data of type T from the memory zone given by (a0,a1)
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,class A0,class A1> inline
+  typename nt2::meta::enable_call<functors::load_<T>(A0 const&,A1 const&)>::type
+  load(A0 const& a0,A1 const& a1 )
   {
-    nt2::functors::functor< nt2::functors::load_<T> > callee;
-    return callee(a0,a1);
+    NT2_FUNCTION_BODY(functors::load_<T>,2)
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Load a data of type T from the memory zone given by (a0,a1) and a sub-type
+  // level offset
+  //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset, class A0,class A1> inline
-  typename nt2::meta::enable_call<functors::load_<T,Offset>(A0,A1)>::type
-  load(A0* const& a0,A1 const& a1 )
+  typename
+  nt2::meta::enable_call<functors::load_<T,Offset>(A0 const&,A1 const&)>::type
+  load(A0 const& a0,A1 const& a1 )
   {
-    nt2::functors::functor< nt2::functors::load_<T,Offset> > callee;
-    return callee(a0,a1);
+    typedef nt2::functors::load_<T,Offset> tag_;
+    NT2_FUNCTION_BODY(tag_,2)
   }
 }
 
