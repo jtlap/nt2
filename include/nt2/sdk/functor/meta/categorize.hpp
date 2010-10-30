@@ -26,7 +26,10 @@ namespace nt2 { namespace meta
 {
   #if defined(BOOST_HAS_VARIADIC_TMPL)
   template<class Tag, class Info, class... Args>
-  struct  categorize : dominant<Args...> {};
+  struct  categorize
+  {
+    typedef typename dominant<Args...>::type::tag type;
+  };
   #else
   template< class Tag, class Info
           , BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
@@ -34,8 +37,11 @@ namespace nt2 { namespace meta
                                         , = meta::na_ BOOST_PP_INTERCEPT
                                         )
           >
-  struct categorize : dominant<BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY,A)>
-  {};
+  struct categorize
+  {
+    typedef typename
+    dominant<BOOST_PP_ENUM_PARAMS(NT2_MAX_ARITY,A)>::type::tag type;
+  };
   #endif
 } }
 
