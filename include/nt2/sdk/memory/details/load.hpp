@@ -13,7 +13,6 @@
 // load for scalar types
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/category.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace functors
@@ -22,7 +21,12 @@ namespace nt2 { namespace functors
   struct call<load_<T,Offset>,tag::scalar_(Category), Info>
   {
     typedef T result_type;
-    NT2_FUNCTOR_CALL(2) { return a0[a1+Offset]; }
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = a0;
+      std::advance(that,a1+Offset);
+      return *that;
+    }
   };
 } }
 
