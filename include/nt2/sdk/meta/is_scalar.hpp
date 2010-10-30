@@ -27,10 +27,10 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  is_scalar
-        : details::is_scalar<typename category_of	<
+        : details::is_scalar<typename category_of  <
                                                   typename strip<T>::type
-																									>::type::tag
-													  >
+                                                  >::type::tag
+                            >
   {};
 } }
 
