@@ -21,8 +21,23 @@
 
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // When in SIMD, dispatch on the scalar of argument A0
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Tag, class C,class X, class Info>
+  struct dispatch<Tag,tag::simd_(C,X),Info>
+  {
+    template<class A0,class A1>
+    struct  apply
+          : meta::scalar_of<typename meta::strip<A0>::type>
+    {};
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // If no call<> exists, try to map it sequentially
+  //////////////////////////////////////////////////////////////////////////////
   template<class Tag, class C, class X,class Info>
-  struct call<Tag,tag::simd_(C,X),Info>
+  struct call<Tag,tag::simd_(C,X),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
 
