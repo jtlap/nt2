@@ -53,7 +53,7 @@ namespace nt2 { namespace functors
     eval(A0 const& a0,R0& r0, R1& r1)const
     {
       int r1t;
-      r0 = ::frexpl(a0, &r1t);
+      r0 = std::frexp(a0, &r1t);
       r1 = r1t;
     }
 
