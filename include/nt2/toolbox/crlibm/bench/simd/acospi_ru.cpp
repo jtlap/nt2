@@ -8,15 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/acospi_ru.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<acospi_ru_> from crlibm
+// Scalar Runtime benchmark for functor<acospi_ru_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::acospi_ru_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( acospi_ru_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+// TO DO Check ranges
+NT2_TIMING(nt2::crlibm::acospi_ru_,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::acospi_ru_,(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::acospi_ru_,(RS(int32_t,-1,1)))
+
+#undef RS

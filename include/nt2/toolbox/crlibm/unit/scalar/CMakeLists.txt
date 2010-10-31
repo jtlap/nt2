@@ -108,7 +108,6 @@ SET( SOURCES
   acospi_rz.cpp
   cospi.cpp
   expm1_rz.cpp
-  exp_rd_.cpp
   log_ru.cpp
 # List of scalar test files for toolbox crlibm
    )

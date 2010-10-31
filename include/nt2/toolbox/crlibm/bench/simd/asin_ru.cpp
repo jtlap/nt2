@@ -8,15 +8,24 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/asin_ru.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<asin_ru_> from crlibm
+// Simd Runtime benchmark for functor<asin_ru_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::asin_ru_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( asin_ru_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::crlibm::asin_ru_,(RS(vfloat,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::asin_ru_,(RS(vdouble,-1.0,1.0)))
+
+#undef RS

@@ -8,15 +8,24 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/log_rd.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<log_rd_> from crlibm
+// Simd Runtime benchmark for functor<log_rd_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::log_rd_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( log_rd_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::crlibm::log_rd_,(RS(vfloat,0.0f,10000.0f)))
+NT2_TIMING(nt2::crlibm::log_rd_,(RS(vdouble,0.0,10000.0)))
+
+#undef RS

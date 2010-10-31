@@ -8,16 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/pow_rn.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<pow_rn_> from crlibm
+// Scalar Runtime benchmark for functor<pow_rn_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::pow_rn_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( pow_rn_ , ((nt2::uint32_t, -10, 10))
-//                       ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::crlibm::pow_rn_,(RS(float,-10.0f,10.0f))(RS(float,-10.0f,10.0f)))
+NT2_TIMING(nt2::crlibm::pow_rn_,(RS(double,-10.0,10.0))(RS(double,-10.0,10.0)))
+
+#undef RS

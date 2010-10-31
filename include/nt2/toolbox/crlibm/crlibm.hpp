@@ -111,7 +111,6 @@
 #include <nt2/toolbox/crlibm/include/acospi_rz.hpp>
 #include <nt2/toolbox/crlibm/include/cospi.hpp>
 #include <nt2/toolbox/crlibm/include/expm1_rz.hpp>
-#include <nt2/toolbox/crlibm/include/exp_rd_.hpp>
 #include <nt2/toolbox/crlibm/include/log_ru.hpp>
 //<\include>
 

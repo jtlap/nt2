@@ -8,15 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/asinpi_rd.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<asinpi_rd_> from crlibm
+// Scalar Runtime benchmark for functor<asinpi_rd_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::asinpi_rd_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( asinpi_rd_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+// TO DO Check ranges
+NT2_TIMING(nt2::crlibm::asinpi_rd_,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::asinpi_rd_,(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::asinpi_rd_,(RS(int32_t,-1,1)))
+
+#undef RS
