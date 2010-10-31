@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // load for scalar types
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/category.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -19,13 +20,19 @@
 namespace nt2 { namespace functors
 {
   template<class Category, class Info>
-  struct call<store_,tag::scalar_(Category), Info>
+  struct  call<store_,tag::scalar_(Category), fundamental_, Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> : boost::remove_reference<A0> {};
+    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
 
-    NT2_FUNCTOR_CALL(3) { return a1[a2] = a0; }
+    NT2_FUNCTOR_CALL(3)
+    {
+      A1 that = a1;
+      std::advance(that,a2);
+      return *that = a0;
+    }
   };
 } }
 
