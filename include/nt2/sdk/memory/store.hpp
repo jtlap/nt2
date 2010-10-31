@@ -13,8 +13,9 @@
 // Store a value in memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/store.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <nt2/sdk/meta/is_iterator.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
 namespace nt2 { namespace functors
