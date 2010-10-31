@@ -32,7 +32,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>     // make it check for iterator
+    struct  result<This(A0,A1)>
       : boost::mpl::and_< meta::is_iterator<typename meta::strip<A0>::type>
                         , boost::is_integral<typename meta::strip<A1>::type>
                         >
