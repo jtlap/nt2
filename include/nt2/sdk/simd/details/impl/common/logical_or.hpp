@@ -14,7 +14,8 @@
 namespace nt2 { namespace functors
 {
   template<class C, class X,class Info>
-  struct call<logical_or_,tag::simd_(C,X),Info>
+  struct  call<logical_or_,tag::simd_(C,X),fundamental_,Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A>
