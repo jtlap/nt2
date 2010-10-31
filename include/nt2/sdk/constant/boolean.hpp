@@ -40,8 +40,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<typename Target::type>::type type;
-      return splat<typename Target::type>(true);
+      typedef typename meta::scalar_of<typename A0::type>::type type;
+      return splat<typename A0::type>(true);
     }
   };
 
@@ -55,8 +55,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<typename Target::type>::type type;
-      return splat<typename Target::type>(false);
+      typedef typename meta::scalar_of<typename A0::type>::type type;
+      return splat<typename A0::type>(false);
     }
   };
 } }
