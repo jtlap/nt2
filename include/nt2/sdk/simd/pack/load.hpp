@@ -11,24 +11,44 @@
 
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // When loading pack, we dispatch on the fact the underlying type is SIMD
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T, int Offset,class X, class Info>
+  struct dispatch<load_<T,Offset>,tag::simd_(tag::ast_,X),Info>
+  {
+    template<class A0,class A1>
+    struct  apply
+          : meta::is_native<typename meta::strip<A0>::type::base_type>
+    {};
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Loading from a native SIMD type
+  //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset, class X, class Info>
-  struct call<load_<T,Offset>,tag::simd_(tag::ast_,X), Info>
+  struct  call<load_<T,Offset>,tag::simd_(tag::ast_,X), boost::mpl::true_, Info>
+        : callable
   {
     typedef T result_type;
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 2
-                              , typename
-                                meta::is_native<typename T::base_type>::type
-                              , ( 2, (boost::mpl::true_, boost::mpl::false_))
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,boost::mpl::true_)
+    NT2_FUNCTOR_CALL(2)
     {
       T that = load<typename T::base_type,Offset>(a0,a1);
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,boost::mpl::false_)
+  //////////////////////////////////////////////////////////////////////////////
+  // Loading from an emulated SIMD type
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T, int Offset, class X, class Info>
+  struct  call<load_<T,Offset>,tag::simd_(tag::ast_,X), boost::mpl::false_, Info>
+        : callable
+  {
+    typedef T result_type;
+
+    NT2_FUNCTOR_CALL(2)
     {
       typename T::base_type values;
       for(typename T::size_type i=0;i<T::static_size;++i)
