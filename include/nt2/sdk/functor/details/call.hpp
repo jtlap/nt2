@@ -31,12 +31,32 @@ namespace nt2 { namespace functors
   template<class Function,class Hierarchy,class I>
   struct call<Function,tag::unknown,Hierarchy,I> : callable
   {
+    typedef int result_type;
     /**
      * If you get an error here, you tried to call a nt2 function on values
      * which types is not supported by nt2. Check that you included the proper
      * toolbox or use the correct type in your function  call.
      **/
-    NT2_STATIC_ASSERT( (false), NT2_UNSUPPORTED_TYPE, (Function,Hierarchy) );
+    NT2_STATIC_ASSERT ( (boost::is_same<Function,void>::value)
+                      , NT2_UNSUPPORTED_TYPE
+                      , (Hierarchy)
+                      );
+  };
+
+  template<class Function,class Category,class I>
+  struct call<Function,Category,functors::empty_,I> : callable
+  {
+    typedef int result_type;
+    /**
+     * If you get an error here, you tried to call a nt2 function
+     * which is not implemented on the given hierarchy types.
+     * Check that a proper call<> overload is available and, if it
+     * exists, if this specialziation inherits from callable
+     **/
+    NT2_STATIC_ASSERT ( (boost::is_same<Function,void>::value)
+                      , NT2_UNSUPPORTED_FUNCTOR
+                      , (Category)
+                      );
   };
 } }
 
