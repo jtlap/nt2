@@ -16,48 +16,82 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct  call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info>
+        : callable
   {
     template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A,A)> : meta::strip<A> {};
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2
-                             , typename meta::scalar_of<A0>::type
-                             , (6,(double,float,int8_,int16_,int32_,int64_))
-                             )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,double)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpeq_pd(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,float )
+  template<class Info>
+  struct  call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpeq_ps(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int8_ )
+  template<class Info>
+  struct  call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),int8_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpeq_epi8(a0,a1)  };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int16_)
+  template<class Info>
+  struct  call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),int16_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpeq_epi16(a0,a1) };
       return that;
     }
+  };
+  template<class Info>
+  struct  call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),int32_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int32_)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpeq_epi32(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int64_)
+  template<class Info>
+  struct  call<is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),int64_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::make_integer < 4, unsigned
                                           , simd::native< boost::mpl::_
