@@ -8,6 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/polynomials/include/legendre.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
 
 //////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<legendre_> from polynomials
@@ -15,9 +18,10 @@
 using nt2::functors::legendre_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( legendre_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10))
-//                         ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::legendre_,(RS(int32_t,0,10))(RS(vfloat,-1.0f,1.f)))
+NT2_TIMING(nt2::functors::legendre_,(RS(int32_t,0,10))(RS(vdouble,-1.0,1.0)))
+
