@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_POLEVL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_POLEVL_HPP_INCLUDED
 #include <nt2/include/functions/tchebeval.hpp>
+#include <nt2/toolbox/polynomials/category.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -40,7 +41,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       return polevl(type(a0), a1);
     }
   };
