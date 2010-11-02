@@ -63,7 +63,7 @@ namespace nt2 { namespace functors
   private :
     template <class T1, class T2, class T3 >
     static inline T1 
-    legendre_next(uint32_t  l,T1 x, T2 Pl, T3 Plm1)
+    legendre_next(const uint32_t& l,const T1& x, const T2& Pl, const T3& Plm1)
     {
       return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
     }
