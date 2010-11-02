@@ -117,14 +117,10 @@ if __name__ == "__main__" :
     length = len(sys.argv)
     if length == 2 :
         old = Sup_simd(sys.argv[1])
-        old.remove_simd_dir()
-        old.modify_Cmake_benches_txt()
+##        old.remove_simd_dir()
+##        old.modify_Cmake_benches_txt()
         old.modify_functors_defs() 
     else :
-        old = Sup_simd("cephes")
-        old.remove_simd_dir()
-        old.modify_Cmake_benches_txt()
-        old.modify_functors_defs()
         print __doc__
 
 sys.path.pop(0)
