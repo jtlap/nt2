@@ -39,6 +39,8 @@ User Documentation
 Developer Documentation
 :::::::::::::::::::::::
 
+`This documentation <http://nt2.lri.fr/sdk.html#>`_ clarifies the internals of **NT**:sup:`2` and helps potential contributors to design new features or to fix bugs.
+
 ----------
 References
 ----------
