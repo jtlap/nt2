@@ -8,11 +8,11 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bitwise/include/shri.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/simd/native.hpp> 
 #include <cmath>
 
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<float,ext_t> vfloat; 
 typedef nt2::simd::native<double,ext_t> vdouble;
 typedef nt2::simd::native<int64_t,ext_t> vint64_t;
 typedef nt2::simd::native<int32_t,ext_t> vint32_t;
