@@ -7,12 +7,39 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 polynomials toolbox - unit/scalar Mode"
-
+#include <nt2/sdk/functor/meta/call.hpp> 
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/polynomials/include/laguerre.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests.hpp> 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <boost/math/special_functions/laguerre.hpp>
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of polynomials components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( laguerre, (double) 
+		    (float)
+		    )
+{
 
+  using nt2::functors::laguerre_;
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<laguerre_(uint32_t, T)>::type
+	       , typename boost::result_of<nt2::meta::floating(T)>::type
+  	     >::value)
+  	    );
+   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t;
+
+
+   NT2_TEST_EQUAL(  nt2::laguerre( 1,T(0) ) , boost::math::laguerre( 1,T(0) ) );
+   NT2_TEST_EQUAL(  nt2::laguerre( 2,T(1) ) , boost::math::laguerre( 2,T(1) ) );
+   NT2_TEST_EQUAL(  nt2::laguerre( 1,T(2) ) , boost::math::laguerre( 1,T(2) ) );
+   NT2_TEST_EQUAL(  nt2::laguerre( 2,T(8) ) , boost::math::laguerre( 2,T(8) ) );
+   NT2_TEST_EQUAL(  nt2::laguerre( 2, T(-1)), boost::math::laguerre( 2, T(-1)));  
+
+}

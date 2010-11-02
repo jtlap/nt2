@@ -22,6 +22,6 @@ using nt2::functors::hermite_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::hermite_,(RS(int32_t,0,10))(RS(vdouble,-100.0,100.0)))
+NT2_TIMING(nt2::functors::hermite_,(RS(int32_t,0,10))(RS(vdouble,-100.0,100.0))) 
 NT2_TIMING(nt2::functors::hermite_,(RS(int32_t,0,10))(RS(vfloat,-100.0f,100.f)))
 
