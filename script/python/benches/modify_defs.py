@@ -23,10 +23,8 @@ sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../s
 
 import sys
 import re
-from fctor      import Functor
 from file_utils import read, write,exist
 from mylogging  import Mylogging
-#from scalar_extract import get_validate, get_call
 from list_utils import show
 from re_list    import sub_list
 from shutil     import rmtree
@@ -72,7 +70,7 @@ class Sup_simd :
         print "writing %s def" % fct_name
         p = os.path.join(self.get_def_path(),fct_name+'.hpp')
         write(p,s,False)
-        #show(s)
+#        show(s)
         return s
     
     def comment_simd_def(self,s):
@@ -81,11 +79,12 @@ class Sup_simd :
         return sub_list(pattern,rep,s)
 
     def interleave_impl(self,s):
-        pattern = "  NT2_FUNCTION_IMPLEMENTATION"
+        pattern = "  NT2*._FUNCTION_IMPLEMENTATION"
         for i,l in enumerate(s) :
             if re.match(pattern,l) :
                 return s[:i-1]+["  "+s[i]]+[s[i-1]]+s[i+1:]
-
+            
+        return s
     ###################################
     # bench modifications
     ###################################
@@ -120,7 +119,7 @@ class Sup_simd :
 
 
 if __name__ == "__main__" :
-    Mylogging.set_level('CRITICAL')
+    Mylogging.set_level('DEBUG')
     length = len(sys.argv)
     if length == 2 :
         old = Sup_simd(sys.argv[1])

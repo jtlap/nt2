@@ -52,7 +52,6 @@ namespace nt2 { namespace functors
 	  ++c;
 	}
       return p1;
-      //return boost::math::tr1::hermite(a0, a1); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
@@ -62,7 +61,7 @@ namespace nt2 { namespace functors
   private:
     template <class T, class T1, class T2>
     static inline T 
-    hermite_next(uint32_t n, T x, T1 Hn, T2 Hnm1)
+    hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
     {
       return (2 * x * Hn - 2 * n * Hnm1);
     }
