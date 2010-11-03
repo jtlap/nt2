@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( log1p, (double)
    NT2_TEST_EQUAL(  nt2::ast::log1p( T(0) )  , 0 );
    NT2_TEST_EQUAL(  nt2::ast::log1p( T(-1) )  , nt2::Minf<T>() );
    NT2_TEST_EQUAL(  nt2::ast::log1p( nt2::Inf<T>() )  , nt2::Inf<T>() );
-   NT2_TEST_EQUAL(  nt2::ast::log1p(nt2::Exp_1<T>()-1 ), T(1)); 
+   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::ast::log1p(nt2::Exp_1<T>()-1 ), T(1)), 1); 
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::ast::log1p(nt2::Eps<T>()), nt2::Eps<T>()), 1); 
    NT2_TEST(  nt2::is_nan(log1p(nt2::Nan<T>() )));
    T t[] ={    6.931471805599453e-01,     9.985023295895228e-04,     4.996252914324852e-04,     3.331667530401490e-04, 

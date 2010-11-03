@@ -41,6 +41,6 @@ NT2_TEST_CASE_TPL ( cbrt, (double)
        T x =  i;
        T z = nt2::ast::cbrt(x);
        T y =  z*z*z; 
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, y), 2); 
+       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, y), 4); 
      }
 }

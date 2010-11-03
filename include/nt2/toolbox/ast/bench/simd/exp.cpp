@@ -8,15 +8,24 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/ast/include/exp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<exp_> from ast
+// Simd Runtime benchmark for functor<exp_> from ast
 //////////////////////////////////////////////////////////////////////////////
 using nt2::ast::exp_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( exp_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::ast::exp_,(RS(vfloat,-10.0f,10.0f)))
+NT2_TIMING(nt2::ast::exp_,(RS(vdouble,-100.0,100.0)))
+
+#undef RS
