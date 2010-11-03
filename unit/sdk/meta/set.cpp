@@ -13,6 +13,11 @@
 #include <nt2/sdk/meta/is_set.hpp>
 #include <nt2/sdk/meta/has_key.hpp>
 
+#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/int.hpp>
+
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
@@ -76,4 +81,46 @@ NT2_TEST_CASE(join_set)
   NT2_TEST( (is_set< join< set<>,set<> > >::value)          );
   NT2_TEST( !(has_key< join< set<>,set<> >, float >::value) );
   NT2_TEST( !(has_key< join< set<>,set<> >, int >::value)   );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test lambda set
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(lambda_set)
+{
+  using nt2::meta::lambda_set;
+  using nt2::meta::is_set;
+  using nt2::meta::has_key;
+
+  typedef boost::mpl::equal_to< boost::mpl::sizeof_<boost::mpl::_>
+                              , boost::mpl::int_<4>
+                              >  has_32bits;
+  NT2_TEST( (is_set< lambda_set< has_32bits > >::value)
+          );
+  NT2_TEST( (has_key< lambda_set< has_32bits >, float >::value));
+  NT2_TEST( (has_key< lambda_set< has_32bits >, int32_t >::value)  );
+  NT2_TEST( !(has_key< lambda_set< has_32bits >, char >::value)  );
+  NT2_TEST( !(has_key< lambda_set< has_32bits >, double >::value)  );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test join and lambda set
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(lambda_join_set)
+{
+  using nt2::meta::set;
+  using nt2::meta::lambda_set;
+  using nt2::meta::is_set;
+  using nt2::meta::has_key;
+  using nt2::meta::join;
+
+  typedef boost::mpl::equal_to< boost::mpl::sizeof_<boost::mpl::_>
+                              , boost::mpl::int_<4>
+                              >  has_32bits;
+  NT2_TEST( (is_set< join< set<char>,lambda_set< has_32bits > > >::value)
+          );
+  NT2_TEST( (has_key< lambda_set< has_32bits >, float >::value));
+  NT2_TEST( (has_key< lambda_set< has_32bits >, int32_t >::value)  );
+  NT2_TEST( !(has_key< lambda_set< has_32bits >, char >::value)  );
+  NT2_TEST( !(has_key< lambda_set< has_32bits >, double >::value)  );
 }
