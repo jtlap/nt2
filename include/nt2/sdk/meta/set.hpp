@@ -14,6 +14,7 @@
 // Documentation: http://nt2.lri.fr/sdk/meta/set.hpp
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/apply.hpp>
 #include <nt2/sdk/meta/na.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -29,6 +30,9 @@
 
 namespace nt2 { namespace meta
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // Explicit set listing its elements
+  //////////////////////////////////////////////////////////////////////////////
   #define M0(z,n,t) static boost::mpl::true_ key(BOOST_PP_CAT(A,n)*);
 
   template<BOOST_PP_ENUM_BINARY_PARAMS( NT2_META_SET_SIZE
@@ -62,6 +66,18 @@ namespace nt2 { namespace meta
 
   #undef M0
   #undef M1
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Set using lambda to defines its components
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Lambda>
+  struct lambda_set
+  {
+    typedef void       is_set_type;
+    typedef lambda_set type;
+    template<class T>
+    static typename boost::mpl::apply1<Lambda,T>::type key(T*);
+  };
 } }
 
 #endif
