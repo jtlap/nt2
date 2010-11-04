@@ -10,11 +10,12 @@
 #define NT2_SDK_SIMD_DETAILS_COMMON_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// By default, any SIMD implementaiton falls down to scalar map application if
+// By default, any SIMD implementation falls down to scalar map application if
 // nothing is implemented for doing otherwise.
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/extension/parameters.hpp>
+#include <boost/mpl/lambda.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -25,13 +26,9 @@ namespace nt2 { namespace functors
   // When in SIMD, dispatch on the scalar of argument A0
   //////////////////////////////////////////////////////////////////////////////
   template<class Tag, class C,class X, class Info>
-  struct dispatch<Tag,tag::simd_(C,X),Info>
-  {
-    template<class A0,class A1>
-    struct  apply
-          : meta::scalar_of<typename meta::strip<A0>::type>
-    {};
-  };
+  struct  dispatch<Tag,tag::simd_(C,X),Info>
+        : boost::mpl::lambda< meta::scalar_of<boost::mpl::_1> >::type
+  {};
 
   //////////////////////////////////////////////////////////////////////////////
   // If no call<> exists, try to map it sequentially
