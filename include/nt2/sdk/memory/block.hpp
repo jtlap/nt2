@@ -42,21 +42,14 @@ namespace nt2 { namespace memory
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of []
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_ACCESS(z,n,t)                                                 \
-[ boost::fusion::at_c <boost::mpl::at_c<Storage,BOOST_PP_SUB(BOOST_PP_DEC(t),n)>::type::value>(p)                                                \
-]                                                                         \
+#define NT2_ACCESS(z,n,t)                                                     \
+[ boost::fusion::at_c <                                                       \
+      boost::mpl::at_c<Storage,BOOST_PP_SUB(BOOST_PP_DEC(t),n)>::type::value  \
+                      >(p)                                                    \
+]                                                                             \
 /**/
 
 /*
-////////////////////////////////////////////////////////////////////////////////
-// Macro generating the list of inner buffer members constructor
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_MAKE_CTOR(z,n,t)                                                \
-NT2_DATA_MEMBER(BOOST_PP_INC(n))( boost::fusion::at_c<BOOST_PP_INC(n)>(bs)  \
-                                , boost::fusion::at_c<BOOST_PP_INC(n)>(ss)  \
-                                )                                           \
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // Macro generating a chain of [] for under-access
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,19 +64,10 @@ access( Position const& p, boost::mpl::int_<n> const& ) const             \
 {                                                                         \
   return NT2_DATA_MEMBER(BOOST_PP_DEC(n))BOOST_PP_REPEAT(n,NT2_ACCESS,n); \
 }                                                                         \
-
-////////////////////////////////////////////////////////////////////////////////
-// Macro generating a chain of resize
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_RESIZE(z,n,t)                                 \
-NT2_DATA_MEMBER(n).resize ( boost::fusion::at_c<n>(base_) \
-                          , boost::fusion::at_c<n>(size_) \
-                          );                              \
-
 */
 
 #define  BOOST_PP_FILENAME_1        "nt2/sdk/memory/block.hpp"
-#define  BOOST_PP_ITERATION_LIMITS  (1, NT2_MAX_ARITY)
+#define  BOOST_PP_ITERATION_LIMITS  (1, NT2_MAX_DIMENSIONS)
 #include BOOST_PP_ITERATE()
 
 #endif
@@ -97,8 +81,8 @@ NT2_DATA_MEMBER(n).resize ( boost::fusion::at_c<n>(base_) \
 namespace nt2 { namespace memory
 {
   template< class Type
-	  , class Bases, class Sizes, class Storage, class Padding
-	  , class Allocator
+    , class Bases, class Sizes, class Storage, class Padding
+    , class Allocator
           >
   class block<Type,DIM,Bases,Sizes,Storage,Padding,Allocator>
   {
@@ -125,7 +109,8 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Public types
     ////////////////////////////////////////////////////////////////////////////
-    typedef boost::mpl::int_<DIM>                           dimension_value_type;
+    typedef boost::mpl::int_<DIM> dimension_value_type;
+    BOOST_STATIC_CONSTANT ( std::size_t, static_dimension_value = DIM );
 
     ////////////////////////////////////////////////////////////////////////////
     // Data related Type derived from Allocator
@@ -209,9 +194,7 @@ namespace nt2 { namespace memory
     {
       if( this != &src)
       {
-        data_ = src.data_;
-        base_ = src.base_;
-        size_ = src.size_;
+        data_ = src.data_; base_ = src.base_; size_ = src.size_;
         link( dimension_value_type() );
       }
 
@@ -240,10 +223,33 @@ namespace nt2 { namespace memory
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    // Data accessor : bigger case
+    ////////////////////////////////////////////////////////////////////////////
+/*
+  template<class Position>
+  typename boost::enable_if_c < (boost::mpl::size<Position>::value > CURRENT_DIM)
+                              , reference
+                              >::type
+  operator()( Position const& p )
+  {
+    return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
+  }
+
+  template<class Position>
+  typename boost::enable_if_c < (boost::mpl::size<Position>::value > CURRENT_DIM)
+                              , const_reference
+                              >::type
+  operator()( Position const& p ) const
+  {
+    return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
+  }
+*/
+
+    ////////////////////////////////////////////////////////////////////////////
     // Data accessor : smaller case
     ////////////////////////////////////////////////////////////////////////////
-    #if (DIM > 1)
-/*  template<class Position>
+/*
+    template<class Position>
     typename boost::enable_if_c < (boost::mpl::size<Position>::value < CURRENT_DIM)
                                 , reference
                                 >::type
@@ -261,7 +267,6 @@ namespace nt2 { namespace memory
       return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
     }
 */
-    #endif
 
     ////////////////////////////////////////////////////////////////////////////
     // Access to bases and sizes
@@ -274,9 +279,9 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N>
     typename boost::enable_if_c < (N>0 && N<=DIM)
-				, typename  boost::fusion::result_of
-					  ::at_c<data_type const,N-1>::type
-				>::type
+        , typename  boost::fusion::result_of
+            ::at_c<data_type const,N-1>::type
+        >::type
     data() const
     {
       return boost::fusion::at_c<N-1>(data_);
@@ -284,9 +289,9 @@ namespace nt2 { namespace memory
 
     template<std::size_t N>
     typename boost::enable_if_c < (N>0 && N<=DIM)
-				, typename  boost::fusion::result_of
-					  ::at_c<data_type,N-1>::type
-				>::type
+        , typename  boost::fusion::result_of
+            ::at_c<data_type,N-1>::type
+        >::type
     data()
     {
       return boost::fusion::at_c<N-1>(data_);
