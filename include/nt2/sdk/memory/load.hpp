@@ -13,6 +13,7 @@
 // Load from memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/load.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/always.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/meta/is_iterator.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
@@ -38,6 +39,13 @@ namespace nt2 { namespace functors
                         >
     {};
   };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // We dispatch on T type for load
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,int Offset,class Category, class Info>
+  struct  dispatch<load_<T,Offset>,Category,Info> : boost::mpl::always<T>
+  {};
 } }
 
 namespace nt2 { namespace meta
