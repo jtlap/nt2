@@ -45,7 +45,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
     {
       typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-      return splat<type>(static_cast<int64_t>(0x7FF0000000000000ll)); 
+      return splat<type>(0x7FF0000000000000ll); 
     }
   };
 } }
