@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( exp, (double)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::exp( T(0) )  , 1 );
-   NT2_TEST_EQUAL(  nt2::exp( T(1) )  , nt2::Exp_1<T>() );
+   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist( nt2::exp( T(1) )  , nt2::Exp_1<T>() ), 0.5  );
    NT2_TEST_EQUAL(  nt2::exp(nt2::Minf<T>() ), T(0.0)); 
 
    for(int i=0; i < 10; i++)

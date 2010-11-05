@@ -35,13 +35,13 @@ NT2_TEST_CASE_TPL ( coth, (double)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST(  nt2::is_nan(nt2::coth( T(0) )));
-   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::coth( T(1) )  , T(1.313035285499331e+00)), 1);
+   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::coth( T(1) )  , T(1.313035285499331e+00)), 1.5);
    NT2_TEST_EQUAL(  nt2::coth(nt2::Inf<T>() ), 1);
    NT2_TEST      (  nt2::is_nan(nt2::coth(nt2::Nan<T>()) )); 
 
    for(int i=0; i < 10; i++)
      {
        T x =  1.0/i; 
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, nt2::acoth(nt2::coth(x))), 1); 
+       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, nt2::acoth(nt2::coth(x))), 2); 
      }
 }
