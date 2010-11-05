@@ -392,3 +392,17 @@ NT2_TEST_CASE(fundamental_hierarchy)
   NT2_TEST( (has_key<fundamental_, double  >::value) );
   NT2_TEST( (has_key<fundamental_, bool    >::value) );
 }
+
+NT2_TEST_CASE(int64_hierarchy_platform)
+{
+  using nt2::meta::has_key;
+  
+#ifdef __LP64__
+  NT2_TEST( (has_key<nt2::functors::int64_, long int>::value) );
+  NT2_TEST( (has_key<nt2::functors::int64_, long long int>::value) );
+#else
+  NT2_TEST(!(has_key<nt2::functors::int64_, long int>::value) );
+  NT2_TEST( (has_key<nt2::functors::int64_, long long int>::value) );
+#endif
+
+}

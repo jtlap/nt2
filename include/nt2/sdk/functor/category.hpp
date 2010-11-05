@@ -16,10 +16,22 @@
 #include <nt2/sdk/meta/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
 
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/tuple/to_seq.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Use this macro to put a type in the scalar familly
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_CATEGORY_SCALAR_FAMILY 1
+
+#define NT2_PRIMITIVE_TYPES (bool                                      \
+                           , char, signed char, unsigned char          \
+                           , short, unsigned short                     \
+                           , int, unsigned int                         \
+                           , long, unsigned long                       \
+                           , long long, unsigned long long             \
+                           , float, double)
+#define NT2_NB_PRIMITIVE_TYPES 14
 
 ////////////////////////////////////////////////////////////////////////////////
 // Family tags for call/validate writings
@@ -48,28 +60,12 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Register all arithmetic types by giving them a category
   //////////////////////////////////////////////////////////////////////////////
-  template<>
-  struct category_of<bool     > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<double   > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<float    > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<int8_t   > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<uint8_t  > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<int16_t  > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<uint16_t > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<int32_t  > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<uint32_t > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<int64_t  > : functors::scalar_<tag::arithmetic_,1> {};
-  template<>
-  struct category_of<uint64_t > : functors::scalar_<tag::arithmetic_,1> {};
+  #define M0(r, data, elem)                                            \
+  template<>                                                           \
+  struct category_of<elem> : functors::scalar_<tag::arithmetic_,1> {};
+  
+  BOOST_PP_SEQ_FOR_EACH(M0, ~, BOOST_PP_TUPLE_TO_SEQ(NT2_NB_PRIMITIVE_TYPES, NT2_PRIMITIVE_TYPES))
+  #undef M0
 } }
 
 #endif
