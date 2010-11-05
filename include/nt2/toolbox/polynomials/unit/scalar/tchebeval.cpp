@@ -34,10 +34,10 @@ NT2_TEST_CASE_TPL ( tchebeval, (double)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t;
 static const boost::array<T, 3 > A = {{1,2,3}}; 
- NT2_TEST_EQUAL(  nt2::tchebeval( T(0), A), T(0.5)  );
-   NT2_TEST_EQUAL(  nt2::tchebeval( T(1), A), T(2)  );
-   NT2_TEST_EQUAL(  nt2::tchebeval( T(2), A), T(11) );
-   NT2_TEST_EQUAL(  nt2::tchebeval( T(8), A), T(83) ); 
+ NT2_TEST_EQUAL(  nt2::tchebeval( T(0), A), (0.5)  );
+   NT2_TEST_EQUAL(  nt2::tchebeval( T(1), A), (2)  );
+   NT2_TEST_EQUAL(  nt2::tchebeval( T(2), A), (4.5) );
+   NT2_TEST_EQUAL(  nt2::tchebeval( T(8), A), (40.5) ); 
 
 }
 
