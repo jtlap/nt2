@@ -20,8 +20,8 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // When in SIMD, load dispatch on T scalar value
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,int Offset,class C, class X, class Info>
-  struct  dispatch<load_<T,Offset>,tag::simd_(C,X),Info>
+  template<class T,class C, class X, class Info>
+  struct  dispatch<load_<T,0>,tag::simd_(C,X),Info>
         : boost::mpl::always<typename meta::scalar_of<T>::type>
   {};
 } }
