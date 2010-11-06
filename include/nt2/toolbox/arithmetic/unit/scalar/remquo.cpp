@@ -43,8 +43,8 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
  
   for(int i = 0;  i < 3;  i++){
     type_t r = remquo(n[i], d[i]);
-    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist( boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]) ), 0.5  );
-    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i])); 
+    NT2_TEST_EQUAL(  boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]));
+    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
   }
 }
           
