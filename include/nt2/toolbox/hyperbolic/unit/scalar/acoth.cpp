@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( acoth, (double)
    for(int i=0; i < 10; i++)
      {
        T x =  i; 
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, nt2::coth(nt2::acoth(x))), 1); 
+       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, nt2::coth(nt2::acoth(x))), 2); 
      }
 }
   

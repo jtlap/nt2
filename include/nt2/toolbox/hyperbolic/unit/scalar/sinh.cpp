@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( sinh, (double)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::sinh( T(0) )  , 0 );
-   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::sinh( T(1)),  T(1.175201193643801e+00)), 1); 
+   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::sinh( T(1)),  T(1.175201193643801e+00)), 1.5); 
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::sinh( T(0.5)),  T(5.210953054937474e-01)), 1); 
    NT2_TEST_EQUAL(  nt2::sinh(nt2::Inf<T>() ), nt2::Inf<T>());
    NT2_TEST      (  nt2::is_nan(nt2::sinh(nt2::Nan<T>()) )); 

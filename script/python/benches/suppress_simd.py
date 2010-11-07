@@ -116,10 +116,10 @@ if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
     length = len(sys.argv)
     if length == 2 :
-        old = Sup_simd(sys.argv[1])
+##        old = Sup_simd(sys.argv[1])
 ##        old.remove_simd_dir()
 ##        old.modify_Cmake_benches_txt()
-        old.modify_functors_defs() 
+##        old.modify_functors_defs() 
     else :
         print __doc__
 

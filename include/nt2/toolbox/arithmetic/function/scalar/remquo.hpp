@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
-
+#include <nt2/include/functions/idivfix.hpp> 
 namespace nt2 { namespace functors
 {
 
@@ -57,15 +57,20 @@ namespace nt2 { namespace functors
     template<class A0,class A1,class R0,class R1> inline void
     eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, double const &)const
     {
-       int rt;
-       r0 = ::remquo(a0, a1, &rt);
-       r1 = rt;
+      r1 = idivfix(a0, a1);
+      r0 = a0-r1*a1;
+      //int rt;
+      //       r0 = ::remquo(a0, a1, &rt);
+      //        r1 = rt;
     }
 
     template<class A0,class A1,class R0,class R1> inline void
     eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, float const &)const
     {
-       r0 = ::remquof(a0, a1, &r1);
+      r1 = idivfix(a0, a1);
+      r0 = a0-r1*a1;
+      //int rt;
+      //       r0 = ::remquof(a0, a1, &r1);
     }
   };
 } }

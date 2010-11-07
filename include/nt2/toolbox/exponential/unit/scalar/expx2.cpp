@@ -18,7 +18,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/log.hpp>
-
+#include <iomanip> 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
@@ -35,6 +35,8 @@ NT2_TEST_CASE_TPL ( expx2, (double)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::expx2( T(0) )  , 1 );
+   std::cout << std::setprecision(20) << nt2::Exp_1<T>() << std::endl; 
+   std::cout << std::setprecision(20) << nt2::expx2( T(1) ) << std::endl; 
    NT2_TEST_EQUAL(  nt2::expx2( T(1) )  , nt2::Exp_1<T>() );
    NT2_TEST_EQUAL(  nt2::expx2(nt2::Minf<T>() ), nt2::Inf<T>()); 
    NT2_TEST(  nt2::is_nan(expx2(nt2::Nan<T>() ))); 
