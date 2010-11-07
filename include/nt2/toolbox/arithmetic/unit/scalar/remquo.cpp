@@ -17,7 +17,15 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 #include <iomanip>  
+=======
+#include <iomanip> 
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+=======
+#include <iomanip> 
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
@@ -47,8 +55,16 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
     NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< HEAD:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
     std::cout << "--" <<  boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
+=======
+    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+=======
+    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 =======
     std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
 >>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
