@@ -17,31 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-#include <iomanip>  
-=======
 #include <iomanip> 
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-#include <iomanip> 
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-#include <iomanip> 
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-#include <iomanip> 
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-#include <iomanip> 
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-#include <iomanip> 
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
@@ -69,43 +45,7 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
     type_t r = remquo(n[i], d[i]);
     NT2_TEST_EQUAL(  boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]));
     NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-<<<<<<< HEAD:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-    std::cout << "--" <<  boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
-=======
     std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-=======
-    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
->>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
-    std::cout << "->" << nt2::remainder(n[i], d[i]) << "  "<<nt2::idivfix(n[i], d[i])<< std::endl;
-=======
->>>>>>> 1abcebb3ad776a22d8f8c13a06a55af923336118:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
   }
 }
           
