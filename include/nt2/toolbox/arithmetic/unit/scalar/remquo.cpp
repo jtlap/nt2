@@ -22,7 +22,11 @@
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 #include <iomanip>  
+=======
+#include <iomanip> 
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 =======
 #include <iomanip> 
 >>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
@@ -72,8 +76,12 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
+<<<<<<< Updated upstream:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 <<<<<<< HEAD:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
     std::cout << "--" <<  boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
+=======
+    std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
+>>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
 =======
     std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
 >>>>>>> Stashed changes:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
