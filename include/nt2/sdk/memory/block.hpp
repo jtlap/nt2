@@ -156,20 +156,17 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Aggregated buffers type
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename  meta
-                    ::make_buffers< Type
-                                  , DIM
-                                  , stored_bases_type
-                                  , stored_sizes_type
-                                  , Padding
-                                  , Allocator
-                                  >::type               data_type;
+    typedef typename meta::make_buffers < Type, DIM
+                                        , stored_bases_type
+                                        , stored_sizes_type
+                                        , Padding, Allocator>::type data_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Default constructor
     ////////////////////////////////////////////////////////////////////////////
     block() : data_(), base_(), size_()
     {
+      // TODO: Make CT block constructed here
 //      if(buffer0_type::is_static::value) link(dimension_value_type());
     }
 
@@ -223,20 +220,20 @@ namespace nt2 { namespace memory
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Data accessor : bigger case
+    // Bigger case for operator[] - Check that additional values are equals to 1
     ////////////////////////////////////////////////////////////////////////////
 /*
   template<class Position>
-  typename boost::enable_if_c < (boost::mpl::size<Position>::value > CURRENT_DIM)
+  typename boost::enable_if_c < (boost::mpl::size<Position>::value > DIM)
                               , reference
                               >::type
   operator()( Position const& p )
   {
-    return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
+    ???
   }
 
   template<class Position>
-  typename boost::enable_if_c < (boost::mpl::size<Position>::value > CURRENT_DIM)
+  typename boost::enable_if_c < (boost::mpl::size<Position>::value > DIM)
                               , const_reference
                               >::type
   operator()( Position const& p ) const
@@ -246,11 +243,12 @@ namespace nt2 { namespace memory
 */
 
     ////////////////////////////////////////////////////////////////////////////
-    // Data accessor : smaller case
+    // Smaller case for operator[] - Recompute toward 2D if 1D else snap data
     ////////////////////////////////////////////////////////////////////////////
+    #if (DIM == 1)
 /*
     template<class Position>
-    typename boost::enable_if_c < (boost::mpl::size<Position>::value < CURRENT_DIM)
+    typename boost::enable_if_c < (boost::mpl::size<Position>::value < 1)
                                 , reference
                                 >::type
     operator()( Position const& p )
@@ -259,7 +257,7 @@ namespace nt2 { namespace memory
     }
 
     template<class Position>
-    typename boost::enable_if_c < (boost::mpl::size<Position>::value < CURRENT_DIM)
+    typename boost::enable_if_c < (boost::mpl::size<Position>::value < 1)
                                 , const_reference
                                 >::type
     operator()( Position const& p ) const
@@ -267,6 +265,27 @@ namespace nt2 { namespace memory
       return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
     }
 */
+    #else
+/*
+    template<class Position>
+    typename boost::enable_if_c < (boost::mpl::size<Position>::value < DIM)
+                                , reference
+                                >::type
+    operator()( Position const& p )
+    {
+      return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
+    }
+
+    template<class Position>
+    typename boost::enable_if_c < (boost::mpl::size<Position>::value < DIM)
+                                , const_reference
+                                >::type
+    operator()( Position const& p ) const
+    {
+      return access(p, boost::mpl::int_<boost::mpl::size<Position>::value>());
+    }
+*/
+    #endif
 
     ////////////////////////////////////////////////////////////////////////////
     // Access to bases and sizes
@@ -279,9 +298,9 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N>
     typename boost::enable_if_c < (N>0 && N<=DIM)
-        , typename  boost::fusion::result_of
-            ::at_c<data_type const,N-1>::type
-        >::type
+                                , typename  boost::fusion::result_of
+                                            ::at_c<data_type const,N-1>::type
+                                >::type
     data() const
     {
       return boost::fusion::at_c<N-1>(data_);
@@ -289,9 +308,9 @@ namespace nt2 { namespace memory
 
     template<std::size_t N>
     typename boost::enable_if_c < (N>0 && N<=DIM)
-        , typename  boost::fusion::result_of
-            ::at_c<data_type,N-1>::type
-        >::type
+                                , typename  boost::fusion::result_of
+                                            ::at_c<data_type,N-1>::type
+                                >::type
     data()
     {
       return boost::fusion::at_c<N-1>(data_);
@@ -412,8 +431,7 @@ namespace nt2 { namespace memory
       link( d, sz );
     }
 
-    template<class Sz>
-    void link( boost::mpl::int_<1> const&, Sz const& sz) {}
+    template<class Sz> void link( boost::mpl::int_<1> const&, Sz const&) {}
 
     template<int N,class Sz>
     void link( boost::mpl::int_<N> const&, Sz const& sz )
@@ -423,10 +441,7 @@ namespace nt2 { namespace memory
 
       data<N>().origin()[0] = data<N-1>().begin();
       for(size_type i=1;i<nbrow;++i)
-      {
-        data<N>().origin()[i] = data<N>().origin()[i-1]
-                                + offset;
-      }
+        data<N>().origin()[i] = data<N>().origin()[i-1] + offset;
       link( boost::mpl::int_<N-1>(), sz );
     }
 
@@ -436,5 +451,7 @@ namespace nt2 { namespace memory
     Sizes      size_;
   };
 } }
+
+#undef DIM
 
 #endif
