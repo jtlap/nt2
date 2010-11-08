@@ -12,26 +12,82 @@
 #include <nt2/sdk/simd/iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <nt2/sdk/simd/meta/native_cardinal.hpp>
+
+namespace nt2 { namespace simd
+{
+  namespace result
+  {
+    ////////////////////////////////////////////////////////////////////////////
+    // simd::begin either take a Cardinal or use th enative cardinal of the
+    // Range value type
+    ////////////////////////////////////////////////////////////////////////////
+    struct begin
+    {
+      template<class Sig> struct result;
+
+      template<class This, class Range, class Cardinal>
+      struct result<This(Range,Cardinal)>
+      {
+        typedef
+        simd::iterator< typename boost
+                        ::iterator_value<typename Range::const_iterator>::type
+                      , Cardinal::value
+                      >                             type;
+      };
+
+      template<class Range, class Cardinal> inline
+      typename result<begin(Range,Cardinal)>::type
+      operator()(Range const& rng, Cardinal const&) const
+      {
+        using nt2::memory::align_on;
+        typedef typename Range::const_iterator                it_type;
+        typedef typename boost::iterator_value<it_type>::type type;
+
+        typename result<begin(Range,Cardinal)>::type
+        that(align_on<Cardinal::value*sizeof(type)>(&(*(boost::begin(rng)))));
+        return that;
+      }
+
+      template<class This, class Range>
+      struct result<This(Range)>
+      {
+        typedef typename
+        boost::iterator_value<typename Range::const_iterator>::type value_type;
+
+        typedef typename
+        result<This(Range, meta::native_cardinal<value_type>)>::type type;
+      };
+
+      template<class Range> inline
+      typename result<begin(Range)>::type
+      operator()(Range const& rng) const
+      {
+        typedef typename
+        boost::iterator_value<typename Range::const_iterator>::type value_type;
+        return this->operator()(rng,meta::native_cardinal<value_type>());
+      }
+    };
+  }
+} }
 
 namespace nt2 { namespace simd
 {
   template<std::size_t N, class ContiguousRange>
-  iterator<typename boost
-                    ::iterator_value< typename
-                                      ContiguousRange::const_iterator
-                                    >::type
-          , N
-          >
+  typename std::tr1::
+  result_of<result::begin(ContiguousRange,boost::mpl::int_<N>)>::type
   begin( ContiguousRange const& rng )
   {
-    typedef typename ContiguousRange::const_iterator      it_type;
-    typedef typename boost::iterator_value<it_type>::type value_type;
+    result::begin callee;
+    return callee(rng,boost::mpl::int_<N>());
+  }
 
-    value_type const*
-    ptr = memory::align_on<N*sizeof(value_type)>(&(*(boost::begin(rng))));
-
-    iterator<value_type,N> that(ptr);
-    return that;
+  template<class ContiguousRange>
+  typename std::tr1::result_of<result::begin(ContiguousRange)>::type
+  begin( ContiguousRange const& rng )
+  {
+    result::begin callee;
+    return callee(rng);
   }
 } }
 
