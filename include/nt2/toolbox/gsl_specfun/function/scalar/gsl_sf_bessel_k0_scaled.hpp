@@ -12,10 +12,10 @@
 namespace nt2 { namespace functors
 {
   extern "C"{
-    extern double gsl_sf_bessel_k0_scaled ( double );
+    extern double gsl_sf_bessel_K0_scaled ( double );
   }
   template<class Info>
-  struct validate<gsl_specfun::gsl_sf_bessel_k0_scaled_,tag::scalar_(tag::arithmetic_),Info>
+  struct validate<gsl_specfun::gsl_sf_bessel_K0_scaled_,tag::scalar_(tag::arithmetic_),Info>
     {
       template<class Sig> struct result;
       template<class This,class A0>
@@ -23,22 +23,22 @@ namespace nt2 { namespace functors
          meta::has_smaller_size<A0,long double>{};
     };
   /////////////////////////////////////////////////////////////////////////////
-  // Compute gsl_sf_bessel_k0_scaled(const A0& a0)
+  // Compute gsl_sf_bessel_K0_scaled(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<gsl_specfun::gsl_sf_bessel_k0_scaled_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<gsl_specfun::gsl_sf_bessel_K0_scaled_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL_DISPATCH( 1, A0, (3, (float,double,arithmetic_)) )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  float){ return gsl_sf_bessel_k0_scaled(a0);}
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  double){ return gsl_sf_bessel_k0_scaled(a0);}
+    NT2_FUNCTOR_CALL_EVAL_IF(1,  float){ return gsl_sf_bessel_K0_scaled(a0);}
+    NT2_FUNCTOR_CALL_EVAL_IF(1,  double){ return gsl_sf_bessel_K0_scaled(a0);}
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return nt2::gsl_specfun::gsl_sf_bessel_k0_scaled(type(a0));
+      return nt2::gsl_specfun::gsl_sf_bessel_K0_scaled(type(a0));
     }
   };
 } }

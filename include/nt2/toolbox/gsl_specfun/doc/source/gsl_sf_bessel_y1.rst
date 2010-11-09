@@ -1,10 +1,10 @@
-.. _gsl_sf_bessel_y1:
+.. _gsl_sf_bessel_Y1:
 
-gsl_sf_bessel_y1
+gsl_sf_bessel_Y1
 ==========
 
 .. index::
-    single: gsl_sf_bessel_y1
+    single: gsl_sf_bessel_Y1
 
 Description
 ^^^^^^^^^^^
@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``gsl_specfun``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_y1.hpp>
+  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_Y1.hpp>
 
 or simply
 
@@ -43,7 +43,7 @@ Synopsis
 
 .. code-block:: cpp
 
-    <unspecified return type>  gsl_sf_bessel_y1(
+    <unspecified return type>  gsl_sf_bessel_Y1(
                       const A0& a0
                      );
 
@@ -61,5 +61,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: $self.path2examples2$/examples/src/gsl_sf_bessel_y1.cpp
+.. literalinclude:: $self.path2examples2$/examples/src/gsl_sf_bessel_Y1.cpp
    :language: cpp

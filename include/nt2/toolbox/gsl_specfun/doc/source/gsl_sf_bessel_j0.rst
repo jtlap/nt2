@@ -1,10 +1,10 @@
-.. _gsl_sf_bessel_j0:
+.. _gsl_sf_bessel_J0:
 
-gsl_sf_bessel_j0
+gsl_sf_bessel_J0
 ==========
 
 .. index::
-    single: gsl_sf_bessel_j0
+    single: gsl_sf_bessel_J0
 
 Description
 ^^^^^^^^^^^
@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``gsl_specfun``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_j0.hpp>
+  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_J0.hpp>
 
 or simply
 
@@ -43,7 +43,7 @@ Synopsis
 
 .. code-block:: cpp
 
-    <unspecified return type>  gsl_sf_bessel_j0(
+    <unspecified return type>  gsl_sf_bessel_J0(
                       const A0& a0
                      );
 
@@ -61,5 +61,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: $self.path2examples2$/examples/src/gsl_sf_bessel_j0.cpp
+.. literalinclude:: $self.path2examples2$/examples/src/gsl_sf_bessel_J0.cpp
    :language: cpp

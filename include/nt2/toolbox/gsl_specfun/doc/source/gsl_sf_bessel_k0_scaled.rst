@@ -1,10 +1,10 @@
-.. _gsl_sf_bessel_k0_scaled:
+.. _gsl_sf_bessel_K0_scaled:
 
-gsl_sf_bessel_k0_scaled
+gsl_sf_bessel_K0_scaled
 ==========
 
 .. index::
-    single: gsl_sf_bessel_k0_scaled
+    single: gsl_sf_bessel_K0_scaled
 
 Description
 ^^^^^^^^^^^
@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``gsl_specfun``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_k0_scaled.hpp>
+  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_K0_scaled.hpp>
 
 or simply
 
@@ -43,7 +43,7 @@ Synopsis
 
 .. code-block:: cpp
 
-    <unspecified return type>  gsl_sf_bessel_k0_scaled(
+    <unspecified return type>  gsl_sf_bessel_K0_scaled(
                       const A0& a0
                      );
 
@@ -61,5 +61,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: $self.path2examples2$/examples/src/gsl_sf_bessel_k0_scaled.cpp
+.. literalinclude:: $self.path2examples2$/examples/src/gsl_sf_bessel_K0_scaled.cpp
    :language: cpp
