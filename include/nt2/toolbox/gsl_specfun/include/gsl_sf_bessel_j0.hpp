@@ -8,5 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_BESSEL_J0_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_BESSEL_J0_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_j0.hpp>
+#include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_J0.hpp>
 #endif

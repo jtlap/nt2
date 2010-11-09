@@ -14,13 +14,13 @@
 
 namespace nt2 { namespace gsl_specfun
   {	       
-    struct gsl_sf_bessel_i1_scaled_ {};
-    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_bessel_i1_scaled_, gsl_sf_bessel_i1_scaled, 1)
+    struct gsl_sf_bessel_I1_scaled_ {};
+    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_bessel_I1_scaled_, gsl_sf_bessel_I1_scaled, 1)
   }
 }
  
-#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_i1_scaled.hpp>
-// #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_i1_scaled.hpp) 
+#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_I1_scaled.hpp>
+// #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_I1_scaled.hpp) 
 
  
 #endif
