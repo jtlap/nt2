@@ -36,7 +36,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
-       return ((a0 <= Zero<A0>()) || isnan(a0));
+       return ((a0 <= Zero<A0>()) || is_nan(a0));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
