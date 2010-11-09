@@ -20,11 +20,10 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-
+/*
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer static properties
 ////////////////////////////////////////////////////////////////////////////////
-/*
 NT2_TEST_CASE(block_1d_default_ctor)
 {
   using nt2::memory::block;
@@ -55,6 +54,7 @@ NT2_TEST_CASE(block_1d_default_ctor)
   std::cout << "\n";
 }
 */
+
 NT2_TEST_CASE(block_2d_default_ctor)
 {
   using nt2::memory::block;
@@ -74,19 +74,19 @@ NT2_TEST_CASE(block_2d_default_ctor)
 
   block_type b(bs,ss);
 
-  for(int j=-1;j<=1;++j)
+  for(int j=b.lower<2>();j<=b.upper<2>();++j)
   {
-    for(int i=1;i<=5;++i)
+    for(int i=b.lower<1>();i<=b.upper<1>();++i)
       b(boost::fusion::make_vector(i,j)) = j*100+i;
   }
 
   for(int i=b.data<1>().lower();i<=b.data<1>().upper();++i)
-    std::cout << b.data<1>()[i] << " ";
+    std::cout << b(boost::fusion::make_vector(i)) << " ";
   std::cout << "\n\n";
 
-  for(int i=1;i<=5;++i)
+  for(int i=b.lower<1>();i<=b.upper<1>();++i)
   {
-    for(int j=-1;j<=1;++j)
+    for(int j=b.lower<2>();j<=b.upper<2>();++j)
       std::cout << b(boost::fusion::make_vector(i,j)) << " ";
     std::cout << "\n";
   }
@@ -110,28 +110,26 @@ NT2_TEST_CASE(block_2d_default_ctor2)
   block_type;
 
   block_type b(bs,ss);
-  for(int j=-1;j<=1;++j)
+  for(int j=b.lower<2>();j<=b.upper<2>();++j)
   {
-    for(int i=1;i<=5;++i)
+    for(int i=b.lower<1>();i<=b.upper<1>();++i)
       b(boost::fusion::make_vector(i,j)) = j*100+i;
   }
 
-  for(int i=b.data<1>().lower();i<=b.data<1>().upper();++i)
-    std::cout << b.data<1>()[i] << " ";
+ for(int i=b.data<1>().lower();i<=b.data<1>().upper();++i)
+    std::cout << b(boost::fusion::make_vector(i)) << " ";
   std::cout << "\n\n";
 
-
-  for(int i=1;i<=5;++i)
+  for(int i=b.lower<1>();i<=b.upper<1>();++i)
   {
-    for(int j=-1;j<=1;++j)
+    for(int j=b.lower<2>();j<=b.upper<2>();++j)
       std::cout << b(boost::fusion::make_vector(i,j)) << " ";
     std::cout << "\n";
   }
 
-  for(int j=-1;j<=1;++j)
+for(int j=b.lower<2>();j<=b.upper<2>();++j)
   {
-    for(int i=1;i<=5;++i)
-
+    for(int i=b.lower<1>();i<=b.upper<1>();++i)
       std::cout << b(boost::fusion::make_vector(i,j)) << " ";
     std::cout << "\n";
   }
