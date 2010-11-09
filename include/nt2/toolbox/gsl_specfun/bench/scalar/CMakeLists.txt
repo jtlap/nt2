@@ -68,7 +68,6 @@ SET( SOURCES
   gsl_sf_gamma_inc_p.cpp
   gsl_sf_angle_restrict_symm.cpp
   gsl_sf_bessel_i0_scaled.cpp
-  gsl_sf_bessel_k0_scaled.cpp
   gsl_sf_debye_4.cpp
   gsl_sf_debye_5.cpp
   gsl_sf_debye_6.cpp
@@ -103,7 +102,6 @@ SET( SOURCES
   gsl_sf_erf_z.cpp
   gsl_sf_erf.cpp
   gsl_sf_erf_q.cpp
-  gsl_sf_bessel_k1_scaled.cpp
   gsl_sf_bessel_in.cpp
   gsl_sf_doublefact.cpp
   gsl_sf_bessel_il_scaled.cpp
@@ -118,13 +116,11 @@ SET( SOURCES
   gsl_sf_expint_e1_scaled.cpp
   gsl_sf_bessel_y0.cpp
   gsl_sf_bessel_y1.cpp
-  gsl_sf_bessel_i0_scaled.cpp
   gsl_sf_log_abs.cpp
   gsl_sf_zetam1.cpp
   gsl_sf_laguerre_1.cpp
   gsl_sf_laguerre_3.cpp
   gsl_sf_laguerre_2.cpp
-  gsl_sf_bessel_y0.cpp
   gsl_sf_psi.cpp
   gsl_sf_bessel_k0.cpp
   gsl_sf_bessel_k1.cpp
@@ -134,20 +130,16 @@ SET( SOURCES
   gsl_sf_gegenpoly_1.cpp
   gsl_sf_cos.cpp
   gsl_sf_lngamma.cpp
-  gsl_sf_bessel_y1.cpp
   gsl_sf_bessel_kl_scaled.cpp
   gsl_sf_hyperg_1f1.cpp
   gsl_sf_legendre_q0.cpp
   gsl_sf_legendre_q1.cpp
-  gsl_sf_bessel_i1_scaled.cpp
   gsl_sf_expint_ei_scaled.cpp
   gsl_sf_legendre_pl.cpp
   gsl_sf_bessel_kn_scaled.cpp
   gsl_sf_expint_e2_scaled.cpp
   gsl_sf_gamma_inc_q.cpp
   gsl_sf_gegenpoly_n.cpp
-  gsl_sf_bessel_j1.cpp
-  gsl_sf_bessel_j0.cpp
   gsl_sf_bessel_kn.cpp
   gsl_sf_exp_mult.cpp
   gsl_sf_conicalp_sph_reg.cpp
