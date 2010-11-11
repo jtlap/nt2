@@ -86,7 +86,7 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     pointer resize(pointer p, size_type n, size_type o )
     {
-      if( n > o )
+      if( o < n )
       {
         byte* ptr = reallocate( reinterpret_cast<byte*>(p)
                               , n*sizeof(value_type)
