@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_y0.hpp>
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_Y0.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<gsl_sf_bessel_y0_> from gsl_specfun
+// Scalar Runtime benchmark for functor<gsl_sf_bessel_Y0_> from gsl_specfun
 //////////////////////////////////////////////////////////////////////////////
-using nt2::gsl_specfun::gsl_sf_bessel_y0_;
+using nt2::gsl_specfun::gsl_sf_bessel_Y0_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,6 +21,6 @@ using nt2::gsl_specfun::gsl_sf_bessel_y0_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::gsl_specfun::gsl_sf_bessel_y0_,(RS(double,-1.0,1.0)))
+NT2_TIMING(nt2::gsl_specfun::gsl_sf_bessel_Y0_,(RS(double,-1.0,1.0)))
 
 #undef RS

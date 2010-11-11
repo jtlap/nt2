@@ -14,13 +14,13 @@
 
 namespace nt2 { namespace gsl_specfun
   {	       
-    struct gsl_sf_bessel_y0_ {};
-    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_bessel_y0_, gsl_sf_bessel_y0, 1)
+    struct gsl_sf_bessel_Y0_ {};
+    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_bessel_Y0_, gsl_sf_bessel_Y0, 1)
   }
 }
  
-#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_y0.hpp>
-// #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_y0.hpp) 
+#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_Y0.hpp>
+// #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_Y0.hpp) 
 
  
 #endif
