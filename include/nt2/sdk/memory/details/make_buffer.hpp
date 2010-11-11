@@ -50,7 +50,7 @@ namespace nt2 { namespace details
     // Rebind Allocator to current value_type
     ////////////////////////////////////////////////////////////////////////////
     typedef typename  Allocator
-		    ::template rebind<value_type>::other        allocator_type;
+        ::template rebind<value_type>::other        allocator_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Extract current Base and Size types
@@ -93,7 +93,7 @@ namespace nt2 { namespace details
     // Rebind Allocator to current value_type
     ////////////////////////////////////////////////////////////////////////////
     typedef typename  Allocator
-		    ::template rebind<value_type>::other      allocator_type;
+        ::template rebind<value_type>::other      allocator_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Extract current Base type
@@ -131,16 +131,16 @@ namespace nt2 { namespace meta
     // Build current buffer type
     ////////////////////////////////////////////////////////////////////////////
     typedef typename details
-	  ::make_buffer < Type,Dimensions,Bases
-			, Sizes,Padding,Allocator
-			>::type                    buffer_type;
+    ::make_buffer < Type,Dimensions,Bases
+      , Sizes,Padding,Allocator
+      >::type                    buffer_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Build previous buffer types sequence
     ////////////////////////////////////////////////////////////////////////////
     typedef typename make_buffers < Type,Dimensions-1,Bases
-				  , Sizes,Padding,Allocator
-				  >::type          prev_type;
+          , Sizes,Padding,Allocator
+          >::type          prev_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Build the updated buffer types sequence
@@ -155,7 +155,7 @@ namespace nt2 { namespace meta
   struct  make_buffers<Type,1,Bases,Sizes,Padding,Allocator>
   {
     typedef typename details
-	  ::make_buffer<Type,1,Bases,Sizes,Padding,Allocator>::type buffer_type;
+    ::make_buffer<Type,1,Bases,Sizes,Padding,Allocator>::type buffer_type;
 
     typedef boost::fusion::vector<buffer_type> type;
   };

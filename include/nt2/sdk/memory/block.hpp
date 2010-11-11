@@ -166,12 +166,24 @@ namespace nt2 { namespace memory
                                         , Padding, Allocator>::type data_type;
 
     ////////////////////////////////////////////////////////////////////////////
+    // Find out if the all buffers are static, triggering the static allocation
+    ////////////////////////////////////////////////////////////////////////////
+    template<class Buffer>  struct is_static : Buffer::is_static {};
+
+    typedef typename
+    boost::mpl::fold< data_type
+                    , boost::mpl::true_
+                    , boost::mpl::and_< boost::mpl::_1
+                                      , is_static<boost::mpl::_2>
+                                      >
+                    >::type                                 static_status_type;
+
+    ////////////////////////////////////////////////////////////////////////////
     // Default constructor
     ////////////////////////////////////////////////////////////////////////////
     block() : data_(), base_(), size_()
     {
-      // TODO: Make CT block constructed here
-//      if(buffer0_type::is_static::value) link(dimension_value_type());
+      if(static_status_type::value) link(dimension_value_type());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -351,6 +363,9 @@ namespace nt2 { namespace memory
 
     ////////////////////////////////////////////////////////////////////////////
     // Access to a block with less index than needed
+    // For 1D access, we reconstruct a padding aware 2D access
+    // Other accesses are just starting form proper data bank instead of the
+    // innermost one
     ////////////////////////////////////////////////////////////////////////////
     #if (DIM > 1)
     template<class Position,class Sz>
@@ -393,7 +408,7 @@ namespace nt2 { namespace memory
     #endif
 
     ////////////////////////////////////////////////////////////////////////////
-    // Recursively construct data buffers
+    // Recursively construct data buffers from Bases/Sizes sequence
     ////////////////////////////////////////////////////////////////////////////
     template<int N>
     void init( boost::mpl::int_<N> const& d )
@@ -417,7 +432,11 @@ namespace nt2 { namespace memory
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Link indexes and data
+    // Link indexes and data, NRC style and recursively
+    //   _        _ _ _ _ _ _ _ _ _ _ _ _
+    //  |_|----->|_|_|_|_|_|_|_|_|_|_|_|_|
+    //  |_|-------------------^
+    //
     ////////////////////////////////////////////////////////////////////////////
     template<int N>
     void link( boost::mpl::int_<N> const& d )
