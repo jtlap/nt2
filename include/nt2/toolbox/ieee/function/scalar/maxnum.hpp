@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MAXNUM_HPP_INCLUDED
 
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2 { namespace functors
 {

@@ -19,6 +19,7 @@
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/dist.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2 { namespace functors
 {

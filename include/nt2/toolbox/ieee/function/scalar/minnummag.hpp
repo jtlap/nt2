@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MINNUMMAG_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MINNUMMAG_HPP_INCLUDED
 
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2 { namespace functors
 {
