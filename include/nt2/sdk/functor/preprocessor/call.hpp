@@ -13,6 +13,7 @@
 // Various macro for boilerplating call<> code writing
 // Documentation: http://nt2.lri.fr/sdk/functor/macros/call.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/sdk/error/static_assert.hpp>

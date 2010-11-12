@@ -8,6 +8,6 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_IS_NOT_EQUAL_TO_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_IS_NOT_EQUAL_TO_HPP_INCLUDED
-#include <nt2/sdk/simd/details/impl/sse/sse4_1/is_not_equal.hpp>
+#include <nt2/sdk/simd/details/impl/sse/sse4_1/is_not_equal_to.hpp>
 #endif
 

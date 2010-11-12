@@ -84,12 +84,17 @@ class Recover_similar_benchs :
         for tb_name in self.get_tb_list() :
             l = self.get_functor_list(tb_name,style)
             if name in l : return tb_name
+            if name[:-3] in l :
+                if name[-3:] in ['_rn','_ru','_rz','_rd'] :
+                    return tb_name
         return None
 
     def replace_bench(self,name,style) :
         tb_name = r.find_similar_fctor(name,style)
         if tb_name is not None :
+#            print "avant"
             s = self.read_similar(tb_name,name,style)
+#            show(s)
             s = self.adapt_similar(s,name,tb_name)
             print "tb %s contains %s"% (tb_name,name)
         else :
@@ -131,21 +136,45 @@ class Recover_similar_benchs :
         
     def write_bench(self,name,style,s):
         p = os.path.join(self.get_tb_path(self.get_tb_name()),'bench',style,name+'.cpp')
-        print p
+        print name
+#        print "apr-Aès"-b
+#        show(s)
         write(p,s,False)
 
     def read_similar(self,tb_name,name,style) :
-         p = os.path.join(self.get_tb_path(tb_name),'bench',style,name+'.cpp')
+         p = os.path.join(self.get_tb_path(tb_name),'bench',style,self.strip(name)+'.cpp')
          return read(p)
+
+    def strip(self,name) :
+        if name[-3:] in ['_rn','_ru','_rz','_rd'] :
+            return name[:-3]
+        else :
+            return name
+        
+    def decorate(self,name) :
+        if name[-3:] in ['_rn','_ru','_rz','_rd'] :
+            return name
+        else :
+            return name+'<rn>'
 
     def adapt_similar(self,s,name,old_tb_name) :
         new_tb_name = self.get_tb_name()
-        s = sub_list(old_tb_name,new_tb_name,s)
-        s = sub_list("using nt2::"+name,"using nt2::"+new_tb_name+"::"+name,s)
-        s = sub_list("using nt2::functors::"+name,"using nt2::"+new_tb_name+"::"+name,s)
-        s = sub_list("nt2::"+name,"nt2::"+new_tb_name+"::"+name,s)
-        s = sub_list("functors::",new_tb_name+'::',s)
+        old_name = self.strip(name)
+        new_name = self.decorate(name)
+        print "old %s -> new %s"% (old_name,new_name)
+        if old_name == name : # template case
+            s = sub_list(' '+old_name+'\(',' '+new_name+'(',s)
+            s = sub_list(old_tb_name,new_tb_name,s)
+            s = sub_list("nt2::functors::"+old_name,"nt2::"+new_tb_name+"::"+old_name,s)
+            s = sub_list(old_name+'<rn>_',old_name+'_<rn>',s)
+            s = sub_list("<rn>","<nt2::rn>",s)
+            s = sub_list("NT2_TIMING\(nt2::crlibm::"+old_name+"_","NT2_TIMING(nt2::crlibm::"+old_name+"_<nt2::rn>",s)
+        else :
+            s = sub_list("nt2::functors::","nt2::"+new_tb_name+"::",s)
+            s = sub_list(old_tb_name,new_tb_name,s)
+            s = sub_list(old_name,new_name,s)
         return s
+
     
     def default(self,name,arity) :
         s =  Recover_similar_benchs.Default_bench
@@ -162,9 +191,12 @@ if __name__ == "__main__" :
     length = len(sys.argv)
     if length == 2 :
         r = Recover_similar_benchs(sys.argv[1])
-#        r.replace_benchs('scalar')
+        r.replace_benchs('scalar')
         r.replace_benchs('simd')
     else :
+        r = Recover_similar_benchs("crlibm")
+        r.replace_benchs('scalar')
+        r.replace_benchs('simd')
         print __doc__
 
 sys.path.pop(0)

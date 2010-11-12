@@ -51,8 +51,8 @@ NT2_TEST_CASE_TPL(cbrt, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
      rn_t v  = cbrt(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], cbrt(a0[j])), 1);
-	 if (z > m) m = z; 
+         NT2_TEST_LESSER_EQUAL( z = nt2::ulpdist(v[j], cbrt(a0[j])), 1);
+         if (z > m) m = z; 
        }
    }
  std::cout << "ulp max = " << m << std::endl;

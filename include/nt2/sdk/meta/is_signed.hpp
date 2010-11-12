@@ -31,13 +31,15 @@ namespace nt2 { namespace details
   // ... unless they are unsigned of course
   //////////////////////////////////////////////////////////////////////////////
   template<>
-  struct is_signed<uint8_t ,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
+  struct is_signed<unsigned char ,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
   template<>
-  struct is_signed<uint16_t,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
+  struct is_signed<unsigned short,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
   template<>
-  struct is_signed<uint32_t,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
+  struct is_signed<unsigned int,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
   template<>
-  struct is_signed<uint64_t,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
+  struct is_signed<unsigned long,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
+  template<>
+  struct is_signed<unsigned long long,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
   template<>
   struct is_signed<bool    ,tag::scalar_(tag::arithmetic_)>  : boost::mpl::false_ {};
 } }

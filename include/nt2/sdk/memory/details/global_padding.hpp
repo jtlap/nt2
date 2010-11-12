@@ -18,6 +18,7 @@
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/size.hpp>
 #include <nt2/sdk/memory/details/times.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>

@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MAXNUM_HPP_INCLUDED
 
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -36,8 +37,8 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
 	typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-	if (isnan(a0)) return type(a1);
-	else if (isnan(a1)) return type(a0);
+	if (is_nan(a0)) return type(a1);
+	else if (is_nan(a1)) return type(a0);
 	else return nt2::max(type(a0), type(a1));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)

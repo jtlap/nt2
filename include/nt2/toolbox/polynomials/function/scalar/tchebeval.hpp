@@ -10,17 +10,25 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_TCHEBEVAL_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/include/functions/average.hpp>
-#include <boost/array.hpp>
-#include <nt2/sdk/meta/irrelevant.hpp>
-namespace nt2 { namespace details
-{
-  template<class T,std::size_t N> 
-  struct category_of_impl<boost::array<T,N>,false>
-  {
-    typedef tag::irrelevant type;
-  };
-} }
+#include <nt2/toolbox/polynomials/category.hpp>
 
+//#include <boost/array.hpp>
+// #include <nt2/sdk/meta/irrelevant.hpp>
+// namespace nt2 { namespace details
+// {
+//   template<class T,std::size_t N> 
+//   struct category_of_impl<boost::array<T,N>,false>
+//   {
+//     typedef tag::irrelevant type;
+//   };
+// } }
+// namespace nt2 { namespace meta {
+//   template<class Info, class A0,class A1>
+//   struct  categorize<functors::tchebeval_,Info,A0,A1>
+//   {
+//     typedef typename meta::category_of<A0>::type::tag type;
+//   };  
+// } }
 namespace nt2 { namespace functors
 {
   template<class Info>

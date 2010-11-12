@@ -27,6 +27,7 @@ NT2_TEST_CASE_TPL ( acot, (double)
 		    ) 
 {
   using nt2::acot;
+  using nt2::ulpdist;
   using nt2::functors::acot_;
   const int N = 2; 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<acot_(T)>::type
@@ -34,12 +35,12 @@ NT2_TEST_CASE_TPL ( acot, (double)
  	     >::value)  
     );
   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-  NT2_TEST_EQUAL(  nt2::acot( T(0.0) )  , nt2::Inf<T>() );
-  NT2_TEST_EQUAL(  nt2::acot( T(-0.0) )  , nt2::Minf<T>() );
-  NT2_TEST_EQUAL(  nt2::acot( T(1) )  , nt2::Pio_4<r_t>() );
-  NT2_TEST_EQUAL(  nt2::acot( T(-1) )  , -nt2::Pio_4<r_t>() );
-NT2_TEST_LESSER(  nt2::ulpdist(acot( T(0.5) ), T(1.107148717794090)),  N); 
-NT2_TEST_LESSER(  nt2::ulpdist(acot( T(-0.5) ), T(-1.107148717794090)),  N); 
+  NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(0.0) )   , nt2::Inf<T>() )        , 0.5 );
+  NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(-0.0) )  , nt2::Minf<T>() )       , 0.5 );
+  NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(1) )     , nt2::Pio_4<r_t>() )    , 0.5 );
+  NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(-1) )    , -nt2::Pio_4<r_t>() )   , 0.5 );
+  NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(0.5) )   , T(1.107148717794090) ) , N   ); 
+  NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(-0.5) )  , T(-1.107148717794090) ), N   ); 
 } 
  
   

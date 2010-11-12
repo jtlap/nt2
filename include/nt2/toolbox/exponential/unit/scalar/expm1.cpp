@@ -36,8 +36,8 @@ NT2_TEST_CASE_TPL ( expm1, (double)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::expm1( T(0) )  , 0 );
-   NT2_TEST_EQUAL(  nt2::expm1( T(1) )  , T(nt2::Exp_1<T>()-1) );
+   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist( nt2::expm1( T(1) )  , T(nt2::Exp_1<T>()-1) ), 1  );
    NT2_TEST_EQUAL(  nt2::expm1(nt2::Minf<T>() ), T(-1));
-   NT2_TEST_EQUAL(  nt2::expm1(nt2::Eps <T>() ), nt2::Eps<T>()); 
+   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist( nt2::expm1(nt2::Eps <T>() ), nt2::Eps<T>()), 0.5  ); 
 
 }

@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_PLEVL_HPP_INCLUDED
 #include <nt2/include/functions/tchebeval.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/toolbox/polynomials/category.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -41,8 +42,8 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return p1evl(type(a0));
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
+      return plevl(type(a0), a1);
     }
   };
 } }
