@@ -35,12 +35,12 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(1)
     {
 	typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-        if (islez(a0))
+        if (is_lez(a0))
 	  {
-	    if (isflint(a0))
+	    if (is_flint(a0))
 	      return Nan<type>();
 	    else
-	      return One<type>()-isodd(floor(a0))*Two<A0>(); 
+	      return One<type>()-is_odd(floor(a0))*Two<A0>(); 
 	  }
 	else
 	  return One<type>();

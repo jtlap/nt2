@@ -11,6 +11,8 @@
 
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/is_not_finite.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/rem.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -40,7 +42,7 @@ namespace nt2 { namespace functors
       type a(a0);
       type b(a1);
       if (!b) return a;
-      if (is_not_finite(a+b)||!isflint(a)||!isflint(b)) return Nan <type>();
+      if (is_not_finite(a+b)||!is_flint(a)||!is_flint(b)) return Nan <type>();
       while (b) {
 	type  r  = rem(a, b);
 	a = b;
@@ -53,8 +55,8 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       type a(a0);
       type b(a1);
-      if (iseqz(b)) return a;
-      while (isnez(b)) {
+      if (is_eqz(b)) return a;
+      while (is_nez(b)) {
 	const type  r = a % b;
 	a = b;
 	b = r;

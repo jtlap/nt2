@@ -17,6 +17,7 @@
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/size.hpp>
 #include <nt2/sdk/memory/details/times.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
@@ -30,21 +31,24 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder,class N>
-    struct  result<This(Seq const&,Padder const&,N const&)>
+    template<class This,class A0,class A1,class A2>
+    struct  result<This(A0,A1,A2)>
     {
+      typedef typename meta::strip<A0>::type Seq;
+      typedef typename meta::strip<A1>::type Padder;
+      typedef typename meta::strip<A2>::type Sz;
       static Seq    const&  s;
       static Padder const&  p;
       static details::times callee;
 
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( different
-      , callee( slice<N::value+1>(s,p), boost::fusion::at_c<N::value-1>(s) )
+      , callee( slice<Sz::value+1>(s,p), boost::fusion::at_c<Sz::value-1>(s) )
       );
 
-      typedef boost::fusion::result_of::at_c<Seq const, N::value-1> same;
+      typedef boost::fusion::result_of::at_c<Seq const, Sz::value-1> same;
 
-      typedef typename boost::mpl::eval_if_c< (   N::value
+      typedef typename boost::mpl::eval_if_c< (   Sz::value
                                               ==  boost::fusion
                                                   ::result_of::size<Seq>::value
                                               )
@@ -88,9 +92,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
 
-    template<class This,class Seq,class Padder, class N>
-    struct  result<This(Seq const&,Padder const& ,N const&)>
-          : boost::fusion::result_of::at_c<Seq const,N::value-1>
+    template<class This,class A0,class A1,class A2>
+    struct  result<This(A0,A1,A2)>
+          : boost::fusion::result_of::at_c< typename meta::strip<A0>::type const
+                                          , meta::strip<A2>::type::value-1
+                                          >
     {};
 
     NT2_FUNCTOR_CALL(3)

@@ -8,15 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/fast_sincosd.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<fast_sincosd_> from trigonometric
+// Scalar Runtime benchmark for functor<fast_sincosd_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::fast_sincosd_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( fast_sincosd_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::fast_sincosd_,(RS(float,-45.0,45.0)))
+NT2_TIMING(nt2::functors::fast_sincosd_,(RS(double,-45.0,45.0)))
+
+#undef RS

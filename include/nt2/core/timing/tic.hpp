@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-#include <cstdio>
+#include <iostream>
 #include <nt2/core/timing/timer.hpp>
 #include <nt2/core/timing/now.hpp>
 
@@ -24,7 +24,7 @@ namespace nt2 { namespace details
 
     static inline void Print(const double& val)
     {
-      printf("Elapsed time is %g s.\n",val);
+       std::cout << "Elapsed time is " << val << " s.\n";
     }
   };
 

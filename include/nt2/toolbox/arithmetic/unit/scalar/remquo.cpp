@@ -15,6 +15,7 @@
 #include <nt2/toolbox/arithmetic/include/idivfix.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
@@ -43,7 +44,7 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
   for(int i = 0;  i < 3;  i++){
     type_t r = remquo(n[i], d[i]);
     NT2_TEST_EQUAL(  boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]));
-    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i])); 
+    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
   }
 }
           

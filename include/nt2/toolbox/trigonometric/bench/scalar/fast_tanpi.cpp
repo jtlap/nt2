@@ -8,15 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/fast_tanpi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<fast_tanpi_> from trigonometric
+// Scalar Runtime benchmark for functor<fast_tanpi_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::fast_tanpi_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( fast_tanpi_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::fast_tanpi_,(RS(float,-0.25,0.25)))
+NT2_TIMING(nt2::functors::fast_tanpi_,(RS(double,-0.25,0.25)))
+
+#undef RS

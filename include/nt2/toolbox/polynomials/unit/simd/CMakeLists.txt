@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  plevl.cpp
   polevl.cpp
   tchebeval.cpp
   legendre.cpp

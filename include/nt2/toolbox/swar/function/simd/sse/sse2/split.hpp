@@ -46,8 +46,8 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef meta::is_floating_point<stype>                                 rtag;
-      typedef typename meta::upgrade<stype>::type                  utype;
-      typedef simd::native<utype,tag::sse_>                                ttype;
+      typedef typename meta::upgrade<stype>::type                           utype;
+      typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef typename boost::mpl::if_c<rtag::value,
                                         simd::native<double,tag::sse_>, ttype>::type rtype;
       typename NT2_CALL_RETURN_TYPE(1)::type                                  res;
@@ -110,8 +110,8 @@ namespace nt2 { namespace functors
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  meta::double_<A0>::type,tag::sse_> &)const
     {
       typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> itype;
-      r1 = _mm_cvtps_pd(simd::native_cast<A0>(_mm_srli_si128( simd::native_cast<itype>(a0), 8)));
-      r0 = _mm_cvtps_pd(a0);
+      r1 = simd::native_cast<R1>(_mm_cvtps_pd(simd::native_cast<A0>(_mm_srli_si128( simd::native_cast<itype>(a0), 8))));
+      r0 = simd::native_cast<R0>(_mm_cvtps_pd(a0));
     }
 
 

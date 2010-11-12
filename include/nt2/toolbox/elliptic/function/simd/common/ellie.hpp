@@ -66,7 +66,7 @@ namespace nt2 { namespace functors
 	A0 mod = ceil(lphi/Pi<A0>());
 	while(1)
 	  {
-	    A0 test = is_gt(abs(c),Eps<A0>()*abs(a));
+	    A0 test = gt(abs(c),Eps<A0>()*abs(a));
 	    if (any(test))
 	      {
 		A0 temp = b/a;
@@ -88,13 +88,11 @@ namespace nt2 { namespace functors
 	temp = temp*(atan(t) + mod * Pi < A0>())/(d * a);
 	temp = temp+e;
 	temp = b_xor(temp, bitofsign(a0));
-	return b_or(b_or(isltz(a1), isgt(a1, One<A0>())), temp);
+	return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, double)
     {
-        A0 r;
-	map(functor<ellie_>(), a0, a1, r);
-        return r;
+      return map(functor<ellie_>(), a0, a1);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {

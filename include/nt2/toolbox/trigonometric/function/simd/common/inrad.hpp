@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 
 namespace nt2 { namespace functors

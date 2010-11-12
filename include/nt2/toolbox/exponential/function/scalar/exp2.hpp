@@ -11,13 +11,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/properties.hpp>
-
-
-// TO DO -> put in exponentials
-//#include <nt2/toolbox/exponential/function/scalar/impl/expo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/expo.hpp
-//  of the old nt2
+#include <nt2/toolbox/exponential/function/scalar/impl/expo.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -43,9 +37,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  real_)
     {
-      return 0;
-      // TO DO
-      //        return impl::exponential<A0,two_tag, tag::not_simd_type, accu_tag>::expa(a0); 
+      return impl::exponential<A0,two_tag, tag::not_simd_type, accu_tag>::expa(a0); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {

@@ -26,9 +26,9 @@
 
 namespace nt2 { namespace meta
 {
-	#if defined(BOOST_HAS_VARIADIC_TMPL)
+  #if defined(BOOST_HAS_VARIADIC_TMPL)
   template<class... Args> struct dominant : details::dominant<Args...>  {};
-	#else
+  #else
   template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_ARITY
                                         , class A
                                         , = meta::na_ BOOST_PP_INTERCEPT

@@ -73,13 +73,13 @@ namespace nt2  { namespace meta
   {
     template<class Sig> struct result;
 
-    #define M3(z,n,t)                                                                \
+    #define M3(z,n,t)                                                               \
     template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                            \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                  \
-    {                                                                                \
-      typedef  typename meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag   dom;  \
-      typedef  typename std::tr1                                                     \
-      ::result_of<details::floating<dom>(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;    \
+    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
+    {                                                                               \
+      typedef  typename meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag dom;   \
+      typedef  typename std::tr1                                                    \
+      ::result_of<details::floating<dom>(BOOST_PP_ENUM_PARAMS(n,A))>::type   type;  \
     };                                                                              \
     /**/
 

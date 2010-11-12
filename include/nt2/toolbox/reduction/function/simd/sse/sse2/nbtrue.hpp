@@ -31,19 +31,19 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
     {
       typedef typename meta::as_real<A0>::type type; 
-      int32_t  r = _mm_movemask_ps(isnez(a0));
+      int32_t  r = _mm_movemask_ps(is_nez(a0));
       return   (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3);
       //      return __builtin_popcount(_mm_movemask_ps(isnez(cast<type>(a0))));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,      double)
     {
-      int32_t  r = _mm_movemask_pd(isnez(a0));
+      int32_t  r = _mm_movemask_pd(is_nez(a0));
       return   (r&1)+(r>>1); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
       typedef typename simd::native<typename meta::int8_t_<A0>::type,tag::sse_> i8type;
-      i8type tmp = {isnez(a0)};
+      i8type tmp = {is_nez(a0)};
       return __builtin_popcount(_mm_movemask_epi8(tmp))*meta::cardinal_of<A0>::value >> 4;
     }
   };

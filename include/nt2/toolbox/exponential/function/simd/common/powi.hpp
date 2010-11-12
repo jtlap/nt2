@@ -55,7 +55,7 @@ namespace nt2 { namespace functors
         int_type sign_n = signnz( a1 );
         int_type n = abs(a1);
 
-        int_type   n_odd = isodd(n);
+        int_type   n_odd = is_odd(n);
         A0 n_oddf = tofloat(-n_odd);
         A0 nf = n_oddf;
 
@@ -66,7 +66,7 @@ namespace nt2 { namespace functors
         while( any(n) )
           {
             w =sqr( w);
-            n_oddf = tofloat(-isodd(n));
+            n_oddf = tofloat(-is_odd(n));
             y = y*madd(n_oddf,w,oneminus(n_oddf));
             n = shri(n,1);
           }

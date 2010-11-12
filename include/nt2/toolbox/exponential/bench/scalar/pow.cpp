@@ -8,16 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/exponential/include/pow.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<pow_> from exponential
+// Scalar Runtime benchmark for functor<pow_> from exponential
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::pow_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( pow_ , ((nt2::uint32_t, -10, 10))
-//                    ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::pow_,(RS(float,-10.0f,10.0f))(RS(float,-10.0f,10.0f)))
+NT2_TIMING(nt2::functors::pow_,(RS(double,-10.0,10.0))(RS(double,-10.0,10.0)))
+
+#undef RS

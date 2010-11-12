@@ -11,10 +11,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Data buffer with NRC like interface
+// Basically a std::vector that copes well with bool and use NRC like allocation
+// interface and parametrization
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/error/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/details/is_assignment_compatible.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 
 namespace nt2 { namespace memory
@@ -26,6 +27,9 @@ namespace nt2 { namespace memory
     public:
     ////////////////////////////////////////////////////////////////////////////
     // Public types
+    // buffer<Type,Base,Size,Allocator> models:
+    //  - RandomAccessContainer
+    //  - RandomAccessRange
     ////////////////////////////////////////////////////////////////////////////
     typedef details::buffer_base<Type,Base,Size,Allocator>  parent;
     typedef Base                                            base_value_type;
@@ -46,6 +50,8 @@ namespace nt2 { namespace memory
     private:
     ////////////////////////////////////////////////////////////////////////////
     // Inherited data
+    // We use a similar structure than the original std::vector to assess a
+    // significant level of exception safety.
     ////////////////////////////////////////////////////////////////////////////
     using parent::impl;
 
@@ -53,26 +59,13 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Constructors
     ////////////////////////////////////////////////////////////////////////////
-    buffer()  : parent()                      { parent::default_init(); }
-    buffer( Allocator const& a )  : parent(a) { parent::default_init(); }
-
-    buffer( Base const& b, Size const& s) : parent()
-    {
-      parent::init(b,s);
-    }
-
-    template<class Src>
-    buffer( Src const& src
-          , typename boost::enable_if_c<
-                        details::is_assignment_compatible<buffer,Src>::value
-                                      >::type* = 0
-          )
-    {
-      parent::assign((typename Src::parent const&)(src));
-    }
+    buffer()                              : parent()  { parent::default_init(); }
+    buffer( Allocator const& a )          : parent(a) { parent::default_init(); }
+    buffer( Base const& b, Size const& s) : parent()  { parent::init(b,s);      }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Assign by resize/copy if same type
+    // Assignment operator
+    // TODO: 0x support for assigning from rvalue reference
     ////////////////////////////////////////////////////////////////////////////
     buffer& operator=( buffer const& src )
     {
@@ -84,29 +77,6 @@ namespace nt2 { namespace memory
     // Swapping
     ////////////////////////////////////////////////////////////////////////////
     void swap( buffer& src ) { parent::swap(src); }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Assign by resize/copy if compatible size
-    ////////////////////////////////////////////////////////////////////////////
-    template<class Src>
-    typename boost::enable_if_c < details
-                                ::is_assignment_compatible<buffer,Src>::value
-                                , buffer&
-                                >::type
-    operator=( Src const& src )
-    {
-      NT2_ASSERT((details::is_assignment_compatible<buffer,Src>()(*this,src)));
-      parent::assign((typename Src::parent const&)(src));
-      return *this;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Assign data by copy
-    ////////////////////////////////////////////////////////////////////////////
-    template<class Src> void fill( Src const& src )
-    {
-      parent::fill((typename Src::parent const&)(src));
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // Inherited size modifiers
@@ -123,7 +93,13 @@ namespace nt2 { namespace memory
     using parent::upper;
 
     ////////////////////////////////////////////////////////////////////////////
-    // Random Acces through operator[]
+    // Access to raw data
+    ////////////////////////////////////////////////////////////////////////////
+    const_pointer origin()  const { return impl.origin_;  }
+          pointer origin()        { return impl.origin_;  }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // RandomAccessContainner Interface
     ////////////////////////////////////////////////////////////////////////////
     reference operator[](difference_type const& i)
     {
@@ -138,10 +114,12 @@ namespace nt2 { namespace memory
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Access to raw data
+    // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    pointer origin()  const { return impl.origin_;  }
-    pointer begin()   const { return impl.begin_;   }
+    const_pointer begin()   const { return impl.begin_;   }
+          pointer begin()         { return impl.begin_;   }
+    const_pointer end()     const { return impl.end_;     }
+          pointer end()           { return impl.end_;     }
   };
 
   //////////////////////////////////////////////////////////////////////////////

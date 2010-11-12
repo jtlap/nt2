@@ -42,7 +42,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  real_)
     {
 	const A0 u = nt2::exp(a0);
-	if( isinvalid(u) || (nt2::abs(a0) > Half<A0>()))
+	if( is_invalid(u) || (nt2::abs(a0) > Half<A0>()))
 	  {
 	    return u-One<A0>();
 	  }

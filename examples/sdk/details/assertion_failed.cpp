@@ -4,12 +4,13 @@
 
 using namespace std;
 
-template<class T> void f(T const& v)
+template<class T> T f(T const& v)
 {
   NT2_ASSERT( v > 4 );
+  return v;
 }
 
-int main( int argc, char** argv)
+int main(int, char** )
 {
   try
   {

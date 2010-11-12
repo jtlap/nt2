@@ -33,8 +33,13 @@ namespace nt2 { namespace functors
       NT2_FUNCTOR_CALL_DISPATCH(
         1,
         typename nt2::meta::scalar_of<A0>::type,
-        (4, (int64_, int32_, int16_, int8_))
+        (5, (int64_, int32_, int16_, int8_, real_))
       )
+      NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+      {
+ 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
+	return popcnt(simd::native_cast<result_type>(a0)); 
+      }
       NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;

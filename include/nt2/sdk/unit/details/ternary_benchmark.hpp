@@ -39,7 +39,6 @@ void timing_test( Func callee, size_t size
 
   // output value
   typedef typename std::tr1::result_of<Func(r_in0,r_in1,r_in2)>::type out_t;
-  typedef typename nt2::meta::scalar_of<out_t>::type                  rout_t;
   static out_t                                                        out;
 
   // Input samples
@@ -64,12 +63,18 @@ void timing_test( Func callee, size_t size
   std::vector<double> timings;
   double c(0.),t(0.);
 
+  static const size_t c0 = nt2::meta::cardinal_of<r_in0>::value;
+  static const size_t c1 = nt2::meta::cardinal_of<r_in1>::value;
+  static const size_t c2 = nt2::meta::cardinal_of<r_in2>::value;
+  static const size_t nb1 =  (c0 < c1) ? c1 : c0; 
+  static const size_t nb  =  (c2 < nb1) ? nb1 : c2;  
+
   do
   {
     nt2::tic();
     {
       nt2::ctic();
-      for(size_t i=0; i<size/nt2::meta::cardinal_of<r_in0>::value; i++)
+      for(size_t i=0; i<size/nb; i++)
       {
         out = callee( nt2::load<r_in0>(&in0[0],i)
                     , nt2::load<r_in1>(&in1[0],i)

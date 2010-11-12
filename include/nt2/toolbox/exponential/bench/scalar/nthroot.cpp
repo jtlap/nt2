@@ -8,16 +8,23 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/exponential/include/nthroot.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<nthroot_> from exponential
+// Scalar Runtime benchmark for functor<nthroot_> from exponential
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::nthroot_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( nthroot_ , ((nt2::uint32_t, -10, 10))
-//                        ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::nthroot_,(RS(float,-10000.0f,10000.0f))(RS(int32_t,0,31)))
+NT2_TIMING(nt2::functors::nthroot_,(RS(double,-10000.0,10000.0))(RS(int64_t,0,63)))
+
+
+
+#undef RS

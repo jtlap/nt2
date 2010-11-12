@@ -12,7 +12,7 @@
 
 """creation of txt generation files from old nt2
    usage:
-           mk_tb_txt <tool_box_name>
+           mk_tb_txt <tool_box_name> [<path to toolbox>]
    
 """
 import sys

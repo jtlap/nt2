@@ -45,7 +45,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
     {
-      typedef typename simd::native<double, typename meta::category_of<A0>::type::type> ftype; 
+      typedef typename meta::as_real<A0>::type ftype; 
       A0 a00  =  simd::native_cast<A0>(_mm_shuffle_pd(simd::native_cast<ftype>(a0),
 						      simd::native_cast<ftype>(a0),0x01));     
       return  min(a0, a00); 
@@ -58,7 +58,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,     int16_)
     {
-      typedef typename simd::native<float, typename meta::category_of<A0>::type::type> ftype; 
+      typedef typename simd::native<float, Extension> ftype; 
       A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          min1 = _mm_shufflelo_epi16(min1, _MM_SHUFFLE(1, 0, 3, 2));
          min1 = min(a0, min1);
@@ -67,10 +67,10 @@ namespace nt2 { namespace functors
          min2 = min(min1, min2);
       A0 min3 = {_mm_shuffle_epi32(min2, _MM_SHUFFLE(3, 2, 1, 0))};
       A0 min4 = {_mm_shufflelo_epi16(min3, _MM_SHUFFLE(0, 1, 2, 3))};
-      ftype min5 = simd::native_cast<ftype>(nt2::min(min3, min4));
-      ftype that = {_mm_unpacklo_ps(min5, min5)}; 
+      ftype min5 = {simd::native_cast<ftype>(nt2::min(min3, min4))};
+      A0 that = {simd::native_cast<A0>(_mm_unpacklo_ps(min5, min5))}; 
          
-      return simd::native_cast<A0>(that);
+      return that; 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_)
     {

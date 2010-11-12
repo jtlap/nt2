@@ -20,6 +20,8 @@
 #include <nt2/include/functions/j1.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/all.hpp>
+
 
 
 namespace nt2 { namespace functors
@@ -52,53 +54,53 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
       typedef typename meta::scalar_of<A0>::type sA0;       
-      A0 z = sqr(a0); 
-      A0 p2 = (z-integral_constant<A0, 0x40954ae7> ())*a0*
-	horner< NT2_HORNER_COEFF_T(sA0, 5,
-				 (0x320a80f5, 
-				  0xb57eeb2e, 
-				  0x388ceb47, 
-				  0xbb2d21cf, 
-				  0x3d2c210b
-				  ) ) > (z);
+      A0 a0lt2 = lt(a0, Two<A0>());
       A0 q = rec(a0);
-      p2 = p2+integral_constant<A0, 0x3f22f983>()*(j1(a0)*log(a0)-q);
-      A0 a0lt2 = islt(a0, Two<A0>()); 
-      if (all(a0lt2)) return p2; 
-      
-      A0 w = sqrt(q); 
-      
-      A0 p3 = w *
-	horner< NT2_HORNER_COEFF_T(sA0, 8,
-				 (0x3d8d98f9, 
-				  0xbe69f6b3, 
-				  0x3ea0ad85, 
-				  0xbe574699, 
-				  0x3bb21b25, 
-				  0x3e18ec50, 
-				  0x36a6f7c5, 
-				  0x3f4c4229
-				  ) ) > (q);
-      w = sqr(q);
-      A0 xn =  q*
-	horner< NT2_HORNER_COEFF_T(sA0, 8,
-				 (0xc233e16d,
-				  0x424af04a, 
-				  0xc1c6dca7, 
-				  0x40e72299, 
-				  0xbfc5bd69, 
-				  0x3eb364d9, 
-				  0xbe27bad7, 
-				  0x3ebfffdd
-				  ) ) > (w)-integral_constant<A0,0x4016cbe4 > ();
-      p3 = p3*sin(xn+a0); 
-      return select (a0lt2, p2, p3); 
+      A0 p2; 
+      if (any(a0lt2))
+	{
+	  A0 z = sqr(a0); 
+	  p2 = (z-single_constant<A0, 0x40954ae7> ())*a0*
+	    horner< NT2_HORNER_COEFF_T(sA0, 5,
+				       (0x320a80f5, 
+					0xb57eeb2e, 
+					0x388ceb47, 
+					0xbb2d21cf, 
+					0x3d2c210b
+					) ) > (z);
+	  p2 = p2+single_constant<A0, 0x3f22f983>()*(j1(a0)*log(a0)-q);
+	  if (all(a0lt2)) return p2; 
+       }      
+     A0 w = sqrt(q); 
+     A0 p3 = w *
+       horner< NT2_HORNER_COEFF_T(sA0, 8,
+				  (0x3d8d98f9, 
+				   0xbe69f6b3, 
+				   0x3ea0ad85, 
+				   0xbe574699, 
+				   0x3bb21b25, 
+				   0x3e18ec50, 
+				   0x36a6f7c5, 
+				   0x3f4c4229
+				   ) ) > (q);
+     w = sqr(q);
+     A0 xn =  q*
+     horner< NT2_HORNER_COEFF_T(sA0, 8,
+				(0xc233e16d,
+				 0x424af04a, 
+				 0xc1c6dca7, 
+				 0x40e72299, 
+				 0xbfc5bd69, 
+				 0x3eb364d9, 
+				 0xbe27bad7, 
+				 0x3ebfffdd
+				 ) ) > (w)-single_constant<A0,0x4016cbe4 > ();
+     p3 = p3*sin(xn+a0); 
+     return select (a0lt2, p2, p3); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-	A0 r; 
-	map(functor<y1_>(), a0, r);
-	return r; 
+      return map(functor<y1_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

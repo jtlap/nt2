@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/prod.hpp>
 
 
@@ -31,7 +30,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return splat<A0>(a0[0]);
+      return splat<A0>(prod(a0));
     }
   };
 } }

@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_LAGUERRE_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 
 namespace nt2 { namespace functors
@@ -21,7 +21,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :boost::is_integral<A0>{};
+    struct result<This(A0,A1)> :meta::is_integral<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute laguerre(const A0& a0, const A1& a1)
@@ -61,12 +61,12 @@ namespace nt2 { namespace functors
       return nt2::laguerre(type(a0), a1); 
     }
   private:
-    template <class T>
+    template <class T, class T1, class T2>
     static inline T 
-    laguerre_next(uint32_t n, T x, T Ln, T Lnm1)
+    laguerre_next(const uint32_t& n, const T& x, const T1 &Ln, const T2& Lnm1)
     {
       const T np1 = oneplus(n); 
-      return ((2 * np1 + 1 - x) * Ln - n *Lnm1) / (np1 + 1);
+      return ((n + np1 - x) * Ln - n *Lnm1) / np1;
     }
 
   };

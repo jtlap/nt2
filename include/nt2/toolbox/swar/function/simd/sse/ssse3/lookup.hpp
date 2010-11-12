@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSSE3_LOOKUP_HPP_INCLUDED
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/shli.hpp>
 
 
 namespace nt2 { namespace functors

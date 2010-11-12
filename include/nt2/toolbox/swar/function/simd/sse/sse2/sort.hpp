@@ -11,8 +11,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/minimum.hpp>
+#include <nt2/include/functions/maximum.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -54,12 +54,8 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       types64_)
     {
-      typedef typename meta::as_real<A0>::type flt;
-      A0 a, b;
-      comp(a, b);
-      flt z = {_mm_unpacklo_pd(simd::native_cast<flt>(a), simd::native_cast<flt>(b))}; 
-      a = NT2_CAST(A0, _mm_unpacklo_pd(NT2_CAST(flt, a), NT2_CAST(flt, b)));
-      return a; 
+      A0 that = {minimum(a0), maximum(a0)};
+      return that; 
     }
   private :
     template < class T > static inline void comp(T & a,T & b)

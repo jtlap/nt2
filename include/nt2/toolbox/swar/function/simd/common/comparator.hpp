@@ -18,16 +18,16 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Extension,class Info>
-  struct validate<comparator_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> :
-      boost::mpl::and_<meta::is_scalar<A2>,
-		       meta::is_integral<A2>
-                      > {};
-  };
+//   template<class Extension,class Info>
+//   struct validate<comparator_,tag::simd_(tag::arithmetic_,Extension),Info>
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0,class A1,class A2>
+//     struct result<This(A0,A1,A2)> :
+//       boost::mpl::and_<meta::is_scalar<A2>,
+// 		       meta::is_integral<A2>
+//                       > {};
+//  };
   /////////////////////////////////////////////////////////////////////////////
   // Compute comparator(const A0& a0, const A0& a1, const A0& a2)
   /////////////////////////////////////////////////////////////////////////////
@@ -39,13 +39,16 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A2>
     struct result<This(A0,A0,A2)>
     {
-      typedef boost::fusion::tuple<A0,A0,bool>                  type;
+      typedef typename meta::strip<A0>::type                       nA0;
+      typedef typename meta::strip<A2>::type                       nA2;
+      typedef boost::fusion::tuple<nA0,nA0,nA2>                   type;
     };
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef boost::mpl::vector<ascending_, descending_> tags;
-      typename NT2_CALL_RETURN_TYPE(3)::type res;
+      //      typedef boost::mpl::vector<ascending_, descending_> tags;
+      typedef typename NT2_CALL_RETURN_TYPE(3)::type r_t;
+      r_t res;
       eval( a0, a1, a2 
 	    , boost::fusion::at_c<0>(res)
 	    , boost::fusion::at_c<1>(res)
@@ -56,7 +59,7 @@ namespace nt2 { namespace functors
 
   private:
     template<class A0,class A2,class R0,class R1> inline void
-    eval(A0 const& a0, A0 const& a1, A2 const& a2, R0& r0, R1& r1, bool& modified)const
+    eval(A0 const& a0, A0 const& a1, A2 const& a2, R0& r0, R1& r1, A2& modified)const
     {
       r0 =  nt2::min(a0, a1);
       r1 =  nt2::max(a0, a1);

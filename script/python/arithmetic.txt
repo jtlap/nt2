@@ -1,0 +1,26 @@
+arithmetic
+ 
+abs                           1
+amul                          3
+average                       2
+correct_fma                   3
+dist                          2
+fam                           3
+fma                           3
+hypot                         2
+idivceil                      2
+idivfix                       2
+idivfloor                     2
+idivround                     2
+ldiv                          2
+ldivide                       2
+madd                          3
+max                           2
+min                           2
+minusone                      1
+oneminus                      1
+oneplus                       1
+rdivide                       2
+rec                           1
+sqr                           1
+sqrt                          1

@@ -13,8 +13,8 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/tr1/functional.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/utility/result_of.hpp> // TR1 FUNCTIONNAL !!
 #include <nt2/sdk/memory/parameters.hpp>
 #include <nt2/sdk/memory/meta/align_on.hpp>
 #include <boost/type_traits/is_pointer.hpp>

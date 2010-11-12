@@ -138,12 +138,12 @@ namespace nt2 { namespace functors
         }};
       A0 x = a0, p, z;
       int32_t sgngam = 1;
-      if( isnan(x) || (x == Minf<A0>()) ) return Nan<A0>();
+      if( is_nan(x) || (x == Minf<A0>()) ) return Nan<A0>();
       if (x == Inf<A0>()) return x;
       A0 q = nt2::abs(x);	  
       if( q > 33.0 )
 	{
-	  if( isltz(x))
+	  if( is_ltz(x))
 	    {
 	      if (((p = floor(q)) == q)) return Nan<A0>(); 
 	      int32_t i = (int32_t)p;
@@ -155,7 +155,7 @@ namespace nt2 { namespace functors
 		  z = q - p;
 		}
 	      z = q*sinpi(z);
-	      if( iseqz(z) ) return Nan<A0>()*sgngam;
+	      if( is_eqz(z) ) return Nan<A0>()*sgngam;
 	      z = nt2::abs(z);
 	      z = Pi<A0>()/(z * stirling(q) );
 	    }
@@ -173,7 +173,7 @@ namespace nt2 { namespace functors
 	  z *= x;
 	}
       
-      while( isltz(x) )
+      while( is_ltz(x) )
 	{
 	  if( x > -1.E-9 )
 	    {
@@ -185,7 +185,7 @@ namespace nt2 { namespace functors
       
       while( x < Two<A0>() )
 	{
-	  if( iseqz(x)) return Nan<A0>(); 
+	  if( is_eqz(x)) return Nan<A0>(); 
 	  if( x < 1.e-9 )
 	    {
 	      return z / ((One<A0>() + Euler<A0>() * x) * x);

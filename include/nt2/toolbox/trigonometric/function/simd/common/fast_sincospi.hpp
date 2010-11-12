@@ -11,10 +11,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
 
 
 namespace nt2 { namespace functors
@@ -25,7 +22,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
-      meta::is_floating_point<A0>{};
+      meta::is_real_convertible<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_sincospi(const A0& a0)
@@ -36,17 +33,24 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> { typedef boost::fusion::tuple<A0, A0>  type; };
+    struct result<This(A0)>
+      {
+	typedef typename meta::as_real<A0>::type  rtype; 
+	typedef boost::fusion::tuple<rtype, rtype> type;
+      };
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
-     impl::trig_base < A0,pi_tag
-                      , fast_tag, tag::simd_type
-                      >::sincosa( a0
-                                , boost::fusion::at_c<0>(res)
-                                , boost::fusion::at_c<1>(res)
-                                );
+      NT2_FUNCTOR_CALL(1)
+      {
+	typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
+	rtype res;
+	typedef typename  boost::fusion::result_of::value_at_c<rtype,0>::type type; 
+	impl::trig_base < type,pi_tag
+	  , fast_tag, tag::simd_type
+	  >::sincosa( a0
+		      , boost::fusion::at_c<0>(res)
+		      , boost::fusion::at_c<1>(res)
+		      );
+      return res;
     }
   };
 } }

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/cospi.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace functors
 {

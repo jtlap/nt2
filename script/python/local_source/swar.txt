@@ -1,0 +1,15 @@
+swar
+ 
+put_first                     2
+splatted_sum                  1
+splatted_first                1
+splatted_prod                 1
+splatted_minimum              1
+splatted_maximum              1
+split                         1
+cumsum                        1
+sort                          1
+lookup                        2
+comparator                    3
+splatted_second               1
+group                         2

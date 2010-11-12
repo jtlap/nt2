@@ -8,15 +8,22 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/euler/include/digamma.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<digamma_> from euler
+// Scalar Runtime benchmark for functor<digamma_> from euler
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::digamma_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( digamma_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::digamma_,(RS(float,-30.0f,30.0f)))
+NT2_TIMING(nt2::functors::digamma_,(RS(double,-30.0,30.0)))
+NT2_TIMING(nt2::functors::digamma_,(RS(int32_t,-30.0,30.0)))
+
+#undef RS

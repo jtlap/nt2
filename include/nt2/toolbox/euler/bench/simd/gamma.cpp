@@ -8,15 +8,24 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/euler/include/gamma.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<gamma_> from euler
+// Simd Runtime benchmark for functor<gamma_> from euler
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::gamma_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( gamma_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::gamma_,(RS(vfloat,-30.0f,30.0f)))
+NT2_TIMING(nt2::functors::gamma_,(RS(vdouble,-30.0,30.0)))
+
+#undef RS

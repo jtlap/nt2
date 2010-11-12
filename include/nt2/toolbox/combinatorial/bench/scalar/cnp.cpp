@@ -8,16 +8,23 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/combinatorial/include/cnp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<cnp_> from combinatorial
+// Scalar Runtime benchmark for functor<cnp_> from combinatorial
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::cnp_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( cnp_ , ((nt2::uint32_t, -10, 10))
-//                    ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) , T(V2))
+
+NT2_TIMING(nt2::functors::cnp_,(RS(int64_t,-10000,10000))(RS(int64_t,-10000,10000)))
+NT2_TIMING(nt2::functors::cnp_,(RS(int32_t,-10000,10000))(RS(int32_t,-10000,10000)))
+NT2_TIMING(nt2::functors::cnp_,(RS(uint64_t,0,65535))(RS(uint64_t,0,65535)))
+NT2_TIMING(nt2::functors::cnp_,(RS(uint32_t,0,65535))(RS(uint32_t,0,65535)))
+
+#undef RS

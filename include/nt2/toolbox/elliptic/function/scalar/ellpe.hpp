@@ -16,6 +16,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -41,8 +42,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
     {
-      if (a0>One<A0>()||(isltz(a0))) return Nan<A0>(); 
-      if (iseqz(a0))  return One<A0>();
+      if (a0>One<A0>()||(is_ltz(a0))) return Nan<A0>(); 
+      if (is_eqz(a0))  return One<A0>();
       if (a0 == One<A0>()) return Pio_2<A0>(); 
       return horner< NT2_HORNER_COEFF(float, 11,
 				      (0x392102f5, 
@@ -72,8 +73,8 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      if (a0>One<A0>()||(isltz(a0))) return Nan<type>(); 
-      if (iseqz(a0))  return One<type>();
+      if (a0>One<A0>()||(is_ltz(a0))) return Nan<type>(); 
+      if (is_eqz(a0))  return One<type>();
       if (a0 == One<A0>()) return Pio_2<type>(); 
       return boost::math::ellint_2(sqrt(oneminus(type(a0))));
     }

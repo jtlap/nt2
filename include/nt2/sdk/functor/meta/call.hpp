@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
   #if defined(BOOST_HAS_VARIADIC_TMPL)
   template<class Tag, class... Args>
   struct  call<Tag(Args...)>
-				: std::tr1::result_of<functors::functor<Tag>(Args...)>
+        : std::tr1::result_of<functors::functor<Tag>(Args...)>
   {};
   #else
   #define M0(z,n,t)                                                               \
@@ -39,7 +39,7 @@ namespace nt2 { namespace meta
         : std::tr1::result_of<functors::functor<Tag>(BOOST_PP_ENUM_PARAMS(n,A))>  \
     {};                                                                           \
   /**/
-  
+
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
   #undef M0
   #endif

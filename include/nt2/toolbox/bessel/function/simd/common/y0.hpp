@@ -18,6 +18,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/j0.hpp>
 #include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/all.hpp>
 
 
 namespace nt2 { namespace functors
@@ -50,7 +51,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
       A0 x   =  abs(a0);
-      A0 lt2 = islt(x, Two<A0>());
+      A0 lt2 = lt(x, Two<A0>());
       if (all(lt2))
 	return branch1(x); 
       else
@@ -60,9 +61,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-	A0 r; 
-	map(functor<y0_>(), a0, r);
-	return r; 
+      return map(functor<y0_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
@@ -75,7 +74,7 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::scalar_of<A0>::type sA0; 
       A0 z = sqr(a0); 
-      A0 p2 = (z-integral_constant<A0, 0x3edd4b3a> ())*
+      A0 p2 = (z-single_constant<A0, 0x3edd4b3a> ())*
 	horner< NT2_HORNER_COEFF_T(sA0, 5,
 				 (0x33cb0920, 
 				  0xb71ded71, 
@@ -83,7 +82,7 @@ namespace nt2 { namespace functors
 				  0xbc81c8f4, 
 				  0x3e2edb4f
 				  ) ) > (z);
-      return p2+integral_constant<A0, 0x3f22f983>()*log(a0)*j0(a0);
+      return p2+single_constant<A0, 0x3f22f983>()*log(a0)*j0(a0);
     }
     template < class A0 > static inline A0 branch2(const A0 & a0)
     {

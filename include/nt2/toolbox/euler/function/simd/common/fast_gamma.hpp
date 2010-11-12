@@ -41,8 +41,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -55,7 +54,7 @@ namespace nt2 { namespace functors
       A0 r =  Nan<A0>(), r2=  Nan<A0>();
       A0 q =  abs(a0); 
       A0 x = a0;
-      A0 test0 = isgt(q, Fastgammalargelim<A0>()); 
+      A0 test0 = gt(q, Fastgammalargelim<A0>()); 
       int32_t nb = 0; 
       if (nb = nbtrue(test0) > 0)
 	{
@@ -66,14 +65,14 @@ namespace nt2 { namespace functors
 	  if (nb1 = nbtrue(negative) > 0)
 	    {
 	      A0 p = floor(q);
-	      A0 test1 = iseq(p, q); //must return Nan<A0>(); 
-	      sgngam = negif(iseven(p), sgngam); 
+	      A0 test1 = is_equal(p, q); //must return Nan<A0>(); 
+	      sgngam = negif(is_even(p), sgngam); 
 	      A0 z = q - p;
-	      A0 test2 = islt(z, Half<A0>() ); 
+	      A0 test2 = lt(z, Half<A0>() ); 
 	      p = seladd(test2, p, One<A0>()); 
 	      z = sel(test2, q - p, z);
 	      z = q*sinpi(z);
-	      A0 test3 = iseqz(z); 
+	      A0 test3 = is_eqz(z); 
 	      z =  nt2::abs(z);
 	      r1 = sgngam*Pi<A0>()/(z * s ); 
 	      if (nb1 >= meta::cardinal_of<A0>::value) return r1;	  
@@ -85,7 +84,7 @@ namespace nt2 { namespace functors
       A0 y2 =  other(test0, x); // computation result if ~test0
       r = sel(test0, r2, y2); 
       //     r &= b_or(y2, test0);
-      return r|isnan(a0); 
+      return r|is_nan(a0); 
       
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
@@ -123,18 +122,18 @@ namespace nt2 { namespace functors
       A0 x =  sel(test, Five<A0>()/Two<A0>(), xx);
       A0 z = One<A0>();
       A0 test1;
-      while( any(test1 = isge(x,Three<A0>())) )
+      while( any(test1 = ge(x,Three<A0>())) )
 	{
 	  x = seladd(test1, x, Mone<A0>());
 	  z = sel(   test1, z*x, z);
 	}
       A0 test2;
-      while( any(test2 = isltz(x)) )
+      while( any(test2 = is_ltz(x)) )
 	{
 	  z = sel(   test2, z/x, z);
 	  x = seladd(test2, x, One<A0>());
 	}
-      while( any(test1 =islt(x,Two<A0>())) )
+      while( any(test1 =lt(x,Two<A0>())) )
 	{
 	  z = sel(   test1, z/x, z);
 	  x = seladd(test1, x, One<A0>());

@@ -8,15 +8,26 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/acos.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
+typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<acos_> from trigonometric
+// Simd Runtime benchmark for functor<acos_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::acos_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( acos_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::acos_,(RS(vfloat,-1.0f,1.0f)))
+NT2_TIMING(nt2::functors::acos_,(RS(vdouble,-1.0,1.0)))
+NT2_TIMING(nt2::functors::acos_,(RS(vint32_t,-1.0,1.0)))
+
+#undef RS

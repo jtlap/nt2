@@ -39,10 +39,9 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     const_reference operator[](int i)     const
     {
-      /**
-       *  TODO: return eval(*this)[i];
-       **/
-      return boost::proto::value(*this)[i];
+      data<Type,Cardinal> that;
+      that.evaluate(*this);
+      return that[i];
     }
   };
 } }

@@ -34,7 +34,8 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A2>
     struct result<This(A0, A0, A2)>
     {
-      typedef boost::fusion::tuple<A0,A0, bool>     type;
+      typedef typename meta::strip<A0>::type           stA0; 
+      typedef boost::fusion::tuple<stA0,stA0,bool>     type;
     };
 
     NT2_FUNCTOR_CALL(3)

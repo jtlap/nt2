@@ -8,15 +8,26 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/euler/include/spence.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
+typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<spence_> from euler
+// Simd Runtime benchmark for functor<spence_> from euler
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::spence_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( spence_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::spence_,(RS(vfloat,0.0f,100.0f)))
+NT2_TIMING(nt2::functors::spence_,(RS(vdouble,0.0,100.0)))
+NT2_TIMING(nt2::functors::spence_,(RS(vint32_t,0.0,100.0)))
+
+#undef RS

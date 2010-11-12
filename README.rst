@@ -39,6 +39,8 @@ User Documentation
 Developer Documentation
 :::::::::::::::::::::::
 
+`This documentation <http://nt2.lri.fr/sdk.html#>`_ clarifies the internals of **NT**:sup:`2` and helps potential contributors to design new features or to fix bugs.
+
 ----------
 References
 ----------
@@ -54,6 +56,7 @@ NT2 uses the `Boost Software License <http://www.boost.org/LICENSE_1_0.txt>`_. A
 Contact
 ----------
 
+:Website: http://nt2.metascale.org
 :Mailing List: `nt2-dev <http://groups.google.com/group/nt2-dev>`_
-:Repository: `nt2 on GitHub <http://github/jfalcou/nt2>`_
+:Repository: `nt2 on GitHub <http://github/MetaScale/nt2>`_
 :IRC: #nt2 at `irc.freenode.net <http://freenode.net>`_ 

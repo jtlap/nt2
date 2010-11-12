@@ -45,13 +45,13 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,       float)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(isltz(a1))) return Nan<type>(); 
-      if (iseqz(a1))  return a0;
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
+      if (is_eqz(a1))  return a0;
       type phi = nt2::abs(a0);
       type m = a1; 
       type a = 1.0;
       type b = oneminus(m);
-      if( iseqz(b) )	return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
+      if( is_eqz(b) )	return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
       b = nt2::sqrt(b);
       type c = nt2::sqrt(m);
       int d = 1;
@@ -70,14 +70,14 @@ namespace nt2 { namespace functors
 	  d += d;
 	}
       type temp = (atan(t) + mod * Pi<type>())/(d * a);
-      if( isltz(a0) )  temp = -temp;
+      if( is_ltz(a0) )  temp = -temp;
       return temp;	
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, double)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(isltz(a1))) return Nan<type>(); 
-      if (iseqz(a1))  return type(a0);
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
+      if (is_eqz(a1))  return type(a0);
       return boost::math::ellint_1(nt2::sqrt(a1), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)

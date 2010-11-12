@@ -10,7 +10,13 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_POWI_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/include/functions/abs.hpp>
-
+#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/shri.hpp>
 namespace nt2 { namespace functors
 {
 
@@ -19,8 +25,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::is_integral<A1>{};
+    struct result<This(A0,A1)> :  meta::is_integral<A1>{};
   }; 
   /////////////////////////////////////////////////////////////////////////////
   // Compute powi(const A0& a0, const A1& a1)
@@ -41,7 +46,7 @@ namespace nt2 { namespace functors
       A1 sign_n = signnz(a1);
       A1 n = abs(a1);
       
-      type n_oddf = isodd(n);
+      type n_oddf = is_odd(n);
       type nf = n_oddf;
       
       type y = madd(n_oddf,x,one-n_oddf);
@@ -51,7 +56,7 @@ namespace nt2 { namespace functors
       while( n )
 	{
 	  w =sqr( w);
-	  n_oddf = isodd(n);
+	  n_oddf = is_odd(n);
 	  y = y*madd(n_oddf,w,one-n_oddf);
 	  n >>=1;
 	}

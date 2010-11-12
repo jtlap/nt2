@@ -39,8 +39,8 @@ namespace nt2 { namespace functors
     {
       typedef typename boost::result_of<meta::floating(A0, A1)>::type type;
       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
-      if (isngez(a0)||isngez(a1)) return Nan<type>();
-      if (islt(a0,a1)) return Zero<type>();
+      if (is_ngez(a0)||is_ngez(a1)) return Nan<type>();
+      if (lt(a0,a1)) return Zero<type>();
       const type n = oneplus(round2even(a0));
       const type p = round2even(a1);
       return (rtype)round2even(exp(gammaln(n)-gammaln(n-p)));

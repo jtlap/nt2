@@ -12,6 +12,8 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/rec.hpp>
+
 
 
 namespace nt2 { namespace functors
@@ -47,9 +49,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-       A0 r;
-       map(functor<asech_>(), a0, r);
-       return r; 
+       return  map(functor<asech_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,  arithmetic_)
     {

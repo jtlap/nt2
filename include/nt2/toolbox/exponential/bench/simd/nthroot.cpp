@@ -8,16 +8,28 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/exponential/include/nthroot.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<float,ext_t> vfloat;
+typedef nt2::simd::native<double,ext_t> vdouble;
+typedef nt2::simd::native<int64_t,ext_t> vint64_t;
+typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<nthroot_> from exponential
+// Simd Runtime benchmark for functor<nthroot_> from exponential
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::nthroot_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( nthroot_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10))
-//                        ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::nthroot_,(RS(vfloat,-10000.0f,10000.0f))(RS(vint32_t,0,31)))
+NT2_TIMING(nt2::functors::nthroot_,(RS(vdouble,-10000.0,10000.0))(RS(vint64_t,0,63)))
+
+
+
+#undef RS

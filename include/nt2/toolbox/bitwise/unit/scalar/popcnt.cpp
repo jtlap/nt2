@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( popcnt,  (nt2::uint64_t)(nt2::int64_t)
   using nt2::functors::popcnt_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<popcnt_(T)>::type
-	     ,int
+	     , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
   NT2_TEST_EQUAL(  popcnt( T(1)), 1 );
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( real_popcnt,  (double)
   using nt2::functors::popcnt_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<popcnt_(T)>::type
-	     ,int
+	     ,typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
   NT2_TEST_EQUAL(  popcnt( T(nt2::Nan<T>())), sizeof(T)*8 );
