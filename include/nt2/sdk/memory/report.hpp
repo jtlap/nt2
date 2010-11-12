@@ -6,40 +6,33 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONFIG_ARCH_HPP_INCLUDED
-#define NT2_SDK_CONFIG_ARCH_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_REPORT_HPP_INCLUDED
+#define NT2_SDK_MEMORY_REPORT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Architecture configuration headers
-// Defines architecture symbols for architecture related variation point.
-// Documentation: http://nt2.lri.fr/sdk/config/architecture.html
+// Memory config header
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/config.hpp>
-#include <boost/version.hpp>
 #include <nt2/sdk/config/bootstrap.hpp>
-#include <nt2/sdk/config/details/boost.hpp>
 #include <nt2/sdk/config/details/reporter.hpp>
-
-//  #include <nt2/extensions/sdk/config/arch.hpp>
-#include <nt2/sdk/config/arch/powerpc.hpp>
-#include <nt2/sdk/config/arch/x86.hpp>
-#include <nt2/sdk/config/arch/ia64.hpp>
-#include <nt2/sdk/config/arch/none.hpp>
-
-//#include <nt2/support/config/arch/spec.hpp>
-//#include <nt2/support/config/arch/endian.hpp>
 
 namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Status header reporter - Head for the reporter list
+  // Memory configuration status reporter
   //////////////////////////////////////////////////////////////////////////////
-  inline void architecture()
+  inline void memories()
   {
-    puts(" CPU Architecture        : " NT2_ARCH_STRING "\n");
+    printf(" Memory alignment        : %d\n", NT2_CONFIG_ALIGNMENT );
+    #if defined(NT2_CONFIG_SUPPORT_POSIX_MEMALIGN)
+      puts(" Memory allocation       : posix_memalign\n\n");
+    #elif defined(_MSC_VER)
+      puts(" Memory allocation       : _aligned_malloc\n\n");
+    #else
+      puts(" Memory allocation       : pointer stashing\n\n");
+    #endif
   }
 
-  NT2_REGISTER_STATUS(architecture);
+  NT2_REGISTER_STATUS(memories);
 } }
 
 #endif

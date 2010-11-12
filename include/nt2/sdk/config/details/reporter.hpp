@@ -49,7 +49,7 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  static void status_headers()
+  inline void status_headers()
   {
     puts("/****************************************************************\\");
     puts( "|                   NT2 v3.0 - Ophelia release                   |");
