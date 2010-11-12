@@ -12,6 +12,7 @@
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/cosd.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -24,3 +25,22 @@ NT2_TEST_CASE_TPL(pack_default_ctor, NT2_SIMD_TYPES )
   using nt2::simd::pack;
   pack<float> x;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Test pack computations
+////////////////////////////////////////////////////////////////////////////////
+
+NT2_TEST_CASE(pack_)
+{
+  using nt2::simd::pack;
+  pack<float> x(2);
+
+  std::cout << x << "\n";
+  x = x + x;
+  std::cout << x << "\n";
+  x = 2*x+1;
+  std::cout << x << "\n";
+  x = nt2::cosd(x*10);
+  std::cout << x << "\n";
+}
+
