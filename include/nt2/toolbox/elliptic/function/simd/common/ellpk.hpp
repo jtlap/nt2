@@ -72,8 +72,8 @@ namespace nt2 { namespace functors
 					      0x3e000000, 
 					      0x3f000000
 					      ) ) > (a0);
-         return select(isnez(a0), b_or(b_or(isltz(a0),
-			  isgt(a0, One<A0>())), z), Inf<A0>());
+         return select(is_nez(a0), b_or(b_or(is_ltz(a0),
+			  gt(a0, One<A0>())), z), Inf<A0>());
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
@@ -106,8 +106,8 @@ namespace nt2 { namespace functors
 					      0x3fe0000000000000ll					      
 					      ) ) > (a0);
     
-        return select(isnez(a0), b_or(b_or(isltz(a0),
-			 isgt(a0, One<A0>())), z), Inf<A0>());
+        return select(is_nez(a0), b_or(b_or(is_ltz(a0),
+			 gt(a0, One<A0>())), z), Inf<A0>());
     }
   };
 } }

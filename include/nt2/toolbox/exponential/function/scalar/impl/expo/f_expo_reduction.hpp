@@ -31,12 +31,12 @@ namespace nt2
       {
         static inline A0 isgemaxlog(const A0 & a0)
         {
-          return is_ge(a0,integral_constant<A0,0x42b17218>());
+          return ge(a0,single_constant<A0,0x42b17218>());
         }
 
         static inline A0 isleminlog(const A0 & a0)
         {
-          return is_le(a0,integral_constant<A0,0xc2b17218>());
+          return le(a0,single_constant<A0,0xc2b17218>());
         }
 
         static inline A0 approx(const A0& x)
@@ -52,8 +52,8 @@ namespace nt2
         static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
         {
           A0 k = round2even(Invlog_2<A0>()*a0);
-          hi = a0-k*integral_constant<A0,0x3f318000>();
-          lo = k*integral_constant<A0,0xb95e8083>();
+          hi = a0-k*single_constant<A0,0x3f318000>();
+          lo = k*single_constant<A0,0xb95e8083>();
           x =  hi-lo;
           return k;
         }
@@ -63,12 +63,12 @@ namespace nt2
       {
         static inline A0 isgemaxlog(const A0 & a0)
         {
-          return is_ge(a0,integral_constant<A0,0x42fe0000>());
+          return ge(a0,single_constant<A0,0x42fe0000>());
         }
 
         static inline A0 isleminlog(const A0 & a0)
         {
-          return is_le(a0,integral_constant<A0,0xc2fe0000>());
+          return le(a0,single_constant<A0,0xc2fe0000>());
         }
 
         static inline A0 approx(const A0& x)
@@ -93,29 +93,29 @@ namespace nt2
       {
         static inline A0 isgemaxlog(const A0 & a0)
         {
-          return is_ge(a0,integral_constant<A0,0x4218ec59 >());
+          return ge(a0,single_constant<A0,0x4218ec59 >());
         }
 
         static inline A0 isleminlog(const A0 & a0)
         {
-          return is_le(a0,integral_constant<A0, 0xc2179999 >());
+          return le(a0,single_constant<A0, 0xc2179999 >());
         }
 
         static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
         {
-          A0 k = round2even(integral_constant<A0,0x40549a78>()*a0);
-          x = a0-k*integral_constant<A0,0x3e9a0000>();
-          x -=  k*integral_constant<A0,0x39826a13>();
+          A0 k = round2even(single_constant<A0,0x40549a78>()*a0);
+          x = a0-k*single_constant<A0,0x3e9a0000>();
+          x -=  k*single_constant<A0,0x39826a13>();
           return k;
         }
 
         static inline A0 approx(const A0& x)
         {
           const A0 x2 =  sqr(x);
-          A0 y1 = madd(integral_constant<A0,0x3e5345fd>(), x2,integral_constant<A0,0x3f95eceb>());
-          A0 y2 = madd(integral_constant<A0,0x3f0ac229>(), x2,integral_constant<A0,0x400237b4>());
-          y1    = madd(y1, x2, integral_constant<A0,0x4029a924>());
-          y2    = madd(y2, x2, integral_constant<A0,0x40135d8e>());
+          A0 y1 = madd(single_constant<A0,0x3e5345fd>(), x2,single_constant<A0,0x3f95eceb>());
+          A0 y2 = madd(single_constant<A0,0x3f0ac229>(), x2,single_constant<A0,0x400237b4>());
+          y1    = madd(y1, x2, single_constant<A0,0x4029a924>());
+          y2    = madd(y2, x2, single_constant<A0,0x40135d8e>());
           return oneplus(x*madd(x, y1, y2));
         }
       };

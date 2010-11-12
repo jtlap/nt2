@@ -49,7 +49,7 @@ namespace nt2 { namespace functors
       if (x <= Two<A0>())
         {
           A0 z = sqr(x);
-          return (z-integral_constant<float,0x40b90fdc> ())*
+          return (z-single_constant<float,0x40b90fdc> ())*
             horner< NT2_HORNER_COEFF_T(stype, 5,
                    (0xb382511c,
               0x36d660a0,

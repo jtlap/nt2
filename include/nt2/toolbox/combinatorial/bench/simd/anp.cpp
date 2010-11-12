@@ -8,16 +8,28 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/combinatorial/include/anp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <cmath>
+
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef nt2::simd::native<int64_t,ext_t> vint64_t;
+typedef nt2::simd::native<int32_t,ext_t> vint32_t;
+typedef nt2::simd::native<uint64_t,ext_t> vuint64_t;
+typedef nt2::simd::native<uint32_t,ext_t> vuint32_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<anp_> from combinatorial
+// Simd Runtime benchmark for functor<anp_> from combinatorial
 //////////////////////////////////////////////////////////////////////////////
 using nt2::functors::anp_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( anp_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10))
-//                    ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, V1 , V2)
+
+NT2_TIMING(nt2::functors::anp_,(RS(vint64_t,-10000,10000))(RS(vint64_t,-10000,10000)))
+NT2_TIMING(nt2::functors::anp_,(RS(vint32_t,-10000,10000))(RS(vint32_t,-10000,10000)))
+NT2_TIMING(nt2::functors::anp_,(RS(vuint64_t,0,65535))(RS(vuint64_t,0,65535)))
+NT2_TIMING(nt2::functors::anp_,(RS(vuint32_t,0,65535))(RS(vuint32_t,0,65535)))
+
+#undef RS

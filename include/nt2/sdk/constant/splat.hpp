@@ -16,35 +16,27 @@ namespace nt2 { namespace functors
 {
   template<class T> struct splat_ {};
 
-  ////////////////////////////////////////////////////////////////////////////
-  // splat_ perform type dispatching based on the category of its target type
-  // Hence, we need a specialized functor all together.
-  ////////////////////////////////////////////////////////////////////////////
-  template<class T,class Info> struct functor< splat_<T>, Info >
+  //////////////////////////////////////////////////////////////////////////////
+  // We only splat scalar values into T
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,class Category, class Info>
+  struct  validate< splat_<T>, Category, Info>
   {
-    struct validate
-    {
-      template<class Sig> struct result;
-      template<class This,class A0>
-      struct  result<This(A0)> : meta::is_scalar<A0> {};
-    };
-
     template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)>
-    {
-      typedef typename meta::category_of<T>::type::tag    dominant;
-      typedef functors::call<splat_<T>,dominant,Info>     callee;
-  	  typedef typename std::tr1::result_of<callee(A0)>::type type;
-    };
+    template<class This,class A0>
+    struct  result<This(A0)> : meta::is_scalar<A0> {};
+  };
+} }
 
-    template<class A0> inline
-    typename meta::enable_call<splat_<T>(A0)>::type
-    operator()(A0 const& a0) const
-    {
-      typedef typename meta::category_of<T>::type::tag    dominant;
-      functors::call<splat_<T>,dominant,Info>     callee;
-      return callee(a0);
-    }
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // splat category is given by T
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,class Info, class A0>
+  struct categorize<functors::splat_<T>,Info,A0>
+  {
+    typedef typename meta::category_of<T>::type::tag type;
   };
 } }
 

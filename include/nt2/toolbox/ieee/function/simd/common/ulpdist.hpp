@@ -20,6 +20,43 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 
+///////////////////////////////////////////////////////////////////////////////
+// It is often difficult to  answer to the following question:
+//  - are these two floating computations results similar enough ?
+//
+// The ulpdist is a way to answer tuned for relative errors estimations
+// and peculiarity of limited bits accuracy of floating point representation
+// The method is the following:
+//    Properly normalize the two numbers by the same factor in a way that 
+//    the largest of the two numbers exponents will be brought to zero
+//
+//    Return this absolute difference of these normalized numbers
+//    divided by the rounding error Eps
+//
+//    The roundind error is the ulp (unit in the last place) value, i.e. the
+//    floating number, the exponent of which is 0 and the mantissa is all zeros
+//    but a 1 in the last digit (it is not hard coded that way however).
+//    Yhis means 2^-23 for floats and 2^-52 for double
+//
+//    For instance if two floating numbers (of same type) have an ulpdist of 
+//    zero that means that their floating representation are identical.
+//
+//    Generally equality up to 0.5ulp is the best that one can wish beyond
+//    strict equality.
+//
+//    Typically if a double is compared to the double representation of
+//    its floating conversion (they are exceptions as for fully representable
+//    reals) the ulpdist will be around 2^26.5 (~10^8)
+//
+//    The ulpdist is also roughly equivalent to the number of representable
+//    floating points values between two given floating points values.
+//
+//     ulpdist( 1.0, 1+nt2::Eps<double>())   == 0.5
+//     ulpdist( 1.0, 1+nt2::Eps<double>()/2) == 0.0
+//     ulpdist( 1.0, 1-nt2::Eps<double>()/2) == 0.25
+//     ulpdist( 1.0, 1-nt2::Eps<double>())   == 0.5 
+//     ulpdist(double(nt2::Pi<float>()), nt2::Pi<double>()) == 9.84293e+07
+///////////////////////////////////////////////////////////////////////////////
 
 namespace nt2 { namespace functors
 {

@@ -30,9 +30,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,boost::mpl::false_)
     {
-      T that;
+      typename T::base_type values;
       for(typename T::size_type i=0;i<T::static_size;++i)
-        that[i] = a0[T::static_size*a1+Offset+i];
+        values[i] = a0[T::static_size*a1+Offset+i];
+
+      T that(values);
       return that;
     }
   };

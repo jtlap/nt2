@@ -38,7 +38,7 @@ namespace nt2 { namespace functors
 	type x = a0; 
 	if (x > One<A0>()) return Nan<type>(); 
 	if (x == One<A0>())  return Inf<type>();
-	if (iseqz(x))      return Pio_2<type>();
+	if (is_eqz(x))      return Pio_2<type>();
 	return boost::math::ellint_1(x);
     }
   };

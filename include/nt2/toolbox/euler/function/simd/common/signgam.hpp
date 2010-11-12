@@ -44,9 +44,9 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(1)
     {
       A0 leza0 =  is_lez(a0);
-      return b_or(b_and(leza0,isflint(a0)),
+      return b_or(b_and(leza0,is_flint(a0)),
 		  selsub(leza0,One<A0>(),
-			 sb2b(isodd(floor(a0)))*Two<A0>()
+			 sb2b(is_odd(floor(a0)))*Two<A0>()
 			 )
 		  ); 
     }

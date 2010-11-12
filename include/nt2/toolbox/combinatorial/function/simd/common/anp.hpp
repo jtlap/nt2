@@ -35,9 +35,8 @@ namespace nt2 { namespace functors
     )
     NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
     {
- 	A0 r; 
-	map(functor<anp_>(),a0,a1,r);
-	return r; 
+	return map(functor<anp_>(),a0,a1);
+
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {

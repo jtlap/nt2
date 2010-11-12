@@ -18,6 +18,7 @@
 #include <boost/type_traits/has_trivial_assign.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/type_traits/has_trivial_constructor.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace details
 {
@@ -39,24 +40,26 @@ namespace nt2 { namespace details
     typedef typename allocator_type::difference_type          index_type;
 
     ////////////////////////////////////////////////////////////////////////////
+    // Build Base/Size value types
+    ////////////////////////////////////////////////////////////////////////////
+    typedef typename meta::strip<Base>::type  base_value_type;
+    typedef typename meta::strip<Size>::type  size_value_type;
+
+    ////////////////////////////////////////////////////////////////////////////
     // Is buffer size completely static
     ////////////////////////////////////////////////////////////////////////////
     BOOST_STATIC_CONSTANT ( bool, is_static_value =
-                                  !boost::is_arithmetic<Base>::value
-                              &&  !boost::is_arithmetic<Size>::value
+                                  !boost::is_arithmetic<base_value_type>::value
+                              &&  !boost::is_arithmetic<size_value_type>::value
                           );
-    typedef boost::mpl::bool_<!boost::is_arithmetic<Base>::value> has_static_base;
-    typedef boost::mpl::bool_<!boost::is_arithmetic<Size>::value> has_static_size;
+    typedef boost::mpl::bool_<!boost::is_arithmetic<base_value_type>::value> has_static_base;
+    typedef boost::mpl::bool_<!boost::is_arithmetic<size_value_type>::value> has_static_size;
     typedef boost::mpl::bool_<is_static_value>                    is_static;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Buffer data holder type
-    ////////////////////////////////////////////////////////////////////////////
-    typedef buffer_impl<value_type,allocator_type> data_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation data
     ////////////////////////////////////////////////////////////////////////////
+    typedef buffer_impl<value_type,allocator_type> data_type;
     data_type impl;
 
     ////////////////////////////////////////////////////////////////////////////
@@ -105,15 +108,12 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // default_init checks for staticallity before calling init()
     ////////////////////////////////////////////////////////////////////////////
-    void default_init()
-    {
-      if(is_static::value) init(Base(),Size());
-    }
+    void default_init() { if(is_static::value) init(base_value_type(),size_value_type()); }
 
     ////////////////////////////////////////////////////////////////////////////
     // init allocates memory and performs construction iif T is not trivial
     ////////////////////////////////////////////////////////////////////////////
-    void init( Base const& b, Size const& s )
+    void init( base_value_type const& b, size_value_type const& s )
     {
       impl.allocate(b,s);
       construct(s,typename boost::has_trivial_constructor<value_type>::type());
@@ -145,17 +145,17 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // resize current buffer
     ////////////////////////////////////////////////////////////////////////////
-    void resize( Size const& s )
+    void resize( size_value_type const& s )
     {
-      if(!has_static_size::value) impl.resize(s);
+      impl.resize(s);
     }
 
-    void rebase( Base const& b )
+    void rebase( base_value_type const& b )
     {
-      if(!has_static_base::value) impl.rebase(b);
+      impl.rebase(b);
     }
 
-    void restructure( Base const& b, Size const& s )
+    void restructure( base_value_type const& b, size_value_type const& s )
     {
       resize(s);
       rebase(b);

@@ -25,18 +25,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (1, (arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+    NT2_FUNCTOR_CALL(1)
     {
-      return asinh(rec(a0));
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      return asinh(rec(type(a0)));
     }
   };
 } }

@@ -13,6 +13,7 @@
 #include <nt2/sdk/constant/real.hpp>
 
 #include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/floor.hpp>
@@ -40,6 +41,7 @@ namespace nt2 { namespace functors
     )
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
+      if (is_inf(a0)) return Inf<A0>(); 
       A0 x =  nt2::abs(a0); 
       /* Represent x as an exact multiple of 1/32 plus a residual.  */
       A0 m = Expx2c1<A0>() * floor(Expx2c2<A0>() * x + Half<A0>());

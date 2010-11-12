@@ -37,7 +37,7 @@ namespace nt2
 	  A0 x;
 	  int_type k;
 	  boost::fusion::tie(x, k) = fast_frexp(a0);
-	  const int_type x_lt_sqrthf = simd::native_cast<int_type>(isgt(Sqrt_2o_2<A0>(), x));
+	  const int_type x_lt_sqrthf = simd::native_cast<int_type>(gt(Sqrt_2o_2<A0>(), x));
 	  k = k+x_lt_sqrthf;
 	  f = minusone(x+b_and(x, x_lt_sqrthf));
 	  dk = tofloat(k);
@@ -65,10 +65,10 @@ namespace nt2
 	  // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
 	  A0 dk, hfsq, s, R, f;
 	  kernel_log(a0, dk, hfsq, s, R, f);
-	  A0 y2 =  mul(dk, integral_constant<A0, 0x3fe62e42fee00000ll>())-
-	    ((hfsq-(s*(hfsq+R)+mul(dk,integral_constant<A0, 0x3dea39ef35793c76ll>())))-f);
+	  A0 y2 =  mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
+	    ((hfsq-(s*(hfsq+R)+mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
 	  A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
-	  return seladd(isinf(y1),b_or(y2, b_or(isltz(a0), isnan(a0))),y1);
+	  return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
 	static inline A0 log2(const  A0& a0)
 	{
@@ -76,7 +76,7 @@ namespace nt2
 	  kernel_log(a0, dk, hfsq, s, R, f);
 	  A0 y2 = -(hfsq-(s*(hfsq+R))-f)*Invlog_2<A0>()+dk;
 	  A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
-	  return seladd(isinf(y1),b_or(y2, b_or(isltz(a0), isnan(a0))),y1);
+	  return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
 	
 	static inline A0 log10(const  A0& a0)
@@ -85,7 +85,7 @@ namespace nt2
 	  kernel_log(a0, dk, hfsq, s, R, f);
 	  A0 y2 = -(hfsq-(s*(hfsq+R))-f)*Invlog_10<A0>()+dk*Log_2olog_10<A0>();
 	  A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
-	  return seladd(isinf(y1),b_or(y2, b_or(isltz(a0), isnan(a0))),y1);
+	  return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
       };
     }

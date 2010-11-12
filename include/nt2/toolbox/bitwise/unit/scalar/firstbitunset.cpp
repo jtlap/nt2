@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( firstbitunset,  (double)(nt2::uint64_t)(nt2::int64_t)
   using nt2::functors::firstbitunset_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<firstbitunset_(T)>::type
-	     , typename nt2::meta::as_integer<T, signed>::type
+	     , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
 }
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( firstbitunset_1,  (nt2::uint64_t)(nt2::int64_t)
   using nt2::functors::firstbitunset_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<firstbitunset_(T)>::type
-	     , typename nt2::meta::as_integer<T, signed>::type
+	     , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
   NT2_TEST_EQUAL(  firstbitunset( T(1)), 2 );

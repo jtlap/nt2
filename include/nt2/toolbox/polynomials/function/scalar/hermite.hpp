@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_HERMITE_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_HERMITE_HPP_INCLUDED
-#include <boost/math/special_functions.hpp>
+//#include <boost/math/special_functions.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-
+#include <nt2/sdk/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -20,7 +20,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :boost::is_integral<A0>{};
+      struct result<This(A0,A1)> :meta::is_integral<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute hermite(const A0& a0, const A1& a1)
@@ -31,7 +31,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
-      boost::result_of<meta::floating(A0,A1)>{};
+      boost::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
@@ -41,9 +41,9 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
     {
-      A0 p0 = One<A1>();
+      A1 p0 = One<A1>();
       if(a0 == 0) return p0;
-      A0 p1 = a0+a0;
+      A1 p1 = a1+a1;
       uint32_t c = 1;
       while(c < a0)
 	{
@@ -52,7 +52,6 @@ namespace nt2 { namespace functors
 	  ++c;
 	}
       return p1;
-      //return boost::math::tr1::hermite(a0, a1); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
     {
@@ -60,9 +59,9 @@ namespace nt2 { namespace functors
       return nt2::hermite(a0, type(a1)); 
     }
   private:
-    template <class T>
+    template <class T, class T1, class T2>
     static inline T 
-    hermite_next(uint32_t n, T x, T Hn, T Hnm1)
+    hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
     {
       return (2 * x * Hn - 2 * n * Hnm1);
     }

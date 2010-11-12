@@ -8,11 +8,59 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - unit/scalar Mode"
 
-#include <nt2/toolbox/exponential/include/exp2.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/functor/meta/call.hpp> 
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/toolbox/exponential/include/exp2.hpp> 
+#include <nt2/sdk/unit/tests.hpp> 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/log2.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of exponential components using NT2_TEST_CASE
+// Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( exp2, (double) 
+		    (float) 
+		    )
+{
+  using nt2::exp2; 
+  using nt2::functors::exp2_;
+  const int N = 2; 
+   NT2_TEST( (boost::is_same < typename nt2::meta::call<exp2_(T)>::type
+	      , T
+ 	     >::value)
+ 	    );
+   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
+   NT2_TEST_EQUAL(  nt2::exp2( T(0) )  , 1 );
+   NT2_TEST_EQUAL(  nt2::exp2( T(1) )  , T(2) );
+   NT2_TEST_EQUAL(  nt2::exp2(nt2::Minf<T>() ), T(0.0)); 
 
+   for(int i=0; i < 10; i++)
+     {
+       T x =  i; 
+       NT2_TEST_LESSER(nt2::ulpdist(x, nt2::log2(nt2::exp2(x))), 2); 
+     }
+}
+NT2_TEST_CASE_TPL ( conv_exp2, NT2_TYPES 
+		    )
+{
+  using nt2::exp2; 
+  using nt2::functors::exp2_;
+  const int N = 2; 
+   NT2_TEST( (boost::is_same < typename nt2::meta::call<exp2_(T)>::type
+	      ,  typename boost::result_of<nt2::meta::floating(T)>::type
+ 	     >::value)
+ 	    );
+   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
+   NT2_TEST_EQUAL(  nt2::exp2( T(0) )  , r_t(1) );
+   NT2_TEST_EQUAL(  nt2::exp2( T(1) )  , r_t(2) );
+
+   for(int i=0; i < 10; i++)
+     {
+       T x =  i; 
+       NT2_TEST_LESSER(nt2::ulpdist(r_t(x), nt2::log2(nt2::exp2(x))), 2); 
+     }
+}

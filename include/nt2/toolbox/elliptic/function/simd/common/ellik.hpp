@@ -83,13 +83,11 @@ namespace nt2 { namespace functors
       }
       A0 temp = (atan(t) + mod * Pi<A0>())/(d * a);
       temp = b_xor(temp, bitofsign(a0));
-      return b_or(b_or(isltz(a1), isgt(a1, One<A0>())), temp);
+      return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2, double)
     {
-        A0 r;
-        map(functor<ellik_>(), a0, a1, r);
-        return r;
+      return map(functor<ellik_>(), a0, a1);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
     {

@@ -41,9 +41,14 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Constructors from various sources
     ////////////////////////////////////////////////////////////////////////////
-    data() : mData() {}
+    data()                  : mData()   {}
+    data(parent const& a0)  : mData(a0) {}
 
-    data(parent const& a0) : mData(a0) {}
+    data& operator=(data const& a0)
+    {
+      mData = a0.mData;
+      return *this;
+    }
 
     data& operator=(parent const& a0)
     {

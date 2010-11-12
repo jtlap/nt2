@@ -8,8 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_POLYNOMIALS_HPP_INCLUDED
+#include <nt2/toolbox/polynomials/categorize.hpp>
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/polynomials/include/plevl.hpp>
 #include <nt2/toolbox/polynomials/include/polevl.hpp>
 #include <nt2/toolbox/polynomials/include/tchebeval.hpp>
 #include <nt2/toolbox/polynomials/include/legendre.hpp>

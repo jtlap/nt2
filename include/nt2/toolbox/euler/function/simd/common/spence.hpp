@@ -39,8 +39,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
@@ -72,16 +71,16 @@ namespace nt2 { namespace functors
 	}};
       static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>(); 
       A0 x = a0; 
-      A0 flag2 =  isgt(x, Two<A0>());
+      A0 flag2 =  gt(x, Two<A0>());
       x = sel(flag2, rec(x), x);
-      A0 flag =  isgt(x,One<A0>()+Half<A0>());
-      A0 flag1=  islt(x,Half<A0>());
+      A0 flag =  gt(x,One<A0>()+Half<A0>());
+      A0 flag1=  lt(x,Half<A0>());
       flag2 |= flag; 
       A0 w =  sel(flag, minusone(rec(x)), sel(flag1, -x, minusone(x))); 
       A0 y = -w*polevl(w,A)/polevl(w,B);
       y = sel(flag1, C -log(x) * log(One<A0>()-x)-y,y);
       y = sel(flag2, Mhalf<A0>()*sqr(log(x))-y,y);
-      return sel(iseqz(a0), C, y); 
+      return sel(is_eqz(a0), C, y); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

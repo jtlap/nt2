@@ -76,14 +76,12 @@ namespace nt2 { namespace functors
 					       0x3dc00000,
 					       0x3e800000
 					       ) ) > (a);
-      return is_gt(x,One<A0>())|z;
+      return gt(x,One<A0>())|z;
      }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-	A0 r;
-	map(functor<ellint_2_>(), a0, r);
-	return r;
+      return map(functor<ellint_2_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

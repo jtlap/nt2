@@ -13,6 +13,11 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 
+// namespace nt2 { namespace details
+// {
+//   template<class T,std::size_t N> struct  category_of<boost::array<T,N> >       : details::category_of_impl<T> {};
+// }}
+
 namespace nt2 { namespace functors
 {
   /////////////////////////////////////////////////////////////////////////////

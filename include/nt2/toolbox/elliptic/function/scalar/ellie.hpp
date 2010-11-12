@@ -52,8 +52,8 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2,       float)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(isltz(a1))) return Nan<type>(); 
-      else if (iseqz(a1))
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
+      else if (is_eqz(a1))
 	return a0;
       else if (a1 == One<A1>())
 	return nt2::sin(a0); 
@@ -86,7 +86,7 @@ namespace nt2 { namespace functors
 	  type temp = nt2::ellpe(b)/nt2::ellpk(b);
 	  temp *= (nt2::atan(t) + mod * Pi < float>())/(d * a);
 	  temp += e;
-	  if(isltz(a0))  temp = -temp;
+	  if(is_ltz(a0))  temp = -temp;
 	  return temp ;
 	}
       }
@@ -94,8 +94,8 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(2, double)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(isltz(a1))) return Nan<type>(); 
-      if (iseqz(a1))  return type(a0);
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
+      if (is_eqz(a1))  return type(a0);
       return boost::math::ellint_2(nt2::sqrt(type(a1)), type(a0));
     }
     

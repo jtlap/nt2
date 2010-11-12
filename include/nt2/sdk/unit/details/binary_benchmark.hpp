@@ -19,6 +19,7 @@
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
+#include <nt2/include/functions/max.hpp>
 
 template<class T0,class T1
         ,class Dummy,class Func
@@ -36,7 +37,6 @@ void timing_test( Func callee, size_t size
 
   // output value
   typedef typename std::tr1::result_of<Func(r_in0,r_in1)>::type  out_t;
-  typedef typename nt2::meta::scalar_of<out_t>::type            rout_t;
   static out_t                                                  out;
 
   // Input samples
@@ -62,13 +62,16 @@ void timing_test( Func callee, size_t size
 
   std::vector<double> timings;
   double c(0.),t(0.);
+  static const size_t c0 = nt2::meta::cardinal_of<r_in0>::value;
+  static const size_t c1 = nt2::meta::cardinal_of<r_in1>::value;
+  static const size_t nb =  (c0 < c1) ? c1 : c0; 
 
   do
   {
     nt2::tic();
     {
       nt2::ctic();
-      for(size_t i=0; i<size/nt2::meta::cardinal_of<r_in0>::value; i++)
+      for(size_t i=0; i<size/nb; i++)
       {
         out = callee(nt2::load<r_in0>(&in0[0],i),nt2::load<r_in1>(&in1[0],i));
       }

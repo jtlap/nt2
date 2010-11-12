@@ -49,12 +49,15 @@ namespace nt2 { namespace details
       as_base(s, b);
     }
 
-    void rebase(difference_type b) { as_base(end_ - begin_, b); }
+    void rebase(difference_type b)
+    {
+      as_base(end_ - begin_, b);
+    }
 
     void as_base(size_type size, difference_type lower)
     {
-      begin_        = origin_ - lower;
-      end_          = begin_  + size;
+      begin_  = origin_ - lower;
+      end_    = begin_  + size;
     }
 
     void swap(buffer_impl& src)

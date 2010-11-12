@@ -17,6 +17,8 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/all.hpp>
+
 
 
 namespace nt2 { namespace functors
@@ -49,7 +51,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
       A0 x   =  abs(a0);
-      A0 lt2 = islt(x, Two < A0>());
+      A0 lt2 = lt(x, Two < A0>());
       if (all(lt2))
 	return branch1(x);
       else
@@ -59,9 +61,7 @@ namespace nt2 { namespace functors
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-	A0 r;
-	map(functor<j1_>(), a0, r);
-	return r;
+	return map(functor<j1_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {
@@ -74,7 +74,7 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::scalar_of<A0>::type stype; 
       const A0 z = sqr(x);
-      return (z-integral_constant<A0,0x416ae95a> ())*x*
+      return (z-single_constant<A0,0x416ae95a> ())*x*
 	horner< NT2_HORNER_COEFF_T(stype, 5,
 				 (0xb1a7a246,
 				 0x35214df5,
@@ -110,7 +110,7 @@ namespace nt2 { namespace functors
 				0x3eb364d9,
 				0xbe27bad7,
 				0x3ebfffdd
-				) ) > (w)-integral_constant<A0,0x4016cbe4 > ();
+				) ) > (w)-single_constant<A0,0x4016cbe4 > ();
       return p3*cos(xn+x);
     }
 

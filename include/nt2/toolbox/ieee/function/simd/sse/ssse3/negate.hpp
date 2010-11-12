@@ -57,7 +57,7 @@ namespace nt2 { namespace functors
       A0 tmp = { _mm_sign_epi8 ( a0, a1)};
       return tmp;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, unsigned)
+    NT2_FUNCTOR_CALL_EVAL_IF(2, unsigned_)
     {
       return  b_and(a0, is_nez(a1));
     }

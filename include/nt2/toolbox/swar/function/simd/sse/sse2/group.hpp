@@ -17,6 +17,7 @@
 namespace nt2 { namespace functors
 {
   //  no special validate for group
+  // TODO no float no int8_
 
   template<class Extension,class Info>
   struct call<group_,tag::simd_(tag::arithmetic_,Extension),Info>
@@ -26,9 +27,9 @@ namespace nt2 { namespace functors
     struct result<This(A0, A0)>
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,tag::sse_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                type2;
+      typedef typename meta::downgrade<stype>::type                                   utype;
+      typedef simd::native<utype,tag::sse_>                                           type1;
+      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1

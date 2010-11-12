@@ -1,0 +1,24 @@
+bitwise
+ 
+bits                          1
+bitwise_notor                 2
+bitwise_ornot                 2
+ffs                           1
+firstbitset                   1
+firstbitunset                 1
+hi                            1
+lo                            1
+popcnt                        1
+reversebits                   1
+rol                           2
+ror                           2
+rrol                          2
+rror                          2
+rshl                          2
+rshr                          2
+shift_left                    2
+shli                          2
+shift_right                   2
+shrai                         2
+shri                          2
+twopower                      1

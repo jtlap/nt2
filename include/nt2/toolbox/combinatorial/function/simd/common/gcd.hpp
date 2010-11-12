@@ -31,22 +31,42 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_DISPATCH(
+      2,
+      typename nt2::meta::scalar_of<A0>::type,
+      (2, (real_,arithmetic_))
+    )
+
+    NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
     {
       A0 a(round2even(a0)), b(round2even(a1));
-      A0 t= isnez(b);
+      A0 t= is_nez(b);
       while (any(t))
 	{
-	  A0 r = seladd(t, Zero<A0>(), rem(a, b));
+	  A0 r = b_and(t, rem(a, b));
 	  a = sel(t, b, a);
 	  b = r;
-	  t= isnez(b);
+	  t= is_nez(b);
 	}
       return round2even(a);
     }
+
+    NT2_FUNCTOR_CALL_EVAL_IF(2,  arithmetic_)
+    {
+      A0 a = a0, b = a1; 
+      A0 t= is_nez(b);
+      while (any(t))
+	{
+	  A0 r = t&rem(a, b);
+	  a = sel(t, b, a);
+	  b = r;
+	  t= is_nez(b);
+	}
+      return a;
+    }
+    
   };
 } }
 

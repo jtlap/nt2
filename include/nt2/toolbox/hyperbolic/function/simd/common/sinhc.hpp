@@ -17,6 +17,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/tofloat.hpp> 
 #include <nt2/toolbox/hyperbolic/function/scalar/constants.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
 
@@ -51,16 +52,15 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       A0 a = abs(a0); 
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       A0 r1 = sinh(a)*rec(a);
       A0 a2 = sqr(a); 
       A0 r2 = oneplus(a2*fma(a2, Oneo_120<A0>(), Oneo_6<A0>()));
-      return sel(isge(a,Four<A0>()*Four<A0>()*Forthrooteps<A0>()), r1, r2); 
+      return sel(ge(a,Four<A0>()*Four<A0>()*Forthrooteps<A0>()), r1, r2); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return sinhc(type(a0));
+      return nt2::sinhc(tofloat(a0));
     }
   };
 } }

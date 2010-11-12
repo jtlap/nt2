@@ -78,8 +78,8 @@ namespace nt2
 	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<A0>();
 	  A0 dk, hfsq, s, R, f;
 	  kernel_log(a0, dk, hfsq, s, R, f);
-	  return  mul(dk, integral_constant<A0, 0x3fe62e42fee00000ll>())-
-	    ((hfsq-(s*(hfsq+R)+mul(dk,integral_constant<A0, 0x3dea39ef35793c76ll>())))-f);
+	  return  mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
+	    ((hfsq-(s*(hfsq+R)+mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
 	}
 	inline A0 log2(const  A0& a0)
 	{

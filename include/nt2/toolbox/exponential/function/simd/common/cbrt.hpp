@@ -60,10 +60,10 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
       const A0 z =  abs(a0);
-      const A0 CBRT2  = integral_constant< A0, 0x3fa14518> ();
-      const A0 CBRT4  = integral_constant< A0, 0x3fcb2ff5> ();
-      const A0 CBRT2I = integral_constant< A0, 0x3f4b2ff5> ();
-      const A0 CBRT4I = integral_constant< A0, 0x3f214518> ();
+      const A0 CBRT2  = single_constant< A0, 0x3fa14518> ();
+      const A0 CBRT4  = single_constant< A0, 0x3fcb2ff5> ();
+      const A0 CBRT2I = single_constant< A0, 0x3f4b2ff5> ();
+      const A0 CBRT4I = single_constant< A0, 0x3f214518> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type stype; 
       int_type e;
@@ -76,7 +76,7 @@ namespace nt2 { namespace functors
 				     0x3f91eb77,
 				     0x3ece0609)
 				    ) > (x);
-      const int_type flag = isgez(e);
+      const int_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
        e1 = e1/Three<int_type>();           //TO DO remquo
@@ -91,15 +91,15 @@ namespace nt2 { namespace functors
 
       const A0 cbrt2 = sel(flag, CBRT2, CBRT2I);
       const A0 cbrt4 = sel(flag, CBRT4, CBRT4I);
-      A0 fact = sel(iseq(rem, One<int_type>()), cbrt2, One<A0>());
+      A0 fact = sel(is_equal(rem, One<int_type>()), cbrt2, One<A0>());
 //       std::cout << " fact " << fact << std::endl; 
-      fact = sel(iseq(rem, Two<int_type>()), cbrt4, fact);
+      fact = sel(is_equal(rem, Two<int_type>()), cbrt4, fact);
 //       std::cout << " fact " << fact << std::endl; 
       x = fast_ldexp(x*fact, e);
 //       std::cout << " 2--x " << x << std::endl; 
 
       x = x-(x-z/sqr(x))*Third<A0>();
-      return sel( b_or(iseqz(a0),isinf(a0))
+      return sel( b_or(is_eqz(a0),is_inf(a0))
                   , a0
                   , b_or(x, bitofsign(a0))
                   );
@@ -107,10 +107,10 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
       const A0 z =  abs(a0);
-      const A0 CBRT2  = integral_constant< A0, 0x3ff428a2f98d728bll> ();
-      const A0 CBRT4  = integral_constant< A0, 0x3ff965fea53d6e3dll> ();
-      const A0 CBRT2I = integral_constant< A0, 0x3fe965fea53d6e3dll> ();
-      const A0 CBRT4I = integral_constant< A0, 0x3fe428a2f98d728bll> ();
+      const A0 CBRT2  = double_constant< A0, 0x3ff428a2f98d728bll> ();
+      const A0 CBRT4  = double_constant< A0, 0x3ff965fea53d6e3dll> ();
+      const A0 CBRT2I = double_constant< A0, 0x3fe965fea53d6e3dll> ();
+      const A0 CBRT4I = double_constant< A0, 0x3fe428a2f98d728bll> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type stype; 
       int_type e;
@@ -123,7 +123,7 @@ namespace nt2 { namespace functors
 				     0x3ff23d6ee505873all,
 				     0x3fd9c0c12122a4fell)
 				    ) > (x);
-      const int_type flag = isgez(e);
+      const int_type flag = is_gez(e);
       int_type e1 =  abs(e);
       int_type rem = e1;
       e1 = rdiv(e1, Three<int_type>());           //TO DO remquo
@@ -132,12 +132,12 @@ namespace nt2 { namespace functors
 
       const A0 cbrt2 = sel(flag, CBRT2, CBRT2I);
       const A0 cbrt4 = sel(flag, CBRT4, CBRT4I);
-      A0 fact = sel(iseq(rem, One<int_type>()), cbrt2, One<A0>());
-      fact = sel(iseq(rem, Two<int_type>()), cbrt4, fact);
+      A0 fact = sel(is_equal(rem, One<int_type>()), cbrt2, One<A0>());
+      fact = sel(is_equal(rem, Two<int_type>()), cbrt4, fact);
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
       x = x-(x-z/sqr(x))*Third<A0>(); //two newton passes
-      return sel(b_or(iseqz(a0),isinf(a0)), a0, b_or(x, bitofsign(a0)));
+      return sel(b_or(is_eqz(a0),is_inf(a0)), a0, b_or(x, bitofsign(a0)));
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
     {

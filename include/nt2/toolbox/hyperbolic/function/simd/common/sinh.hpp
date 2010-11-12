@@ -15,6 +15,7 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/all.hpp>
 
 
 namespace nt2 { namespace functors

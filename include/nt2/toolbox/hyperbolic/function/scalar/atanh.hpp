@@ -40,9 +40,13 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  real_)
     {
       A0 absa0 = abs(a0); 
-      const A0 small_mask    = islt(absa0, Twotom10<A0>());  /* x <  2**-10 */
-      if (small_mask) { return a0*fma(Third<A0>(), sqr(a0), One<A0>()); }
-      return sign(a0)*Half<A0>()*log1p(Two<A0>()*absa0/(One<A0>()-absa0)); 
+      //     const A0 small_mask    = lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
+      //     if (small_mask) { return a0*fma(Third<A0>(), sqr(a0), One<A0>()); }
+      A0 t =  absa0+absa0; 
+      if (absa0 < Half<A0>())
+	return sign(a0)*Half<A0>()*log1p(t+t*absa0/(One<A0>()-absa0));
+      else
+	return sign(a0)*Half<A0>()*log1p(t/(One<A0>()-absa0));
     }
 
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)

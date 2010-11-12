@@ -12,6 +12,7 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/plevl.hpp>
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -39,15 +40,15 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,
       typename nt2::meta::scalar_of<A0>::type,
       (2, (real_, arithmetic_))
     )
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+     
+    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
     {
       typedef typename meta::scalar_of<A0>::type sA0; 
       static const boost::array<sA0, 10 > AN = {{
@@ -124,25 +125,25 @@ namespace nt2 { namespace functors
       A0 x = sqr(xx);
       A0 r = Nan<A0>();
       int32_t nb = 0;
-      A0 test = islt(xx, splat<A0>(3.25)); 
+      A0 test = lt(xx, splat<A0>(3.25)); 
       if( (nb = nbtrue(test)) > 0)
 	{
 	  A0 x = sqr(xx);
 	  r = b_ornot(a0 * polevl( x, AN)/polevl( x, AD), test);
 	  if (nb >= meta::cardinal_of<A0>::value) return copysign(r, a0);
 	}
-      test = b_andnot(islt(xx, splat<A0>(6.25)), test); 
+      test = b_andnot(lt(xx, splat<A0>(6.25)), test); 
       x =  rec(x);
       int32_t nb1 = 0; 
       if ((nb1 = nbtrue(test)) > 0)
 	{
-	  A0 y = rec(xx) + x * polevl( x, BN) / (p1evl( x, BD) * xx);
+	  A0 y = rec(xx) + x * polevl( x, BN) / (plevl( x, BD) * xx);
 	  A0 r1 =  b_ornot(Half<A0>()*y, test);
 	  r &= r1; 
 	  if ((nb += nb1) >= meta::cardinal_of<A0>::value) return copysign(r, a0);
 	}
       /* 6.25 to inf */
-      r &= b_or(Half<A0>()*(rec(xx) + x * polevl( x, CN) / (p1evl( x, CD) * xx)), test);
+      r &= b_or(Half<A0>()*(rec(xx) + x * polevl( x, CN) / (plevl( x, CD) * xx)), test);
       return copysign(r, a0);
     }
 

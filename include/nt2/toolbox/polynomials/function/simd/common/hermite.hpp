@@ -10,9 +10,10 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SIMD_COMMON_HERMITE_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/fma.hpp>
 
 
@@ -42,14 +43,14 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_DISPATCH(
       2,
-      A1,
+      typename meta::scalar_of<A1>::type,
       (2, (real_,arithmetic_))
     )
 
     NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
     {
       A1 p0 = One<A1>();
-      if(a0== 0) return p0;
+      if(a0==0) return p0;
       A1 p1 = a1+a1;
       A1 p;   
       A1 vc =  One<A1>(); 

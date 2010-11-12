@@ -43,7 +43,7 @@ namespace nt2
         static inline A0 sin_replacement(const A0& a0){ return std::sin(a0); }
         static inline A0 tan_replacement(const A0& a0){ return std::tan(a0); }
         static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(a0)); }
-        static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ ::sincos(a0, &s, &c); }
+        static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ }//::sincos(a0, &s, &c); } // s = sin_replacement(a0); c = cos_replacement(a0);
         static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
@@ -88,7 +88,7 @@ namespace nt2
 	static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(a0)); }
         static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
-	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ ::sincosf(a0, &s, &c); }
+	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ }//::sincosf(a0, &s, &c); }
 	static inline int_type reduce(const A0& x, A0& xr, A0& xc)
 	{
 	  // x is always positive here
@@ -112,7 +112,7 @@ namespace nt2
 	static inline A0 sin_replacement(const A0& a0){ return std::sin(inrad(a0)); }
 	static inline A0 tan_replacement(const A0& a0){ return std::tan(inrad(a0)); }
 	static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(inrad(a0))); }
-	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ ::sincos(inrad(a0), &s, &c); }
+	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ }//::sincos(inrad(a0), &s, &c); }
         static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_even(x/Ninety<A0>()); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_odd(x/Ninety<A0>()); }
 	static inline int_type reduce(A0 x, A0& xr, A0& xc)

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/rec.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -59,7 +60,7 @@ namespace nt2 { namespace functors
 						       )) > (z);
           return n/d;
         }  
-      return neg(nt2::log(x+nt2::sqrt(sqr(x)+One<type>())), a0); //TODO better eval
+      return negate(nt2::log(x+nt2::sqrt(sqr(x)+One<type>())), a0); //TODO better eval
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
     {

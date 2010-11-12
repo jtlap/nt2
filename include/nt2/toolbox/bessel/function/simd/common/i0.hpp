@@ -111,7 +111,7 @@ namespace nt2 { namespace functors
       A0 x =  abs(a0);
       A0 r = Nan<A0>();
       int32_t nb = 0;
-      A0 test = isle(x,  splat<A0>(8.0f)); 
+      A0 test = le(x,  splat<A0>(8.0f)); 
       if( (nb = nbtrue(test)) > 0)
 	{
 	  A0 y = x*Half<A0>() - Two<A0>();
@@ -173,7 +173,7 @@ namespace nt2 { namespace functors
       A0 x =  abs(a0);
       A0 r = Nan<A0>();
       int32_t nb = 0;
-      A0 test = isle(x,  splat<A0>(8.0f)); 
+      A0 test = le(x,  splat<A0>(8.0f)); 
       if( (nb = nbtrue(test)) > 0)
 	{
 	  A0 y = x*Half<A0>() - Two<A0>();

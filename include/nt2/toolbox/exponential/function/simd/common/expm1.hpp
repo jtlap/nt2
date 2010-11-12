@@ -58,9 +58,9 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
     {
       const A0 u =  exp(a0);
-      const A0 p = b_or(iseqz(u),isinf(u));
+      const A0 p = b_or(is_eqz(u),is_inf(u));
       const A0 y1 = minusone(u);
-      const A0 m = b_notand(p, isneq(u, One<A0>()));
+      const A0 m = b_notand(p, is_not_equal(u, One<A0>()));
       const A0 y2 = mul(y1,(rdiv(a0,log(u))));
       return select(p,y1,select(m, y2, a0));
     }
@@ -68,10 +68,10 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::as_integer<A0>::type int_type;
       typedef typename meta::scalar_of<A0>::type sA0; 
-      A0 k =  round2even(integral_constant<A0, 0x3ff71547652b82fell>()*a0);
+      A0 k =  round2even(double_constant<A0, 0x3ff71547652b82fell>()*a0);
       int_type ki =  toint(-k);
-      A0 hi = a0 - k* integral_constant<A0, 0x3fe62e42fee00000ll>(); //ln2HI;
-      A0 lo = k*integral_constant<A0, 0x3dea39ef35793c76ll>(); //ln2LO;
+      A0 hi = a0 - k* double_constant<A0, 0x3fe62e42fee00000ll>(); //ln2HI;
+      A0 lo = k*double_constant<A0, 0x3dea39ef35793c76ll>(); //ln2LO;
       A0 x = hi-lo;
       A0 hxs = sqr(x)*Half<A0>();
       A0 r1 = One<A0>()+hxs*horner <NT2_HORNER_COEFF_T(sA0, 5,
@@ -91,7 +91,7 @@ namespace nt2 { namespace functors
       A0 ct1= oneminus(two2mk)-(e-x);
       A0 ct2= oneplus((x-(e+two2mk)));
     
-      A0 y = select(islt(k, Twenty<A0>()),ct1,ct2);
+      A0 y = select(lt(k, Twenty<A0>()),ct1,ct2);
       y =  fast_ldexp(y, toint(k));
       return y;
 	//return impl::expm1(a0);

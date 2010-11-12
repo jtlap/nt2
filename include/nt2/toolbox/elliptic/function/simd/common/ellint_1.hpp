@@ -17,6 +17,7 @@
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/polynomials/function/scalar/impl/horner.hpp>
 
@@ -54,7 +55,7 @@ namespace nt2 { namespace functors
       typedef typename meta::scalar_of<A0>::type sA0; 
       const A0 a = oneminus(sqr(a0)); 
       const A0 loga = log(a); 	
-      A0 z1 = integral_constant<A0, 0x3fb17218 > () - Half<A0>()*loga;
+      A0 z1 = single_constant<A0, 0x3fb17218 > () - Half<A0>()*loga;
       A0 z2 =	horner< NT2_HORNER_COEFF_T(sA0, 11,
 					 (0x3910af7e, 
 					  0x3b15705e, 
@@ -82,13 +83,11 @@ namespace nt2 { namespace functors
 					    0x3f000000
 					    ) ) > (a);
     
-        return select(isgt(a, Eps<A0>()), z2, z1); 
+        return select(gt(a, Eps<A0>()), z2, z1); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, double)
     {
-	A0 r; 
-	map(functor<ellint_1_>(), a0, r);
-	return r; 
+      return map(functor<ellint_1_>(), a0);
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
     {

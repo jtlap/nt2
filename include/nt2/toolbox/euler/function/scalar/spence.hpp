@@ -64,7 +64,7 @@ namespace nt2 { namespace functors
       A0 x = a0; 
       if( x < 0.0 )        return Nan<A0>();
       if( x == One<A0>() ) return Zero<A0>();
-      if( iseqz(x) )       return C ;
+      if( is_eqz(x) )       return C ;
       int flag = 0;
       if( x > Two<A0>() ){ x = rec(x); flag |= 2;}
       A0 w; 

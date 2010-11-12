@@ -87,7 +87,7 @@ def dir_traversal(path='./', banner="") :
 if __name__ == "__main__" :
     nt2 = Nt2()
 ##   show(gen_proper_guard(nt2.get_path_from_nt2(),'toto.hpp'))
-    fr = "nt2/sdk"
+    fr = "nt2/toolbox"
     dir_traversal(os.path.join(nt2.get_path_to_nt2(), fr),Banner().get_banner())
 #sys.path.pop(0)
            
