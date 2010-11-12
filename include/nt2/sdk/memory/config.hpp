@@ -12,7 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Memory config header
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config.hpp>
 #include <nt2/sdk/config/types.hpp>
 
 #if (     (defined _GNU_SOURCE)                                   \
@@ -27,27 +26,7 @@
 namespace nt2 { namespace memory
 {
   // Small byte typedef for memory components
-  typedef uint8_t byte;
-} }
-
-namespace nt2 { namespace config
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Memory configuration status reporter
-  //////////////////////////////////////////////////////////////////////////////
-  static void memories()
-  {
-    printf(" Memory alignment        : %d\n", NT2_CONFIG_ALIGNMENT );
-    #if defined(NT2_CONFIG_SUPPORT_POSIX_MEMALIGN)
-      puts(" Memory allocation       : posix_memalign\n\n");
-    #elif defined(_MSC_VER)
-      puts(" Memory allocation       : _aligned_malloc\n\n");
-    #else
-      puts(" Memory allocation       : pointer stashing\n\n");
-    #endif
-  }
-
-  NT2_REGISTER_STATUS(memories);
+  typedef nt2::uint8_t byte;
 } }
 
 #endif
