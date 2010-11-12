@@ -1,25 +1,17 @@
 Documentation Contents
 ======================
 
-Downloading and Installing |nt2|
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. toctree::
-   :maxdepth: 1
-
-   latest
-   download
-   install
-
 |nt2| User's Guide
 ^^^^^^^^^^^^^^^^^^
 
 .. toctree::
    :maxdepth: 2
 
+   latest
+   started
+   features
    tutorial
    core
-   howto
 
 |nt2| Developer's Guide
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -38,15 +30,8 @@ Other Sections
    :maxdepth: 1
 
    faq
-   glossary
-   version
    license
+   version
    acknowledgements
-
-References
-^^^^^^^^^^
-
-.. toctree::
-   :maxdepth: 1
-
+   glossary
    bibliography

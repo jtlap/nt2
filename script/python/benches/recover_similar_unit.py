@@ -58,9 +58,9 @@ class Recover_similar_units :
         "  using nt2::$tb_name$::$name$_;",
         "",
         "  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::$tb_name$::$name$_($list$)>::type,",
-        "                           bool",
+        "                           T",
         "                           >::value)",
-        "          );"
+        "          );",
         "}"
         ]
     
@@ -87,6 +87,9 @@ class Recover_similar_units :
         for tb_name in self.get_tb_list() :
             l = self.get_functor_list(tb_name)
             if name in l : return tb_name
+            if name[:-3] in l :
+                if name[-3:] in ['_rn','_ru','_rz','_rd'] :
+                    return tb_name
         return None
 
     def replace_scalar_unit(self,name) :
@@ -128,23 +131,52 @@ class Recover_similar_units :
         for name in fctrs :
             s = self.replace_scalar_unit(name)
 ##            print "----------------------------"
-##            show(s)
+            show(s)
 ##            print "============================"
             p = os.path.join(self.get_tb_path(self.get_tb_name()),'unit/scalar',name+'.cpp')
             print p
             write(p,s,False)
             
-
+    def strip(self,name) :
+        if name[-3:] in ['_rn','_ru','_rz','_rd'] :
+            return name[:-3]
+        else :
+            return name
+        
+    def decorate(self,name) :
+        if (self.get_tb_name() != "crlibm") or (name[-3:] in ['_rn','_ru','_rz','_rd']) :
+            return name
+        else :
+            return name+'<rn>'
+ 
     def read_similar(self,tb_name,name) :
-         p = os.path.join(self.get_tb_path(tb_name),'unit/scalar',name+'.cpp')
-         return read(p)
+        name = self.strip(name)
+        p = os.path.join(self.get_tb_path(tb_name),'unit/scalar',name+'.cpp')
+        return read(p)
 
     def adapt_similar(self,s,name,old_tb_name) :
         new_tb_name = self.get_tb_name()
-        s = sub_list(old_tb_name,new_tb_name,s)
-        s = sub_list("using nt2::"+name,"using nt2::"+new_tb_name+"::"+name,s)
-        s = sub_list("using nt2::functors::"+name,"using nt2::"+new_tb_name+"::"+name,s)
-        s = sub_list("nt2::"+name,"nt2::"+new_tb_name+"::"+name,s)
+        old_name = self.strip(name)
+        new_name = self.decorate(name)
+        print "old %s, new %s"% (old_name,new_name)
+        if old_name == name and new_tb_name =="crlibm" : # template case
+            s = sub_list(' '+old_name+'\(',' '+new_name+'(',s)
+            s = sub_list(old_tb_name,new_tb_name,s)
+            s = sub_list("using nt2::"+old_name,"using nt2::"+new_tb_name+"::"+old_name,s)
+            s = sub_list("using nt2::functors::"+old_name,"using nt2::"+new_tb_name+"::"+old_name,s)
+            s = sub_list("nt2::"+old_name,"nt2::"+new_tb_name+"::"+new_name,s)
+            s = sub_list(old_name+'_\(',new_name+'_(',s)
+            s = sub_list(old_name+'<rn>_',old_name+'_<rn>',s)
+            s = sub_list("<rn>","<nt2::rn>",s)
+        else :
+            s = sub_list(old_tb_name,new_tb_name,s)
+            s = sub_list(' '+old_name+'\(',' '+new_name+'(',s)
+            s = sub_list(old_name+'\.hpp',new_name+'.hpp',s)
+            s = sub_list(' '+old_name+',',' '+new_name+',',s)
+            s = sub_list("using nt2::"+old_name,"using nt2::"+new_tb_name+"::"+new_name,s)
+            s = sub_list("using nt2::functors::"+old_name,"using nt2::"+new_tb_name+"::"+new_name,s)
+            s = sub_list("nt2::"+old_name,"nt2::"+new_tb_name+"::"+new_name,s)
+            s = sub_list(old_name+'_\(',new_name+'_(',s)
         return s
     
     def default(self,name,arity) :
@@ -168,6 +200,8 @@ if __name__ == "__main__" :
         r = Recover_similar_units(sys.argv[1])
         r.replace_scalar_units()
     else :
+##        r = Recover_similar_units("crlibm")
+##        r.replace_scalar_units()
         print __doc__
 
 sys.path.pop(0)

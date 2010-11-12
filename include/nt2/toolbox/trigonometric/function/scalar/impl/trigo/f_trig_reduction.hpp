@@ -115,7 +115,7 @@ namespace nt2
 
         static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
         {
-          ::sincosf(a0, &s, &c);
+          //::sincosf(a0, &s, &c);
         }
         static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
@@ -179,7 +179,7 @@ namespace nt2
 
         static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
         {
-          ::sincosf(inrad(a0), &s, &c);
+          //::sincosf(inrad(a0), &s, &c);
         }
         static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x/C_180<A0>()); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint((x-Ninety<A0>())/C_180<A0>()); }

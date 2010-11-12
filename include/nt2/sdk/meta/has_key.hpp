@@ -20,7 +20,7 @@ namespace nt2 { namespace meta
   template<class S,class K> struct has_key
   {
     static K* keyptr;
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, S::key(keyptr) );
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, S::key(keyptr) )
     typedef typename nested::type type;
     BOOST_STATIC_CONSTANT( bool, value = type::value );
   };

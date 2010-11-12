@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE3_SUM_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <boost/fusion/include/fold.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
 
