@@ -38,14 +38,14 @@ MESSAGE( STATUS "SSE3 available")
 # Find the proper options to compile
 ################################################################################
 check_cxx_compiler_flag("-msse3" HAS_GCC_SSE3)
-check_cxx_compiler_flag("/arch:sse3" HAS_MSVC_SSE3)
+check_cxx_compiler_flag("/arch:SSE3" HAS_MSVC_SSE3)
 
 IF(HAS_GCC_SSE3)
 set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -msse3")
 ENDIF()
 
 IF(HAS_MSVC_SSE3)
-set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:sse3")
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:SSE3")
 ENDIF()
 ################################################################################
 

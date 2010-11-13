@@ -38,14 +38,14 @@ MESSAGE( STATUS "SSE4.1 available")
 # Find the proper options to compile
 ################################################################################
 check_cxx_compiler_flag("-msse4.1" HAS_GCC_SSE41)
-check_cxx_compiler_flag("/arch:sse4.1" HAS_MSVC_SSE41)
+check_cxx_compiler_flag("/arch:SSE4.1" HAS_MSVC_SSE41)
 
 IF(HAS_GCC_SSE41)
 set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -msse4.1")
 ENDIF()
 
 IF(HAS_MSVC_SSE41)
-set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:sse4.1")
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:SSE4.1")
 ENDIF()
 ################################################################################
 
@@ -86,14 +86,14 @@ MESSAGE( STATUS "SSE4.2 available")
 # Find the proper options to compile
 ################################################################################
 check_cxx_compiler_flag("-msse4.2" HAS_GCC_SSE42)
-check_cxx_compiler_flag("/arch:sse4.2" HAS_MSVC_SSE42)
+check_cxx_compiler_flag("/arch:SSE4.2" HAS_MSVC_SSE42)
 
 IF(HAS_GCC_SSE42)
 set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -msse4.2")
 ENDIF()
 
 IF(HAS_MSVC_SSE42)
-set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:sse4.2")
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:SSE4.2")
 ENDIF()
 ################################################################################
 
