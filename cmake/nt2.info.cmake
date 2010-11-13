@@ -16,19 +16,19 @@ ELSEIF(APPLE)
 SET( NT2_PLATFORM_OSX "Mac OS X")
 ELSEIF(UNIX)
 SET( NT2_PLATFORM_UNIX "Unix")
-ENDIF()
+ENDIF(WIN32)
 
 IF(NT2_PLATFORM_WIN32)
 MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_WIN32} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-ENDIF()
+ENDIF(NT2_PLATFORM_WIN32)
 
 IF(NT2_PLATFORM_OSX)
 MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_OSX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-ENDIF()
+ENDIF(NT2_PLATFORM_OSX)
 
 IF(NT2_PLATFORM_UNIX)
 MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_UNIX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-ENDIF()
+ENDIF(NT2_PLATFORM_UNIX)
 
 ################################################################################
 # ARM processor
@@ -39,28 +39,27 @@ SET( NT2_ARM_PROCESSOR 1)
 ################################################################################
 # AMD processor
 ################################################################################
-ELSEIF(   (${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*")
-      OR  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd*")
-      )
+ELSEIF(   ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*"
+		OR  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd*")
 SET( NT2_PROCESSOR "AMD")
 SET( NT2_AMD_PROCESSOR 1)
 ################################################################################
 # X86 familly processor
 ################################################################################
-ELSEIF(  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[3-9]86*")
-      OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86*")
-      OR (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*")
+ELSEIF(  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[3-9]86*"
+      OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86*"
+      OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*"
       )
 SET( NT2_PROCESSOR "X86")
 SET( NT2_X86_PROCESSOR 1)
 ################################################################################
 # Power PC processor
 ################################################################################
-ELSEIF(   (${CMAKE_SYSTEM_PROCESSOR} MATCHES "ppc64*")
-      OR  (${CMAKE_SYSTEM_PROCESSOR} MATCHES "powerpc*")
+ELSEIF(   ${CMAKE_SYSTEM_PROCESSOR} MATCHES "ppc64*"
+      OR  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "powerpc*"
       )
 SET( NT2_PROCESSOR "PowerPC")
 SET( NT2_PPC_PROCESSOR 1)
-ENDIF()
+ENDIF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm*")
 
 MESSAGE( STATUS "[NT2] Target processor : ${NT2_PROCESSOR}" )

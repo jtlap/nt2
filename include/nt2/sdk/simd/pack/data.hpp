@@ -28,6 +28,9 @@ namespace nt2 { namespace simd
     typedef typename meta::category_of<parent>::type              parent_tag;
     typedef functors::ast_<parent_tag>                            nt2_category_tag;
 
+    //typedef dsl::compile< dsl::compute<parent> >  evaluator_type;
+    typedef dsl::compile<parent>  evaluator_type;
+
     typedef typename parent::value_type               value_type;
     typedef typename parent::reference                reference;
     typedef typename parent::const_reference          const_reference;
@@ -67,10 +70,10 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    const_iterator begin()  const { return mData.begin(); }
-    const_iterator end()    const { return mData.end();   }
-    iterator begin()  { return mData.begin(); }
-    iterator end()    { return mData.end();   }
+    const_iterator  begin()  const  { return mData.begin(); }
+    const_iterator  end()    const  { return mData.end();   }
+    iterator        begin()         { return mData.begin(); }
+    iterator        end()           { return mData.end();   }
 
     ////////////////////////////////////////////////////////////////////////////
     // Fill current data by evaluating soem expression
@@ -104,11 +107,7 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
-      boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
-                                                    , parent
-                                                    >
-                            , dsl::grammar<boost::mpl::_1>
-                            > eval;
+      evaluator_type eval;
       mData = eval(xpr);
     }
 
@@ -123,12 +122,7 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
-      boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
-                                                    , parent
-                                                    >
-                            , dsl::grammar<boost::mpl::_1>
-                            > eval;
-
+        evaluator_type eval;
       for(std::size_t i=0;i<Cardinal::value;++i)
         mData[i] = eval(xpr,i,i);
     }
