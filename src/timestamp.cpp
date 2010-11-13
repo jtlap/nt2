@@ -7,6 +7,7 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <time.h>
+#include <boost/config.hpp>
 #include <nt2/sdk/details/timestamp.hpp>
 
 #if defined(BOOST_MSVC)
