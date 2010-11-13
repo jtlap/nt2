@@ -13,6 +13,7 @@
 // Compile-time warning
 // Documentation: http://nt2.lri.fr/sdk/error/warning.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/config.hpp>
 #include <boost/preprocessor/stringize.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,9 +24,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // #pragma message on MSVC is very light so we add some info
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_WARNING_LOCATION __FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) ":"
+#define NT2_WARNING_LOCATION __FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) ") :"
 #define NT2_WARN(exp) ( NT2_WARNING_LOCATION "[NT2 WARNING] -- "  BOOST_PP_STRINGIZE(exp) )
 #define NT2_WARNING(X) __pragma( message NT2_WARN(X) )
+
 #elif defined(__GNUC__)
 ////////////////////////////////////////////////////////////////////////////////
 // #pragma message on g++ just need a call to _Pragma
