@@ -4,6 +4,6 @@
 #define NT2_VERBOSE
 #include <nt2/sdk/error/warning.hpp>
 
-NT2_WARNING( examples/sdk/local.hpp indirectly included )
+NT2_WARNING( Success ! This file is indirectly included )
 
 #endif
