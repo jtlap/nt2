@@ -9,18 +9,13 @@
 #define NT2_UNIT_MODULE "nt2::simd::pack"
 
 #include <nt2/sdk/simd/pack.hpp>
-#include <nt2/sdk/memory/store.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test pack default ctor
+// Test pack computations
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(pack_default_ctor, NT2_SIMD_TYPES )
+
+int main()
 {
-  using nt2::simd::pack;
-  pack<float> x;
+
 }
+

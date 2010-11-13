@@ -16,8 +16,7 @@ namespace nt2 { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   // Stream insertion for vec<T,C> and SIMD expression
   ////////////////////////////////////////////////////////////////////////////
-  template<class X,class T,class C>
-  static inline std::ostream&
+  template<class X,class T,class C> inline std::ostream&
   operator<<(std::ostream& os, expression<X,T,C> const& v )
   {
     // We want to display (u)int8_t as a number

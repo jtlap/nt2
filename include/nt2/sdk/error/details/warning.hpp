@@ -25,7 +25,7 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Forward a warning string to the proper default or user-defined logger
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> static inline void emit_warning( T const& msg )
+  template<class T> inline void emit_warning( T const& msg )
   {
     #if !defined(NT2_WARNING_HANDLER)
     std::cerr << msg << "\n";

@@ -96,7 +96,7 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   template<std::size_t N,class T> inline
   typename  boost::enable_if_c< meta::is_power_of_2_c<N>::value
-          , typename boost::result_of<result::align_on(T,boost::mpl::int_<N>)>::type
+          , typename std::tr1::result_of<result::align_on(T,boost::mpl::int_<N>)>::type
                               >::type
   align_on( T const& value )
   {
@@ -108,7 +108,7 @@ namespace nt2 { namespace memory
   // Align a runtime value onto current alignment value
   //////////////////////////////////////////////////////////////////////////////
   template<class T> inline
-  typename boost::result_of<result::align_on(T)>::type
+  typename std::tr1::result_of<result::align_on(T)>::type
   align_on( T const& value )
   {
     result::align_on callee;
