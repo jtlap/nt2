@@ -9,8 +9,7 @@
 #ifndef NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
 #define NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
 
-#include <boost/proto/proto.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <boost/proto/transform.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/dsl/proto/transform/unpack.hpp>
 
@@ -19,21 +18,37 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace dsl
 {
-    template <typename Locality> struct compile;
+    template <typename Transform, class Locality> struct compile;
 
-    template <typename Tag, typename Locality>
+    template<class T, class L>
+    struct _left  : boost::proto::
+                    call<compile<T,L>(boost::proto::_left)> {};
+
+    template<class T, class L>
+    struct _right : boost::proto::
+                    call<compile<T,L>(boost::proto::_right)> {};
+
+    template <typename Locality, typename Tag, typename Dummy = void>
+    struct compute;
+
+    typedef compute<boost::mpl::_1,boost::mpl::_2,boost::mpl::_3> compute_;
+
+    template<class Transform, typename Tag, typename Locality>
     struct functor_dispatch
         : boost::proto::
-          unpack<
-            boost::proto::call<
-                functors::functor<Tag, Locality>
-            >(compile<Locality>)
+          unpack< boost::proto::
+                  call< functors::functor<Tag, Locality> >(compile< Transform
+                                                                  , Locality
+                                                                  >
+                                                          )
           >
     {};
 
-    template <typename Locality, typename Tag, typename Dummy = void>
+    typedef compute<boost::mpl::_1,boost::mpl::_2,boost::mpl::_3> compute_;
+
+    template <typename Locality, typename Tag, typename Dummy>
     struct compute
-        : functor_dispatch<Tag, Locality> 
+        : functor_dispatch<compute_,Tag, Locality>
     {};
 
     template<typename Locality>
@@ -48,24 +63,48 @@ namespace nt2 { namespace dsl
         >
     {};
 
-    template <class Locality>
-    struct compile
-        : boost::proto::switch_<compile<Locality> >
-    {
-        template <typename Tag, typename Dummy = void>
-        struct case_
-            : boost::proto::otherwise<compute<Locality, Tag, Dummy> >
-        {};
-    };
+    template<typename Locality>
+    struct compute<Locality, functors::plus_>
+        : boost::proto::
+          call<
+            functors::functor<functors::multiplies_,Locality>(
+                _left<compute_,Locality>()
+              , _right<compute_,Locality>()
+            )
+        >
+    {};
 
+    template<class Transform,class Locality>
+    struct compile
+        : boost::proto::switch_<compile<Transform,Locality> >
+    {
+      template <typename Tag, typename Dummy = void>
+      struct case_
+          : boost::proto::
+            otherwise < typename boost::mpl::
+                        apply3<Transform,Locality, Tag, Dummy>::type
+                      >
+      {};
+    };
 } }
 
 namespace boost { namespace proto
 {
-  template<class Locality>
-  struct is_callable<nt2::dsl::compile<Locality> > : boost::mpl::true_  {};
-  template<typename Tag, typename Locality>
-  struct is_callable<nt2::dsl::compute<Tag, Locality> > : boost::mpl::true_  {};
+  template<class Transform,class Locality>
+  struct  is_callable<nt2::dsl::compile<Transform,Locality> >
+        : boost::mpl::true_  {};
+
+  template<class Transform,class Locality>
+  struct  is_callable<nt2::dsl::_left<Transform,Locality> >
+        : boost::mpl::true_  {};
+
+  template<class Transform,class Locality>
+  struct  is_callable<nt2::dsl::_right<Transform,Locality> >
+        : boost::mpl::true_  {};
+
+  template<typename Tag, typename Locality, typename Dummy>
+  struct  is_callable<nt2::dsl::compute<Tag, Locality, Dummy> >
+        : boost::mpl::true_  {};
 } }
 
 #endif
