@@ -29,7 +29,7 @@ namespace nt2
 {
   namespace details
   {
-    static inline double now()
+    inline double now()
     {
       union pli { LARGE_INTEGER li; double d; };
       pli freq,t;
