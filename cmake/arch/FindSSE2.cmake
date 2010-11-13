@@ -39,14 +39,14 @@ MESSAGE( STATUS "SSE2 available")
 # Find the proper options to compile SSE2 here
 ################################################################################
 check_cxx_compiler_flag("-msse2" HAS_GCC_SSE2)
-check_cxx_compiler_flag("/arch:sse2" HAS_MSVC_SSE2)
+check_cxx_compiler_flag("/arch:SSE2" HAS_MSVC_SSE2)
 
 IF(HAS_GCC_SSE2)
 set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -msse2")
 ENDIF()
 
 IF(HAS_MSVC_SSE2)
-set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:sse2")
+set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:SSE2")
 ENDIF()
 ################################################################################
 
