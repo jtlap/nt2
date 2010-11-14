@@ -21,14 +21,17 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute cosh(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<cosh_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<cosh_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
-
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -36,9 +39,9 @@ namespace nt2 { namespace functors
  	const type tmp=exp(type(a0));
 	return (tmp+rec(tmp))*Half<type>();
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
