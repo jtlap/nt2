@@ -41,7 +41,7 @@ namespace nt2 { namespace functors
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
-      typedef typename meta::dominant<Args...>::type::tag               dom;
+      typedef typename meta::categorize<Function,Info,Args...>::type    dom;
       typedef meta::dispatch<Function,dom,Info>                         dispatching;
       typedef typename std::tr1::result_of<dispatching(Args...)>::type  callee;
       typedef typename
@@ -54,8 +54,8 @@ namespace nt2 { namespace functors
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A)>                       \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
     {                                                                           \
-      typedef typename  \
-      meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag               dom; \
+      typedef typename                                                          \
+      meta::categorize<Function,Info,BOOST_PP_ENUM_PARAMS(n,A)>::type  dom;     \
       typedef meta::dispatch<Function,dom,Info>                         dispatching; \
       typedef typename  \
       std::tr1::result_of<dispatching(BOOST_PP_ENUM_PARAMS(n,A))>::type  callee;  \
