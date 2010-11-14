@@ -25,20 +25,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute dawson(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<dawson_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<dawson_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       static const boost::array<A0, 10 > AN = {{
 	1.13681498971755972054E-11,
@@ -128,16 +126,27 @@ namespace nt2 { namespace functors
       A0 y = rec(xx) + x * polevl( x, CN) / (plevl( x, CD) * xx);
       return copysign(Half<A0>()*y, a0);
     }
+  };
 
-   NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<dawson_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
       return nt2::dawson(type(a0)); 
     }
-
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
