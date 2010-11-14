@@ -30,8 +30,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute powi(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<powi_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<powi_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -68,9 +72,9 @@ namespace nt2 { namespace functors
       x = shri(oneplus(sign_n),1);  // 1 if positive, else 0
       return madd(x,y,(one-x)*w);
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
