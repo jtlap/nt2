@@ -21,26 +21,37 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitfloating(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<bitfloating_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<bitfloating_,tag::scalar_(tag::arithmetic_),unsigned,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> { typedef typename meta::as_real<A0>::type type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (unsigned,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
       typename meta::from_bits<rtype, signed>::type  that =  {a0};
       return that.value; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<bitfloating_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> { typedef typename meta::as_real<A0>::type type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
       typedef typename meta::from_bits<rtype>::type  type;
@@ -48,8 +59,8 @@ namespace nt2 { namespace functors
       return that.value; 
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

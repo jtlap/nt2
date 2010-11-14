@@ -17,8 +17,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute modf(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<modf_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<modf_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,8 +39,9 @@ namespace nt2 { namespace functors
       boost::fusion::at_c<0>(res)= a0 - boost::fusion::at_c<1>(res);
       return res;
     }
+
   };
 } }
 
 #endif
-
+/// Revised by jt the 13/11/2010

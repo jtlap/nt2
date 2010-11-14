@@ -30,8 +30,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitinteger(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<bitinteger_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<bitinteger_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -49,9 +53,9 @@ namespace nt2 { namespace functors
 //       std::cout << "S-that    " << Signmask<itype>()-that.bits << std::endl;
       return is_positive(a0) ? that.bits : Signmask<itype>()-that.bits;
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

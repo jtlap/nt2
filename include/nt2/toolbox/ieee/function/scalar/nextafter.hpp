@@ -20,39 +20,79 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute nextafter(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<nextafter_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<nextafter_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A0,
-      (4, (float,double,unsigned_, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  float)
+    NT2_FUNCTOR_CALL(2)
     {
       return ::nextafterf(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextafter_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return ::nextafter(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, unsigned_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextafter_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return (a1 == a0) ? a0 : (a1 > a0) ? a0+One<A0>() : a0-One<A0>(); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextafter_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return a0+sign(a1-a0); 
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
