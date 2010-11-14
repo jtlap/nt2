@@ -22,8 +22,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_cotd(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<fast_cotd_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<fast_cotd_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,9 +39,9 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return impl::trig_base<type,degree_tag, fast_tag, tag::not_simd_type>::cota(type(a0));
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
