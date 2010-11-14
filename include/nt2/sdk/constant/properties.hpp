@@ -55,8 +55,8 @@ namespace nt2
 #include <nt2/sdk/constant/details/valmax.hpp>
 #include <nt2/sdk/constant/details/valmin.hpp>
 #include <nt2/sdk/constant/details/signmask.hpp>
-//#include <nt2/sdk/constant/details/ieee_spec.hpp>
-//#include <nt2/sdk/constant/details/ldexp_mask.hpp>
+#include <nt2/sdk/constant/details/ieee_spec.hpp>
+#include <nt2/sdk/constant/details/ldexp_mask.hpp>
 //#include <nt2/sdk/constant/details/maxleftshift.hpp>
 
 #endif
