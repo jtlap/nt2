@@ -25,14 +25,24 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute first(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<first_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<first_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0> {};  
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0> {};  
 
-    NT2_FUNCTOR_CALL(1) { return a0; }
+    NT2_FUNCTOR_CALL(1)
+      {
+	return a0;
+      }
+
   };
 } }
-   
+
 #endif
+/// Revised by jt the 13/11/2010

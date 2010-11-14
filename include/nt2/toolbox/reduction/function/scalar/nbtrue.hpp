@@ -25,13 +25,22 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute nbtrue(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<nbtrue_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<nbtrue_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     typedef nt2::uint32_t result_type;
 
-    NT2_FUNCTOR_CALL(1) { return nt2::is_nez(a0); }
+    NT2_FUNCTOR_CALL(1)
+      {
+	return nt2::is_nez(a0);
+      }
+
   };
 } }
 
 #endif
+/// Revised by jt the 13/11/2010

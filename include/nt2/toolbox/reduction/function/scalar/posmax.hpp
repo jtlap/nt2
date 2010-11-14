@@ -25,8 +25,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute posmax(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<posmax_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<posmax_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,13 +39,14 @@ namespace nt2 { namespace functors
       typedef typename meta::as_integer<A0, signed>::type type; 
     };
 
-   
     NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0); 
       return 0; 
     }
+
   };
 } }
-  
+
 #endif
+/// Revised by jt the 13/11/2010
