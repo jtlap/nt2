@@ -19,8 +19,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute mod(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<mod_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<mod_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -31,9 +35,9 @@ namespace nt2 { namespace functors
     {
       return a1 ? a0-a1*idivfloor(a0,a1) : a0; 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

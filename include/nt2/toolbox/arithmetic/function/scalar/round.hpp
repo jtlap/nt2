@@ -20,8 +20,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute round(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<round_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<round_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -31,9 +35,9 @@ namespace nt2 { namespace functors
     {
          return round2even(a0);
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

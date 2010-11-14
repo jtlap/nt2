@@ -21,8 +21,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute trunc(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<trunc_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<trunc_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -32,9 +36,9 @@ namespace nt2 { namespace functors
     {
       if (a0 > 0) return nt2::floor(a0);  else return nt2::ceil(a0); 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

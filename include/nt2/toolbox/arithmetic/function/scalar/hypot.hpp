@@ -32,36 +32,43 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute hypot(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<hypot_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<hypot_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       boost::result_of<meta::floating(A0,A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A0,
-      (3, (float,double, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  float)
+    NT2_FUNCTOR_CALL(2)
     {
 	// flibc do that in ::hypotf(a0, a1) in asm with no more speed!
 	// internal is 30% slower
 	return nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1)));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<hypot_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
 	// in double ::hypot is very slow
 	// 4 times slower than internal
 	return internal(a0, a1);
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::hypot(type(a0), type(a1)); 
     }
   private:
     
@@ -139,8 +146,27 @@ namespace nt2 { namespace functors
       static inline int_type M1() { return (0xffffffff00000000ll);};
     };
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<hypot_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
+      return nt2::hypot(type(a0), type(a1)); 
+    }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

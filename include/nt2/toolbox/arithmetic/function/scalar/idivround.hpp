@@ -23,31 +23,43 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute idivround(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<idivround_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<idivround_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+    NT2_FUNCTOR_CALL(2)
     {
        return round2even(a0/a1); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<idivround_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return iround(tofloat(a0)/tofloat(a1)); 
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

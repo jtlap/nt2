@@ -23,39 +23,64 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute arg(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<arg_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<arg_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (3, (real_,unsigned_,signed_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
       if (is_gez(a0)) return Zero<A0>();
       return Pi<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<arg_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return Zero<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     signed_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is signed_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<arg_,tag::scalar_(tag::arithmetic_),signed_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
       return (is_ltz(a0))*Pi<rtype>();
     }
- 
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

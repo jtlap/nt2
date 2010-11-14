@@ -26,8 +26,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute two_add(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<two_add_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<two_add_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -37,14 +41,12 @@ namespace nt2 { namespace functors
       typedef typename boost::fusion::tuple<rtype,rtype>              type;
     };
 
-
     NT2_FUNCTOR_CALL(2)
     {
       typename NT2_CALL_RETURN_TYPE(2)::type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
-
   private:
     template<class A0,class A1,class R0,class R1> inline void
     eval(A0 const& a, A1 const& b,R0& r0, R1& r1)const
@@ -58,6 +60,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

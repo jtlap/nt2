@@ -21,53 +21,116 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute abs(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<abs_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
       meta::strip <A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (6, (float,int32_t,unsigned_,signed_,arithmetic_,bool_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
        return ::fabs(a0);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int32_t)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),int32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::strip <A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 mask = a0 >> (sizeof(int32_t)*8 - 1);
       return (a0 + mask) ^ mask;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_)
-    {
-      return a0;
-    }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     signed_)
-    {
-      return (a0 > 0)?a0:-a0;
-    }
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::strip <A0>{};
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
-    {
-      return std::abs(a0);
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1, bool_)
+    NT2_FUNCTOR_CALL(1)
     {
       return a0;
     }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is signed_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),signed_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::strip <A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return (a0 > 0)?a0:-a0;
+    }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::strip <A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return std::abs(a0);
+    }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is bool_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),bool_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::strip <A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0;
+    }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
