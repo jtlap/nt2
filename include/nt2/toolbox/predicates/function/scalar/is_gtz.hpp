@@ -19,18 +19,22 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_gtz(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<is_gtz_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<is_gtz_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
-    typedef bool result_type; 
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
        return a0 > Zero<A0>();
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
