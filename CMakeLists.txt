@@ -98,6 +98,12 @@ SET_TARGET_PROPERTIES(nt2-static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 ################################################################################
 # Install libnt2
 ################################################################################
+INSTALL( DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+         DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+         FILES_MATCHING
+         PATTERN "*.hpp"
+       )
+
 INSTALL( DIRECTORY ${PROJECT_BINARY_DIR}/include/
          DESTINATION ${CMAKE_INSTALL_PREFIX}/include
          FILES_MATCHING
