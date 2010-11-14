@@ -25,13 +25,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitwise_andnot(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<bitwise_andnot_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<bitwise_andnot_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
       struct result<This(A0,A1)> : meta::strip<A0>{}; 
  
+
     NT2_FUNCTOR_CALL(2)
     {
       typename meta::as_bits<A0>::type t0 = {a0};
@@ -39,9 +44,9 @@ namespace nt2 { namespace functors
       t0.bits = b_and(t0.bits,b_not(t1.bits));
       return t0.value;
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

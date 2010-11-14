@@ -22,8 +22,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute selsub(const A0& a0, const A1& a1, const A2& a2)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<selsub_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<selsub_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
@@ -35,9 +39,9 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(3)::type type;
       if (a0) return type(a1)-type(a2); else return type(a1); 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

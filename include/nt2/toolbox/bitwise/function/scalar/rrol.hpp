@@ -26,21 +26,24 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute rrol(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<rrol_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<rrol_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip <A0>{};
 
-
     NT2_FUNCTOR_CALL(2)
     {
       return (a1 > 0)? rol(a0, a1) :ror(a0, -a1); 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010

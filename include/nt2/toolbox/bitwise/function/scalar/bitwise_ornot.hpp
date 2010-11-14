@@ -24,8 +24,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitwise_ornot(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<bitwise_ornot_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<bitwise_ornot_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -38,9 +42,9 @@ namespace nt2 { namespace functors
       t0.bits |= b_not(t1.bits);
       return t0.value;
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 13/11/2010
