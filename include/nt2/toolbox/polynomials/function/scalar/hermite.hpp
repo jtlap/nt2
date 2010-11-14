@@ -25,21 +25,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute hermite(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<hermite_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<hermite_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       boost::result_of<meta::floating(A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A1,
-      (2, (real_, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
+    NT2_FUNCTOR_CALL(2)
     {
       A1 p0 = One<A1>();
       if(a0 == 0) return p0;
@@ -53,21 +51,28 @@ namespace nt2 { namespace functors
 	}
       return p1;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<hermite_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
       return nt2::hermite(a0, type(a1)); 
     }
-  private:
-    template <class T, class T1, class T2>
-    static inline T 
-    hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
-    {
-      return (2 * x * Hn - 2 * n * Hnm1);
-    }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 14/11/2010

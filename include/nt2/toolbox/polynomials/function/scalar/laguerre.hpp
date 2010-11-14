@@ -26,21 +26,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute laguerre(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<laguerre_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<laguerre_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       boost::result_of<meta::floating(A0,A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A1,
-      (2, (real_, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
+    NT2_FUNCTOR_CALL(2)
     {
       A1 p0 = One<A1>();
       if(a0 == 0) return p0;
@@ -55,11 +53,6 @@ namespace nt2 { namespace functors
       return p1;
       //return boost::math::tr1::laguerre(a0, a1); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::laguerre(type(a0), a1); 
-    }
   private:
     template <class T, class T1, class T2>
     static inline T 
@@ -68,10 +61,28 @@ namespace nt2 { namespace functors
       const T np1 = oneplus(n); 
       return ((n + np1 - x) * Ln - n *Lnm1) / np1;
     }
-
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<laguerre_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
+      return nt2::laguerre(type(a0), a1); 
+    }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 14/11/2010
