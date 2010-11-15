@@ -34,7 +34,7 @@ namespace nt2 { namespace config
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  static void architecture()
+  inline void architecture()
   {
     puts(" CPU Architecture        : " NT2_ARCH_STRING "\n");
   }

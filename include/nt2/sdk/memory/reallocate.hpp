@@ -24,8 +24,8 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   // Reallocate a raw buffer of bytes to a new size using an allocator
   //////////////////////////////////////////////////////////////////////////////
-  template<class Allocator> static inline
-  byte* reallocate( Allocator& a,  byte* ptr, std::size_t nbytes, std::size_t obytes)
+  template<class Allocator> inline byte*
+  reallocate( Allocator& a,  byte* ptr, std::size_t nbytes, std::size_t obytes)
   {
     byte* result;
     if(obytes < nbytes)

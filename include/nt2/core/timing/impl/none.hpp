@@ -19,7 +19,7 @@ namespace nt2
 {
   namespace details
   {
-    static inline double now()
+    inline double now()
     {
       return std::clock()/double(CLOCKS_PER_SEC);
     }

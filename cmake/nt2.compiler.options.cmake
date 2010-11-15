@@ -24,7 +24,6 @@ ENDIF()
 ################################################################################
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(options/nt2.extra.warnings)
-INCLUDE(options/nt2.pedantic)
 
 ################################################################################
 # Add NT2_FLAGS to proper CMAKE_CXX_FLAGS

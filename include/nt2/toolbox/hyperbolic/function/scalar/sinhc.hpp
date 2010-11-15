@@ -36,7 +36,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL_EVAL_IF(1,  real_)
     {
-      if (isnan(a0)) return Nan<A0>(); 
+      if (is_nan(a0)) return Nan<A0>(); 
       return A0(boost::math::sinhc_pi(a0)); 
     }
     NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)

@@ -13,8 +13,8 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/tr1/functional.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/utility/result_of.hpp> // TR1 FUNCTIONNAL !!
 #include <nt2/sdk/memory/parameters.hpp>
 #include <nt2/sdk/memory/meta/align_on.hpp>
 #include <boost/type_traits/is_pointer.hpp>
@@ -96,7 +96,7 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   template<std::size_t N,class T> inline
   typename  boost::enable_if_c< meta::is_power_of_2_c<N>::value
-          , typename boost::result_of<result::align_on(T,boost::mpl::int_<N>)>::type
+          , typename std::tr1::result_of<result::align_on(T,boost::mpl::int_<N>)>::type
                               >::type
   align_on( T const& value )
   {
@@ -108,7 +108,7 @@ namespace nt2 { namespace memory
   // Align a runtime value onto current alignment value
   //////////////////////////////////////////////////////////////////////////////
   template<class T> inline
-  typename boost::result_of<result::align_on(T)>::type
+  typename std::tr1::result_of<result::align_on(T)>::type
   align_on( T const& value )
   {
     result::align_on callee;

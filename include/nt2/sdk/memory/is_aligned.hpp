@@ -45,7 +45,7 @@ namespace nt2 {  namespace memory
   //////////////////////////////////////////////////////////////////////////////
   // Checks if a given value is aligned on current alignment value
   //////////////////////////////////////////////////////////////////////////////
-  static inline bool is_aligned( std::size_t v )
+  inline bool is_aligned( std::size_t v )
   {
     return is_aligned<NT2_CONFIG_ALIGNMENT>(v);
   }
@@ -53,7 +53,7 @@ namespace nt2 {  namespace memory
   //////////////////////////////////////////////////////////////////////////////
   // Checks if a given pointer is aligned on current alignment value
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> static inline bool is_aligned( T* v )
+  template<class T> inline bool is_aligned( T* v )
   {
     return is_aligned<NT2_CONFIG_ALIGNMENT>(v);
   }
