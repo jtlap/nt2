@@ -15,9 +15,6 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Info>
-  struct dispatch<legendre_, tag::scalar_(tag::arithmetic_),Info>
-    : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<legendre_,tag::scalar_(tag::arithmetic_),Info>
@@ -57,13 +54,6 @@ namespace nt2 { namespace functors
 	}
       return p1;
     }
-  private :
-    template <class T1, class T2, class T3 >
-    static inline T1 
-    legendre_next(const uint32_t& l,const T1& x, const T2& Pl, const T3& Plm1)
-    {
-      return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
-    }
   };
 
 
@@ -88,4 +78,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 14/11/2010
+/// Revised by jt the 15/11/2010
