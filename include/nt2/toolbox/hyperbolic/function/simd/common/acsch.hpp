@@ -29,9 +29,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute acsch(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<acsch_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<acsch_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -42,8 +45,9 @@ namespace nt2 { namespace functors
       //      std::cout <<  " acsch  " << a0 << "  " << tofloat(a0)<< "  " << rec(tofloat(a0)) <<  "  " <<asinh(rec(tofloat(a0))) <<  std::endl;
       return nt2::asinh(rec(tofloat(a0)));
     }
-  }; 
+
+  };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
