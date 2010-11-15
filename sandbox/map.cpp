@@ -7,7 +7,8 @@ using namespace nt2::simd;
 
 int main()
 {
-  native<nt2::uint64_t, tag::sse_> x = {{2,4}};
+  native<float, tag::sse_> x = {{2,4,4,6}};
 
-  cout << x*x << endl;
+  cout << (~x) << endl;
+  cout << x/x << endl;
 }
