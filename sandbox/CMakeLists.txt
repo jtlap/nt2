@@ -13,6 +13,7 @@
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
 #    simd_range.cpp
+    map.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)
