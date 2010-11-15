@@ -30,22 +30,20 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute almost_equal(const A0& a0, const A0& a1, const A0& a2)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<almost_equal_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<almost_equal_,tag::simd_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A0,A1)>
       : meta::strip<A0>{};//
     
-    NT2_FUNCTOR_CALL_DISPATCH(
-      3,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(3,       real_)
+    NT2_FUNCTOR_CALL(3)
     {
       return b_and(
 		   isord(a0, a1),
@@ -61,12 +59,28 @@ namespace nt2 { namespace functors
 			)
 		   );
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(3, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<almost_equal_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A0,A1)>
+      : meta::strip<A0>{};//
+    
+
+    NT2_FUNCTOR_CALL(3)
     {
       return isle(dist(a0, a1), abs(a2));
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
