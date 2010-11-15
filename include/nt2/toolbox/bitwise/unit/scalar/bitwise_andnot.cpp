@@ -30,7 +30,8 @@ NT2_TEST_CASE_TPL ( bitwise_andnot,  (double)(nt2::uint64_t)(nt2::int64_t)
 	     , T
               >::value)
            );
-  NT2_TEST_EQUAL(  bitwise_andnot( T(1), T(0)), T(1) );
+  typedef typename nt2::meta::as_integer<T, signed>::type iT; 
+  NT2_TEST_EQUAL(  bitwise_andnot( T(1), iT(0)), T(1) );
 }
           
 
