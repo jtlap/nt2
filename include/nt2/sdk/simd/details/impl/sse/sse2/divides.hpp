@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that =  _mm_div_pd(a0, a1);
+      A0 that =  { _mm_div_pd(a0, a1) };
       return that;
     }
   };
@@ -38,7 +38,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that =  _mm_div_ps(a0, a1);
+      A0 that =  { _mm_div_ps(a0, a1) };
       return that;
     }
   };
