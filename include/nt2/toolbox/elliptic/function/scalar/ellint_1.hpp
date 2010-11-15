@@ -23,14 +23,17 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ellint_1(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<ellint_1_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<ellint_1_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
-
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -41,9 +44,9 @@ namespace nt2 { namespace functors
 	if (is_eqz(x))      return Pio_2<type>();
 	return boost::math::ellint_1(x);
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

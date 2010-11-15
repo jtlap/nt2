@@ -33,21 +33,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ellint_2(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<ellint_2_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ellint_2_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (float,double,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
       A0 x = nt2::abs(a0);
@@ -78,18 +75,44 @@ namespace nt2 { namespace functors
 					       ) ) > (a);
       return gt(x,One<A0>())|z;
      }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ellint_2_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return map(functor<ellint_2_>(), a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ellint_2_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return nt2::ellint_2(tofloat(a0));
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
