@@ -29,9 +29,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute csc(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<csc_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<csc_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,8 +44,9 @@ namespace nt2 { namespace functors
     {
       return b_or(rec(sin(tofloat(a0))), is_eqz(a0)); 
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

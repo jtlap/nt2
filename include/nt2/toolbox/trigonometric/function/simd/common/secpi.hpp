@@ -29,9 +29,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute secpi(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<secpi_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<secpi_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,8 +44,9 @@ namespace nt2 { namespace functors
     {
       return b_or(rec(cospi(tofloat(a0))), is_odd(a0*Two<A0>()));
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
