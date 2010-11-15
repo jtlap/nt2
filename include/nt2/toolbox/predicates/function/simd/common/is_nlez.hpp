@@ -20,9 +20,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_nlez(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<is_nlez_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_nlez_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -33,9 +36,9 @@ namespace nt2 { namespace functors
     {
       return is_nle(a0, Zero<A0>()); 
     }
- 
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

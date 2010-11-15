@@ -20,31 +20,43 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_lez(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<is_lez_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_lez_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (unsigned_,signed_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_)
+    NT2_FUNCTOR_CALL(1)
     {
       return is_eqz(a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     signed_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is signed_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_lez_,tag::simd_(tag::arithmetic_),signed_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return is_less(a0, Zero<A0>());
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

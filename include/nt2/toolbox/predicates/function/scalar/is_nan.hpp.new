@@ -6,52 +6,56 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_POSITIVE_HPP_INCLUDED
-#define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_POSITIVE_HPP_INCLUDED
-#include <nt2/sdk/meta/as_bits.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_NAN_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_NAN_HPP_INCLUDED
+#include <nt2/sdk/details/ignore_unused.hpp>
 
 
 namespace nt2 { namespace functors
 {
 
-  //  no special validate for is_positive
-
+  template<class Info>
+  struct validate<is_nan_,tag::scalar_(tag::arithmetic_),Info>
+  {
+    typedef boost::mpl::true_ result_type;
+  };
   /////////////////////////////////////////////////////////////////////////////
-  // Compute is_positive(const A0& a0)
+  // Compute is_nan(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<is_positive_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  struct  call<is_nan_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
+
     typedef bool result_type;
+
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, signed>::type t0 = {a0};
-      return t0.bits >= 0;
+       return (a0 != a0);
     }
   };
 
 
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
+  // Implementation when type A0 is fundamental_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<is_positive_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  struct  call<is_nan_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0 >= Zero<A0>();
+      details::ignore_unused(a0); 
+      return false; 
     }
   };
 
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+/// Revised by jt the 13/11/2010

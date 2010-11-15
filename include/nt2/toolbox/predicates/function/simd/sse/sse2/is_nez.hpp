@@ -16,21 +16,19 @@ namespace nt2 { namespace functors
 {
   //  no special validate for is_nez
 
-  template<class Extension,class Info>
-  struct call<is_nez_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_nez_,tag::simd_(tag::arithmetic_),int64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (int64_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype; 
       typedef typename meta::int32_t_<sctype >::type htype;
@@ -39,11 +37,27 @@ namespace nt2 { namespace functors
       const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
       return simd::native_cast<A0>(b_or(tmp1, tmp2));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_nez_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return is_not_equal(a0,Zero<A0>());
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

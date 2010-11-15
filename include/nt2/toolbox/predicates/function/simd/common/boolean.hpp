@@ -20,22 +20,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute boolean(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<boolean_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<boolean_,tag::simd_(tag::arithmetic_),int64_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (int64_t,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_t)
+    NT2_FUNCTOR_CALL(1)
     {
       //scalaire a 4 cycles
       //       A0 r;
@@ -46,12 +43,27 @@ namespace nt2 { namespace functors
       //     return seladd(isnez(a0),Zero<A0>(),One<A0>());         //3.8 cycles
       return is_nez(a0)&One<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<boolean_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return is_nez(a0)&One<A0>();
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

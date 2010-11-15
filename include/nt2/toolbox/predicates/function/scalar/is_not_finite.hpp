@@ -30,11 +30,10 @@ namespace nt2 { namespace functors
   {
     typedef bool result_type;
 
-    NT2_FUNCTOR_CALL(1)
-      {
-	return nt2::is_nan(a0-a0);
-      }
-
+    NT2_FUNCTOR_CALL(1) 
+    {
+      return nt2::is_nan(a0-a0);
+    }
   };
 
 
@@ -56,4 +55,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010

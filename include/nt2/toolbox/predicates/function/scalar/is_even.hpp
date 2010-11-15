@@ -35,13 +35,18 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> {typedef bool type; };
+    struct result<This(A0)> 
+    {
+       typedef bool type; 
+    };
 
     NT2_FUNCTOR_CALL(1)
     {
       return is_flint(a0*Half<A0>());
     }
   };
+
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is fundamental_
   /////////////////////////////////////////////////////////////////////////////
@@ -50,14 +55,18 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> {typedef bool type; };
+    struct result<This(A0)> 
+    {
+       typedef bool type; 
+    };
 
     NT2_FUNCTOR_CALL(1)
     {
       return !(a0 & One<A0>());      
     }
   };
+
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010

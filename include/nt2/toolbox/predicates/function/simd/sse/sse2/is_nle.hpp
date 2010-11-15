@@ -15,32 +15,58 @@ namespace nt2 { namespace functors
 {
   //  no special validate for is_nle
 
-  template<class Extension,class Info>
-  struct call<is_nle_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_nle_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0, A0)> : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (float,double,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,   float)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that =  { _mm_cmpnle_ps(a0,a1)}; return that; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_nle_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that =  { _mm_cmpnle_pd(a0,a1)}; return that; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_nle_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       return gt(a0,a1);
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010
