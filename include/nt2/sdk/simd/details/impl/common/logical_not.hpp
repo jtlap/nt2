@@ -21,7 +21,11 @@ namespace nt2 { namespace functors
     template<class This,class A>
     struct result<This(A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
+    NT2_FUNCTOR_CALL(1)
+    {
+      A0 that = { eq(a0,Zero<A0>()) };
+      return that;
+    }
   };
 } }
 
