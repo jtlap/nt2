@@ -20,10 +20,6 @@ namespace nt2 { namespace functors
 {
 
   template<class Info>
-  struct dispatch<jni_, tag::scalar_(tag::arithmetic_),Info>
-    : boost::mpl::_2 {};
-  
-  template<class Info>
   struct validate<jni_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
@@ -51,11 +47,12 @@ namespace nt2 { namespace functors
 	result_type x = a1;
 	const int32_t n1 = nt2::abs(a0);
 	result_type sign = a0<0?cospi(n1):1;
-	if( n1 == 0 ) return( sign * j0(x) );
-	if( n1 == 1 ) return( sign * j1(x) );
+	if( n1 == 0 )
+	  return( sign * j0(x) );
+	if( n1 == 1 )
+	  return( sign * j1(x) );
 	if( n1 == 2 )
-	  return mul(sign, (mul(Two<result_type>(),
-				nt2::j1(x) / x)  -  j0(x)) );
+	  return mul(sign, (mul(Two<result_type>(), nt2::j1(x) / x)  -  j0(x)) );
 
 	/* continued fraction */
 	int k = 24;
@@ -128,4 +125,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 14/11/2010
+/// Revised by jt the 15/11/2010

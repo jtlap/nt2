@@ -32,20 +32,93 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute i0(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<i0_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<i0_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-     (3, (float, double,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
+    NT2_FUNCTOR_CALL(1)
+    {
+      /* Chebyshev coefficients for exp(-x) I0(x)
+       * in the interval [0,8].
+       *
+       * lim(x->0){ exp(-x) I0(x) } = 1.
+       */
+      static const boost::array<float, 18> A =
+	{{
+	    -1.30002500998624804212E-8f,
+	    6.04699502254191894932E-8f,
+	    -2.67079385394061173391E-7f,
+	    1.11738753912010371815E-6f,
+	    -4.41673835845875056359E-6f,
+	    1.64484480707288970893E-5f,
+	    -5.75419501008210370398E-5f,
+	    1.88502885095841655729E-4f,
+	    -5.76375574538582365885E-4f,
+	    1.63947561694133579842E-3f,
+	    -4.32430999505057594430E-3f,
+	    1.05464603945949983183E-2f,
+	    -2.37374148058994688156E-2f,
+	    4.93052842396707084878E-2f,
+	    -9.49010970480476444210E-2f,
+	    1.71620901522208775349E-1f,
+	    -3.04682672343198398683E-1f,
+	    6.76795274409476084995E-1f
+	  }};
+      
+      
+      /* Chebyshev coefficients for exp(-x) sqrt(x) I0(x)
+       * in the inverted interval [8,infinity].
+       *
+       * lim(x->inf){ exp(-x) sqrt(x) I0(x) } = 1/sqrt(2pi).
+       */
+      
+      static const boost::array<float, 7> B =
+	{
+	  3.39623202570838634515E-9f,
+	  2.26666899049817806459E-8f,
+	  2.04891858946906374183E-7f,
+	  2.89137052083475648297E-6f,
+	  6.88975834691682398426E-5f,
+	  3.36911647825569408990E-3f,
+	  8.04490411014108831608E-1f
+	};
+      A0 x =  abs(a0);
+      A0 r = Nan<A0>();
+      int32_t nb = 0;
+      A0 test = le(x,  splat<A0>(8.0f)); 
+      if( (nb = nbtrue(test)) > 0)
+	{
+	  A0 y = x*Half<A0>() - Two<A0>();
+	  r = b_ornot(exp(x) * tchebeval( y, A), test);
+	}
+      if (nb >= meta::cardinal_of<A0>::value)
+	{
+	  return r;
+	}
+      r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
+      return r; 
+    }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<i0_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       static const boost::array<double, 30> A =
 	{{
@@ -124,77 +197,27 @@ namespace nt2 { namespace functors
       r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
       return r; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
-    {
-      /* Chebyshev coefficients for exp(-x) I0(x)
-       * in the interval [0,8].
-       *
-       * lim(x->0){ exp(-x) I0(x) } = 1.
-       */
-      static const boost::array<float, 18> A =
-	{{
-	    -1.30002500998624804212E-8f,
-	    6.04699502254191894932E-8f,
-	    -2.67079385394061173391E-7f,
-	    1.11738753912010371815E-6f,
-	    -4.41673835845875056359E-6f,
-	    1.64484480707288970893E-5f,
-	    -5.75419501008210370398E-5f,
-	    1.88502885095841655729E-4f,
-	    -5.76375574538582365885E-4f,
-	    1.63947561694133579842E-3f,
-	    -4.32430999505057594430E-3f,
-	    1.05464603945949983183E-2f,
-	    -2.37374148058994688156E-2f,
-	    4.93052842396707084878E-2f,
-	    -9.49010970480476444210E-2f,
-	    1.71620901522208775349E-1f,
-	    -3.04682672343198398683E-1f,
-	    6.76795274409476084995E-1f
-	  }};
-      
-      
-      /* Chebyshev coefficients for exp(-x) sqrt(x) I0(x)
-       * in the inverted interval [8,infinity].
-       *
-       * lim(x->inf){ exp(-x) sqrt(x) I0(x) } = 1/sqrt(2pi).
-       */
-      
-      static const boost::array<float, 7> B =
-	{
-	  3.39623202570838634515E-9f,
-	  2.26666899049817806459E-8f,
-	  2.04891858946906374183E-7f,
-	  2.89137052083475648297E-6f,
-	  6.88975834691682398426E-5f,
-	  3.36911647825569408990E-3f,
-	  8.04490411014108831608E-1f
-	};
-      A0 x =  abs(a0);
-      A0 r = Nan<A0>();
-      int32_t nb = 0;
-      A0 test = le(x,  splat<A0>(8.0f)); 
-      if( (nb = nbtrue(test)) > 0)
-	{
-	  A0 y = x*Half<A0>() - Two<A0>();
-	  r = b_ornot(exp(x) * tchebeval( y, A), test);
-	}
-      if (nb >= meta::cardinal_of<A0>::value)
-	{
-	  return r;
-	}
-      r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
-      return r; 
-    }
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<i0_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return (type(a0));
     }
-    
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
