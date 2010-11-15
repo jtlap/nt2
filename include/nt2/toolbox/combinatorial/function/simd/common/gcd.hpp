@@ -25,21 +25,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute gcd(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<gcd_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<gcd_,tag::simd_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 a(round2even(a0)), b(round2even(a1));
       A0 t= is_nez(b);
@@ -52,8 +49,20 @@ namespace nt2 { namespace functors
 	}
       return round2even(a);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  arithmetic_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<gcd_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 a = a0, b = a1; 
       A0 t= is_nez(b);
@@ -66,9 +75,9 @@ namespace nt2 { namespace functors
 	}
       return a;
     }
-    
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
