@@ -21,9 +21,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute sum(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<sum_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -38,8 +41,9 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(1)::type     type;
       return boost::fusion::fold(a0,Zero<type>(),functor<plus_>());
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

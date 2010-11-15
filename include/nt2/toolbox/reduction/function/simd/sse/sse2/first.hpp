@@ -17,56 +17,124 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Extension,class Info>
-  struct call<first_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<first_,tag::simd_(tag::arithmetic_),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct  result<This(A0)>
           : meta::scalar_of<typename meta::strip<A0>::type> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename nt2::meta::scalar_of<A0>::type
-                              , ( 6
-                                , (types8_,types16_,float,types32_,double, types64_)
-                                )
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    types8_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       int that = _mm_extract_epi16(a0, 0);
       printf("%d\n",that);
       return that & 0xFF;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    types16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<first_,tag::simd_(tag::arithmetic_),types16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return _mm_extract_epi16(a0, 0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    float)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<first_,tag::simd_(tag::arithmetic_),float,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type type;
       meta::from_bits<float>::type t = {_mm_cvtsi128_si32(simd::native_cast<type>(a0))};
       return t.value;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    types32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<first_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type type;
       return _mm_cvtsi128_si32(simd::native_cast<type>(a0));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<first_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return _mm_cvtsd_f64(a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    types64_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<first_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
       meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(a0))};
       return t.bits;
     }
-
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

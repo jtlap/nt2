@@ -32,7 +32,7 @@ namespace nt2 { namespace functors
   template<class Info>
   struct  call<nbtrue_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
-    typedef nt2::uint32_t result_type;
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
       {
@@ -43,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010

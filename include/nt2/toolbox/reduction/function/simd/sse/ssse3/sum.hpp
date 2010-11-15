@@ -20,8 +20,12 @@ namespace nt2 { namespace functors
 {
   //  no special validate for sum
 
-  template<class Extension,class Info>
-  struct call<sum_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -31,42 +35,122 @@ namespace nt2 { namespace functors
       typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
     };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (6, (float,double,int8_,int16_,int32_,int64_))
-    )
-
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 tmp = {_mm_hadd_ps(a0, Zero<A0>())};
       return  first(simd::native_cast<A0>(_mm_hadd_ps(tmp, Zero<A0>())));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
     {
       return first(simd::native_cast<A0>(_mm_hadd_pd( a0, Zero<A0>())));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),int8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
     {
 	return boost::fusion::fold(a0,0,functor<plus_>());
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),int16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 tmp = {_mm_hadd_epi16(a0, a0)};
       A0 tmp1 = {_mm_hadd_epi16(tmp, tmp)};
       return  first(simd::native_cast<A0>(_mm_hadd_epi16(tmp1, tmp1)));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),int32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 tmp = {_mm_hadd_epi32(a0, a0)};
       return  first(simd::native_cast<A0>(_mm_hadd_epi32(tmp, tmp)));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sum_,tag::simd_(tag::arithmetic_),int64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 base;
+      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
     {
       return first(a0)+second(a0);
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010
