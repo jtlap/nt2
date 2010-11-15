@@ -15,6 +15,9 @@
 
 namespace nt2 { namespace functors
 {
+  template<class Info>
+  struct dispatch<legendre_, tag::scalar_(tag::arithmetic_),Info>
+    : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<legendre_,tag::scalar_(tag::arithmetic_),Info>
