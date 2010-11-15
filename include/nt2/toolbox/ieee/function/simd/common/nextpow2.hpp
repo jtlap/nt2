@@ -31,20 +31,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute nextpow2(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<nextpow2_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextpow2_,tag::simd_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (5, (real_,uint8_t,uint16_t,unsigned_,arithmetic_))
-    )
-      NT2_FUNCTOR_CALL_EVAL_IF(1,real_)
+    NT2_FUNCTOR_CALL(1)
       {
 	typedef typename meta::as_integer<A0>::type int_type;
 	A0 m;
@@ -52,7 +50,20 @@ namespace nt2 { namespace functors
 	boost::fusion::tie(m, p) = frexp(abs(a0));
 	return tofloat(seladd(is_equal(m, Half<A0>()), p, Mone<int_type>()));
       }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,uint8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextpow2_,tag::simd_(tag::arithmetic_),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
 	typedef typename meta::scalar_of<A0>::type           stype;
 	typedef typename meta::upgrade<stype>::type itype;
@@ -62,7 +73,20 @@ namespace nt2 { namespace functors
 	return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
 	//seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
       }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,uint16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextpow2_,tag::simd_(tag::arithmetic_),uint16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
 	typedef typename meta::scalar_of<A0>::type           stype;
 	typedef typename meta::upgrade<stype>::type itype;
@@ -72,7 +96,20 @@ namespace nt2 { namespace functors
 	return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
 	//seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
       }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextpow2_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
 	typedef typename meta::as_real<A0>::type rtype; 
 	typedef typename meta::as_integer<A0, signed>::type itype;
@@ -82,15 +119,28 @@ namespace nt2 { namespace functors
 	//	std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl; 
 	return simd::native_cast<A0>(seladd(is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextpow2_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
 	typedef typename meta::as_integer<A0, unsigned>::type utype;
 	return simd::native_cast<A0>(nextpow2(simd::native_cast<utype >(abs(a0)))); 
 	//	return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
       }
-
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

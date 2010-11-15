@@ -30,20 +30,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute nextafter(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<nextafter_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextafter_,tag::simd_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (real_,unsigned_, arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    real_)
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, signed>::type itype; 
       A0 m;
@@ -57,16 +55,43 @@ namespace nt2 { namespace functors
       return r+diff; 
       //      return sel(islt(a0, a1), next(a0), sel(iseq(a0, a1),  a0, prev(a0))); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    unsigned_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextafter_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return sel(is_equal(a0,a1),a0,sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextafter_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return seladd(is_not_equal(a0,a1),a0,seladd(gt(a1,a0),-One<A0>(),Two<A0>()));
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

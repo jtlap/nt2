@@ -34,31 +34,39 @@ namespace nt2 { namespace functors
 				       , meta::scalar_of<boost::mpl::_>
                       > {};
   };
-  template<class Extension,class Info>
-  struct call<tofloat_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<tofloat_,tag::simd_(tag::arithmetic_),int32_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       { typedef typename meta::as_real<A0>::type  type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (5, (int32_t,int64_t,uint32_t,uint64_t,real_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     real_)
-    {
-      return a0; 
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int32_t)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       type that = { _mm_cvtepi32_ps(a0)};
       return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<tofloat_,tag::simd_(tag::arithmetic_),int64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_real<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type  type;
       typedef typename meta::scalar_of<type>::type sftype; 
@@ -73,7 +81,21 @@ namespace nt2 { namespace functors
       type v = { _mm_cvtepi32_pd(tmp)};
       return v;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    uint32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<tofloat_,tag::simd_(tag::arithmetic_),uint32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_real<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type  result_type;
       result_type z = {a0[0],a0[1],a0[2], a0[3]}; //TO DO
@@ -88,7 +110,21 @@ namespace nt2 { namespace functors
 //       v2 = v2+offset;
 //       return sel(is_gez(a00),v1,v2);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    uint64_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<tofloat_,tag::simd_(tag::arithmetic_),uint64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_real<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type  result_type;
       result_type const v = {{a0[0], a0[1]}};
@@ -96,6 +132,26 @@ namespace nt2 { namespace functors
 
     }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<tofloat_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_real<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0; 
+    }
+  };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

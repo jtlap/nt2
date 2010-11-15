@@ -30,7 +30,6 @@ namespace nt2 { namespace functors
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute predecessor(const A0& a0, const A1& a1)
-  //      or predecessor(const A0& a0)             
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
@@ -41,15 +40,9 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)> : meta::strip<A0> {};
+    struct result<This(A0)> : boost::mpl::true_ {};
 
     NT2_FUNCTOR_CALL(2)
-    {
-      return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
-    }
-    NT2_FUNCTOR_CALL(1)
     {
       return a0==Inf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
     }
@@ -64,21 +57,15 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)> : meta::strip<A0> {};
+    struct result<This(A0)> : boost::mpl::true_ {};
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return minusone(a0);
-    }
     NT2_FUNCTOR_CALL(2)
     {
-      return  a0-a1; 
+      return minusone(a0);
     }
   };
 
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010

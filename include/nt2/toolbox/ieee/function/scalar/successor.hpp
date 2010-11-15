@@ -19,12 +19,12 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/bitfloating.hpp>
-// #include <nt2/include/functions/tofloat.hpp>
-// #include <nt2/include/functions/seladd.hpp>
-// #include <nt2/include/functions/select.hpp>
-// #include <nt2/include/functions/fast_frexp.hpp>
-// #include <nt2/include/functions/fast_ldexp.hpp>
-// #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/fast_frexp.hpp>
+#include <nt2/include/functions/fast_ldexp.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -41,8 +41,7 @@ namespace nt2 { namespace functors
           : boost::is_integral<A1> {};
   };
   /////////////////////////////////////////////////////////////////////////////
-  // Compute successor(const A0& a0, const A1& a1)
-  //      or successor(const A0& a0)             
+  // Compute successor(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
@@ -53,17 +52,11 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)> : meta::strip<A0> {};
+    struct result<This(A0)> : boost::mpl::true_ {};
 
-    NT2_FUNCTOR_CALL(2)
-    {
-      return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
-    }
     NT2_FUNCTOR_CALL(1)
     {
-      return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
+      return next(a0); 
     }
   };
 
@@ -76,21 +69,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)> : meta::strip<A0> {};
+    struct result<This(A0)> : boost::mpl::true_ {};
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return oneplus(a0);
-    }
-    NT2_FUNCTOR_CALL(2)
-    {
-      return  a0+a1; 
-    }
+    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
   };
 
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010
