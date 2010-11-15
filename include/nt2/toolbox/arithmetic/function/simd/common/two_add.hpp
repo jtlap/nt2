@@ -26,9 +26,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute two_add(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<two_add_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<two_add_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -38,6 +41,7 @@ namespace nt2 { namespace functors
       typedef typename boost::fusion::tuple<str_t, str_t>        type;
     };
   
+
     NT2_FUNCTOR_CALL(2)
     {
       typename NT2_CALL_RETURN_TYPE(2)::type res;
@@ -56,5 +60,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

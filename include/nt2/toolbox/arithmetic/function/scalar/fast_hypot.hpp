@@ -19,7 +19,7 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/ldexp.hpp>
-#include <iostream>
+
 namespace nt2 { namespace functors
 {
 
@@ -43,7 +43,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
 	// flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
-	// the method used for float is 30% slower
+	// internal is 30% slower
 	return nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1)));
     }
   };
@@ -62,15 +62,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0, signed>::type  int_type;
-      A0 x =  abs(a0);
-      A0 y =  abs(a1);
-      if (nt2::is_inf(x+y)) return Inf<float>();
-      if (nt2::is_nan(x+y)) return Nan<float>();
-      if (y > x) std::swap(x, y);
-      std::cout << Eps<A0>() << std::endl; 
-      if (x*Eps<A0>() >=  y) return x;
-      return x*nt2::sqrt(One<A0>()+nt2::sqr(y/x)); 
+	return internal(a0, a1);
     }
   };
 
@@ -96,4 +88,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010

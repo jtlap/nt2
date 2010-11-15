@@ -16,57 +16,169 @@ namespace nt2 { namespace functors
 {
   //  no special validate for max
 
-  template<class Extension,class Info>
-  struct call<max_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (9, (float,double,int8_t,int16_t,int32_t,uint8_t,uint16_t,uint32_t,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       float)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that =  {_mm256_max_ps(a0,a1)}; return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,      double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that =  {_mm256_max_pd(a0,a1)}; return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     int8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),int8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       NT2_XOP_JOIN128INT(that, _mm_max_epi8); return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     int16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),int16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       NT2_XOP_JOIN128INT(that, _mm_max_epi16); return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     int32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),int32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       NT2_XOP_JOIN128INT(that, _mm_max_epi32); return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     uint8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       NT2_XOP_JOIN128INT(that, _mm_max_epu8); return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     uint16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),uint16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       NT2_XOP_JOIN128INT(that, _mm_max_epu16); return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     uint32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),uint32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       NT2_XOP_JOIN128INT(that, _mm_max_epu32); return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<max_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
        return seladd( is_lt(a0,a1),a0,a1-a0);
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

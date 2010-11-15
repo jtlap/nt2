@@ -15,20 +15,20 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute sqrt(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Dummy>
-  struct call<sqrt_,
-              tag::simd_(tag::arithmetic_,Extension),Dummy>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sqrt_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-    // see documentation http://nt2.lri.fr/extension/custom_function.html
-    // for writing the functor implementation code 
-    // with or without type dispatching
 
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
