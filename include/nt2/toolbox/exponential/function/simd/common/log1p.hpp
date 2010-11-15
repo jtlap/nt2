@@ -33,21 +33,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute log1p(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<log1p_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<log1p_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (float,double))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
+    NT2_FUNCTOR_CALL(1)
     {
 	A0 u = oneplus(a0);
 	return log(u) - ((u-One<A0>())-a0)/u; /* cancels errors with IEEE arithmetic */
@@ -57,7 +54,20 @@ namespace nt2 { namespace functors
 // 	const A0 l = log(u);
 // 	return b_or(isltz(u),select(small_mask,a0,l*(a0/(minusone(u)))));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<log1p_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
 	A0 u = oneplus(a0);
 	return log(u) - ((u-One<A0>())-a0)/u; /* cancels errors with IEEE arithmetic */
@@ -95,13 +105,9 @@ namespace nt2 { namespace functors
 // 	return b_or(isltz(u),z2*select(small_mask,One<A0>(),(a0/(minusone(u)))));
 // 	//	return z2;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return nt2::log1p(tofloat(a0)); 
-    }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

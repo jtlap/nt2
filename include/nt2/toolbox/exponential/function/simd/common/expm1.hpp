@@ -41,21 +41,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute expm1(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<expm1_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<expm1_,tag::simd_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (float,double,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
+    NT2_FUNCTOR_CALL(1)
     {
       const A0 u =  exp(a0);
       const A0 p = b_or(is_eqz(u),is_inf(u));
@@ -64,7 +61,20 @@ namespace nt2 { namespace functors
       const A0 y2 = mul(y1,(rdiv(a0,log(u))));
       return select(p,y1,select(m, y2, a0));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<expm1_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type int_type;
       typedef typename meta::scalar_of<A0>::type sA0; 
@@ -96,13 +106,27 @@ namespace nt2 { namespace functors
       return y;
 	//return impl::expm1(a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<expm1_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return nt2::exp(tofloat(a0))-One<type>(); 
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
