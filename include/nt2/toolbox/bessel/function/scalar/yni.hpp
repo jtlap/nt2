@@ -23,6 +23,10 @@ namespace nt2 { namespace functors
 {
 
   template<class Info>
+  struct dispatch<yni_, tag::scalar_(tag::arithmetic_),Info>
+    : boost::mpl::_2 {};
+
+  template<class Info>
   struct validate<yni_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
