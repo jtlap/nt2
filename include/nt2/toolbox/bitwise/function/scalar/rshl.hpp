@@ -36,7 +36,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};
+    struct result<This(A0,A1)> :
+      boost::is_integral<typename meta::strip<A1>::type >{}; 
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -55,7 +56,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};
+    struct result<This(A0,A1)> :
+      boost::is_integral<typename meta::strip<A1>::type >{}; 
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -66,4 +68,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 13/11/2010
+/// Revised by jt the 15/11/2010

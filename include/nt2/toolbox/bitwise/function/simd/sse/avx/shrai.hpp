@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_AVX_SHRAI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_AVX_SHRAI_HPP_INCLUDED
-tag::sse_
+
 #include <nt2/sdk/meta/strip.hpp>
 
 #include <nt2/include/functions/details/simd/sse/sse4_1/shrai.hpp>
@@ -17,8 +17,12 @@ namespace nt2 { namespace functors
 {
   //  no special validate for shrai
 
-  template<class Extension,class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<shrai_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -34,7 +38,9 @@ namespace nt2 { namespace functors
       that =  _mm256_insertf128_si256(that, nt2::shrai(a01, a1), 1); 		
       return that; 
      }
+
   };
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

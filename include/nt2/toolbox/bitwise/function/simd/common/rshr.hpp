@@ -27,21 +27,26 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute rshr(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<rshr_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<rshr_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A1)> :
+      boost::mpl::and_ < meta::is_integral<A1>,
+			 meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> > >{};
 
     NT2_FUNCTOR_CALL(2)
     {
       return map(functor<rshr_>(), a0, a1);
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -18,77 +18,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute reversebits(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Dummy>
-  struct call<reversebits_, tag::simd_(tag::arithmetic_,Extension),Dummy>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> : meta::strip<A0>{};
       
-    NT2_FUNCTOR_CALL_DISPATCH(
-	1,
-	typename nt2::meta::scalar_of<A0>::type,
-	(4, (int64_, int32_, int16_, int8_))
-    )
-      
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int8_)
-      {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	typedef typename meta::as_integer<A0, unsigned>::type utype; 
-	utype v = simd::native_cast<utype>(a0);
-	const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
-	const utype m2  = integral_constant<utype,0x33>(); //binary: 00110011..
-	const utype m4  = integral_constant<utype,0x0f>(); //binary:  4 zeros,  4 ones ...
-	// swap odd and even bits
-	v = (shri(v, 1) & m1) | shli((v & m1), 1);
-	// swap consecutive pairs
-	v = (shri(v, 2) & m2) | shli((v & m2), 2);
-	// swap nibbles ... 
-	v = (shri(v, 4) & m4) | shli((v & m4), 4);
-	return simd::native_cast<A0>(v); 
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int16_)
-      {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	typedef typename meta::as_integer<A0, unsigned>::type utype; 
-	utype v = simd::native_cast<utype>(a0);
-	const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
-	const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
-	const result_type m4  = integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
-	const result_type m8  = integral_constant<result_type,0x00ff>(); //binary:  8 zeros,  8 ones ...
-	// swap odd and even bits
-	v = (shri(v, 1) & m1) | shli((v & m1), 1);
-	// swap consecutive pairs
-	v = (shri(v, 2) & m2) | shli((v & m2), 2);
-	// swap nibbles ... 
-	v = (shri(v, 4) & m4) | shli((v & m4), 4);
-	// swap bytes ... 
-	v = (shri(v, 8) & m8) | shli((v & m8), 8);
-	return simd::native_cast<A0>(v); 
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int32_)
-      {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	typedef typename meta::as_integer<A0, unsigned>::type utype; 
-	utype v = simd::native_cast<utype>(a0);
-	const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
-	const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..
-	const result_type m4  = integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
-	const result_type m8  = integral_constant<result_type,0x00ff00ff>(); //binary:  8 zeros,  8 ones ...
-	const result_type m16 = integral_constant<result_type,0x0000ffff>(); //binary:  16 zeros,  16 ones ...
-	// swap odd and even bits
-	v = (shri(v, 1) & m1) | shli((v & m1), 1);
-	// swap consecutive pairs
-	v = (shri(v, 2) & m2) | shli((v & m2), 2);
-	// swap nibbles ... 
-	v = (shri(v, 4) & m4) | shli((v & m4), 4);
-	// swap bytes ... 
-	v = (shri(v, 8) & m8) | shli((v & m8), 8);
-	// swap shorts ... 
-	v = (shri(v, 16) & m16) | shli((v & m16), 16);
-	return simd::native_cast<A0>(v); 
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
+
+    NT2_FUNCTOR_CALL(1)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
 	typedef typename meta::as_integer<A0, unsigned>::type utype; 
@@ -124,9 +66,108 @@ namespace nt2 { namespace functors
 // 	return simd::native_cast<A0 > (v); 
 // #undef	NT2_SH
       }
-     
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0>{};
+      
+
+    NT2_FUNCTOR_CALL(1)
+      {
+ 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
+	typedef typename meta::as_integer<A0, unsigned>::type utype; 
+	utype v = simd::native_cast<utype>(a0);
+	const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
+	const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..
+	const result_type m4  = integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
+	const result_type m8  = integral_constant<result_type,0x00ff00ff>(); //binary:  8 zeros,  8 ones ...
+	const result_type m16 = integral_constant<result_type,0x0000ffff>(); //binary:  16 zeros,  16 ones ...
+	// swap odd and even bits
+	v = (shri(v, 1) & m1) | shli((v & m1), 1);
+	// swap consecutive pairs
+	v = (shri(v, 2) & m2) | shli((v & m2), 2);
+	// swap nibbles ... 
+	v = (shri(v, 4) & m4) | shli((v & m4), 4);
+	// swap bytes ... 
+	v = (shri(v, 8) & m8) | shli((v & m8), 8);
+	// swap shorts ... 
+	v = (shri(v, 16) & m16) | shli((v & m16), 16);
+	return simd::native_cast<A0>(v); 
+      }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0>{};
+      
+
+    NT2_FUNCTOR_CALL(1)
+      {
+ 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
+	typedef typename meta::as_integer<A0, unsigned>::type utype; 
+	utype v = simd::native_cast<utype>(a0);
+	const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
+	const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
+	const result_type m4  = integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
+	const result_type m8  = integral_constant<result_type,0x00ff>(); //binary:  8 zeros,  8 ones ...
+	// swap odd and even bits
+	v = (shri(v, 1) & m1) | shli((v & m1), 1);
+	// swap consecutive pairs
+	v = (shri(v, 2) & m2) | shli((v & m2), 2);
+	// swap nibbles ... 
+	v = (shri(v, 4) & m4) | shli((v & m4), 4);
+	// swap bytes ... 
+	v = (shri(v, 8) & m8) | shli((v & m8), 8);
+	return simd::native_cast<A0>(v); 
+      }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0>{};
+      
+
+    NT2_FUNCTOR_CALL(1)
+      {
+ 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
+	typedef typename meta::as_integer<A0, unsigned>::type utype; 
+	utype v = simd::native_cast<utype>(a0);
+	const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
+	const utype m2  = integral_constant<utype,0x33>(); //binary: 00110011..
+	const utype m4  = integral_constant<utype,0x0f>(); //binary:  4 zeros,  4 ones ...
+	// swap odd and even bits
+	v = (shri(v, 1) & m1) | shli((v & m1), 1);
+	// swap consecutive pairs
+	v = (shri(v, 2) & m2) | shli((v & m2), 2);
+	// swap nibbles ... 
+	v = (shri(v, 4) & m4) | shli((v & m4), 4);
+	return simd::native_cast<A0>(v); 
+      }
+  };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -18,20 +18,20 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitwise_andnot(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<bitwise_andnot_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<bitwise_andnot_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0, A0)> : meta::strip<A0>{};
 
-    // see documentation http://nt2.lri.fr/extension/custom_function.html
-    // for writing the functor implementation code 
-    // with or without type dispatching
 
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

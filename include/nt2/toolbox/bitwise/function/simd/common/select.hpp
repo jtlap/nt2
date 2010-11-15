@@ -17,9 +17,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute select(const A0& a0, const A0& a1, const A0& a2)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<select_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<select_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -30,8 +33,9 @@ namespace nt2 { namespace functors
       //      return b_or(b_and(a1,a0),b_andnot(a2,a0));
       return bitwise_xor(a2, b_and(b_xor(a2, a1),a0)); 
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
