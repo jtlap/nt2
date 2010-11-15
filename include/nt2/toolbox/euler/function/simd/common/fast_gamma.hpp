@@ -35,20 +35,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_gamma(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<fast_gamma_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<fast_gamma_,tag::simd_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 sgngam = One<A0>(); //positive
       A0 r =  Nan<A0>(), r2=  Nan<A0>();
@@ -87,64 +85,27 @@ namespace nt2 { namespace functors
       return r|is_nan(a0); 
       
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
-    {
-      return Zero<A0>(); 
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<fast_gamma_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return fast_gamma(tofloat(a0)); 
     }
-  private :
-     template < class A0 >  static inline A0 other(const A0& test, const A0& xx)
-    {
-      typedef typename meta::scalar_of<A0>::type sA0; 
-      static boost::array<sA0, 7> P = {{
-	  1.60119522476751861407E-4,
-	  1.19135147006586384913E-3,
-	  1.04213797561761569935E-2,
-	  4.76367800457137231464E-2,
-	  2.07448227648435975150E-1,
-	  4.94214826801497100753E-1,
-	  9.99999999999999996796E-1
-	}};
-      static boost::array<sA0, 8>  Q = {{
-	  -2.31581873324120129819E-5,
-	  5.39605580493303397842E-4,
-	  -4.45641913851797240494E-3,
-	  1.18139785222060435552E-2,
-	  3.58236398605498653373E-2,
-	  -2.34591795718243348568E-1,
-	  7.14304917030273074085E-2,
-	  1.00000000000000000320E0
-        }};
-      A0 x =  sel(test, Five<A0>()/Two<A0>(), xx);
-      A0 z = One<A0>();
-      A0 test1;
-      while( any(test1 = ge(x,Three<A0>())) )
-	{
-	  x = seladd(test1, x, Mone<A0>());
-	  z = sel(   test1, z*x, z);
-	}
-      A0 test2;
-      while( any(test2 = is_ltz(x)) )
-	{
-	  z = sel(   test2, z/x, z);
-	  x = seladd(test2, x, One<A0>());
-	}
-      while( any(test1 =lt(x,Two<A0>())) )
-	{
-	  z = sel(   test1, z/x, z);
-	  x = seladd(test1, x, One<A0>());
-	}
-      x -= Two<A0>();
-      A0 p = polevl(x,P);
-      A0 q = polevl(x,Q);
-      return z*p/q; 	     
-    }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
