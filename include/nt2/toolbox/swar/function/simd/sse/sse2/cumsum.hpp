@@ -16,34 +16,19 @@ namespace nt2 { namespace functors
 {
   //  no special validate for cumsum
 
-  template<class Extension,class Info>
-  struct call<cumsum_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<cumsum_,tag::simd_(tag::arithmetic_),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (4, (types8_,types16_,types32_,types64_))
-    )
-      
-      NT2_FUNCTOR_CALL_EVAL_IF(1,      types32_)
-    {
-      typedef typename meta::as_integer<A0>::type sint;
-      A0 a = a0;
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 4));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
-      return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 12));
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      types64_)
-    {
-      typedef typename meta::as_integer<A0>::type sint;
-      return a0+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      types8_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
@@ -63,7 +48,21 @@ namespace nt2 { namespace functors
       a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 14));
       return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 15));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     types16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<cumsum_,tag::simd_(tag::arithmetic_),types16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
@@ -76,6 +75,49 @@ namespace nt2 { namespace functors
       return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 14));
     }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<cumsum_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0>::type sint;
+      A0 a = a0;
+      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 4));
+      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
+      return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 12));
+    }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<cumsum_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0>::type sint;
+      return a0+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
+    }
+  };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

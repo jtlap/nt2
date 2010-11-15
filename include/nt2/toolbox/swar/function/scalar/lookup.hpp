@@ -19,8 +19,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute lookup(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<lookup_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<lookup_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -31,9 +35,9 @@ namespace nt2 { namespace functors
       details::ignore_unused(a1); 
       return a0; 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
