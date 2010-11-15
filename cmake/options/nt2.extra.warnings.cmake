@@ -23,16 +23,16 @@ IF(NT2_EXTRA_WARNINGS)
 ################################################################################
 check_cxx_compiler_flag("-Wextra" HAS_GCC_WEXTRA)
 IF(HAS_GCC_WEXTRA)
-set(NT2_FLAGS "${NT2_FLAGS} -Wextra")
+set(NT2_FLAGS "${NT2_FLAGS} -Wall -Wextra -pedantic -ansi")
 set(NT2_EXTRA_WARNINGS_SET 1)
 ENDIF()
 
 ################################################################################
 # Check for MSVC style
 ################################################################################
-check_cxx_compiler_flag("/W3" HAS_MSVC_WEXTRA)
+check_cxx_compiler_flag("/W4" HAS_MSVC_WEXTRA)
 IF(HAS_MSVC_WEXTRA)
-set(NT2_FLAGS "${NT2_FLAGS} /W3")
+set(NT2_FLAGS "${NT2_FLAGS} /W4")
 set(NT2_EXTRA_WARNINGS_SET 1)
 ENDIF()
 

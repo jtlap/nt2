@@ -10,15 +10,14 @@
 #define NT2_SDK_MEMORY_ALIGNED_TYPE_HPP_INCLUDED
 
 #include <cstddef>
-#include <nt2/sdk/config/compiler.hpp>
 #include <nt2/sdk/memory/parameters.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Intrinsic platform dependant alignment attribute
 ////////////////////////////////////////////////////////////////////////////////
-#if (defined(NT2_COMPILER_MSVC))
+#if (defined(BOOST_MSVC))
 #define NT2_ALIGN_ON(x)  __declspec(align(x))
-#elif (defined(NT2_COMPILER_GNU_C))
+#elif (defined(__GNUC__))
 #define NT2_ALIGN_ON(x)  __attribute__(( __aligned__((x)) ))
 #else
 #error nt2::aligned - No Supported alignment attribute

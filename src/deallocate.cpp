@@ -10,7 +10,7 @@
 
 namespace nt2 { namespace memory
 {
-  void deallocate( byte* ptr, std::size_t nbytes )
+  void deallocate( byte* ptr, std::size_t )
   {
     #if defined(NT2_CONFIG_SUPPORT_POSIX_MEMALIGN)
     //////////////////////////////////////////////////////////////////////////////

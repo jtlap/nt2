@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-#include <cstdio>
+#include <iostream>
 #include <nt2/core/timing/timer.hpp>
 #include <nt2/core/timing/impl/cycles.hpp>
 
@@ -24,7 +24,7 @@ namespace nt2 { namespace details
 
     static inline void Print(const cycles_t& val)
     {
-      printf("Elapsed time is %llu s.\n",val);
+      std::cout << "Elapsed time is " << val << " CPU cycle(s).\n";
     }
   };
 
@@ -33,9 +33,9 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace time
 {
-  static inline void ctic() { details::cycle_timer.tic(); }
+  inline void ctic() { details::cycle_timer.tic(); }
 
-  static inline details::cycles_t  ctoc( bool display = true)
+  inline details::cycles_t  ctoc( bool display = true)
   {
     return details::cycle_timer.toc(display);
   }

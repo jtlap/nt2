@@ -21,7 +21,7 @@ namespace nt2
 {
   namespace details
   {
-    static inline double now()
+    inline double now()
     {
       struct timeval tp;
       gettimeofday(&tp,NULL);

@@ -147,12 +147,12 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     void resize( size_value_type const& s )
     {
-      if(!has_static_size::value) impl.resize(s);
+      impl.resize(s);
     }
 
     void rebase( base_value_type const& b )
     {
-      if(!has_static_base::value) impl.rebase(b);
+      impl.rebase(b);
     }
 
     void restructure( base_value_type const& b, size_value_type const& s )

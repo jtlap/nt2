@@ -153,4 +153,5 @@ namespace boost { namespace proto
         }
     };
 
+#undef N
 #endif

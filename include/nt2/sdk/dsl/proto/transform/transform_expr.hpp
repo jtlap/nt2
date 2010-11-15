@@ -33,7 +33,7 @@ namespace detail {
                 typename when<_, Fun>::template impl<Expr, State, Data>::result_type
             >::type
             transform_result;
-        
+
         typedef typename domain_of<Expr>::type expr_domain;
         typedef typename tag_of<Expr>::type expr_tag;
 
@@ -138,5 +138,7 @@ struct is_callable<transform_expr<Fun> >
             return make_expr<expr_tag, expr_domain>(BOOST_PP_ENUM_PARAMS(N, tr));
         }
     };
+
+#undef N
 
 #endif
