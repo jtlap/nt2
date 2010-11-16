@@ -8,7 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::simd::pack"
 
+#include <iostream>
 #include <nt2/sdk/simd/pack.hpp>
+#include <nt2/include/functions/cosd.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack computations
@@ -16,6 +18,8 @@
 
 int main()
 {
+  nt2::simd::pack<float> x(4);
 
+  std::cout << nt2::cosd(x+x*x+x)*x << "\n";
 }
 
