@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<average_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,7 +41,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is uint8_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<average_,tag::simd_(tag::arithmetic_),uint8_t,Info> : callable
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -60,7 +60,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is uint16_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<average_,tag::simd_(tag::arithmetic_),uint16_t,Info> : callable
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),uint16_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -79,7 +79,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<average_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>

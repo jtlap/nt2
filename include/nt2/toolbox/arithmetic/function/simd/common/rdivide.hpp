@@ -30,8 +30,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rdivide_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  template<class Extension, class Info>
+  struct call<rdivide_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -48,8 +48,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int16_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rdivide_,tag::simd_(tag::arithmetic_),int16_,Info> : callable
+  template<class Extension, class Info>
+  struct call<rdivide_,tag::simd_(tag::arithmetic_,Extension),int16_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -78,8 +78,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rdivide_,tag::simd_(tag::arithmetic_),int8_,Info> : callable
+  template<class Extension, class Info>
+  struct call<rdivide_,tag::simd_(tag::arithmetic_,Extension),int8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -103,8 +103,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rdivide_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Extension, class Info>
+  struct call<rdivide_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>

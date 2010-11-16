@@ -28,8 +28,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<idivround_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  template<class Extension, class Info>
+  struct call<idivround_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -42,8 +42,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is unsigned_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<idivround_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
+  template<class Extension, class Info>
+  struct call<idivround_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -56,8 +56,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_t
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<idivround_,tag::simd_(tag::arithmetic_),int8_t,Info> : callable
+  template<class Extension, class Info>
+  struct call<idivround_,tag::simd_(tag::arithmetic_,Extension),int8_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -80,8 +80,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int16_t
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<idivround_,tag::simd_(tag::arithmetic_),int16_t,Info> : callable
+  template<class Extension, class Info>
+  struct call<idivround_,tag::simd_(tag::arithmetic_,Extension),int16_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -104,8 +104,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<idivround_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Extension, class Info>
+  struct call<idivround_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>

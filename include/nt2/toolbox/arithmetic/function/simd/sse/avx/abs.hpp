@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<abs_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -37,7 +37,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is signed_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<abs_,tag::simd_(tag::arithmetic_),signed_,Info> : callable
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),signed_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -61,7 +61,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is unsigned_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<abs_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>

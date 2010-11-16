@@ -25,8 +25,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is unsigned_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<dist_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
+  template<class Extension, class Info>
+  struct call<dist_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -43,8 +43,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<dist_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Extension, class Info>
+  struct call<dist_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
