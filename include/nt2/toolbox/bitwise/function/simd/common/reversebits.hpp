@@ -22,8 +22,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int64_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int64_,Info> : callable
+  template<class Extension, class Info>
+  struct call<reversebits_,tag::simd_(tag::arithmetic_,Extension),int64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -72,8 +72,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int32_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int32_,Info> : callable
+  template<class Extension, class Info>
+  struct call<reversebits_,tag::simd_(tag::arithmetic_,Extension),int32_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -108,8 +108,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int16_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int16_,Info> : callable
+  template<class Extension, class Info>
+  struct call<reversebits_,tag::simd_(tag::arithmetic_,Extension),int16_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -141,8 +141,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<reversebits_,tag::simd_(tag::arithmetic_),int8_,Info> : callable
+  template<class Extension, class Info>
+  struct call<reversebits_,tag::simd_(tag::arithmetic_,Extension),int8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
