@@ -19,7 +19,10 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Extension,class Info>
+  template<class Extension, class C, class Info> 
+  struct dispatch< legendre_,tag::simd_(C,Extension), Info>
+    :boost::mpl::lambda< meta::scalar_of<boost::mpl::_2> >::type {};
+  
   struct validate<hermite_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
@@ -37,8 +40,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A1 is real_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<hermite_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  template<class Extension, class Info>
+  struct call<hermite_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -68,8 +71,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A1 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<hermite_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Extension, class Info>
+  struct call<hermite_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -86,3 +89,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

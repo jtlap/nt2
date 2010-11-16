@@ -15,6 +15,8 @@
 
 namespace nt2 { namespace functors
 {
+  template <class Info, class C> 
+  struct dispatch<laguerre_,tag::scalar_(C),Info> : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<laguerre_,tag::scalar_(tag::arithmetic_),Info>
@@ -51,7 +53,14 @@ namespace nt2 { namespace functors
 	  ++c;
 	}
       return p1;
-      //return boost::math::tr1::laguerre(a0, a1); 
+    }
+  private:
+    template <class T, class T1, class T2>
+    static inline T 
+    laguerre_next(const uint32_t& n, const T& x, const T1 &Ln, const T2& Lnm1)
+    {
+      const T np1 = oneplus(n); 
+      return ((n + np1 - x) * Ln - n *Lnm1) / np1;
     }
   };
 
@@ -70,7 +79,7 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::laguerre(type(a0), a1); 
+      return nt2::laguerre(a0, type(a1)); 
     }
   };
 
@@ -78,3 +87,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

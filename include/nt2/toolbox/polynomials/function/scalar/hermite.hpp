@@ -14,6 +14,8 @@
 
 namespace nt2 { namespace functors
 {
+  template <class Info, class C> 
+  struct dispatch<laguerre_,tag::scalar_(C),Info> : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<hermite_,tag::scalar_(tag::arithmetic_),Info>
@@ -76,3 +78,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

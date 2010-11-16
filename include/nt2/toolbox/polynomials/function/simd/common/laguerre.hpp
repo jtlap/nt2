@@ -20,6 +20,10 @@
 
 namespace nt2 { namespace functors
 {
+  template<class Extension, class C, class Info> 
+  struct dispatch< laguerre_,tag::simd_(C,Extension), Info>
+    :boost::mpl::lambda< meta::scalar_of<boost::mpl::_2> >::type {};
+
   template<class Extension,class Info>
   struct validate<laguerre_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
@@ -38,8 +42,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A1 is real_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<laguerre_,tag::simd_(tag::arithmetic_),real_,Info> : callable
+  template<class Extension, class Info>
+  struct call<laguerre_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -70,8 +74,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A1 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<laguerre_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Extension, class Info>
+  struct call<laguerre_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
