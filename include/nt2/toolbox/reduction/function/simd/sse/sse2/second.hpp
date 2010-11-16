@@ -22,7 +22,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types8_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<second_,tag::simd_(tag::arithmetic_),types8_,Info> : callable
+  struct call<second_,tag::simd_(tag::arithmetic_,tag::sse_),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -43,7 +43,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types16_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<second_,tag::simd_(tag::arithmetic_),types16_,Info> : callable
+  struct call<second_,tag::simd_(tag::arithmetic_,tag::sse_),types16_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -62,7 +62,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<second_,tag::simd_(tag::arithmetic_),float,Info> : callable
+  struct call<second_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -83,7 +83,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types32_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<second_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  struct call<second_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -103,7 +103,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<second_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  struct call<second_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -124,7 +124,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types64_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<second_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  struct call<second_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
