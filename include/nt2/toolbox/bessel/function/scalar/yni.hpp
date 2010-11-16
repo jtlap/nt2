@@ -21,6 +21,10 @@
 
 namespace nt2 { namespace functors
 {
+  template<class Info, class C>
+  struct dispatch<class yni_,class tag::scalar_(C),class Info>
+    : boost::mpl::_2 {};
+
 
   template<class Info>
   struct validate<yni_,tag::scalar_(tag::arithmetic_),Info>
@@ -124,3 +128,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications
