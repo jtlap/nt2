@@ -30,8 +30,8 @@ namespace nt2
 
 namespace nt2 { namespace functors
 {
-  template<class Category,class Hierarchy,class Info>
-  struct  call<constants::true_,tag::constant_(Category),Hierarchy,Info>
+  template<class Category,class Info>
+  struct  call<constants::true_,tag::constant_(Category),fundamental_,Info>
         : callable
   {
     template<class Sig> struct result;
@@ -45,8 +45,8 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Hierarchy,class Info>
-  struct  call<constants::false_,tag::constant_(Category),Hierarchy,Info>
+  template<class Category,class Info>
+  struct  call<constants::false_,tag::constant_(Category),fundamental_,Info>
         : callable
   {
     template<class Sig> struct result;
