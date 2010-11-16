@@ -32,9 +32,11 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types8_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<put_first_,tag::simd_(tag::arithmetic_),types8_,Info> : callable
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types8_,Info> : callable
   {
-     template<class Sig> struct result;
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -54,9 +56,11 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types16_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<put_first_,tag::simd_(tag::arithmetic_),types16_,Info> : callable
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types16_,Info> : callable
   {
-     template<class Sig> struct result;
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -76,9 +80,11 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types32_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<put_first_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
   {
-     template<class Sig> struct result;
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -98,9 +104,11 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<put_first_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
   {
-     template<class Sig> struct result;
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -118,9 +126,11 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types64_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<put_first_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
   {
-     template<class Sig> struct result;
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {

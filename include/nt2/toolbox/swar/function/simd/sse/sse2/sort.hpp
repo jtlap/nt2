@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types32_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<sort_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  struct call<sort_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -54,7 +54,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types64_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<sort_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  struct call<sort_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
