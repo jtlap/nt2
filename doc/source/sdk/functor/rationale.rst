@@ -19,8 +19,8 @@ to handle those constraints in |nt2|.
 
   See: :ref:`howto_custom_function`
 
-Handling function overload
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Global Design Overview
+^^^^^^^^^^^^^^^^^^^^^^
 Considering the amount of functions and potential types they may be applied,
 manually enumerating function overload combinations ends up as a quadratic process.
 Specifying partial overload using some template arguments helps reducing this amount
@@ -28,8 +28,23 @@ but fails to provide a clean, non-ambiguous discrimination. Our idea is to provi
 only one function with a full-blown template prototype and to use :term:`Tag Dispatching`
 internally to forward arguments to the proper implementation of said function.
 
-Function tags
--------------
+The main idea was to see if how much defining function overload with complex
+dispatching is similar to the **expression problem** [#]_ which refers to a
+fundamental dilemma of programming: To which degree can an application be structured
+in such a way that both the data model and the set of operations over it can be
+extended without the need to modify existing code, without the need for code
+repetition and without runtime type errors. From this analysis, we propose a system
+for defining function with a rich dispatching and specialization system relying on
+meta-programming for categorizing, selecting and calling a given function
+implementation for any arbitrary aggregate of input parameters. This lead to define
+a function call process made of five steps: :ref:`functors_rationale_identify`,
+:ref:`functors_rationale_categorize`, :ref:`functors_rationale_validate` ,
+:ref:`functors_rationale_dispatch` and :ref:`functors_rationale_call`.
+
+.. _functors_rationale_identify:
+
+Identifying functions
+^^^^^^^^^^^^^^^^^^^^^
 The first task is to be able to discriminate functions by an unique type identifier
 throughout the various possible overloads and to be able to use this identifier as
 a rapid way to call said implementation. The idea is to define a simple structure
@@ -45,7 +60,8 @@ and forward it to the proper functor implementation.
 
 .. code-block:: cpp
 
-  template<class T>  typename boost::result_of<functor<sqrt_>(T)>::type sqrt( T const& v )
+  template<class T> inline
+  typename boost::result_of<functor<sqrt_>(T)>::type sqrt( T const& v )
   {
     functor<sqrt_> callee;  // instantiate the polymorphic sqrt functor
     return callee(v);        // call said functor
@@ -59,85 +75,38 @@ following coding style or domain-specific nomenclature - that uses the same func
 implementation.
 
 .. note::
-  We use functions instead of const instances of the functor class itself due
+  We use functions instead of constant instances of the functor class itself due
   to scalability concern. Templates functions are only compiled if actually called, thus limiting
   the binary size and the compilation time. Benchmarks show that, for the same amount of function
   calls, the instance based version of the same code compiles in a linear time
   with respect to number of functors, while the function version compiles in constant
   time.
 
-Specializable call point
-------------------------
-Once a function has been declared, one has to define its implementation. This is done by specializing the
-:ref:`functor_call` class which synopsis is given below.
+.. _functors_rationale_categorize:
 
-.. code-block:: cpp
-
-    namespace functors
-    {
-      template<class Function,class Category,class Info=void> struct call
-      {
-        template<class Sig> struct result;
-
-        template<class Args...> inline
-        typename result<call(Args...)>::type operator()( Args... const& ) const;
-      };
-    }
-
-:ref:`functor_call` is a simple |pfo|_ itself which goal is to externalize the
-various specializations of any given function with respect to its arguments type
-category and, for a given category, for its different argument types themselves.
-
-As an example, here is a possible implementation of ``sqrt`` for arithmetic
-scalar types.
-
-.. code-block:: cpp
-
-    template<class Info> struct call<sqrt_, tag::scalar(tag::arithmetic), Info>
-    {
-      template<class Sig> struct result;
-      template<class This,class A>  struct result<This(A)>
-      {
-        typedef typename meta::as_real<A>::type type
-      };
-
-      NT2_FUNCTOR_CALL(1)
-      {
-        typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-        return std::sqrt(type(a0));
-      }
-    };
-
-.. seealso::
-  :ref:`functor_call`,
-  :ref:`functor_call_macro`,
-  :ref:`functor_hierarchy` and
-  :ref:`meta_belong_to`
-
-
-Tag Dispatching Strategy
-------------------------
+Categorizing the function domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 |nt2| functions are inherently polymorphic as they can be (except with specific
 validation clause) called with any types. To be able to discriminate parameters
 types and choose the proper implementation, we rely on a type categorization
-system in which types are sorted based on their **rank**. The **rank** is a
-32 bits numerical values that uniquely identify a type among all others.
+system
 
-Determining which :ref:`functor_call` specialization to call is done by ordering
-all argument types their **rank**. This is done internally via the :ref:`meta_dominant`
-meta-function which computes such a type from a type list. The so-called **dominant**
-argument type is then used to compute the category using the :ref:`meta_category_of` meta-function.
-This category will then be used by :ref:`functor_call` to select the proper implementation.
+.. Determining which :ref:`functor_call` specialization to call is done by ordering
+   all argument types their **rank**. This is done internally via the :ref:`meta_dominant`
+   meta-function which computes such a type from a type list. The so-called **dominant**
+  argument type is then used to compute the category using the :ref:`meta_category_of` meta-function.
+  This category will then be used by :ref:`functor_call` to select the proper implementation.
 
-.. seealso::
-  :ref:`meta_category` and
-  :ref:`meta_dominant`
+.. _functors_rationale_validate:
 
-Restricting function domain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Restricting function domain naturally relies on the :term:`SFINAE` principle which allow template function to be pulled out of potential
-overload set if their return type is ill-formed. To manage the potentially large number of types category to handle, this compile-time
-check is done by the :ref:`functor_validate` class which can be overloaded for any given tag and any given type category.
+Restricting the function domain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Restricting function domain naturally relies on the :term:`SFINAE` principle which
+allow template function to be pulled out of potential overload set if their return
+type is ill-formed. To manage the potentially large number of types category to
+handle, this compile-time check is done by the :ref:`functor_validate` class which
+can be overloaded for any given tag and any given type category.
 
 Here is the synopsis of :ref:`functor_validate`:
 
@@ -151,21 +120,15 @@ Here is the synopsis of :ref:`functor_validate`:
     };
   }
 
-Let's say we want to prevent the function ``sqrt`` , associated to the tag ``sqrt_``, to be called on non-real scalar types.
-:ref:`functor_validate` has to be overloaded as such:
+Let's say we want to prevent the function ``sqrt`` , associated to the tag ``sqrt_``,
+to be called on non-real scalar types. :ref:`functor_validate` has to be overloaded as such:
 
 .. code-block:: cpp
 
-  template<class Dummy,class T> struct validate< sqrt_, scalar<T>, Dummy >
+  template<class Dummy,class T> struct validate< sqrt_, tag::scalar(T), Dummy >
   {
-      template<class Sig> struct result;
-      template<class This,class A0> struct result : boost::is_floating_points<A0> {};
-
-      template<class A0> inline typename result<validate(A0)>::type
-      operator()(A0 const&) const
-      {
-        return typename result<validate(A0)>::type();
-      }
+    template<class Sig> struct result;
+    template<class This,class A0> struct result : boost::is_floating_points<typename metaa::strip<A0>::type> {};
   };
 
 Advantages of this approach is that the fine tuning of which types or family of
@@ -174,16 +137,13 @@ with respect to the actual :ref:`functor` class. Note that the flexibility of th
 :ref:`meta_category` mechanism helps the specification process by allowing wide
 or narrow type category selection.
 
-In our example, the ``sqrt`` function then takes this final form:
+In our example, the ``sqrt`` function then takes this final form, introducing the
+:ref:`enable_call` helper which uses :ref:`functor_validate` to trigger :term:`SFINAE`
+on any function:
 
 .. code-block:: cpp
 
-  template<class T>
-  // SFINAE through boost::enable_if
-  typename boost::lazy_enable_if_c< boost::result_of<typename functor<sqrt_>::validate(T)>::type::value
-                                  , boost::result_of<functor<sqrt_>(T)>
-                                  >::type
-  sqrt( T const& v )
+  template<class T> typename enable_call<sqrt_(T)>::type sqrt( T const& v )
   {
     nt2::functors::functor<sqrt_> callee;  // instantiate the polymorphic sqrt functor
     return callee(v);                       // call said functor
@@ -209,6 +169,62 @@ code sample shows how it is achieved.
 In this case, any attempt to check if, for example, ``plus_(simd::vector<int>, simd::vector<float>)``
 will fail as no such signature is matched by any of the ``result`` signature of ``call<plus_,simd<T> >``.
 
-.. seealso::
-  :ref:`functor` and
-  :ref:`functor_macro`
+.. _functors_rationale_dispatch:
+
+Dispatching the call
+^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+.. _functors_rationale_call:
+
+Perfoming the actual function call
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Once a function has been declared, one has to define its implementation. This is done by specializing the
+:ref:`functor_call` class which synopsis is given below.
+
+.. code-block:: cpp
+
+    namespace functors
+    {
+      template<class Function,class Category,class Hierqrchy,class Site> struct call
+      {
+        template<class Sig> struct result;
+
+        template<class Args...> inline
+        typename result<call(Args...)>::type operator()( Args... const& ) const;
+      };
+    }
+
+:ref:`functor_call` is a simple |pfo|_ itself which goal is to externalize the
+various specializations of any given function with respect to its arguments type
+category, hierarchy and execution site.
+
+As an example, here is a possible implementation of ``sqrt`` for any arithmetic scalar type.
+
+.. code-block:: cpp
+
+    template<class Site> struct call<sqrt_, tag::scalar(tag::arithmetic), fundamental_, Site>
+    {
+      template<class Sig> struct result;
+      template<class This,class A>  struct result<This(A)>
+      {
+        typedef typename meta::as_real<A>::type type;
+      };
+
+      NT2_FUNCTOR_CALL(1)
+      {
+        typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+        return std::sqrt(type(a0));
+      }
+    };
+
+
+Conclusion
+^^^^^^^^^^
+
+
+------------
+
+.. [#] Mads Torgersen, `The Expression Problem Revisited <http://www.daimi.au.dk/~madst/ecoop04/main.pdf>`_
