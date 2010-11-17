@@ -138,7 +138,6 @@ NT2_TEST_CASE(ternary_dominant)
 NT2_TEST_CASE(quaternary_dominant)
 {
   using boost::is_same;
-  using boost::result_of;
   using nt2::tag::unknown;
   using nt2::meta::dominant;
 
