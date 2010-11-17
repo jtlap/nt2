@@ -15,26 +15,67 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ceil(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is long double
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<libc::ceil_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<libc::ceil_,tag::scalar_(tag::arithmetic_),long double,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 1, A0, (4, (long double,double,float,arithmetic_)) )
+    NT2_FUNCTOR_CALL(1){ return ::ceill(a0); }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, long double) { return ::ceill(a0);  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double) { return ::ceil(a0);  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, float)  { return ::ceilf(a0); }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<libc::ceil_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return ::ceil(a0); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<libc::ceil_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return ::ceilf(a0); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<libc::ceil_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return nt2::libc::ceil(type(a0));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010
