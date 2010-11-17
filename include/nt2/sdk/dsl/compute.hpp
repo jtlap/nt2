@@ -11,7 +11,7 @@
 
 #include <boost/proto/transform.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/dsl/proto/transform/unpack.hpp>
+#include <nt2/sdk/dsl/proto/unpack.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // compile take any NT2 AST and evaluate them based on actions defined in compute
