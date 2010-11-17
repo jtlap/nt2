@@ -70,11 +70,10 @@ else
 if( z >= 1.0 )
 	{
 	if( x == 1.0 )
-		return( MAXNUMF );
+		return( 1.0/0.0 );
 	if( x == -1.0 )
-		return( -MAXNUMF );
-	cephes_mtherr( "atanhl", DOMAIN );
-	return( MAXNUMF );
+		return( -1.0/0.0 );
+	return( 0.0/0.0 );
 	}
 
 if( z < 1.0e-4 )
@@ -90,10 +89,12 @@ if( z < 0.5 )
 	  + 1.99782164500E-1) * z
 	  + 3.33337300303E-1) * z * x
 	  + x;
+	return z;
 	}
-else
+ else if (z >=0.5)
 	{
 	z = 0.5 * cephes_logf( (1.0+x)/(1.0-x) );
+	return z;
 	}
-return( z );
+ return( 0.0/0.0 );
 }
