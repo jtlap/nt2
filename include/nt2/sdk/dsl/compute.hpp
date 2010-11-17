@@ -14,35 +14,37 @@
 #include <nt2/sdk/dsl/proto/unpack.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// compile take any NT2 AST and evaluate them based on actions defined in compute
+// compile take any NT2 AST to a given target with a given transform
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace dsl
 {
-    template <typename Transform, class Locality> struct compile;
+  template <class Transform, class Locality> struct compile;
 
-    template<class T, class L>
-    struct _left  : boost::proto::
-                    call<compile<T,L>(boost::proto::_left)> {};
+  template<class T, class L>
+  struct _left  : boost::proto::
+                  call<compile<T,L>(boost::proto::_left)> {};
 
-    template<class T, class L>
-    struct _right : boost::proto::
-                    call<compile<T,L>(boost::proto::_right)> {};
+  template<class T, class L>
+  struct _right : boost::proto::
+                  call<compile<T,L>(boost::proto::_right)> {};
 
-    template <typename Locality, typename Tag, typename Dummy = void>
-    struct compute;
 
-    typedef compute<boost::mpl::_1,boost::mpl::_2,boost::mpl::_3> compute_;
 
-    template<class Transform, typename Tag, typename Locality>
-    struct functor_dispatch
+
+
+  template <typename Locality, typename Tag, typename Dummy = void>
+  struct compute;
+
+  template<class Transform, typename Tag, typename Locality>
+  struct  functor_dispatch
         : boost::proto::
           unpack< boost::proto::
                   call< functors::functor<Tag, Locality> >(compile< Transform
                                                                   , Locality
                                                                   >
                                                           )
-          >
-    {};
+        >
+  {};
 
     typedef compute<boost::mpl::_1,boost::mpl::_2,boost::mpl::_3> compute_;
 
