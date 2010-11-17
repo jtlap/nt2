@@ -22,7 +22,7 @@
 namespace nt2 { namespace functors
 {
   template<class Info, class C>
-  struct dispatch<class yni_,class tag::scalar_(C),class Info>
+  struct dispatch<class yni_,class tag::scalar_(C),Info>
     : boost::mpl::_2 {};
 
 
