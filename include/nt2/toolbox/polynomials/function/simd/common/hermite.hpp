@@ -20,9 +20,10 @@
 namespace nt2 { namespace functors
 {
   template<class Extension, class C, class Info> 
-  struct dispatch< legendre_,tag::simd_(C,Extension), Info>
+  struct dispatch<hermite_,tag::simd_(C,Extension), Info>
     :boost::mpl::lambda< meta::scalar_of<boost::mpl::_2> >::type {};
   
+  template<class Extension, class Info> 
   struct validate<hermite_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
