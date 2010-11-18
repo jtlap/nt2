@@ -57,8 +57,7 @@ class Toolbox_infos :
             pattern = re.compile("^// This toolbox is of (.*) type")
             for l in s :
                 d1 = re.match(pattern,l)
-                if d1 :
-                    return d1.groups()
+                if d1 : return d1.groups()[0]
   
         filename = os.path.join(dirname,'py_data.py')
         if exist(filename) :

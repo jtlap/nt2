@@ -9,8 +9,10 @@ __date__      = "$Date: 2010 $"
 __copyright__ = "Copyleft (c) 2010 Jean-thierry Lapreste"
 __license__   = "Python"
 
+import re
+
 class Scalar :
-    Variants = {}
+    Variants = {"" : ""}
     def __init__(self) : pass
     def __str__(self) :  return str(Scalar.Variants)
     def previous(self,tag) : return Scalar.Variants[tag]
@@ -48,7 +50,7 @@ class Vmx :
     def mode() : return "simd"
 
 class Common :
-    Variants = {}
+    Variants = {"":""}
     def __init__(self) : pass
     def __str__(self) : return str(Common.Variants)
     def previous(self,tag) : return Common.Variants[tag]
@@ -59,7 +61,12 @@ class Archis :
     Arbos = { "scalar": Scalar(),"sse" : Sse(), "vmx" :Vmx(), "common" : Common() }
     def supported(self) : return Archis.Supported
     def arbo(self, tag) : return Archis.Arbos[tag]
-    def submodes(self, tag) : return Archis.Arbos[tag].Variants.keys()
+    def submodes(self, tag) :
+        if re.search('/',tag) :
+            return Archis.Arbos[tag.split('/')[-1]].Variants.keys()
+        else :
+            return [""]
+#        return Archis.Arbos[tag.split('/')[-1]].Variants.keys()
     def __str__(self) :  return 'Supported archis are\n    '+'\n    '.join(Archis.Supported)
     
 if __name__ == "__main__":
