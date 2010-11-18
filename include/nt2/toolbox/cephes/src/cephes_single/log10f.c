@@ -90,30 +90,31 @@ int e;
 
 x = xx;
 /* Test for domain */
+
 if( x <= 0.0 )
 	{
 	if( x == 0.0 )
-		cephes_mtherr( fname, SING );
+	  return -1.0/0.0;
 	else
-		cephes_mtherr( fname, DOMAIN );
-	return( -MAXL10 );
+	  return 0.0/0.0;
 	}
-
+ if (x == 1.0/0.0) return x;
+ if (x != x) return x;  
 /* separate mantissa from exponent */
 
 x = cephes_frexpf( x, &e );
 
 /* logarithm using log(1+x) = x - .5x**2 + x**3 P(x) */
 
-if( x < SQRTH )
-	{
-	e -= 1;
-	x = 2.0*x - 1.0;
-	}	
-else
-	{
-	x = x - 1.0;
-	}
+ if( x < SQRTH )
+   {
+     e -= 1;
+     x = 2.0*x - 1.0;
+   }	
+ else 
+   {
+     x = x - 1.0;
+   }
 
 
 /* rational form */

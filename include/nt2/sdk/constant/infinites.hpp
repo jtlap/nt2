@@ -15,14 +15,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace constants
 {
-    struct inf_ 	{};
-    struct m_inf_	{}; 
+    struct inf_   {};
+    struct m_inf_  {};
 } }
 
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::inf_         , Inf         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::m_inf_       , Minf        )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::inf_    , Inf   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::m_inf_  , Minf  )
 }
 
 #include <nt2/sdk/constant/details/infinites.hpp>

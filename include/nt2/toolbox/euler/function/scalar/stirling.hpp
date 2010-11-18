@@ -33,20 +33,19 @@ namespace nt2 { namespace functors
   //  The polynomial STIR is valid for 33 <= x <= 172.
   //   template<class Info>
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<stirling_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<stirling_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return Nan<A0>(); 
       if (a0 > Stirlinglargelim<A0>()) return Inf<A0>(); 
@@ -71,36 +70,6 @@ namespace nt2 { namespace functors
 	}
       y *= Sqrt_2pi<A0>()*w;
       return y;
-    }
-//     NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
-//     {
-//       static const boost::array<A0, 5 > stirpoly = {{
-// 	  7.87311395793093628397E-4,
-// 	  -2.29549961613378126380E-4,
-// 	  -2.68132617805781232825E-3,
-// 	  3.47222221605458667310E-3,
-// 	  8.33333333333482257126E-2,
-// 	}};
-//       A0 w = rec(a0);
-//       w = fma(w, polevl( w, stirpoly), One<A0>());
-//       A0 y = exp(-a0);
-//       if( a0 > stirling_large_lim<A0>() )
-// 	{ /* Avoid overflow in pow() */
-// 	  A0 v = pow(a0, fma(Half<A0>(), a0, - Quarter<A0>())); 
-// 	  y *= v;
-// 	  y *= v;
-// 	}
-//       else
-// 	{
-// 	  y *= pow( a0, a0 - Half<A0>() ) ;
-// 	}
-//       y *= Sqrt_2pi<A0>()*w;
-//       return y;
-//     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return stirling(type(a0));
     }
   private:
     template < class A0, class D> struct stirpol{}; 
@@ -131,10 +100,30 @@ namespace nt2 { namespace functors
       return s; 
       }
     };  
-
+    
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<stirling_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      return stirling(type(a0));
+    }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

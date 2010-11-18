@@ -29,42 +29,92 @@ namespace nt2 { namespace functors
                       ,meta::is_integral<A1>
                       > {};
   };
-  template<class Extension,class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0,A1)>  : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (5, (unsigned_,int64_t,int32_t,int16_t,int8_t))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,   unsigned_)
+    NT2_FUNCTOR_CALL(2)
     {
       return shri(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     int64_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
 
       A0 that = {shrai(a0[0], a1), shrai(a0[1], a1)}; 
       return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     int32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0,signed>::type sint;
       sint const that = {_mm_srai_epi32(simd::native_cast<sint>(a0), a1)};
       return simd::native_cast<A0>(that);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     int16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0,signed>::type sint;
       sint const that =  {_mm_srai_epi16(simd::native_cast<sint>(a0), a1)};
       return simd::native_cast<A0>(that);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,      int8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type result_type;
       typedef simd::native<typename meta::int16_t_<A0>::type,tag::sse_> gen_type;
@@ -73,6 +123,8 @@ namespace nt2 { namespace functors
       return simd::native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

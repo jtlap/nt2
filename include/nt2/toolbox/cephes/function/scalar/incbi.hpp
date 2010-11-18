@@ -19,25 +19,67 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute incbi(const A0& a0, const A1& a1, const A2& a2)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<cephes::incbi_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<cephes::incbi_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
     struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 3, A0, (4, (float,double,long double,arithmetic_)) )
-    NT2_FUNCTOR_CALL_EVAL_IF(3,  float){ return cephes_incbi(a0, a1, a2);}
-    NT2_FUNCTOR_CALL_EVAL_IF(3,  double){ return cephes_incbi(a0, a1, a2);}
-    NT2_FUNCTOR_CALL_EVAL_IF(3,  long double){ return cephes_incbi(a0, a1, a2);}
-    NT2_FUNCTOR_CALL_EVAL_IF(3, arithmetic_)
+    NT2_FUNCTOR_CALL(3){ return cephes_incbif(a0, a1, a2); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::incbi_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2>
+    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(3){ return cephes_incbi(a0, a1, a2); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is long double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::incbi_,tag::scalar_(tag::arithmetic_),long double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2>
+    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(3){ return cephes_incbil(a0, a1, a2); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::incbi_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2>
+    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_CALL_RETURN_TYPE(3)::type type;
       return nt2::cephes::incbi(type(a0), type(a1), type(a2));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010

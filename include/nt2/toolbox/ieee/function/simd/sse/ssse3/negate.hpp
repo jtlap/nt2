@@ -21,51 +21,115 @@ namespace nt2 { namespace functors
 {
   //  no special validate for negate
 
-  template<class Extension,class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)> : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (6, (real_,int32_t,int16_t,int8_t,unsigned_, arithmetic_))
-     )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    real_)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 tmp = is_nez(a1)&a0;
       tmp = select(is_ltz(a1), -a0, tmp);
       tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
       return tmp;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  int32_t)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 tmp = { _mm_sign_epi32( a0, a1)};
       return tmp;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  int16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 tmp = { _mm_sign_epi16( a0, a1)};
       return tmp;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,   int8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 tmp = { _mm_sign_epi8 ( a0, a1)};
       return tmp;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, unsigned_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       return  b_and(a0, is_nez(a1));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

@@ -26,8 +26,12 @@ namespace nt2 { namespace functors
                             > {};
   };
 
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Extension, class Info>
-  struct call<at_,tag::simd_(tag::arithmetic_,Extension),Info>
+  struct call<at_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -36,7 +40,9 @@ namespace nt2 { namespace functors
     {};
 
     NT2_FUNCTOR_CALL(2) { return a0[a1]; }
+
   };
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

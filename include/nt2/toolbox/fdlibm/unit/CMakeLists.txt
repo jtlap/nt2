@@ -25,5 +25,5 @@ ADD_SUBDIRECTORY(simd)
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(fdlibm.unit fdlibm.scalar.unit)
-ADD_DEPENDENCIES(fdlibm.unit fdlibm.simd.unit)
+#ADD_DEPENDENCIES(fdlibm.unit fdlibm.simd.unit)
 ADD_DEPENDENCIES(unit fdlibm.unit)

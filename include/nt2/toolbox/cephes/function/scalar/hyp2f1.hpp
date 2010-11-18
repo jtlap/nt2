@@ -31,24 +31,53 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute hyp2f1(const A0& a0, const A1& a1, const A2& a2, const A3& a3)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<cephes::hyp2f1_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<cephes::hyp2f1_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2, class A3>
     struct result<This(A0, A1, A2, A3)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 4, A0, (3, (float,double,arithmetic_)) )
-    NT2_FUNCTOR_CALL_EVAL_IF(4,  float){ return cephes_hyp2f1(a0, a1, a2, a3);}
-    NT2_FUNCTOR_CALL_EVAL_IF(4,  double){ return cephes_hyp2f1(a0, a1, a2, a3);}
-    NT2_FUNCTOR_CALL_EVAL_IF(4, arithmetic_)
+    NT2_FUNCTOR_CALL(4){ return cephes_hyp2f1f(a0, a1, a2, a3); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::hyp2f1_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2, class A3>
+    struct result<This(A0, A1, A2, A3)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(4){ return cephes_hyp2f1(a0, a1, a2, a3); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::hyp2f1_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2, class A3>
+    struct result<This(A0, A1, A2, A3)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(4)
     {
       typedef typename NT2_CALL_RETURN_TYPE(4)::type type;
       return nt2::cephes::hyp2f1(type(a0), type(a1), type(a2), type(a3));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010

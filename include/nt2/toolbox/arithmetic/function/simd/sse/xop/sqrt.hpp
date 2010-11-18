@@ -19,32 +19,69 @@ namespace nt2 { namespace functors
 {
   //  no special validate for sqrt
 
-  template<class Extension,class Info>
-  struct call<sqrt_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>  : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (7, (float,double,uint64_t,uint32_t,uint16_t,uint8_t,arithmetic_))
-      )
-      
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 that = { _mm256_sqrt_ps(a0)}; return that; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 that = { _mm256_sqrt_pd(a0)}; return that; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     uint64_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),uint64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return simd::native_cast<A0>(toint(sqrt(tofloat(a0))));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    uint32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),uint32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 const na = isnez(a0);
       A0 const z1 = add(shri(a0, 6),    integral_constant<A0,16>());
@@ -85,8 +122,20 @@ namespace nt2 { namespace functors
       
       return n;
     }
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    uint16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),uint16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 const  na = isnez(a0);
       A0 const  z1 = add(shri(a0, 6), integral_constant<A0, 16>());
@@ -116,8 +165,20 @@ namespace nt2 { namespace functors
       
       return seladd(na, Zero<A0>(), n);
     }
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      uint8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 const na  = isnez(a0);
       A0 n   = add(shri(a0, 4), Four<A0>());
@@ -131,14 +192,28 @@ namespace nt2 { namespace functors
       
       return seladd(na, Zero<A0>(), n);
     }
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<sqrt_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,signed>::type     int_type;
       typedef typename meta::as_integer<A0,unsigned>::type  uint_type;
       return seladd(isgtz(a0), Zero<int_type>(), simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));      
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

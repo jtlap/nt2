@@ -18,8 +18,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute amul(const A0& a0, const A1& a1, const A2& a2)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<amul_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<amul_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
@@ -30,9 +34,9 @@ namespace nt2 { namespace functors
     {
       return a0+a1*a2; 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

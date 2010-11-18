@@ -16,45 +16,33 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<multiplies_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct  call<multiplies_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info>
+        : callable
   {
     template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A,A)> : meta::strip<A> {};
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 2
-                              , typename nt2::meta::scalar_of<A0>::type
-                              , (6, ( double,float
-                                    , int8_,int16_,int32_
-                                    , arithmetic_
-                                )   )
-                              )
+    NT2_FUNCTOR_CALL(2) { A0 that = { _mm_mul_pd(a0,a1) }; return that; }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,double)
-    {
-      A0 that = { _mm_mul_pd(a0,a1) };
-      return that;
-    }
+  template<class Info>
+  struct  call<multiplies_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,float )
-    {
-      A0 that = { _mm_mul_ps(a0,a1) };
-      return that;
-    }
+    NT2_FUNCTOR_CALL(2) { A0 that = { _mm_mul_ps(a0,a1) }; return that; }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int16_)
-    {
-      A0 that = { _mm_mullo_epi16(a0,a1) };
-      return that;
-    }
+  template<class Info>
+  struct  call<multiplies_,tag::simd_(tag::arithmetic_,tag::sse_),int8_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,arithmetic_)
-    {
-      A0 that = map(functor<multiplies_>(), a0, a1);
-      return that;
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int8_)
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::make_integer < 2,signed
                                           , simd::native< boost::mpl::_
@@ -73,8 +61,26 @@ namespace nt2 { namespace functors
       A0 r       = { abh | abl };
       return r;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int32_)
+  template<class Info>
+  struct  call<multiplies_,tag::simd_(tag::arithmetic_,tag::sse_),int16_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+      NT2_FUNCTOR_CALL(2) { A0 that = { _mm_mullo_epi16(a0, a1)}; return that; }
+  };
+
+  template<class Info>
+  struct  call<multiplies_,tag::simd_(tag::arithmetic_,tag::sse_),int32_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_or_si128(
                     _mm_and_si128 (
@@ -91,6 +97,22 @@ namespace nt2 { namespace functors
                         , 4       )
                               )
                 };
+      return that;
+    }
+  };
+
+  template<class Info>
+  struct  call< multiplies_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , arithmetic_ , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = map(functor<multiplies_>(), a0, a1);
       return that;
     }
   };

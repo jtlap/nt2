@@ -18,8 +18,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitwise_select(const A0& a0, const A1& a1, const A2& a2)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<bitwise_select_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<bitwise_select_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This, class A0, class A1>
@@ -29,9 +33,9 @@ namespace nt2 { namespace functors
     {
       return b_or(b_and(a1, a0), b_andnot(a2, a0));
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

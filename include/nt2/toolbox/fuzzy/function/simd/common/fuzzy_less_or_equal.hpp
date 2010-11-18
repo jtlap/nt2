@@ -26,9 +26,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fuzzy_less_or_equal(const A0& a0, const A0& a1, const A0& a2)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<fuzzy_less_or_equal_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<fuzzy_less_or_equal_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -39,8 +42,9 @@ namespace nt2 { namespace functors
     {
       return isle(a0,a1+max(abs(a0),abs(a1))*a2);
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

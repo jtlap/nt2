@@ -89,13 +89,14 @@ int e;
 
 x = xx;
 /* Test for domain */
-if( x <= 0.0 )
+ if( x != x) return x;
+ if( x == 1.0/0.0) return x;
+ if( x <= 0.0 )
 	{
 	if( x == 0.0 )
-		cephes_mtherr( fname, SING );
+	  return -1.0/0.0;
 	else
-		cephes_mtherr( fname, DOMAIN );
-	return( MINLOGF/LOGE2F );
+	  return 0.0/0.0;
 	}
 
 /* separate mantissa from exponent */
@@ -109,10 +110,11 @@ if( x < SQRTH )
 	e -= 1;
 	x = 2.0*x - 1.0;
 	}	
-else
+ else 
 	{
 	x = x - 1.0;
 	}
+
 
 z = x*x;
 y = x * ( z * cephes_polevlf( x, P, 8 ) );

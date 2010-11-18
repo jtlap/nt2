@@ -14,15 +14,15 @@
 namespace nt2 { namespace functors
 {
   template<class C,class X,class Info>
-  struct call<complement_,tag::simd_(C,X),Info>
+  struct  call<complement_,tag::simd_(C,X),fundamental_, Info>
+        : callable
   {
     template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A)> : meta::strip<A> {};
+    template<class This,class A> struct result<This(A)> : meta::strip<A> {};
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = b_xor(True<A0>(), a0);
+      A0 that = { b_xor(True<A0>(), a0) };
       return that;
     }
   };

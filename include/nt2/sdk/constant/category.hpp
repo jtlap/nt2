@@ -16,6 +16,7 @@
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/category.hpp>
 #include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/functor/meta/belong_to.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // constant_ wraps a constant type into a EDSL element
@@ -43,8 +44,12 @@ namespace nt2 { namespace functors
 namespace nt2 { namespace meta
 {
   template<class T> struct category_of< as_<T> > : functors::constant_<T> {};
+
   template<class T>
   struct  category_of< constants::constant_<T> > : category_of< as_<T> > {};
+
+  template<class T, class S>
+  struct  belong_to<as_<T>,S> : belong_to<T,S> {};
 } }
 
 #endif

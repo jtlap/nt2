@@ -22,32 +22,97 @@ namespace nt2 { namespace functors
 {
   //  no special validate for abs
 
-  template<class Extension,class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (6, (real_,int64_t,int32_t,int16_t,int8_t,unsigned_))
-    )
+    NT2_FUNCTOR_CALL(1){ return b_notand(Mzero<A0>(),a0); }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,real_)     { return b_notand(Mzero<A0>(),a0);   }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_t)   {
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)   {
        typedef typename meta::as_integer<A0, signed>::type int_type;
        typedef typename meta::scalar_of<int_type>::type   sint_type;
        A0 const s = shri(a0, 8*sizeof(sint_type)-1);
        return (a0-s)^(-s);
        //      return select(is_lez(a0),-a0,a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int32_t)   { A0 that = {_mm_abs_epi32(a0)};return that;}
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int16_t)   { A0 that = {_mm_abs_epi16(a0)};return that;}
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int8_t)    { A0 that = {_mm_abs_epi8(a0) };return that;}
-    NT2_FUNCTOR_CALL_EVAL_IF(1,unsigned_) { return a0;                           }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi32(a0) };return that; }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi16(a0) };return that; }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi8(a0) };return that; }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1){ return a0; }
+  };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

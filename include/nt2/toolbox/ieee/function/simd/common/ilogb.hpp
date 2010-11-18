@@ -25,9 +25,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ilogb(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<ilogb_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ilogb_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -37,21 +40,52 @@ namespace nt2 { namespace functors
 //         typedef typename meta::is_signed<sA0>::type sgn; 
 	typedef typename meta::as_integer<A0>::type  type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (5, (real_,signed_, uint8_t, uint16_t, uint32_t))
-    )
-    private:
-    NT2_FUNCTOR_CALL_EVAL_IF(1,real_)
+    NT2_FUNCTOR_CALL(1)
     {
       return exponent(a0);
     }
+  };
 
-    // this macro is just a shorcut which is undefined at the end of this file
-#define MKN(N) simd::native_cast<vtype##N>
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,uint8_t)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is signed_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ilogb_,tag::simd_(tag::arithmetic_,Extension),signed_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      {
+// 	typedef typename meta::scalar_of<A0>::type sA0; 
+//         typedef typename meta::is_signed<sA0>::type sgn; 
+	typedef typename meta::as_integer<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0,unsigned>::type vtype; 
+      static const A0 z = Zero<A0>();
+      vtype tmp = ilogb(simd::native_cast<vtype>(a0)); 
+      return seladd(isgtz(a0), z, simd::native_cast<A0>(tmp)); 
+    }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ilogb_,tag::simd_(tag::arithmetic_,Extension),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      {
+// 	typedef typename meta::scalar_of<A0>::type sA0; 
+//         typedef typename meta::is_signed<sA0>::type sgn; 
+	typedef typename meta::as_integer<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef A0 vtype8; 
       static const vtype8& o = One<vtype8>();
@@ -75,16 +109,24 @@ namespace nt2 { namespace functors
       i = seladd(isnez(n), i, o); 
       return i-o;      
     }
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,signed_)
-    {
-      typedef typename meta::as_integer<A0,unsigned>::type vtype; 
-      static const A0 z = Zero<A0>();
-      vtype tmp = ilogb(simd::native_cast<vtype>(a0)); 
-      return seladd(isgtz(a0), z, simd::native_cast<A0>(tmp)); 
-    }
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,uint16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ilogb_,tag::simd_(tag::arithmetic_,Extension),uint16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      {
+// 	typedef typename meta::scalar_of<A0>::type sA0; 
+//         typedef typename meta::is_signed<sA0>::type sgn; 
+	typedef typename meta::as_integer<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef A0 vtype16; 
       typedef simd::native<uint8_t, typename meta::category_of<A0>::type::type>  vtype8;
@@ -117,8 +159,24 @@ namespace nt2 { namespace functors
       vtype16 xx = sel(isnez(yy), MKN(16)(_mm_srli_epi16(yy, 8))+huit, zz);
       return MKN(16)(isnez(MKN(8)(xx))&(MKN(8)(xx)-o)); 
 				    }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,uint32_t)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ilogb_,tag::simd_(tag::arithmetic_,Extension),uint32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      {
+// 	typedef typename meta::scalar_of<A0>::type sA0; 
+//         typedef typename meta::is_signed<sA0>::type sgn; 
+	typedef typename meta::as_integer<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef A0 vtype32; 
       typedef simd::native<uint8_t, typename meta::category_of<A0>::type::type>  vtype8;
@@ -159,11 +217,9 @@ namespace nt2 { namespace functors
 			     uu))); 
       return MKN(32)(isnez(MKN(8)(xx))&(MKN(8)(xx)-o)); 
     }
-    
-#undef MKN
-    
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -27,8 +27,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute two_split(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<two_split_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<two_split_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -44,7 +48,6 @@ namespace nt2 { namespace functors
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
-
     private:
     template<class A0,class R0,class R1> inline void
     eval(A0 const& a,R0& r0, R1& r1)const
@@ -59,6 +62,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

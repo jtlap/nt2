@@ -22,9 +22,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute remainder(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<remainder_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<remainder_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -37,8 +40,9 @@ namespace nt2 { namespace functors
       const A0 b = abs(a1);
       return sel(b, negate(a-idivfix(a, b)*b, a), a);
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

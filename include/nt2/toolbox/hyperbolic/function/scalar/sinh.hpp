@@ -23,21 +23,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute sinh(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<sinh_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<sinh_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1, real_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       type tmp = nt2::exp(a0); 
@@ -50,7 +48,21 @@ namespace nt2 { namespace functors
 	  return -tmp*nt2::expm1(-(a0+a0))*Half<A0>();
 	}
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<sinh_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       if (is_eqz(a0)) return Zero<type>(); 
@@ -58,8 +70,8 @@ namespace nt2 { namespace functors
       return (tmp-rec(tmp))*Half<type>();
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -18,8 +18,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute min(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<min_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<min_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -31,9 +35,9 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       return (a0 < a1) ? a0 :  a1;
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

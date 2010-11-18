@@ -11,36 +11,53 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <iostream>
+
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<is_greater_equal_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct  call< is_greater_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , double            , Info
+              >
+        : callable
   {
     template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A,A)> : meta::strip<A> {};
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2
-                             , typename nt2::meta::scalar_of<A0>::type
-                             , (3,(double,float,arithmetic_))
-                             )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,double)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpge_pd(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,float )
+  template<class Info>
+  struct  call< is_greater_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , float             , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpge_ps(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,arithmetic_)
+  template<class Info>
+  struct  call< is_greater_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , arithmetic_       , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { complement(is_less(a0,a1) ) };
+      A0 that = { complement(lt(a0,a1) ) };
       return that;
     }
   };

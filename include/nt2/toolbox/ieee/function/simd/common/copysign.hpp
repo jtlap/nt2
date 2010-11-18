@@ -22,36 +22,62 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute copysign(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<copysign_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<copysign_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (real_,unsigned_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+    NT2_FUNCTOR_CALL(2)
     {
 	return b_or(abs(a0), bitofsign(a1));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,   unsigned_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<copysign_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       details::ignore_unused(a1); 
       return  a0; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<copysign_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
         return  signnz(a1)*abs(a0);
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

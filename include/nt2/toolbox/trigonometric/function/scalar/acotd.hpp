@@ -20,8 +20,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute acotd(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<acotd_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<acotd_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
       template<class Sig> struct result;
       template<class This,class A0>
@@ -34,9 +38,8 @@ namespace nt2 { namespace functors
 	return b_or(Ninety<A0>()-atand(abs(a0)), s);
       }
 
-     };
+  };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -27,31 +27,41 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute exponent(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<exponent_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<exponent_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::as_integer<A0, signed>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (float,double))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
+    NT2_FUNCTOR_CALL(1)
     {
       return a0 ? ::ilogbf(a0) : Zero<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<exponent_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, signed>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
        return a0 ? ::ilogb(a0) : Zero<A0>();
     }
-
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

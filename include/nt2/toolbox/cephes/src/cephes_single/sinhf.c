@@ -68,11 +68,10 @@ else
 
 if( z > MAXLOGF )
 	{
-	cephes_mtherr( "sinhf", DOMAIN );
-	if( x > 0 )
-		return( MAXNUMF );
-	else
-		return( -MAXNUMF );
+	  if( x > 0 )
+	    return( 1.0/0.0 );
+	  else
+	    return( -1.0/0.0 );
 	}
 if( z > 1.0 )
 	{
@@ -80,8 +79,9 @@ if( z > 1.0 )
 	z = 0.5*z - (0.5/z);
 	if( x < 0 )
 		z = -z;
+	return z;
 	}
-else
+ else if( z <= 1.0 )
 	{
 	z = x * x;
 	z =
@@ -89,6 +89,7 @@ else
 	  + 8.33028376239E-3) * z
 	  + 1.66667160211E-1) * z * x
 	  + x;
+	return z;
 	}
-return( z );
+ return( x );
 }

@@ -43,48 +43,49 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute successor(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<successor_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<successor_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+      struct result<This(A0)> : meta::strip<A0> {};
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)>: meta::strip<A0>{};
+      struct result<This(A0, A1)> : meta::strip<A0> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , A0
-                              , (2, (real_,arithmetic_))
-                              )
-
-    NT2_FUNCTOR_CALL_DISPATCH ( 2
-                              , A0
-                              , (2, (real_,arithmetic_))
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1, real_)
+    NT2_FUNCTOR_CALL(1)
     {
-      return next(a0); 
+      return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
+    }
+    NT2_FUNCTOR_CALL(2)
+    {
+       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, real_)
-    {
-      typedef typename meta::as_integer<A0, signed>::type itype;
-      if (iseq(a0, Minf<A0>())) return a1*Valmin<A0>();
-      if (iseqz(a0))            return a1*Mindenormal<A0>();    
-      A0 m;
-      itype expon;
-      boost::fusion::tie(m, expon) = fast_frexp(a0);
-      if(iseq(m, Mhalf<A0>())) --expon; 
-      A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
-      return diff ? a1*Mindenormal<A0>():a0+a1*diff; 
-    }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)  { return oneplus(a0); }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)  { return a0+a1;       }
-   };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<successor_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0> {};
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
+    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

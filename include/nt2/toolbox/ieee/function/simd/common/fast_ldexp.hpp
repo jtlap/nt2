@@ -35,21 +35,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_ldexp(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<fast_ldexp_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<fast_ldexp_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     real_)
+    NT2_FUNCTOR_CALL(2)
     {
       // No denormal provision
       typedef typename NT2_CALL_RETURN_TYPE(2)::type             result_type;
@@ -67,9 +65,24 @@ namespace nt2 { namespace functors
       e += shli(a1, Nbmantissabits<s_type>());
       return b_or(x, e);
     }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<fast_ldexp_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>
+      : meta::strip<A0>{};//
+
 
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

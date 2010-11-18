@@ -15,42 +15,96 @@
 
 namespace nt2 { namespace functors
 {
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
           : meta::scalar_of<typename meta::strip<A0>::type> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (6, (float,double,int64_,int32_,int16_,int8_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 min  = {_mm_min_ps(a0, _mm_movehl_ps(a0,a0))};
       A0 that = {_mm_min_ss(min, _mm_shuffle_ps(min,min,0x01))};
       return that[0];
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 that = {_mm_min_sd(a0, _mm_unpackhi_pd(a0,a0))};
       return that[0];
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),int64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::min(a0[0], a0[1]);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),int32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
       A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};
       return that[0];
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),int16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          min1 = _mm_shufflelo_epi16(min1, _MM_SHUFFLE(1, 0, 3, 2));
@@ -63,7 +117,21 @@ namespace nt2 { namespace functors
       A0 that = nt2::min(min3, min4);
       return that[0];
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<minimum_,tag::simd_(tag::arithmetic_,tag::sse_),int8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+          : meta::scalar_of<typename meta::strip<A0>::type> {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef simd::native<typename meta::double_<A0>::type,tag::sse_> rtype;
       rtype v0 = simd::native_cast<rtype>(a0);
@@ -74,6 +142,8 @@ namespace nt2 { namespace functors
     return nt2::min(min2[0],min2[1]);
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

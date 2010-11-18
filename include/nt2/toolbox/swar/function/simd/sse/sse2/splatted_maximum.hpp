@@ -17,47 +17,101 @@ namespace nt2 { namespace functors
 {
   //  no special validate for splatted_maximum
 
-  template<class Extension,class Info>
-  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (6, (float,double,int64_,int32_,int16_,int8_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 max1 = {max(a0,simd::native_cast<A0>(_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))))};
       A0 that = {max(max1, simd::native_cast<A0>(_mm_shuffle_ps(max1, max1, _MM_SHUFFLE(2, 3, 0, 1))))};
       return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 that = {_mm_max_sd(a0, _mm_unpackhi_pd(a0,a0))};
       return simd::native_cast<A0>(_mm_unpacklo_pd(that, that));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int64_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,tag::sse_),int64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type ftype; 
       A0 a00  =  simd::native_cast<A0>(_mm_shuffle_pd(simd::native_cast<ftype>(a0),
 						      simd::native_cast<ftype>(a0),0x01));     
       return  max(a0, a00); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,tag::sse_),int32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 max1 = {max(a0,simd::native_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
       A0 that = {max(max1, simd::native_cast<A0>(_mm_shuffle_epi32(max1, _MM_SHUFFLE(2, 3, 0, 1))))};
       return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     int16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,tag::sse_),int16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
-      typedef typename simd::native<float, Extension> ftype;
+      typedef typename simd::native<float, tag::sse_> ftype;
       A0 max1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          max1 = _mm_shufflelo_epi16(max1, _MM_SHUFFLE(1, 0, 3, 2));
          max1 = max(a0, max1);
@@ -70,11 +124,27 @@ namespace nt2 { namespace functors
       A0 that = {simd::native_cast<A0>(_mm_unpacklo_ps(max5, max5))}; 
       return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,      int8_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<splatted_maximum_,tag::simd_(tag::arithmetic_,tag::sse_),int8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return splat<A0>(maximum(a0)); 
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

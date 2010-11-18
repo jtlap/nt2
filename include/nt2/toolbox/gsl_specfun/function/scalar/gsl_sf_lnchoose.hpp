@@ -27,24 +27,40 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute gsl_sf_lnchoose(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is int
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<gsl_specfun::gsl_sf_lnchoose_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<gsl_specfun::gsl_sf_lnchoose_,tag::scalar_(tag::arithmetic_),int,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : boost::result_of<meta::floating(A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A1, (3, (int,int,arithmetic_)) )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  int){ return gsl_sf_lnchoose(a0, a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  int){ return gsl_sf_lnchoose(a0, a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+    NT2_FUNCTOR_CALL(2){ return gsl_sf_lnchoose(a0, a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<gsl_specfun::gsl_sf_lnchoose_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       return nt2::gsl_specfun::gsl_sf_lnchoose(type(a0), type(a1));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010

@@ -16,7 +16,10 @@
 namespace nt2 { namespace functors
 {
   template<class T, class Info>
-  struct call<splat_<T>,tag::simd_(tag::arithmetic_,tag::sse_), Info>
+  struct  call< splat_<T>     , tag::simd_(tag::arithmetic_,tag::sse_)
+              , fundamental_  , Info
+              >
+        : callable
   {
     typedef T result_type;
 

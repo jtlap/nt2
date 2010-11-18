@@ -79,10 +79,9 @@ fe = 0.0;
 if( x <= 0.0 )
 	{
 	if( x == 0.0 )
-		cephes_mtherr( "logf", SING );
+	  return -1.0f/0.0f;
 	else
-		cephes_mtherr( "logf", DOMAIN );
-	return( MINLOGF );
+	  return 0.0f/0.0f;
 	}
 
 x = cephes_frexpf( x, &e );
@@ -91,10 +90,12 @@ if( x < SQRTHF )
 	e -= 1;
 	x = x + x - 1.0; /*  2x - 1  */
 	}	
-else
+ else if( x >= SQRTHF )
 	{
 	x = x - 1.0;
 	}
+ else return x;
+
 z = x * x;
 /* 3.4e-9 */
 /*

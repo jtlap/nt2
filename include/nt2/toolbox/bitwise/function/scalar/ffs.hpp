@@ -20,41 +20,77 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ffs(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types8_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<ffs_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<ffs_,tag::scalar_(tag::arithmetic_),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (4, (types8_,types16_,types32_,types64_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  types8_)
+    NT2_FUNCTOR_CALL(1)
     {
       return ::ffs(uint32_t(uint8_t(a0))); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  types16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ffs_,tag::scalar_(tag::arithmetic_),types16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return ::ffs(uint32_t(uint16_t(a0))); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  types32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ffs_,tag::scalar_(tag::arithmetic_),types32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
       return ::ffs(t1.bits); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  types64_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ffs_,tag::scalar_(tag::arithmetic_),types64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
       return ::ffsl(t1.bits); 
     }
-
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
