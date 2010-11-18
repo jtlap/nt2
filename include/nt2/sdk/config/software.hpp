@@ -17,7 +17,7 @@ namespace nt2 { namespace config
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  static void syslib()
+  inline void syslib()
   {
     #if defined(__GNU_LIBRARY__)
     puts(" libc version            : " BOOST_PP_STRINGIZE(__GNU_LIBRARY__) );

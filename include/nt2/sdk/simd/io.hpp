@@ -16,8 +16,8 @@ namespace nt2 { namespace simd
   //////////////////////////////////////////////////////////////////////////////
   // Stream insertion for swar types
   //////////////////////////////////////////////////////////////////////////////
-  template<class S,class E> static inline
-  std::ostream& operator<<( std::ostream& os, native<S,E> const & v )
+  template<class S,class E> inline std::ostream&
+  operator<<( std::ostream& os, native<S,E> const & v )
   {
     // We want to display (u)int8_t as a number
     typedef typename

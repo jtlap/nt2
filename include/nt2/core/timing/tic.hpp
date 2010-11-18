@@ -33,32 +33,9 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace time
 {
-  /*!
-      @brief Start a second-based timing section.
+  inline void tic() { details::sec_timer.tic(); }
 
-      @par Semantic
-      Starts a second-based timing section that will be ended by the
-      nearest toc call.
-  **/
-  static inline void tic()
-  {
-    details::sec_timer.tic();
-  }
-
-  /*!
-      @brief End a second-based timing section.
-
-      @return double Amount of second spent since last ctic call.
-      @param display Standard output trigger.
-
-      @par Semantic
-      Returns the amount of second elapsed since the nearest tic call. If
-      display is set to true, a message is send to the standard output.
-
-      @par Exception
-      Throws an unbalanced_timing if called without a previous call to tic.
-  **/
-  static inline double  toc( bool display = true)
+  inline double  toc( bool display = true)
   {
     return details::sec_timer.toc(display);
   }

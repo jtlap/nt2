@@ -24,8 +24,8 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   // Deallocate a raw buffer of bytes using an allocator
   //////////////////////////////////////////////////////////////////////////////
-  template<class Allocator> static inline
-  void deallocate( Allocator& a, byte* ptr, std::size_t nbytes = 0)
+  template<class Allocator> inline void
+  deallocate( Allocator& a, byte* ptr, std::size_t nbytes = 0)
   {
     // Allocator element types
     typedef typename Allocator::value_type value_type;

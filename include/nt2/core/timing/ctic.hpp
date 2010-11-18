@@ -33,9 +33,9 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace time
 {
-  static inline void ctic() { details::cycle_timer.tic(); }
+  inline void ctic() { details::cycle_timer.tic(); }
 
-  static inline details::cycles_t  ctoc( bool display = true)
+  inline details::cycles_t  ctoc( bool display = true)
   {
     return details::cycle_timer.toc(display);
   }

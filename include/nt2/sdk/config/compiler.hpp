@@ -31,7 +31,7 @@ namespace nt2 { namespace config
   //////////////////////////////////////////////////////////////////////////////
   // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  static void compiler()
+  inline void compiler()
   {
     puts(" Compiler                : " NT2_COMPILER_STRING);
     puts(" Rvalue references       : "
