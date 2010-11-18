@@ -19,7 +19,7 @@ namespace nt2 { namespace gsl_specfun
   }
 }
  
-#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_lambert_Wm1.hpp>
+#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_lambert_wm1.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_lambert_Wm1.hpp) 
 
  

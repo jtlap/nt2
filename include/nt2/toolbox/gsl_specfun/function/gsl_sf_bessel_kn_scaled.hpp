@@ -19,7 +19,7 @@ namespace nt2 { namespace gsl_specfun
   }
 }
  
-#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_Kn_scaled.hpp>
+#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_kn_scaled.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_Kn_scaled.hpp) 
 
  
