@@ -14,6 +14,8 @@
 
 namespace nt2 { namespace functors
 {
+  template <class Info, class C> 
+  struct dispatch<hermite_,tag::scalar_(C),Info> : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<hermite_,tag::scalar_(tag::arithmetic_),Info>
@@ -51,6 +53,13 @@ namespace nt2 { namespace functors
 	}
       return p1;
     }
+  private:
+    template <class T, class T1, class T2>
+    static inline T 
+    hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
+    {
+      return (2 * x * Hn - 2 * n * Hnm1);
+    }
   };
 
 
@@ -76,3 +85,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

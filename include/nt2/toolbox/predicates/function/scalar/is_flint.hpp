@@ -48,7 +48,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<is_flint_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  struct  call<is_flint_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -65,3 +65,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

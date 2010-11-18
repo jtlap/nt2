@@ -22,7 +22,7 @@ namespace nt2 { namespace functors
   // Implementation when type  is fundamental_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<shrai_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>

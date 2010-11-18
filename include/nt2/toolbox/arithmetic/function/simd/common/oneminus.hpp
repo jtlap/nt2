@@ -30,13 +30,13 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is fundamental_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<oneminus_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Extension, class Info>
+  struct call<oneminus_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::is_signed<A0>{};
-  };
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL(1)
     {

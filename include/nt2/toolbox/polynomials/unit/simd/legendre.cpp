@@ -53,5 +53,6 @@ NT2_TEST_CASE_TPL(legendre, (float)(double)
 	 NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], legendre(ii, a0[j])), 5);
 	 std::cout << a0[j] << "  " << v[j] << "  " << legendre(2, a0[j]) << std::endl; 
        }
-   }
+   } 
 }
+ 

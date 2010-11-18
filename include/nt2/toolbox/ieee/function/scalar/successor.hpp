@@ -52,12 +52,19 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::mpl::true_ {};
+      struct result<This(A0)> : meta::strip<A0> {};
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1)
     {
-      return next(a0); 
+      return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
     }
+    NT2_FUNCTOR_CALL(2)
+    {
+       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
+    }
+
   };
 
 
@@ -69,12 +76,16 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::mpl::true_ {};
+      struct result<This(A0)> : meta::strip<A0> {};
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
+    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
   };
 
 } }
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

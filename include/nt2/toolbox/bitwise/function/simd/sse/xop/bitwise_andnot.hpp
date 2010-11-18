@@ -20,7 +20,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<bitwise_andnot_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  struct call<bitwise_andnot_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -38,7 +38,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<bitwise_andnot_,tag::simd_(tag::arithmetic_),float,Info> : callable
+  struct call<bitwise_andnot_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -56,7 +56,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<bitwise_andnot_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  struct call<bitwise_andnot_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>

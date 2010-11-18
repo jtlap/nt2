@@ -19,12 +19,13 @@ namespace nt2 { namespace functors
   //  no special validate for group
   // TODO no float no int8_
 
+#define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int16_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),int16_t,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -52,7 +53,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is uint16_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),uint16_t,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),uint16_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -80,7 +81,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is int32_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),int32_t,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -108,7 +109,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is uint32_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),uint32_t,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),uint32_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -136,7 +137,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is int64_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),int64_,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),int64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -166,7 +167,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),float,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -190,7 +191,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<group_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -216,6 +217,8 @@ namespace nt2 { namespace functors
   };
 
 } }
+#undef NT2_SH
 
 #endif
 /// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

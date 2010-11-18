@@ -8,5 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_EXPINT_E2_SCALED_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_EXPINT_E2_SCALED_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/gsl_sf_expint_E2_scaled.hpp>
+#include <nt2/toolbox/gsl_specfun/function/gsl_sf_expint_e2_scaled.hpp>
 #endif

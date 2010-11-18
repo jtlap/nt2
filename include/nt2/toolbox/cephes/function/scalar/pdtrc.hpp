@@ -28,25 +28,67 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute pdtrc(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<cephes::pdtrc_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<cephes::pdtrc_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : boost::result_of<meta::floating(A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A1, (4, (float,double,long double,arithmetic_)) )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  float){ return cephes_pdtrc(a0, a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  double){ return cephes_pdtrc(a0, a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  long double){ return cephes_pdtrc(a0, a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+    NT2_FUNCTOR_CALL(2){ return cephes_pdtrcf(a0, a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::pdtrc_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2){ return cephes_pdtrc(a0, a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is long double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::pdtrc_,tag::scalar_(tag::arithmetic_),long double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2){ return cephes_pdtrcl(a0, a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<cephes::pdtrc_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       return nt2::cephes::pdtrc((a0), type(a1));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010

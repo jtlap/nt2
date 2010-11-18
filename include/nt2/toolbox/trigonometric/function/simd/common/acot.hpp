@@ -33,8 +33,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acot_,tag::simd_(tag::arithmetic_),float,Info> : callable
+  template<class Extension, class Info>
+  struct call<acot_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -50,8 +50,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acot_,tag::simd_(tag::arithmetic_),double,Info> : callable
+  template<class Extension, class Info>
+  struct call<acot_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -67,8 +67,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acot_,tag::simd_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Extension, class Info>
+  struct call<acot_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>

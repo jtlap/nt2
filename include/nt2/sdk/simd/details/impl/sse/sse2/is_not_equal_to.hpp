@@ -11,7 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-
+#include <iostream>
 namespace nt2 { namespace functors
 {
   template<class Info>

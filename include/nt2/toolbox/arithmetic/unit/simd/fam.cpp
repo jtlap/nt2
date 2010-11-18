@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL(fam,  (nt2::int16_t)(nt2::int8_t)  )
      NT2_TEST_EQUAL( v[j], fam(a0[j], a1[j], a2[j]) );
 }
 
-NT2_TEST_CASE_TPL(big_fam, (nt2::int64_t)(double)(nt2::int32_t)(float)  )
+NT2_TEST_CASE_TPL(big_fam, (double)(float)(nt2::int32_t)(nt2::int64_t)  )
 {
  using nt2::fam;
  using nt2::functors::fam_;    

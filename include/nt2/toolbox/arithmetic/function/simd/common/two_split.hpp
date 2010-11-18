@@ -30,8 +30,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is fundamental_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<two_split_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Extension, class Info>
+  struct call<two_split_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -47,7 +47,15 @@ namespace nt2 { namespace functors
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
-
+  private :
+    template<class A0,class R0,class R1> inline void
+    eval(A0 const& a, R0& r0, R1& r1)const
+    {
+      typedef typename meta::scalar_of<A0>::type s_type;
+      A0 c = Splitfactor<A0>()*a  ;
+      r0 =  c-(c-a);
+      r1 = a-r0;
+    }  
   };
 } }
 

@@ -31,14 +31,13 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is fundamental_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rshl_,tag::simd_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Extension, class Info>
+  struct call<rshl_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::mpl::and_ < meta::is_integral<A1>,
-			 meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> > >{};
+    struct result<This(A0,A1)>
+      : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL(2)
     {

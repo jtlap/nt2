@@ -31,8 +31,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is types8_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ffs_,tag::simd_(tag::arithmetic_),types8_,Info> : callable
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -54,8 +54,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is types16_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ffs_,tag::simd_(tag::arithmetic_),types16_,Info> : callable
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types16_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -78,8 +78,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is types32_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ffs_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types32_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -103,8 +103,8 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is types64_
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ffs_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>

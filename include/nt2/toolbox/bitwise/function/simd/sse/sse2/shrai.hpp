@@ -34,7 +34,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is unsigned_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<shrai_,tag::simd_(tag::arithmetic_),unsigned_,Info> : callable
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -51,7 +51,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is int64_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<shrai_,tag::simd_(tag::arithmetic_),int64_t,Info> : callable
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -70,7 +70,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is int32_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<shrai_,tag::simd_(tag::arithmetic_),int32_t,Info> : callable
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -89,7 +89,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is int16_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<shrai_,tag::simd_(tag::arithmetic_),int16_t,Info> : callable
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -108,7 +108,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is int8_t
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<shrai_,tag::simd_(tag::arithmetic_),int8_t,Info> : callable
+  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>

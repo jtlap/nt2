@@ -15,26 +15,67 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute atan2(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is long double
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<libc::atan2_,tag::scalar_(tag::arithmetic_),Info>
+  struct call<libc::atan2_,tag::scalar_(tag::arithmetic_),long double,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2, A0, (4, (long double,double,float,arithmetic_)) )
+    NT2_FUNCTOR_CALL(2){ return ::atan2l(a0, a1); }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, long double) { return ::atan2l(a0, a1);  }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, double) { return ::atan2(a0, a1);  }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, float)  { return ::atan2f(a0, a1); }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<libc::atan2_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(2){ return ::atan2(a0, a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<libc::atan2_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(2){ return ::atan2f(a0, a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<libc::atan2_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return nt2::libc::atan2(type(a0), type(a1));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010

@@ -75,7 +75,7 @@ class Nt2_base_infos :
     def get_implanted_simd_archis(self) : return self.__implanted_simd_archis
     def get_implanted_scalar_archis(self) : return self.__implanted_scalar_archis
     def get_implanted_archis(self) : return self.__implanted_scalar_archis + self.__implanted_simd_archis
-    
+
     def __str__(self) :
         r =  "nt2 is situated at %s" % self.get_nt2_path()
         r +="\ntoolboxes are in %s"  % self.get_toolboxes_path()

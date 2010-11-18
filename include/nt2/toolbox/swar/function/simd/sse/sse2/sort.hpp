@@ -14,6 +14,9 @@
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/include/functions/maximum.hpp>
 
+#define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
+#define NT2_CAST(T, a)   simd::native_cast<T>(a)    
+
 namespace nt2 { namespace functors
 {
   //  no special validate for sort
@@ -23,7 +26,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types32_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<sort_,tag::simd_(tag::arithmetic_),types32_,Info> : callable
+  struct call<sort_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -47,6 +50,13 @@ namespace nt2 { namespace functors
       b = NT2_CAST(A0, _mm_shuffle_ps(NT2_CAST(flt, a), NT2_CAST(flt, b), NT2_SH(3, 1, 0, 2))); 
       return b; 
     }
+  private :
+    template < class T > static inline void comp(T & a,T & b)
+    {
+      T c =  nt2::min(a, b);
+      b = nt2::max(a, b);
+      a = c;
+    }
   };
 
 
@@ -54,7 +64,7 @@ namespace nt2 { namespace functors
   // Implementation when type A0 is types64_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<sort_,tag::simd_(tag::arithmetic_),types64_,Info> : callable
+  struct call<sort_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -69,6 +79,9 @@ namespace nt2 { namespace functors
   };
 
 } }
+
+#undef NT2_SH   
+#undef NT2_CAST   
 
 #endif
 /// Revised by jt the 15/11/2010

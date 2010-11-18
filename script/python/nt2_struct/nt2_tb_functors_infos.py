@@ -25,12 +25,18 @@ import os
 import re
 from files_utils       import read, exist
 from nt2_toolbox_infos import Toolbox_infos
+from re_list           import sub_list
 
 class Fctor_infos :
     def __init__(self, tb_name, fct_name, mode, submode="") :
-        self.tbi = Toolbox_infos(tb_name)
+        if tb_name is Toolbox_infos :
+            self.tbi=tb_name
+        else :
+            self.tbi = Toolbox_infos(tb_name)
         self.__fct_name = fct_name
         self.__mode = mode
+        self.__archi = mode.split('/')[0]
+        self.__archi_spec = mode.split('/')[1] if len(mode.split('/'))>1 else ""
         self.__submode = submode
         self.__fct_filename = fct_name.lower()
         self.__fct_arity = self.__read_arity()
@@ -41,7 +47,8 @@ class Fctor_infos :
     def get_fct_filename(self)  : return self.__fct_filename
     def get_fct_arity(self)     : return self.__fct_arity
     def get_fct_mode (self)     : return self.__mode
-    def get_fct_archi(self)     : return re.sub("simd/","",self.__mode)
+    def get_fct_archi(self)     : return self.__archi #re.sub("simd/","",self.__mode)
+    def get_fct_archi_spec(self): return self.__archi_spec
     def get_fct_submode(self)   : return self.__submode
     def get_fct_path(self)      : return self.__fct_path         
     def get_old_fctor_txt(self) : return self.__old_fctor_txt
@@ -53,18 +60,20 @@ class Fctor_infos :
     def get_result_txt(self) :
         s = self.get_old_fctor_txt()
         tag_found = False
+        call_found = False
         for i,l in enumerate(s) :
-            if re.match(" *template<class Sig>.*",l) :
-                deb = i
-                tag_found = True
-            if tag_found :
-                if len(l) ==0 : return s[deb:i]+[""]
-                if  re.match(" *NT2_FUNCTOR_CALL_DISPATCH.*",l) : return s[deb:i]+[""]
-                if  re.match(" *NT2_FUNCTOR_CALL.*",l) : return s[deb:i]+[""]
-        return [
-            "    typedef bool result_type;",
-            ""
-            ] 
+            if re.match(" *struct call<",l) : call_found = True
+            if call_found :
+                if re.match(" *typedef .* result_type;",l) :
+                   return [s[i]]
+                if re.match(" *template<class Sig>.*",l) :
+                    deb = i
+                    tag_found = True
+                if tag_found :
+                    if len(l) ==0 : return s[deb:i]+[""]
+                    if  re.match(" *NT2_FUNCTOR_CALL_DISPATCH.*",l) : return s[deb:i]+[""]
+                    if  re.match(" *NT2_FUNCTOR_CALL.*",l) : return s[deb:i]+[""]
+        return None
 
     def get_fct_priv_part(self) :
         s = self.get_old_fctor_txt()
@@ -105,6 +114,7 @@ class Fctor_infos :
             if re.match("namespace nt2.*",l) : return s[:i+2]
         return [""]
     
+
     def get_head_up_to_first_call(self) :
         s = self.get_old_fctor_txt()
         for i,l in enumerate(s) :
@@ -123,11 +133,17 @@ class Fctor_infos :
     
     def __read_old_fctor_txt(self) :
         p = self. get_fct_path()
-        return read(p)
+        r = read(p)
+        r = sub_list("^tag::sse_$","",r)
+        return r
 
+    
     def is_subsidiary(self) :
         s = ' '.join(read(self.get_fct_path()))
-        if re.search('#include <nt2/toolbox/arithmetic/function/simd/.*'+self.get_fct_filename()+'.hpp>',s) :
+        if re.match("#include <nt2/toolbox/"+
+                     self.tbi.get_tb_name() +
+                     '/function/simd/.*'+
+                     self.get_fct_filename()+'.hpp> *',s) :
             return True
         else :
             return False
@@ -138,10 +154,30 @@ class Fctor_infos :
             return True
         else :
             return False
+        
+    def no_restore(self) :
+        s = ' '.join(read(self.get_fct_path()))
+        if re.search('/// No restore -- hand modifications',s) :
+            return True
+        else :
+            return False
+        
+    def is_empty(self) :
+        for s in read(self.get_fct_path()) :
+            if (len(s) != 0 and s[0] != "#") : return False
+            if (len(s)>1 and (s[0]!="/" or s[1]!="/") ) : return False
+        return True
 
+    def is_unimplemented(self) :
+        s = ' '.join(read(self.get_fct_path()))
+        if re.search('/// Still unimplemented',s) :
+            return True
+        else :
+            return False
+       
     def __parse_dispatch(self,r) :
         st = ' '.join(r)
-        st = re.sub('\s','',st)
+        st = re.sub(',\s',',',st)
         m = re.search(",.*(A\d).*,",st)
         d_on = m.groups()[0] if m else "A0"
         m = re.search("\( *\d, *\((.*)\)\) *\)",st)
@@ -149,7 +185,7 @@ class Fctor_infos :
         return (d_on,d_list)
     
     def __read_part(self,tag,ld,rd,s,offset):
-#        print "tag %s" % tag
+        #        print "tag %s" % tag
         tag_found = False
         beg = -1
         end = -1
@@ -166,7 +202,8 @@ class Fctor_infos :
                     m2 = re.search("("+rd+")",l)
                     nbl += len(m1.groups()) if m1 else 0
                     nbr += len(m2.groups()) if m2 else 0
-#                    print "tag just found i %d -> %s"% (i,l)
+                    #                    print "tag just found i %d -> %s"% (i,l)
+                    if nbl and (nbl == nbr) : return [s[i]]
             else :
                 m1 = re.search("("+ld+")",l)
                 m2 = re.search("("+rd+")",l)
