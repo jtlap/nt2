@@ -8,5 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_LEGENDRE_QL_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_LEGENDRE_QL_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/gsl_sf_legendre_Ql.hpp>
+#include <nt2/toolbox/gsl_specfun/function/gsl_sf_legendre_ql.hpp>
 #endif

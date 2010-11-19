@@ -27,20 +27,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ffs(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<ffs_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (4, (types8_, types16_, types32_, types64_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       types8_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
@@ -50,7 +48,20 @@ namespace nt2 { namespace functors
 		       ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
 		  ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>()); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       types16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
@@ -61,8 +72,20 @@ namespace nt2 { namespace functors
 			,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
 				    ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>()); 
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       types32_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext; 
@@ -74,14 +97,27 @@ namespace nt2 { namespace functors
 			,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))
 		   ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4))+One<rtype>()); 
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       types64_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ffs_,tag::simd_(tag::arithmetic_,Extension),types64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       return  simd::native_cast<rtype>(map(functor<ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -44,6 +44,7 @@ NT2_TEST_CASE_TPL(minmod, NT2_SIMD_TYPES )
    n_t v  = minmod(a0, a1);
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
+       std::cout << a0[j] <<  "  " << a1[j] << "  " <<  v[j] <<  "  " << minmod(a0[j], a1[j]) << std::endl; 
       NT2_TEST_EQUAL( v[j], minmod(a0[j], a1[j]) );
      }
 }

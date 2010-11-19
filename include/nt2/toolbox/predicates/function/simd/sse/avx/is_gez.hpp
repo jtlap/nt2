@@ -19,31 +19,44 @@ namespace nt2 { namespace functors
 {
   //  no special validate for is_gez
 
-  template<class Extension,class Info>
-  struct call<is_gez_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<is_gez_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (unsigned_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,   unsigned_)
+    NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0);
       return True<A0>();
     }
- 
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<is_gez_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return is_ge(a0,Zero<A0>());
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

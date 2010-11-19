@@ -20,8 +20,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fuzzy_definitely_less(const A0& a0, const A1& a1, const A2& a2)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<fuzzy_definitely_less_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<fuzzy_definitely_less_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
@@ -31,9 +35,9 @@ namespace nt2 { namespace functors
     {
       return a0 < a1-a2*nt2::max(nt2::abs(a0),nt2::abs(a1));
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -8,5 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_HYPERG_1F1_INT_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_HYPERG_1F1_INT_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/gsl_sf_hyperg_1F1_int.hpp>
+#include <nt2/toolbox/gsl_specfun/function/gsl_sf_hyperg_1f1_int.hpp>
 #endif

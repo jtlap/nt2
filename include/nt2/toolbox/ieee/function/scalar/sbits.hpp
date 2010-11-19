@@ -20,8 +20,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute sbits(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<sbits_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<sbits_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,9 +38,9 @@ namespace nt2 { namespace functors
       type that = {a0}; 
       return that.bits; 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

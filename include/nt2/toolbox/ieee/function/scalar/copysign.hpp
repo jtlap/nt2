@@ -21,34 +21,58 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute copysign(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<copysign_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<copysign_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
       struct result<This(A0,A1)> : meta::strip<A0>{}; 
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A0,
-      (3, (float,double,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  float)
+    NT2_FUNCTOR_CALL(2)
     {
       return ::copysignf(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<copysign_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0,A1)> : meta::strip<A0>{}; 
+
+    NT2_FUNCTOR_CALL(2)
     {
       return ::copysign(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<copysign_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0,A1)> : meta::strip<A0>{}; 
+
+    NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(a0)*signnz(a1);
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

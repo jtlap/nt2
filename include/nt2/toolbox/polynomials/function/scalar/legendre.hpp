@@ -15,6 +15,8 @@
 
 namespace nt2 { namespace functors
 {
+  template <class Info, class C> 
+  struct dispatch<legendre_,tag::scalar_(C),Info> : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<legendre_,tag::scalar_(tag::arithmetic_),Info>
@@ -26,20 +28,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute legendre(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<legendre_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<legendre_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0, A1)> : 
       boost::result_of<meta::floating(A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A1,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+    NT2_FUNCTOR_CALL(2)
     {
       if(nt2::abs(a1) > 1) return Nan<A1>(); 
       A1 p0 = One<A1>();
@@ -55,11 +56,6 @@ namespace nt2 { namespace functors
 	}
       return p1;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return legendre(a0, type(a1));
-    }
   private :
     template <class T1, class T2, class T3 >
     static inline T1 
@@ -68,8 +64,28 @@ namespace nt2 { namespace functors
       return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
     }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<legendre_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0, A1)> : 
+      boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
+      return legendre(a0, type(a1));
+    }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

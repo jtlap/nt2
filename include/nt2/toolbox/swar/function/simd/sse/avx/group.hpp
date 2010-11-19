@@ -17,8 +17,12 @@ namespace nt2 { namespace functors
 {
   //  no special validate for group
 
-  template<class Extension,class Info>
-  struct call<group_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,23 +38,7 @@ namespace nt2 { namespace functors
                                         >::type type;
     };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (7, (int16_t,uint16_t,int32_t,uint32_t,int64_t,uint64_t,double))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       double)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
-      typedef simd::native<float,tag::sse_ >   htype;
-      htype r0 = {_mm256_cvtpd_ps(a0)};
-      htype r1 = {_mm256_cvtpd_ps(a1)};
-      rtype r  = {_mm256_insertf128_ps(r, r0, 0)};
-      r = _mm256_insertf128_ps(r, r1, 1);
-      return r; 
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       int16_t)
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -67,7 +55,30 @@ namespace nt2 { namespace functors
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1)); 
       return r; 
     }
-     NT2_FUNCTOR_CALL_EVAL_IF(2,       uint16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),uint16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                                      stype;
+      typedef typename meta::downgrade<stype>::type                          utype;
+      typedef simd::native<utype,simd::avx_>                                          type1;
+      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+                                        , type2
+                                        , type1
+                                        >::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -84,7 +95,30 @@ namespace nt2 { namespace functors
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1)); 
       return r; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       int32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                                      stype;
+      typedef typename meta::downgrade<stype>::type                          utype;
+      typedef simd::native<utype,simd::avx_>                                          type1;
+      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+                                        , type2
+                                        , type1
+                                        >::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -103,7 +137,30 @@ namespace nt2 { namespace functors
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1)); 
       return r; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       uint32_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint32_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),uint32_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                                      stype;
+      typedef typename meta::downgrade<stype>::type                          utype;
+      typedef simd::native<utype,simd::avx_>                                          type1;
+      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+                                        , type2
+                                        , type1
+                                        >::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -122,22 +179,90 @@ namespace nt2 { namespace functors
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1)); 
       return r; 
     }
-//     NT2_FUNCTOR_CALL_EVAL_IF(2,       int64_t)
-//     {
-//       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
-//       //     typedef typename meta::same<A0,tag::sse_>::type htype;
-//       typedef simd::native<typename meta::scalar_of<A0>::type,tag::sse_ >   htype;
-//       typedef simd::native<double,simd::avx_ >   ftype;
-//       typedef simd::native<typename meta::scalar_of<rtype>::type,tag::sse_ >   type;
-//       //      typedef typename meta::same<rtype,tag::sse_>::type type;
-//       __m256i control = _mm256_set_epi32(0, 4, 1, 5, 2, 6, 3, 7); 
-//       rtype r = {_mm256_castps_si256(_mm256_permute2f128_ps(_mm256_castsi256_ps(a0),
-// 						     _mm256_castsi256_ps(a1),
-// 						     control))}; 
-//       return r; 
-//     }
-    
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                                      stype;
+      typedef typename meta::downgrade<stype>::type                          utype;
+      typedef simd::native<utype,simd::avx_>                                          type1;
+      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+                                        , type2
+                                        , type1
+                                        >::type type;
+    };
+
+
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint64_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),uint64_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                                      stype;
+      typedef typename meta::downgrade<stype>::type                          utype;
+      typedef simd::native<utype,simd::avx_>                                          type1;
+      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+                                        , type2
+                                        , type1
+                                        >::type type;
+    };
+
+
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<group_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                                      stype;
+      typedef typename meta::downgrade<stype>::type                          utype;
+      typedef simd::native<utype,simd::avx_>                                          type1;
+      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+                                        , type2
+                                        , type1
+                                        >::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
+      typedef simd::native<float,tag::sse_ >   htype;
+      htype r0 = {_mm256_cvtpd_ps(a0)};
+      htype r1 = {_mm256_cvtpd_ps(a1)};
+      rtype r  = {_mm256_insertf128_ps(r, r0, 0)};
+      r = _mm256_insertf128_ps(r, r1, 1);
+      return r; 
+    }
+  };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

@@ -25,7 +25,7 @@ SET( SOURCES
     static_buffer.cpp
     slice.cpp
     stride.cpp
-    dynamic_block.cpp
+    block1D.cpp
   )
 
 ADD_CUSTOM_TARGET(sdk.memory.unit)

@@ -23,35 +23,46 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute idivceil(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<idivceil_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<idivceil_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)>  : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (5, (real_,unsigned_,int8_t,int16_t, arithmetic_))
-    )
+    NT2_FUNCTOR_CALL(2){ return ceil(a0/a1); }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,        real_){ return ceil(a0/a1);           }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  arithmetic_){ return iceil(tofloat(a0)/tofloat(a1));}
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    unsigned_){ return rdivide(a0+a1-One<A0>(), a1);}
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       int16_t)
-    {
-      typedef typename meta::scalar_of<A0>::type           stype;
-      typedef typename meta::upgrade<stype>::type itype;
-      typedef typename simd::native<itype,Extension>                 ivtype;
-      ivtype a0l, a0h, a1l, a1h;
-      boost::fusion::tie(a0l, a0h) = split(a0);
-      boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(idivceil(a0l, a1l),
-					 idivceil(a0h, a1h)));
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       int8_t)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<idivceil_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2){ return rdivide(a0+a1-One<A0>(), a1); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<idivceil_,tag::simd_(tag::arithmetic_,Extension),int8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename meta::upgrade<stype>::type itype;
@@ -62,7 +73,47 @@ namespace nt2 { namespace functors
       return simd::native_cast<A0>(group(idivceil(a0l, a1l),
 					 idivceil(a0h, a1h) ));
     }
-   };
-} } 
-      
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<idivceil_,tag::simd_(tag::arithmetic_,Extension),int16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::scalar_of<A0>::type           stype;
+      typedef typename meta::upgrade<stype>::type itype;
+      typedef typename simd::native<itype,Extension>                 ivtype;
+      ivtype a0l, a0h, a1l, a1h;
+      boost::fusion::tie(a0l, a0h) = split(a0);
+      boost::fusion::tie(a1l, a1h) = split(a1);
+      return simd::native_cast<A0>(group(idivceil(a0l, a1l),
+					 idivceil(a0h, a1h)));
+    }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<idivceil_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2){ return iceil(tofloat(a0)/tofloat(a1)); }
+  };
+
+} }
+
 #endif
+/// Revised by jt the 15/11/2010

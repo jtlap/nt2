@@ -40,22 +40,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute asinh(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<asinh_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<asinh_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (float,double,arithmetic_))
-    )
-
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
+    NT2_FUNCTOR_CALL(1)
     {
 	A0 x = abs(a0);
 	A0 lthalf = lt(x,Half<A0>());
@@ -72,7 +68,20 @@ namespace nt2 { namespace functors
 	A0 zz = log(x+sqrt(oneplus(x2)));
 	return b_xor(select(lthalf, z, zz), bitofsign(a0));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<asinh_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
         A0 xx, sign;
 	//	bf::tie(sign, xx)= sign_and_abs(a0);
@@ -87,12 +96,26 @@ namespace nt2 { namespace functors
 		     sign
 		     );
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<asinh_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::asinh(tofloat(a0));
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

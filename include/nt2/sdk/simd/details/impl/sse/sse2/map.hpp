@@ -48,7 +48,10 @@ NT2_FUNCTOR_CALL_EVAL_IF(BOOST_PP_INC(n),int64_)  \
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<map_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct  call< map_        , tag::simd_(tag::arithmetic_,tag::sse_)
+              , fundamental_, Info
+              >
+        : callable
   {
     template<class Sig> struct result;
     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_MAP_INTERFACE,~)

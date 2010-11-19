@@ -23,7 +23,7 @@ namespace nt2 { namespace functors
   struct store_ {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // We only store into an iterator
+  // We only load from a pointer + an integral offset
   //////////////////////////////////////////////////////////////////////////////
   template<class Category, class Info>
   struct  validate< store_, Category, Info>
@@ -41,9 +41,9 @@ namespace nt2 { namespace functors
 namespace nt2 { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
-  // store category is given by T
+  // store category is given by A0
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info,class A0,class A1,class A2>
+  template<class Info, class A0,class A1,class A2>
   struct  categorize<functors::store_,Info,A0,A1,A2>
   {
     typedef typename meta::strip<A0>::type              base;

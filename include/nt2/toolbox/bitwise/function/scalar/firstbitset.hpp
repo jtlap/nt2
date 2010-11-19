@@ -22,34 +22,45 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute firstbitset(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<firstbitset_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<firstbitset_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       meta::as_integer<A0, signed>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  real_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_bits<A0, signed>::type type;
       type that = {a0};
       return firstbitset(that.bits); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<firstbitset_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      meta::as_integer<A0, signed>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return a0 & (~a0+One<A0>()); 
     }
-
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

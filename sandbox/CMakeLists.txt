@@ -12,7 +12,7 @@
 ################################################################################
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
-    simd_range.cpp
+#    simd_range.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)

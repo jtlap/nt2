@@ -33,21 +33,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute j0(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<j0_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<j0_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (float,double,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 x   =  abs(a0);
       A0 lt2 = lt(x, Two<A0>());
@@ -58,65 +55,44 @@ namespace nt2 { namespace functors
       // as branch1 is quick there is no need for an "else if" case
       // computing only branch2,  this probably due to the double pipeline
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<j0_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
 	return map(functor<j0_>(), a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<j0_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
       return nt2::j0(tofloat(a0)); 
     }
-    private:
-
-    template < class A0 > static inline A0 branch1(const A0 & x)
-    {
-      typedef typename meta::scalar_of<A0>::type stype; 
-      const A0 z = sqr(x);
-      return (z-single_constant<A0,0x40b90fdc> ())*
-	horner< NT2_HORNER_COEFF_T(stype, 5,
-				 (0xb382511c,
-				  0x36d660a0,
-				  0xb9d01fb1,
-				  0x3c5a6271,
-				  0xbe3110a6
-				  ) ) > (z);
-    }
-    template < class A0 > static inline A0 branch2(const A0 & x)
-    {
-      typedef typename meta::scalar_of<A0>::type stype; 
-      A0 q = rec(x);
-      A0 w = sqrt(q);
-      A0 p3 = w *
-	horner< NT2_HORNER_COEFF_T(stype, 8,
-			       (0xbd8c100e,
-				0x3e3ef887,
-				0xbe5ba616,
-				0x3df54214,
-				0xbb69539e,
-				0xbd4b8bc1,
-				0xb6612dc2,
-				0x3f4c422a
-				) ) > (q);
-
-       w = sqr(q);
-       A0 xn =  q*
-          horner< NT2_HORNER_COEFF_T(stype, 8,
-			       (0x4201aee0,
-				0xc2113945,
-				0x418c7f6a,
-				0xc09f3306,
-				0x3f8040aa,
-				0xbe46a57f,
-				0x3d84ed6e,
-				0xbdffff97
-				) ) > (w)-Pio_4<A0>();
-      return p3*cos(xn+x);
-    }
-
-
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

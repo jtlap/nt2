@@ -21,24 +21,22 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_nez(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<is_nez_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<is_nez_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
-    typedef bool result_type; 
+    typedef bool result_type;
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (1, (fundamental_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       fundamental_)
+    NT2_FUNCTOR_CALL(1)
     {
        return a0;
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

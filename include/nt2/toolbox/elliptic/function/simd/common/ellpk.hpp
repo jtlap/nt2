@@ -29,22 +29,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ellpk(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<ellpk_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ellpk_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (float,double))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
+    NT2_FUNCTOR_CALL(1)
     {
        A0 z =	horner< NT2_HORNER_COEFF(float, 11,
 					 (0x3910af7e, 
@@ -75,7 +72,21 @@ namespace nt2 { namespace functors
          return select(is_nez(a0), b_or(b_or(is_ltz(a0),
 			  gt(a0, One<A0>())), z), Inf<A0>());
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<ellpk_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       A0 z =	horner< NT2_HORNER_COEFF(double, 11,
 					 (
@@ -110,7 +121,8 @@ namespace nt2 { namespace functors
 			 gt(a0, One<A0>())), z), Inf<A0>());
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

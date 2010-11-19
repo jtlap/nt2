@@ -32,21 +32,37 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ulpdist(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is bool_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<ulpdist_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<ulpdist_,tag::scalar_(tag::arithmetic_),bool_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A0,
-      (3, (bool_, real_,arithmetic_))
-    )
+    NT2_FUNCTOR_CALL(2)
+    {
+      return dist(a0, is_nez(a1));
+    }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ulpdist_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename boost::result_of<meta::arithmetic(A0, A1) >::type type;
       typedef typename meta::as_integer<A0>::type itype;
@@ -61,17 +77,27 @@ namespace nt2 { namespace functors
 	: nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo));
       return e/Eps<type>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ulpdist_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return dist(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, bool_)
-    {
-      return dist(a0, is_nez(a1));
-    }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
