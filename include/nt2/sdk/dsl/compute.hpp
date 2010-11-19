@@ -65,6 +65,7 @@ namespace nt2 { namespace dsl
         >
     {};
 
+/*
     template<typename Locality>
     struct compute<Locality, functors::plus_>
         : boost::proto::
@@ -75,7 +76,7 @@ namespace nt2 { namespace dsl
             )
         >
     {};
-
+*/
     template<class Transform,class Locality>
     struct compile
         : boost::proto::switch_<compile<Transform,Locality> >
