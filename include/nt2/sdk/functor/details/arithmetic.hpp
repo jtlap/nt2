@@ -17,31 +17,26 @@
 #include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-// Remove ?
-#if defined(NT2_COMPILER_MSVC)
-#pragma warning(push)
-#pragma warning(disable: 4146)
-#endif
-
 #define NT2_LOCAL_TYPE(Z,N,T)                                               \
 typedef typename meta::strip<BOOST_PP_CAT(A,N)>::type BOOST_PP_CAT(base,N); \
 static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
 /**/
 
-#define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                                     \
-template<class Category,class Info>                                         \
-struct call<TAG,tag::scalar_(Category),Info>                                \
-{                                                                           \
-  template<class Sig> struct result;                                        \
-  template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct              \
-  result<This(BOOST_PP_ENUM_PARAMS(N,A))>                                   \
-  {                                                                         \
-    BOOST_PP_REPEAT(N,NT2_LOCAL_TYPE,~)                                     \
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                            \
-    typedef typename nested::type type;                                     \
-  };                                                                        \
-  NT2_FUNCTOR_CALL(N) { return IMPL; }                                      \
-}                                                                           \
+#define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                         \
+template<class Category,class Info>                             \
+struct  call<TAG,tag::scalar_(Category),fundamental_,Info>      \
+      : callable                                                \
+{                                                               \
+  template<class Sig> struct result;                            \
+  template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct  \
+  result<This(BOOST_PP_ENUM_PARAMS(N,A))>                       \
+  {                                                             \
+    BOOST_PP_REPEAT(N,NT2_LOCAL_TYPE,~)                         \
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                \
+    typedef typename nested::type type;                         \
+  };                                                            \
+  NT2_FUNCTOR_CALL(N) { return IMPL; }                          \
+}                                                               \
 /**/
 
 namespace nt2 { namespace functors
@@ -65,9 +60,5 @@ namespace nt2 { namespace functors
 } }
 
 #undef NT2_MAKE_ARITHMETIC
-
-#if defined(NT2_COMPILER_MSVC)
-#pragma warning(pop)
-#endif
 
 #endif

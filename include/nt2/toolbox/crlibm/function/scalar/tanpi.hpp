@@ -20,29 +20,48 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute tanpi(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
   template<class Rounding, class Info>
-  struct call<crlibm::tanpi_<Rounding>,tag::scalar_(tag::arithmetic_),Info>
+  struct call<crlibm::tanpi_<Rounding>,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+      
+    template<class A0, class R> struct inner_tanpi;
+    NT2_CRLIBM_INNER_STRUCT(rn, tanpi, rn)
+    NT2_CRLIBM_INNER_STRUCT(rd, tanpi, rd)
+    NT2_CRLIBM_INNER_STRUCT(ru, tanpi, ru)
+    NT2_CRLIBM_INNER_STRUCT(rz, tanpi, rd)
+
+
+    NT2_FUNCTOR_CALL(1)
+      {return inner_tanpi<A0,Rounding>::eval(a0, Rounding()); }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Rounding, class Info>
+  struct call<crlibm::tanpi_<Rounding>,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 1, A0, (2, (double,arithmetic_)) )
-    template<class A0, class R> struct inner_tanpi;
-    NT2_CRLIBM_INNER_STRUCT(rn, tanpi, rn)
-    NT2_CRLIBM_INNER_STRUCT(rd, tanpi, rd)
-    NT2_CRLIBM_INNER_STRUCT(ru, tanpi, ru)
-    NT2_CRLIBM_INNER_STRUCT(rz, tanpi, rz)
-    NT2_FUNCTOR_CALL_EVAL_IF(1, double)
-      {return inner_tanpi<A0,Rounding>::eval(a0, Rounding()); }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::crlibm::tanpi<Rounding>(double(a0));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 16/11/2010

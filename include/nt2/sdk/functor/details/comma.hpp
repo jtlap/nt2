@@ -19,10 +19,14 @@
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Whatever the typs, we can always do x,y
+  // comma always dispatch on the first type's kind
   //////////////////////////////////////////////////////////////////////////////
-  template<class Category, class Info>
-  struct validate<comma_,Category, Info>
+  template<class C> struct dispatch<comma_,C> : boost::mpl::_1 {};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Whatever the types, we can always do x,y
+  //////////////////////////////////////////////////////////////////////////////
+  template<class C, class I> struct validate<comma_,C,I>
   {
     typedef boost::mpl::true_ result_type;
   };
@@ -30,12 +34,11 @@ namespace nt2 { namespace functors
   //////////////////////////////////////////////////////////////////////////////
   // Comma basically evaluates its arguments and returns the second one
   //////////////////////////////////////////////////////////////////////////////
-  template<class Category, class Info>
-  struct call<comma_,Category, Info>
+  template<class C, class H, class I> struct call<comma_,C,H,I> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> { typedef A1 type; };
+    struct result<This(A0,A1)> : meta::strip<A1> {};
 
     NT2_FUNCTOR_CALL(2) { details::ignore_unused(a0); return a1; }
   };

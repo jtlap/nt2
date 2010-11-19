@@ -26,96 +26,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_gamma(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<fast_gamma_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<fast_gamma_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-//     NT2_FUNCTOR_CALL_EVAL_IF(1,       float)
-//     {
-//       static boost::array< A0, 8> P = {{
-// 	  1.536830450601906E-003,
-// 	  5.397581592950993E-003,
-// 	  4.130370201859976E-003,
-// 	  7.232307985516519E-002,
-// 	  8.203960091619193E-002,
-// 	  4.117857447645796E-001,
-// 	  4.227867745131584E-001,
-// 	  9.999999822945073E-001
-// 	}};
-//       A0 x = a0, p, q;
-//       int32_t sgngamf = 1;
-//       bool negative = x < Zero<A0>();
-//       A0 nz = Zero<A0>();
-//       if( negative )
-// 	{
-//       //	  std::cout << "icitte " << std::endl; 
-// 	  negative = 1;
-// 	  q = -x;
-// 	  p = floor(q);
-// 	  if( p == q ) return Nan<A0>(); 
-// 	  int32_t i = (int32_t)p;
-// 	  if( is_even(i) ) sgngamf = -1;
-// 	  nz = q - p;
-// 	  if( nz > Half<A0>() )
-// 	    {
-// 	      p += One<A0>();
-// 	      nz = q - p;
-// 	    }
-// 	  nz = q*sinpi(nz);
-// 	  if( iseqz(nz) ) return Nan<A0>()*sgngamf;
-// 	  nz =  nt2::abs(nz); 
-// 	  x = q;
-// 	}
-//       A0 z; 
-//          std::cout << "1--x "<< x << std::endl; 
-//        if( x >= Ten<A0>() )  return stirling(x);
-//       int direction = x < Two<A0>(); 
-//       z = One<A0>();
-//       //      int i = 0; 
-//           std::cout << "1--x "<< x << std::endl; 
-//       while( x >= Three<A0>() )
-// 	{
-//       //	  std::cout << "premier while : " << ++i << std::endl; 
-// 	  x -= One<A0>();
-// 	  z *= x;
-// 	}
-//       //      i = 0; 
-//       //      std::cout << "2--x "<< x << std::endl; 
-//       while( x < Two<A0>() )
-// 	{
-//       //	  std::cout << "second while : " << ++i << std::endl; 
-// 	  if( iseqz(x)) return Nan<A0>(); 
-// 	  if( x < 1.e-4 )
-// 	    {
-// 	      A0 p = z / ((One<A0>() + Euler<A0>() * x) * x);
-// 	      return (negative) ? sgngamf * Pi<A0>()/(nz * p ) : p; 
-// 	    }
-// 	  z *=x;
-// 	  x += One<A0>();
-// 	}
-//        //       std::cout << "3--x "<< x << std::endl; 
-      
-//       if( direction ) z = rec(z);
-//       if( x == Two<A0>() ) return z;
-//       x -= Two<A0>();
-//       p = z * polevl( x, P);
-//       //      std::cout << "4--p "<< p << " nz " <<  nz << std::endl; 
-//       //      std::cout << "4--p "<< p << " negative " <<  negative << std::endl; 
-      
-     
-//       return (negative) ? sgngamf * Pi<A0>()/(nz * p ) : p; 
-//     }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       static boost::array<A0, 7> P = {{
 	  1.60119522476751861407E-4,
@@ -201,43 +124,28 @@ namespace nt2 { namespace functors
       q = polevl(x,Q);
       return z*p/q;
     }
-    
-    
-    
-    
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<fast_gamma_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return fast_gamma(type(a0));
     }
-//   private :
-//     template < class A0 >  static inline A0
-//     finalize(const A0 & x, const A0& negative, const A0& nz, const A0& sgngam, float)
-//     {
-//       static boost::array< A0, 8> P = {{
-// 	  1.536830450601906E-003,
-// 	  5.397581592950993E-003,
-// 	  4.130370201859976E-003,
-// 	  7.232307985516519E-002,
-// 	  8.203960091619193E-002,
-// 	  4.117857447645796E-001,
-// 	  4.227867745131584E-001,
-// 	  9.999999822945073E-001
-// 	}};      
-//       p = z * polevl( x, P);
-//       return (negative) ? sgngamf * Pi<A0>()/(nz * p ) : p; 
-//      }
-//     template < class A0 >  static inline A0
-//     finalize(const A0 & x, const A0& negative, const A0& nz, const A0& sgngam, double)
-//     {
-//       x -= Two<A0>();
-//       p = polevl(x,P);
-//       q = polevl(x,Q);
-//       return z*p/q;
-//     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -21,29 +21,38 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_not_infinite(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<is_not_infinite_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<is_not_infinite_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     typedef bool result_type;
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       return  nt2::abs(a0) != Inf<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_not_infinite_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    typedef bool result_type;
+
+    NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0); 
       return true; 
     }
-
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

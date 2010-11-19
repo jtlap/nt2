@@ -27,20 +27,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute expx2(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<expx2_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<expx2_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       if (is_inf(a0)) return Inf<A0>();
       if (is_eqz(a0)) return Exp_1<A0>(); 
@@ -55,15 +54,28 @@ namespace nt2 { namespace functors
       /* u is exact, u1 is small.  */
       return exp(u) * exp(u1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<expx2_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : 
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return expx2(type(a0));
     }
-
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

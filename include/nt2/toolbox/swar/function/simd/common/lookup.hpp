@@ -27,9 +27,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute lookup(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<lookup_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<lookup_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -45,8 +48,9 @@ namespace nt2 { namespace functors
       for(size_t i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
       return load(tmp1.begin(), 0); 
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

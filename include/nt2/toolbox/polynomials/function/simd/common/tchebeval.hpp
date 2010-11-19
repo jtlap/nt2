@@ -23,20 +23,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute tchebeval(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Dummy>
-  struct call<tchebeval_,
-              tag::simd_(tag::arithmetic_,Extension),Dummy>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<tchebeval_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+    NT2_FUNCTOR_CALL(2)
     {
 
       typename A1::const_iterator p = a1.begin();
@@ -52,13 +50,27 @@ namespace nt2 { namespace functors
       return average(b0, b2); 
  
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<tchebeval_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return nt2::tchebeval(tofloat(a0), a1); 
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

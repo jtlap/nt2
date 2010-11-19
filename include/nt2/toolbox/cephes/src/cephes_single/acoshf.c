@@ -75,12 +75,11 @@ double xx;
 float x, z;
 
 x = xx;
-if( x < 1.0 )
+if( x < 1.0 || x != x)
 	{
-	cephes_mtherr( "acoshf", DOMAIN );
-	return(0.0);
+	  return(0.0/0.0);
 	}
-
+ if( x == 1.0/0.0) return x;
 if( x > 1500.0 )
 	return( cephes_logf(x) + LOGE2F );
 

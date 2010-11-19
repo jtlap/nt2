@@ -11,8 +11,9 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Tag, class X,class Info>
-  struct call<Tag,tag::simd_(tag::ast_,X),Info>
+  template<class Tag, class X, class Hierarchy, class Info>
+  struct  call<Tag,tag::simd_(tag::ast_,X),Hierarchy, Info>
+        : callable
   {
     template<class Sig> struct result;
 

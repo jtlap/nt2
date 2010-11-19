@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <iomanip> 
+
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
@@ -44,8 +44,12 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
   for(int i = 0;  i < 3;  i++){
     type_t r = remquo(n[i], d[i]);
     NT2_TEST_EQUAL(  boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]));
+<<<<<<< HEAD:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
     NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
     std::cout << "--" << std::setprecision(20) << boost::fusion::get<0>(r) << "  " <<boost::fusion::get<1>(r) << std::endl;
+=======
+//     NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
+>>>>>>> f7d1770be9645f7a10a4d7453d3eb17740baa0c7:include/nt2/toolbox/arithmetic/unit/scalar/remquo.cpp
   }
 }
           

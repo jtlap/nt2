@@ -8,5 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_LAMBERT_WM1_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_LAMBERT_WM1_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/gsl_sf_lambert_Wm1.hpp>
+#include <nt2/toolbox/gsl_specfun/function/gsl_sf_lambert_wm1.hpp>
 #endif

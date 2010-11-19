@@ -21,38 +21,64 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute bitofsign(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<bitofsign_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<bitofsign_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (real_,signed_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type result_type;
       return b_and(a0, Mzero<result_type>());
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,     signed_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is signed_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<bitofsign_,tag::simd_(tag::arithmetic_,Extension),signed_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       static A0 const sm = (A0)Signmask<A0>();
       return b_and(a0, sm);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<bitofsign_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0); 
       return Zero<A0>();
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

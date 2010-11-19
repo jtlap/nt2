@@ -12,7 +12,7 @@
 // // Make True and False
 // ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/constant/constant.hpp>
-#include <nt2/sdk/constant/details/real_constant.hpp>
+//#include <nt2/sdk/constant/details/real_constant.hpp>
 #include <nt2/sdk/constant/real.hpp>
 
 namespace nt2 { namespace constants

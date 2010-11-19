@@ -28,7 +28,7 @@
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
-                << "` **passed**.\n"                                        \
+                << "` **passed**."                                        \
                 << " (" << line << ")"                                      \
                 << std::endl;                                               \
     }                                                                       \
@@ -36,7 +36,7 @@
     {                                                                       \
       std::cout << " * Test `"<< x1 << " "<< #OP << " " << x2               \
                 << "` **failed** in function " << fn << " (" << line << ")" \
-                << ":  '" << t << " "<< #COP << " " << u << "'\n"           \
+                << ":  '" << t << " "<< #COP << " " << u << "'"             \
                 << std::endl;                                               \
       ++error_count();                                                      \
     }                                                                       \

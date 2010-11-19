@@ -23,19 +23,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute ellpk(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<ellpk_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<ellpk_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
       template<class Sig> struct result;
       template<class This,class A0>
       struct result<This(A0)> : boost::result_of<meta::arithmetic(A0)>{};
 
-      NT2_FUNCTOR_CALL_DISPATCH ( 1
-                                , A0
-                                , (3, (float,double,arithmetic_))
-                                )
-
-      NT2_FUNCTOR_CALL_EVAL_IF(1,  float)
+    NT2_FUNCTOR_CALL(1)
       {
         if (a0>One<A0>()||(is_ltz(a0)))
           return Nan<A0>();
@@ -58,8 +57,20 @@ namespace nt2 { namespace functors
                                 )
                         > (a0);
       }
+  };
 
-      NT2_FUNCTOR_CALL_EVAL_IF(1, double)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ellpk_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+      template<class Sig> struct result;
+      template<class This,class A0>
+      struct result<This(A0)> : boost::result_of<meta::arithmetic(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
         if (a0>One<A0>()||(is_ltz(a0)))
           return Nan<A0>();
@@ -80,15 +91,27 @@ namespace nt2 { namespace functors
                 , 0x3fbfffffffffdba4ll,0x3fe0000000000000ll
                 ) ) > (a0);
       }
+  };
 
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<ellpk_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+      template<class Sig> struct result;
+      template<class This,class A0>
+      struct result<This(A0)> : boost::result_of<meta::arithmetic(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
         typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
         return nt2::ellpk(type(a0));
       }
-    };
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

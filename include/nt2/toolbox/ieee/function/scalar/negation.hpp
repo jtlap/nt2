@@ -20,31 +20,43 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute negation(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<negation_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<negation_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A1,
-      (2, (unsigned_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,   unsigned_)
+    NT2_FUNCTOR_CALL(2)
     {
         return is_nez(a1)*a0;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<negation_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       return is_nez(a1)*(is_gez(a1)?a0:-a0);
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

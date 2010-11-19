@@ -25,31 +25,42 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_finite(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<is_finite_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<is_finite_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> {  typedef  bool type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,fundamental_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       return is_eqz(a0-a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_finite_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {  typedef  bool type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0);
       return True<A0>();
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -28,8 +28,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute frexp(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<frexp_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<frexp_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -51,7 +55,6 @@ namespace nt2 { namespace functors
           );
       return res;
     }
-
   private:
     NT2_FUNCTOR_CALL_DEFAULT(1)
 
@@ -71,6 +74,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

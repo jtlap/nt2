@@ -22,24 +22,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute any(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<any_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<any_,tag::simd_(tag::arithmetic_,Extension),int8_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>  { typedef bool type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename nt2::meta::scalar_of<A0>::type
-                              , (3, (int8_t, uint8_t,arithmetic_))
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  arithmetic_)
-    {
-      return hmsb(is_nez(a0));  
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  int8_t)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
@@ -48,7 +42,20 @@ namespace nt2 { namespace functors
       boost::fusion::tie(a0h, a0l) = split(a0); 
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));  
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  uint8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<any_,tag::simd_(tag::arithmetic_,Extension),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  { typedef bool type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
@@ -57,9 +64,26 @@ namespace nt2 { namespace functors
       boost::fusion::tie(a0h, a0l) = split(a0);
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));  
     }
-    
-  }; 
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<any_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  { typedef bool type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return hmsb(is_nez(a0));  
+    }
+  };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

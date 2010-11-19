@@ -19,9 +19,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fam(const A0& a0, const A0& a1, const A0& a2)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<fam_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<fam_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -31,8 +34,9 @@ namespace nt2 { namespace functors
     {
       return fma(a2, a1, a0); 
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

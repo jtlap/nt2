@@ -8,9 +8,9 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_SHIFT_LEFT_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_SHIFT_LEFT_HPP_INCLUDED
+
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 
 namespace nt2 { namespace functors
 {
@@ -21,13 +21,18 @@ namespace nt2 { namespace functors
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
       boost::mpl::and_ < meta::is_integral<A1>,
-			 meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> > >{};
+        meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> >
+        >
+        {};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute shift_left(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
   template<class Extension,class Info>
-  struct call<shift_left_, tag::simd_(tag::arithmetic_,Extension),Info>
+  struct  call< shift_left_, tag::simd_(tag::arithmetic_,Extension)
+              , fundamental_, Info
+              >
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -41,7 +46,3 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of shift_left.hpp
-// /////////////////////////////////////////////////////////////////////////////

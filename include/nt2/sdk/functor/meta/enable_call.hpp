@@ -33,9 +33,8 @@ namespace nt2 { namespace meta
   template<class F, class... Args>
   struct enable_call< F(Args...)
                     , typename boost::
-					enable_if_c < std::tr1::
-                                    result_of<validate<F>(Args...)>::type::value
-                                  >::type
+          enable_if_c < std::tr1::result_of<validate<F>(Args...)>::type::value
+                      >::type
                     >
     : std::tr1::result_of<functors::functor<F>(Args...)>
   {};
@@ -45,11 +44,11 @@ namespace nt2 { namespace meta
   template<class F, BOOST_PP_ENUM_PARAMS(n,class A)>                          \
   struct enable_call< F(BOOST_PP_ENUM_PARAMS(n,A))                            \
                     , typename boost::                                        \
-					enable_if < typename std::tr1::result_of<validate<F>       \
+          enable_if < typename std::tr1::result_of<validate<F>                \
                                     (BOOST_PP_ENUM_PARAMS(n,A))>::type        \
                                   >::type                                     \
                     >                                                         \
-					: std::tr1::result_of<functors::functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>       \
+      : std::tr1::result_of<functors::functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>  \
   {};                                                                         \
   /**/
 

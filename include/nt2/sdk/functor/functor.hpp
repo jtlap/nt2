@@ -22,6 +22,7 @@
 #include <nt2/sdk/functor/meta/categorize.hpp>
 #include <nt2/sdk/functor/meta/enable_call.hpp>
 #include <nt2/sdk/functor/details/validate.hpp>
+#include <nt2/sdk/functor/details/dispatch.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>

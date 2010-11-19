@@ -27,20 +27,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute nextpow2(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<nextpow2_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<nextpow2_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> :
       meta::as_integer<typename boost::result_of<meta::floating(A0)>::type, signed>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , A0
-                              , (2, (real_,arithmetic_))
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       A0 m;
@@ -48,13 +47,27 @@ namespace nt2 { namespace functors
       boost::fusion::tie(m, p) = nt2::frexp(nt2::abs(a0));
       return (m == Half<A0>())  ? minusone(p) :  p;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<nextpow2_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> :
+      meta::as_integer<typename boost::result_of<meta::floating(A0)>::type, signed>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::nextpow2(tofloat(a0));
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

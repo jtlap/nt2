@@ -19,8 +19,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute atan2(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<atan2_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<atan2_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -32,9 +36,9 @@ namespace nt2 { namespace functors
         typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
         return std::atan2(rtype(a0),rtype(a1));
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
