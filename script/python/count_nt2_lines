@@ -145,20 +145,20 @@ if __name__ == '__main__':
     parser.add_option("-f", "--filter",
                       dest="filter",
                       default =  '*.hpp;*.cpp;',
-                      help="""filter can be 'c', 'c++', 'c,c++'
+                      help="""FILTER can be 'c', 'c++', 'c,c++'
                       or any filtering string style: '*.h;*.cpp'
-                      of filter semi_column separated  options  
+                      of filter semi column separated  options  
                       """)
     parser.add_option("-e", "--exclude",
                       dest="exclude",
                       default = None,
-                      help="""exclude is a semi colon separated string of
+                      help="""EXCLUDE is a semi colon separated string of
                       regexp that are not to be found in the path to the file
                       """)
     parser.add_option("-i", "--includeonly",
                       dest="include",
                       default = None,
-                      help="""includeonly is a semi colon separated string of
+                      help="""INCLUDE is a semi colon separated string of
                       regexp that are to be found in the path to the file
                       """)
     
