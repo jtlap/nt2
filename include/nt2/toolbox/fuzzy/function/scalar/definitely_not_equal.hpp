@@ -28,20 +28,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute definitely_not_equal(const A0& a0, const A1& a1, const A2& a2)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<definitely_not_equal_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<definitely_not_equal_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
     struct result<This(A0,A1,A2)>  {typedef bool type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      3,
-      A0,
-      (2, (real_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(3,       real_)
+    NT2_FUNCTOR_CALL(3)
     {
       if (a0 == a1) return false;
       if (isinf(a0) || isinf(a1)) return (a0 != a1);
@@ -52,13 +50,26 @@ namespace nt2 { namespace functors
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
       return  (a0 > successor(a1,a2)) || (a0 < successor(a1,-a2));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(3, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<definitely_not_equal_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)>  {typedef bool type; };
+
+    NT2_FUNCTOR_CALL(3)
     {
         return dist(a0, a1) > a2;
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

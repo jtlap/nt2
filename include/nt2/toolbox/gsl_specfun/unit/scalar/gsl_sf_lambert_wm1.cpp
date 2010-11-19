@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 gsl_specfun toolbox - gsl_sf_lambert_Wm1 - unit/scalar Mode"
 
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_lambert_Wm1.hpp>
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_lambert_wm1.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -32,5 +32,3 @@
 //                            >::value)
 //          );
 //}
-
-typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type

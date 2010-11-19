@@ -29,9 +29,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute asecd(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<asecd_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<asecd_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,8 +44,9 @@ namespace nt2 { namespace functors
     {
       return indeg(asec(tofloat(a0)));
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

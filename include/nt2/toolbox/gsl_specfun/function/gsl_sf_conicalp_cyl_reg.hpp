@@ -19,7 +19,7 @@ namespace nt2 { namespace gsl_specfun
   }
 }
  
-#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_conicalP_cyl_reg.hpp>
+#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_conicalp_cyl_reg.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_conicalP_cyl_reg.hpp) 
 
  

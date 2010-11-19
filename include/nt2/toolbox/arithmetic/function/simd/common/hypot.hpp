@@ -36,21 +36,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute hypot(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<hypot_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<hypot_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)>  :  meta::as_real<A0>{};
 
-
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef ctnts<A0, int_type> cts; 
@@ -87,11 +84,6 @@ namespace nt2 { namespace functors
       if (te3) w = ldexp(w, -e);
       return sel(tinf, Inf<A0>(), w);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::hypot(tofloat(a0), tofloat(a1));
-    }
   private:
     template < class T, class I = typename meta::as_integer<T, signed>::type>
     struct ctnts;
@@ -116,7 +108,27 @@ namespace nt2 { namespace functors
       static inline int_type M1(){ return integral_constant<int_type, 0xffffffff00000000ll>();};
     };
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<hypot_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>  :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
+      return nt2::hypot(tofloat(a0), tofloat(a1));
+    }
+  };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

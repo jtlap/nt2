@@ -41,21 +41,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute yni(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<yni_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is float
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<yni_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :  meta::as_real<A1>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A1,
-      (3, (float,double,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  float)
+    NT2_FUNCTOR_CALL(2)
     {
 	typedef A1 result_type; 
 	result_type x = a1;
@@ -90,18 +87,45 @@ namespace nt2 { namespace functors
 	while( k < n1 );
 	return b_or(isltz(a1), select(islt(a1,One<result_type>()),res1,sign*an));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<yni_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       const A1 r(yni(a0, a1[0]),yni(a0, a1[1])) ; 
       return r; 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<yni_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
       return nt2::yni(a0, tofloat(a1)); 
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

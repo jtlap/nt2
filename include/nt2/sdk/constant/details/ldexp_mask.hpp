@@ -19,35 +19,35 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-namespace nt2 { namespace functors
-{
-  template<class Category,class Info>
-  struct  call<constants::ldexp_mask_,tag::constant_(Category),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::as_integer<typename meta::strip<A0>::type::type
-                            ,  signed
-                            > {};
+// namespace nt2 { namespace functors
+// {
+//   template<class Category,class Info>
+//   struct  call<constants::ldexp_mask_,tag::constant_(Category),Info>
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//       struct result<This(A0)> : meta::as_integer<typename meta::strip<A0>::type::type
+//                             ,  signed
+//                             > {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename meta::scalar_of<typename A0::type>::type
-                              , ( 2 , ( double, float )
-                                )
-                              )
+//     NT2_FUNCTOR_CALL_DISPATCH ( 1
+//                               , typename meta::scalar_of<typename A0::type>::type
+//                               , ( 2 , ( double, float )
+//                                 )
+//                               )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)
-    {
-      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-      return splat<type>(0x7F800000);
-    }
+//     NT2_FUNCTOR_CALL_EVAL_IF(1,float)
+//     {
+//       typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+//       return splat<type>(0x7F800000);
+//     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)
-    {
-      typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
-      return splat<type>(0x7FF0000000000000ll); 
-    }
-  };
-} }
+//     NT2_FUNCTOR_CALL_EVAL_IF(1,double)
+//     {
+//       typedef typename  NT2_CALL_RETURN_TYPE(1)::type type;
+//       return splat<type>(0x7FF0000000000000ll); 
+//     }
+//   };
+// } }
 
 #endif

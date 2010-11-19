@@ -28,13 +28,16 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute mantissa(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<mantissa_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<mantissa_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> :meta::strip<A0>{}; 
-
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -47,9 +50,9 @@ namespace nt2 { namespace functors
 	static const int_type mask1 = ((~n1)|n2);
         return b_or(b_and(a0, mask1),mask0);
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

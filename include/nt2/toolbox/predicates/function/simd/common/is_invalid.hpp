@@ -21,36 +21,42 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_invalid(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<is_invalid_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<is_invalid_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (2, (real_,arithmetic_))
-    )
-
-    // Check for NAN, +infin, or -infin (exponent: 111 1111 1)
-    // Are the exponent bits all 1's?
-    //    if( (*val & 0x7F800000) = 0x7F800000 )
-    //    if( (*val & 0x7FF0000000000000ll) = 0x7FF0000000000000ll )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       return is_nan(a0-a0);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       arithmetic_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<is_invalid_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0);
       return False<A0>();
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

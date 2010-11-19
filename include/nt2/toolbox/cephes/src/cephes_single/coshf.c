@@ -60,13 +60,14 @@ double xx;
 {
 float x, y;
 
+ if (xx != xx) return xx;
+
 x = xx;
 if( x < 0 )
 	x = -x;
 if( x > MAXLOGF )
 	{
-	cephes_mtherr( "coshf", OVERFLOW );
-	return( MAXNUMF );
+	return( 1.0f/0.0f );
 	}	
 y = cephes_expf(x);
 y = y + 1.0/y;

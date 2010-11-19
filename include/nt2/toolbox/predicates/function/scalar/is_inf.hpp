@@ -21,28 +21,38 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute is_inf(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_inf_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef bool result_type; 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0,
-      (2, (real_,fundamental_))
-    )
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_inf_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  {
+    typedef bool result_type;
+
+    NT2_FUNCTOR_CALL(1)
     {
        return nt2::abs(a0) == Inf<A0>();
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, fundamental_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<is_inf_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  {
+    typedef bool result_type;
+
+    NT2_FUNCTOR_CALL(1)
     {
       details::ignore_unused(a0); 
       return false; 
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

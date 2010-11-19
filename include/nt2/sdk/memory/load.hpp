@@ -13,6 +13,7 @@
 // Load from memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/load.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/always.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/meta/is_iterator.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
@@ -25,19 +26,26 @@ namespace nt2 { namespace functors
   template<class T, int Offset=0> struct load_ {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // We only load from an iterator and an integral offset
+  // We only load from a pointer + an integral offset
   //////////////////////////////////////////////////////////////////////////////
   template<class T,int Offset,class Category, class Info>
   struct  validate< load_<T,Offset>, Category, Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>     // make it check for iterator
+    struct  result<This(A0,A1)>
       : boost::mpl::and_< meta::is_iterator<typename meta::strip<A0>::type>
                         , boost::is_integral<typename meta::strip<A1>::type>
                         >
     {};
   };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // We dispatch on T type for load
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,int Offset,class Category, class Info>
+  struct  dispatch<load_<T,Offset>,Category,Info> : boost::mpl::always<T>
+  {};
 } }
 
 namespace nt2 { namespace meta

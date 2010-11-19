@@ -18,39 +18,81 @@ namespace nt2 { namespace functors
 {
   //  no special validate for average
 
-  template<class Extension,class Info>
-  struct call<average_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (4, (real_,uint8_t,uint16_t,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       real_)
+    NT2_FUNCTOR_CALL(2)
     {
        return (a0+a1)*Half<A0>(); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     uint8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
       //     A0 that = {_mm_avg_epu8(a0,a1)}; return that; //  (a+b + 1) >> 1;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    uint16_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint16_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),uint16_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
       //     A0 that = {_mm_avg_epu16(a0,a1)}; return that; //(a+b + 1) >> 1;
     } 
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
     } 
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

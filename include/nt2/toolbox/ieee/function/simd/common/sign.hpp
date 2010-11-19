@@ -25,35 +25,61 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute sign(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<sign_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<sign_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      typename nt2::meta::scalar_of<A0>::type,
-      (3, (real_,unsigned,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
+    NT2_FUNCTOR_CALL(1)
     {
       return seladd(is_nan(a0),nt2::negate(One<A0>(),a0),a0);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,    unsigned)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<sign_,tag::simd_(tag::arithmetic_,Extension),unsigned,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return -is_nez(a0);    
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<sign_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
     {
       return is_ltz(a0)-is_gtz(a0);
     }
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -19,20 +19,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // When generating true_, dispatch on integral/real of target
+  //////////////////////////////////////////////////////////////////////////////
+  template<class C, class X, class Info>
+  struct dispatch<constants::true_,tag::simd_(C,X),Info>
+  {
+    template<class A0>
+    struct  apply
+          : meta::scalar_of<typename meta::strip<A0>::type::type>
+    {};
+  };
+
   template<class C, class X,class Info>
-  struct  call<constants::true_,tag::constant_(tag::simd_(C,X)),Info>
+  struct  call< constants::true_, tag::constant_(tag::simd_(C,X))
+              , real_           , Info
+              >
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct  result<This(A0)> : meta::strip<A0>::type {};
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename meta::scalar_of<typename A0::type>::type
-                              , (2, (real_,integer_))
-                              )
-
-
-    NT2_FUNCTOR_CALL_EVAL_IF(1,real_)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type stype;
       typedef typename meta::as_integer<stype>::type int_type;
@@ -40,8 +49,19 @@ namespace nt2 { namespace functors
       type const that = { ~int_type(0) };
       return splat<typename A0::type>(that.value);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,integer_)
+  template<class C, class X,class Info>
+  struct  call< constants::true_, tag::constant_(tag::simd_(C,X))
+              , integer_        , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type type;
       type const that = ~type(0);

@@ -18,6 +18,9 @@
 
 namespace nt2 { namespace functors
 {
+  template<class Info, class C>
+  struct dispatch<class jni_,class tag::scalar_(C),Info>
+    : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<jni_,tag::scalar_(tag::arithmetic_),Info>
@@ -29,21 +32,19 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute jni(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is float
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<jni_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<jni_,tag::scalar_(tag::arithmetic_),float,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
       boost::result_of<meta::floating(A0,A1)>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      A1,
-      (3, (float,double, arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  float)
+    NT2_FUNCTOR_CALL(2)
     {
 	typedef float result_type; 
 	result_type x = a1;
@@ -85,18 +86,47 @@ namespace nt2 { namespace functors
 	return sign*sel(gt(abs(pk), nt2::abs(pkm1)),nt2::j1(x)/pk, nt2::j0(x)/pkm1);
 	//	 return ::jnf(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<jni_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
         return ::jn(a0, a1);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2, arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<jni_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : 
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
       return nt2::jni(a0, type(a1)); 
     }
   };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010
+/// No restore -- hand modifications

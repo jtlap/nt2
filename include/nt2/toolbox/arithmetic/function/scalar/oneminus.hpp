@@ -20,8 +20,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute oneminus(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<oneminus_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<oneminus_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -29,13 +33,14 @@ namespace nt2 { namespace functors
       typedef typename boost::result_of<meta::arithmetic(A0)>::type tmp;
       typedef typename meta::as_signed<tmp>::type type; 
     }; 
+
     NT2_FUNCTOR_CALL(1)
     {
       return One<A0>()-a0; 
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

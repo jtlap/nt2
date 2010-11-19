@@ -30,9 +30,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute mantissa(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<mantissa_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<mantissa_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -50,8 +53,9 @@ namespace nt2 { namespace functors
       const int_type  mask1 = (splat<int_type>((~n1)|n2));
       return sel(is_eqz(a0),a0,b_or(b_and(a0,mask1),mask0));
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010
