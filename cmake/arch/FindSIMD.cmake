@@ -28,7 +28,7 @@ ENDIF()
 ################################################################################
 # Intel/AMD SSE Familly
 ################################################################################
-IF( (NT2_PROCESSOR STREQUAL X86) OR (NT2_PROCESSOR STREQUAL AMD) )
+IF( NT2_PROCESSOR STREQUAL X86 OR NT2_PROCESSOR STREQUAL AMD )
 INCLUDE(arch/FindFMA4)
 INCLUDE(arch/FindSSE4)
 INCLUDE(arch/FindSSSE3)
