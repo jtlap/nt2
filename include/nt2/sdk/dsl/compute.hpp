@@ -9,58 +9,105 @@
 #ifndef NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
 #define NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
 
-#include <boost/proto/proto.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <boost/proto/transform.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/dsl/proto/visitor.hpp>
-#include <nt2/sdk/dsl/proto/transform/unpack.hpp>
+#include <nt2/sdk/dsl/proto/unpack.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// compute actor and trasnform that evaluates some AST
+// compile take any NT2 AST to a given target with a given transform
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace dsl
 {
-  template<typename Tag> struct grammar : boost::proto::_ {};
+  template <class Transform, class Locality> struct compile;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Forward functor into compute for most tag
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag, class Locality = void>
-  struct  compute : functors::functor<Tag,Locality>
+  template<class T, class L>
+  struct _left  : boost::proto::
+                  call<compile<T,L>(boost::proto::_left)> {};
+
+  template<class T, class L>
+  struct _right : boost::proto::
+                  call<compile<T,L>(boost::proto::_right)> {};
+
+
+
+
+
+  template <typename Locality, typename Tag, typename Dummy = void>
+  struct compute;
+
+  template<class Transform, typename Tag, typename Locality>
+  struct  functor_dispatch
+        : boost::proto::
+          unpack< boost::proto::
+                  call< functors::functor<Tag, Locality> >(compile< Transform
+                                                                  , Locality
+                                                                  >
+                                                          )
+        >
   {};
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Proto visitor for computing
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag,class Locality = void>
-  struct  compute_transform
-        : boost::proto::
-          unpack< compute<Tag,Locality> ( boost::proto::
-                                          visitor <
-                                              compute_transform < boost::mpl::_1
-                                                                , Locality
-                                                                >
-                                            , grammar<boost::mpl::_1>
-                                                  >
-                                        )
-                >
-  {};
+    typedef compute<boost::mpl::_1,boost::mpl::_2,boost::mpl::_3> compute_;
 
-  template<class Locality>
-  struct  compute_transform<functors::terminal_,Locality>
+    template <typename Locality, typename Tag, typename Dummy>
+    struct compute
+        : functor_dispatch<compute_,Tag, Locality>
+    {};
+
+    template<typename Locality>
+    struct compute<Locality, functors::terminal_>
         : boost::proto::
-          call<compute<functors::terminal_,Locality>( boost::proto::_value
-                                                    , boost::proto::_state
-                                                    , boost::proto::_data
-                                                    )
+          call<
+            functors::functor<functors::terminal_,Locality>(
+                boost::proto::_value
+              , boost::proto::_state
+              , boost::proto::_data
+            )
+        >
+    {};
+
+/*
+    template<typename Locality>
+    struct compute<Locality, functors::plus_>
+        : boost::proto::
+          call<
+            functors::functor<functors::multiplies_,Locality>(
+                _left<compute_,Locality>()
+              , _right<compute_,Locality>()
+            )
+        >
+    {};
+*/
+    template<class Transform,class Locality>
+    struct compile
+        : boost::proto::switch_<compile<Transform,Locality> >
+    {
+      template <typename Tag, typename Dummy = void>
+      struct case_
+          : boost::proto::
+            otherwise < typename boost::mpl::
+                        apply3<Transform,Locality, Tag, Dummy>::type
                       >
-  {};
+      {};
+    };
 } }
 
 namespace boost { namespace proto
 {
-  template<class Tag, class Locality>
-  struct is_callable<nt2::dsl::compute<Tag,Locality> > : boost::mpl::true_  {};
+  template<class Transform,class Locality>
+  struct  is_callable<nt2::dsl::compile<Transform,Locality> >
+        : boost::mpl::true_  {};
+
+  template<class Transform,class Locality>
+  struct  is_callable<nt2::dsl::_left<Transform,Locality> >
+        : boost::mpl::true_  {};
+
+  template<class Transform,class Locality>
+  struct  is_callable<nt2::dsl::_right<Transform,Locality> >
+        : boost::mpl::true_  {};
+
+  template<typename Tag, typename Locality, typename Dummy>
+  struct  is_callable<nt2::dsl::compute<Tag, Locality, Dummy> >
+        : boost::mpl::true_  {};
 } }
 
 #endif

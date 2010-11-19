@@ -19,10 +19,20 @@
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
+  // We dispatch on T type for load
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Category, class Info>
+  struct  dispatch<terminal_,Category,Info> : boost::mpl::always<fundamental_>
+  {};
+
+  //////////////////////////////////////////////////////////////////////////////
   // vector terminal - native mode
   //////////////////////////////////////////////////////////////////////////////
   template<class Type, class Extension, class Category>
-  struct call<terminal_,tag::ast_(Category),simd::native<Type,Extension> >
+  struct  call< terminal_   , tag::ast_(Category)
+              , fundamental_, simd::native<Type,Extension>
+              >
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class Value,class State,class Data>
@@ -43,7 +53,10 @@ namespace nt2 { namespace functors
   // vector terminal - array mode
   //////////////////////////////////////////////////////////////////////////////
   template<class Type, std::size_t Cardinal, class Category>
-  struct call<terminal_,tag::ast_(Category),boost::array<Type,Cardinal> >
+  struct  call< terminal_   , tag::ast_(Category)
+              , fundamental_, boost::array<Type,Cardinal>
+              >
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class Value,class State,class Data>
@@ -66,6 +79,7 @@ namespace nt2 { namespace functors
   template<class Type,class Extension>
   struct call < terminal_
               , tag::scalar_(tag::arithmetic_)
+              , fundamental_
               , simd::native<Type,Extension>
               >
   {
@@ -90,6 +104,7 @@ namespace nt2 { namespace functors
   template<class Type,class Extension,class Constant>
   struct call < terminal_
               , tag::constant_(Constant)
+              , fundamental_
               , simd::native<Type,Extension>
               >
   {
@@ -115,6 +130,7 @@ namespace nt2 { namespace functors
   template<class Type,std::size_t Cardinal>
   struct call < terminal_
               , tag::scalar_(tag::arithmetic_)
+              , fundamental_
               , boost::array<Type,Cardinal>
               >
   {
@@ -139,6 +155,7 @@ namespace nt2 { namespace functors
   template<class Type,std::size_t Cardinal,class Constant>
   struct call < terminal_
               , tag::constant_(Constant)
+              , fundamental_
               , boost::array<Type,Cardinal>
               >
   {
