@@ -10,7 +10,7 @@
 ################################################################################
 # Find OpenMP and set proper flags for nt2
 ################################################################################
-include(FindOpenMP)
+FIND_PACKAGE(OpenMP)
 IF(OPENMP_FOUND)
 SET(NT2_HAS_OPENMP_SUPPORT 1)
 ENDIF(OPENMP_FOUND)
@@ -18,7 +18,7 @@ ENDIF(OPENMP_FOUND)
 ################################################################################
 # Find threads and set proper flags for nt2
 ################################################################################
-include(FindThreads)
+FIND_PACKAGE(Threads)
 IF(Threads_FOUND)
 SET(NT2_HAS_THREADS_SUPPORT 1)
 ENDIF(Threads_FOUND)

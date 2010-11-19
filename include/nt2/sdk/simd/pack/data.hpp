@@ -12,7 +12,6 @@
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/dsl/category.hpp>
-#include <nt2/sdk/dsl/proto/visitor.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace simd
@@ -67,10 +66,10 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    const_iterator begin()  const { return mData.begin(); }
-    const_iterator end()    const { return mData.end();   }
-    iterator begin()  { return mData.begin(); }
-    iterator end()    { return mData.end();   }
+    const_iterator  begin()  const  { return mData.begin(); }
+    const_iterator  end()    const  { return mData.end();   }
+    iterator        begin()         { return mData.begin(); }
+    iterator        end()           { return mData.end();   }
 
     ////////////////////////////////////////////////////////////////////////////
     // Fill current data by evaluating soem expression
@@ -104,11 +103,7 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
-      boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
-                                                    , parent
-                                                    >
-                            , dsl::grammar<boost::mpl::_1>
-                            > eval;
+      dsl::compile<dsl::compute_,parent>  eval;
       mData = eval(xpr);
     }
 
@@ -123,12 +118,7 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
-      boost::proto::visitor < dsl::compute_transform< boost::mpl::_1
-                                                    , parent
-                                                    >
-                            , dsl::grammar<boost::mpl::_1>
-                            > eval;
-
+      dsl::compile<dsl::compute_,parent>  eval;
       for(std::size_t i=0;i<Cardinal::value;++i)
         mData[i] = eval(xpr,i,i);
     }
