@@ -26,13 +26,9 @@ namespace nt2 { namespace meta
   template<std::size_t V, std::size_t N = NT2_CONFIG_ALIGNMENT>
   struct is_aligned_c : boost::mpl::bool_<!(V & (N-1) )>
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // If you trigger this assertion, you tried to align a value on a non-power
-    // of two boundary
-    ////////////////////////////////////////////////////////////////////////////
-    NT2_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
+    NT2_STATIC_ASSERT ( (meta::is_power_of_2_c<N>::value)
                       , INVALID_ALIGNMENT_VALUE
-                      , (boost::mpl::int_<N>)
+                      , "Alignment detection done on a non-power of two boundary."
                       );
   };
 

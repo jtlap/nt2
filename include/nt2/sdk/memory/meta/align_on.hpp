@@ -28,13 +28,9 @@ namespace nt2 { namespace meta
                                , (V+N-1) & ~(N-1)
                                >
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // If you trigger this assertion, you tried to align a value on a non-power
-    // of two boundary
-    ////////////////////////////////////////////////////////////////////////////
-    NT2_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
+    NT2_STATIC_ASSERT ( (meta::is_power_of_2_c<N>::value)
                       , INVALID_ALIGNMENT_VALUE
-                      , (boost::mpl::int_<N>)
+                      , "Alignment done on a non-power of two boundary."
                       );
   };
 
