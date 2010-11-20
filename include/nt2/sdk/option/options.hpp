@@ -20,9 +20,9 @@ namespace nt2 { namespace details
     template<class Opts>
     Opts const& operator[](Opts const& opts) const
     {
-      NT2_STATIC_ASSERT(  (boost::proto::matches<Opts, option_pack>::value)
+      NT2_STATIC_ASSERT ( (boost::proto::matches<Opts, option_pack>::value)
                         , UNKNOWN_NAMED_OPTIONS
-                        , (Opts)
+                        , "Trying to retrieve unknown named option."
                         );
       return opts;
     }
