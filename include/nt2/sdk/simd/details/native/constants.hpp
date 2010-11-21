@@ -32,6 +32,22 @@ namespace nt2 { namespace functors
   };
 
   template<class C, class X,class Info>
+  struct  call< constants::false_ , tag::constant_(tag::simd_(C,X))
+              , fundamental_      , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct  result<This(A0)> : meta::strip<A0>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return splat<typename A0::type>(0);
+    }
+  };
+
+  template<class C, class X,class Info>
   struct  call< constants::true_, tag::constant_(tag::simd_(C,X))
               , real_           , Info
               >
@@ -69,4 +85,5 @@ namespace nt2 { namespace functors
     }
   };
 } }
+
 #endif

@@ -25,11 +25,11 @@ namespace nt2 { namespace details
     template<class Sig> struct result;
 
     template<class This, class A, class B>
-    struct result<This(A const&,B const&)>
+    struct result<This(A,B)>
     {
       template<bool As, bool Bs, int Dummy = 0 >
       struct inner
-	  {
+  	  {
         BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, A() * B() );
         typedef typename nested::type type;
       };
@@ -40,41 +40,50 @@ namespace nt2 { namespace details
         typedef typename boost::mpl::times<A,B>::type type;
       };
 
-      typedef typename inner< boost::is_arithmetic<A>::value
-                                  , boost::is_arithmetic<B>::value
-                                  >::type type;
+      typedef typename meta::strip<A>::type arg0_;
+      typedef typename meta::strip<B>::type arg1_;
+      typedef typename inner< boost::is_arithmetic<arg0_>::value
+                            , boost::is_arithmetic<arg1_>::value
+                            >::type type;
     };
 
     template<bool A0, bool A1> struct status {};
 
-    NT2_FUNCTOR_DISPATCH ( 2, (status < boost::is_arithmetic<A0>::value
-                                      , boost::is_arithmetic<A1>::value>
-                              )
-                          , ( 4,( (status<true  , true> )
-                                , (status<true  , false>)
-                                , (status<false , true> )
-                                , (status<false , false>)
-                                )
-                            )
-                          , times
-                          )
+    template<class A0, class A1> inline
+    typename result<times(A0,A1)>::type
+    operator()( A0 const& a0, A1 const& a1 )
+    {
+      typedef status< boost::is_arithmetic<A0>::value
+                    , boost::is_arithmetic<A1>::value
+                    > status_t;
 
-    NT2_FUNCTOR_EVAL_IF(2, (status<true,true>), times)
+      return eval(a0,a1,status_t());
+    }
+
+    template<class A0, class A1> inline
+    typename result<times(A0,A1)>::type
+    eval( A0 const& a0, A1 const& a1, status<true,true> const& )
     {
       return a0*a1;
     }
 
-    NT2_FUNCTOR_EVAL_IF(2, (status<false,false>), times)
+    template<class A0, class A1> inline
+    typename result<times(A0,A1)>::type
+    eval( A0 const& , A1 const& , status<false,false> const& )
     {
-      return typename NT2_RETURN_TYPE(2,times)::type();
+      return typename result<times(A0,A1)>::type();
     }
 
-    NT2_FUNCTOR_EVAL_IF(2, (status<false,true>) , times)
+    template<class A0, class A1> inline
+    typename result<times(A0,A1)>::type
+    eval( A0 const& , A1 const& a1, status<false,true> const& )
     {
       return A0::value * a1;
     }
 
-    NT2_FUNCTOR_EVAL_IF(2, (status<true,false>) , times)
+    template<class A0, class A1> inline
+    typename result<times(A0,A1)>::type
+    eval( A0 const& a0, A1 const&, status<true,false> const& )
     {
       return a0 * A1::value;
     }
