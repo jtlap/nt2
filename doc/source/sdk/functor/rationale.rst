@@ -60,11 +60,11 @@ and forward it to the proper functor implementation.
 
 .. code-block:: cpp
 
-  template<class T> inline
-  typename boost::result_of<functor<sqrt_>(T)>::type sqrt( T const& v )
+  template<class A0> inline
+  typename boost::result_of<functor<sqrt_>(A0 const&)>::type sqrt( A0 const& a0 )
   {
     functor<sqrt_> callee;  // instantiate the polymorphic sqrt functor
-    return callee(v);        // call said functor
+    return callee(a0);      // call said functor
   }
 
 :ref:`functor`, being a |pfo|_ provides, via the |result_of|_, the actual result
@@ -76,11 +76,11 @@ implementation.
 
 .. note::
   We use functions instead of constant instances of the functor class itself due
-  to scalability concern. Templates functions are only compiled if actually called, thus limiting
-  the binary size and the compilation time. Benchmarks show that, for the same amount of function
-  calls, the instance based version of the same code compiles in a linear time
-  with respect to number of functors, while the function version compiles in constant
-  time.
+  to scalability concern. Templates functions are only compiled if actually called, 
+  thus limiting the binary size and the compilation time. Benchmarks show that, 
+  for the same amount of function calls, the instance based version of the same 
+  code compiles in a linear time with respect to number of functors, while the 
+  function version compiles in constant time.
 
 .. _functors_rationale_categorize:
 
@@ -89,7 +89,7 @@ Categorizing the function domain
 |nt2| functions are inherently polymorphic as they can be (except with specific
 validation clause) called with any types. To be able to discriminate parameters
 types and choose the proper implementation, we rely on a type categorization
-system
+system. 
 
 .. Determining which :ref:`functor_call` specialization to call is done by ordering
    all argument types their **rank**. This is done internally via the :ref:`meta_dominant`
@@ -125,10 +125,10 @@ to be called on non-real scalar types. :ref:`functor_validate` has to be overloa
 
 .. code-block:: cpp
 
-  template<class Dummy,class T> struct validate< sqrt_, tag::scalar(T), Dummy >
+  template<class Dummy,class Category> struct validate< sqrt_, tag::scalar(Category), Dummy >
   {
     template<class Sig> struct result;
-    template<class This,class A0> struct result : boost::is_floating_points<typename metaa::strip<A0>::type> {};
+    template<class This,class A0> struct result : boost::is_floating_points<typename meta::strip<A0>::type> {};
   };
 
 Advantages of this approach is that the fine tuning of which types or family of
@@ -143,46 +143,42 @@ on any function:
 
 .. code-block:: cpp
 
-  template<class T> typename enable_call<sqrt_(T)>::type sqrt( T const& v )
+  template<class A0> typename enable_call<sqrt_(A0 const&)>::type sqrt( A0 const& a0 )
   {
     nt2::functors::functor<sqrt_> callee;  // instantiate the polymorphic sqrt functor
-    return callee(v);                       // call said functor
+    return callee(a0);                     // call said functor
   }
 
-By default, :ref:`functor_validate` is defined so it checks if, for a given set of argument types, calling
-the corresponding :ref:`functor_call` specialization is well-defined. This means that the signature
-of the function call operator of the :ref:`functor_call` function can also helps refining validation process.
-A striking example is how the :term:`SIMD` function overload are defined. Most of them don't provide
-any special validation even if they can't be called with two different vector types. The following
-code sample shows how it is achieved.
-
-.. code-block:: cpp
-
-  template<class T> struct call< plus_, simd<T> >
-  {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> { typedef A type; };
-
-    NT2_FUNCTION_CALL(2) { /* specific SIMD code */ }
-  };
-
-In this case, any attempt to check if, for example, ``plus_(simd::vector<int>, simd::vector<float>)``
-will fail as no such signature is matched by any of the ``result`` signature of ``call<plus_,simd<T> >``.
+By default, :ref:`functor_validate` is defined so it checks if, for a given set 
+of argument types, calling the corresponding :ref:`functor_call` specialization 
+is well-defined. This means that the signature of the function call operator of 
+the :ref:`functor_call` function can also helps refining validation process.
 
 .. _functors_rationale_dispatch:
 
 Dispatching the call
 ^^^^^^^^^^^^^^^^^^^^
+At this point, we know that the current function is valid, we know on which category 
+of types it applies on. We're ready to select which implementation to use. Traditionnaly, 
+we may need to specialize a function implementation for each and every type supported
+by said function. However, experience shows that some function implementation can
+be factorized into generic code for non trivial types familly, leading to a very
+few concrete type specialization. For example, we may have a specialization of
+``sqrt`` for all integral types, one for ``double`` and one for ``float``.
 
+|nt2| provides a partially ordered set of type :ref:`hierarchy` to handle such
+type sets
 
+Ideally, such specialization set should be extensible from the outside of any
+specialized functor class.
 
 
 .. _functors_rationale_call:
 
 Perfoming the actual function call
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Once a function has been declared, one has to define its implementation. This is done by specializing the
-:ref:`functor_call` class which synopsis is given below.
+Once a function has been declared, one has to define its implementation. This is 
+done by specializing the :ref:`functor_call` class which synopsis is given below.
 
 .. code-block:: cpp
 
@@ -221,10 +217,7 @@ As an example, here is a possible implementation of ``sqrt`` for any arithmetic 
     };
 
 
-Conclusion
-^^^^^^^^^^
-
-
 ------------
 
 .. [#] Mads Torgersen, `The Expression Problem Revisited <http://www.daimi.au.dk/~madst/ecoop04/main.pdf>`_
+
