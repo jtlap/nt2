@@ -9,8 +9,14 @@
 #ifndef NT2_CORE_TIMING_NOW_HPP_INCLUDED
 #define NT2_CORE_TIMING_NOW_HPP_INCLUDED
 
-#include <nt2/core/timing/impl/gettimeofday.hpp>
-#include <nt2/core/timing/impl/queryperformancecounter.hpp>
-#include <nt2/core/timing/impl/none.hpp>
+#include <nt2/sdk/config/types.hpp>
+
+namespace nt2 { namespace details
+{
+  typedef nt2::uint64_t  cycles_t;
+  double    now();
+} }
+
+#include <nt2/core/timing/impl/cycles.hpp>
 
 #endif
