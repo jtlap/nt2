@@ -14,10 +14,8 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 
-
 namespace nt2 { namespace functors
 {
-
   template<class Info>
   struct validate<fast_frexp_,tag::scalar_(tag::arithmetic_),Info>
   {
@@ -28,17 +26,14 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute fast_frexp(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct  call<fast_frexp_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  struct  call<fast_frexp_,tag::scalar_(tag::arithmetic_),double,Info> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)>
+    template<class This,class A0>
+    struct result<This(A0)>
     {
-      typedef typename meta::strip<A0>::type                      mantissa;
+      typedef typename boost::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };
@@ -46,28 +41,30 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_CALL_RETURN_TYPE(1)::type res;
-      typedef meta::find_type<A0,float,double,empty_> set_t;
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-	    , typename set_t::type() );
+      int r1t;
+      boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
+      boost::fusion::at_c<1>(res) = r1t;
       return res;
     }
-    private:
-    NT2_FUNCTOR_CALL_DEFAULT(1)
+  };
 
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1, double const &) const
+  template<class Info>
+  struct  call<fast_frexp_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
     {
-      int r1t;
-      r0 = ::frexp(a0, &r1t);
-      r1 = r1t;
-    }
+      typedef typename boost::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::as_integer<A0,signed>::type          exponent;
+      typedef boost::fusion::vector<mantissa,exponent>             type;
+    };
 
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1, float const &)  const
+    NT2_FUNCTOR_CALL(1)
     {
-      r0 = ::frexpf(a0, &r1);
+      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
+      return res;
     }
   };
 } }
