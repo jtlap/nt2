@@ -69,96 +69,46 @@ namespace nt2 { namespace dsl
         >
     {};
 
-    template<class Tag,class Dummy=void> struct pattern;
-
-    template<class Dummy>
-    struct  pattern<functors::plus_,Dummy>
-          : boost::mpl::
-            vector< boost::proto::plus< boost::proto::_
-                                      , boost::proto::multiplies< boost::proto::_
-                                                                , boost::proto::_
-                                                                >
-                                      >
-                  , boost::proto::plus< boost::proto::multiplies< boost::proto::_
-                                                                , boost::proto::_
-                                                                >
-                                      , boost::proto::_
-                                      >
-                  , boost::proto::plus<boost::proto::_,boost::proto::_>
-                  >
-
-    {};
-
-    template<class Seq, class Expression>
-    struct  match_any
-          : boost::mpl::fold< Seq
-                            , boost::mpl::true_
-                            , boost::mpl::and_< boost::mpl::_1
-                                              , boost::proto::matches < Expression
-                                                                      , boost::mpl::_2
-                                                                      >
-                                              >
-                            >
-    {};
-
-    template<class Transform, class Locality>
-    class modifier
-    {
-      typedef functors::functor<functors::madd_,Locality> type(
-                                      _left<Transform(Locality)>(boost::proto::_right)
-                                    , _right<Transform(Locality)>(boost::proto::_right)
-                                    , _left<Transform(Locality)>()
-                                  );
-    };
-
     template<typename Locality>
     struct  compute<Locality, functors::plus_>
           : boost::proto
-                ::when< boost::proto::if_< match_any< pattern<functors::plus_>
-                                                    , boost::proto::_
-                                                    >()
-                                          >
-                      , boost::proto::call<typename modifier<compute_,Locality>::type()>
-                      >
-
-//          : boost::proto
-//                  ::or_ < boost::proto
-//                                ::when< boost::proto::plus< boost::proto::_
-//                                                          , boost::proto::multiplies<boost::proto::_,boost::proto::_>
-//                                                          >
-//                                      , boost::proto::
-//                                                call<
-//                                                  functors::functor<functors::madd_,Locality>(
-//                                                      _left<compute_,Locality>(boost::proto::_right)
-//                                                    , _right<compute_,Locality>(boost::proto::_right)
-//                                                    , _left<compute_,Locality>()
-//                                                  )
-//                                              >
-//                                      >
-//                          ,  boost::proto
-//                                ::when< boost::proto::plus< boost::proto::multiplies<boost::proto::_,boost::proto::_>
-//                                                          , boost::proto::_
-//                                                          >
-//                                      , boost::proto::
-//                                                call<
-//                                                  functors::functor<functors::madd_,Locality>(
-//                                                      _left<compute_,Locality>(boost::proto::_left)
-//                                                    , _right<compute_,Locality>(boost::proto::_left)
-//                                                    , _right<compute_,Locality>()
-//                                                  )
-//                                              >
-//                                      >
-//                        , boost::proto
-//                                ::when< boost::proto::plus<boost::proto::_,boost::proto::_>
-//                                      , boost::proto::
-//                                                call<
-//                                                  functors::functor<functors::plus_,Locality>(
-//                                                      _left<compute_,Locality>()
-//                                                    , _right<compute_,Locality>()
-//                                                  )
-//                                              >
-//                                      >
-//                        >
+                  ::or_ < boost::proto
+                                ::when< boost::proto::plus< boost::proto::_
+                                                          , boost::proto::multiplies<boost::proto::_,boost::proto::_>
+                                                          >
+                                      , boost::proto::
+                                                call<
+                                                  functors::functor<functors::madd_,Locality>(
+                                                      _left<compute_,Locality>(boost::proto::_right)
+                                                    , _right<compute_,Locality>(boost::proto::_right)
+                                                    , _left<compute_,Locality>()
+                                                  )
+                                              >
+                                      >
+                          ,  boost::proto
+                                ::when< boost::proto::plus< boost::proto::multiplies<boost::proto::_,boost::proto::_>
+                                                          , boost::proto::_
+                                                          >
+                                      , boost::proto::
+                                                call<
+                                                  functors::functor<functors::madd_,Locality>(
+                                                      _left<compute_,Locality>(boost::proto::_left)
+                                                    , _right<compute_,Locality>(boost::proto::_left)
+                                                    , _right<compute_,Locality>()
+                                                  )
+                                              >
+                                      >
+                        , boost::proto
+                                ::when< boost::proto::plus<boost::proto::_,boost::proto::_>
+                                      , boost::proto::
+                                                call<
+                                                  functors::functor<functors::plus_,Locality>(
+                                                      _left<compute_,Locality>()
+                                                    , _right<compute_,Locality>()
+                                                  )
+                                              >
+                                      >
+                        >
     {};
 
     template<class Transform,class Locality>
