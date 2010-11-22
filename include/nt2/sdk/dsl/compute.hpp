@@ -16,21 +16,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 // compile take any NT2 AST to a given target with a given transform
 ////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace functors
+{
+  struct madd_;
+}}
+
 namespace nt2 { namespace dsl
 {
   template <class Transform, class Locality> struct compile;
 
-  template<class T, class L>
-  struct _left  : boost::proto::
-                  call<compile<T,L>(boost::proto::_left)> {};
+  template<class LocalizedTransform> struct _left;
+  template<class LocalizedTransform> struct _right;
 
   template<class T, class L>
-  struct _right : boost::proto::
-                  call<compile<T,L>(boost::proto::_right)> {};
+  struct  _left<T(L)>
+        : boost::proto::call<compile<T,L>(boost::proto::_left)> {};
 
-
-
-
+  template<class T, class L>
+  struct  _right<T(L)>
+        : boost::proto::call<compile<T,L>(boost::proto::_right)> {};
 
   template <typename Locality, typename Tag, typename Dummy = void>
   struct compute;
@@ -65,18 +69,98 @@ namespace nt2 { namespace dsl
         >
     {};
 
-/*
-    template<typename Locality>
-    struct compute<Locality, functors::plus_>
-        : boost::proto::
-          call<
-            functors::functor<functors::multiplies_,Locality>(
-                _left<compute_,Locality>()
-              , _right<compute_,Locality>()
-            )
-        >
+    template<class Tag,class Dummy=void> struct pattern;
+
+    template<class Dummy>
+    struct  pattern<functors::plus_,Dummy>
+          : boost::mpl::
+            vector< boost::proto::plus< boost::proto::_
+                                      , boost::proto::multiplies< boost::proto::_
+                                                                , boost::proto::_
+                                                                >
+                                      >
+                  , boost::proto::plus< boost::proto::multiplies< boost::proto::_
+                                                                , boost::proto::_
+                                                                >
+                                      , boost::proto::_
+                                      >
+                  , boost::proto::plus<boost::proto::_,boost::proto::_>
+                  >
+
     {};
-*/
+
+    template<class Seq, class Expression>
+    struct  match_any
+          : boost::mpl::fold< Seq
+                            , boost::mpl::true_
+                            , boost::mpl::and_< boost::mpl::_1
+                                              , boost::proto::matches < Expression
+                                                                      , boost::mpl::_2
+                                                                      >
+                                              >
+                            >
+    {};
+
+    template<class Transform, class Locality>
+    class modifier
+    {
+      typedef functors::functor<functors::madd_,Locality> type(
+                                      _left<Transform(Locality)>(boost::proto::_right)
+                                    , _right<Transform(Locality)>(boost::proto::_right)
+                                    , _left<Transform(Locality)>()
+                                  );
+    };
+
+    template<typename Locality>
+    struct  compute<Locality, functors::plus_>
+          : boost::proto
+                ::when< boost::proto::if_< match_any< pattern<functors::plus_>
+                                                    , boost::proto::_
+                                                    >()
+                                          >
+                      , boost::proto::call<typename modifier<compute_,Locality>::type()>
+                      >
+
+//          : boost::proto
+//                  ::or_ < boost::proto
+//                                ::when< boost::proto::plus< boost::proto::_
+//                                                          , boost::proto::multiplies<boost::proto::_,boost::proto::_>
+//                                                          >
+//                                      , boost::proto::
+//                                                call<
+//                                                  functors::functor<functors::madd_,Locality>(
+//                                                      _left<compute_,Locality>(boost::proto::_right)
+//                                                    , _right<compute_,Locality>(boost::proto::_right)
+//                                                    , _left<compute_,Locality>()
+//                                                  )
+//                                              >
+//                                      >
+//                          ,  boost::proto
+//                                ::when< boost::proto::plus< boost::proto::multiplies<boost::proto::_,boost::proto::_>
+//                                                          , boost::proto::_
+//                                                          >
+//                                      , boost::proto::
+//                                                call<
+//                                                  functors::functor<functors::madd_,Locality>(
+//                                                      _left<compute_,Locality>(boost::proto::_left)
+//                                                    , _right<compute_,Locality>(boost::proto::_left)
+//                                                    , _right<compute_,Locality>()
+//                                                  )
+//                                              >
+//                                      >
+//                        , boost::proto
+//                                ::when< boost::proto::plus<boost::proto::_,boost::proto::_>
+//                                      , boost::proto::
+//                                                call<
+//                                                  functors::functor<functors::plus_,Locality>(
+//                                                      _left<compute_,Locality>()
+//                                                    , _right<compute_,Locality>()
+//                                                  )
+//                                              >
+//                                      >
+//                        >
+    {};
+
     template<class Transform,class Locality>
     struct compile
         : boost::proto::switch_<compile<Transform,Locality> >
@@ -85,7 +169,7 @@ namespace nt2 { namespace dsl
       struct case_
           : boost::proto::
             otherwise < typename boost::mpl::
-                        apply3<Transform,Locality, Tag, Dummy>::type
+                        apply3<Transform,Locality,Tag,Dummy>::type
                       >
       {};
     };
@@ -97,12 +181,12 @@ namespace boost { namespace proto
   struct  is_callable<nt2::dsl::compile<Transform,Locality> >
         : boost::mpl::true_  {};
 
-  template<class Transform,class Locality>
-  struct  is_callable<nt2::dsl::_left<Transform,Locality> >
+  template<class LocalizedTransform>
+  struct  is_callable<nt2::dsl::_left<LocalizedTransform> >
         : boost::mpl::true_  {};
 
-  template<class Transform,class Locality>
-  struct  is_callable<nt2::dsl::_right<Transform,Locality> >
+  template<class LocalizedTransform>
+  struct  is_callable<nt2::dsl::_right<LocalizedTransform> >
         : boost::mpl::true_  {};
 
   template<typename Tag, typename Locality, typename Dummy>
