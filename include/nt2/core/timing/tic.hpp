@@ -12,7 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-#include <iostream>
 #include <nt2/core/timing/timer.hpp>
 #include <nt2/core/timing/now.hpp>
 
@@ -20,12 +19,8 @@ namespace nt2 { namespace details
 {
   struct second_based_timer
   {
+    static void Print(const double& val);
     static inline double  Time() { return details::now(); }
-
-    static inline void Print(const double& val)
-    {
-       std::cout << "Elapsed time is " << val << " s.\n";
-    }
   };
 
   counter<double,second_based_timer> const sec_timer = {};
