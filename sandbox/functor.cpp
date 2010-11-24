@@ -109,9 +109,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace functors
 {
-  typedef boost::mpl::vector3 < bool_
-                              , arithmetic_
-                              , fundamental_
+  typedef boost::mpl::vector1 < fundamental_
                               > boolean_hierarchies;
 
   typedef boost::mpl::vector6 < types32_
@@ -167,9 +165,24 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  template<class Functor, class A0> struct make_call
+  template< class Functor
+          , class A0
+          , class A1 = na_
+          , class A2 = na_
+          , class A3 = na_
+          >
+  struct make_call;
+
+  template<class Functor, class A0>
+  struct make_call<Functor,A0>
   {
     typedef Functor type(A0);
+  };
+
+  template<class Functor, class A0,class A1>
+  struct make_call<Functor, A0, A1>
+  {
+    typedef Functor type(A0,A1);
   };
 
   template<class Sig> struct dispatch2;
@@ -178,29 +191,102 @@ namespace nt2 { namespace meta
   struct dispatch2<Functor(A0)>
   {
     // Clean up A0
-    typedef typename strip<A0>::type        arg0_t;
-    typedef typename raw_type<arg0_t>::type raw0_t;
+    typedef typename strip<A0>::type                                arg0_t;
+    typedef typename raw_type<arg0_t>::type                         raw0_t;
+
+    // Insert into hierarchy
+    typedef typename
+    boost::mpl::push_front< typename get_hierarchy<raw0_t>::type
+                          , typename canonize<arg0_t,raw0_t>::type
+                          >::type                                   list0_t;
 
     // Find proper hierarchy to start digging in
-    typedef typename boost::mpl::find_if< typename get_hierarchy<raw0_t>::type
-                                        , can_dispatch< make_call<Functor, canonize<arg0_t,boost::mpl::_1> > >
-                                        >::type iter0_t;
+    typedef typename boost::mpl::
+    find_if < list0_t
+            , can_dispatch< make_call < Functor
+                                      , canonize<arg0_t,boost::mpl::_1>
+                                      >
+                          >
+            >::type                                                 iter0_t;
 
-    typedef typename boost::mpl::eval_if< can_dispatch<Functor(typename canonize<arg0_t,raw0_t>::type)>
-                                        , canonize<arg0_t,raw0_t>
-                                        , canonize<arg0_t,typename boost::mpl::deref<iter0_t>::type>
-                                        >::type target_t;
+    typedef typename canonize < arg0_t
+                              , typename boost::mpl::deref<iter0_t>::type
+                              >::type                               target_t;
 
-    typedef functors::call2<Functor(target_t)> type;
+    typedef functors::call2<Functor(target_t)>                      type;
+  };
+
+  template<class Functor,class A0,class A1>
+  struct dispatch2<Functor(A0,A1)>
+  {
+    // Clean up A0,A1
+    typedef typename strip<A0>::type        arg0_t;
+    typedef typename strip<A1>::type        arg1_t;
+    typedef typename raw_type<arg0_t>::type raw0_t;
+    typedef typename raw_type<arg1_t>::type raw1_t;
+
+    // Insert into hierarchy
+    typedef typename
+    boost::mpl::push_front< typename get_hierarchy<raw0_t>::type
+                          , typename canonize<arg0_t,raw0_t>::type
+                          >::type               list0_t;
+
+    typedef typename
+    boost::mpl::push_front< typename get_hierarchy<raw1_t>::type
+                          , typename canonize<arg1_t,raw1_t>::type
+                          >::type               list1_t;
+
+
+    template<class V, class State>
+    struct inner
+    {
+      typedef typename
+      boost::mpl::fold< typename get_hierarchy<raw1_t>::type//list1_t
+                      , State
+                      , boost::mpl::
+                        push_back< boost::mpl::_1
+                                  , make_call < Functor
+                                              , typename canonize<arg0_t
+                                                                ,typename boost::mpl::protect<V>::type>::type
+                                              , canonize<arg1_t,boost::mpl::_2>
+                                              >
+                                  >
+                     >::type type;
+    };
+
+    // Generate the cartesian_product
+    typedef typename boost::mpl::fold < typename get_hierarchy<raw0_t>::type//list0_t
+                                      , boost::mpl::vector<>
+                                      , inner<boost::mpl::_2, boost::mpl::_1>
+                                      >::type list_t;
+
+    // Find proper hierarchy to start digging in
+    typedef typename boost::mpl::
+    find_if< list_t, can_dispatch<boost::mpl::_1> >::type  iter_t;
+
+    typedef typename boost::mpl::deref<iter_t>::type typee;
+    typedef typename boost::mpl::at_c<list_t,3>::type typee2;
+
+/*
+    typedef typename canonize < arg0_t
+                              , typename boost::mpl::deref<iter0_t>::type
+                              >::type           target_t;
+
+    typedef functors::call2<Functor(target_t)>  type;*/
   };
 } }
 
 int main()
 {
+  /*
   meta::dispatch2<functors::complement_(int)>::type::Test();
   meta::dispatch2<functors::complement_(float)>::type::Test();
   meta::dispatch2<functors::complement_(bool)>::type::Test();
   meta::dispatch2<functors::complement_(vector<int>)>::type::Test();
   meta::dispatch2<functors::complement_(vector<float>)>::type::Test();
   meta::dispatch2<functors::complement_(vector<bool>)>::type::Test();
+  */
+  cout  <<
+        type_id<meta::dispatch2<functors::plus_(bool,bool)>::list_t>()
+        << "\n";
 }
