@@ -9,4 +9,5 @@ sequences in a Boost.MPL compatible way.
 .. toctree::
    :maxdepth: 1
 
+   algo/all
    algo/any
