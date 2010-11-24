@@ -76,10 +76,10 @@ implementation.
 
 .. note::
   We use functions instead of constant instances of the functor class itself due
-  to scalability concern. Templates functions are only compiled if actually called, 
-  thus limiting the binary size and the compilation time. Benchmarks show that, 
-  for the same amount of function calls, the instance based version of the same 
-  code compiles in a linear time with respect to number of functors, while the 
+  to scalability concern. Templates functions are only compiled if actually called,
+  thus limiting the binary size and the compilation time. Benchmarks show that,
+  for the same amount of function calls, the instance based version of the same
+  code compiles in a linear time with respect to number of functors, while the
   function version compiles in constant time.
 
 .. _functors_rationale_categorize:
@@ -89,13 +89,45 @@ Categorizing the function domain
 |nt2| functions are inherently polymorphic as they can be (except with specific
 validation clause) called with any types. To be able to discriminate parameters
 types and choose the proper implementation, we rely on a type categorization
-system. 
+system which is able to discriminate scalar types SIMD types, container and container
+expressions types for example. Every type handled by |nt2| has an associated so-called
+``category`` tag which identify it by specifying which kind of type it belongs to.
 
-.. Determining which :ref:`functor_call` specialization to call is done by ordering
-   all argument types their **rank**. This is done internally via the :ref:`meta_dominant`
-   meta-function which computes such a type from a type list. The so-called **dominant**
-  argument type is then used to compute the category using the :ref:`meta_category_of` meta-function.
-  This category will then be used by :ref:`functor_call` to select the proper implementation.
+Categories in |nt2| are partially ordered and can be easily defined for new type
+famillies or extended by adding new variations of a given category. The :ref:`functor_categorize`
+meta-function is able to take a list of parameters type and find the best category
+fitting this types list. Change in this behavior can be done at a function tag level
+by specializing the :ref:`functor_categorize` meta-function.
+
+Here is the synopsis of :ref:`functor_validate`:
+
+.. code-block:: cpp
+
+  namespace meta
+  {
+    template<class Tag, class Site, class... Args> struct  categorize;
+  }
+
+By default, this is done by using :ref:`meta_dominant` meta-function which computes.
+The so-called **dominant** argument type is then used to compute the category
+using the :ref:`meta_category_of` meta-function. This category will then be used
+by :ref:`functor_call` to select the proper implementation. Example of :ref:`functor_categorize`
+overload includes function requiring to purposely ignore the category of some
+non-numerical or unregistered types in its call like :ref:`load` which don't need
+to categorize its iterator argument nor its memory offset but use its target type as a category enabler.
+
+As an example, the category of ``double`` is ``nt2::functors::scalar_<nt2::tag::arithmetic_,1>``
+and its associated tag is ``nt2::tag::scalar_(nt2::tag::arithmetic_)``. In a similar way,
+the category of ``std::complex<T>`` is ``nt2::functors::scalar_<nt2::tag::complex_,10>``
+and its associated tag is ``nt2::tag::scalar_(nt2::tag::complex_)``. Both types
+are scalar types but have different sub-category (``arithmetic_`` versus ``complex_``).
+The numeric values used to define the ``category`` type itself is used to order
+them. So a function call applied on a ``double`` and a ``std::complex<double>``
+will, by default, categorize its parameters as being member of the ``nt2::functors::scalar_<nt2::tag::complex_,10>``
+category and use the ``nt2::tag::scalar_(nt2::tag::complex_)`` to select its
+proper implementation. When a type without category is found in any function call,
+its category is set to :ref:`tag_unknown` which category value is higher than all
+others. Call to any :ref:`tag_unknown` specialization will raise :ref:`compile_time_assert`.
 
 .. _functors_rationale_validate:
 
@@ -114,7 +146,7 @@ Here is the synopsis of :ref:`functor_validate`:
 
   namespace functors
   {
-    template<class Function,class Category,class Dummy=void> struct validate
+    template<class Function,class Category,class Site> struct validate
     {
       template<class Sig> struct result;
     };
@@ -149,42 +181,59 @@ on any function:
     return callee(a0);                     // call said functor
   }
 
-By default, :ref:`functor_validate` is defined so it checks if, for a given set 
-of argument types, calling the corresponding :ref:`functor_call` specialization 
-is well-defined. This means that the signature of the function call operator of 
+By default, :ref:`functor_validate` is defined so it checks if, for a given set
+of argument types, calling the corresponding :ref:`functor_call` specialization
+is well-defined. This means that the signature of the function call operator of
 the :ref:`functor_call` function can also helps refining validation process.
 
 .. _functors_rationale_dispatch:
 
 Dispatching the call
 ^^^^^^^^^^^^^^^^^^^^
-At this point, we know that the current function is valid, we know on which category 
-of types it applies on. We're ready to select which implementation to use. Traditionnaly, 
+At this point, we know that the current function is valid, we know on which category
+of types it applies on. We're ready to select which implementation to use. Traditionnaly,
 we may need to specialize a function implementation for each and every type supported
 by said function. However, experience shows that some function implementation can
 be factorized into generic code for non trivial types familly, leading to a very
 few concrete type specialization. For example, we may have a specialization of
 ``sqrt`` for all integral types, one for ``double`` and one for ``float``.
+|nt2| provides a partially ordered set of :ref:`functor_hierarchy` to handle such
+use cases. Type hierarchies define a weak ordered relation between sets of atomic
+types so that discriminting a types over some of its properties (size in bytes,
+integral or real quality, etc ...).
 
-|nt2| provides a partially ordered set of type :ref:`hierarchy` to handle such
-type sets
+In the same way that finding a types set category is non-trivial, computing the
+dispatching target of such a type set is done by an overloadable lambda meta-function
+called :ref:`functor_dispatch`.
 
-Ideally, such specialization set should be extensible from the outside of any
-specialized functor class.
+Here is the synopsis of :ref:`functor_dispatch`:
 
+.. code-block:: cpp
+
+  namespace functors
+  {
+    template<class Tag,class Category,class Site> struct dispatch;
+  }
+
+Based on a function tag and a type category, :ref:`functor_dispatch` provides
+a lambda meta-function which select which type in the parameters type list to
+use to compute type hierarchy. By default, :ref:`functor_dispatch` is equivalent
+to ``boost::mpl::_1`` but it is usually overloaded to select either another
+type in a parameter types list or to apply any given transformation on said type
+before hierarichizing it.
 
 .. _functors_rationale_call:
 
 Perfoming the actual function call
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Once a function has been declared, one has to define its implementation. This is 
+Once a function has been declared, one has to define its implementation. This is
 done by specializing the :ref:`functor_call` class which synopsis is given below.
 
 .. code-block:: cpp
 
     namespace functors
     {
-      template<class Function,class Category,class Hierqrchy,class Site> struct call
+      template<class Function,class Category,class Hierarchy,class Site> struct call
       {
         template<class Sig> struct result;
 
@@ -204,10 +253,8 @@ As an example, here is a possible implementation of ``sqrt`` for any arithmetic 
     template<class Site> struct call<sqrt_, tag::scalar(tag::arithmetic), fundamental_, Site>
     {
       template<class Sig> struct result;
-      template<class This,class A>  struct result<This(A)>
-      {
-        typedef typename meta::as_real<A>::type type;
-      };
+      template<class This,class A>
+      struct result<This(A)> : meta::as_real<typename meta::strip<A>::type> {};
 
       NT2_FUNCTOR_CALL(1)
       {
@@ -216,6 +263,30 @@ As an example, here is a possible implementation of ``sqrt`` for any arithmetic 
       }
     };
 
+The :ref:`functor` system behqves by default so everything is intuitively valdiated
+and dispatched to the proper :ref:`functor_call` specialization. Contributor work
+is mainly to provide :ref:`functor_call` specialization of a given function for
+a specific type set or architecture. As an example, one may want to use ``::sqrtf``
+on ``float`` instead of ``std::sqrt``. This is done trivially by definign such a
+:ref:`functor_call` overload.
+
+.. code-block:: cpp
+
+    template<class Site> struct call<sqrt_, tag::scalar(tag::arithmetic), float, Site>
+    {
+      template<class Sig> struct result;
+      template<class This,class A> struct result<This(A)> : meta::strip<A> {};
+
+      NT2_FUNCTOR_CALL(1)
+      {
+        return ::sqrtf(a0);
+      }
+    };
+
+Now, calling ``sqrt`` on float will found out that dispatching on ``float`` is
+preferred to dispatchign on the broader ``fundamental_`` hierarchy and thus
+select the proper specialization. Any number of such specializations, beign narrow
+or broad, can be added through this system.
 
 ------------
 
