@@ -14,7 +14,10 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<simd::is_less_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct  call< simd::is_less_,tag::simd_(tag::arithmetic_,tag::sse_)
+              , fundamental_  , Info
+              >
+        : callable
   {
     typedef bool result_type;
 

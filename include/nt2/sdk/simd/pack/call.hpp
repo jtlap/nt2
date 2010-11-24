@@ -11,8 +11,17 @@
 
 namespace nt2 { namespace functors
 {
-  template<class Tag, class X,class Info>
-  struct call<Tag,tag::simd_(tag::ast_,X),Info>
+  //////////////////////////////////////////////////////////////////////////////
+  // When in SIMD, dispatch on the scalar of argument A0
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Tag, class X, class Info>
+  struct  dispatch<Tag,tag::simd_(tag::ast_,X),Info>
+        : boost::mpl::always< fundamental_ >
+  {};
+
+  template<class Tag, class X, class Info>
+  struct  call<Tag,tag::simd_(tag::ast_,X),fundamental_, Info>
+        : callable
   {
     template<class Sig> struct result;
 

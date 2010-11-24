@@ -26,14 +26,17 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute anp(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<anp_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<anp_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct  result<This(A0,A1)>
           : boost::result_of<meta::arithmetic(A0,A1)>{};
-
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -45,9 +48,9 @@ namespace nt2 { namespace functors
       const type p = round2even(a1);
       return (rtype)round2even(exp(gammaln(n)-gammaln(n-p)));
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

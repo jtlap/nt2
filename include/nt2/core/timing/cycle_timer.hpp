@@ -19,7 +19,7 @@ namespace nt2 { namespace time
      cycle_timer(nt2::details::cycles_t& e, bool d = true) : elapsed(e), display(d) { ctic(); }
     ~cycle_timer() { elapsed = ctoc(display); }
 
-	nt2::details::cycles_t& elapsed;
+    nt2::details::cycles_t& elapsed;
     bool display;
   };
 } }

@@ -23,24 +23,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute popcnt(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<popcnt_, tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
 
-      NT2_FUNCTOR_CALL_DISPATCH(
-        1,
-        typename nt2::meta::scalar_of<A0>::type,
-        (5, (int64_, int32_, int16_, int8_, real_))
-      )
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       real_)
-      {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	return popcnt(simd::native_cast<result_type>(a0)); 
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
+    NT2_FUNCTOR_CALL(1)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
 	
@@ -56,8 +50,20 @@ namespace nt2 { namespace functors
 	x += shri(x, 32);  //put count of each 64 bits into their lowest 8 bits
 	return x & integral_constant<result_type,0x7f > ();
       }
+  };
 
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int32_)
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
 	
@@ -72,7 +78,20 @@ namespace nt2 { namespace functors
 	x += shri(x, 16);  //put count of each 32 bits into their lowest 8 bits
 	return x & integral_constant<result_type,0x7f > ();
       }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
 	
@@ -86,7 +105,20 @@ namespace nt2 { namespace functors
 	x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
 	return x & integral_constant<result_type,0x7f > ();
       }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int8_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
       {
  	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
 	
@@ -100,7 +132,26 @@ namespace nt2 { namespace functors
 	return x & integral_constant<result_type,0x7f > ();
       }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
+      {
+ 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
+	return popcnt(simd::native_cast<result_type>(a0)); 
+      }
+  };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

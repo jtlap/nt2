@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_AVX_SHLI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_AVX_SHLI_HPP_INCLUDED
-tag::sse_
+
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
@@ -18,8 +18,12 @@ namespace nt2 { namespace functors
 {
   //  no special validate for shli
 
-  template<class Extension,class Info>
-  struct call<shli_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -37,7 +41,9 @@ namespace nt2 { namespace functors
       itype that = { _mm256_insertf128_si256(that,nt2::shli( a00, a1), 0)};	
       return  simd::native_cast<A0>(_mm256_insertf128_si256(that, nt2::shli(a01, a1), 1)); 		
      }
+
   };
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

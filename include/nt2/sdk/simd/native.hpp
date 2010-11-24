@@ -25,12 +25,9 @@ namespace nt2 { namespace simd
   //////////////////////////////////////////////////////////////////////////////
   template<class Scalar,class Extension> struct native
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Check that Scalar is supported here
-    ////////////////////////////////////////////////////////////////////////////
     NT2_STATIC_ASSERT ( (meta::is_vectorizable<Scalar,Extension>::value)
                       , INVALID_SCALAR_TYPE_IN_SIMD_NATIVE_TYPE
-                      , (Scalar)
+                      , "Native SIMD type instanciated with non-vectorizable base scalar type."
                       );
 
     ////////////////////////////////////////////////////////////////////////////

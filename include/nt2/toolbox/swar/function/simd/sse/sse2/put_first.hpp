@@ -27,21 +27,18 @@ namespace nt2 { namespace functors
 			meta::is_integral<A1>
        > {};
    };
-  template<class Extension,class Info>
-  struct call<put_first_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types8_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
       struct result<This(A0, A1)> :  meta::strip<A0>{};
 
-
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (5, (types8_,types16_,types32_,double,types64_))
-     )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    types8_)
+    NT2_FUNCTOR_CALL(2)
     {
       typedef simd::native<typename meta::double_<A0>::type,tag::sse_>   rtype; 
       typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64; 
@@ -52,7 +49,20 @@ namespace nt2 { namespace functors
 	}
       return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 3));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    types16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef simd::native<typename meta::double_<A0>::type,tag::sse_>   rtype; 
       typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
@@ -63,7 +73,20 @@ namespace nt2 { namespace functors
 	}
       return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 4));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    types32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef simd::native<typename meta::double_<A0>::type,tag::sse_>   rtype; 
       typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
@@ -74,7 +97,20 @@ namespace nt2 { namespace functors
 	}
       return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 5));
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    double)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       if(a1)
 	{
@@ -83,7 +119,20 @@ namespace nt2 { namespace functors
 	}
       return a0;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,    types64_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<A0>::type rtype;
       if(a1)
@@ -92,8 +141,9 @@ namespace nt2 { namespace functors
 	}
       return a0;
     }
-
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

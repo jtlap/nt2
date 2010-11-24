@@ -21,8 +21,12 @@ namespace nt2 { namespace functors
 {
   //  no special validate for split
 
-  template<class Extension,class Info>
-  struct call<split_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<split_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -38,9 +42,6 @@ namespace nt2 { namespace functors
                                         , dtype, ttype>::type              rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              type;
     };
-
-
-
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -60,8 +61,6 @@ namespace nt2 { namespace functors
 	    );
       return res;
     }
-
-
   private:
 //     template<class A0,class R0,class R1> inline void
 //     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  meta::int16_t_<A0>::type,simd::avx_>&)const
@@ -122,3 +121,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

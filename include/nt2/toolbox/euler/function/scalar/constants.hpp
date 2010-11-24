@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_CONSTANTS_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_CONSTANTS_HPP_INCLUDED
 #include <nt2/sdk/constant/constant.hpp>
-#include <nt2/sdk/constant/details/real_constant.hpp>
 #include <nt2/sdk/constant/real.hpp>
 
 namespace nt2 { namespace constants

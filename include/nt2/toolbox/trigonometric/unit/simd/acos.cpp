@@ -41,21 +41,21 @@ NT2_TEST_CASE_TPL(acos, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
    
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- double z, m = 0; 
- for(int num = 0; num < 10; num++)
-   {
-     for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(-1.0, 1.0); // good value here for acos
-     }
-     n_t a0 = load<n_t>(&data[0],0); 
-     rn_t v  = acos(a0);
-     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-       {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], acos(a0[j])), 1);
-	 if (z > m) m = z; 
-       }
-   }
- std::cout << "ulp max = " << m << std::endl;
-}
+  double z, m = 0; 
+  for(int num = 0; num < 10; num++)
+    {
+      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
+        data[i] = nt2::random(-1.0, 1.0); // good value here for acos
+      }
+      n_t a0 = load<n_t>(&data[0],0); 
+      rn_t v  = acos(a0);
+      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+        {
+ 	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], acos(a0[j])), 1);
+ 	 if (z > m) m = z; 
+        }
+    }
+  std::cout << "ulp max = " << m << std::endl;
+ }
 
 

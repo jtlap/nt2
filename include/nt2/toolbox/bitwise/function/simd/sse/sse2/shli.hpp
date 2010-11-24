@@ -26,37 +26,74 @@ namespace nt2 { namespace functors
                       ,meta::is_integral<A1>
                       > {};
   };
-  template<class Extension,class Info>
-  struct call<shli_,tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types64_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0,A1)>  : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename nt2::meta::scalar_of<A0>::type,
-      (4, (types64_,types32_,types16_,types8_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     types64_)
+    NT2_FUNCTOR_CALL(2)
     {
         typedef typename meta::as_integer<A0,signed>::type sint;
         sint const that ={ _mm_slli_epi64(simd::native_cast<sint>(a0), a1)};
         return simd::native_cast<A0>(that);
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     types32_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
         typedef typename meta::as_integer<A0,signed>::type sint;
 	sint const that = { _mm_slli_epi32(simd::native_cast<sint>(a0),a1)};
        	return simd::native_cast<A0>(that); 
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,     types16_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),types16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = {_mm_slli_epi16(a0, a1)};
       return that;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,      types8_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is types8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),types8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
     {
         typedef typename NT2_CALL_RETURN_TYPE(2)::type result_type;
 	typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_> gen_type; 
@@ -72,6 +109,8 @@ namespace nt2 { namespace functors
 
     }
   };
+
 } }
 
 #endif
+/// Revised by jt the 15/11/2010

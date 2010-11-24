@@ -20,6 +20,10 @@
 
 namespace nt2 { namespace functors
 {
+  template<class Extension, class C, class Info> 
+  struct dispatch< laguerre_,tag::simd_(C,Extension), Info>
+    :boost::mpl::lambda< meta::scalar_of<boost::mpl::_2> >::type {};
+
   template<class Extension,class Info>
   struct validate<laguerre_,tag::simd_(tag::arithmetic_,Extension),Info>
   {
@@ -34,21 +38,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute laguerre(const A0& a0, const A0& a1)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<laguerre_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<laguerre_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :  meta::as_real<A1>{};
 
-    NT2_FUNCTOR_CALL_DISPATCH(
-      2,
-      typename meta::scalar_of<A1>::type,
-      (2, (real_,arithmetic_))
-    )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,  real_)
+    NT2_FUNCTOR_CALL(2)
     {
       A1 p0 = One<A1>();
       if(a0 == 0) return p0;
@@ -67,20 +68,27 @@ namespace nt2 { namespace functors
       	}
       return p1;
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(2,       arithmetic_)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<laguerre_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
       return nt2::laguerre(a0, tofloat(a1)); 
     }
-//   private:
-//     template < class A1>
-//     static inline A1 laguerre_next(const  A1& n, const  A1& x, const  A1& Hn, const  A1& Hnm1)
-//     {
-//       return Two<A1>()*fma(x, Hn, - n * Hnm1);
-//     }
-
   };
+
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -54,11 +54,12 @@ namespace nt2 { namespace details
     {
       NT2_STATIC_ASSERT ( (boost::proto::matches<Option const,option_term>::value)
                         , UNKNOWN_NAMED_OPTIONS
-                        , (Option)
+                        , "Trying to retrieve unknown named option."
                         );
+
       NT2_STATIC_ASSERT ( (has_option<Option const>::value)
                         , NO_SUCH_OPTION_IN_CURRENT_OPTIONS_PACK
-                        ,(Option)
+                        , "Named option is not used in this options pack."
                         );
 
       return option_pack()(*this, opt);
@@ -68,10 +69,10 @@ namespace nt2 { namespace details
       typename result<option_expr const(Option const, Default const)>::type
       operator()(Option const &opt, Default const &def) const
       {
-        NT2_STATIC_ASSERT ( (boost::proto::matches<Option const,option_term>::value)
-                          , UNKNOWN_NAMED_OPTIONS
-                          , (Option)
-                          );
+      NT2_STATIC_ASSERT ( (boost::proto::matches<Option const,option_term>::value)
+                        , UNKNOWN_NAMED_OPTIONS
+                        , "Trying to retrieve unknown named option."
+                        );
 
         return this->with_default(opt, def, has_option<Option const>());
       }
@@ -89,7 +90,7 @@ namespace nt2 { namespace details
     typename result<option_expr const(Option const, Default const)>::type
     with_default(Option const &, Default const &def, boost::mpl::false_) const
     {
-    return def;
+      return def;
     }
   };
 } }

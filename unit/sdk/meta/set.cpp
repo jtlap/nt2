@@ -98,7 +98,7 @@ NT2_TEST_CASE(lambda_set)
   NT2_TEST( (is_set< lambda_set< has_32bits > >::value)
           );
   NT2_TEST( (has_key< lambda_set< has_32bits >, float >::value));
-  NT2_TEST( (has_key< lambda_set< has_32bits >, int32_t >::value)  );
+  NT2_TEST( (has_key< lambda_set< has_32bits >, int>::value)  );
   NT2_TEST( !(has_key< lambda_set< has_32bits >, char >::value)  );
   NT2_TEST( !(has_key< lambda_set< has_32bits >, double >::value)  );
 }
@@ -120,7 +120,7 @@ NT2_TEST_CASE(lambda_join_set)
   NT2_TEST( (is_set< join< set<char>,lambda_set< has_32bits > > >::value)
           );
   NT2_TEST( (has_key< lambda_set< has_32bits >, float >::value));
-  NT2_TEST( (has_key< lambda_set< has_32bits >, int32_t >::value)  );
+  NT2_TEST( (has_key< lambda_set< has_32bits >, int >::value)  );
   NT2_TEST( !(has_key< lambda_set< has_32bits >, char >::value)  );
   NT2_TEST( !(has_key< lambda_set< has_32bits >, double >::value)  );
 }

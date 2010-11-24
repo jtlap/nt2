@@ -16,20 +16,69 @@
 namespace nt2 { namespace functors
 {
   template<class T, class Info>
-  struct call<splat_<T>,tag::simd_(tag::arithmetic_,tag::sse_), Info>
+  struct  call< splat_<T> , tag::simd_(tag::arithmetic_,tag::sse_)
+              , double    , Info
+              >
+        : callable
   {
     typedef T result_type;
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1, typename meta::scalar_of<T>::type
-                              , (6, (double,float,int8_,int16_,int32_,int64_))
-                              )
+    NT2_FUNCTOR_CALL(1)  { T that = { _mm_set1_pd(a0)    };  return that;  }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(1,double)  { T that = { _mm_set1_pd(a0)    };  return that;  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,float)   { T that = { _mm_set1_ps(a0)    };  return that;  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int8_)   { T that = { _mm_set1_epi8(a0)  };  return that;  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int16_)  { T that = { _mm_set1_epi16(a0) };  return that;  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int32_)  { T that = { _mm_set1_epi32(a0) };  return that;  }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,int64_)  { T that = {{ a0, a0 }};            return that;  }
+  template<class T, class Info>
+  struct  call< splat_<T> , tag::simd_(tag::arithmetic_,tag::sse_)
+              , float     , Info
+              >
+        : callable
+  {
+    typedef T result_type;
+
+    NT2_FUNCTOR_CALL(1)   { T that = { _mm_set1_ps(a0)    };  return that;  }
+  };
+
+  template<class T, class Info>
+  struct  call< splat_<T> , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int8_     , Info
+              >
+        : callable
+  {
+    typedef T result_type;
+
+    NT2_FUNCTOR_CALL(1)   { T that = { _mm_set1_epi8(a0)  };  return that;  }
+  };
+
+  template<class T, class Info>
+  struct  call< splat_<T> , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int16_    , Info
+              >
+        : callable
+  {
+    typedef T result_type;
+
+    NT2_FUNCTOR_CALL(1)  { T that = { _mm_set1_epi16(a0) };  return that;  }
+  };
+
+  template<class T, class Info>
+  struct  call< splat_<T> , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int32_    , Info
+              >
+        : callable
+  {
+    typedef T result_type;
+
+    NT2_FUNCTOR_CALL(1)  { T that = { _mm_set1_epi32(a0) };  return that;  }
+  };
+
+  template<class T, class Info>
+  struct  call< splat_<T> , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int64_    , Info
+              >
+        : callable
+  {
+    typedef T result_type;
+
+    NT2_FUNCTOR_CALL(1)  { T that = {{ a0, a0 }};  return that;  }
   };
 } }
 

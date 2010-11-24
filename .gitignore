@@ -27,6 +27,11 @@
 *.orig
 *_
 *.manifest
+*.res
+*.ilk
+*.pdb
+*.resource.txt
+*.bak
 
 ################################################################################
 # Ignore CMake generated files

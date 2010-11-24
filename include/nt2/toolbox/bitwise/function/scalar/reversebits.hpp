@@ -18,46 +18,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute reversebits(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int64_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<reversebits_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<reversebits_,tag::scalar_(tag::arithmetic_),int64_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-      NT2_FUNCTOR_CALL_DISPATCH(
-      1,
-      A0, 
-      (4, (int64_, int32_, int16_, int8_))
-    )
-
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int8_)
-      {
-	typedef union { A0 a; uint8_t b; } trick;
-	trick z = {a0}; 
-	z.b = ((z.b * 0x0802LU & 0x22110LU) | (z.b * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16;
-	//z.b = b_and(tmp, 0xFFULL);
-	return z.a; 
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int16_)
-      {
-	typedef union { A0 a; uint8_t b[2]; } trick;
-	trick z = {a0}; 
-	z.b[0] = reversebits(z.b[0]);
-	z.b[1] = reversebits(z.b[1]);
-	std::swap(z.b[0], z.b[1]); 
-	return  z.a;  
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int32_)
-      {
-	typedef union { A0 a; uint16_t b[2]; } trick;
-	trick z = {a0}; 
-	z.b[0] = reversebits(z.b[0]);
-	z.b[1] = reversebits(z.b[1]);
-	std::swap(z.b[0], z.b[1]); 
-	return z.a; 
-      }
-      NT2_FUNCTOR_CALL_EVAL_IF(1,       int64_)
+    NT2_FUNCTOR_CALL(1)
       {
 	typedef union { A0 a; uint32_t b[2]; } trick;
 	trick z = {a0}; 
@@ -66,10 +38,74 @@ namespace nt2 { namespace functors
 	std::swap(z.b[0], z.b[1]);
 	return z.a; 
       }
-
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int32_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::scalar_(tag::arithmetic_),int32_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+      {
+	typedef union { A0 a; uint16_t b[2]; } trick;
+	trick z = {a0}; 
+	z.b[0] = reversebits(z.b[0]);
+	z.b[1] = reversebits(z.b[1]);
+	std::swap(z.b[0], z.b[1]); 
+	return z.a; 
+      }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::scalar_(tag::arithmetic_),int16_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+      {
+	typedef union { A0 a; uint8_t b[2]; } trick;
+	trick z = {a0}; 
+	z.b[0] = reversebits(z.b[0]);
+	z.b[1] = reversebits(z.b[1]);
+	std::swap(z.b[0], z.b[1]); 
+	return  z.a;  
+      }
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<reversebits_,tag::scalar_(tag::arithmetic_),int8_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+      {
+	typedef union { A0 a; uint8_t b; } trick;
+	trick z = {a0}; 
+	z.b = ((z.b * 0x0802LU & 0x22110LU) | (z.b * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16;
+	//z.b = b_and(tmp, 0xFFULL);
+	return z.a; 
+      }
+  };
+
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

@@ -97,17 +97,17 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     NT2_STATIC_ASSERT ( (boost::mpl::size<Bases>::value == DIM)
                       , BOOST_PP_CAT(BASES_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
-                      , (Bases)
+                      , "Block base dimension mismatch."
                       );
 
     NT2_STATIC_ASSERT ( (boost::mpl::size<Sizes>::value == DIM)
-                      , BOOST_PP_CAT(SIZES_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
-                      , (Sizes)
+                      , BOOST_PP_CAT(BASES_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
+                      , "Block size dimension mismatch."
                       );
 
     NT2_STATIC_ASSERT ( (boost::mpl::size<Storage>::value == DIM)
-                      , BOOST_PP_CAT(STORAGE_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
-                      , (Storage)
+                      , BOOST_PP_CAT(BASES_EXTENT_SIZE_NOT_EQUAL_TO_,DIM)
+                      , "Block storage order dimension mismatch."
                       );
 
     ////////////////////////////////////////////////////////////////////////////

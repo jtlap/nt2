@@ -8,5 +8,5 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_CONICALP_0_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_GSL_SF_CONICALP_0_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/gsl_sf_conicalP_0.hpp>
+#include <nt2/toolbox/gsl_specfun/function/gsl_sf_conicalp_0.hpp>
 #endif

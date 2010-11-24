@@ -12,7 +12,8 @@
 namespace nt2 { namespace functors
 {
   template<class C, class X,class Info>
-  struct call<logical_and_,tag::simd_(C,X),Info>
+  struct  call<logical_and_,tag::simd_(C,X),fundamental_,Info>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A>
@@ -20,7 +21,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());
+      A0 that = { neq(a0, Zero<A0>()) & neq(a1, Zero<A0>()) };
+      return that;
     }
   };
 } }

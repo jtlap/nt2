@@ -15,19 +15,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/preprocessor/stringize.hpp>
 
+#if defined(BOOST_HAS_STATIC_ASSERT)
 ////////////////////////////////////////////////////////////////////////////////
-// Mapping over MPL_ASSERT_MSG
+// C++0x maps over static_assert and display ID: REASON
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_STATIC_ASSERT(EXPR,MSG,T) \
-BOOST_MPL_ASSERT_MSG(EXPR,MSG,T)      \
+#define NT2_STATIC_ASSERT(COND,ID,REASON)                 \
+static_assert(COND, BOOST_PP_STRINGIZE(ID) ": " REASON )  \
 /**/
-
-////////////////////////////////////////////////////////////////////////////////
-// Mapping over MPL_ASSERT_MSG and negating assertion
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_STATIC_ASSERT_NOT(EXPR,MSG,T)                         \
-BOOST_MPL_ASSERT_MSG( (boost::mpl::bool_<!(EXPR)>::value) ,MSG,T) \
+#define NT2_STATIC_ASSERT_NOT(COND,ID,REASON)                   \
+static_assert( (!(COND)), BOOST_PP_STRINGIZE(ID) ": " REASON )  \
 /**/
+#else
+////////////////////////////////////////////////////////////////////////////////
+// C++03 maps over MPL_ASSERT_MSG and display the assert ID
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_STATIC_ASSERT(COND,ID,REASON) \
+BOOST_MPL_ASSERT_MSG((COND),ID,())        \
+/**/
+#define NT2_STATIC_ASSERT_NOT(COND,ID,REASON) \
+BOOST_MPL_ASSERT_MSG( (!(COND)),ID,())        \
+/**/
+#endif
 
 #endif

@@ -27,9 +27,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute rsqrt(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<rsqrt_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<rsqrt_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,8 +43,9 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
       return One<type>()/nt2::sqrt(tofloat(a0));
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

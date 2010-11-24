@@ -104,7 +104,15 @@ Preparing the build system
 |nt2| uses a ``CMake`` based build system. The first step is then to generate the build
 scripts from the ``CMakeList.txt`` file. To do so, you can:
 
-* Execute the follozing command in a shell:
+* Use your platform default generator:
+
+  .. code-block:: bash
+
+    cmake .
+
+  This command will generate scripts for you system native build system.
+
+* Specify a custom generator:
 
   .. code-block:: bash
 
@@ -128,8 +136,11 @@ build system generation is displayed along with build instructions.
 
 Building the library
 --------------------
+Once the ``cmake`` completed its task, you should find a proper build system in the current
+folder. Depending on your choice, you may hqve to:
 
-
+* call ``make install`` to build the library and install it to its default location.
+* Open the IDE-specific project and build the ``install`` target.
 
 Testing the library
 ^^^^^^^^^^^^^^^^^^^

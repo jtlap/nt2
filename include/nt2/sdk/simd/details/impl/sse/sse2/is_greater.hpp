@@ -18,51 +18,47 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<is_greater_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , double      , Info
+              >
+        : callable
   {
     template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A,A)> : meta::strip<A> {};
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_DISPATCH( 2
-                             , typename nt2::meta::scalar_of<A0>::type
-                             , (7,( double,float
-                                  , int8_t,int16_t,int32_t,int64_t
-                                  , uint_
-                                ) )
-                             )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,double)
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpgt_pd(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,float )
+  template<class Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , float       , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_cmpgt_ps(a0,a1) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int8_t)
-    {
-      A0 that = { _mm_cmpgt_epi8(a0,a1)  };
-      return that;
-    }
+  template<class Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , uint_       , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int16_t)
-    {
-      A0 that = { _mm_cmpgt_epi16(a0,a1) };
-      return that;
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int32_t)
-    {
-      A0 that = { _mm_cmpgt_epi32(a0,a1) };
-      return that;
-    }
-
-    NT2_FUNCTOR_CALL_EVAL_IF(2, uint_)
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, signed>::type stype;
       stype tmp1 = simd::native_cast<stype>(a0) - Signmask<stype>();
@@ -70,8 +66,66 @@ namespace nt2 { namespace functors
       stype tmp = gt(tmp1,tmp2);
       return simd::native_cast<A0>(tmp);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int64_t)
+  template<class Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int8_t      , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_cmpgt_epi8(a0,a1)  };
+      return that;
+    }
+  };
+
+  template<class Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int16_t     , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_cmpgt_epi16(a0,a1)  };
+      return that;
+    }
+  };
+
+  template<class Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int32_t     , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_cmpgt_epi32(a0,a1)  };
+      return that;
+    }
+  };
+
+  template<class Info>
+  struct  call< is_greater_ , tag::simd_(tag::arithmetic_,tag::sse_)
+              , int64_t     , Info
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::make_integer < 4, signed
                                           , simd::native< boost::mpl::_

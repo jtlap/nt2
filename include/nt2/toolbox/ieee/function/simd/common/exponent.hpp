@@ -29,9 +29,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute exponent(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<exponent_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<exponent_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -47,8 +50,9 @@ namespace nt2 { namespace functors
       const result_type x = shri(exponentbits(a0), nmb);
       return x-b_and(Maxexponent<A0>(), is_nez(a0));
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

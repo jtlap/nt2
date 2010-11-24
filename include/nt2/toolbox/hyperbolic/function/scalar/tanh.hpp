@@ -23,8 +23,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute tanh(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<tanh_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<tanh_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,9 +44,9 @@ namespace nt2 { namespace functors
       type tmp2=-tmp1/(Two<type>()+tmp1);
       return b_xor(tmp2, bitofsign(a0));
     }
+
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

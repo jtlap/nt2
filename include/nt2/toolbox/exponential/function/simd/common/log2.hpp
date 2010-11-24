@@ -26,9 +26,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute log2(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<log2_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Extension, class Info>
+  struct call<log2_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -39,8 +42,9 @@ namespace nt2 { namespace functors
       typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
       return impl::logarithm<type, tag::simd_type>::log2(tofloat(a0));
     }
+
   };
 } }
 
-      
 #endif
+/// Revised by jt the 15/11/2010

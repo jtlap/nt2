@@ -26,58 +26,67 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // For no_padding stride, we dispatch on the fact the Level is the last one
+  //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<slice_,tag::fusion_(memory::no_padding),Info>
+  struct dispatch<slice_,tag::fusion_(memory::no_padding),Info>
+  {
+    template<class A0,class A1,class A2> struct apply
+    {
+      typedef boost::mpl::bool_ <   A2::value
+                                ==  boost::fusion::result_of::size<A0>::value
+                                >                     type;
+    };
+  };
+
+  template<class Info>
+  struct  call<slice_,tag::fusion_(memory::no_padding),boost::mpl::true_,Info>
+        : callable
   {
     template<class Sig> struct result;
 
-    template<class This,class A0,class A1,class A2>
+    template<class This,class A0, class A1, class A2>
     struct  result<This(A0,A1,A2)>
-    {
-      typedef typename meta::strip<A0>::type Seq;
-      typedef typename meta::strip<A1>::type Padder;
-      typedef typename meta::strip<A2>::type Sz;
-      static Seq    const&  s;
-      static Padder const&  p;
-      static details::times callee;
+          : boost::fusion::result_of::at_c< typename meta::strip<A0>::type const
+                                          , meta::strip<A2>::type::value-1>
+    {};
 
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( different
-      , callee( slice<Sz::value+1>(s,p), boost::fusion::at_c<Sz::value-1>(s) )
-      );
-
-      typedef boost::fusion::result_of::at_c<Seq const, Sz::value-1> same;
-
-      typedef typename boost::mpl::eval_if_c< (   Sz::value
-                                              ==  boost::fusion
-                                                  ::result_of::size<Seq>::value
-                                              )
-                                            , same
-                                            , different
-                                            >::type type;
-    };
-
-    NT2_FUNCTOR_CALL_DISPATCH ( 3
-                              , boost::mpl::bool_<(     A2::value
-                                                    ==  boost::fusion
-                                                      ::result_of::size<A0>
-                                                                  ::value
-                                                  )>
-                              , ( 2,( boost::mpl::true_
-                                    , boost::mpl::false_
-                                    )
-                                )
-                              )
-
-    NT2_FUNCTOR_CALL_EVAL_IF(3, boost::mpl::true_ )
+    NT2_FUNCTOR_CALL(3)
     {
       return boost::fusion::at_c<A2::value-1>(a0);
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(3, boost::mpl::false_ )
+  template<class Info>
+  struct  call<slice_,tag::fusion_(memory::no_padding),boost::mpl::false_,Info>
+        : callable
+  {
+    template<class Sig> struct result;
+
+    template<class This,class A0, class A1, class A2>
+    struct  result<This(A0,A1,A2)>
+    {
+      static typename meta::strip<A0>::type const&  s;
+      static typename meta::strip<A1>::type const&  p;
+      static details::times callee;
+
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+      ( nested
+      , callee( slice<meta::strip<A2>::type::value+1>(s,p)
+              , boost::fusion::at_c<meta::strip<A2>::type::value-1>(s)
+              )
+      );
+
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(3)
     {
       details::times callee;
-      return callee( slice<A2::value+1>(a0,a1), boost::fusion::at_c<A2::value-1>(a0));
+      return callee ( slice<A2::value+1>(a0,a1)
+                    , boost::fusion::at_c<A2::value-1>(a0)
+                    );
     }
   };
 } }
@@ -87,12 +96,25 @@ namespace nt2 { namespace functors
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace functors
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // For no_padding stride, we just don't care about the dispatching
+  //////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<stride_,tag::fusion_(memory::no_padding),Info>
+  struct dispatch<stride_,tag::fusion_(memory::no_padding),Info>
+  {
+    template<class A0,class A1,class A2> struct apply
+    {
+      typedef fundamental_ type;
+    };
+  };
+
+  template<class Hierarchy, class Info>
+  struct call<stride_,tag::fusion_(memory::no_padding),Hierarchy,Info>
+        : callable
   {
     template<class Sig> struct result;
 
-    template<class This,class A0,class A1,class A2>
+    template<class This,class A0, class A1, class A2>
     struct  result<This(A0,A1,A2)>
           : boost::fusion::result_of::at_c< typename meta::strip<A0>::type const
                                           , meta::strip<A2>::type::value-1

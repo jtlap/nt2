@@ -31,8 +31,12 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute remquo(const A0& a0, const A1& a1)
   /////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is fundamental_
+  /////////////////////////////////////////////////////////////////////////////
   template<class Info>
-  struct call<remquo_,tag::scalar_(tag::arithmetic_),Info>
+  struct  call<remquo_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -53,7 +57,7 @@ namespace nt2 { namespace functors
           );
       return res;
     }
-
+  private :
     template<class A0,class A1,class R0,class R1> inline void
     eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, double const &)const
     {
@@ -70,6 +74,5 @@ namespace nt2 { namespace functors
   };
 } }
 
-
-      
 #endif
+/// Revised by jt the 15/11/2010

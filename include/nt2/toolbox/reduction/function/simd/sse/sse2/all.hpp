@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
-//#include <nt2/toolbox/reduction/function/simd/sse/common/all.hpp>
+
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -26,23 +26,18 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   // Compute all(const A0& a0)
   /////////////////////////////////////////////////////////////////////////////
-  template<class Extension,class Info>
-  struct call<all_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<all_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>    { typedef bool type; };
 
-    NT2_FUNCTOR_CALL_DISPATCH ( 1
-                              , typename nt2::meta::scalar_of<A0>::type
-                              , (3, (int8_t, uint8_t,arithmetic_))
-                              )
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  arithmetic_)
-    {
-      return hmsb(is_eqz(a0)) == 0;  
-    }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  int8_t)
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
@@ -51,7 +46,20 @@ namespace nt2 { namespace functors
       boost::fusion::tie(a0h, a0l) = split(a0); 
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l)))== 0;  
     }
-    NT2_FUNCTOR_CALL_EVAL_IF(1,  uint8_t)
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<all_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>    { typedef bool type; };
+
+    NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
@@ -60,8 +68,26 @@ namespace nt2 { namespace functors
       boost::fusion::tie(a0h, a0l) = split(a0);
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l))) == 0;  
     }
+  };
 
- };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct call<all_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>    { typedef bool type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return hmsb(is_eqz(a0)) == 0;  
+    }
+  };
+
 } }
 
 #endif
+/// Revised by jt the 16/11/2010
