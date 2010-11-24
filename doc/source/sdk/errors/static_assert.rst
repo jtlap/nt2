@@ -1,4 +1,4 @@
-.. compile_time_assert:
+.. _compile_time_assert:
 
 Compile-time Assertions
 =======================

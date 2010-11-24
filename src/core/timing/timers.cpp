@@ -6,22 +6,20 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_TIMING_CYCLE_TIMER_HPP_INCLUDED
-#define NT2_CORE_TIMING_CYCLE_TIMER_HPP_INCLUDED
 
+#include <iostream>
+#include <nt2/core/timing/tic.hpp>
 #include <nt2/core/timing/ctic.hpp>
-#include <nt2/core/timing/impl/cycles.hpp>
 
-namespace nt2 { namespace time
+namespace nt2 { namespace details
 {
-  struct cycle_timer
+  void cycle_based_timer::Print(const cycles_t& val)
   {
-     cycle_timer(nt2::details::cycles_t& e, bool d = true) : elapsed(e), display(d) { ctic(); }
-    ~cycle_timer() { elapsed = ctoc(display); }
+    std::cout << "Elapsed time is " << val << " CPU cycle(s).\n";
+  }
 
-    nt2::details::cycles_t& elapsed;
-    bool display;
-  };
+  void second_based_timer::Print(const double& val)
+  {
+    std::cout << "Elapsed time is " << val << " s.\n";
+  }
 } }
-
-#endif

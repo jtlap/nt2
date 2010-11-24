@@ -10,22 +10,17 @@
 #define NT2_CORE_TIMING_CTIC_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-//
+// Coutn cycles
 ////////////////////////////////////////////////////////////////////////////////
-#include <iostream>
+#include <nt2/core/timing/now.hpp>
 #include <nt2/core/timing/timer.hpp>
-#include <nt2/core/timing/impl/cycles.hpp>
 
 namespace nt2 { namespace details
 {
   struct cycle_based_timer
   {
+    static void Print(const cycles_t& val);
     static inline cycles_t Time() { return read_cycles(); }
-
-    static inline void Print(const cycles_t& val)
-    {
-      std::cout << "Elapsed time is " << val << " CPU cycle(s).\n";
-    }
   };
 
   counter<cycles_t,cycle_based_timer>  const cycle_timer = {};

@@ -18,33 +18,29 @@ namespace nt2
   {
   #if    (defined(__GNUC__)     || defined(__ICC)        ) \
       && (defined(NT2_ARCH_X86) || defined(NT2_ARCH_IA64))
-    typedef uint64_t  cycles_t;
-    static cycles_t read_cycles()
+    inline cycles_t read_cycles()
     {
-      unsigned long hi = 0, lo = 0;
-
-      // lfence force code serialization of previous instruction
+      nt2::uint32_t hi = 0, lo = 0;
       __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
-      cycles_t that = uint64_t(lo) | ((uint64_t(hi))<<32 );
+      cycles_t that =   static_cast<cycles_t>(lo)
+                    | ( static_cast<cycles_t>(hi)<<32 );
       return that;
     }
   #elif defined(BOOST_MSVC) && (_MSC_VER >= 1200 && _M_IX86 >= 500)
-
-  #include <windows.h>
-  typedef nt2::uint64_t  cycles_t;
-
-  static cycles_t read_cycles()
+  inline cycles_t read_cycles()
   {
-     LARGE_INTEGER retval;
+    nt2::uint32_t hi = 0, lo = 0;
 
     __asm
     {
       __asm __emit 0fh __asm __emit 031h
-      mov retval.HighPart, edx
-      mov retval.LowPart, eax
+      mov hi, edx
+      mov lo, eax
     }
 
-    return (cycles_t)retval.QuadPart;
+    cycles_t that =   static_cast<cycles_t>(lo)
+                    | ( static_cast<cycles_t>(hi)<<32 );
+    return that;
   }
   #elif (                                                       \
           (                                                     \
@@ -58,11 +54,9 @@ namespace nt2
             ||  defined(__ppc__))                               \
             )                                                   \
         )
-  typedef boost::uint64_t  cycles_t;
-
-  static cycles_t read_cycles()
+  inline cycles_t read_cycles()
   {
-    boost::uint32_t tbl, tbu0, tbu1;
+    nt2::uint32_t tbl, tbu0, tbu1;
 
     do
     {
