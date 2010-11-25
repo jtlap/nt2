@@ -12,7 +12,7 @@
 ################################################################################
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
-    functor.cpp
+    functor3.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)
