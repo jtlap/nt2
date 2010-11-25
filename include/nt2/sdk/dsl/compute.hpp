@@ -79,9 +79,9 @@ namespace nt2 { namespace dsl
                                       , boost::proto::
                                                 call<
                                                   functors::functor<functors::madd_,Locality>(
-                                                      _left<compute_,Locality>(boost::proto::_right)
-                                                    , _right<compute_,Locality>(boost::proto::_right)
-                                                    , _left<compute_,Locality>()
+                                                      _left<compute_(Locality)>(boost::proto::_right)
+                                                    , _right<compute_(Locality)>(boost::proto::_right)
+                                                    , _left<compute_(Locality)>()
                                                   )
                                               >
                                       >
@@ -92,9 +92,9 @@ namespace nt2 { namespace dsl
                                       , boost::proto::
                                                 call<
                                                   functors::functor<functors::madd_,Locality>(
-                                                      _left<compute_,Locality>(boost::proto::_left)
-                                                    , _right<compute_,Locality>(boost::proto::_left)
-                                                    , _right<compute_,Locality>()
+                                                      _left<compute_(Locality)>(boost::proto::_left)
+                                                    , _right<compute_(Locality)>(boost::proto::_left)
+                                                    , _right<compute_(Locality)>()
                                                   )
                                               >
                                       >
@@ -103,8 +103,8 @@ namespace nt2 { namespace dsl
                                       , boost::proto::
                                                 call<
                                                   functors::functor<functors::plus_,Locality>(
-                                                      _left<compute_,Locality>()
-                                                    , _right<compute_,Locality>()
+                                                      _left<compute_(Locality)>()
+                                                    , _right<compute_(Locality)>()
                                                   )
                                               >
                                       >
