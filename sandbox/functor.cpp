@@ -186,6 +186,7 @@ namespace nt2 { namespace meta
                                         , can_dispatch< make_call<Functor, canonize<arg0_t,boost::mpl::_1> > >
                                         >::type iter0_t;
 
+    // Select the proper specialization with respect to everything
     typedef typename boost::mpl::eval_if< can_dispatch<Functor(typename canonize<arg0_t,raw0_t>::type)>
                                         , canonize<arg0_t,raw0_t>
                                         , canonize<arg0_t,typename boost::mpl::deref<iter0_t>::type>
