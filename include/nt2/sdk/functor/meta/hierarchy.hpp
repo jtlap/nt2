@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
 
+#include <boost/mpl/if.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/sdk/functor/details/hierarchy.hpp>
 
