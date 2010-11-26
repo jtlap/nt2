@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
  *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -15,8 +16,51 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/push_back.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+#include <nt2/sdk/functor/meta/hierarchy_of.hpp>
 #include <nt2/sdk/functor/meta/find_type.hpp>
 #include <nt2/sdk/functor/details/enable_dispatch.hpp>
+
+////////////////////////////////////////////////////////////////////////////////
+// Local macro to generate the fall-through dispatch overload
+////////////////////////////////////////////////////////////////////////////////
+#define M0(z,n,t) meta::unknown_<BOOST_PP_CAT(A,n)> const&
+
+#define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                       \
+template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>  \
+nt2::ext::call<Tag(tag::unknown_),Site>                           \
+dispatch(Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~));         \
+/**/
+
+#define NT2_DISPATCH_ARG(z,n,t) nt2::meta::BOOST_PP_SEQ_ELEM(n,t) const&
+#define NT2_DISPATCH_TAG(z,n,t) typename nt2::meta::BOOST_PP_SEQ_ELEM(n,t)::type
+
+#define NT2_REGISTER_DISPATCH(Tag,Site,Seq)                                 \
+namespace nt2 { namespace details {                                         \
+template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Seq),class A)>              \
+nt2::ext::                                                                  \
+call<Tag(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_TAG,Seq)),Site>  \
+dispatch( Tag const&, Site const&                                           \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq) );     \
+} }                                                                         \
+/**/
+
+namespace nt2 { namespace details
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Default dispatch overload set for catching calls to unsupported functor
+  // overload or unregistered types.
+  //////////////////////////////////////////////////////////////////////////////
+  BOOST_PP_REPEAT_FROM_TO(1,4,NT2_DEFAULT_UNKNOWN_DISPATCH,~)
+} }
+
+#undef M0
+#undef NT2_DEFAULT_UNKNOWN_DISPATCH
+
+
+
+
+
 
 namespace nt2 { namespace functors
 {

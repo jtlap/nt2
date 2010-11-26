@@ -23,4 +23,13 @@ namespace nt2 { namespace functors
   struct functor;
 } }
 
+namespace nt2 { namespace ext
+{
+  template<class Signature,class Site,class Dummy=void>
+  struct call {};
+
+  template<class Signature,class Site,class Dummy=void>
+  struct validate {};
+} }
+
 #endif

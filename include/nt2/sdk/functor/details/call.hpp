@@ -16,7 +16,38 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
+#include <nt2/sdk/functor/details/hierarchy.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
+
+namespace nt2 { namespace ext
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Flag call instanciation as callable
+  //////////////////////////////////////////////////////////////////////////////
+  struct callable { typedef void callable_type; };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Call to non-categorizable types ends up in error
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Function,class Site,class Dummy>
+  struct call<Function(tag::unknown_),Site,Dummy> : callable
+  {
+    typedef int result_type;
+    NT2_STATIC_ASSERT ( (boost::is_same<Function,void>::value)
+                      , NT2_UNSUPPORTED_FUNCTION_CALL
+                      , "If you get an error here, you tried to call a nt2 "
+                        "function on values which types is not supported by nt2 "
+                        "or which is not implemented on the given type. "
+                        "Check that you included the proper toolbox or use the "
+                        "correct type in your function call."
+                      );
+  };
+} }
+
+
+
+
+
 
 namespace nt2 { namespace functors
 {
