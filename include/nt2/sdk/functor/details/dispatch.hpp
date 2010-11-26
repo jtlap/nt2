@@ -29,7 +29,9 @@
 #define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                       \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>  \
 nt2::ext::call<Tag(tag::unknown_),Site>                           \
-dispatch(Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~));         \
+dispatch(Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~) \
+        , details::eater = details::eater()                                                   \
+        );         \
 /**/
 
 #define NT2_DISPATCH_ARG(z,n,t) nt2::meta::BOOST_PP_SEQ_ELEM(n,t) const&
@@ -41,12 +43,16 @@ template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Seq),class A)>              \
 nt2::ext::                                                                  \
 call<Tag(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_TAG,Seq)),Site>  \
 dispatch( Tag const&, Site const&                                           \
-        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq) );     \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)        \
+        , details::eater = details::eater()                                 \
+        );                                                                  \
 } }                                                                         \
 /**/
 
 namespace nt2 { namespace details
 {
+  struct eater {};
+
   //////////////////////////////////////////////////////////////////////////////
   // Default dispatch overload set for catching calls to unsupported functor
   // overload or unregistered types.
@@ -56,6 +62,45 @@ namespace nt2 { namespace details
 
 #undef M0
 #undef NT2_DEFAULT_UNKNOWN_DISPATCH
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Local macro to generate the dispatch selector
+////////////////////////////////////////////////////////////////////////////////
+#define M0(z,n,t) BOOST_PP_CAT(elem,n)()
+/**/
+
+#define NT2_DISPATCH_TYPES(z,n,t)                                               \
+typedef typename strip<BOOST_PP_CAT(A,n)>::type BOOST_PP_CAT(arg,n);            \
+typedef typename hierarchy_of<BOOST_PP_CAT(arg,n)>::type  BOOST_PP_CAT(elem,n); \
+/**/
+
+#define NT2_DISPATCH_CALL(z,n,t)                                                    \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>                    \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                          \
+{                                                                                   \
+  BOOST_PP_REPEAT(n,NT2_DISPATCH_TYPES,~)                                           \
+  BOOST_TYPEOF_NESTED_TYPEDEF_TPL ( nested                                          \
+                                  , details::                                       \
+                                    dispatch( Tag(), Site(), BOOST_PP_ENUM(n,M0,~),details::eater()) \
+                                  )                                                 \
+  typedef typename nested::type                             type;                   \
+};                                                                                  \
+/**/
+
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // dispatch_call finds the proper call overload for evaluating a given
+  // functor over a set of types on a given site
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Sig, class Site> struct dispatch_call;
+  BOOST_PP_REPEAT_FROM_TO(1,2,NT2_DISPATCH_CALL,~)
+} }
+
+#undef M0
+#undef NT2_DISPATCH_TYPES
+#undef NT2_DISPATCH_CALL
 
 
 
