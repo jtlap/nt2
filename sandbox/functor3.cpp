@@ -22,7 +22,7 @@ namespace nt2 { namespace tag
 #include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 
-typedef nt2::functors::complement_ cmp;
+typedef nt2::tag::complement_ cmp;
 
 NT2_REGISTER_DISPATCH(cmp, tag::scalar_, (A0)(A1), (uint32_<A0>)(real_<A1>) );
 NT2_REGISTER_DISPATCH(cmp, tag::scalar_, (A0), (real_<A0>) );

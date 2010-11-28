@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
  *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -15,8 +14,9 @@
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/push_back.hpp>
-#include <nt2/sdk/functor/meta/find_type.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
+#include <nt2/sdk/functor/meta/find_type.hpp>
+#include <nt2/sdk/functor/details/enable_dispatch.hpp>
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/typeof/typeof.hpp>
@@ -25,7 +25,6 @@
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
 #include <nt2/sdk/functor/meta/hierarchy_of.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
-#include <nt2/sdk/functor/details/enable_dispatch.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
