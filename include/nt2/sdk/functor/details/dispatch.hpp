@@ -9,15 +9,6 @@
 #ifndef NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <nt2/sdk/functor/hierarchy.hpp>
-#include <nt2/sdk/functor/meta/find_type.hpp>
-#include <nt2/sdk/functor/details/enable_dispatch.hpp>
-
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/preprocessor/seq/size.hpp>
