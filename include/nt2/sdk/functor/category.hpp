@@ -39,7 +39,7 @@
 namespace nt2 { namespace tag
 {
   struct scalar_      {};
-  struct arithmetic_  {};
+  struct arithmetic_;
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ namespace nt2 { namespace meta
   #define M0(r, data, elem)                                            \
   template<>                                                           \
   struct category_of<elem> : functors::scalar_<tag::arithmetic_,1> {};
-  
+
   BOOST_PP_SEQ_FOR_EACH(M0, ~, BOOST_PP_TUPLE_TO_SEQ(NT2_NB_PRIMITIVE_TYPES, NT2_PRIMITIVE_TYPES))
   #undef M0
 } }
