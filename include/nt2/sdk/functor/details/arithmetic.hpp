@@ -17,61 +17,130 @@
 #include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define NT2_LOCAL_VARS(Z,N,T)               \
-static BOOST_PP_CAT(A,N) BOOST_PP_CAT(a,N); \
-/**/
-
-#define M0(z,n,t) (BOOST_PP_CAT(A,n)) \
-/**/
-
-#define M1(z,n,t) (arithmetic_<BOOST_PP_CAT(A,n)>) \
-/**/
-
-#define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                           \
-NT2_REGISTER_DISPATCH ( TAG, tag::cpu_                            \
-                      , BOOST_PP_REPEAT(N,M0,~)                   \
-                      , BOOST_PP_REPEAT(N,M1,~)                   \
-                      );                                          \
-namespace nt2 { namespace ext                                     \
-{                                                                 \
-  template<class Dummy>                                           \
-  struct call < TAG(BOOST_PP_ENUM_PARAMS( N                       \
-                                        , tag::arithmetic_        \
-                                          BOOST_PP_INTERCEPT  )   \
-                   )                                              \
-              , tag::cpu_                                         \
-              , Dummy                                             \
-              > : callable                                        \
-  {                                                               \
-    template<class Sig> struct result;                            \
-    template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct  \
-    result<This(BOOST_PP_ENUM_PARAMS(N,A))>                       \
-    {                                                             \
-      BOOST_PP_REPEAT(N,NT2_LOCAL_VARS,~)                         \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                \
-      typedef typename nested::type type;                         \
-    };                                                            \
-    NT2_FUNCTOR_CALL(N) { return IMPL; }                          \
-  };                                                              \
-} }                                                               \
-/**/
+//////////////////////////////////////////////////////////////////////////////
+// Dispatch for classical operators
+//////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH( tag::neg_        , tag::cpu_, (A0)     , (arithmetic_<A0>) )
+NT2_REGISTER_DISPATCH( tag::plus_       , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
+NT2_REGISTER_DISPATCH( tag::minus_      , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
+NT2_REGISTER_DISPATCH( tag::multiplies_ , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
+NT2_REGISTER_DISPATCH( tag::divides_    , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
+NT2_REGISTER_DISPATCH( tag::modulo_     , tag::cpu_, (A0)(A1) , (integer_<A0>)(integer_<A1>) )
 
 //////////////////////////////////////////////////////////////////////////////
 // Generating implementation for operators
 //////////////////////////////////////////////////////////////////////////////
-NT2_MAKE_ARITHMETIC(tag::neg_             , 1 , (-a0)     )
-NT2_MAKE_ARITHMETIC(tag::plus_            , 2 , (a0 +  a1))
-NT2_MAKE_ARITHMETIC(tag::minus_           , 2 , (a0 -  a1))
-NT2_MAKE_ARITHMETIC(tag::multiplies_      , 2 , (a0 *  a1))
-NT2_MAKE_ARITHMETIC(tag::divides_         , 2 , (a0 /  a1))
-NT2_MAKE_ARITHMETIC(tag::modulo_          , 2 , (a0 %  a1)) // special case
-NT2_MAKE_ARITHMETIC(tag::unary_plus_      , 1 , (+a0)     ) // special case
-NT2_MAKE_ARITHMETIC(tag::shift_left_      , 2 , (a0 << a1)) // special case
-NT2_MAKE_ARITHMETIC(tag::shift_right_     , 2 , (a0 >> a1)) // special case
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::neg_(tag::arithmetic_), tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>  struct
+    result<This(A0)>
+    {
+      static A0 a0;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,-a0)
+      typedef typename nested::type type;
+    };
 
-#undef M1
-#undef M0
-#undef NT2_LOCAL_VARS
-#undef NT2_MAKE_ARITHMETIC
+    NT2_FUNCTOR_CALL(1) { return -a0; }
+  };
+
+  template<class Dummy>
+  struct call<tag::unary_plus_(tag::arithmetic_), tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>  struct
+    result<This(A0)>
+    {
+      static A0 a0;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,+a0)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(1) { return +a0; }
+  };
+
+  template<class Dummy>
+  struct  call<tag::plus_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0+a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0+a1; }
+  };
+
+  template<class Dummy>
+  struct  call<tag::minus_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0-a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0-a1; }
+  };
+
+  template<class Dummy>
+  struct  call<tag::multiplies_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0*a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0*a1; }
+  };
+
+  template<class Dummy>
+  struct  call<tag::divides_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0/a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0/a1; }
+  };
+
+  template<class Dummy>
+  struct  call<tag::modulo_(tag::integer_,tag::integer_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0%a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0 % a1; }
+  };
+} }
 
 #endif

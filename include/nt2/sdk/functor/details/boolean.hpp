@@ -16,42 +16,43 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define NT2_MAKE_BOOLEAN(TAG,N,IMPL)                    \
-template<class Category,class Info>                     \
-struct  dispatch<TAG,tag::scalar_(Category),Info>       \
-      : boost::mpl::_1 {};                              \
-                                                        \
-template<class Category,class Info>                     \
-struct validate<TAG,tag::scalar_(Category),Info>        \
-{                                                       \
-  typedef boost::mpl::true_ result_type;                \
-};                                                      \
-                                                        \
-template<class Category,class Hierarchy,class Info>     \
-struct  call<TAG,tag::scalar_(Category),Hierarchy,Info> \
-      : callable                                        \
-{                                                       \
-  typedef bool result_type;                             \
-  NT2_FUNCTOR_CALL(N) { return IMPL; }                  \
-}                                                       \
+#define NT2_MAKE_BOOLEAN(TAG,IMPL)                                                  \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(fundamental_<A0>)(fundamental_<A1>)); \
+namespace nt2 { namespace ext                                                       \
+{                                                                                   \
+  template<class Dummy>                                                             \
+  struct  call<TAG(tag::fundamental_,tag::fundamental_), tag::cpu_, Dummy>          \
+        : callable                                                                  \
+  {                                                                                 \
+    typedef bool result_type;                                                       \
+    NT2_FUNCTOR_CALL(2) { return IMPL; }                                            \
+  };                                                                                \
+} }                                                                                 \
 /**/
-/*
-namespace nt2 { namespace functors
+
+NT2_MAKE_BOOLEAN(tag::is_equal_          , (a0 == a1));
+NT2_MAKE_BOOLEAN(tag::is_not_equal_      , (a0 != a1));
+NT2_MAKE_BOOLEAN(tag::is_less_           , (a0 <  a1));
+NT2_MAKE_BOOLEAN(tag::is_greater_        , (a0 >  a1));
+NT2_MAKE_BOOLEAN(tag::is_less_equal_     , (a0 <= a1));
+NT2_MAKE_BOOLEAN(tag::is_greater_equal_  , (a0 >= a1));
+NT2_MAKE_BOOLEAN(tag::logical_and_       , (a0 && a1));
+NT2_MAKE_BOOLEAN(tag::logical_or_        , (a0 || a1));
+
+NT2_REGISTER_DISPATCH(tag::logical_not_,tag::cpu_,(A0),(fundamental_<A0>));
+
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Generating implemetnation from the macro
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_MAKE_BOOLEAN(logical_not_       , 1,(!a0)     );
-  NT2_MAKE_BOOLEAN(is_equal_          , 2,(a0 == a1));
-  NT2_MAKE_BOOLEAN(is_not_equal_      , 2,(a0 != a1));
-  NT2_MAKE_BOOLEAN(is_less_           , 2,(a0 <  a1));
-  NT2_MAKE_BOOLEAN(is_greater_        , 2,(a0 >  a1));
-  NT2_MAKE_BOOLEAN(is_less_equal_     , 2,(a0 <= a1));
-  NT2_MAKE_BOOLEAN(is_greater_equal_  , 2,(a0 >= a1));
-  NT2_MAKE_BOOLEAN(logical_and_       , 2,(a0 && a1));
-  NT2_MAKE_BOOLEAN(logical_or_        , 2,(a0 || a1));
+  template<class Dummy>
+  struct  call<tag::logical_not_(tag::fundamental_), tag::cpu_, Dummy>
+        : callable
+  {
+    typedef bool result_type;
+    NT2_FUNCTOR_CALL(1) { return !a0; }
+  };
 } }
-*/
+
+
 #undef NT2_MAKE_BOOLEAN
 
 #endif

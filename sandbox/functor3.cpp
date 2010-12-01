@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
 
-//#include <nt2/sdk/meta/strip.hpp>
-
 using namespace std;
 
 namespace nt2 { namespace tag
@@ -10,11 +8,6 @@ namespace nt2 { namespace tag
   struct cpu_  {};
 } }
 
-// new files
-#include <nt2/sdk/functor/functor.hpp>
-
-// test
-#include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/functor/operators.hpp>
 
@@ -31,7 +24,8 @@ namespace nt2 { namespace meta
 
 int main()
 {
-  std::vector<float> k(1337);
-
-  cout << nt2::b_and(-1.0,0x7FFFFFFFFFFFFFFFULL) << "\n";
+  char c = 4;
+  int i = 8;
+  cout << (c << i) << "\n";
+  cout << nt2::logical_not(2) << "\n";
 }
