@@ -24,15 +24,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_CATEGORY_SCALAR_FAMILY 1
 
-#define NT2_PRIMITIVE_TYPES (bool                                      \
-                           , char, signed char, unsigned char          \
-                           , short, unsigned short                     \
-                           , int, unsigned int                         \
-                           , long, unsigned long                       \
-                           , long long, unsigned long long             \
-                           , float, double)
-#define NT2_NB_PRIMITIVE_TYPES 14
-
 ////////////////////////////////////////////////////////////////////////////////
 // Family tags for call/validate writings
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,19 +44,6 @@ namespace nt2 { namespace functors
   {
     typedef nt2::tag::scalar_ tag(T);
   };
-} }
-
-namespace nt2 { namespace meta
-{
-  /////////////////////////////////////////////////////////////////////////////
-  // Register all arithmetic types by giving them a category
-  //////////////////////////////////////////////////////////////////////////////
-  #define M0(r, data, elem)                                            \
-  template<>                                                           \
-  struct category_of<elem> : functors::scalar_<tag::arithmetic_,1> {};
-
-  BOOST_PP_SEQ_FOR_EACH(M0, ~, BOOST_PP_TUPLE_TO_SEQ(NT2_NB_PRIMITIVE_TYPES, NT2_PRIMITIVE_TYPES))
-  #undef M0
 } }
 
 #endif
