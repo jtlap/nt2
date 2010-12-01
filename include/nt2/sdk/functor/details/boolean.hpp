@@ -35,7 +35,7 @@ struct  call<TAG,tag::scalar_(Category),Hierarchy,Info> \
   NT2_FUNCTOR_CALL(N) { return IMPL; }                  \
 }                                                       \
 /**/
-
+/*
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ namespace nt2 { namespace functors
   NT2_MAKE_BOOLEAN(logical_and_       , 2,(a0 && a1));
   NT2_MAKE_BOOLEAN(logical_or_        , 2,(a0 || a1));
 } }
-
+*/
 #undef NT2_MAKE_BOOLEAN
 
 #endif

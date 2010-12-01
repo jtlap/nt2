@@ -15,7 +15,7 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-
+/*
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -43,5 +43,5 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2) { details::ignore_unused(a0); return a1; }
   };
 } }
-
+*/
 #endif

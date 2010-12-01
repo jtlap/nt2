@@ -15,11 +15,9 @@
 
 namespace nt2 { namespace details
 {
-  template<class T, class Sign, class Categry>	struct as_bits;
-
-  template<class T, class Sign, class X>
-  struct as_bits<T, Sign, tag::scalar_(X)>
-	{
+  template<class T, class Sign, class Hierarchy>
+  struct as_bits
+  {
 		typedef union
 		{
 			T value;
@@ -35,7 +33,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign = unsigned>
   struct  as_bits
-        : details::as_bits<T,Sign,typename category_of<T>::type::tag > {};
+        : details::as_bits<T,Sign,typename hierarchy_of<T>::type > {};
 } }
 
 #endif

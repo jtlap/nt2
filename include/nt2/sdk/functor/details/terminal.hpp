@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_FUNCTOR_DETAILS_TERMINAL_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_DETAILS_TERMINAL_HPP_INCLUDED
-
+/*
 namespace nt2 { namespace functors
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -39,5 +39,5 @@ namespace nt2 { namespace functors
     }
   };
 } }
-
+*/
 #endif

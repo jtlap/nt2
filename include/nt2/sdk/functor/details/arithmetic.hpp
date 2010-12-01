@@ -13,52 +13,65 @@
 // boolean operators implementation
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/config/compiler.hpp>
+#include <boost/preprocessor/enum.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define NT2_LOCAL_TYPE(Z,N,T)                                               \
-typedef typename meta::strip<BOOST_PP_CAT(A,N)>::type BOOST_PP_CAT(base,N); \
-static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
+#define NT2_LOCAL_VARS(Z,N,T)               \
+static BOOST_PP_CAT(A,N) BOOST_PP_CAT(a,N); \
 /**/
 
-#define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                         \
-template<class Category,class Info>                             \
-struct  call<TAG,tag::scalar_(Category),fundamental_,Info>      \
-      : callable                                                \
-{                                                               \
-  template<class Sig> struct result;                            \
-  template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct  \
-  result<This(BOOST_PP_ENUM_PARAMS(N,A))>                       \
-  {                                                             \
-    BOOST_PP_REPEAT(N,NT2_LOCAL_TYPE,~)                         \
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                \
-    typedef typename nested::type type;                         \
-  };                                                            \
-  NT2_FUNCTOR_CALL(N) { return IMPL; }                          \
-}                                                               \
+#define M0(z,n,t) (BOOST_PP_CAT(A,n)) \
 /**/
 
-namespace nt2 { namespace functors
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Generating implementation for operators
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_MAKE_ARITHMETIC(complement_      , 1 , (~a0)     );
-  NT2_MAKE_ARITHMETIC(neg_             , 1 , (-a0)     );
-  NT2_MAKE_ARITHMETIC(unary_plus_      , 1 , (+a0)     );
-  NT2_MAKE_ARITHMETIC(plus_            , 2 , (a0 +  a1));
-  NT2_MAKE_ARITHMETIC(minus_           , 2 , (a0 -  a1));
-  NT2_MAKE_ARITHMETIC(multiplies_      , 2 , (a0 *  a1));
-  NT2_MAKE_ARITHMETIC(divides_         , 2 , (a0 /  a1));
-  NT2_MAKE_ARITHMETIC(modulo_          , 2 , (a0 %  a1));
-  NT2_MAKE_ARITHMETIC(bitwise_and_     , 2 , (a0 &  a1));
-  NT2_MAKE_ARITHMETIC(bitwise_or_      , 2 , (a0 |  a1));
-  NT2_MAKE_ARITHMETIC(bitwise_xor_     , 2 , (a0 ^  a1));
-  NT2_MAKE_ARITHMETIC(shift_left_      , 2 , (a0 << a1));
-  NT2_MAKE_ARITHMETIC(shift_right_     , 2 , (a0 >> a1));
-} }
+#define M1(z,n,t) (arithmetic_<BOOST_PP_CAT(A,n)>) \
+/**/
 
+#define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                           \
+NT2_REGISTER_DISPATCH ( TAG, tag::cpu_                            \
+                      , BOOST_PP_REPEAT(N,M0,~)                   \
+                      , BOOST_PP_REPEAT(N,M1,~)                   \
+                      );                                          \
+namespace nt2 { namespace ext                                     \
+{                                                                 \
+  template<class Dummy>                                           \
+  struct call < TAG(BOOST_PP_ENUM_PARAMS( N                       \
+                                        , tag::arithmetic_        \
+                                          BOOST_PP_INTERCEPT  )   \
+                   )                                              \
+              , tag::cpu_                                         \
+              , Dummy                                             \
+              > : callable                                        \
+  {                                                               \
+    template<class Sig> struct result;                            \
+    template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct  \
+    result<This(BOOST_PP_ENUM_PARAMS(N,A))>                       \
+    {                                                             \
+      BOOST_PP_REPEAT(N,NT2_LOCAL_VARS,~)                         \
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                \
+      typedef typename nested::type type;                         \
+    };                                                            \
+    NT2_FUNCTOR_CALL(N) { return IMPL; }                          \
+  };                                                              \
+} }                                                               \
+/**/
+
+//////////////////////////////////////////////////////////////////////////////
+// Generating implementation for operators
+//////////////////////////////////////////////////////////////////////////////
+NT2_MAKE_ARITHMETIC(tag::neg_             , 1 , (-a0)     )
+NT2_MAKE_ARITHMETIC(tag::plus_            , 2 , (a0 +  a1))
+NT2_MAKE_ARITHMETIC(tag::minus_           , 2 , (a0 -  a1))
+NT2_MAKE_ARITHMETIC(tag::multiplies_      , 2 , (a0 *  a1))
+NT2_MAKE_ARITHMETIC(tag::divides_         , 2 , (a0 /  a1))
+NT2_MAKE_ARITHMETIC(tag::modulo_          , 2 , (a0 %  a1)) // special case
+NT2_MAKE_ARITHMETIC(tag::unary_plus_      , 1 , (+a0)     ) // special case
+NT2_MAKE_ARITHMETIC(tag::shift_left_      , 2 , (a0 << a1)) // special case
+NT2_MAKE_ARITHMETIC(tag::shift_right_     , 2 , (a0 >> a1)) // special case
+
+#undef M1
+#undef M0
+#undef NT2_LOCAL_VARS
 #undef NT2_MAKE_ARITHMETIC
 
 #endif
