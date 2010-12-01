@@ -10,6 +10,8 @@
 #define NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
 
 #include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_signed.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/sdk/functor/details/hierarchy.hpp>
 

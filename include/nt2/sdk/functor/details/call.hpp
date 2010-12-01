@@ -15,7 +15,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/unknown.hpp>
-#include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/functor/details/hierarchy.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 

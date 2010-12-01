@@ -10,6 +10,7 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/extension/parameters.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>

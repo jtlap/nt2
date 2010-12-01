@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
-#include <nt2/sdk/meta/floating.hpp>
+//#include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
@@ -25,6 +25,7 @@
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #endif
 
