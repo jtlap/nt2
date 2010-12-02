@@ -15,26 +15,17 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-/*
-namespace nt2 { namespace functors
+
+NT2_REGISTER_DISPATCH(tag::comma_,tag::cpu_,(A0)(A1),(fundamental_<A0>)(fundamental_<A1>));
+
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // comma always dispatch on the first type's kind
-  //////////////////////////////////////////////////////////////////////////////
-  template<class C> struct dispatch<comma_,C> : boost::mpl::_1 {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Whatever the types, we can always do x,y
-  //////////////////////////////////////////////////////////////////////////////
-  template<class C, class I> struct validate<comma_,C,I>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-
   //////////////////////////////////////////////////////////////////////////////
   // Comma basically evaluates its arguments and returns the second one
   //////////////////////////////////////////////////////////////////////////////
-  template<class C, class H, class I> struct call<comma_,C,H,I> : callable
+  template<class Dummy>
+  struct  call<tag::comma_(tag::fundamental_,tag::fundamental_), tag::cpu_, Dummy>
+        : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -43,5 +34,5 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2) { details::ignore_unused(a0); return a1; }
   };
 } }
-*/
+
 #endif

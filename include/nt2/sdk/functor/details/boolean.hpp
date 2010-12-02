@@ -52,7 +52,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-
 #undef NT2_MAKE_BOOLEAN
 
 #endif
