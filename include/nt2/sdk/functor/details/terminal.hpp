@@ -36,6 +36,6 @@ namespace nt2
       return callee(v,s,d);
     }
   };
-} }
+}
 
 #endif

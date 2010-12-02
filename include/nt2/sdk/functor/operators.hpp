@@ -81,6 +81,12 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::shift_left_       , shl             , 2 )
   NT2_FUNCTION_IMPLEMENTATION(tag::comma_            , comma           , 2 )
   NT2_FUNCTION_IMPLEMENTATION(tag::comma_            , then            , 2 )
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Ternary function wrappers
+  //////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )
+  NT2_FUNCTION_IMPLEMENTATION(tag::if_else_          , where           , 3 )
 }
 
 #endif
