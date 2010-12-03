@@ -9,8 +9,10 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_AVERAGE_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_AVERAGE_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/shrai.hpp>
-#include <iostream>
+#include <nt2/sdk/constant/digits.hpp>
+
 
 namespace nt2 { namespace functors
 {
@@ -41,19 +43,34 @@ namespace nt2 { namespace functors
 
 
   /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<average_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0,A0)> : meta::strip<A0>{}; 
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return b_and(a0, a1)+(shri(b_xor(a0, a1), 1));
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct  call<average_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::arithmetic(A0,A1)>{};
+    template<class This,class A0>
+      struct result<This(A0,A0)> : meta::strip<A0>{}; 
 
     NT2_FUNCTOR_CALL(2)
     {
-      return b_and(a0, a1)+(shrai(b_xor(a0, a1), 1));
+      return b_and(a0, a1)+ b_xor(a0, a1)/Two<A0>(); //(shrai(b_xor(a0, a1), 1));
     }
   };
 

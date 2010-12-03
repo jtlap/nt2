@@ -57,7 +57,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return Zero<A0>();
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
+      return Zero<rtype>();
     }
   };
 

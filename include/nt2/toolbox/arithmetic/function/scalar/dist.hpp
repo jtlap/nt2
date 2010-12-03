@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_DIST_HPP_INCLUDED
 
 #include <nt2/include/functions/logical_xor.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -54,7 +55,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-       return abs(a0-a1);
+      return nt2::abs(a0-a1);
     }
   };
 

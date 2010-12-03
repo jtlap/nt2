@@ -72,22 +72,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      return ceil(float(a0)/float(a1)); // TO DO
-//       typedef typename NT2_CALL_RETURN_TYPE(2)::type  type;
-//        if (a0 > 0)
-//  	{
-// 	  if (a1 > 0)
-// 	      return rdivide((a0+(a1-One<type>())), a1);
-// 	  else
-// 	      return -rdivide((a0+(-a1-One<type>())), -a1);
-//  	}
-//        else
-//  	{
-// 	  if (a1 > 0)
-// 	      return -rdivide((-a0+(a1+One<type>())), a1);
-// 	  else
-// 	      return rdivide((-a0+(-a1-One<type>())), -a1);
-//  	}
+      return ceil(double(a0)/double(a1)); // TO DO
     }
   };
 

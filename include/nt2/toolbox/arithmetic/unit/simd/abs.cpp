@@ -40,10 +40,10 @@ NT2_TEST_CASE_TPL(abs, (double))//NT2_SIMD_TYPES )
   }
     n_t a0 = load<n_t>(&data[0],0); 
     n_t v  = abs(a0);
-//    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//    {
-//      NT2_TEST_EQUAL( v[j], abs(a0[j]) );
-//    }
+    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+    {
+      NT2_TEST_EQUAL( v[j], abs(a0[j]) );
+    }
  }
 
 

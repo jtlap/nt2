@@ -23,6 +23,23 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
+  template<class Info>
+  struct  call<abs_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::strip <A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+       return std::abs(a0);
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
@@ -39,7 +56,6 @@ namespace nt2 { namespace functors
     }
   };
 
-
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int32_t
   /////////////////////////////////////////////////////////////////////////////
@@ -49,7 +65,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      meta::strip <A0>{};
+      meta::as_integer < A0,  unsigned>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -85,8 +101,8 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      meta::strip <A0>{};
+    struct result<This(A0)> :  meta::as_integer < A0,  unsigned>{};
+
 
     NT2_FUNCTOR_CALL(1)
     {
