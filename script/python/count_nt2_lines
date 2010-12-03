@@ -132,7 +132,12 @@ def is_included(f, include) :
         for inc in include :
             if re.search(inc,f) : return True
         return False
-    
+
+def exclude_comments(s, omit = True) :
+    if omit :
+        return [ ss for ss in s if not re.match(" *//",ss)]
+    else :
+        return s
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-p", "--path",
@@ -161,13 +166,20 @@ if __name__ == '__main__':
                       help="""INCLUDE is a semi colon separated string of
                       regexp that are to be found in the path to the file
                       """)
-    
+    parser.add_option("-o", "--omit_comment_lines",
+                      dest="omit",
+                      default = True,
+                      help="""Omit counting lines beginning by " *//" in the
+                      visited files
+                      """)
+     
     (options, args) = parser.parse_args()
     path = options.path
     exclude = options.exclude
     include = options.include
     filter = options.filter
     filter, msg = filters(filter)
+    omit = options.omit
     
     if not os.path.exists(path) :
         path =  os.path.join(get_nt2_dir(),path)
@@ -180,6 +192,11 @@ if __name__ == '__main__':
         p,n = os.path.split(f)
         if  (not is_excluded(p,exclude)) and is_included(p,include) :
             nbf += 1
-            l+=len(read(f))
-    print "%s\n contains %d lines of %s code in %d files" % (path,l,msg,nbf)
+            l+=len(exclude_comments(read(f),omit))
+    if not omit :
+        inc = "including comment lines"
+    else :
+        inc = "non including comment lines"
+            
+    print "%s\n contains %d lines of %s code, %s, in %d files" % (path,l,msg,inc,nbf)
 sys.path.pop(0)
