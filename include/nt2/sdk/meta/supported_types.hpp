@@ -36,5 +36,8 @@
                                     (nt2::uint16_t)(nt2::uint8_t)   \
                                     /**/
 
+
+#define NT2_INTEGRAL_TYPES NT2_INTEGRAL_SIGNED_TYPES NT2_INTEGRAL_UNSIGNED_TYPES
+
 #endif
 
