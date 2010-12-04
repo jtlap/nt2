@@ -9,8 +9,14 @@
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 
 SET(SOURCES
-    hierarchy.cpp
-    operators.cpp
+    unary_plus.cpp
+    complement.cpp
+    #logical_not.cpp
+    #neg.cpp
+    plus.cpp
+    minus.cpp
+    multiplies.cpp
+    divides.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.functor.unit)
