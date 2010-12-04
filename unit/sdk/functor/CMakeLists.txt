@@ -11,8 +11,8 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
     unary_plus.cpp
     complement.cpp
-    #logical_not.cpp
-    #neg.cpp
+    logical_not.cpp
+    neg.cpp
     plus.cpp
     minus.cpp
     multiplies.cpp
