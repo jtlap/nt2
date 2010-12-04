@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
         : details::scalar_of_impl < typename strip<T>::type
                                   , typename hierarchy_of<
                                                         typename strip<T>::type
-                                                        >::type::tag
+                                                        >::type
                                   >
           {};
 } }
