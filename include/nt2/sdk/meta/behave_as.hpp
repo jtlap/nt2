@@ -10,7 +10,7 @@
 #define NT2_SDK_META_BEHAVE_AS_HPP_INCLUDED
 
 #include <boost/mpl/apply.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
   template<class Lambda,class Type>
   struct behave_as : details::behave_as_impl<Lambda
                                             ,Type
-                                            ,typename category_of<Type>::type::tag
+                                            ,typename hierarchy_of<Type>::type
                                             > {};
 } }
 

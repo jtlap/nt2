@@ -6,14 +6,14 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
-#define NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
+#ifndef NT2_SDK_META_HIERARCHY_HPP_INCLUDED
+#define NT2_SDK_META_HIERARCHY_HPP_INCLUDED
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/sdk/functor/details/hierarchy.hpp>
+#include <nt2/sdk/meta/details/hierarchy.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Local macros handling boilerplate code for regular and template hierarchies

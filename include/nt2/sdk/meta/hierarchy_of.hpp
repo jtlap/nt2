@@ -6,14 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_FUNCTOR_META_HIERARCHY_OF_HPP_INCLUDED
-#define NT2_SDK_FUNCTOR_META_HIERARCHY_OF_HPP_INCLUDED
+#ifndef NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
+#define NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
 
+#include <climits>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
-#include <nt2/sdk/functor/meta/hierarchy.hpp>
+#include <nt2/sdk/meta/hierarchy.hpp>
 
 namespace nt2 { namespace details
 {

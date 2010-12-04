@@ -9,21 +9,20 @@
 #ifndef NT2_SDK_META_AS_BITS_HPP_INCLUDED
 #define NT2_SDK_META_AS_BITS_HPP_INCLUDED
 
-#include <nt2/sdk/meta/category.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
   template<class T, class Sign, class Hierarchy>
   struct as_bits
   {
-		typedef union
-		{
-			T value;
-			typename meta::as_integer<T, Sign>::type  bits;
-		} type;
-	};
+    typedef union
+    {
+      T value;
+      typename meta::as_integer<T, Sign>::type  bits;
+    } type;
+  };
 } }
 
 namespace nt2 { namespace meta

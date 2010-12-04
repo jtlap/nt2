@@ -10,7 +10,7 @@
 #define NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 
 #include <nt2/sdk/meta/sign_of.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
 
 namespace nt2 { namespace details

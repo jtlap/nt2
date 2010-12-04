@@ -10,18 +10,19 @@
 #define NT2_SDK_META_CARDINAL_OF_HPP_INCLUDED
 
 #include <boost/mpl/int.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class T,class C> struct cardinal_of_impl : boost::mpl::int_<1> {};
+  template<class Type,class Hierarchy>
+  struct cardinal_of_impl : boost::mpl::int_<1> {};
 } }
 
 namespace nt2 { namespace meta
 {
-  template<class T>
+  template<class Type>
   struct  cardinal_of
-        : details::cardinal_of_impl<T, typename category_of<T>::type::tag> {};
+        : details::cardinal_of_impl<Type, typename hierarchy_of<Type>::type> {};
 } }
 
 #endif
