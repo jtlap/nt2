@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::cardinal_of"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
