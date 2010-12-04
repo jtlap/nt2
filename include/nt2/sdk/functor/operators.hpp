@@ -13,13 +13,11 @@
 // Generate boilerplate function for mapping natural operators
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/functor/details/comma.hpp>
 #include <nt2/sdk/functor/details/shifts.hpp>
 #include <nt2/sdk/functor/details/boolean.hpp>
 #include <nt2/sdk/functor/details/bitwise.hpp>
-//#include <nt2/sdk/functor/details/if_else.hpp>//*
 #include <nt2/sdk/functor/details/complement.hpp>
 #include <nt2/sdk/functor/details/terminal.hpp>
 #include <nt2/sdk/functor/details/arithmetic.hpp>

@@ -20,18 +20,54 @@
 //////////////////////////////////////////////////////////////////////////////
 // Dispatch for classical operators
 //////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH( tag::neg_        , tag::cpu_, (A0)     , (arithmetic_<A0>) )
-NT2_REGISTER_DISPATCH( tag::plus_       , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
-NT2_REGISTER_DISPATCH( tag::minus_      , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
-NT2_REGISTER_DISPATCH( tag::multiplies_ , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
-NT2_REGISTER_DISPATCH( tag::divides_    , tag::cpu_, (A0)(A1) , (arithmetic_<A0>)(arithmetic_<A1>) )
-NT2_REGISTER_DISPATCH( tag::modulo_     , tag::cpu_, (A0)(A1) , (integer_<A0>)(integer_<A1>) )
+NT2_REGISTER_DISPATCH ( tag::unary_plus_ , tag::cpu_, (A0)
+                      , (fundamental_<A0>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::neg_        , tag::cpu_, (A0)
+                      , (arithmetic_<A0>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::plus_       , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::minus_      , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::multiplies_ , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::divides_    , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::modulo_     , tag::cpu_, (A0)(A1)
+                      , (integer_<A0>)(integer_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::if_else_ , tag::cpu_, (A0)(A1)(A2)
+                      , (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
+                      )
 
 //////////////////////////////////////////////////////////////////////////////
 // Generating implementation for operators
 //////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
+  template<class Dummy>
+  struct call < tag::if_else_(tag::fundamental_,tag::fundamental_,tag::fundamental_)
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1,class A2>  struct
+    result<This(A0,A1,A2)>
+    {
+      static A0 a0; static A1 a1; static A2 a2;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 ? a1 : a2)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(3) { return a0 ? a1 : a2; }
+  };
+
   template<class Dummy>
   struct call<tag::neg_(tag::arithmetic_), tag::cpu_, Dummy> : callable
   {
@@ -48,7 +84,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct call<tag::unary_plus_(tag::arithmetic_), tag::cpu_, Dummy> : callable
+  struct call<tag::unary_plus_(tag::fundamental_), tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>  struct

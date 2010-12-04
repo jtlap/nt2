@@ -10,12 +10,12 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/extension/parameters.hpp>
 #include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/meta/hierarchy.hpp>
+#include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
-#include <nt2/sdk/functor/meta/hierarchy.hpp>
-#include <nt2/sdk/functor/meta/hierarchy_of.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>

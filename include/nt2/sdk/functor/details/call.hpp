@@ -14,9 +14,15 @@
 // Documentation:http://nt2.lri.fr/extension/custom_function.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
-#include <nt2/sdk/meta/unknown.hpp>
-#include <nt2/sdk/functor/details/hierarchy.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
+
+////////////////////////////////////////////////////////////////////////////////
+// Some forward declaration
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace tag
+{
+  struct unknown_;
+} }
 
 namespace nt2 { namespace ext
 {
