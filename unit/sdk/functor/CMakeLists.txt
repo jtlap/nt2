@@ -10,10 +10,6 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 
 SET(SOURCES
     hierarchy.cpp
-    category.cpp
-    dominant.cpp
-    belong_to.cpp
-    find_type.cpp
     operators.cpp
     )
 
