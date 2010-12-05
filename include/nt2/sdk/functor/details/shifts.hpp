@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call<tag::shift_right_(tag::arithmetic_,tag::integer_), tag::cpu_, Dummy>
+  struct  call<tag::shift_right_(tag::real_,tag::integer_), tag::cpu_, Dummy>
         : callable
   {
     template<class Sig> struct result;
