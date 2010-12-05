@@ -29,7 +29,7 @@ namespace nt2 { namespace functors
 
     template<class This,class A0,class A1>
     struct  result<This(A0,A1)>
-          : boost::is_integral<A1> {};
+          : boost::is_integral<typename nt2::meta::strip<A1>::type > {};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute predecessor(const A0& a0, const A1& a1)

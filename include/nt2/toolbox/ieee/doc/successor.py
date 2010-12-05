@@ -1,3 +1,4 @@
+[
 { 'arity': 1,
   'dptch': ['float', 'double', 'arithmetic_'],
   'incld': ['#include <nt2/include/functions/next.hpp>',
@@ -24,4 +25,23 @@
   'tcall': "nt2::next(a0)",
   'types': ['real_', 'unsigned_int_', 'signed_int_'],
   'verif': None,
+  'versn': '0.0'},
+{ 'arity': 2,
+  'tpdef': ['typedef typename nt2::meta::as_integer<T>::type iT;'],
+  'buftp': ['T','iT'],
+  'dptch': ['float', 'double', 'arithmetic_'],
+  'incld': ['#include <nt2/include/functions/next.hpp>',
+            '#include <nt2/sdk/constant/eps_related.hpp>'],
+  'norst': False,
+  'notes': [],
+  'rnges': { 'real_': [['T(-10)', 'T(10)'], ['iT(2)', 'iT(2)']],
+             'signed_int_': [['-100', '100'], ['iT(2)', 'iT(2)']],
+             'unsigned_int_': [['0', '100'], ['iT(2)', 'iT(2)']]},
+  'rturn': { 'default': 'T'},
+  'specv': None,
+  'stamp': 'modified by jt the 04/12/2010',
+  'tcall': "nt2::next(nt2::next(a0))",
+  'types': ['real_', 'unsigned_int_', 'signed_int_'],
+  'verif': None,
   'versn': '0.0'}
+]

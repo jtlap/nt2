@@ -17,6 +17,7 @@ namespace nt2 { namespace functors
     struct successor_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(functors::successor_, successor, 1)
+  NT2_FUNCTION_IMPLEMENTATION(functors::successor_, successor, 2)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/successor.hpp>
