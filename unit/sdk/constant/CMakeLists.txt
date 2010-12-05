@@ -12,6 +12,7 @@ SET(SOURCES
     real.cpp
     properties.cpp
     infinites.cpp
+    splat.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.constant.unit)
