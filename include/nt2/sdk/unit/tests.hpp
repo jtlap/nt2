@@ -41,7 +41,7 @@
 // Predicate based tests
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_TEST_EQUAL(A,B)						\
-  r1 =  A;  r2 =  B;							\
+  /*r1 =  A;  r2 =  B;*/						\
   ( ::nt2::details::test_eq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
 /**/
 
@@ -79,6 +79,21 @@
 		    << " and " << #B << " = " << r2 <<  std::endl;	\
 	  std::cout << "   and ulp distance is "			\
 		    << nt2::ulpdist(r1, r2) << std::endl;		\
+	}								\
+  }									\
+/**/
+#define NT2_TEST_TUPLE_ULP_EQUAL(A,B,N)					\
+  {									\
+    bool b; 								\
+    b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,		\
+				      BOOST_CURRENT_FUNCTION,		\
+				      A, B, N); 			\
+      if (!b)								\
+	{								\
+	  std::cout << "   because " << #A << " = " << A		\
+		    << " and " << #B << " = " << B <<  std::endl;	\
+	  std::cout << "   and ulp distance is "			\
+		    << nt2::ulpdist(A, B) << std::endl;			\
 	}								\
   }									\
 /**/
