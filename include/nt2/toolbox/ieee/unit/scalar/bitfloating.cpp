@@ -6,30 +6,121 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - bitfloating/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar 
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/bitfloating.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/bitinteger.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( bitfloating,   NT2_REAL_CONVERTIBLE_TYPES        
-                  )
+NT2_TEST_CASE_TPL ( bitfloating_uint32_t,  (nt2::uint32_t))
 {
   using nt2::bitfloating;
   using nt2::functors::bitfloating_;
+  typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_real<T>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<bitfloating_(T)>::type
-	     , typename nt2::meta::as_real<T>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  bitfloating( T(0) ), T(0) );
-  
-    
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
-}
+  // relations verifications
+  static const uint32_t NT = 100;
+  {
+    NT2_CREATE_BUFFER(a0, T, 100, 0, 100);
+    for (int j =0; j < NT; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
+     }
+   }
+} // end of test for uint32_t
+
+NT2_TEST_CASE_TPL ( bitfloating_uint64_t,  (nt2::uint64_t))
+{
+  using nt2::bitfloating;
+  using nt2::functors::bitfloating_;
+  typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_real<T>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // relations verifications
+  static const uint32_t NT = 100;
+  {
+    NT2_CREATE_BUFFER(a0, T, 100, 0, 100);
+    for (int j =0; j < NT; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
+     }
+   }
+} // end of test for uint64_t
+
+NT2_TEST_CASE_TPL ( bitfloating_int32_t,  (nt2::int32_t))
+{
+  using nt2::bitfloating;
+  using nt2::functors::bitfloating_;
+  typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_real<T>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // relations verifications
+  static const uint32_t NT = 100;
+  {
+    NT2_CREATE_BUFFER(a0, T, 100, -100, 100);
+    for (int j =0; j < NT; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
+     }
+   }
+} // end of test for int32_t
+
+NT2_TEST_CASE_TPL ( bitfloating_int64_t,  (nt2::int64_t))
+{
+  using nt2::bitfloating;
+  using nt2::functors::bitfloating_;
+  typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_real<T>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // relations verifications
+  static const uint32_t NT = 100;
+  {
+    NT2_CREATE_BUFFER(a0, T, 100, -100, 100);
+    for (int j =0; j < NT; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
+     }
+   }
+} // end of test for int64_t

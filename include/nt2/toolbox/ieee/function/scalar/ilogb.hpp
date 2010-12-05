@@ -12,6 +12,7 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -35,7 +36,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_lez(a0)? 0: ::ilogbf(a0);
+      return is_lez(a0) || is_nan(a0) ? 0: ::ilogbf(a0);
     }
   };
 
@@ -53,7 +54,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-       return is_lez(a0)? 0: ::ilogb(a0); 
+      return is_lez(a0) || is_nan(a0) ? 0: ::ilogb(a0); 
     }
   };
 

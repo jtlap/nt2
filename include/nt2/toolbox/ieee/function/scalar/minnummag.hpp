@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MINNUMMAG_HPP_INCLUDED
 
 #include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -36,7 +37,7 @@ namespace nt2 { namespace functors
 	typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
 	if (is_nan(a0)) return type(a1);
 	else if (is_nan(a1)) return type(a0);
-	else return (abs(a0) <  abs(a1)) ?type(a0):type(a1); 
+	else return (nt2::abs(a0) <  nt2::abs(a1)) ?type(a0):type(a1); 
     }
   };
 

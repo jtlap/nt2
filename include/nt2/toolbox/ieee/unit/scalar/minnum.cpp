@@ -6,59 +6,120 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - minnum/scalar Mode"
 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar 
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/minnum.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/min.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-
-NT2_TEST_CASE_TPL ( minnum,  NT2_INTEGRAL_SIGNED_TYPES
-                  )
+NT2_TEST_CASE_TPL ( minnum_real_,  NT2_REAL_TYPES)
 {
   using nt2::minnum;
   using nt2::functors::minnum_;
+  typedef typename nt2::meta::call<minnum_(T, T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<minnum_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  minnum( T(-42), T(-12)), T(-42) );
-  NT2_TEST_EQUAL(  minnum( T(42), T(-13) ), T(-13) );
-}
-NT2_TEST_CASE_TPL ( real_minnum,  NT2_REAL_TYPES
-                  )
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Nan<T>(),nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::One<T>(),nt2::Nan<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
+    NT2_CREATE_BUFFER(a1,T, 100, T(-10), T(10));
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::minnum(a0,a1), nt2::min(a0,a1),0);
+     }
+   }
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( minnum_unsigned_int_,  NT2_UNSIGNED_TYPES)
 {
   using nt2::minnum;
   using nt2::functors::minnum_;
+  typedef typename nt2::meta::call<minnum_(T, T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<minnum_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  minnum( T(-42), T(-12)), T(-42) );
-  NT2_TEST_EQUAL(  minnum( T(42), T(-13) ), T(-13) );
-  NT2_TEST_EQUAL(  minnum( T(nt2::Nan<T>()), T(13) ), T(13) );
-}
-          
-NT2_TEST_CASE_TPL ( unsigned_minnum,  NT2_UNSIGNED_TYPES
-                  )
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, 0, 100);
+    NT2_CREATE_BUFFER(a1,T, 100, 0, 100);
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::minnum(a0,a1), nt2::min(a0,a1),0);
+     }
+   }
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( minnum_signed_int_,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::minnum;
   using nt2::functors::minnum_;
+  typedef typename nt2::meta::call<minnum_(T, T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<minnum_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  minnum( T(42), T(12)), T(12) );
-}
-          
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  minnum(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, -100, 100);
+    NT2_CREATE_BUFFER(a1,T, 100, -100, 100);
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::minnum(a0,a1), nt2::min(a0,a1),0);
+     }
+   }
+} // end of test for signed_int_

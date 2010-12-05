@@ -17,6 +17,7 @@
 #include <nt2/include/functions/is_not_finite.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <iostream>
 
 namespace nt2 { namespace functors
@@ -36,17 +37,16 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_CALL_RETURN_TYPE(1)::type value_type;
       typedef std::numeric_limits<A0> lim;
-      const A0 a = abs(a0);
+      const A0 a = nt2::abs(a0);
       if (is_not_finite(a))
 	{
-	  return value_type(Nan<A0>());
+	  return Nan<A0>();
 	}
       else if (a < lim::min())
 	{
@@ -68,8 +68,7 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {

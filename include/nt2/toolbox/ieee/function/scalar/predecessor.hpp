@@ -13,6 +13,9 @@
 #include <nt2/include/functions/bitfloating.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -47,11 +50,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0==Inf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
+      return is_inf(a0) || is_nan(a0) ? Nan<A0>() : bitfloating(minusone(bitinteger(a0)));
     }
     NT2_FUNCTOR_CALL(2)
     {
-       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
+      return is_inf(a0) || is_nan(a0) ? Nan<A0>() : bitfloating(bitinteger(a0)-a1);
     }
   };
 

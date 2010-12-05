@@ -44,7 +44,7 @@ namespace nt2 { namespace functors
       typedef typename meta::as_integer<A0,signed>::type int_type;
       if (is_eqz(a0)) return Smallestposval<A0>();
       const A0 x = abs(a0);
-      if (x == Inf<A0>()) return  Valmax<A0>()-prev(Valmax<A0>());
+      if (x == Inf<A0>()) return  Inf<A0>(); //Valmax<A0>()-prev(Valmax<A0>());
       typename meta::as_bits<A0>::type aa = {x},  bb = aa;
       --bb.bits;
       ++aa.bits;

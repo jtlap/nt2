@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MINMAG_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MINMAG_HPP_INCLUDED
+#include <nt2/include/functions/abs.hpp>
 
 
 namespace nt2 { namespace functors
@@ -32,7 +33,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-        return (abs(a0) <  abs(a1)) ? a0 : a1;
+      return (nt2::abs(a0) <  nt2::abs(a1)) ? a0 : a1;
     }
 
   };

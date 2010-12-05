@@ -6,42 +6,114 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - ulp/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar 
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/ieee/include/ulp.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/next.hpp>
+#include <nt2/include/functions/prev.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( ulp,   NT2_REAL_TYPES        
-                  )
+NT2_TEST_CASE_TPL ( ulp_real_,  NT2_REAL_TYPES)
 {
   using nt2::ulp;
   using nt2::functors::ulp_;
+  typedef typename nt2::meta::call<ulp_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<ulp_(T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  ulp( T(1) ), nt2::Eps<T>()/2 );
-  NT2_TEST_EQUAL(  ulp( T(2) ), nt2::Eps<T>() );
-}
-NT2_TEST_CASE_TPL ( integral_ulp,   NT2_INTEGRAL_TYPES        
-                  )
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Minf<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Mone<T>()), nt2::Eps<r_t>()/2, 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::One<T>()), nt2::Eps<r_t>()/2, 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Zero<T>()), nt2::Smallestposval<r_t>(), 0);
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::ulp(a0), nt2::min(a0-nt2::prev(a0),nt2::next(a0)-a0),0);
+     }
+   }
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( ulp_unsigned_int_,  NT2_UNSIGNED_TYPES)
 {
   using nt2::ulp;
   using nt2::functors::ulp_;
+  typedef typename nt2::meta::call<ulp_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<ulp_(T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  ulp( T(0) ), T(1) );
-  NT2_TEST_EQUAL(  ulp( T(5) ), T(1) );
-}
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, 0, 100);
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::ulp(a0), nt2::One<T>(),0);
+     }
+   }
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( ulp_signed_int_,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::ulp;
+  using nt2::functors::ulp_;
+  typedef typename nt2::meta::call<ulp_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Mone<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  ulp(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, -100, 100);
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::ulp(a0), nt2::One<T>(),0);
+     }
+   }
+} // end of test for signed_int_

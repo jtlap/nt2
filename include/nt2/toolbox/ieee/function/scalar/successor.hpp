@@ -8,23 +8,14 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SUCCESSOR_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SUCCESSOR_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <boost/fusion/tuple.hpp>
 
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/bitfloating.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/fast_frexp.hpp>
-#include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/sdk/constant/real.hpp>
 
 namespace nt2 { namespace functors
 {
@@ -58,11 +49,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
+      return is_inf(a0) || is_nan(a0) ? Nan<A0>()  : bitfloating(oneplus(bitinteger(a0)));
     }
     NT2_FUNCTOR_CALL(2)
     {
-       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
+       return is_inf(a0) || is_nan(a0) ? Nan<A0>()  : bitfloating(bitinteger(a0)+a1);
     }
 
   };

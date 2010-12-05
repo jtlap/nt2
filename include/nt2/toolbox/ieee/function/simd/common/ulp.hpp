@@ -40,7 +40,7 @@ namespace nt2 { namespace functors
       const A0 x = abs(a0); 
       //	 return sel(iseq(x, Inf<A0>()), x,  successor(x)-x);
       A0 xp = predecessor(x); 
-      return sel(is_equal(x, Inf<A0>()), xp-predecessor(xp), x - xp);
+      return sel(is_equal(x, Inf<A0>()), xp-predecessor(xp), x);
     }
   };
 

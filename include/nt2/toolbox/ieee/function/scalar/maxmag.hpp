@@ -33,7 +33,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-       return (abs(a0) > abs(a1)) ? a0 : a1;
+      return (nt2::abs(a0) > nt2::abs(a1)) ? a0 : a1;
     }
 
   };
