@@ -20,6 +20,8 @@ SET(SOURCES
     bitwise_and.cpp
     bitwise_or.cpp
     bitwise_xor.cpp
+    logical_and.cpp
+    logical_or.cpp
     comma.cpp
     if_else.cpp
     modulo.cpp
