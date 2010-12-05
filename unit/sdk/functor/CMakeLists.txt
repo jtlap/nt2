@@ -22,7 +22,6 @@ SET(SOURCES
     bitwise_xor.cpp
     comma.cpp
     if_else.cpp
-#    logical_not.cpp
     modulo.cpp
     shift_left.cpp
     shift_right.cpp
