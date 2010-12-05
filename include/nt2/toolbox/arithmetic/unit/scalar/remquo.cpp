@@ -8,45 +8,47 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - remquo/scalar Mode"
 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in scalar 
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/toolbox/arithmetic/include/remquo.hpp>
-#include <nt2/toolbox/arithmetic/include/remainder.hpp>
-#include <nt2/toolbox/arithmetic/include/idivfix.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/include/functions/rem.hpp>
+#include <nt2/include/functions/idivfix.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-
-NT2_TEST_CASE_TPL ( remquo,  (double)
-                          (float)
-                  )
+NT2_TEST_CASE_TPL ( remquo_real_,  NT2_REAL_TYPES)
 {
   using nt2::remquo;
   using nt2::functors::remquo_;
+  typedef typename nt2::meta::call<remquo_(T, T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::tuple<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
 
-  typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rem;
-  typedef typename nt2::meta::as_integer<T,signed>::type             quo;
-  typedef boost::fusion::tuple<rem,quo>                           type_t;
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<remquo_(T, T)>::type
-              , type_t
-              >::value)
-           );
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
-  T n[] = {3  , 2,  11.4};
-  T d[] = {1  , -1, 2.23};
-  T r1, r2; 
-  for(int i = 0;  i < 3;  i++){
-    type_t r = remquo(n[i], d[i]);
-    NT2_TEST_EQUAL(  boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]));
-    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
-  }
-  
-}
-          
- 
+  // random comparison with other impl or formula 
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0, T, 100, T(-10), T(10));
+    NT2_CREATE_BUFFER(a1, T, 100, T(-10), T(10));
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        r_t r = nt2::remquo(a0,a1);
+	NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::rem(a0,a1),0);
+	NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::idivfix(a0,a1), 0);
+     }
+   }
+} // end of test for real_
