@@ -17,15 +17,15 @@ SET(SOURCES
     minus.cpp
     multiplies.cpp
     divides.cpp
-#    bitwise_and.cpp
-#    bitwise_or.cpp
-#    bitwise_xor.cpp
+    bitwise_and.cpp
+    bitwise_or.cpp
+    bitwise_xor.cpp
     comma.cpp
     if_else.cpp
 #    logical_not.cpp
     modulo.cpp
-#    shift_left.cpp
-#    shift_right.cpp
+    shift_left.cpp
+    shift_right.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.functor.unit)
