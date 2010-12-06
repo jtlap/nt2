@@ -54,7 +54,8 @@ namespace nt2
 // Constant function implementation
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/constant/details/valmax.hpp>
-/*#include <nt2/sdk/constant/details/valmin.hpp>
+#include <nt2/sdk/constant/details/valmin.hpp>
+/*
 #include <nt2/sdk/constant/details/signmask.hpp>
 #include <nt2/sdk/constant/details/ieee_spec.hpp>
 #include <nt2/sdk/constant/details/ldexp_mask.hpp>
