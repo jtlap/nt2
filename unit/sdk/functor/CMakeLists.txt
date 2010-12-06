@@ -29,14 +29,14 @@ SET(SOURCES
     shift_right.cpp
     is_equal.cpp
     is_not_equal.cpp
-#    is_less.cpp
-#    is_greater.cpp
-#    is_less_equal.cpp
-#    is_greater_equal.cpp
+    is_less.cpp
+    is_greater.cpp
+    is_less_equal.cpp
+    is_greater_equal.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.functor.unit)
-ADD_DEPENDENCIES(sdk.unit sdk.functor.unit)  
+ADD_DEPENDENCIES(sdk.unit sdk.functor.unit)
 
 ################################################################################
 # For each filename
@@ -54,5 +54,5 @@ FOREACH( EXAMPLE ${SOURCES})
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
-  ADD_DEPENDENCIES(sdk.functor.unit ${EXECUTABLE})  
+  ADD_DEPENDENCIES(sdk.functor.unit ${EXECUTABLE})
 ENDFOREACH()
