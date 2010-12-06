@@ -16,6 +16,9 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+////////////////////////////////////////////////////////////////////////////////
+// Generates all binary comparison operators
+////////////////////////////////////////////////////////////////////////////////
 #define NT2_MAKE_BOOLEAN(TAG,IMPL)                                                  \
 NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(fundamental_<A0>)(fundamental_<A1>)); \
 namespace nt2 { namespace ext                                                       \
@@ -39,6 +42,11 @@ NT2_MAKE_BOOLEAN(tag::is_greater_equal_  , (a0 >= a1));
 NT2_MAKE_BOOLEAN(tag::logical_and_       , (a0 && a1));
 NT2_MAKE_BOOLEAN(tag::logical_or_        , (a0 || a1));
 
+#undef NT2_MAKE_BOOLEAN
+
+////////////////////////////////////////////////////////////////////////////////
+// Logical not implementation
+////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::logical_not_,tag::cpu_,(A0),(fundamental_<A0>));
 
 namespace nt2 { namespace ext
@@ -51,7 +59,5 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1) { return !a0; }
   };
 } }
-
-#undef NT2_MAKE_BOOLEAN
 
 #endif
