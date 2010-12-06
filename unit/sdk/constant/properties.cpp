@@ -50,7 +50,7 @@ NT2_TEST_CASE(valmax)
   NT2_TEST_EQUAL( nt2::Valmax<nt2::int16_t>(), 32767                );
   NT2_TEST_EQUAL( nt2::Valmax<nt2::int8_t >(), 127                  );
 }
-/*
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for valmin
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ NT2_TEST_CASE(valmin)
   NT2_TEST_EQUAL( nt2::Valmin<nt2::int16_t>(), -32768                  );
   NT2_TEST_EQUAL( nt2::Valmin<nt2::int8_t >(), -128                    );
 }
-*/
+
 /*
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for IEEE specs

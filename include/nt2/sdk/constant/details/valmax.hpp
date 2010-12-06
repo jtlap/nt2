@@ -15,7 +15,6 @@
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-//#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 NT2_REGISTER_DISPATCH(tag::val_max_,tag::cpu_,(A0), (const_< double_<A0>    > ) )
@@ -99,96 +98,4 @@ namespace nt2 { namespace ext
   };
 } }
 
-/*
-namespace nt2 { namespace functors
-{
-  template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),int8_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(~0x80));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),int16_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(~0x8000));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),int32_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(~0x80000000));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),int64_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(~0x8000000000000000LL));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),double, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::val_max_,tag::constant_(Category),float, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-
-    }
-  };
-} }
-*/
 #endif
