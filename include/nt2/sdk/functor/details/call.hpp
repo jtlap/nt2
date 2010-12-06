@@ -13,16 +13,12 @@
 // User-overloadable call meta-function
 // Documentation:http://nt2.lri.fr/extension/custom_function.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/bool.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Some forward declaration
+// Forward declare the unknown_ tag
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag
-{
-  struct unknown_;
-} }
+namespace nt2 { namespace tag { struct unknown_; } }
 
 namespace nt2 { namespace ext
 {

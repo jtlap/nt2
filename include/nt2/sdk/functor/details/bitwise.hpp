@@ -18,12 +18,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // bitwise operators on scalar arithmetic types works on real types too
+// This behavior is tied to the prefix form. The traditionnal operator do
+// not has this property on scalar value.
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_MAKE_BITWISE(TAG,OP)                                          \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type8_<A0>)(type8_<A1>));   \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type16_<A0>)(type16_<A1>)); \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type32_<A0>)(type32_<A1>)); \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type64_<A0>)(type64_<A1>)); \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type8_<A0>)(type8_<A1>))    \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type16_<A0>)(type16_<A1>))  \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type32_<A0>)(type32_<A1>))  \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type64_<A0>)(type64_<A1>))  \
 namespace nt2 { namespace ext                                             \
 {                                                                         \
   template<class Dummy>                                                   \
