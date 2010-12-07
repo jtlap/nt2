@@ -11,6 +11,7 @@
 #include <limits>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/constant/properties.hpp>
+#include <nt2/sdk/meta/supported_types.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -18,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( real_inf, (double)(float) )
+NT2_TEST_CASE_TPL( real_inf, NT2_REAL )
 {
   NT2_TEST_EQUAL( nt2::Inf<T>() , std::numeric_limits<T>::infinity()  );
   NT2_TEST_EQUAL( nt2::Minf<T>(), -std::numeric_limits<T>::infinity() );
@@ -27,10 +28,7 @@ NT2_TEST_CASE_TPL( real_inf, (double)(float) )
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( int_inf
-                  , (nt2::int64_t)(nt2::int32_t)(nt2::int16_t)(nt2::int8_t)
-                    (nt2::uint64_t)(nt2::uint32_t)(nt2::uint16_t)(nt2::uint8_t)
-                  )
+NT2_TEST_CASE_TPL( int_inf, NT2_INTEGRAL_TYPES )
 {
   NT2_TEST_EQUAL( nt2::Inf<T>() , nt2::Valmax<T>()  );
   NT2_TEST_EQUAL( nt2::Minf<T>(), nt2::Valmin<T>()  );

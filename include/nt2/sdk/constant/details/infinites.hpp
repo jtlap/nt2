@@ -10,24 +10,34 @@
 #define NT2_SDK_CONSTANT_DETAILS_INFINITES_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Base class for generating an integral constant
+// Base class for generating infinites constant
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/constant/properties.hpp>
 
-namespace nt2 { namespace functors
+NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (const_< double_<A0>      > ) )
+NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (const_< float_<A0>       > ) )
+NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (const_< arithmetic_<A0>  > ) )
+
+NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (const_< double_<A0>     > ) )
+NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (const_< float_<A0>      > ) )
+NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (const_< arithmetic_<A0> > ) )
+
+namespace nt2 { namespace ext
 {
-  template<class Category,class Info>
-  struct  call<constants::inf_,tag::constant_(Category),double,Info>
+  template<class Dummy>
+  struct  call< tag::inf_(tag::const_(tag::double_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -36,13 +46,16 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::inf_,tag::constant_(Category),float,Info>
+  template<class Dummy>
+  struct  call< tag::inf_(tag::const_(tag::float_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -51,13 +64,16 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::inf_,tag::constant_(Category),arithmetic_,Info>
+  template<class Dummy>
+  struct  call< tag::inf_(tag::const_(tag::arithmetic_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -65,13 +81,16 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::m_inf_,tag::constant_(Category),double,Info>
+  template<class Dummy>
+  struct  call< tag::m_inf_(tag::const_(tag::double_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -80,13 +99,16 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::m_inf_,tag::constant_(Category),float,Info>
+  template<class Dummy>
+  struct  call< tag::m_inf_(tag::const_(tag::float_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -95,15 +117,21 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::m_inf_,tag::constant_(Category),arithmetic_,Info>
+  template<class Dummy>
+  struct  call< tag::m_inf_(tag::const_(tag::arithmetic_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
-    NT2_FUNCTOR_CALL(1) { return Valmin<typename A0::type>(); }
+    NT2_FUNCTOR_CALL(1)
+    {
+      return Valmin<typename A0::type>();
+    }
   };
 } }
 

@@ -70,6 +70,23 @@ NT2_TEST_CASE(valmin)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Test values for maxleftshift
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(maxleftshift)
+{
+  NT2_TEST_EQUAL( nt2::Maxleftshift<double>()       , 63 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<float>()        , 31 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint64_t>(), 63 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint32_t>(), 31 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint16_t>(), 15 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint8_t >(), 7  );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int64_t>() , 63 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int32_t>() , 31 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int16_t>() , 15 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int8_t >() , 7  );
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Test values for IEEE specs
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(ieee)
@@ -85,4 +102,10 @@ NT2_TEST_CASE(ieee)
 
   NT2_TEST_EQUAL( nt2::Minexponent<double>(), -1022  );
   NT2_TEST_EQUAL( nt2::Minexponent<float>()  , -126  );
+
+  NT2_TEST_EQUAL( nt2::Ldexpmask<double>(), 0x7FF0000000000000ll  );
+  NT2_TEST_EQUAL( nt2::Ldexpmask<float>() , 0x7F800000            );
+
+  NT2_TEST_EQUAL( nt2::Nbdigits<double>(), 53 );
+  NT2_TEST_EQUAL( nt2::Nbdigits<float>() , 24 );
 }

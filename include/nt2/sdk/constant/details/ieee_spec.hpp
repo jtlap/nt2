@@ -23,7 +23,7 @@ struct call< TAG(tag::const_(SEL) ), tag::cpu_, Dummy>  : callable          \
   template<class Sig> struct result;                                        \
   template<class This, class A0>                                            \
   struct  result<This(A0)>                                                  \
-        : meta::as_integer<typename meta::strip<A0>::type::type,signed>{};  \
+        : meta::as_integer<typename meta::strip<A0>::type::type,signed> {}; \
   NT2_FUNCTOR_CALL(1)                                                       \
   {                                                                         \
     typedef typename  NT2_RETURN_TYPE(1)::type type;                        \

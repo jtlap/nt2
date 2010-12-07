@@ -16,7 +16,7 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 
-namespace nt2 { namespace constants
+namespace nt2 { namespace tag
 {
   struct eps__            {};
   struct half_eps__       {};
@@ -24,22 +24,22 @@ namespace nt2 { namespace constants
   struct sqrt_eps_        {};
   struct forth_root_eps_  {};
   struct third_root_eps_  {};
-  struct mlog_eps_2_      {}; 
+  struct mlog_eps_2_      {};
   struct min_denormal_    {};
-  struct smallest_pos_val_{}; 
+  struct smallest_pos_val_{};
 } }
 
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::eps__            , Eps           )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::half_eps__       , Halfeps       )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::_3_x_eps_        , Threeeps      )   
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::sqrt_eps_        , Sqrteps       )  
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::forth_root_eps_  , Forthrooteps  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::third_root_eps_  , Thirdrooteps  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::mlog_eps_2_      , Mlogeps2      )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_denormal_    , Mindenormal   )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::smallest_pos_val_, Smallestposval)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::eps__            , Eps           )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::half_eps__       , Halfeps       )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::_3_x_eps_        , Threeeps      )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::sqrt_eps_        , Sqrteps       )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::forth_root_eps_  , Forthrooteps  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::third_root_eps_  , Thirdrooteps  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::mlog_eps_2_      , Mlogeps2      )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::min_denormal_    , Mindenormal   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::smallest_pos_val_, Smallestposval)
 }
 
 #include <nt2/sdk/constant/details/eps_related.hpp>
