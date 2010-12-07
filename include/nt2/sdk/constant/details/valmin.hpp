@@ -17,7 +17,6 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-
 NT2_REGISTER_DISPATCH(tag::val_min_,tag::cpu_,(A0), (const_< double_<A0>    > ) )
 NT2_REGISTER_DISPATCH(tag::val_min_,tag::cpu_,(A0), (const_< float_<A0>     > ) )
 NT2_REGISTER_DISPATCH(tag::val_min_,tag::cpu_,(A0), (const_< unsigned_<A0>  > ) )
@@ -100,4 +99,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-
