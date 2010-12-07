@@ -19,11 +19,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( double_eps_value )
 {
-  NT2_TEST_EQUAL( nt2::Eps<double>()            , 2.220446049250313e-16 );
+  NT2_TEST_EQUAL( nt2::Eps<double>()            , 2.220446049250313e-16  );
   NT2_TEST_EQUAL( nt2::Halfeps<double>()        , 1.1102230246251565e-16 );
-  NT2_TEST_EQUAL( nt2::Threeeps<double>()       , static_cast<double>(-1./2. ) );
-  NT2_TEST_EQUAL( nt2::Sqrteps<double>()        , static_cast<double>(-1./2. ) );
-  NT2_TEST_EQUAL( nt2::Forthrooteps<double>()   , static_cast<double>(-1./2. ) );
+  NT2_TEST_EQUAL( nt2::Threeeps<double>()       , 6.661338147750939e-16  );
+  NT2_TEST_EQUAL( nt2::Sqrteps<double>()        , 1.4901161193847656e-8  );
+  NT2_TEST_EQUAL( nt2::Forthrooteps<double>()   , 1.2207031250000000e-4  );
   NT2_TEST_EQUAL( nt2::Thirdrooteps<double>()   , static_cast<double>(-1./2. ) );
   NT2_TEST_EQUAL( nt2::Mlogeps2<double>()       , static_cast<double>(-1./2. ) );
   NT2_TEST_EQUAL( nt2::Mindenormal<double>()    , static_cast<double>(-1./2. ) );
@@ -31,11 +31,6 @@ NT2_TEST_CASE( double_eps_value )
 }
 
 /*
-  LOCAL_CONST(eps__            ,0xLL,,1);
-  LOCAL_CONST(half_eps__       ,0xll,,1);
-  LOCAL_CONST(_3_x_eps_        ,0x3cde03af9ee75615ll,0x,1);
-  LOCAL_CONST(sqrt_eps_        ,0x3e50000000000000ll,0x,3);
-  LOCAL_CONST(forth_root_eps_  ,0x3f20000000000000ll,0x,1);
   LOCAL_CONST(third_root_eps_  ,0x3ed965fea53d6e42ll,0x,1);
   LOCAL_CONST(mlog_eps_2_      ,0x403205966f2b4f13ll,0x,0);
   LOCAL_CONST(min_denormal_    ,0x1ll               ,0x1       ,1);

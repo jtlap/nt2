@@ -63,7 +63,7 @@ namespace nt2 { namespace ext                                             \
 
 LOCAL_CONST(tag::eps__            ,0x3cb0000000000000LL,0X34000000,1);
 LOCAL_CONST(tag::half_eps__       ,0x3ca0000000000000ll,0x33800000,1);
-LOCAL_CONST(tag::_3_x_eps_        ,0x3cde03af9ee75615ll,0x34c00000,1);
+LOCAL_CONST(tag::_3_x_eps_        ,0x3CC8000000000000ll,0x34c00000,1);
 LOCAL_CONST(tag::sqrt_eps_        ,0x3e50000000000000ll,0x39b504f3,3);
 LOCAL_CONST(tag::forth_root_eps_  ,0x3f20000000000000ll,0x3c9837f0,1);
 LOCAL_CONST(tag::third_root_eps_  ,0x3ed965fea53d6e42ll,0x3ba14518,1);
