@@ -18,47 +18,10 @@
 #include <nt2/sdk/meta/is_iterator.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
-namespace nt2 { namespace functors
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // load tag with type and offset info
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, int Offset=0> struct load_ {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // We only load from a pointer + an integral offset
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,int Offset,class Category, class Info>
-  struct  validate< load_<T,Offset>, Category, Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-      : boost::mpl::and_< meta::is_iterator<typename meta::strip<A0>::type>
-                        , boost::is_integral<typename meta::strip<A1>::type>
-                        >
-    {};
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // We dispatch on T type for load
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,int Offset,class Category, class Info>
-  struct  dispatch<load_<T,Offset>,Category,Info> : boost::mpl::always<T>
-  {};
-} }
-
-namespace nt2 { namespace meta
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // load category is given by T
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,int Offset, class Info, class A0,class A1>
-  struct  categorize<functors::load_<T,Offset>,Info,A0,A1>
-  {
-    typedef typename meta::category_of<T>::type::tag type;
-  };
-} }
+////////////////////////////////////////////////////////////////////////////////
+// load_ tag
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace tag { struct load_ {}; } }
 
 namespace nt2
 {
@@ -66,12 +29,16 @@ namespace nt2
   // Load a data of type T from the memory zone given by (a0,a1)
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class A0,class A1> inline
-  typename nt2::meta::enable_call<functors::load_<T>(A0 const&,A1 const&)>::type
+  typename boost::lazy_enable_if_type
+          < meta::is_iterator<A0>
+          , meta::enable_call<tag::load_(A0,A1,meta::as_<T>,boost::mpl::int_<0>)>
+          >::type
   load(A0 const& a0,A1 const& a1 )
   {
-    NT2_FUNCTION_BODY(functors::load_<T>,2)
+    functor<load_> callee;
+    return callee(a0,a1,meta::as_<T>(),boost::mpl::int_<0>());
   }
-
+/*
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1) and a sub-type
   // level offset
@@ -84,6 +51,7 @@ namespace nt2
     typedef nt2::functors::load_<T,Offset> tag_;
     NT2_FUNCTION_BODY(tag_,2)
   }
+*/
 }
 
 #include <nt2/sdk/memory/details/load.hpp>
