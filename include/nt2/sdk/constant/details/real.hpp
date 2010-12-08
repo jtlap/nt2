@@ -22,13 +22,13 @@
 NT2_REGISTER_DISPATCH_TPL ( (tag::pattern<D,F>)
                           , tag::cpu_
                           , (nt2::uint64_t D)(nt2::uint32_t F)(class A0)
-                          , (const_< double_<A0> >)
+                          , (target_< double_<A0> >)
                           )
 
 NT2_REGISTER_DISPATCH_TPL ( (tag::pattern<D,F>)
                           , tag::cpu_
                           , (nt2::uint64_t D)(nt2::uint32_t F)(class A0)
-                          , (const_< float_<A0> >)
+                          , (target_< float_<A0> >)
                           )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ NT2_REGISTER_DISPATCH_TPL ( (tag::pattern<D,F>)
 namespace nt2 { namespace ext
 {
   template<nt2::uint64_t D, nt2::uint32_t F, class Dummy>
-  struct  call< tag::pattern<D,F>(tag::const_(tag::double_) )
+  struct  call< tag::pattern<D,F>(tag::target_(tag::double_) )
               , tag::cpu_
               , Dummy
               >
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
   };
 
   template<nt2::uint64_t D, nt2::uint32_t F, class Dummy>
-  struct  call< tag::pattern<D,F>(tag::const_(tag::float_) )
+  struct  call< tag::pattern<D,F>(tag::target_(tag::float_) )
               , tag::cpu_
               , Dummy
               >
@@ -77,12 +77,12 @@ namespace nt2 { namespace ext
 // Fill up the call needed for a real constant call
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_CONSTANT_MAKE_REAL(NAME,DOUBLE,FLOAT)                       \
-NT2_REGISTER_DISPATCH(NAME,tag::cpu_,(A0), (const_< double_<A0> >) )    \
-NT2_REGISTER_DISPATCH(NAME,tag::cpu_,(A0), (const_< float_<A0> >) )     \
+NT2_REGISTER_DISPATCH(NAME,tag::cpu_,(A0), (target_< double_<A0> >) )    \
+NT2_REGISTER_DISPATCH(NAME,tag::cpu_,(A0), (target_< float_<A0> >) )     \
 namespace nt2 { namespace ext                                           \
 {                                                                       \
   template<class Dummy>                                                 \
-  struct call<NAME(tag::const_(tag::double_)),Dummy> : callable         \
+  struct call<NAME(tag::target_(tag::double_)),Dummy> : callable         \
   {                                                                     \
     template<class Sig> struct result;                                  \
     template<class This,class A0>                                       \
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext                                           \
   };                                                                    \
                                                                         \
   template<class Dummy>                                                 \
-  struct call<NAME(tag::const_(tag::float_)),Dummy> : callable          \
+  struct call<NAME(tag::target_(tag::float_)),Dummy> : callable          \
   {                                                                     \
     template<class Sig> struct result;                                  \
     template<class This,class A0>                                       \

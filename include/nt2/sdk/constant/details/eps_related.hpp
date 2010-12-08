@@ -19,7 +19,7 @@
 
 #define LOCAL_CALL_INT(TAG, SEL, VAL)                               \
 template<class Dummy>                                               \
-struct call< TAG(tag::const_(SEL) ), tag::cpu_, Dummy>  : callable  \
+struct call< TAG(tag::target_(SEL) ), tag::cpu_, Dummy>  : callable  \
 {                                                                   \
   template<class Sig> struct result;                                \
   template<class This, class A0>                                    \
@@ -34,7 +34,7 @@ struct call< TAG(tag::const_(SEL) ), tag::cpu_, Dummy>  : callable  \
 
 #define LOCAL_CALL(TAG, SEL, VAL)                                   \
 template<class Dummy>                                               \
-struct call< TAG(tag::const_(SEL) ), tag::cpu_, Dummy>  : callable  \
+struct call< TAG(tag::target_(SEL) ), tag::cpu_, Dummy>  : callable  \
 {                                                                   \
   template<class Sig> struct result;                                \
   template<class This, class A0>                                    \
@@ -49,9 +49,9 @@ struct call< TAG(tag::const_(SEL) ), tag::cpu_, Dummy>  : callable  \
 /**/
 
 #define LOCAL_CONST(TAG, VD, VF,VI)                                       \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (const_< double_<A0>      > ) ) \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (const_< float_<A0>       > ) ) \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (const_< arithmetic_<A0>  > ) ) \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_< double_<A0>      > ) ) \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_< float_<A0>       > ) ) \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_< arithmetic_<A0>  > ) ) \
 namespace nt2 { namespace ext                                             \
 {                                                                         \
   LOCAL_CALL(TAG, tag::double_        , VD);                              \

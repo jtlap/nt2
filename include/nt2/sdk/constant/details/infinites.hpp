@@ -18,18 +18,18 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 
-NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (const_< double_<A0>      > ) )
-NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (const_< float_<A0>       > ) )
-NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (const_< arithmetic_<A0>  > ) )
+NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (target_< double_<A0>      > ) )
+NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (target_< float_<A0>       > ) )
+NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (target_< arithmetic_<A0>  > ) )
 
-NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (const_< double_<A0>     > ) )
-NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (const_< float_<A0>      > ) )
-NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (const_< arithmetic_<A0> > ) )
+NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (target_< double_<A0>     > ) )
+NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (target_< float_<A0>      > ) )
+NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (target_< arithmetic_<A0> > ) )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::inf_(tag::const_(tag::double_) )
+  struct  call< tag::inf_(tag::target_(tag::double_) )
               , tag::cpu_
               , Dummy
               >
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::inf_(tag::const_(tag::float_) )
+  struct  call< tag::inf_(tag::target_(tag::float_) )
               , tag::cpu_
               , Dummy
               >
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::inf_(tag::const_(tag::arithmetic_) )
+  struct  call< tag::inf_(tag::target_(tag::arithmetic_) )
               , tag::cpu_
               , Dummy
               >
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::m_inf_(tag::const_(tag::double_) )
+  struct  call< tag::m_inf_(tag::target_(tag::double_) )
               , tag::cpu_
               , Dummy
               >
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::m_inf_(tag::const_(tag::float_) )
+  struct  call< tag::m_inf_(tag::target_(tag::float_) )
               , tag::cpu_
               , Dummy
               >
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::m_inf_(tag::const_(tag::arithmetic_) )
+  struct  call< tag::m_inf_(tag::target_(tag::arithmetic_) )
               , tag::cpu_
               , Dummy
               >
