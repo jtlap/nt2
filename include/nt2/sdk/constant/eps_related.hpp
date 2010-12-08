@@ -35,7 +35,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::half_eps__       , Halfeps       )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::_3_x_eps_        , Threeeps      )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::sqrt_eps_        , Sqrteps       )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::forth_root_eps_  , Forthrooteps  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::forth_root_eps_  , Fourthrooteps  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::third_root_eps_  , Thirdrooteps  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::mlog_eps_2_      , Mlogeps2      )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::min_denormal_    , Mindenormal   )
