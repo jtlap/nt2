@@ -12,12 +12,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Various memory hierarchy stuff
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/pointee.hpp>
 #include <nt2/sdk/meta/is_iterator.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <boost/pointee.hpp>
+#include <boost/type_traits/is_pointer.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Specialize hierarchy for all iterator types
+// Some hierarchies
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_HIERARCHY(iterator_)
 
@@ -28,11 +29,17 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  hierarchy_of< T
-                      , typename boost::enable_if_c<is_iterator<T>::value>::type
+                      , typename
+                        boost::enable_if_c< is_iterator<T>::value>::type
                       >
   {
     typedef typename boost::pointee<T>::type                        pointee_type;
     typedef iterator_< typename hierarchy_of<pointee_type>::type > type;
+  };
+
+  template<> struct  hierarchy_of<void*>
+  {
+    typedef iterator_< hierarchy_of<void>::type > type;
   };
 } }
 

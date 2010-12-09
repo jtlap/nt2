@@ -9,18 +9,36 @@
 #ifndef NT2_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 #define NT2_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/mpl/or.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/tr1/functional.hpp>
+#include <nt2/sdk/functor/functor.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <nt2/sdk/memory/parameters.hpp>
-#include <nt2/sdk/memory/meta/align_on.hpp>
-#include <boost/type_traits/is_pointer.hpp>
-#include <boost/type_traits/is_arithmetic.hpp>
-#include <nt2/sdk/memory/meta/is_power_of_2.hpp>
+#include <nt2/sdk/functor/preprocessor/function.hpp>
 
+namespace nt2 { namespace tag { struct align_on_ {}; }}
+
+namespace nt2 { namespace memory
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // align_on(a0,a1) aligns a0 on the first address multiple of a1 or on the
+  // default alignement if a1 is omitted
+  //////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 1);
+  NT2_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 2);
+
+  //////////////////////////////////////////////////////////////////////////////
+  // align_on<N>(a0) aligns a0 on the first address multiple of N
+  //////////////////////////////////////////////////////////////////////////////
+  template<std::size_t N,class A0> inline
+  typename meta::enable_call<tag::align_on_( A0 const&, boost::mpl::int_<N>)>::type
+  align_on(A0 const& a0)
+  {
+    functor<tag::align_on_> callee;
+    return callee(a0,boost::mpl::int_<N>());
+  }
+} }
+
+#include <nt2/sdk/memory/details/align_on.hpp>
+
+/*
 namespace nt2 { namespace result
 {
   struct align_on
@@ -115,5 +133,5 @@ namespace nt2 { namespace memory
     return callee( value );
   }
 } }
-
+*/
 #endif
