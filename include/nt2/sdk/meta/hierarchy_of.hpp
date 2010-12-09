@@ -10,7 +10,7 @@
 #define NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
 
 #include <climits>
-#include <boost/mpl/eval_if.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -30,15 +30,21 @@ namespace nt2 { namespace meta
   // hierarchy_of computes the entry point of a given type inside the type
   // hierarchy lattice.
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
+  template<class T, class Enable = void>
   struct  hierarchy_of
-        : boost::mpl::eval_if < boost::is_integral<T>
-                              , details::hierarchy_of < T
-                                                      , sizeof(T)*CHAR_BIT
-                                                      , boost::is_signed<T>::value
-                                                      >
-                              , details::hierarchy_of<T,0,false>
-                              >
+  {
+    typedef meta::unspecified_<T> type;
+  };
+
+  template<class T>
+  struct  hierarchy_of< T
+                      , typename
+                        boost::enable_if_c<boost::is_integral<T>::value>::type
+                      >
+          : details::hierarchy_of < T
+                                  , sizeof(T)*CHAR_BIT
+                                  , boost::is_signed<T>::value
+                                  >
   {};
 
   //////////////////////////////////////////////////////////////////////////////
@@ -55,12 +61,6 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // implementation details for hierarchy_of - overload for integral sized type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,std::size_t Size, bool Signed>
-  struct hierarchy_of
-  {
-    typedef meta::unknown_<T> type;
-  };
-
   template<class T> struct hierarchy_of<T,8,true>   { typedef meta::int8_<T>    type; };
   template<class T> struct hierarchy_of<T,8,false>  { typedef meta::uint8_<T>   type; };
   template<class T> struct hierarchy_of<T,16,true>  { typedef meta::int16_<T>   type; };

@@ -51,12 +51,18 @@ namespace nt2 { namespace meta
   template<class T> struct unknown_ { typedef tag::unknown_ type; };
 
   //////////////////////////////////////////////////////////////////////////////
+  // The unspecified_ hierarchy is used for non-categorized type that will still
+  // want to catch without error
+  //////////////////////////////////////////////////////////////////////////////
+  NT2_HIERARCHY_CLASS(unspecified_, unknown_<T> );
+
+  /////////////////////////////////////////////////////////////////////////////
   // Upper level hierarchies:
   // fundamental_ gathers all native types
   // arithmetic_ gathers all native type except bool
   // integer_ gathers all native integer types
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(fundamental_, unknown_<T>     );
+  NT2_HIERARCHY_CLASS(fundamental_, unspecified_<T> );
   NT2_HIERARCHY_CLASS(arithmetic_ , fundamental_<T> );
   NT2_HIERARCHY_CLASS(integer_    , arithmetic_<T>  );
 
