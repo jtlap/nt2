@@ -50,11 +50,11 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // Overload for non integral native types
   //////////////////////////////////////////////////////////////////////////////
+  template<> struct hierarchy_of<void>    { typedef void_<void>     type; };
   template<> struct hierarchy_of<bool>    { typedef bool_<bool>     type; };
   template<> struct hierarchy_of<float>   { typedef float_<float>   type; };
   template<> struct hierarchy_of<double>  { typedef double_<double> type; };
 } }
-
 
 namespace nt2 { namespace details
 {
