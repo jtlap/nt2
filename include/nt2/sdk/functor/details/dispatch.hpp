@@ -29,13 +29,14 @@
 // class definitions. Without it, the whole system brittles.
 ////////////////////////////////////////////////////////////////////////////////
 #define M0(z,n,t) meta::unknown_<BOOST_PP_CAT(A,n)> const&
+#define M1(z,n,t) typename meta::hierarchy_of<BOOST_PP_CAT(A,n)>::type
 
-#define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                       \
-template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>  \
-nt2::ext::call<Tag(tag::unknown_),Site>                           \
-dispatching ( Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~)      \
-            , adl_helper = adl_helper()                           \
-            );                                                    \
+#define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                         \
+template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>    \
+nt2::ext::call<Tag(tag::unknown_),Site,void(BOOST_PP_ENUM(n,M1,~))> \
+dispatching ( Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~)        \
+            , adl_helper = adl_helper()                             \
+            );                                                      \
 /**/
 
 #define NT2_DISPATCH_TYPE_TPL(z,n,t) BOOST_PP_SEQ_ELEM(n,t)
@@ -85,7 +86,7 @@ namespace nt2 { namespace meta
   // Default dispatch overload set for catching calls to unsupported functor
   // overload or unregistered types.
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_DEFAULT_UNKNOWN_DISPATCH,~)
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_DEFAULT_UNKNOWN_DISPATCH,~)
 } }
 
 #undef M0
@@ -124,7 +125,7 @@ namespace nt2 { namespace meta
   // functor over a set of types on a given site
   //////////////////////////////////////////////////////////////////////////////
   template<class Sig, class Site> struct dispatch_call;
-  BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,NT2_DISPATCH_CALL,~)
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_DISPATCH_CALL,~)
 } }
 
 #undef M0
