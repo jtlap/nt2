@@ -16,6 +16,7 @@
 #include <boost/mpl/integral_c_tag.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/meta/enable_if_type.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Some MPL introspection helpers
