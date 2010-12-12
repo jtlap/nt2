@@ -148,13 +148,17 @@ namespace nt2 { namespace ext
 // Align iterator on integer
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0)(A1)      , (iterator_<A0>)(integer_<A1>)
+                      , (A0)(A1)      , (iterator_<fundamental_<A0> >)(integer_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_( tag::iterator_, tag::integer_), tag::cpu_, Dummy>
+  struct  call< tag::align_on_( tag::iterator_(tag::fundamental_)
+                              , tag::integer_
+                              )
+              , tag::cpu_, Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
