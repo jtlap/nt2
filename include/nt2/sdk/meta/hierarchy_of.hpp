@@ -10,11 +10,12 @@
 #define NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
 
 #include <climits>
+#include <nt2/sdk/meta/hierarchy.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <nt2/sdk/meta/enable_if_type.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
-#include <nt2/sdk/meta/hierarchy.hpp>
 
 namespace nt2 { namespace details
 {
@@ -54,6 +55,18 @@ namespace nt2 { namespace meta
   template<> struct hierarchy_of<bool>    { typedef bool_<bool>     type; };
   template<> struct hierarchy_of<float>   { typedef float_<float>   type; };
   template<> struct hierarchy_of<double>  { typedef double_<double> type; };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Overload for types with a nt2_hierarchy_tag
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  struct  hierarchy_of< T
+                      , typename
+                        meta::enable_if_type<typename T::nt2_hierarchy_tag>::type
+                      >
+  {
+    typedef typename T::nt2_hierarchy_tag type;
+  };
 } }
 
 namespace nt2 { namespace details
