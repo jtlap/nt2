@@ -15,10 +15,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 
-namespace nt2 { namespace tag { struct store_ {}; } }
-
 namespace nt2
 {
+  namespace tag { struct store_ {}; } }
   NT2_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
 }
 
