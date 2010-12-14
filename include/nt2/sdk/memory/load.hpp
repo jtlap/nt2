@@ -20,7 +20,7 @@
 
 namespace nt2
 {
-  namespace tag { struct load_ {}; } }
+  namespace tag { struct load_ {}; }
 
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1)
