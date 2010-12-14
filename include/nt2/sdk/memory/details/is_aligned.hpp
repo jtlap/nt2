@@ -125,13 +125,13 @@ namespace nt2 { namespace ext
 // Check alignment of iterator on integer
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0)(A1)      , (iterator_<fundamental_<A0> >)(integer_<A1>)
+                      , (A0)(A1)      , (iterator_<unspecified_<A0> >)(integer_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_( tag::iterator_(tag::fundamental_)
+  struct  call< tag::is_aligned_( tag::iterator_(tag::unspecified_)
                                 , tag::integer_
                                 )
               , tag::cpu_, Dummy
@@ -152,13 +152,13 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
                       , (A0)(A1)
-                      , (iterator_<fundamental_<A0> >)(mpl_integral_< integer_<A1> >)
+                      , (iterator_<unspecified_<A0> >)(mpl_integral_< integer_<A1> >)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_( tag::iterator_(tag::fundamental_)
+  struct  call< tag::is_aligned_( tag::iterator_(tag::unspecified_)
                               , tag::mpl_integral_(tag::integer_)
                               )
               , tag::cpu_, Dummy
@@ -177,12 +177,12 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Check alignment of iterator on default alignment
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_aligned_,tag::cpu_,(A0),(iterator_<fundamental_<A0> >))
+NT2_REGISTER_DISPATCH(tag::is_aligned_,tag::cpu_,(A0),(iterator_<unspecified_<A0> >))
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_(tag::iterator_(tag::fundamental_)), tag::cpu_, Dummy >
+  struct  call< tag::is_aligned_(tag::iterator_(tag::unspecified_)), tag::cpu_, Dummy >
         : callable
   {
     typedef bool result_type;
