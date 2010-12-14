@@ -21,10 +21,10 @@ namespace nt2 { namespace details
   template<class T,class Hierarchy> struct is_signed : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
-  // Sign has no meanign on other types most of the time
+  // Sign has no meaning on other types most of the time
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct is_signed<T, meta::unknown_<T> > : boost::mpl::false_ {};
+  struct is_signed<T, meta::unspecified_<T> > : boost::mpl::false_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // ... unless they are unsigned of course
