@@ -25,8 +25,8 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   struct lead_padding
   {
-    typedef tag::padding                                nt2_hierarchy_type;
-    typedef boost::mpl::pair<tag::padding,lead_padding> nt2_settings_type;
+    typedef meta::padding_<lead_padding>                  nt2_hierarchy_tag;
+    typedef boost::mpl::pair<tag::padding_,lead_padding>  nt2_settings_type;
   };
 } }
 
