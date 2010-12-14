@@ -48,7 +48,11 @@ namespace nt2 { namespace meta
   // When a dispatch resovles on unknown_, it means so suitqble overload have
   // been found.
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct unknown_ { typedef tag::unknown_ type; };
+  template<class T> struct unknown_
+  {
+    typedef unknown_      parent;
+    typedef tag::unknown_ type;
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // The unspecified_ hierarchy is used for non-categorized type that will still
