@@ -6,40 +6,94 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 exponential toolbox - unit/scalar Mode"
-#include <nt2/sdk/functor/meta/call.hpp> 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/exponential/include/nthroot.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#define NT2_UNIT_MODULE "nt2 exponential toolbox - nthroot/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
+// Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( nthroot, (double) 
-		    (float) 
-		    )
+/// created by jt the 08/12/2010
+/// modified by jt the 15/12/2010
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/exponential/include/nthroot.hpp>
+// specific includes for arity 2 tests
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/abs.hpp>
+
+NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
 {
-  using nt2::nthroot; 
+  using nt2::nthroot;
   using nt2::functors::nthroot_;
-  const int N = 2; 
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-   NT2_TEST( (boost::is_same < typename nt2::meta::call<nthroot_(T, int32_t)>::type
-	      , r_t
- 	     >::value)
- 	    );
-   NT2_TEST_EQUAL(  nt2::nthroot( T(0), 4)  , 0 );
-   NT2_TEST_EQUAL(  nt2::nthroot( T(1), 4)  , nt2::One<T>() );
-   NT2_TEST_EQUAL(  nt2::nthroot(T(8), 3), nt2::Two<T>()); 
-   for(int i=1; i < 100; i++)
-     {
-       T x =  i;
-       T z = nt2::nthroot(x, 4);
-       T y =  z*z*z*z; 
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, y), 2); 
+  typedef int32_t iT;
+  typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  nthroot(nt2::Inf<T>(),3), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  nthroot(nt2::Minf<T>(),3), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  nthroot(nt2::Mone<T>(),3), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  nthroot(nt2::Nan<T>(),3), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  nthroot(nt2::One<T>(),3), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  nthroot(nt2::Zero<T>(),3), nt2::Zero<r_t>(), 0);
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    typedef int32_t iT;
+    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
+    NT2_CREATE_BUFFER(a1,iT, 100, T(-10), T(10));
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::nthroot(a0*nt2::sqr(a0),3),T(a0),1);
+        NT2_TEST_ULP_EQUAL( nt2::nthroot(nt2::sqr(a0),2),nt2::abs(a0),1);
      }
-}
+   }
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( nthroot_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::nthroot;
+  using nt2::functors::nthroot_;
+  typedef int32_t iT;
+  typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::nthroot;
+  using nt2::functors::nthroot_;
+  typedef int32_t iT;
+  typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+} // end of test for unsigned_int_
