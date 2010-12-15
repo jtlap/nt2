@@ -36,13 +36,12 @@ namespace nt2 { namespace functors
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       if (is_inf(a0)) return Inf<A0>();
-      if (is_eqz(a0)) return Exp_1<A0>(); 
+      if (is_eqz(a0)) return One<A0>();
       A0 x =  nt2::abs(a0); 
       /* Represent x as an exact multiple of 1/32 plus a residual.  */
       A0 m = Expx2c1<A0>() * floor(Expx2c2<A0>() * x + Half<A0>());

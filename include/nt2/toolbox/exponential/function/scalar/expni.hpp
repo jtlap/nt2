@@ -28,13 +28,16 @@
 
 namespace nt2 { namespace functors
 {
+  template<class Info, class C>
+  struct dispatch<class expni_,class tag::scalar_(C),Info>
+    : boost::mpl::_2 {};
 
   template<class Info>
   struct validate<expni_,tag::scalar_(tag::arithmetic_),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :boost::is_integral<A0>{};
+    struct result<This(A0,A1)> :meta::is_integral<A0>{};
   };
   /////////////////////////////////////////////////////////////////////////////
   // Compute expni(const A0& a0, const A1& a1)
@@ -57,7 +60,7 @@ namespace nt2 { namespace functors
       const int32_t n =  a0;
       if( n < 0 ||  x < 0)      return Nan<A1>(); 
       if( x > Maxlog<A1>() )	return Zero<A1>();
-      if( iseqz(x) )            return (n < 2) ? Inf<A1>() : rec(n-One<A1>()); 
+      if( is_eqz(x) )           return (n < 2) ? Inf<A1>() : rec(n-One<A1>()); 
       if( n == 0 )              return exp(-x)/x;
       /* Expansion for large n */
       if( n > 5000 )
@@ -68,7 +71,7 @@ namespace nt2 { namespace functors
 	  A1 ans = yk*t*(Six<A1>()*sqr(x)-Eight<A1>()*t*x+sqr(t));
 	  ans = yk*(ans+t*(t-Two<A1>()*x));
 	  ans = yk*(ans+t);
-	  return oneplus(ans)*exp(-x)/xk;
+	  return nt2::oneplus(ans)*nt2::exp(-x)/xk;
 	}
       
       if( x <=  One<A1>() )
@@ -87,8 +90,8 @@ namespace nt2 { namespace functors
 	      xk += One<A1>();
 	      yk *= z/xk;
 	      pk += One<A1>();
-	      if(isnez(pk)) ans += yk/pk;
-	      t = isnez(ans) ? nt2::abs(yk/ans) : One<A1>();
+	      if(is_nez(pk)) ans += yk/pk;
+	      t = is_nez(ans) ? nt2::abs(yk/ans) : One<A1>();
 	    }
 	  while( t > Halfeps<A1>() );
 	  t = n;
@@ -110,7 +113,7 @@ namespace nt2 { namespace functors
 	  A1 xk = test ? n + (k-1)/2 : k/2; 
 	  A1 pk = pkm1 * yk  +  pkm2 * xk;
 	  A1 qk = qkm1 * yk  +  qkm2 * xk;
-	  if( isnez(qk) )
+	  if( is_nez(qk) )
 	    {
 	      A1 r = pk/qk;
 	      t = nt2::abs( (ans - r)/r );

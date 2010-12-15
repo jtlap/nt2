@@ -17,6 +17,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/shri.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 namespace nt2 { namespace functors
 {
 
@@ -40,12 +41,16 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : 
-      boost::result_of<meta::floating(A0,A1)>{};
+      boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
       const type one = One<type>();
+      if (!a1) return one;
+      if (!a0 && a1 > 0) return Zero<type>();
+      type a00 = a0; 
+      if (is_inf(a0)) return (a1 > 0) ? a00 : nt2::rec(a00); 
       type x = nt2::abs(a0);
       A1 sign_n = signnz(a1);
       A1 n = abs(a1);
