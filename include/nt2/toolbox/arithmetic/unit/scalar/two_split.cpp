@@ -9,18 +9,18 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - two_split/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components in scalar 
+// Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/arithmetic/include/two_split.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/two_split.hpp>
 
-NT2_TEST_CASE_TPL ( two_split_real_,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( two_split_real__1,  NT2_REAL_TYPES)
 {
   using nt2::two_split;
   using nt2::functors::two_split_;
