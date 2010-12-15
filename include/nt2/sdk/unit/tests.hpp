@@ -72,7 +72,7 @@
     bool b; 								\
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,		\
 				      BOOST_CURRENT_FUNCTION,		\
-				      A, B, N); 			\
+				      r1, r2, N); 			\
       if (!b)								\
 	{								\
 	  std::cout << "   because " << #A << " = " << r1		\
