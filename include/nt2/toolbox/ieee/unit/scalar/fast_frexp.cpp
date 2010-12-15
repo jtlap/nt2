@@ -9,21 +9,22 @@
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - fast_frexp/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of ieee components in scalar 
+// Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/ieee/include/fast_frexp.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/fast_frexp.hpp>
+// specific includes for arity 1 tests
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/mantissa.hpp>
 #include <nt2/include/functions/exponent.hpp>
 
-NT2_TEST_CASE_TPL ( fast_frexp_real_,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fast_frexp_real__1,  NT2_REAL_TYPES)
 {
   using nt2::fast_frexp;
   using nt2::functors::fast_frexp_;
@@ -35,7 +36,7 @@ NT2_TEST_CASE_TPL ( fast_frexp_real_,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
 
-  // random comparison with other impl or formula 
+  // random verifications
   static const uint32_t NR = 100;
   {
     NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
@@ -45,8 +46,10 @@ NT2_TEST_CASE_TPL ( fast_frexp_real_,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         r_t r = nt2::fast_frexp(a0);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::mantissa(a0)/2,0);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::exponent(a0)+1,0);
+        typename boost::fusion::result_of::at_c<r_t,0>::type r0 = boost::fusion::get<0>(r);
+        typename boost::fusion::result_of::at_c<r_t,1>::type r1 = boost::fusion::get<1>(r);
+        NT2_TEST_TUPLE_ULP_EQUAL( r0,nt2::mantissa(a0)/2,0);
+        NT2_TEST_TUPLE_ULP_EQUAL( r1,nt2::exponent(a0)+1,0);
      }
    }
 } // end of test for real_
