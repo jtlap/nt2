@@ -30,7 +30,7 @@ namespace nt2
     template<class T,class X> struct simd_ : simd_<typename T::parent,X>
     {
       typedef simd_<typename T::parent,X> parent;
-      typedef tag::simd_                  type(X,T);
+      typedef tag::simd_                  type(typename T::type,X);
     };
 
     template<class T,class X> struct simd_< unknown_<T>,X > : unknown_<T> {};
