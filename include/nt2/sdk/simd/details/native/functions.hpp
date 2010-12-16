@@ -15,21 +15,10 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-namespace nt2 { namespace functors
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // When in SIMD, load dispatch on T scalar value
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class C, class X, class Info>
-  struct  dispatch<load_<T,0>,tag::simd_(C,X),Info>
-        : boost::mpl::always<typename meta::scalar_of<T>::type>
-  {};
-} }
-
 #include NT2_SIMD_INCLUDE(load.hpp)
-#include NT2_SIMD_INCLUDE(store.hpp)
+//#include NT2_SIMD_INCLUDE(store.hpp)
 
-#include <nt2/sdk/simd/details/impl/map.hpp>
+//#include <nt2/sdk/simd/details/impl/map.hpp>
 //#include <nt2/sdk/simd/details/impl/make.hpp>
 
 #endif
