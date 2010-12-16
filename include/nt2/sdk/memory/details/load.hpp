@@ -17,7 +17,43 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_
+// Register dispatch over load_ without offset
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::load_
+                      , tag::cpu_
+                      , (A0)(A1)(T)
+                      , (iterator_<fundamental_<A0> >)
+                        (fundamental_<A1>)
+                        (target_< fundamental_<T> >)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::load_( tag::iterator_(tag::fundamental_)
+                          , tag::fundamental_
+                          , tag::target_(tag::fundamental_)
+                          )
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This, class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A2>::type {};
+
+    NT2_FUNCTOR_CALL(3)
+    {
+      A0 that = a0;
+      std::advance(that,a1);
+      return *that;
+    }
+  };
+} }
+
+////////////////////////////////////////////////////////////////////////////////
+// Register dispatch over load_ with offset
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::load_
                       , tag::cpu_

@@ -28,13 +28,12 @@ namespace nt2
   template<class T,class A0,class A1> inline
   typename meta::enable_call<tag::load_ ( A0 const&, A1 const&
                                         , meta::as_<T>
-                                        , boost::mpl::int_<0>
                                         )
                             >::type
   load(A0 const& a0,A1 const& a1 )
   {
     functor<tag::load_> callee;
-    return callee(a0,a1,meta::as_<T>(),boost::mpl::int_<0>());
+    return callee(a0,a1,meta::as_<T>());
   }
 
   //////////////////////////////////////////////////////////////////////////////
