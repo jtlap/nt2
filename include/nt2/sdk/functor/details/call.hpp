@@ -16,9 +16,10 @@
 #include <nt2/sdk/error/static_assert.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Forward declare the unknown_ tag
+// Forward declare the unknown_ tag and the error_with helper
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct unknown_; } }
+namespace nt2 { namespace tag { struct unknown_;    } }
+namespace nt2 { namespace tag { struct error_with;  } }
 
 namespace nt2 { namespace ext
 {
