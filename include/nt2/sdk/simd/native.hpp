@@ -13,8 +13,8 @@
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/memory/overload.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
+#include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/sdk/simd/details/native/iterator.hpp>
 
@@ -27,7 +27,9 @@ namespace nt2 { namespace simd
   {
     NT2_STATIC_ASSERT ( (meta::is_vectorizable<Scalar,Extension>::value)
                       , INVALID_SCALAR_TYPE_IN_SIMD_NATIVE_TYPE
-                      , "Native SIMD type instanciated with non-vectorizable base scalar type."
+                      , "Native SIMD type instanciated with non-vectorizable "
+                        "base scalar type. Check that you compiled this programm "
+                        "with the proper SIMD extension enabling options."
                       );
 
     ////////////////////////////////////////////////////////////////////////////
@@ -35,7 +37,11 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     typedef Scalar                                          value_type;
     typedef Extension                                       extension_type;
-    typedef functors::simd_<tag::arithmetic_,Extension,1>   nt2_category_tag;
+
+    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
+                        , Extension
+                        >                                   nt2_hierarchy_tag;
+
     typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
     typedef value_type                                      reference;
@@ -115,19 +121,19 @@ namespace nt2 { namespace simd
     this_type const& operator+() const { return *this; }
     this_type operator!() const
     {
-      functors::functor<functors::logical_not_> callee;
+      functor<tag::logical_not_> callee;
       return callee(*this);
     }
 
     this_type operator-() const
     {
-      functors::functor<functors::neg_> callee;
+      functor<tag::neg_> callee;
       return callee(*this);
     }
 
     this_type operator~()  const
     {
-      functors::functor<functors::complement_> callee;
+      functor<tag::complement_> callee;
       return callee(*this);
     }
 
@@ -191,8 +197,8 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Pre/Post Increment/Decrement
     ////////////////////////////////////////////////////////////////////////////
-    this_type& operator++() { *this += One<this_type>();  return *this; }
-    this_type& operator--() { *this -= One<this_type>();  return *this; }
+//    this_type& operator++() { *this += One<this_type>();  return *this; }
+//    this_type& operator--() { *this -= One<this_type>();  return *this; }
 
     this_type  operator++ (int)
     {
@@ -215,9 +221,9 @@ namespace nt2 { namespace simd
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/details/native/meta.hpp>
 #include <nt2/sdk/simd/details/native/fusion.hpp>
-#include <nt2/sdk/simd/details/native/constants.hpp>
+//#include <nt2/sdk/simd/details/native/constants.hpp>
 #include <nt2/sdk/simd/details/native/functions.hpp>
-#include <nt2/sdk/simd/details/native/operators.hpp>
-#include <nt2/sdk/simd/details/native/comparisons.hpp>
+//#include <nt2/sdk/simd/details/native/operators.hpp>
+//#include <nt2/sdk/simd/details/native/comparisons.hpp>
 
 #endif
