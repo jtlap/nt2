@@ -18,8 +18,11 @@ namespace nt2 { namespace details
   ////////////////////////////////////////////////////////////////////////////
   // Overload for SIMD native types
   ////////////////////////////////////////////////////////////////////////////
-  template<class T, class C, class X>
-  struct cardinal_of_impl<T,tag::simd_(C,X)> : boost::mpl::int_<T::static_size> {};
+  template<class T, class H, class X>
+  struct  cardinal_of_impl< T
+                          , meta::simd_<H,X>
+                          >
+        : boost::mpl::int_<T::static_size> {};
 } }
 
 #endif

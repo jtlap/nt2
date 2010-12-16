@@ -18,8 +18,8 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Except for SIMD types
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Extension>
-  struct  sign_of<T,tag::simd_(tag::arithmetic_,Extension)>
+  template<class T,class H, class X>
+  struct  sign_of<T,meta::simd_<H,X> >
         : meta::sign_of<typename T::value_type>  {};
 } }
 
