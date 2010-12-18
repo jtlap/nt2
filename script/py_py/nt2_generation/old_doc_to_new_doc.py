@@ -124,7 +124,7 @@ def write_new_doc(tb_name,fct_name) :
         pp = PrettyPrinter()
         s=pp.pformat(nd)
 #        print s
-        write(p,s,False)
+#        write(p,s,False)
     else :
         print "doc is already updatted"
         
@@ -148,8 +148,11 @@ if __name__ == "__main__" :
 ##    PrettyPrinter().pprint(construct_new_dict_0_1(old_dict))
 ##    write_new_doc("ieee","bitfloating")
 
-    tb_name = "exponential"  
-    for fct in Nt2_tb_props(tb_name).get_fcts_list() :
+    tb_name = "trigonometric"
+    l = Nt2_tb_props(tb_name).get_fcts_list()
+    PrettyPrinter().pprint(l)
+    l = ['fast_sind']
+    for fct in l :
         print fct
         write_new_doc(tb_name,fct)
 sys.path.pop(0)

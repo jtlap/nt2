@@ -61,16 +61,16 @@ class Random_verif_test_gen(Base_gen) :
     def __prepare(self,s,typ,d) :
         df = d["functor"]
         arity = int(df["arity"])
-        s=re.sub("\$nb_rand\$","100",s)
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
         s=re.sub("\$plural\$", "s" if arity>1 else "",s)
         du = d["unit"]
         ret_arity = int(d["functor"].get("ret_arity","0"))
         dur= du["verif_test"]  
+        s=re.sub("\$nb_rand\$",str(dur.get("nb_rand","100")),s)
         m = re.match("( *)\$buffers_creation\$.*",s)
         if m :
             beg = m.groups()[0]
-            actual_ranges = du["ranges"].get(typ,du["ranges"].get("default",None))
+            actual_ranges = dur["ranges"].get(typ,dur["ranges"].get("default",None))
             s = []
             tpdefs = d["functor"].get("type_defs",None)
             if tpdefs is not None :
@@ -122,8 +122,11 @@ class Random_verif_test_gen(Base_gen) :
             else :
                 r = []
                 length = len(durac.get(typ,durac.get("default",[])))
+                print(durac.get(typ,durac.get("default",[])))
+                print(length)
                 for i in xrange(0, length) :
                     s = beg+"NT2_TEST_ULP_EQUAL( $property_call$,$property_value$,$ulp_thresh$);"
+                    print(durat)
                     s = re.sub('\$ulp_thresh\$',durat.get(typ,durat.get("default",None))[i],s)
                     #                    s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
                     print "%s == %s" %(typ,durac)

@@ -8,6 +8,7 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
+from __future__         import print_function
 
 
 """Nt2 base configuration infos
@@ -21,17 +22,16 @@ __license__   = "Boost Software License, Version 1.0"
 
 import os
 import sys
-sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
-
 import re
+
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 from nt2_archis_struct  import Nt2_archis_struct
 from files_utils        import exist
-
+sys.path.pop(0)
 
 class Nt2_base_infos(object) :
     def __init__(self, author = None) :
         self.__nt2_path = self.get_nt2_dir()
-        print self.__nt2_path
         self.__author   = self.get_author() if author is None else author
         self.__toolbox_list = self.__mk_toolbox_list()
         self.__implanted_simd_archis = self.__find_implanted_simd_archis()
@@ -92,16 +92,21 @@ class Nt2_base_infos(object) :
             d = os.environ["NT2_DIR"]
         except KeyError :
             d = sys.path[0] 
-            if not d : d = os.getcwd()
-            try :
-                d1 = re.match("(.*[\\/])nt2[\\/]",d).groups()
-            except :
-                print "\n Environment chain 'NT2_DIR' is not defined"
-                print "and your current path does not contain /nt2/"
-                print "sorry aborting"
-                print get_nt2_dir.__doc__
+            if not d :
+                d = os.getcwd()
+            d1 = re.match("(.*/)nt2/",d)
+            if not d1 :
+                print("\n Environment chain 'NT2_DIR' is not defined")
+                print("and your current path")
+                print(d)
+                print("does not contain /nt2/")
+                print("sorry aborting")
+                print("")
+                print(__doc__)
                 raise SystemExit
-            if len(d1)!=0 : d = d1[0]
+            else :
+               dd=d1.groups()
+            if len(dd)!=0 : d = dd[0]
         return os.path.expanduser(os.path.join(d,"nt2","include"))
 
     @classmethod
@@ -110,8 +115,7 @@ class Nt2_base_infos(object) :
         return os.path.split(s)[1]
    
 if __name__ == "__main__" :
-    print __doc__
+    print(__doc__)
     nbi = Nt2_base_infos()
-    print nbi
-
-sys.path.pop(0)
+    print(nbi)
+    print(sys.path)

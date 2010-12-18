@@ -23,6 +23,7 @@ import os
 import sys
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
+
 import re
 import shutil
 from display_utils                   import show
@@ -38,6 +39,8 @@ from unit_specific_values_gen        import Specific_values_test_gen
 ##from unit_random_gen                 import Random_test_gen
 ##from unit_tuple_random_gen           import Random_tuple_test_gen  
 from unit_random_verif_gen           import Random_verif_test_gen
+sys.path.pop(0)
+sys.path.pop(0)
 
 def create_unit(tb_name,fct_name,mode) :
     bg = Base_gen(tb_name,fct_name,mode)
@@ -51,9 +54,11 @@ def create_unit(tb_name,fct_name,mode) :
             thg = Type_header_test_gen(bg,d,typ)
             r+=thg.get_gen_beg()
             if d_unit.get("specific_values",None) :
+                print("specific")
                 svt = Specific_values_test_gen(bg,d,typ)
                 r += svt. get_gen_result()
             if d_unit.get("verif_test",None) :
+                print("verif")
                 vtg = Random_verif_test_gen(bg,d,typ)
                 r += vtg. get_gen_result()
             r+=thg.get_gen_end()
@@ -63,18 +68,16 @@ def write_unit(tb_name,fct_name,mode,s,check=False) :
     nfp = Nt2_fct_props(tb_name,fct_name,mode)
     p = nfp.get_fct_unit_path(mode)
     print "write to %s"%p
-#    show(s)
+    show(s)
     write(p,s,check)
 
     
 if __name__ == "__main__" :
-    tb_name = "exponential"
+    tb_name = "trigonometric"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()
-    fcts = ["expni"]
+    fcts = ["sin"]
     for fct in fcts :
         print fct
         r= create_unit(tb_name,fct,'scalar')
         write_unit(tb_name,fct,'scalar',r)
     
-sys.path.pop(0)
-sys.path.pop(0)

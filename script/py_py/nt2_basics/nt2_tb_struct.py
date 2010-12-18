@@ -8,6 +8,7 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
+from __future__         import print_function
 
 
 """Utilities to get nt2 toolboxes structure
@@ -23,14 +24,15 @@ __license__   = "Boost Software License, Version 1.0"
 
 import sys
 import os
-sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 import re
 from pprint           import PrettyPrinter
 from files_utils      import read, exist
 from iter_utils       import flatten
 from nt2_base_infos   import Nt2_base_infos
 from nt2_archis_struct       import Nt2_archis_struct
+sys.path.pop(0)
 
 def populate_actions() :
     actions={}    
@@ -178,7 +180,7 @@ class Nt2_tb_struct(Nt2_archis_struct) :
                         f = re.sub('\$tb_name\$',tb_name,f)
                     df = os.path.join(d,f)
                     l.append(df)
-                    print "%s, %s -> %s" % (d,f,df)
+##                    print("%s, %s -> %s" % (d,f,df))
         return l         
             
     @classmethod
@@ -194,7 +196,7 @@ class Nt2_tb_struct(Nt2_archis_struct) :
                         f = re.sub('\$tb_name\$',tb_name,f)
                     df = os.path.join(d,f)    
                     l.append(df)
-                    print "%s, %s -> %s" % (d,f,df)
+##                    print("%s, %s -> %s" % (d,f,df))
         return l         
                 
         
@@ -256,4 +258,3 @@ if __name__ == "__main__" :
     PrettyPrinter().pprint(Nt2_tb_struct.get_rel_tb_unique_files("ieee"))
     PrettyPrinter().pprint(Nt2_tb_struct.get_rel_tb_fcts_files("ieee","frexp"))
     PrettyPrinter().pprint(Nt2_tb_struct.Functions_actions)
-sys.path.pop(0)

@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: iso-8859-15  -*-
+from __future__         import print_function
+
 """Tools for defining nt2 supported simd architectures
    Currently defined are
     scalar : no simd
@@ -152,25 +154,16 @@ class Nt2_archis_struct :
     
 if __name__ == "__main__":
     pp = PrettyPrinter()
-    pp.pprint (" Swar variants   %s " % Swar().get_variants())
-    pp.pprint (" Swar mode       %s " % Swar().get_mode())
-    pp.pprint (" Scalar variants %s " % Scalar().get_variants())
-    pp.pprint (" Scalar mode     %s " % Scalar().get_mode())
-    pp.pprint (" Scalar rel_tree %s " % Scalar().get_rel_tree())
-    pp.pprint (" Sse variants    %s " % Sse().get_variants())
-    pp.pprint (" Sse mode        %s " % Sse().get_mode())
-    pp.pprint (" Sse rel_tree    %s " % Sse().get_rel_tree())
-    pp.pprint (" Vmx variants    %s " % Vmx().get_variants())
-    pp.pprint (" Vmx mode        %s " % Vmx().get_mode())
-    pp.pprint (" Vmx rel_tree    %s " % Vmx().get_rel_tree())
-    pp.pprint (Nt2_archis_struct.get_rel_archis_tree())
-    print Nt2_archis_struct()
-##    archs = Nt2_archis()
-##    for s_arch in archs.get_supported() :
-##        print "arch is: %s" % s_arch
-##        arch = archs.get_archi(s_arch)
-##        print "%s -> %s"% (s_arch,arch)
-##        for k in arch.get_variants() :
-##            if k : print "predecessor of %s is %s in %s"% (k, arch.get_previous(k),arch.get_previous_path(k))
-##        print "%s submodes -> %s"% (s_arch,archs.get_submodes(s_arch))
-
+    pp.pprint(" Swar variants   %s " % Swar().get_variants())
+    pp.pprint(" Swar mode       %s " % Swar().get_mode())
+    pp.pprint(" Scalar variants %s " % Scalar().get_variants())
+    pp.pprint(" Scalar mode     %s " % Scalar().get_mode())
+    pp.pprint(" Scalar rel_tree %s " % Scalar().get_rel_tree())
+    pp.pprint(" Sse variants    %s " % Sse().get_variants())
+    pp.pprint(" Sse mode        %s " % Sse().get_mode())
+    pp.pprint(" Sse rel_tree    %s " % Sse().get_rel_tree())
+    pp.pprint(" Vmx variants    %s " % Vmx().get_variants())
+    pp.pprint(" Vmx mode        %s " % Vmx().get_mode())
+    pp.pprint(" Vmx rel_tree    %s " % Vmx().get_rel_tree())
+    pp.pprint(Nt2_archis_struct.get_rel_archis_tree())
+    pp.pprint(Nt2_archis_struct())

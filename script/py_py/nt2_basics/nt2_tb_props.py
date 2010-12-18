@@ -47,6 +47,7 @@ class Nt2_tb_props(Nt2_base_infos,Nt2_tb_struct) :
     def get_bench_path(self)  : return os.path.join(self.__tb_path,'bench')
     def get_unit_path(self)   : return os.path.join(self.__tb_path,'unit')
     def get_doc_path(self)    : return os.path.join(self.__tb_path,'doc')
+    def get_include_path(self): return os.path.join(self.__tb_path,'include')
 
     def get_fcts_list(self) :
         l = []
@@ -90,8 +91,8 @@ class Nt2_tb_props(Nt2_base_infos,Nt2_tb_struct) :
     
 if __name__ == "__main__" :
     tbi = Nt2_tb_props("arithmetic")   
-    print tbi
+    print(tbi)
     tbi = Nt2_tb_props("cephes")   
-    print tbi
+    print(tbi)
 
 sys.path.pop(0)

@@ -8,6 +8,7 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
+from __future__         import print_function
 
 
 """base for generation of a functor unit tests
@@ -39,6 +40,7 @@ class Specific_values_test_gen(Base_gen) :
     def __create_values_test(self,dl,typ) :
         d = dl['unit']["specific_values"]
         dd = d.get(typ,d.get("default",None))
+        print(dd)
         r = ["", "  // specific values tests"]
         for k in sorted(dd.keys()) :
             s = Specific_values_test_gen.Spec_values_tpl
@@ -51,6 +53,10 @@ class Specific_values_test_gen(Base_gen) :
             if type(dd[k]) is str :
                 rep = dd[k]
                 thr = '0'
+            elif type(dd[k]) is dict :
+               print("icitte")
+               rep = dd[k]["result"]
+               thr = dd[k].get("ulp_thresh",0)
             else :
                 rep = dd[k][0]
                 thr = dd[k][1]
@@ -64,7 +70,7 @@ if __name__ == "__main__" :
     from pprint        import PrettyPrinter
     from unit_base_gen import Base_gen
     from unit_type_header_gen import Type_header_test_gen
-    print __doc__
+    print (__doc__)
     bg = Base_gen("exponential",'pipo','scalar')
     dl = bg.get_fct_dict_list()
     r = []
