@@ -6,34 +6,44 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_REPORT_HPP_INCLUDED
-#define NT2_SDK_MEMORY_REPORT_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_COMPILER_REPORT_HPP_INCLUDED
+#define NT2_SDK_CONFIG_COMPILER_REPORT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Memory config header
+// Architecture configuration headers
+// Defines architecture symbols for architecture related variation point.
+// Documentation: http://nt2.lri.fr/sdk/config/compiler.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/memory/config.hpp>
+#include <nt2/sdk/config/compiler.hpp>
 #include <nt2/sdk/config/details/reporter.hpp>
 
 namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Memory configuration status reporter
+  // Status header reporter - Head for the reporter list
   //////////////////////////////////////////////////////////////////////////////
-  inline void memories()
+  inline void compiler()
   {
-    printf(" Memory alignment        : %d\n", NT2_CONFIG_ALIGNMENT );
-    #if defined(NT2_CONFIG_SUPPORT_POSIX_MEMALIGN)
-      puts(" Memory allocation       : posix_memalign");
-    #elif defined(_MSC_VER)
-      puts(" Memory allocation       : _aligned_malloc");
+    puts(" Compiler                : " NT2_COMPILER_STRING);
+    puts(" Rvalue references       : "
+    #if   defined(BOOST_NO_RVALUE_REFERENCES)
+          "unsupported"
     #else
-      puts(" Memory allocation       : pointer stashing");
+          "supported"
     #endif
-    puts("");
+        );
+
+    puts(" Variadic templates      : "
+    #if   defined(BOOST_NO_VARIADIC_TEMPLATES)
+          "unsupported"
+    #else
+          "supported"
+    #endif
+        "\n"
+        );
   }
 
-  NT2_REGISTER_STATUS(memories);
+  NT2_REGISTER_STATUS(compiler);
 } }
 
 #endif

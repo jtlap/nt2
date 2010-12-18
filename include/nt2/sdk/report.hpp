@@ -6,31 +6,47 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONFIG_HPP_INCLUDED
-#define NT2_SDK_CONFIG_HPP_INCLUDED
+#ifndef NT2_SDK_REPORT_HPP_INCLUDED
+#define NT2_SDK_REPORT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Main config header
-// Documentation: http://nt2.lri.fr/sdk/config.html
+// Main report header
+// TOFO: Documentation: http://nt2.lri.fr/sdk/report.html
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-// NT2 configuration files
+// Internal NT2 configuration report
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/os.hpp>
-#include <nt2/sdk/config/arch.hpp>
-#include <nt2/sdk/config/compiler.hpp>
-#include <nt2/sdk/config/attributes.hpp>
-#include <nt2/sdk/config/type_lists.hpp>
+#include <nt2/sdk/config/os/report.hpp>
+#include <nt2/sdk/config/arch/report.hpp>
+#include <nt2/sdk/config/compiler/report.hpp>
+#include <nt2/sdk/config/software.hpp>
+
+namespace nt2 { namespace config
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Memory configuration status reporter
+  //////////////////////////////////////////////////////////////////////////////
+  inline void sdk()
+  {
+    puts("/****************************************************************\\");
+    puts("|                          SDK Settings                          |");
+    puts("\\****************************************************************/");
+  }
+
+  NT2_REGISTER_STATUS(sdk);
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
-// External NT2 configuration files
+// SDK configuration report
 ////////////////////////////////////////////////////////////////////////////////
-//#include <nt2/extensions/sdk/config.hpp>
+#include <nt2/sdk/simd/report.hpp>
+#include <nt2/sdk/memory/report.hpp>
+#include <nt2/sdk/error/report.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build a nt2 versioning symbol for binary conformance
+// External NT2 configuration report
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/version.hpp>
+//#include <nt2/extensions/sdk/report.hpp>
 
 #endif
