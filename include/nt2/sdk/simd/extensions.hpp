@@ -13,6 +13,7 @@
 // Support for basic SIMD extensions - Note those are themselves extendables
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config.hpp>
+#include <nt2/sdk/error/warning.hpp>
 #include <nt2/sdk/simd/extensions/sse.hpp>
 #include <nt2/sdk/simd/extensions/altivec.hpp>
 #include <nt2/sdk/simd/extensions/none.hpp>

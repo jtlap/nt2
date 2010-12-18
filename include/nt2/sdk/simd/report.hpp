@@ -12,28 +12,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Memory config header
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/memory/config.hpp>
+#include <nt2/sdk/simd/extensions.hpp>
 #include <nt2/sdk/config/details/reporter.hpp>
 
 namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Memory configuration status reporter
+  // SIMD configuration status reporter
   //////////////////////////////////////////////////////////////////////////////
-  inline void memories()
+  inline void simd()
   {
-    printf(" Memory alignment        : %d\n", NT2_CONFIG_ALIGNMENT );
-    #if defined(NT2_CONFIG_SUPPORT_POSIX_MEMALIGN)
-      puts(" Memory allocation       : posix_memalign");
-    #elif defined(_MSC_VER)
-      puts(" Memory allocation       : _aligned_malloc");
+    #if defined(NT2_SIMD_DETECTED)
+    puts(" SIMD support            : enabled");
+    puts(" Active extension        : " NT2_SIMD_STRING );
+    puts(" Available extensions    : " NT2_SIMD_STRING_LIST );
     #else
-      puts(" Memory allocation       : pointer stashing");
+    puts(" SIMD support            : disabled");
+    puts(" Active extension        : none"    );
+    puts(" Available extensions    : none"    );
     #endif
+
     puts("");
   }
 
-  NT2_REGISTER_STATUS(memories);
+  NT2_REGISTER_STATUS(simd);
 } }
 
 #endif

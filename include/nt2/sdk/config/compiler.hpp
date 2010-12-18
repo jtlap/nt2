@@ -18,7 +18,6 @@
 #include <boost/version.hpp>
 #include <nt2/sdk/config/bootstrap.hpp>
 #include <nt2/sdk/config/details/boost.hpp>
-#include <nt2/sdk/config/details/reporter.hpp>
 
 #include <nt2/sdk/config/compiler/gcc_xml.hpp>
 // #include <nt2/extensions/sdk/config/compiler.hpp>
@@ -26,32 +25,4 @@
 #include <nt2/sdk/config/compiler/visualc.hpp>
 #include <nt2/sdk/config/compiler/none.hpp>
 
-namespace nt2 { namespace config
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Status header reporter - Head for the reporter list
-  //////////////////////////////////////////////////////////////////////////////
-  inline void compiler()
-  {
-    puts(" Compiler                : " NT2_COMPILER_STRING);
-    puts(" Rvalue references       : "
-    #if   defined(BOOST_NO_RVALUE_REFERENCES)
-          "unsupported"
-    #else
-          "supported"
-    #endif
-        );
-
-    puts(" Variadic templates      : "
-    #if   defined(BOOST_NO_VARIADIC_TEMPLATES)
-          "unsupported"
-    #else
-          "supported"
-    #endif
-        "\n"
-        );
-  }
-
-  NT2_REGISTER_STATUS(compiler);
-} }
 #endif
