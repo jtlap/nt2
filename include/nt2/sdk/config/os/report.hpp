@@ -6,24 +6,27 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONFIG_OS_HPP_INCLUDED
-#define NT2_SDK_CONFIG_OS_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_OS_REPORT_HPP_INCLUDED
+#define NT2_SDK_CONFIG_OS_REPORT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Architecture configuration headers
-// Defines architecture symbols for architecture related variation point.
-// Documentation: http://nt2.lri.fr/doc/build/html/sdk/config/platform.html
+// OS reporting
+// TODO: Documentation: http://nt2.lri.fr/doc/build/html/sdk/config/platform.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/config/os.hpp>
+#include <nt2/sdk/config/details/reporter.hpp>
 
-#include <boost/config.hpp>
-#include <boost/version.hpp>
-#include <nt2/sdk/config/bootstrap.hpp>
-#include <nt2/sdk/config/details/boost.hpp>
+namespace nt2 { namespace config
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Status header reporter - Head for the reporter list
+  //////////////////////////////////////////////////////////////////////////////
+  inline void os()
+  {
+    puts(" Operating System        : " NT2_OS_STRING );
+  }
 
-//#include <nt2/extensions/sdk/config/os.hpp>
-#include <nt2/sdk/config/os/nix.hpp>
-#include <nt2/sdk/config/os/windows.hpp>
-#include <nt2/sdk/config/os/macos.hpp>
-#include <nt2/sdk/config/os/none.hpp>
+  NT2_REGISTER_STATUS(os);
+} }
 
 #endif

@@ -6,8 +6,8 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_SDK_ERROR_CONFIG_HPP_INCLUDED
-#define NT2_SDK_ERROR_CONFIG_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_REPORT_HPP_INCLUDED
+#define NT2_SDK_ERROR_REPORT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Memory config header
@@ -18,7 +18,7 @@
 namespace nt2 { namespace config
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Memory configuration status reporter
+  // Error configuration status reporter
   //////////////////////////////////////////////////////////////////////////////
   static void errors()
   {
@@ -39,10 +39,11 @@ namespace nt2 { namespace config
     #endif
 
     #if defined(NT2_USE_CONCEPTS)
-    puts(" Concepts checks         : enabled\n");
+    puts(" Concepts checks         : enabled");
     #else
-    puts(" Concepts checks         : disabled\n");
+    puts(" Concepts checks         : disabled");
     #endif
+    puts("");
   }
 
   NT2_REGISTER_STATUS(errors);
