@@ -16,7 +16,10 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-NT2_REGISTER_DISPATCH(tag::comma_,tag::cpu_,(A0)(A1),(fundamental_<A0>)(fundamental_<A1>));
+NT2_REGISTER_DISPATCH ( tag::comma_,tag::cpu_
+                      , (A0)(A1)
+                      , (unspecified_<A0>)(unspecified_<A1>)
+                      );
 
 namespace nt2 { namespace ext
 {
@@ -24,7 +27,9 @@ namespace nt2 { namespace ext
   // Comma basically evaluates its arguments and returns the second one
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call<tag::comma_(tag::fundamental_,tag::fundamental_), tag::cpu_, Dummy>
+  struct  call< tag::comma_(tag::unspecified_,tag::unspecified_)
+              , tag::cpu_, Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
