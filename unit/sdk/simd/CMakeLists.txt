@@ -8,31 +8,24 @@
 ################################################################################
 
 SET( SOURCES
-#    native.cpp
+    access.cpp
     as_integer.cpp
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
     cardinal_of.cpp
     category_of.cpp
+    comma.cpp
     is_signed.cpp
     make_integer.cpp
     make_real.cpp
-    scalar_of.cpp
-    sign_of.cpp
-    access.cpp
+    minus.cpp
+#    native.cpp
     native_cast.cpp
 #    pack.cpp
-#    add.cpp
-#    sub.cpp
-#    div.cpp
-#    mul.cpp
-#    eq.cpp
-#    neq.cpp
-#    lt.cpp
-#    gt.cpp
-#    le.cpp
-#    ge.cpp
+    plus.cpp
+    scalar_of.cpp
+    sign_of.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)
