@@ -28,6 +28,9 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::false_, False )
 }
 
+NT2_REGISTER_DISPATCH(tag::true_ ,tag::cpu_,(A0),(target_< fundamental_<A0> >))
+NT2_REGISTER_DISPATCH(tag::false_,tag::cpu_,(A0),(target_< fundamental_<A0> >))
+
 namespace nt2 { namespace ext
 {
   template<class Dummy>
