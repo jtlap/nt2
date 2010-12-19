@@ -23,7 +23,7 @@
 NT2_REGISTER_DISPATCH ( tag::unary_plus_ , tag::cpu_, (A0)
                       , (fundamental_<A0>)
                       )
-NT2_REGISTER_DISPATCH ( tag::neg_        , tag::cpu_, (A0)
+NT2_REGISTER_DISPATCH ( tag::unary_minus_        , tag::cpu_, (A0)
                       , (arithmetic_<A0>)
                       )
 NT2_REGISTER_DISPATCH ( tag::plus_       , tag::cpu_, (A0)(A1)
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
   // Unary minus
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct call<tag::neg_(tag::arithmetic_), tag::cpu_, Dummy> : callable
+  struct call<tag::unary_minus_(tag::arithmetic_), tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>  struct

@@ -13,15 +13,20 @@ SET( SOURCES
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
+    bitwise_and.cpp
+    bitwise_or.cpp
+    bitwise_xor.cpp
     cardinal_of.cpp
     category_of.cpp
     comma.cpp
+    complement.cpp
     is_signed.cpp
     make_integer.cpp
     make_real.cpp
     minus.cpp
 #    native.cpp
     native_cast.cpp
+    neg.cpp
 #    pack.cpp
     plus.cpp
     scalar_of.cpp

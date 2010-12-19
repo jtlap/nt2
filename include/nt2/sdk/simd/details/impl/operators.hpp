@@ -28,12 +28,12 @@
 #include <nt2/sdk/simd/details/common.hpp>
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-/*
 #include NT2_SIMD_INCLUDE(complement.hpp)
 #include NT2_SIMD_INCLUDE(neg.hpp)
 #include NT2_SIMD_INCLUDE(bitwise_and.hpp)
 #include NT2_SIMD_INCLUDE(bitwise_or.hpp)
 #include NT2_SIMD_INCLUDE(bitwise_xor.hpp)
+/*
 #include NT2_SIMD_INCLUDE(divides.hpp)
 #include NT2_SIMD_INCLUDE(is_equal_to.hpp)
 #include NT2_SIMD_INCLUDE(is_greater.hpp)
@@ -46,14 +46,10 @@
 #include NT2_SIMD_INCLUDE(logical_not.hpp)
 */
 #include NT2_SIMD_INCLUDE(minus.hpp)
-/*
-#include NT2_SIMD_INCLUDE(modulo.hpp)
-#include NT2_SIMD_INCLUDE(multiplies.hpp)
-*/
+//#include NT2_SIMD_INCLUDE(modulo.hpp)
+//#include NT2_SIMD_INCLUDE(multiplies.hpp)
 #include NT2_SIMD_INCLUDE(plus.hpp)
-/*
-#include NT2_SIMD_INCLUDE(shift_left.hpp)
-#include NT2_SIMD_INCLUDE(shift_right.hpp)
-*/
+//#include NT2_SIMD_INCLUDE(shift_left.hpp)
+//#include NT2_SIMD_INCLUDE(shift_right.hpp)
 
 #endif

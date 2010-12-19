@@ -36,7 +36,8 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )
   NT2_FUNCTION_IMPLEMENTATION(tag::logical_not_, logical_not , 1 )
   NT2_FUNCTION_IMPLEMENTATION(tag::logical_not_, l_not       , 1 )
-  NT2_FUNCTION_IMPLEMENTATION(tag::neg_        , neg         , 1 )
+  NT2_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )
+  NT2_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
 
   //////////////////////////////////////////////////////////////////////////////
   // Binary function wrappers

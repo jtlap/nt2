@@ -19,7 +19,7 @@ namespace nt2 { namespace tag
   //////////////////////////////////////////////////////////////////////////////
   // Unary operators
   //////////////////////////////////////////////////////////////////////////////
-  typedef boost::proto::tag::negate             neg_;
+  typedef boost::proto::tag::negate             unary_minus_;
   typedef boost::proto::tag::unary_plus         unary_plus_;
   typedef boost::proto::tag::complement         complement_;
   typedef boost::proto::tag::logical_not        logical_not_;

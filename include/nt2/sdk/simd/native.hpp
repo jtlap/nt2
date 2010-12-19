@@ -127,7 +127,7 @@ namespace nt2 { namespace simd
 
     this_type operator-() const
     {
-      functor<tag::neg_> callee;
+      functor<tag::unary_minus_> callee;
       return callee(*this);
     }
 

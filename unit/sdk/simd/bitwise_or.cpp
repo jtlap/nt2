@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::plus on SIMD types"
+#define NT2_UNIT_MODULE "nt2::bitwise_or on SIMD types"
 
 #include <nt2/sdk/simd/io.hpp>
 #include <nt2/sdk/simd/native.hpp>
@@ -20,19 +20,19 @@
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test behavior for plus
+// Test behavior for bitwise_or
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( plus, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( bitwise_or, NT2_SIMD_TYPES )
 {
   using boost::is_same;
-  using nt2::tag::plus_;
+  using nt2::tag::bitwise_or_;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
 
   typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 n_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<plus_(n_t,n_t)>::type
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_or_(n_t,n_t)>::type
                             , n_t
                             >::value
             )
@@ -45,8 +45,8 @@ NT2_TEST_CASE_TPL ( plus, NT2_SIMD_TYPES )
   n_t v = nt2::load<n_t>(&data[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
   {
-    NT2_TEST_EQUAL( (v+v)[j]           , v[j]+v[j] );
-    NT2_TEST_EQUAL( (nt2::plus(v,v))[j], v[j]+v[j] );
-    NT2_TEST_EQUAL( (nt2::add(v,v))[j] , v[j]+v[j] );
+    NT2_TEST_EQUAL( (v | v)[j]               , nt2::b_or(v[j],v[j]) );
+    NT2_TEST_EQUAL( (nt2::bitwise_or(v,v))[j], nt2::b_or(v[j],v[j]) );
+    NT2_TEST_EQUAL( (nt2::b_or(v,v))[j]      , nt2::b_or(v[j],v[j]) );
   }
 }

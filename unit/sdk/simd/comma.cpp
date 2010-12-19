@@ -6,47 +6,39 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::plus on SIMD types"
+#define NT2_UNIT_MODULE "nt2::comma on SIMD types"
 
 #include <nt2/sdk/simd/io.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test behavior for plus
+// Test behavior for comma
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( plus, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( comma, NT2_SIMD_TYPES )
 {
   using boost::is_same;
-  using nt2::tag::plus_;
+  using nt2::tag::comma_;
   using nt2::simd::native;
-  using nt2::meta::cardinal_of;
 
   typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 n_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<plus_(n_t,n_t)>::type
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<comma_(n_t,n_t)>::type
                             , n_t
                             >::value
             )
           );
 
-  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
-  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
-
-  n_t v = nt2::load<n_t>(&data[0],0);
-  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-  {
-    NT2_TEST_EQUAL( (v+v)[j]           , v[j]+v[j] );
-    NT2_TEST_EQUAL( (nt2::plus(v,v))[j], v[j]+v[j] );
-    NT2_TEST_EQUAL( (nt2::add(v,v))[j] , v[j]+v[j] );
-  }
+  n_t x,y;
+  x = nt2::comma(x,y);
+/*
+  NT2_TEST_EQUAL( nt2::comma(x,y) , y );
+  NT2_TEST_EQUAL( nt2::then(x,y)  , y );
+*/
 }
+
