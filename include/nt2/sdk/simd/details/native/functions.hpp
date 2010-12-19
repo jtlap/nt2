@@ -15,7 +15,7 @@
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
 #include NT2_SIMD_INCLUDE(load.hpp)
-//#include NT2_SIMD_INCLUDE(store.hpp)
+#include NT2_SIMD_INCLUDE(store.hpp)
 
 #include <nt2/sdk/simd/details/impl/map.hpp>
 
