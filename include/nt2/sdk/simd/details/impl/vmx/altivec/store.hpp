@@ -24,7 +24,7 @@
 NT2_REGISTER_DISPATCH ( tag::store_
                       , tag::cpu_
                       , (A0)(A1)(A2)
-                      , ((simd_< arithmetic_<A0>, tag::sse_ >))
+                      , ((simd_< arithmetic_<A0>, tag::altivec_ >))
                         (iterator_< arithmetic_<A1> >)
                         (integer_<A2>)
                       )
@@ -32,7 +32,7 @@ NT2_REGISTER_DISPATCH ( tag::store_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_(tag::arithmetic_,tag::sse_)
+  struct  call< tag::store_ ( tag::simd_(tag::arithmetic_,tag::altivec_)
                             , tag::iterator_(tag::arithmetic_)
                             , tag::integer_
                             )
