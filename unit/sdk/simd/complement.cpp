@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( complement, NT2_SIMD_TYPES )
   using boost::is_same;
   using nt2::tag::complement_;
   using nt2::simd::native;
-  using nt2::meta::cardinal_of;
+  using nt2::meta::cardinal_of; 
 
   typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 n_t;
