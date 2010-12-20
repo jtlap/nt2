@@ -45,6 +45,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-//#include <nt2/sdk/simd/details/impl/vmx/altivec/load_offset.hpp>
+#include <nt2/sdk/simd/details/impl/vmx/altivec/load_offset.hpp>
 
 #endif

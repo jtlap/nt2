@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A0 other = simd::native_cast<A0>( a1 );
-      A0 that = { vec_or(a0,other) };
+      A0 that = { vec_or(a0(),other()) };
       return that;
     }
   };

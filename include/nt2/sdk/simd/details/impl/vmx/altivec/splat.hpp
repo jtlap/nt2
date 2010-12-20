@@ -41,8 +41,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      typename T::extraction_type v;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typename type::extraction_type v;
       v.s[0] = a0;
       type that = {vec_splat(v.v, 0)};
       return that;
