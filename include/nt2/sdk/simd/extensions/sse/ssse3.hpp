@@ -31,13 +31,18 @@ NT2_WARNING(SSSE3 SIMD extension detected)
 #define NT2_SIMD_SSSE3
 #define NT2_SIMD_SSE_FAMILY
 #define NT2_SIMD_STRING             "SSSE3"
+#define NT2_SIMD_STRING_LIST        "SSE2 SSE3 SSSE3"
 #define NT2_SIMD_BYTES              16
 #define NT2_SIMD_BITS               128
 #define NT2_SIMD_CARDINALS          (2)(4)(8)(16)
 #define NT2_SIMD_TAG_SEQ            (::nt2::tag::sse_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::sse_
 
-#include <tmmintrin.h>
+extern "C"
+{
+  #include <tmmintrin.h>
+}
+
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 
 #endif

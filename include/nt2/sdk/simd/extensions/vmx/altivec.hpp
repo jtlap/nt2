@@ -44,7 +44,8 @@ NT2_WARNING(AltiVec SIMD extension detected)
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_SIMD_DETECTED
 #define NT2_SIMD_ALTIVEC
-#define NT2_SIMD_STRING  "Altivec"
+#define NT2_SIMD_STRING             "Altivec"
+#define NT2_SIMD_STRING_LIST        "Altivec"
 #define NT2_SIMD_VMX_FAMILY
 #define NT2_SIMD_BYTES              16
 #define NT2_SIMD_BITS               128

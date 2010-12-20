@@ -17,8 +17,8 @@
 
 namespace nt2 { namespace details
 {
-  template<class Type, class C, class X, class Sign>
-  struct  as_integer<Type,Sign,tag::simd_(C,X) >
+  template<class Type, class H, class X, class Sign>
+  struct  as_integer<Type,Sign, meta::simd_<H,X> >
         : meta::make_integer< sizeof(typename meta::scalar_of<Type>::type)
                             , Sign
                             , simd::native<boost::mpl::_,X>

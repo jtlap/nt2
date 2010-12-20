@@ -19,25 +19,11 @@
 #include <boost/version.hpp>
 #include <nt2/sdk/config/bootstrap.hpp>
 #include <nt2/sdk/config/details/boost.hpp>
-#include <nt2/sdk/config/details/reporter.hpp>
 
 //#include <nt2/extensions/sdk/config/os.hpp>
 #include <nt2/sdk/config/os/nix.hpp>
 #include <nt2/sdk/config/os/windows.hpp>
 #include <nt2/sdk/config/os/macos.hpp>
 #include <nt2/sdk/config/os/none.hpp>
-
-namespace nt2 { namespace config
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Status header reporter - Head for the reporter list
-  //////////////////////////////////////////////////////////////////////////////
-  inline void os()
-  {
-    puts(" Operating System        : " NT2_OS_STRING );
-  }
-
-  NT2_REGISTER_STATUS(os);
-} }
 
 #endif

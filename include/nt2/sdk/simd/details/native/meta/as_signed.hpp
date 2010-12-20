@@ -16,12 +16,12 @@
 
 namespace nt2 { namespace details
 {
-  template<class T,class C,class X>
-  struct  as_signed<T,tag::simd_(C,X)>		
+  template<class T,class H,class X>
+  struct  as_signed<T, meta::simd_<H,X> >
 	{
 		typedef typename
-		meta::as_signed<typename meta::scalar_of<T>::type>::type	base;
-		typedef simd::native<base,X>															type;
+		meta::as_signed<typename meta::scalar_of<T>::type>::type  base;
+		typedef simd::native<base,X>                              type;
 	};
 } }
 

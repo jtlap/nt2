@@ -25,7 +25,7 @@ namespace nt2 { namespace details
   // Sign has no meanign on other types most of the time
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct sign_of<T, meta::unknown_<T> > {  typedef unsigned type; };
+  struct sign_of<T, meta::unspecified_<T> > {  typedef unsigned type; };
 
   //////////////////////////////////////////////////////////////////////////////
   // ... unless they are unsigned of course

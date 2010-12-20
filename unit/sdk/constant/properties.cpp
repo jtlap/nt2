@@ -6,13 +6,12 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::constants properties"
+#define NT2_UNIT_MODULE "nt2 constants properties"
 
 #include <nt2/sdk/constant/properties.hpp>
-
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-/*
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for sigmask
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +30,7 @@ NT2_TEST_CASE(signmask)
   NT2_TEST_EQUAL( nt2::Signmask<nt2::int16_t>(), nt2::int16_t(0x8000)  );
   NT2_TEST_EQUAL( nt2::Signmask<nt2::int8_t >(), nt2::int8_t(0x80)    );
 }
-*/
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for valmax
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +69,23 @@ NT2_TEST_CASE(valmin)
   NT2_TEST_EQUAL( nt2::Valmin<nt2::int8_t >(), -128                    );
 }
 
-/*
+////////////////////////////////////////////////////////////////////////////////
+// Test values for maxleftshift
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(maxleftshift)
+{
+  NT2_TEST_EQUAL( nt2::Maxleftshift<double>()       , 63 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<float>()        , 31 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint64_t>(), 63 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint32_t>(), 31 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint16_t>(), 15 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::uint8_t >(), 7  );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int64_t>() , 63 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int32_t>() , 31 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int16_t>() , 15 );
+  NT2_TEST_EQUAL( nt2::Maxleftshift<nt2::int8_t >() , 7  );
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for IEEE specs
 ////////////////////////////////////////////////////////////////////////////////
@@ -87,5 +102,10 @@ NT2_TEST_CASE(ieee)
 
   NT2_TEST_EQUAL( nt2::Minexponent<double>(), -1022  );
   NT2_TEST_EQUAL( nt2::Minexponent<float>()  , -126  );
+
+  NT2_TEST_EQUAL( nt2::Ldexpmask<double>(), 0x7FF0000000000000ll  );
+  NT2_TEST_EQUAL( nt2::Ldexpmask<float>() , 0x7F800000            );
+
+  NT2_TEST_EQUAL( nt2::Nbdigits<double>(), 53 );
+  NT2_TEST_EQUAL( nt2::Nbdigits<float>() , 24 );
 }
-*/

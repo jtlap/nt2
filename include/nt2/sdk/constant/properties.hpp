@@ -20,16 +20,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace tag
 {
-  struct val_max_           {};
-  struct val_min_           {};
-  struct signmask_          {};
-  struct max_left_shift_    {};
-  struct nb_mantissa_bits_  {};
-  struct nb_exponent_bits_  {};
-  struct max_exponent_      {};
-  struct min_exponent_      {};
-  struct nb_digits_         {};
-  struct ldexp_mask_        {};
+  struct val_max_           {}; struct val_min_           {};
+  struct ldexp_mask_        {}; struct signmask_          {};
+  struct nb_digits_         {}; struct max_left_shift_    {};
+  struct nb_mantissa_bits_  {}; struct nb_exponent_bits_  {};
+  struct max_exponent_      {}; struct min_exponent_      {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +37,6 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::signmask_         , Signmask       )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::max_left_shift_   , Maxleftshift   )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::ldexp_mask_       , Ldexpmask      )
-
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nb_mantissa_bits_ , Nbmantissabits )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nb_exponent_bits_ , Nbexponentbits )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::max_exponent_     , Maxexponent    )
@@ -55,11 +49,8 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/constant/details/valmax.hpp>
 #include <nt2/sdk/constant/details/valmin.hpp>
-/*
 #include <nt2/sdk/constant/details/signmask.hpp>
 #include <nt2/sdk/constant/details/ieee_spec.hpp>
-#include <nt2/sdk/constant/details/ldexp_mask.hpp>
-//#include <nt2/sdk/constant/details/maxleftshift.hpp>
-*/
+#include <nt2/sdk/constant/details/maxleftshift.hpp>
 
 #endif

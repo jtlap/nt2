@@ -22,9 +22,9 @@
 NT2_TEST_CASE_TPL ( signed_neg, NT2_SIGNED_TYPES )
 {
   using boost::is_same;
-  using nt2::tag::neg_;
+  using nt2::tag::unary_minus_;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<neg_(T)>::type
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<unary_minus_(T)>::type
                             , BOOST_TYPEOF_TPL(-T())
                             >::value
             )
@@ -38,9 +38,9 @@ NT2_TEST_CASE_TPL ( signed_neg, NT2_SIGNED_TYPES )
 NT2_TEST_CASE_TPL ( unsigned_neg, NT2_UNSIGNED_TYPES )
 {
   using boost::is_same;
-  using nt2::tag::neg_;
+  using nt2::tag::unary_minus_;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<neg_(T)>::type
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<unary_minus_(T)>::type
                             , BOOST_TYPEOF_TPL(-T())
                             >::value
             )

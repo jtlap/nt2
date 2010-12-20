@@ -66,15 +66,15 @@ NT2_TEST_CASE(make_aligned_array)
   NT2_ALIGNED_TYPE(nt2::int8_t  ) ai8[3];
   NT2_ALIGNED_TYPE(bool         ) ab[3];
 
-  NT2_TEST( is_aligned(&ad) );
-  NT2_TEST( is_aligned(&af) );
-  NT2_TEST( is_aligned(&aui64) );
-  NT2_TEST( is_aligned(&aui32) );
-  NT2_TEST( is_aligned(&aui16) );
-  NT2_TEST( is_aligned(&aui8) );
-  NT2_TEST( is_aligned(&ai64) );
-  NT2_TEST( is_aligned(&ai32) );
-  NT2_TEST( is_aligned(&ai16) );
-  NT2_TEST( is_aligned(&ai8) );
-  NT2_TEST( is_aligned(&ab) );
+  NT2_TEST( is_aligned(&ad[0])    );
+  NT2_TEST( is_aligned(&af[0])    );
+  NT2_TEST( is_aligned(&aui64[0]) );
+  NT2_TEST( is_aligned(&aui32[0]) );
+  NT2_TEST( is_aligned(&aui16[0]) );
+  NT2_TEST( is_aligned(&aui8[0])  );
+  NT2_TEST( is_aligned(&ai64[0])  );
+  NT2_TEST( is_aligned(&ai32[0])  );
+  NT2_TEST( is_aligned(&ai16[0])  );
+  NT2_TEST( is_aligned(&ai8[0])   );
+  NT2_TEST( is_aligned(&ab[0])    );
 }

@@ -9,54 +9,60 @@
 #ifndef NT2_SDK_MEMORY_IS_ALIGNED_HPP_INCLUDED
 #define NT2_SDK_MEMORY_IS_ALIGNED_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/utility/enable_if.hpp>
-#include <nt2/sdk/memory/parameters.hpp>
-#include <nt2/sdk/memory/meta/is_power_of_2.hpp>
+#include <nt2/sdk/meta/mpl.hpp>
+#include <nt2/sdk/error/assert.hpp>
+#include <nt2/sdk/functor/functor.hpp>
+#include <nt2/sdk/memory/is_power_of_2.hpp>
+#include <nt2/sdk/functor/preprocessor/function.hpp>
 
-namespace nt2 {  namespace memory
+////////////////////////////////////////////////////////////////////////////////
+// Check if a value is aligned on some power of 2 alignment boundary
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Checks if a given value is aligned on a given power of 2 boundary
-  // Documentation: reference/sdk/aligned/function/is_aligned.rst
-  //////////////////////////////////////////////////////////////////////////////
-  template<std::size_t N> inline
-  typename boost::enable_if_c < meta::is_power_of_2_c<N>::value
-                              , bool
-                              >::type
-                              is_aligned( std::size_t v )
-  {
-    return !(v & (N-1) );
-  }
+  namespace tag { struct is_aligned_ {}; }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Checks if a given pointer is aligned on a given power of 2 boundary
-  // Documentation: reference/sdk/aligned/function/is_aligned.rst
-  //////////////////////////////////////////////////////////////////////////////
-  template<std::size_t N,class T> inline
-  typename boost::enable_if_c < meta::is_power_of_2_c<N>::value
-                              , bool
-                              >::type
-  is_aligned( T* v )
+  namespace memory
   {
-    return is_aligned<N>( reinterpret_cast<std::size_t>(v) );
-  }
+    ////////////////////////////////////////////////////////////////////////////
+    // align_on(a0) aligns a0 on the default alignement value
+    ////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTION_IMPLEMENTATION(tag::is_aligned_, is_aligned, 1);
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Checks if a given value is aligned on current alignment value
-  //////////////////////////////////////////////////////////////////////////////
-  inline bool is_aligned( std::size_t v )
-  {
-    return is_aligned<NT2_CONFIG_ALIGNMENT>(v);
-  }
+    ////////////////////////////////////////////////////////////////////////////
+    // is_aligned(a0,a1) check if a0 is aligned on a1
+    ////////////////////////////////////////////////////////////////////////////
+    template<class A0, class A1> inline
+    typename meta::enable_call<tag::is_aligned_(A0 const&, A1 const&)>::type
+    is_aligned(A0 const& a0, A1 const& a1)
+    {
+      NT2_ASSERT(   is_power_of_2(a1)
+                &&  "Invalid alignment boundary. You tried to check if an "
+                    "address or a value is aligned on a non-power of 2 boundary."
+                );
+      functor<tag::is_aligned_> callee;
+      return callee(a0,a1);
+    }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Checks if a given pointer is aligned on current alignment value
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline bool is_aligned( T* v )
-  {
-    return is_aligned<NT2_CONFIG_ALIGNMENT>(v);
-  }
+    ////////////////////////////////////////////////////////////////////////////
+    // is_aligned<N>(a0) checks if a0 is aligned on N
+    ////////////////////////////////////////////////////////////////////////////
+    template<std::size_t N,class A0> inline
+    typename
+    meta::enable_call<tag::is_aligned_(A0 const&, boost::mpl::int_<N> const&)>::type
+    is_aligned(A0 const& a0)
+    {
+      NT2_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
+                        , INVALID_ALIGNMENT_BOUNDARY
+                        , "Invalid alignment boundary. You tried to check if an "
+                          "address or a value is aligned on a non-power of 2 boundary."
+                        );
+
+      functor<tag::is_aligned_> callee;
+      return callee(a0,boost::mpl::int_<N>());
+    }
 } }
+
+#include <nt2/sdk/memory/details/is_aligned.hpp>
 
 #endif

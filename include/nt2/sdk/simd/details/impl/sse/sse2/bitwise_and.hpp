@@ -9,71 +9,104 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
 
-#include <nt2/sdk/meta/size.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
+                      , ((simd_<type64_<A0>,tag::sse_>))
+                        ((simd_<type64_<A1>,tag::sse_>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
+                      , ((simd_<type32_<A0>,tag::sse_>))
+                        ((simd_<type32_<A1>,tag::sse_>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
+                      , ((simd_<type16_<A0>,tag::sse_>))
+                        ((simd_<type16_<A1>,tag::sse_>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
+                      , ((simd_<type8_<A0>,tag::sse_>))
+                        ((simd_<type8_<A1>,tag::sse_>))
+                      );
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Bitwise operators requires same bits size
+  // The 8 bits version holds the generic code used by all other
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct validate<bitwise_and_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct  result<This(A0,A1)> : meta::has_same_size < A0, A1 >{};
-  };
-
-  template<class Info>
-  struct  call<bitwise_and_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = simd::native_cast<A0>( a1 );
-      that    =  _mm_and_pd(a0, that);
-      return that;
-    }
-  };
-
-  template<class Info>
-  struct  call<bitwise_and_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = simd::native_cast<A0>( a1 );
-      that    =  _mm_and_ps(a0, that);
-      return that;
-    }
-  };
-
-  template<class Info>
-  struct  call< bitwise_and_, tag::simd_(tag::arithmetic_,tag::sse_)
-              , arithmetic_ , Info
+  template<class Dummy>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type8_,tag::sse_)
+                                  , tag::simd_(tag::type8_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
+    template<class Sig>           struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = simd::native_cast<A0>( a1 );
-      that    =  _mm_and_si128(a0,that);
+      typedef typename A0::native_type              native_type;
+      typedef typename meta::as_integer< A0 >::type int_type;
+      int_type that0 = simd::native_cast<int_type>( a0 );
+      int_type that1 = simd::native_cast<int_type>( a1 );
+      A0        that = { (native_type)_mm_and_si128(that0,that1) };
       return that;
     }
   };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // All other versions (16,32,64) forward their calls to the 8 bits version
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type16_,tag::sse_)
+                                  , tag::simd_(tag::type16_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,tag::sse_)
+                                  , tag::simd_(tag::type8_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
+
+  template<class Dummy>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type32_,tag::sse_)
+                                  , tag::simd_(tag::type32_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,tag::sse_)
+                                  , tag::simd_(tag::type8_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
+
+  template<class Dummy>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type64_,tag::sse_)
+                                  , tag::simd_(tag::type64_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,tag::sse_)
+                                  , tag::simd_(tag::type8_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
 } }
 
 #endif

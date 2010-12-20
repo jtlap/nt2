@@ -24,18 +24,4 @@ namespace nt2 { namespace tag
   template<class ConstantID> struct constant_ { typedef ConstantID type; };
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// Register the const_ hierarchy an tie it to meta::as_
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_HIERARCHY(const_)
-
-namespace nt2 { namespace meta
-{
-  template<class T>
-  struct hierarchy_of< meta::as_<T> >
-  {
-    typedef const_<typename hierarchy_of<T>::type > type;
-  };
-} }
-
 #endif

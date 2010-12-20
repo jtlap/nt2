@@ -18,13 +18,13 @@
 NT2_REGISTER_DISPATCH ( tag::splat_
                       , tag::cpu_
                       , (A0)(A1)
-                      , (fundamental_<A0>)(const_< fundamental_<A1> >)
+                      , (fundamental_<A0>)(target_< fundamental_<A1> >)
                       );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::splat_(tag::fundamental_,tag::const_(tag::fundamental_))
+  struct  call< tag::splat_(tag::fundamental_,tag::target_(tag::fundamental_))
               , tag::cpu_
               , Dummy
               >

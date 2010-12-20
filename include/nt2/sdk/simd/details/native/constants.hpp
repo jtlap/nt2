@@ -9,31 +9,61 @@
 #ifndef NT2_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 
+#include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/boolean.hpp>
 #include <nt2/sdk/simd/details/impl/splat.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// in SIMD, True is not !0 but ~0 whatever the type
+// Forward all constant call to the simd version of themselves that splat
+// the appropriate scalar constants into a proper SIMD vector.
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
+NT2_REGISTER_DISPATCH ( Tag, tag::cpu_
+                      , (Tag)(A0)(X)
+                      , ((target_< simd_< arithmetic_<A0>,X> >))
+                      )
+
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // When generating true_, dispatch on integral/real of target
-  //////////////////////////////////////////////////////////////////////////////
-  template<class C, class X, class Info>
-  struct dispatch<constants::true_,tag::simd_(C,X),Info>
+  template<class Tag, class X, class Dummy>
+  struct  call< Tag(tag::target_( tag::simd_(tag::arithmetic_,X)) )
+              , tag::cpu_, Dummy
+              >
+          : callable
   {
-    template<class A0>
-    struct  apply
-          : meta::scalar_of<typename meta::strip<A0>::type::type>
-    {};
-  };
+    template<class Sig> struct result;
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
-  template<class C, class X,class Info>
-  struct  call< constants::false_ , tag::constant_(tag::simd_(C,X))
-              , fundamental_      , Info
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type result_type;
+      typedef typename meta::scalar_of<result_type>::type type;
+      functor<Tag> callee;
+      return splat<result_type>(callee( nt2::meta::as_<type>()));
+    }
+  };
+} }
+
+////////////////////////////////////////////////////////////////////////////////
+// in SIMD, True is not !0 but ~0 whatever the type
+// TODO : Move to details/impl/ ?
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::true_, tag::cpu_
+                      , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
+                      )
+
+NT2_REGISTER_DISPATCH ( tag::true_, tag::cpu_
+                      , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct  call< tag::true_( tag::target_(tag::simd_(tag::real_,X)) )
+              , tag::cpu_
+              , Dummy
               >
         : callable
   {
@@ -43,13 +73,17 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return splat<typename A0::type>(0);
+      typedef typename NT2_RETURN_TYPE(1)::type result_type;
+      typedef typename meta::scalar_of<result_type>::type type;
+      typename meta::from_bits<type>::type that = { ~0LL };
+      return splat<result_type>(that.value);
     }
   };
 
-  template<class C, class X,class Info>
-  struct  call< constants::true_, tag::constant_(tag::simd_(C,X))
-              , real_           , Info
+  template<class X, class Dummy>
+  struct  call< tag::true_(tag::target_(tag::simd_(tag::integer_,X)) )
+              , tag::cpu_
+              , Dummy
               >
         : callable
   {
@@ -59,29 +93,9 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<typename A0::type>::type stype;
-      typedef typename meta::as_integer<stype>::type int_type;
-      typedef union { int_type bits; stype value; } type;
-      type const that = { ~int_type(0) };
-      return splat<typename A0::type>(that.value);
-    }
-  };
-
-  template<class C, class X,class Info>
-  struct  call< constants::true_, tag::constant_(tag::simd_(C,X))
-              , integer_        , Info
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type type;
-      type const that = ~type(0);
-      return splat<typename A0::type>(that);
+      typedef typename NT2_RETURN_TYPE(1)::type result_type;
+      typedef typename meta::scalar_of<result_type>::type type;
+      return splat<result_type>(~type(0));
     }
   };
 } }
