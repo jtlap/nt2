@@ -20,6 +20,7 @@ SET( SOURCES
     category_of.cpp
     comma.cpp
     complement.cpp
+    divides.cpp
     is_signed.cpp
     make_integer.cpp
     make_real.cpp
