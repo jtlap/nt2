@@ -101,8 +101,11 @@ namespace nt2 { namespace simd
 
     ////////////////////////////////////////////////////////////////////////////
     // Type casting operator for compatibility with intrinsic functions
+    // The operator() version is here for some variation of Altivec which fails
+    // to perform the proper automatic type-casting on intrinsic calls.
     ////////////////////////////////////////////////////////////////////////////
-    operator native_type() const { return data_; }
+    operator native_type()    const { return data_; }
+    native_type operator()()  const { return data_; }
 
     ////////////////////////////////////////////////////////////////////////////
     // new/delete operator to force alignment on heap of native values
