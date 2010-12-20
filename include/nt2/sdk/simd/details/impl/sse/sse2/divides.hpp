@@ -9,58 +9,86 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_DIVIDES_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_DIVIDES_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::divides_, tag::cpu_, (A0)
+                      , ((simd_<double_<A0>,tag::sse_>))
+                        ((simd_<double_<A0>,tag::sse_>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::divides_, tag::cpu_, (A0)
+                      , ((simd_<float_<A0>,tag::sse_>))
+                        ((simd_<float_<A0>,tag::sse_>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::divides_, tag::cpu_, (A0)
+                      , ((simd_<integer_<A0>,tag::sse_>))
+                        ((simd_<integer_<A0>,tag::sse_>))
+                      );
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
-  template<class Info>
-  struct  call<divides_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  { _mm_div_pd(a0, a1) };
-      return that;
-    }
-  };
-
-  template<class Info>
-  struct  call<divides_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  { _mm_div_ps(a0, a1) };
-      return that;
-    }
-  };
-
-  template<class Info>
-  struct  call< divides_, tag::simd_(tag::arithmetic_,tag::sse_)
-              , arithmetic_ , Info
+  //////////////////////////////////////////////////////////////////////////////
+  // dobule and float has an intrinsic
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call< tag::divides_ ( tag::simd_(tag::double_,tag::sse_)
+                                  , tag::simd_(tag::double_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
+    template<class Sig>           struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that;
-      that = map(functor<divides_>(), a0, a1);
+      A0  that = { _mm_div_pd(a0,a1) };
       return that;
     }
   };
+
+  template<class Dummy>
+  struct  call< tag::divides_ ( tag::simd_(tag::float_,tag::sse_)
+                              , tag::simd_(tag::float_,tag::sse_)
+                              )
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0  that = { _mm_div_ps(a0,a1) };
+      return that;
+    }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Integers use maps as it is what compiler do anyway
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call< tag::divides_ ( tag::simd_(tag::integer_,tag::sse_)
+                              , tag::simd_(tag::integer_,tag::sse_)
+                              )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::divides_ ( tag::simd_(tag::arithmetic_,tag::sse_)
+                              , tag::simd_(tag::arithmetic_,tag::sse_)
+                              )
+              , tag::cpu_, Dummy
+              >
+  {};
 } }
 
 #endif
-
