@@ -10,7 +10,7 @@
 
 #include <nt2/sdk/simd/io.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/load.hpp> 
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
