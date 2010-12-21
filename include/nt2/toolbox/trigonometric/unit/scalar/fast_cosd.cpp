@@ -32,8 +32,8 @@ NT2_TEST_CASE_TPL ( fast_cos, (double)
  	     >::value)
  	    );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-   NT2_TEST_EQUAL(  nt2::fast_cos( T(0) )  , 1 );
-   NT2_TEST_LESSER(  nt2::ulpdist(nt2::fast_cos(T(45) ), nt2::Sqrt_2o_2<T>()),  N); 
-   NT2_TEST_LESSER(  nt2::ulpdist(nt2::fast_cos(-T(45)), nt2::Sqrt_2o_2<T>()),  N); 
+   NT2_TEST_EQUAL(  nt2::fast_cosd( T(0) )  , 1 );
+   NT2_TEST_LESSER(  nt2::ulpdist(nt2::fast_cosd(T(45) ), nt2::Sqrt_2o_2<T>()),  N); 
+   NT2_TEST_LESSER(  nt2::ulpdist(nt2::fast_cosd(-T(45)), nt2::Sqrt_2o_2<T>()),  N); 
 
 }
