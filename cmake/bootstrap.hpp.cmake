@@ -13,7 +13,7 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 
-#define NT2_CONFIG_BASE()	nt2/extensions/config/
+#define NT2_CONFIG_BASE()	nt2/extension/config/
 #include NT2_PP_INCLUDE(NT2_CONFIG_BASE,NT2_CUSTOM_BOOTSTRAP)
 #else
 ////////////////////////////////////////////////////////////////////////////////
