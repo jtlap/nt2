@@ -20,7 +20,7 @@
 #include <nt2/sdk/config/details/boost.hpp>
 
 #include <nt2/sdk/config/compiler/gcc_xml.hpp>
-// #include <nt2/extensions/sdk/config/compiler.hpp>
+#include <nt2/extension/sdk/config/compiler.hpp>
 #include <nt2/sdk/config/compiler/gcc.hpp>
 #include <nt2/sdk/config/compiler/visualc.hpp>
 #include <nt2/sdk/config/compiler/none.hpp>
