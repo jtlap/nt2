@@ -21,6 +21,7 @@ SET( SOURCES
     comma.cpp
     complement.cpp
     divides.cpp
+    is_equal.cpp
     is_signed.cpp
     make_integer.cpp
     make_real.cpp
