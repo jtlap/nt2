@@ -45,6 +45,7 @@ Temp
 Testing
 Debug
 Release
+build
 
 ################################################################################
 # Ignore local bootstrap file
