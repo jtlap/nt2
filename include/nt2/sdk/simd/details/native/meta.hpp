@@ -18,12 +18,6 @@
 #include <nt2/sdk/simd/details/native/meta/is_signed.hpp>
 #include <nt2/sdk/simd/details/native/meta/as_integer.hpp>
 #include <nt2/sdk/simd/details/native/meta/cardinal_of.hpp>
-
-/*
-#include <nt2/sdk/simd/details/native/as_bits.hpp>
-#include <nt2/sdk/simd/details/native/logical.hpp>
-#include <nt2/sdk/simd/details/native/model_of.hpp>
-#include <nt2/sdk/simd/details/native/from_bits.hpp>
-*/
+#include <nt2/sdk/simd/details/native/meta/downgrade.hpp>
 
 #endif
