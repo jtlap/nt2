@@ -21,6 +21,7 @@ SET( SOURCES
     comma.cpp
     complement.cpp
     divides.cpp
+    downgrade.cpp
     is_equal.cpp
     is_signed.cpp
     make_integer.cpp
@@ -34,6 +35,7 @@ SET( SOURCES
     plus.cpp
     scalar_of.cpp
     sign_of.cpp
+    upgrade.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)

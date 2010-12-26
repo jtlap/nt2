@@ -15,14 +15,11 @@
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
-  // SIMD types downgrade as their scalar counterpart
+  // SIMD types upgrade as their scalar counterpart
   //////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t Size, class Sign, class H,class X>
   struct  upgrade<T,Size,Sign, meta::simd_<H,X> >
-        : T::template rebind< typename
-                              meta::upgrade<typename
-                                              meta::scalar_of<T>::type>::type
-                            >::type
+        : T::template cast<typename meta::upgrade<typename T::value_type>::type>
   {};
 } }
 

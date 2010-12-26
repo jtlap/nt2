@@ -51,9 +51,9 @@ namespace nt2 { namespace simd
     typedef details::native_iterator<native>                const_iterator;
 
     ////////////////////////////////////////////////////////////////////////////
-    // native rebind
+    // native cast to another type
     ////////////////////////////////////////////////////////////////////////////
-    template<class U> struct rebind { typedef native<U,extension_type> type; };
+    template<class U> struct cast { typedef native<U,extension_type> type; };
 
     ////////////////////////////////////////////////////////////////////////////
     // vector size

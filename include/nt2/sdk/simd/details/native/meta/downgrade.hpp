@@ -19,10 +19,9 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t Size, class Sign, class H,class X>
   struct  downgrade<T,Size,Sign, meta::simd_<H,X> >
-        : T::template rebind< typename
-                              meta::downgrade<typename
-                                              meta::scalar_of<T>::type>::type
-                            >::type
+        : T::template cast< typename
+                            meta::downgrade<typename T::value_type>::type
+                          >
   {};
 } }
 
