@@ -20,100 +20,115 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/average.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ellik_, tag::cpu_,
+                       (A0)(A1),
+                       (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for ellik
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute ellik(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ellik_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::ellik_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return ellik(type(a0), type(a1));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ellik_, tag::cpu_,
+                       (A0)(A1),
+                       (double_<A0>)(double_<A1>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ellik_(tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
+      if (is_eqz(a1))  return type(a0);
+      return boost::math::ellint_1(nt2::sqrt(a1), a0);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ellik_, tag::cpu_,
+                       (A0)(A1),
+                       (float_<A0>)(float_<A1>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ellik_(tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::floating(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return a0;
       type phi = nt2::abs(a0);
-      type m = a1; 
+      type m = a1;
       type a = 1.0;
       type b = oneminus(m);
-      if( is_eqz(b) )	return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
+      if( is_eqz(b) )   return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
       b = nt2::sqrt(b);
       type c = nt2::sqrt(m);
       int d = 1;
       type t = nt2::tan(phi);
       int mod = (phi + Pio_2<type>())/Pi<type>();
       while( nt2::abs(c) > nt2::abs(a)*Eps<type>() )
-	{
-	  type temp = b/a;
-	  phi += nt2::atan(t*temp) + mod*Pi<type>();
-	  mod = (phi + Pio_2<type>())/Pi<type>();
-	  t = t*oneplus(temp)/( oneminus(temp*t*t));
-	  c = average(a,-b);
-	  temp = nt2::sqrt(a*b);
-	  a = average(a,b);
-	  b = temp;
-	  d += d;
-	}
+      {
+        type temp = b/a;
+        phi += nt2::atan(t*temp) + mod*Pi<type>();
+        mod = (phi + Pio_2<type>())/Pi<type>();
+        t = t*oneplus(temp)/( oneminus(temp*t*t));
+        c = average(a,-b);
+        temp = nt2::sqrt(a*b);
+        a = average(a,b);
+        b = temp;
+        d += d;
+      }
       type temp = (atan(t) + mod * Pi<type>())/(d * a);
       if( is_ltz(a0) )  temp = -temp;
-      return temp;	
+      return temp;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ellik_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::floating(A0,A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
-      if (is_eqz(a1))  return type(a0);
-      return boost::math::ellint_1(nt2::sqrt(a1), a0);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ellik_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::floating(A0,A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      return ellik(type(a0), type(a1)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

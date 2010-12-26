@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct sinpi_rn_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::sinpi_rn_, sinpi_rn, 1)
+    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::sinpi_rn_, sinpi_rn, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/sinpi_rn.hpp>
 // #include NT2_CRLIBM_INCLUDE(sinpi_rn.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

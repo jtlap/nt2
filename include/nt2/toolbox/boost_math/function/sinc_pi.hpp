@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/sinc.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct sinc_pi_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::sinc_pi_, sinc_pi, 1)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sinc_pi_, sinc_pi, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/sinc_pi.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(sinc_pi.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

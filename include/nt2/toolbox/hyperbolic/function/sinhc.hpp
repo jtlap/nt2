@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/hyperbolic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct sinhc_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::sinhc_, sinhc, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::sinhc_, sinhc, 1)
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/sinhc.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

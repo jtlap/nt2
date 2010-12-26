@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct atan_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::atan_, atan, 1)
+    NT2_FUNCTION_IMPLEMENTATION(libc::tag::atan_, atan, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/atan.hpp>
 // #include NT2_LIBC_INCLUDE(atan.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

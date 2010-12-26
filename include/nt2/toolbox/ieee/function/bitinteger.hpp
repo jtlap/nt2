@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ieee/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct bitinteger_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitinteger_, bitinteger, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitinteger_, bitinteger, 1)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/bitinteger.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

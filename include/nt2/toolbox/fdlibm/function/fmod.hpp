@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct fmod_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::fmod_, fmod, 1)
+    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::fmod_, fmod, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/fmod.hpp>
 // #include NT2_FDLIBM_INCLUDE(fmod.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

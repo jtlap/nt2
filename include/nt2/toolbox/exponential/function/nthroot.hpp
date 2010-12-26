@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/exponential/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct nthroot_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::nthroot_, nthroot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::nthroot_, nthroot, 2)
 }
  
 #include <nt2/toolbox/exponential/function/scalar/nthroot.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

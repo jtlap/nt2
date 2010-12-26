@@ -14,30 +14,54 @@
 
 #include <nt2/include/functions/is_flint.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_even_, tag::cpu_,
+                         (A0),
+                         (fundamental_<A0>)
+                        )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<is_even_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_even(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_even_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::is_even_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> 
+    struct result<This(A0)>
     {
-       typedef bool type; 
+       typedef bool type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return !(a0 & One<A0>());
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_even_, tag::cpu_,
+                         (A0),
+                         (real_<A0>)
+                        )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_even_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+       typedef bool type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -45,28 +69,7 @@ namespace nt2 { namespace functors
       return is_flint(a0*Half<A0>());
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_even_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> 
-    {
-       typedef bool type; 
-    };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return !(a0 & One<A0>());      
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

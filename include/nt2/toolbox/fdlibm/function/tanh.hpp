@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct tanh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tanh_, tanh, 1)
+    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::tanh_, tanh, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/tanh.hpp>
 // #include NT2_FDLIBM_INCLUDE(tanh.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

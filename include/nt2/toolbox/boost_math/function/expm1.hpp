@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/expm1.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct expm1_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::expm1_, expm1, 1)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expm1_, expm1, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/expm1.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(expm1.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

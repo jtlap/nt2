@@ -11,15 +11,17 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/acosh.hpp>
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct acosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::acosh_, acosh, 1)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::acosh_, acosh, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/acosh.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(acosh.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

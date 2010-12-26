@@ -13,27 +13,24 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     extern double fd_frexp ( double,int* );
   }
-  template<class Info>
-  struct validate<fdlibm::frexp_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::is_floating_point<A0> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute frexp(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<fdlibm::frexp_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
+                       (A0),
+                       (fundamental_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::frexp_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0> struct result<This(A0)>
@@ -43,7 +40,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
@@ -64,4 +61,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 26/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct log1p_ru_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::log1p_ru_, log1p_ru, 1)
+    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::log1p_ru_, log1p_ru, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/log1p_ru.hpp>
 // #include NT2_CRLIBM_INCLUDE(log1p_ru.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

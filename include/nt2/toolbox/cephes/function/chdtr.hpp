@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct chdtr_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::chdtr_, chdtr, 2)
+    NT2_FUNCTION_IMPLEMENTATION(cephes::tag::chdtr_, chdtr, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/chdtr.hpp>
 // #include NT2_CEPHES_INCLUDE(chdtr.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/ellint_3.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct ellint_3_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::ellint_3_, ellint_3, 3)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_3_, ellint_3, 3)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/ellint_3.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(ellint_3.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -19,56 +19,24 @@
 #include <nt2/include/functions/exponent.hpp>
 #include <iostream>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::eps_, tag::cpu_,
+                     (A0),
+                     (arithmetic_<A0>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for eps
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute eps(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<eps_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::eps_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type value_type;
-      typedef std::numeric_limits<A0> lim;
-      const A0 a = abs(a0);
-      if (is_not_finite(a))
-	{
-	  return value_type(Nan<A0>());
-	}
-      else if (a < lim::min())
-	{
-	  return Mindenormal<A0>(); 
-	}
-      else
-	{
-	  return nt2::fast_ldexp(One<A0>(), exponent(a) -lim::digits+1);
-	}
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<eps_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::arithmetic(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
@@ -77,8 +45,47 @@ namespace nt2 { namespace functors
       return One<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::eps_, tag::cpu_,
+                     (A0),
+                     (real_<A0>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::eps_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::arithmetic(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type value_type;
+      typedef std::numeric_limits<A0> lim;
+      const A0 a = abs(a0);
+      if (is_not_finite(a))
+      {
+        return value_type(Nan<A0>());
+      }
+      else if (a < lim::min())
+      {
+        return Mindenormal<A0>();
+      }
+      else
+      {
+        return nt2::fast_ldexp(One<A0>(), exponent(a) -lim::digits+1);
+      }
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

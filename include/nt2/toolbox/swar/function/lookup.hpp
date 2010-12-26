@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/swar/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct lookup_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::lookup_, lookup, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::lookup_, lookup, 2)
 }
  
 #include <nt2/toolbox/swar/function/scalar/lookup.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

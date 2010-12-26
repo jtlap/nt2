@@ -13,20 +13,20 @@
 
 #include <nt2/include/functions/sinpi.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::cscpi_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for cscpi
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute cscpi(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<cscpi_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Dummy>
+  struct call<tag::cscpi_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,13 +35,12 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      if (!a0) return Nan<type>(); 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (!a0) return Nan<type>();
       return rec(nt2::sinpi(a0));
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
-    template <class T> struct acos_ {};				
+namespace nt2 { namespace crlibm { namespace tag
+  {         
+    template <class T> struct acos_ {};        
     NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(acos, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/acos.hpp>
 // #include NT2_CRLIBM_INCLUDE(acos.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

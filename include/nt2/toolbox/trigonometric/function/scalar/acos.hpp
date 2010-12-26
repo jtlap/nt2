@@ -16,24 +16,52 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acos_, tag::cpu_,
+                      (A0),
+                      (arithmetic_<A0>)
+                     )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for acos
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute acos(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acos_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::acos_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if(gt(abs(a0), One<A0>())) return Nan<type>();
+      return oneminus(nt2::sign(a0))*Pio_2<type>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acos_, tag::cpu_,
+                      (A0),
+                      (real_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::acos_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
@@ -41,28 +69,7 @@ namespace nt2 { namespace functors
       return impl::invtrig_base<A0,radian_tag,trig_tag,tag::not_simd_type>::acos(a0);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acos_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      if(gt(abs(a0), One<A0>())) return Nan<type>();
-      return oneminus(nt2::sign(a0))*Pio_2<type>();
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

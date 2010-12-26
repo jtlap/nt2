@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct expm1_rz_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::expm1_rz_, expm1_rz, 1)
+    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::expm1_rz_, expm1_rz, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/expm1_rz.hpp>
 // #include NT2_CRLIBM_INCLUDE(expm1_rz.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

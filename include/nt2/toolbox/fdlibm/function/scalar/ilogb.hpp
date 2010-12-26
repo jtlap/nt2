@@ -9,34 +9,24 @@
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     extern int fd_ilogb ( double );
   }
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute ilogb(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<fdlibm::ilogb_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  { typedef int type; };
-
-    NT2_FUNCTOR_CALL(1){ int z = fd_ilogb(a0); return z; }
-  };
 
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<fdlibm::ilogb_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ilogb_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -47,8 +37,29 @@ namespace nt2 { namespace functors
       return nt2::fdlibm::ilogb(double(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
+                       (A0),
+                       (double_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ilogb_(tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>  { typedef int type; };
+
+    NT2_FUNCTOR_CALL(1){ int z = fd_ilogb(a0); return z; }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 26/12/2010

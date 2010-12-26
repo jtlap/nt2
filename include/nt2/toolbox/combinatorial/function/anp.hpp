@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/combinatorial/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct anp_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::anp_, anp, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::anp_, anp, 2)
 }
  
 #include <nt2/toolbox/combinatorial/function/scalar/anp.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -9,64 +9,26 @@
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_CHDTR_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_CHDTR_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     extern float cephes_chdtrf ( float,float );
     extern double cephes_chdtr ( double,double );
     extern long double cephes_chdtrl ( long double,long double );
   }
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute chdtr(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::chdtr_,tag::scalar_(tag::arithmetic_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(2){ return cephes_chdtrf(a0, a1); }
-  };
 
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::chdtr_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::chdtr_, tag::cpu_,
+                       (A0)(A1),
+                       (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
 
-    NT2_FUNCTOR_CALL(2){ return cephes_chdtr(a0, a1); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is long double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::chdtr_,tag::scalar_(tag::arithmetic_),long double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(2){ return cephes_chdtrl(a0, a1); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::chdtr_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::chdtr_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -74,12 +36,77 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::cephes::chdtr(type(a0), type(a1));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::chdtr_, tag::cpu_,
+                       (A0)(A1),
+                       (double_<A0>)(double_<A1>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::chdtr_(tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(2){ return cephes_chdtr(a0, a1); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::chdtr_, tag::cpu_,
+                       (A0)(A1),
+                       (float_<A0>)(float_<A1>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::chdtr_(tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(2){ return cephes_chdtrf(a0, a1); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is long double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::chdtr_, tag::cpu_,
+                       (A0)(A1),
+                       (long double_<A0>)(long double_<A1>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::chdtr_(tag::long double_,tag::long double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(2){ return cephes_chdtrl(a0, a1); }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 26/12/2010

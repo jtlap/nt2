@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/round.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct iround_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::iround_, iround, 1)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::iround_, iround, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/iround.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(iround.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

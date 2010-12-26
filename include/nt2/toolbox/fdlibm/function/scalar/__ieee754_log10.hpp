@@ -9,34 +9,24 @@
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR__IEEE754_LOG10_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR__IEEE754_LOG10_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     extern double fd___ieee754_log10 ( double );
   }
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute __ieee754_log10(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<fdlibm::__ieee754_log10_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return fd___ieee754_log10(a0); }
-  };
 
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<fdlibm::__ieee754_log10_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::__ieee754_log10_, tag::cpu_,
+                                 (A0),
+                                 (arithmetic_<A0>)
+                                )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::__ieee754_log10_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -44,12 +34,33 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       return nt2::fdlibm::__ieee754_log10(double(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::__ieee754_log10_, tag::cpu_,
+                                 (A0),
+                                 (double_<A0>)
+                                )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::__ieee754_log10_(tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return fd___ieee754_log10(a0); }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 26/12/2010

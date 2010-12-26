@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/standard/include.hpp>
 
-namespace nt2 { namespace standard
-  {	       
+namespace nt2 { namespace standard { namespace tag
+  {         
     struct frexp_ {};
-    NT2_FUNCTION_IMPLEMENTATION(standard::frexp_, frexp, 1)
+    NT2_FUNCTION_IMPLEMENTATION(standard::tag::frexp_, frexp, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/standard/function/scalar/frexp.hpp>
 // #include NT2_STANDARD_INCLUDE(frexp.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

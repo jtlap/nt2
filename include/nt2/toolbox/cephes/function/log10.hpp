@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct log10_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::log10_, log10, 1)
+    NT2_FUNCTION_IMPLEMENTATION(cephes::tag::log10_, log10, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/log10.hpp>
 // #include NT2_CEPHES_INCLUDE(log10.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

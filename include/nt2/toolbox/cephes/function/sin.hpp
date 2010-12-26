@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct sin_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::sin_, sin, 1)
+    NT2_FUNCTION_IMPLEMENTATION(cephes::tag::sin_, sin, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/sin.hpp>
 // #include NT2_CEPHES_INCLUDE(sin.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

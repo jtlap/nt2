@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ast/include.hpp>
 
-namespace nt2 { namespace ast
-  {	       
+namespace nt2 { namespace ast { namespace tag
+  {         
     struct exp_ {};
-    NT2_FUNCTION_IMPLEMENTATION(ast::exp_, exp, 1)
+    NT2_FUNCTION_IMPLEMENTATION(ast::tag::exp_, exp, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/ast/function/scalar/exp.hpp>
 // #include NT2_AST_INCLUDE(exp.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

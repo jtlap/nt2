@@ -12,12 +12,12 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct pow_rn_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::pow_rn_, pow_rn, 2)
+    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow_rn, 2)
   }
-  NT2_FUNCTION_IMPLEMENTATION(crlibm::pow_rn_, pow, 2)
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow, 2)
 }
  
 #include <nt2/toolbox/crlibm/function/scalar/pow_rn.hpp>
@@ -25,3 +25,5 @@ namespace nt2 { namespace crlibm
 
  
 #endif
+
+// modified by jt the 25/12/2010

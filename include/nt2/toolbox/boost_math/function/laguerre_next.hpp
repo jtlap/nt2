@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/laguerre.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct laguerre_next_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::laguerre_next_, laguerre_next, 4)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::laguerre_next_, laguerre_next, 4)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/laguerre_next.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(laguerre_next.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

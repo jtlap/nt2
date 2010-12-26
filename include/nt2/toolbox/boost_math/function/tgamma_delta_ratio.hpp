@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct tgamma_delta_ratio_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tgamma_delta_ratio_, tgamma_delta_ratio, 2)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::tgamma_delta_ratio_, tgamma_delta_ratio, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/tgamma_delta_ratio.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(tgamma_delta_ratio.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

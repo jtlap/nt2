@@ -19,84 +19,51 @@
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
+                     (A0)(A1),
+                     (arithmetic_<A0>)(arithmetic_<A1>)
+                    )
+
+namespace nt2 { namespace ext
 {
-  template<class Info, class C>
-  struct dispatch<class yni_,class tag::scalar_(C),Info>
-    : boost::mpl::_2 {};
-
-
-  template<class Info>
-  struct validate<yni_,tag::scalar_(tag::arithmetic_),Info>
+  template<class Dummy>
+  struct call<tag::yni_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :boost::is_integral<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute yni(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<yni_,tag::scalar_(tag::arithmetic_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef A1 result_type; 
-      if (isltz(a1)) return Nan<result_type>();
-      result_type x = a1;
-      const int32_t n1 = abs(a0);
-      result_type sign = a0<0?nt2::cospi(n1):1;
-      if( n1 == 0 )
-	return( sign * y0(x) );
-      if( n1 == 1 )
-	return( sign * y1(x) );
-      if( n1 == 2 )
-	return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
-      result_type an1 = n1;
-      result_type res1 = an1*log(an1/x); 
-      if ((x < 1.0) || (n1 > 29))
-	return  res1; 
-      /* forward recurrence on n */
-      
-      result_type anm2 = y0(x);
-      result_type anm1 = y1(x);
-      int32_t k = 1;
-      result_type r = k << 1;
-      result_type xinv = rec(x);
-      result_type an; 
-      do
-	{
-	  an = r*anm1*xinv-anm2;
-	  anm2 = anm1;
-	  anm1 = an;
-	  r +=Two<result_type>();
-	  ++k;
-	}
-      while( k < n1 );
-      return sign*an;
-      //	 return ::ynf(a0, a1);
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::yni(a0, type(a1));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
+                     (A0)(A1),
+                     (double_<A0>)(double_<A1>)
+                    )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<yni_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::yni_(tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
@@ -104,28 +71,66 @@ namespace nt2 { namespace functors
         return ::yn(a0, a1);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
+                     (A0)(A1),
+                     (float_<A0>)(float_<A1>)
+                    )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<yni_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::yni_(tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::yni(a0, type(a1)); 
+      typedef A1 result_type;
+      if (isltz(a1)) return Nan<result_type>();
+      result_type x = a1;
+      const int32_t n1 = abs(a0);
+      result_type sign = a0<0?nt2::cospi(n1):1;
+      if( n1 == 0 )
+      return( sign * y0(x) );
+      if( n1 == 1 )
+      return( sign * y1(x) );
+      if( n1 == 2 )
+      return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
+      result_type an1 = n1;
+      result_type res1 = an1*log(an1/x);
+      if ((x < 1.0) || (n1 > 29))
+      return  res1;
+      /* forward recurrence on n */
+
+      result_type anm2 = y0(x);
+      result_type anm1 = y1(x);
+      int32_t k = 1;
+      result_type r = k << 1;
+      result_type xinv = rec(x);
+      result_type an;
+      do
+      {
+        an = r*anm1*xinv-anm2;
+        anm2 = anm1;
+        anm1 = an;
+        r +=Two<result_type>();
+        ++k;
+      }
+      while( k < n1 );
+      return sign*an;
+      //     return ::ynf(a0, a1);
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010

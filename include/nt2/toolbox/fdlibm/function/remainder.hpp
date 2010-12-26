@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct remainder_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::remainder_, remainder, 2)
+    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::remainder_, remainder, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/remainder.hpp>
 // #include NT2_FDLIBM_INCLUDE(remainder.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

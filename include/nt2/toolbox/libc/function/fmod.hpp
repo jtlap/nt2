@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct fmod_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::fmod_, fmod, 2)
+    NT2_FUNCTION_IMPLEMENTATION(libc::tag::fmod_, fmod, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/fmod.hpp>
 // #include NT2_LIBC_INCLUDE(fmod.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

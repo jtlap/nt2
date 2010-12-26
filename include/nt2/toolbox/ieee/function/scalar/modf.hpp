@@ -12,17 +12,20 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 
-namespace nt2 { namespace functors
-{
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute modf(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<modf_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::modf_, tag::cpu_,
+                      (A0),
+                      (fundamental_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::modf_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,7 +37,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       boost::fusion::at_c<1>(res) = trunc(a0);
       boost::fusion::at_c<0>(res)= a0 - boost::fusion::at_c<1>(res);
       return res;
@@ -44,4 +47,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/beta.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct beta_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::beta_, beta, 2)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::beta_, beta, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/beta.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(beta.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

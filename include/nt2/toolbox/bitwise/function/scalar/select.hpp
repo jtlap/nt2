@@ -10,23 +10,20 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELECT_HPP_INCLUDED
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::select_, tag::cpu_,
+                        (A0)(A1)(A2),
+                        (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<select_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute select(const A0& a0, const A1& a1, const A2& a2)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<select_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::select_(tag::fundamental_,tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -36,11 +33,11 @@ namespace nt2 { namespace functors
     {
       //      return b_xor(a2, b_and(b_xor(a2, a1),a0));
       return a0 ? a1 : a2;
-      //      if (a0) return a1;  else return a2; 
+      //      if (a0) return a1;  else return a2;
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/gsl_specfun/include.hpp>
 
-namespace nt2 { namespace gsl_specfun
-  {	       
+namespace nt2 { namespace gsl_specfun { namespace tag
+  {         
     struct gsl_sf_gammainv_ {};
-    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_gammainv_, gsl_sf_gammainv, 1)
+    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_gammainv_, gsl_sf_gammainv, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_gammainv.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_gammainv.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

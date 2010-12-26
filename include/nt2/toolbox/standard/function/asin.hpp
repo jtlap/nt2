@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/standard/include.hpp>
 
-namespace nt2 { namespace standard
-  {	       
+namespace nt2 { namespace standard { namespace tag
+  {         
     struct asin_ {};
-    NT2_FUNCTION_IMPLEMENTATION(standard::asin_, asin, 1)
+    NT2_FUNCTION_IMPLEMENTATION(standard::tag::asin_, asin, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/standard/function/scalar/asin.hpp>
 // #include NT2_STANDARD_INCLUDE(asin.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

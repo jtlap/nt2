@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/factorials.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct falling_factorial_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::falling_factorial_, falling_factorial, 2)
+    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::falling_factorial_, falling_factorial, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/falling_factorial.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(falling_factorial.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

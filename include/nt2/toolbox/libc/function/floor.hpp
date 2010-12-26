@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct floor_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::floor_, floor, 1)
+    NT2_FUNCTION_IMPLEMENTATION(libc::tag::floor_, floor, 1)
   }
-}
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/floor.hpp>
 // #include NT2_LIBC_INCLUDE(floor.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

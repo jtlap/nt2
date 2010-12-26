@@ -14,20 +14,20 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 
-namespace nt2 { namespace functors
+};
+/////////////////////////////////////////////////////////////////////////////
+// Compute fast_frexp(const A0& a0)
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_frexp_, tag::cpu_,
+                            (A0),
+                            (double_<A0>)
+                           )
+
+namespace nt2 { namespace ext
 {
-  template<class Info>
-  struct validate<fast_frexp_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::is_floating_point<A0> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute fast_frexp(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fast_frexp_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+  template<class Dummy>
+  struct call<tag::fast_frexp_(tag::double_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,16 +40,28 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       int r1t;
       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
       return res;
     }
   };
+} }
+    return res;
+  }
+};
 
-  template<class Info>
-  struct  call<fast_frexp_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+NT2_REGISTER_DISPATCH(tag::fast_frexp_, tag::cpu_,
+                            (A0),
+                            (float_<A0>)
+                           )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::fast_frexp_(tag::float_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -62,7 +74,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }
@@ -70,4 +82,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/standard/include.hpp>
 
-namespace nt2 { namespace standard
-  {	       
+namespace nt2 { namespace standard { namespace tag
+  {         
     struct pow_ {};
-    NT2_FUNCTION_IMPLEMENTATION(standard::pow_, pow, 2)
+    NT2_FUNCTION_IMPLEMENTATION(standard::tag::pow_, pow, 2)
   }
-}
+  } }
  
 #include <nt2/toolbox/standard/function/scalar/pow.hpp>
 // #include NT2_STANDARD_INCLUDE(pow.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

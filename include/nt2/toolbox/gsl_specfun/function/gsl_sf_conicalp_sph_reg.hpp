@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/gsl_specfun/include.hpp>
 
-namespace nt2 { namespace gsl_specfun
-  {	       
+namespace nt2 { namespace gsl_specfun { namespace tag
+  {         
     struct gsl_sf_conicalP_sph_reg_ {};
-    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_conicalP_sph_reg_, gsl_sf_conicalP_sph_reg, 3)
+    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_conicalP_sph_reg_, gsl_sf_conicalP_sph_reg, 3)
   }
-}
+  } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_conicalp_sph_reg.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_conicalP_sph_reg.hpp) 
 
  
 #endif
+
+// modified by jt the 25/12/2010

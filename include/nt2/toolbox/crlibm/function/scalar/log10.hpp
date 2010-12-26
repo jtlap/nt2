@@ -9,49 +9,31 @@
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTION_SCALAR_LOG10_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_FUNCTION_SCALAR_LOG10_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     extern double log10_rn ( double );
     extern double log10_rd ( double );
     extern double log10_rz ( double );
     extern double log10_ru ( double );
   };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute log10(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Rounding, class Info>
-  struct call<crlibm::log10_<Rounding>,tag::scalar_(tag::arithmetic_),double,Info> : callable
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::log10<Rounding>_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Rounding,class Dummy>
+  struct call<tag::log10_<Rounding>(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-
-    template<class A0, class R> struct inner_log10;
-    NT2_CRLIBM_INNER_STRUCT(rn, log10, rn)
-    NT2_CRLIBM_INNER_STRUCT(rd, log10, rd)
-    NT2_CRLIBM_INNER_STRUCT(ru, log10, ru)
-    NT2_CRLIBM_INNER_STRUCT(rz, log10, rd)
-
-    NT2_FUNCTOR_CALL(1)
-      {return inner_log10<A0,Rounding>::eval(a0, Rounding()); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Rounding, class Info>
-  struct call<crlibm::log10_<Rounding>,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
      template<class A0, class R> struct inner_log;
@@ -64,9 +46,37 @@ namespace nt2 { namespace functors
       return nt2::crlibm::log10<Rounding>(double(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::log10<Rounding>_, tag::cpu_,
+                       (A0),
+                       (double_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Rounding,class Dummy>
+  struct call<tag::log10_<Rounding>(tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    template<class A0, class R> struct inner_log10;
+    NT2_CRLIBM_INNER_STRUCT(rn, log10, rn)
+    NT2_CRLIBM_INNER_STRUCT(rd, log10, rd)
+    NT2_CRLIBM_INNER_STRUCT(ru, log10, ru)
+    NT2_CRLIBM_INNER_STRUCT(rz, log10, rd)
+
+    NT2_FUNCTOR_CALL(1)
+      {return inner_log10<A0,Rounding>::eval(a0, Rounding()); }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010

@@ -16,29 +16,29 @@
 #include <nt2/include/functions/gammaln.hpp>
 #include <nt2/include/functions/is_ngez.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::cnp_, tag::cpu_,
+                     (A0)(A1),
+                     (arithmetic_<A0>)(arithmetic_<A1>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for cnp
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute cnp(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<cnp_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+  template<class Dummy>
+  struct call<tag::cnp_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       if (is_ngez(a0)||is_ngez(a1)) return Nan<type>();
       if (a0 < a1) return Zero<type>();
       const type n = oneplus(round2even(a0));
@@ -46,8 +46,7 @@ namespace nt2 { namespace functors
       return round2even(exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

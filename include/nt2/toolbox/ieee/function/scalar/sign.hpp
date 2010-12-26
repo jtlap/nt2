@@ -14,60 +14,24 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is signed_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sign_, tag::cpu_,
+                      (A0),
+                      (signed_<A0>)
+                     )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for sign
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute sign(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<sign_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::sign_(tag::signed_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-       return is_nan(a0)?a0:is_gtz(a0)-is_ltz(a0);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<sign_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::arithmetic(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-        return is_nez(a0);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is signed_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<sign_,tag::scalar_(tag::arithmetic_),signed_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::arithmetic(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
@@ -75,8 +39,59 @@ namespace nt2 { namespace functors
        return is_gtz(a0)-is_ltz(a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sign_, tag::cpu_,
+                      (A0),
+                      (unsigned_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::sign_(tag::unsigned_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::arithmetic(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+        return is_nez(a0);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sign_, tag::cpu_,
+                      (A0),
+                      (real_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::sign_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::arithmetic(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+       return is_nan(a0)?a0:is_gtz(a0)-is_ltz(a0);
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

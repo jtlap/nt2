@@ -9,60 +9,24 @@
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_GEGENPOLY_N_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_GEGENPOLY_N_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     double gsl_sf_gegenpoly_n(int, double, double); 
   }
-  template<class Info>
-  struct validate<gsl_specfun::gsl_sf_gegenpoly_n_,tag::scalar_(tag::arithmetic_),Info>
-    {
-      template<class Sig> struct result;
-      template<class This,class A0, class A1, class A2>
-      struct result<This(A0, A1, A2)> :
-        boost::mpl::and_<
-           boost::is_integral<A0>,
-           meta::has_smaller_size<A1,long double>,
-           meta::has_smaller_size<A2,long double>
-        >{};
-    };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute gsl_sf_gegenpoly_n(const A0& a0, const A1& a1, const A2& a2)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A2 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<gsl_specfun::gsl_sf_gegenpoly_n_,tag::scalar_(tag::arithmetic_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A2)>{};
-
-    NT2_FUNCTOR_CALL(3){ return gsl_sf_gegenpoly_n(a0, a1, a2); }
-  };
 
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A2 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<gsl_specfun::gsl_sf_gegenpoly_n_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A2)>{};
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A2 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gsl_sf_gegenpoly_n_, tag::cpu_,
+                                    (A0)(A1)(A2),
+                                    (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                                   )
 
-    NT2_FUNCTOR_CALL(3){ return gsl_sf_gegenpoly_n(a0, a1, a2); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A2 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<gsl_specfun::gsl_sf_gegenpoly_n_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::gsl_sf_gegenpoly_n_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
@@ -70,12 +34,55 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(3)::type type;
+      typedef typename NT2_RETURN_TYPE(3)::type type;
       return nt2::gsl_specfun::gsl_sf_gegenpoly_n(type(a0), type(a1), type(a2));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A2 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gsl_sf_gegenpoly_n_, tag::cpu_,
+                                    (A0)(A1)(A2),
+                                    (double_<A0>)(double_<A1>)(double_<A2>)
+                                   )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::gsl_sf_gegenpoly_n_(tag::double_,tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2>
+    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A2)>{};
+
+    NT2_FUNCTOR_CALL(3){ return gsl_sf_gegenpoly_n(a0, a1, a2); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A2 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gsl_sf_gegenpoly_n_, tag::cpu_,
+                                    (A0)(A1)(A2),
+                                    (float_<A0>)(float_<A1>)(float_<A2>)
+                                   )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::gsl_sf_gegenpoly_n_(tag::float_,tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2>
+    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A2)>{};
+
+    NT2_FUNCTOR_CALL(3){ return gsl_sf_gegenpoly_n(a0, a1, a2); }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 26/12/2010
