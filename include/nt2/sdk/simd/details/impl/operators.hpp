@@ -34,8 +34,8 @@
 #include NT2_SIMD_INCLUDE(bitwise_or.hpp)
 #include NT2_SIMD_INCLUDE(bitwise_xor.hpp)
 #include NT2_SIMD_INCLUDE(divides.hpp)
-/*
 #include NT2_SIMD_INCLUDE(is_equal_to.hpp)
+/*
 #include NT2_SIMD_INCLUDE(is_greater.hpp)
 #include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
 #include NT2_SIMD_INCLUDE(is_less.hpp)

@@ -164,8 +164,9 @@ namespace nt2 { namespace ext
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for ints64
+// Overloads implementation for ints64 only if sse4.x didn't do it already
 ////////////////////////////////////////////////////////////////////////////////
+#if !defined(NT2_SSE2_IS_EQUAL_64_DEFINED)
 NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
                       , ((simd_<ints64_<A0>,tag::sse_>))
                         ((simd_<ints64_<A1>,tag::sse_>))
@@ -196,5 +197,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#endif
 
 #endif
