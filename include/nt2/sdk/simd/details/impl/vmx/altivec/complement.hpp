@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = { vec_nor(a0(), a0()) }; puts("lolz");
+      A0 that = { vec_nor(a0(), a0()) };
       return that;
     }
   };

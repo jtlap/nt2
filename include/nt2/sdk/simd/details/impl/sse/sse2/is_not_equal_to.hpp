@@ -11,15 +11,29 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <iostream>
-namespace nt2 { namespace functors
+#include <nt2/sdk/meta/downgrade.hpp>
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for double
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_not_equal_, tag::cpu_, (A0)
+                      , ((simd_<double_<A0>,tag::sse_>))
+                        ((simd_<double_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  template<class Info>
-  struct  call<is_not_equal_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info>
+  template<class Dummy>
+  struct  call< tag::is_not_equal_( tag::simd_(tag::double_,tag::sse_)
+                                  , tag::simd_(tag::double_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -27,13 +41,29 @@ namespace nt2 { namespace functors
       return that;
     }
   };
+} }
 
-  template<class Info>
-  struct  call<is_not_equal_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info>
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for float
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_not_equal_, tag::cpu_, (A0)
+                      , ((simd_<float_<A0>,tag::sse_>))
+                        ((simd_<float_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::is_not_equal_( tag::simd_(tag::float_,tag::sse_)
+                                  , tag::simd_(tag::float_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -41,41 +71,67 @@ namespace nt2 { namespace functors
       return that;
     }
   };
+} }
 
-  template<class Info>
-  struct  call< is_not_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
-              , integer_      , Info
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for integer
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_not_equal_, tag::cpu_, (A0)
+                      , ((simd_<integer_<A0>,tag::sse_>))
+                        ((simd_<integer_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::is_not_equal_( tag::simd_(tag::integer_,tag::sse_)
+                                  , tag::simd_(tag::integer_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return complement(eq(a0,a1));
+      A0 that = complement(eq(a0,a1));
+      return that;
     }
   };
+} }
 
-  template<class Info>
-  struct  call<is_not_equal_,tag::simd_(tag::arithmetic_,tag::sse_),int64_,Info>
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for ints64
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_not_equal_, tag::cpu_, (A0)
+                      , ((simd_<ints64_<A0>,tag::sse_>))
+                        ((simd_<ints64_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::is_not_equal_( tag::simd_(tag::ints64_,tag::sse_)
+                                  , tag::simd_(tag::ints64_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<A0>::type stype;
-      typedef typename meta::make_integer < 4, unsigned
-                                            , simd::native< boost::mpl::_
-                                                          , tag::sse_
-                                                          >
-                                            >::type type;
+      typedef typename meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
-           tmp      = neq(tmp,Zero<type>());
+      tmp           = nt2::neq(tmp,Zero<type>());
       type shuffled = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
-      A0   that     = { tmp | shuffled };
+      A0   that     = { tmp & shuffled };
       return that;
     }
   };

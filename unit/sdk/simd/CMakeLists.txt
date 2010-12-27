@@ -23,6 +23,7 @@ SET( SOURCES
     divides.cpp
     downgrade.cpp
     is_equal.cpp
+    is_not_equal.cpp
     is_signed.cpp
     make_integer.cpp
     make_real.cpp
