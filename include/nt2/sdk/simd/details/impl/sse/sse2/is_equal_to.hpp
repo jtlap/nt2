@@ -16,9 +16,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for double
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<double_<A0>,tag::sse_>))
-                        ((simd_<double_<A1>,tag::sse_>))
+                        ((simd_<double_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
@@ -46,9 +46,9 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for float
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<float_<A0>,tag::sse_>))
-                        ((simd_<float_<A1>,tag::sse_>))
+                        ((simd_<float_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
@@ -76,9 +76,9 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints8
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<ints8_<A0>,tag::sse_>))
-                        ((simd_<ints8_<A1>,tag::sse_>))
+                        ((simd_<ints8_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
@@ -106,9 +106,9 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints16
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<ints16_<A0>,tag::sse_>))
-                        ((simd_<ints16_<A1>,tag::sse_>))
+                        ((simd_<ints16_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
@@ -136,9 +136,9 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints32
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<ints32_<A0>,tag::sse_>))
-                        ((simd_<ints32_<A1>,tag::sse_>))
+                        ((simd_<ints32_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
@@ -167,9 +167,9 @@ namespace nt2 { namespace ext
 // Overloads implementation for ints64 only if sse4.x didn't do it already
 ////////////////////////////////////////////////////////////////////////////////
 #if !defined(NT2_SSE2_IS_EQUAL_64_DEFINED)
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<ints64_<A0>,tag::sse_>))
-                        ((simd_<ints64_<A1>,tag::sse_>))
+                        ((simd_<ints64_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext

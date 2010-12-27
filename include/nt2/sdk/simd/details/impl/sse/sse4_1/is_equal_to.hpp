@@ -12,9 +12,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints64
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
                       , ((simd_<ints64_<A0>,tag::sse_>))
-                        ((simd_<ints64_<A1>,tag::sse_>))
+                        ((simd_<ints64_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
