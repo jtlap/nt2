@@ -9,8 +9,11 @@
 #ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_UPGRADE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_NATIVE_META_UPGRADE_HPP_INCLUDED
 
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/simd/meta/is_vectorizable.hpp>
 
 namespace nt2 { namespace details
 {
@@ -19,8 +22,14 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t Size, class Sign, class H,class X>
   struct  upgrade<T,Size,Sign, meta::simd_<H,X> >
-        : T::template cast<typename meta::upgrade<typename T::value_type>::type>
-  {};
+  {
+    typedef typename meta::upgrade<typename T::value_type>::type base;
+    typedef typename
+    boost::mpl::if_< meta::is_vectorizable<base,X>
+                   , typename T::template cast<base>::type
+                   , T                   
+                   >::type type;
+  };
 } }
 
 #endif
