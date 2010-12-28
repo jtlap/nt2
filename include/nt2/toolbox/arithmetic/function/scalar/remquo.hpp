@@ -15,8 +15,41 @@
 #include <boost/mpl/vector.hpp>
 
 
+namespace nt2 { namespace details
+{
+  template <class T,class Dummy> struct remquo;
+  
+  template <class Dummy> struct remquo<double,Dummy>{
+    typedef double                                          rem; 
+    typedef typename meta::as_integer<double,signed>::type  quo;
+    typedef boost::fusion::tuple<rem,quo>                 rtype;
+    
+    static inline rtype eval(const double& a0, const double& a1) {
+      rtype res;
+      int rt; 
+      boost::fusion::at_c<0>(res) = ::remquo(a0, a1, &rt);
+      boost::fusion::at_c<1>(res) = rt;
+      return res; 
+    }
+  }; 
+    
+  template <class Dummy> struct remquo<float,Dummy>{
+    typedef float                                          rem; 
+    typedef typename meta::as_integer<double,signed>::type  quo;
+    typedef boost::fusion::tuple<rem,quo>                 rtype;
+    
+    static inline rtype eval(const float& a0, const float& a1) {
+      rtype res;
+      int rt; 
+      boost::fusion::at_c<0>(res) = ::remquof(a0, a1, &rt);
+      boost::fusion::at_c<1>(res) = rt;
+      return res; 
+    }
+  }; 
+} }
+
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when A0 and A1 types are fundamental_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::remquo_, tag::cpu_,
                         (A0)(A1),
@@ -34,36 +67,18 @@ namespace nt2 { namespace ext
     struct result<This(A0,A1)>
     {
       typedef typename boost::result_of<meta::floating(A0,A1)>::type rem;
-      typedef typename meta::as_integer<A0,signed>::type             quo;
+      typedef typename meta::as_integer<rem,signed>::type            quo;
       typedef boost::fusion::tuple<rem,quo>                         type;
     };
 
     NT2_FUNCTOR_CALL(2)
     {
-      typename NT2_RETURN_TYPE(2)::type res;
-      typedef meta::find_type<A0,float,double,empty_> set_t;
-      eval( a0, a1
-          , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
-          , typename set_t::type()
-          );
-      return res;
-    }
-  private :
-    template<class A0,class A1,class R0,class R1> inline void
-    eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, double const &)const
-    {
-       int rt;
-       r0 = ::remquo(a0, a1, &rt);
-       r1 = rt;
-    }
-
-    template<class A0,class A1,class R0,class R1> inline void
-    eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, float const &)const
-    {
-       r0 = ::remquof(a0, a1, &r1);
+      typedef typename boost::result_of<meta::floating(A0,A1)>::type ftype;
+      return  details::remquo<ftype,void>::eval(ftype(a0), ftype(a1));
     }
   };
 } }
 
 #endif
 // modified by jt the 26/12/2010
+// manually modified  by jt the 28/12/2010
