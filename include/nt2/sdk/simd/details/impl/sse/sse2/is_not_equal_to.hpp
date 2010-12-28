@@ -97,7 +97,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = complement(eq(a0,a1));
+      A0 that = nt2::complement(nt2::eq(a0,a1));
       return that;
     }
   };
@@ -131,7 +131,7 @@ namespace nt2 { namespace ext
       type tmp      = { a0 - a1 };
       tmp           = nt2::neq(tmp,Zero<type>());
       type shuffled = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
-      A0   that     = { tmp & shuffled };
+      A0   that     = { tmp | shuffled };
       return that;
     }
   };

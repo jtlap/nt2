@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( is_not_equal, NT2_SIMD_TYPES )
 
   NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<2*cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    data[i] = i;
 
   n_t v = nt2::load<n_t>(&data[0],0);
   n_t w = nt2::load<n_t>(&data[0],1);
