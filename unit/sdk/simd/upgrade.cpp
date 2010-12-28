@@ -24,10 +24,16 @@ NT2_TEST_CASE_TPL(upgrade, NT2_SIMD_TYPES)
   using nt2::meta::upgrade;
   using boost::is_same;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
-  typedef native<T,ext_t>                 native_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             native_t;
   typedef typename upgrade<T>::type base_t;
 
-  NT2_TEST( (is_same<typename upgrade<native_t>::type::value_type,base_t>::value ));
+  typedef typename
+  boost::mpl::if_ < nt2::meta::is_vectorizable<base_t,ext_t>
+                  , typename upgrade<native_t>::type
+                  , native_t
+                  >::type upgraded_t;
+
+  NT2_TEST( (is_same<typename upgraded_t::value_type,base_t>::value ));
 }
 
