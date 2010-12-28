@@ -14,8 +14,8 @@
 
 namespace nt2 { namespace meta
 {
-  template <class T> struct double_   { typedef double   type; };
-  template <class T> struct float_    { typedef float    type; };
+//   template <class T> struct double_   { typedef double   type; };
+//   template <class T> struct float_    { typedef float    type; };
   template <class T> struct int64_t_  { typedef int64_t  type; };
   template <class T> struct int32_t_  { typedef int32_t  type; };
   template <class T> struct int16_t_  { typedef int16_t  type; };
