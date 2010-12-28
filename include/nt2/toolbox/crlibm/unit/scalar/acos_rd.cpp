@@ -20,16 +20,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( acos_rd, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::crlibm::acos_rd; 
-  using nt2::crlibm::acos_rd_;
+  using nt2::crlibm::tag::acos_rd_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<acos_rd_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  acos_rd( T(0) )  , nt2::Pi<r_t>()/2 );
    NT2_TEST_EQUAL(  acos_rd( T(1) )  , 0 );

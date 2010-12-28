@@ -17,18 +17,18 @@
 #include <nt2/sdk/constant/real.hpp>
 
 NT2_TEST_CASE_TPL ( is_false, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::is_false;
-  using nt2::functors::is_false_;
+  using nt2::tag::is_false_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_false_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_false( T(42) ), 0 );
   NT2_TEST_EQUAL(  is_false( T(-43) ), 0 );
@@ -37,12 +37,12 @@ NT2_TEST_CASE_TPL ( is_false, (double)(nt2::int64_t)
 NT2_TEST_CASE_TPL ( real_is_false, (double)(float) )
 {
   using nt2::is_false;
-  using nt2::functors::is_false_;
+  using nt2::tag::is_false_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_false_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_false( T(42) ), 0 );
   NT2_TEST_EQUAL(  is_false( T(-42.5) ), 0 );
@@ -51,12 +51,12 @@ NT2_TEST_CASE_TPL ( real_is_false, (double)(float) )
 NT2_TEST_CASE_TPL ( bool_is_false, (bool) )
 {
   using nt2::is_false;
-  using nt2::functors::is_false_;
+  using nt2::tag::is_false_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_false_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
    NT2_TEST_EQUAL(  is_false( 1 ), 0 );
    NT2_TEST_EQUAL(  is_false( 0 ), 1);

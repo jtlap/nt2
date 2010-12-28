@@ -25,9 +25,9 @@ NT2_TEST_CASE_TPL ( integral_sbits,   NT2_INTEGRAL_TYPES
                   )
 {
   using nt2::sbits;
-  using nt2::functors::sbits_;
+  using nt2::tag::sbits_;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sbits_(T)>::type
-	     ,  typename nt2::meta::as_integer<T, signed>::type
+           ,  typename nt2::meta::as_integer<T, signed>::type
               >::value)
            );
   NT2_TEST_EQUAL(  sbits( T(42) ), 42 );
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( real_sbits,   NT2_REAL_TYPES
                   )
 {
   using nt2::sbits;
-  using nt2::functors::sbits_;
+  using nt2::tag::sbits_;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sbits_(T)>::type
-	     ,  typename nt2::meta::as_integer<T, signed>::type
+           ,  typename nt2::meta::as_integer<T, signed>::type
               >::value)
            );
   NT2_TEST_EQUAL(  sbits( T(nt2::Nan<T>()) ), -1 );

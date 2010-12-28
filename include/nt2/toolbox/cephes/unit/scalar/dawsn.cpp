@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( dawsn,  (double)(float) )
 {
   using nt2::cephes::dawsn;
-  using nt2::cephes::dawsn_;
+  using nt2::cephes::tag::dawsn_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::dawsn_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::dawsn_(T)>::type,
                            T
                            >::value)
           );

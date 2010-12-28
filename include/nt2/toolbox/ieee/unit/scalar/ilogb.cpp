@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( ilogb,   (double)(float)//NT2_REAL_TYPES
                   )
 {
   using nt2::ilogb;
-  using nt2::functors::ilogb_;
+  using nt2::tag::ilogb_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ilogb_(T)>::type
-	     , typename nt2::meta::as_integer<T, signed>::type
+           , typename nt2::meta::as_integer<T, signed>::type
               >::value)
            );
   NT2_TEST_EQUAL(  nt2::ilogb( T(23.50) ), 4 );
@@ -38,10 +38,10 @@ NT2_TEST_CASE_TPL ( integral_ilogb,   NT2_REAL_CONVERTIBLE_TYPES
                   ) 
 {
   using nt2::ilogb;
-  using nt2::functors::ilogb_;
+  using nt2::tag::ilogb_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ilogb_(T)>::type
-	     , typename nt2::meta::as_integer<T, signed>::type
+           , typename nt2::meta::as_integer<T, signed>::type
               >::value)
            );
   NT2_TEST_EQUAL(  ilogb( T(42) ), 5 );

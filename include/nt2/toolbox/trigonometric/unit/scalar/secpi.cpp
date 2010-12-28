@@ -21,16 +21,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( secpi, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::secpi; 
-  using nt2::functors::secpi_;
+  using nt2::tag::secpi_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<secpi_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::secpi( T(0) )  , 1 );
    NT2_TEST_EQUAL(  nt2::secpi( T(1))  , -1 );

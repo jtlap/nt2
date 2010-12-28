@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( psi,  (double)(float) )
 {
   using nt2::cephes::psi;
-  using nt2::cephes::psi_;
+  using nt2::cephes::tag::psi_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::psi_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::psi_(T)>::type,
                            T
                            >::value)
           );

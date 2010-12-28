@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( mantissa,   (double)(float)//NT2_REAL_TYPES
                   )
 {
   using nt2::mantissa;
-  using nt2::functors::mantissa_;
+  using nt2::tag::mantissa_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<mantissa_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  mantissa( T(20) ), T(1.25) );

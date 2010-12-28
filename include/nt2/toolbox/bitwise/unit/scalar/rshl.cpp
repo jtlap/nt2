@@ -25,10 +25,10 @@ NT2_TEST_CASE_TPL ( rshl,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::rshl;
-  using nt2::functors::rshl_;
+  using nt2::tag::rshl_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rshl_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  rshl( T(1), 1), T(2) );
@@ -38,10 +38,10 @@ NT2_TEST_CASE_TPL ( real_rshl,  (double)(float)
                   )
 {
   using nt2::rshl;
-  using nt2::functors::rshl_;
+  using nt2::tag::rshl_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rshl_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
 

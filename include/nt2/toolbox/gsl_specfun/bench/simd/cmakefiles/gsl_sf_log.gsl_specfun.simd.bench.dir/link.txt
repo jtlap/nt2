@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wno-long-long -O3 -DNDEBUG -Wno-long-long   CMakeFiles/gsl_sf_log.gsl_specfun.simd.bench.dir/gsl_sf_log.cpp.o  -o gsl_sf_log.gsl_specfun.simd.bench -rdynamic ../../../../../../lib/Release/libnt2.so.3.0.0 -Wl,-rpath,/home/jt/DevC++/dev_lasmea/github/nt2/lib/Release 

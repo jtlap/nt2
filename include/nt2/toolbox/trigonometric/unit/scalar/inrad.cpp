@@ -22,15 +22,15 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( inrad, (double) 
-		    (float) 
-		    ) 
+                (float) 
+                ) 
 {
   using nt2::inrad;
-  using nt2::functors::inrad_;
+  using nt2::tag::inrad_;
   const int N = 1; 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<inrad_(T)>::type
-	     , T
- 	     >::value)
+           , T
+            >::value)
     );
   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
   NT2_TEST_EQUAL(  inrad( T(0) )  , 0 );

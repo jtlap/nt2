@@ -24,15 +24,15 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( tanh, (double) 
-		    )
+                )
 {
   using nt2::fdlibm::tanh; 
-  using nt2::fdlibm::tanh_;
+  using nt2::fdlibm::tag::tanh_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<tanh_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::fdlibm::tanh( T(0) ), 0);
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::fdlibm::tanh( T(1) )  , T(0.761594155955765)), 1);
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( tanh, (double)
    NT2_TEST      (  nt2::is_nan(nt2::fdlibm::tanh(nt2::Nan<T>()) )); 
 
      T t[] ={  0.761594155955765,   0.462117157260010,   0.321512737531634,   0.244918662403709,   0.197375320224904, 
-	       0.165140412924629,   0.141893193766933,   0.124353001771596,   0.110656110524738,   0.099667994624956}; 
+             0.165140412924629,   0.141893193766933,   0.124353001771596,   0.110656110524738,   0.099667994624956}; 
 
 
    for(int i=0; i < 9; i++) 

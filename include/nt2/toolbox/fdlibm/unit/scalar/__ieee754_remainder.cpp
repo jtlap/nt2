@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( __ieee754_remainder,  (double)(float) )
 {
   using nt2::fdlibm::__ieee754_remainder;
-  using nt2::fdlibm::__ieee754_remainder_;
+  using nt2::fdlibm::tag::__ieee754_remainder_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::__ieee754_remainder_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::__ieee754_remainder_(T, T)>::type,
                            T
                            >::value)
           );

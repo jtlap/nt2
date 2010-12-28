@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( igamc,  (double)(float) )
 {
   using nt2::cephes::igamc;
-  using nt2::cephes::igamc_;
+  using nt2::cephes::tag::igamc_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::igamc_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::igamc_(T, T)>::type,
                            T
                            >::value)
           );

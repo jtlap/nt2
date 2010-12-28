@@ -23,24 +23,24 @@
 NT2_TEST_CASE_TPL ( bitofsign,   (double)(float) )
 {
   using nt2::bitofsign;
-  using nt2::functors::bitofsign_;
+  using nt2::tag::bitofsign_;
   
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitofsign_(T)>::type
-	     , T
-	     >::value)
+           , T
+           >::value)
     );
 NT2_TEST_EQUAL(  bitofsign( T(1) ), T(0) );
 NT2_TEST_EQUAL(  bitofsign( T(-1) ), -T(0) );
-		 
+             
 }
 
 NT2_TEST_CASE_TPL ( unsigned_bitofsign,   NT2_UNSIGNED_TYPES        )
 {
   using nt2::bitofsign;
-  using nt2::functors::bitofsign_;
+  using nt2::tag::bitofsign_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitofsign_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  bitofsign( T(1) ), T(0) );
@@ -50,10 +50,10 @@ NT2_TEST_CASE_TPL ( unsigned_bitofsign,   NT2_UNSIGNED_TYPES        )
 NT2_TEST_CASE_TPL ( signed_bitofsign,   NT2_INTEGRAL_SIGNED_TYPES         )
 {
   using nt2::bitofsign;
-  using nt2::functors::bitofsign_;
+  using nt2::tag::bitofsign_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitofsign_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  bitofsign( T(1) ), T(0) );

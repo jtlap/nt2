@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( predecessor,   NT2_REAL_TYPES
                   )
 {
   using nt2::predecessor;
-  using nt2::functors::predecessor_;
+  using nt2::tag::predecessor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<predecessor_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  predecessor( T(2) ), T(2)-nt2::Eps<T>() );
@@ -42,10 +42,10 @@ NT2_TEST_CASE_TPL ( integral_predecessor,   NT2_INTEGRAL_TYPES
                   )
 {
   using nt2::predecessor;
-  using nt2::functors::predecessor_;
+  using nt2::tag::predecessor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<predecessor_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  predecessor( T(42) ), T(41) );

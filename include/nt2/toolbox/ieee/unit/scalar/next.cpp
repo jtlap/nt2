@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( next,   NT2_REAL_TYPES
                   )
 {
   using nt2::next;
-  using nt2::functors::next_;
+  using nt2::tag::next_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<next_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  next( T(2) ), T(2)+nt2::Eps<T>()*2 );
@@ -40,10 +40,10 @@ NT2_TEST_CASE_TPL ( integral_next,   NT2_INTEGRAL_TYPES
                   )
 {
   using nt2::next;
-  using nt2::functors::next_;
+  using nt2::tag::next_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<next_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  next( T(42) ), T(43) );

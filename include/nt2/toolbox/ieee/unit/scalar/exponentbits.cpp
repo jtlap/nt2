@@ -25,10 +25,10 @@ NT2_TEST_CASE_TPL ( exponentbits,   (double)(float)
                   )
 {
   using nt2::exponentbits;
-  using nt2::functors::exponentbits_;
+  using nt2::tag::exponentbits_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<exponentbits_(T)>::type
-	     ,  typename nt2::meta::as_integer<T, signed>::type
+           ,  typename nt2::meta::as_integer<T, signed>::type
               >::value)
            );
 }

@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( fast_ldexp, (double)(float)
                   )
 {
   using nt2::fast_ldexp;
-  using nt2::functors::fast_ldexp_;
+  using nt2::tag::fast_ldexp_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_ldexp_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  fast_ldexp( T(1), 2), T(4) );

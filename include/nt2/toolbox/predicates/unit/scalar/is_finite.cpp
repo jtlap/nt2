@@ -18,18 +18,18 @@
 #include <nt2/sdk/constant/infinites.hpp>
 
 NT2_TEST_CASE_TPL ( is_finite, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::is_finite;
-  using nt2::functors::is_finite_;
+  using nt2::tag::is_finite_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_finite_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_finite( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_finite( T(-43) ), 1 );
@@ -38,12 +38,12 @@ NT2_TEST_CASE_TPL ( is_finite, (double)(nt2::int64_t)
 NT2_TEST_CASE_TPL ( real_is_finite, (double)(float) )
 {
   using nt2::is_finite;
-  using nt2::functors::is_finite_;
+  using nt2::tag::is_finite_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_finite_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_finite( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_finite( T(-42.5) ), 1 );
@@ -54,12 +54,12 @@ NT2_TEST_CASE_TPL ( real_is_finite, (double)(float) )
 NT2_TEST_CASE_TPL ( bool_is_finite, (bool) )
 {
   using nt2::is_finite;
-  using nt2::functors::is_finite_;
+  using nt2::tag::is_finite_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_finite_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
    NT2_TEST_EQUAL(  is_finite( 1 ), 1 );
    NT2_TEST_EQUAL(  is_finite( 0 ), 1);

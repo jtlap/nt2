@@ -22,15 +22,15 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( asind, (double) 
-		    (float) 
-		    ) 
+                (float) 
+                ) 
 {
   using nt2::asind;
-  using nt2::functors::asind_;
+  using nt2::tag::asind_;
   const int N = 1; 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<asind_(T)>::type
-	     , T
- 	     >::value)
+           , T
+            >::value)
     );
   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
   NT2_TEST_EQUAL(  asind( T(0) )  , 0 );

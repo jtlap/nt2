@@ -25,10 +25,10 @@ NT2_TEST_CASE_TPL ( exponent,   (double)(float)
                   )
 {
   using nt2::exponent;
-  using nt2::functors::exponent_;
+  using nt2::tag::exponent_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<exponent_(T)>::type
-	     ,  typename nt2::meta::as_integer<T, signed>::type
+           ,  typename nt2::meta::as_integer<T, signed>::type
               >::value)
            );
   NT2_TEST_EQUAL(  exponent( T(1) ), 0 );

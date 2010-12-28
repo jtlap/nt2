@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( nextafter,   NT2_REAL_TYPES
                   )
 {
   using nt2::nextafter;
-  using nt2::functors::nextafter_;
+  using nt2::tag::nextafter_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<nextafter_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  nextafter( T(2), T(3)), T(2)+nt2::Eps<T>()*2 );
@@ -42,10 +42,10 @@ NT2_TEST_CASE_TPL ( integral_nextafter,   NT2_INTEGRAL_SIGNED_TYPES
                   )
 {
   using nt2::nextafter;
-  using nt2::functors::nextafter_;
+  using nt2::tag::nextafter_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<nextafter_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
 NT2_TEST_EQUAL(  nextafter( T(42), T(45) ), T(43) );
@@ -58,10 +58,10 @@ NT2_TEST_CASE_TPL ( unsigned_integral_nextafter,   NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::nextafter;
-  using nt2::functors::nextafter_;
+  using nt2::tag::nextafter_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<nextafter_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
 NT2_TEST_EQUAL(  nextafter( T(42), T(45) ), T(43) );

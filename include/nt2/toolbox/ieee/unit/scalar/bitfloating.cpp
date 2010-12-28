@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( bitfloating,   NT2_REAL_CONVERTIBLE_TYPES
                   )
 {
   using nt2::bitfloating;
-  using nt2::functors::bitfloating_;
+  using nt2::tag::bitfloating_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitfloating_(T)>::type
-	     , typename nt2::meta::as_real<T>::type
+           , typename nt2::meta::as_real<T>::type
               >::value)
            );
   NT2_TEST_EQUAL(  bitfloating( T(0) ), T(0) );

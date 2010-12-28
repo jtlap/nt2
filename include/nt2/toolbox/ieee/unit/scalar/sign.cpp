@@ -26,9 +26,9 @@ NT2_TEST_CASE_TPL ( integral_sign,   NT2_INTEGRAL_SIGNED_TYPES
                   )
 {
   using nt2::sign;
-  using nt2::functors::sign_;
+  using nt2::tag::sign_;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sign_(T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
+           ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  sign( T(42) ), T(1) );
@@ -39,9 +39,9 @@ NT2_TEST_CASE_TPL ( unsigned_sign,   NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::sign;
-  using nt2::functors::sign_;
+  using nt2::tag::sign_;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sign_(T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
+           ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  sign( T(42) ), T(1) );
@@ -53,9 +53,9 @@ NT2_TEST_CASE_TPL ( real_sign,   NT2_REAL_TYPES
                   )
 {
   using nt2::sign;
-  using nt2::functors::sign_;
+  using nt2::tag::sign_;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sign_(T)>::type
-	     ,   typename boost::result_of<nt2::meta::arithmetic(T)>::type
+           ,   typename boost::result_of<nt2::meta::arithmetic(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  sign( T(42) ), T(1) );

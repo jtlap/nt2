@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( round2even_int,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::round2even;
-  using nt2::functors::round2even_;
+  using nt2::tag::round2even_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<round2even_(T)>::type
              ,T
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( real_round2even,  (double)(float)
                   )
 {
   using nt2::round2even;
-  using nt2::functors::round2even_;
+  using nt2::tag::round2even_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<round2even_(T)>::type
              ,T

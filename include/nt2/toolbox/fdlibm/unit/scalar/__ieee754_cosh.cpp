@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( __ieee754_cosh,  (double)(float) )
 {
   using nt2::fdlibm::__ieee754_cosh;
-  using nt2::fdlibm::__ieee754_cosh_;
+  using nt2::fdlibm::tag::__ieee754_cosh_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::__ieee754_cosh_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::__ieee754_cosh_(T)>::type,
                            T
                            >::value)
           );

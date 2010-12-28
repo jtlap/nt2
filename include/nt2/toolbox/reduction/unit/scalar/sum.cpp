@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( sum,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::sum;
-  using nt2::functors::sum_;
+  using nt2::tag::sum_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sum_(T)>::type
                             , typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type

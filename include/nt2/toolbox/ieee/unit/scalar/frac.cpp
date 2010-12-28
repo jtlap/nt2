@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( frac,   (double)(float)//NT2_REAL_TYPES
                   )
 {
   using nt2::frac;
-  using nt2::functors::frac_;
+  using nt2::tag::frac_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<frac_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  frac( T(23.50) ), T(0.5) );
@@ -39,10 +39,10 @@ NT2_TEST_CASE_TPL ( integral_frac,   NT2_INTEGRAL_TYPES
                   )
 {
   using nt2::frac;
-  using nt2::functors::frac_;
+  using nt2::tag::frac_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<frac_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  frac( T(42) ), T(0) );

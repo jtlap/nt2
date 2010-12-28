@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( toint,   NT2_SIGNED_TYPES
                   )
 {
   using nt2::toint;
-  using nt2::functors::toint_;
+  using nt2::tag::toint_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<toint_(T)>::type
-	     , typename nt2::meta::as_integer<T>::type
+           , typename nt2::meta::as_integer<T>::type
               >::value)
            );
   NT2_TEST_EQUAL(  toint( T(0) ), 0 );
@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( unsigned_toint,   NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::toint;
-  using nt2::functors::toint_;
+  using nt2::tag::toint_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<toint_(T)>::type
-	     ,  typename nt2::meta::as_integer<T>::type
+           ,  typename nt2::meta::as_integer<T>::type
               >::value)
            );
   NT2_TEST_EQUAL(  toint( T(0) ), 0 );

@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( rgamma,  (double)(float) )
 {
   using nt2::cephes::rgamma;
-  using nt2::cephes::rgamma_;
+  using nt2::cephes::tag::rgamma_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::rgamma_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::rgamma_(T)>::type,
                            T
                            >::value)
           );

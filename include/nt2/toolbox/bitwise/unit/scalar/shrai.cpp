@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( shrai,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::shrai;
-  using nt2::functors::shrai_;
+  using nt2::tag::shrai_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<shrai_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  shrai( T(1), 1), T(0) );
@@ -38,10 +38,10 @@ NT2_TEST_CASE_TPL ( real_shrai,  (double)(float)
                   )
 {
   using nt2::shrai;
-  using nt2::functors::shrai_;
+  using nt2::tag::shrai_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<shrai_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
 

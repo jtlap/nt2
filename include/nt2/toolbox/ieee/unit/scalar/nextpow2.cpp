@@ -25,11 +25,11 @@ NT2_TEST_CASE_TPL ( integral_nextpow2,   NT2_TYPES
                   )
 {
   using nt2::nextpow2;
-  using nt2::functors::nextpow2_;
+  using nt2::tag::nextpow2_;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type t1_t; 
   typedef typename nt2::meta::as_integer<t1_t, signed > ::type  t2_t; 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<nextpow2_(T)>::type
-	     , t2_t
+           , t2_t
               >::value)
            );
   NT2_TEST_EQUAL(  nextpow2( T(42) ), 6 );

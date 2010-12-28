@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( ldexp, (double)
                   )
 {
   using nt2::fdlibm::ldexp; 
-  using nt2::fdlibm::ldexp_;
+  using nt2::fdlibm::tag::ldexp_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ldexp_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  ldexp( T(1), 2), T(4) );

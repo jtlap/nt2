@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( maximum, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::maximum;
-  using nt2::functors::maximum_;
+  using nt2::tag::maximum_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<maximum_(T)>::type
                             , T

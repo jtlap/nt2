@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( gdtrc,  (double)(float) )
 {
   using nt2::cephes::gdtrc;
-  using nt2::cephes::gdtrc_;
+  using nt2::cephes::tag::gdtrc_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::gdtrc_(T, T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::gdtrc_(T, T, T)>::type,
                            T
                            >::value)
           );

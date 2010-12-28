@@ -25,13 +25,13 @@ NT2_TEST_CASE_TPL ( frexp,  (double)(float)
                   )
 {
   using nt2::standard::frexp;
-  using nt2::standard::frexp_;
+  using nt2::standard::tag::frexp_;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type mantissa;
   typedef typename nt2::meta::as_integer<T,signed>::type          exponent;
   typedef boost::fusion::vector<mantissa,exponent>                   type_t;
  
   NT2_TEST( (boost::is_same < typename nt2::meta::call<frexp_(T)>::type
-	     , type_t
+           , type_t
               >::value)
            );
 

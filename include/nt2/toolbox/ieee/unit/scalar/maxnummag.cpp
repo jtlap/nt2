@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( maxnummag,  NT2_INTEGRAL_SIGNED_TYPES
                   )
 {
   using nt2::maxnummag;
-  using nt2::functors::maxnummag_;
+  using nt2::tag::maxnummag_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnummag_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  maxnummag( T(42), T(12)), T(42) );
@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( real_maxnummag,  NT2_REAL_TYPES
                   )
 {
   using nt2::maxnummag;
-  using nt2::functors::maxnummag_;
+  using nt2::tag::maxnummag_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnummag_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  maxnummag( T(42), T(12)), T(42) );
@@ -52,10 +52,10 @@ NT2_TEST_CASE_TPL ( unsigned_maxnummag,  NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::maxnummag;
-  using nt2::functors::maxnummag_;
+  using nt2::tag::maxnummag_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnummag_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  maxnummag( T(42), T(12)), T(42) );

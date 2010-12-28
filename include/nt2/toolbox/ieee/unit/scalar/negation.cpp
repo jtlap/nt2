@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( negation,  NT2_SIGNED_TYPES
                   )
 {
   using nt2::negation;
-  using nt2::functors::negation_;
+  using nt2::tag::negation_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<negation_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  negation( T(42), T(12)), T(42) );
@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( unsigned_negation,  NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::negation;
-  using nt2::functors::negation_;
+  using nt2::tag::negation_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<negation_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  negation( T(42), T(12)), T(42) );

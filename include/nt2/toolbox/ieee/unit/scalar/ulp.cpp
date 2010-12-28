@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( ulp,   NT2_REAL_TYPES
                   )
 {
   using nt2::ulp;
-  using nt2::functors::ulp_;
+  using nt2::tag::ulp_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ulp_(T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
+           ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  ulp( T(1) ), nt2::Eps<T>()/2 );
@@ -36,10 +36,10 @@ NT2_TEST_CASE_TPL ( integral_ulp,   NT2_INTEGRAL_TYPES
                   )
 {
   using nt2::ulp;
-  using nt2::functors::ulp_;
+  using nt2::tag::ulp_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ulp_(T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
+           ,  typename boost::result_of<nt2::meta::arithmetic(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  ulp( T(0) ), T(1) );

@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( bitinteger,  (double)(float)
                   )
 {
   using nt2::bitinteger;
-  using nt2::functors::bitinteger_;
+  using nt2::tag::bitinteger_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitinteger_(T)>::type
-	     , typename nt2::meta::as_integer<T>::type
+           , typename nt2::meta::as_integer<T>::type
               >::value)
            );
   NT2_TEST_EQUAL(  bitinteger( T(0) ), T(0) );

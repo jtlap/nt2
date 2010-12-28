@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( erf,  (double)(float) )
 {
   using nt2::cephes::erf;
-  using nt2::cephes::erf_;
+  using nt2::cephes::tag::erf_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::erf_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::erf_(T)>::type,
                            T
                            >::value)
           );

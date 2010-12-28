@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( eps,   NT2_REAL_CONVERTIBLE_TYPES
                   )
 {
   using nt2::eps;
-  using nt2::functors::eps_;
+  using nt2::tag::eps_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<eps_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  eps( T(1) ), nt2::Eps<T>() );

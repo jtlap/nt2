@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( copysign,  NT2_SIGNED_TYPES
                   )
 {
   using nt2::copysign;
-  using nt2::functors::copysign_;
+  using nt2::tag::copysign_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<copysign_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  copysign( T(42), T(12)), T(42) );

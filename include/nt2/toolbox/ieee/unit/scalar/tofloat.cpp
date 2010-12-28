@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( tofloat,   NT2_SIGNED_TYPES
                   )
 {
   using nt2::tofloat;
-  using nt2::functors::tofloat_;
+  using nt2::tag::tofloat_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<tofloat_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
+           , typename boost::result_of<nt2::meta::floating(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  tofloat( T(0) ), 0 );
@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( unsigned_tofloat,   NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::tofloat;
-  using nt2::functors::tofloat_;
+  using nt2::tag::tofloat_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<tofloat_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
+           , typename boost::result_of<nt2::meta::floating(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  tofloat( T(0) ), 0 );

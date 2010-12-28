@@ -18,16 +18,16 @@
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( select,  (double)(float)(nt2::uint64_t)(nt2::int64_t) 
-		    (nt2::uint32_t)(nt2::int32_t)  
-		    (nt2::uint16_t)(nt2::int16_t)         
-		    (nt2::uint8_t)(nt2::int8_t)
-		    )
+                (nt2::uint32_t)(nt2::int32_t)  
+                (nt2::uint16_t)(nt2::int16_t)         
+                (nt2::uint8_t)(nt2::int8_t)
+                )
 {
   using nt2::select;
-  using nt2::functors::select_;
+  using nt2::tag::select_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<select_(bool, T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  select( 0, T(1), T(2)), T(2) );

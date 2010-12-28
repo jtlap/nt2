@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( minnum,  NT2_INTEGRAL_SIGNED_TYPES
                   )
 {
   using nt2::minnum;
-  using nt2::functors::minnum_;
+  using nt2::tag::minnum_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<minnum_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  minnum( T(-42), T(-12)), T(-42) );
@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( real_minnum,  NT2_REAL_TYPES
                   )
 {
   using nt2::minnum;
-  using nt2::functors::minnum_;
+  using nt2::tag::minnum_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<minnum_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  minnum( T(-42), T(-12)), T(-42) );
@@ -52,10 +52,10 @@ NT2_TEST_CASE_TPL ( unsigned_minnum,  NT2_UNSIGNED_TYPES
                   )
 {
   using nt2::minnum;
-  using nt2::functors::minnum_;
+  using nt2::tag::minnum_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<minnum_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  minnum( T(42), T(12)), T(12) );
