@@ -30,10 +30,12 @@ NT2_TEST_CASE_TPL(upgrade, NT2_SIMD_TYPES)
 
   typedef typename
   boost::mpl::if_ < nt2::meta::is_vectorizable<base_t,ext_t>
-                  , typename upgrade<native_t>::type
-                  , native_t
+                  , base_t
+                  , typename native_t::value_type
                   >::type upgraded_t;
 
-  NT2_TEST( (is_same<typename upgraded_t::value_type,base_t>::value ));
+  NT2_TEST( (is_same< typename upgrade<native_t>::type::value_type
+                    , upgraded_t
+                    >::value ));
 }
 
