@@ -24,7 +24,7 @@ NT2_REGISTER_DISPATCH ( tag::complement_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Implement ~ using xor
+  // Implement ~ using nor
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
   struct  call< tag::complement_( tag::simd_(tag::arithmetic_,tag::altivec_) )
