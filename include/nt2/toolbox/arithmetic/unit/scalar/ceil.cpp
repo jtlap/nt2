@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( ceil_int,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::ceil;
-  using nt2::functors::ceil_;
+  using nt2::tag::ceil_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<ceil_(T)>::type
              ,T
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( real_ceil,  (double)(float)
                   )
 {
   using nt2::ceil;
-  using nt2::functors::ceil_;
+  using nt2::tag::ceil_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<ceil_(T)>::type
              ,T

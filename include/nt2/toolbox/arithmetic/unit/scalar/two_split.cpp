@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL ( two_split,  (double)
                   )
 {
   using nt2::two_split;
-  using nt2::functors::two_split_;
+  using nt2::tag::two_split_;
 
   typedef typename boost::fusion::tuple<T, T>              type;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<two_split_(T)>::type

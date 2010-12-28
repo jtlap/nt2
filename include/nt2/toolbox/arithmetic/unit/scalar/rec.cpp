@@ -23,13 +23,13 @@ NT2_TEST_CASE_TPL ( rec,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-		    )
+                )
 {
   using nt2::rec;
-  using nt2::functors::rec_;
+  using nt2::tag::rec_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rec_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
+           , typename boost::result_of<nt2::meta::floating(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  rec( T(2) ), 0.5 );

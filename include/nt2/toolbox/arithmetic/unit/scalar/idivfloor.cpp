@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( real_idivfloor,  (double)
                   )
 {
   using nt2::idivfloor;
-  using nt2::functors::idivfloor_;
+  using nt2::tag::idivfloor_;
 
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfloor_(T, T)>::type
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( signed_idivfloor,  (nt2::int64_t)(nt2::int32_t)
                   )
 {
   using nt2::idivfloor;
-  using nt2::functors::idivfloor_;
+  using nt2::tag::idivfloor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfloor_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
@@ -57,10 +57,10 @@ NT2_TEST_CASE_TPL ( unsigned_idivfloor,  (nt2::uint64_t)(nt2::uint32_t)
                   )
 {
   using nt2::idivfloor;
-  using nt2::functors::idivfloor_;
+  using nt2::tag::idivfloor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfloor_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  idivfloor( T(22), T(3)), T(7) );

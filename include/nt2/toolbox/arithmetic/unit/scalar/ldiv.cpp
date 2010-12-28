@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( ldiv,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::ldiv;
-  using nt2::functors::ldiv_;
+  using nt2::tag::ldiv_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ldiv_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

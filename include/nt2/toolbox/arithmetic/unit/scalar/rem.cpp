@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( rem,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::rem;
-  using nt2::functors::rem_;
+  using nt2::tag::rem_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rem_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( hypot,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::hypot;
-  using nt2::functors::hypot_;
+  using nt2::tag::hypot_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<hypot_(T, T)>::type
               , typename boost::result_of<nt2::meta::floating(T, T)>::type

@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL ( two_prod,  (double)
                   )
 {
   using nt2::two_prod;
-  using nt2::functors::two_prod_;
+  using nt2::tag::two_prod_;
 
   typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rtype;
   typedef typename boost::fusion::tuple<rtype,rtype>              type;

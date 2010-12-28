@@ -27,11 +27,11 @@ NT2_TEST_CASE_TPL ( oneplus,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::oneplus;
-  using nt2::functors::oneplus_;
+  using nt2::tag::oneplus_;
 
   NT2_TEST( (boost::is_same <
-	        typename nt2::meta::call<oneplus_(T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+              typename nt2::meta::call<oneplus_(T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  oneplus( T(3)), 4 );

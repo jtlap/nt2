@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL ( madd,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::madd;
-  using nt2::functors::madd_;
+  using nt2::tag::madd_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<madd_(T, T, T)>::type
-	     ,typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type
+           ,typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  madd( T(1), T(2), T(3)), T(5) );

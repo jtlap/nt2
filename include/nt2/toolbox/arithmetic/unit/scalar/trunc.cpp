@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( trunc_int,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::trunc;
-  using nt2::functors::trunc_;
+  using nt2::tag::trunc_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<trunc_(T)>::type
              ,T
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( real_trunc,  (double)(float)
                   )
 {
   using nt2::trunc;
-  using nt2::functors::trunc_;
+  using nt2::tag::trunc_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<trunc_(T)>::type
              ,T

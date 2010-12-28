@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( round_int,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::round;
-  using nt2::functors::round_;
+  using nt2::tag::round_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<round_(T)>::type
              ,T
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( real_round,  (double)(float)
                   )
 {
   using nt2::round;
-  using nt2::functors::round_;
+  using nt2::tag::round_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<round_(T)>::type
              ,T

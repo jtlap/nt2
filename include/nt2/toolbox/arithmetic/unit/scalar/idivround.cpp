@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL ( signed_idivround,  (double)(nt2::int64_t)
                   )
 {
   using nt2::idivround;
-  using nt2::functors::idivround_;
+  using nt2::tag::idivround_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<idivround_(T, T)>::type
-	    ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+          ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  idivround( T(22), T(3)), T(7) );
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( idivround,  (nt2::uint64_t)(nt2::uint32_t)
                   )
 {
   using nt2::idivround;
-  using nt2::functors::idivround_;
+  using nt2::tag::idivround_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<idivround_(T, T)>::type
             ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

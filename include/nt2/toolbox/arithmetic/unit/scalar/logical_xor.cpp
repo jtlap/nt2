@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( logical_xor,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::logical_xor;
-  using nt2::functors::logical_xor_;
+  using nt2::tag::logical_xor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<logical_xor_(T, T)>::type
               , bool

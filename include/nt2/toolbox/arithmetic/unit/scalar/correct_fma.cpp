@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( correct_fma,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::correct_fma;
-  using nt2::functors::correct_fma_;
+  using nt2::tag::correct_fma_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<correct_fma_(T, T, T)>::type
               ,  typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type

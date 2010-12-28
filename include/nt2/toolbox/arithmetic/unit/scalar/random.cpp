@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL ( random,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::random;
-  using nt2::functors::random_;
+  using nt2::tag::random_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<random_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
 

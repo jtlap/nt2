@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( iceil,  (double)(nt2::int64_t)
                   )
 {
   using nt2::iceil;
-  using nt2::functors::iceil_;
+  using nt2::tag::iceil_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<iceil_(T)>::type
               , typename nt2::meta::as_integer<T>::type
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( unsigned_ifloor,  (nt2::uint64_t)
                   )
 {
   using nt2::iceil;
-  using nt2::functors::iceil_;
+  using nt2::tag::iceil_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<iceil_(T)>::type
               , typename nt2::meta::as_integer<T>::type
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( real_iceil,  (double)(float)
                   )
 {
   using nt2::iceil;
-  using nt2::functors::iceil_;
+  using nt2::tag::iceil_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<iceil_(T)>::type
              ,typename nt2::meta::as_integer<T>::type

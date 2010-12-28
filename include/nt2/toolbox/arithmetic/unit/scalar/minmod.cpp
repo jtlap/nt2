@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( minmod,  (double)(nt2::int64_t)
                   )
 {
   using nt2::minmod;
-  using nt2::functors::minmod_;
+  using nt2::tag::minmod_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<minmod_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( unsigned_minmod,  (nt2::uint64_t)
                   )
 {
   using nt2::minmod;
-  using nt2::functors::minmod_;
+  using nt2::tag::minmod_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<minmod_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

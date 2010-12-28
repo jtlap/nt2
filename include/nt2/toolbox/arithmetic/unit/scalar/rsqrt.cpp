@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( rsqrt,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::rsqrt;
-  using nt2::functors::rsqrt_;
+  using nt2::tag::rsqrt_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rsqrt_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
+           , typename boost::result_of<nt2::meta::floating(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  rsqrt( T(16) ), 0.25 );

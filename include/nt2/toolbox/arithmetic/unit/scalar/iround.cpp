@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( signed_iround,  (double)(nt2::int64_t)
                   )
 {
   using nt2::iround;
-  using nt2::functors::iround_;
+  using nt2::tag::iround_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<iround_(T)>::type
              ,typename nt2::meta::as_integer<T>::type
@@ -38,11 +38,11 @@ NT2_TEST_CASE_TPL ( signed_iround,  (double)(nt2::int64_t)
 }
                     
 NT2_TEST_CASE_TPL ( unsigned_iround,  (nt2::uint64_t)(nt2::uint32_t)
-		    (nt2::uint16_t)(nt2::uint8_t)
+                (nt2::uint16_t)(nt2::uint8_t)
                   )
 {
   using nt2::iround;
-  using nt2::functors::iround_;
+  using nt2::tag::iround_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<iround_(T)>::type
              ,typename nt2::meta::as_integer<T>::type
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( real_iround2even,  (double)(float)
                   )
 {
   using nt2::iround;
-  using nt2::functors::iround_;
+  using nt2::tag::iround_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<iround_(T)>::type
              ,typename nt2::meta::as_integer<T>::type

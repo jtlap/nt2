@@ -26,11 +26,11 @@ NT2_TEST_CASE_TPL ( signed_idivfix,  (double)(nt2::int64_t)
                   )
 {
   using nt2::idivfix;
-  using nt2::functors::idivfix_;
+  using nt2::tag::idivfix_;
 
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfix_(T, T)>::type
-	    ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+          ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  idivfix( T(22), T(3)), T(7) );
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( idivfix,  (nt2::uint64_t)(nt2::uint32_t)
                   )
 {
   using nt2::idivfix;
-  using nt2::functors::idivfix_;
+  using nt2::tag::idivfix_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<idivfix_(T, T)>::type
             ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

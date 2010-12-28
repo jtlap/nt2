@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( sqrt1pm1,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::sqrt1pm1;
-  using nt2::functors::sqrt1pm1_;
+  using nt2::tag::sqrt1pm1_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<sqrt1pm1_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
+           , typename boost::result_of<nt2::meta::floating(T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  sqrt1pm1( T(15) ), 3 );

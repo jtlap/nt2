@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( remainder,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::remainder;
-  using nt2::functors::remainder_;
+  using nt2::tag::remainder_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<remainder_(T, T)>::type
               , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

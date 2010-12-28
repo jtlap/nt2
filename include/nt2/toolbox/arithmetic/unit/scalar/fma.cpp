@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL (fma,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::fma;
-  using nt2::functors::fma_;
+  using nt2::tag::fma_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<fma_(T, T, T)>::type
-	     ,typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type
+           ,typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  fma( T(1), T(2), T(3)), T(5) );

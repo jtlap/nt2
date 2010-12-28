@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL ( fast_hypot,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::fast_hypot;
-  using nt2::functors::fast_hypot_;
+  using nt2::tag::fast_hypot_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_hypot_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T, T)>::type
+           , typename boost::result_of<nt2::meta::floating(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  fast_hypot( T(3), T(4)), 5 );

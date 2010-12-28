@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
                   )
 {
   using nt2::remquo;
-  using nt2::functors::remquo_;
+  using nt2::tag::remquo_;
 
   typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rem;
   typedef typename nt2::meta::as_integer<T,signed>::type             quo;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( remquo,  (double)
   for(int i = 0;  i < 3;  i++){
     type_t r = remquo(n[i], d[i]);
     NT2_TEST_EQUAL(  boost::fusion::get<0>(r), nt2::remainder(n[i], d[i]));
-//     NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
+    NT2_TEST_EQUAL(  boost::fusion::get<1>(r), nt2::idivfix(n[i], d[i]));
   }
 }
           

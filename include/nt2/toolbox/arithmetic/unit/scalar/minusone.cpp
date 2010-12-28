@@ -24,15 +24,15 @@ NT2_TEST_CASE_TPL ( minusone,  (double)(nt2::uint64_t)(nt2::int64_t)
                           (float)(nt2::uint32_t)(nt2::int32_t)  
                           (nt2::uint16_t)(nt2::int16_t)         
                           (nt2::uint8_t)(nt2::int8_t)
-		    )
+                )
 {
   using nt2::minusone;
-  using nt2::functors::minusone_;
+  using nt2::tag::minusone_;
 
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type tmp;
   typedef typename nt2::meta::as_signed<tmp>::type type;
    NT2_TEST( (boost::is_same <
-	        typename nt2::meta::call<minusone_(T)>::type
+              typename nt2::meta::call<minusone_(T)>::type
               , type
               >::value)
            );

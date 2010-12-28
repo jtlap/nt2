@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( fam,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::fam;
-  using nt2::functors::fam_;
+  using nt2::tag::fam_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<fam_(T, T, T)>::type
                , typename boost::result_of<nt2::meta::arithmetic(T, T, T)>::type

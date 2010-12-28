@@ -24,28 +24,28 @@ NT2_TEST_CASE_TPL ( sqr,  (double)(nt2::int64_t)
                   )
 {
   using nt2::sqr;
-  using nt2::functors::sqr_;
+  using nt2::tag::sqr_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<sqr_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  sqr( T(2) ), 4 );
   NT2_TEST_EQUAL(  sqr( T(-2) ),4 );
 }
 
 NT2_TEST_CASE_TPL ( unsigned_sqr,  (nt2::uint64_t)(nt2::uint32_t)
-		     (nt2::uint16_t)(nt2::uint8_t)
+                 (nt2::uint16_t)(nt2::uint8_t)
                   )
 {
   using nt2::sqr;
-  using nt2::functors::sqr_;
+  using nt2::tag::sqr_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<sqr_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  sqr( T(2) ), 4 );
 }

@@ -27,10 +27,10 @@ NT2_TEST_CASE_TPL ( rdivide,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::rdivide;
-  using nt2::functors::rdivide_;
+  using nt2::tag::rdivide_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rdivide_(T, T)>::type
-	     ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
+           ,  typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
               >::value)
            );
   NT2_TEST_EQUAL(  rdivide( T(42), T(3)), T(42)/T(3) );
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( real_rdivide,  (double)
                   )
 {
   using nt2::rdivide;
-  using nt2::functors::rdivide_;
+  using nt2::tag::rdivide_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rdivide_(T, T)>::type
               ,   typename boost::result_of<nt2::meta::arithmetic(T, T)>::type

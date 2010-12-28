@@ -27,12 +27,12 @@ NT2_TEST_CASE_TPL ( oneminus,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::oneminus;
-  using nt2::functors::oneminus_;
+  using nt2::tag::oneminus_;
 
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type tmp;
   typedef typename nt2::meta::as_signed<tmp>::type type;
   NT2_TEST( (boost::is_same <
-	        typename nt2::meta::call<oneminus_(T)>::type
+              typename nt2::meta::call<oneminus_(T)>::type
               , type
               >::value)
            );
