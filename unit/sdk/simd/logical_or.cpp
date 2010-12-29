@@ -37,15 +37,22 @@ NT2_TEST_CASE_TPL ( logical_or, NT2_SIMD_TYPES )
             )
           );
 
-  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
+  NT2_ALIGNED_TYPE(T) odd[cardinal_of<n_t>::value];
+  NT2_ALIGNED_TYPE(T) even[cardinal_of<n_t>::value];
   for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = i;
+  {
+    odd[i] = i % 2; even[i] = (i+1)%2;
+  }
 
-  n_t v = nt2::load<n_t>(&data[0],0);
+  n_t o = nt2::load<n_t>(&odd[0],0);
+  n_t e = nt2::load<n_t>(&even[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
   {
-    NT2_TEST_EQUAL( (bool)(v || v)[j]              , (v[j] || v[j]) );
-    NT2_TEST_EQUAL( (bool)(nt2::logical_or(v,v))[j], (v[j] || v[j]) );
-    NT2_TEST_EQUAL( (bool)(nt2::b_or(v,v))[j]      , (v[j] || v[j]) );
+    NT2_TEST_EQUAL( (bool)(o || o)[j]              , (o[j] || o[j]) );
+    NT2_TEST_EQUAL( (bool)(nt2::logical_or(o,o))[j], (o[j] || o[j]) );
+    NT2_TEST_EQUAL( (bool)(nt2::l_or(o,o))[j]      , (o[j] || o[j]) );
+    NT2_TEST_EQUAL( (bool)(o || e)[j]              , (o[j] || e[j]) );
+    NT2_TEST_EQUAL( (bool)(nt2::logical_or(o,e))[j], (o[j] || e[j]) );
+    NT2_TEST_EQUAL( (bool)(nt2::l_or(o,e))[j]      , (o[j] || e[j]) );
   }
 }
