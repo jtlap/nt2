@@ -40,12 +40,12 @@ namespace nt2 { namespace meta
   // Types hierarchy defines a partially order lattice of type familly
   // which helps categorizing a given type into all its potential enclosing type
   // sets. Hierarchies are template so they can use their root type to
-  // selct at each lattice node which ancestor to use.
+  // select at each lattice node which ancestor to use.
   //////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////////////////////////////////////////////
   // The unknown_ hierarchy is the upper bound in our hierarchy lattice.
-  // When a dispatch resovles on unknown_, it means so suitqble overload have
+  // When a dispatch resovles on unknown_, it means no suitable overload has
   // been found.
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct unknown_
@@ -161,6 +161,7 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   NT2_HIERARCHY_CLASS(double_       , type64_<T>      );
   NT2_HIERARCHY_CLASS(float_        , type32_<T>      );
+  NT2_HIERARCHY_CLASS(long_double_  , fundamental_<T> );
 
   //////////////////////////////////////////////////////////////////////////////
   // Boolean type hierarchy
