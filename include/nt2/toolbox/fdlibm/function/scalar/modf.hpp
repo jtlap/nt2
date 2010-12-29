@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::modf_, tag::cpu_,
+NT2_REGISTER_DISPATCH(fdlibm::tag::modf_, tag::cpu_,
                       (A0),
                       (fundamental_<A0>)
                      )
@@ -28,7 +28,7 @@ NT2_REGISTER_DISPATCH(tag::modf_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::modf_(tag::fundamental_),
+  struct call<fdlibm::tag::modf_(tag::fundamental_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -49,4 +49,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

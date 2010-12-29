@@ -21,7 +21,7 @@
 #include <nt2/toolbox/arithmetic/include/remquo.hpp>
 // specific includes for arity 2 tests
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/rem.hpp>
+#include <nt2/include/functions/remainder.hpp>
 #include <nt2/include/functions/idivfix.hpp>
 
 NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)

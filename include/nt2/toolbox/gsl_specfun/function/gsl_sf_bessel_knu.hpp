@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
-    struct gsl_sf_bessel_Knu_ {};
+    struct gsl_sf_bessel_knu_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_Knu_, gsl_sf_bessel_Knu, 2)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_knu_, gsl_sf_bessel_knu, 2)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_knu.hpp>

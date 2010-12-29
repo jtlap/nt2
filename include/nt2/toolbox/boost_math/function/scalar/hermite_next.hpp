@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::hermite_next_, tag::cpu_,
+NT2_REGISTER_DISPATCH(boost_math::tag::hermite_next_, tag::cpu_,
                               (A0)(A1)(A2)(A3),
                               (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)(arithmetic_<A3>)
                              )
@@ -21,7 +21,7 @@ NT2_REGISTER_DISPATCH(tag::hermite_next_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::hermite_next_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<boost_math::tag::hermite_next_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::hermite_next_, tag::cpu_,
+NT2_REGISTER_DISPATCH(boost_math::tag::hermite_next_, tag::cpu_,
                               (A0)(A1)(A2)(A3),
                               (real_<A0>)(real_<A1>)(real_<A2>)(real_<A3>)
                              )
@@ -48,7 +48,7 @@ NT2_REGISTER_DISPATCH(tag::hermite_next_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::hermite_next_(tag::real_,tag::real_,tag::real_,tag::real_),
+  struct call<boost_math::tag::hermite_next_(tag::real_,tag::real_,tag::real_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -61,4 +61,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

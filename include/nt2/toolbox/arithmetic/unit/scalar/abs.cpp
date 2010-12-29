@@ -63,7 +63,6 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
-
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
@@ -92,10 +91,12 @@ NT2_TEST_CASE_TPL ( abs_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::tag::abs_;
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
+  typedef T wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << nt2::type_id <r_t>() << std::endl;
+  std::cout << nt2::type_id < wished_r_t>() << std::endl;
   std::cout << std::endl; 
 
 

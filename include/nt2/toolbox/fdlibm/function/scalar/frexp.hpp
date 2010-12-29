@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
+NT2_REGISTER_DISPATCH(fdlibm::tag::frexp_, tag::cpu_,
                        (A0),
                        (fundamental_<A0>)
                       )
@@ -29,7 +29,7 @@ NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::frexp_(tag::fundamental_),
+  struct call<fdlibm::tag::frexp_(tag::fundamental_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -40,25 +40,16 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-          );
+      typedef typename NT2_RETURN_TYPE(1)::type rtype;
+      rtype res; 
+      int r1t;
+      boost::fusion::at_c<0>(res) = fd_frexp(a0, &r1t);
+      boost::fusion::at_c<1>(res) = r1t;
       return res;
     }
-  private:
-    NT2_FUNCTOR_CALL_DEFAULT(1)
 
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1)const
-    {
-      int r1t;
-      r0 = fd_frexp(a0, &r1t);
-      r1 = r1t;
-    }
   };
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

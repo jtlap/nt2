@@ -20,15 +20,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::cos<Rounding>_, tag::cpu_,
-                     (A0),
+NT2_REGISTER_DISPATCH(crlibm::tag::cos_<Rounding>, tag::cpu_,
+                     (A0)(Rounding),
                      (arithmetic_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Rounding,class Dummy>
-  struct call<tag::cos_<Rounding>(tag::arithmetic_),
+  struct call<crlibm::tag::cos_<Rounding>(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -46,15 +46,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::cos<Rounding>_, tag::cpu_,
-                     (A0),
+NT2_REGISTER_DISPATCH(crlibm::tag::cos_<Rounding>, tag::cpu_,
+                     (A0)(Rounding),
                      (double_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Rounding,class Dummy>
-  struct call<tag::cos_<Rounding>(tag::double_),
+  struct call<crlibm::tag::cos_<Rounding>(tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -74,4 +74,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

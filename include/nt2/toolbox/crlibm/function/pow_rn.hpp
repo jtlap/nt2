@@ -18,7 +18,7 @@ namespace nt2 { namespace crlibm { namespace tag
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow_rn, 2)
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow, 2)
-}
+    } }
  
 #include <nt2/toolbox/crlibm/function/scalar/pow_rn.hpp>
 // #include NT2_CRLIBM_INCLUDE(pow_rn.hpp) 

@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::incbps_, tag::cpu_,
+NT2_REGISTER_DISPATCH(cephes::tag::incbps_, tag::cpu_,
                         (A0)(A1)(A2),
                         (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
                        )
@@ -25,7 +25,7 @@ NT2_REGISTER_DISPATCH(tag::incbps_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::incbps_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<cephes::tag::incbps_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::incbps_, tag::cpu_,
+NT2_REGISTER_DISPATCH(cephes::tag::incbps_, tag::cpu_,
                         (A0)(A1)(A2),
                         (float_<A0>)(float_<A1>)(float_<A2>)
                        )
@@ -51,7 +51,7 @@ NT2_REGISTER_DISPATCH(tag::incbps_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::incbps_(tag::float_,tag::float_,tag::float_),
+  struct call<cephes::tag::incbps_(tag::float_,tag::float_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -63,4 +63,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

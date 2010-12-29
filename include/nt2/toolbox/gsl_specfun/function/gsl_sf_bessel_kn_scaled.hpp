@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
-    struct gsl_sf_bessel_Kn_scaled_ {};
+    struct gsl_sf_bessel_kn_scaled_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_Kn_scaled_, gsl_sf_bessel_Kn_scaled, 2)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_kn_scaled_, gsl_sf_bessel_kn_scaled, 2)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_kn_scaled.hpp>

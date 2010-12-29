@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
-    struct gsl_sf_expint_E1_ {};
+    struct gsl_sf_expint_e1_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_expint_E1_, gsl_sf_expint_E1, 1)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_expint_e1_, gsl_sf_expint_e1, 1)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_expint_e1.hpp>

@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::cyl_bessel_i_, tag::cpu_,
+NT2_REGISTER_DISPATCH(boost_math::tag::cyl_bessel_i_, tag::cpu_,
                               (A0)(A1),
                               (arithmetic_<A0>)(arithmetic_<A1>)
                              )
@@ -21,7 +21,7 @@ NT2_REGISTER_DISPATCH(tag::cyl_bessel_i_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::cyl_bessel_i_(tag::arithmetic_,tag::arithmetic_),
+  struct call<boost_math::tag::cyl_bessel_i_(tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::cyl_bessel_i_, tag::cpu_,
+NT2_REGISTER_DISPATCH(boost_math::tag::cyl_bessel_i_, tag::cpu_,
                               (A0)(A1),
                               (real_<A0>)(real_<A1>)
                              )
@@ -48,7 +48,7 @@ NT2_REGISTER_DISPATCH(tag::cyl_bessel_i_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::cyl_bessel_i_(tag::real_,tag::real_),
+  struct call<boost_math::tag::cyl_bessel_i_(tag::real_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

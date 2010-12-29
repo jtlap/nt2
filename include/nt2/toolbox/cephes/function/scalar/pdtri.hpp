@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
+NT2_REGISTER_DISPATCH(cephes::tag::pdtri_, tag::cpu_,
                        (A0)(A1),
                        (arithmetic_<A0>)(arithmetic_<A1>)
                       )
@@ -28,7 +28,7 @@ NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::pdtri_(tag::arithmetic_,tag::arithmetic_),
+  struct call<cephes::tag::pdtri_(tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
+NT2_REGISTER_DISPATCH(cephes::tag::pdtri_, tag::cpu_,
                        (A0)(A1),
                        (double_<A0>)(double_<A1>)
                       )
@@ -54,7 +54,7 @@ NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::pdtri_(tag::double_,tag::double_),
+  struct call<cephes::tag::pdtri_(tag::double_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
+NT2_REGISTER_DISPATCH(cephes::tag::pdtri_, tag::cpu_,
                        (A0)(A1),
                        (float_<A0>)(float_<A1>)
                       )
@@ -76,7 +76,7 @@ NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::pdtri_(tag::float_,tag::float_),
+  struct call<cephes::tag::pdtri_(tag::float_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -90,15 +90,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is long double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pdtri_, tag::cpu_,
+NT2_REGISTER_DISPATCH(cephes::tag::pdtri_, tag::cpu_,
                        (A0)(A1),
-                       (long double_<A0>)(long double_<A1>)
+                       (long_double_<A0>)(long_double_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::pdtri_(tag::long double_,tag::long double_),
+  struct call<cephes::tag::pdtri_(tag::long_double_,tag::long_double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -110,4 +110,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

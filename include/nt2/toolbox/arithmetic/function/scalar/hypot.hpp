@@ -54,13 +54,12 @@ namespace nt2 { namespace ext
       {
 	// flibc do that in ::hypotf(a0, a1) in asm with no more speed!
 	// internal is 30% slower
-	return nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1)));	
+	return float(nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1))));	
       }
     
     template < class A0>
     static inline A0  internal(const A0& a0, const  A0& a1)
     {
-      typedef float A0; 
       // in double ::hypot is very slow and is 4 times slower than internal
       // this routine in float (with float constants) is 30% slower than 
       // the straightforward preceding overload for floats

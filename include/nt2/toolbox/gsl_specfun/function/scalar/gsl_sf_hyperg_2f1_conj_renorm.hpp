@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
+NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
                                                (A0)(A1)(A2)(A3),
                                                (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)(arithmetic_<A3>)
                                               )
@@ -25,7 +25,7 @@ NT2_REGISTER_DISPATCH(tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gsl_sf_hyperg_2f1_conj_renorm_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<gsl_specfun::tag::gsl_sf_hyperg_2f1_conj_renorm_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(4)
     {
       typedef typename NT2_RETURN_TYPE(4)::type type;
-      return nt2::gsl_specfun::gsl_sf_hyperg_2F1_conj_renorm(type(a0), type(a1), type(a2), type(a3));
+      return nt2::gsl_specfun::gsl_sf_hyperg_2f1_conj_renorm(type(a0), type(a1), type(a2), type(a3));
     }
   };
 } }
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
+NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
                                                (A0)(A1)(A2)(A3),
                                                (double_<A0>)(double_<A1>)(double_<A2>)(double_<A3>)
                                               )
@@ -51,7 +51,7 @@ NT2_REGISTER_DISPATCH(tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gsl_sf_hyperg_2f1_conj_renorm_(tag::double_,tag::double_,tag::double_,tag::double_),
+  struct call<gsl_specfun::tag::gsl_sf_hyperg_2f1_conj_renorm_(tag::double_,tag::double_,tag::double_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
+NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
                                                (A0)(A1)(A2)(A3),
                                                (float_<A0>)(float_<A1>)(float_<A2>)(float_<A3>)
                                               )
@@ -73,7 +73,7 @@ NT2_REGISTER_DISPATCH(tag::gsl_sf_hyperg_2f1_conj_renorm_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gsl_sf_hyperg_2f1_conj_renorm_(tag::float_,tag::float_,tag::float_,tag::float_),
+  struct call<gsl_specfun::tag::gsl_sf_hyperg_2f1_conj_renorm_(tag::float_,tag::float_,tag::float_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -85,4 +85,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

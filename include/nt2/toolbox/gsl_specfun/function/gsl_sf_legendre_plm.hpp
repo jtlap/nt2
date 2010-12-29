@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
-    struct gsl_sf_legendre_Plm_ {};
+    struct gsl_sf_legendre_plm_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_legendre_Plm_, gsl_sf_legendre_Plm, 3)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_legendre_plm_, gsl_sf_legendre_plm, 3)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_legendre_plm.hpp>

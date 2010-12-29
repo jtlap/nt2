@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
-    struct gsl_sf_hyperg_2F1_ {};
+    struct gsl_sf_hyperg_2f1_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_hyperg_2F1_, gsl_sf_hyperg_2F1, 4)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_hyperg_2f1_, gsl_sf_hyperg_2f1, 4)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_hyperg_2f1.hpp>

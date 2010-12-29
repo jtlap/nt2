@@ -15,8 +15,8 @@
 namespace nt2 { namespace crlibm { namespace tag
   {         
     template <class T> struct sin_ {};
-    NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(sin, 1)
   }
+  NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(sin, 1)
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/sin.hpp>

@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( average_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::tag::average_;
   typedef typename nt2::meta::call<average_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -95,7 +95,8 @@ NT2_TEST_CASE_TPL ( average_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   using nt2::tag::average_;
   typedef typename nt2::meta::call<average_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

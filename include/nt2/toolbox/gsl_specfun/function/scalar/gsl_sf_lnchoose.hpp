@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is int
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::gsl_sf_lnchoose_, tag::cpu_,
+NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_lnchoose_, tag::cpu_,
                                  (A0)(A1),
                                  (int_<A0>)(int_<A1>)
                                 )
@@ -24,7 +24,7 @@ NT2_REGISTER_DISPATCH(tag::gsl_sf_lnchoose_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gsl_sf_lnchoose_(tag::int_,tag::int_),
+  struct call<gsl_specfun::tag::gsl_sf_lnchoose_(tag::int_,tag::int_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::gsl_sf_lnchoose_, tag::cpu_,
+NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_lnchoose_, tag::cpu_,
                                  (A0)(A1),
                                  (arithmetic_<A0>)(arithmetic_<A1>)
                                 )
@@ -46,7 +46,7 @@ NT2_REGISTER_DISPATCH(tag::gsl_sf_lnchoose_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gsl_sf_lnchoose_(tag::arithmetic_,tag::arithmetic_),
+  struct call<gsl_specfun::tag::gsl_sf_lnchoose_(tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -62,4 +62,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

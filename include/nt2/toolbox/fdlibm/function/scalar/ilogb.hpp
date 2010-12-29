@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
+NT2_REGISTER_DISPATCH(fdlibm::tag::ilogb_, tag::cpu_,
                        (A0),
                        (arithmetic_<A0>)
                       )
@@ -25,7 +25,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::arithmetic_),
+  struct call<fdlibm::tag::ilogb_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
+NT2_REGISTER_DISPATCH(fdlibm::tag::ilogb_, tag::cpu_,
                        (A0),
                        (double_<A0>)
                       )
@@ -50,7 +50,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::double_),
+  struct call<fdlibm::tag::ilogb_(tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -62,4 +62,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

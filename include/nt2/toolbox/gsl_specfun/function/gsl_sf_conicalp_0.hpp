@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
-    struct gsl_sf_conicalP_0_ {};
+    struct gsl_sf_conicalp_0_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_conicalP_0_, gsl_sf_conicalP_0, 3)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_conicalp_0_, gsl_sf_conicalp_0, 3)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_conicalp_0.hpp>

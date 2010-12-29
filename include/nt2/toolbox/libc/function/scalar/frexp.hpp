@@ -14,17 +14,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is double_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
+NT2_REGISTER_DISPATCH(libc::tag::frexp_, tag::cpu_,
                        (A0),
-                       (fundamental_<A0>)
+                       (double_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::frexp_(tag::fundamental_),
+  struct call<libc::tag::frexp_(tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -37,41 +37,81 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef meta::find_type<A0,float,double,long double, empty_> set_t;
       typename NT2_RETURN_TYPE(1)::type res;
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-          , typename set_t::type()
-          );
+      int r1t;
+      boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
+      boost::fusion::at_c<1>(res) = r1t;
       return res;
     }
-  private:
-    NT2_FUNCTOR_CALL_DEFAULT(1)
 
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1, long double const &)const
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is float_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(libc::tag::frexp_, tag::cpu_,
+                       (A0),
+                       (float_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<libc::tag::frexp_(tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>struct result<This(A0)>
     {
-      int r1t;
-      r0 = ::frexpl(a0, &r1t);
-      r1 = r1t;
-    }
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1, double const &)const
+      typedef typename boost::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::as_integer<A0,signed>::type          exponent;
+      typedef boost::fusion::vector<mantissa,exponent>             type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
     {
+      typename NT2_RETURN_TYPE(1)::type res;
       int r1t;
-      r0 = ::frexp(a0, &r1t);
-      r1 = r1t;
+      boost::fusion::at_c<0>(res) = ::frexpf(a0, &r1t);
+      boost::fusion::at_c<1>(res) = r1t;
+      return res;
     }
 
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1, float const &)const
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is long_double_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(libc::tag::frexp_, tag::cpu_,
+                       (A0),
+                       (long_double_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<libc::tag::frexp_(tag::long_double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>struct result<This(A0)>
     {
-      r0 = ::frexpf(a0, &r1);
+      typedef typename boost::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::as_integer<A0,signed>::type          exponent;
+      typedef boost::fusion::vector<mantissa,exponent>             type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename NT2_RETURN_TYPE(1)::type res;
+      int r1t;
+      boost::fusion::at_c<0>(res) = ::frexpl(a0, &r1t);
+      boost::fusion::at_c<1>(res) = r1t;
+      return res;
     }
 
   };
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010
