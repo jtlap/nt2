@@ -10,20 +10,21 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_POLEVL_HPP_INCLUDED
 #include <nt2/include/functions/tchebeval.hpp>
 #include <nt2/toolbox/polynomials/category.hpp>
-
+#include <nt2/sdk/meta/fusion.hpp>
+#include <boost/fusion/adapted/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::polevl_, tag::cpu_,
                         (A0)(A1),
-                        (arithmetic_<A0>)(arithmetic_<A1>)
+                        (arithmetic_<A0>)(fusion_sequence_<A1>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::polevl_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::polevl_(tag::arithmetic_,tag::fusion_sequence_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -44,13 +45,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::polevl_, tag::cpu_,
                         (A0)(A1),
-                        (real_<A0>)(real_<A1>)
+                        (real_<A0>)(fusion_sequence_<A1>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::polevl_(tag::real_,tag::real_),
+  struct call<tag::polevl_(tag::real_,tag::fusion_sequence_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -72,3 +73,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 26/12/2010

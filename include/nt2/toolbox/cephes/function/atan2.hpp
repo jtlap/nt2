@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     struct atan2_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::tag::atan2_, atan2, 2)
   }
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::atan2_, atan2, 2)
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/atan2.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace cephes { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

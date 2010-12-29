@@ -15,8 +15,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct hypot_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::hypot_, hypot, 2)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::hypot_, hypot, 2)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/hypot.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

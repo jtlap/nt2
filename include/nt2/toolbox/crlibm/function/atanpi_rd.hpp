@@ -15,8 +15,8 @@
 namespace nt2 { namespace crlibm { namespace tag
   {         
     struct atanpi_rd_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::atanpi_rd_, atanpi_rd, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::atanpi_rd_, atanpi_rd, 1)
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/atanpi_rd.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace crlibm { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

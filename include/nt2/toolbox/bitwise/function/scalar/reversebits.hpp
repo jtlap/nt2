@@ -16,13 +16,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                              (A0),
-                             (int8_<A0>)
+                             (ints8_<A0>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::reversebits_(tag::int8_),
+  struct call<tag::reversebits_(tag::ints8_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -45,13 +45,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                              (A0),
-                             (int64_<A0>)
+                             (ints64_<A0>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::reversebits_(tag::int64_),
+  struct call<tag::reversebits_(tag::ints64_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -75,13 +75,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                              (A0),
-                             (int16_<A0>)
+                             (ints16_<A0>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::reversebits_(tag::int16_),
+  struct call<tag::reversebits_(tag::ints16_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -105,13 +105,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                              (A0),
-                             (int32_<A0>)
+                             (ints32_<A0>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::reversebits_(tag::int32_),
+  struct call<tag::reversebits_(tag::ints32_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -132,3 +132,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 26912/2010

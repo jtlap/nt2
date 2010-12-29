@@ -14,17 +14,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types8_
+// Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                      (A0),
-                     (types8_<A0>)
+                     (type8_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ffs_(tag::types8_),
+  struct call<tag::ffs_(tag::type8_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -39,17 +39,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types64_
+// Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                      (A0),
-                     (types64_<A0>)
+                     (type64_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ffs_(tag::types64_),
+  struct call<tag::ffs_(tag::type64_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -65,17 +65,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types16_
+// Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                      (A0),
-                     (types16_<A0>)
+                     (type16_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ffs_(tag::types16_),
+  struct call<tag::ffs_(tag::type16_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -90,17 +90,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types32_
+// Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                      (A0),
-                     (types32_<A0>)
+                     (type32_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ffs_(tag::types32_),
+  struct call<tag::ffs_(tag::type32_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -117,3 +117,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 26/12/2010

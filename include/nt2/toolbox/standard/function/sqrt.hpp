@@ -15,8 +15,8 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     struct sqrt_ {};
-    NT2_FUNCTION_IMPLEMENTATION(standard::tag::sqrt_, sqrt, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(standard::tag::sqrt_, sqrt, 1)
   } }
  
 #include <nt2/toolbox/standard/function/scalar/sqrt.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace standard { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

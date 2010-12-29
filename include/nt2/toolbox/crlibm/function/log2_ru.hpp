@@ -15,8 +15,8 @@
 namespace nt2 { namespace crlibm { namespace tag
   {         
     struct log2_ru_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::log2_ru_, log2_ru, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::log2_ru_, log2_ru, 1)
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/log2_ru.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace crlibm { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

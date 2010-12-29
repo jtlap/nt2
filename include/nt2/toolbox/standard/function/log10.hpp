@@ -15,8 +15,8 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     struct log10_ {};
-    NT2_FUNCTION_IMPLEMENTATION(standard::tag::log10_, log10, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(standard::tag::log10_, log10, 1)
   } }
  
 #include <nt2/toolbox/standard/function/scalar/log10.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace standard { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

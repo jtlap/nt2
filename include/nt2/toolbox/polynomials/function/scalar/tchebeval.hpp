@@ -11,37 +11,21 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/toolbox/polynomials/category.hpp>
-
-//#include <boost/array.hpp>
-// #include <nt2/sdk/meta/irrelevant.hpp>
-// namespace nt2 { namespace details
-// {
-//   template<class T,std::size_t N> 
-//   struct category_of_impl<boost::array<T,N>,false>
-//   {
-//     typedef tag::irrelevant type;
-//   };
-// } }
-// namespace nt2 { namespace meta {
-//   template<class Info, class A0,class A1>
-//   struct  categorize<functors::tchebeval_,Info,A0,A1>
-//   {
-//     typedef typename meta::category_of<A0>::type::tag type;
-//   };  
-// } }
+#include <nt2/sdk/meta/fusion.hpp>
+#include <boost/fusion/adapted/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::tchebeval_, tag::cpu_,
                            (A0)(A1),
-                           (arithmetic_<A0>)(arithmetic_<A1>)
+                           (arithmetic_<A0>)(fusion_sequence_<A1>)
                           )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tchebeval_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::tchebeval_(tag::arithmetic_,tag::fusion_sequence_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -62,13 +46,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::tchebeval_, tag::cpu_,
                            (A0)(A1),
-                           (real_<A0>)(real_<A1>)
+                           (real_<A0>)(fusion_sequence_<A1>)
                           )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tchebeval_(tag::real_,tag::real_),
+  struct call<tag::tchebeval_(tag::real_,tag::fusion_sequence_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -95,3 +79,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 26/12/2010

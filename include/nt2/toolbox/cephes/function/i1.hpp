@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     struct i1_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::tag::i1_, i1, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::i1_, i1, 1)
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/i1.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace cephes { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

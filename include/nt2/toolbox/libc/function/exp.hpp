@@ -15,8 +15,8 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     struct exp_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::tag::exp_, exp, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(libc::tag::exp_, exp, 1)
   } }
  
 #include <nt2/toolbox/libc/function/scalar/exp.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace libc { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

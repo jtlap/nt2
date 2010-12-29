@@ -15,8 +15,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct ellint_rf_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_rf_, ellint_rf, 3)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_rf_, ellint_rf, 3)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/ellint_rf.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

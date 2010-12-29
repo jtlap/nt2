@@ -14,8 +14,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct acosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::acosh_, acosh, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::acosh_, acosh, 1)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/acosh.hpp>
@@ -24,4 +24,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

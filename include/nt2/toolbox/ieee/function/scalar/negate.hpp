@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
                         (A0)(A1),
-                        (signed_<A0>)(signed_<A1>)
+                        (arithmetic_<A0>)(signed_<A1>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negate_(tag::signed_,tag::signed_),
+  struct call<tag::negate_(tag::arithmetic_,tag::signed_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -44,13 +44,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
                         (A0)(A1),
-                        (unsigned_<A0>)(unsigned_<A1>)
+                        (arithmetic_<A0>)(unsigned_<A1>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negate_(tag::unsigned_,tag::unsigned_),
+  struct call<tag::negate_(tag::arithmetic_,tag::unsigned_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

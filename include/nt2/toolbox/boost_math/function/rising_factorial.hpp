@@ -15,8 +15,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct rising_factorial_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::rising_factorial_, rising_factorial, 2)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::rising_factorial_, rising_factorial, 2)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/rising_factorial.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

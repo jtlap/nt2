@@ -15,8 +15,8 @@
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
     struct gsl_sf_legendre_Q0_ {};
-    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_legendre_Q0_, gsl_sf_legendre_Q0, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_legendre_Q0_, gsl_sf_legendre_Q0, 1)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_legendre_q0.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace gsl_specfun { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

@@ -15,8 +15,8 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     struct __ieee754_remainder_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_remainder_, __ieee754_remainder, 2)
   }
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_remainder_, __ieee754_remainder, 2)
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/__ieee754_remainder.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace fdlibm { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

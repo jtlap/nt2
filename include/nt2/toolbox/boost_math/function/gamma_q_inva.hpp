@@ -15,8 +15,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct gamma_q_inva_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::gamma_q_inva_, gamma_q_inva, 2)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::gamma_q_inva_, gamma_q_inva, 2)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/gamma_q_inva.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

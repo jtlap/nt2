@@ -30,13 +30,15 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> {
-      typedef typename boost::result_of<meta::arithmetic(A0)>::type tmp;
+      typedef typename meta::strip<A0>::type sA0; 
+      typedef typename boost::result_of<meta::arithmetic(sA0)>::type tmp;
       typedef typename meta::as_signed<tmp>::type type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0-One<A0>();
+      typedef typename meta::strip<A0>::type sA0; 
+      return a0-One<sA0>();
     }
 
   };

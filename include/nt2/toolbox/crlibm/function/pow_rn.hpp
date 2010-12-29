@@ -15,8 +15,8 @@
 namespace nt2 { namespace crlibm { namespace tag
   {         
     struct pow_rn_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow_rn, 2)
   }
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow_rn, 2)
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow, 2)
 }
  
@@ -26,4 +26,4 @@ namespace nt2 { namespace crlibm { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

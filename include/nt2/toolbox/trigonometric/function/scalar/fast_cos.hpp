@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef NT2_DEFAULT_REAL_TYPE type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       return nt2::fast_cos(type(a0));
     }
   };

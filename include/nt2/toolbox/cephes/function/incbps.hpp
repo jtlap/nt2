@@ -15,8 +15,8 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     struct incbps_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::tag::incbps_, incbps, 3)
   }
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::incbps_, incbps, 3)
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/incbps.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace cephes { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

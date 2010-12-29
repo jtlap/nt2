@@ -15,8 +15,8 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     struct fabs_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::fabs_, fabs, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::fabs_, fabs, 1)
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/fabs.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace fdlibm { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

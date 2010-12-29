@@ -59,8 +59,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::result_of<meta::arithmetic(A0,A1)>{};
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -72,7 +71,7 @@ namespace nt2 { namespace ext
       //      static int_type const n1  = ((2*(Maxexponent<result_type>()-1)+3) << nmb);
 
       // clear exponent in x
-      result_type const x(b_andnot(a0, Ldexpmask<A0>()));
+      result_type const x(b_andnot(a0, Ldexpmask<result_type>()));
 
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<result_type>(), a0);

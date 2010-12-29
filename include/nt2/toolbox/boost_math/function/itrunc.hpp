@@ -15,8 +15,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct itrunc_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::itrunc_, itrunc, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::itrunc_, itrunc, 1)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/itrunc.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

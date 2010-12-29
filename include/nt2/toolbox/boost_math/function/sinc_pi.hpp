@@ -15,8 +15,8 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct sinc_pi_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sinc_pi_, sinc_pi, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sinc_pi_, sinc_pi, 1)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/sinc_pi.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace boost_math { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

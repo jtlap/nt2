@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
+NT2_REGISTER_DISPATCH(standard::tag::atan2_, tag::cpu_,
                        (A0)(A1),
                        (arithmetic_<A0>)(arithmetic_<A1>)
                       )
@@ -21,7 +21,7 @@ NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::atan2_(tag::arithmetic_,tag::arithmetic_),
+  struct call<standard::tag::atan2_(tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
+NT2_REGISTER_DISPATCH(standard::tag::atan2_, tag::cpu_,
                        (A0)(A1),
                        (real_<A0>)(real_<A1>)
                       )
@@ -47,7 +47,7 @@ NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::atan2_(tag::real_,tag::real_),
+  struct call<standard::tag::atan2_(tag::real_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -59,4 +59,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 29/12/2010

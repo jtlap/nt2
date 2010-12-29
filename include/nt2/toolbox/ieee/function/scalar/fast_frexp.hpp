@@ -14,7 +14,7 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 
-};
+
 /////////////////////////////////////////////////////////////////////////////
 // Compute fast_frexp(const A0& a0)
 /////////////////////////////////////////////////////////////////////////////
@@ -48,9 +48,7 @@ namespace nt2 { namespace ext
     }
   };
 } }
-    return res;
-  }
-};
+
 
 NT2_REGISTER_DISPATCH(tag::fast_frexp_, tag::cpu_,
                             (A0),
@@ -83,3 +81,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// manually modified by jt the 29/12/2010

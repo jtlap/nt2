@@ -15,8 +15,8 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     struct abs_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::tag::abs_, abs, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(libc::tag::abs_, abs, 1)
   } }
  
 #include <nt2/toolbox/libc/function/scalar/abs.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace libc { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

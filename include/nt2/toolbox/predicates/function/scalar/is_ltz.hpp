@@ -30,7 +30,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-        return a0 < Zero<A0>();
+      typedef typename meta::strip<A0>::type stA0; 
+      return a0 < Zero<stA0>();
     }
 
   };
@@ -38,3 +39,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 26/12/2010

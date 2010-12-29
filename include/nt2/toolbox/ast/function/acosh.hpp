@@ -15,8 +15,8 @@
 namespace nt2 { namespace ast { namespace tag
   {         
     struct acosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(ast::tag::acosh_, acosh, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(ast::tag::acosh_, acosh, 1)
   } }
  
 #include <nt2/toolbox/ast/function/scalar/acosh.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace ast { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

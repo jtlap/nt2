@@ -49,9 +49,7 @@ namespace nt2 { namespace ext
     }
   };
 } }
-    return res;
-  }
-};
+
 
 NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
                        (A0),
@@ -84,3 +82,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// manually modified by jt the 28/12/2010  

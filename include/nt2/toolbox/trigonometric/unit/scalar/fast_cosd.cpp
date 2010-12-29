@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( fast_cos, (double)
                 )
 {
   using nt2::fast_cos; 
-  using nt2::functors::fast_cos_;
+  using nt2::tag::fast_cos_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_cos_(T)>::type
             , T

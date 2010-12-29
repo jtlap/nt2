@@ -15,8 +15,8 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     struct cosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::cosh_, cosh, 1)
   }
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::cosh_, cosh, 1)
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/cosh.hpp>
@@ -25,4 +25,4 @@ namespace nt2 { namespace fdlibm { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by jt the 29/12/2010

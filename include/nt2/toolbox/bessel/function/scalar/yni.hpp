@@ -25,13 +25,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
                      (A0)(A1),
-                     (arithmetic_<A0>)(arithmetic_<A1>)
+                     (integer_<A0>)(arithmetic_<A1>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::yni_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::yni_(tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -52,13 +52,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
                      (A0)(A1),
-                     (double_<A0>)(double_<A1>)
+                     (integer_<A0>)(double_<A1>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::yni_(tag::double_,tag::double_),
+  struct call<tag::yni_(tag::integer_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -78,13 +78,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
                      (A0)(A1),
-                     (float_<A0>)(float_<A1>)
+                     (integer_<A0>)(float_<A1>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::yni_(tag::float_,tag::float_),
+  struct call<tag::yni_(tag::integer_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -134,3 +134,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 26/12/2010
