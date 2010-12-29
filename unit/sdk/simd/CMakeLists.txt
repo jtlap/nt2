@@ -26,6 +26,7 @@ SET( SOURCES
     is_not_equal.cpp
     is_signed.cpp
     logical_and.cpp
+    logical_not.cpp
     logical_or.cpp
     make_integer.cpp
     make_real.cpp
