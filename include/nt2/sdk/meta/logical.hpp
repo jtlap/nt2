@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_META_LOGICAL_HPP_INCLUDED
 #define NT2_SDK_META_LOGICAL_HPP_INCLUDED
+#include <nt2/sdk/meta/is_scalar.hpp>
 
 
 
@@ -19,13 +20,13 @@ namespace nt2
   namespace details
   {
     template<class T,class C> struct logical_impl  { typedef T type; };
-    template<class T >        struct logical_impl < T, nt2::functors::scalar_<nt2::tag::arithmetic_, 1u> > { typedef bool type; }; 
+    template<class T >        struct logical_impl < T,boost::mpl::true_ > { typedef bool type; }; 
   }
   namespace meta
   {
     template<class T>
     struct  logical
-          : details::logical_impl<T, typename category_of<T>::type> {};
+      : details::logical_impl<T, typename meta::is_scalar<T>::type> {};
   }
 }
 

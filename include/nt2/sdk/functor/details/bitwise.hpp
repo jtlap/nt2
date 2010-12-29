@@ -22,6 +22,7 @@
 // not has this property on scalar value.
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_MAKE_BITWISE(TAG,OP)                                          \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(bool_<A0>)(bool_<A1>))      \
 NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type8_<A0>)(type8_<A1>))    \
 NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type16_<A0>)(type16_<A1>))  \
 NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type32_<A0>)(type32_<A1>))  \
@@ -44,6 +45,10 @@ namespace nt2 { namespace ext                                             \
     }                                                                     \
   };                                                                      \
                                                                           \
+  template<class Dummy>                                                   \
+  struct  call<TAG(tag::bool_   , tag::bool_  ), tag::cpu_, Dummy>        \
+        : call<TAG(tag::type8_  , tag::type8_ ), tag::cpu_, Dummy>        \
+  {};                                                                     \
   template<class Dummy>                                                   \
   struct  call<TAG(tag::type16_ , tag::type16_), tag::cpu_, Dummy>        \
         : call<TAG(tag::type8_  , tag::type8_ ), tag::cpu_, Dummy>        \
