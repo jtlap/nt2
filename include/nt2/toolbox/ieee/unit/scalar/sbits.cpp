@@ -6,42 +6,72 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
-#include <nt2/sdk/functor/meta/call.hpp>
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - sbits/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/ieee/include/sbits.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/sbits.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-NT2_TEST_CASE_TPL ( integral_sbits,   NT2_INTEGRAL_TYPES        
-                  )
+NT2_TEST_CASE_TPL ( sbits_real__1,  NT2_REAL_TYPES)
 {
   using nt2::sbits;
-  using nt2::tag::sbits_;
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<sbits_(T)>::type
-           ,  typename nt2::meta::as_integer<T, signed>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  sbits( T(42) ), 42 );
-  NT2_TEST_EQUAL(  sbits( T(-32) ), -32 );
-}
-NT2_TEST_CASE_TPL ( real_sbits,   NT2_REAL_TYPES        
-                  )
+  using nt2::functors::sbits_;
+  typedef typename nt2::meta::call<sbits_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::Nan<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( sbits_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::sbits;
-  using nt2::tag::sbits_;
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<sbits_(T)>::type
-           ,  typename nt2::meta::as_integer<T, signed>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  sbits( T(nt2::Nan<T>()) ), -1 );
-  NT2_TEST_EQUAL(  sbits( T(0) ), 0 );
-}
+  using nt2::functors::sbits_;
+  typedef typename nt2::meta::call<sbits_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::Valmax<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( sbits_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::sbits;
+  using nt2::functors::sbits_;
+  typedef typename nt2::meta::call<sbits_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  sbits(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for signed_int_

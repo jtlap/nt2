@@ -6,31 +6,75 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - eps/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp> 
-#include <nt2/toolbox/ieee/include/eps.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <iostream>
- 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( eps,   NT2_REAL_CONVERTIBLE_TYPES        
-                  )
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/eps.hpp>
+
+NT2_TEST_CASE_TPL ( eps_real__1,  NT2_REAL_TYPES)
 {
   using nt2::eps;
-  using nt2::tag::eps_;
+  using nt2::functors::eps_;
+  typedef typename nt2::meta::call<eps_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<eps_(T)>::type
-           , T
-              >::value)
-           );
-  NT2_TEST_EQUAL(  eps( T(1) ), nt2::Eps<T>() );
-  NT2_TEST_EQUAL(  eps( T(0) ), nt2::Mindenormal<T>() );
-  std::cout <<  eps( T(1) )- nt2::Eps<T>() << std::endl; 
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Mone<T>()), nt2::Eps<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::One<T>()), nt2::Eps<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Zero<T>()), nt2::Mindenormal<r_t>(), 0);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( eps_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::eps;
+  using nt2::functors::eps_;
+  typedef typename nt2::meta::call<eps_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  eps(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( eps_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::eps;
+  using nt2::functors::eps_;
+  typedef typename nt2::meta::call<eps_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Mone<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  eps(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+} // end of test for signed_int_
