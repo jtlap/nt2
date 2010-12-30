@@ -12,7 +12,6 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_real on SIMD
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +33,9 @@ NT2_TEST_CASE_TPL(as_real_simd, NT2_SIMD_REAL_TYPES)
   NT2_TEST( (is_simd_specific<__vector unsigned int,nt2::tag::altivec_>::value) );
   NT2_TEST( (is_simd_specific<__vector unsigned short,nt2::tag::altivec_>::value) );
   NT2_TEST( (is_simd_specific<__vector unsigned char,nt2::tag::altivec_>::value) );
+  NT2_TEST( (is_simd_specific<__vector __bool int,nt2::tag::altivec_>::value) );
+  NT2_TEST( (is_simd_specific<__vector __bool short,nt2::tag::altivec_>::value) );
+  NT2_TEST( (is_simd_specific<__vector __bool char,nt2::tag::altivec_>::value) );
   #endif
 
 
