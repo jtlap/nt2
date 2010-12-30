@@ -20,8 +20,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/toolbox/arithmetic/include/remainder.hpp>
 // specific includes for arity 2 tests
-#include<nt2/include/functions/abs.hpp>
-#include<nt2/include/functions/negate.hpp>
+#include<nt2/include/functions/idivround.hpp>
 
 NT2_TEST_CASE_TPL ( remainder_real__2,  NT2_REAL_TYPES)
 {
@@ -54,7 +53,7 @@ NT2_TEST_CASE_TPL ( remainder_real__2,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::remainder(a0,a1),a1? nt2::negate(nt2::abs(a0)-nt2::idivfix(nt2::abs(a0), nt2::abs(a1))*nt2::abs(a1), nt2::abs(a0)) : a0,0);
+        NT2_TEST_ULP_EQUAL( nt2::remainder(a0,a1),a0-nt2::idivround(a0, a1)*a1,0);
      }
    }
 } // end of test for real_
@@ -86,7 +85,7 @@ NT2_TEST_CASE_TPL ( remainder_unsigned_int__2,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::remainder(a0,a1),a1? nt2::negate(nt2::abs(a0)-nt2::idivfix(nt2::abs(a0), nt2::abs(a1))*nt2::abs(a1), nt2::abs(a0)) : a0,0);
+        NT2_TEST_ULP_EQUAL( nt2::remainder(a0,a1),a0-nt2::idivround(a0, a1)*a1,0);
      }
    }
 } // end of test for unsigned_int_
@@ -119,7 +118,7 @@ NT2_TEST_CASE_TPL ( remainder_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::remainder(a0,a1),a1? nt2::negate(nt2::abs(a0)-nt2::idivfix(nt2::abs(a0), nt2::abs(a1))*nt2::abs(a1), nt2::abs(a0)) : a0,0);
+        NT2_TEST_ULP_EQUAL( nt2::remainder(a0,a1),a0-nt2::idivround(a0, a1)*a1,0);
      }
    }
 } // end of test for signed_int_

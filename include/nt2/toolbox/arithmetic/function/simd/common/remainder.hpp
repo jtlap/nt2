@@ -36,9 +36,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A0 a = abs(a0);
-      const A0 b = abs(a1);
-      return sel(b, negate(a-idivfix(a, b)*b, a), a);
+//       const A0 a = abs(a0);
+//       const A0 b = abs(a1);
+//       return sel(b, negate(a-idivfix(a, b)*b, a), a);
+      return a0-idivround(a0, a1)*a1
     }
 
   };
@@ -46,3 +47,4 @@ namespace nt2 { namespace functors
 
 #endif
 /// Revised by jt the 15/11/2010
+/// modified manually by jt the 30/12/2010

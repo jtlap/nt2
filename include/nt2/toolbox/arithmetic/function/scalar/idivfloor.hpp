@@ -87,9 +87,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      std::cout << "pipo" << std::endl;
-      std::cout << "      a0/a1  "  <<       a0/a1  << std::endl;
-      std::cout << "floor(a0/a1) " << nt2::floor(a0/a1) << std::endl;
+//       std::cout << "pipo" << std::endl;
+//       std::cout << "      a0/a1  "  <<       a0/a1  << std::endl;
+//       std::cout << "floor(a0/a1) " << nt2::floor(a0/a1) << std::endl;
       return nt2::floor(a0/a1);
     }
   };

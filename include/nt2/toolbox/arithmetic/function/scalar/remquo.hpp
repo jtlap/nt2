@@ -24,7 +24,8 @@ namespace nt2 { namespace details
     typedef typename meta::as_integer<double,signed>::type  quo;
     typedef boost::fusion::tuple<rem,quo>                 rtype;
     
-    static inline rtype eval(const double& a0, const double& a1) {
+    static inline rtype eval(const double& a0, const double& a1)
+    {
       rtype res;
       int rt; 
       boost::fusion::at_c<0>(res) = ::remquo(a0, a1, &rt);
@@ -34,11 +35,12 @@ namespace nt2 { namespace details
   }; 
     
   template <class Dummy> struct remquo<float,Dummy>{
-    typedef float                                          rem; 
+    typedef float                                           rem; 
     typedef typename meta::as_integer<double,signed>::type  quo;
     typedef boost::fusion::tuple<rem,quo>                 rtype;
     
-    static inline rtype eval(const float& a0, const float& a1) {
+    static inline rtype eval(const float& a0, const float& a1)
+    {
       rtype res;
       int rt; 
       boost::fusion::at_c<0>(res) = ::remquof(a0, a1, &rt);

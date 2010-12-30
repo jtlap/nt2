@@ -11,6 +11,12 @@
 
 #include <nt2/include/functions/idivfix.hpp>
 
+/////////////////////////////////////////////////////////////////////////////
+//  The rem function computes the floating-point remainder of dividing x by y.
+//  The return value is x - n * y, where n is the quotient of x / y, rounded
+//  toward zero to an integer.
+//  The fmod function is just an alias for the same thing.
+/////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

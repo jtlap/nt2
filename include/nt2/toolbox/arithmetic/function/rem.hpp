@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct rem_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::rem_, rem, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::rem_, fmod, 2)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/rem.hpp>

@@ -10,7 +10,15 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REMAINDER_HPP_INCLUDED
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/negate.hpp>
-#include <nt2/include/functions/idivfix.hpp>
+//#include <nt2/include/functions/idivfix.hpp>
+#include <nt2/include/functions/idivround.hpp>
+
+/////////////////////////////////////////////////////////////////////////////
+// The remainder() function computes the remainder of dividing x by y.  The
+// return value is x-n*y, where n is the value x / y, rounded to the nearest
+// integer.  If the absolute value of x-n*y is 0.5, n is chosen to be even.
+// The drem function is just an alias for the same thing.
+/////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -34,11 +42,12 @@ namespace nt2 { namespace ext
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type a = nt2::abs(a0);
-      type b = nt2::abs(a1);
-      return b ? nt2::negate(a-nt2::idivfix(a, b)*b, a) : a;
+      {
+//       typedef typename NT2_RETURN_TYPE(2)::type type;
+//       type a = nt2::abs(a0);
+//       type b = nt2::abs(a1);
+//       return b ? nt2::negate(a-nt2::idivfix(a, b)*b, a) : a;
+	 return a0-nt2::idivround(a0, a1)*a1; 
     }
   };
 } }
@@ -64,10 +73,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type a = nt2::abs(a0);
-      type b = nt2::abs(a1);
-      return b ? nt2::negate(a-nt2::idivfix(a, b)*b, a) : a;
+//       typedef typename NT2_RETURN_TYPE(2)::type type;
+//       type a = nt2::abs(a0);
+//       type b = nt2::abs(a1);
+//       return b ? nt2::negate(a-nt2::idivfix(a, b)*b, a) : a;
+      return a0-nt2::idivround(a0, a1)*a1; 
     }
   };
 } }

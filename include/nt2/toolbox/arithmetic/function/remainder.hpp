@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct remainder_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::remainder_, remainder, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::remainder_, drem, 2)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/remainder.hpp>

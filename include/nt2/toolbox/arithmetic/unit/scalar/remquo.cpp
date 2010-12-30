@@ -21,8 +21,14 @@
 #include <nt2/toolbox/arithmetic/include/remquo.hpp>
 // specific includes for arity 2 tests
 #include <boost/fusion/tuple.hpp>
+#include <nt2/include/functions/rem.hpp>
 #include <nt2/include/functions/remainder.hpp>
+#include <nt2/include/functions/mod.hpp>
 #include <nt2/include/functions/idivfix.hpp>
+#include <nt2/include/functions/idivfloor.hpp>
+#include <nt2/include/functions/idivround.hpp>
+#include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/abs.hpp> 
 
 NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
 {
@@ -50,8 +56,8 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
         r_t r = nt2::remquo(a0,a1);
         typename boost::fusion::result_of::at_c<r_t,0>::type r0 = boost::fusion::get<0>(r);
         typename boost::fusion::result_of::at_c<r_t,1>::type r1 = boost::fusion::get<1>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( r0,nt2::rem(a0,a1),0);
-        NT2_TEST_TUPLE_ULP_EQUAL( r1,nt2::idivfix(a0,a1),0);
+	NT2_TEST_TUPLE_ULP_EQUAL( r0,nt2::remainder(a0,a1),0);
+	//I do not really understand what quo is !?
      }
    }
 } // end of test for real_
