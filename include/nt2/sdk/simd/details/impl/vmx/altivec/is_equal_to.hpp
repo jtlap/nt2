@@ -10,6 +10,7 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_IS_EQUAL_TO_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { (typename A0::native_type)vec_cmpeq(a0(),a1()) };
+      A0 that = { simd::native_cast<A0>( vec_cmpeq(a0(),a1()) ) };
       return that;
     }
   };
