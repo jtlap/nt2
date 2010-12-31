@@ -10,7 +10,7 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_OPERATORS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Extension specific additional macro/function helpers
+// Extension specific additional helpers
 ////////////////////////////////////////////////////////////////////////////////
 #if defined( NT2_SIMD_XOP)
 //  #include <nt2/sdk/simd/native/details/impl/sse/xop/macros.hpp>
@@ -35,8 +35,8 @@
 #include NT2_SIMD_INCLUDE(bitwise_xor.hpp)
 #include NT2_SIMD_INCLUDE(divides.hpp)
 #include NT2_SIMD_INCLUDE(is_equal_to.hpp)
-//#include NT2_SIMD_INCLUDE(is_greater.hpp)
-//#include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
+#include NT2_SIMD_INCLUDE(is_greater.hpp)
+#include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
 //#include NT2_SIMD_INCLUDE(is_less.hpp)
 //#include NT2_SIMD_INCLUDE(is_less_equal.hpp)
 #include NT2_SIMD_INCLUDE(is_not_equal_to.hpp)
