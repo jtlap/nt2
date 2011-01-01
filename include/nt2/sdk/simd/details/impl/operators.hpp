@@ -36,7 +36,7 @@
 #include NT2_SIMD_INCLUDE(divides.hpp)
 #include NT2_SIMD_INCLUDE(is_equal_to.hpp)
 #include NT2_SIMD_INCLUDE(is_greater.hpp)
-#include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
+//#include NT2_SIMD_INCLUDE(is_greater_equal.hpp)
 //#include NT2_SIMD_INCLUDE(is_less.hpp)
 //#include NT2_SIMD_INCLUDE(is_less_equal.hpp)
 #include NT2_SIMD_INCLUDE(is_not_equal_to.hpp)
