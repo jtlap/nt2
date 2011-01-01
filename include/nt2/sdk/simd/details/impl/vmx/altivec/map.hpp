@@ -24,7 +24,7 @@
 // categories. Special case is the 64 bits integers that can be filled directly.
 ////////////////////////////////////////////////////////////////////////////////
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) a0(BOOST_PP_ENUM(t,M4,n))
+#define M3(z,n,t) (typename A1::value_type)(a0(BOOST_PP_ENUM(t,M4,n)))
 #define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A0>,tag::altivec_>))
 #define M1(z,n,t) tag::simd_(tag::BOOST_PP_TUPLE_ELEM(2,0,t),tag::altivec_)
 
