@@ -32,6 +32,9 @@
 *.pdb
 *.resource.txt
 *.bak
+.DS_Store
+.project
+.cproject
 
 ################################################################################
 # Ignore CMake generated files
