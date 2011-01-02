@@ -70,9 +70,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 lt   = { (typename A0::native_type)vec_cmplt(a0(),a1()) };
-      A0 that = { nt2::complement(lt) };
-      return that;
+      A0 l   = { (typename A0::native_type)vec_cmplt(a0(),a1()) };
+      return nt2::complement(l);
     }
   };
 } }
