@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +28,7 @@
 NT2_TEST_CASE_TPL ( bitinteger_real__1,  NT2_REAL_TYPES)
 {
   using nt2::bitinteger;
-  using nt2::functors::bitinteger_;
+  using nt2::tag::bitinteger_;
   typedef typename nt2::meta::call<bitinteger_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T>::type wished_r_t;

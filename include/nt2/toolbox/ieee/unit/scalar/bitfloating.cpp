@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +27,7 @@
 NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1,  (nt2::uint32_t))
 {
   using nt2::bitfloating;
-  using nt2::functors::bitfloating_;
+  using nt2::tag::bitfloating_;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -51,7 +53,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1,  (nt2::uint32_t))
 NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1,  (nt2::uint64_t))
 {
   using nt2::bitfloating;
-  using nt2::functors::bitfloating_;
+  using nt2::tag::bitfloating_;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -77,7 +79,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1,  (nt2::uint64_t))
 NT2_TEST_CASE_TPL ( bitfloating_int32_t_1,  (nt2::int32_t))
 {
   using nt2::bitfloating;
-  using nt2::functors::bitfloating_;
+  using nt2::tag::bitfloating_;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -103,7 +105,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int32_t_1,  (nt2::int32_t))
 NT2_TEST_CASE_TPL ( bitfloating_int64_t_1,  (nt2::int64_t))
 {
   using nt2::bitfloating;
-  using nt2::functors::bitfloating_;
+  using nt2::tag::bitfloating_;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;

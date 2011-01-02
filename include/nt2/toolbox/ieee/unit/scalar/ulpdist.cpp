@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +25,7 @@
 NT2_TEST_CASE_TPL ( ulpdist_real__2,  NT2_REAL_TYPES)
 {
   using nt2::ulpdist;
-  using nt2::functors::ulpdist_;
+  using nt2::tag::ulpdist_;
   typedef typename nt2::meta::call<ulpdist_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
@@ -45,7 +47,7 @@ NT2_TEST_CASE_TPL ( ulpdist_real__2,  NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL ( ulpdist_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 {
   using nt2::ulpdist;
-  using nt2::functors::ulpdist_;
+  using nt2::tag::ulpdist_;
   typedef typename nt2::meta::call<ulpdist_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
@@ -63,7 +65,7 @@ NT2_TEST_CASE_TPL ( ulpdist_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 NT2_TEST_CASE_TPL ( ulpdist_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::ulpdist;
-  using nt2::functors::ulpdist_;
+  using nt2::tag::ulpdist_;
   typedef typename nt2::meta::call<ulpdist_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;

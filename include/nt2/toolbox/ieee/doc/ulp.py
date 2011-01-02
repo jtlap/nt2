@@ -25,7 +25,7 @@
                                                'nt2::Zero<T>()': 'nt2::One<r_t>()'},
                                'unsigned_int_': {'nt2::One<T>()': 'nt2::One<r_t>()',
                                                  'nt2::Zero<T>()': 'nt2::One<r_t>()'}},
-           'verif_test': {'property_call': None,
+           'verif_test': {'property_call': {},
                           'property_value': {'default': ['nt2::One<T>()'],
                                              'real_': ['nt2::min(a0-nt2::prev(a0),nt2::next(a0)-a0)']},
                           'ulp_thresh': {'default':['0']}}},

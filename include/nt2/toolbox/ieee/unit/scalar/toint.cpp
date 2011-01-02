@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +25,7 @@
 NT2_TEST_CASE_TPL ( toint_real__1,  NT2_REAL_TYPES)
 {
   using nt2::toint;
-  using nt2::functors::toint_;
+  using nt2::tag::toint_;
   typedef typename nt2::meta::call<toint_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T>::type wished_r_t;
@@ -40,24 +42,12 @@ NT2_TEST_CASE_TPL ( toint_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  toint(nt2::Nan<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  toint(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  toint(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::toint(a0),r_t(a0),0);
-     }
-   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( toint_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::toint;
-  using nt2::functors::toint_;
+  using nt2::tag::toint_;
   typedef typename nt2::meta::call<toint_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T>::type wished_r_t;
@@ -70,24 +60,12 @@ NT2_TEST_CASE_TPL ( toint_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(  toint(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  toint(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, 0, 100);
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::toint(a0),r_t(a0),0);
-     }
-   }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( toint_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::toint;
-  using nt2::functors::toint_;
+  using nt2::tag::toint_;
   typedef typename nt2::meta::call<toint_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T>::type wished_r_t;
@@ -101,16 +79,4 @@ NT2_TEST_CASE_TPL ( toint_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(  toint(nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  toint(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  toint(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, -100, 100);
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::toint(a0),r_t(a0),0);
-     }
-   }
 } // end of test for signed_int_

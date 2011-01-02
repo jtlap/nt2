@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +25,7 @@
 NT2_TEST_CASE_TPL ( nextpow2_real__1,  NT2_REAL_TYPES)
 {
   using nt2::nextpow2;
-  using nt2::functors::nextpow2_;
+  using nt2::tag::nextpow2_;
   typedef typename nt2::meta::call<nextpow2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type wished_r_t;
@@ -44,7 +46,7 @@ NT2_TEST_CASE_TPL ( nextpow2_real__1,  NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL ( nextpow2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::nextpow2;
-  using nt2::functors::nextpow2_;
+  using nt2::tag::nextpow2_;
   typedef typename nt2::meta::call<nextpow2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type wished_r_t;
@@ -62,7 +64,7 @@ NT2_TEST_CASE_TPL ( nextpow2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 NT2_TEST_CASE_TPL ( nextpow2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::nextpow2;
-  using nt2::functors::nextpow2_;
+  using nt2::tag::nextpow2_;
   typedef typename nt2::meta::call<nextpow2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type wished_r_t;

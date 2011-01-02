@@ -25,7 +25,7 @@
                                'unsigned_int_': {'nt2::One<T>()': 'nt2::Zero<r_t>()',
                                                  'nt2::Two<T>()': 'nt2::One<r_t>()',
                                                  'nt2::Zero<T>()': 'nt2::Zero<r_t>()'}},
-           'verif_test': {'property_call': None,
+           'verif_test': {'property_call': {},
                           'property_value': {'default': ['nt2::exponent(double(a0))'],
                                              'real_': ['nt2::exponent(a0)']},
                           'ulp_thresh': { "default" : ['0']}}},

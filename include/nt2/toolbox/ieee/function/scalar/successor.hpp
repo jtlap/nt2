@@ -44,11 +44,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> : meta::strip<A0> {};
-
     NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
-    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
   };
 } }
 
@@ -69,13 +65,48 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> : meta::strip<A0> {};
-
     NT2_FUNCTOR_CALL(1)
     {
       return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
     }
+  };
+} }
+
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+                           (A0)(A1),
+                           (arithmetic_<A0>)(integer_<A1>)
+                          )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::successor_(tag::arithmetic_, tag::integer_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
+    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+		      (A0)(A1),
+		      (real_<A0>)(integer_<A1>)
+                          )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::successor_(tag::real_, tag::integer_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
     NT2_FUNCTOR_CALL(2)
     {
        return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
@@ -86,3 +117,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 02/01/2011 

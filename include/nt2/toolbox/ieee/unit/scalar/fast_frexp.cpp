@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,7 +29,7 @@
 NT2_TEST_CASE_TPL ( fast_frexp_real__1,  NT2_REAL_TYPES)
 {
   using nt2::fast_frexp;
-  using nt2::functors::fast_frexp_;
+  using nt2::tag::fast_frexp_;
   typedef typename nt2::meta::call<fast_frexp_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
@@ -36,20 +38,4 @@ NT2_TEST_CASE_TPL ( fast_frexp_real__1,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
 
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        r_t r = nt2::fast_frexp(a0);
-        typename boost::fusion::result_of::at_c<r_t,0>::type r0 = boost::fusion::get<0>(r);
-        typename boost::fusion::result_of::at_c<r_t,1>::type r1 = boost::fusion::get<1>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( r0,nt2::mantissa(a0)/2,0);
-        NT2_TEST_TUPLE_ULP_EQUAL( r1,nt2::exponent(a0)+1,0);
-     }
-   }
 } // end of test for real_

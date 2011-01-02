@@ -11,7 +11,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-       return is_lez(a0)? 0: ::ilogb(a0);
+      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
+      return is_gtz(a0)? ::ilogb(a0) : Zero<rtype>();
     }
   };
 } }
@@ -88,8 +89,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_lez(a0)? 0: ::ilogbf(a0);
+      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
+      return is_gtz(a0)? ::ilogbf(a0) : Zero<rtype>();
     }
+
   };
 } }
 
