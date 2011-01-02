@@ -23,8 +23,8 @@ SET( SOURCES
     divides.cpp
     downgrade.cpp
     is_equal.cpp
-#    is_greater.cpp
-#    is_greater_equal.cpp
+    is_greater.cpp
+    is_greater_equal.cpp
     is_not_equal.cpp
     is_signed.cpp
     is_simd_specific.cpp
