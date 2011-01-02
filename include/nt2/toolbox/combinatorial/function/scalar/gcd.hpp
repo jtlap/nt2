@@ -20,13 +20,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gcd_, tag::cpu_,
                      (A0)(A1),
-                     (arithmetic_<A0>)(arithmetic_<A1>)
+                     (integer_<A0>)(integer_<A1>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gcd_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::gcd_(tag::integer_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
