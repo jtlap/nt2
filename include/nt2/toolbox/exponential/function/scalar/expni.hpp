@@ -32,13 +32,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
                        (A0)(A1),
-                       (arithmetic_<A0>)(arithmetic_<A1>)
+                       (integer_<A0>)(arithmetic_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::expni_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::expni_(tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -59,13 +59,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
                        (A0)(A1),
-                       (real_<A0>)(real_<A1>)
+                       (integer_<A0>)(real_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::expni_(tag::real_,tag::real_),
+  struct call<tag::expni_(tag::integer_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
       const int32_t n =  a0;
       if( n < 0 ||  x < 0)      return Nan<A1>();
       if( x > Maxlog<A1>() )  return Zero<A1>();
-      if( iseqz(x) )            return (n < 2) ? Inf<A1>() : rec(n-One<A1>());
+      if( is_eqz(x) )            return (n < 2) ? Inf<A1>() : rec(n-One<A1>());
       if( n == 0 )              return exp(-x)/x;
       /* Expansion for large n */
       if( n > 5000 )
@@ -109,8 +109,8 @@ namespace nt2 { namespace ext
             xk += One<A1>();
             yk *= z/xk;
             pk += One<A1>();
-            if(isnez(pk)) ans += yk/pk;
-            t = isnez(ans) ? nt2::abs(yk/ans) : One<A1>();
+            if(is_nez(pk)) ans += yk/pk;
+            t = is_nez(ans) ? nt2::abs(yk/ans) : One<A1>();
           }
         while( t > Halfeps<A1>() );
         t = n;
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
         A1 xk = test ? n + (k-1)/2 : k/2;
         A1 pk = pkm1 * yk  +  pkm2 * xk;
         A1 qk = qkm1 * yk  +  qkm2 * xk;
-        if( isnez(qk) )
+        if( is_nez(qk) )
           {
             A1 r = pk/qk;
             t = nt2::abs( (ans - r)/r );
@@ -163,3 +163,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+// modified manually by jt the 02/01/2010
