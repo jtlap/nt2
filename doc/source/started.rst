@@ -137,7 +137,7 @@ build system generation is displayed along with build instructions.
 Building the library
 --------------------
 Once the ``cmake`` completed its task, you should find a proper build system in the current
-folder. Depending on your choice, you may hqve to:
+folder. Depending on your choice, you may have to:
 
 * call ``make install`` to build the library and install it to its default location.
 * Open the IDE-specific project and build the ``install`` target.
