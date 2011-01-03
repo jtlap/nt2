@@ -25,6 +25,7 @@ SET( SOURCES
     is_equal.cpp
     is_greater.cpp
     is_greater_equal.cpp
+    is_less.cpp
     is_not_equal.cpp
     is_signed.cpp
     is_simd_specific.cpp
