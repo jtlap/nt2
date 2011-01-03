@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( anp_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
 
-
+ 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  anp(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  anp(nt2::Zero<T>(), nt2::Zero<T>()), nt2::One<T>(), 0);
