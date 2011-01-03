@@ -23,7 +23,7 @@ namespace nt2
     ////////////////////////////////////////////////////////////////////////////
     template<class Lambda,class T, class H,class X>
     struct behave_as_impl<Lambda,T, meta::simd_<H,X> >
-         : boost::mpl::apply1<Lambda,typename meta::scalar_of<T>::type>::type {};
+         : boost::mpl::apply1<Lambda,typename T::value_type>::type {};
   }
 }
 

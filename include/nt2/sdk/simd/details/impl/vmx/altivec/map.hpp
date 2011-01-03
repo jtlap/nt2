@@ -17,14 +17,12 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Implement a SIMD map that apply a given function to any SSE vector types
+// Implement a SIMD map that apply a given function to any Altivec vector types
 // This is done by enumerating all cases of function calls over the different
-// vector cardinal and function arity. SSE specifications make it requires a
-// painfull process of using mm_setr_xxx named functions depending on types
-// categories. Special case is the 64 bits integers that can be filled directly.
+// vector cardinal and function arity.
 ////////////////////////////////////////////////////////////////////////////////
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) a0(BOOST_PP_ENUM(t,M4,n))
+#define M3(z,n,t) (typename A1::value_type)(a0(BOOST_PP_ENUM(t,M4,n)))
 #define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A0>,tag::altivec_>))
 #define M1(z,n,t) tag::simd_(tag::BOOST_PP_TUPLE_ELEM(2,0,t),tag::altivec_)
 

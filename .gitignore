@@ -32,6 +32,9 @@
 *.pdb
 *.resource.txt
 *.bak
+.DS_Store
+.project
+.cproject
 
 ################################################################################
 # Ignore CMake generated files
@@ -45,6 +48,7 @@ Temp
 Testing
 Debug
 Release
+build
 
 ################################################################################
 # Ignore local bootstrap file

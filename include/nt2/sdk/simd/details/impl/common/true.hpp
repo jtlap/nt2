@@ -37,7 +37,8 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type type;
-      typename meta::from_bits<type>::type that = { ~0LL };
+      typedef typename meta::as_integer<type>::type    int_type;
+      typename meta::from_bits<type>::type that = { ~int_type(0) };
       return splat<result_type>(that.value);
     }
   };

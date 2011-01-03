@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL	(	from_bits_integer
 
 	typename from_bits<T>::type z = { 0 };
 	typename from_bits<T>::type o = { 1 };
-	typename from_bits<T>::type c = { ~0 };
+	typename from_bits<T>::type c = { T(~0) };
   
   NT2_TEST_EQUAL( z.value, T( 0));
   NT2_TEST_EQUAL( o.value, T( 1));

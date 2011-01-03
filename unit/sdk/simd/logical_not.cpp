@@ -6,33 +6,47 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::logical_not"
+#define NT2_UNIT_MODULE "nt2::logical_not on SIMD types"
 
+#include <nt2/sdk/simd/io.hpp>
+#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/functor/operators.hpp>
-#include <nt2/sdk/meta/supported_types.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test behavior for complement
+// Test behavior for logical_not
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( logical_not, NT2_TYPES )
+NT2_TEST_CASE_TPL ( logical_not_ , NT2_SIMD_TYPES )
 {
   using boost::is_same;
   using nt2::tag::logical_not_;
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<logical_not_(T)>::type
-                            , bool
+  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef native<T,ext_t>                 n_t;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<logical_not_(n_t)>::type
+                            , n_t
                             >::value
             )
           );
 
-  NT2_TEST_EQUAL( nt2::logical_not(T(0)) , true );
-  NT2_TEST_EQUAL( nt2::logical_not(T(42)), false );
-  NT2_TEST_EQUAL( nt2::l_not(T(0)) , true );
-  NT2_TEST_EQUAL( nt2::l_not(T(42)), false );
-}
+  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
+  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
+    data[i] = i%2;
 
+  n_t v = nt2::load<n_t>(&data[0],0);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+  {
+    NT2_TEST_EQUAL( (!v)[j]                 , nt2::logical_not(v[j]) );
+    NT2_TEST_EQUAL( (nt2::logical_not(v))[j], nt2::logical_not(v[j]) );
+    NT2_TEST_EQUAL( (nt2::l_not(v))[j]      , nt2::logical_not(v[j]) );
+  }
+}

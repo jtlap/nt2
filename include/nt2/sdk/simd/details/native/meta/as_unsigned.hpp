@@ -18,11 +18,10 @@ namespace nt2 { namespace details
 {
   template<class T,class H,class X>
   struct  as_unsigned<T,meta::simd_<H,X> >
-  {
-    typedef typename
-    meta::as_unsigned<typename meta::scalar_of<T>::type>::type  base;
-    typedef simd::native<base,X>                                type;
-  };
+        : T::template cast< typename meta::
+                            as_unsigned<typename T::value_type>::type
+                          >
+  {};
 } }
 
 #endif

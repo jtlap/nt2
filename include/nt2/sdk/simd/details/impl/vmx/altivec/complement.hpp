@@ -24,7 +24,7 @@ NT2_REGISTER_DISPATCH ( tag::complement_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Implement ~ using xor
+  // Implement ~ using nor
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
   struct  call< tag::complement_( tag::simd_(tag::arithmetic_,tag::altivec_) )
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = { vec_nor(a0(), a0()) }; puts("lolz");
+      A0 that = { vec_nor(a0(), a0()) };
       return that;
     }
   };
