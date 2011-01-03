@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { (typename A0::native_type)vec_cmpgt(a0(),a1()) };
+      A0 that = { simd::native_cast<A0>(vec_cmpgt(a0(),a1())) };
       return that;
     }
   };
