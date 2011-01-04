@@ -12,19 +12,20 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_false_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_(tag::fundamental_<A0>,X)))
+                          );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_false
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_false(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_false_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::is_false_(tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -39,4 +40,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

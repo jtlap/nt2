@@ -15,54 +15,60 @@
 #include <nt2/include/functions/shli.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_(tag::arithmetic_<A0>,X)))
+                        ((simd_(tag::arithmetic_<A0>,X)))
+                       );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<negif_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::negif_(tag::simd_(tag::arithmetic_, X),
+                          tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0,A1)> : 
-      meta::is_signed<A1>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute negif(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<negif_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-      struct result<This(A0, A1)>: meta::strip<A1>{}; 
+      struct result<This(A0, A1)>: meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return b_xor(a1, b_and(a0, Signmask<A0>())); 
+      return a1 - shli(b_and(a1, a0), 1);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_(tag::real_<A0>,X)))
+                        ((simd_(tag::real_<A0>,X)))
+                       );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<negif_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::negif_(tag::simd_(tag::real_, X),
+                          tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-      struct result<This(A0, A1)>: meta::strip<A1>{}; 
+      struct result<This(A0, A1)>: meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a1 - shli(b_and(a1, a0), 1); 
+      return b_xor(a1, b_and(a0, Signmask<A0>()));
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

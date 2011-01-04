@@ -14,16 +14,22 @@
 
 #include <nt2/include/functions/details/simd/sse/sse4_1/shli.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
+                       (A0),
+                       ((simd_(tag::fundamental_<A0>,tag::avx_)))
+                       ((simd_(tag::fundamental_<A0>,tag::avx_)))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for shli
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::shli_(tag::simd_(tag::fundamental_, tag::avx_),
+                         tag::simd_(tag::fundamental_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -32,18 +38,18 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename meta::as_integer<sctype>::type sitype; 
-      typedef typename simd::native<sitype, tag::sse_ >  isvtype;		
+      typedef typename meta::as_integer<sctype>::type sitype;
+      typedef typename simd::native<sitype, tag::sse_ >  isvtype;
       typedef typename meta::as_integer<A0>::type  itype;
 
-      isvtype a00 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 0)};			
-      isvtype a01 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 1)};			
-      itype that = { _mm256_insertf128_si256(that,nt2::shli( a00, a1), 0)};	
-      return  simd::native_cast<A0>(_mm256_insertf128_si256(that, nt2::shli(a01, a1), 1)); 		
+      isvtype a00 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 0)};
+      isvtype a01 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 1)};
+      itype that = { _mm256_insertf128_si256(that,nt2::shli( a00, a1), 0)};
+      return  simd::native_cast<A0>(_mm256_insertf128_si256(that, nt2::shli(a01, a1), 1));
      }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

@@ -13,19 +13,20 @@
 #include <nt2/include/functions/is_nez.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is signed_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::signed_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_gtz
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_gtz(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_gtz_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::is_gtz_(tag::simd_(tag::signed_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,16 +35,24 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(a0); 
+      return is_gt(a0, Zero<A0>());
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::unsigned_<A0>,X)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is signed_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_gtz_,tag::simd_(tag::arithmetic_,Extension),signed_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::is_gtz_(tag::simd_(tag::unsigned_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -52,11 +61,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_gt(a0, Zero<A0>()); 
+      return is_nez(a0);
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

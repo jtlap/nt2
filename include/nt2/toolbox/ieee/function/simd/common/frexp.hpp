@@ -21,42 +21,37 @@
 #include <boost/fusion/include/vector.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<frexp_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::is_floating_point<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute frexp(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<frexp_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_(tag::fundamental_<A0>,X)))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::frexp_(tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename meta::strip<A0>::type                     A00; 
+      typedef typename meta::strip<A0>::type                     A00;
       typedef typename meta::as_integer<A00, signed>::type  exponent;
       typedef boost::fusion::vector<A00,exponent>                type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       eval( a0
-	    , boost::fusion::at_c<0>(res)
-	    , boost::fusion::at_c<1>(res)
-	    );
+          , boost::fusion::at_c<0>(res)
+          , boost::fusion::at_c<1>(res)
+          );
       return res;
     }
   private:
@@ -78,13 +73,13 @@ namespace nt2 { namespace functors
       r0 = b_or(x,splat<int_type>(n2));                   // insert exponent+1 in x
       A0 test0 = is_nez(a0);
       int_type test1 = gt(r1,vme);
-      r1 = b_and(r1, b_notand(test1, test0));     
+      r1 = b_and(r1, b_notand(test1, test0));
       //      r1 = seladd((b_notand(test1, test0)), Zero<int_type>(), r1);
       //      r0 = seladd(test0,Zero<A0>(),seladd(test1,r0,a0));
-      r0 = b_and(seladd(test1,r0,a0), test0); 
+      r0 = b_and(seladd(test1,r0,a0), test0);
     }
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

@@ -10,59 +10,26 @@
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::hmsb_, tag::cpu_,
+                       (A0),
+                       ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for all
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute hmsb(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<hmsb_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::hmsb_(tag::simd_(tag::arithmetic_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
       {
-	typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
-      };
-
-    NT2_FUNCTOR_CALL(1){ return _mm_movemask_ps(a0); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<hmsb_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      {
-	typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
-      };
-
-    NT2_FUNCTOR_CALL(1){ return _mm_movemask_pd(a0); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<hmsb_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      {
-	typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
+      typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
       };
 
     NT2_FUNCTOR_CALL(1)
@@ -70,8 +37,57 @@ namespace nt2 { namespace functors
       return _mm_movemask_epi8(a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::hmsb_, tag::cpu_,
+                       (A0),
+                       ((simd_(tag::double_<A0>,tag::see_)))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::hmsb_(tag::simd_(tag::double_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      {
+      typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
+      };
+
+    NT2_FUNCTOR_CALL(1){ return _mm_movemask_pd(a0); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::hmsb_, tag::cpu_,
+                       (A0),
+                       ((simd_(tag::float_<A0>,tag::see_)))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::hmsb_(tag::simd_(tag::float_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      {
+      typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type type;
+      };
+
+    NT2_FUNCTOR_CALL(1){ return _mm_movemask_ps(a0); }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

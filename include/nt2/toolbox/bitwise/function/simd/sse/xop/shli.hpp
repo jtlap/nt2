@@ -13,16 +13,22 @@
 
 #include <nt2/include/functions/details/simd/sse/sse4_1/shli.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
+                       (A0),
+                       ((simd_(tag::fundamental_<A0>,tag::xop_)))
+                       ((simd_(tag::fundamental_<A0>,tag::xop_)))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for shli
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shli_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::shli_(tag::simd_(tag::fundamental_, tag::xop_),
+                         tag::simd_(tag::fundamental_, tag::xop_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -30,17 +36,17 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<A0>::type sctype;			
-      typedef typename simd::native<sctype, tag::sse_ >  svtype;		
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};			
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};			
-      A0 that = { _mm256_insertf128_si256(that,nt2::shli( a00, a1), 0)};	
-      that =  _mm256_insertf128_si256(that, nt2::shli(a01, a1), 1); 		
-      return that; 
+      typedef typename meta::scalar_of<A0>::type sctype;
+      typedef typename simd::native<sctype, tag::sse_ >  svtype;
+      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
+      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
+      A0 that = { _mm256_insertf128_si256(that,nt2::shli( a00, a1), 0)};
+      that =  _mm256_insertf128_si256(that, nt2::shli(a01, a1), 1);
+      return that;
      }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

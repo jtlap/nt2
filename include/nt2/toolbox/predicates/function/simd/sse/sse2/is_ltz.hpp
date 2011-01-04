@@ -17,16 +17,45 @@
 
 #include <nt2/include/functions/is_ltz.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ltz_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_ltz
+  template<class Dummy>
+  struct call<tag::is_ltz_(tag::simd_(tag::arithmetic_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>: meta::strip<A0>{};
 
+    NT2_FUNCTOR_CALL(1)
+    {
+        return lt(a0,Zero<A0>());
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_ltz_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ltz_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::unsigned_<A0>,tag::see_)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_ltz_(tag::simd_(tag::unsigned_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -38,13 +67,21 @@ namespace nt2 { namespace functors
       return False<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ltz_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::int64_<A0>,tag::see_)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_ltz_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_ltz_(tag::simd_(tag::int64_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -58,25 +95,7 @@ namespace nt2 { namespace functors
       return  simd::native_cast<A0>(tmp);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_ltz_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>: meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-        return lt(a0,Zero<A0>());
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

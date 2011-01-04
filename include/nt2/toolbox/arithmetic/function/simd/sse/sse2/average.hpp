@@ -14,16 +14,22 @@
 #include <nt2/include/functions/shrai.hpp>
 #include <iostream>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
+                          (A0),
+                          ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                          ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                         );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for average
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::average_(tag::simd_(tag::arithmetic_, tag::see_),
+                            tag::simd_(tag::arithmetic_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -32,16 +38,55 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-       return (a0+a1)*Half<A0>(); 
+      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint16_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
+                          (A0),
+                          ((simd_(tag::uint16_<A0>,tag::see_)))
+                          ((simd_(tag::uint16_<A0>,tag::see_)))
+                         );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::average_(tag::simd_(tag::uint16_, tag::see_),
+                            tag::simd_(tag::uint16_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
+      //     A0 that = {_mm_avg_epu16(a0,a1)}; return that; //(a+b + 1) >> 1;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
+                          (A0),
+                          ((simd_(tag::uint8_<A0>,tag::see_)))
+                          ((simd_(tag::uint8_<A0>,tag::see_)))
+                         );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::average_(tag::simd_(tag::uint8_, tag::see_),
+                            tag::simd_(tag::uint8_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -54,13 +99,23 @@ namespace nt2 { namespace functors
       //     A0 that = {_mm_avg_epu8(a0,a1)}; return that; //  (a+b + 1) >> 1;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
+                          (A0),
+                          ((simd_(tag::real_<A0>,tag::see_)))
+                          ((simd_(tag::real_<A0>,tag::see_)))
+                         );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint16_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),uint16_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::average_(tag::simd_(tag::real_, tag::see_),
+                            tag::simd_(tag::real_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -69,30 +124,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
-      //     A0 that = {_mm_avg_epu16(a0,a1)}; return that; //(a+b + 1) >> 1;
-    } 
+       return (a0+a1)*Half<A0>();
+    }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<average_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
-    } 
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

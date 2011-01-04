@@ -58,19 +58,49 @@
 //     ulpdist(double(nt2::Pi<float>()), nt2::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ulpdist_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_(tag::arithmetic_<A0>,X)))
+                          ((simd_(tag::arithmetic_<A0>,X)))
+                         );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for ulpdist
+  template<class X, class Dummy>
+  struct call<tag::ulpdist_(tag::simd_(tag::arithmetic_, X),
+                            tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute ulpdist(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTOR_CALL(2)
+    {
+      return (max(a0, a1)-min(a0,a1));
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<ulpdist_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ulpdist_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_(tag::real_<A0>,X)))
+                          ((simd_(tag::real_<A0>,X)))
+                         );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::ulpdist_(tag::simd_(tag::real_, X),
+                            tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -84,29 +114,11 @@ namespace nt2 { namespace functors
       boost::fusion::tie(m1, e1) = nt2::frexp(a0);
       boost::fusion::tie(m2, e2) = nt2::frexp(a1);
       itype expo = -nt2::max(e1, e2);
-      A0 e = sel(is_equal(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo))); 
+      A0 e = sel(is_equal(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo)));
       return sel((is_nan(a0)&is_nan(a1))|is_nan(a0-a1),  Zero<A0>(), e/Eps<A0>());
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<ulpdist_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return (max(a0, a1)-min(a0,a1));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

@@ -12,56 +12,20 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::arithmetic_<A0>,tag::xop_)))
+                       );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for toint
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<toint_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_integer<A0>::type type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      type that =  {_mm256_cvttps_epi32(a0)};
-      return  that; 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<toint_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_integer<A0>::type type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      const type v = {{a0[0],a0[1], a0[2],a0[3]}}; //TODO with _mm_cvttpd_epi32 
-      return v;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<toint_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  template<class Dummy>
+  struct call<tag::toint_(tag::simd_(tag::arithmetic_, tag::xop_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -73,8 +37,63 @@ namespace nt2 { namespace functors
       return a0;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::double_<A0>,tag::xop_)))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::toint_(tag::simd_(tag::double_, tag::xop_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_integer<A0>::type type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      const type v = {{a0[0],a0[1], a0[2],a0[3]}}; //TODO with _mm_cvttpd_epi32
+      return v;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::float_<A0>,tag::xop_)))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::toint_(tag::simd_(tag::float_, tag::xop_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_integer<A0>::type type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      type that =  {_mm256_cvttps_epi32(a0)};
+      return  that;
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

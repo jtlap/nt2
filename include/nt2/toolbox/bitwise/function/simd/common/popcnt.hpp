@@ -16,19 +16,20 @@
 #include <nt2/include/functions/rem.hpp>
 #include <iostream> 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int8_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::int8_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for popcnt
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute popcnt(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int64_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::popcnt_(tag::simd_(tag::int8_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -36,28 +37,33 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
       {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	
-	const result_type m1  = integral_constant<result_type,0x5555555555555555ULL>(); //binary: 0101...
-	const result_type m2  = integral_constant<result_type,0x3333333333333333ULL>(); //binary: 00110011..
-	const result_type m4  = integral_constant<result_type,0x0f0f0f0f0f0f0f0fULL>(); //binary:  4 zeros,  4 ones ...
-	result_type x = simd::native_cast<result_type>(a0);
-	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
-	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
-	x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits 
-	x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
-	x += shri(x, 16);  //put count of each 32 bits into their lowest 8 bits
-	x += shri(x, 32);  //put count of each 64 bits into their lowest 8 bits
-	return x & integral_constant<result_type,0x7f > ();
+      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+
+      const result_type m1  = integral_constant<result_type,0x55>(); //binary: 0101...
+      const result_type m2  = integral_constant<result_type,0x33>(); //binary: 00110011..
+      const result_type m4  = integral_constant<result_type,0x0f>(); //binary:  4 zeros,  4 ones ...
+      result_type x = simd::native_cast<result_type>(a0);
+      x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
+      x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
+      x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
+      return x & integral_constant<result_type,0x7f > ();
       }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::int64_<A0>,X)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int32_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::popcnt_(tag::simd_(tag::int64_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -65,27 +71,36 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
       {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	
-	const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
-	const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..
-	const result_type m4  = integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
-	result_type x = simd::native_cast<result_type>(a0);
-	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
-	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
-	x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits 
-	x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
-	x += shri(x, 16);  //put count of each 32 bits into their lowest 8 bits
-	return x & integral_constant<result_type,0x7f > ();
+      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+
+      const result_type m1  = integral_constant<result_type,0x5555555555555555ULL>(); //binary: 0101...
+      const result_type m2  = integral_constant<result_type,0x3333333333333333ULL>(); //binary: 00110011..
+      const result_type m4  = integral_constant<result_type,0x0f0f0f0f0f0f0f0fULL>(); //binary:  4 zeros,  4 ones ...
+      result_type x = simd::native_cast<result_type>(a0);
+      x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
+      x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
+      x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
+      x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
+      x += shri(x, 16);  //put count of each 32 bits into their lowest 8 bits
+      x += shri(x, 32);  //put count of each 64 bits into their lowest 8 bits
+      return x & integral_constant<result_type,0x7f > ();
       }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int16_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::int16_<A0>,X)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int16_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int16_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::popcnt_(tag::simd_(tag::int16_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -93,26 +108,34 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
       {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	
-	const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
-	const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
-	const result_type m4  = integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
-	result_type x = simd::native_cast<result_type>(a0);
-	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
-	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
-	x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits 
-	x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
-	return x & integral_constant<result_type,0x7f > ();
+      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+
+      const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
+      const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
+      const result_type m4  = integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
+      result_type x = simd::native_cast<result_type>(a0);
+      x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
+      x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
+      x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
+      x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
+      return x & integral_constant<result_type,0x7f > ();
       }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int32_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::int32_<A0>,X)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int8_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),int8_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::popcnt_(tag::simd_(tag::int32_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -120,25 +143,35 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
       {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	
-	const result_type m1  = integral_constant<result_type,0x55>(); //binary: 0101...
-	const result_type m2  = integral_constant<result_type,0x33>(); //binary: 00110011..
-	const result_type m4  = integral_constant<result_type,0x0f>(); //binary:  4 zeros,  4 ones ...
-	result_type x = simd::native_cast<result_type>(a0);
-	x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
-	x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits 
-	x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits 
-	return x & integral_constant<result_type,0x7f > ();
+      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+
+      const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
+      const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..
+      const result_type m4  = integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
+      result_type x = simd::native_cast<result_type>(a0);
+      x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
+      x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
+      x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
+      x += shri(x, 8);  //put count of each 16 bits into their lowest 8 bits
+      x += shri(x, 16);  //put count of each 32 bits into their lowest 8 bits
+      return x & integral_constant<result_type,0x7f > ();
       }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::real_<A0>,X)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<popcnt_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::popcnt_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -146,12 +179,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
       {
- 	typedef typename NT2_CALL_RETURN_TYPE(1)::type    result_type;
-	return popcnt(simd::native_cast<result_type>(a0)); 
+      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+      return popcnt(simd::native_cast<result_type>(a0));
       }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

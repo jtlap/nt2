@@ -12,84 +12,22 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/seladd.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::min_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                      ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for min
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<min_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  {_mm_min_ps(a0,a1)}; return that;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<min_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  {_mm_min_pd(a0,a1)}; return that;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<min_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-         A0 that =  {_mm_min_epu8(a0,a1)}; return that;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int16_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<min_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  { _mm_min_epi16(a0,a1)}; return that;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<min_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  template<class Dummy>
+  struct call<tag::min_(tag::simd_(tag::arithmetic_, tag::see_),
+                        tag::simd_(tag::arithmetic_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -100,8 +38,115 @@ namespace nt2 { namespace functors
        return seladd(gt(a0,a1),a0,a1-a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::min_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::double_<A0>,tag::see_)))
+                      ((simd_(tag::double_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::min_(tag::simd_(tag::double_, tag::see_),
+                        tag::simd_(tag::double_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that =  {_mm_min_pd(a0,a1)}; return that;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::min_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::float_<A0>,tag::see_)))
+                      ((simd_(tag::float_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::min_(tag::simd_(tag::float_, tag::see_),
+                        tag::simd_(tag::float_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that =  {_mm_min_ps(a0,a1)}; return that;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int16_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::min_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::int16_<A0>,tag::see_)))
+                      ((simd_(tag::int16_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::min_(tag::simd_(tag::int16_, tag::see_),
+                        tag::simd_(tag::int16_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that =  { _mm_min_epi16(a0,a1)}; return that;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::min_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::uint8_<A0>,tag::see_)))
+                      ((simd_(tag::uint8_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::min_(tag::simd_(tag::uint8_, tag::see_),
+                        tag::simd_(tag::uint8_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+         A0 that =  {_mm_min_epu8(a0,a1)}; return that;
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

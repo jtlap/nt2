@@ -12,30 +12,26 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<rror_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::mpl::and_ < meta::is_integral<A1>,
-			 meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> > >{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute rror(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<rror_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::rror_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_(tag::fundamental_<A0>,X)))
+                       ((simd_(tag::fundamental_<A0>,X)))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::rror_(tag::simd_(tag::fundamental_, X),
+                         tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> 
+    struct result<This(A0,A1)>
       : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL(2)
@@ -47,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

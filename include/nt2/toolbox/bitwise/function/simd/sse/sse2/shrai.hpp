@@ -16,25 +16,22 @@
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<shrai_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::mpl::and_<meta::is_integral<A0>
-                      ,meta::is_scalar<A1>
-                      ,meta::is_integral<A1>
-                      > {};
-  };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::unsigned_<A0>,tag::see_)))
+                        ((simd_(tag::unsigned_<A0>,tag::see_)))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shrai_(tag::simd_(tag::unsigned_, tag::see_),
+                          tag::simd_(tag::unsigned_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -45,32 +42,23 @@ namespace nt2 { namespace functors
       return shri(a0, a1);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int32_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::int32_<A0>,tag::see_)))
+                        ((simd_(tag::int32_<A0>,tag::see_)))
+                       );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0,A1)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-
-      A0 that = {shrai(a0[0], a1), shrai(a0[1], a1)}; 
-      return that;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shrai_(tag::simd_(tag::int32_, tag::see_),
+                          tag::simd_(tag::int32_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -83,13 +71,23 @@ namespace nt2 { namespace functors
       return simd::native_cast<A0>(that);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int16_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::int16_<A0>,tag::see_)))
+                        ((simd_(tag::int16_<A0>,tag::see_)))
+                       );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int16_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shrai_(tag::simd_(tag::int16_, tag::see_),
+                          tag::simd_(tag::int16_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -102,13 +100,23 @@ namespace nt2 { namespace functors
       return simd::native_cast<A0>(that);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::int8_<A0>,tag::see_)))
+                        ((simd_(tag::int8_<A0>,tag::see_)))
+                       );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shrai_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shrai_(tag::simd_(tag::int8_, tag::see_),
+                          tag::simd_(tag::int8_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -116,15 +124,43 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type result_type;
+      typedef typename NT2_RETURN_TYPE(2)::type result_type;
       typedef simd::native<typename meta::int16_t_<A0>::type,tag::sse_> gen_type;
       gen_type a0h, a0l;
       boost::fusion::tie(a0l, a0h) = split(a0);
       return simd::native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::int64_<A0>,tag::see_)))
+                        ((simd_(tag::int64_<A0>,tag::see_)))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shrai_(tag::simd_(tag::int64_, tag::see_),
+                          tag::simd_(tag::int64_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+
+      A0 that = {shrai(a0[0], a1), shrai(a0[1], a1)};
+      return that;
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

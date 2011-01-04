@@ -15,58 +15,22 @@
 #include <nt2/include/functions/select.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::arithmetic_<A0>,X)))
+                         ((simd_(tag::arithmetic_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for negate
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute negate(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-	A0 tmp = isnez(a1)&a0;
-	tmp = select(isltz(a1), -a0, tmp);
-	tmp = seladd(isnan(a1), tmp, a1); //TODO signed Nan ?
-        return tmp;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,Extension),unsigned,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-        return  isnez(a1)&a0;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::arithmetic_, X),
+                           tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -78,8 +42,66 @@ namespace nt2 { namespace functors
         return  sel(isltz(a1),-a0,isnez(a1)&a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::unsigned_<A0>,X)))
+                         ((simd_(tag::unsigned_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::unsigned_, X),
+                           tag::simd_(tag::unsigned_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+        return  isnez(a1)&a0;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::real_<A0>,X)))
+                         ((simd_(tag::real_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::real_, X),
+                           tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 tmp = isnez(a1)&a0;
+      tmp = select(isltz(a1), -a0, tmp);
+      tmp = seladd(isnan(a1), tmp, a1); //TODO signed Nan ?
+        return tmp;
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

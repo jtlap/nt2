@@ -24,19 +24,20 @@
 #include <nt2/include/functions/is_finite.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::next_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_(tag::arithmetic_<A0>,X)))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for next
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute next(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<next_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::next_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -44,37 +45,44 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0, signed>::type itype; 
+      return a0+One<A0>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::next_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_(tag::real_<A0>,X)))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::next_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0, signed>::type itype;
       A0 m;
       itype expon;
       boost::fusion::tie(m, expon) = fast_frexp(a0);
-      expon =  seladd(is_equal(m, Mhalf<A0>()), expon, Mone<itype>()); 
+      expon =  seladd(is_equal(m, Mhalf<A0>()), expon, Mone<itype>());
       A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
       diff = b_and(sel(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
 //       std::cout << "diff  "<< diff << std::endl;
-//       std::cout << "a0    "<< a0   << std::endl;  
-      return sel(is_equal(a0, Minf<A0>()), Valmin<A0>(), a0+diff); 
+//       std::cout << "a0    "<< a0   << std::endl;
+      return sel(is_equal(a0, Minf<A0>()), Valmin<A0>(), a0+diff);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<next_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0+One<A0>(); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

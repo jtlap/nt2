@@ -17,16 +17,20 @@
 
 #include <nt2/include/functions/is_ltz.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::split_, tag::cpu_,
+                        (A0),
+                        ((simd_(tag::fundamental_<A0>,tag::see_)))
+                       );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for split
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<split_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::split_(tag::simd_(tag::fundamental_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -37,7 +41,7 @@ namespace nt2 { namespace functors
       typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef meta::is_floating_point<stype>                                 rtag;
       typedef simd::native<typename  meta::double_<A0>::type,tag::sse_>     dtype;
-      
+
       typedef typename boost::mpl::if_c < rtag::value
                                         , dtype, ttype>::type               rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              type;
@@ -51,14 +55,14 @@ namespace nt2 { namespace functors
       typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef typename boost::mpl::if_c<rtag::value,
                                         simd::native<double,tag::sse_>, ttype>::type rtype;
-      typename NT2_CALL_RETURN_TYPE(1)::type                                  res;
+      typename NT2_RETURN_TYPE(1)::type                                  res;
       typedef rtype                                                           tag;
 
       eval( a0
-	    , boost::fusion::at_c<0>(res)
-	    , boost::fusion::at_c<1>(res)
-	    , tag()
-	    );
+          , boost::fusion::at_c<0>(res)
+          , boost::fusion::at_c<1>(res)
+          , tag()
+          );
       return res;
     }
   private:
@@ -118,4 +122,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

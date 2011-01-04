@@ -16,27 +16,24 @@
 #include <nt2/include/functions/any.hpp>
 
 
-namespace nt2 { namespace functors
-{
-//   template<class Extension,class Info>
-//   struct validate<comparator_,tag::simd_(tag::arithmetic_,Extension),Info>
-//   {
-//     template<class Sig> struct result;
-//     template<class This,class A0,class A1,class A2>
-//     struct result<This(A0,A1,A2)> :
-//       boost::mpl::and_<meta::is_scalar<A2>,
-// 		       meta::is_integral<A2>
-//                       > {};
-//  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute comparator(const A0& a0, const A0& a1, const A0& a2)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<comparator_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::comparator_, tag::cpu_,
+                             (A0)(X),
+                             ((simd_(tag::fundamental_<A0>,X)))
+                             ((simd_(tag::fundamental_<A0>,X)))
+                             ((simd_(tag::fundamental_<A0>,X)))
+                            );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::comparator_(tag::simd_(tag::fundamental_, X),
+                               tag::simd_(tag::fundamental_, X),
+                               tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A2>
@@ -50,13 +47,13 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(3)
     {
       //      typedef boost::mpl::vector<ascending_, descending_> tags;
-      typedef typename NT2_CALL_RETURN_TYPE(3)::type r_t;
+      typedef typename NT2_RETURN_TYPE(3)::type r_t;
       r_t res;
-      eval( a0, a1, a2 
-	    , boost::fusion::at_c<0>(res)
-	    , boost::fusion::at_c<1>(res)
-	    , boost::fusion::at_c<2>(res)
-	    );
+      eval( a0, a1, a2
+          , boost::fusion::at_c<0>(res)
+          , boost::fusion::at_c<1>(res)
+          , boost::fusion::at_c<2>(res)
+          );
       return res;
     }
   private:
@@ -66,15 +63,15 @@ namespace nt2 { namespace functors
       r0 =  nt2::min(a0, a1);
       r1 =  nt2::max(a0, a1);
       if (a2) {
-	A0 t =  r1;
-	r1 = r0;
-	r0 = t;
+      A0 t =  r1;
+      r1 = r0;
+      r0 = t;
       }
-      modified = nt2::any(a0-r0); 
+      modified = nt2::any(a0-r0);
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

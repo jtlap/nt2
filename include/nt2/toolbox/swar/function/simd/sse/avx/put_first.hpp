@@ -16,25 +16,22 @@
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/details/simd/sse/sse4_1/put_first.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
+                            (A0),
+                            ((simd_(tag::fundamental_<A0>,tag::avx_)))
+                            ((simd_(tag::fundamental_<A0>,tag::avx_)))
+                           );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<put_first_,tag::simd_(tag::arithmetic_,Extension),Info>
-
-     template<class Sig> struct result;
-
-     template<class This,class A0,class A1>
-     struct result<This(A0,A1)> :
-       boost::mpl::and_<meta::is_scalar<A1>,
-			meta::is_integral<A1>
-       > {};
-   };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<put_first_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::put_first_(tag::simd_(tag::fundamental_, tag::avx_),
+                              tag::simd_(tag::fundamental_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -46,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

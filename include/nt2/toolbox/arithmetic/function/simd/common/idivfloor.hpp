@@ -11,46 +11,22 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
+                            (A0)(X),
+                            ((simd_(tag::arithmetic_<A0>,X)))
+                            ((simd_(tag::arithmetic_<A0>,X)))
+                           );
+
+namespace nt2 { namespace ext
 {
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute idivfloor(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<idivfloor_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2){ return floor(a0/a1); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<idivfloor_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2){ return rdivide(a0,a1); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<idivfloor_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::idivfloor_(tag::simd_(tag::arithmetic_, X),
+                              tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -58,8 +34,55 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2){ return -idivceil(-a0,a1); }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
+                            (A0)(X),
+                            ((simd_(tag::unsigned_<A0>,X)))
+                            ((simd_(tag::unsigned_<A0>,X)))
+                           );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::idivfloor_(tag::simd_(tag::unsigned_, X),
+                              tag::simd_(tag::unsigned_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2){ return rdivide(a0,a1); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
+                            (A0)(X),
+                            ((simd_(tag::real_<A0>,X)))
+                            ((simd_(tag::real_<A0>,X)))
+                           );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::idivfloor_(tag::simd_(tag::real_, X),
+                              tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2){ return floor(a0/a1); }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

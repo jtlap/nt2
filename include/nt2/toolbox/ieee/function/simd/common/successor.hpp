@@ -27,27 +27,45 @@
 #include <nt2/include/functions/next.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+                            (A0)(X),
+                            ((simd_(tag::arithmetic_<A0>,X)))
+                           );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<successor_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::successor_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::mpl::true_ {};
-
+    struct result<This(A0)>: meta::strip<A0>{};
     template<class This,class A0,class A1>
-    struct  result<This(A0,A1)> : meta::is_integral<A1> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute successor(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    struct result<This(A0, A1)>: meta::strip<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<successor_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
+    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+                            (A0)(X),
+                            ((simd_(tag::real_<A0>,X)))
+                           );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::successor_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -63,38 +81,19 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
-//       typedef typename meta::as_integer<A0, signed>::type itype; 
+//       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;
-//       const A0 fac =  abs(tofloat(a1)); 
+//       const A0 fac =  abs(tofloat(a1));
 //       boost::fusion::tie(m, expon) = fast_frexp(a0);
-//       expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>()); 
+//       expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>());
 //       A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
 //       diff = b_and(sel(iseqz(diff)||iseqz(a0),  Mindenormal<A0>(), diff), isfin(a0));
-//       return sel(iseq(a0, Minf<A0>()), fac*Valmin<A0>(), a0+fac*diff); 
+//       return sel(iseq(a0, Minf<A0>()), fac*Valmin<A0>(), a0+fac*diff);
     }
 
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<successor_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>: meta::strip<A0>{};
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)>: meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
-    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 04/01/2011

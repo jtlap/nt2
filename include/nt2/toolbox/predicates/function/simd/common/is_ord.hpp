@@ -10,17 +10,22 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_ORD_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace functors
-{
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_ord(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_ord_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::fundamental_<A0>,X)))
+                         ((simd_(tag::fundamental_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::is_ord_(tag::simd_(tag::fundamental_, X),
+                           tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -31,4 +36,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

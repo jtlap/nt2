@@ -14,54 +14,22 @@
 
 #include <nt2/include/functions/details/simd/sse/sse4_1/is_ord.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::arithmetic_<A0>,tag::avx_)))
+                         ((simd_(tag::arithmetic_<A0>,tag::avx_)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_ord
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_ord_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = {_mm256_cmp_ps(a0,a1, _CMP_ORD_Q)};
-      return that; 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_ord_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = {_mm256_cmp_pd(a0,a1, _CMP_ORD_Q)};
-      return that; 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_ord_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  template<class Dummy>
+  struct call<tag::is_ord_(tag::simd_(tag::arithmetic_, tag::avx_),
+                           tag::simd_(tag::arithmetic_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -75,8 +43,65 @@ namespace nt2 { namespace functors
       return False<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::double_<A0>,tag::avx_)))
+                         ((simd_(tag::double_<A0>,tag::avx_)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_ord_(tag::simd_(tag::double_, tag::avx_),
+                           tag::simd_(tag::double_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = {_mm256_cmp_pd(a0,a1, _CMP_ORD_Q)};
+      return that;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::float_<A0>,tag::avx_)))
+                         ((simd_(tag::float_<A0>,tag::avx_)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_ord_(tag::simd_(tag::float_, tag::avx_),
+                           tag::simd_(tag::float_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = {_mm256_cmp_ps(a0,a1, _CMP_ORD_Q)};
+      return that;
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

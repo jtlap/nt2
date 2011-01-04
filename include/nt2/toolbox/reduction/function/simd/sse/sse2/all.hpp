@@ -19,19 +19,20 @@
 #include <iostream>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::all_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for all
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute all(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<all_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
+  template<class Dummy>
+  struct call<tag::all_(tag::simd_(tag::arithmetic_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -39,21 +40,24 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename meta::upgrade<stype>::type                           utype;
-      typedef simd::native<utype,tag::sse_>                                 ttype;
-      ttype a0h, a0l;
-      boost::fusion::tie(a0h, a0l) = split(a0); 
-      return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l)))== 0;  
+      return hmsb(is_eqz(a0)) == 0;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::all_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::uint8_<A0>,tag::see_)))
+                     );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<all_,tag::simd_(tag::arithmetic_,tag::sse_),uint8_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::all_(tag::simd_(tag::uint8_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -66,16 +70,24 @@ namespace nt2 { namespace functors
       typedef simd::native<utype,tag::sse_>                                 ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);
-      return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l))) == 0;  
+      return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l))) == 0;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::all_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::int8_<A0>,tag::see_)))
+                     );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<all_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::all_(tag::simd_(tag::int8_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -83,11 +95,15 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return hmsb(is_eqz(a0)) == 0;  
+      typedef typename meta::scalar_of<A0>::type                            stype;
+      typedef typename meta::upgrade<stype>::type                           utype;
+      typedef simd::native<utype,tag::sse_>                                 ttype;
+      ttype a0h, a0l;
+      boost::fusion::tie(a0h, a0l) = split(a0);
+      return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l)))== 0;
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 04/01/2011

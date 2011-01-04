@@ -15,16 +15,46 @@
 #include <nt2/sdk/meta/strip.hpp>
 //#include <iostream>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gez_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_gez
+  template<class Dummy>
+  struct call<tag::is_gez_(tag::simd_(tag::arithmetic_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return is_greater_equal(a0,Zero<A0>());
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_gez_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gez_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::unsigned_<A0>,tag::see_)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_gez_(tag::simd_(tag::unsigned_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -37,13 +67,21 @@ namespace nt2 { namespace functors
       return True<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gez_, tag::cpu_,
+                         (A0),
+                         ((simd_(tag::int64_<A0>,tag::see_)))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_gez_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_gez_(tag::simd_(tag::int64_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -55,33 +93,14 @@ namespace nt2 { namespace functors
       typedef typename meta::int32_t_<A0>::type htype;
       typedef simd::native<htype,tag::sse_> type;
       const type tmp1 = is_gez(simd::native_cast<type>(a0));
-      //      std::cout << "tmp1 " << tmp1 << std::endl; 
+      //      std::cout << "tmp1 " << tmp1 << std::endl;
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))}; //2, 2, 0, 0))};
 //       std::cout << "tmp " << tmp << std::endl;
 //       std::cout << "r   " <<  simd::native_cast<A0>(tmp) << std::endl;
       return  simd::native_cast<A0>(tmp);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_gez_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return is_greater_equal(a0,Zero<A0>());
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

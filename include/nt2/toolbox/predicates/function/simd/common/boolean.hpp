@@ -13,19 +13,46 @@
 #include <nt2/include/functions/is_nez.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::boolean_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_(tag::arithmetic_<A0>,X)))
+                         );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for boolean
+  template<class X, class Dummy>
+  struct call<tag::boolean_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      : meta::strip<A0>{};//
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute boolean(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTOR_CALL(1)
+    {
+      return is_nez(a0)&One<A0>();
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<boolean_,tag::simd_(tag::arithmetic_,Extension),int64_t,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::boolean_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_(tag::int64_<A0>,X)))
+                         );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::boolean_(tag::simd_(tag::int64_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -44,26 +71,7 @@ namespace nt2 { namespace functors
       return is_nez(a0)&One<A0>();
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<boolean_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return is_nez(a0)&One<A0>();
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

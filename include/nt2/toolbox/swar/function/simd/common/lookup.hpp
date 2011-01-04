@@ -14,25 +14,22 @@
 #include <nt2/include/functions/store.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<lookup_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::is_integral<A1> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute lookup(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<lookup_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::fundamental_<A0>,X)))
+                         ((simd_(tag::fundamental_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::lookup_(tag::simd_(tag::fundamental_, X),
+                           tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -41,16 +38,16 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<A0>::type sA0; 
+      typedef typename meta::scalar_of<A0>::type sA0;
       aligned::array < sA0,meta::cardinal_of<A0>::value,16/*NT2_SIMD_BYTE*/ > tmp, tmp1;
-      store(tmp.begin(), a0); 
-      
+      store(tmp.begin(), a0);
+
       for(size_t i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
-      return load(tmp1.begin(), 0); 
+      return load(tmp1.begin(), 0);
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

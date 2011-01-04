@@ -18,16 +18,86 @@
 #include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/shri.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int32_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::int32_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for abs
+  template<class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::int32_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
 
+    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi32(a0) };return that; }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::int8_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::int8_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi8(a0) };return that; }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int16_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::int16_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::int16_, tag::see_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi16(a0) };return that; }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::real_<A0>,tag::see_)))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::real_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,13 +105,21 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1){ return b_notand(Mzero<A0>(),a0); }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::int64_<A0>,tag::see_)))
+                     );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::int64_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -55,55 +133,21 @@ namespace nt2 { namespace functors
        //      return select(is_lez(a0),-a0,a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0),
+                      ((simd_(tag::unsigned_<A0>,tag::see_)))
+                     );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi32(a0) };return that; }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int16_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi16(a0) };return that; }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi8(a0) };return that; }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::unsigned_, tag::see_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -111,8 +155,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1){ return a0; }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

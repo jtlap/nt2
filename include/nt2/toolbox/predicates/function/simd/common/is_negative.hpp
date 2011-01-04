@@ -17,19 +17,20 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_negative_, tag::cpu_,
+                              (A0)(X),
+                              ((simd_(tag::arithmetic_<A0>,X)))
+                             );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_negative
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_negative(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_negative_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::is_negative_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -38,19 +39,24 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0, signed>::type type;
-      const int32_t nb =  sizeof(typename meta::scalar_of <A0>::type)*8-1; 
-      return simd::native_cast<A0>(shrai(simd::native_cast<type>(a0), nb));
-      //     return simd::native_cast<A0>(is_nez(simd::native_cast<type>(b_and(a0, Signmask<A0>())))); 
+      return is_ltz(a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_negative_, tag::cpu_,
+                              (A0)(X),
+                              ((simd_(tag::unsigned_<A0>,X)))
+                             );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_negative_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::is_negative_(tag::simd_(tag::unsigned_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -63,13 +69,21 @@ namespace nt2 { namespace functors
       return False<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_negative_, tag::cpu_,
+                              (A0)(X),
+                              ((simd_(tag::real_<A0>,X)))
+                             );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<is_negative_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::is_negative_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -78,11 +92,13 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_ltz(a0);
+      typedef typename meta::as_integer<A0, signed>::type type;
+      const int32_t nb =  sizeof(typename meta::scalar_of <A0>::type)*8-1;
+      return simd::native_cast<A0>(shrai(simd::native_cast<type>(a0), nb));
+      //     return simd::native_cast<A0>(is_nez(simd::native_cast<type>(b_and(a0, Signmask<A0>()))));
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

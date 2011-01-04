@@ -13,31 +13,34 @@
 #include <nt2/include/functions/idivfix.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::remquo_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_(tag::fundamental_<A0>,X)))
+                         ((simd_(tag::fundamental_<A0>,X)))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for remquo
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute remquo(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<remquo_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::remquo_(tag::simd_(tag::fundamental_, X),
+                           tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0,A0)>
     {
-      typedef typename meta::strip<A0>::type                 stA0; 
+      typedef typename meta::strip<A0>::type                 stA0;
       typedef boost::fusion::tuple<stA0,stA0>                type;
     };
 
     NT2_FUNCTOR_CALL(2)
     {
-      typename NT2_CALL_RETURN_TYPE(2)::type res;
+      typename NT2_RETURN_TYPE(2)::type res;
       eval( a0, a1
           , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
           );
@@ -61,4 +64,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011
