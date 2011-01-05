@@ -20,8 +20,8 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::rdivide_, tag::cpu_,
                           (A0),
-                          ((simd_(tag::arithmetic_<A0>,tag::avx_)))
-                          ((simd_(tag::arithmetic_<A0>,tag::avx_)))
+                          ((simd_<arithmetic_<A0>,tag::avx_>))
+                          ((simd_<arithmetic_<A0>,tag::avx_>))
                          );
 
 namespace nt2 { namespace ext
@@ -49,8 +49,8 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::rdivide_, tag::cpu_,
                           (A0),
-                          ((simd_(tag::real_<A0>,tag::avx_)))
-                          ((simd_(tag::real_<A0>,tag::avx_)))
+                          ((simd_<real_<A0>,tag::avx_>))
+                          ((simd_<real_<A0>,tag::avx_>))
                          );
 
 namespace nt2 { namespace ext

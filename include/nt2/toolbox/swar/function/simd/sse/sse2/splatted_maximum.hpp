@@ -19,13 +19,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_(tag::int16_<A0>,tag::see_)))
+                                   ((simd_<int16_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::int16_, tag::see_)),
+  struct call<tag::splatted_maximum_(tag::simd_(tag::int16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -56,13 +56,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_(tag::double_<A0>,tag::see_)))
+                                   ((simd_<double_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::double_, tag::see_)),
+  struct call<tag::splatted_maximum_(tag::simd_(tag::double_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -83,13 +83,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_(tag::int64_<A0>,tag::see_)))
+                                   ((simd_<int64_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::int64_, tag::see_)),
+  struct call<tag::splatted_maximum_(tag::simd_(tag::int64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -112,13 +112,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_(tag::float_<A0>,tag::see_)))
+                                   ((simd_<float_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::float_, tag::see_)),
+  struct call<tag::splatted_maximum_(tag::simd_(tag::float_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -140,13 +140,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_(tag::int8_<A0>,tag::see_)))
+                                   ((simd_<int8_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::int8_, tag::see_)),
+  struct call<tag::splatted_maximum_(tag::simd_(tag::int8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -166,13 +166,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_(tag::int32_<A0>,tag::see_)))
+                                   ((simd_<int32_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::int32_, tag::see_)),
+  struct call<tag::splatted_maximum_(tag::simd_(tag::int32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

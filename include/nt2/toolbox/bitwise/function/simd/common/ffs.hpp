@@ -26,7 +26,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_(tag::types8_<A0>,X)))
+                      ((simd_<types8_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_(tag::types64_<A0>,X)))
+                      ((simd_<types64_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_(tag::types16_<A0>,X)))
+                      ((simd_<types16_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_(tag::types32_<A0>,X)))
+                      ((simd_<types32_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext

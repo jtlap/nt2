@@ -16,10 +16,10 @@
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::select_, tag::cpu_,
-		      (A0)(A1)(X),
-                         ((simd_(fundamental_<A0>,X)))
-                         ((simd_(fundamental_<A1>,X)))
-                         ((simd_(fundamental_<A1>,X)))
+                         (A0)(X),
+                         ((simd_<fundamental_<A0>,X>))
+                         ((simd_<fundamental_<A0>,X>))
+                         ((simd_<fundamental_<A0>,X>))
                         );
 
 namespace nt2 { namespace ext

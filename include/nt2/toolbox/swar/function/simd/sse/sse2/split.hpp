@@ -23,13 +23,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::split_, tag::cpu_,
                         (A0),
-                        ((simd_(tag::fundamental_<A0>,tag::see_)))
+                        ((simd_<fundamental_<A0>,tag::sse_>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::split_(tag::simd_(tag::fundamental_, tag::see_)),
+  struct call<tag::split_(tag::simd_(tag::fundamental_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

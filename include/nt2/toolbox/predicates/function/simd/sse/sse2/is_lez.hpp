@@ -20,13 +20,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::is_lez_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                         ((simd_<arithmetic_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_lez_(tag::simd_(tag::arithmetic_, tag::see_)),
+  struct call<tag::is_lez_(tag::simd_(tag::arithmetic_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -46,13 +46,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::is_lez_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::unsigned_<A0>,tag::see_)))
+                         ((simd_<unsigned_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_lez_(tag::simd_(tag::unsigned_, tag::see_)),
+  struct call<tag::is_lez_(tag::simd_(tag::unsigned_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -72,13 +72,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::is_lez_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::int64_<A0>,tag::see_)))
+                         ((simd_<int64_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_lez_(tag::simd_(tag::int64_, tag::see_)),
+  struct call<tag::is_lez_(tag::simd_(tag::int64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

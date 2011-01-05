@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                               (A0)(X),
-                              ((simd_(tag::int8_<A0>,X)))
+                              ((simd_<int8_<A0>,X>))
                              );
 
 namespace nt2 { namespace ext
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                               (A0)(X),
-                              ((simd_(tag::int64_<A0>,X)))
+                              ((simd_<int64_<A0>,X>))
                              );
 
 namespace nt2 { namespace ext
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                               (A0)(X),
-                              ((simd_(tag::int16_<A0>,X)))
+                              ((simd_<int16_<A0>,X>))
                              );
 
 namespace nt2 { namespace ext
@@ -156,7 +156,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
                               (A0)(X),
-                              ((simd_(tag::int32_<A0>,X)))
+                              ((simd_<int32_<A0>,X>))
                              );
 
 namespace nt2 { namespace ext

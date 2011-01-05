@@ -20,8 +20,8 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::mod_, tag::cpu_,
                       (A0)(X),
-                      ((simd_(tag::arithmetic_<A0>,X)))
-                      ((simd_(tag::arithmetic_<A0>,X)))
+                      ((simd_<arithmetic_<A0>,X>))
+                      ((simd_<arithmetic_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext

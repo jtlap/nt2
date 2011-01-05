@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::uint8_<A0>,tag::avx_)))
+                       ((simd_<uint8_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::arithmetic_<A0>,tag::avx_)))
+                       ((simd_<arithmetic_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::double_<A0>,tag::avx_)))
+                       ((simd_<double_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::float_<A0>,tag::avx_)))
+                       ((simd_<float_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::uint32_<A0>,tag::avx_)))
+                       ((simd_<uint32_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
@@ -196,7 +196,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::uint64_<A0>,tag::avx_)))
+                       ((simd_<uint64_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
@@ -221,7 +221,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::uint16_<A0>,tag::avx_)))
+                       ((simd_<uint16_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext

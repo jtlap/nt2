@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::bits_, tag::cpu_,
                        (A0)(X),
-                       ((simd_(tag::fundamental_<A0>,X)))
+                       ((simd_<fundamental_<A0>,X>))
                       );
 
 namespace nt2 { namespace ext

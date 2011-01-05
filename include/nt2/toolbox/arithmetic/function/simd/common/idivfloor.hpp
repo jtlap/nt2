@@ -17,8 +17,8 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
                             (A0)(X),
-                            ((simd_(tag::arithmetic_<A0>,X)))
-                            ((simd_(tag::arithmetic_<A0>,X)))
+                            ((simd_<arithmetic_<A0>,X>))
+                            ((simd_<arithmetic_<A0>,X>))
                            );
 
 namespace nt2 { namespace ext
@@ -41,8 +41,8 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
                             (A0)(X),
-                            ((simd_(tag::unsigned_<A0>,X)))
-                            ((simd_(tag::unsigned_<A0>,X)))
+                            ((simd_<unsigned_<A0>,X>))
+                            ((simd_<unsigned_<A0>,X>))
                            );
 
 namespace nt2 { namespace ext
@@ -65,8 +65,8 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
                             (A0)(X),
-                            ((simd_(tag::real_<A0>,X)))
-                            ((simd_(tag::real_<A0>,X)))
+                            ((simd_<real_<A0>,X>))
+                            ((simd_<real_<A0>,X>))
                            );
 
 namespace nt2 { namespace ext

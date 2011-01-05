@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
                          (A0)(X),
-                         ((simd_(tag::signed_<A0>,X)))
+                         ((simd_<signed_<A0>,X>))
                         );
 
 namespace nt2 { namespace ext
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
                          (A0)(X),
-                         ((simd_(tag::unsigned_<A0>,X)))
+                         ((simd_<unsigned_<A0>,X>))
                         );
 
 namespace nt2 { namespace ext

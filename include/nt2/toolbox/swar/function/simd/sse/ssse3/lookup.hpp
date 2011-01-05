@@ -19,15 +19,15 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::types8_<A0>,tag::see_)))
-                         ((simd_(tag::types8_<A0>,tag::see_)))
+                         ((simd_<types8_<A0>,tag::sse_>))
+                         ((simd_<types8_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::lookup_(tag::simd_(tag::types8_, tag::see_),
-                           tag::simd_(tag::types8_, tag::see_)),
+  struct call<tag::lookup_(tag::simd_(tag::types8_, tag::sse_),
+                           tag::simd_(tag::types8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -47,15 +47,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::types32_<A0>,tag::see_)))
-                         ((simd_(tag::types32_<A0>,tag::see_)))
+                         ((simd_<types32_<A0>,tag::sse_>))
+                         ((simd_<types32_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::lookup_(tag::simd_(tag::types32_, tag::see_),
-                           tag::simd_(tag::types32_, tag::see_)),
+  struct call<tag::lookup_(tag::simd_(tag::types32_, tag::sse_),
+                           tag::simd_(tag::types32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -80,15 +80,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::types64_<A0>,tag::see_)))
-                         ((simd_(tag::types64_<A0>,tag::see_)))
+                         ((simd_<types64_<A0>,tag::sse_>))
+                         ((simd_<types64_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::lookup_(tag::simd_(tag::types64_, tag::see_),
-                           tag::simd_(tag::types64_, tag::see_)),
+  struct call<tag::lookup_(tag::simd_(tag::types64_, tag::sse_),
+                           tag::simd_(tag::types64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -115,15 +115,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
                          (A0),
-                         ((simd_(tag::types16_<A0>,tag::see_)))
-                         ((simd_(tag::types16_<A0>,tag::see_)))
+                         ((simd_<types16_<A0>,tag::sse_>))
+                         ((simd_<types16_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::lookup_(tag::simd_(tag::types16_, tag::see_),
-                           tag::simd_(tag::types16_, tag::see_)),
+  struct call<tag::lookup_(tag::simd_(tag::types16_, tag::sse_),
+                           tag::simd_(tag::types16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

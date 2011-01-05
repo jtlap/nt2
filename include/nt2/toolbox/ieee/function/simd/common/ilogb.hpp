@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
                         (A0)(X),
-                        ((simd_(tag::signed_<A0>,X)))
+                        ((simd_<signed_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
                         (A0)(X),
-                        ((simd_(tag::uint32_<A0>,X)))
+                        ((simd_<uint32_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
@@ -122,7 +122,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
                         (A0)(X),
-                        ((simd_(tag::uint16_<A0>,X)))
+                        ((simd_<uint16_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
@@ -180,7 +180,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
                         (A0)(X),
-                        ((simd_(tag::uint8_<A0>,X)))
+                        ((simd_<uint8_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
@@ -229,7 +229,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
                         (A0)(X),
-                        ((simd_(tag::real_<A0>,X)))
+                        ((simd_<real_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext

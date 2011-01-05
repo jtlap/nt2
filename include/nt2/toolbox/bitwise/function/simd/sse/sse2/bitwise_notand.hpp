@@ -17,15 +17,15 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
                                  (A0),
-                                 ((simd_(tag::arithmetic_<A0>,tag::see_)))
-                                 ((simd_(tag::arithmetic_<A0>,tag::see_)))
+                                 ((simd_<arithmetic_<A0>,tag::sse_>))
+                                 ((simd_<arithmetic_<A0>,tag::sse_>))
                                 );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::bitwise_notand_(tag::simd_(tag::arithmetic_, tag::see_),
-                                   tag::simd_(tag::arithmetic_, tag::see_)),
+  struct call<tag::bitwise_notand_(tag::simd_(tag::arithmetic_, tag::sse_),
+                                   tag::simd_(tag::arithmetic_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -47,15 +47,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
                                  (A0),
-                                 ((simd_(tag::double_<A0>,tag::see_)))
-                                 ((simd_(tag::double_<A0>,tag::see_)))
+                                 ((simd_<double_<A0>,tag::sse_>))
+                                 ((simd_<double_<A0>,tag::sse_>))
                                 );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::bitwise_notand_(tag::simd_(tag::double_, tag::see_),
-                                   tag::simd_(tag::double_, tag::see_)),
+  struct call<tag::bitwise_notand_(tag::simd_(tag::double_, tag::sse_),
+                                   tag::simd_(tag::double_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -77,15 +77,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
                                  (A0),
-                                 ((simd_(tag::float_<A0>,tag::see_)))
-                                 ((simd_(tag::float_<A0>,tag::see_)))
+                                 ((simd_<float_<A0>,tag::sse_>))
+                                 ((simd_<float_<A0>,tag::sse_>))
                                 );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::bitwise_notand_(tag::simd_(tag::float_, tag::see_),
-                                   tag::simd_(tag::float_, tag::see_)),
+  struct call<tag::bitwise_notand_(tag::simd_(tag::float_, tag::sse_),
+                                   tag::simd_(tag::float_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

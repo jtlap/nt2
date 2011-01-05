@@ -30,7 +30,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
                            (A0)(X),
-                           ((simd_(tag::arithmetic_<A0>,X)))
+                           ((simd_<arithmetic_<A0>,X>))
                           );
 
 namespace nt2 { namespace ext
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
                            (A0)(X),
-                           ((simd_(tag::unsigned_<A0>,X)))
+                           ((simd_<unsigned_<A0>,X>))
                           );
 
 namespace nt2 { namespace ext
@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
                            (A0)(X),
-                           ((simd_(tag::uint16_<A0>,X)))
+                           ((simd_<uint16_<A0>,X>))
                           );
 
 namespace nt2 { namespace ext
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
                            (A0)(X),
-                           ((simd_(tag::uint8_<A0>,X)))
+                           ((simd_<uint8_<A0>,X>))
                           );
 
 namespace nt2 { namespace ext
@@ -150,7 +150,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
                            (A0)(X),
-                           ((simd_(tag::real_<A0>,X)))
+                           ((simd_<real_<A0>,X>))
                           );
 
 namespace nt2 { namespace ext

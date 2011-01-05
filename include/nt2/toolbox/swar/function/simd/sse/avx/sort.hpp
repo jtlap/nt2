@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
                        (A0),
-                       ((simd_(tag::fundamental_<A0>,tag::avx_)))
+                       ((simd_<fundamental_<A0>,tag::avx_>))
                       );
 
 namespace nt2 { namespace ext
