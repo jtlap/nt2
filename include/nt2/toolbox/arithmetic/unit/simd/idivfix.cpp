@@ -25,7 +25,7 @@
 NT2_TEST_CASE_TPL(idivfix,  NT2_SIMD_TYPES  )
 {
  using nt2::idivfix;
- using nt2::functors::idivfix_;    
+ using nt2::tag::idivfix_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

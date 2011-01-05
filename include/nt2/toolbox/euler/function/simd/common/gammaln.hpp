@@ -14,25 +14,20 @@
 #include <nt2/include/functions/tofloat.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<gammaln_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_floating_point<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute gammaln(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<gammaln_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gammaln_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_<fundamental_<A0>,X>))
+                         );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::gammaln_(tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,7 +35,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       return map(functor<gammaln_>(), tofloat(a0));
     }
 
@@ -48,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

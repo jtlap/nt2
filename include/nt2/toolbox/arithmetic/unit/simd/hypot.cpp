@@ -23,10 +23,10 @@
 //////////////////////////////////////////////////////////////////////////////
 
 NT2_TEST_CASE_TPL(hypot, /*(nt2::int64_t)(double)
-			   (nt2::int32_t)*/(float)  )
+                     (nt2::int32_t)*/(float)  )
 {
  using nt2::hypot;
- using nt2::functors::hypot_;                  
+ using nt2::tag::hypot_;                  
  using nt2::load;    
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -55,11 +55,11 @@ NT2_TEST_CASE_TPL(hypot, /*(nt2::int64_t)(double)
 
 
 NT2_TEST_CASE_TPL(unsigned_hypot,
-		  (nt2::uint64_t)
-	          (nt2::uint32_t)  )
+              (nt2::uint64_t)
+                (nt2::uint32_t)  )
 {
  using nt2::hypot;
- using nt2::functors::hypot_;    
+ using nt2::tag::hypot_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

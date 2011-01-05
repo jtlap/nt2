@@ -16,6 +16,3 @@
 #endif
 /// Revised by jt the 15/11/2010
 /// No restore -- hand modifications
-
-#endif
-// modified by jt the 26/12/2010

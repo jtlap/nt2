@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(idivfloor, NT2_SIMD_SIGNED_TYPES)
 {
   using nt2::idivfloor;
-  using nt2::functors::idivfloor_;    
+  using nt2::tag::idivfloor_;    
   using nt2::load;  
   using nt2::simd::native;   
   using nt2::meta::cardinal_of;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(idivfloor, NT2_SIMD_SIGNED_TYPES)
 NT2_TEST_CASE_TPL(unsigned_idivfloor, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::idivfloor;
- using nt2::functors::idivfloor_;    
+ using nt2::tag::idivfloor_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

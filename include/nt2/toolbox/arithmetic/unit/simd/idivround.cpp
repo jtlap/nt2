@@ -23,7 +23,7 @@
 NT2_TEST_CASE_TPL(idivround, (nt2::int64_t)) //(double)(float)(nt2::int32_t)(nt2::int64_t)(nt2::int8_t)(nt2::int16_t))
 {
  using nt2::idivround;
- using nt2::functors::idivround_;    
+ using nt2::tag::idivround_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -37,14 +37,14 @@ NT2_TEST_CASE_TPL(idivround, (nt2::int64_t)) //(double)(float)(nt2::int32_t)(nt2
   for(int n = -5; n <= 5; n++){
     for(int i=0;i<2*cardinal_of<n_t>::value;++i)
       {    
-	data[i] = i-n ? i-n : 13; // good value here for idivround
+      data[i] = i-n ? i-n : 13; // good value here for idivround
       }
     n_t a1 = load<n_t>(&data[0],0);      
     n_t a0 = load<n_t>(&data[0],1);  
     n_t v  = idivround(a0, a1);
     for(int j=0;j<cardinal_of<n_t>::value;++j) 
       {
-	NT2_TEST_EQUAL( v[j], idivround(a0[j], a1[j]) );
+      NT2_TEST_EQUAL( v[j], idivround(a0[j], a1[j]) );
       }
   }
 }
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL(idivround, (nt2::int64_t)) //(double)(float)(nt2::int32_t)(nt2
 NT2_TEST_CASE_TPL(unsigned_idivround, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::idivround;
- using nt2::functors::idivround_;    
+ using nt2::tag::idivround_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

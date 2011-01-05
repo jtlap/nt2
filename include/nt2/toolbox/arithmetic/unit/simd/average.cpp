@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(average, NT2_SIMD_TYPES )
 {
  using nt2::average;
- using nt2::functors::average_;    
+ using nt2::tag::average_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

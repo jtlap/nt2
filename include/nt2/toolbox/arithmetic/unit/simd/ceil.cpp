@@ -25,7 +25,7 @@
 NT2_TEST_CASE_TPL(ceil, NT2_SIMD_TYPES )
 {
  using nt2::ceil;
- using nt2::functors::ceil_;    
+ using nt2::tag::ceil_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

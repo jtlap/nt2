@@ -21,16 +21,16 @@
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
-                        (A0),
+                        (A0)(A1),
                         ((simd_<unsigned_<A0>,tag::sse_>))
-                        ((simd_<unsigned_<A0>,tag::sse_>))
+                         ((integer_<A1>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::shrai_(tag::simd_(tag::unsigned_, tag::sse_),
-                          tag::simd_(tag::unsigned_, tag::sse_)),
+                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -48,16 +48,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is int32_t
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
-                        (A0),
+                        (A0)(A1),
                         ((simd_<int32_<A0>,tag::sse_>))
-                        ((simd_<int32_<A0>,tag::sse_>))
+                         ((integer_<A1>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::shrai_(tag::simd_(tag::int32_, tag::sse_),
-                          tag::simd_(tag::int32_, tag::sse_)),
+                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -77,16 +77,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is int16_t
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
-                        (A0),
+                        (A0)(A1),
                         ((simd_<int16_<A0>,tag::sse_>))
-                        ((simd_<int16_<A0>,tag::sse_>))
+                         ((integer_<A1>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::shrai_(tag::simd_(tag::int16_, tag::sse_),
-                          tag::simd_(tag::int16_, tag::sse_)),
+                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -106,16 +106,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
-                        (A0),
+                        (A0)(A1),
                         ((simd_<int8_<A0>,tag::sse_>))
-                        ((simd_<int8_<A0>,tag::sse_>))
+                         ((integer_<A1>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::shrai_(tag::simd_(tag::int8_, tag::sse_),
-                          tag::simd_(tag::int8_, tag::sse_)),
+                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -137,16 +137,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is int64_t
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
-                        (A0),
+                        (A0)(A1),
                         ((simd_<int64_<A0>,tag::sse_>))
-                        ((simd_<int64_<A0>,tag::sse_>))
+                         ((integer_<A1>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::shrai_(tag::simd_(tag::int64_, tag::sse_),
-                          tag::simd_(tag::int64_, tag::sse_)),
+                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -164,3 +164,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 04/01/2011
+// modified manually by jt the 05/01/2011    

@@ -25,7 +25,7 @@
 NT2_TEST_CASE_TPL(ifloor, NT2_SIMD_TYPES )
 {
  using nt2::ifloor;
- using nt2::functors::ifloor_;    
+ using nt2::tag::ifloor_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

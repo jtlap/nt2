@@ -13,7 +13,9 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
+// TODO no float no int8_
 
+#define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
@@ -281,5 +283,8 @@ namespace nt2 { namespace ext
   };
 } }
 
+#undef NT2_SH
+
 #endif
-// modified by jt the 04/01/2011
+// modified by jt the 05/01/2011
+// modified manually by jt the 05/01/2011

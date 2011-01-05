@@ -52,19 +52,19 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types64_
+// Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
                          (A0),
-                         ((simd_<types64_<A0>,tag::sse_>))
-                         ((simd_<types64_<A0>,tag::sse_>))
+                         ((simd_<type64_<A0>,tag::sse_>))
+                         ((simd_<type64_<A0>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::lookup_(tag::simd_(tag::types64_, tag::sse_),
-                           tag::simd_(tag::types64_, tag::sse_)),
+  struct call<tag::lookup_(tag::simd_(tag::type64_, tag::sse_),
+                           tag::simd_(tag::type64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -87,4 +87,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 04/01/2011
+// modified by jt the 05/01/2011

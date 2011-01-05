@@ -19,24 +19,20 @@
 #include <nt2/include/functions/exp.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<stirling_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::is_real_convertible<A0>{}; 
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute stirling(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<stirling_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::stirling_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<arithmetic_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::stirling_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -44,15 +40,83 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type  sA0; 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return stirling(type(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::stirling_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<double_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::stirling_(tag::simd_(tag::double_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>: meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<A0>::type  sA0;
+      static const A0 MAXSTIR = splat<A0>(143.01608);
+      static const boost::array<sA0, 5 > STIR = {{
+        7.87311395793093628397E-4,
+        -2.29549961613378126380E-4,
+        -2.68132617805781232825E-3,
+        3.47222221605458667310E-3,
+        8.33333333333482257126E-2,
+      }};
+      static const A0 SQTPI =  splat<A0>(2.50662827463100050242E0);
+      A0 w = rec(a0);
+      w = fma(w, polevl( w, STIR), One<A0>());
+      A0 y = exp(-a0);
+      const A0 v = pow(a0, fma(Half<A0>(), a0, - Quarter<A0>()));
+      y *= v;
+      y *= v;
+      y *= SQTPI*w;
+      return y;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::stirling_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<float_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::stirling_(tag::simd_(tag::float_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>: meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<A0>::type  sA0;
       static const A0 SQTPI = splat<A0>(2.50662827463100050242); /* sqrt( 2 pi ) */
       static const boost::array<sA0, 3 > STIR = {{
-	  -2.705194986674176E-003f,
-	  3.473255786154910E-003f,
-	  8.333331788340907E-002f,
-	}};
+        -2.705194986674176E-003f,
+        3.473255786154910E-003f,
+        8.333331788340907E-002f,
+      }};
       static const A0 MAXSTIR = splat<A0>(26.77);
-      
+
       A0 w = rec(a0);
       w = fma(w, polevl( w, STIR), One<A0>());
       A0 r = Nan<A0>();
@@ -65,60 +129,7 @@ namespace nt2 { namespace functors
       return y;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<stirling_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>: meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<A0>::type  sA0; 
-      static const A0 MAXSTIR = splat<A0>(143.01608); 
-      static const boost::array<sA0, 5 > STIR = {{
-	  7.87311395793093628397E-4,
-	  -2.29549961613378126380E-4,
-	  -2.68132617805781232825E-3,
-	  3.47222221605458667310E-3,
-	  8.33333333333482257126E-2,
-	}};
-      static const A0 SQTPI =  splat<A0>(2.50662827463100050242E0);
-      A0 w = rec(a0);
-      w = fma(w, polevl( w, STIR), One<A0>());
-      A0 y = exp(-a0);
-      const A0 v = pow(a0, fma(Half<A0>(), a0, - Quarter<A0>())); 
-      y *= v;
-      y *= v;
-      y *= SQTPI*w;
-      return y;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<stirling_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>: meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return stirling(type(a0));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

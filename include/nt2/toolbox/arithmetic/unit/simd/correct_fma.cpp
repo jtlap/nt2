@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(correct_fma, (double)(float) )
 {
  using nt2::correct_fma;
- using nt2::functors::correct_fma_;    
+ using nt2::tag::correct_fma_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

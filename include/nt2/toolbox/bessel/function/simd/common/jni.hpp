@@ -23,28 +23,22 @@
 
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::jni_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<arithmetic_<A0>,X>))
+                      ((simd_<arithmetic_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<jni_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::mpl::and_<meta::is_real_convertible<A1>
-                      ,meta::is_scalar<A0>
-                      ,meta::is_integral<A0>
-      > {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute jni(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<jni_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::jni_(tag::simd_(tag::arithmetic_, X),
+                        tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -52,53 +46,27 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-	typedef A1 type; 
-	type x = a1;
-	const int32_t n1 = abs(a0);
-	type sign = splat<type>(a0<0?nt2::cospi(n1):1);
-	if( n1 == 0 )
-	  return( sign * j0(x) );
-	if( n1 == 1 )
-	  return( sign * j1(x) );
-	if( n1 == 2 )
-	  return mul(sign, (mul(Two<type>(), j1(x) / x)  -  j0(x)) );
-
-	/* continued fraction */
-	int k = 24;
-	type pk = splat<type>(2*(n1 + k));
-	type ans = pk;
-	type xk = sqr(x);
-	do {
-	  pk  = pk - Two<type>();
-	  ans = pk - (xk/ans);
-	}
-	while( --k > 0 );
-	/* backward recurrence */
-
-	pk = One<type>();
-	/*pkm1 = 1.0/ans;*/
-	type xinv = rec(x);
-	type pkm1 = ans * xinv;
-	k = n1-1;
-	type r = splat<type>(2.0f*k);
-
-	do{
-	  const type pkm2 = (pkm1 * r  -  pk * x) * xinv;
-	  pk = pkm1;
-	  pkm1 = pkm2;
-	  r = r-Two<type>();
-	}
-	while( --k > 0 );
-	return sign*sel(isgt(abs(pk), abs(pkm1)),j1(x)/pk, j0(x)/pkm1);
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::jni(a0, tofloat(a1));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::jni_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<double_<A0>,X>))
+                      ((simd_<double_<A0>,X>))
+                     );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<jni_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::jni_(tag::simd_(tag::double_, X),
+                        tag::simd_(tag::double_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -106,17 +74,27 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A1 r = {{jni(a0, a1[0]),jni(a0, a1[1])}} ; 
-      return r; 
+      const A1 r = {{jni(a0, a1[0]),jni(a0, a1[1])}} ;
+      return r;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::jni_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<float_<A0>,X>))
+                      ((simd_<float_<A0>,X>))
+                     );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<jni_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::jni_(tag::simd_(tag::float_, X),
+                        tag::simd_(tag::float_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -124,12 +102,47 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::jni(a0, tofloat(a1)); 
+      typedef A1 type;
+      type x = a1;
+      const int32_t n1 = abs(a0);
+      type sign = splat<type>(a0<0?nt2::cospi(n1):1);
+      if( n1 == 0 )
+        return( sign * j0(x) );
+      if( n1 == 1 )
+        return( sign * j1(x) );
+      if( n1 == 2 )
+        return mul(sign, (mul(Two<type>(), j1(x) / x)  -  j0(x)) );
+
+      /* continued fraction */
+      int k = 24;
+      type pk = splat<type>(2*(n1 + k));
+      type ans = pk;
+      type xk = sqr(x);
+      do {
+        pk  = pk - Two<type>();
+        ans = pk - (xk/ans);
+      }
+      while( --k > 0 );
+      /* backward recurrence */
+
+      pk = One<type>();
+      /*pkm1 = 1.0/ans;*/
+      type xinv = rec(x);
+      type pkm1 = ans * xinv;
+      k = n1-1;
+      type r = splat<type>(2.0f*k);
+
+      do{
+        const type pkm2 = (pkm1 * r  -  pk * x) * xinv;
+        pk = pkm1;
+        pkm1 = pkm2;
+        r = r-Two<type>();
+      }
+      while( --k > 0 );
+      return sign*sel(isgt(abs(pk), abs(pkm1)),j1(x)/pk, j0(x)/pkm1);
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

@@ -24,26 +24,22 @@
 #include <nt2/include/functions/any.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<powi_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::mpl::and_<meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> >, 
-		       meta::is_integral<A1> >{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute powi(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<powi_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::powi_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<fundamental_<A0>,X>))
+                       ((simd_<fundamental_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::powi_(tag::simd_(tag::fundamental_, X),
+                         tag::simd_(tag::fundamental_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -86,4 +82,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

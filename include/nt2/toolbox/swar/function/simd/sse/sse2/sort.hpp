@@ -19,17 +19,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types32_
+// Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
                        (A0),
-                       ((simd_<types32_<A0>,tag::sse_>))
+                       ((simd_<type32_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sort_(tag::simd_(tag::types32_, tag::sse_)),
+  struct call<tag::sort_(tag::simd_(tag::type32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -65,17 +65,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types64_
+// Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
                        (A0),
-                       ((simd_<types64_<A0>,tag::sse_>))
+                       ((simd_<type64_<A0>,tag::sse_>))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sort_(tag::simd_(tag::types64_, tag::sse_)),
+  struct call<tag::sort_(tag::simd_(tag::type64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -92,4 +92,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 04/01/2011
+// modified by jt the 05/01/2011

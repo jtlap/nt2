@@ -14,7 +14,6 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/is_ltz.hpp>
 
 
@@ -40,10 +39,9 @@ namespace nt2 { namespace ext
       typedef typename meta::upgrade<stype>::type                           utype;
       typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef meta::is_floating_point<stype>                                 rtag;
-      typedef simd::native<typename  meta::double_<A0>::type,tag::sse_>     dtype;
+      typedef simd::native<typename  meta::double__<A0>::type,tag::sse_>     dtype;
 
-      typedef typename boost::mpl::if_c < rtag::value
-                                        , dtype, ttype>::type               rtype;
+      typedef typename boost::mpl::if_c<rtag::value,dtype,ttype>::type      rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              type;
     };
 
@@ -54,8 +52,9 @@ namespace nt2 { namespace ext
       typedef typename meta::upgrade<stype>::type                           utype;
       typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef typename boost::mpl::if_c<rtag::value,
-                                        simd::native<double,tag::sse_>, ttype>::type rtype;
-      typename NT2_RETURN_TYPE(1)::type                                  res;
+                                        simd::native<double,tag::sse_>,
+	                                ttype>::type                        rtype;
+      typename NT2_RETURN_TYPE(1)::type                                       res;
       typedef rtype                                                           tag;
 
       eval( a0
@@ -122,4 +121,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 04/01/2011
+// modified by jt the 05/01/2011
