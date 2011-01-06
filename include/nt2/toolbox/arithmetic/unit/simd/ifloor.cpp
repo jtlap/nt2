@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL(ifloor, NT2_SIMD_TYPES )
     data[i] = i; // good value here for ifloor
   }
  n_t a0 = load<n_t>(&data[0],0); 
- in_t v  = ifloor(a0);
+ in_t v = ifloor(a0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
     {
       NT2_TEST_EQUAL( v[j], ifloor(a0[j]) );

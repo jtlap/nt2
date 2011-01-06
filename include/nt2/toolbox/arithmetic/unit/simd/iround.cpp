@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL(iround, NT2_SIMD_TYPES )
     data[i] = i; // good value here for iround
   }
  n_t a0 = load<n_t>(&data[0],0); 
- in_t v  = iround(a0);
+ in_t v = iround(a0);
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    {
      NT2_TEST_EQUAL( v[j], iround(a0[j]) );

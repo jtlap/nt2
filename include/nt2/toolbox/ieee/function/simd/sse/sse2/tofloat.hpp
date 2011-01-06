@@ -38,8 +38,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_real<A0>::type  type; };
+      struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -66,8 +65,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_real<A0>::type  type; };
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -95,8 +93,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_real<A0>::type  type; };
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -121,12 +118,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_real<A0>::type  type; };
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type  result_type;
+      typedef typename NT2_RETURN_TYPE(1)::type  result_type;
       result_type z = {a0[0],a0[1],a0[2], a0[3]}; //TO DO
       return z;
  //      typedef typename meta::scalar_of<A0>::type stype;
@@ -158,12 +154,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_real<A0>::type  type; };
+    struct result<This(A0)> : meta::as_real<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type  type;
+      typedef typename NT2_RETURN_TYPE(1)::type  type;
       typedef typename meta::scalar_of<type>::type sftype;
       if (maximum(abs(a0)) > Valmax<int32_t>())
       {
@@ -181,3 +176,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 04/01/2011
+// modified manually by jt the 06/01/2011

@@ -17,19 +17,19 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::remainder_, tag::cpu_,
                             (A0)(X),
-                            ((simd_<fundamental_<A0>,X>))
-                            ((simd_<fundamental_<A0>,X>))
+                            ((simd_<arithmetic_<A0>,X>))
+                            ((simd_<arithmetic_<A0>,X>))
                            );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::remainder_(tag::simd_(tag::fundamental_, X),
-                              tag::simd_(tag::fundamental_, X)),
+  struct call<tag::remainder_(tag::simd_(tag::arithmetic_, X),
+                              tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
 //       const A0 a = abs(a0);
 //       const A0 b = abs(a1);
 //       return sel(b, negate(a-idivfix(a, b)*b, a), a);
-      return a0-idivround(a0, a1)*a1
+      return a0-idivround(a0, a1)*a1; 
     }
 
   };
@@ -50,3 +50,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 04/01/2011
+// modified manually by jt the 04/01/2011

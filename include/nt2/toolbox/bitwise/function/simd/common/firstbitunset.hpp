@@ -16,17 +16,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::firstbitunset_, tag::cpu_,
                                 (A0)(X),
-                                ((simd_<fundamental_<A0>,X>))
+                                ((simd_<arithmetic_<A0>,X>))
                                );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::firstbitunset_(tag::simd_(tag::fundamental_, X)),
+  struct call<tag::firstbitunset_(tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

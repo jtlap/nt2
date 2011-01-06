@@ -15,19 +15,19 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shri_, tag::cpu_,
                        (A0),
-                       ((simd_<fundamental_<A0>,tag::xop_>))
-                       ((simd_<fundamental_<A0>,tag::xop_>))
+                       ((simd_<arithmetic_<A0>,tag::xop_>))
+                       ((simd_<arithmetic_<A0>,tag::xop_>))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shri_(tag::simd_(tag::fundamental_, tag::xop_),
-                         tag::simd_(tag::fundamental_, tag::xop_)),
+  struct call<tag::shri_(tag::simd_(tag::arithmetic_, tag::xop_),
+                         tag::simd_(tag::arithmetic_, tag::xop_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
