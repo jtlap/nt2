@@ -13,40 +13,19 @@
 #include <nt2/sdk/simd/native_cast.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Overload registration
+// Generic overload implementation
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type64_<A0>,tag::sse_>))
-                        ((simd_<type64_<A1>,tag::sse_>))
+                      , ((simd_<arithmetic_<A0>,tag::sse_>))
+                        ((simd_<arithmetic_<A1>,tag::sse_>))
                       );
 
-NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type32_<A0>,tag::sse_>))
-                        ((simd_<type32_<A1>,tag::sse_>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type16_<A0>,tag::sse_>))
-                        ((simd_<type16_<A1>,tag::sse_>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type8_<A0>,tag::sse_>))
-                        ((simd_<type8_<A1>,tag::sse_>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // The 8 bits version holds the generic code used by all other
-  //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type8_,tag::sse_)
-                                , tag::simd_(tag::type8_,tag::sse_)
-                                )
+  struct  call< tag::bitwise_or_ ( tag::simd_(tag::arithmetic_,tag::sse_)
+                                  , tag::simd_(tag::arithmetic_,tag::sse_)
+                                  )
               , tag::cpu_, Dummy
               >
         : callable
@@ -57,56 +36,73 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename A0::native_type              native_type;
       typedef typename meta::as_integer< A0 >::type int_type;
-      int_type that0 = simd::native_cast<int_type>( a0 );
-      int_type that1 = simd::native_cast<int_type>( a1 );
-      A0        that = { (native_type)_mm_or_si128(that0,that1) };
+      int_type t0 = simd::native_cast<int_type>( a0 );
+      int_type t1 = simd::native_cast<int_type>( a1 );
+      A0     that = { simd::native_cast<int_type>(_mm_or_si128(t0,t1)) };
       return that;
     }
   };
+} }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // All other versions (16,32,64) forward their calls to the 8 bits version
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type16_,tag::sse_)
-                                , tag::simd_(tag::type16_,tag::sse_)
-                                )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_or_( tag::simd_(tag::type8_,tag::sse_)
-                                , tag::simd_(tag::type8_,tag::sse_)
-                                )
-              , tag::cpu_, Dummy
-              >
-  {};
+//////////////////////////////////////////////////////////////////////////////
+// double/double use the seemingly faster and_pd
+//////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
+                      , ((simd_<double_<A0>,tag::sse_>))
+                        ((simd_<double_<A1>,tag::sse_>))
+                      );
 
+namespace nt2 { namespace ext
+{
   template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type32_,tag::sse_)
-                                , tag::simd_(tag::type32_,tag::sse_)
-                                )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_or_ ( tag::simd_(tag::type8_,tag::sse_)
-                                  , tag::simd_(tag::type8_,tag::sse_)
+  struct  call< tag::bitwise_or_ ( tag::simd_(tag::double_,tag::sse_)
+                                  , tag::simd_(tag::double_,tag::sse_)
                                   )
               , tag::cpu_, Dummy
               >
-  {};
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0> {};
 
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_or_pd(a0,a1) };
+      return that;
+    }
+  };
+} }
+
+//////////////////////////////////////////////////////////////////////////////
+// float/float use the seemingly faster or_ps
+//////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
+                      , ((simd_<float_<A0>,tag::sse_>))
+                        ((simd_<float_<A1>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
   template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type64_,tag::sse_)
-                                , tag::simd_(tag::type64_,tag::sse_)
-                                )
+  struct  call< tag::bitwise_or_ ( tag::simd_(tag::float_,tag::sse_)
+                                  , tag::simd_(tag::float_,tag::sse_)
+                                  )
               , tag::cpu_, Dummy
               >
-        : call< tag::bitwise_or_( tag::simd_(tag::type8_,tag::sse_)
-                                , tag::simd_(tag::type8_,tag::sse_)
-                                )
-              , tag::cpu_, Dummy
-              >
-  {};
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_or_ps(a0,a1) };
+      return that;
+    }
+  };
 } }
 
 #endif
