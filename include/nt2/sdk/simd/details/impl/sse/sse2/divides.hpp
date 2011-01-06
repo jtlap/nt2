@@ -83,8 +83,8 @@ namespace nt2 { namespace ext
                               )
               , tag::cpu_, Dummy
               >
-        : call< tag::divides_ ( tag::simd_(tag::arithmetic_,tag::sse_)
-                              , tag::simd_(tag::arithmetic_,tag::sse_)
+        : call< tag::divides_ ( tag::simd_(tag::unspecified_,tag::sse_)
+                              , tag::simd_(tag::unspecified_,tag::sse_)
                               )
               , tag::cpu_, Dummy
               >

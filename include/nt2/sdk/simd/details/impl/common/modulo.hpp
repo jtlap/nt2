@@ -25,8 +25,8 @@ namespace nt2 { namespace ext
                             )
               , tag::cpu_, Dummy
               >
-        : call< tag::modulo_( tag::simd_(tag::arithmetic_,X)
-                            , tag::simd_(tag::arithmetic_,X)
+        : call< tag::modulo_( tag::simd_(tag::unspecified_,X)
+                            , tag::simd_(tag::unspecified_,X)
                             )
               , tag::cpu_, Dummy
               >
