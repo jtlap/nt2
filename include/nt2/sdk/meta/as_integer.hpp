@@ -27,7 +27,10 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign=typename meta::sign_of<T>::type >
   struct  as_integer
-        : details::as_integer<T,Sign,typename hierarchy_of<T>::type > {};
+        : details::as_integer < typename meta::strip<T>::type
+                              , Sign
+                              , typename hierarchy_of<typename meta::strip<T>::type>::type
+                              > {};
 } }
 
 #endif
