@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(hermite, (float)(double)
                          )
 {
  using nt2::hermite;  
- using nt2::functors::hermite_;
+ using nt2::tag::hermite_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL(hermite, (float)(double)
      rn_t v  = nt2::hermite(ii, a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], hermite(ii, a0[j])), 1);
+       NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], hermite(ii, a0[j])), 1);
        }
    }
 

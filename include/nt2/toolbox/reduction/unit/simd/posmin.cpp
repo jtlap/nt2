@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( posmin, NT2_SIMD_TYPES )
 {
   using nt2::posmin;
   using nt2::load;
-  using nt2::functors::posmin_;
+  using nt2::tag::posmin_;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
  

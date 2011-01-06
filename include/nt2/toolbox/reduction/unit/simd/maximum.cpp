@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( maximum, NT2_SIMD_TYPES )
 {
   using nt2::maximum;
   using nt2::load;
-  using nt2::functors::maximum_;
+  using nt2::tag::maximum_;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
  

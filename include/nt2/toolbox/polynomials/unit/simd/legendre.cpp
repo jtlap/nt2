@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(legendre, (float)(double)
                          )
 {
  using nt2::legendre; 
- using nt2::functors::legendre_;
+ using nt2::tag::legendre_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 
@@ -50,8 +50,8 @@ NT2_TEST_CASE_TPL(legendre, (float)(double)
      rn_t v  = nt2::legendre(ii, a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], legendre(ii, a0[j])), 5);
-	 std::cout << a0[j] << "  " << v[j] << "  " << legendre(2, a0[j]) << std::endl; 
+       NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], legendre(ii, a0[j])), 5);
+       std::cout << a0[j] << "  " << v[j] << "  " << legendre(2, a0[j]) << std::endl; 
        }
    } 
 }
