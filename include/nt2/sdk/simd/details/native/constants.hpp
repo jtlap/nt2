@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 
+#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/from_bits.hpp>
@@ -35,12 +36,20 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This, class Target>
-    struct result<This(Target)> : meta::strip<Target>::type {};
+    struct result<This(Target)>
+    {
+      typedef typename meta::strip<Target>::type::type          target;
+      typedef typename meta::scalar_of<target>::type            base;
+      typedef typename
+      std::tr1::result_of<functor<Tag>(nt2::meta::as_<base>)>::type  results;
+      typedef typename target::template cast<results>::type      type;
+    };
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type;
-      typedef typename meta::scalar_of<result_type>::type type;
+      typedef typename meta::strip<A0>::type::type        target;
+      typedef typename meta::scalar_of<target>::type      type;
+      typedef typename NT2_RETURN_TYPE(1)::type           result_type;
       functor<Tag> callee;
       return splat<result_type>(callee( nt2::meta::as_<type>()));
     }
