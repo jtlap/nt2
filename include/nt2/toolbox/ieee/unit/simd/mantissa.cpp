@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(mantissa, NT2_SIMD_REAL_TYPES )
 {
  using nt2::mantissa; 
- using nt2::functors::mantissa_;
+ using nt2::tag::mantissa_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

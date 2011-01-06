@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL(fast_hypot, (double)
  }
    n_t a0 = load<n_t>(&data[0],0); 
    n_t a1 = load<n_t>(&data[0],1);
-   rtype v; //= fast_hypot(a0, a1);
+   rtype v = fast_hypot(a0, a1);
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    {
      NT2_TEST_EQUAL( v[j], fast_hypot(a0[j], a1[j]) ); 
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL(unsigned_fast_hypot,
  } 
    n_t a0 = load<n_t>(&data[0],0);   
    n_t a1 = load<n_t>(&data[0],1);  
-   rtype v; // = fast_hypot(a0, a1);
+   rtype v = fast_hypot(a0, a1);
 
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    {

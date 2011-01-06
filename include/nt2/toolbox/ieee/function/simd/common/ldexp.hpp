@@ -19,6 +19,7 @@
 #include <nt2/include/functions/is_finite.hpp>
 //
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/rshl.hpp>
 
 
 
@@ -26,16 +27,16 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ldexp_, tag::cpu_,
-                        (A0)(X),
+                        (A0)(A1)(X),
                         ((simd_<arithmetic_<A0>,X>))
-                        ((simd_<arithmetic_<A0>,X>))
+                        ((simd_<integer_<A1>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::ldexp_(tag::simd_(tag::arithmetic_, X),
-                          tag::simd_(tag::arithmetic_, X)),
+                          tag::simd_(tag::integer_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return rshl(a0, a1);
+      return a0; //TODO rshl(a0, a1);
     }
   };
 } }
@@ -55,14 +56,14 @@ namespace nt2 { namespace ext
 NT2_REGISTER_DISPATCH(tag::ldexp_, tag::cpu_,
                         (A0)(X),
                         ((simd_<real_<A0>,X>))
-                        ((simd_<real_<A0>,X>))
+                        ((simd_<integer_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::ldexp_(tag::simd_(tag::real_, X),
-                          tag::simd_(tag::real_, X)),
+                          tag::simd_(tag::integer_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

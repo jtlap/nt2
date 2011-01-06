@@ -26,11 +26,11 @@
 // Test behavior of arithmetic component frexp using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(frexp, 
-		  NT2_SIMD_REAL_TYPES
+              NT2_SIMD_REAL_TYPES
                          )
 {
  using nt2::frexp; 
- using nt2::functors::frexp_;
+ using nt2::tag::frexp_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

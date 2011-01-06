@@ -23,11 +23,11 @@
 // Test behavior of arithmetic component ilogb using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(ilogb, 
-		  NT2_SIMD_TYPES
+              NT2_SIMD_TYPES
                          )
 {
  using nt2::ilogb; 
- using nt2::functors::ilogb_;
+ using nt2::tag::ilogb_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 

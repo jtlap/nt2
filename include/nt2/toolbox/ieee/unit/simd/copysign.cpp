@@ -25,7 +25,7 @@
 NT2_TEST_CASE_TPL(copysign, NT2_SIMD_TYPES )
 {
  using nt2::copysign;
- using nt2::functors::copysign_;    
+ using nt2::tag::copysign_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

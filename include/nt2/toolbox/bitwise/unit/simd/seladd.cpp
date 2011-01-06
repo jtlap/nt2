@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(seladd, NT2_SIMD_TYPES )
 {
  using nt2::seladd;
- using nt2::functors::seladd_;    
+ using nt2::tag::seladd_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

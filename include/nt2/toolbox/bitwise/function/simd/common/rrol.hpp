@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return map(functor<rrol_>(), a0, a1);
+      return map(functor<tag::rrol_>(), a0, a1);
     }
 
   };

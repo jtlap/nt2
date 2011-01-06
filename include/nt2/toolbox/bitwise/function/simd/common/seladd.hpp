@@ -15,10 +15,10 @@
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::seladd_, tag::cpu_,
-                         (A0)(X),
+                         (A0)(A1)(X),
                          ((simd_<arithmetic_<A0>,X>))
-                         ((simd_<arithmetic_<A0>,X>))
-                         ((simd_<arithmetic_<A0>,X>))
+                         ((simd_<arithmetic_<A1>,X>))
+                         ((simd_<arithmetic_<A1>,X>))
                         );
 
 namespace nt2 { namespace ext

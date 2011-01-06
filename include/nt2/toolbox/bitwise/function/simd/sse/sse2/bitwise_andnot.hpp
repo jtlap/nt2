@@ -16,7 +16,7 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::bitwise_andnot_, tag::cpu_,
-                                 (A0),
+                                 (A0)(A1),
                                  ((simd_<arithmetic_<A0>,tag::sse_>))
                                  ((simd_<arithmetic_<A0>,tag::sse_>))
                                 );
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};//
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {

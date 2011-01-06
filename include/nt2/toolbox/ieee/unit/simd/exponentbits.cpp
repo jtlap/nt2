@@ -22,11 +22,11 @@
 // Test behavior of arithmetic component exponentbits using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(exponentbits, 
-		  NT2_REAL_TYPES
+              NT2_REAL_TYPES
                          )
 {
  using nt2::exponentbits; 
- using nt2::functors::exponentbits_;
+ using nt2::tag::exponentbits_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

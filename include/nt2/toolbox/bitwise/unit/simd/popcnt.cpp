@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(popcnt, (int64_t)(int32_t)(int16_t)(int8_t)
                          )
 {
  using nt2::popcnt; 
- using nt2::functors::popcnt_;
+ using nt2::tag::popcnt_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 

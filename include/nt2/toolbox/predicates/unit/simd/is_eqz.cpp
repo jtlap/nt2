@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(is_eqz, NT2_SIMD_TYPES )
 {
  using nt2::is_eqz;
- using nt2::functors::is_eqz_;    
+ using nt2::tag::is_eqz_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(is_eqz, NT2_SIMD_TYPES )
      n_t v  = is_eqz(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(nt2::boolean(v[j]), is_eqz(a0[j]));
+       NT2_TEST_EQUAL(nt2::boolean(v[j]), is_eqz(a0[j]));
        }
    }
 }
@@ -79,8 +79,8 @@ NT2_TEST_CASE_TPL(is_eqz, NT2_SIMD_TYPES )
 //      n_t v  = neq(a0, a0);
 //      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
 //        {
-// 	 std::cout << int(v[j]) << "  " << nt2::boolean(v[j]) << "  " << neq(a0[j], a0[j]) <<  std::endl; 
-// 	 NT2_TEST_EQUAL(nt2::boolean(v[j]), neq(a0[j], a0[j]));
+//        std::cout << int(v[j]) << "  " << nt2::boolean(v[j]) << "  " << neq(a0[j], a0[j]) <<  std::endl; 
+//        NT2_TEST_EQUAL(nt2::boolean(v[j]), neq(a0[j], a0[j]));
 //        }
 //    }
 // }

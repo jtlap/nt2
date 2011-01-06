@@ -22,8 +22,8 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 
-NT2_TEST_CASE_TPL(hypot, /*(nt2::int64_t)*/(double)
-		  /*(nt2::int32_t)(float)*/  )
+NT2_TEST_CASE_TPL(hypot, /*(nt2::int64_t)(double)*/
+		  /*(nt2::int32_t)*/(float)  )
 {
  using nt2::hypot;
  using nt2::tag::hypot_;                  
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL(hypot, /*(nt2::int64_t)*/(double)
  }
    n_t a0 = load<n_t>(&data[0],0); 
    n_t a1 = load<n_t>(&data[0],1); 
-   rtype v; // = nt2::hypot(a0, a1);    
+   rtype v = nt2::hypot(a0, a1);    
    std::cout  << "a0 "<< a0 << std::endl;
    std::cout  << "a1 "<< a1 << std::endl;
    std::cout  << "v  "<< v  << std::endl;

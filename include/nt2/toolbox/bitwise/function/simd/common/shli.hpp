@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return map(functor<shli_>(), a0, splat(a1)); //TO BE CONFIRMED
+      return map(functor<tag::shli_>(), a0, splat(a1)); //TO BE CONFIRMED
     }
   };
 } }
