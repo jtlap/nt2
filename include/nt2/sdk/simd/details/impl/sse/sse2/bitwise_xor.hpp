@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer< A0 >::type int_type;
       int_type t0 = simd::native_cast<int_type>( a0 );
       int_type t1 = simd::native_cast<int_type>( a1 );
-      A0     that = { simd::native_cast<int_type>(_mm_xor_si128(t0,t1)) };
+      A0     that = { simd::native_cast<A0>(_mm_xor_si128(t0,t1)) };
       return that;
     }
   };
