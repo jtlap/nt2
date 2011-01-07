@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL(is_nge, NT2_SIMD_TYPES )
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
  for(int j =  0;  j < 10; j++)
    {
-     for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
+     for(std::size_t i=0;i<2*cardinal_of<n_t>::value;++i){
        data[i] = nt2::random(-10000.0, 10000.0); // good value here for is_nge
      }
      n_t a0 = load<n_t>(&data[0],0); 
