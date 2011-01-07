@@ -103,9 +103,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
-      typedef typename meta::scalar_of<A0>::type           stype;
+      typedef typename meta::scalar_of<A0>::type  stype;
       typedef typename meta::upgrade<stype>::type itype;
-      typedef typename simd::native<itype,Extension>                 ivtype;
+      typedef simd::native<itype,X>              ivtype;
       ivtype a0l, a0h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
@@ -134,9 +134,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
-      typedef typename meta::scalar_of<A0>::type           stype;
+      typedef typename meta::scalar_of<A0>::type  stype;
       typedef typename meta::upgrade<stype>::type itype;
-      typedef typename simd::native<itype, Extension>                 ivtype;
+      typedef simd::native<itype, X>             ivtype;
       ivtype a0l, a0h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));

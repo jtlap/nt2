@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/simd Mode"
 
 #include <nt2/toolbox/ieee/include/fast_ldexp.hpp>
+#include <nt2/toolbox/ieee/include/ldexp.hpp> 
 #include <nt2/include/functions/random.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

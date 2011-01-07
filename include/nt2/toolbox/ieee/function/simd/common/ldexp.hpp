@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0; //TODO rshl(a0, a1);
+      return rshl(a0, a1);
     }
   };
 } }
@@ -54,9 +54,9 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ldexp_, tag::cpu_,
-                        (A0)(X),
+                        (A0)(A1)(X),
                         ((simd_<real_<A0>,X>))
-                        ((simd_<integer_<A0>,X>))
+                        ((simd_<integer_<A1>,X>))
                        );
 
 namespace nt2 { namespace ext
@@ -73,9 +73,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       // No denormal provision
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
+      typedef typename NT2_RETURN_TYPE(2)::type                  result_type;
       typedef typename meta::scalar_of<result_type>::type             s_type;
-      typedef typename meta::as_integer<result_type, signed>::type          int_type;
+      typedef typename meta::as_integer<result_type, signed>::type  int_type;
       typedef typename meta::scalar_of<int_type>::type             sint_type;
 
 //       sint_type const nmb = Nbmantissabits<s_type>();
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
 //       const int_type  vn1 = splat<int_type>(n1);
 
       // clear exponent in x
-      result_type const x(b_andnot(a0, Ldexpmask<A0>()));
+      result_type const x = {b_andnot(a0, Ldexpmask<A0>())};
 
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);

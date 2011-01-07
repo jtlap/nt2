@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(eps,
  n_t v  = nt2::eps(a0);
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    { 
-     NT2_TEST_EQUAL( v[j], eps(a0[j]) );
+     NT2_TEST_EQUAL( v[j], eps(a0[j]) ); 
    } 
 }
 
