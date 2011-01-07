@@ -12,12 +12,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Various Fusion hierarchy stuff
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/array.hpp>
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
+#include <boost/fusion/include/tag_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Specialize hierarchy for Fusion sequence types
+// Specialize hierarchy for a selection of Fusion sequence types
+// TODO : Add vector and other stuff like that
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
@@ -31,15 +33,10 @@ namespace nt2
       typedef tag::fusion_sequence_ type;
     };
 
-    template<class T>
-    struct  hierarchy_of<T
-                        , typename boost
-                          ::enable_if_c < boost::fusion
-                                          ::traits::is_sequence<T>::value
-                                        >::type
-                        >
+    template<class T, std::size_t N>
+    struct  hierarchy_of< boost::array<T,N> >
     {
-      typedef fusion_sequence_<T> type;
+      typedef fusion_sequence_< boost::array<T,N> > type;
     };
   }
 }
