@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(powi, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
        data[i] = nt2::random(0.0, 5.0); // good value here for powi
      }
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(0, 10); // good value here for nthroot
+       datai[i] = nt2::random(0, 10); // good value here for nthroot
      }
      n_t a0 = load<n_t>(&data[0],0); 
      in_t a1 = load<in_t>(&datai[0],0); 

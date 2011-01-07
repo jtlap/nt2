@@ -34,15 +34,15 @@
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<arithmetic_<A0>,X>))
+                        (A0)(A1)(X),
+                        ((integer_<A0>))
                         ((simd_<arithmetic_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::expni_(tag::simd_(tag::arithmetic_, X),
+  struct call<tag::expni_(tag::integer_,
                           tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
@@ -63,15 +63,15 @@ namespace nt2 { namespace ext
 // Implementation when type A1 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<real_<A0>,X>))
-                        ((simd_<real_<A0>,X>))
+                        (A0)(A1)(X),
+                        ((integer_<A0>))
+                        ((simd_<real_<A1>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::expni_(tag::simd_(tag::real_, X),
+  struct call<tag::expni_(tag::integer_, X,
                           tag::simd_(tag::real_, X)),
               tag::cpu_, Dummy> : callable
   {
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
     {
       A1 x =  a1|islez(a1);
       const int32_t sn =  a0;
-      if( sn == 0 )  return exp(-x)/x;
+      if( sn == 0 )  return nt2::exp(-x)/x;
       if (sn < 0 )   return Nan<A1>();
       A1 n = splat<A1>(sn);
       if (sn  > 5000 )

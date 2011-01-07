@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return map(functor<j1_>(), a0);
+      return map(functor<tag::j1_>(), a0);
     }
   };
 } }

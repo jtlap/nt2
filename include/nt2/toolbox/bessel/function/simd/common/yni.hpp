@@ -30,15 +30,15 @@
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
+                      (A0)(A1)(X),
+                      (integer_<A0>))
                       ((simd_<arithmetic_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::yni_(tag::simd_(tag::arithmetic_, X),
+  struct call<tag::yni_(tag::integer_,
                         tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
@@ -58,16 +58,16 @@ namespace nt2 { namespace ext
 // Implementation when type A1 is double
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<double_<A0>,X>))
+                      (A0)(A1)(X),
+                      ((integer_<A0>))
                       ((simd_<double_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::yni_(tag::simd_(tag::double_, X),
-                        tag::simd_(tag::double_, X)),
+  struct call<tag::yni_(tag::integer_),
+	                tag::simd_(tag::double_, X),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -87,14 +87,14 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<float_<A0>,X>))
+                      ((integer_<A0>))
                       ((simd_<float_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::yni_(tag::simd_(tag::float_, X),
+  struct call<tag::yni_(tag::integer_,
                         tag::simd_(tag::float_, X)),
               tag::cpu_, Dummy> : callable
   {

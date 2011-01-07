@@ -47,8 +47,12 @@ NT2_TEST_CASE_TPL(tanpipi, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
        data[i] = nt2::random(0.0, 0.25); // good value here for tanpi
      }
-     n_t a0 = load<n_t>(&data[0],0); 
-     rn_t v  = tanpi(a0);
+     n_t a0 = load<n_t>(&data[0],0);
+     std::cout << nt2::type_id < n_t > () << std::endl;
+     typedef typename nt2::meta::logical<n_t>::type logic; 
+     std::cout << nt2::type_id < logic >() << std::endl;
+     std::cout <<  nt2::type_id < typename nt2::meta::is_scalar< n_t > ::type >() << std::endl;
+     rn_t v = tanpi(a0); 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
        NT2_TEST_LESSER( z = nt2::ulpdist(v[j], tanpi(a0[j])), 1);

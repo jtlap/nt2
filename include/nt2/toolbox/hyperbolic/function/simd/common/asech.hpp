@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-       return  map(functor<asech_>(), a0);
+      return  map(functor<tag::asech_>(), a0);
     }
   };
 } }
