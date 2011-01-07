@@ -29,7 +29,7 @@ namespace nt2 { namespace meta
   struct  as_integer
         : details::as_integer < typename meta::strip<T>::type
                               , Sign
-                              , typename hierarchy_of<typename meta::strip<T>::type>::type
+                              , typename hierarchy_of<T>::type
                               > {};
 } }
 

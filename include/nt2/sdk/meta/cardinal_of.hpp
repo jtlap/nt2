@@ -20,9 +20,11 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  template<class Type>
+  template<class T>
   struct  cardinal_of
-        : details::cardinal_of_impl<Type, typename hierarchy_of<Type>::type> {};
+        : details::cardinal_of_impl < typename meta::strip<T>::type
+                                    , typename hierarchy_of<T>::type
+                                    > {};
 } }
 
 #endif

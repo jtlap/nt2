@@ -49,9 +49,13 @@ namespace nt2 { namespace meta
   // For any type, return the integer type of size equals to sizeof(T)/2
   // with an optional sign change
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Sign=typename meta::sign_of<T>::type>
+  template< class T
+          , class S=typename meta::sign_of<typename meta::strip<T>::type>::type
+          >
   struct  downgrade
-        : details::downgrade< T,sizeof(T),Sign
+        : details::downgrade< typename meta::strip<T>::type
+                            , sizeof(T)
+                            , S
                             , typename hierarchy_of<T>::type
                             > {};
 

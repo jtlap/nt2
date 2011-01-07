@@ -32,7 +32,9 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  as_signed
-        : details::as_signed<T,typename hierarchy_of<T>::type> {};
+        : details::as_signed< typename meta::strip<T>::type
+                            , typename hierarchy_of<T>::type
+                            > {};
 } }
 
 #endif

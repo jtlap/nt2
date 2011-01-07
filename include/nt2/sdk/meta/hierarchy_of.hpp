@@ -10,6 +10,7 @@
 #define NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
 
 #include <climits>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/hierarchy.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
@@ -34,17 +35,20 @@ namespace nt2 { namespace meta
   template<class T, class Enable = void>
   struct  hierarchy_of
   {
-    typedef meta::unspecified_<T> type;
+    typedef meta::unspecified_<typename meta::strip<T>::type> type;
   };
 
   template<class T>
   struct  hierarchy_of< T
-                      , typename
-                        boost::enable_if_c<boost::is_integral<T>::value>::type
+                      , typename boost::
+                        enable_if_c < boost::
+                                    is_integral<typename strip<T>::type>::value
+                                    >::type
                       >
-          : details::hierarchy_of < T
+          : details::hierarchy_of < typename meta::strip<T>::type
                                   , sizeof(T)*CHAR_BIT
-                                  , boost::is_signed<T>::value
+                                  , boost::
+                                    is_signed<typename meta::strip<T>::type>::value
                                   >
   {};
 
@@ -62,10 +66,12 @@ namespace nt2 { namespace meta
   template<class T>
   struct  hierarchy_of< T
                       , typename
-                        meta::enable_if_type<typename T::nt2_hierarchy_tag>::type
+                        enable_if_type< typename
+                                        meta::strip<T>::type::nt2_hierarchy_tag
+                                      >::type
                       >
   {
-    typedef typename T::nt2_hierarchy_tag type;
+    typedef typename meta::strip<T>::type::nt2_hierarchy_tag type;
   };
 } }
 

@@ -21,7 +21,9 @@ namespace nt2 { namespace details
 namespace nt2 { namespace meta
 {
   template<class T>
-  struct as_real : details::as_real<T,typename hierarchy_of<T>::type > {};
+  struct as_real : details::as_real < typename meta::strip<T>::type
+                                    , typename hierarchy_of<T>::type
+                                    > {};
 } }
 
 #endif

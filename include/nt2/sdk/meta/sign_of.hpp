@@ -50,7 +50,7 @@ namespace nt2 { namespace meta
   template<class T>
   struct  sign_of
         : details::sign_of< typename strip<T>::type
-                          , typename meta::hierarchy_of<typename meta::strip<T>::type>::type
+                          , typename meta::hierarchy_of<T>::type
                           >
   {};
 } }

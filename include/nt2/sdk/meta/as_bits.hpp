@@ -32,7 +32,10 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign = unsigned>
   struct  as_bits
-        : details::as_bits<T,Sign,typename hierarchy_of<T>::type > {};
+        : details::as_bits< typename meta::strip<T>::type
+                          , Sign
+                          , typename hierarchy_of<T>::type
+                          > {};
 } }
 
 #endif

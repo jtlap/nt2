@@ -14,16 +14,16 @@
 
 namespace nt2 { namespace details
 {
-  template<class Lambda,class Type,class Tag>
-  struct behave_as_impl : boost::mpl::apply1<Lambda,Type>::type {};
+  template<class Lambda,class T,class Tag>
+  struct behave_as_impl : boost::mpl::apply1<Lambda,T>::type {};
 } }
 
 namespace nt2 { namespace meta
 {
-  template<class Lambda,class Type>
+  template<class Lambda,class T>
   struct behave_as : details::behave_as_impl<Lambda
-                                            ,Type
-                                            ,typename hierarchy_of<Type>::type
+                                            ,typename meta::strip<T>::type
+                                            ,typename hierarchy_of<T>::type
                                             > {};
 } }
 
