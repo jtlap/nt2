@@ -55,7 +55,7 @@ namespace nt2 { namespace details
   // implementation details for hierarchy_of - overload for bool
   //////////////////////////////////////////////////////////////////////////////
   template<>
-  struct hierarchy_of_ints<bool,sizeof(bool),false>
+  struct hierarchy_of_ints<bool,sizeof(bool)*CHAR_BIT,false>
   {
     typedef meta::bool_<bool>    type;
   };

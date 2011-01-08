@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 #define NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
@@ -32,7 +33,10 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign = unsigned>
   struct  from_bits
-        : details::from_bits<T,Sign,typename hierarchy_of<T>::type > {};
+        : details::from_bits< typename strip<T>::type
+                            , Sign
+                            , typename hierarchy_of<T>::type
+                            > {};
 } }
 
 #endif

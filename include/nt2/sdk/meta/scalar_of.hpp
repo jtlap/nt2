@@ -14,8 +14,7 @@
 
 namespace nt2 { namespace details
 {
-  template<class T, class Hierarchy>  
-  struct scalar_of_impl { typedef T type; };
+  template<class T, class Hierarchy> struct scalar_of_impl { typedef T type; };
 } }
 
 namespace nt2 { namespace meta
