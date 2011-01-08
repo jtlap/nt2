@@ -35,8 +35,8 @@ NT2_TEST_CASE_TPL(hermite, (float)(double)
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::call<hermite_(int32_t, n_t)>::type call_type;
-
- typedef native<T,ext_t>            rn_t;
+ typedef typename nt2::meta::as_real<T>::type rT; 
+ typedef native<rT,ext_t>            rn_t;
   
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];

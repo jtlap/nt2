@@ -11,22 +11,24 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <boost/fusion/adapted/array.hpp>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::polevl_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<arithmetic_<A0>,X>))
-                         ((simd_<arithmetic_<A0>,X>))
+                        (A0)(A1)(X),
+                        ((simd_<arithmetic_<A0>,X>))
+                        (fusion_sequence_<A1>)
                         );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::polevl_(tag::simd_(tag::arithmetic_, X),
-                           tag::simd_(tag::arithmetic_, X)),
+                           tag::fusion_sequence_), 
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -45,16 +47,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::polevl_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<real_<A0>,X>))
-                         ((simd_<real_<A0>,X>))
+		      (A0)(A1)(X),
+                        ((simd_<real_<A0>,X>))
+                        (fusion_sequence_<A1>)
                         );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::polevl_(tag::simd_(tag::real_, X),
-                           tag::simd_(tag::real_, X)),
+                          tag::fusion_sequence_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

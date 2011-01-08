@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
 NT2_REGISTER_DISPATCH(tag::hermite_, tag::cpu_,
                           (A0)(A1)(X),
                           ((integer_<A0>))
-                          ((simd_<real_<A0>,X>))
+                          ((simd_<real_<A1>,X>))
                          );
 
 namespace nt2 { namespace ext
