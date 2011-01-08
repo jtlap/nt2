@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_META_UPGRADE_HPP_INCLUDED
 #define NT2_SDK_META_UPGRADE_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/sign_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
@@ -56,9 +57,10 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign=typename meta::sign_of<T>::type>
   struct  upgrade
-        : details::upgrade< T,sizeof(T),Sign
-                            , typename hierarchy_of<T>::type
-                            > {};
+        : details::upgrade< typename strip<T>::type
+                          , sizeof(T),Sign
+                          , typename hierarchy_of<T>::type
+                          > {};
 
 } }
 

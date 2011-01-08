@@ -26,10 +26,11 @@ namespace nt2
   {
     template<class T>
     struct  logical
-      : details::logical_impl<T, typename meta::is_scalar<T>::type> {};
+      : details::logical_impl < typename strip<T>::type
+                              , typename meta::is_scalar<T>::type
+                              > {};
   }
 }
-
 
 #endif
 

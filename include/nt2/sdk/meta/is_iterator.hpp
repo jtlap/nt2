@@ -29,7 +29,9 @@ namespace nt2 { namespace meta
   template<class T>
   struct  is_iterator < T
                       , typename
-                        enable_if_type< typename T::iterator_category >::type
+                        enable_if_type< typename
+                                        strip<T>::type::iterator_category
+                                      >::type
                       >
         : boost::mpl::true_ {};
 } }
