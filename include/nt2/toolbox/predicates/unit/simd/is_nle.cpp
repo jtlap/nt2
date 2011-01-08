@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(is_nle, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(is_nle, (unsigned long long) )//NT2_SIMD_TYPES )
 {
  using nt2::is_nle;
  using nt2::tag::is_nle_; 
@@ -45,9 +45,14 @@ NT2_TEST_CASE_TPL(is_nle, NT2_SIMD_TYPES )
      n_t a0 = load<n_t>(&data[0],0); 
      n_t a1 = load<n_t>(&data[0],1); 
      n_t v  = is_nle(a0, a1);
+     n_t v1 = nt2::gt    (a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-       { 
+       {
+	 std::cout << a0[j] << "   " << a1[j] << "  " <<nt2::boolean(v[j])
+		   << "   " <<nt2::boolean(v1[j])
+		   << "   " << is_nle(a0[j], a1[j]) << std::endl; 
        NT2_TEST_EQUAL(nt2::boolean(v[j]), is_nle(a0[j], a1[j]));
+       NT2_TEST_EQUAL(nt2::boolean(v1[j]), is_nle(a0[j], a1[j]));
        }
    }
 }

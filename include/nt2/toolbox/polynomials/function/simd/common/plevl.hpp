@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <boost/fusion/adapted/array.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
