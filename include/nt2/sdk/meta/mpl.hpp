@@ -49,7 +49,7 @@ namespace nt2 { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_HIERARCHY(mpl_integral_)
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace details
 {
   template<class T>
   struct  hierarchy_of<T
@@ -58,7 +58,8 @@ namespace nt2 { namespace meta
                       >
   {
     typedef typename T::value_type                                    value_type;
-    typedef mpl_integral_< typename hierarchy_of<value_type>::type >  type;
+    typedef meta::mpl_integral_<typename
+                                meta::hierarchy_of<value_type>::type> type;
   };
 } }
 
