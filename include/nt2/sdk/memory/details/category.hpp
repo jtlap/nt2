@@ -25,21 +25,22 @@ NT2_REGISTER_HIERARCHY(iterator_)
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for all iterator types
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace details
 {
   template<class T>
   struct  hierarchy_of< T
                       , typename
-                        boost::enable_if_c< is_iterator<T>::value>::type
+                        boost::enable_if_c< meta::is_iterator<T>::value>::type
                       >
   {
     typedef typename boost::pointee<T>::type                        pointee_type;
-    typedef iterator_< typename hierarchy_of<pointee_type>::type > type;
+    typedef meta::iterator_ < typename
+                              meta::hierarchy_of<pointee_type>::type > type;
   };
 
   template<> struct  hierarchy_of<void*>
   {
-    typedef iterator_< hierarchy_of<void>::type > type;
+    typedef meta::iterator_< meta::hierarchy_of<void>::type > type;
   };
 } }
 

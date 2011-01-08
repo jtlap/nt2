@@ -6,27 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_META_IS_SCALAR_HPP_INCLUDED
-#define NT2_SDK_META_IS_SCALAR_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_IS_SCALAR_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_NATIVE_META_IS_SCALAR_HPP_INCLUDED
 
-#include <boost/mpl/bool.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/is_scalar.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class Hierarchy> struct is_scalar : boost::mpl::true_ {};
-
-  template<class T>
-  struct is_scalar< meta::unspecified_<T> >  : boost::mpl::false_ {};
-} }
-
-namespace nt2 { namespace meta
-{
-  template<class T>
-  struct  is_scalar
-        : details::is_scalar<typename hierarchy_of<T>::type>
-  {};
+  template<class T,class X>
+  struct is_scalar< meta::simd_<T,X> >  : boost::mpl::false_ {};
 } }
 
 #endif

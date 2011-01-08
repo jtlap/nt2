@@ -25,12 +25,12 @@ namespace nt2 { namespace meta
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_HIERARCHY(target_)
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace details
 {
   template<class T>
   struct hierarchy_of< meta::as_<T> >
   {
-    typedef target_<typename hierarchy_of<T>::type > type;
+    typedef meta::target_<typename meta::hierarchy_of<T>::type > type;
   };
 } }
 

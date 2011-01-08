@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 #define NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/constant/digits.hpp>
@@ -37,11 +38,6 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     typedef Scalar                                          value_type;
     typedef Extension                                       extension_type;
-
-    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
-                        , Extension
-                        >                                   nt2_hierarchy_tag;
-
     typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
     typedef value_type                                      reference;
