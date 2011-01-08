@@ -15,8 +15,7 @@
 
 namespace nt2 { namespace details
 {
-  template<class Hierarchy>
-  struct is_scalar : boost::mpl::true_ {};
+  template<class Hierarchy> struct is_scalar : boost::mpl::true_ {};
 
   template<class T>
   struct is_scalar< meta::unspecified_<T> >  : boost::mpl::false_ {};
@@ -26,7 +25,7 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  is_scalar
-        : details::is_scalar<typename hierarchy_of<typename strip<T>::type>::type>
+        : details::is_scalar<typename hierarchy_of<T>::type>
   {};
 } }
 
