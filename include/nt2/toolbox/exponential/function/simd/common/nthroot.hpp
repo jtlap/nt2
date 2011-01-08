@@ -30,16 +30,16 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
-                          (A0)(X),
+                          (A0)(A1)(X),
                           ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
+                          ((simd_<integer_<A0>,X>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::nthroot_(tag::simd_(tag::arithmetic_, X),
-                            tag::simd_(tag::arithmetic_, X)),
+                            tag::simd_(tag::integer_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -58,16 +58,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
-                          (A0)(X),
+                          (A0)(A1)(X),
                           ((simd_<real_<A0>,X>))
-                          ((simd_<real_<A0>,X>))
+                          ((simd_<integer_<A1>,X>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::nthroot_(tag::simd_(tag::real_, X),
-                            tag::simd_(tag::real_, X)),
+                            tag::simd_(tag::integer_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

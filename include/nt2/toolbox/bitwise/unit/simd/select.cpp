@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(select, NT2_SIMD_TYPES )
 {
  using nt2::select;
- using nt2::functors::select_;    
+ using nt2::tag::select_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

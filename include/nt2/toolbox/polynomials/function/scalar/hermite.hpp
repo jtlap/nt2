@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::hermite_, tag::cpu_,
                          (A0)(A1),
-                         (arithmetic_<A0>)(arithmetic_<A1>)
+                         (integer_<A0>)(arithmetic_<A1>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::hermite_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::hermite_(tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -45,19 +45,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::hermite_, tag::cpu_,
                          (A0)(A1),
-                         (real_<A0>)(real_<A1>)
+                         (integer_<A0>)(real_<A1>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::hermite_(tag::real_,tag::real_),
+  struct call<tag::hermite_(tag::integer_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::result_of<meta::floating(A1)>{};
+    struct result<This(A0,A1)> : meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {

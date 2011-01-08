@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
 //              sign(a0)*Half<A0>()*log1p(Two<A0>()*absa0/(One<A0>()-absa0))
 //              );
       A0 t =  absa0+absa0;
-      return sign(a0)*Half<A0>()*sel(absa0 < Half<A0>(), log1p(t+t*absa0/(One<A0>()-absa0)), log1p(t/(One<A0>()-absa0)));
+      return sign(a0)*Half<A0>()*sel(lt(absa0, Half<A0>()), log1p(t+t*absa0/(One<A0>()-absa0)), log1p(t/(One<A0>()-absa0)));
 
      }
   };

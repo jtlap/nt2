@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
 {
  using nt2::sum;
- using nt2::functors::sum_;    
+ using nt2::tag::sum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
      T z = 0; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 z += (a0[j]); 
+       z += (a0[j]); 
        }
      NT2_TEST_EQUAL(z, v);
      std::cout << z-v << std::endl;
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
 NT2_TEST_CASE_TPL(real_sum, NT2_REAL_TYPES )
 {
  using nt2::sum;
- using nt2::functors::sum_;    
+ using nt2::tag::sum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -89,7 +89,7 @@ NT2_TEST_CASE_TPL(real_sum, NT2_REAL_TYPES )
      T z = 0; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 z += (a0[j]); 
+       z += (a0[j]); 
        }
      NT2_TEST_LESSER_EQUAL(nt2::ulpdist(z, v), 1);
    }

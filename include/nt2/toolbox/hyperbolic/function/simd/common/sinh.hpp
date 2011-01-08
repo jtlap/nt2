@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
  *    only sinh(0)=1 is exact for finite x.
  */
         const A0 tmp=exp(a0);
-        if (all(abs(a0) > Half<A0>()))
+        if (all(gt(abs(a0), Half<A0>())))
           {
             return (tmp-rec(tmp))*Half<A0>();
           }

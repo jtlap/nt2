@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(ldexp, NT2_SIMD_REAL_TYPES )
 {
  using nt2::ldexp;
- using nt2::functors::ldexp_;    
+ using nt2::tag::ldexp_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

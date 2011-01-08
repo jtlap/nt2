@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(is_positive, NT2_SIMD_TYPES )
 {
  using nt2::is_positive;
- using nt2::functors::is_positive_; 
+ using nt2::tag::is_positive_; 
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL(is_positive, NT2_SIMD_TYPES )
      n_t v  = is_positive(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(nt2::boolean(v[j]), is_positive(a0[j]));
+       NT2_TEST_EQUAL(nt2::boolean(v[j]), is_positive(a0[j]));
        }
    }
 }

@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(hi, NT2_SIMD_TYPES
                          )
 {
  using nt2::hi; 
- using nt2::functors::hi_;
+ using nt2::tag::hi_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 

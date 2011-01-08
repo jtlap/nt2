@@ -25,7 +25,7 @@
 NT2_TEST_CASE_TPL(bitofsign, NT2_TYPES   )
 {
  using nt2::bitofsign; 
- using nt2::functors::bitofsign_;
+ using nt2::tag::bitofsign_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

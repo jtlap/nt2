@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(round2even, NT2_SIMD_TYPES )
 {
  using nt2::round2even;
- using nt2::functors::round2even_;    
+ using nt2::tag::round2even_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

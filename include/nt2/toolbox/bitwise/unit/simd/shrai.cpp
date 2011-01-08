@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(shrai, (int16_t)(int32_t)(int64_t)(int8_t)   )
 {
  using nt2::shrai; 
- using nt2::functors::shrai_;
+ using nt2::tag::shrai_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;  
@@ -46,8 +46,8 @@ NT2_TEST_CASE_TPL(shrai, (int16_t)(int32_t)(int64_t)(int8_t)   )
      n_t v  = nt2::shrai(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL( v[j], shrai(a0[j], a1) );
-	 std::cout << int(a0[j]) << "   "<< int(a1) << "   " << int(v[j]) << "  " << int(shrai(a0[j], a1)) << std::endl;       
+       NT2_TEST_EQUAL( v[j], shrai(a0[j], a1) );
+       std::cout << int(a0[j]) << "   "<< int(a1) << "   " << int(v[j]) << "  " << int(shrai(a0[j], a1)) << std::endl;       
        } 
    }
 } 

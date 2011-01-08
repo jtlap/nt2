@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(log10, (double)(float) )
 {
  using nt2::log10;
- using nt2::functors::log10_;    
+ using nt2::tag::log10_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,8 +51,8 @@ NT2_TEST_CASE_TPL(log10, (double)(float) )
      rn_t v  = log10(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], log10(a0[j])), 1);
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER( z = nt2::ulpdist(v[j], log10(a0[j])), 1);
+       if (z > m) m = z; 
        }
    }
  std::cout << "ulp max = " << m << std::endl;

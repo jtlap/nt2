@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(ulpdist, NT2_SIMD_TYPES )
 {
  using nt2::ulpdist;
- using nt2::functors::ulpdist_;    
+ using nt2::tag::ulpdist_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

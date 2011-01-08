@@ -16,9 +16,9 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
-                                 (A0),
+                                 (A0)(A1),
                                  ((simd_<arithmetic_<A0>,tag::sse_>))
-                                 ((simd_<arithmetic_<A0>,tag::sse_>))
+                                 ((simd_<arithmetic_<A1>,tag::sse_>))
                                 );
 
 namespace nt2 { namespace ext
@@ -30,13 +30,14 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : meta::strip<A0>{};//
+    struct result<This(A0, A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that;
-      that = a1;
-      that = _mm_andnot_si128(a0,that);
+      typedef typename meta::as_integer< A0 >::type int_type;
+      int_type t0 = simd::native_cast<int_type>( a0 );
+      int_type t1 = simd::native_cast<int_type>( a1 );
+      A0     that = { simd::native_cast<A0>(_mm_andnot_si128(t0,t1)) };
       return that;
     }
   };

@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL(genmask, NT2_SIMD_TYPES
                          )
 {
  using nt2::genmask; 
- using nt2::functors::genmask_;
+ using nt2::tag::genmask_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 
@@ -49,6 +49,6 @@ NT2_TEST_CASE_TPL(genmask, NT2_SIMD_TYPES
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    { 
      NT2_TEST( (v[j] == genmask(a0[j])) ||
-	       (nt2::is_nan(v[j])&&nt2::is_nan( genmask(a0[j]))) );
+             (nt2::is_nan(v[j])&&nt2::is_nan( genmask(a0[j]))) );
    } 
 }

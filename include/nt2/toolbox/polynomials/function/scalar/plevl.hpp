@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_PLEVL_HPP_INCLUDED
 #include <nt2/include/functions/tchebeval.hpp>
 #include <nt2/include/functions/fma.hpp>
-//#include <nt2/toolbox/polynomials/category.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <boost/fusion/adapted/array.hpp>
 

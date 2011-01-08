@@ -12,18 +12,18 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
                        (A0)(A1)(X),
-                       ((simd_<fundamental_<A0>,X>))
+                       ((simd_<arithmetic_<A0>,X>))
                        ((integer_<A1>))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::shli_(tag::simd_(tag::fundamental_, X),
+  struct call<tag::shli_(tag::simd_(tag::arithmetic_, X),
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return map(functor<shli_>(), a0, splat(a1)); //TO BE CONFIRMED
+      return map(functor<tag::shli_>(), a0, splat(a1)); //TO BE CONFIRMED
     }
   };
 } }

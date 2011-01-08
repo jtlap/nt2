@@ -23,7 +23,7 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 
-NT2_TEST_CASE_TPL(ldiv, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(ldiv, (double))//NT2_SIMD_TYPES )
 {
  using nt2::ldiv;
  using nt2::tag::ldiv_;    
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL(ldiv, NT2_SIMD_TYPES )
  }
    n_t a0 = load<n_t>(&data[0],0);   
    n_t a1 = load<n_t>(&data[0],1);
-   n_t v  = ldiv(a0, a1);
+   n_t v = ldiv(a0, a1);
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
        NT2_TEST_EQUAL( v[j], ldiv(a0[j], a1[j]) );

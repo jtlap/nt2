@@ -19,20 +19,18 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/select.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is types8_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<types8_<A0>,X>))
+                      ((simd_<type8_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::types8_, X)),
+  struct call<tag::ffs_(tag::simd_(tag::type8_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -53,17 +51,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types64_
+// Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<types64_<A0>,X>))
+                      ((simd_<type64_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::types64_, X)),
+  struct call<tag::ffs_(tag::simd_(tag::type64_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -73,23 +71,23 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-      return  simd::native_cast<rtype>(map(functor<ffs_>(), simd::native_cast<rtype>(a0)));
+      return  simd::native_cast<rtype>(map(functor<tag::ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types16_
+// Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<types16_<A0>,X>))
+                      ((simd_<type16_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::types16_, X)),
+  struct call<tag::ffs_(tag::simd_(tag::type16_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -111,17 +109,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types32_
+// Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<types32_<A0>,X>))
+                      ((simd_<type32_<A0>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::types32_, X)),
+  struct call<tag::ffs_(tag::simd_(tag::type32_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -16,17 +16,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
                         (A0)(X),
-                        ((simd_<fundamental_<A0>,X>))
+                        ((simd_<arithmetic_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::gamma_(tag::simd_(tag::fundamental_, X)),
+  struct call<tag::gamma_(tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return map(functor<gamma_>(), tofloat(a0));
+      return map(functor<tag::gamma_>(), tofloat(a0));
     }
 
   };

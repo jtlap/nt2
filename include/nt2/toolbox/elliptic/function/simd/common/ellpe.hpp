@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return map(functor<ellpe_>(), a0);
+      return map(functor<tag::ellpe_>(), a0);
     }
   };
 } }

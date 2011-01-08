@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(sb2b, NT2_SIMD_TYPES )
 {
  using nt2::sb2b;
- using nt2::functors::sb2b_; 
+ using nt2::tag::sb2b_; 
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -46,8 +46,8 @@ NT2_TEST_CASE_TPL(sb2b, NT2_SIMD_TYPES )
      n_t v  = sb2b(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(v[j], sb2b(a0[j]));
-	 std::cout << a0[j] << "  " << v[j] << "  " << sb2b(a0[j]) << std::endl; 
+       NT2_TEST_EQUAL(v[j], sb2b(a0[j]));
+       std::cout << a0[j] << "  " << v[j] << "  " << sb2b(a0[j]) << std::endl; 
        }
    }
 }  

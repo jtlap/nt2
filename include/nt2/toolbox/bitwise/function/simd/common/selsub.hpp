@@ -14,21 +14,21 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::selsub_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<fundamental_<A0>,X>))
-                         ((simd_<fundamental_<A0>,X>))
-                         ((simd_<fundamental_<A0>,X>))
+                         (A0)(A1)(X),
+                         ((simd_<arithmetic_<A0>,X>))
+                         ((simd_<arithmetic_<A1>,X>))
+                         ((simd_<arithmetic_<A1>,X>))
                         );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::selsub_(tag::simd_(tag::fundamental_, X),
-                           tag::simd_(tag::fundamental_, X),
-                           tag::simd_(tag::fundamental_, X)),
+  struct call<tag::selsub_(tag::simd_(tag::arithmetic_, X),
+                           tag::simd_(tag::arithmetic_, X),
+                           tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

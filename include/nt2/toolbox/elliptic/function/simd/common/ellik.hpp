@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return map(functor<ellik_>(), a0, a1);
+      return map(functor<tag::ellik_>(), a0, a1);
     }
   };
 } }

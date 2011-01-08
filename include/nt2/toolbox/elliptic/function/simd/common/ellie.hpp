@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return map(functor<ellie_>(), a0, a1);
+      return map(functor<tag::ellie_>(), a0, a1);
     }
   };
 } }

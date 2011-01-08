@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL(toint, (double)(float)
                          )
 {
  using nt2::toint; 
- using nt2::functors::toint_;
+ using nt2::tag::toint_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 
