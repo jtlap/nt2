@@ -19,13 +19,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::minimum_, tag::cpu_,
                           (A0),
-                          ((simd_<int16_<A0>,tag::sse_>))
+                          ((simd_<ints16_<A0>,tag::sse_>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::minimum_(tag::simd_(tag::int16_, tag::sse_)),
+  struct call<tag::minimum_(tag::simd_(tag::ints16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -81,13 +81,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::minimum_, tag::cpu_,
                           (A0),
-                          ((simd_<int64_<A0>,tag::sse_>))
+                          ((simd_<ints64_<A0>,tag::sse_>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::minimum_(tag::simd_(tag::int64_, tag::sse_)),
+  struct call<tag::minimum_(tag::simd_(tag::ints64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -135,13 +135,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::minimum_, tag::cpu_,
                           (A0),
-                          ((simd_<int8_<A0>,tag::sse_>))
+                          ((simd_<ints8_<A0>,tag::sse_>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::minimum_(tag::simd_(tag::int8_, tag::sse_)),
+  struct call<tag::minimum_(tag::simd_(tag::ints8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -151,7 +151,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef simd::native<typename meta::double_<A0>::type,tag::sse_> rtype;
+      typedef simd::native<typename meta::double__<A0>::type,tag::sse_> rtype;
       rtype v0 = simd::native_cast<rtype>(a0);
       A0 pack = simd::native_cast<A0>(_mm_unpackhi_pd(v0,v0));
       A0 min1 = nt2::min(a0,pack);
@@ -167,13 +167,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::minimum_, tag::cpu_,
                           (A0),
-                          ((simd_<int32_<A0>,tag::sse_>))
+                          ((simd_<ints32_<A0>,tag::sse_>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::minimum_(tag::simd_(tag::int32_, tag::sse_)),
+  struct call<tag::minimum_(tag::simd_(tag::ints32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -37,14 +37,9 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0, A0)>
     {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
+      typedef typename meta::scalar_of<A0>::type      stype; 
+      typedef typename meta::float__<stype>::type    sftype; 
+      typedef simd::native<sftype,tag::sse_>           type;
     };
 
     NT2_FUNCTOR_CALL(2)
@@ -62,29 +57,24 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<int32_<A0>,tag::sse_>))
-                        ((simd_<int32_<A0>,tag::sse_>))
+                        ((simd_<ints32_<A0>,tag::sse_>))
+                        ((simd_<ints32_<A0>,tag::sse_>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::int32_, tag::sse_),
-                          tag::simd_(tag::int32_, tag::sse_)),
+  struct call<tag::group_(tag::simd_(tag::ints32_, tag::sse_),
+                          tag::simd_(tag::ints32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0, A0)>
     {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
+      typedef typename meta::scalar_of<A0>::type         stype;
+      typedef typename meta::downgrade<stype>::type      utype;
+      typedef simd::native<utype,tag::sse_>               type;
     };
 
     NT2_FUNCTOR_CALL(2)
@@ -98,36 +88,36 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
-                        (A0),
-                        ((simd_<float_<A0>,tag::sse_>))
-                        ((simd_<float_<A0>,tag::sse_>))
-                       );
+// NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
+//                         (A0),
+//                         ((simd_<float_<A0>,tag::sse_>))
+//                         ((simd_<float_<A0>,tag::sse_>))
+//                        );
 
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::float_, tag::sse_),
-                          tag::simd_(tag::float_, tag::sse_)),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
-    {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
-    };
+// namespace nt2 { namespace ext
+// {
+//   template<class Dummy>
+//   struct call<tag::group_(tag::simd_(tag::float_, tag::sse_),
+//                           tag::simd_(tag::float_, tag::sse_)),
+//               tag::cpu_, Dummy> : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0, A0)>
+//     {
+//       typedef typename meta::scalar_of<A0>::type                                      stype;
+//       typedef typename meta::downgrade<stype>::type                                   utype;
+//       typedef simd::native<utype,tag::sse_>                                           type1;
+//       typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
+//       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
+//                                         , type2
+//                                         , type1
+//                                         >::type type;
+//     };
 
 
-  };
-} }
+//   };
+// } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_t
@@ -151,12 +141,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
       typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
+      typedef simd::native<utype,tag::sse_>                                            type;
     };
 
     NT2_FUNCTOR_CALL(2)
@@ -189,12 +174,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
       typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
+      typedef simd::native<utype,tag::sse_>                                            type;
     };
 
     NT2_FUNCTOR_CALL(2)
@@ -227,12 +207,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
       typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
+      typedef simd::native<utype,tag::sse_>                                           type;
     };
 
     NT2_FUNCTOR_CALL(2)
@@ -244,33 +219,28 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_
+// Implementation when type A0 is ints64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<int64_<A0>,tag::sse_>))
-                        ((simd_<int64_<A0>,tag::sse_>))
+                        ((simd_<ints64_<A0>,tag::sse_>))
+                        ((simd_<ints64_<A0>,tag::sse_>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::int64_, tag::sse_),
-                          tag::simd_(tag::int64_, tag::sse_)),
+  struct call<tag::group_(tag::simd_(tag::ints64_, tag::sse_),
+                          tag::simd_(tag::ints64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0, A0)>
     {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename meta::downgrade<stype>::type                                   utype;
-      typedef simd::native<utype,tag::sse_>                                           type1;
-      typedef simd::native<typename meta::float_<A0>::type,tag::sse_>                 type2;
-      typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
-                                        , type2
-                                        , type1
-                                        >::type type;
+      typedef typename meta::scalar_of<A0>::type         stype;
+      typedef typename meta::downgrade<stype>::type      utype;
+      typedef simd::native<utype,tag::sse_>              type;
     };
 
     NT2_FUNCTOR_CALL(2)

@@ -30,8 +30,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(split, (float)(int16_t)(uint16_t)
-              (int32_t)(uint32_t)(int8_t)(uint8_t) )
+NT2_TEST_CASE_TPL(split, (float))//(int16_t)(uint16_t)
+// (int32_t)(uint32_t)(int8_t)(uint8_t) )
 {
  using nt2::split;
  using nt2::tag::split_;    
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(split, (float)(int16_t)(uint16_t)
  typedef typename nt2::meta::upgrade<T>::type                              utype;
  typedef nt2::simd::native<utype,ext_t>                                    ttype;
  typedef nt2::meta::is_floating_point<T>                                    rtag;
- typedef nt2::simd::native<typename  nt2::meta::double_<T>::type,ext_t>    dtype;
+ typedef nt2::simd::native<typename  nt2::meta::double__<T>::type,ext_t>    dtype;
  typedef typename boost::mpl::if_c < rtag::value
                                   , dtype, ttype>::type                    rtype;
  typedef boost::fusion::tuple<rtype,rtype>                                  rn_t;

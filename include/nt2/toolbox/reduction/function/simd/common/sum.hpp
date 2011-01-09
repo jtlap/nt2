@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type     type;
-      return boost::fusion::fold(a0,Zero<type>(),functor<plus_>());
+      return boost::fusion::fold(a0,Zero<type>(),functor<tag::plus_>());
     }
 
   };

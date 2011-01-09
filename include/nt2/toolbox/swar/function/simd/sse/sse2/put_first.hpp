@@ -19,16 +19,16 @@
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
-                            (A0),
+                            (A0)(A1),
                             ((simd_<double_<A0>,tag::sse_>))
-                            ((simd_<double_<A0>,tag::sse_>))
+                            ((integer_<A1>))
                            );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::put_first_(tag::simd_(tag::double_, tag::sse_),
-                              tag::simd_(tag::double_, tag::sse_)),
+                              tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -51,16 +51,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
-                            (A0),
+                            (A0)(A1),
                             ((simd_<type8_<A0>,tag::sse_>))
-                            ((simd_<type8_<A0>,tag::sse_>))
+                            ((integer_<A1>))
                            );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::put_first_(tag::simd_(tag::type8_, tag::sse_),
-                              tag::simd_(tag::type8_, tag::sse_)),
+                              tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -69,7 +69,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef simd::native<typename meta::double_<A0>::type,tag::sse_>   rtype;
       typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
       if(a1 > 7)
       {
@@ -85,16 +84,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
-                            (A0),
+                            (A0)(A1),
                             ((simd_<type64_<A0>,tag::sse_>))
-                            ((simd_<type64_<A0>,tag::sse_>))
+                            ((integer_<A1>))
                            );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::put_first_(tag::simd_(tag::type64_, tag::sse_),
-                              tag::simd_(tag::type64_, tag::sse_)),
+			      tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -117,16 +116,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
-                            (A0),
+                            (A0)(A1),
                             ((simd_<type16_<A0>,tag::sse_>))
-                            ((simd_<type16_<A0>,tag::sse_>))
+                            ((integer_<A1>))
                            );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::put_first_(tag::simd_(tag::type16_, tag::sse_),
-                              tag::simd_(tag::type16_, tag::sse_)),
+                              tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -151,16 +150,16 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
-                            (A0),
+                            (A0)(A1),
                             ((simd_<type32_<A0>,tag::sse_>))
-                            ((simd_<type32_<A0>,tag::sse_>))
+                             ((integer_<A1>))
                            );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct call<tag::put_first_(tag::simd_(tag::type32_, tag::sse_),
-                              tag::simd_(tag::type32_, tag::sse_)),
+                              tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

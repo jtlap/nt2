@@ -9,9 +9,7 @@
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLATTED_MINIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLATTED_MINIMUM_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/min.hpp>
-
 #include <nt2/include/functions/minimum.hpp>
 
 
@@ -20,19 +18,18 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_minimum_, tag::cpu_,
                                    (A0),
-                                   ((simd_<int16_<A0>,tag::sse_>))
+                                   ((simd_<ints16_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_minimum_(tag::simd_(tag::int16_, tag::sse_)),
+  struct call<tag::splatted_minimum_(tag::simd_(tag::ints16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -69,8 +66,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -85,13 +81,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_minimum_, tag::cpu_,
                                    (A0),
-                                   ((simd_<int64_<A0>,tag::sse_>))
+                                   ((simd_<ints64_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_minimum_(tag::simd_(tag::int64_, tag::sse_)),
+  struct call<tag::splatted_minimum_(tag::simd_(tag::ints64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -130,9 +126,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))))};
-      A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_ps(min1, min1, _MM_SHUFFLE(2, 3, 0, 1))))};
-      return that;
+      return splat<A0>(minimum(a0)); 
+//       A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))))};
+//       A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_ps(min1, min1, _MM_SHUFFLE(2, 3, 0, 1))))};
+//       return that;
     }
   };
 } }
@@ -142,13 +139,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_minimum_, tag::cpu_,
                                    (A0),
-                                   ((simd_<int8_<A0>,tag::sse_>))
+                                   ((simd_<ints8_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_minimum_(tag::simd_(tag::int8_, tag::sse_)),
+  struct call<tag::splatted_minimum_(tag::simd_(tag::ints8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -168,13 +165,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_minimum_, tag::cpu_,
                                    (A0),
-                                   ((simd_<int32_<A0>,tag::sse_>))
+                                   ((simd_<ints32_<A0>,tag::sse_>))
                                   );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_minimum_(tag::simd_(tag::int32_, tag::sse_)),
+  struct call<tag::splatted_minimum_(tag::simd_(tag::ints32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

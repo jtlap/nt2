@@ -18,11 +18,11 @@
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-
+#include <nt2/sdk/constant/properties.hpp>
 ////////////////////////////////////////////////////////////////////////////////
 // Test behavior for is_less_equal
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( is_less_equal  , NT2_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL ( is_less_equal  , NT2_SIMD_TYPES )
 {
   using boost::is_same;
   using nt2::tag::is_less_equal_;
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( is_less_equal  , NT2_SIMD_REAL_TYPES )
   NT2_ALIGNED_TYPE(T) small[2*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<2*cardinal_of<n_t>::value;++i)
   {
-    big[i] = 10*i; small[i] = i;
+    big[i] = nt2::Valmax<T>()-i; small[i] = i;
   }
 
   n_t w = nt2::load<n_t>(&big[0],0);

@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return boost::fusion::fold(a0,0,functor<plus_>());
+      return boost::fusion::fold(a0,0,functor<tag::plus_>());
     }
   };
 } }
@@ -62,8 +62,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::scalar_of<A0>::type                 type;
     };
 
     NT2_FUNCTOR_CALL(1) {
@@ -93,8 +92,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::scalar_of<A0>::type   type;
     };
 
     NT2_FUNCTOR_CALL(1)

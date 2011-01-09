@@ -22,13 +22,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<int16_<A0>,tag::sse_>))
+                      ((simd_<ints16_<A0>,tag::sse_>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sum_(tag::simd_(tag::int16_, tag::sse_)),
+  struct call<tag::sum_(tag::simd_(tag::ints16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -82,13 +82,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<int64_<A0>,tag::sse_>))
+                      ((simd_<ints64_<A0>,tag::sse_>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sum_(tag::simd_(tag::int64_, tag::sse_)),
+  struct call<tag::sum_(tag::simd_(tag::ints64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -141,13 +141,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<int8_<A0>,tag::sse_>))
+                      ((simd_<ints8_<A0>,tag::sse_>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sum_(tag::simd_(tag::int8_, tag::sse_)),
+  struct call<tag::sum_(tag::simd_(tag::ints8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -160,7 +160,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return boost::fusion::fold(a0,0,functor<plus_>());
+      return boost::fusion::fold(a0,0,functor<tag::plus_>());
     }
   };
 } }
@@ -170,13 +170,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<int32_<A0>,tag::sse_>))
+                      ((simd_<ints32_<A0>,tag::sse_>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sum_(tag::simd_(tag::int32_, tag::sse_)),
+  struct call<tag::sum_(tag::simd_(tag::ints32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

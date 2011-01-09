@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
        data[i] = nt2::random(-10000.0, 10000.0); // good value here for sum
      }
      n_t a0 = load<n_t>(&data[0],0); 
-     T v  = sum(a0);
+     T v = sum(a0);
      T z = 0; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 

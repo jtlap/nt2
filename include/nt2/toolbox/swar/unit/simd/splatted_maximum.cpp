@@ -10,7 +10,7 @@
 
 #include <nt2/toolbox/swar/include/splatted_maximum.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests.hpp> 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(splatted_maximum, NT2_SIMD_TYPES)
  for(int j =  0;  j < 10; j++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = cardinal_of<n_t>::value-i-1; // good value here for splatted_maximum
+       data[i] = cardinal_of<n_t>::value/2-i-1; // good value here for splatted_maximum
      }
      n_t a0 = load<n_t>(&data[0],0); 
      n_t v  = splatted_maximum(a0);
@@ -57,4 +57,4 @@ NT2_TEST_CASE_TPL(splatted_maximum, NT2_SIMD_TYPES)
    }
 }
 
-
+ 

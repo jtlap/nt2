@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(fast_sinpi, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
 {
  using nt2::fast_sinpi;
- using nt2::functors::fast_sinpi_;    
+ using nt2::tag::fast_sinpi_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

@@ -12,6 +12,10 @@
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
+// #include <nt2/include/functions/at.hpp>
+// #include <nt2/include/functions/load.hpp>
+// #include <nt2/include/functions/store.hpp>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -62,9 +66,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      const int32_t N = meta::cardinal_of<A0>::value;
-      int32_t mask = _mm_movemask_epi8(is_lt(a1, N));
-      return simd::native_cast<A0>(_mm_blend_epi8(a0, mask));
+      typedef typename meta::scalar_of<A0>::type sA0;
+      aligned::array < sA0,meta::cardinal_of<A0>::value,16/*NT2_SIMD_BYTE*/ > tmp, tmp1;
+      nt2::store<A0>(a0, tmp.begin(), 0);
+
+      for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
+      return nt2::load<A0>(tmp1.begin(), 0);
+//       const int32_t N = meta::cardinal_of<A0>::value;
+//       int64_t mask = _mm_movemask_epi8(is_lt(a1, N));
+//       return simd::native_cast<A0>(_mm_blendv_epi8(a0, mask));
     }
   };
 } }
