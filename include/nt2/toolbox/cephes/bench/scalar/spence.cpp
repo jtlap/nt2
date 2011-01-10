@@ -15,15 +15,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<spence_> from cephes
 //////////////////////////////////////////////////////////////////////////////
-using nt2::cephes::spence_;
+using nt2::cephes::tag::spence_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::cephes::spence_,(RS(float,0.0f,100.0f)))
-NT2_TIMING(nt2::cephes::spence_,(RS(double,0.0,100.0)))
-NT2_TIMING(nt2::cephes::spence_,(RS(int32_t,0.0,100.0)))
+NT2_TIMING(nt2::cephes::tag::spence_,(RS(float,0.0f,100.0f)))
+NT2_TIMING(nt2::cephes::tag::spence_,(RS(double,0.0,100.0)))
+NT2_TIMING(nt2::cephes::tag::spence_,(RS(int32_t,0.0,100.0)))
 
 #undef RS

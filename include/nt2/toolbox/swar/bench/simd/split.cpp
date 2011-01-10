@@ -27,17 +27,17 @@ typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
 //////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<split_> from swar
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::split_;
+using nt2::tag::split_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::split_,(RS(vfloat,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::functors::split_,(RS(vint32_t,-10000,10000)))
-NT2_TIMING(nt2::functors::split_,(RS(vint16_t,-32768,32767)))
-NT2_TIMING(nt2::functors::split_,(RS(vint8_t,-128,127)))
-NT2_TIMING(nt2::functors::split_,(RS(vuint32_t,0,65535)))
-NT2_TIMING(nt2::functors::split_,(RS(vuint16_t,0,65535)))
-NT2_TIMING(nt2::functors::split_,(RS(vuint8_t,0,255)))
+NT2_TIMING(nt2::tag::split_,(RS(vfloat,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::split_,(RS(vint32_t,-10000,10000)))
+NT2_TIMING(nt2::tag::split_,(RS(vint16_t,-32768,32767)))
+NT2_TIMING(nt2::tag::split_,(RS(vint8_t,-128,127)))
+NT2_TIMING(nt2::tag::split_,(RS(vuint32_t,0,65535)))
+NT2_TIMING(nt2::tag::split_,(RS(vuint16_t,0,65535)))
+NT2_TIMING(nt2::tag::split_,(RS(vuint8_t,0,255)))

@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<atanh_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::fdlibm::atanh_;
+using nt2::fdlibm::tag::atanh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::fdlibm::atanh_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::fdlibm::atanh_,(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::fdlibm::tag::atanh_,(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::fdlibm::tag::atanh_,(RS(double,-10000.0,10000.0)))
 
 #undef RS

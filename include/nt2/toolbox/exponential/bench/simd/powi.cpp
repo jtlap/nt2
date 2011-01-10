@@ -20,15 +20,15 @@ typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<powi_> from exponential
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::powi_;
+using nt2::tag::powi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::powi_,(RS(vfloat,-10.0f,10.0f))(RS(vint32_t,-10,10)))
-NT2_TIMING(nt2::functors::powi_,(RS(vdouble,-10.0,10.0))(RS(vint64_t,-10,10)))
+NT2_TIMING(nt2::tag::powi_,(RS(vfloat,-10.0f,10.0f))(RS(vint32_t,-10,10)))
+NT2_TIMING(nt2::tag::powi_,(RS(vdouble,-10.0,10.0))(RS(vint64_t,-10,10)))
 
 
 

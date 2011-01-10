@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<tan_rz_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::tan_rz_;
+using nt2::crlibm::tag::tan_rz_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::crlibm::tan_rz_,(RS(vfloat,-31.4,31.4)))
-NT2_TIMING(nt2::crlibm::tan_rz_,(RS(vdouble,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::tan_rz_,(RS(vfloat,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::tan_rz_,(RS(vdouble,-31.4,31.4)))
 
 #undef RS

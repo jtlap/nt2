@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<fast_sinpi_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::fast_sinpi_;
+using nt2::tag::fast_sinpi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::fast_sinpi_,(RS(float,-0.25,0.25)))
-NT2_TIMING(nt2::functors::fast_sinpi_,(RS(double,-0.25,0.25)))
+NT2_TIMING(nt2::tag::fast_sinpi_,(RS(float,-0.25,0.25)))
+NT2_TIMING(nt2::tag::fast_sinpi_,(RS(double,-0.25,0.25)))
 
 #undef RS

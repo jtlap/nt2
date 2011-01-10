@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<asinh_> from ast
 //////////////////////////////////////////////////////////////////////////////
-using nt2::ast::asinh_; 
+using nt2::ast::tag::asinh_; 
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::ast::asinh_,(RS(vfloat,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::ast::asinh_,(RS(vdouble,-10000.0,10000.0)))
+NT2_TIMING(nt2::ast::tag::asinh_,(RS(vfloat,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::ast::tag::asinh_,(RS(vdouble,-10000.0,10000.0)))
 
 #undef RS

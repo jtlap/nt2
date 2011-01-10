@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<j0_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::fdlibm::j0_;
+using nt2::fdlibm::tag::j0_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -23,9 +23,9 @@ using nt2::fdlibm::j0_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 
-NT2_TIMING(nt2::fdlibm::j0_,(RS(float,0.0f,100.0f)))
-NT2_TIMING(nt2::fdlibm::j0_,(RS(double,0.0,100.0)))
-NT2_TIMING(nt2::fdlibm::j0_,(RS(float,0.0f,2.0f)))
-NT2_TIMING(nt2::fdlibm::j0_,(RS(double,0.0,2.0)))
+NT2_TIMING(nt2::fdlibm::tag::j0_,(RS(float,0.0f,100.0f)))
+NT2_TIMING(nt2::fdlibm::tag::j0_,(RS(double,0.0,100.0)))
+NT2_TIMING(nt2::fdlibm::tag::j0_,(RS(float,0.0f,2.0f)))
+NT2_TIMING(nt2::fdlibm::tag::j0_,(RS(double,0.0,2.0)))
 
 #undef RS

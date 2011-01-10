@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     template<class This,class A0, class A1, class A2>
     struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL(3){ return cephes_incbpsff(a0, a1, a2); }
+    NT2_FUNCTOR_CALL(3){ return cephes_incbpsf(a0, a1, a2); }
   };
 } }
 
