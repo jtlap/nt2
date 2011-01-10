@@ -53,9 +53,9 @@ NT2_TEST_CASE_TPL(comparator, (float))//NT2_SIMD_TYPES )
      n_t v1, v0;
      int b;
      boost::fusion::tie(v0, v1, b) = comparator(a0, a1,  0);
-     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
        { 
-       NT2_TEST_EQUAL(v0[j], nt2::min(a0[j],a1[j] ));
+       NT2_TEST_EQUAL(v0[j], nt2::min(a0[j],a1[j] )); 
        NT2_TEST_EQUAL(v1[j], nt2::max(a0[j],a1[j] ));
        }
      std::cout << a0 << "  " << a1 << std::endl;

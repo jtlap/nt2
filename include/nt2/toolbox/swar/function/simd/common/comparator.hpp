@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
+    template<class This,class A0,class A2>
     struct result<This(A0,A0,A2)>
     {
       typedef typename meta::strip<A0>::type                       nA0;
@@ -49,15 +49,15 @@ namespace nt2 { namespace ext
       r_t res;
       if (a2)
 	{
-	  boost::fusion::at_c<0>(res) =  nt2::min(a0, a1);
-	  boost::fusion::at_c<1>(res) =  nt2::max(a0, a1);
-	}
-      else
-	{
 	  boost::fusion::at_c<1>(res) =  nt2::min(a0, a1);
 	  boost::fusion::at_c<0>(res) =  nt2::max(a0, a1);
 	}
-      boost::fusion::at_c<2>(res) = nt2::any(a0-r0); 
+      else
+	{
+	  boost::fusion::at_c<0>(res) =  nt2::min(a0, a1);
+	  boost::fusion::at_c<1>(res) =  nt2::max(a0, a1);
+	}
+      boost::fusion::at_c<2>(res) = nt2::any(a0-boost::fusion::at_c<0>(res)); 
       return res; 
     }
 
