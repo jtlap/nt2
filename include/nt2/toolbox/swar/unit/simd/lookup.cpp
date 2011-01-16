@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(lookup, NT2_SIMD_TYPES )
      }
      for(std::size_t i=0;i<1*cardinal_of<in_t>::value;++i){
        data1[i] = i; // good value here for lookup
-     }
+     } 
      n_t a0 = load<n_t>(&data[0],0); 
      in_t a1 = load<in_t>(&data1[0],0); 
      std::cout << a1 << std::endl; 

@@ -17,9 +17,9 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
-                         (A0),
+                         (A0)(A1),
                          ((simd_<arithmetic_<A0>,tag::sse_>))
-                         ((simd_<integer_<A0>,tag::sse_>))
+                         ((simd_<integer_<A1>,tag::sse_>))
                         );
 
 namespace nt2 { namespace ext

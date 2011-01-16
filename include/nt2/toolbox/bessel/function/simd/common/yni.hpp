@@ -31,8 +31,8 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
                       (A0)(A1)(X),
-                      (integer_<A0>))
-                      ((simd_<arithmetic_<A0>,X>))
+                      ((integer_<A0>))
+                      ((simd_<arithmetic_<A1>,X> ))
                      );
 
 namespace nt2 { namespace ext
@@ -60,14 +60,14 @@ namespace nt2 { namespace ext
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
                       (A0)(A1)(X),
                       ((integer_<A0>))
-                      ((simd_<double_<A0>,X>))
+                      ((simd_<double_<A1>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::yni_(tag::integer_),
-	                tag::simd_(tag::double_, X),
+  struct call<tag::yni_(tag::integer_,
+	                tag::simd_(tag::double_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -86,9 +86,9 @@ namespace nt2 { namespace ext
 // Implementation when type A1 is float
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
-                      (A0)(X),
+                      (A0)(A1)(X),
                       ((integer_<A0>))
-                      ((simd_<float_<A0>,X>))
+                      ((simd_<float_<A1>,X>))
                      );
 
 namespace nt2 { namespace ext

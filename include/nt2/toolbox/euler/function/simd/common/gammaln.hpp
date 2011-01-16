@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return map(functor<gammaln_>(), tofloat(a0));
+      return map(functor<tag::gammaln_>(), tofloat(a0));
     }
 
   };

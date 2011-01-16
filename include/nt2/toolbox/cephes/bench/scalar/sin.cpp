@@ -9,7 +9,7 @@
 #include <nt2/toolbox/cephes/include/sin.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
-
+ 
 
 
 //////////////////////////////////////////////////////////////////////////////

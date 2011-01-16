@@ -9,8 +9,6 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELECT_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELECT_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-//#include <nt2/sdk/meta/size.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
