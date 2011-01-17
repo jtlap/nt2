@@ -69,7 +69,7 @@
   {									\
     r_t r1 = A;								\
     r_t r2 = B;								\
-    ulp = nt2::ulpdist(r1, r2);						\
+    double ulp = nt2::ulpdist(r1, r2);						\
     bool b; 								\
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,		\
 				      BOOST_CURRENT_FUNCTION,		\
