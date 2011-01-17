@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL(selsub, NT2_SIMD_TYPES )
  typedef typename nt2::meta::call<selsub_(in_t, n_t, n_t)>::type call_type;
 
   NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
-  NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value];
+  NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value]; 
   NT2_ALIGNED_TYPE(iT) data0[cardinal_of<n_t>::value];
   for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
     data[i] = nt2::random(0.0, 50.0); // good value here for selsub

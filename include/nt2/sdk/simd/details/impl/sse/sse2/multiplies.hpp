@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { map(functor<multiplies_>(), a0, a1) };
+      A0 that = { map(functor<tag::multiplies_>(), a0, a1) };//TODO...
       return that;
     }
   };
