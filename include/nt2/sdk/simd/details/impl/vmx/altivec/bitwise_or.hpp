@@ -15,19 +15,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type32_<A0>,tag::altivec_>))
-                        ((simd_<type32_<A1>,tag::altivec_>))
-                      );
 
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type16_<A0>,tag::altivec_>))
-                        ((simd_<type16_<A1>,tag::altivec_>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                      , ((simd_<type8_<A0>,tag::altivec_>))
-                        ((simd_<type8_<A1>,tag::altivec_>))
+                      , ((simd_<arithmetic_<A0>,tag::altivec_>))
+                        ((simd_<arithmetic_<A1>,tag::altivec_>))
                       );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,13 +29,10 @@ NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // The 8 bits version holds the generic code used by all other
-  //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type8_,tag::altivec_)
-                                , tag::simd_(tag::type8_,tag::altivec_)
-                                )
+  struct  call< tag::bitwise_or_ ( tag::simd_(tag::arithmetic_,tag::altivec_)
+                                  , tag::simd_(tag::arithmetic_,tag::altivec_)
+                                  )
               , tag::cpu_, Dummy
               >
         : callable
@@ -57,35 +48,6 @@ namespace nt2 { namespace ext
       return that;
     }
   };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // All other versions (16,32,64) forward their calls to the 8 bits version
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type16_,tag::altivec_)
-                                , tag::simd_(tag::type16_,tag::altivec_)
-                                )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_or_( tag::simd_(tag::type8_,tag::altivec_)
-                                , tag::simd_(tag::type8_,tag::altivec_)
-                                )
-              , tag::cpu_, Dummy
-              >
-  {};
-
-  template<class Dummy>
-  struct  call< tag::bitwise_or_( tag::simd_(tag::type32_,tag::altivec_)
-                                , tag::simd_(tag::type32_,tag::altivec_)
-                                )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_or_( tag::simd_(tag::type8_,tag::altivec_)
-                                , tag::simd_(tag::type8_,tag::altivec_)
-                                )
-              , tag::cpu_, Dummy
-              >
-  {};
 } }
 
 #endif
