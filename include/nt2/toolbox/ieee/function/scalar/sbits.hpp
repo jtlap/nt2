@@ -12,35 +12,35 @@
 #include <nt2/sdk/meta/as_bits.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sbits_, tag::cpu_,
+                       (A0),
+                       (fundamental_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for sbits
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute sbits(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<sbits_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::sbits_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
-      : meta::as_integer<A0, signed>{}; 
+      : meta::as_integer<A0, signed>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_bits<A0, signed>::type type; 
-      type that = {a0}; 
-      return that.bits; 
+      typedef typename meta::as_bits<A0, signed>::type type;
+      type that = {a0};
+      return that.bits;
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

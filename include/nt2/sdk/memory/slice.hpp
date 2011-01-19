@@ -10,59 +10,63 @@
 #define NT2_SDK_MEMORY_SLICE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Padding strategies and related functors
+// Compute the number of slice between inner adn the Nth outer dimension
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/mpl.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/memory/padding.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
+#include <boost/fusion/include/size.hpp>
+#include <nt2/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
-
-namespace nt2 { namespace functors
-{
-  struct slice_  {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // We only compute slice on a Fusion Sequence
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Category, class Info>
-  struct  validate< slice_, Category, Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct  result<This(A0,A1,A2)>
-      : boost::fusion::traits::is_sequence<typename meta::strip<A0>::type>
-    {};
-  };
-} }
-
-namespace nt2 { namespace meta
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // load category is given by T
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Info, class A0,class A1,class A2>
-  struct  categorize<functors::slice_,Info,A0,A1,A2>
-        : boost::mpl::if_<  boost::fusion::traits
-                            ::is_sequence<typename meta::strip<A0>::type>
-                          , tag::fusion_(typename meta::strip<A1>::type)
-                          , tag::unknown
-                          >
-        {};
-} }
 
 namespace nt2
 {
-  template<int N, class S,class P> inline
-  typename  nt2::meta
-          ::enable_call<functors::slice_( S const&
-                                        , P const&
-                                        , boost::mpl::long_<N> const&
-                                        )>::type
-  slice(S const& s, P const& p)
+  namespace tag { struct slice_ {}; }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // slice computes the potential padded product of all dimensions in a given
+  // dimension set from the Nth.
+  //////////////////////////////////////////////////////////////////////////////
+  template<std::size_t N, class Seq,class Padding> inline
+  typename boost::
+  lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
+                  , nt2::meta
+                    ::enable_call < tag::slice_ ( Seq const&
+                                                , Padding const&
+                                                , boost::mpl::size_t<N> const&
+                                                )
+                                  >
+                  >::type
+  slice(Seq const& s, Padding const& p)
   {
-    functors::functor< functors::slice_> callee;
-    return callee(s,p,boost::mpl::long_<N>() );
+    functor<tag::slice_> callee;
+    return callee(s,p,boost::mpl::size_t<N>() );
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // slice computes the potential padded product of all dimensions in a given
+  // dimension set from the Nth. As N is larger than the dimension set size, we
+  // naturally return 1.
+  //////////////////////////////////////////////////////////////////////////////
+  template<std::size_t N, class Seq,class Padding> inline
+  typename boost::
+  lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value < N)
+                  , boost::mpl::int_<1>
+                  >::type
+  slice(Seq const& , Padding const& )
+  {
+    return boost::mpl::int_<1>();
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// slice dispatch on basic padding strategy
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::slice_, tag::cpu_
+                      , (A0)(A1)(A2)
+                      , (fusion_sequence_<A0>)
+                        (padding_<A1>)
+                        (mpl_integral_< integer_<A2> >)
+                      )
 #endif

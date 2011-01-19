@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct lgamma_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::lgamma_, lgamma, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::lgamma_, lgamma, 1)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/lgamma.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(lgamma.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

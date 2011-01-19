@@ -15,16 +15,20 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
+                       (A0),
+                       ((simd_<arithmetic_<A0>,tag::avx_>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for sort
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<sort_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::sort_(tag::simd_(tag::arithmetic_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -36,4 +40,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

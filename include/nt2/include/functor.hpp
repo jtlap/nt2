@@ -11,8 +11,6 @@
 
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/functor/operators.hpp>
 
 #endif

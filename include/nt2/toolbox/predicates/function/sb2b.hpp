@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/predicates/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct sb2b_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::sb2b_, sb2b, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::sb2b_, sb2b, 1)
 }
  
 #include <nt2/toolbox/predicates/function/scalar/sb2b.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

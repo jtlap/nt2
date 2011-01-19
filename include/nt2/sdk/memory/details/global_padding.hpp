@@ -10,139 +10,68 @@
 #define NT2_SDK_MEMORY_DETAILS_GLOBAL_PADDING_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Padding strategies for memory allocation
+// Implementation of the no_padding strategy for memory allocation
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/pair.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/stride.hpp>
+//#include <nt2/sdk/memory/stride.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
-#include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/size.hpp>
-#include <nt2/sdk/memory/details/times.hpp>
-#include <boost/fusion/include/value_at.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/memory/details/no_padding.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// slice Functor implementation
+// slice implementation for global_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // For global_padding slice, dispacth on the relative positino of the Level
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct dispatch<slice_,tag::fusion_(memory::global_padding),Info>
-  {
-    template<class A0,class A1,class A2> struct apply
-    {
-      typedef boost::mpl
-            ::pair< boost::mpl::bool_ <   A2::value
-                                      ==  boost::fusion::result_of
-                                          ::size<A0>::value
-                                      >
-                  , boost::mpl::bool_ <A2::value == 1>
-                  >
-                                                                    type;
-    };
-  };
-
-  template<class Info>
-  struct  call< slice_,tag::fusion_(memory::global_padding)
-              , boost::mpl::pair<boost::mpl::true_,boost::mpl::true_>
-              , Info
-              >
+  template<class Dummy>
+  struct  call< tag::slice_ ( tag::fusion_sequence_
+                            , tag::padding_(memory::global_padding)
+                            , tag::mpl_integral_(tag::integer_)
+                            )
+              , tag::cpu_, Dummy  >
         : callable
   {
+    ////////////////////////////////////////////////////////////////////////////
+    // Computes the actual result type depending on A0 size and A2 value
+    ////////////////////////////////////////////////////////////////////////////
     template<class Sig> struct result;
 
     template<class This,class A0, class A1, class A2>
     struct  result<This(A0,A1,A2)>
     {
-      static typename meta::strip<A0>::type const& s;
+      static  typename meta::strip<A0>::type const& s;
+      typedef typename meta::strip<A2>::type        arg2;
+
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( nested
-      , memory::align_on( boost::fusion::at_c<0>(s) )
-      );
-      typedef typename nested::type type;
-    };
+      ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );
 
-    NT2_FUNCTOR_CALL(3)
-    {
-      return memory::align_on(boost::fusion::at_c<0>(a0));
-    }
-  };
-
-  template<class Info>
-  struct  call< slice_,tag::fusion_(memory::global_padding)
-              , boost::mpl::pair<boost::mpl::true_,boost::mpl::false_>
-              , Info
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This,class A0, class A1, class A2>
-    struct  result<This(A0,A1,A2)>
-            : boost::fusion::result_of::at_c<typename meta::strip<A0>::type const
-                                            , meta::strip<A2>::type::value-1
-                                            >
-    {};
-
-    NT2_FUNCTOR_CALL(3)
-    {
-      return boost::fusion::at_c<A2::value-1>(a0);
-    }
-  };
-
-  template<class Info>
-  struct  call< slice_,tag::fusion_(memory::global_padding)
-              , boost::mpl::pair<boost::mpl::false_,boost::mpl::true_>
-              , Info
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This,class A0, class A1, class A2>
-    struct  result<This(A0,A1,A2)>
-    {
-      static typename meta::strip<A0>::type const& s;
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( nested
-      , memory::align_on( slice<1>(s,memory::no_padding()) )
-      );
-      typedef typename nested::type type;
+      ( false_case , slice<arg2::value>(s,memory::no_padding()) );
+
+      typedef typename boost::mpl::eval_if_c< (arg2::value == 1)
+                                            , true_case
+                                            , false_case
+                                            >::type type;
     };
 
-    NT2_FUNCTOR_CALL(3)
+    ////////////////////////////////////////////////////////////////////////////
+    // Implementation when size<A0> == A2
+    ////////////////////////////////////////////////////////////////////////////
+    template<class A0, class A1, class A2> inline
+    typename boost::lazy_enable_if_c< (A2::value==1), NT2_RETURN_TYPE(3)>::type
+    operator()( A0 const& a0, A1 const&, A2 const& ) const
     {
       return memory::align_on( slice<1>(a0,memory::no_padding()) );
     }
-  };
 
-  template<class Info>
-  struct  call< slice_,tag::fusion_(memory::global_padding)
-              , boost::mpl::pair<boost::mpl::false_,boost::mpl::false_>
-              , Info
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This,class A0, class A1, class A2>
-    struct  result<This(A0,A1,A2)>
-    {
-      static typename meta::strip<A0>::type const& s;
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( nested
-      , slice<meta::strip<A2>::type::value>(s,memory::no_padding())
-      );
-      typedef typename nested::type type;
-    };
-
-    NT2_FUNCTOR_CALL(3)
+    ////////////////////////////////////////////////////////////////////////////
+    // Implementation when size<A0> != A2
+    ////////////////////////////////////////////////////////////////////////////
+    template<class A0, class A1, class A2> inline
+    typename boost::lazy_enable_if_c< (A2::value!=1), NT2_RETURN_TYPE(3)>::type
+    operator()( A0 const& a0, A1 const&, A2 const& ) const
     {
       return slice<A2::value>(a0,memory::no_padding());
     }
@@ -150,26 +79,21 @@ namespace nt2 { namespace functors
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
-// stride Functor implementation
-// Nothing special as the padding is after all the meaningful data
+// stride Functor implementation - global padding reuse no_padding stride
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // For global_padding stride, we just don't care about the dispatching
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct dispatch<stride_,tag::fusion_(memory::global_padding),Info>
-  {
-    template<class A0,class A1,class A2> struct apply
-    {
-      typedef fundamental_ type;
-    };
-  };
-
-  template<class Hierarchy, class Info>
-  struct  call<stride_,tag::fusion_(memory::global_padding),Hierarchy,Info>
-        : call<stride_,tag::fusion_(memory::no_padding),Hierarchy,Info>
+  template<class Dummy>
+  struct  call< tag::stride_( tag::fusion_sequence_
+                            , tag::padding_(memory::global_padding)
+                            , tag::mpl_integral_(tag::integer_)
+                            )
+              , tag::cpu_, Dummy  >
+        : call< tag::stride_( tag::fusion_sequence_
+                            , tag::padding_(memory::no_padding)
+                            , tag::mpl_integral_(tag::integer_)
+                            )
+              , tag::cpu_, Dummy  >
   {};
 } }
 

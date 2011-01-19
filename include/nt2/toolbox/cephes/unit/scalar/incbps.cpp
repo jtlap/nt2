@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( incbps,  (double)(float) )
 {
   using nt2::cephes::incbps;
-  using nt2::cephes::incbps_;
+  using nt2::cephes::tag::incbps_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::incbps_(T, T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::incbps_(T, T, T)>::type,
                            T
                            >::value)
           );

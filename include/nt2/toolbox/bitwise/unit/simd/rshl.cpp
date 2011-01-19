@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(rshl, NT2_SIMD_INTEGRAL_TYPES )
 {
  using nt2::rshl;
- using nt2::functors::rshl_;    
+ using nt2::tag::rshl_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL(rshl, NT2_SIMD_INTEGRAL_TYPES )
   }
    n_t a0 = load<n_t>(&data[0],0);   
    in_t a1 = load<in_t>(&data1[0],0);
-   n_t v  = rshl(a0, a1);
+   n_t v  = rshl(a0, a1); 
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
        NT2_TEST_EQUAL( v[j], rshl(a0[j], a1[j]) );

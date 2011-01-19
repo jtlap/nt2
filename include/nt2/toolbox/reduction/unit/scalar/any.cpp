@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( any,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::any;
-  using nt2::functors::any_;
+  using nt2::tag::any_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<any_(T)>::type
                             , bool

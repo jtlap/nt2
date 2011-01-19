@@ -9,59 +9,56 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_HERMITE_NEXT_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_HERMITE_NEXT_HPP_INCLUDED
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(boost_math::tag::hermite_next_, tag::cpu_,
+                              (A0)(A1)(A2)(A3),
+                              (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)(arithmetic_<A3>)
+                             )
+
+namespace nt2 { namespace ext
 {
-  template<class Info>
-  struct validate<boost_math::hermite_next_,tag::scalar_(tag::arithmetic_),Info>
-    {
-      template<class Sig> struct result;
-      template<class This,class A0, class A1, class A2, class A3>
-      struct result<This(A0, A1, A2, A3)> :
-        boost::mpl::and_<
-           boost::is_integral<A0>,
-           meta::has_smaller_size<A1,long double>,
-           meta::has_smaller_size<A2,long double>,
-           meta::has_smaller_size<A3,long double>
-        >{};
-    };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute hermite_next(const A0& a0, const A1& a1, const A2& a2, const A3& a3)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<boost_math::hermite_next_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<boost_math::tag::hermite_next_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2, class A3>
-    struct result<This(A0, A1, A2, A3)> : 
-      boost::result_of<meta::floating(A0, A1, A2, A3)>{};
-
-    NT2_FUNCTOR_CALL(4){ return boost::math::hermite_next(a0, a1, a2, a3); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<boost_math::hermite_next_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1, class A2, class A3>
-    struct result<This(A0, A1, A2, A3)> : 
+    struct result<This(A0, A1, A2, A3)> :
       boost::result_of<meta::floating(A0, A1, A2, A3)>{};
 
     NT2_FUNCTOR_CALL(4)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       return nt2::boost_math::hermite_next(a0, a1, type(a2), type(a3));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(boost_math::tag::hermite_next_, tag::cpu_,
+                              (A0)(A1)(A2)(A3),
+                              (real_<A0>)(real_<A1>)(real_<A2>)(real_<A3>)
+                             )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<boost_math::tag::hermite_next_(tag::real_,tag::real_,tag::real_,tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1, class A2, class A3>
+    struct result<This(A0, A1, A2, A3)> :
+      boost::result_of<meta::floating(A0, A1, A2, A3)>{};
+
+    NT2_FUNCTOR_CALL(4){ return boost::math::hermite_next(a0, a1, a2, a3); }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 29/12/2010

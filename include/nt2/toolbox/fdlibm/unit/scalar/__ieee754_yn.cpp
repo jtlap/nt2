@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( __ieee754_yn,  (double)(float) )
 {
   using nt2::fdlibm::__ieee754_yn;
-  using nt2::fdlibm::__ieee754_yn_;
+  using nt2::fdlibm::tag::__ieee754_yn_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::__ieee754_yn_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::__ieee754_yn_(T, T)>::type,
                            T
                            >::value)
           );

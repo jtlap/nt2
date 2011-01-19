@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<fast_hypot_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::fast_hypot_;
+using nt2::tag::fast_hypot_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::fast_hypot_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::functors::fast_hypot_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::fast_hypot_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::fast_hypot_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
 
 #undef RS

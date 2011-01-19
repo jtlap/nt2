@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/predicates/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct is_even_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_even_, is_even, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_even_, is_even, 1)
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_even.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

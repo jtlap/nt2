@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<gsl_sf_laguerre_2_> from gsl_specfun
 //////////////////////////////////////////////////////////////////////////////
-using nt2::gsl_specfun::gsl_sf_laguerre_2_;
+using nt2::gsl_specfun::tag::gsl_sf_laguerre_2_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,6 +21,6 @@ using nt2::gsl_specfun::gsl_sf_laguerre_2_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::gsl_specfun::gsl_sf_laguerre_2_,(RS(double,-0.0,5.0))(RS(double,-0.0,5.0)))
+NT2_TIMING(nt2::gsl_specfun::tag::gsl_sf_laguerre_2_,(RS(double,-0.0,5.0))(RS(double,-0.0,5.0)))
 
 #undef RS

@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(sin, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
 {
  using nt2::sin;
- using nt2::functors::sin_;    
+ using nt2::tag::sin_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,8 +51,8 @@ NT2_TEST_CASE_TPL(sin, NT2_SIMD_REAL_CONVERTIBLE_TYPES )
      rn_t v  = sin(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], sin(a0[j])), 1);
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER( z = nt2::ulpdist(v[j], sin(a0[j])), 1);
+       if (z > m) m = z; 
        }
    }
  std::cout << "ulp max = " << m << std::endl;

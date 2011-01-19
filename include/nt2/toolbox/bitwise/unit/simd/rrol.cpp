@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(rrol, NT2_SIMD_INTEGRAL_TYPES )
 {
  using nt2::rrol;
- using nt2::functors::rrol_;    
+ using nt2::tag::rrol_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( prod, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::prod;
-  using nt2::functors::prod_;
+  using nt2::tag::prod_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<prod_(T)>::type
                             , typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type

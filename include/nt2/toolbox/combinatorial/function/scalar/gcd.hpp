@@ -14,70 +14,77 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/rem.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gcd_, tag::cpu_,
+                     (A0)(A1),
+                     (integer_<A0>)(integer_<A1>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for gcd
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute gcd(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<gcd_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::gcd_(tag::integer_,tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      type a(a0);
+      type b(a1);
+      if (is_eqz(b)) return a;
+      while (is_nez(b)) {
+      const type  r = a % b;
+      a = b;
+      b = r;
+      }
+      return a;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gcd_, tag::cpu_,
+                     (A0)(A1),
+                     (real_<A0>)(real_<A1>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::gcd_(tag::real_,tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       type a(a0);
       type b(a1);
       if (!b) return a;
       if (is_not_finite(a+b)||!is_flint(a)||!is_flint(b)) return Nan <type>();
       while (b) {
-	type  r  = rem(a, b);
-	a = b;
-	b = r;
+      type  r  = rem(a, b);
+      a = b;
+      b = r;
       }
       return a;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<gcd_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::arithmetic(A0,A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      type a(a0);
-      type b(a1);
-      if (is_eqz(b)) return a;
-      while (is_nez(b)) {
-	const type  r = a % b;
-	a = b;
-	b = r;
-      }
-      return a;
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

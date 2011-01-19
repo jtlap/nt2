@@ -12,12 +12,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<hermite_> from polynomials
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::hermite_;
+using nt2::tag::hermite_;
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::hermite_,(RS(int64_t,0,10))(RS(double,-100.0,100.0)))
-NT2_TIMING(nt2::functors::hermite_,(RS(int32_t,0,10))(RS(float,-100.0f,100.f)))
+NT2_TIMING(nt2::tag::hermite_,(RS(int64_t,0,10))(RS(double,-100.0,100.0)))
+NT2_TIMING(nt2::tag::hermite_,(RS(int32_t,0,10))(RS(float,-100.0f,100.f)))
 

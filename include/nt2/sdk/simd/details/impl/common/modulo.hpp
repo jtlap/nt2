@@ -9,22 +9,28 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_MODULO_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_MODULO_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::modulo_, tag::cpu_, (A0)(X)
+                      , ((simd_<integer_<A0>,X>))
+                        ((simd_<integer_<A0>,X>))
+                      );
 
-namespace nt2 { namespace functors
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Modulo operates on integers only
-  //////////////////////////////////////////////////////////////////////////////
-  template<class C,class X,class Info>
-  struct validate<modulo_,tag::simd_(C,X),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A>
-    struct  result<This(A,A)>
-          : meta::is_integral<typename meta::strip<A>::type> {};
-  };
+  template<class X, class Dummy>
+  struct  call< tag::modulo_( tag::simd_(tag::integer_,X)
+                            , tag::simd_(tag::integer_,X)
+                            )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::modulo_( tag::simd_(tag::unspecified_,X)
+                            , tag::simd_(tag::unspecified_,X)
+                            )
+              , tag::cpu_, Dummy
+              >
+  {};
 } }
 
 #endif

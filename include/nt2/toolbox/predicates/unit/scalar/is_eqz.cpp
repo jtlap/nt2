@@ -20,37 +20,37 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( is_eqz, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    (bool)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                (bool)
+                )
 {
   using nt2::is_eqz;
-  using nt2::functors::is_eqz_;
+  using nt2::tag::is_eqz_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_eqz_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_eqz( T(42) ), 0 );
   NT2_TEST_EQUAL(  is_eqz( T(-42) ), 0 );
   NT2_TEST_EQUAL(  is_eqz( T(0) ), 1 );
 }
 NT2_TEST_CASE_TPL ( unsigned_is_eqz, (nt2::uint64_t) 
-		    (nt2::uint32_t)  
-		    (nt2::uint16_t)         
-		    (nt2::uint8_t)
-		    )
+                (nt2::uint32_t)  
+                (nt2::uint16_t)         
+                (nt2::uint8_t)
+                )
 {
   using nt2::is_eqz;
-  using nt2::functors::is_eqz_;
+  using nt2::tag::is_eqz_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_eqz_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_eqz( T(42) ), 0 );
   NT2_TEST_EQUAL(  is_eqz( T(0) ), 1 );

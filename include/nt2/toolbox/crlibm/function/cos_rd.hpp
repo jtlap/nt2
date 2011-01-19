@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct cos_rd_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::cos_rd_, cos_rd, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::cos_rd_, cos_rd, 1)
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/cos_rd.hpp>
 // #include NT2_CRLIBM_INCLUDE(cos_rd.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

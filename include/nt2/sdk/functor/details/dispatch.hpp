@@ -9,105 +9,129 @@
 #ifndef NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <nt2/sdk/functor/hierarchy.hpp>
-#include <nt2/sdk/functor/meta/find_type.hpp>
-#include <nt2/sdk/functor/details/enable_dispatch.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/meta/hierarchy.hpp>
+#include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Local macro to generate the fall-through dispatch overload
+// What the fuck with adl_helper ? Well, as pointed out by Johannes Schaub
+// it is mandated by the standard so ADL kicks in on resolving calls to
+// dispatching without having to order them BEFORE the actual dispatch_call
+// class definitions. Without it, the whole system brittles.
+////////////////////////////////////////////////////////////////////////////////
+#define M0(z,n,t) meta::unknown_<BOOST_PP_CAT(A,n)> const&
+#define M1(z,n,t) typename meta::hierarchy_of<BOOST_PP_CAT(A,n)>::type
+
+#define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
+template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
+nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M1,~))>  \
+dispatching ( Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~)                    \
+            , adl_helper = adl_helper()                                         \
+            );                                                                  \
+/**/
+
+#define NT2_DISPATCH_TYPE_TPL(z,n,t) NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
+#define NT2_DISPATCH_TYPE(z,n,t) class NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
+#define NT2_DISPATCH_ARG(z,n,t) nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const&
+#define NT2_DISPATCH_TAG(z,n,t) typename nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))::type
+
+////////////////////////////////////////////////////////////////////////////////
+// User macro to register an accepted overload for function Tag on Site
+// for a list of hierarchy specified by (Types,Seq)
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_REGISTER_DISPATCH(Tag,Site,Types,Seq)                           \
+namespace nt2 { namespace meta {                                            \
+template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types)>   \
+nt2::ext::                                                                  \
+call<NT2_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_TAG,Seq)),Site>  \
+dispatching( Tag const&, Site const&                                        \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)        \
+        , adl_helper = adl_helper()                                         \
+        );                                                                  \
+} }                                                                         \
+/**/
+
+////////////////////////////////////////////////////////////////////////////////
+// User macro to register an accepted overload for function Tag on Site
+// for a list of hierarchy specified by (Types,Seq) where Types is a fully
+// qualified tempalte parameter (like class A0 instead of A0). This is mainly
+// used for non type tempalte parameters appearing in some tag or site.
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                         \
+namespace nt2 { namespace meta {                                              \
+template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types)> \
+nt2::ext::                                                                    \
+call<NT2_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_TAG,Seq)),Site>    \
+dispatching( NT2_PP_STRIP(Tag) const&, Site const&                                          \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)          \
+        , adl_helper = adl_helper()                                           \
+        );                                                                    \
+} }                                                                           \
+/**/
+
+namespace nt2 { namespace meta
 {
+  struct adl_helper {};
+
   //////////////////////////////////////////////////////////////////////////////
-  // Default dispatch just forward the type
+  // Default dispatch overload set for catching calls to unsupported functor
+  // overload or unregistered types.
   //////////////////////////////////////////////////////////////////////////////
-  template<class Tag,class Category,class Info = void>
-  struct dispatch : boost::mpl::_1 {};
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_DEFAULT_UNKNOWN_DISPATCH,~)
 } }
 
-namespace nt2 { namespace details
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Try to match a type onto an existing hierarchy
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag,class Category, class Info>
-  struct  make_list
-  {
-    typedef boost::mpl::if_ < meta::
-                              enable_dispatch<Tag,Category,boost::mpl::_2,Info>
-                            , boost::mpl::push_back < boost::mpl::_1
-                                                    , boost::mpl::_2
-                                                    >
-                            , boost::mpl::_1
-                            > selector;
+#undef M0
+#undef M1
+#undef NT2_DEFAULT_UNKNOWN_DISPATCH
 
-    typedef typename  boost::mpl::fold< functors::hierarchies
-                                      , boost::mpl::vector<>
-                                      , selector
-                                      >::type type;
-  };
+////////////////////////////////////////////////////////////////////////////////
+// Local macro to generate the dispatch selector
+////////////////////////////////////////////////////////////////////////////////
+#define M0(z,n,t) BOOST_PP_CAT(elem,n)()
+/**/
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a call<> type by trying to fit a dispatched type either on a direct
-  // call<> specialization or a hierarchical call<>
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag,class Base,class Category,class Info>
-  struct build_caller
-  {
-    typedef meta::find_type < typename Base::type
-                            , typename details::make_list < Tag
-                                                          , Category
-                                                          , Info
-                                                          >::type
-                            >        hierarchized;
-    typedef typename
-          boost::mpl::eval_if < meta::enable_dispatch < Tag
-                                                      , Category
-                                                      , typename Base::type
-                                                      , Info
-                                                      >
-                              , Base
-                              , hierarchized
-                              >::type  hierarchy_type;
+#define NT2_DISPATCH_TYPES(z,n,t)                                               \
+typedef typename strip<BOOST_PP_CAT(A,n)>::type BOOST_PP_CAT(arg,n);            \
+typedef typename hierarchy_of<BOOST_PP_CAT(arg,n)>::type  BOOST_PP_CAT(elem,n); \
+/**/
 
-    typedef functors::call<Tag,Category,hierarchy_type,Info> type;
-  };
-} }
+#define NT2_DISPATCH_CALL(z,n,t)                                        \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>        \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>              \
+{                                                                       \
+  BOOST_PP_REPEAT(n,NT2_DISPATCH_TYPES,~)                               \
+  BOOST_TYPEOF_NESTED_TYPEDEF_TPL ( nested                              \
+                                  , dispatching ( Tag(), Site()         \
+                                                , BOOST_PP_ENUM(n,M0,~) \
+                                                , adl_helper()          \
+                                                )                       \
+                                  )                                     \
+  typedef typename nested::type                             type;       \
+};                                                                      \
+/**/
 
 namespace nt2 { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
-  // For any given Tag in a given Category, construct the call<> able to process
-  // the current function call over said category of type by selecting the proper
-  // call<> specialization among all externals specializations available.
+  // dispatch_call finds the proper call overload for evaluating a given
+  // functor over a set of types on a given site
   //////////////////////////////////////////////////////////////////////////////
-  template<class Tag, class Category,class Info>
-  struct dispatch
-  {
-    typedef functors::dispatch<Tag,Category,Info> dispatcher;
-
-    template<class Sig> struct result;
-
-    #define M0(z,n,t) typename strip<BOOST_PP_CAT(t,n)>::type
-
-    #define M1(z,n,t)                                                             \
-    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                          \
-    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                \
-    {                                                                             \
-      typedef BOOST_PP_CAT(boost::mpl::apply,n) < dispatcher                      \
-                                                , BOOST_PP_ENUM(n,M0,A)           \
-                                                >                           base; \
-      typedef typename details::build_caller<Tag,base,Category,Info>::type  type; \
-    };                                                                            \
-    /**/
-
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
-
-    #undef M1
-    #undef M0
-  };
+  template<class Sig, class Site> struct dispatch_call;
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_DISPATCH_CALL,~)
 } }
+
+#undef M0
+#undef NT2_DISPATCH_TYPES_TPL
+#undef NT2_DISPATCH_TYPES
+#undef NT2_DISPATCH_CALL
 
 #endif

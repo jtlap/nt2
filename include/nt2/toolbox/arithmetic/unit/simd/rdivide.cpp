@@ -25,7 +25,7 @@
 NT2_TEST_CASE_TPL(rdivide, NT2_SIMD_TYPES )
 {
  using nt2::rdivide;
- using nt2::functors::rdivide_;    
+ using nt2::tag::rdivide_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

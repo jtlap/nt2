@@ -11,14 +11,23 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
-  template<class C,class X,class Info>
-  struct  call<neg_,tag::simd_(C,X),fundamental_,Info>
+  //////////////////////////////////////////////////////////////////////////////
+  // unary_minus is 0 - a0
+  //////////////////////////////////////////////////////////////////////////////
+  template<class X, class Dummy>
+  struct  call< tag::unary_minus_( tag::simd_(tag::arithmetic_,X) )
+              , tag::cpu_, Dummy
+              >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1)
     {

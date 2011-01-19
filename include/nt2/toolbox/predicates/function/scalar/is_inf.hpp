@@ -13,20 +13,44 @@
 
 #include <nt2/include/functions/abs.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_inf_, tag::cpu_,
+                        (A0),
+                        (fundamental_<A0>)
+                       )
+
+namespace nt2 { namespace ext
 {
+  template<class Dummy>
+  struct call<tag::is_inf_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
+  {
+    typedef bool result_type;
 
-  //  no special validate for is_inf
+    NT2_FUNCTOR_CALL(1)
+    {
+      details::ignore_unused(a0);
+      return false;
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_inf(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_inf_, tag::cpu_,
+                        (A0),
+                        (real_<A0>)
+                       )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_inf_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_inf_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     typedef bool result_type;
 
@@ -35,24 +59,7 @@ namespace nt2 { namespace functors
        return nt2::abs(a0) == Inf<A0>();
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_inf_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
-  {
-    typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      details::ignore_unused(a0); 
-      return false; 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -10,23 +10,20 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_NEZ_HPP_INCLUDED
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_nez_, tag::cpu_,
+                        (A0),
+                        (fundamental_<A0>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<is_nez_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_nez(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_nez_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::is_nez_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     typedef bool result_type;
 
@@ -35,8 +32,7 @@ namespace nt2 { namespace functors
        return a0;
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

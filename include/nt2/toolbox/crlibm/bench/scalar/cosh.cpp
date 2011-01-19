@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<cosh_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::cosh_;
+using nt2::crlibm::tag::cosh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::cosh_<nt2::rn>,(RS(float,-10.0,10.0)))
-NT2_TIMING(nt2::crlibm::cosh_<nt2::rn>,(RS(double,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::cosh_<nt2::rn>,(RS(float,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::cosh_<nt2::rn>,(RS(double,-10.0,10.0)))
 
 #undef RS

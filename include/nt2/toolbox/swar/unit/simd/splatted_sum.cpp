@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(splatted_sum, NT2_SIMD_TYPES) 
 {
  using nt2::splatted_sum;
- using nt2::functors::splatted_sum_;    
+ using nt2::tag::splatted_sum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL(splatted_sum, NT2_SIMD_TYPES)
      std::cout << "  " << a0 << "  " << v << std::endl; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(v[j], nt2::sum(a0));
+       NT2_TEST_EQUAL(v[j], nt2::sum(a0));
        }
    }
 }

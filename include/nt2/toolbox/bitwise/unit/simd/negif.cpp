@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(negif, NT2_SIMD_SIGNED_TYPES)
 {
  using nt2::negif;
- using nt2::functors::negif_;    
+ using nt2::tag::negif_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

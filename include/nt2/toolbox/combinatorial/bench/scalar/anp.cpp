@@ -15,16 +15,16 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<anp_> from combinatorial
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::anp_;
+using nt2::tag::anp_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::anp_,(RS(int64_t,-10000,10000))(RS(int64_t,-10000,10000)))
-NT2_TIMING(nt2::functors::anp_,(RS(int32_t,-10000,10000))(RS(int32_t,-10000,10000)))
-NT2_TIMING(nt2::functors::anp_,(RS(uint64_t,0,65535))(RS(uint64_t,0,65535)))
-NT2_TIMING(nt2::functors::anp_,(RS(uint32_t,0,65535))(RS(uint32_t,0,65535)))
+NT2_TIMING(nt2::tag::anp_,(RS(int64_t,-10000,10000))(RS(int64_t,-10000,10000)))
+NT2_TIMING(nt2::tag::anp_,(RS(int32_t,-10000,10000))(RS(int32_t,-10000,10000)))
+NT2_TIMING(nt2::tag::anp_,(RS(uint64_t,0,65535))(RS(uint64_t,0,65535)))
+NT2_TIMING(nt2::tag::anp_,(RS(uint32_t,0,65535))(RS(uint32_t,0,65535)))
 
 #undef RS

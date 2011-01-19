@@ -31,7 +31,7 @@ NAME ( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) )                             
 // Generate a function body from TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_FUNCTION_BODY(TAG,N)          \
-nt2::functors::functor<TAG> callee;       \
+nt2::functor<TAG> callee;       \
 return callee(BOOST_PP_ENUM_PARAMS(N,a)); \
 /**/
 
@@ -69,7 +69,7 @@ template<class A0> inline                                   \
 typename nt2::meta::enable_call<TAG(SELF&,A0 const&)>::type \
 NAME( A0 const& a0 )                                        \
 {                                                           \
-  nt2::functors::functor<TAG> callee;                       \
+  nt2::functor<TAG> callee;                                 \
   return callee(*this,a0);                                  \
 }                                                           \
 /**/

@@ -20,44 +20,51 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_hypot_, tag::cpu_,
+                            (A0)(A1),
+                            (arithmetic_<A0>)(arithmetic_<A1>)
+                           )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for fast_hypot
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute fast_hypot(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fast_hypot_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::fast_hypot_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-	// flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
-	// proper impl as for double is 30% slower
-	return nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1)));
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::fast_hypot(type(a0), type(a1));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_hypot_, tag::cpu_,
+                            (A0)(A1),
+                            (double_<A0>)(double_<A1>)
+                           )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fast_hypot_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::fast_hypot_(tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
@@ -67,33 +74,40 @@ namespace nt2 { namespace functors
       A0 y =  abs(a1);
       if (nt2::is_inf(x+y)) return Inf<float>();
       if (nt2::is_nan(x+y)) return Nan<float>();
-      if (y > x) std::swap(x, y); 
+      if (y > x) std::swap(x, y);
       if (x*Eps<A0>() >=  y) return x;
-      return x*nt2::sqrt(One<A0>()+nt2::sqr(y/x)); 
+      return x*nt2::sqrt(One<A0>()+nt2::sqr(y/x));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_hypot_, tag::cpu_,
+                            (A0)(A1),
+                            (float_<A0>)(float_<A1>)
+                           )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fast_hypot_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::fast_hypot_(tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::fast_hypot(type(a0), type(a1)); 
+      // flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
+      // proper impl as for double is 30% slower
+      return nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1)));
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010

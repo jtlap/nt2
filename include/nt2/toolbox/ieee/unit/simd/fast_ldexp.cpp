@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/simd Mode"
 
 #include <nt2/toolbox/ieee/include/fast_ldexp.hpp>
+#include <nt2/toolbox/ieee/include/ldexp.hpp> 
 #include <nt2/include/functions/random.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -26,7 +27,7 @@
 NT2_TEST_CASE_TPL(fast_ldexp, NT2_SIMD_REAL_TYPES )
 {
  using nt2::fast_ldexp;
- using nt2::functors::fast_ldexp_;    
+ using nt2::tag::fast_ldexp_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct incbi_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::incbi_, incbi, 3)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::incbi_, incbi, 3)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/incbi.hpp>
 // #include NT2_CEPHES_INCLUDE(incbi.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

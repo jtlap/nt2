@@ -23,7 +23,7 @@ NT2_TEST_CASE_TPL ( real_floor,  (double)(float)
                   )
 {
   using nt2::cephes::floor;
-  using nt2::cephes::floor_;
+  using nt2::cephes::tag::floor_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<floor_(T)>::type
              ,T

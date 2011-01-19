@@ -17,90 +17,23 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-namespace nt2 { namespace functors
+NT2_REGISTER_DISPATCH(tag::signmask_,tag::cpu_,(A0), (target_< double_<A0>    > ) )
+NT2_REGISTER_DISPATCH(tag::signmask_,tag::cpu_,(A0), (target_< float_<A0>     > ) )
+NT2_REGISTER_DISPATCH(tag::signmask_,tag::cpu_,(A0), (target_< unsigned_<A0>  > ) )
+NT2_REGISTER_DISPATCH(tag::signmask_,tag::cpu_,(A0), (target_< signed_<A0>    > ) )
+
+namespace nt2 { namespace ext
 {
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),unsigned_, Info>
+  template<class Dummy>
+  struct  call< tag::signmask_(tag::target_(tag::double_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(0));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),int8_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(0x80));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),int16_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(0x8000));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),int32_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(0x80000000));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),int64_t, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::scalar_of<typename A0::type>::type base;
-      return splat<typename A0::type>(static_cast<base>(0x8000000000000000LL));
-    }
-  };
-
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),double, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -109,18 +42,58 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::signmask_,tag::constant_(Category),float, Info>
+  template<class Dummy>
+  struct  call< tag::signmask_(tag::target_(tag::float_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>::type {};
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
 
     NT2_FUNCTOR_CALL(1)
     {
       meta::from_bits<float>::type const that = {0x80000000};
       return splat<typename A0::type>(that.value);
+    }
+  };
+
+  template<class Dummy>
+  struct  call< tag::signmask_(tag::target_(tag::unsigned_) )
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      return splat<typename A0::type>(0);
+    }
+  };
+
+  template<class Dummy>
+  struct  call< tag::signmask_(tag::target_(tag::signed_) )
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<typename A0::type>::type base;
+      BOOST_STATIC_CONSTANT(base, value = base(1) << (sizeof(base)*CHAR_BIT-1) );
+      return splat<typename A0::type>(value);
     }
   };
 } }

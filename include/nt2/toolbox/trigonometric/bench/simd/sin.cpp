@@ -7,7 +7,7 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/sin.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/benchmark.hpp> 
 #include <nt2/sdk/simd/native.hpp>
 #include <cmath>
 
@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<sin_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::sin_;
+using nt2::tag::sin_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::sin_,(RS(vfloat,-31.4,31.4)))
-NT2_TIMING(nt2::functors::sin_,(RS(vdouble,-31.4,31.4)))
+NT2_TIMING(nt2::tag::sin_,(RS(vfloat,-31.4,31.4)))
+NT2_TIMING(nt2::tag::sin_,(RS(vdouble,-31.4,31.4)))
 
 #undef RS

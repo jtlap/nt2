@@ -18,25 +18,20 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/maximum.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int32_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
+                          (A0),
+                          ((simd_<int32_<A0>,tag::avx_>))
+                         );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<tofloat_,tag::simd_(tag::arithmetic_,Extension),Info>
-
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::has_larger_or_equal_size < A0
-				       , int32_t
-				       , meta::scalar_of<boost::mpl::_>
-                      > {};
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<tofloat_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
+  template<class Dummy>
+  struct call<tag::tofloat_(tag::simd_(tag::int32_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -45,18 +40,26 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       type that = { _mm256_cvtepi32_ps(a0)};
       return that;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
+                          (A0),
+                          ((simd_<uint64_<A0>,tag::avx_>))
+                         );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<tofloat_,tag::simd_(tag::arithmetic_,tag::sse_),int64_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::tofloat_(tag::simd_(tag::uint64_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -65,18 +68,53 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type  type;
-      type const v = {a0[0], a0[1], a0[2], a0[3]};
+      typedef typename meta::as_real<A0>::type  result_type;
+      result_type const v = {a0[0], a0[1], a0[2], a0[3]};
       return v;
+
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
+                          (A0),
+                          ((simd_<real_<A0>,tag::avx_>))
+                         );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint32_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<tofloat_,tag::simd_(tag::arithmetic_,tag::sse_),uint32_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::tofloat_(tag::simd_(tag::real_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+      { typedef typename meta::as_real<A0>::type  type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint32_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
+                          (A0),
+                          ((simd_<uint32_<A0>,tag::avx_>))
+                         );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::tofloat_(tag::simd_(tag::uint32_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -97,13 +135,21 @@ namespace nt2 { namespace functors
       return sel(isgez(a00),v1,v2);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int64_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
+                          (A0),
+                          ((simd_<int64_<A0>,tag::avx_>))
+                         );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint64_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<tofloat_,tag::simd_(tag::arithmetic_,tag::sse_),uint64_t,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::tofloat_(tag::simd_(tag::int64_, tag::avx_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -112,32 +158,12 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type  result_type;
-      result_type const v = {a0[0], a0[1], a0[2], a0[3]};
+      typedef typename meta::as_real<A0>::type  type;
+      type const v = {a0[0], a0[1], a0[2], a0[3]};
       return v;
-
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<tofloat_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_real<A0>::type  type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0; 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

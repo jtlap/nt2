@@ -24,16 +24,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( expm1_rn, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::crlibm::expm1_rn; 
-  using nt2::crlibm::expm1_rn_;
+  using nt2::crlibm::tag::expm1_rn_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<expm1_rn_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::crlibm::expm1_rn( T(0) )  , 0 );
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::crlibm::expm1_rn( T(1) )  , T(nt2::Exp_1<T>()-1) ), 1);

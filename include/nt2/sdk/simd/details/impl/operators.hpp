@@ -10,7 +10,7 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_OPERATORS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Extension specific additional macro/function helpers
+// Extension specific additional helpers
 ////////////////////////////////////////////////////////////////////////////////
 #if defined( NT2_SIMD_XOP)
 //  #include <nt2/sdk/simd/native/details/impl/sse/xop/macros.hpp>
@@ -47,7 +47,7 @@
 #include NT2_SIMD_INCLUDE(modulo.hpp)
 #include NT2_SIMD_INCLUDE(multiplies.hpp)
 #include NT2_SIMD_INCLUDE(plus.hpp)
-#include NT2_SIMD_INCLUDE(shift_left.hpp)
-#include NT2_SIMD_INCLUDE(shift_right.hpp)
+//#include NT2_SIMD_INCLUDE(shift_left.hpp)
+//#include NT2_SIMD_INCLUDE(shift_right.hpp)
 
 #endif

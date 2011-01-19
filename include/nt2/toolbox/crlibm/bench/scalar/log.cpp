@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<log_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::log_;
+using nt2::crlibm::tag::log_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::log_<nt2::rn>,(RS(float,0.0f,10000.0f)))
-NT2_TIMING(nt2::crlibm::log_<nt2::rn>,(RS(double,0.0,10000.0)))
+NT2_TIMING(nt2::crlibm::tag::log_<nt2::rn>,(RS(float,0.0f,10000.0f)))
+NT2_TIMING(nt2::crlibm::tag::log_<nt2::rn>,(RS(double,0.0,10000.0)))
 
 #undef RS

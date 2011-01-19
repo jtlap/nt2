@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/bessel.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct cyl_bessel_j_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::cyl_bessel_j_, cyl_bessel_j, 2)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::cyl_bessel_j_, cyl_bessel_j, 2)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/cyl_bessel_j.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(cyl_bessel_j.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

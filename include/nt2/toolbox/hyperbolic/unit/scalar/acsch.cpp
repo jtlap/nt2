@@ -23,16 +23,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( acsch, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::acsch; 
-  using nt2::functors::acsch_;
+  using nt2::tag::acsch_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<acsch_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
 NT2_TEST_EQUAL(  nt2::acsch( T(0) ), nt2::Inf<T>());
 NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::acsch( T(1) )  , T(0.881373587019543)), 1);

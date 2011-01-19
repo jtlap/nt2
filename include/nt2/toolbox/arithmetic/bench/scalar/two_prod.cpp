@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<two_prod_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::two_prod_;
+using nt2::tag::two_prod_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::two_prod_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::functors::two_prod_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::two_prod_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::two_prod_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
 
 #undef RS

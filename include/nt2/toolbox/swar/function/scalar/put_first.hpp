@@ -11,33 +11,33 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
+                           (A0)(A1),
+                           (fundamental_<A0>)(fundamental_<A1>)
+                          )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for put_first
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute put_first(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<put_first_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::put_first_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)> {typedef A0 type; };  
+    struct result<This(A0, A1)> {typedef A0 type; };
 
     NT2_FUNCTOR_CALL(2)
     {
-      details::ignore_unused(a1); 
-      return a0; 
+      details::ignore_unused(a1);
+      return a0;
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -13,7 +13,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp> 
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(average, NT2_SIMD_TYPES )
 {
  using nt2::average;
- using nt2::functors::average_;    
+ using nt2::tag::average_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

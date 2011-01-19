@@ -8,8 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::is_scalar"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
-#include <nt2/sdk/functor/category.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -35,23 +35,9 @@ NT2_TEST_CASE(is_scalar_scalar)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that types with a scalar category are scalar
-////////////////////////////////////////////////////////////////////////////////
-struct bar
-{
-  typedef nt2::functors::scalar_<nt2::tag::arithmetic_,10> nt2_category_tag;
-};
-
-NT2_TEST_CASE(is_category_scalar)
-{
-  using nt2::meta::is_scalar;
-  NT2_TEST( is_scalar<bar>::value );
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // Test that non-scalar types are not scalar
 ////////////////////////////////////////////////////////////////////////////////
-struct foo {};  // type of unknown category
+struct foo {};  // type of unknown hierarchy
 
 NT2_TEST_CASE(is_nonscalar)
 {

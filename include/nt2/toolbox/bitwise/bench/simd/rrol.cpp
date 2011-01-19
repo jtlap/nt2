@@ -25,20 +25,20 @@ typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<rrol_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::rrol_;
+using nt2::tag::rrol_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::rrol_,(RS(vint64_t,-10000,10000))(RS(vint64_t,0,63)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vint32_t,-10000,10000))(RS(vint32_t,0,31)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vint16_t,-32768,32767))(RS(vint16_t,0,16)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vint8_t,-128,127))(RS(vint8_t,0,7)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vuint64_t,0,65535))(RS(vuint64_t,0,63)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vuint32_t,0,65535))(RS(vuint32_t,0,31)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vuint16_t,0,65535))(RS(vuint16_t,0,16)))
-NT2_TIMING(nt2::functors::rrol_,(RS(vuint8_t,0,255))(RS(vuint8_t,0,7)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vint64_t,-10000,10000))(RS(vint64_t,0,63)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vint32_t,-10000,10000))(RS(vint32_t,0,31)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vint16_t,-32768,32767))(RS(vint16_t,0,16)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vint8_t,-128,127))(RS(vint8_t,0,7)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vuint64_t,0,65535))(RS(vuint64_t,0,63)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vuint32_t,0,65535))(RS(vuint32_t,0,31)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vuint16_t,0,65535))(RS(vuint16_t,0,16)))
+NT2_TIMING(nt2::tag::rrol_,(RS(vuint8_t,0,255))(RS(vuint8_t,0,7)))
 
 #undef RS

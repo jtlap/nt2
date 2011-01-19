@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( chdtrc,  (double)(float) )
 {
   using nt2::cephes::chdtrc;
-  using nt2::cephes::chdtrc_;
+  using nt2::cephes::tag::chdtrc_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::chdtrc_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::chdtrc_(T, T)>::type,
                            T
                            >::value)
           );

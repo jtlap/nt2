@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct exp_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::exp_, exp, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::exp_, exp, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/exp.hpp>
 // #include NT2_FDLIBM_INCLUDE(exp.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

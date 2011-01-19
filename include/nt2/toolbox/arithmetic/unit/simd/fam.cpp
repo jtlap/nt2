@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(fam,  (nt2::int16_t)(nt2::int8_t)  )
 {
   using nt2::fam;
-  using nt2::functors::fam_;    
+  using nt2::tag::fam_;    
   using nt2::load; 
   using nt2::simd::native; 
   using nt2::meta::cardinal_of;
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL(fam,  (nt2::int16_t)(nt2::int8_t)  )
 NT2_TEST_CASE_TPL(big_fam, (double)(float)(nt2::int32_t)(nt2::int64_t)  )
 {
  using nt2::fam;
- using nt2::functors::fam_;    
+ using nt2::tag::fam_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -75,11 +75,11 @@ NT2_TEST_CASE_TPL(big_fam, (double)(float)(nt2::int32_t)(nt2::int64_t)  )
  }
 
 NT2_TEST_CASE_TPL(unsigned_fam,  (nt2::uint16_t)
-		  (nt2::uint8_t)(nt2::uint32_t)
-	          (nt2::uint64_t)  )
+              (nt2::uint8_t)(nt2::uint32_t)
+                (nt2::uint64_t)  )
 {
  using nt2::fam;
- using nt2::functors::fam_;    
+ using nt2::tag::fam_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

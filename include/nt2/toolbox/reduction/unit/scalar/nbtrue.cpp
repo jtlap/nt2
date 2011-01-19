@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( nbtrue, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::nbtrue;
-  using nt2::functors::nbtrue_;
+  using nt2::tag::nbtrue_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<nbtrue_(T)>::type
                             , nt2::uint32_t

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/gsl_specfun/include.hpp>
 
-namespace nt2 { namespace gsl_specfun
-  {	       
-    struct gsl_sf_bessel_Knu_scaled__ {};
-    NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::gsl_sf_bessel_Knu_scaled__, gsl_sf_bessel_Knu_scaled_, 2)
+namespace nt2 { namespace gsl_specfun { namespace tag
+  {         
+    struct gsl_sf_bessel_knu_scaled__ {};
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_knu_scaled__, gsl_sf_bessel_knu_scaled_, 2)
+  } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_knu_scaled_.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_Knu_scaled_.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

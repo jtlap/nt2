@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( pdtri,  (double)(float) )
 {
   using nt2::cephes::pdtri;
-  using nt2::cephes::pdtri_;
+  using nt2::cephes::tag::pdtri_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::pdtri_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::pdtri_(T, T)>::type,
                            T
                            >::value)
           );

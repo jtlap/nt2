@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<isnan_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::fdlibm::isnan_;
+using nt2::fdlibm::tag::isnan_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,8 +21,8 @@ using nt2::fdlibm::isnan_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::fdlibm::isnan_,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::isnan_,(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::isnan_,(RS(int32_t,-1,1)))
+NT2_TIMING(nt2::fdlibm::tag::isnan_,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::fdlibm::tag::isnan_,(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::fdlibm::tag::isnan_,(RS(int32_t,-1,1)))
 
 #undef RS

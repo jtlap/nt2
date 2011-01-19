@@ -19,15 +19,15 @@ typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<digamma_> from euler
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::digamma_;
+using nt2::tag::digamma_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::digamma_,(RS(vfloat,-30.0f,30.0f)))
-NT2_TIMING(nt2::functors::digamma_,(RS(vdouble,-30.0,30.0)))
-NT2_TIMING(nt2::functors::digamma_,(RS(vint32_t,-30.0,30.0)))
+NT2_TIMING(nt2::tag::digamma_,(RS(vfloat,-30.0f,30.0f)))
+NT2_TIMING(nt2::tag::digamma_,(RS(vdouble,-30.0,30.0)))
+NT2_TIMING(nt2::tag::digamma_,(RS(vint32_t,-30.0,30.0)))
 
 #undef RS

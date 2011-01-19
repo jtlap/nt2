@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct log10_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::log10_, log10, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(libc::tag::log10_, log10, 1)
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/log10.hpp>
 // #include NT2_LIBC_INCLUDE(log10.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

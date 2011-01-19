@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( acospi,  (double)(float) )
 {
   using nt2::crlibm::acospi;
-  using nt2::crlibm::acospi_;
+  using nt2::crlibm::tag::acospi_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::crlibm::acospi_<nt2::rn>(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::crlibm::tag::acospi_<nt2::rn>(T)>::type,
                            T
                            >::value)
           );

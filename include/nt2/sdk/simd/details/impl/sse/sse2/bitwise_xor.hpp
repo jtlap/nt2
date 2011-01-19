@@ -9,68 +9,99 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_XOR_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_BITWISE_XOR_HPP_INCLUDED
 
-namespace nt2 { namespace functors
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
+
+////////////////////////////////////////////////////////////////////////////////
+// Generic overload implementation
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)
+                      , ((simd_<arithmetic_<A0>,tag::sse_>))
+                        ((simd_<arithmetic_<A1>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Bitwise operators requires same bits size
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct validate<bitwise_xor_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
-  };
-  template<class Info>
-  struct  call<bitwise_xor_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = simd::native_cast<A0>( a1 );
-      that    =  _mm_xor_pd(a0, that);
-      return that;
-    }
-  };
-
-  template<class Info>
-  struct  call<bitwise_xor_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that = simd::native_cast<A0>( a1 );
-      that    =  _mm_xor_ps(a0, that);
-      return that;
-    }
-  };
-
-  template<class Info>
-  struct  call< bitwise_xor_, tag::simd_(tag::arithmetic_,tag::sse_)
-              , arithmetic_ , Info
+  template<class Dummy>
+  struct  call< tag::bitwise_xor_ ( tag::simd_(tag::arithmetic_,tag::sse_)
+                                  , tag::simd_(tag::arithmetic_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
+    template<class Sig>           struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = simd::native_cast<A0>( a1 );
-      that    =  _mm_xor_si128(a0,that);
+      typedef typename meta::as_integer< A0 >::type int_type;
+      int_type t0 = simd::native_cast<int_type>( a0 );
+      int_type t1 = simd::native_cast<int_type>( a1 );
+      A0     that = { simd::native_cast<A0>(_mm_xor_si128(t0,t1)) };
       return that;
     }
   };
 } }
 
+//////////////////////////////////////////////////////////////////////////////
+// double/double use the seemingly faster xor_pd
+//////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)
+                      , ((simd_<double_<A0>,tag::sse_>))
+                        ((simd_<double_<A1>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::bitwise_xor_ ( tag::simd_(tag::double_,tag::sse_)
+                                  , tag::simd_(tag::double_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_xor_pd(a0,a1) };
+      return that;
+    }
+  };
+} }
+
+//////////////////////////////////////////////////////////////////////////////
+// float/float use the seemingly faster xor_ps
+//////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)
+                      , ((simd_<float_<A0>,tag::sse_>))
+                        ((simd_<float_<A1>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::bitwise_xor_ ( tag::simd_(tag::float_,tag::sse_)
+                                  , tag::simd_(tag::float_,tag::sse_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that = { _mm_xor_ps(a0,a1) };
+      return that;
+    }
+  };
+} }
 #endif

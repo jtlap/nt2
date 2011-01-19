@@ -22,16 +22,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( cot, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::cephes::cot; 
-  using nt2::cephes::cot_;
+  using nt2::cephes::tag::cot_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<cot_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    //  NT2_TEST(  nt2::is_nan(nt2::cephes::cot( T(0) )) );
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::cephes::cot( nt2::Pio_4<T>() )  , T(1)),  N );

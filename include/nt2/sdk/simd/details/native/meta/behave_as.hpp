@@ -21,9 +21,9 @@ namespace nt2
     ////////////////////////////////////////////////////////////////////////////
     // Overload for SIMD types
     ////////////////////////////////////////////////////////////////////////////
-    template<class Lambda,class T, class C,class X>
-    struct behave_as_impl<Lambda,T,tag::simd_(C,X) >
-         : boost::mpl::apply1<Lambda,typename meta::scalar_of<T>::type>::type {};
+    template<class Lambda,class T, class H,class X>
+    struct behave_as_impl<Lambda,T, meta::simd_<H,X> >
+         : boost::mpl::apply1<Lambda,typename T::value_type>::type {};
   }
 }
 

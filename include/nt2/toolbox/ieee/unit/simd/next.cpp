@@ -25,11 +25,11 @@
 // Test behavior of arithmetic component next using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(next, 
-		  NT2_TYPES
+              NT2_TYPES
                          )
 {
  using nt2::next; 
- using nt2::functors::next_;
+ using nt2::tag::next_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

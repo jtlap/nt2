@@ -15,11 +15,11 @@
 namespace nt2 {
   struct ascending_ {};
   struct descending_{};
-  namespace functors
-  {	       
+  namespace tag
+  {         
     struct comparator_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::comparator_, comparator, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
 }
  
 #include <nt2/toolbox/swar/function/scalar/comparator.hpp>
@@ -27,3 +27,5 @@ namespace nt2 {
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -22,16 +22,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( tan, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::fdlibm::tan; 
-  using nt2::fdlibm::tan_;
+  using nt2::fdlibm::tag::tan_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<tan_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::fdlibm::tan( T(0) )  , 0 );
    NT2_TEST_LESSER(  nt2::ulpdist(nt2::fdlibm::tan( nt2::Pi<T>() ) , T(0)),  N); 

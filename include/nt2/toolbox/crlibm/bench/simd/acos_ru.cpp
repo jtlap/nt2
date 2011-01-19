@@ -19,15 +19,15 @@ typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<acos_ru_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::acos_ru_;
+using nt2::crlibm::tag::acos_ru_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::crlibm::acos_ru_,(RS(vfloat,-1.0f,1.0f)))
-NT2_TIMING(nt2::crlibm::acos_ru_,(RS(vdouble,-1.0,1.0)))
-NT2_TIMING(nt2::crlibm::acos_ru_,(RS(vint32_t,-1.0,1.0)))
+NT2_TIMING(nt2::crlibm::tag::acos_ru_,(RS(vfloat,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::tag::acos_ru_,(RS(vdouble,-1.0,1.0)))
+NT2_TIMING(nt2::crlibm::tag::acos_ru_,(RS(vint32_t,-1.0,1.0)))
 
 #undef RS

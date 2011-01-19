@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<cos_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::cos_;
+using nt2::crlibm::tag::cos_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::cos_<nt2::rn>,(RS(float,-3.14,3.14)))
-NT2_TIMING(nt2::crlibm::cos_<nt2::rn>,(RS(double,-3.14,3.14)))
+NT2_TIMING(nt2::crlibm::tag::cos_<nt2::rn>,(RS(float,-3.14,3.14)))
+NT2_TIMING(nt2::crlibm::tag::cos_<nt2::rn>,(RS(double,-3.14,3.14)))
 
 #undef RS

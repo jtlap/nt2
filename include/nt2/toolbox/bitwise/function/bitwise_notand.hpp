@@ -12,12 +12,12 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bitwise/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct bitwise_notand_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_notand_, bitwise_notand, 2)
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_notand_, b_notand, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_notand_, bitwise_notand, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_notand_, b_notand, 2)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_notand.hpp>
@@ -25,3 +25,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

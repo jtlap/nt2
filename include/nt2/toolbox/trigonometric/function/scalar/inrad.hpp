@@ -11,34 +11,34 @@
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::inrad_, tag::cpu_,
+                       (A0),
+                       (fundamental_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for inrad
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute inrad(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<inrad_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::inrad_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return a0*Deginrad<type>(); 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return a0*Deginrad<type>();
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

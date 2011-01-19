@@ -11,16 +11,53 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
+                                 (A0)(A1),
+                                 ((simd_<arithmetic_<A0>,tag::sse_>))
+                                 ((simd_<arithmetic_<A1>,tag::sse_>))
+                                );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for bitwise_notand
+  template<class Dummy>
+  struct call<tag::bitwise_notand_(tag::simd_(tag::arithmetic_, tag::sse_),
+                                   tag::simd_(tag::arithmetic_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : meta::strip<A0>{};
 
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_integer< A0 >::type int_type;
+      int_type t0 = simd::native_cast<int_type>( a0 );
+      int_type t1 = simd::native_cast<int_type>( a1 );
+      A0     that = { simd::native_cast<A0>(_mm_andnot_si128(t0,t1)) };
+      return that;
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<bitwise_notand_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
+                                 (A0),
+                                 ((simd_<double_<A0>,tag::sse_>))
+                                 ((simd_<double_<A0>,tag::sse_>))
+                                );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::bitwise_notand_(tag::simd_(tag::double_, tag::sse_),
+                                   tag::simd_(tag::double_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -34,33 +71,23 @@ namespace nt2 { namespace functors
       return that;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
+                                 (A0),
+                                 ((simd_<float_<A0>,tag::sse_>))
+                                 ((simd_<float_<A0>,tag::sse_>))
+                                );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<bitwise_notand_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2) 
-    {
-      A0 that;
-      that = a1; 
-      that = _mm_andnot_ps(a0,that);
-      return that;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<bitwise_notand_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::bitwise_notand_(tag::simd_(tag::float_, tag::sse_),
+                                   tag::simd_(tag::float_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -69,13 +96,12 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
       A0 that;
-      that = a1; 
-      that = _mm_andnot_si128(a0,that);
+      that = a1;
+      that = _mm_andnot_ps(a0,that);
       return that;
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

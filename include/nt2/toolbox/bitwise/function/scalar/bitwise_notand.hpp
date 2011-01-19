@@ -12,30 +12,24 @@
 #include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/size.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
+                                (A0)(A1),
+                                (fundamental_<A0>)(fundamental_<A1>)
+                               )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<bitwise_notand_,tag::scalar_(tag::arithmetic_),Info>
+  template<class Dummy>
+  struct call<tag::bitwise_notand_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-       meta::has_same_size<A0,A1>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute bitwise_notand(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<bitwise_notand_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct result<This(A0,A1)> : meta::strip<A0>{}; 
+      struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -49,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

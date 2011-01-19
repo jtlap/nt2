@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/swar/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct split_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::split_, split, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::split_, split, 1)
 }
  
 #include <nt2/toolbox/swar/function/scalar/split.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

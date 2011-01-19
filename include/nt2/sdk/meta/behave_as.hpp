@@ -10,20 +10,20 @@
 #define NT2_SDK_META_BEHAVE_AS_HPP_INCLUDED
 
 #include <boost/mpl/apply.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class Lambda,class Type,class Tag>
-  struct behave_as_impl : boost::mpl::apply1<Lambda,Type>::type {};
+  template<class Lambda,class T,class Tag>
+  struct behave_as_impl : boost::mpl::apply1<Lambda,T>::type {};
 } }
 
 namespace nt2 { namespace meta
 {
-  template<class Lambda,class Type>
+  template<class Lambda,class T>
   struct behave_as : details::behave_as_impl<Lambda
-                                            ,Type
-                                            ,typename category_of<Type>::type::tag
+                                            ,typename meta::strip<T>::type
+                                            ,typename hierarchy_of<T>::type
                                             > {};
 } }
 

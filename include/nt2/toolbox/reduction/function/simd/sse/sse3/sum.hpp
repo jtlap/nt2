@@ -14,16 +14,20 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
+                      (A0),
+                      ((simd_<arithmetic_<A0>,tag::sse_>))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for sum
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<sum_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::sum_(tag::simd_(tag::arithmetic_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -31,6 +35,64 @@ namespace nt2 { namespace functors
     {
       typedef typename meta::scalar_of<A0>::type                 base;
       typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return boost::fusion::fold(a0,0,functor<tag::plus_>());
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
+                      (A0),
+                      ((simd_<double_<A0>,tag::sse_>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::sum_(tag::simd_(tag::double_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type                 type;
+    };
+
+    NT2_FUNCTOR_CALL(1) {
+      A0 b1 = {_mm_hadd_pd (a0, Zero<A0>())};
+      double r;
+      _mm_store_sd(&r, b1);
+      return r;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
+                      (A0),
+                      ((simd_<float_<A0>,tag::sse_>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::sum_(tag::simd_(tag::float_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::scalar_of<A0>::type   type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -42,52 +104,7 @@ namespace nt2 { namespace functors
       return r;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<sum_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
-    };
-
-    NT2_FUNCTOR_CALL(1) {
-      A0 b1 = {_mm_hadd_pd (a0, Zero<A0>())};
-      double r;
-      _mm_store_sd(&r, b1);
-      return r;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<sum_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename boost::result_of<meta::arithmetic(base)>::type  type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return boost::fusion::fold(a0,0,functor<plus_>());
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

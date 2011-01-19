@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/legendre.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct legendre_next_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::legendre_next_, legendre_next, 4)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::legendre_next_, legendre_next, 4)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/legendre_next.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(legendre_next.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

@@ -8,8 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::as_unsigned"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,8 +23,8 @@ NT2_TEST_CASE(as_unsigned)
   using nt2::meta::as_unsigned;
   using boost::is_same;
 
-  NT2_TEST( (is_same<as_unsigned<double  			>::type,double 			>::value ));
-  NT2_TEST( (is_same<as_unsigned<float   			>::type,float 			>::value ));
+  NT2_TEST( (is_same<as_unsigned<double       >::type,double      >::value ));
+  NT2_TEST( (is_same<as_unsigned<float        >::type,float       >::value ));
   NT2_TEST( (is_same<as_unsigned<nt2::int64_t >::type,nt2::uint64_t>::value ));
   NT2_TEST( (is_same<as_unsigned<nt2::int32_t >::type,nt2::uint32_t>::value ));
   NT2_TEST( (is_same<as_unsigned<nt2::int16_t >::type,nt2::uint16_t>::value ));
@@ -33,5 +33,5 @@ NT2_TEST_CASE(as_unsigned)
   NT2_TEST( (is_same<as_unsigned<nt2::uint32_t>::type,nt2::uint32_t>::value ));
   NT2_TEST( (is_same<as_unsigned<nt2::uint16_t>::type,nt2::uint16_t>::value ));
   NT2_TEST( (is_same<as_unsigned<nt2::uint8_t >::type,nt2::uint8_t >::value ));
-  NT2_TEST( (is_same<as_unsigned<bool    			>::type,bool 				>::value ));
+  NT2_TEST( (is_same<as_unsigned<bool         >::type,bool         >::value ));
 }

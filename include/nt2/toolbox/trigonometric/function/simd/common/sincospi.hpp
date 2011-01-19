@@ -18,39 +18,34 @@
 //  of the old nt2
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<sincospi_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute sincospi(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<sincospi_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sincospi_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<arithmetic_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::sincospi_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename meta::as_real<A0>::type  rtype; 
+      typedef typename meta::as_real<A0>::type  rtype;
       typedef boost::fusion::tuple<rtype, rtype> type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
+      typedef typename NT2_RETURN_TYPE(1)::type rtype;
       rtype res;
-      typedef typename  boost::fusion::result_of::value_at_c<rtype,0>::type type; 
+      typedef typename  boost::fusion::result_of::value_at_c<rtype,0>::type type;
       impl::trig_base < type,pi_tag
                       , trig_tag, tag::simd_type
                       >::sincosa( tofloat(a0)
@@ -64,4 +59,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

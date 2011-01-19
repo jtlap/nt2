@@ -25,10 +25,10 @@ NT2_TEST_CASE_TPL ( bitwise_notor,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::bitwise_notor;
-  using nt2::functors::bitwise_notor_;
+  using nt2::tag::bitwise_notor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_notor_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  bitwise_notor( T(0), T(1)), T(~0) );
@@ -38,10 +38,10 @@ NT2_TEST_CASE_TPL ( real_bitwise_notor,  (double)
                   )
 {
   using nt2::bitwise_notor;
-  using nt2::functors::bitwise_notor_;
+  using nt2::tag::bitwise_notor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_notor_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST(  nt2::is_nan(bitwise_notor( T(0), T(1))) );

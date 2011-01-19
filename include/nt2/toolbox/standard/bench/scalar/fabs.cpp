@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<fabs_> from standard
 //////////////////////////////////////////////////////////////////////////////
-using nt2::standard::fabs_;
+using nt2::standard::tag::fabs_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,8 +21,8 @@ using nt2::standard::fabs_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::standard::fabs_,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::standard::fabs_,(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::standard::fabs_,(RS(int32_t,-1,1)))
+NT2_TIMING(nt2::standard::tag::fabs_,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::standard::tag::fabs_,(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::standard::tag::fabs_,(RS(int32_t,-1,1)))
 
 #undef RS

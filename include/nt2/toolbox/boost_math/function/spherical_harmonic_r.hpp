@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/spherical_harmonic.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct spherical_harmonic_r_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::spherical_harmonic_r_, spherical_harmonic_r, 4)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::spherical_harmonic_r_, spherical_harmonic_r, 4)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/spherical_harmonic_r.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(spherical_harmonic_r.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

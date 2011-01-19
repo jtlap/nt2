@@ -13,38 +13,32 @@
 #include <boost/fusion/tuple.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::two_split_, tag::cpu_,
+                           (A0),
+                           (fundamental_<A0>)
+                          )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<two_split_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)>
-          : meta::is_floating_point<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute two_split(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<two_split_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::two_split_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename meta::strip<A0>::type           stA0; 
+      typedef typename meta::strip<A0>::type           stA0;
       typedef typename boost::fusion::tuple<stA0,stA0> type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
@@ -63,4 +57,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

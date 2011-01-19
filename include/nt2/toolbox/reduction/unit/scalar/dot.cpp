@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( dot, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::dot;
-  using nt2::functors::dot_;
+  using nt2::tag::dot_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<dot_(T,T)>::type
                             , typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type

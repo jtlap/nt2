@@ -17,63 +17,70 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::expm1_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for expm1
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute expm1(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<expm1_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::expm1_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-	const A0 u = nt2::exp(a0);
-	if( is_invalid(u) || (nt2::abs(a0) > Half<A0>()))
-	  {
-	    return u-One<A0>();
-	  }
-	else if (u!=One<A0>())
-	  {
-	    return (u-One<A0>())*a0/nt2::log(u);
-	  }
-	else
-	  {
-	    return a0;
-	  } 
+      return minusone(exp(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::expm1_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<expm1_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::expm1_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      return minusone(exp(a0)); 
+      const A0 u = nt2::exp(a0);
+      if( is_invalid(u) || (nt2::abs(a0) > Half<A0>()))
+        {
+          return u-One<A0>();
+        }
+      else if (u!=One<A0>())
+        {
+          return (u-One<A0>())*a0/nt2::log(u);
+        }
+      else
+        {
+          return a0;
+        }
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

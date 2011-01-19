@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( asinpi,  (double)(float) )
 {
   using nt2::crlibm::asinpi;
-  using nt2::crlibm::asinpi_;
+  using nt2::crlibm::tag::asinpi_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::crlibm::asinpi_<nt2::rn>(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::crlibm::tag::asinpi_<nt2::rn>(T)>::type,
                            T
                            >::value)
           );

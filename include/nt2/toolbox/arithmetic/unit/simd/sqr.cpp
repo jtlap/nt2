@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(sqr, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::sqr;
- using nt2::functors::sqr_;    
+ using nt2::tag::sqr_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(sqr, NT2_SIMD_UNSIGNED_TYPES )
 NT2_TEST_CASE_TPL(signed_sqr, NT2_SIMD_SIGNED_TYPES )
 {
  using nt2::sqr;
- using nt2::functors::sqr_;    
+ using nt2::tag::sqr_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

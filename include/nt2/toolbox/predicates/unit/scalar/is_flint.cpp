@@ -18,18 +18,18 @@
 #include <nt2/sdk/constant/infinites.hpp>
 
 NT2_TEST_CASE_TPL ( is_flint, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::is_flint;
-  using nt2::functors::is_flint_;
+  using nt2::tag::is_flint_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_flint_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_flint( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_flint( T(-43) ), 1 );
@@ -38,12 +38,12 @@ NT2_TEST_CASE_TPL ( is_flint, (double)(nt2::int64_t)
 NT2_TEST_CASE_TPL ( real_is_flint, (double)(float) )
 {
   using nt2::is_flint;
-  using nt2::functors::is_flint_;
+  using nt2::tag::is_flint_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_flint_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_flint( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_flint( T(-42.5) ), 0 );
@@ -54,12 +54,12 @@ NT2_TEST_CASE_TPL ( real_is_flint, (double)(float) )
 NT2_TEST_CASE_TPL ( bool_is_flint, (bool) )
 {
   using nt2::is_flint;
-  using nt2::functors::is_flint_;
+  using nt2::tag::is_flint_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_flint_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
    NT2_TEST_EQUAL(  is_flint( 1 ), 1 );
    NT2_TEST_EQUAL(  is_flint( 0 ), 1);

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ast/include.hpp>
 
-namespace nt2 { namespace ast
-  {	       
+namespace nt2 { namespace ast { namespace tag
+  {         
     struct acosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(ast::acosh_, acosh, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(ast::tag::acosh_, acosh, 1)
+  } }
  
 #include <nt2/toolbox/ast/function/scalar/acosh.hpp>
 // #include NT2_AST_INCLUDE(acosh.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

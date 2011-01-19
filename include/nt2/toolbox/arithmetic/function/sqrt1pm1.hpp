@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct sqrt1pm1_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::sqrt1pm1_, sqrt1pm1, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::sqrt1pm1_, sqrt1pm1, 1)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/sqrt1pm1.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

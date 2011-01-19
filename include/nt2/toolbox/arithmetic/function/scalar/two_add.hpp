@@ -12,26 +12,20 @@
 #include <boost/fusion/tuple.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::two_add_, tag::cpu_,
+                         (A0)(A1),
+                         (fundamental_<A0>)(fundamental_<A1>)
+                        )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<two_add_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : meta::is_floating_point<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute two_add(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<two_add_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::two_add_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -43,7 +37,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      typename NT2_CALL_RETURN_TYPE(2)::type res;
+      typename NT2_RETURN_TYPE(2)::type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
@@ -61,4 +55,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

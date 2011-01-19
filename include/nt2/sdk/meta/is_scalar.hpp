@@ -11,26 +11,21 @@
 
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class T>
-  struct is_scalar : boost::mpl::false_ {};
+  template<class Hierarchy> struct is_scalar : boost::mpl::true_ {};
 
   template<class T>
-  struct  is_scalar<tag::scalar_(T)>  : boost::mpl::true_ {};
+  struct is_scalar< meta::unspecified_<T> >  : boost::mpl::false_ {};
 } }
 
 namespace nt2 { namespace meta
 {
   template<class T>
   struct  is_scalar
-        : details::is_scalar<typename category_of  <
-                                                  typename strip<T>::type
-                                                  >::type::tag
-                            >
+        : details::is_scalar<typename hierarchy_of<T>::type>
   {};
 } }
 

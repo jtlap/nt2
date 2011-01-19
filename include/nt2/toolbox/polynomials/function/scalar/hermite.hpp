@@ -12,32 +12,51 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::hermite_, tag::cpu_,
+                         (A0)(A1),
+                         (integer_<A0>)(arithmetic_<A1>)
+                        )
+
+namespace nt2 { namespace ext
 {
-  template <class Info, class C> 
-  struct dispatch<hermite_,tag::scalar_(C),Info> : boost::mpl::_2 {};
-
-  template<class Info>
-  struct validate<hermite_,tag::scalar_(tag::arithmetic_),Info>
+  template<class Dummy>
+  struct call<tag::hermite_(tag::integer_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-      struct result<This(A0,A1)> :meta::is_integral<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute hermite(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<hermite_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::hermite(a0, type(a1));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::hermite_, tag::cpu_,
+                         (A0)(A1),
+                         (integer_<A0>)(real_<A1>)
+                        )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::hermite_(tag::integer_,tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -46,43 +65,22 @@ namespace nt2 { namespace functors
       A1 p1 = a1+a1;
       uint32_t c = 1;
       while(c < a0)
-	{
-	  std::swap(p0, p1);
-	  p1 = hermite_next(c, a1, p0, p1);
-	  ++c;
-	}
+      {
+        std::swap(p0, p1);
+        p1 = hermite_next(c, a1, p0, p1);
+        ++c;
+      }
       return p1;
     }
   private:
     template <class T, class T1, class T2>
-    static inline T 
+    static inline T
     hermite_next(const uint32_t& n, const T& x, const T1& Hn, const T2& Hnm1)
     {
       return (2 * x * Hn - 2 * n * Hnm1);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<hermite_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::floating(A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::hermite(a0, type(a1)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010
