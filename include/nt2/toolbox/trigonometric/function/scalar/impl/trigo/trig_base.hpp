@@ -18,6 +18,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/sdk/simd/tags.hpp>
+#include <iostream>
 
 // trigonometric functions are implemented using the classical cephes/fdlibm/libc principles
 // however the formal reduce/eval/return is properly divided to allow choices versus
@@ -176,10 +177,13 @@ namespace nt2
 	    }
 	  else
 	    {
+	      std::cout << "icitte" << std::endl; 
+	      const A0 bos =  bitofsign(a0);
+	      if (!a0) return b_or(Inf<A0>(), bos); 
 	      A0 xr, xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::cot_eval(xr, xc, 1-((n&1)<<1));
-	      return b_xor(y, bitofsign(a0));
+	      return b_xor(y, bos);
 	    }
 	}
 

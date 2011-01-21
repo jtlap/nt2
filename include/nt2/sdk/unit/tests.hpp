@@ -86,7 +86,7 @@
 #define NT2_TEST_TUPLE_ULP_EQUAL(A,B,N)					\
   {									\
     bool b; 								\
-    b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,		\
+    b = ::nt2::details::test_ulp_tuple_eq(#A, #B, #N, __LINE__,		\
 				      BOOST_CURRENT_FUNCTION,		\
 				      A, B, N); 			\
       if (!b)								\

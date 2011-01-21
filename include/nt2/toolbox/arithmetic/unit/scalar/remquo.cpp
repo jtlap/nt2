@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// created by jt the 01/12/2010
+/// modified by jt the 17/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -22,13 +24,7 @@
 // specific includes for arity 2 tests
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/rem.hpp>
-#include <nt2/include/functions/remainder.hpp>
-#include <nt2/include/functions/mod.hpp>
 #include <nt2/include/functions/idivfix.hpp>
-#include <nt2/include/functions/idivfloor.hpp>
-#include <nt2/include/functions/idivround.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/abs.hpp> 
 
 NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
 {
@@ -41,23 +37,6 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
-    NT2_CREATE_BUFFER(a1,T, 100, T(-10), T(10));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        r_t r = nt2::remquo(a0,a1);
-        typename boost::fusion::result_of::at_c<r_t,0>::type r0 = boost::fusion::get<0>(r);
-        typename boost::fusion::result_of::at_c<r_t,1>::type r1 = boost::fusion::get<1>(r);
-	NT2_TEST_TUPLE_ULP_EQUAL( r0,nt2::remainder(a0,a1),0);
-	//I do not really understand what quo is !?
-     }
-   }
 } // end of test for real_

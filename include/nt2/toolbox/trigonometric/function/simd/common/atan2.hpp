@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
+      A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z);
       z = sel(is_nez(a1), z, z*Half<A0>());
       z = z*signnz(a0);

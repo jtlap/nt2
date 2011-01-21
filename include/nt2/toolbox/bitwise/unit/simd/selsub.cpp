@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL(selsub, NT2_SIMD_TYPES )
   for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
     data[i] = nt2::random(0.0, 50.0); // good value here for selsub
   }
-  for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
+  for(int i=0;i<cardinal_of<n_t>::value;++i){    
     data0[i] = nt2::random(-1, 0); // good value here for selsub
   }
    n_t a1 = load<n_t>(&data[0],0);   

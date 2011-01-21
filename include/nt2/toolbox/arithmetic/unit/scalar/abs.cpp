@@ -11,6 +11,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+/// created by jt the 30/11/2010
+/// modified by jt the 17/01/2011
+/// for integer standard implementation produces double and there can be
+/// a loss in precision. This is not the case of nt2::abs that produces unsigned integer
+/// output for integer entries
+/// take care that if abs is called with floating types, YOU MUST use nt2::abs. If not
+/// the punishment is generally calling the wrong system abs function, that transforms your real in
+/// integer !
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,7 +28,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/toolbox/arithmetic/include/abs.hpp>
 // specific includes for arity 1 tests
-
+#include<nt2/toolbox/standard/include/abs.hpp>
 
 NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
 {
@@ -33,6 +41,7 @@ NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -42,18 +51,6 @@ NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  abs(nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::Zero<T>()), nt2::Zero<T>(), 0);
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-100), T(100));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::abs(a0),a0 > 0 ? a0 : -a0,0);
-     }
-   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( abs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
@@ -63,26 +60,16 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
+
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  abs(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::Zero<T>()), nt2::Zero<T>(), 0);
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(0), T(100));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::abs(a0),a0,0);
-     }
-   }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( abs_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -95,25 +82,12 @@ NT2_TEST_CASE_TPL ( abs_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << nt2::type_id <r_t>() << std::endl;
-  std::cout << nt2::type_id < wished_r_t>() << std::endl;
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  abs(nt2::Mone<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::Zero<T>()), nt2::Zero<T>(), 0);
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-100), T(100));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::abs(a0),a0 > 0 ? a0 : -a0,0);
-     }
-   }
 } // end of test for signed_int_

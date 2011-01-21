@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(is_nle, (unsigned long long) )//NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(is_nle, (uint64_t) )//NT2_SIMD_TYPES )
 {
  using nt2::is_nle;
  using nt2::tag::is_nle_; 

@@ -6,39 +6,99 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - acotd/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp> 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/trigonometric/include/acotd.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <iostream>
- 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( acotd, (double) 
-                (float) 
-                ) 
+#include <nt2/toolbox/trigonometric/include/acotd.hpp>
+// specific includes for arity 1 tests
+#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/crlibm/include/atan.hpp>
+#include <nt2/include/functions/rec.hpp>
+
+NT2_TEST_CASE_TPL ( acotd_real__1,  NT2_REAL_TYPES)
 {
   using nt2::acotd;
   using nt2::tag::acotd_;
-  const int N = 2; 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<acotd_(T)>::type
-           , T
-            >::value)  
-    );
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-  NT2_TEST_EQUAL(  nt2::acotd( T(0.0) )   , nt2::Inf<T>() );
-  NT2_TEST_EQUAL(  nt2::acotd( T(-0.0) )  , nt2::Minf<T>() );
-  NT2_TEST_EQUAL(  nt2::acotd( T(1) )     , 45 );
-  NT2_TEST_EQUAL(  nt2::acotd( T(-1) )    , -45 );
-  NT2_TEST_LESSER(  nt2::ulpdist(acotd( T(0.5) ), T(63.434948822922010)),  N); 
-  NT2_TEST_LESSER(  nt2::ulpdist(acotd( T(-0.5) ), T(-63.434948822922010)),  N); 
-} 
- 
+  typedef typename nt2::meta::call<acotd_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  acotd(-nt2::Zero<T>()), -90, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Inf<T>()), 0, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Minf<T>()), 0, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Mone<T>()), -45, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::One<T>()), 45, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Zero<T>()), 90, 0.5);
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, nt2::Mone<T>(), nt2::One<T>());
+    double ulp0 = 0.0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::acotd(a0),nt2::crlibm::atan<nt2::rn>(nt2::rec(a0))*nt2::Radindeg<T>(),1.0);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( acotd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::acotd;
+  using nt2::tag::acotd_;
+  typedef typename nt2::meta::call<acotd_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::One<T>()), 45, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Zero<T>()), 0, 0.5);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( acotd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::acotd;
+  using nt2::tag::acotd_;
+  typedef typename nt2::meta::call<acotd_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::One<T>()), 45, 0.5);
+  NT2_TEST_ULP_EQUAL(  acotd(nt2::Zero<T>()), 0, 0.5);
+} // end of test for signed_int_

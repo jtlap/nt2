@@ -117,7 +117,7 @@ namespace nt2
         {
           //::sincosf(a0, &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
