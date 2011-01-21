@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( scalbn,  (double)(float) )
 {
   using nt2::fdlibm::scalbn;
-  using nt2::fdlibm::scalbn_;
+  using nt2::fdlibm::tag::scalbn_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::scalbn_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::scalbn_(T, T)>::type,
                            T
                            >::value)
           );

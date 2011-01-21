@@ -14,14 +14,14 @@ namespace nt2
   
 #define NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(NAME,ARITY)		\
     template <class Rounding, class A0>					\
-    inline typename nt2::meta::enable_call<NAME##_<Rounding>(A0&)>::type\
-      NAME(A0 const& a0){NT2_FUNCTION_BODY(NAME##_<Rounding>,ARITY)}	\
+    inline typename nt2::meta::enable_call<crlibm::tag::NAME##_<Rounding>(A0&)>::type \
+       NAME(A0 const& a0){NT2_FUNCTION_BODY(crlibm::tag::NAME##_<Rounding>,ARITY)}	\
   /**/
   
 #define NT2_CRLIBM_INNER_STRUCT(ROUNDING, NAME, SUF)			\
   template<class A0> struct inner_##NAME < A0, ROUNDING>		\
   {									\
-    static inline typename NT2_CALL_RETURN_TYPE(1)::type		\
+    static inline typename NT2_RETURN_TYPE(1)::type		\
       eval(A0 const& a0,ROUNDING const&){ return NAME##_##SUF(a0);}	\
   };									\
   /**/

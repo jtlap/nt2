@@ -15,25 +15,20 @@
 #include <nt2/include/functions/tofloat.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<acsc_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute acsc(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<acsc_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acsc_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::acsc_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -48,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

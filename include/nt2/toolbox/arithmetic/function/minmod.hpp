@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct minmod_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::minmod_, minmod, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::minmod_, minmod, 2)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/minmod.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

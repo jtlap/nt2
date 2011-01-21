@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/predicates/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct majority_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::majority_, majority, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::majority_, majority, 3)
 }
  
 #include <nt2/toolbox/predicates/function/scalar/majority.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

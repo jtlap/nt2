@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(random, NT2_SIMD_TYPES )
 {
  using nt2::random;
- using nt2::functors::random_;
+ using nt2::tag::random_;
 
  using nt2::load; 
  using nt2::simd::native; 

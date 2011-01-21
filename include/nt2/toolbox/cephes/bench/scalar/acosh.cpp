@@ -15,15 +15,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<acosh_> from cephes
 //////////////////////////////////////////////////////////////////////////////
-using nt2::cephes::acosh_;
+using nt2::cephes::tag::acosh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::cephes::acosh_,(RS(float,1.0f,10.0f)))
-NT2_TIMING(nt2::cephes::acosh_,(RS(double,1.0,100.0)))
-NT2_TIMING(nt2::cephes::acosh_,(RS(int32_t,1.0,100.0)))
+NT2_TIMING(nt2::cephes::tag::acosh_,(RS(float,1.0f,10.0f)))
+NT2_TIMING(nt2::cephes::tag::acosh_,(RS(double,1.0,100.0)))
+NT2_TIMING(nt2::cephes::tag::acosh_,(RS(int32_t,1.0,100.0)))
 
 #undef RS

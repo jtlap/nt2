@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct sqrt_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::sqrt_, sqrt, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::sqrt_, sqrt, 1)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/sqrt.hpp>
 // #include NT2_CEPHES_INCLUDE(sqrt.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

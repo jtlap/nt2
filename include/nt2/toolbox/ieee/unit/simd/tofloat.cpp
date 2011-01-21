@@ -24,11 +24,11 @@
 // Test behavior of arithmetic component tofloat using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(tofloat, 
-		  NT2_SIMD_REAL_CONVERTIBLE_TYPES
+              NT2_SIMD_REAL_CONVERTIBLE_TYPES
                          )
 {
  using nt2::tofloat; 
- using nt2::functors::tofloat_;
+ using nt2::tag::tofloat_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

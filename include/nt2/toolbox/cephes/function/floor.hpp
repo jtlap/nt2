@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct floor_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::floor_, floor, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::floor_, floor, 1)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/floor.hpp>
 // #include NT2_CEPHES_INCLUDE(floor.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

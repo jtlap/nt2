@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( rint,  (double)(float) )
 {
   using nt2::ast::rint;
-  using nt2::ast::rint_;
+  using nt2::ast::tag::rint_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::ast::rint_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::ast::tag::rint_(T)>::type,
                            T
                            >::value)
           );

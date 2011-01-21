@@ -21,11 +21,12 @@
 namespace nt2 { namespace memory
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Global padding: global size is aligned_on
+  // Global padding: data has a padding after them
   //////////////////////////////////////////////////////////////////////////////
   struct global_padding
   {
-    typedef boost::mpl::pair<tag::padding,global_padding> nt2_settings_type;
+    typedef meta::padding_<global_padding>                  nt2_hierarchy_tag;
+    typedef boost::mpl::pair<tag::padding_,global_padding>  nt2_settings_type;
   };
 } }
 

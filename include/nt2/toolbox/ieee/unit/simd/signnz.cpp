@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(signnz, NT2_SIMD_SIGNED_TYPES )
 {
  using nt2::signnz;
- using nt2::functors::signnz_;    
+ using nt2::tag::signnz_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(signnz, NT2_SIMD_SIGNED_TYPES )
 NT2_TEST_CASE_TPL(unsigned_signnz, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::signnz;
- using nt2::functors::signnz_;    
+ using nt2::tag::signnz_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

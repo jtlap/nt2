@@ -9,15 +9,21 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_LOGICAL_AND_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_LOGICAL_AND_HPP_INCLUDED
 
-namespace nt2 { namespace functors
+#include <nt2/sdk/meta/strip.hpp>
+
+namespace nt2 { namespace ext
 {
-  template<class C, class X,class Info>
-  struct  call<logical_and_,tag::simd_(C,X),fundamental_,Info>
+  template<class X,class Dummy>
+  struct  call< tag::logical_and_ ( tag::simd_(tag::arithmetic_,X)
+                                  , tag::simd_(tag::arithmetic_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A,A)> : meta::strip<A> {};
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {

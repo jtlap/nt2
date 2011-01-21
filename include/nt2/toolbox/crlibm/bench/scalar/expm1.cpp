@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<expm1_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::expm1_;
+using nt2::crlibm::tag::expm1_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::expm1_<nt2::rn>,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::crlibm::expm1_<nt2::rn>,(RS(double,-1.0,1.0)))
+NT2_TIMING(nt2::crlibm::tag::expm1_<nt2::rn>,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::tag::expm1_<nt2::rn>,(RS(double,-1.0,1.0)))
 
 #undef RS

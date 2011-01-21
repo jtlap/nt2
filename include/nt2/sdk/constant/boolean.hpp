@@ -16,7 +16,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 
-namespace nt2 { namespace constants
+namespace nt2 { namespace tag
 {
   struct true_  {};
   struct false_ {};
@@ -24,14 +24,20 @@ namespace nt2 { namespace constants
 
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::true_ , True  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::false_, False )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::true_ , True  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::false_, False )
 }
 
-namespace nt2 { namespace functors
+NT2_REGISTER_DISPATCH(tag::true_ ,tag::cpu_,(A0),(target_< fundamental_<A0> >))
+NT2_REGISTER_DISPATCH(tag::false_,tag::cpu_,(A0),(target_< fundamental_<A0> >))
+
+namespace nt2 { namespace ext
 {
-  template<class Category,class Info>
-  struct  call<constants::true_,tag::constant_(Category),fundamental_,Info>
+  template<class Dummy>
+  struct  call< tag::true_(tag::target_(tag::fundamental_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
@@ -45,8 +51,11 @@ namespace nt2 { namespace functors
     }
   };
 
-  template<class Category,class Info>
-  struct  call<constants::false_,tag::constant_(Category),fundamental_,Info>
+  template<class Dummy>
+  struct  call< tag::false_(tag::target_(tag::fundamental_) )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;

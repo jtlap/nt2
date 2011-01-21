@@ -9,17 +9,20 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_DOT_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_DOT_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute dot(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<dot_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::dot_, tag::cpu_,
+                     (A0)(A1),
+                     (fundamental_<A0>)(fundamental_<A1>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::dot_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -27,11 +30,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
       {
-	return a0*a1;
+      return a0*a1;
       }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

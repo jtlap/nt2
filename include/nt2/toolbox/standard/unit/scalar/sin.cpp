@@ -22,16 +22,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( sin, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::standard::sin; 
-  using nt2::standard::sin_;
+  using nt2::standard::tag::sin_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<sin_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::standard::sin( T(0) )  , 0 );
    NT2_TEST_LESSER(  nt2::ulpdist(nt2::standard::sin(nt2::Pio_2<T>() ), T(1)),  N); 

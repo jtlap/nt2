@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(hermite, (float)(double)
                          )
 {
  using nt2::hermite;  
- using nt2::functors::hermite_;
+ using nt2::tag::hermite_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 
@@ -35,8 +35,8 @@ NT2_TEST_CASE_TPL(hermite, (float)(double)
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::call<hermite_(int32_t, n_t)>::type call_type;
-
- typedef native<T,ext_t>            rn_t;
+ typedef typename nt2::meta::as_real<T>::type rT; 
+ typedef native<rT,ext_t>            rn_t;
   
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL(hermite, (float)(double)
      rn_t v  = nt2::hermite(ii, a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], hermite(ii, a0[j])), 1);
+       NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], hermite(ii, a0[j])), 1);
        }
    }
 

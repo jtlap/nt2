@@ -10,37 +10,34 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELADD_HPP_INCLUDED
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::seladd_, tag::cpu_,
+                        (A0)(A1)(A2),
+                        (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<seladd_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute seladd(const A0& a0, const A1& a1, const A2& a2)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<seladd_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::seladd_(tag::fundamental_,tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : 
+    struct result<This(A0,A1,A2)> :
       boost::result_of<meta::arithmetic(A1,A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(3)::type type;
-      if (a0) return type(a1)+ type(a2); else return type(a1); 
+      typedef typename NT2_RETURN_TYPE(3)::type type;
+      if (a0) return type(a1)+ type(a2); else return type(a1);
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

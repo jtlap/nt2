@@ -11,29 +11,29 @@
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <cmath>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
+                       (A0)(A1),
+                       (fundamental_<A0>)(fundamental_<A1>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for atan2
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute atan2(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<atan2_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::atan2_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
+        typedef typename NT2_RETURN_TYPE(2)::type rtype;
         return std::atan2(rtype(a0),rtype(a1));
     }
 
@@ -41,4 +41,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

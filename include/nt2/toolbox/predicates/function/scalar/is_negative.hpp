@@ -12,20 +12,43 @@
 
 #include <nt2/include/functions/sbits.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_negative_, tag::cpu_,
+                             (A0),
+                             (arithmetic_<A0>)
+                            )
+
+namespace nt2 { namespace ext
 {
+  template<class Dummy>
+  struct call<tag::is_negative_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    typedef bool result_type;
 
-  //  no special validate for is_negative
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0 < Zero<A0>();
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_negative(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_negative_, tag::cpu_,
+                             (A0),
+                             (real_<A0>)
+                            )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_negative_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_negative_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     typedef bool result_type;
 
@@ -34,23 +57,7 @@ namespace nt2 { namespace functors
       return sbits(a0) < 0;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_negative_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0 < Zero<A0>(); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

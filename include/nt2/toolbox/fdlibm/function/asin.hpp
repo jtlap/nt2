@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct asin_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::asin_, asin, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::asin_, asin, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/asin.hpp>
 // #include NT2_FDLIBM_INCLUDE(asin.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

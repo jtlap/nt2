@@ -9,25 +9,40 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_STORE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_STORE_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// store for SIMD types
+// TODO : Documentation for simd store
+// TODO : Make them work properly with ContiguousRandomAccessIterator
+////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Register dispatch over store for double SIMD types
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::store_
+                      , tag::cpu_
+                      , (A0)(A1)(A2)
+                      , ((simd_< double_<A0>, tag::sse_ >))
+                        (iterator_< double_<A1> >)
+                        (integer_<A2>)
+                      )
+
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Store a vector
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call< store_, tag::simd_(tag::arithmetic_,tag::sse_)
-              ,double , Info
+  template<class Dummy>
+  struct  call< tag::store_ ( tag::simd_(tag::double_,tag::sse_)
+                            , tag::iterator_(tag::double_)
+                            , tag::integer_
+                            )
+              , tag::cpu_
+              , Dummy
               >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
+    template<class This, class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -35,16 +50,34 @@ namespace nt2 { namespace functors
       return a0;
     }
   };
+} }
 
-  template<class Info>
-  struct  call< store_, tag::simd_(tag::arithmetic_,tag::sse_)
-              , float , Info
+////////////////////////////////////////////////////////////////////////////////
+// Register dispatch over store for float SIMD types
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::store_
+                      , tag::cpu_
+                      , (A0)(A1)(A2)
+                      , ((simd_< float_<A0>, tag::sse_ >))
+                        (iterator_< float_<A1> >)
+                        (integer_<A2>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::store_ ( tag::simd_(tag::float_,tag::sse_)
+                            , tag::iterator_(tag::float_)
+                            , tag::integer_
+                            )
+              , tag::cpu_
+              , Dummy
               >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
+    template<class This, class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -52,20 +85,38 @@ namespace nt2 { namespace functors
       return a0;
     }
   };
+} }
 
-  template<class Info>
-  struct  call< store_  , tag::simd_(tag::arithmetic_,tag::sse_)
-              , integer_, Info
+////////////////////////////////////////////////////////////////////////////////
+// Register dispatch over store for integral SIMD types
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::store_
+                      , tag::cpu_
+                      , (A0)(A1)(A2)
+                      , ((simd_< integer_<A0>, tag::sse_ >))
+                        (iterator_< integer_<A1> >)
+                        (integer_<A2>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::store_ ( tag::simd_(tag::integer_,tag::sse_)
+                            , tag::iterator_(tag::integer_)
+                            , tag::integer_
+                            )
+              , tag::cpu_
+              , Dummy
               >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
+    template<class This, class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(3)
     {
-      _mm_store_si128(reinterpret_cast<__m128i*>(a1)+a2, a0);
+      _mm_store_si128((__m128i*)(a1)+a2, a0);
       return a0;
     }
   };

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct gamma_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::gamma_, gamma, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::gamma_, gamma, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/gamma.hpp>
 // #include NT2_FDLIBM_INCLUDE(gamma.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

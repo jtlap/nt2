@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/hermite.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct hermite_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::hermite_, hermite, 2)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::hermite_, hermite, 2)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/hermite.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(hermite.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

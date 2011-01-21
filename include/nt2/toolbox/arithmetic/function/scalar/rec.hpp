@@ -11,20 +11,20 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::rec_, tag::cpu_,
+                     (A0),
+                     (fundamental_<A0>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for rec
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute rec(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rec_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::rec_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -33,7 +33,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       return One<type>()/a0;
     }
 
@@ -41,4 +41,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

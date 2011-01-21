@@ -21,4 +21,12 @@
 #define NT2_CONFIG_ALIGNMENT 16
 #endif
 
+////////////////////////////////////////////////////////////////////////////////
+// On some system, the qlignment detection fail, force it to be 16
+////////////////////////////////////////////////////////////////////////////////
+#if (NT2_CONFIG_ALIGNMENT <= 1)
+#undef  NT2_CONFIG_ALIGNMENT
+#define NT2_CONFIG_ALIGNMENT 16
+#endif
+
 #endif

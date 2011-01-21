@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     template <class T> struct sin_ {};
-    NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(sin, 1)
   }
-}
+  NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(sin, 1)
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/sin.hpp>
 // #include NT2_CRLIBM_INCLUDE(sin.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

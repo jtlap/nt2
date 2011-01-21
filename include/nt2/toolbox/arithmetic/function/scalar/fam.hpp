@@ -10,24 +10,24 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_FAM_HPP_INCLUDED
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fam_, tag::cpu_,
+                     (A0)(A1)(A2),
+                     (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for fam
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute fam(const A0& a0, const A1& a1, const A2& a2)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fam_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::fam_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : 
+    struct result<This(A0,A1,A2)> :
       boost::result_of<meta::arithmetic(A0,A1,A2)>{};
 
     NT2_FUNCTOR_CALL(3)
@@ -35,17 +35,25 @@ namespace nt2 { namespace functors
       return a0+a1*a2;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fam_, tag::cpu_,
+                     (A0)(A1)(A2),
+                     (real_<A0>)(real_<A1>)(real_<A2>)
+                    )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fam_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::fam_(tag::real_,tag::real_,tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : 
+    struct result<This(A0,A1,A2)> :
       boost::result_of<meta::arithmetic(A0,A1,A2)>{};
 
     NT2_FUNCTOR_CALL(3)
@@ -53,8 +61,7 @@ namespace nt2 { namespace functors
       return a0+a1*a2;
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

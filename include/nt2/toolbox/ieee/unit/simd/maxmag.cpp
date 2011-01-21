@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(maxmag, NT2_SIMD_SIGNED_TYPES )
 {
  using nt2::maxmag;
- using nt2::functors::maxmag_;    
+ using nt2::tag::maxmag_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(maxmag, NT2_SIMD_SIGNED_TYPES )
 NT2_TEST_CASE_TPL(unsigned_maxmag, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::maxmag;
- using nt2::functors::maxmag_;    
+ using nt2::tag::maxmag_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

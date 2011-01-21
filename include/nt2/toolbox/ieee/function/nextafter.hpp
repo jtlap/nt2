@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ieee/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct nextafter_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::nextafter_, nextafter, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::nextafter_, nextafter, 2)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/nextafter.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

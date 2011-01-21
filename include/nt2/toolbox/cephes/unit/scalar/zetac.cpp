@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( zetac,  (double)(float) )
 {
   using nt2::cephes::zetac;
-  using nt2::cephes::zetac_;
+  using nt2::cephes::tag::zetac_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::zetac_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::zetac_(T)>::type,
                            T
                            >::value)
           );

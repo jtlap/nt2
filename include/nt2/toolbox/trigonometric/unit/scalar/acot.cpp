@@ -23,16 +23,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( acot, (double) 
-		    (float) 
-		    ) 
+                (float) 
+                ) 
 {
   using nt2::acot;
   using nt2::ulpdist;
-  using nt2::functors::acot_;
+  using nt2::tag::acot_;
   const int N = 2; 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<acot_(T)>::type
-	     , T
- 	     >::value)  
+           , T
+            >::value)  
     );
   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
   NT2_TEST_LESSER_EQUAL( ulpdist( acot( T(0.0) )   , nt2::Inf<T>() )        , 0.5 );

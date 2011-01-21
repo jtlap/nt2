@@ -30,11 +30,11 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(hmsb, (int16_t)(uint16_t)
-		  (int32_t)(uint32_t)
-		  (int64_t)(uint64_t))
+              (int32_t)(uint32_t)
+              (int64_t)(uint64_t))
 {
  using nt2::hmsb;
- using nt2::functors::hmsb_;    
+ using nt2::tag::hmsb_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL(hmsb, (int16_t)(uint16_t)
 //      rn_t z = 0; 
 //      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
 //        { 
-// 	 z = z + (nt2::shri(a0[j], 8*sizeof(T)-1) << j); 
+//        z = z + (nt2::shri(a0[j], 8*sizeof(T)-1) << j); 
 //        }
 //      NT2_TEST_EQUAL(z, v);
 //    }

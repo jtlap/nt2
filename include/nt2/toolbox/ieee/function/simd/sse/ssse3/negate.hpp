@@ -17,16 +17,133 @@
 
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0),
+                         ((simd_<arithmetic_<A0>,tag::sse_>))
+                         ((simd_<arithmetic_<A0>,tag::sse_>))
+                        );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for negate
+  template<class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::arithmetic_, tag::sse_),
+                           tag::simd_(tag::arithmetic_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
 
+    NT2_FUNCTOR_CALL(2)
+    {
+      return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int32_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0),
+                         ((simd_<int32_<A0>,tag::sse_>))
+                         ((simd_<int32_<A0>,tag::sse_>))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::int32_, tag::sse_),
+                           tag::simd_(tag::int32_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 tmp = { _mm_sign_epi32( a0, a1)};
+      return tmp;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int8_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0),
+                         ((simd_<int8_<A0>,tag::sse_>))
+                         ((simd_<int8_<A0>,tag::sse_>))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::int8_, tag::sse_),
+                           tag::simd_(tag::int8_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 tmp = { _mm_sign_epi8 ( a0, a1)};
+      return tmp;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is int16_t
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0),
+                         ((simd_<int16_<A0>,tag::sse_>))
+                         ((simd_<int16_<A0>,tag::sse_>))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::int16_, tag::sse_),
+                           tag::simd_(tag::int16_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 tmp = { _mm_sign_epi16( a0, a1)};
+      return tmp;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0),
+                         ((simd_<real_<A0>,tag::sse_>))
+                         ((simd_<real_<A0>,tag::sse_>))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::real_, tag::sse_),
+                           tag::simd_(tag::real_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,67 +157,23 @@ namespace nt2 { namespace functors
       return tmp;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                         (A0),
+                         ((simd_<unsigned_<A0>,tag::sse_>))
+                         ((simd_<unsigned_<A0>,tag::sse_>))
+                        );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),int32_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 tmp = { _mm_sign_epi32( a0, a1)};
-      return tmp;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int16_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),int16_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 tmp = { _mm_sign_epi16( a0, a1)};
-      return tmp;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int8_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),int8_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 tmp = { _mm_sign_epi8 ( a0, a1)};
-      return tmp;
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),unsigned_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::negate_(tag::simd_(tag::unsigned_, tag::sse_),
+                           tag::simd_(tag::unsigned_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -111,25 +184,7 @@ namespace nt2 { namespace functors
       return  b_and(a0, is_nez(a1));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<negate_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

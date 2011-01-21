@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
 {
  using nt2::sum;
- using nt2::functors::sum_;    
+ using nt2::tag::sum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,11 +51,11 @@ NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
        data[i] = nt2::random(-10000.0, 10000.0); // good value here for sum
      }
      n_t a0 = load<n_t>(&data[0],0); 
-     T v  = sum(a0);
+     T v = sum(a0);
      T z = 0; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 z += (a0[j]); 
+       z += (a0[j]); 
        }
      NT2_TEST_EQUAL(z, v);
      std::cout << z-v << std::endl;
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
 NT2_TEST_CASE_TPL(real_sum, NT2_REAL_TYPES )
 {
  using nt2::sum;
- using nt2::functors::sum_;    
+ using nt2::tag::sum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -82,14 +82,14 @@ NT2_TEST_CASE_TPL(real_sum, NT2_REAL_TYPES )
  for(int j =  0;  j < 10; j++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(-10000.0, 10000.0); // good value here for sum
+       data[i] = nt2::random(-1000.0, 1000.0); // good value here for sum
      }
      n_t a0 = load<n_t>(&data[0],0); 
      T v  = sum(a0);
      T z = 0; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 z += (a0[j]); 
+       z += (a0[j]); 
        }
      NT2_TEST_LESSER_EQUAL(nt2::ulpdist(z, v), 1);
    }

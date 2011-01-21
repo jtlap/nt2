@@ -14,12 +14,12 @@
 
 namespace nt2
 {
-  namespace functors
-  {	       
+  namespace tag
+  {         
     struct at_ {};
   }
   
-  NT2_FUNCTION_IMPLEMENTATION( functors::at_, at, 2)
+  NT2_FUNCTION_IMPLEMENTATION( tag::at_, at, 2)
 }
 
  
@@ -28,3 +28,5 @@ namespace nt2
 
  
 #endif
+
+// modified by jt the 25/12/2010

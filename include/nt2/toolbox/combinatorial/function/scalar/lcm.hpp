@@ -14,42 +14,24 @@
 #include <nt2/include/functions/gcd.hpp>
 #include <nt2/include/functions/trunc.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::lcm_, tag::cpu_,
+                     (A0)(A1),
+                     (integer_<A0>)(integer_<A1>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for lcm
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute lcm(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<lcm_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::lcm_(tag::integer_,tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::arithmetic(A0,A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<lcm_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
@@ -57,8 +39,33 @@ namespace nt2 { namespace functors
      return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::lcm_, tag::cpu_,
+                     (A0)(A1),
+                     (real_<A0>)(real_<A1>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::lcm_(tag::real_,tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

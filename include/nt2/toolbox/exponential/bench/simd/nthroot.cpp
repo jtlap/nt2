@@ -20,15 +20,15 @@ typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<nthroot_> from exponential
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::nthroot_;
+using nt2::tag::nthroot_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::nthroot_,(RS(vfloat,-10000.0f,10000.0f))(RS(vint32_t,0,31)))
-NT2_TIMING(nt2::functors::nthroot_,(RS(vdouble,-10000.0,10000.0))(RS(vint64_t,0,63)))
+NT2_TIMING(nt2::tag::nthroot_,(RS(vfloat,-10000.0f,10000.0f))(RS(vint32_t,0,31)))
+NT2_TIMING(nt2::tag::nthroot_,(RS(vdouble,-10000.0,10000.0))(RS(vint64_t,0,63)))
 
 
 

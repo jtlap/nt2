@@ -9,19 +9,22 @@
 #ifndef NT2_SDK_META_AS_REAL_HPP_INCLUDED
 #define NT2_SDK_META_AS_REAL_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/make_real.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class T, class Category>
+  template<class T, class Hierarchy>
   struct as_real : meta::make_real<sizeof(T)> {};
 } }
 
 namespace nt2 { namespace meta
 {
   template<class T>
-  struct as_real : details::as_real<T,typename category_of<T>::type::tag > {};
+  struct as_real : details::as_real < typename meta::strip<T>::type
+                                    , typename hierarchy_of<T>::type
+                                    > {};
 } }
 
 #endif

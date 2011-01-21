@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct tan_rd_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::tan_rd_, tan_rd, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::tan_rd_, tan_rd, 1)
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/tan_rd.hpp>
 // #include NT2_CRLIBM_INCLUDE(tan_rd.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

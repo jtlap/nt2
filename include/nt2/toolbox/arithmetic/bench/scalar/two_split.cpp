@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<two_split_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::two_split_;
+using nt2::tag::two_split_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::two_split_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::functors::two_split_,(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::two_split_,(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::two_split_,(RS(double,-10000.0,10000.0)))
 
 #undef RS

@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<jni_> from bessel
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::jni_;
+using nt2::tag::jni_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -24,7 +24,7 @@ using nt2::functors::jni_;
 
 
 
-NT2_TIMING(nt2::functors::jni_,(RS(int64_t,0,63))(RS(double,-10000.0,10000.0)))
-NT2_TIMING(nt2::functors::jni_,(RS(int32_t,0,31))(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::jni_,(RS(int64_t,0,63))(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::jni_,(RS(int32_t,0,31))(RS(float,-10000.0f,10000.0f)))
 
 #undef RS

@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(bitwise_ornot, NT2_SIMD_TYPES )
 {
  using nt2::bitwise_ornot;
- using nt2::functors::bitwise_ornot_;    
+ using nt2::tag::bitwise_ornot_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -47,8 +47,8 @@ NT2_TEST_CASE_TPL(bitwise_ornot, NT2_SIMD_TYPES )
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
        NT2_TEST( (v[j] == bitwise_ornot(a0[j], a1[j]))||
-		 (nt2::is_nan(v[j])&&nt2::is_nan(bitwise_ornot(a0[j], a1[j])))
-		 );
+             (nt2::is_nan(v[j])&&nt2::is_nan(bitwise_ornot(a0[j], a1[j])))
+             );
      }
  }
  

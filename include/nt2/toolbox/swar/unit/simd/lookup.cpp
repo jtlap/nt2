@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(lookup, NT2_SIMD_TYPES )
 {
  using nt2::lookup;
- using nt2::functors::lookup_;    
+ using nt2::tag::lookup_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(lookup, NT2_SIMD_TYPES )
      }
      for(std::size_t i=0;i<1*cardinal_of<in_t>::value;++i){
        data1[i] = i; // good value here for lookup
-     }
+     } 
      n_t a0 = load<n_t>(&data[0],0); 
      in_t a1 = load<in_t>(&data1[0],0); 
      std::cout << a1 << std::endl; 
@@ -59,8 +59,8 @@ NT2_TEST_CASE_TPL(lookup, NT2_SIMD_TYPES )
      n_t v  = lookup(a0, a1); 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 std::cout << j << "  " << v[j] << "  " << int(a1[j]) << "  " << a0[a1[j]] << std::endl; 
-	 NT2_TEST_EQUAL(v[j], a0[a1[j]]);
+       std::cout << j << "  " << v[j] << "  " << int(a1[j]) << "  " << a0[a1[j]] << std::endl; 
+       NT2_TEST_EQUAL(v[j], a0[a1[j]]);
        }
    }
 }

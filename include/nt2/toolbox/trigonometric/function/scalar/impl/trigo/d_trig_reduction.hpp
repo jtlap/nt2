@@ -32,7 +32,7 @@ namespace nt2
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type   sint_type;
-        typedef typename meta::logical<A0>::type                     logic;
+        typedef typename meta::logical<A0>::type               logic;
 
         static inline logic replacement_needed(const A0& ) {return False<A0>(); }//a0 > const_<A0, Med>();}
         static inline logic replacement_available(){return True<A0>(); }

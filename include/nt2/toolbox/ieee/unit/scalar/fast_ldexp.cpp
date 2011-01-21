@@ -6,30 +6,33 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - fast_ldexp/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/ieee/include/fast_ldexp.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/fast_ldexp.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-
-NT2_TEST_CASE_TPL ( fast_ldexp, (double)(float)
-                  )
+NT2_TEST_CASE_TPL ( fast_ldexp_real__2,  NT2_REAL_TYPES)
 {
   using nt2::fast_ldexp;
-  using nt2::functors::fast_ldexp_;
+  using nt2::tag::fast_ldexp_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<fast_ldexp_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_ldexp_(T, T)>::type
-	     , T
-              >::value)
-           );
-  NT2_TEST_EQUAL(  fast_ldexp( T(1), 2), T(4) );
-  NT2_TEST_EQUAL(  fast_ldexp( T(-1), 3 ), T(-8) );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
+} // end of test for real_

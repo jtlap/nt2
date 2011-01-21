@@ -10,32 +10,32 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_SORT_HPP_INCLUDED
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
+                      (A0),
+                      (fundamental_<A0>)
+                     )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for sort
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute sort(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<sort_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::sort_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> {typedef A0 type; };  
+    struct result<This(A0)> {typedef A0 type; };
 
     NT2_FUNCTOR_CALL(1)
     {
-       return a0; 
+       return a0;
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

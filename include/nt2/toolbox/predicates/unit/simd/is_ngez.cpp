@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(is_ngez, NT2_SIMD_TYPES )
 {
  using nt2::is_ngez;
- using nt2::functors::is_ngez_; 
+ using nt2::tag::is_ngez_; 
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL(is_ngez, NT2_SIMD_TYPES )
      n_t v  = is_ngez(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(nt2::boolean(v[j]), is_ngez(a0[j]));
+       NT2_TEST_EQUAL(nt2::boolean(v[j]), is_ngez(a0[j]));
        }
    }
 }

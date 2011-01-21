@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<asinpi_ru_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::asinpi_ru_;
+using nt2::crlibm::tag::asinpi_ru_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,8 +21,8 @@ using nt2::crlibm::asinpi_ru_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::crlibm::asinpi_ru_,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::crlibm::asinpi_ru_,(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::crlibm::asinpi_ru_,(RS(int32_t,-1,1)))
+NT2_TIMING(nt2::crlibm::tag::asinpi_ru_,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::tag::asinpi_ru_,(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::crlibm::tag::asinpi_ru_,(RS(int32_t,-1,1)))
 
 #undef RS

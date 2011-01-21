@@ -17,25 +17,22 @@
 #include <nt2/include/functions/tofloat.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<beta_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute beta(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<beta_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::beta_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                       ((simd_<arithmetic_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::beta_(tag::simd_(tag::arithmetic_, X),
+                         tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -43,30 +40,39 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A0 y = a0+a1; 
+      return nt2::beta(tofloat(a0), tofloat(a1));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::beta_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<real_<A0>,X>))
+                       ((simd_<real_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::beta_(tag::simd_(tag::real_, X),
+                         tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      const A0 y = a0+a1;
       const A0 sign = signgam(a0)*signgam(a1)*signgam(y);
       return sign*exp(gammaln(a0)+gammaln(a1)-gammaln(y));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<beta_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::beta(tofloat(a0), tofloat(a1)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

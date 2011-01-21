@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct cosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::cosh_, cosh, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(libc::tag::cosh_, cosh, 1)
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/cosh.hpp>
 // #include NT2_LIBC_INCLUDE(cosh.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

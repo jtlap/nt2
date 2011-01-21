@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::constants digits"
 
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/meta/supported_types.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -16,11 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of digit constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  digit_value
-                  , (double)(float)
-                    (nt2::uint64_t)(nt2::uint32_t)(nt2::uint16_t)(nt2::uint8_t)
-                    (nt2::int64_t)(nt2::int32_t)(nt2::int16_t)(nt2::int8_t)
-                  )
+NT2_TEST_CASE_TPL( digit_value, NT2_TYPES )
 {
   NT2_TEST_EQUAL( nt2::Mten<T>()            , static_cast<T>( -10) );
   NT2_TEST_EQUAL( nt2::Mnine<T>()           , static_cast<T>(  -9) );
@@ -42,7 +39,7 @@ NT2_TEST_CASE_TPL  (  digit_value
   NT2_TEST_EQUAL( nt2::Seven<T>()           , static_cast<T>(   7) );
   NT2_TEST_EQUAL( nt2::Eight<T>()           , static_cast<T>(   8) );
   NT2_TEST_EQUAL( nt2::Nine<T>()            , static_cast<T>(   9) );
-  NT2_TEST_EQUAL( nt2::Ten<T>()             , static_cast<T>(  10) );  
+  NT2_TEST_EQUAL( nt2::Ten<T>()             , static_cast<T>(  10) );
   NT2_TEST_EQUAL( nt2::Fortyfive<T>()       , static_cast<T>(  45) );
   NT2_TEST_EQUAL( nt2::Ninety<T>()          , static_cast<T>(  90) );
   NT2_TEST_EQUAL( nt2::Hundred<T>()         , static_cast<T>( 100) );
@@ -53,11 +50,7 @@ NT2_TEST_CASE_TPL  (  digit_value
 ////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  integral_constant
-                  , (double)(float)
-                    (nt2::uint64_t)(nt2::uint32_t)(nt2::uint16_t)(nt2::uint8_t)
-                    (nt2::int64_t)(nt2::int32_t)(nt2::int16_t)(nt2::int8_t)
-                  )
+NT2_TEST_CASE_TPL( integral_constant,NT2_TYPES )
 {
   NT2_TEST_EQUAL( (nt2::integral_constant<T,42>()), static_cast<T>(42) );
 }

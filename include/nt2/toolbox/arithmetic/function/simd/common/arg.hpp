@@ -16,24 +16,46 @@
 #include <nt2/include/functions/is_ltz.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::arg_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<arithmetic_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<arg_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::arg_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::is_real_convertible<A0> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute arg(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+      struct result<This(A0)> : meta::as_real<typename meta::strip<A0>::type>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<arg_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return b_and(Pi<type>(), is_ltz(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::arg_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<real_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::arg_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -45,26 +67,7 @@ namespace nt2 { namespace functors
       return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<arg_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::as_real<typename meta::strip<A0>::type>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return b_and(Pi<type>(), is_ltz(a0));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

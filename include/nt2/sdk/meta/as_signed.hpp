@@ -11,32 +11,30 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/make_signed.hpp>
 
 namespace nt2 { namespace details
 {
-	template<class T, class Category>
-	struct  as_signed;
-
-  template<class T>
-  struct  as_signed<T,tag::scalar_(tag::arithmetic_)>		
-				: boost::mpl::eval_if < boost::mpl::bool_	<		boost::is_integral<T>::value
-																									&& !boost::is_same<bool,T>::value
-																									>
-															, boost::make_signed<T>
+  template<class T, class Hierarchy>
+  struct  as_signed
+        : boost::mpl::eval_if < boost::mpl::bool_  <  boost::is_integral<T>::value
+                                                  && !boost::is_same<bool,T>::value
+                                                  >
+                              , boost::make_signed<T>
                               , boost::mpl::identity<T>
                               > {};
 } }
 
 namespace nt2 { namespace meta
 {
-	template<class T>
+  template<class T>
   struct  as_signed
-				: details::as_signed<T,typename category_of<T>::type::tag > {};
+        : details::as_signed< typename meta::strip<T>::type
+                            , typename hierarchy_of<T>::type
+                            > {};
 } }
 
 #endif

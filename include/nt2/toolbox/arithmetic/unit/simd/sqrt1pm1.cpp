@@ -24,7 +24,7 @@
 // NT2_TEST_CASE_TPL(sqrt1pm1, NT2_SIMD_TYPES )
 // {
 //  using nt2::sqrt1pm1;
-//  using nt2::functors::sqrt1pm1_;    
+//  using nt2::tag::sqrt1pm1_;    
 //  using nt2::load; 
 //  using nt2::simd::native; 
 //  using nt2::meta::cardinal_of;

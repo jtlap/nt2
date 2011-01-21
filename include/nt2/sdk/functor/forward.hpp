@@ -12,15 +12,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Forward declaration for functor elements
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
-{
-  template<class Function,class Category,class Hierarchy,class Info>
-  struct call;
-  template< class Function, class Category,class Info>
-  struct validate;
+namespace nt2 { namespace tag { struct cpu_ {}; } } // To do put elsewhere in config
 
-  template< class Function, class Info= void>
-  struct functor;
+namespace nt2
+{
+  template< class Function, class Site = tag::cpu_> struct functor;
+}
+
+namespace nt2 { namespace ext
+{
+  template< class Signature , class Site, class Dummy = void> struct call;
+  template< class Signature , class Site, class Dummy = void> struct validate;
 } }
 
 #endif

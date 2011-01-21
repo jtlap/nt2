@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct sinh_ru_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::sinh_ru_, sinh_ru, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::sinh_ru_, sinh_ru, 1)
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/sinh_ru.hpp>
 // #include NT2_CRLIBM_INCLUDE(sinh_ru.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

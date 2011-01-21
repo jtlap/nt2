@@ -24,15 +24,15 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( atan_rz, (double) 
-		    (float) 
-		    ) 
+                (float) 
+                ) 
 {
   using nt2::crlibm::atan_rz;
-  using nt2::crlibm::atan_rz_;
+  using nt2::crlibm::tag::atan_rz_;
   const int N = 2; 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<atan_rz_(T)>::type
-	     , T
- 	     >::value)
+           , T
+            >::value)
     );
   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
   NT2_TEST_EQUAL(  atan_rz( T(0) )  , 0 );

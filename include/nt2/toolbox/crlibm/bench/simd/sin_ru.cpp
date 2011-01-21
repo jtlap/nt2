@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<sin_ru_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::sin_ru_;
+using nt2::crlibm::tag::sin_ru_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::crlibm::sin_ru_,(RS(vfloat,-31.4,31.4)))
-NT2_TIMING(nt2::crlibm::sin_ru_,(RS(vdouble,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::sin_ru_,(RS(vfloat,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::sin_ru_,(RS(vdouble,-31.4,31.4)))
 
 #undef RS

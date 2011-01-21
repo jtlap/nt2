@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<tan_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::tan_;
+using nt2::crlibm::tag::tan_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::tan_<nt2::rn>,(RS(float,-31.4,31.4)))
-NT2_TIMING(nt2::crlibm::tan_<nt2::rn>,(RS(double,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::tan_<nt2::rn>,(RS(float,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::tan_<nt2::rn>,(RS(double,-31.4,31.4)))
 
 #undef RS

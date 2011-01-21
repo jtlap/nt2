@@ -29,11 +29,11 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(dot,  (double)(float)(int16_t)(uint16_t)
-		  (int32_t)(uint32_t)
-		  (int64_t)(uint64_t) )
+              (int32_t)(uint32_t)
+              (int64_t)(uint64_t) )
 {
  using nt2::dot;
- using nt2::functors::dot_;    
+ using nt2::tag::dot_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

@@ -12,11 +12,12 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct remainder_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::remainder_, remainder, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::remainder_, remainder, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::remainder_, drem, 2)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/remainder.hpp>
@@ -24,3 +25,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

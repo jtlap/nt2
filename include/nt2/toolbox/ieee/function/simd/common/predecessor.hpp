@@ -28,27 +28,22 @@
 #include <nt2/include/functions/prev.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
+                              (A0)(X),
+                              ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
+                             );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<predecessor_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::mpl::true_ {};
-
-     template<class This,class A0,class A1>
-     struct  result<This(A0,A1)> : meta::is_integral<A1> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute predecessor(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<predecessor_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::predecessor_(tag::simd_(tag::arithmetic_, X),
+                                tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -58,48 +53,56 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
       {
-	return prev(a0);
-      }
-    NT2_FUNCTOR_CALL(2)
-      {
-	typedef typename meta::as_integer<A0, signed>::type itype; 
-	A0 m;
-	itype expon;
-	const A0 fac =  abs(tofloat(a1)); 
-	boost::fusion::tie(m, expon) = fast_frexp(a0);
-	expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>()); 
-	A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
-	diff = b_and(sel(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
-	return sel(iseq(a0, Inf<A0>()), fac*Valmax<A0>(), a0-fac*diff); 
-      }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<predecessor_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-      {
-	return minusone(a0);
+      return minusone(a0);
       }
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0-a1; 
+      return a0-a1;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
+                              (A0)(X),
+                              ((simd_<real_<A0>,X>))
+                              ((simd_<real_<A0>,X>))
+                             );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::predecessor_(tag::simd_(tag::real_, X),
+                                tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)>  : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+      {
+      return prev(a0);
+      }
+    NT2_FUNCTOR_CALL(2)
+      {
+      typedef typename meta::as_integer<A0, signed>::type itype;
+      A0 m;
+      itype expon;
+      const A0 fac =  abs(tofloat(a1));
+      boost::fusion::tie(m, expon) = fast_frexp(a0);
+      expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>());
+      A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
+      diff = b_and(sel(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
+      return sel(iseq(a0, Inf<A0>()), fac*Valmax<A0>(), a0-fac*diff);
+      }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 04/01/2011

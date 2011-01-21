@@ -20,18 +20,18 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( is_even, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::is_even;
-  using nt2::functors::is_even_;
+  using nt2::tag::is_even_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_even_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_even( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_even( T(-43) ), 0 );
@@ -40,12 +40,12 @@ NT2_TEST_CASE_TPL ( is_even, (double)(nt2::int64_t)
 NT2_TEST_CASE_TPL ( real_is_even, (double)(float) )
 {
   using nt2::is_even;
-  using nt2::functors::is_even_;
+  using nt2::tag::is_even_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_even_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_even( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_even( T(-42.5) ), 0 );
@@ -54,12 +54,12 @@ NT2_TEST_CASE_TPL ( real_is_even, (double)(float) )
 NT2_TEST_CASE_TPL ( bool_is_even, (bool) )
 {
   using nt2::is_even;
-  using nt2::functors::is_even_;
+  using nt2::tag::is_even_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_even_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
    NT2_TEST_EQUAL(  is_even( 1 ), 0 );
    NT2_TEST_EQUAL(  is_even( 0 ), 1);

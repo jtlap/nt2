@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     template <class T> struct cosh_ {};
-    NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(cosh, 1)
   }
-}
+  NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(cosh, 1)
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/cosh.hpp>
 // #include NT2_CRLIBM_INCLUDE(cosh.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

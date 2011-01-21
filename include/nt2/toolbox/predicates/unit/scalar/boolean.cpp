@@ -20,51 +20,51 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( boolean, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::boolean;
-  using nt2::functors::boolean_;
+  using nt2::tag::boolean_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<boolean_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  boolean( T(42) ), 1 );
   NT2_TEST_EQUAL(  boolean( T(-42) ), 1 );
   NT2_TEST_EQUAL(  boolean( T(0) ), 0 );
 }
 NT2_TEST_CASE_TPL ( unsigned_boolean, (nt2::uint64_t) 
-		    (nt2::uint32_t)  
-		    (nt2::uint16_t)         
-		    (nt2::uint8_t)
-		    )
+                (nt2::uint32_t)  
+                (nt2::uint16_t)         
+                (nt2::uint8_t)
+                )
 {
   using nt2::boolean;
-  using nt2::functors::boolean_;
+  using nt2::tag::boolean_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<boolean_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  boolean( T(42) ), 1 );
   NT2_TEST_EQUAL(  boolean( T(0) ), 0 );
 }
 
 NT2_TEST_CASE_TPL ( real_boolean, (double)(float)
-		    )
+                )
 {
   using nt2::boolean;
-  using nt2::functors::boolean_;
+  using nt2::tag::boolean_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<boolean_(T)>::type
-	      , typename boost::result_of<nt2::meta::arithmetic(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+            >::value)
+           );
 
    NT2_TEST_EQUAL(  boolean( T(nt2::Nan<T>() )), 1 );
 

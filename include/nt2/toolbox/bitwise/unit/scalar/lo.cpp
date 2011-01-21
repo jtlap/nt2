@@ -18,16 +18,16 @@
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( lo,  (double)(nt2::uint64_t)(nt2::int64_t) 
-		    (float)(nt2::uint32_t)(nt2::int32_t)  
-		    (nt2::uint16_t)(nt2::int16_t)         
-		    (nt2::uint8_t)(nt2::int8_t)
+                (float)(nt2::uint32_t)(nt2::int32_t)  
+                (nt2::uint16_t)(nt2::int16_t)         
+                (nt2::uint8_t)(nt2::int8_t)
                   )
 {
   using nt2::lo;
-  using nt2::functors::lo_;
+  using nt2::tag::lo_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<lo_(T)>::type
-	     , typename nt2::meta::as_integer<T, unsigned>::type
+           , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
 }

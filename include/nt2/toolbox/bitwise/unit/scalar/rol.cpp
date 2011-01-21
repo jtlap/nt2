@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( rol,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::rol;
-  using nt2::functors::rol_;
+  using nt2::tag::rol_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rol_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  rol( T(1), 1), T(2) );
@@ -37,10 +37,10 @@ NT2_TEST_CASE_TPL ( real_rol,  (double)(float)
                   )
 {
   using nt2::rol;
-  using nt2::functors::rol_;
+  using nt2::tag::rol_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rol_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
 

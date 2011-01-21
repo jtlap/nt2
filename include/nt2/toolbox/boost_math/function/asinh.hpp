@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/asinh.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct asinh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::asinh_, asinh, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::asinh_, asinh, 1)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/asinh.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(asinh.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

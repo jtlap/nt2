@@ -12,12 +12,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<legendre_> from polynomials
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::legendre_;
+using nt2::tag::legendre_;
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::legendre_,(RS(int32_t,0,10))(RS(double,-1.0,1.0)))
-NT2_TIMING(nt2::functors::legendre_,(RS(int32_t,0,10))(RS(float,-1.0f,1.f)))
+NT2_TIMING(nt2::tag::legendre_,(RS(int32_t,0,10))(RS(double,-1.0,1.0)))
+NT2_TIMING(nt2::tag::legendre_,(RS(int32_t,0,10))(RS(float,-1.0f,1.f)))
 

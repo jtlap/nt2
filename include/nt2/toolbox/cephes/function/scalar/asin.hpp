@@ -9,64 +9,26 @@
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_ASIN_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_ASIN_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
   extern "C"{
     extern float cephes_asinf ( float );
     extern double cephes_asin ( double );
     extern long double cephes_asinl ( long double );
   }
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute asin(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::asin_,tag::scalar_(tag::arithmetic_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return cephes_asinf(a0); }
-  };
 
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::asin_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(cephes::tag::asin_, tag::cpu_,
+                      (A0),
+                      (arithmetic_<A0>)
+                     )
 
-    NT2_FUNCTOR_CALL(1){ return cephes_asin(a0); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is long double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::asin_,tag::scalar_(tag::arithmetic_),long double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return cephes_asinl(a0); }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<cephes::asin_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<cephes::tag::asin_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -74,12 +36,77 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       return nt2::cephes::asin(type(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(cephes::tag::asin_, tag::cpu_,
+                      (A0),
+                      (double_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<cephes::tag::asin_(tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return cephes_asin(a0); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(cephes::tag::asin_, tag::cpu_,
+                      (A0),
+                      (float_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<cephes::tag::asin_(tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return cephes_asinf(a0); }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is long double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(cephes::tag::asin_, tag::cpu_,
+                      (A0),
+                      (long_double_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<cephes::tag::asin_(tag::long_double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return cephes_asinl(a0); }
+  };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 29/12/2010

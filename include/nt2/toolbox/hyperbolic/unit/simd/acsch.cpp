@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(acsch, NT2_REAL_TYPES )
 {
  using nt2::acsch;
- using nt2::functors::acsch_;    
+ using nt2::tag::acsch_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,9 +51,9 @@ NT2_TEST_CASE_TPL(acsch, NT2_REAL_TYPES )
      rn_t v  = acsch(a0);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
        {
-	 NT2_TEST_LESSER_EQUAL( z = nt2::ulpdist(v[j], nt2::acsch(a0[j])), 1);
-	 std::cout << a0[j] << "   " << v[j] <<  "   " << nt2::acsch(a0[j]) << std::endl;
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER_EQUAL( z = nt2::ulpdist(v[j], nt2::acsch(a0[j])), 1);
+       std::cout << a0[j] << "   " << v[j] <<  "   " << nt2::acsch(a0[j]) << std::endl;
+       if (z > m) m = z; 
        }
    }
  std::cout << "ulp max = " << m << std::endl;

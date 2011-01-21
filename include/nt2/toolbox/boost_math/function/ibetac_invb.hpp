@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/beta.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct ibetac_invb_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::ibetac_invb_, ibetac_invb, 3)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ibetac_invb_, ibetac_invb, 3)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/ibetac_invb.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(ibetac_invb.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

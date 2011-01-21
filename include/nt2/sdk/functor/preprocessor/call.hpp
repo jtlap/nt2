@@ -14,40 +14,25 @@
 // Documentation: http://nt2.lri.fr/sdk/functor/macros/call.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/tr1/functional.hpp>
-#include <nt2/sdk/functor/hierarchy.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/sdk/error/static_assert.hpp>
-#include <boost/preprocessor/tuple/rem.hpp>
-#include <boost/preprocessor/array/data.hpp>
-#include <boost/preprocessor/array/size.hpp>
-#include <nt2/sdk/functor/meta/find_type.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// operator() result type
+// operator() result type for call<Sig,Site>
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_RETURN_TYPE(N,C)                                                    \
+#define NT2_RETURN_TYPE(N)                                                      \
 std::tr1                                                                        \
-   ::result_of<C(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))>  \
-/**/
-
-////////////////////////////////////////////////////////////////////////////////
-// operator() result type for call<Tag,Cat,Info>
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_CALL_RETURN_TYPE(N) NT2_RETURN_TYPE(N,call)
+::result_of<call(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))>  \
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main functor entry point:
 // Takes care of retrieving the function result, making it const and prepare
 // the operator() prototype.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_FUNCTOR(N,C)                                        \
+#define NT2_FUNCTOR_CALL(N)                                     \
 template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                \
-typename NT2_RETURN_TYPE(N,C)::type                             \
+typename NT2_RETURN_TYPE(N)::type                               \
 operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) ) const  \
 /**/
-
-#define NT2_FUNCTOR_CALL(N) NT2_FUNCTOR(N,call)
 
 #endif

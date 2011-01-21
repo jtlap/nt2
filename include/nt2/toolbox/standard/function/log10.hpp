@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/standard/include.hpp>
 
-namespace nt2 { namespace standard
-  {	       
+namespace nt2 { namespace standard { namespace tag
+  {         
     struct log10_ {};
-    NT2_FUNCTION_IMPLEMENTATION(standard::log10_, log10, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(standard::tag::log10_, log10, 1)
+  } }
  
 #include <nt2/toolbox/standard/function/scalar/log10.hpp>
 // #include NT2_STANDARD_INCLUDE(log10.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

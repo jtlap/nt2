@@ -25,10 +25,10 @@ NT2_TEST_CASE_TPL ( rror,  (nt2::uint64_t)/*(nt2::int64_t)
                   )
 {
   using nt2::rror;
-  using nt2::functors::rror_;
+  using nt2::tag::rror_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<rror_(T, int)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  rror( T(2), 1), T(1) );

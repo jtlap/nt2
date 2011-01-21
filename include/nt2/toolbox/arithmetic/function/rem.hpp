@@ -12,11 +12,12 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct rem_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::rem_, rem, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::rem_, rem, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::rem_, fmod, 2)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/rem.hpp>
@@ -24,3 +25,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

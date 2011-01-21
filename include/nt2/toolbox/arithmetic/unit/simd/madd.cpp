@@ -21,10 +21,10 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(madd,  (nt2::int16_t)
-		  (nt2::int8_t)  )
+              (nt2::int8_t)  )
 {
  using nt2::madd;
- using nt2::functors::madd_;    
+ using nt2::tag::madd_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -48,10 +48,10 @@ NT2_TEST_CASE_TPL(madd,  (nt2::int16_t)
    }
  }
 NT2_TEST_CASE_TPL(big_madd,  (nt2::int64_t)(double)
-	          (nt2::int32_t)(float)  )
+                (nt2::int32_t)(float)  )
 {
  using nt2::madd;
- using nt2::functors::madd_;    
+ using nt2::tag::madd_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -76,11 +76,11 @@ NT2_TEST_CASE_TPL(big_madd,  (nt2::int64_t)(double)
  }
 
 NT2_TEST_CASE_TPL(unsigned_madd,  (nt2::uint16_t)
-		  (nt2::uint8_t)(nt2::uint32_t)
-	          (nt2::uint64_t)  )
+              (nt2::uint8_t)(nt2::uint32_t)
+                (nt2::uint64_t)  )
 {
  using nt2::madd;
- using nt2::functors::madd_;    
+ using nt2::tag::madd_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

@@ -23,12 +23,12 @@
 // Test behavior of arithmetic component arg using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(arg, (nt2::uint64_t)
-		  (nt2::uint64_t)(nt2::int64_t)(double)
-	          (nt2::uint32_t)(nt2::int32_t)(float) 
+              (nt2::uint64_t)(nt2::int64_t)(double)
+                (nt2::uint32_t)(nt2::int32_t)(float) 
                          )
 {
  using nt2::arg; 
- using nt2::functors::arg_;
+ using nt2::tag::arg_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/powm1.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct powm1_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::powm1_, powm1, 2)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::powm1_, powm1, 2)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/powm1.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(powm1.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

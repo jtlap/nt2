@@ -12,74 +12,63 @@
 ////////////////////////////////////////////////////////////////////////////////
 // bitwise operators extended implementation
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/bool.hpp>
-#include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // bitwise operators on scalar arithmetic types works on real types too
+// This behavior is tied to the prefix form. The traditionnal operator do
+// not has this property on scalar value.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_MAKE_BITWISE(TAG,OP)                                    \
-template<class Info>                                                \
-struct validate<TAG,tag::scalar_(tag::arithmetic_),Info>            \
-{                                                                   \
-  template<class Sig> struct result;                                \
-  template<class This,class A0,class A1>                            \
-  struct result<This(A0,A1)> :  meta::has_same_size<A0,A1>{};       \
-};                                                                  \
-                                                                    \
-template<class Info>                                                \
-struct  call<TAG,tag::scalar_(tag::arithmetic_),fundamental_,Info>  \
-      : callable                                                    \
-{                                                                   \
-  template<class Sig> struct result;                                \
-  template<class This,class A0,class A1>                            \
-  struct result<This(A0,A1)> : meta::strip<A0> {};                  \
-  NT2_FUNCTOR_CALL(2)                                               \
-  {                                                                 \
-    typename meta::as_bits<A0>::type t0 = {a0};                     \
-    typename meta::as_bits<A1>::type t1 = {a1};                     \
-    t0.bits OP t1.bits;                                             \
-    return t0.value;                                                \
-  }                                                                 \
-}                                                                   \
+#define NT2_MAKE_BITWISE(TAG,OP)                                          \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(bool_<A0>)(bool_<A1>))      \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type8_<A0>)(type8_<A1>))    \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type16_<A0>)(type16_<A1>))  \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type32_<A0>)(type32_<A1>))  \
+NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type64_<A0>)(type64_<A1>))  \
+namespace nt2 { namespace ext                                             \
+{                                                                         \
+  template<class Dummy>                                                   \
+  struct  call<TAG(tag::type8_,tag::type8_), tag::cpu_, Dummy>            \
+        : callable                                                        \
+  {                                                                       \
+    template<class Sig> struct result;                                    \
+    template<class This,class A0,class A1>                                \
+    struct result<This(A0,A1)> : meta::strip<A0> {};                      \
+    NT2_FUNCTOR_CALL(2)                                                   \
+    {                                                                     \
+      typename meta::as_bits<A0>::type t0 = {a0};                         \
+      typename meta::as_bits<A1>::type t1 = {a1};                         \
+      t0.bits OP t1.bits;                                                 \
+      return t0.value;                                                    \
+    }                                                                     \
+  };                                                                      \
+                                                                          \
+  template<class Dummy>                                                   \
+  struct  call<TAG(tag::bool_   , tag::bool_  ), tag::cpu_, Dummy>        \
+        : call<TAG(tag::type8_  , tag::type8_ ), tag::cpu_, Dummy>        \
+  {};                                                                     \
+  template<class Dummy>                                                   \
+  struct  call<TAG(tag::type16_ , tag::type16_), tag::cpu_, Dummy>        \
+        : call<TAG(tag::type8_  , tag::type8_ ), tag::cpu_, Dummy>        \
+  {};                                                                     \
+                                                                          \
+  template<class Dummy>                                                   \
+  struct  call<TAG(tag::type32_ , tag::type32_), tag::cpu_, Dummy>        \
+        : call<TAG(tag::type8_  , tag::type8_ ), tag::cpu_, Dummy>        \
+  {};                                                                     \
+                                                                          \
+  template<class Dummy>                                                   \
+  struct  call<TAG(tag::type64_ , tag::type64_), tag::cpu_, Dummy>        \
+        : call<TAG(tag::type8_  , tag::type8_ ), tag::cpu_, Dummy>        \
+  {};                                                                     \
+} }                                                                       \
 /**/
 
-namespace nt2 { namespace functors
-{
-  NT2_MAKE_BITWISE(bitwise_and_, &= );
-  NT2_MAKE_BITWISE(bitwise_or_ , |= );
-  NT2_MAKE_BITWISE(bitwise_xor_, ^= );
-
-  template<class Info>
-  struct  call<complement_,tag::scalar_(tag::arithmetic_),real_,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = ~t0.bits;
-      return t0.value;
-    }
-  };
-
-  template<class Info>
-  struct  call<complement_,tag::scalar_(tag::arithmetic_),fundamental_,Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(1) { return ~a0; }
-  };
-} }
+NT2_MAKE_BITWISE(tag::bitwise_and_, &= )
+NT2_MAKE_BITWISE(tag::bitwise_or_ , |= )
+NT2_MAKE_BITWISE(tag::bitwise_xor_, ^= )
 
 #undef NT2_MAKE_BITWISE
 

@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<tan_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::tan_;
+using nt2::tag::tan_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::tan_,(RS(vfloat,-31.4,31.4)))
-NT2_TIMING(nt2::functors::tan_,(RS(vdouble,-31.4,31.4)))
+NT2_TIMING(nt2::tag::tan_,(RS(vfloat,-31.4,31.4)))
+NT2_TIMING(nt2::tag::tan_,(RS(vdouble,-31.4,31.4)))
 
 #undef RS

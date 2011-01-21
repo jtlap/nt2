@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( igam,  (double)(float) )
 {
   using nt2::cephes::igam;
-  using nt2::cephes::igam_;
+  using nt2::cephes::tag::igam_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::igam_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::igam_(T, T)>::type,
                            T
                            >::value)
           );

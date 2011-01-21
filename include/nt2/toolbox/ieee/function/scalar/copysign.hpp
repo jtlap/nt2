@@ -13,66 +13,81 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/signnz.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::copysign_, tag::cpu_,
+                          (A0)(A1),
+                          (arithmetic_<A0>)(arithmetic_<A1>)
+                         )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for copysign
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute copysign(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<copysign_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::copysign_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-      struct result<This(A0,A1)> : meta::strip<A0>{}; 
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return ::copysignf(a0, a1);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<copysign_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct result<This(A0,A1)> : meta::strip<A0>{}; 
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return ::copysign(a0, a1);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<copysign_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct result<This(A0,A1)> : meta::strip<A0>{}; 
+      struct result<This(A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(a0)*signnz(a1);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::copysign_, tag::cpu_,
+                          (A0)(A1),
+                          (double_<A0>)(double_<A1>)
+                         )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::copysign_(tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0,A1)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return ::copysign(a0, a1);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::copysign_, tag::cpu_,
+                          (A0)(A1),
+                          (float_<A0>)(float_<A1>)
+                         )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::copysign_(tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0,A1)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return ::copysignf(a0, a1);
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

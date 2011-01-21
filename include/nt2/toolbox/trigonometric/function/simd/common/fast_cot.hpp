@@ -17,25 +17,72 @@
 #include <nt2/include/functions/is_nez.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is signed_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_cot_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<signed_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<fast_cot_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::fast_cot_(tag::simd_(tag::signed_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute fast_cot(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    struct result<This(A0)>:  meta::as_real<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<fast_cot_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return b_or(nt2::copysign(Inf<type>(), simd::native_cast<type>(a0)), is_nez(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_cot_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<unsigned_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::fast_cot_(tag::simd_(tag::unsigned_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>:  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return b_or(Inf<type>(), is_nez(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_cot_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<real_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::fast_cot_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -46,44 +93,7 @@ namespace nt2 { namespace functors
       return impl::trig_base<A0,radian_tag, fast_tag, tag::simd_type>::cota(a0);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is signed_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<fast_cot_,tag::simd_(tag::arithmetic_,Extension),signed_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>:  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return b_or(nt2::copysign(Inf<type>(), simd::native_cast<type>(a0)), is_nez(a0));
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<fast_cot_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>:  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return b_or(Inf<type>(), is_nez(a0)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

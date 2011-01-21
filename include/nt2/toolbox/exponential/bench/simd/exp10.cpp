@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<exp10_> from exponential
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::exp10_;
+using nt2::tag::exp10_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::exp10_,(RS(vfloat,-10.0f,10.0f)))
-NT2_TIMING(nt2::functors::exp10_,(RS(vdouble,-100.0,100.0)))
+NT2_TIMING(nt2::tag::exp10_,(RS(vfloat,-10.0f,10.0f)))
+NT2_TIMING(nt2::tag::exp10_,(RS(vdouble,-100.0,100.0)))
 
 #undef RS

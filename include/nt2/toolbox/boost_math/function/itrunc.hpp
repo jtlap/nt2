@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/trunc.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct itrunc_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::itrunc_, itrunc, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::itrunc_, itrunc, 1)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/itrunc.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(itrunc.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

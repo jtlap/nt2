@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<cospi_rn_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::cospi_rn_;
+using nt2::crlibm::tag::cospi_rn_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::cospi_rn_,(RS(float,-10.0,10.0)))
-NT2_TIMING(nt2::crlibm::cospi_rn_,(RS(double,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::cospi_rn_,(RS(float,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::cospi_rn_,(RS(double,-10.0,10.0)))
 
 #undef RS

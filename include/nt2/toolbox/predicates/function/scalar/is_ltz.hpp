@@ -11,30 +11,32 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_ltz_, tag::cpu_,
+                        (A0),
+                        (fundamental_<A0>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for is_ltz
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_ltz(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_ltz_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::is_ltz_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-        return a0 < Zero<A0>();
+      typedef typename meta::strip<A0>::type stA0; 
+      return a0 < Zero<stA0>();
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010
+// modified manually by jt the 26/12/2010

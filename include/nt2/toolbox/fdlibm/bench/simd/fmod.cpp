@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<fmod_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::fdlibm::fmod_;
+using nt2::fdlibm::tag::fmod_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,8 +21,8 @@ using nt2::fdlibm::fmod_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::fdlibm::fmod_,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::fmod_,(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::fmod_,(RS(int32_t,-1,1)))
+NT2_TIMING(nt2::fdlibm::tag::fmod_,(RS(float,-1.0f,1.0f)))
+NT2_TIMING(nt2::fdlibm::tag::fmod_,(RS(double,-1.0f,1.0f)))
+NT2_TIMING(nt2::fdlibm::tag::fmod_,(RS(int32_t,-1,1)))
 
 #undef RS

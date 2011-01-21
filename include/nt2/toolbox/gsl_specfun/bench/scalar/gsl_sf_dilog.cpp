@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<gsl_sf_dilog_> from gsl_specfun
 //////////////////////////////////////////////////////////////////////////////
-using nt2::gsl_specfun::gsl_sf_dilog_;
+using nt2::gsl_specfun::tag::gsl_sf_dilog_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,6 +21,6 @@ using nt2::gsl_specfun::gsl_sf_dilog_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges
-NT2_TIMING(nt2::gsl_specfun::gsl_sf_dilog_,(RS(double,-1.0,1.0)))
+NT2_TIMING(nt2::gsl_specfun::tag::gsl_sf_dilog_,(RS(double,-1.0,1.0)))
 
 #undef RS

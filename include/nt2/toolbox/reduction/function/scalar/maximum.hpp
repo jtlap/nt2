@@ -11,36 +11,32 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace functors
-{  /////////////////////////////////////////////////////////////////////////////
-  // Works on bool
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct validate<maximum_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute maximum(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<maximum_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::maximum_, tag::cpu_,
+                         (A0),
+                         (fundamental_<A0>)
+                        )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::maximum_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0> {};  
+      struct result<This(A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1)
       {
-	return a0;
+      return a0;
       }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

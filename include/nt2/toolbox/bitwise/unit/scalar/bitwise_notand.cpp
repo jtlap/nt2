@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( bitwise_notand,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::bitwise_notand;
-  using nt2::functors::bitwise_notand_;
+  using nt2::tag::bitwise_notand_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_notand_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  bitwise_notand( T(0), T(1)), T(1) );

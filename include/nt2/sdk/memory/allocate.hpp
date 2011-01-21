@@ -39,12 +39,14 @@ namespace nt2 { namespace memory
     std::size_t nelems = align_on<size>(nbytes+align+sizeof(void*))/size;
 
     // Allocate through a
-    void        *base     = a.allocate(nelems);
+    void *base     = a.allocate(nelems);
 
-    // Stash and stuff
+    // Compute stash and position
     std::size_t  ref      = reinterpret_cast<std::size_t>(base)+sizeof(void*);
     std::size_t  stashed  = (ref & fix) + align;
     void        *result   = reinterpret_cast<void*>(stashed);
+
+    // Save the real pointer in the pre-data stash
     reinterpret_cast<void**>(result)[-1] = base;
     return reinterpret_cast<byte*>(result);
   }

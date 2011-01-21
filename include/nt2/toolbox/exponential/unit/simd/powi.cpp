@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(powi, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
 {
  using nt2::powi;
- using nt2::functors::powi_;    
+ using nt2::tag::powi_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,15 +51,15 @@ NT2_TEST_CASE_TPL(powi, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
        data[i] = nt2::random(0.0, 5.0); // good value here for powi
      }
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(0, 10); // good value here for nthroot
+       datai[i] = nt2::random(0, 10); // good value here for nthroot
      }
      n_t a0 = load<n_t>(&data[0],0); 
      in_t a1 = load<in_t>(&datai[0],0); 
      rn_t v  = powi(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], powi(a0[j], a1[j])), 10);
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER( z = nt2::ulpdist(v[j], powi(a0[j], a1[j])), 10);
+       if (z > m) m = z; 
        }
    }
 std::cout << "ulp max = " << m << std::endl;

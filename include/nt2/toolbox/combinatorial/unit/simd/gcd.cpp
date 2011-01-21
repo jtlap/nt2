@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(gcd,NT2_TYPES )
 {
  using nt2::gcd;
- using nt2::functors::gcd_;    
+ using nt2::tag::gcd_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

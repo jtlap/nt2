@@ -26,11 +26,11 @@
 // Test behavior of arithmetic component modf using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(modf, 
-		  NT2_SIMD_REAL_TYPES
+              NT2_SIMD_REAL_TYPES
                          )
 {
  using nt2::modf; 
- using nt2::functors::modf_;
+ using nt2::tag::modf_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

@@ -10,7 +10,7 @@
 #define NT2_SDK_FUNCTOR_META_CALL_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Return the reutrn type of a given functor with a given list of arguments
+// Computes the return type of a given functor with a given list of arguments
 // TODO: Documentation: http://nt2.lri.fr/sdk/functor/meta/call.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
@@ -25,24 +25,25 @@
 
 namespace nt2 { namespace meta
 {
-  template<class Sig> struct call;
+  template<class Signature, class Site = tag::cpu_> struct call;
 
-  #if defined(BOOST_HAS_VARIADIC_TMPL)
-  template<class Tag, class... Args>
-  struct  call<Tag(Args...)>
-        : std::tr1::result_of<functors::functor<Tag>(Args...)>
+#if defined(BOOST_HAS_VARIADIC_TMPL)
+  template<class Tag, class... Args, class Site>
+  struct call<Tag(Args...),Site>
+        : std::tr1::result_of<functor<Tag,Site>(Args...)>
   {};
-  #else
-  #define M0(z,n,t)                                                               \
-  template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A)>                            \
-  struct  call<Tag(BOOST_PP_ENUM_PARAMS(n,A))>                                    \
-        : std::tr1::result_of<functors::functor<Tag>(BOOST_PP_ENUM_PARAMS(n,A))>  \
-    {};                                                                           \
-  /**/
+#else
+#define M0(z,n,t) \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site> \
+struct call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site> \
+: std::tr1::result_of<functor<Tag,Site>(BOOST_PP_ENUM_PARAMS(n,A))> \
+{}; \
+/**/
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
-  #undef M0
-  #endif
+#undef M0
+#endif
 } }
 
 #endif
+

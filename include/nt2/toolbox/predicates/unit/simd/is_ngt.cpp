@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(is_ngt, NT2_SIMD_TYPES )
 {
  using nt2::is_ngt;
- using nt2::functors::is_ngt_; 
+ using nt2::tag::is_ngt_; 
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL(is_ngt, NT2_SIMD_TYPES )
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
  for(int j =  0;  j < 10; j++)
    {
-     for(std::size_t i=0;i<2*cardinal_of<n_t>::value;++i){
+     for(std::size_t i=0;i<cardinal_of<n_t>::value;++i){
        data[i] = nt2::random(-10000.0, 10000.0); // good value here for is_ngt
      }
      n_t a0 = load<n_t>(&data[0],0); 
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL(is_ngt, NT2_SIMD_TYPES )
      n_t v  = is_ngt(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(nt2::boolean(v[j]), is_ngt(a0[j], a1[j]));
+       NT2_TEST_EQUAL(nt2::boolean(v[j]), is_ngt(a0[j], a1[j]));
        }
    }
 }

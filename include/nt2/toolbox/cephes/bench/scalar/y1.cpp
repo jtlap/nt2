@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<y1_> from cephes
 //////////////////////////////////////////////////////////////////////////////
-using nt2::cephes::y1_;
+using nt2::cephes::tag::y1_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -23,9 +23,9 @@ using nt2::cephes::y1_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 
-NT2_TIMING(nt2::cephes::y1_,(RS(float,0.0f,100.0f)))
-NT2_TIMING(nt2::cephes::y1_,(RS(double,0.0,100.0)))
-NT2_TIMING(nt2::cephes::y1_,(RS(float,0.0f,2.0f)))
-NT2_TIMING(nt2::cephes::y1_,(RS(double,0.0,2.0)))
+NT2_TIMING(nt2::cephes::tag::y1_,(RS(float,0.0f,100.0f)))
+NT2_TIMING(nt2::cephes::tag::y1_,(RS(double,0.0,100.0)))
+NT2_TIMING(nt2::cephes::tag::y1_,(RS(float,0.0f,2.0f)))
+NT2_TIMING(nt2::cephes::tag::y1_,(RS(double,0.0,2.0)))
 
 #undef RS

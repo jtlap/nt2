@@ -6,29 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - exponentbits/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp> 
-#include <nt2/toolbox/ieee/include/exponentbits.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <iostream>
- 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( exponentbits,   (double)(float)        
-                  )
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/exponentbits.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/exponent.hpp>
+#include <nt2/include/functions/bits.hpp>
+
+NT2_TEST_CASE_TPL ( exponentbits_real__1,  NT2_REAL_TYPES)
 {
   using nt2::exponentbits;
-  using nt2::functors::exponentbits_;
+  using nt2::tag::exponentbits_;
+  typedef typename nt2::meta::call<exponentbits_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<exponentbits_(T)>::type
-	     ,  typename nt2::meta::as_integer<T, signed>::type
-              >::value)
-           );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+} // end of test for real_

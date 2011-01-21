@@ -14,24 +14,46 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/frac.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_flint_, tag::cpu_,
+                          (A0),
+                          (fundamental_<A0>)
+                         )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<is_flint_,tag::scalar_(tag::arithmetic_),Info>
+  template<class Dummy>
+  struct call<tag::is_flint_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
-    typedef boost::mpl::true_ result_type;
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {  typedef  bool type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      details::ignore_unused(a0);
+      return True<A0>();
+    }
   };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_flint(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_flint_, tag::cpu_,
+                          (A0),
+                          (real_<A0>)
+                         )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_flint_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_flint_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -42,27 +64,7 @@ namespace nt2 { namespace functors
       return is_eqz(frac(a0));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_flint_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> {  typedef  bool type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      details::ignore_unused(a0); 
-      return True<A0>(); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010

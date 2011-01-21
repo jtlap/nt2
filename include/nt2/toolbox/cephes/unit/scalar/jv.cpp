@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( jv,  (double)(float) )
 {
   using nt2::cephes::jv;
-  using nt2::cephes::jv_;
+  using nt2::cephes::tag::jv_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::jv_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::jv_(T, T)>::type,
                            T
                            >::value)
           );

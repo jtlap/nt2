@@ -13,52 +13,194 @@
 // boolean operators implementation
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/config/compiler.hpp>
+#include <boost/preprocessor/enum.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define NT2_LOCAL_TYPE(Z,N,T)                                               \
-typedef typename meta::strip<BOOST_PP_CAT(A,N)>::type BOOST_PP_CAT(base,N); \
-static BOOST_PP_CAT(base,N)& BOOST_PP_CAT(a,N);                             \
-/**/
+//////////////////////////////////////////////////////////////////////////////
+// Dispatch for classical operators
+//////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::unary_plus_ , tag::cpu_, (A0)
+                      , (fundamental_<A0>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::unary_minus_        , tag::cpu_, (A0)
+                      , (arithmetic_<A0>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::plus_       , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::minus_      , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::multiplies_ , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::divides_    , tag::cpu_, (A0)(A1)
+                      , (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::modulo_     , tag::cpu_, (A0)(A1)
+                      , (integer_<A0>)(integer_<A1>)
+                      )
+NT2_REGISTER_DISPATCH ( tag::if_else_ , tag::cpu_, (A0)(A1)(A2)
+                      , (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
+                      )
 
-#define NT2_MAKE_ARITHMETIC(TAG,N,IMPL)                         \
-template<class Category,class Info>                             \
-struct  call<TAG,tag::scalar_(Category),fundamental_,Info>      \
-      : callable                                                \
-{                                                               \
-  template<class Sig> struct result;                            \
-  template<class This,BOOST_PP_ENUM_PARAMS(N,class A)>  struct  \
-  result<This(BOOST_PP_ENUM_PARAMS(N,A))>                       \
-  {                                                             \
-    BOOST_PP_REPEAT(N,NT2_LOCAL_TYPE,~)                         \
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,IMPL)                \
-    typedef typename nested::type type;                         \
-  };                                                            \
-  NT2_FUNCTOR_CALL(N) { return IMPL; }                          \
-}                                                               \
-/**/
-
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Generating implementation for operators
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Generating implementation for operators
+  // Ternary operator
   //////////////////////////////////////////////////////////////////////////////
-  NT2_MAKE_ARITHMETIC(complement_      , 1 , (~a0)     );
-  NT2_MAKE_ARITHMETIC(neg_             , 1 , (-a0)     );
-  NT2_MAKE_ARITHMETIC(unary_plus_      , 1 , (+a0)     );
-  NT2_MAKE_ARITHMETIC(plus_            , 2 , (a0 +  a1));
-  NT2_MAKE_ARITHMETIC(minus_           , 2 , (a0 -  a1));
-  NT2_MAKE_ARITHMETIC(multiplies_      , 2 , (a0 *  a1));
-  NT2_MAKE_ARITHMETIC(divides_         , 2 , (a0 /  a1));
-  NT2_MAKE_ARITHMETIC(modulo_          , 2 , (a0 %  a1));
-  NT2_MAKE_ARITHMETIC(bitwise_and_     , 2 , (a0 &  a1));
-  NT2_MAKE_ARITHMETIC(bitwise_or_      , 2 , (a0 |  a1));
-  NT2_MAKE_ARITHMETIC(bitwise_xor_     , 2 , (a0 ^  a1));
-  NT2_MAKE_ARITHMETIC(shift_left_      , 2 , (a0 << a1));
-  NT2_MAKE_ARITHMETIC(shift_right_     , 2 , (a0 >> a1));
-} }
+  template<class Dummy>
+  struct call < tag::if_else_(tag::fundamental_,tag::fundamental_,tag::fundamental_)
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1,class A2>  struct
+    result<This(A0,A1,A2)>
+    {
+      static A0 a0; static A1 a1; static A2 a2;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 ? a1 : a2)
+      typedef typename nested::type type;
+    };
 
-#undef NT2_MAKE_ARITHMETIC
+    NT2_FUNCTOR_CALL(3) { return a0 ? a1 : a2; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Unary minus
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct call<tag::unary_minus_(tag::arithmetic_), tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>  struct
+    result<This(A0)>
+    {
+      static A0 a0;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,-a0)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(1) { return -a0; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Unary plus
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct call<tag::unary_plus_(tag::fundamental_), tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>  struct
+    result<This(A0)>
+    {
+      static A0 a0;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,+a0)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(1) { return +a0; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Binary plus
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call<tag::plus_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0+a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0+a1; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Binary minus
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call<tag::minus_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0-a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0-a1; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Multiplies
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call<tag::multiplies_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0*a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0*a1; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Divides
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call<tag::divides_(tag::arithmetic_,tag::arithmetic_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0/a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0/a1; }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Modulo
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Dummy>
+  struct  call<tag::modulo_(tag::integer_,tag::integer_), tag::cpu_, Dummy>
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>  struct
+    result<This(A0,A1)>
+    {
+      static A0 a0; static A1 a1;
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0%a1)
+      typedef typename nested::type type;
+    };
+
+    NT2_FUNCTOR_CALL(2) { return a0 % a1; }
+  };
+} }
 
 #endif

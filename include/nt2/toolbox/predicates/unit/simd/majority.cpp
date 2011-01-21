@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(majority, NT2_SIMD_TYPES )
 {
  using nt2::majority;
- using nt2::functors::majority_; 
+ using nt2::tag::majority_; 
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(majority, NT2_SIMD_TYPES )
      n_t v  = majority(a0, a1, a2);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(nt2::boolean(v[j]), majority(a0[j], a1[j], a2[j]));
+       NT2_TEST_EQUAL(nt2::boolean(v[j]), majority(a0[j], a1[j], a2[j]));
        }
    }
 }

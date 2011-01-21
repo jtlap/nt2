@@ -12,54 +12,61 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::minnum_, tag::cpu_,
+                        (A0)(A1),
+                        (arithmetic_<A0>)(arithmetic_<A1>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for minnum
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute minnum(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<minnum_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::minnum_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
+      return nt2::min(a0, a1);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::minnum_, tag::cpu_,
+                        (A0)(A1),
+                        (real_<A0>)(real_<A1>)
+                       )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::minnum_(tag::real_,tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :
+      boost::result_of<meta::arithmetic(A0,A1)>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       if (is_nan(a0)) return type(a1);
       else if (is_nan(a1)) return type(a0);
       else return nt2::min(type(a0), type(a1));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<minnum_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::result_of<meta::arithmetic(A0,A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::min(a0, a1); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct sin_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::sin_, sin, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(libc::tag::sin_, sin, 1)
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/sin.hpp>
 // #include NT2_LIBC_INCLUDE(sin.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

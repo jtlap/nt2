@@ -10,17 +10,14 @@
 #define NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 
 #include <nt2/sdk/meta/sign_of.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class T, class Sign, class Category> struct as_integer;
-
-  template<class T, class Sign>
-  struct 	as_integer<T,Sign,tag::scalar_(tag::arithmetic_)>
-				: meta::make_integer<sizeof(T),Sign> {};
-	
+  template<class T, class Sign, class Hierarchy>
+  struct  as_integer
+        : meta::make_integer<sizeof(T),Sign> {};
 } }
 
 namespace nt2 { namespace meta
@@ -30,7 +27,10 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign=typename meta::sign_of<T>::type >
   struct  as_integer
-        : details::as_integer<T,Sign,typename category_of<T>::type::tag > {};
+        : details::as_integer < typename meta::strip<T>::type
+                              , Sign
+                              , typename hierarchy_of<T>::type
+                              > {};
 } }
 
 #endif

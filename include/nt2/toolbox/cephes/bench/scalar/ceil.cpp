@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<ceil_> from cephes
 //////////////////////////////////////////////////////////////////////////////
-using nt2::cephes::ceil_;
+using nt2::cephes::tag::ceil_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::cephes::ceil_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::cephes::ceil_,(RS(double,-10000.0,10000.0)))
+NT2_TIMING(nt2::cephes::tag::ceil_,(RS(float,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::cephes::tag::ceil_,(RS(double,-10000.0,10000.0)))
 
 #undef RS

@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/polynomials/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct legendre_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::legendre_, legendre, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::legendre_, legendre, 2)
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/legendre.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010
