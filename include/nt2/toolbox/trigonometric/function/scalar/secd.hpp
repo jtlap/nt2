@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SECD_HPP_INCLUDED
 
 #include <nt2/include/functions/cosd.hpp>
+#include <nt2/include/functions/secpi.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -33,8 +34,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return rec(nt2::cosd(a0));
-      //      return secpi(Inv_180<type>()*a0);
+      //      return rec(nt2::cosd(a0));
+      return secpi(a0/type(180));
 
     }
 

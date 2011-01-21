@@ -11,9 +11,8 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
+#include <iostream>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -38,7 +37,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return type(One<A0>()-(is_odd(a0)<<1));
+      return type(1-(is_odd(a0)<<1));
     }
   };
 } }

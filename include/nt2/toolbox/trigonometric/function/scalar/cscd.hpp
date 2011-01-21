@@ -12,6 +12,7 @@
 
 #include <nt2/include/functions/csc.hpp>
 #include <nt2/include/functions/inrad.hpp>
+#include <nt2/include/functions/rem.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -36,7 +37,36 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (!a0) return Nan<type>();
+      //      if (!a0) return Inf<type>();
+      if (!(a0%_180<A0>())) return Nan<type>(); 
+      return csc(inrad(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+
+NT2_REGISTER_DISPATCH(tag::cscd_, tag::cpu_,
+                      (A0),
+                      (real_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::cscd_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
+      if (!rem(a0, _180<A0>())) return Nan<A0>(); 
       return csc(inrad(a0));
     }
   };
