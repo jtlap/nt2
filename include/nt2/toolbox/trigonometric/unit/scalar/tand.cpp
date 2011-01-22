@@ -23,7 +23,7 @@
 #include <nt2/toolbox/trigonometric/include/tand.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/crlibm/include/tan.hpp>
+#include <nt2/toolbox/cephes/include/tandg.hpp>
 
 NT2_TEST_CASE_TPL ( tand_real__1,  NT2_REAL_TYPES)
 {
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( tand_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::tand(a0),nt2::crlibm::tan<nt2::rn>(a0*nt2::Deginrad<T>()),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::tand(a0),nt2::cephes::tandg(a0),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

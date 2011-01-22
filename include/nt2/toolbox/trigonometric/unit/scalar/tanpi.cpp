@@ -40,14 +40,15 @@ NT2_TEST_CASE_TPL ( tanpi_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  tanpi(-nt2::Quarter<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Half<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  tanpi(-nt2::Quarter<T>()), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Half<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  tanpi(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Mhalf<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Mhalf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  tanpi(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Mone<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  tanpi(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  tanpi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Quarter<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  tanpi(nt2::Quarter<T>()), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  tanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = 100;
@@ -59,7 +60,7 @@ NT2_TEST_CASE_TPL ( tanpi_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::tanpi(a0),nt2::crlibm::tanpi<nt2::rn>(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::tanpi(a0),nt2::crlibm::tanpi<nt2::rn>(a0),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

@@ -23,14 +23,17 @@
 #include <nt2/toolbox/trigonometric/include/fast_sincos.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/crlibm/include/sin.hpp>
+#include <nt2/toolbox/crlibm/include/cos.hpp>
 
 NT2_TEST_CASE_TPL ( fast_sincos_real__1,  NT2_REAL_TYPES)
 {
   using nt2::fast_sincos;
   using nt2::tag::fast_sincos_;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::call<fast_sincos_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -39,25 +42,79 @@ NT2_TEST_CASE_TPL ( fast_sincos_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  fast_sincos(-nt2::Pi<T>()), nt2::Zero<r_t>(), 0.75);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(-nt2::Pi<T>()/2), nt2::Mone<r_t>(), 0.75);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(-nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.75);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Pi<T>()), nt2::Zero<r_t>(), 0.75);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Pi<T>()/2), nt2::One<r_t>(), 0.75);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.75);
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  {
+    r_t res = fast_sincos(-nt2::Pi<T>()/2);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t1>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(-nt2::Pi<T>()/4);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), -nt2::Sqrt_2o_2<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Sqrt_2o_2<r_t0>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(nt2::Inf<T>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(nt2::Minf<T>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(nt2::Nan<T>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(nt2::Pi<T>()/2);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(nt2::Pi<T>()/4);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Sqrt_2o_2<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Sqrt_2o_2<r_t0>(), 0.75);
+  }
+  {
+    r_t res = fast_sincos(nt2::Zero<T>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>(), 0.75);
+  }
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+    NT2_CREATE_BUFFER(a0,T, 100, nt2::Pi<T>()/4, nt2::Pi<T>()/4);
+    double ulp0 = 0.0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        r_t r = nt2::fast_sincos(a0);
+        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+        r_t0 r0 = boost::fusion::get<0>(r);
+        r_t1 r1 = boost::fusion::get<1>(r);
+        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::crlibm::sin<nt2::rn>(a0), 0.5);
+        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::crlibm::cos<nt2::rn>(a0), 0.5);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( fast_sincos_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::fast_sincos;
   using nt2::tag::fast_sincos_;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::call<fast_sincos_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -66,16 +123,23 @@ NT2_TEST_CASE_TPL ( fast_sincos_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  {
+    r_t res = fast_sincos(nt2::Zero<T>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>(), 0.75);
+  }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( fast_sincos_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::fast_sincos;
   using nt2::tag::fast_sincos_;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::call<fast_sincos_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -84,5 +148,11 @@ NT2_TEST_CASE_TPL ( fast_sincos_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  fast_sincos(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  {
+    r_t res = fast_sincos(nt2::Zero<T>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>(), 0.75);
+  }
 } // end of test for signed_int_

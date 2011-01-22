@@ -9,25 +9,20 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SINCOSD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SINCOSD_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
-
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
-
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::sincosd_, tag::cpu_,
                          (A0),
-                         (fundamental_<A0>)
+                         (arithmetic_<A0>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sincosd_(tag::fundamental_),
+  struct call<tag::sincosd_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -40,11 +35,42 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename boost::result_of<meta::floating(A0)>::type type;
+      return sincosd(type(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sincosd_, tag::cpu_,
+                         (A0),
+                         (real_<A0>)
+                        )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::sincosd_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::strip<A0>::type          etype;
+      typedef boost::fusion::tuple<etype, etype>       type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
       typename NT2_RETURN_TYPE(1)::type res;
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      typedef typename meta::strip<A0>::type etype;
       impl::trig_base < A0,degree_tag
-                      , fast_tag,tag::not_simd_type
-                      >::sincosa( etype(a0)
+                      , trig_tag,tag::not_simd_type
+                      >::sincosa( a0
                                 , boost::fusion::at_c<0>(res)
                                 , boost::fusion::at_c<1>(res)
                                 );
@@ -55,4 +81,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 22/01/2011

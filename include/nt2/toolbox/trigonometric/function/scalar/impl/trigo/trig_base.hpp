@@ -177,7 +177,6 @@ namespace nt2
 	    }
 	  else
 	    {
-	      std::cout << "icitte" << std::endl; 
 	      const A0 bos =  bitofsign(a0);
 	      if (!a0) return b_or(Inf<A0>(), bos); 
 	      A0 xr, xc, y;
@@ -201,10 +200,10 @@ namespace nt2
 	      static const sint_type de = sizeof(sint_type)*8-1;
 	      A0 xr, xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
-	      int_type swap_bit = n&1;
+	      int_type swap_bit = n&One<int_type>();
 	      A0 z = sqr(xr);
-	      int_type cos_sign_bit = shli(b_xor(swap_bit, (n&2)>>1), de);
-	      int_type sin_sign_bit = b_xor(bitofsign(a0), shli(n&2, de-1));
+	      int_type cos_sign_bit = shli(b_xor(swap_bit, (n&Two<int_type>())>>1), de);
+	      A0 sin_sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
 
 	      if (is_nez(swap_bit))
 		{

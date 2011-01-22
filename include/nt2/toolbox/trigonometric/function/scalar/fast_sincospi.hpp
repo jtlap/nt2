@@ -38,10 +38,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
       impl::trig_base < A0,pi_tag
                       , fast_tag, tag::not_simd_type
-                      >::sincosa( etype(a0)
+                      >::sincosa( a0
                                 , boost::fusion::at_c<0>(res)
                                 , boost::fusion::at_c<1>(res)
                                 );
@@ -76,8 +75,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
-      return nt2::fast_sincospi(tofloat(a0)); 
+      typedef typename boost::result_of<meta::floating(A0)>::type type;
+      return nt2::fast_sincospi(type(a0)); 
     }
 
   };
