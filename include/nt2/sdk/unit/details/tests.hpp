@@ -71,7 +71,7 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    if( nt2::ulpdist(tt, uu ) <= vv)					
+    if( nt2::ulpdist(t, u ) <= v)					
       {									
 	std::cout << " * Test `"					
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
