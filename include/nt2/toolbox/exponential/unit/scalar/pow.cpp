@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// modified by jt the 08/12/2010
-/// modified by jt the 14/12/2010
+/// created by jt the 08/12/2010
+/// modified by jt the 22/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -36,6 +36,7 @@ NT2_TEST_CASE_TPL ( pow_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -50,6 +51,7 @@ NT2_TEST_CASE_TPL ( pow_real__2,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUFFER(a0,T, 100, T(0), T(10));
     NT2_CREATE_BUFFER(a1,T, 100, T(0), T(10));
+    double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -57,8 +59,11 @@ NT2_TEST_CASE_TPL ( pow_real__2,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<T>()),nt2::sqr(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Half<T>()),nt2::sqrt(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
      }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
 
@@ -73,6 +78,7 @@ NT2_TEST_CASE_TPL ( pow_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -91,6 +97,7 @@ NT2_TEST_CASE_TPL ( pow_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
