@@ -62,6 +62,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return Nan<A0>();
+      if (is_inf(a0)) return Zero<A0>(); 
       return A0(boost::math::sinhc_pi(a0));
     }
   };

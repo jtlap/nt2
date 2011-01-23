@@ -11,6 +11,7 @@
 
 #include <nt2/include/functions/acosh.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -18,13 +19,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::asech_, tag::cpu_,
                        (A0),
-                       (fundamental_<A0>)
+                       (arithmetic_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::asech_(tag::fundamental_),
+  struct call<tag::asech_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,7 +36,45 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::acosh(rec(type(a0)));
+      if (is_eqz(a0)) return Inf<type>();
+      if (a0 ==  One<A0>()) return Zero<type>();
+      return Nan<type>(); 
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::asech_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::asech_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (a0 > One<A0>() || a0 < Zero<A0>()) return Nan<A0>();
+      if (a0 == Zero<A0>()) return Inf<A0>();
+      return acosh(rec(a0)); 
+//      type t = minusone(rec(a0));
+//       if (t < 16*Sqrteps<A0>()){
+// 	return sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160)); //1 + t /12 + 3 * t*t / 160
+//       }
+//       return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
+
     }
 
   };
