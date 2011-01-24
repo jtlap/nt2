@@ -14,6 +14,7 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/round.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -65,7 +66,7 @@ namespace nt2 { namespace ext
 	else
 	  return Valmax<rtype>(); 
       if (is_nan(a0)) return Zero<rtype>(); 
-      return rtype(round(a0));
+      return nt2::round(a0); 
     }
 
   };

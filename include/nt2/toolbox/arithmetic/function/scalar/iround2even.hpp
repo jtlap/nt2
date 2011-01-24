@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
 	else
 	  return Valmax<rtype>(); 
       if (is_nan(a0)) return Zero<rtype>(); 
-      return rtype(round(a0));
+      return round(a0);
     }
 
   };
