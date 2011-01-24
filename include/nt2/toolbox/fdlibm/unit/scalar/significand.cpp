@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( significand,  (double)(float) )
 {
   using nt2::fdlibm::significand;
-  using nt2::fdlibm::significand_;
+  using nt2::fdlibm::tag::significand_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::significand_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::significand_(T)>::type,
                            T
                            >::value)
           );

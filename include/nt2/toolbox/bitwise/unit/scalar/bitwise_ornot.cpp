@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL ( bitwise_ornot,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::bitwise_ornot;
-  using nt2::functors::bitwise_ornot_;
+  using nt2::tag::bitwise_ornot_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_ornot_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  bitwise_ornot( T(1), T(0)), T(~0) );
@@ -39,10 +39,10 @@ NT2_TEST_CASE_TPL ( real_bitwise_ornot,  (double)
                   )
 {
   using nt2::bitwise_ornot;
-  using nt2::functors::bitwise_ornot_;
+  using nt2::tag::bitwise_ornot_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_ornot_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST(  nt2::is_nan(bitwise_ornot( T(1), T(0))) );

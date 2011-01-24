@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct floor_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::floor_, floor, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::floor_, floor, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/floor.hpp>
 // #include NT2_FDLIBM_INCLUDE(floor.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

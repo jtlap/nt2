@@ -13,20 +13,20 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::next_, tag::cpu_,
+                      (A0),
+                      (arithmetic_<A0>)
+                     )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for next
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute next(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<next_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::next_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,16 +34,24 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return ::nextafterf(a0, Inf<A0>());
+      return a0+One<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::next_, tag::cpu_,
+                      (A0),
+                      (double_<A0>)
+                     )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<next_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::next_(tag::double_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -54,13 +62,21 @@ namespace nt2 { namespace functors
       return ::nextafter(a0, Inf<A0>());
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::next_, tag::cpu_,
+                      (A0),
+                      (float_<A0>)
+                     )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<next_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::next_(tag::float_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -68,11 +84,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0+One<A0>(); 
+      return ::nextafterf(a0, Inf<A0>());
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

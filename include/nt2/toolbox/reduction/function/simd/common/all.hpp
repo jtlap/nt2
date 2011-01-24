@@ -12,19 +12,20 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::all_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<arithmetic_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for all
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute all(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<all_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::all_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,14 +35,14 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(1)
     {
       for(int i=0; i < meta::cardinal_of<A0>::value; i++)
-	{
-	  if(!a0[i]) return 0; 
-	}
-      return 1; 
+      {
+        if(!a0[i]) return 0;
+      }
+      return 1;
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

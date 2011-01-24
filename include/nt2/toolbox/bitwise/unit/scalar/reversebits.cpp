@@ -22,10 +22,10 @@ NT2_TEST_CASE_TPL ( reversebits, NT2_INTEGRAL_TYPES
                   )
 {
   using nt2::reversebits; 
-  using nt2::functors::reversebits_;
+  using nt2::tag::reversebits_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<reversebits_(T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(reversebits(T(-1)),  T(-1)); 

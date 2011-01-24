@@ -9,9 +9,11 @@
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
     digits.cpp
-    real.cpp
-    properties.cpp
+    eps.cpp
     infinites.cpp
+    properties.cpp
+    real.cpp
+    splat.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.constant.unit)

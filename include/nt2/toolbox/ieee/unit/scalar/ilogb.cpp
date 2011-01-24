@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 04/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +30,11 @@
 NT2_TEST_CASE_TPL ( ilogb_real__1,  NT2_REAL_TYPES)
 {
   using nt2::ilogb;
+<<<<<<< HEAD
   using nt2::functors::ilogb_;
+=======
+  using nt2::tag::ilogb_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<ilogb_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
@@ -33,6 +42,10 @@ NT2_TEST_CASE_TPL ( ilogb_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -42,6 +55,7 @@ NT2_TEST_CASE_TPL ( ilogb_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::Two<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -54,12 +68,18 @@ NT2_TEST_CASE_TPL ( ilogb_real__1,  NT2_REAL_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::ilogb(a0),nt2::exponent(a0),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( ilogb_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::ilogb;
+<<<<<<< HEAD
   using nt2::functors::ilogb_;
+=======
+  using nt2::tag::ilogb_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<ilogb_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
@@ -67,12 +87,17 @@ NT2_TEST_CASE_TPL ( ilogb_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::Two<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -85,12 +110,18 @@ NT2_TEST_CASE_TPL ( ilogb_unsigned_int__1,  NT2_UNSIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::ilogb(a0),nt2::exponent(double(a0)),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( ilogb_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::ilogb;
+<<<<<<< HEAD
   using nt2::functors::ilogb_;
+=======
+  using nt2::tag::ilogb_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<ilogb_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
@@ -98,6 +129,10 @@ NT2_TEST_CASE_TPL ( ilogb_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -105,6 +140,7 @@ NT2_TEST_CASE_TPL ( ilogb_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::Two<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  ilogb(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -117,4 +153,6 @@ NT2_TEST_CASE_TPL ( ilogb_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::ilogb(a0),nt2::exponent(double(a0)),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for signed_int_

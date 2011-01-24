@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 01/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,7 +32,11 @@
 NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
 {
   using nt2::remquo;
+<<<<<<< HEAD
   using nt2::functors::remquo_;
+=======
+  using nt2::tag::remquo_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<remquo_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
@@ -35,6 +44,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
 
   // random verifications
   static const uint32_t NR = 100;
@@ -54,4 +64,8 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
         NT2_TEST_TUPLE_ULP_EQUAL( r1,nt2::idivfix(a0,a1),0);
      }
    }
+=======
+  double ulpd;
+
+>>>>>>> functor2
 } // end of test for real_

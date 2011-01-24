@@ -30,7 +30,7 @@
 NT2_TEST_CASE_TPL(all, NT2_SIMD_TYPES )
 {
  using nt2::all;
- using nt2::functors::all_;    
+ using nt2::tag::all_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(all, NT2_SIMD_TYPES )
      bool z = true; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 z = z && (a0[j]); 
+       z = z && (a0[j]); 
        }
      NT2_TEST_EQUAL(z, v);
    }

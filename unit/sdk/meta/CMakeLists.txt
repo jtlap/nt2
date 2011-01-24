@@ -17,7 +17,6 @@ SET( SOURCES
     as_signed.cpp
     as_unsigned.cpp
     cardinal_of.cpp
-    category_of.cpp
     downgrade.cpp
     floating.cpp
     from_bits.cpp
@@ -27,7 +26,6 @@ SET( SOURCES
     make_integer.cpp
     make_real.cpp
     scalar_of.cpp
-    set.cpp
     sign_of.cpp
     strip.cpp
     upgrade.cpp

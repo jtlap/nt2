@@ -23,10 +23,10 @@ NT2_TEST_CASE_TPL ( nextafter,  (double)
                   )
 {
   using nt2::fdlibm::nextafter;
-  using nt2::fdlibm::nextafter_;
+  using nt2::fdlibm::tag::nextafter_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<nextafter_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   NT2_TEST_EQUAL(  nextafter( T(2), T(3)), T(2)+nt2::Eps<T>()*2 );

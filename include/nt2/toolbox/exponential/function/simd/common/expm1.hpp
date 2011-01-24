@@ -28,25 +28,99 @@
 #include <nt2/include/functions/exp.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::expm1_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<arithmetic_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<expm1_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::expm1_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute expm1(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    struct result<This(A0)> :  meta::as_real<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<expm1_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return nt2::exp(tofloat(a0))-One<type>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::expm1_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<double_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::expm1_(tag::simd_(tag::double_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0>::type int_type;
+      typedef typename meta::scalar_of<A0>::type sA0;
+      A0 k =  round2even(double_constant<A0, 0x3ff71547652b82fell>()*a0);
+      int_type ki =  toint(-k);
+      A0 hi = a0 - k* double_constant<A0, 0x3fe62e42fee00000ll>(); //ln2HI;
+      A0 lo = k*double_constant<A0, 0x3dea39ef35793c76ll>(); //ln2LO;
+      A0 x = hi-lo;
+      A0 hxs = sqr(x)*Half<A0>();
+      A0 r1 = One<A0>()+hxs*horner <NT2_HORNER_COEFF_T(sA0, 5,
+                                           (0xBE8AFDB76E09C32Dll,
+                                          0x3ED0CFCA86E65239ll,
+                                          0xBF14CE199EAADBB7ll,
+                                          0x3F5A01A019FE5585ll,
+                                          0xBFA11111111110F4ll)
+                                           )> (hxs);
+      A0 t  = Three<A0>()-r1*Half<A0>()*x;
+      A0 e  = hxs*((r1-t)/(Six<A0>() - x*t));
+      A0 c = (hi-x)-lo;
+      e  = (x*(e-c)-c)-hxs;
+      //& A0 kmask = cast < A0 > (islt(k, Twenty<int_type>()));
+
+      A0 two2mk = fast_ldexp(One<A0>(), ki);
+      A0 ct1= oneminus(two2mk)-(e-x);
+      A0 ct2= oneplus((x-(e+two2mk)));
+
+      A0 y = select(lt(k, Twenty<A0>()),ct1,ct2);
+      y =  fast_ldexp(y, toint(k));
+      return y;
+      //return impl::expm1(a0);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::expm1_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<float_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::expm1_(tag::simd_(tag::float_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -62,71 +136,7 @@ namespace nt2 { namespace functors
       return select(p,y1,select(m, y2, a0));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<expm1_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::as_integer<A0>::type int_type;
-      typedef typename meta::scalar_of<A0>::type sA0; 
-      A0 k =  round2even(double_constant<A0, 0x3ff71547652b82fell>()*a0);
-      int_type ki =  toint(-k);
-      A0 hi = a0 - k* double_constant<A0, 0x3fe62e42fee00000ll>(); //ln2HI;
-      A0 lo = k*double_constant<A0, 0x3dea39ef35793c76ll>(); //ln2LO;
-      A0 x = hi-lo;
-      A0 hxs = sqr(x)*Half<A0>();
-      A0 r1 = One<A0>()+hxs*horner <NT2_HORNER_COEFF_T(sA0, 5,
-						       (0xBE8AFDB76E09C32Dll,
-							0x3ED0CFCA86E65239ll,
-							0xBF14CE199EAADBB7ll,
-							0x3F5A01A019FE5585ll,
-							0xBFA11111111110F4ll)
-						       )> (hxs);
-      A0 t  = Three<A0>()-r1*Half<A0>()*x;
-      A0 e  = hxs*((r1-t)/(Six<A0>() - x*t));
-      A0 c = (hi-x)-lo;
-      e  = (x*(e-c)-c)-hxs;
-      //& A0 kmask = cast < A0 > (islt(k, Twenty<int_type>()));
-
-      A0 two2mk = fast_ldexp(One<A0>(), ki);
-      A0 ct1= oneminus(two2mk)-(e-x);
-      A0 ct2= oneplus((x-(e+two2mk)));
-    
-      A0 y = select(lt(k, Twenty<A0>()),ct1,ct2);
-      y =  fast_ldexp(y, toint(k));
-      return y;
-	//return impl::expm1(a0);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<expm1_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return nt2::exp(tofloat(a0))-One<type>(); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

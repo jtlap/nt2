@@ -9,26 +9,17 @@
 #ifndef NT2_SDK_META_FLOATING_HPP_INCLUDED
 #define NT2_SDK_META_FLOATING_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
-#include <boost/typeof/typeof.hpp>
-#include <nt2/extension/parameters.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/meta/make_real.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
-#include <nt2/sdk/functor/meta/dominant.hpp>
+#include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2  { namespace details
+namespace nt2  { namespace meta
 {
-  template<class Category,class Dummy=void> struct floating;
-
-  template<class Dummy,class X>
-  struct floating<tag::scalar_(X),Dummy>
+  struct floating
   {
     template<class Sig> struct result;
-
     template<class This,class A0>
     struct  result<This(A0)>
     {
@@ -64,27 +55,6 @@ namespace nt2  { namespace details
     BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M0,~)
     #undef M1
     #undef M0
-  };
-} }
-
-namespace nt2  { namespace meta
-{
-  struct floating
-  {
-    template<class Sig> struct result;
-
-    #define M3(z,n,t)                                                               \
-    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                            \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
-    {                                                                               \
-      typedef  typename meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag dom;   \
-      typedef  typename std::tr1                                                    \
-      ::result_of<details::floating<dom>(BOOST_PP_ENUM_PARAMS(n,A))>::type   type;  \
-    };                                                                              \
-    /**/
-
-    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_ARITY,M3,~)
-    #undef M3
   };
 } }
 

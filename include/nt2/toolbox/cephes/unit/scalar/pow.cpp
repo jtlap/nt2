@@ -23,16 +23,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( pow, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::cephes::pow; 
-  using nt2::cephes::pow_;
+  using nt2::cephes::tag::pow_;
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<pow_(T, T)>::type
-	      , r_t
- 	     >::value)
- 	    );
+            , r_t
+            >::value)
+           );
    NT2_TEST_EQUAL(  nt2::cephes::pow( T(0), T(0))  , 1 );
    NT2_TEST_EQUAL(  nt2::cephes::pow( T(1), T(28))  , nt2::One<T>() );
    NT2_TEST_EQUAL(  nt2::cephes::pow(T(2), T(3)), nt2::Eight<T>());

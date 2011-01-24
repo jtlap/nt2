@@ -11,24 +11,20 @@
 
 #include <nt2/include/functions/is_eqz.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_false_, tag::cpu_,
+                          (A0),
+                          (fundamental_<A0>)
+                         )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<is_false_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
- 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_false(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_false_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::is_false_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -36,11 +32,11 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_eqz(a0); 
+      return is_eqz(a0);
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

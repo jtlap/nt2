@@ -80,7 +80,7 @@ namespace nt2
       struct trig_reduction < A0, radian_tag, trig_tag, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
-        typedef typename meta::logical<A0>::type            logic;
+        typedef typename meta::logical<A0>::type               logic;
 
         static inline logic replacement_needed(const A0& a0)
         {
@@ -117,7 +117,7 @@ namespace nt2
         {
           //::sincosf(a0, &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return is_eqz(x)|is_invalid(x); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)

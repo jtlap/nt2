@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(atan2,(double)(float) )
 {
  using nt2::atan2;
- using nt2::functors::atan2_;    
+ using nt2::tag::atan2_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -52,8 +52,8 @@ NT2_TEST_CASE_TPL(atan2,(double)(float) )
      rn_t v  = atan2(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], atan2(a0[j], a1[j])), 1);
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER( z = nt2::ulpdist(v[j], atan2(a0[j], a1[j])), 1);
+       if (z > m) m = z; 
        }
    }
  std::cout << "ulp max = " << m << std::endl;

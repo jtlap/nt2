@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/trigonometric/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct rem_pio2_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::rem_pio2_, rem_pio2, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::rem_pio2_, rem_pio2, 1)
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/rem_pio2.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

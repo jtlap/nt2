@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/bessel.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct sph_neumann_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::sph_neumann_, sph_neumann, 2)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sph_neumann_, sph_neumann, 2)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/sph_neumann.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(sph_neumann.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

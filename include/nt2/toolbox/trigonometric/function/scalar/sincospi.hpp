@@ -9,26 +9,21 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SINCOSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SINCOSPI_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
-
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
 
-namespace nt2 { namespace functors
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sincospi_, tag::cpu_,
+                          (A0),
+                          (arithmetic_<A0>)
+                         )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for sincospi
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute sincospi(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<sincospi_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::sincospi_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,11 +35,42 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typedef typename boost::result_of<meta::floating(A0)>::type type;
+      return sincospi(type(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::sincospi_, tag::cpu_,
+                          (A0),
+                          (real_<A0>)
+                         )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::sincospi_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename meta::strip<A0>::type          etype;
+      typedef boost::fusion::tuple<etype, etype>       type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename NT2_RETURN_TYPE(1)::type res;
       typedef typename boost::result_of<meta::floating(A0)>::type etype;
       impl::trig_base < A0,pi_tag
                       , trig_tag,tag::not_simd_type
-                      >::sincosa( etype(a0)
+                      >::sincosa( a0
                                 , boost::fusion::at_c<0>(res)
                                 , boost::fusion::at_c<1>(res)
                                 );
@@ -55,4 +81,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the  22/01/2011

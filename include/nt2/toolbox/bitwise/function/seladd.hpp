@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bitwise/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct seladd_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::seladd_, seladd, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::seladd_, seladd, 3)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/seladd.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

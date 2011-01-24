@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(trunc, NT2_SIMD_TYPES )
 {
  using nt2::trunc;
- using nt2::functors::trunc_;    
+ using nt2::tag::trunc_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

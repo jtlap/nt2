@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<hyp2f1_> from cephes
 //////////////////////////////////////////////////////////////////////////////
-using nt2::cephes::hyp2f1_;
+using nt2::cephes::tag::hyp2f1_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -21,8 +21,8 @@ using nt2::cephes::hyp2f1_;
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
 // TO DO Check ranges to many params
-// NT2_TIMING(nt2::cephes::hyp2f1_,(RS(float,-1.0f,1.0f))(RS(float,-1.0f,1.0f))(RS(float,-1.0f,1.0f))(RS(float,-1.0f,1.0f)))
-// NT2_TIMING(nt2::cephes::hyp2f1_,(RS(double,-1.0f,1.0f))(RS(double,-1.0f,1.0f))(RS(double,-1.0f,1.0f))(RS(double,-1.0f,1.0f)))
-// NT2_TIMING(nt2::cephes::hyp2f1_,(RS(int32_t,-1,1))(RS(int32_t,-1,1))(RS(int32_t,-1,1))(RS(int32_t,-1,1)))
+// NT2_TIMING(nt2::cephes::tag::hyp2f1_,(RS(float,-1.0f,1.0f))(RS(float,-1.0f,1.0f))(RS(float,-1.0f,1.0f))(RS(float,-1.0f,1.0f)))
+// NT2_TIMING(nt2::cephes::tag::hyp2f1_,(RS(double,-1.0f,1.0f))(RS(double,-1.0f,1.0f))(RS(double,-1.0f,1.0f))(RS(double,-1.0f,1.0f)))
+// NT2_TIMING(nt2::cephes::tag::hyp2f1_,(RS(int32_t,-1,1))(RS(int32_t,-1,1))(RS(int32_t,-1,1))(RS(int32_t,-1,1)))
 
 #undef RS

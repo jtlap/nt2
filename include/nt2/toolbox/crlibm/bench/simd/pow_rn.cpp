@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<pow_rn_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::pow_rn_;
+using nt2::crlibm::tag::pow_rn_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::crlibm::pow_rn_,(RS(vfloat,-10.0f,10.0f))(RS(vfloat,-10.0f,10.0f)))
-NT2_TIMING(nt2::crlibm::pow_rn_,(RS(vdouble,-10.0,10.0))(RS(vdouble,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::pow_rn_,(RS(vfloat,-10.0f,10.0f))(RS(vfloat,-10.0f,10.0f)))
+NT2_TIMING(nt2::crlibm::tag::pow_rn_,(RS(vdouble,-10.0,10.0))(RS(vdouble,-10.0,10.0)))
 
 #undef RS

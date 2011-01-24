@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( cotdg,  (double)(float) )
 {
   using nt2::cephes::cotdg;
-  using nt2::cephes::cotdg_;
+  using nt2::cephes::tag::cotdg_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::cotdg_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::cotdg_(T)>::type,
                            T
                            >::value)
           );

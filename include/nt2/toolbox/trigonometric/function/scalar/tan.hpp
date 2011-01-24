@@ -10,38 +10,60 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_TAN_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
 
-namespace nt2 { namespace functors
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tan_, tag::cpu_,
+                     (A0),
+                     (arithmetic_<A0>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for tan
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute tan(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<tan_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::tan_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return impl::trig_base<type,radian_tag, trig_tag, tag::not_simd_type>::tana(type(a0));
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return nt2::tan(type(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tan_, tag::cpu_,
+                     (A0),
+                     (real_<A0>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::tan_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return impl::trig_base<A0,radian_tag, trig_tag, tag::not_simd_type>::tana(a0);
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

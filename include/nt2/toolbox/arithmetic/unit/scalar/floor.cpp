@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 01/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -21,6 +26,7 @@
 #include <nt2/toolbox/arithmetic/include/floor.hpp>
 // specific includes for arity 1 tests
 #include<nt2/toolbox/standard/include/floor.hpp>
+<<<<<<< HEAD
 
 NT2_TEST_CASE_TPL ( floor_real__1,  NT2_REAL_TYPES)
 {
@@ -33,8 +39,35 @@ NT2_TEST_CASE_TPL ( floor_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+=======
 
+NT2_TEST_CASE_TPL ( floor_real__1,  NT2_REAL_TYPES)
+{
+  using nt2::floor;
+  using nt2::tag::floor_;
+  typedef typename nt2::meta::call<floor_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+>>>>>>> functor2
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  floor(T(-1.1)), r_t(-2), 0);
+  NT2_TEST_ULP_EQUAL(  floor(T(1.1)), r_t(1), 0);
+  NT2_TEST_ULP_EQUAL(  floor(nt2::Inf<T>()), nt2::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  floor(nt2::Minf<T>()), nt2::Minf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  floor(nt2::Mone<T>()), nt2::Mone<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  floor(nt2::Nan<T>()), nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  floor(nt2::One<T>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  floor(nt2::Zero<T>()), nt2::Zero<T>(), 0);
+} // end of test for real_
+
+<<<<<<< HEAD
   // specific values tests
   NT2_TEST_ULP_EQUAL(  floor(T(-1.1)), r_t(-2), 0);
   NT2_TEST_ULP_EQUAL(  floor(T(1.1)), r_t(1), 0);
@@ -62,6 +95,12 @@ NT2_TEST_CASE_TPL ( floor_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::floor;
   using nt2::functors::floor_;
+=======
+NT2_TEST_CASE_TPL ( floor_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::floor;
+  using nt2::tag::floor_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<floor_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -69,11 +108,16 @@ NT2_TEST_CASE_TPL ( floor_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  floor(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  floor(nt2::Zero<T>()), nt2::Zero<T>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -86,12 +130,18 @@ NT2_TEST_CASE_TPL ( floor_unsigned_int__1,  NT2_UNSIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::floor(a0),nt2::standard::floor(a0),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( floor_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::floor;
+<<<<<<< HEAD
   using nt2::functors::floor_;
+=======
+  using nt2::tag::floor_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<floor_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -99,12 +149,17 @@ NT2_TEST_CASE_TPL ( floor_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  floor(nt2::Mone<T>()), nt2::Mone<T>(), 0);
   NT2_TEST_ULP_EQUAL(  floor(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  floor(nt2::Zero<T>()), nt2::Zero<T>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -117,4 +172,6 @@ NT2_TEST_CASE_TPL ( floor_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::floor(a0),nt2::standard::floor(a0),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for signed_int_

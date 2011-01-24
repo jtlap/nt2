@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 04/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +31,11 @@
 NT2_TEST_CASE_TPL ( modf_real__1,  NT2_REAL_TYPES)
 {
   using nt2::modf;
+<<<<<<< HEAD
   using nt2::functors::modf_;
+=======
+  using nt2::tag::modf_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<modf_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::vector<T,T> wished_r_t;
@@ -34,6 +43,7 @@ NT2_TEST_CASE_TPL ( modf_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
 
   // random verifications
   static const uint32_t NR = 100;
@@ -87,6 +97,16 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::modf;
   using nt2::functors::modf_;
+=======
+  double ulpd;
+
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( modf_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::modf;
+  using nt2::tag::modf_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<modf_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::vector<T,T> wished_r_t;
@@ -94,6 +114,7 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
 
   // random verifications
   static const uint32_t NR = 100;
@@ -111,4 +132,23 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         NT2_TEST_TUPLE_ULP_EQUAL( r1,nt2::trunc(a0),0);
      }
    }
+=======
+  double ulpd;
+
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( modf_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::modf;
+  using nt2::tag::modf_;
+  typedef typename nt2::meta::call<modf_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::vector<T,T> wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+>>>>>>> functor2
 } // end of test for signed_int_

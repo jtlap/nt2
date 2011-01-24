@@ -17,8 +17,13 @@ namespace nt2 { namespace details
   ////////////////////////////////////////////////////////////////////////////
   // Overload for SIMD native types
   ////////////////////////////////////////////////////////////////////////////
-  template<class T, class C, class X>
-  struct scalar_of_impl<T,tag::simd_(C,X) > { typedef typename T::value_type type; };
+  template<class T, class H, class X>
+  struct scalar_of_impl < T
+                        , meta::simd_<H,X>
+                        >
+  {
+    typedef typename T::value_type type;
+  };
 } }
 
 #endif

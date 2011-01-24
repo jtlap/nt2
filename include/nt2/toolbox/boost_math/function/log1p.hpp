@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/log1p.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct log1p_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::log1p_, log1p, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::log1p_, log1p, 1)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/log1p.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(log1p.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

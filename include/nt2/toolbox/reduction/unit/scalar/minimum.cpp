@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( minimum, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::minimum;
-  using nt2::functors::minimum_;
+  using nt2::tag::minimum_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<minimum_(T)>::type
                             , T

@@ -20,15 +20,16 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/exp.hpp>
 
-namespace nt2 { namespace functors
-{
 
-  //  no special validate for anp
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::anp_, tag::cpu_,
+                     (A0)(A1),
+                     (fundamental_<A0>)(fundamental_<A1>)
+                    )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute anp(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
+<<<<<<< HEAD
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is real_
   /////////////////////////////////////////////////////////////////////////////
@@ -57,6 +58,13 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   template<class Info>
   struct  call<anp_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+=======
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::anp_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
+>>>>>>> functor2
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -66,9 +74,15 @@ namespace nt2 { namespace functors
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename boost::result_of<meta::floating(A0, A1)>::type type;
+<<<<<<< HEAD
       typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
       if (is_ngez(a0)||is_ngez(a1)) return Nan<type>();
       if (lt(a0,a1)||!a0) return Zero<type>();
+=======
+      typedef typename NT2_RETURN_TYPE(2)::type rtype;
+      if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
+      if (lt(a0,a1)) return (rtype)Zero<type>();
+>>>>>>> functor2
       const type n = oneplus(round2even(a0));
       const type p = round2even(a1);
       return (rtype)round2even(exp(gammaln(n)-gammaln(n-p)));
@@ -78,4 +92,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

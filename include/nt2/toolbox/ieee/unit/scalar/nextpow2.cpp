@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 04/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +28,11 @@
 NT2_TEST_CASE_TPL ( nextpow2_real__1,  NT2_REAL_TYPES)
 {
   using nt2::nextpow2;
+<<<<<<< HEAD
   using nt2::functors::nextpow2_;
+=======
+  using nt2::tag::nextpow2_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<nextpow2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type wished_r_t;
@@ -31,6 +40,10 @@ NT2_TEST_CASE_TPL ( nextpow2_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -42,6 +55,7 @@ NT2_TEST_CASE_TPL ( nextpow2_real__1,  NT2_REAL_TYPES)
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( nextpow2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+<<<<<<< HEAD
 {
   using nt2::nextpow2;
   using nt2::functors::nextpow2_;
@@ -63,6 +77,11 @@ NT2_TEST_CASE_TPL ( nextpow2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::nextpow2;
   using nt2::functors::nextpow2_;
+=======
+{
+  using nt2::nextpow2;
+  using nt2::tag::nextpow2_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<nextpow2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type wished_r_t;
@@ -70,6 +89,29 @@ NT2_TEST_CASE_TPL ( nextpow2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  nextpow2(nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  nextpow2(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( nextpow2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::nextpow2;
+  using nt2::tag::nextpow2_;
+  typedef typename nt2::meta::call<nextpow2_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests

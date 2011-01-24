@@ -263,7 +263,7 @@ As an example, here is a possible implementation of ``sqrt`` for any arithmetic 
       }
     };
 
-The :ref:`functor` system behqves by default so everything is intuitively valdiated
+The :ref:`functor` system behaves by default so everything is intuitively valdiated
 and dispatched to the proper :ref:`functor_call` specialization. Contributor work
 is mainly to provide :ref:`functor_call` specialization of a given function for
 a specific type set or architecture. As an example, one may want to use ``::sqrtf``

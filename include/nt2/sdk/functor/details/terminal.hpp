@@ -9,35 +9,33 @@
 #ifndef NT2_SDK_FUNCTOR_DETAILS_TERMINAL_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_DETAILS_TERMINAL_HPP_INCLUDED
 
-namespace nt2 { namespace functors
+namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
   // Special functor for handling terminal in expression AST evaluation
   //////////////////////////////////////////////////////////////////////////////
-  template<class Info> struct functor<terminal_,Info>
+  template<class Site> struct functor<tag::terminal_,Site>
   {
-    struct validate { typedef boost::mpl::true_ result_type; };
-
     template<class Sig> struct result;
-    template<class This,class V,class S,class D>
-    struct result<This(V,S,D)>
+
+    template<class This, class Value, class State, class Data>
+    struct result<This(Value, State, Data)>
     {
-      typedef typename meta::category_of<V>::type::tag                dominant;
-      typedef meta::dispatch<terminal_,dominant,Info>                 dispatching;
-      typedef typename std::tr1::result_of<dispatching(V,S,D)>::type  callee;
-      typedef typename std::tr1::result_of<callee(V,S,D)>::type       type;
+      typedef typename
+      meta::dispatch_call<tag::terminal_(Value,State,Data),Site>::type  callee;
+      typedef typename
+      std::tr1::result_of<callee(Value, State, Data)>::type             type;
     };
 
-    template<class V,class S,class D> inline
-    typename result<functor(V,S,D)>::type
-    operator()(V& v, S s, D& d) const
+    template<class Value, class State, class Data> inline
+    typename meta::enable_call<tag::terminal_(Value&,State&,Data&)>::type
+    operator()( Value& v, State& s, Data& d ) const
     {
-      typedef typename meta::category_of<V>::type::tag        dominant;
-      typedef meta::dispatch<terminal_,dominant,Info>         dispatching;
-      typename std::tr1::result_of<dispatching(V,S,D)>::type  callee;
+      typename
+      meta::dispatch_call<tag::terminal_(Value,State,Data),Site>::type callee;
       return callee(v,s,d);
     }
   };
-} }
+}
 
 #endif

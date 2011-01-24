@@ -9,19 +9,86 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_AND_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_AND_HPP_INCLUDED
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)(X)
+                      , ((simd_<type64_<A0>,X>))
+                        ((simd_<type64_<A1>,X>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)(X)
+                      , ((simd_<type32_<A0>,X>))
+                        ((simd_<type32_<A1>,X>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)(X)
+                      , ((simd_<type16_<A0>,X>))
+                        ((simd_<type16_<A1>,X>))
+                      );
+
+NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)(X)
+                      , ((simd_<type8_<A0>,X>))
+                        ((simd_<type8_<A1>,X>))
+                      );
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Bitwise operators requires same bits size
-  //////////////////////////////////////////////////////////////////////////////
-  template<class C,class X,class Info>
-  struct validate<bitwise_and_,tag::simd_(C,X),Info>
+  template<class Dummy,class X>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
+                                  , tag::simd_(tag::type8_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::arithmetic_,X)
+                                  , tag::simd_(tag::arithmetic_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
   };
+
+  template<class Dummy,class X>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type16_,X)
+                                  , tag::simd_(tag::type16_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
+                                  , tag::simd_(tag::type8_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
+
+  template<class Dummy,class X>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type32_,X)
+                                  , tag::simd_(tag::type32_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
+                                  , tag::simd_(tag::type8_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
+
+  template<class Dummy,class X>
+  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type64_,X)
+                                  , tag::simd_(tag::type64_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
+                                  , tag::simd_(tag::type8_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
 } }
 
 #endif

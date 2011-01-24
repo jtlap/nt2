@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(logical_xor, NT2_SIMD_TYPES )
 {
  using nt2::logical_xor;
- using nt2::functors::logical_xor_;    
+ using nt2::tag::logical_xor_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

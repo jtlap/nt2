@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 01/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +28,11 @@
 NT2_TEST_CASE_TPL ( oneplus_real__1,  NT2_REAL_TYPES)
 {
   using nt2::oneplus;
+<<<<<<< HEAD
   using nt2::functors::oneplus_;
+=======
+  using nt2::tag::oneplus_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<oneplus_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
@@ -31,6 +40,10 @@ NT2_TEST_CASE_TPL ( oneplus_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -40,6 +53,7 @@ NT2_TEST_CASE_TPL ( oneplus_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  oneplus(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  oneplus(nt2::One<T>()), nt2::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  oneplus(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -88,6 +102,14 @@ NT2_TEST_CASE_TPL ( oneplus_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::oneplus;
   using nt2::functors::oneplus_;
+=======
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( oneplus_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::oneplus;
+  using nt2::tag::oneplus_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<oneplus_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
@@ -95,12 +117,36 @@ NT2_TEST_CASE_TPL ( oneplus_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  oneplus(nt2::One<T>()), nt2::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  oneplus(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( oneplus_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::oneplus;
+  using nt2::tag::oneplus_;
+  typedef typename nt2::meta::call<oneplus_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  oneplus(nt2::Mone<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  oneplus(nt2::One<T>()), nt2::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  oneplus(nt2::Zero<T>()), nt2::One<T>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -113,4 +159,6 @@ NT2_TEST_CASE_TPL ( oneplus_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::oneplus(a0),1+a0,0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for signed_int_

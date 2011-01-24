@@ -12,12 +12,12 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bitwise/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct bitwise_ornot_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_ornot_, bitwise_ornot, 2)
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_ornot_, b_ornot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, bitwise_ornot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, b_ornot, 2)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_ornot.hpp>
@@ -25,3 +25,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

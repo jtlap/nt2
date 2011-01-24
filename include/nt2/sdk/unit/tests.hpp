@@ -69,6 +69,10 @@
   {									\
     r_t r1 = A;								\
     r_t r2 = B;								\
+<<<<<<< HEAD
+=======
+    ulpd = nt2::ulpdist(r1, r2);					\
+>>>>>>> functor2
     bool b; 								\
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,		\
 				      BOOST_CURRENT_FUNCTION,		\
@@ -78,7 +82,11 @@
 	  std::cout << "   because " << #A << " = " << r1		\
 		    << " and " << #B << " = " << r2 <<  std::endl;	\
 	  std::cout << "   and ulp distance is "			\
+<<<<<<< HEAD
 		    << nt2::ulpdist(r1, r2) << std::endl;		\
+=======
+		    << ulpd << std::endl;				\
+>>>>>>> functor2
 	}								\
   }									\
 /**/

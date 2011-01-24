@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ast/include.hpp>
 
-namespace nt2 { namespace ast
-  {	       
+namespace nt2 { namespace ast { namespace tag
+  {         
     struct log1p_ {};
-    NT2_FUNCTION_IMPLEMENTATION(ast::log1p_, log1p, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(ast::tag::log1p_, log1p, 1)
+  } }
  
 #include <nt2/toolbox/ast/function/scalar/log1p.hpp>
 // #include NT2_AST_INCLUDE(log1p.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

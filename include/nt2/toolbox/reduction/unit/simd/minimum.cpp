@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL ( minimum, NT2_SIMD_TYPES )
 {
   using nt2::minimum;
   using nt2::load;
-  using nt2::functors::minimum_;
+  using nt2::tag::minimum_;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
  
@@ -37,10 +37,16 @@ NT2_TEST_CASE_TPL ( minimum, NT2_SIMD_TYPES )
                             >::value)
           );
   NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
-  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = 10+i;
-  data[cardinal_of<n_t>::value/2] = 2;
+  for(int i=0;i<cardinal_of<n_t>::value;++i)
+    data[i] = -int(cardinal_of<n_t>::value/2)+i;
+  //  data[cardinal_of<n_t>::value/2] = 2;
   
   n_t v = load<n_t>(&data[0],0);
-  NT2_TEST_EQUAL( nt2::minimum(v), 2 );
+  std::cout << v << std::endl; 
+  T z = v[0];
+  for(int i = 1; i<cardinal_of<n_t>::value;++i)
+    if (v[i] < z) z = v[i];
+  std::cout << z << std::endl;
+  std::cout <<  nt2::minimum(v) << std::endl;
+  NT2_TEST_EQUAL( nt2::minimum(v), z );
 }

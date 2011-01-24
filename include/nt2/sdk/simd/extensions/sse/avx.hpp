@@ -31,13 +31,18 @@ NT2_WARNING(AVX SIMD extension detected)
 #define NT2_SIMD_AVX
 #define NT2_SIMD_SSE_FAMILY
 #define NT2_SIMD_STRING             "AVX"
+#define NT2_SIMD_STRING_LIST        "SSE2 SSE3 SSSE3 SSE4_1 SSE4_2 AVX"
 #define NT2_SIMD_BYTES              32
 #define NT2_SIMD_BITS               256
 #define NT2_SIMD_CARDINALS          (2)(4)(8)(16)(32)
 #define NT2_SIMD_TAG_SEQ            (::nt2::tag::avx_)(::nt2::tag::sse_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::avx_
 
-#include <immintrin.h>
+extern "C"
+{
+  #include <immintrin.h>
+}
+
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 #include <nt2/sdk/simd/extensions/meta/avx.hpp>
 

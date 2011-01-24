@@ -12,18 +12,13 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <nt2/extension/parameters.hpp>
-#include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/functor/meta/dominant.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2  { namespace details
+namespace nt2  { namespace meta
 {
-  template<class Category,class Dummy=void> struct arithmetic;
-
-  template<class Dummy,class X>
-  struct arithmetic<tag::scalar_(X),Dummy>
+  struct arithmetic
   {
     template<class Sig> struct result;
 
@@ -37,7 +32,7 @@ namespace nt2  { namespace details
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
     {                                                                           \
       BOOST_PP_REPEAT(n,M0,~)                                                   \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL  (  nested                                \
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL (  nested                                 \
                                       ,  a0 BOOST_PP_REPEAT_FROM_TO(1,n,M1,~))  \
        typedef typename nested::type   type;                                    \
      };                                                                         \
@@ -47,27 +42,6 @@ namespace nt2  { namespace details
     #undef M2
     #undef M1
     #undef M0
-  };
-} }
-
-namespace nt2  { namespace meta
-{
-  struct arithmetic
-  {
-    template<class Sig> struct result;
-
-    #define M3(z,n,t)                                                               \
-    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                            \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
-    {                                                                               \
-      typedef  typename meta::dominant<BOOST_PP_ENUM_PARAMS(n,A)>::type::tag  dom;  \
-      typedef  typename std::tr1                                                    \
-      ::result_of<details::arithmetic<dom>(BOOST_PP_ENUM_PARAMS(n,A))>::type  type; \
-    };                                                                              \
-    /**/
-
-    BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M3,~)
-    #undef M3
 
     // Force integral promotion by computing arithmetic(A0,A0)
     template<class This,class A0>

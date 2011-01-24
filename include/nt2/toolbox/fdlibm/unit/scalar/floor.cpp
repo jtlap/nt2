@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( floor,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::fdlibm::floor;
-  using nt2::fdlibm::floor_;
+  using nt2::fdlibm::tag::floor_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<floor_(T)>::type
              ,typename  boost::result_of<nt2::meta::floating(T)>::type
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( real_floor,  (double)(float)
                   )
 {
   using nt2::fdlibm::floor;
-  using nt2::fdlibm::floor_;
+  using nt2::fdlibm::tag::floor_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<floor_(T)>::type
              ,typename  boost::result_of<nt2::meta::floating(T)>::type

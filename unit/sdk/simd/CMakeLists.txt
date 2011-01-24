@@ -8,31 +8,43 @@
 ################################################################################
 
 SET( SOURCES
-#    native.cpp
+    access.cpp
     as_integer.cpp
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
+    bitwise_and.cpp
+    bitwise_or.cpp
+    bitwise_xor.cpp
     cardinal_of.cpp
     category_of.cpp
+    comma.cpp
+    complement.cpp
+    divides.cpp
+    downgrade.cpp
+    is_equal.cpp
+    is_greater.cpp
+    is_greater_equal.cpp
+    is_less.cpp
+    is_less_equal.cpp
+    is_not_equal.cpp
     is_signed.cpp
+    is_simd_specific.cpp
+    logical_and.cpp
+    logical_not.cpp
+    logical_or.cpp
     make_integer.cpp
     make_real.cpp
+    minus.cpp
+    modulo.cpp
+#    native.cpp
+    native_cast.cpp
+    neg.cpp
+#    pack.cpp
+    plus.cpp
     scalar_of.cpp
     sign_of.cpp
-    access.cpp
-    native_cast.cpp
-#    pack.cpp
-#    add.cpp
-#    sub.cpp
-#    div.cpp
-#    mul.cpp
-#    eq.cpp
-#    neq.cpp
-#    lt.cpp
-#    gt.cpp
-#    le.cpp
-#    ge.cpp
+    upgrade.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)

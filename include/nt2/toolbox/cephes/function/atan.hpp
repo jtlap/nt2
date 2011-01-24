@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct atan_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::atan_, atan, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::atan_, atan, 1)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/atan.hpp>
 // #include NT2_CEPHES_INCLUDE(atan.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

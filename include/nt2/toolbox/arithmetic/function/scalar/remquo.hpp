@@ -13,42 +13,74 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
+<<<<<<< HEAD
 #include <nt2/include/functions/idivfix.hpp> 
 namespace nt2 { namespace functors
+=======
+
+
+namespace nt2 { namespace details
+>>>>>>> functor2
 {
+  template <class T,class Dummy> struct remquo;
+  
+  template <class Dummy> struct remquo<double,Dummy>{
+    typedef double                                          rem; 
+    typedef typename meta::as_integer<double,signed>::type  quo;
+    typedef boost::fusion::tuple<rem,quo>                 rtype;
+    
+    static inline rtype eval(const double& a0, const double& a1)
+    {
+      rtype res;
+      int rt; 
+      boost::fusion::at_c<0>(res) = ::remquo(a0, a1, &rt);
+      boost::fusion::at_c<1>(res) = rt;
+      return res; 
+    }
+  }; 
+    
+  template <class Dummy> struct remquo<float,Dummy>{
+    typedef float                                           rem; 
+    typedef typename meta::as_integer<double,signed>::type  quo;
+    typedef boost::fusion::tuple<rem,quo>                 rtype;
+    
+    static inline rtype eval(const float& a0, const float& a1)
+    {
+      rtype res;
+      int rt; 
+      boost::fusion::at_c<0>(res) = ::remquof(a0, a1, &rt);
+      boost::fusion::at_c<1>(res) = rt;
+      return res; 
+    }
+  }; 
+} }
 
-  template<class Info>
-  struct validate<remquo_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : boost::mpl::or_ < meta::is_floating_point<A0>
-                            , meta::is_floating_point<A1>
-                            >
-    {}; //TO RELAX ?
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute remquo(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when A0 and A1 types are fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::remquo_, tag::cpu_,
+                        (A0)(A1),
+                        (fundamental_<A0>)(fundamental_<A1>)
+                       )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<remquo_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::remquo_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)>
     {
       typedef typename boost::result_of<meta::floating(A0,A1)>::type rem;
-      typedef typename meta::as_integer<A0,signed>::type             quo;
+      typedef typename meta::as_integer<rem,signed>::type            quo;
       typedef boost::fusion::tuple<rem,quo>                         type;
     };
 
     NT2_FUNCTOR_CALL(2)
     {
+<<<<<<< HEAD
       typename NT2_CALL_RETURN_TYPE(2)::type res;
       typedef meta::find_type<A0,float,double,empty_> set_t;
       eval( a0, a1
@@ -75,9 +107,14 @@ namespace nt2 { namespace functors
       r0 = a0-r1*a1;
       //int rt;
       //       r0 = ::remquof(a0, a1, &r1);
+=======
+      typedef typename boost::result_of<meta::floating(A0,A1)>::type ftype;
+      return  details::remquo<ftype,void>::eval(ftype(a0), ftype(a1));
+>>>>>>> functor2
     }
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010
+// manually modified  by jt the 28/12/2010

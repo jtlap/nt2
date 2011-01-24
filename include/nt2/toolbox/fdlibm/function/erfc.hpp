@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct erfc_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::erfc_, erfc, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::erfc_, erfc, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/erfc.hpp>
 // #include NT2_FDLIBM_INCLUDE(erfc.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

@@ -9,57 +9,65 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_COTPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_COTPI_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
-
+#include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
 #include <nt2/include/functions/is_flint.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::cotpi_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for cotpi
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute cotpi(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<cotpi_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::cotpi_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      details::ignore_unused(a0); 
+      return Nan<type>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::cotpi_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::cotpi_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
       if (is_flint(a0)) return Nan<A0>();
       return impl::trig_base<A0,pi_tag, trig_tag, tag::not_simd_type>::cota(a0);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<cotpi_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return Nan<type>();
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/swar/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct splatted_prod_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::splatted_prod_, splatted_prod, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::splatted_prod_, splatted_prod, 1)
 }
  
 #include <nt2/toolbox/swar/function/scalar/splatted_prod.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

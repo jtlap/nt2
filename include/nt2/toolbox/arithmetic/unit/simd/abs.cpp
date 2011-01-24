@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - abs - simd/unit Mode"
 
-#include <nt2/toolbox/arithmetic/include/abs.hpp>
+#include <nt2/toolbox/arithmetic/include/abs.hpp>   
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
@@ -21,10 +21,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component abs using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(abs, (double))//NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(abs, NT2_SIMD_TYPES )
 {
  using nt2::abs;
- using nt2::functors::abs_;    
+ using nt2::tag::abs_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

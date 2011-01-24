@@ -23,7 +23,11 @@
                                                'nt2::Zero<T>()': 'nt2::Zero<r_t>()'},
                                'unsigned_int_': {'nt2::One<T>()': 'nt2::Zero<r_t>()',
                                                  'nt2::Zero<T>()': 'nt2::Zero<r_t>()'}},
+<<<<<<< HEAD
            'verif_test': {'property_call': None,
+=======
+           'verif_test': {'property_call': {},
+>>>>>>> functor2
                           'property_value': {'default': ['a0-nt2::trunc(a0)']},
                           'ulp_thresh': { "default" : ['0']}}},
   'version': '0.1'}]

@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(lcm,NT2_SIMD_REAL_CONVERTIBLE_TYPES )
 {
  using nt2::lcm;
- using nt2::functors::lcm_;    
+ using nt2::tag::lcm_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

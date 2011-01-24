@@ -26,10 +26,10 @@ NT2_TEST_CASE_TPL ( posmin, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::posmin;
-  using nt2::functors::posmin_;
+  using nt2::tag::posmin_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<posmin_(T)>::type
-	     , typename nt2::meta::as_integer<T, signed>::type
+           , typename nt2::meta::as_integer<T, signed>::type
                             >::value)
           );
  

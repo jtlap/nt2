@@ -19,15 +19,15 @@ typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<dawson_> from euler
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::dawson_;
+using nt2::tag::dawson_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::dawson_,(RS(vfloat,0.0f,100.0f)))
-NT2_TIMING(nt2::functors::dawson_,(RS(vdouble,0.0,100.0)))
-NT2_TIMING(nt2::functors::dawson_,(RS(vint32_t,0.0,100.0)))
+NT2_TIMING(nt2::tag::dawson_,(RS(vfloat,0.0f,100.0f)))
+NT2_TIMING(nt2::tag::dawson_,(RS(vdouble,0.0,100.0)))
+NT2_TIMING(nt2::tag::dawson_,(RS(vint32_t,0.0,100.0)))
 
 #undef RS

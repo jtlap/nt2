@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(seladd, NT2_SIMD_TYPES )
 {
  using nt2::seladd;
- using nt2::functors::seladd_;    
+ using nt2::tag::seladd_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL(seladd, NT2_SIMD_TYPES )
   for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
     data[i] = nt2::random(0.0, 50.0); // good value here for seladd
   }
-  for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
+  for(int i=0;i<cardinal_of<n_t>::value;++i){    
     data0[i] = nt2::random(-1, 0); // good value here for seladd
   }
    n_t a1 = load<n_t>(&data[0],0);   

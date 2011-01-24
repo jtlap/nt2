@@ -23,16 +23,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( asinh, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::cephes::asinh; 
-  using nt2::cephes::asinh_;
+  using nt2::cephes::tag::asinh_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<asinh_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::cephes::asinh( T(0) )  , 0 );
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(asinh( T(1) )  , T(0.881373587019543)), 1);

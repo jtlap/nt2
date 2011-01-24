@@ -11,36 +11,33 @@
 #include <boost/fusion/tuple.hpp>
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/include/functions/tofloat.hpp>
 
-namespace nt2 { namespace functors
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_sincosd_, tag::cpu_,
+                               (A0),
+                               (real_<A0>)
+                              )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for fast_sincosd
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute fast_sincosd(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fast_sincosd_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::fast_sincosd_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      typedef typename meta::strip<A0>::type                      etype;
       typedef boost::fusion::tuple<etype, etype>                   type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
+      typename NT2_RETURN_TYPE(1)::type res;
       typedef typename boost::result_of<meta::floating(A0)>::type etype;
       impl::trig_base < A0,degree_tag
                       , fast_tag, tag::not_simd_type
@@ -54,5 +51,38 @@ namespace nt2 { namespace functors
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_sincosd_, tag::cpu_,
+                               (A0),
+                               (arithmetic_<A0>)
+                              )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::fast_sincosd_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      typedef boost::fusion::tuple<etype, etype>                   type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename NT2_RETURN_TYPE(1)::type res;
+      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      return nt2::fast_sincosd(tofloat(a0)); 
+    }
+
+  };
+} }
+
+
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

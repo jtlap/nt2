@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_META_SUPPORTED_TYPES_HPP_INCLUDED
 #define NT2_SDK_META_SUPPORTED_TYPES_HPP_INCLUDED
 
+#include <nt2/sdk/config/types.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Some predefined macros containing a PP sequence of supported types
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +37,9 @@
 #define NT2_INTEGRAL_UNSIGNED_TYPES (nt2::uint64_t)(nt2::uint32_t)  \
                                     (nt2::uint16_t)(nt2::uint8_t)   \
                                     /**/
+
+
+#define NT2_INTEGRAL_TYPES NT2_INTEGRAL_SIGNED_TYPES NT2_INTEGRAL_UNSIGNED_TYPES
 
 #endif
 

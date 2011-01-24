@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ieee/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct minmag_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::minmag_, minmag, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::minmag_, minmag, 2)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/minmag.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

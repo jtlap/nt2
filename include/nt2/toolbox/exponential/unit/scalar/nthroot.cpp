@@ -12,7 +12,11 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
+<<<<<<< HEAD
 /// modified by jt the 15/12/2010
+=======
+/// modified by jt the 22/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +32,11 @@
 NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
 {
   using nt2::nthroot;
+<<<<<<< HEAD
   using nt2::functors::nthroot_;
+=======
+  using nt2::tag::nthroot_;
+>>>>>>> functor2
   typedef int32_t iT;
   typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -37,6 +45,10 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -52,6 +64,10 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
     typedef int32_t iT;
     NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
     NT2_CREATE_BUFFER(a1,iT, 100, T(-10), T(10));
+<<<<<<< HEAD
+=======
+    double ulp0 = 0.0;
+>>>>>>> functor2
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -59,15 +75,27 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::nthroot(a0*nt2::sqr(a0),3),T(a0),1);
+<<<<<<< HEAD
         NT2_TEST_ULP_EQUAL( nt2::nthroot(nt2::sqr(a0),2),nt2::abs(a0),1);
      }
+=======
+        ulp0=nt2::max(ulpd,ulp0);
+        NT2_TEST_ULP_EQUAL( nt2::nthroot(nt2::sqr(a0),2),nt2::abs(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+>>>>>>> functor2
    }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( nthroot_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::nthroot;
+<<<<<<< HEAD
   using nt2::functors::nthroot_;
+=======
+  using nt2::tag::nthroot_;
+>>>>>>> functor2
   typedef int32_t iT;
   typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -76,6 +104,10 @@ NT2_TEST_CASE_TPL ( nthroot_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -84,7 +116,11 @@ NT2_TEST_CASE_TPL ( nthroot_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 {
   using nt2::nthroot;
+<<<<<<< HEAD
   using nt2::functors::nthroot_;
+=======
+  using nt2::tag::nthroot_;
+>>>>>>> functor2
   typedef int32_t iT;
   typedef typename nt2::meta::call<nthroot_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -93,6 +129,10 @@ NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests

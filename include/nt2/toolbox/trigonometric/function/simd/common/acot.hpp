@@ -16,25 +16,70 @@
 #include <nt2/include/functions/tofloat.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acot_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<acot_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::acot_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute acot(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    struct result<This(A0)> :  meta::as_real<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<acot_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::acot(tofloat(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acot_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<double_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::acot_(tag::simd_(tag::double_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return (Pio_2<A0>()-nt2::atan(a0))+double_constant<A0,0x3c91a62633145c07ll >();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acot_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<float_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::acot_(tag::simd_(tag::float_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -45,42 +90,7 @@ namespace nt2 { namespace functors
       return (Pio_2<A0>()-nt2::atan(a0));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<acot_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return (Pio_2<A0>()-nt2::atan(a0))+double_constant<A0,0x3c91a62633145c07ll >(); 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<acot_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::acot(tofloat(a0)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

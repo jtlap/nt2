@@ -23,15 +23,15 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( polevl, (double) 
-		    (float) (int32_t) (int64_t)
-		    )
+                (float) (int32_t) (int64_t)
+                )
 {
   using nt2::polevl; 
-  using nt2::functors::polevl_;
+  using nt2::tag::polevl_;
    NT2_TEST( (boost::is_same < typename nt2::meta::call<polevl_(T,boost::array<T,3>)>::type
-	      , typename boost::result_of<nt2::meta::floating(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::floating(T)>::type
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t;
 static const boost::array<T, 3 > A = {{1,2,3}}; 
    NT2_TEST_EQUAL(  nt2::polevl( T(0), A), T(3)  );

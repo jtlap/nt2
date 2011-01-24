@@ -12,51 +12,58 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is signed_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                        (A0)(A1),
+                        (arithmetic_<A0>)(signed_<A1>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for negate
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute negate(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<negate_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
+  template<class Dummy>
+  struct call<tag::negate_(tag::arithmetic_,tag::signed_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return is_nez(a1)*a0; 
+      return is_nez(a1)*(is_gez(a1)?a0:-a0);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negate_, tag::cpu_,
+                        (A0)(A1),
+                        (arithmetic_<A0>)(unsigned_<A1>)
+                       )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is signed_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<negate_,tag::scalar_(tag::arithmetic_),signed_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::negate_(tag::arithmetic_,tag::unsigned_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return is_nez(a1)*(is_gez(a1)?a0:-a0); 
+      return is_nez(a1)*a0;
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

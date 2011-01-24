@@ -6,13 +6,25 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - rem_pio2/scalar Mode"
 
-#include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+// specific includes for arity 1 tests
+#include <nt2/toolbox/trigonometric/include/constants.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of trigonometric components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( rem_pio2_real__1,  NT2_REAL_TYPES)
+{
+
+} 
 

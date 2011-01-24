@@ -11,35 +11,62 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 #include <nt2/include/functions/atand.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acotd_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for acotd
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute acotd(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acotd_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::acotd_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
       template<class Sig> struct result;
       template<class This,class A0>
-      struct result<This(A0)> : boost::result_of<meta::floating(A0)>{}; 
+      struct result<This(A0)> : meta::strip<A0>{};
 
-      NT2_FUNCTOR_CALL(1) {
-	A0 s = bitofsign(a0); 
-	if(!a0)  return b_or(Inf<A0>(), s);;
-	if(is_inf(a0)) return b_or(Zero<A0>(), s);
-	return b_or(Ninety<A0>()-atand(abs(a0)), s);
-      }
+      NT2_FUNCTOR_CALL(1)
+	{
+	  A0 s = bitofsign(a0);
+	  if(!a0)  return b_or(Ninety<A0>(), s);
+	  if(is_inf(a0)) return b_or(Zero<A0>(), s);
+	  return b_or(Ninety<A0>()-atand(abs(a0)), s);
+	}
 
   };
 } }
 
+NT2_REGISTER_DISPATCH(tag::acotd_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::acotd_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+      
+    NT2_FUNCTOR_CALL(1)
+      {
+	typedef typename NT2_RETURN_TYPE(1)::type type; 
+	if(!a0)  return Zero<A0>();
+	return nt2::acotd(type(a0));
+      }
+      
+  };  
+} }
+
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

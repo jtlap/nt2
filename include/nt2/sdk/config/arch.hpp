@@ -18,28 +18,20 @@
 #include <boost/version.hpp>
 #include <nt2/sdk/config/bootstrap.hpp>
 #include <nt2/sdk/config/details/boost.hpp>
-#include <nt2/sdk/config/details/reporter.hpp>
 
-//  #include <nt2/extensions/sdk/config/arch.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// Include custom specific architectures from extensions folders
+////////////////////////////////////////////////////////////////////////////////
+#include <nt2/extension/sdk/config/arch.hpp>
 #include <nt2/sdk/config/arch/powerpc.hpp>
 #include <nt2/sdk/config/arch/x86.hpp>
 #include <nt2/sdk/config/arch/ia64.hpp>
 #include <nt2/sdk/config/arch/none.hpp>
 
+////////////////////////////////////////////////////////////////////////////////
+// Some other architecture specific informations
+////////////////////////////////////////////////////////////////////////////////
 //#include <nt2/support/config/arch/spec.hpp>
 //#include <nt2/support/config/arch/endian.hpp>
-
-namespace nt2 { namespace config
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Status header reporter - Head for the reporter list
-  //////////////////////////////////////////////////////////////////////////////
-  inline void architecture()
-  {
-    puts(" CPU Architecture        : " NT2_ARCH_STRING "\n");
-  }
-
-  NT2_REGISTER_STATUS(architecture);
-} }
 
 #endif

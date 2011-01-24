@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(minmag, NT2_SIMD_SIGNED_TYPES )
 {
  using nt2::minmag;
- using nt2::functors::minmag_;    
+ using nt2::tag::minmag_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL(minmag, NT2_SIMD_SIGNED_TYPES )
 NT2_TEST_CASE_TPL(unsigned_minmag, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::minmag;
- using nt2::functors::minmag_;    
+ using nt2::tag::minmag_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

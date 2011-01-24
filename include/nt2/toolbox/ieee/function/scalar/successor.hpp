@@ -17,66 +17,111 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/sdk/constant/real.hpp>
 
-namespace nt2 { namespace functors
-{
 
-  template<class Info>
-  struct validate<successor_,tag::scalar_(tag::arithmetic_),Info>
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+                           (A0),
+                           (arithmetic_<A0>)
+                          )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::successor_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
+<<<<<<< HEAD
     struct result<This(A0)> : boost::mpl::true_ {};
 
     template<class This,class A0,class A1>
     struct  result<This(A0,A1)>
           : boost::is_integral<typename nt2::meta::strip<A1>::type > {};
+=======
+      struct result<This(A0)> : meta::strip<A0> {};
+    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
+>>>>>>> functor2
   };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute successor(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<successor_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+                           (A0),
+                           (real_<A0>)
+                          )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::successor_(tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> : meta::strip<A0> {};
-
     NT2_FUNCTOR_CALL(1)
     {
       return is_inf(a0) || is_nan(a0) ? Nan<A0>()  : bitfloating(oneplus(bitinteger(a0)));
     }
+<<<<<<< HEAD
     NT2_FUNCTOR_CALL(2)
     {
        return is_inf(a0) || is_nan(a0) ? Nan<A0>()  : bitfloating(bitinteger(a0)+a1);
     }
 
+=======
+>>>>>>> functor2
   };
+} }
 
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+                           (A0)(A1),
+                           (arithmetic_<A0>)(integer_<A1>)
+                          )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<successor_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::successor_(tag::arithmetic_, tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0> {};
     template<class This,class A0,class A1>
       struct result<This(A0, A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
     NT2_FUNCTOR_CALL(2){ return a0+a1;       }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
+		      (A0)(A1),
+		      (real_<A0>)(integer_<A1>)
+                          )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::successor_(tag::real_, tag::integer_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
+    NT2_FUNCTOR_CALL(2)
+    {
+       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
+    }
+
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010
+// modified manually by jt the 02/01/2011 

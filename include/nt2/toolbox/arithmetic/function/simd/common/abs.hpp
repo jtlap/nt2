@@ -17,19 +17,73 @@
 #include <nt2/include/functions/shri.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is signed_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<signed_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for abs
+  template<class X, class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::signed_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute abs(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0, signed>::type int_type;
+      typedef typename meta::scalar_of<int_type>::type   sint_type;
+      A0 const s = shri(a0, 8*sizeof(sint_type)-1);
+      return (a0-s)^(-s);
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<arithmetic_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<real_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::abs_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,45 +95,7 @@ namespace nt2 { namespace functors
       //      return max(a0, Zero<A0>())-min(a0, Zero<A0>());
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is signed_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,Extension),signed_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::as_integer<A0, signed>::type int_type;
-      typedef typename meta::scalar_of<int_type>::type   sint_type;
-      A0 const s = shri(a0, 8*sizeof(sint_type)-1);
-      return (a0-s)^(-s);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<abs_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

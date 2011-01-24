@@ -23,11 +23,11 @@
 // Test behavior of arithmetic component eps using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(eps, 
-		  NT2_TYPES
+              NT2_TYPES
                          )
 {
  using nt2::eps; 
- using nt2::functors::eps_;
+ using nt2::tag::eps_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(eps,
  n_t v  = nt2::eps(a0);
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    { 
-     NT2_TEST_EQUAL( v[j], eps(a0[j]) );
+     NT2_TEST_EQUAL( v[j], eps(a0[j]) ); 
    } 
 }
 

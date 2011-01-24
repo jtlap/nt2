@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ieee/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct exponentbits_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::exponentbits_, exponentbits, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::exponentbits_, exponentbits, 1)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/exponentbits.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

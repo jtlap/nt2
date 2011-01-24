@@ -11,35 +11,35 @@
 
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/functor/category.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Sign has no meanign on types most of the time
+  // Sign is Ok for arithmetic types
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Category> struct sign_of { typedef unsigned type; };
+  template<class T,class Hierarchy> struct sign_of { typedef signed type; };
 
   //////////////////////////////////////////////////////////////////////////////
-  // Except for arithmetic types
+  // Sign has no meanign on other types most of the time
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct sign_of<T,tag::scalar_(tag::arithmetic_)> {  typedef signed type; };
+  struct sign_of<T, meta::unspecified_<T> > {  typedef unsigned type; };
 
   //////////////////////////////////////////////////////////////////////////////
   // ... unless they are unsigned of course
   //////////////////////////////////////////////////////////////////////////////
-  template<>
-  struct sign_of<uint8_t ,tag::scalar_(tag::arithmetic_)> { typedef unsigned type; };
-  template<>
-  struct sign_of<uint16_t,tag::scalar_(tag::arithmetic_)> { typedef unsigned type; };
-  template<>
-  struct sign_of<uint32_t,tag::scalar_(tag::arithmetic_)> { typedef unsigned type; };
-  template<>
-  struct sign_of<uint64_t,tag::scalar_(tag::arithmetic_)> { typedef unsigned type; };
-  template<>
-  struct sign_of<bool    ,tag::scalar_(tag::arithmetic_)> { typedef unsigned type; };
+  template<class Hierarchy>
+  struct sign_of<uint8_t ,Hierarchy> { typedef unsigned type; };
+  template<class Hierarchy>
+  struct sign_of<uint16_t,Hierarchy> { typedef unsigned type; };
+  template<class Hierarchy>
+  struct sign_of<uint32_t,Hierarchy> { typedef unsigned type; };
+  template<class Hierarchy>
+  struct sign_of<uint64_t,Hierarchy> { typedef unsigned type; };
+  template<class Hierarchy>
+  struct sign_of<bool    ,Hierarchy> { typedef unsigned type; };
 } }
 
 namespace nt2 { namespace meta
@@ -50,7 +50,7 @@ namespace nt2 { namespace meta
   template<class T>
   struct  sign_of
         : details::sign_of< typename strip<T>::type
-                          , typename meta::category_of<T>::type::tag
+                          , typename meta::hierarchy_of<T>::type
                           >
   {};
 } }

@@ -21,20 +21,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( unary_arithmetic )
 {
-	using nt2::meta::arithmetic;
-	using std::tr1::result_of;
-	using boost::is_same;
+  using nt2::meta::arithmetic;
+  using std::tr1::result_of;
+  using boost::is_same;
 
-	NT2_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
-	NT2_TEST( (is_same<float, result_of<arithmetic(float )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::uint64_t, result_of<arithmetic(nt2::uint64_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::uint32_t, result_of<arithmetic(nt2::uint32_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint16_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint8_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::int64_t, result_of<arithmetic(nt2::int64_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int32_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int16_t )>::type >::value ) );
-	NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int8_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
+  NT2_TEST( (is_same<float, result_of<arithmetic(float )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::uint64_t, result_of<arithmetic(nt2::uint64_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::uint32_t, result_of<arithmetic(nt2::uint32_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint16_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint8_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::int64_t, result_of<arithmetic(nt2::int64_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int32_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int16_t )>::type >::value ) );
+  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int8_t )>::type >::value ) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,51 +42,51 @@ NT2_TEST_CASE( unary_arithmetic )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( binary_arithmetic )
 {
-	using nt2::meta::arithmetic;
-	using std::tr1::result_of;
-	using boost::is_same;
+  using nt2::meta::arithmetic;
+  using std::tr1::result_of;
+  using boost::is_same;
 
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,float )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint64_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint32_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint16_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint8_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int64_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int32_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int16_t )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int8_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,float )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint64_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint32_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint16_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint8_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int64_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int32_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int16_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int8_t )>::type >::value ) );
 
-	NT2_TEST( (is_same<double, result_of<arithmetic(float,double)>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint64_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint32_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint16_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint8_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int64_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int32_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int16_t )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int8_t )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(float,double)>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint64_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint32_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint16_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint8_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int64_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int32_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int16_t )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int8_t )>::type >::value ) );
 
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(float,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint64_t,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint32_t,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint16_t,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint8_t ,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int64_t ,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int32_t ,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int16_t ,double )>::type >::value ) );
-	NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int8_t  ,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(float,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint64_t,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint32_t,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint16_t,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint8_t ,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int64_t ,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int32_t ,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int16_t ,double )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int8_t  ,double )>::type >::value ) );
 
-	NT2_TEST( (is_same<double, result_of<arithmetic(double,float)>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(float ,float)>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint64_t,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint32_t,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint16_t,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint8_t ,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int64_t ,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int32_t ,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int16_t ,float )>::type >::value ) );
-	NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int8_t  ,float )>::type >::value ) );
+  NT2_TEST( (is_same<double, result_of<arithmetic(double,float)>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(float ,float)>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint64_t,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint32_t,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint16_t,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint8_t ,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int64_t ,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int32_t ,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int16_t ,float )>::type >::value ) );
+  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int8_t  ,float )>::type >::value ) );
 }

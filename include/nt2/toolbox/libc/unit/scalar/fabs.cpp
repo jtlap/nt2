@@ -20,32 +20,32 @@
 // Test behavior of libc components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( fabs, (double)(nt2::int64_t)  
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::libc::fabs;
-  using nt2::libc::fabs_;
+  using nt2::libc::tag::fabs_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<fabs_(T)>::type
-	      , typename boost::result_of<nt2::meta::floating(T)>::type
- 	     >::value)
- 	    );
+            , typename boost::result_of<nt2::meta::floating(T)>::type
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  fabs( T(42) ), T(42) );
   NT2_TEST_EQUAL(  fabs( T(-42) ), -T(-42) );
 }
 NT2_TEST_CASE_TPL ( real_fabs, (double)(float)
-		    )
+                )
 {
   using nt2::libc::fabs;
-  using nt2::libc::fabs_;
+  using nt2::libc::tag::fabs_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<fabs_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  fabs( T(42) ), T(42) );
   NT2_TEST_EQUAL(  fabs( T(-42) ), -T(-42) );

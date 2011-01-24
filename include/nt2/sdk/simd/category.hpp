@@ -13,35 +13,28 @@
 // Basic category registration
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/category.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Use this macro to put a type in the SIMD familly
+// SIMD types tag
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_CATEGORY_SIMD_FAMILY 2
-
-////////////////////////////////////////////////////////////////////////////////
-// Family tags for call/validate writings
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag
+namespace nt2
 {
-  struct simd_ {};
-} }
+  namespace tag { struct simd_ {}; }
 
-////////////////////////////////////////////////////////////////////////////////
-// simd_ metafunction for building a SIMD category
-// Why using simd(T,X) instead of a tempalte tempalte parameters ?
-// Mostly because it's easier to extend and seems faster to compile
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
-{
-  template<class T, class X,std::size_t R>
-  struct  simd_
-        : nt2::tag::category<simd_<T,X,R>,NT2_CATEGORY_SIMD_FAMILY,R>
+  //////////////////////////////////////////////////////////////////////////////
+  // simd types hierarchy
+  //////////////////////////////////////////////////////////////////////////////
+  namespace meta
   {
-    typedef nt2::tag::simd_ tag(T,X);
-  };
-} }
+    template<class T,class X> struct simd_ : simd_<typename T::parent,X>
+    {
+      typedef simd_<typename T::parent,X> parent;
+      typedef tag::simd_                  type(typename T::type,X);
+    };
+
+    template<class T,class X> struct simd_< unknown_<T>,X > : unknown_<T> {};
+  }
+}
 
 #endif

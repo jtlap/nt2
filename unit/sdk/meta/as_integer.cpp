@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2::meta::as_integer"
 
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>

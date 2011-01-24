@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fuzzy/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct fuzzy_greater_or_equal_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::fuzzy_greater_or_equal_, fuzzy_greater_or_equal, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_greater_or_equal_, fuzzy_greater_or_equal, 3)
 }
  
 #include <nt2/toolbox/fuzzy/function/scalar/fuzzy_greater_or_equal.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

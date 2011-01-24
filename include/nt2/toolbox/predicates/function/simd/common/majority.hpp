@@ -12,19 +12,24 @@
 #include <nt2/include/functions/is_nez.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::majority_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<arithmetic_<A0>,X>))
+                           ((simd_<arithmetic_<A0>,X>))
+                           ((simd_<arithmetic_<A0>,X>))
+                          );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for majority
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute majority(const A0& a0, const A0& a1, const A0& a2)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<majority_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::majority_(tag::simd_(tag::arithmetic_, X),
+                             tag::simd_(tag::arithmetic_, X),
+                             tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -43,4 +48,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

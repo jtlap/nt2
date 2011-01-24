@@ -15,30 +15,56 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::coth_, tag::cpu_,
+                      (A0),
+                      (arithmetic_<A0>)
+                     )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for coth
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute coth(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<coth_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::coth_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      if (!a0) return Nan<type>(); 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (!a0) return Nan<type>();
+      return rec(tanh(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::coth_, tag::cpu_,
+                      (A0),
+                      (real_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::coth_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
       return rec(tanh(a0));
     }
 
@@ -46,4 +72,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

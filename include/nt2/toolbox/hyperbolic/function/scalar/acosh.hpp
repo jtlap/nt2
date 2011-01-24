@@ -18,59 +18,66 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acosh_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for acosh
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute acosh(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acosh_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::acosh_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return nt2::acosh(type(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acosh_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::acosh_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       if (a0 < One<A0>()) return Nan<A0>();
       if (a0 == Inf<A0>()) return a0;
       type t = minusone(a0);
-//       if (t < 16*Sqrteps<A0>()){
-// 	return sqrt(Two<A0>()*t)*(oneminus(t/12)); //A0 y =  nt2::sqrt(minusone(a0));
+      if (t < 16*Sqrteps<A0>()) return sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
+//    return sqrt(Two<A0>()*t)*(oneminus(t/12)); //A0 y =  nt2::sqrt(minusone(a0));
 //       }
-      return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));  
+      return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<acosh_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return nt2::acosh(type(a0)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

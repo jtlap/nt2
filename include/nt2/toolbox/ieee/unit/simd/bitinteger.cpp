@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL(bitinteger, (double)(float)
                          )
 {
  using nt2::bitinteger; 
- using nt2::functors::bitinteger_;
+ using nt2::tag::bitinteger_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

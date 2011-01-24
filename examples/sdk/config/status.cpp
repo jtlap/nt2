@@ -1,4 +1,4 @@
-#include <nt2/sdk/config.hpp>
+#include <nt2/sdk/report.hpp>
 
 int main()
 {

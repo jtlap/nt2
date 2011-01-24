@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( ilogb,   (double)
                   )
 {
   using nt2::fdlibm::ilogb;
-  using nt2::fdlibm::ilogb_;
+  using nt2::fdlibm::tag::ilogb_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<ilogb_(T)>::type
-	     , int
+           , int
               >::value)
            );
   NT2_TEST_EQUAL(  nt2::fdlibm::ilogb( T(23.50) ), 4 );

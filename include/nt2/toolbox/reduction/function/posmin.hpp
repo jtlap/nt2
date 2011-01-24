@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/reduction/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct posmin_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::posmin_, posmin, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::posmin_, posmin, 1)
 }
  
 #include <nt2/toolbox/reduction/function/scalar/posmin.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

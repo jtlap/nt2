@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 01/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -21,6 +26,7 @@
 #include <nt2/toolbox/arithmetic/include/rsqrt.hpp>
 
 NT2_TEST_CASE_TPL ( rsqrt_real__1,  NT2_REAL_TYPES)
+<<<<<<< HEAD
 {
   using nt2::rsqrt;
   using nt2::functors::rsqrt_;
@@ -88,6 +94,11 @@ NT2_TEST_CASE_TPL ( rsqrt_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::rsqrt;
   using nt2::functors::rsqrt_;
+=======
+{
+  using nt2::rsqrt;
+  using nt2::tag::rsqrt_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<rsqrt_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
@@ -95,12 +106,59 @@ NT2_TEST_CASE_TPL ( rsqrt_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Inf<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( rsqrt_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::rsqrt;
+  using nt2::tag::rsqrt_;
+  typedef typename nt2::meta::call<rsqrt_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( rsqrt_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::rsqrt;
+  using nt2::tag::rsqrt_;
+  typedef typename nt2::meta::call<rsqrt_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  rsqrt(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  rsqrt(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -113,4 +171,6 @@ NT2_TEST_CASE_TPL ( rsqrt_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::rsqrt(a0),r_t(1)/std::sqrt(r_t(a0)),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for signed_int_

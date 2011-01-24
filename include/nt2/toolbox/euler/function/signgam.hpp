@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/euler/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct signgam_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::signgam_, signgam, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::signgam_, signgam, 1)
 }
  
 #include <nt2/toolbox/euler/function/scalar/signgam.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -13,48 +13,55 @@
 // By default, any SIMD implementation falls down to scalar map application if
 // nothing is implemented for doing otherwise.
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/lambda.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/simd/category.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2 { namespace functors
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // When in SIMD, dispatch on the scalar of argument A0
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag, class C,class X, class Info>
-  struct  dispatch<Tag,tag::simd_(C,X),Info>
-        : boost::mpl::lambda< meta::scalar_of<boost::mpl::_1> >::type
-  {};
+////////////////////////////////////////////////////////////////////////////////
+// Register all tag and extension agnostic call for common code sharing
+////////////////////////////////////////////////////////////////////////////////
+#define M0(z,n,t) ((simd_< unspecified_<A0>, X >))
 
-  //////////////////////////////////////////////////////////////////////////////
-  // If no call<> exists, try to map it sequentially
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag, class C, class X,class Info>
-  struct call<Tag,tag::simd_(C,X),fundamental_,Info> : callable
-  {
-    template<class Sig> struct result;
+#define M1(z,n,t)                                     \
+NT2_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag)(X) \
+                      , BOOST_PP_REPEAT(n,M0,~)       \
+                      )                               \
+/**/
 
-    #define NT2_LOCAL(z,n,t)                                              \
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
+
+#undef M0
+#undef M1
+
+////////////////////////////////////////////////////////////////////////////////
+// Generate all the common map calls over Tag using nt2::map
+////////////////////////////////////////////////////////////////////////////////
+#define M0(z,n,t) tag::simd_(tag::unspecified_,X)
+
+#define M1(z,n,t)                                                         \
+namespace nt2 { namespace ext                                             \
+{                                                                         \
+  template<class Tag, class X, class Dummy>                               \
+  struct  call<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy> : callable \
+  {                                                                       \
+    template<class Sig> struct result;                                    \
     template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                  \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                       \
-          : meta::strip<A0> {};                                           \
+    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))> : meta::strip<A0> {}; \
                                                                           \
-    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline A0                   \
-    operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a) ) const         \
+    NT2_FUNCTOR_CALL(n)                                                   \
     {                                                                     \
-      A0 that = map( functor<Tag,Info>(), BOOST_PP_ENUM_PARAMS(n,a) );    \
-      return that;                                                        \
+      return nt2::map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));        \
     }                                                                     \
-    /**/
+  };                                                                      \
+} }                                                                       \
+/**/
 
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_LOCAL,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
 
-    #undef NT2_LOCAL
-  };
-} }
+#undef M1
+#undef M0
 
 #endif

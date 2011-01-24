@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct k0e_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::k0e_, k0e, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::k0e_, k0e, 1)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/k0e.hpp>
 // #include NT2_CEPHES_INCLUDE(k0e.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( atanpi_rn,  (double)(float) )
 {
   using nt2::crlibm::atanpi_rn;
-  using nt2::crlibm::atanpi_rn_;
+  using nt2::crlibm::tag::atanpi_rn_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::crlibm::atanpi_rn_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::crlibm::tag::atanpi_rn_(T)>::type,
                            T
                            >::value)
           );

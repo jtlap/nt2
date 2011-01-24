@@ -13,19 +13,20 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::lo_, tag::cpu_,
+                     (A0)(X),
+                     ((simd_<arithmetic_<A0>,X>))
+                    );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for lo
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute lo(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<lo_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::lo_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -33,17 +34,17 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type result_type;
+      typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type int_type;
 
       BOOST_STATIC_CONSTANT(int_type, shift = sizeof(int_type)*4);
       BOOST_STATIC_CONSTANT(int_type, pattern = (int_type(int_type(-1)<<shift))>>shift);
 
-      return b_and(integral_constant<result_type,pattern>(),a0); 
+      return b_and(integral_constant<result_type,pattern>(),a0);
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

@@ -22,16 +22,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( log10, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::cephes::log10; 
-  using nt2::cephes::log10_;
+  using nt2::cephes::tag::log10_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<log10_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::cephes::log10( T(1) )  , 0 );
    NT2_TEST_EQUAL(  nt2::cephes::log10( T(0) )  , nt2::Minf<T>() );

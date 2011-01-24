@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/trigonometric/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct atan2_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::atan2_, atan2, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::atan2_, atan2, 2)
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/atan2.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -14,19 +14,50 @@
 #include <nt2/include/functions/abs.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::dist_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                       ((simd_<arithmetic_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for dist
+  template<class X, class Dummy>
+  struct call<tag::dist_(tag::simd_(tag::arithmetic_, X),
+                         tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute dist(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTOR_CALL(2)
+    {
+        return abs(a0-a1);
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<dist_,tag::simd_(tag::arithmetic_,Extension),unsigned_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::dist_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<unsigned_<A0>,X>))
+                       ((simd_<unsigned_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::dist_(tag::simd_(tag::unsigned_, X),
+                         tag::simd_(tag::unsigned_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -38,26 +69,7 @@ namespace nt2 { namespace functors
        return (max(a0, a1)-min(a1,a0));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<dist_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-        return abs(a0-a1); 
-    }  
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

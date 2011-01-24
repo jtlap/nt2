@@ -14,27 +14,45 @@
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>  
 
-namespace nt2 { namespace functors
-{
 
-  template<class Info>
-  struct validate<rol_,tag::scalar_(tag::arithmetic_),Info>
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::rol_, tag::cpu_,
+                     (A0)(A1),
+                     (arithmetic_<A0>)(arithmetic_<A1>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::rol_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::is_integral<A1>{}; 
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute rol(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
+    struct result<This(A0,A1)> : meta::strip<A0>{};
 
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rol_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+    NT2_FUNCTOR_CALL(2)
+    {
+      return shli(a0, a1) | shri(a0, (sizeof(A0)*CHAR_BIT-a1));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::rol_, tag::cpu_,
+                     (A0)(A1),
+                     (real_<A0>)(real_<A1>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::rol_(tag::real_,tag::real_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -47,25 +65,7 @@ namespace nt2 { namespace functors
       return t0.value;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<rol_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return shli(a0, a1) | shri(a0, (sizeof(A0)*CHAR_BIT-a1));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

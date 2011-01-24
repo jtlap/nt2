@@ -17,6 +17,7 @@
                                          'nt2::Mone<T>()': 'nt2::Mone<r_t>()',
                                          'nt2::Nan<T>()': 'nt2::Nan<r_t>()',
                                          'nt2::One<T>()': ['nt2::Sqrt_2<r_t>()-nt2::One<r_t>()',
+<<<<<<< HEAD
                                                            '1'],
                                          'nt2::Zero<T>()': 'nt2::Zero<r_t>()'},
                                'signed_int_': {'nt2::Mone<T>()': 'nt2::Mone<r_t>()',
@@ -28,3 +29,16 @@
                                                  'nt2::Zero<T>()': 'nt2::Zero<r_t>()'}},
            'verif_test': {}},
   'version': '0.1'}]
+=======
+                                                           '2'],
+                                         'nt2::Zero<T>()': 'nt2::Zero<r_t>()'},
+                               'signed_int_': {'nt2::Mone<T>()': 'nt2::Mone<r_t>()',
+                                               'nt2::One<T>()': ['nt2::Sqrt_2<r_t>()-nt2::One<r_t>()',
+                                                                 '2'],
+                                               'nt2::Zero<T>()': 'nt2::Zero<r_t>()'},
+                               'unsigned_int_': {'nt2::One<T>()': ['nt2::Sqrt_2<r_t>()-nt2::One<r_t>()',
+                                                                   '2'],
+                                                 'nt2::Zero<T>()': 'nt2::Zero<r_t>()'}},
+           'verif_test': {}},
+  'version': '0.1'}]
+>>>>>>> functor2

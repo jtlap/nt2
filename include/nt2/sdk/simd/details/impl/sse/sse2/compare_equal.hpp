@@ -14,7 +14,7 @@
 namespace nt2 { namespace functors
 {
   template<class Info>
-  struct call<simd::is_equal_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
+  struct call<tag::compare_equal_,tag::simd_(tag::arithmetic_,tag::sse_),Info>
   {
     typedef bool result_type;
 

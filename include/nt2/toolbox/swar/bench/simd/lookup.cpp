@@ -26,22 +26,22 @@ typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<lookup_> from swar
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::lookup_;
+using nt2::tag::lookup_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::lookup_,(RS(vfloat,-10000.0f,10000.0f))(RS(vint32_t,0,3)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vdouble,-10000.0,10000.0))(RS(vint64_t,0,1)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vint64_t,-10000,10000))(RS(vint64_t,0,1)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vint32_t,-10000,10000))(RS(vint32_t,0,3)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vint16_t,-32768,32767))(RS(vint16_t,0,7)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vint8_t,-128,127))(RS(vint8_t,0,15)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vuint64_t,0,65535))(RS(vint64_t,0,1)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vuint32_t,0,65535))(RS(vint32_t,0,3)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vuint16_t,0,65535))(RS(vint16_t,0,7)))
-NT2_TIMING(nt2::functors::lookup_,(RS(vuint8_t,0,255)   )(RS(vint8_t,0,15)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vfloat,-10000.0f,10000.0f))(RS(vint32_t,0,3)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vdouble,-10000.0,10000.0))(RS(vint64_t,0,1)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vint64_t,-10000,10000))(RS(vint64_t,0,1)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vint32_t,-10000,10000))(RS(vint32_t,0,3)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vint16_t,-32768,32767))(RS(vint16_t,0,7)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vint8_t,-128,127))(RS(vint8_t,0,15)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vuint64_t,0,65535))(RS(vint64_t,0,1)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vuint32_t,0,65535))(RS(vint32_t,0,3)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vuint16_t,0,65535))(RS(vint16_t,0,7)))
+NT2_TIMING(nt2::tag::lookup_,(RS(vuint8_t,0,255)   )(RS(vint8_t,0,15)))
 
 #undef RS

@@ -11,6 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 04/12/2010
+/// modified by jt the 17/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +28,11 @@
 NT2_TEST_CASE_TPL ( ldexp_real__2,  NT2_REAL_TYPES)
 {
   using nt2::ldexp;
+<<<<<<< HEAD
   using nt2::functors::ldexp_;
+=======
+  using nt2::tag::ldexp_;
+>>>>>>> functor2
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ldexp_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -32,6 +41,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
 
   // random verifications
   static const uint32_t NR = 100;
@@ -48,4 +58,8 @@ NT2_TEST_CASE_TPL ( ldexp_real__2,  NT2_REAL_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::ldexp(a0,a1),(a1>=0) ? a0*(1<<a1) : a0/(1<<(-a1)),0);
      }
    }
+=======
+  double ulpd;
+
+>>>>>>> functor2
 } // end of test for real_

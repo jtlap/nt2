@@ -11,6 +11,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 28/11/2010
+/// modified by jt the 17/01/2011
+/// 
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +29,13 @@
 NT2_TEST_CASE_TPL ( amul_real__3,  NT2_REAL_TYPES)
 {
   using nt2::amul;
+<<<<<<< HEAD
   using nt2::functors::amul_;
+  typedef typename nt2::meta::call<amul_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T,T)>::type wished_r_t;
+=======
+  using nt2::tag::amul_;
   typedef typename nt2::meta::call<amul_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T,T,T)>::type wished_r_t;
@@ -31,8 +43,17 @@ NT2_TEST_CASE_TPL ( amul_real__3,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
+>>>>>>> functor2
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> functor2
   // specific values tests
   NT2_TEST_ULP_EQUAL(  amul(1,2,3), 7, 0);
   NT2_TEST_ULP_EQUAL(  amul(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<T>(), 0);
@@ -41,6 +62,7 @@ NT2_TEST_CASE_TPL ( amul_real__3,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  amul(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(  amul(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
   NT2_TEST_ULP_EQUAL(  amul(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -63,6 +85,13 @@ NT2_TEST_CASE_TPL ( amul_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::amul;
   using nt2::functors::amul_;
+=======
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( amul_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::amul;
+  using nt2::tag::amul_;
   typedef typename nt2::meta::call<amul_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T,T,T)>::type wished_r_t;
@@ -70,10 +99,37 @@ NT2_TEST_CASE_TPL ( amul_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  amul(1,2,3), 7, 0);
+  NT2_TEST_ULP_EQUAL(  amul(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  amul(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  amul(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( amul_unsigned_int__3,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::amul;
+  using nt2::tag::amul_;
+>>>>>>> functor2
+  typedef typename nt2::meta::call<amul_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T,T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  amul(1,2,3), 7, 0);
+<<<<<<< HEAD
   NT2_TEST_ULP_EQUAL(  amul(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(  amul(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
   NT2_TEST_ULP_EQUAL(  amul(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
@@ -128,4 +184,8 @@ NT2_TEST_CASE_TPL ( amul_unsigned_int__3,  NT2_UNSIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::amul(a0,a1,a2),a0+a1*a2,0);
      }
    }
+=======
+  NT2_TEST_ULP_EQUAL(  amul(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  amul(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+>>>>>>> functor2
 } // end of test for unsigned_int_

@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Memory config header
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/bootstrap.hpp>
+#include <nt2/sdk/memory/config.hpp>
 #include <nt2/sdk/config/details/reporter.hpp>
 
 namespace nt2 { namespace config
@@ -24,12 +24,13 @@ namespace nt2 { namespace config
   {
     printf(" Memory alignment        : %d\n", NT2_CONFIG_ALIGNMENT );
     #if defined(NT2_CONFIG_SUPPORT_POSIX_MEMALIGN)
-      puts(" Memory allocation       : posix_memalign\n\n");
+      puts(" Memory allocation       : posix_memalign");
     #elif defined(_MSC_VER)
-      puts(" Memory allocation       : _aligned_malloc\n\n");
+      puts(" Memory allocation       : _aligned_malloc");
     #else
-      puts(" Memory allocation       : pointer stashing\n\n");
+      puts(" Memory allocation       : pointer stashing");
     #endif
+    puts("");
   }
 
   NT2_REGISTER_STATUS(memories);

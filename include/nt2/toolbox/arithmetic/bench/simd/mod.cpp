@@ -26,22 +26,22 @@ typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<mod_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::mod_;
+using nt2::tag::mod_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::mod_,(RS(vfloat,-10000.0f,10000.0f))(RS(vfloat,1.0f,10000.0f)))
-NT2_TIMING(nt2::functors::mod_,(RS(vdouble,-10000.0,10000.0))(RS(vdouble,1.0,10000.0)))
-NT2_TIMING(nt2::functors::mod_,(RS(vint64_t,-10000,10000))(RS(vint64_t,1,10000)))
-NT2_TIMING(nt2::functors::mod_,(RS(vint32_t,-10000,10000))(RS(vint32_t,1,10000)))
-NT2_TIMING(nt2::functors::mod_,(RS(vint16_t,-32768,32767))(RS(vint16_t,1,32767)))
-NT2_TIMING(nt2::functors::mod_,(RS(vint8_t,-128,127))(RS(vint8_t,1,127)))
-NT2_TIMING(nt2::functors::mod_,(RS(vuint64_t,0,65535))(RS(vuint64_t,1,65535)))
-NT2_TIMING(nt2::functors::mod_,(RS(vuint32_t,0,65535))(RS(vuint32_t,1,65535)))
-NT2_TIMING(nt2::functors::mod_,(RS(vuint16_t,0,65535))(RS(vuint16_t,1,65535)))
-NT2_TIMING(nt2::functors::mod_,(RS(vuint8_t,0,255))(RS(vuint8_t,1,255)))
+NT2_TIMING(nt2::tag::mod_,(RS(vfloat,-10000.0f,10000.0f))(RS(vfloat,1.0f,10000.0f)))
+NT2_TIMING(nt2::tag::mod_,(RS(vdouble,-10000.0,10000.0))(RS(vdouble,1.0,10000.0)))
+NT2_TIMING(nt2::tag::mod_,(RS(vint64_t,-10000,10000))(RS(vint64_t,1,10000)))
+NT2_TIMING(nt2::tag::mod_,(RS(vint32_t,-10000,10000))(RS(vint32_t,1,10000)))
+NT2_TIMING(nt2::tag::mod_,(RS(vint16_t,-32768,32767))(RS(vint16_t,1,32767)))
+NT2_TIMING(nt2::tag::mod_,(RS(vint8_t,-128,127))(RS(vint8_t,1,127)))
+NT2_TIMING(nt2::tag::mod_,(RS(vuint64_t,0,65535))(RS(vuint64_t,1,65535)))
+NT2_TIMING(nt2::tag::mod_,(RS(vuint32_t,0,65535))(RS(vuint32_t,1,65535)))
+NT2_TIMING(nt2::tag::mod_,(RS(vuint16_t,0,65535))(RS(vuint16_t,1,65535)))
+NT2_TIMING(nt2::tag::mod_,(RS(vuint8_t,0,255))(RS(vuint8_t,1,255)))
 
 #undef RS

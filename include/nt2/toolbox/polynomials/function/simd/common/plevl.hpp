@@ -11,53 +11,68 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <boost/fusion/adapted/array.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::plevl_, tag::cpu_,
+                        (A0)(A1)(X),
+                        ((simd_<arithmetic_<A0>,X>))
+                        (fusion_sequence_<A1>)
+                       );
+
+namespace nt2 { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute plevl(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<plevl_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::plevl_(tag::simd_(tag::arithmetic_, X),
+                          tag::fusion_sequence_), 
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
       struct result<This(A0, A1)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return plevl(tofloat(a0), a1);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::plevl_, tag::cpu_,
+		      (A0)(A1)(X),
+                        ((simd_<real_<A0>,X>))
+                        (fusion_sequence_<A1>)
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::plevl_(tag::simd_(tag::real_, X),
+                          tag::fusion_sequence_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
       typename A1::const_iterator p = a1.begin();
       A0 ans = a0+nt2::splat<A0>(*p++);
       do
-	ans = fma(ans, a0, nt2::splat<A0>(*p));
+      ans = fma(ans, a0, nt2::splat<A0>(*p));
       while( ++p !=  a1.end());
       return ans;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<plevl_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      return plevl(tofloat(a0), a1);
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

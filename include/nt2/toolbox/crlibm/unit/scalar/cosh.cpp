@@ -23,16 +23,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( cosh, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::crlibm::cosh; 
-  using nt2::crlibm::cosh_;
+  using nt2::crlibm::tag::cosh_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<cosh_<nt2::rn>(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::crlibm::cosh<nt2::rn>( T(0) )  , 1 );
    NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::crlibm::cosh<nt2::rn>( T(1)),  T(1.543080634815244e+00)), 1); 

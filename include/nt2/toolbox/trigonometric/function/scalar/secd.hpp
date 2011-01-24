@@ -10,21 +10,22 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SECD_HPP_INCLUDED
 
 #include <nt2/include/functions/cosd.hpp>
+#include <nt2/include/functions/secpi.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::secd_, tag::cpu_,
+                      (A0),
+                      (fundamental_<A0>)
+                     )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for secd
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute secd(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<secd_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::secd_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -32,9 +33,9 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return rec(nt2::cosd(a0)); 
-      //      return secpi(Inv_180<type>()*a0);
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      //      return rec(nt2::cosd(a0));
+      return secpi(a0/type(180));
 
     }
 
@@ -42,4 +43,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

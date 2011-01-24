@@ -15,24 +15,78 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is signed_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::arg_, tag::cpu_,
+                     (A0),
+                     (signed_<A0>)
+                    )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for arg
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute arg(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<arg_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::arg_(tag::signed_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type rtype;
+      return (is_ltz(a0))*Pi<rtype>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::arg_, tag::cpu_,
+                     (A0),
+                     (unsigned_<A0>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::arg_(tag::unsigned_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
+      return Zero<rtype>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::arg_, tag::cpu_,
+                     (A0),
+                     (real_<A0>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::arg_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
@@ -42,46 +96,7 @@ namespace nt2 { namespace functors
       return Pi<A0>();
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<arg_,tag::scalar_(tag::arithmetic_),unsigned_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
-      return Zero<rtype>();
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is signed_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<arg_,tag::scalar_(tag::arithmetic_),signed_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
-      return (is_ltz(a0))*Pi<rtype>();
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

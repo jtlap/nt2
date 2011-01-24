@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct hyperg_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::hyperg_, hyperg, 3)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::hyperg_, hyperg, 3)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/hyperg.hpp>
 // #include NT2_CEPHES_INCLUDE(hyperg.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

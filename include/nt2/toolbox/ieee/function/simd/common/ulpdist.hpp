@@ -58,19 +58,22 @@
 //     ulpdist(double(nt2::Pi<float>()), nt2::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ulpdist_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_<arithmetic_<A0>,X>))
+                          ((simd_<arithmetic_<A0>,X>))
+                         );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for ulpdist
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute ulpdist(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<ulpdist_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::ulpdist_(tag::simd_(tag::arithmetic_, X),
+                            tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -78,6 +81,7 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
+<<<<<<< HEAD
       typedef typename meta::as_integer<A0>::type itype;
       itype e1, e2;
       A0 m1, m2;
@@ -90,15 +94,28 @@ namespace nt2 { namespace functors
       return sel(b_xor(b0,b1), Nan<A0>(),
 		 sel(b_or(b_and(b0,b1),is_nan(a0-a1)),
 		     Zero<A0>(), e/Eps<A0>()));
+=======
+      return (max(a0, a1)-min(a0,a1));
+>>>>>>> functor2
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ulpdist_, tag::cpu_,
+                          (A0)(X),
+                          ((simd_<real_<A0>,X>))
+                          ((simd_<real_<A0>,X>))
+                         );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<ulpdist_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::ulpdist_(tag::simd_(tag::real_, X),
+                            tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -106,11 +123,21 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
+<<<<<<< HEAD
       return (max(a0,a1)-min(a0,a1));
+=======
+      typedef typename meta::as_integer<A0>::type itype;
+      itype e1, e2;
+      A0 m1, m2;
+      boost::fusion::tie(m1, e1) = nt2::frexp(a0);
+      boost::fusion::tie(m2, e2) = nt2::frexp(a1);
+      itype expo = -nt2::max(e1, e2);
+      A0 e = sel(is_equal(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo)));
+      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1),  Zero<A0>(), e/Eps<A0>());
+>>>>>>> functor2
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

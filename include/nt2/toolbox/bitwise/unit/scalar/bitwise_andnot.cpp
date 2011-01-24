@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( bitwise_andnot,  (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::bitwise_andnot;
-  using nt2::functors::bitwise_andnot_;
+  using nt2::tag::bitwise_andnot_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_andnot_(T, T)>::type
-	     , T
+           , T
               >::value)
            );
   typedef typename nt2::meta::as_integer<T, signed>::type iT; 

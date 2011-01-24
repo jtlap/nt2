@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ieee/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct tofloat_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::tofloat_, tofloat, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::tofloat_, tofloat, 1)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/tofloat.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

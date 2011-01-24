@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct floor_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::floor_, floor, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::floor_, floor, 1)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/floor.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

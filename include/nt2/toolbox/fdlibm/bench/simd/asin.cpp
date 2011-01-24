@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<asin_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::fdlibm::asin_;
+using nt2::fdlibm::tag::asin_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::fdlibm::asin_,(RS(vfloat,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::asin_,(RS(vdouble,-1.0,1.0)))
+NT2_TIMING(nt2::fdlibm::tag::asin_,(RS(vfloat,-1.0f,1.0f)))
+NT2_TIMING(nt2::fdlibm::tag::asin_,(RS(vdouble,-1.0,1.0)))
 
 #undef RS

@@ -29,11 +29,11 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(sort, (double)(float)
-		  (int32_t)(uint32_t)
-		  (int64_t)(uint64_t) ) 
+              (int32_t)(uint32_t)
+              (int64_t)(uint64_t) ) 
 {
  using nt2::sort;
- using nt2::functors::sort_;    
+ using nt2::tag::sort_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(sort, (double)(float)
      std::cout << "  " << a0 << "  " << v << std::endl; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(v[j], a0[cardinal_of<n_t>::value-j-1]);
+       NT2_TEST_EQUAL(v[j], a0[cardinal_of<n_t>::value-j-1]);
        }
    }
 }

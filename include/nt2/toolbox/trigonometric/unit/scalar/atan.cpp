@@ -6,41 +6,99 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - atan/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp> 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/trigonometric/include/atan.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <iostream>
- 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( atan, (double) 
-		    (float) 
-		    ) 
+#include <nt2/toolbox/trigonometric/include/atan.hpp>
+// specific includes for arity 1 tests
+#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/crlibm/include/atan.hpp>
+
+NT2_TEST_CASE_TPL ( atan_real__1,  NT2_REAL_TYPES)
 {
   using nt2::atan;
-  using nt2::functors::atan_;
-  const int N = 2; 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<atan_(T)>::type
-	     , T
- 	     >::value)
-    );
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-  NT2_TEST_EQUAL(  atan( T(0) )  , 0 );
-  NT2_TEST_EQUAL(  atan( T(1) )  , nt2::Pio_4<r_t>() );
-  NT2_TEST_EQUAL(  atan( T(-1) )  , -nt2::Pio_4<r_t>() );
-  NT2_TEST_EQUAL(  atan( nt2::Inf<T>()/2),  nt2::Pio_2<T>() ); 
-  NT2_TEST_EQUAL(  atan( nt2::Minf<T>()/2),  -nt2::Pio_2<T>() ); 
-  NT2_TEST_LESSER(  nt2::ulpdist(atan( T(0.5) ), T(0.463647609000806)),  N); 
-  NT2_TEST_LESSER(  nt2::ulpdist(atan( T(-0.5) ), T(-0.463647609000806)),  N);
+  using nt2::tag::atan_;
+  typedef typename nt2::meta::call<atan_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Half<T>()), 4.636476090008061e-01, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Inf<T>()), nt2::Pi<r_t>()/2, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Mhalf<T>()), -4.636476090008061e-01, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Minf<T>()), -nt2::Pi<r_t>()/2, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Mone<T>()), -nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, nt2::Mone<T>(), nt2::One<T>());
+    double ulp0 = 0.0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::atan(a0),nt2::crlibm::atan<nt2::rn>(a0),0.5);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( atan_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::atan;
+  using nt2::tag::atan_;
+  typedef typename nt2::meta::call<atan_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  atan(nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( atan_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::atan;
+  using nt2::tag::atan_;
+  typedef typename nt2::meta::call<atan_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  atan(nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(  atan(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for signed_int_

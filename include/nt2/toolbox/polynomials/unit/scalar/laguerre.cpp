@@ -24,15 +24,15 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( laguerre, (double) 
-		    (float)
-		    )
+                (float)
+                )
 {
 
-  using nt2::functors::laguerre_;
+  using nt2::tag::laguerre_;
   NT2_TEST( (boost::is_same < typename nt2::meta::call<laguerre_(uint32_t, T)>::type
-	       , typename boost::result_of<nt2::meta::floating(T)>::type
-  	     >::value)
-  	    );
+             , typename boost::result_of<nt2::meta::floating(T)>::type
+             >::value)
+            );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t;
 
 

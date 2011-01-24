@@ -10,56 +10,34 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_NEGIF_HPP_INCLUDED
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
+                       (A0)(A1),
+                       (fundamental_<A0>)(fundamental_<A1>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute negif(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Dispatch is on second parameter
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct dispatch<negif_, tag::scalar_(tag::arithmetic_),Info> : boost::mpl::_2 {};
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<negif_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::negif_(tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : 
+    struct result<This(A0, A1)> :
       boost::result_of<meta::arithmetic(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0?-a1:a1; 
+      return a0?-a1:a1;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<negif_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : 
-      boost::result_of<meta::arithmetic(A1)>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return a0?-a1:a1; 
-    }
-  };
-
 } }
 
+
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010
+// modified manually by jt the 29/12/2010

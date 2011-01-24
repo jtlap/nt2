@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/include.hpp>
 
-namespace nt2 { namespace crlibm
-  {	       
+namespace nt2 { namespace crlibm { namespace tag
+  {         
     struct atanpi_ru_ {};
-    NT2_FUNCTION_IMPLEMENTATION(crlibm::atanpi_ru_, atanpi_ru, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::atanpi_ru_, atanpi_ru, 1)
+  } }
  
 #include <nt2/toolbox/crlibm/function/scalar/atanpi_ru.hpp>
 // #include NT2_CRLIBM_INCLUDE(atanpi_ru.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

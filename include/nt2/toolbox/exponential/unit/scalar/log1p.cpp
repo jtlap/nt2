@@ -11,8 +11,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 /// modified by jt the 08/12/2010
 /// modified by jt the 14/12/2010
+=======
+/// created by jt the 08/12/2010
+/// modified by jt the 22/01/2011
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +33,11 @@
 NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
 {
   using nt2::log1p;
+<<<<<<< HEAD
   using nt2::functors::log1p_;
+=======
+  using nt2::tag::log1p_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<log1p_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
@@ -36,6 +45,10 @@ NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -49,18 +62,31 @@ NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
   static const uint32_t NR = 100;
   {
     NT2_CREATE_BUFFER(a0,T, 100, T(0.1), T(10));
+<<<<<<< HEAD
+=======
+    double ulp0 = 0.0;
+>>>>>>> functor2
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::expm1(a0)),a0,1.5);
+<<<<<<< HEAD
         NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::sqrt1pm1(a0)),nt2::Half<T>()*nt2::log1p(a0),1.5);
      }
+=======
+        ulp0=nt2::max(ulpd,ulp0);
+        NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::sqrt1pm1(a0)),nt2::Half<T>()*nt2::log1p(a0),1.5);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+>>>>>>> functor2
    }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( log1p_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+<<<<<<< HEAD
 {
   using nt2::log1p;
   using nt2::functors::log1p_;
@@ -82,6 +108,11 @@ NT2_TEST_CASE_TPL ( log1p_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::log1p;
   using nt2::functors::log1p_;
+=======
+{
+  using nt2::log1p;
+  using nt2::tag::log1p_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<log1p_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
@@ -89,6 +120,29 @@ NT2_TEST_CASE_TPL ( log1p_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  log1p(nt2::One<T>()), nt2::Log_2<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  log1p(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( log1p_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::log1p;
+  using nt2::tag::log1p_;
+  typedef typename nt2::meta::call<log1p_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests

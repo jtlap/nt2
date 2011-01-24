@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<fast_cospi_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::fast_cospi_;
+using nt2::tag::fast_cospi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::fast_cospi_,(RS(vfloat,-0.25,0.25)))
-NT2_TIMING(nt2::functors::fast_cospi_,(RS(vdouble,-0.25,0.25)))
+NT2_TIMING(nt2::tag::fast_cospi_,(RS(vfloat,-0.25,0.25)))
+NT2_TIMING(nt2::tag::fast_cospi_,(RS(vdouble,-0.25,0.25)))
 
 #undef RS

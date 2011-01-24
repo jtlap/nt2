@@ -8,7 +8,5 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_LOAD_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_LOAD_HPP_INCLUDED
-
 #include <nt2/sdk/simd/details/impl/sse/sse4_1/load.hpp>
-
 #endif

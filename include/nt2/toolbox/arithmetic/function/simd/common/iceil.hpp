@@ -8,25 +8,47 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ICEIL_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ICEIL_HPP_INCLUDED
-#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/toint.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::iceil_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<arithmetic_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for iceil
+  template<class X, class Dummy>
+  struct call<tag::iceil_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::as_integer<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute iceil(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTOR_CALL(1){ return a0; }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<iceil_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::iceil_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<real_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::iceil_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,25 +56,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      return toint(ceil(a0)); 
+      return toint(ceil(a0));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<iceil_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0>{};
-
-    NT2_FUNCTOR_CALL(1){ return a0; }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

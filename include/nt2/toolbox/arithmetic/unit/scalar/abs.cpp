@@ -11,6 +11,17 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+=======
+/// created by jt the 30/11/2010
+/// modified by jt the 17/01/2011
+/// for integer standard implementation produces double and there can be
+/// a loss in precision. This is not the case of nt2::abs that produces unsigned integer
+/// output for integer entries
+/// take care that if abs is called with floating types, YOU MUST use nt2::abs. If not
+/// the punishment is generally calling the wrong system abs function, that transforms your real in
+/// integer !
+>>>>>>> functor2
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +36,11 @@
 NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
 {
   using nt2::abs;
+<<<<<<< HEAD
   using nt2::functors::abs_;
+=======
+  using nt2::tag::abs_;
+>>>>>>> functor2
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -33,6 +48,10 @@ NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
@@ -42,6 +61,7 @@ NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  abs(nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::Zero<T>()), nt2::Zero<T>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -54,11 +74,14 @@ NT2_TEST_CASE_TPL ( abs_real__1,  NT2_REAL_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::abs(a0),nt2::standard::abs(a0),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( abs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::abs;
+<<<<<<< HEAD
   using nt2::functors::abs_;
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -84,25 +107,53 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::abs(a0),nt2::standard::abs(a0),0);
      }
    }
+=======
+  using nt2::tag::abs_;
+  typedef typename nt2::meta::call<abs_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  abs(nt2::One<T>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  abs(nt2::Zero<T>()), nt2::Zero<T>(), 0);
+>>>>>>> functor2
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( abs_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::abs;
+<<<<<<< HEAD
   using nt2::functors::abs_;
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
+=======
+  using nt2::tag::abs_;
+  typedef typename nt2::meta::call<abs_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+>>>>>>> functor2
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+<<<<<<< HEAD
+=======
+  double ulpd;
+>>>>>>> functor2
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  abs(nt2::Mone<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(  abs(nt2::Zero<T>()), nt2::Zero<T>(), 0);
+<<<<<<< HEAD
   // random verifications
   static const uint32_t NR = 100;
   {
@@ -115,4 +166,6 @@ NT2_TEST_CASE_TPL ( abs_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         NT2_TEST_ULP_EQUAL( nt2::abs(a0),nt2::standard::abs(a0),0);
      }
    }
+=======
+>>>>>>> functor2
 } // end of test for signed_int_

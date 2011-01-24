@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(rsqrt, (double)(float)(int64_t)(int32_t)(uint64_t)(uint32_t))
 {
  using nt2::rsqrt;
- using nt2::functors::rsqrt_;    
+ using nt2::tag::rsqrt_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

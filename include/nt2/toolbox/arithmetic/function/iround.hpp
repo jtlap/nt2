@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct iround_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::iround_, iround, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::iround_, iround, 1)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/iround.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

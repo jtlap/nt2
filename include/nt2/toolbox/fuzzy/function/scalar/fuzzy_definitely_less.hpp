@@ -12,24 +12,24 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/abs.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fuzzy_definitely_less_, tag::cpu_,
+                                       (A0)(A1)(A2),
+                                       (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
+                                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for fuzzy_definitely_less
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute fuzzy_definitely_less(const A0& a0, const A1& a1, const A2& a2)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<fuzzy_definitely_less_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::fuzzy_definitely_less_(tag::fundamental_,tag::fundamental_,tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)>  {typedef bool type; }; 
+    struct result<This(A0,A1,A2)>  {typedef bool type; };
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -40,4 +40,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

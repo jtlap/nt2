@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/cephes/include.hpp>
 
-namespace nt2 { namespace cephes
-  {	       
+namespace nt2 { namespace cephes { namespace tag
+  {         
     struct struve_ {};
-    NT2_FUNCTION_IMPLEMENTATION(cephes::struve_, struve, 2)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(cephes::tag::struve_, struve, 2)
+  } }
  
 #include <nt2/toolbox/cephes/function/scalar/struve.hpp>
 // #include NT2_CEPHES_INCLUDE(struve.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

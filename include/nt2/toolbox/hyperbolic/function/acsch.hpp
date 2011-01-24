@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/hyperbolic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct acsch_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::acsch_, acsch, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::acsch_, acsch, 1)
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/acsch.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

@@ -10,7 +10,6 @@
 
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>

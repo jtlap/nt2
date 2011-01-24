@@ -10,3 +10,6 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
 /// Still unimplemented
 #endif
+
+#endif
+// modified by jt the 04/01/2011

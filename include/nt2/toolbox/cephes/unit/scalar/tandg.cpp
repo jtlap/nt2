@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( tandg,  (double)(float) )
 {
   using nt2::cephes::tandg;
-  using nt2::cephes::tandg_;
+  using nt2::cephes::tag::tandg_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tandg_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::tandg_(T)>::type,
                            T
                            >::value)
           );

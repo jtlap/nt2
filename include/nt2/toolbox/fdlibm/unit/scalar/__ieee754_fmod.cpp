@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( __ieee754_fmod,  (double)(float) )
 {
   using nt2::fdlibm::__ieee754_fmod;
-  using nt2::fdlibm::__ieee754_fmod_;
+  using nt2::fdlibm::tag::__ieee754_fmod_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::__ieee754_fmod_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::__ieee754_fmod_(T, T)>::type,
                            T
                            >::value)
           );

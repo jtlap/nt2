@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( jn,  (double)(float) )
 {
   using nt2::fdlibm::jn;
-  using nt2::fdlibm::jn_;
+  using nt2::fdlibm::tag::jn_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::jn_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::jn_(T, T)>::type,
                            T
                            >::value)
           );

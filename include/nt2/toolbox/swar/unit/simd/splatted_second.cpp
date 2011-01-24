@@ -29,11 +29,11 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(splatted_second, (double)(float)
-		  (int32_t)(uint32_t)
-		  (int64_t)(uint64_t) ) 
+              (int32_t)(uint32_t)
+              (int64_t)(uint64_t) ) 
 {
  using nt2::splatted_second;
- using nt2::functors::splatted_second_;    
+ using nt2::tag::splatted_second_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(splatted_second, (double)(float)
      std::cout << "  " << a0 << "  " << v << std::endl; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(v[j], a0[1]);
+       NT2_TEST_EQUAL(v[j], a0[1]);
        }
    }
 }

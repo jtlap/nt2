@@ -12,12 +12,12 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bitwise/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct select_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::select_, select, 3)
-  NT2_FUNCTION_IMPLEMENTATION(functors::select_, sel, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::select_, select, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::select_, sel, 3)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/select.hpp>
@@ -25,3 +25,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

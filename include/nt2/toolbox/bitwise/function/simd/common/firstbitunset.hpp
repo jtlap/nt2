@@ -14,19 +14,20 @@
 #include <nt2/include/functions/bitwise_andnot.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::firstbitunset_, tag::cpu_,
+                                (A0)(X),
+                                ((simd_<arithmetic_<A0>,X>))
+                               );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for firstbitunset
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute firstbitunset(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<firstbitunset_,tag::simd_(tag::arithmetic_,Extension),fundamental_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::firstbitunset_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,8 +36,8 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename  meta::as_integer<A0, unsigned>::type int_type; 
-      return b_andnot((simd::native_cast<int_type>(a0)+One<int_type>()), a0); 
+      typedef typename  meta::as_integer<A0, unsigned>::type int_type;
+      return b_andnot((simd::native_cast<int_type>(a0)+One<int_type>()), a0);
 
     }
 
@@ -44,4 +45,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

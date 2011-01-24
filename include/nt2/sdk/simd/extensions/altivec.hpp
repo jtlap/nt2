@@ -21,22 +21,7 @@
 //#include <nt2/sdk/simd/extensions/vmx/spu.hpp>
 
 #if defined(NT2_SIMD_VMX_FAMILY)
-#define NT2_SIMD_TYPES  (float)(nt2::uint32_t)(nt2::int32_t)  \
-                        (nt2::uint16_t)(nt2::int16_t)         \
-                        (nt2::uint8_t)(nt2::int8_t)           \
-                        /**/
-
-#define NT2_SIMD_REAL (float)
-
-#define NT2_SIMD_UNSIGNED_TYPES (nt2::uint32_t)(nt2::uint16_t)(nt2::uint8_t)
-
-#define NT2_SIMD_SIGNED_TYPES (nt2::int64_t)(nt2::int32_t)        \
-                              (float)(nt2::int16_t)(nt2::int8_t)  \
-                              /**/
-
-#define NT2_SIMD_INTEGRAL_SIGNED_TYPES    (nt2::int32_t)(nt2::int16_t)(nt2::int8_t)
-#define NT2_SIMD_INTEGRAL_UNSIGNED_TYPES  (nt2::uint32_t)(nt2::uint16_t)(nt2::uint8_t)
-
+#include <nt2/sdk/simd/extensions/vmx/types.hpp>
 #endif
 
 #endif

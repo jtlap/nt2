@@ -13,25 +13,20 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(standard::tag::frexp_, tag::cpu_,
+                       (A0),
+                       (fundamental_<A0>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<standard::frexp_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::is_floating_point<A0> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute frexp(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<standard::frexp_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<standard::tag::frexp_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0> struct result<This(A0)>
@@ -41,28 +36,19 @@ namespace nt2 { namespace functors
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };
 
+
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_CALL_RETURN_TYPE(1)::type res;
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-          );
+      typename NT2_RETURN_TYPE(1)::type res;
+      int r1t; 
+      boost::fusion::at_c<0>(res) = std::frexp(a0, &r1t);
+      boost::fusion::at_c<1>(res) =  r1t; 
       return res;
-    }
-  private:
-    NT2_FUNCTOR_CALL_DEFAULT(1)
-
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1)const
-    {
-      int r1t;
-      r0 = std::frexp(a0, &r1t);
-      r1 = r1t;
     }
 
   };
 } }
 
 #endif
-/// Revised by jt the 16/11/2010
+// modified by jt the 29/12/2010
+// modified manually by jt the 29/12/2010

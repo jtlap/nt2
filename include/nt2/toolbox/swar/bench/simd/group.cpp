@@ -26,20 +26,20 @@ typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<group_> from swar
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::group_;
+using nt2::tag::group_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::group_,(RS(vdouble,-10000.0,10000.0))(RS(vdouble,-10000.0,10000.0))  )
-NT2_TIMING(nt2::functors::group_,(RS(vint64_t,-10000,10000))(RS(vint64_t,-10000,10000)))
-NT2_TIMING(nt2::functors::group_,(RS(vint32_t,-10000,10000))(RS(vint32_t,-10000,10000)))
-NT2_TIMING(nt2::functors::group_,(RS(vint16_t,-32768,32767))(RS(vint16_t,-32768,32767)))
-NT2_TIMING(nt2::functors::group_,(RS(vuint64_t,0,65535))(RS(vuint64_t,0,65535)))
-NT2_TIMING(nt2::functors::group_,(RS(vuint32_t,0,65535))(RS(vuint32_t,0,65535)))
-NT2_TIMING(nt2::functors::group_,(RS(vuint16_t,0,65535))(RS(vuint16_t,0,65535)))
+NT2_TIMING(nt2::tag::group_,(RS(vdouble,-10000.0,10000.0))(RS(vdouble,-10000.0,10000.0))  )
+NT2_TIMING(nt2::tag::group_,(RS(vint64_t,-10000,10000))(RS(vint64_t,-10000,10000)))
+NT2_TIMING(nt2::tag::group_,(RS(vint32_t,-10000,10000))(RS(vint32_t,-10000,10000)))
+NT2_TIMING(nt2::tag::group_,(RS(vint16_t,-32768,32767))(RS(vint16_t,-32768,32767)))
+NT2_TIMING(nt2::tag::group_,(RS(vuint64_t,0,65535))(RS(vuint64_t,0,65535)))
+NT2_TIMING(nt2::tag::group_,(RS(vuint32_t,0,65535))(RS(vuint32_t,0,65535)))
+NT2_TIMING(nt2::tag::group_,(RS(vuint16_t,0,65535))(RS(vuint16_t,0,65535)))
 
 
 #undef RS

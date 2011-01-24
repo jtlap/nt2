@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////////////////////////////////////
 ///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -35,6 +36,9 @@ namespace nt2 { namespace meta
                                               , __vector signed   int
                                               , __vector signed   short
                                               , __vector signed   char
+                                              , __vector __bool int
+                                              , __vector __bool short
+                                              , __vector __bool char
                                               >
                               , T
                               >
