@@ -51,7 +51,8 @@ NT2_TEST_CASE_TPL ( remainder_real__2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  remainder(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(  remainder(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(  remainder(nt2::One<T>(), nt2::One<T>()), nt2::Zero<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  remainder(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  remainder(nt2::One<T>(),nt2::Zero<T>()), nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  remainder(nt2::Zero<T>(),nt2::Zero<T>()), nt2::Nan<T>(), 0);
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( remainder_unsigned_int__2,  NT2_UNSIGNED_TYPES)
