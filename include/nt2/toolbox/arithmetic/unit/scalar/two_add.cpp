@@ -11,11 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
 /// created by jt the 01/12/2010
-/// modified by jt the 17/01/2011
->>>>>>> functor2
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,11 +25,7 @@
 NT2_TEST_CASE_TPL ( two_add_real__2,  NT2_REAL_TYPES)
 {
   using nt2::two_add;
-<<<<<<< HEAD
-  using nt2::functors::two_add_;
-=======
   using nt2::tag::two_add_;
->>>>>>> functor2
   typedef typename nt2::meta::call<two_add_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,T> wished_r_t;
@@ -40,9 +33,6 @@ NT2_TEST_CASE_TPL ( two_add_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
 } // end of test for real_

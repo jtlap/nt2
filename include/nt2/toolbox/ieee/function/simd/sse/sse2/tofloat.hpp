@@ -69,8 +69,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type  result_type;
-      result_type const v = {{a0[0], a0[1]}};
+      typedef typename NT2_RETURN_TYPE(1)::type  type;
+      typedef typename meta::scalar_of<type>::type stype;
+      type const v = {{static_cast<stype>(a0[0])
+                      , static_cast<stype>(a0[1])}};
       return v;
 
     }
@@ -122,9 +124,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  result_type;
-      result_type z = {a0[0],a0[1],a0[2], a0[3]}; //TO DO
-      return z;
+      typedef typename NT2_RETURN_TYPE(1)::type  type;
+      typedef typename meta::scalar_of<type>::type stype;
+
+      type that = { static_cast<stype>(a0[0])
+                  , static_cast<stype>(a0[1])
+                  , static_cast<stype>(a0[2])
+                  , static_cast<stype>(a0[3])
+                  }; //TO DO
+      return that;
  //      typedef typename meta::scalar_of<A0>::type stype;
 //       typedef typename meta::as_integer<A0,signed>::type sint_type;
 //       //      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
@@ -162,7 +170,9 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<type>::type sftype;
       if (maximum(abs(a0)) > Valmax<int32_t>())
       {
-        type const v = {{a0[0], a0[1]}};
+        type const v =  { static_cast<sftype>(a0[0])
+                        , static_cast<sftype>(a0[1])
+                        };
          return v;
       }
       typedef typename meta::int32_t_<A0>::type htype;

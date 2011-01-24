@@ -3,6 +3,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/min_max.hpp>
 #include <boost/proto/core.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/proto/context.hpp>
 #include <boost/proto/transform.hpp>
 namespace mpl = boost::mpl;
@@ -45,31 +46,7 @@ struct calculator_arity
 // For expressions in the calculator domain, operator ()
 // will be special; it will evaluate the expression.
 struct calculator_domain;
-
-// Define a calculator context, for evaluating arithmetic expressions
-// (This is as before, in calc1.cpp and calc2.cpp)
-struct calculator_context
-  : proto::callable_context< calculator_context const >
-{
-    // The values bound to the placeholders
-    double d[2];
-
-    // The result of evaluating arithmetic expressions
-    typedef double result_type;
-
-    explicit calculator_context(double d1 = 0., double d2 = 0.)
-    {
-        d[0] = d1;
-        d[1] = d2;
-    }
-
-    // Handle the evaluation of the placeholder terminals
-    template<typename I>
-    double operator ()(proto::tag::terminal, placeholder<I>) const
-    {
-        return d[ I() - 1 ];
-    }
-};
+struct numeric_domain;
 
 // Wrap all calculator expressions in this type, which defines
 // operator () to evaluate the expression.
@@ -86,82 +63,129 @@ struct calculator_expression
     {}
 
     BOOST_PROTO_EXTENDS_USING_ASSIGN(calculator_expression)
-
-    // Override operator () to evaluate the expression
-    double operator ()() const
-    {
-        // Assert that the expression has arity 0
-        BOOST_MPL_ASSERT_RELATION(0, ==, calculator_arity<Expr>::type::value);
-        calculator_context const ctx;
-        return proto::eval(*this, ctx);
-    }
-
-    double operator ()(double d1) const
-    {
-        // Assert that the expression has arity 1
-        BOOST_MPL_ASSERT_RELATION(1, ==, calculator_arity<Expr>::type::value);
-        calculator_context const ctx(d1);
-        return proto::eval(*this, ctx);
-    }
-
-    double operator ()(double d1, double d2) const
-    {
-        // Assert that the expression has arity 2
-        BOOST_MPL_ASSERT_RELATION(2, ==, calculator_arity<Expr>::type::value);
-        calculator_context const ctx(d1, d2);
-        return proto::eval(*this, ctx);
-    }
 };
-
-
-#include <typeinfo>
-
-struct print_tag : proto::callable
-{
-  typedef int result_type;
-  template<class X> int operator()(X const&) const
-  {
-    std::cout << typeid(typename proto::tag_of<X>::type).name() << "\n";
-    return 0;
-  }
-};
-
-template<class Generator>
-struct  debug_generator
-      : proto::when < proto::_
-                    , proto::and_ < print_tag(proto::_)
-                                  , print_tag(proto::_)
-                                  , print_tag(proto::_)
-                                  , print_tag(proto::_)
-                                  , print_tag(proto::_)
-                                  , Generator(proto::_)
-                                  >
-                    > {};
 
 // Tell proto how to generate expressions in the calculator_domain
+struct numeric_domain
+    : proto::domain<proto::generator<calculator_expression> >
+  {};
 struct calculator_domain
-  : proto::domain<debug_generator<proto::generator<calculator_expression> > >
+  : proto::domain<proto::generator<calculator_expression>, _, numeric_domain >
 {};
 
 // Define some placeholders (notice they're wrapped in calculator_expression<>)
-calculator_expression<proto::terminal< placeholder< mpl::int_<1> > >::type> const _1;
-calculator_expression<proto::terminal< placeholder< mpl::int_<2> > >::type> const _2;
+calculator_expression<proto::terminal< placeholder< mpl::int_<1> > >::type> const _p1;
+calculator_expression<proto::terminal< placeholder< mpl::int_<2> > >::type> const _p2;
+calculator_expression<proto::terminal< float >::type> const _pf;
+calculator_expression<proto::terminal< unsigned short >::type> const _pus;
+calculator_expression<proto::terminal< bool >::type> const _pb;
 
-// Now, our arithmetic expressions are immediately executable function objects:
+
+
+
+#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/functor/operators.hpp>
+
+namespace nt2 { namespace tag
+{
+  struct expr_ {};
+} }
+
+namespace nt2 { namespace meta
+{
+  template<class T,class Domain>
+  struct expr_ : expr_<T,typename Domain::parent>
+  {
+    typedef expr_<T,typename Domain::parent> parent;
+    typedef tag::expr_      type(typename Domain::type);
+  };
+
+  template<class T,class Domain>
+  struct expr_<T,unspecified_<Domain> > : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+    typedef tag::expr_      type(typename unspecified_<Domain>::type);
+  };
+
+  template<class T>
+  struct domain_ : domain_<typename T::proto_super_domain>
+  {
+    typedef domain_<typename T::proto_super_domain> parent;
+    typedef T      type;
+  };
+
+  template<>
+  struct  domain_<boost::proto::detail::not_a_domain>
+        : unspecified_<boost::proto::detail::not_a_domain>
+  {
+    typedef unspecified_<boost::proto::detail::not_a_domain> parent;
+    typedef boost::proto::detail::not_a_domain      type;
+  };
+} }
+
+namespace nt2 { namespace details
+{
+  template<class T>
+  struct hierarchy_of < T
+                      , typename T::proto_is_expr_
+                      >
+  {
+    typedef typename boost::proto::domain_of<T>::type domain_type;
+    typedef meta::expr_<T, typename meta::hierarchy_of<domain_type>::type> type;
+  };
+
+
+  template<class T>
+  struct hierarchy_of < T
+                      , typename T::proto_is_domain_
+                      >
+  {
+    typedef meta::domain_<T> type;
+  };
+
+} }
+
+
+template<class X> void
+tag_from(X const& )
+{
+  std::cout << nt2::type_id<typename X::type>() << "\n";
+  tag_from(typename X::parent());
+}
+
+template<class X> void
+tag_from(nt2::meta::unknown_<X> const& )
+{
+  std::cout << ".\n\n";
+}
+
+template<class X> void
+info(X const& x)
+{
+  tag_from(typename nt2::meta::hierarchy_of<X>::type() );
+}
+
 int main()
 {
-    // Displays "5"
-    std::cout << (_1 + 2.0)( 3.0 ) << std::endl;
+  // terminals
+  info(_p1);
+  info(_pf);
+  info(_pus);
+  info(_pb);
 
-    // Displays "6"
-    std::cout << ( _1 * _2 )( 3.0, 2.0 ) << std::endl;
+  // unary node
+  info(-_p1);
+  info(+_pf);
+  info(!_pus);
+  info(~_pb);
 
-    // Displays "0.5"
-    std::cout << ( (_1 - _2) / _2 )( 3.0, 2.0 ) << std::endl;
+  info(-!-+_pb);
 
-    // This won't compile because the arity of the
-    // expression doesn't match the number of arguments
-    // ( (_1 - _2) / _2 )( 3.0 );
+  info(_pb+_pb);
 
-    return 0;
+  info(_pus + _pus + _pus + _pus + _pus
+            + _pus * _pus + _pus + _pus
+            + _pus - _pus + !!!_pus
+      );
+  return 0;
 }

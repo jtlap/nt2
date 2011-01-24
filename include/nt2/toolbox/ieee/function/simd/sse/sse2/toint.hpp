@@ -61,7 +61,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      const type v = {{a0[0],a0[1]}};
+      typedef typename meta::scalar_of<type>::type stype;
+      const type v = {{static_cast<stype>(a0[0]),static_cast<stype>(a0[1])}};
       return v;
     }
   };

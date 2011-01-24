@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL(majority, NT2_SIMD_TYPES )
  typedef typename nt2::meta::call<majority_(n_t, n_t, n_t)>::type call_type;
 
  NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
- NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
+ NT2_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
  for(int j =  0;  j < 10; j++)
    {
      for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i){

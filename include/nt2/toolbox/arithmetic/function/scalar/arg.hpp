@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype; 
+      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
       return Zero<rtype>();
     }
   };

@@ -1,12 +1,7 @@
 [{'functor': {'arity': '1',
               'call_types': [],
               'ret_arity': '0',
-<<<<<<< HEAD
-              'rturn': {'default': 'T',
-                        'signed_int_': 'typename nt2::meta::as_integer<T,unsigned>::type'},
-=======
               'rturn': {'default': 'T'},
->>>>>>> functor2
               'type_defs': [],
               'types': ['real_', 'unsigned_int_', 'signed_int_']},
   'unit': {'global_header': {'first_stamp': 'modified by jt the 30/11/2010',

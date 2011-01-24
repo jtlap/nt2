@@ -11,11 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
 /// created by jt the 01/12/2010
-/// modified by jt the 17/01/2011
->>>>>>> functor2
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,11 +25,7 @@
 NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
 {
   using nt2::two_prod;
-<<<<<<< HEAD
-  using nt2::functors::two_prod_;
-=======
   using nt2::tag::two_prod_;
->>>>>>> functor2
   typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
   typedef typename nt2::meta::call<two_prod_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -41,11 +34,6 @@ NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-
-} // end of test for real_
-=======
   double ulpd;
 
 } // end of test for real_
->>>>>>> functor2

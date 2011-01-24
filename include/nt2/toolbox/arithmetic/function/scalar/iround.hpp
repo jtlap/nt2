@@ -11,7 +11,9 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/iround2even.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -62,7 +64,8 @@ namespace nt2 { namespace ext
 	  return Valmin<rtype>(); 
 	else
 	  return Valmax<rtype>(); 
-      return round(a0);
+      if (is_nan(a0)) return Zero<rtype>(); 
+      return rtype(round(a0));
     }
 
   };

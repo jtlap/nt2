@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL(real_sum, NT2_REAL_TYPES )
  for(int j =  0;  j < 10; j++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(-10000.0, 10000.0); // good value here for sum
+       data[i] = nt2::random(-1000.0, 1000.0); // good value here for sum
      }
      n_t a0 = load<n_t>(&data[0],0); 
      T v  = sum(a0);
