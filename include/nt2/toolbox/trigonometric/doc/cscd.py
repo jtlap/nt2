@@ -13,8 +13,8 @@
             'first_stamp' : 'created  by $author$ the $date$', ## creation stamp
             'stamp'       : 'modified by $author$ the $date$', ## modification stamp
             'included'    : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                             '#include <nt2/toolbox/crlibm/include/sin.hpp>',
-                             '#include <nt2/include/functions/rec.hpp>'],     ## list of supplementary include directives
+                             '#include <nt2/include/functions/csc.hpp>',
+                             '#include <nt2/include/functions/inrad.hpp>'],     ## list of supplementary include directives
             'notes'       : [],        ## list of strings that will be included in a
                                             ## global comment
             },
@@ -52,7 +52,7 @@
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
             'property_call'   : {'real_' : ['nt2::cscd(a0)'],},  ## dictionary of calls per types
-            'property_value'  : {'real_' : ['nt2::rec(nt2::crlibm::sin<nt2::rn>(a0*nt2::Deginrad<T>()))'],}, ## dictionary of alternate calls
+            'property_value'  : {'real_' : ['nt2::csc(nt2::inrad(a0))'],}, ## dictionary of alternate calls
             'ulp_thresh'      : {'real_' : ['1.0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 

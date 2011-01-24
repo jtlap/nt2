@@ -24,9 +24,9 @@
                     'nt2::Nan<T>()'  :  {'result' : 'nt2::Nan<r_t>()',  'ulp_thresh':'0'},
                     'nt2::One<T>()'  :  {'result' : 'nt2::Zero<r_t>()', 'ulp_thresh':'0'},
                     'nt2::Half<T>()' :  {'result' : '60', 'ulp_thresh':'0.5'},
-                    'nt2::Mone<T>()' :  {'result' : '180', 'ulp_thresh':'0'},
+                    'nt2::Mone<T>()' :  {'result' : '180', 'ulp_thresh':'0.5'},
                     'nt2::Mhalf<T>()':  {'result' : '120', 'ulp_thresh':'0.5'},
-                    'nt2::Zero<T>()' :  {'result' : '90', 'ulp_thresh':'0'},
+                    'nt2::Zero<T>()' :  {'result' : '90', 'ulp_thresh':'0.5'},
                 },
                 'signed_int_   ': {
                     'nt2::Zero<T>()' :  {'result' : '90', 'ulp_thresh':'0'},
