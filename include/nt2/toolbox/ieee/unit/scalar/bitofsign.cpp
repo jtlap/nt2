@@ -11,11 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
 /// created by jt the 04/12/2010
-/// modified by jt the 17/01/2011
->>>>>>> functor2
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,11 +25,7 @@
 NT2_TEST_CASE_TPL ( bitofsign_real__1,  NT2_REAL_TYPES)
 {
   using nt2::bitofsign;
-<<<<<<< HEAD
-  using nt2::functors::bitofsign_;
-=======
   using nt2::tag::bitofsign_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitofsign_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -40,10 +33,7 @@ NT2_TEST_CASE_TPL ( bitofsign_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
 
   // specific values tests
@@ -57,11 +47,7 @@ NT2_TEST_CASE_TPL ( bitofsign_real__1,  NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL ( bitofsign_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::bitofsign;
-<<<<<<< HEAD
-  using nt2::functors::bitofsign_;
-=======
   using nt2::tag::bitofsign_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitofsign_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -69,10 +55,7 @@ NT2_TEST_CASE_TPL ( bitofsign_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
 
   // specific values tests
@@ -82,11 +65,7 @@ NT2_TEST_CASE_TPL ( bitofsign_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 NT2_TEST_CASE_TPL ( bitofsign_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::bitofsign;
-<<<<<<< HEAD
-  using nt2::functors::bitofsign_;
-=======
   using nt2::tag::bitofsign_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitofsign_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -94,10 +73,7 @@ NT2_TEST_CASE_TPL ( bitofsign_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
 
   // specific values tests

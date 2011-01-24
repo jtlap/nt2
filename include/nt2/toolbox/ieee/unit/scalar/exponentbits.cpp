@@ -11,11 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
 /// created by jt the 04/12/2010
-/// modified by jt the 17/01/2011
->>>>>>> functor2
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -32,11 +29,7 @@
 NT2_TEST_CASE_TPL ( exponentbits_real__1,  NT2_REAL_TYPES)
 {
   using nt2::exponentbits;
-<<<<<<< HEAD
-  using nt2::functors::exponentbits_;
-=======
   using nt2::tag::exponentbits_;
->>>>>>> functor2
   typedef typename nt2::meta::call<exponentbits_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
@@ -44,22 +37,6 @@ NT2_TEST_CASE_TPL ( exponentbits_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-
-  // random verifications
-  static const uint32_t NR = 100;
-  {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-10000), T(10000));
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::exponentbits(a0),nt2::bits(nt2::ldexp(nt2::One<T>(),nt2::exponent(a0))),0);
-     }
-   }
-=======
   double ulpd;
 
->>>>>>> functor2
 } // end of test for real_

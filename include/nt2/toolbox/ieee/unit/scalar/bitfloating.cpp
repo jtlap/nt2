@@ -11,11 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
 /// created by jt the 04/12/2010
-/// modified by jt the 17/01/2011
->>>>>>> functor2
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -30,11 +27,7 @@
 NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1,  (nt2::uint32_t))
 {
   using nt2::bitfloating;
-<<<<<<< HEAD
-  using nt2::functors::bitfloating_;
-=======
   using nt2::tag::bitfloating_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -42,43 +35,29 @@ NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1,  (nt2::uint32_t))
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
   // random verifications
   static const uint32_t NR = 100;
   {
     NT2_CREATE_BUFFER(a0,T, 100, 0, 100);
-<<<<<<< HEAD
-=======
     double ulp0 = 0.0;
->>>>>>> functor2
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
-<<<<<<< HEAD
-     }
-=======
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
->>>>>>> functor2
    }
 } // end of test for uint32_t
 
 NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1,  (nt2::uint64_t))
 {
   using nt2::bitfloating;
-<<<<<<< HEAD
-  using nt2::functors::bitfloating_;
-=======
   using nt2::tag::bitfloating_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -86,43 +65,29 @@ NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1,  (nt2::uint64_t))
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
   // random verifications
   static const uint32_t NR = 100;
   {
     NT2_CREATE_BUFFER(a0,T, 100, 0, 100);
-<<<<<<< HEAD
-=======
     double ulp0 = 0.0;
->>>>>>> functor2
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
-<<<<<<< HEAD
-     }
-=======
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
->>>>>>> functor2
    }
 } // end of test for uint64_t
 
 NT2_TEST_CASE_TPL ( bitfloating_int32_t_1,  (nt2::int32_t))
 {
   using nt2::bitfloating;
-<<<<<<< HEAD
-  using nt2::functors::bitfloating_;
-=======
   using nt2::tag::bitfloating_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -130,43 +95,29 @@ NT2_TEST_CASE_TPL ( bitfloating_int32_t_1,  (nt2::int32_t))
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
   // random verifications
   static const uint32_t NR = 100;
   {
     NT2_CREATE_BUFFER(a0,T, 100, -100, 100);
-<<<<<<< HEAD
-=======
     double ulp0 = 0.0;
->>>>>>> functor2
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
-<<<<<<< HEAD
-     }
-=======
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
->>>>>>> functor2
    }
 } // end of test for int32_t
 
 NT2_TEST_CASE_TPL ( bitfloating_int64_t_1,  (nt2::int64_t))
 {
   using nt2::bitfloating;
-<<<<<<< HEAD
-  using nt2::functors::bitfloating_;
-=======
   using nt2::tag::bitfloating_;
->>>>>>> functor2
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_real<T>::type wished_r_t;
@@ -174,31 +125,21 @@ NT2_TEST_CASE_TPL ( bitfloating_int64_t_1,  (nt2::int64_t))
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
->>>>>>> functor2
 
   // random verifications
   static const uint32_t NR = 100;
   {
     NT2_CREATE_BUFFER(a0,T, 100, -100, 100);
-<<<<<<< HEAD
-=======
     double ulp0 = 0.0;
->>>>>>> functor2
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0,0);
-<<<<<<< HEAD
-     }
-=======
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
->>>>>>> functor2
    }
 } // end of test for int64_t

@@ -11,11 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-=======
 /// created by jt the 04/12/2010
-/// modified by jt the 17/01/2011
->>>>>>> functor2
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,55 +23,9 @@
 #include <nt2/toolbox/ieee/include/eps.hpp>
 
 NT2_TEST_CASE_TPL ( eps_real__1,  NT2_REAL_TYPES)
-<<<<<<< HEAD
-{
-  using nt2::eps;
-  using nt2::functors::eps_;
-  typedef typename nt2::meta::call<eps_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(  eps(nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  eps(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  eps(nt2::Mone<T>()), nt2::Eps<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  eps(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  eps(nt2::One<T>()), nt2::Eps<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  eps(nt2::Zero<T>()), nt2::Mindenormal<r_t>(), 0);
-} // end of test for real_
-
-NT2_TEST_CASE_TPL ( eps_unsigned_int__1,  NT2_UNSIGNED_TYPES)
-{
-  using nt2::eps;
-  using nt2::functors::eps_;
-  typedef typename nt2::meta::call<eps_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(  eps(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  eps(nt2::Zero<T>()), nt2::One<r_t>(), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( eps_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  using nt2::eps;
-  using nt2::functors::eps_;
-=======
 {
   using nt2::eps;
   using nt2::tag::eps_;
->>>>>>> functor2
   typedef typename nt2::meta::call<eps_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -82,8 +33,6 @@ NT2_TEST_CASE_TPL ( eps_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-<<<<<<< HEAD
-=======
   double ulpd;
 
 
@@ -127,7 +76,6 @@ NT2_TEST_CASE_TPL ( eps_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
->>>>>>> functor2
 
 
   // specific values tests
