@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-[{'functor': {'arity': '2',
-=======
 [ ##script manually modified 
 {'functor': {'arity': '2',
->>>>>>> functor2
               'call_types': ['T','iT'],
               'ret_arity': '0',
               'rturn': {'default': 'typename boost::result_of<nt2::meta::floating(T)>::type'},

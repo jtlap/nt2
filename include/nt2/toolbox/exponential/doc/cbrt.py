@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-[{'functor': {'arity': '1',
-=======
 [##script manually modified
 {'functor': {'arity': '1',
->>>>>>> functor2
               'call_types': [],
               'ret_arity': '0',
               'rturn': {'default': 'typename boost::result_of<nt2::meta::floating(T)>::type'},
@@ -32,8 +28,4 @@
            'verif_test': {'property_call': {'default': ['nt2::sqr(nt2::cbrt(a0))*nt2::cbrt(a0)']},
                           'property_value': {'default': ['T(a0)']},
                           'ulp_thresh': {'default': ['1']}}},
-<<<<<<< HEAD
   'version': '0.1'}]
-=======
-  'version': '0.1'}]
->>>>>>> functor2
