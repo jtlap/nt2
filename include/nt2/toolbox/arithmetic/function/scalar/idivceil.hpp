@@ -103,11 +103,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-<<<<<<< HEAD
-      return ceil(double(a0)/double(a1)); // TO DO
-=======
       return ceil(a0/a1);
->>>>>>> functor2
     }
   };
 } }

@@ -38,15 +38,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-<<<<<<< HEAD
-      const A0 x = abs(a0); 
-      //	 return sel(iseq(x, Inf<A0>()), x,  successor(x)-x);
-      A0 xp = predecessor(x); 
-      return sel(is_equal(x, Inf<A0>()), xp-predecessor(xp), x);
-=======
       details::ignore_unused(a0);
       return One<A0>();
->>>>>>> functor2
     }
   };
 } }

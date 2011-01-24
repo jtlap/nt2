@@ -11,39 +11,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-<<<<<<< HEAD
-  template<class Info>
-  struct validate<abs_,tag::scalar_(tag::arithmetic_),Info>
-  {
-    typedef boost::mpl::true_ result_type;
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute abs(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<abs_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::strip <A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-       return std::abs(a0);
-    }
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<abs_,tag::scalar_(tag::arithmetic_),float,Info> : callable
-=======
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +24,6 @@ namespace nt2 { namespace ext
   template<class Dummy>
   struct call<tag::abs_(tag::signed_),
               tag::cpu_, Dummy> : callable
->>>>>>> functor2
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -70,18 +36,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-<<<<<<< HEAD
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_t
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<abs_,tag::scalar_(tag::arithmetic_),int32_t,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::as_integer < A0,  unsigned>{};
-=======
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -99,7 +53,6 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip <A0>{};
->>>>>>> functor2
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -150,12 +103,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-<<<<<<< HEAD
-    struct result<This(A0)> :  meta::as_integer < A0,  unsigned>{};
-
-=======
     struct result<This(A0)> : meta::strip <A0>{};
->>>>>>> functor2
 
     NT2_FUNCTOR_CALL(1)
     {

@@ -60,11 +60,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-<<<<<<< HEAD
-      return nt2::abs(a0-a1);
-=======
       return logical_xor(a0, a1);
->>>>>>> functor2
     }
   };
 } }

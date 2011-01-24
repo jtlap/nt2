@@ -41,20 +41,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-<<<<<<< HEAD
-      typedef typename meta::as_integer<A0,signed>::type int_type;
-      if (is_eqz(a0)) return Smallestposval<A0>();
-      const A0 x = abs(a0);
-      if (x == Inf<A0>()) return  Inf<A0>(); //Valmax<A0>()-prev(Valmax<A0>());
-      typename meta::as_bits<A0>::type aa = {x},  bb = aa;
-      --bb.bits;
-      ++aa.bits;
-      return nt2::min(x-bb.value, aa.value-x);
-      // 	 const A0 pred = predecessor(x);
-      // 	 return (x == Inf<A0>()) ? pred-predecessor(x) : min(dist(pred, x), dist(x, successor(x)));
-=======
        return One<A0>();
->>>>>>> functor2
     }
   };
 } }

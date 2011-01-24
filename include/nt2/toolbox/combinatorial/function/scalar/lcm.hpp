@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////////////////////////////////////
 ///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -13,7 +14,6 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/gcd.hpp>
 #include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,18 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-<<<<<<< HEAD
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype;
-      if (!a0&&!a1)   return Zero<rtype>();
-      bool i0 = is_inf(a0);
-      bool i1 = is_inf(a1);
-      if(i0&&i1) return Nan<rtype>(); 
-      if (i0) return nt2::abs(a1);
-      if (i1) return nt2::abs(a0);
-      return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
-=======
      return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
->>>>>>> functor2
     }
   };
 } }
@@ -74,13 +63,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-<<<<<<< HEAD
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type rtype; 
-      if (!a0&&!a1)   return Zero<rtype>(); 
-      return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
-=======
       return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
->>>>>>> functor2
     }
   };
 } }

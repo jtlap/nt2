@@ -6,13 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-<<<<<<< HEAD
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_INCLUDE_CONSTANTS_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_INCLUDE_CONSTANTS_HPP_INCLUDED
-=======
 #ifndef NT2_TOOLBOX_EXPONENTIAL_INCLUDE_CONSTANTS_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_INCLUDE_CONSTANTS_HPP_INCLUDED
->>>>>>> functor2
 #include <nt2/toolbox/exponential/function/scalar/impl/constants.hpp>
 
 #endif

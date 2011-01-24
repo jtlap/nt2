@@ -15,7 +15,6 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/gammaln.hpp>
 #include <nt2/include/functions/is_ngez.hpp>
-#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -39,18 +38,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-<<<<<<< HEAD
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (is_ngez(a0)||is_ngez(a1)) return Nan<type>();
-      if (a0 < a1) return Zero<type>();
-      if (is_inf(a0)) return Inf<A0>(); 
-=======
       typedef typename boost::result_of<meta::floating(A0, A1)>::type type;
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (a0 < a1) return (rtype) Zero<type>();
       if (eq(a0,a1)) return (rtype)One<type>(); 
->>>>>>> functor2
       const type n = oneplus(round2even(a0));
       const type p = oneplus(round2even(a1));
       return (rtype)round2even(exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));

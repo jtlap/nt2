@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////////////////////////////////////
 ///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -13,9 +14,6 @@
 #include <nt2/include/functions/bitfloating.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/sdk/constant/real.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -34,17 +32,12 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-<<<<<<< HEAD
-    struct  result<This(A0,A1)>
-          : boost::is_integral<typename nt2::meta::strip<A1>::type > {};
-=======
       struct result<This(A0, A1)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
       return a0-a1;
     }
->>>>>>> functor2
   };
 } }
 
@@ -65,11 +58,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-<<<<<<< HEAD
-      return is_inf(a0) || is_nan(a0) ? Nan<A0>() : bitfloating(minusone(bitinteger(a0)));
-=======
       return minusone(a0);
->>>>>>> functor2
     }
   };
 } }
@@ -95,7 +84,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return is_inf(a0) || is_nan(a0) ? Nan<A0>() : bitfloating(bitinteger(a0)-a1);
+       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
     }
   };
 } }

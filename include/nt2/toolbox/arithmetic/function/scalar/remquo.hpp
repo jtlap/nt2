@@ -13,14 +13,9 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
-<<<<<<< HEAD
-#include <nt2/include/functions/idivfix.hpp> 
-namespace nt2 { namespace functors
-=======
 
 
 namespace nt2 { namespace details
->>>>>>> functor2
 {
   template <class T,class Dummy> struct remquo;
   
@@ -80,37 +75,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-<<<<<<< HEAD
-      typename NT2_CALL_RETURN_TYPE(2)::type res;
-      typedef meta::find_type<A0,float,double,empty_> set_t;
-      eval( a0, a1
-          , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
-          , typename set_t::type()
-          );
-      return res;
-    }
-  private :
-    template<class A0,class A1,class R0,class R1> inline void
-    eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, double const &)const
-    {
-      r1 = idivfix(a0, a1);
-      r0 = a0-r1*a1;
-      //int rt;
-      //       r0 = ::remquo(a0, a1, &rt);
-      //        r1 = rt;
-    }
-
-    template<class A0,class A1,class R0,class R1> inline void
-    eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, float const &)const
-    {
-      r1 = idivfix(a0, a1);
-      r0 = a0-r1*a1;
-      //int rt;
-      //       r0 = ::remquof(a0, a1, &r1);
-=======
       typedef typename boost::result_of<meta::floating(A0,A1)>::type ftype;
       return  details::remquo<ftype,void>::eval(ftype(a0), ftype(a1));
->>>>>>> functor2
     }
   };
 } }

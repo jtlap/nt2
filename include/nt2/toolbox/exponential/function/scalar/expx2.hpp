@@ -14,7 +14,6 @@
 
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/floor.hpp>
@@ -36,24 +35,6 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-<<<<<<< HEAD
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      if (is_inf(a0)) return Inf<A0>();
-      if (is_eqz(a0)) return One<A0>();
-      A0 x =  nt2::abs(a0); 
-      /* Represent x as an exact multiple of 1/32 plus a residual.  */
-      A0 m = Expx2c1<A0>() * floor(Expx2c2<A0>() * x + Half<A0>());
-      x -= m;
-      /* x**2 = m**2 + 2mf + f**2 */
-      A0 u = sqr(m);
-      A0 u1 = Two<A0>() * m * x  +  sqr(x);
-      if ((u+u1) > Maxlog<A0>()) return Inf<A0>(); 
-      /* u is exact, u1 is small.  */
-      return exp(u) * exp(u1);
-=======
     struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
@@ -61,7 +42,6 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       return expx2(type(a0));
->>>>>>> functor2
     }
   };
 } }
@@ -103,4 +83,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 26/12/201
+

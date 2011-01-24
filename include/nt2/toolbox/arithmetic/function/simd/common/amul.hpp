@@ -36,11 +36,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-<<<<<<< HEAD
-      return (a0+nt2::mul(a1, a2)); 
-=======
       return a0+nt2::mul(a1, a2);
->>>>>>> functor2
     }
 
   };

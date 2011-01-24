@@ -97,16 +97,8 @@ namespace nt2 { namespace ext
     {
       typedef typename boost::result_of<meta::arithmetic(A0, A1) >::type type;
       typedef typename meta::as_integer<A0>::type itype;
-<<<<<<< HEAD
-      bool b0 = is_nan(a0);
-      bool b1 = is_nan(a1);
-      if (b0&&b1)                 return Zero<type>();
-      if (b0^b1)                  return Nan <type>();
-      if (is_nan(a0-a1))          return Zero<type>(); 
-=======
       if (a0 == a1)               return Zero<type>();
       if (is_nan(a0)&&is_nan(a1)) return Zero<type>();
->>>>>>> functor2
       itype e1, e2;
       type m1, m2;
       boost::fusion::tie(m1, e1) = nt2::frexp(type(a0));
