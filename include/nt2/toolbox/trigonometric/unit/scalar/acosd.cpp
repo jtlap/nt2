@@ -44,10 +44,10 @@ NT2_TEST_CASE_TPL ( acosd_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  acosd(nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  acosd(nt2::Mhalf<T>()), 120, 0.5);
   NT2_TEST_ULP_EQUAL(  acosd(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  acosd(nt2::Mone<T>()), 180, 0);
+  NT2_TEST_ULP_EQUAL(  acosd(nt2::Mone<T>()), 180, 0.5);
   NT2_TEST_ULP_EQUAL(  acosd(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(  acosd(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  acosd(nt2::Zero<T>()), 90, 0);
+  NT2_TEST_ULP_EQUAL(  acosd(nt2::Zero<T>()), 90, 0.5);
   // random verifications
   static const uint32_t NR = 100;
   {

@@ -69,21 +69,6 @@ NT2_TEST_CASE_TPL ( fast_cosd_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( fast_cosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
-<<<<<<< HEAD
-  using nt2::fast_cos; 
-  using nt2::functors::fast_cos_;
-  const int N = 2; 
-   NT2_TEST( (boost::is_same < typename nt2::meta::call<fast_cos_(T)>::type
-	      , T
- 	     >::value)
- 	    );
-   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-   NT2_TEST_EQUAL(  nt2::fast_cosd( T(0) )  , 1 );
-   NT2_TEST_LESSER(  nt2::ulpdist(nt2::fast_cosd(T(45) ), nt2::Sqrt_2o_2<T>()),  N); 
-   NT2_TEST_LESSER(  nt2::ulpdist(nt2::fast_cosd(-T(45)), nt2::Sqrt_2o_2<T>()),  N); 
-
-}
-=======
   using nt2::fast_cosd;
   using nt2::tag::fast_cosd_;
   typedef typename nt2::meta::call<fast_cosd_(T)>::type r_t;
@@ -119,4 +104,3 @@ NT2_TEST_CASE_TPL ( fast_cosd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(  fast_cosd(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
 } // end of test for signed_int_
->>>>>>> functor2

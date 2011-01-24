@@ -23,8 +23,8 @@
 #include <nt2/toolbox/trigonometric/include/cscd.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/crlibm/include/sin.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/csc.hpp>
+#include <nt2/include/functions/inrad.hpp>
 
 NT2_TEST_CASE_TPL ( cscd_real__1,  NT2_REAL_TYPES)
 {
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( cscd_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cscd(a0),nt2::rec(nt2::crlibm::sin<nt2::rn>(a0*nt2::Deginrad<T>())),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::cscd(a0),nt2::csc(nt2::inrad(a0)),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

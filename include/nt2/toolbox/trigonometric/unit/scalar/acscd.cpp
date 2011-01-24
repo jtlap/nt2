@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( acscd_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::acscd(a0),nt2::crlibm::asin<nt2::rn>(nt2::rec(a0))*nt2::Radindeg<T>(),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::acscd(a0),nt2::crlibm::asin<nt2::rn>(nt2::rec(a0))*nt2::Radindeg<T>(),2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
