@@ -50,9 +50,9 @@ NT2_TEST_CASE_TPL ( fast_cot_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  fast_cot(nt2::Pi<T>()/4), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  fast_cot(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUFFER(a0,T, 100, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
+    NT2_CREATE_BUFFER(a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {

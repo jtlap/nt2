@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL ( asin_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  asin(nt2::One<T>()), nt2::Pio_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  asin(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUFFER(a0,T, 100, nt2::Mone<T>(), nt2::One<T>());
+    NT2_CREATE_BUFFER(a0,T, NR, nt2::Mone<T>(), nt2::One<T>());
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {

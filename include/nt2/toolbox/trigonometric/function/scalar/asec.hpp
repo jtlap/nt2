@@ -12,6 +12,10 @@
 
 #include <nt2/include/functions/acsc.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/log.hpp>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -60,8 +64,18 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
+// 	A0 ax =  nt2::abs(a0);
+// 	if (ax <  One<A0>()) return Nan<A0>(); 
+// 	A0 ax1 =  ax-One<A0>(); 
+// 	if (ax1 < 0.01) {
+// 	  std::cout << "icitted" << std::endl; 
+// 	  return nt2::sqrt(2*log(ax))*(1-ax1/6-3.264474750714559e-01f*sqr(ax1)*ax1); 
+// 	}
         //                                  6.123233995736765886130E-17
-        return (Pio_2<A0>()-nt2::acsc(a0)); //+double_constant<A0, 0x3c91a62633145c07ll>();
+	if (is_equal(a0, One<A0>())) return Zero<A0>(); 
+	A0 tmp =  (Pio_2<A0>()-nt2::acsc(a0))+  double_constant<A0, 0x3c91a62633145c07ll>(); 
+	return tmp;
+	//        return (Pio_2<A0>()-nt2::acsc(a0))+double_constant<A0, 0x3c91a62633145c07ll>();
       }
   };
 } }
@@ -86,7 +100,17 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
-      return Pio_2<A0>()-nt2::acsc(a0);
+// 	A0 ax =  nt2::abs(a0);
+// 	if (ax <  One<A0>()) return Nan<A0>(); 
+// 	A0 ax1 =  ax-One<A0>(); 
+// 	if (ax1 < 0.01f) {
+// 	  std::cout << "icittef" << std::endl; 
+// 	  return nt2::sqrt(2*log(ax))*(1-ax1/6-3.264474750714559e-01f*sqr(ax1)*ax1); 
+// 	}
+	if (is_equal(a0, One<A0>())) return Zero<A0>(); 
+	A0 tmp =  (Pio_2<A0>()-nt2::acsc(a0));
+	//	if (abs(tmp) < 1.0e-4) tmp -= 4.3711388e-08;
+	return tmp;
       }
   };
 } }

@@ -47,7 +47,7 @@
         'verif_test'      : { ## verification dictionary
             'property_call'   : {'real_' : ['nt2::secd(a0)'],},  ## dictionary of calls per types
             'property_value'  : {'real_' : ['nt2::rec(nt2::crlibm::cos<nt2::rn>(a0*nt2::Deginrad<T>()))'],}, ## dictionary of alternate calls
-            'ulp_thresh'      : {'real_' : ['2.5'],},     ## validity thresholds(s)
+            'ulp_thresh'      : {'real_' : ['3.5'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 
 },

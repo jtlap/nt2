@@ -43,7 +43,7 @@
            },  ## dictionary of parameters and values to be tested
         'ranges'          :  {
              'default'       : [["nt2::One<T>()","nt2::Ten<T>()"]],
-             'real_'         : [["nt2::One<T>()","nt2::Ten<T>()"]],
+             'real_'         : [["T(1.01)","nt2::Ten<T>()"]],
              'signed_int_'   : [["T(1)","T(10)"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary

@@ -47,7 +47,7 @@
         'verif_test'      : { ## verification dictionary
             'property_call'   : {'real_' : ['nt2::fast_cotd(a0)'],},  ## dictionary of calls per types
             'property_value'  : {'real_' : ['nt2::cotd(a0)'],}, ## dictionary of alternate calls
-            'ulp_thresh'      : {'real_' : ['1.0'],},     ## validity thresholds(s)
+            'ulp_thresh'      : {'real_' : ['1.5'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 
 },

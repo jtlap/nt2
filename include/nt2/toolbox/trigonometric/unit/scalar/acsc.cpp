@@ -51,9 +51,9 @@ NT2_TEST_CASE_TPL ( acsc_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  acsc(nt2::Two<T>()), nt2::Pi<r_t>()/6, 0.5);
   NT2_TEST_ULP_EQUAL(  acsc(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUFFER(a0,T, 100, nt2::One<T>(), nt2::Ten<T>());
+    NT2_CREATE_BUFFER(a0,T, NR, T(1.01), nt2::Ten<T>());
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {

@@ -51,16 +51,16 @@ NT2_TEST_CASE_TPL ( acscd_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  acscd(nt2::Two<T>()), 30, 0.5);
   NT2_TEST_ULP_EQUAL(  acscd(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUFFER(a0,T, 100, nt2::One<T>(), nt2::Ten<T>());
+    NT2_CREATE_BUFFER(a0,T, NR, nt2::One<T>(), nt2::Ten<T>());
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::acscd(a0),nt2::crlibm::asin<nt2::rn>(nt2::rec(a0))*nt2::Radindeg<T>(),2.0);
+        NT2_TEST_ULP_EQUAL( nt2::acscd(a0),nt2::crlibm::asin<nt2::rn>(nt2::rec(a0))*nt2::Radindeg<T>(),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

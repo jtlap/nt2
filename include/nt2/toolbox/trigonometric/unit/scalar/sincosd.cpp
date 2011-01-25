@@ -95,10 +95,10 @@ NT2_TEST_CASE_TPL ( sincosd_real__1,  NT2_REAL_TYPES)
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t0>(), 0.75);
   }
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
     typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
-    NT2_CREATE_BUFFER(a0,T, 100, T(-2000), T(2000));
+    NT2_CREATE_BUFFER(a0,T, NR, T(-2000), T(2000));
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
