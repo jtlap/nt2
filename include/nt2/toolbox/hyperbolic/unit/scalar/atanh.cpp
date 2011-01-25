@@ -47,16 +47,16 @@ NT2_TEST_CASE_TPL ( atanh_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  atanh(nt2::One<T>()), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  atanh(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-1), T(1));
+    NT2_CREATE_BUFFER(a0,T, NR, T(-1), T(1));
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::atanh(a0),nt2::boost_math::atanh(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::atanh(a0),nt2::boost_math::atanh(a0),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

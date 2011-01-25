@@ -37,7 +37,7 @@
         'verif_test'      : { ## verification dictionary
             'property_call'   : {'real_' : ['nt2::tanh(a0)'],},  ## dictionary of calls per types
             'property_value'  : {'real_' : ['nt2::cephes::tanh(a0)'],}, ## dictionary of alternate calls
-            'ulp_thresh'      : {'real_' : ['0.5'],},     ## validity thresholds(s)
+            'ulp_thresh'      : {'real_' : ['1.0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 
 },

@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( sech_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  sech(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  sech(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 100;
+  static const uint32_t NR = 10000;
   {
-    NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
+    NT2_CREATE_BUFFER(a0,T, NR, T(-10), T(10));
     double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {

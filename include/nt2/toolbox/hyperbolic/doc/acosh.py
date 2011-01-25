@@ -36,6 +36,7 @@
              'default'       : [["T(1)","T(1000)"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
+            'nb_rand'         : '10000',    
             'property_call'   : {'real_' : ['nt2::acosh(a0)'],},  ## dictionary of calls per types
             'property_value'  : {'real_' : ['nt2::boost_math::acosh(a0)'],}, ## dictionary of alternate calls
             'ulp_thresh'      : {'real_' : ['0.5'],},     ## validity thresholds(s)
