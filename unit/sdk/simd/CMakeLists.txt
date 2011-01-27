@@ -37,6 +37,7 @@ SET( SOURCES
     make_real.cpp
     minus.cpp
     modulo.cpp
+    multiplies.cpp
 #    native.cpp
     native_cast.cpp
     neg.cpp
