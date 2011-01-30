@@ -69,6 +69,7 @@ struct calculator_expression
 struct numeric_domain
     : proto::domain<proto::generator<calculator_expression> >
   {};
+
 struct calculator_domain
   : proto::domain<proto::generator<calculator_expression>, _, numeric_domain >
 {};
@@ -83,6 +84,162 @@ calculator_expression<proto::terminal< bool >::type> const _pb;
 
 
 
+// TABLES DOMAIN TEST
+
+template<int N, template<int,typename> class Extends>
+struct table_generator
+{
+	BOOST_PROTO_CALLABLE()
+	BOOST_PROTO_USE_BASIC_EXPR()
+	
+	template<typename Sig>
+	struct result;
+	
+	template<typename This, typename Expr>
+	struct result<This(Expr)>
+	{
+		typedef Extends<N,Expr> type;
+	};
+	
+	template<typename This, typename Expr>
+	struct result<This(Expr &)>
+	{
+		typedef Extends<N,Expr> type;
+	};
+	
+	template<typename This, typename Expr>
+	struct result<This(Expr const &)>
+	{
+		typedef Extends<N,Expr> type;
+	};
+	
+	/// \param expr A Proto expression
+	/// \return Extends<Expr>(expr)
+	template<typename Expr>
+	Extends<N,Expr> operator ()(Expr const &e) const
+	{
+		return Extends<N,Expr>(e);
+	}
+};
+
+struct tables_domain;
+template<int N> struct table_domain;
+struct matrix_domain;
+struct vector_domain; 
+
+template<typename Expr>
+struct tables_expression
+: proto::extends<Expr, tables_expression<Expr>, tables_domain>
+{
+	typedef
+	proto::extends<Expr, tables_expression<Expr>, tables_domain>
+	base_type;
+	
+	explicit tables_expression(Expr const &expr = Expr())
+	: base_type(expr)
+	{}
+	
+	BOOST_PROTO_EXTENDS_USING_ASSIGN(tables_expression)
+};
+
+
+template<int N,typename Expr>
+struct table_expression
+: proto::extends<Expr, table_expression<N,Expr>, tables_domain>
+{
+	typedef
+	proto::extends<Expr, table_expression<N,Expr>, tables_domain>
+	base_type;
+	
+	explicit table_expression(Expr const &expr = Expr())
+	: base_type(expr)
+	{}
+};
+
+
+template<typename Expr>
+struct matrix_expression
+: proto::extends<Expr, matrix_expression<Expr>, matrix_domain>
+{
+	typedef
+	proto::extends<Expr, matrix_expression<Expr>, matrix_domain>
+	base_type;
+	
+	explicit matrix_expression(Expr const &expr = Expr())
+	: base_type(expr)
+	{}
+	
+	BOOST_PROTO_EXTENDS_USING_ASSIGN(matrix_expression)
+};
+
+template<typename Expr>
+struct vector_expression
+: proto::extends<Expr, vector_expression<Expr>, vector_domain>
+{
+	typedef
+	proto::extends<Expr, vector_expression<Expr>, vector_domain>
+	base_type;
+	
+	explicit vector_expression(Expr const &expr = Expr())
+	: base_type(expr)
+	{}
+	
+	BOOST_PROTO_EXTENDS_USING_ASSIGN(vector_expression)
+};
+
+struct tables_domain : proto::domain<proto::generator<tables_expression>, _ > {};
+
+template<int N>
+struct table_domain 
+     : proto::domain<table_generator<N,table_expression>, _, table_domain<N> > {};
+
+struct matrix_domain 
+: proto::domain<proto::generator<matrix_expression>, _, table_domain<2> > {};
+
+struct vector_domain 
+: proto::domain<proto::generator<vector_expression>, _, table_domain<1> > {};
+
+
+template<int N>
+typename boost::proto::result_of
+::make_expr< boost::proto::tag::terminal
+, table_domain<N>
+, int const
+
+>::type
+make_table()
+{
+	return	boost::proto::
+	make_expr<boost::proto::tag::terminal,table_domain<N> >(N);
+}
+
+boost::proto::result_of
+::make_expr< boost::proto::tag::terminal
+, matrix_domain
+, int const
+
+>::type
+make_matrix()
+{
+	return	boost::proto::
+	make_expr<boost::proto::tag::terminal,matrix_domain >(20);
+}
+
+
+boost::proto::result_of
+::make_expr< boost::proto::tag::terminal
+, vector_domain
+, int const
+
+>::type
+make_vector()
+{
+	return	boost::proto::
+	make_expr<boost::proto::tag::terminal,vector_domain >(20);
+}
+
+
+////// Domain hierarchy
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/functor/operators.hpp>
 
@@ -147,6 +304,12 @@ namespace nt2 { namespace details
 
 
 template<class X> void
+type_from(X const& )
+{
+  std::cout << nt2::type_id<typename boost::proto::domain_of<X>::type >() << "\n";
+}
+
+template<class X> void
 tag_from(X const& )
 {
   std::cout << nt2::type_id<typename X::type>() << "\n";
@@ -167,6 +330,13 @@ info(X const& x)
 
 int main()
 {
+	type_from(make_table<1>()+make_table<2>());
+	
+	type_from(make_table<1>()+make_table<1>());
+	type_from(make_vector()+make_vector());
+	type_from(make_matrix()+make_matrix());
+	//type_from(make_matrix()+make_vector());
+	/*
   // terminals
   info(_p1);
   info(_pf);
@@ -187,5 +357,6 @@ int main()
             + _pus * _pus + _pus + _pus
             + _pus - _pus + !!!_pus
       );
+	*/
   return 0;
 }
