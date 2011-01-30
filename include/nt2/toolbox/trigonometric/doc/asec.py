@@ -44,13 +44,13 @@
            },  ## dictionary of parameters and values to be tested
         'ranges'          :  {
              'default'       : [["nt2::One<T>()","nt2::Ten<T>()"]],
-             'real_'         : [["T(1.05)","nt2::Ten<T>()"]],
+             'real_'         : [["T(1.01)","T(10)"],["T(-10)","T(-1.01)"]],
              'signed_int_'   : [["T(1)","T(10)"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
             'property_call'   : {'real_' : ['nt2::asec(a0)'],},  ## dictionary of calls per types
             'property_value'  : {'real_' : ['nt2::crlibm::acos<nt2::rn>(nt2::rec(a0))'],}, ## dictionary of alternate calls
-            'ulp_thresh'      : {'real_' : ['2.0'],},     ## validity thresholds(s)
+            'ulp_thresh'      : {'real_' : ['4.0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 
 },
