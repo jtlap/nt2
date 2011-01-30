@@ -38,7 +38,7 @@
                 },
            },  ## dictionary of parameters and values to be tested
         'ranges'          :  {
-             'default'       : [["T(1)","T(1000)"]],
+             'default'       : [["T(1)","T(1000)"],["T(-1000)","T(-1)"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
             'property_call'   : {'real_' : ['nt2::acoth(a0)'],},  ## dictionary of calls per types
