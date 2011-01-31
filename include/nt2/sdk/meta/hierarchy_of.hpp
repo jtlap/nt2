@@ -12,6 +12,7 @@
 #include <climits>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/hierarchy.hpp>
+#include <nt2/sdk/meta/enable_if_type.hpp>
 
 namespace nt2 { namespace details
 {
@@ -23,11 +24,6 @@ namespace nt2 { namespace details
   {
     typedef meta::unspecified_<typename meta::strip<T>::type> type;
   };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // implementation details for hierarchy_of on integers
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,std::size_t Size, bool Signed> struct hierarchy_of_ints;
 } }
 
 namespace nt2 { namespace meta
@@ -36,10 +32,24 @@ namespace nt2 { namespace meta
   // hierarchy_of computes the entry point of a given type inside the type
   // hierarchy lattice.
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
+  template<class T, class Enable = void>
   struct  hierarchy_of
         : details::hierarchy_of<typename meta::strip<T>::type>
   {};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Overload for types with inner hierarchy tag
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  struct  hierarchy_of< T
+                      , typename
+                        enable_if_type<typename meta::strip<T>::type
+                                                    ::nt2_hierarchy_tag
+                                      >::type
+                      >
+  {
+    typedef typename meta::strip<T>::type::nt2_hierarchy_tag type;
+  };
 } }
 
 #include <nt2/sdk/meta/details/hierarchy_of.hpp>
