@@ -19,6 +19,8 @@ SET( SOURCES
     cardinal_of.cpp
     category_of.cpp
     comma.cpp
+    compare_equal.cpp
+    compare_not_equal.cpp
     complement.cpp
     divides.cpp
     downgrade.cpp
