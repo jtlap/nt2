@@ -45,6 +45,8 @@ SET( SOURCES
     plus.cpp
     scalar_of.cpp
     sign_of.cpp
+    shift_left.cpp
+    shift_right.cpp
     upgrade.cpp
    )
 
