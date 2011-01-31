@@ -18,9 +18,8 @@
 #include NT2_SIMD_INCLUDE(compare_equal.hpp)
 #include NT2_SIMD_INCLUDE(compare_not_equal.hpp)
 //#include NT2_SIMD_INCLUDE(compare_less.hpp)
-//#include NT2_SIMD_INCLUDE(compare_less_equal.hpp)
-//#include NT2_SIMD_INCLUDE(compare_greater.hpp)
-//#include NT2_SIMD_INCLUDE(compare_greater_equal.hpp)
-
+#include NT2_SIMD_INCLUDE(compare_less_equal.hpp)
+#include NT2_SIMD_INCLUDE(compare_greater.hpp)
+#include NT2_SIMD_INCLUDE(compare_greater_equal.hpp)
 
 #endif
