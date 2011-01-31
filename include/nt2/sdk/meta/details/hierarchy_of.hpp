@@ -17,6 +17,11 @@
 
 namespace nt2 { namespace details
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // implementation details for hierarchy_of on integers
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,std::size_t Size, bool Signed> struct hierarchy_of_ints;
+
   template<class T>
   struct  hierarchy_of< T
                       , typename boost::
