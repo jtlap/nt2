@@ -11,11 +11,24 @@
 
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::compare_equal_, tag::cpu_, (A0)
+                      , ((simd_<arithmetic_<A0>,tag::sse_>))
+                        ((simd_<arithmetic_<A0>,tag::sse_>))
+                      );
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
-  template<class Info>
-  struct  call< simd::is_equal_ ,tag::simd_(tag::arithmetic_,tag::sse_)
-              , fundamental_    , Info
+  template<class Dummy>
+  struct  call< tag::compare_equal_ ( tag::simd_(tag::arithmetic_,tag::sse_)
+                                    , tag::simd_(tag::arithmetic_,tag::sse_)
+                                    )
+              , tag::cpu_, Dummy
               >
         : callable
   {

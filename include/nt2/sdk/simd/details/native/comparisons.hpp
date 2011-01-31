@@ -13,35 +13,40 @@
 // Setup SIMD extension specific boolean operations
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/functor/operators.hpp>
 
-
-#define NT2_MAKE_NATIVE_OP(TAG,OP)                                \
-template<class T1, class T2,class X> inline                       \
-typename meta::enable_call<TAG(native<T1,X>,native<T2,X>)>::type  \
-OP(native<T1,X> const& a0, native<T2,X> const& a1)                \
-{                                                                 \
-  functors::functor<TAG> callee;                                  \
-  return callee(a0,a1);                                           \
-}                                                                 \
+#define NT2_MAKE_NATIVE_OP(TAG,OP)                                  \
+template<class T,class X> inline                                    \
+typename nt2::meta::enable_call<TAG(native<T,X>,native<T,X>)>::type \
+OP(native<T,X> const& a0, native<T,X> const& a1)                    \
+{                                                                   \
+  nt2::functor<TAG> callee;                                         \
+  return callee(a0,a1);                                             \
+}                                                                   \
 /**/
+
+namespace nt2 { namespace tag
+{
+  struct compare_equal_         {};
+  struct compare_not_equal_     {};
+  struct compare_less_          {};
+  struct compare_greater_       {};
+  struct compare_less_equal_    {};
+  struct compare_greater_equal_ {};
+} }
 
 namespace nt2 { namespace simd
 {
-  struct is_equal_          {};
-  struct is_not_equal_      {};
-  struct is_less_           {};
-  struct is_greater_        {};
-  struct is_less_equal_     {};
-  struct is_greater_equal_  {};
-
-  NT2_MAKE_NATIVE_OP( functors::is_equal_        , operator== )
-  NT2_MAKE_NATIVE_OP( functors::is_not_equal_    , operator!= )
-  NT2_MAKE_NATIVE_OP( functors::is_less_         , operator<  )
-  NT2_MAKE_NATIVE_OP( functors::is_greater_      , operator>  )
-  NT2_MAKE_NATIVE_OP( functors::is_less_equal_   , operator<= )
-  NT2_MAKE_NATIVE_OP( functors::is_greater_equal_, operator>= )
+  NT2_MAKE_NATIVE_OP( tag::compare_equal_        , operator== )
+  NT2_MAKE_NATIVE_OP( tag::compare_not_equal_    , operator!= )
+  NT2_MAKE_NATIVE_OP( tag::compare_less_         , operator<  )
+  NT2_MAKE_NATIVE_OP( tag::compare_greater_      , operator>  )
+  NT2_MAKE_NATIVE_OP( tag::compare_less_equal_   , operator<= )
+  NT2_MAKE_NATIVE_OP( tag::compare_greater_equal_, operator>= )
 } }
 
 #include <nt2/sdk/simd/details/impl/comparisons.hpp>
+
+#undef NT2_MAKE_NATIVE_OP
 
 #endif

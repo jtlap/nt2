@@ -8,7 +8,5 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSSE3_COMPARE_GREATER_EQUAL_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSSE3_COMPARE_GREATER_EQUAL_HPP_INCLUDED
-
 #include <nt2/sdk/simd/details/impl/sse/sse3/compare_greater_equal.hpp>
-
 #endif
