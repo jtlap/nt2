@@ -26,7 +26,7 @@
 NT2_TEST_CASE_TPL(twopower, NT2_SIMD_INTEGRAL_TYPES )
 {
  using nt2::twopower;
- using nt2::functors::twopower_;    
+ using nt2::tag::twopower_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

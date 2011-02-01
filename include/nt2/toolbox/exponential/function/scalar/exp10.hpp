@@ -10,9 +10,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_EXP10_HPP_INCLUDED
 #include <nt2/toolbox/exponential/function/scalar/impl/expo.hpp>
 
-namespace nt2 {
-  
-  namespace details
+namespace nt2 {  namespace details
   {
     // ///////////////////////////////////////////////////////////////////////////
     // Meta-programmed exp10 values
@@ -72,39 +70,21 @@ namespace nt2 {
     NT2_FAST_EXP10(uint64_t    ,  0,21)
     #undef NT2_FAST_EXP10
   }
+}
 
-  namespace functors
-  {
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::exp10_, tag::cpu_,
+                       (A0),
+                       (arithmetic_<A0>)
+                      )
 
-  //  no special validate for exp10
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute exp10(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<exp10_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
-  {
-      template<class Sig> struct result;
-      template<class This,class A0>
-      struct result<This(A0)> :
-        boost::result_of<meta::arithmetic(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-      {
-         return impl::exponential<A0,ten_tag, tag::not_simd_type, accu_tag>::expa(a0);
-      }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<exp10_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::exp10_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
       template<class Sig> struct result;
       template<class This,class A0>
@@ -116,8 +96,34 @@ namespace nt2 {
         return details::specExp10(a0);
       }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::exp10_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::exp10_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+      template<class Sig> struct result;
+      template<class This,class A0>
+      struct result<This(A0)> :
+        boost::result_of<meta::arithmetic(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+      {
+         return impl::exponential<A0,ten_tag, tag::not_simd_type, accu_tag>::expa(a0);
+      }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010
+// modified manually by jt the 29/12/2010

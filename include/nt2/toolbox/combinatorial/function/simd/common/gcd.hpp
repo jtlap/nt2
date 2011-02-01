@@ -18,19 +18,58 @@
 #include <nt2/include/functions/any.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gcd_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<arithmetic_<A0>,X>))
+                      ((simd_<arithmetic_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for gcd
+  template<class X, class Dummy>
+  struct call<tag::gcd_(tag::simd_(tag::arithmetic_, X),
+                        tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute gcd(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 a = a0, b = a1;
+      A0 t= is_nez(b);
+      while (any(t))
+      {
+        A0 r = t&rem(a, b);
+        a = sel(t, b, a);
+        b = r;
+        t= is_nez(b);
+      }
+      return a;
+    }
+  };
+} }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<gcd_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gcd_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<real_<A0>,X>))
+                      ((simd_<real_<A0>,X>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::gcd_(tag::simd_(tag::real_, X),
+                        tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,43 +80,16 @@ namespace nt2 { namespace functors
       A0 a(round2even(a0)), b(round2even(a1));
       A0 t= is_nez(b);
       while (any(t))
-	{
-	  A0 r = b_and(t, rem(a, b));
-	  a = sel(t, b, a);
-	  b = r;
-	  t= is_nez(b);
-	}
+      {
+        A0 r = b_and(t, rem(a, b));
+        a = sel(t, b, a);
+        b = r;
+        t= is_nez(b);
+      }
       return round2even(a);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<gcd_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 a = a0, b = a1; 
-      A0 t= is_nez(b);
-      while (any(t))
-	{
-	  A0 r = t&rem(a, b);
-	  a = sel(t, b, a);
-	  b = r;
-	  t= is_nez(b);
-	}
-      return a;
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

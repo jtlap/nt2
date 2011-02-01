@@ -18,16 +18,16 @@
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( popcnt,  (nt2::uint64_t)(nt2::int64_t) 
-		    (nt2::uint32_t)(nt2::int32_t)  
-		    (nt2::uint16_t)(nt2::int16_t)         
-		    (nt2::uint8_t)(nt2::int8_t)
+                (nt2::uint32_t)(nt2::int32_t)  
+                (nt2::uint16_t)(nt2::int16_t)         
+                (nt2::uint8_t)(nt2::int8_t)
                   )
 {
   using nt2::popcnt;
-  using nt2::functors::popcnt_;
+  using nt2::tag::popcnt_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<popcnt_(T)>::type
-	     , typename nt2::meta::as_integer<T, unsigned>::type
+           , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
   NT2_TEST_EQUAL(  popcnt( T(1)), 1 );
@@ -35,14 +35,14 @@ NT2_TEST_CASE_TPL ( popcnt,  (nt2::uint64_t)(nt2::int64_t)
   NT2_TEST_EQUAL(  popcnt( T(3)), 2 ); 
 }
 NT2_TEST_CASE_TPL ( real_popcnt,  (double) 
-		    (float)
+                (float)
                   )
 {
   using nt2::popcnt;
-  using nt2::functors::popcnt_;
+  using nt2::tag::popcnt_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<popcnt_(T)>::type
-	     ,typename nt2::meta::as_integer<T, unsigned>::type
+           ,typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
   NT2_TEST_EQUAL(  popcnt( T(nt2::Nan<T>())), sizeof(T)*8 );

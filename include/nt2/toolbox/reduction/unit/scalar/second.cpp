@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( second, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::second;
-  using nt2::functors::second_;
+  using nt2::tag::second_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<second_(T)>::type
                             , T

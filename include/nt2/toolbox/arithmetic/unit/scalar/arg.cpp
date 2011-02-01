@@ -8,46 +8,109 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - arg/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/arithmetic/include/arg.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/arg.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( arg,  (double)(nt2::int64_t) 
-                          (float)(nt2::int32_t)  
-                          (nt2::int16_t)         
-                          (nt2::int8_t)
-                  )
+NT2_TEST_CASE_TPL ( arg_real__1,  NT2_REAL_TYPES)
 {
   using nt2::arg;
-  using nt2::functors::arg_;
+  using nt2::tag::arg_;
+  typedef typename nt2::meta::call<arg_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<arg_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  arg( T(1) ), T(0) );
-  NT2_TEST_EQUAL(  arg( T(-1)), nt2::Pi<typename boost::result_of<nt2::meta::floating(T)>::type>()); 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
-}
 
-NT2_TEST_CASE_TPL ( unsigned_arg,  (nt2::uint64_t) 
-                          (nt2::uint32_t)  
-                          (nt2::uint16_t)         
-                          (nt2::uint8_t)
-                  ){
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Inf<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Minf<T>()), nt2::Pi<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Mone<T>()), nt2::Pi<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, nt2::Valmin<T>(), nt2::Valmax<T>());
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::arg(a0),a0>=0 ? 0 : nt2::Pi<r_t>(),0);
+     }
+   }
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( arg_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
   using nt2::arg;
-  using nt2::functors::arg_;
+  using nt2::tag::arg_;
+  typedef typename nt2::meta::call<arg_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<arg_(T)>::type
-	     , typename boost::result_of<nt2::meta::floating(T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  arg( T(1) ), T(0) );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  arg(nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, nt2::Valmin<T>(), nt2::Valmax<T>());
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::arg(a0),a0>=0 ? 0 : nt2::Pi<r_t>(),0);
+     }
+   }
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( arg_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::arg;
+  using nt2::tag::arg_;
+  typedef typename nt2::meta::call<arg_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Mone<T>()), nt2::Pi<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  arg(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  // random verifications
+  static const uint32_t NR = 100;
+  {
+    NT2_CREATE_BUFFER(a0,T, 100, nt2::Valmin<T>(), nt2::Valmax<T>());
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::arg(a0),a0>=0 ? 0 : nt2::Pi<r_t>(),0);
+     }
+   }
+} // end of test for signed_int_

@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/predicates/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct is_ord_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::is_ord_, is_ord, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_ord_, is_ord, 2)
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_ord.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

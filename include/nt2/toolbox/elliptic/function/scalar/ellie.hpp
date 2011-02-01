@@ -27,110 +27,125 @@
 #include <nt2/include/functions/ellpe.hpp>
 #include <nt2/include/functions/ellpk.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ellie_, tag::cpu_,
+                       (A0)(A1),
+                       (arithmetic_<A0>)(arithmetic_<A1>)
+                      )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for ellie
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute ellie(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ellie_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::ellie_(tag::arithmetic_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
-      else if (is_eqz(a1))
-	return a0;
-      else if (a1 == One<A1>())
-	return nt2::sin(a0); 
-      else
-	{
-	  type lphi = nt2::abs(a0);
-	  type m   =  a1; 
-	  type a = One<type>();
-	  type b = nt2::sqrt(oneminus(m));
-	  type c = nt2::sqrt(m);
-	  int d = One<int>();
-	  type e = Zero<type>();
-	  type t = nt2::tan( lphi );
-	  int mod = (lphi + Pio_2<type>())/Pi<type>();
-	  while( nt2::abs(c) > Eps<type>()*nt2::abs(a) )
-	    {
-	      type temp = b/a;
-	      lphi = lphi + nt2::atan(t*temp) + mod * Pi < type>();
-	      mod = (lphi + Pio_2<type>())/Pi<type>();
-	      t *= oneplus(temp)/( oneminus(temp * sqr(t)));
-	      c = average(a,-b);
-	      temp = nt2::sqrt(a*b);
-	      a = nt2::average(a,b);
-	      b = temp;
-	      d += d;
-	      e += c*nt2::sin(lphi);
-	    }
-	  
-	  b = oneminus(m);
-	  type temp = nt2::ellpe(b)/nt2::ellpk(b);
-	  temp *= (nt2::atan(t) + mod * Pi < float>())/(d * a);
-	  temp += e;
-	  if(is_ltz(a0))  temp = -temp;
-	  return temp ;
-	}
-      }
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::ellie(type(a0), type(a1));
+    }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ellie_, tag::cpu_,
+                       (A0)(A1),
+                       (double_<A0>)(double_<A1>)
+                      )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ellie_,tag::scalar_(tag::arithmetic_),double,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ellie_(tag::double_,tag::double_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>(); 
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return type(a0);
       return boost::math::ellint_2(nt2::sqrt(type(a1)), type(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ellie_, tag::cpu_,
+                       (A0)(A1),
+                       (float_<A0>)(float_<A1>)
+                      )
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<ellie_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ellie_(tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
+    struct result<This(A0,A1)> :
       boost::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-	typedef typename NT2_CALL_RETURN_TYPE(2)::type type;
-	return nt2::ellie(type(a0), type(a1)); 
-    }
-  };
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
+      else if (is_eqz(a1))
+      return a0;
+      else if (a1 == One<A1>())
+      return nt2::sin(a0);
+      else
+      {
+        type lphi = nt2::abs(a0);
+        type m   =  a1;
+        type a = One<type>();
+        type b = nt2::sqrt(oneminus(m));
+        type c = nt2::sqrt(m);
+        int d = One<int>();
+        type e = Zero<type>();
+        type t = nt2::tan( lphi );
+        int mod = (lphi + Pio_2<type>())/Pi<type>();
+        while( nt2::abs(c) > Eps<type>()*nt2::abs(a) )
+          {
+            type temp = b/a;
+            lphi = lphi + nt2::atan(t*temp) + mod * Pi < type>();
+            mod = (lphi + Pio_2<type>())/Pi<type>();
+            t *= oneplus(temp)/( oneminus(temp * sqr(t)));
+            c = average(a,-b);
+            temp = nt2::sqrt(a*b);
+            a = nt2::average(a,b);
+            b = temp;
+            d += d;
+            e += c*nt2::sin(lphi);
+          }
 
+        b = oneminus(m);
+        type temp = nt2::ellpe(b)/nt2::ellpk(b);
+        temp *= (nt2::atan(t) + mod * Pi < float>())/(d * a);
+        temp += e;
+        if(is_ltz(a0))  temp = -temp;
+        return temp ;
+      }
+      }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -72,9 +72,9 @@ namespace nt2
 	static inline A0 log(const  A0& a0)
 	{
 	  typedef typename meta::strip<A0>::type stA0; 
-	  if (a0 == Inf<A0>()) return a0;
-	  if (is_eqz(a0)) return Minf<A0>();
-	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<A0>();
+	  if (a0 == Inf<stA0>()) return a0;
+	  if (is_eqz(a0)) return Minf<stA0>();
+	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<stA0>();
 	  A0 x, fe, x2, y;
 	  kernel_log(a0, fe, x, x2, y);
 	  y = madd(fe, single_constant<stA0, 0xb95e8083>(), y);
@@ -86,12 +86,12 @@ namespace nt2
 	static inline A0 log2(const  A0& a0)
 	{
 	  typedef typename meta::strip<A0>::type stA0; 
-	  if (a0 == Inf<A0>()) return a0;
-	  if (is_eqz(a0)) return Minf<A0>();
-	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<A0>();
+	  if (a0 == Inf<stA0>()) return a0;
+	  if (is_eqz(a0)) return Minf<stA0>();
+	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<stA0>();
 	  A0 x, fe, x2, y;
 	  kernel_log(a0, fe, x, x2, y);
-	  y =  madd(Mhalf<A0>(),x2, y);
+	  y =  madd(Mhalf<stA0>(),x2, y);
 	  // multiply log of fraction by log2(e)
 	  A0 z = madd( x
 		       , single_constant<stA0, 0x3ee2a8ed>()
@@ -103,12 +103,12 @@ namespace nt2
 	static inline A0 log10(const  A0& a0)
 	{
 	  typedef typename meta::strip<A0>::type stA0; 
-	  if (a0 == Inf<A0>()) return a0;
-	  if (is_eqz(a0)) return Minf<A0>();
-	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<A0>();
+	  if (a0 == Inf<stA0>()) return a0;
+	  if (is_eqz(a0)) return Minf<stA0>();
+	  if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<stA0>();
 	  A0 x, fe, x2, y;
 	  kernel_log(a0, fe, x, x2, y);
-	  y =  amul(y, Mhalf<A0>(), x2);
+	  y =  amul(y, Mhalf<stA0>(), x2);
 	  // multiply log of fraction by log10(e) and base 2 exponent by log10(2)
 	  A0 z = mul(x+y, single_constant<stA0, 0x3a37b152>());//7.00731903251827651129E-4f // log10(e)lo
 	  z = amul(z, y, single_constant<stA0, 0x3ede0000>()); //4.3359375E-1f	       // log10(e)hi

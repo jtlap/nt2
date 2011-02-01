@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/euler/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct beta_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::beta_, beta, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::beta_, beta, 2)
 }
  
 #include <nt2/toolbox/euler/function/scalar/beta.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

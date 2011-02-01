@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<cos_rz_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::cos_rz_;
+using nt2::crlibm::tag::cos_rz_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::crlibm::cos_rz_,(RS(vfloat,-31.4f,31.4f)))
-NT2_TIMING(nt2::crlibm::cos_rz_,(RS(vdouble,-31.4,31.4)))
+NT2_TIMING(nt2::crlibm::tag::cos_rz_,(RS(vfloat,-31.4f,31.4f)))
+NT2_TIMING(nt2::crlibm::tag::cos_rz_,(RS(vdouble,-31.4,31.4)))
 
 #undef RS

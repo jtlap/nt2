@@ -27,12 +27,12 @@ NT2_TEST_CASE_TPL ( modf,  (double)
                   )
 {
   using nt2::fdlibm::modf;
-  using nt2::fdlibm::modf_;
+  using nt2::fdlibm::tag::modf_;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;
   typedef boost::fusion::vector<etype, etype>                   type_t;
  
   NT2_TEST( (boost::is_same < typename nt2::meta::call<modf_(T)>::type
-	     , type_t
+           , type_t
               >::value)
            );
 

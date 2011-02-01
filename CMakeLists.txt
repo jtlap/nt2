@@ -123,7 +123,7 @@ INSTALL( TARGETS nt2-static
 ################################################################################
 ADD_CUSTOM_TARGET ( doc
                     COMMAND make html
-                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/doc
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
                   )
 
 ################################################################################
@@ -180,7 +180,7 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/polynomials EXCLUDE_F
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/boost_math EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_ALL)
 
-ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
+#ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 
 ################################################################################
 # Post-config message

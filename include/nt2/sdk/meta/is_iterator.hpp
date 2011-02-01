@@ -10,26 +10,43 @@
 #define NT2_SDK_META_IS_ITERATOR_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_function.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
 
 namespace nt2 { namespace meta
 {
   template<class T, class Enable=void>
-  struct  is_iterator
-        : boost::mpl::false_  {};
+  struct  is_iterator : boost::mpl::false_  {};
 
-  template<class T, class Enable>
-  struct  is_iterator<T*,Enable>
-        : boost::mpl::true_   {};
+  template<class T>
+  struct  is_iterator < T*
+                      , typename boost::
+                        enable_if_c< !boost::
+                                     is_function<typename boost::
+                                                 remove_pointer<T>::type
+                                                >::value
+                                   >::type
+                    >
+    : boost::mpl::true_   {};
 
-  template<class T, class Enable>
-  struct  is_iterator<const T*,Enable>
-        : boost::mpl::true_   {};
+  template<class T>
+  struct  is_iterator < T
+                      , typename boost::
+                        enable_if_c< boost::
+                                     is_function<typename boost::
+                                                 remove_pointer<T>::type
+                                                >::value
+                                      >::type
+                      >
+        : boost::mpl::false_ {};
 
   template<class T>
   struct  is_iterator < T
                       , typename
-                        enable_if_type< typename T::iterator_category >::type
+                        enable_if_type< typename
+                                        strip<T>::type::iterator_category
+                                      >::type
                       >
         : boost::mpl::true_ {};
 } }

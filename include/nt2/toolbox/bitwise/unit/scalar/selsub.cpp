@@ -18,16 +18,16 @@
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( selsub,  (double)(float)(nt2::uint64_t)(nt2::int64_t) 
-		    (nt2::uint32_t)(nt2::int32_t)  
-		    (nt2::uint16_t)(nt2::int16_t)         
-		    (nt2::uint8_t)(nt2::int8_t)
-		    )
+                (nt2::uint32_t)(nt2::int32_t)  
+                (nt2::uint16_t)(nt2::int16_t)         
+                (nt2::uint8_t)(nt2::int8_t)
+                )
 {
   using nt2::selsub;
-  using nt2::functors::selsub_;
+  using nt2::tag::selsub_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<selsub_(bool, T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T) > ::type
+           , typename boost::result_of<nt2::meta::arithmetic(T, T) > ::type
               >::value)
            );
   NT2_TEST_EQUAL(  selsub( 0, T(4), T(2)), T(4) );

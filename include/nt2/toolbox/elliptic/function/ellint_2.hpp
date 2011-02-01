@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/elliptic/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct ellint_2_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::ellint_2_, ellint_2, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::ellint_2_, ellint_2, 1)
 }
  
 #include <nt2/toolbox/elliptic/function/scalar/ellint_2.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

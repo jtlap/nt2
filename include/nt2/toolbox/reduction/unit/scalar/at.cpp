@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( at, (double)(nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::at;
-  using nt2::functors::at_;
+  using nt2::tag::at_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<at_(T,std::size_t)>::type
                             , T

@@ -10,7 +10,7 @@
 
 #include <nt2/toolbox/swar/include/splatted_maximum.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests.hpp> 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(splatted_maximum, NT2_SIMD_TYPES) 
 {
  using nt2::splatted_maximum;
- using nt2::functors::splatted_maximum_;    
+ using nt2::tag::splatted_maximum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -45,16 +45,16 @@ NT2_TEST_CASE_TPL(splatted_maximum, NT2_SIMD_TYPES)
  for(int j =  0;  j < 10; j++)
    {
      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = cardinal_of<n_t>::value-i-1; // good value here for splatted_maximum
+       data[i] = cardinal_of<n_t>::value/2-i-1; // good value here for splatted_maximum
      }
      n_t a0 = load<n_t>(&data[0],0); 
      n_t v  = splatted_maximum(a0);
      std::cout << "  " << a0 << "  " << v << std::endl; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        { 
-	 NT2_TEST_EQUAL(v[j], nt2::maximum(a0));
+       NT2_TEST_EQUAL(v[j], nt2::maximum(a0));
        }
    }
 }
 
-
+ 

@@ -9,34 +9,39 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_BITWISE_XOR_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_BITWISE_XOR_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)
+                      , ((simd_<arithmetic_<A0>,tag::altivec_>))
+                        ((simd_<arithmetic_<A1>,tag::altivec_>))
+                      );
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Bitwise operators requires same bits size
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct validate<bitwise_xor_,tag::simd_(tag::arithmetic_,tag::altivec_),Info>
+  template<class Dummy>
+  struct  call< tag::bitwise_xor_ ( tag::simd_(tag::arithmetic_,tag::altivec_)
+                                  , tag::simd_(tag::arithmetic_,tag::altivec_)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : callable
   {
-    template<class Sig> struct result;
+    template<class Sig>           struct result;
     template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : boost::mpl::bool_< sizeof(A0) == sizeof(A1) > {};
-  };
+    struct result<This(A0,A1)> : meta::strip<A0> {};
 
-  template<class Info,class C>
-  struct call<bitwise_xor_,tag::simd_(C,tag::altivec_),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A>
-    struct result<This(A,A)> : meta::strip<A> {};
-
-    NT2_FUNCTOR_CALL(2) 
-    { 
-      A0 that = { a1 }; 
-      that = vec_xor(a0,that);
-      return that; 
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 other = simd::native_cast<A0>( a1 );
+      A0 that = { vec_xor(a0(),other()) };
+      return that;
     }
   };
 } }

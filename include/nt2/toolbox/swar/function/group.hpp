@@ -13,14 +13,16 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/swar/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct group_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::group_, group, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
 }
  
 #include <nt2/toolbox/swar/function/scalar/group.hpp>
 #include NT2_SWAR_INCLUDE(group.hpp) 
 
 #endif
+
+// modified by jt the 25/12/2010

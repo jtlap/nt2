@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/libc/include.hpp>
 
-namespace nt2 { namespace libc
-  {	       
+namespace nt2 { namespace libc { namespace tag
+  {         
     struct ceil_ {};
-    NT2_FUNCTION_IMPLEMENTATION(libc::ceil_, ceil, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(libc::tag::ceil_, ceil, 1)
+  } }
  
 #include <nt2/toolbox/libc/function/scalar/ceil.hpp>
 // #include NT2_LIBC_INCLUDE(ceil.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

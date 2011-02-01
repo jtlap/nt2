@@ -18,20 +18,20 @@
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::j0_, tag::cpu_,
+                    (A0),
+                    (arithmetic_<A0>)
+                   )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for j0
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute j0(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<j0_,tag::scalar_(tag::arithmetic_),float,Info> : callable
+  template<class Dummy>
+  struct call<tag::j0_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -40,8 +40,61 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type stype; 
-      if (is_inf(a0)) return Zero<A0>(); 
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return nt2::j0(type(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::j0_, tag::cpu_,
+                    (A0),
+                    (double_<A0>)
+                   )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::j0_(tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1) {
+      if (is_inf(a0)) return Zero<A0>();
+      return ::j0(a0);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::j0_, tag::cpu_,
+                    (A0),
+                    (float_<A0>)
+                   )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::j0_(tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<A0>::type stype;
+      if (is_inf(a0)) return Zero<A0>();
       A0 x = nt2::abs(a0);
       if (x < 1.0e-3f) return oneminus(Quarter<A0>()*sqr(x));
       if (x <= Two<A0>())
@@ -82,45 +135,7 @@ namespace nt2 { namespace functors
       return p3*nt2::cos(xn+x);
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<j0_,tag::scalar_(tag::arithmetic_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1) {
-      if (is_inf(a0)) return Zero<A0>(); 
-      return ::j0(a0);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<j0_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type; 
-      return nt2::j0(type(a0));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( logb,  (double)(float) )
 {
   using nt2::fdlibm::logb;
-  using nt2::fdlibm::logb_;
+  using nt2::fdlibm::tag::logb_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::logb_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::logb_(T)>::type,
                            T
                            >::value)
           );

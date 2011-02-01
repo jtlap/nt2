@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bessel/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct j1_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::j1_, j1, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::j1_, j1, 1)
 }
  
 #include <nt2/toolbox/bessel/function/scalar/j1.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

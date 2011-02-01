@@ -24,7 +24,7 @@
 //                  )
 // {
 //  using nt2::hmsb;
-//  using nt2::functors::hmsb_;
+//  using nt2::tag::hmsb_;
 
 //  NT2_TEST( (boost::is_same<typename nt2::meta::call<reduction_(T)>::type,
 //                            typename std::tr1::result_of<nt2::meta::floating<(T)>::type

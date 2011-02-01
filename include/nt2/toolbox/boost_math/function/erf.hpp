@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/erf.hpp>
 
-namespace nt2 { namespace boost_math
-  {	       
+namespace nt2 { namespace boost_math { namespace tag
+  {         
     struct erf_ {};
-    NT2_FUNCTION_IMPLEMENTATION(boost_math::erf_, erf, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::erf_, erf, 1)
+  } }
  
 #include <nt2/toolbox/boost_math/function/scalar/erf.hpp>
 // #include NT2_BOOST_MATH_INCLUDE(erf.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

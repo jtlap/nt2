@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( lbeta,  (double)(float) )
 {
   using nt2::cephes::lbeta;
-  using nt2::cephes::lbeta_;
+  using nt2::cephes::tag::lbeta_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::lbeta_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::lbeta_(T, T)>::type,
                            T
                            >::value)
           );

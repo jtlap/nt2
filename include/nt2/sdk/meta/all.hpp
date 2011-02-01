@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check if all elements of a sequence matches some lambda function
-// TODO: Documentation: http://nt2.lri.fr/sdk/meta/algo/all.html
+// Documentation: http://nt2.lri.fr/sdk/meta/algo/all.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <nt2/sdk/meta/details/all.hpp>

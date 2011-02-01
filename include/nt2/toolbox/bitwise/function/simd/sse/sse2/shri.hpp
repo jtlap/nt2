@@ -14,26 +14,22 @@
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<shri_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::mpl::and_<meta::is_scalar<A1>
-      ,meta::is_integral<A1>
-      > {};
-  };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is types64_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shri_,tag::simd_(tag::arithmetic_,tag::sse_),types64_,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is types8_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shri_, tag::cpu_,
+		      (A0)(A1),
+                      ((simd_<type8_<A0>,tag::sse_>))
+                       ((integer_<A1>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shri_(tag::simd_(tag::type8_, tag::sse_),
+                         tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -41,18 +37,36 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename meta::as_integer<A0>::type sint;
-        sint const that ={ _mm_srli_epi64(simd::native_cast<sint>(a0),a1)};
-        return simd::native_cast<A0>(that);
+      typedef typename NT2_RETURN_TYPE(2)::type result_type;
+      typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> gen_type;
+      result_type const Mask1 =  simd::native_cast<result_type>(integral_constant<gen_type, 0x00ff00ff>());
+      result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00>());
+      result_type tmp  = b_and(a0, Mask1);
+      result_type tmp1 = {_mm_srli_epi16(tmp, a1)};
+      tmp1 = b_and(tmp1, Mask1);
+      tmp = b_and(a0, Mask2);
+      result_type tmp3 = {_mm_srli_epi16(tmp, a1)};
+      result_type tmp2 = b_and(tmp3, Mask2);
+      return tmp1 | tmp2;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is types32_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shri_, tag::cpu_,
+                       (A0)(A1),
+                       ((simd_<type32_<A0>,tag::sse_>))
+                        ((integer_<A1>))
+                      );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is types32_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shri_,tag::simd_(tag::arithmetic_,tag::sse_),types32_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shri_(tag::simd_(tag::type32_, tag::sse_),
+                          tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -65,13 +79,52 @@ namespace nt2 { namespace functors
         return simd::native_cast<A0>(that);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is types64_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shri_, tag::cpu_,
+                       (A0)(A1),
+                       ((simd_<type64_<A0>,tag::sse_>))
+                       ((integer_<A1>))
+                      );
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is types16_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shri_,tag::simd_(tag::arithmetic_,tag::sse_),types16_,Info> : callable
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shri_(tag::simd_(tag::type64_, tag::sse_),
+                         tag::integer_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+        typedef typename meta::as_integer<A0>::type sint;
+        sint const that ={ _mm_srli_epi64(simd::native_cast<sint>(a0),a1)};
+        return simd::native_cast<A0>(that);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is types16_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shri_, tag::cpu_,
+                       (A0)(A1),
+                       ((simd_<type16_<A0>,tag::sse_>))
+                       ((integer_<A1>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shri_(tag::simd_(tag::type16_, tag::sse_),
+                         tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -81,37 +134,10 @@ namespace nt2 { namespace functors
     {
       A0 that = {_mm_srli_epi16(a0, a1)};
       return that;
-    } 
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is types8_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<shri_,tag::simd_(tag::arithmetic_,tag::sse_),types8_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-        typedef typename NT2_CALL_RETURN_TYPE(2)::type result_type;
-	typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> gen_type;
-        result_type const Mask1 =  simd::native_cast<result_type>(integral_constant<gen_type, 0x00ff00ff>());
-	result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00>());
-	result_type tmp  = b_and(a0, Mask1);
-        result_type tmp1 = {_mm_srli_epi16(tmp, a1)};
-	tmp1 = b_and(tmp1, Mask1);
-        tmp = b_and(a0, Mask2);
-	result_type tmp3 = {_mm_srli_epi16(tmp, a1)}; 
-        result_type tmp2 = b_and(tmp3, Mask2);
-        return tmp1 | tmp2;
     }
   };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011
+// modified manually jt the 05/01/2011    

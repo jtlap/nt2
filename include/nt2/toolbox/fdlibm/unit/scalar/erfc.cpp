@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( erfc,  (double)(float) )
 {
   using nt2::fdlibm::erfc;
-  using nt2::fdlibm::erfc_;
+  using nt2::fdlibm::tag::erfc_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::erfc_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::erfc_(T)>::type,
                            T
                            >::value)
           );

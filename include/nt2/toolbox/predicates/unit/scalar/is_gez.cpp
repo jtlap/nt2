@@ -19,36 +19,36 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( is_gez, (double)(nt2::int64_t) 
-		    (float)(nt2::int32_t)  
-		    (nt2::int16_t)         
-		    (nt2::int8_t)
-		    )
+                (float)(nt2::int32_t)  
+                (nt2::int16_t)         
+                (nt2::int8_t)
+                )
 {
   using nt2::is_gez;
-  using nt2::functors::is_gez_;
+  using nt2::tag::is_gez_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_gez_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_gez( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_gez( T(-42) ), 0 );
   NT2_TEST_EQUAL(  is_gez( T(0) ), 1 );
 }
 NT2_TEST_CASE_TPL ( unsigned_is_gez, (nt2::uint64_t) 
-		    (nt2::uint32_t)  
-		    (nt2::uint16_t)         
-		    (nt2::uint8_t)
-		    )
+                (nt2::uint32_t)  
+                (nt2::uint16_t)         
+                (nt2::uint8_t)
+                )
 {
   using nt2::is_gez;
-  using nt2::functors::is_gez_;
+  using nt2::tag::is_gez_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_gez_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
   NT2_TEST_EQUAL(  is_gez( T(42) ), 1 );
   NT2_TEST_EQUAL(  is_gez( T(0) ), 1 );
@@ -56,12 +56,12 @@ NT2_TEST_CASE_TPL ( unsigned_is_gez, (nt2::uint64_t)
 NT2_TEST_CASE_TPL ( real_is_gez, (double)(float) )
 {
   using nt2::is_gez;
-  using nt2::functors::is_gez_;
+  using nt2::tag::is_gez_;
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<is_gez_(T)>::type
-	      , bool
- 	     >::value)
- 	    );
+            , bool
+            >::value)
+           );
 
    NT2_TEST_EQUAL(  is_gez( T(nt2::Nan<T>()) ), 0 );
 

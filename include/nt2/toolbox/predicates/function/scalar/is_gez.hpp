@@ -13,23 +13,45 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gez_, tag::cpu_,
+                        (A0),
+                        (fundamental_<A0>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<is_gez_,tag::scalar_(tag::arithmetic_),Info>
+  template<class Dummy>
+  struct call<tag::is_gez_(tag::fundamental_),
+              tag::cpu_, Dummy> : callable
   {
-    typedef boost::mpl::true_ result_type;
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute is_gez(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> {typedef bool type; };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_gez_,tag::scalar_(tag::arithmetic_),unsigned,Info> : callable
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0 >= Zero<A0>();
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_gez_, tag::cpu_,
+                        (A0),
+                        (unsigned_<A0>)
+                       )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_gez_(tag::unsigned_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -41,25 +63,7 @@ namespace nt2 { namespace functors
       return True<A0>();
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<is_gez_,tag::scalar_(tag::arithmetic_),fundamental_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> {typedef bool type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0 >= Zero<A0>();
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

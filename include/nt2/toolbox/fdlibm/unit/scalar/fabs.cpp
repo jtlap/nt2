@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( fabs,  (double)(float) )
 {
   using nt2::fdlibm::fabs;
-  using nt2::fdlibm::fabs_;
+  using nt2::fdlibm::tag::fabs_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::fabs_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::fabs_(T)>::type,
                            T
                            >::value)
           );

@@ -18,77 +18,76 @@
 #include <nt2/include/functions/oneplus.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::laguerre_, tag::cpu_,
+                           (A0)(A1)(X),
+                           ((integer_<A0>))
+                           ((simd_<arithmetic_<A1>,X>))
+                          );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension, class C, class Info> 
-  struct dispatch< laguerre_,tag::simd_(C,Extension), Info>
-    :boost::mpl::lambda< meta::scalar_of<boost::mpl::_2> >::type {};
-
-  template<class Extension,class Info>
-  struct validate<laguerre_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::mpl::and_<meta::is_real_convertible<A1>
-                      ,meta::is_scalar<A0>
-                      ,meta::is_integral<A0>
-      > {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute laguerre(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<laguerre_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::laguerre_(tag::integer_,
+                             tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::laguerre(a0, tofloat(a1));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::laguerre_, tag::cpu_,
+                          (A0)(A1)(X),
+                          ((integer_<A0>))
+                           ((simd_<real_<A1>,X>))
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::laguerre_(tag::integer_,
+                             tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
       A1 p0 = One<A1>();
       if(a0 == 0) return p0;
       A1 p1 = p0-a1;
-      A1 p;   
-      A1 vc =  One<A1>(); 
+      A1 p;
+      A1 vc =  One<A1>();
       uint32_t c = 1;
       while(c < a0)
-      	{
-       	  p = p0; 
-       	  p0 = p1;
-	  A1 vcp1 =  oneplus(vc); 
-	  p1 = ((vc + vcp1 - a1) * p0 - vc * p) /vcp1;
-      	  vc = vcp1;
-      	  ++c; 
-      	}
+            {
+              p = p0;
+              p0 = p1;
+              A1 vcp1 =  oneplus(vc);
+              p1 = ((vc + vcp1 - a1) * p0 - vc * p) /vcp1;
+              vc = vcp1;
+              ++c;
+            }
       return p1;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<laguerre_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::laguerre(a0, tofloat(a1)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

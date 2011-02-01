@@ -10,18 +10,28 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_IS_GREATER_EQUAL_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for double
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_greater_equal_, tag::cpu_, (A0)
+                      , ((simd_<double_<A0>,tag::sse_>))
+                        ((simd_<double_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  template<class Info>
-  struct  call< is_greater_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
-              , double            , Info
+  template<class Dummy>
+  struct  call< tag::is_greater_equal_( tag::simd_(tag::double_,tag::sse_)
+                                      , tag::simd_(tag::double_,tag::sse_)
+                                      )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -29,15 +39,29 @@ namespace nt2 { namespace functors
       return that;
     }
   };
+} }
 
-  template<class Info>
-  struct  call< is_greater_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
-              , float             , Info
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for float
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_greater_equal_, tag::cpu_, (A0)
+                      , ((simd_<float_<A0>,tag::sse_>))
+                        ((simd_<float_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::is_greater_equal_( tag::simd_(tag::float_,tag::sse_)
+                                      , tag::simd_(tag::float_,tag::sse_)
+                                      )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -45,19 +69,33 @@ namespace nt2 { namespace functors
       return that;
     }
   };
+} }
 
-  template<class Info>
-  struct  call< is_greater_equal_ , tag::simd_(tag::arithmetic_,tag::sse_)
-              , arithmetic_       , Info
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for integers
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::is_greater_equal_, tag::cpu_, (A0)
+                      , ((simd_<integer_<A0>,tag::sse_>))
+                        ((simd_<integer_<A0>,tag::sse_>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::is_greater_equal_( tag::simd_(tag::integer_,tag::sse_)
+                                      , tag::simd_(tag::integer_,tag::sse_)
+                                      )
+              , tag::cpu_, Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A,A)> : meta::strip<A> {};
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { complement(lt(a0,a1) ) };
+      A0 that = { nt2::complement(nt2::lt(a0,a1)) };
       return that;
     }
   };

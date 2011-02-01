@@ -25,27 +25,50 @@
 #include <nt2/include/functions/rec.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
+                          (A0)(A1)(X),
+                          ((simd_<arithmetic_<A0>,X>))
+                          ((simd_<integer_<A0>,X>))
+                         );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<nthroot_,tag::simd_(tag::arithmetic_,Extension),Info>
+  template<class X, class Dummy>
+  struct call<tag::nthroot_(tag::simd_(tag::arithmetic_, X),
+                            tag::simd_(tag::integer_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::mpl::and_<meta::is_real_convertible<A0>,
-		       meta::has_same_size<A0, A1, meta::scalar_of < boost::mpl::_> >, 
-		       meta::is_integral<A1> >{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute nthroot(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
+    struct result<This(A0,A1)> :  meta::as_real<A0>{};
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<nthroot_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::nthroot(tofloat(a0), a1);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
+                          (A0)(A1)(X),
+                          ((simd_<real_<A0>,X>))
+                          ((simd_<integer_<A1>,X>))
+                         );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::nthroot_(tag::simd_(tag::real_, X),
+                            tag::simd_(tag::integer_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -60,35 +83,16 @@ namespace nt2 { namespace functors
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       return  b_and(is_nez(a0),
-		    sel(is_equal(a1, One<A1>()),
-			a0,
-			sel(b_and(is_even(a1), is_ltz(a0)),
-			    Nan<A0>(),
-			    y)
-			)
-		    );
+                sel(is_equal(a1, One<A1>()),
+                  a0,
+                  sel(b_and(is_even(a1), is_ltz(a0)),
+                      Nan<A0>(),
+                      y)
+                  )
+                );
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<nthroot_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::nthroot(tofloat(a0), a1);
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

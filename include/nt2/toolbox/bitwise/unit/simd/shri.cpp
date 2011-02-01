@@ -23,10 +23,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic component shri using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(shri, NT2_TYPES   )
+NT2_TEST_CASE_TPL(shri, NT2_SIMD_INTEGRAL_TYPES   )
 {
  using nt2::shri; 
- using nt2::functors::shri_;
+ using nt2::tag::shri_;
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of; 

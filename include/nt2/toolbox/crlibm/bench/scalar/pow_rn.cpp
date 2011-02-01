@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<pow_rn_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::pow_rn_;
+using nt2::crlibm::tag::pow_rn_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::pow_rn_,(RS(float,-10.0f,10.0f))(RS(float,-10.0f,10.0f)))
-NT2_TIMING(nt2::crlibm::pow_rn_,(RS(double,-10.0,10.0))(RS(double,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::pow_rn_,(RS(float,-10.0f,10.0f))(RS(float,-10.0f,10.0f)))
+NT2_TIMING(nt2::crlibm::tag::pow_rn_,(RS(double,-10.0,10.0))(RS(double,-10.0,10.0)))
 
 #undef RS

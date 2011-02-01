@@ -20,17 +20,17 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( acsc, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::acsc; 
-  using nt2::functors::acsc_;
+  using nt2::tag::acsc_;
   const int N = 1; 
 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<acsc_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST(  nt2::is_nan(acsc( T(0) )) );
    NT2_TEST_EQUAL(  acsc( T(1) )  , nt2::Pio_2<T>() );

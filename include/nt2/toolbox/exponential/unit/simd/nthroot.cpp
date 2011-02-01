@@ -27,7 +27,7 @@
 NT2_TEST_CASE_TPL(nthroot, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
 {
  using nt2::nthroot;
- using nt2::functors::nthroot_;    
+ using nt2::tag::nthroot_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -58,9 +58,9 @@ NT2_TEST_CASE_TPL(nthroot, (double)(float))//NT2_SIMD_REAL_CONVERTIBLE_TYPES )
      rn_t v  = nthroot(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER( z = nt2::ulpdist(v[j], nthroot(a0[j], a1[j])), 10);
-	 std::cout << a0[j] << "  "<<  a1[j]<< "  " << v[j]<< "  " << nthroot(a0[j], a1[j]) << std::endl; 
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER( z = nt2::ulpdist(v[j], nthroot(a0[j], a1[j])), 10);
+       std::cout << a0[j] << "  "<<  a1[j]<< "  " << v[j]<< "  " << nthroot(a0[j], a1[j]) << std::endl; 
+       if (z > m) m = z; 
        }
    }
 std::cout << "ulp max = " << m << std::endl;

@@ -14,19 +14,22 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/is_ltz.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::split_, tag::cpu_,
+                        (A0),
+                        ((simd_<arithmetic_<A0>,tag::sse_>))
+                       );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for split
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is fundamental_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<split_,tag::simd_(tag::arithmetic_,tag::sse_),fundamental_,Info> : callable
+  template<class Dummy>
+  struct call<tag::split_(tag::simd_(tag::arithmetic_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -36,10 +39,9 @@ namespace nt2 { namespace functors
       typedef typename meta::upgrade<stype>::type                           utype;
       typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef meta::is_floating_point<stype>                                 rtag;
-      typedef simd::native<typename  meta::double_<A0>::type,tag::sse_>     dtype;
-      
-      typedef typename boost::mpl::if_c < rtag::value
-                                        , dtype, ttype>::type               rtype;
+      typedef simd::native<typename  meta::double__<A0>::type,tag::sse_>    dtype;
+
+      typedef typename boost::mpl::if_c<rtag::value,dtype,ttype>::type      rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              type;
     };
 
@@ -50,15 +52,16 @@ namespace nt2 { namespace functors
       typedef typename meta::upgrade<stype>::type                           utype;
       typedef simd::native<utype,tag::sse_>                                 ttype;
       typedef typename boost::mpl::if_c<rtag::value,
-                                        simd::native<double,tag::sse_>, ttype>::type rtype;
-      typename NT2_CALL_RETURN_TYPE(1)::type                                  res;
+                                        simd::native<double,tag::sse_>,
+	                                ttype>::type                        rtype;
+      typename NT2_RETURN_TYPE(1)::type                                       res;
       typedef rtype                                                           tag;
 
       eval( a0
-	    , boost::fusion::at_c<0>(res)
-	    , boost::fusion::at_c<1>(res)
-	    , tag()
-	    );
+          , boost::fusion::at_c<0>(res)
+          , boost::fusion::at_c<1>(res)
+          , tag()
+          );
       return res;
     }
   private:
@@ -106,7 +109,7 @@ namespace nt2 { namespace functors
     }
 
     template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  meta::double_<A0>::type,tag::sse_> &)const
+    eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  meta::double__<A0>::type,tag::sse_> &)const
     {
       typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> itype;
       r1 = simd::native_cast<R1>(_mm_cvtps_pd(simd::native_cast<A0>(_mm_srli_si128( simd::native_cast<itype>(a0), 8))));
@@ -118,4 +121,4 @@ namespace nt2 { namespace functors
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

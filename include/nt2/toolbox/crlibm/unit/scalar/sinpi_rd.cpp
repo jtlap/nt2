@@ -21,16 +21,16 @@
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( sinpi_rd, (double) 
-		    (float) 
-		    )
+                (float) 
+                )
 {
   using nt2::crlibm::sinpi_rd; 
-  using nt2::crlibm::sinpi_rd_;
+  using nt2::crlibm::tag::sinpi_rd_;
   const int N = 2; 
    NT2_TEST( (boost::is_same < typename nt2::meta::call<sinpi_rd_(T)>::type
-	      , T
- 	     >::value)
- 	    );
+            , T
+            >::value)
+           );
    typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
    NT2_TEST_EQUAL(  nt2::crlibm::sinpi_rd( T(0) )  , 0 );
    NT2_TEST_LESSER(  nt2::ulpdist(nt2::crlibm::sinpi_rd(T(0.5) ), T(1)),  N); 

@@ -6,61 +6,81 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - maxnummag/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/ieee/include/maxnummag.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/maxnummag.hpp>
+// specific includes for arity 2 tests
+#include <nt2/include/functions/abs.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-
-NT2_TEST_CASE_TPL ( maxnummag,  NT2_INTEGRAL_SIGNED_TYPES
-                  )
+NT2_TEST_CASE_TPL ( maxnummag_real__2,  NT2_REAL_TYPES)
 {
   using nt2::maxnummag;
-  using nt2::functors::maxnummag_;
+  using nt2::tag::maxnummag_;
+  typedef typename nt2::meta::call<maxnummag_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnummag_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  maxnummag( T(42), T(12)), T(42) );
-  NT2_TEST_EQUAL(  maxnummag( T(-42), T(13) ), T(-42) );
-}
-NT2_TEST_CASE_TPL ( real_maxnummag,  NT2_REAL_TYPES
-                  )
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Nan<T>(),nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::One<T>(),nt2::Nan<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( maxnummag_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 {
   using nt2::maxnummag;
-  using nt2::functors::maxnummag_;
+  using nt2::tag::maxnummag_;
+  typedef typename nt2::meta::call<maxnummag_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnummag_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  maxnummag( T(42), T(12)), T(42) );
-  NT2_TEST_EQUAL(  maxnummag( T(-42), T(13) ), T(-42) );
-  NT2_TEST_EQUAL(  maxnummag( T(nt2::Nan<T>()), T(13) ), T(13) );
-}
-          
-NT2_TEST_CASE_TPL ( unsigned_maxnummag,  NT2_UNSIGNED_TYPES
-                  )
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( maxnummag_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::maxnummag;
-  using nt2::functors::maxnummag_;
+  using nt2::tag::maxnummag_;
+  typedef typename nt2::meta::call<maxnummag_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<maxnummag_(T, T)>::type
-	     , typename boost::result_of<nt2::meta::arithmetic(T, T)>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  maxnummag( T(42), T(12)), T(42) );
-}
-          
-
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
 
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  maxnummag(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+} // end of test for signed_int_

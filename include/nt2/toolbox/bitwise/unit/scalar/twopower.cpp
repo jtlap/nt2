@@ -24,10 +24,10 @@ NT2_TEST_CASE_TPL ( twopower,  (nt2::uint64_t)(nt2::int64_t)
                   )
 {
   using nt2::twopower;
-  using nt2::functors::twopower_;
+  using nt2::tag::twopower_;
 
   NT2_TEST( (boost::is_same< typename nt2::meta::call<twopower_(T)>::type
-                    	     , typename boost::result_of<nt2::meta::arithmetic(T)>::type
+                               , typename boost::result_of<nt2::meta::arithmetic(T)>::type
                            >::value)
            );
   NT2_TEST_EQUAL(  twopower( T(1)), T(2) );

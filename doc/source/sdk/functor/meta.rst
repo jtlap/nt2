@@ -13,5 +13,6 @@ support within |nt2| functors.
 
    meta/belong_to
    meta/dominant
+   meta/enable_call
    meta/validate
 

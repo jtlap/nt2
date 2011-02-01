@@ -25,50 +25,20 @@
 #include <nt2/include/functions/sign.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::atanh_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<arithmetic_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
 {
-  template<class Extension,class Info>
-  struct validate<atanh_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::is_real_convertible<A0>{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute atanh(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<atanh_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      A0 absa0 = abs(a0); 
-//       const A0 small_mask    = is_lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
-//       return select(small_mask,
-// 		    a0*madd(Third<A0>(), sqr(a0), One<A0>()),
-// 		    sign(a0)*Half<A0>()*log1p(Two<A0>()*absa0/(One<A0>()-absa0))
-// 		    );
-      A0 t =  absa0+absa0; 
-      return sign(a0)*Half<A0>()*sel(absa0 < Half<A0>(), log1p(t+t*absa0/(One<A0>()-absa0)), log1p(t/(One<A0>()-absa0)));
-
-     }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<atanh_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::atanh_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -79,8 +49,40 @@ namespace nt2 { namespace functors
       return nt2::atanh(tofloat(a0));
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::atanh_, tag::cpu_,
+                        (A0)(X),
+                        ((simd_<real_<A0>,X>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::atanh_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      A0 absa0 = abs(a0);
+//       const A0 small_mask    = is_lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
+//       return select(small_mask,
+//              a0*madd(Third<A0>(), sqr(a0), One<A0>()),
+//              sign(a0)*Half<A0>()*log1p(Two<A0>()*absa0/(One<A0>()-absa0))
+//              );
+      A0 t =  absa0+absa0;
+      return sign(a0)*Half<A0>()*sel(lt(absa0, Half<A0>()), log1p(t+t*absa0/(One<A0>()-absa0)), log1p(t/(One<A0>()-absa0)));
+
+     }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

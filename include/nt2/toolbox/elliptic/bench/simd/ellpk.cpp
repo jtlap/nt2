@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<ellpk_> from elliptic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::ellpk_;
+using nt2::tag::ellpk_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::ellpk_,(RS(vfloat,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::functors::ellpk_,(RS(vdouble,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::ellpk_,(RS(vfloat,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::ellpk_,(RS(vdouble,-10000.0,10000.0)))
 
 #undef RS

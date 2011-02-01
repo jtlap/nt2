@@ -26,22 +26,22 @@ typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<prod_> from reduction
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::prod_;
+using nt2::tag::prod_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::prod_,(RS(vfloat,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::functors::prod_,(RS(vdouble,-10000.0,10000.0)))
-NT2_TIMING(nt2::functors::prod_,(RS(vint64_t,-10000,10000)))
-NT2_TIMING(nt2::functors::prod_,(RS(vint32_t,-10000,10000)))
-NT2_TIMING(nt2::functors::prod_,(RS(vint16_t,-32768,32767)))
-NT2_TIMING(nt2::functors::prod_,(RS(vint8_t,-128,127)))
-NT2_TIMING(nt2::functors::prod_,(RS(vuint64_t,0,65535)))
-NT2_TIMING(nt2::functors::prod_,(RS(vuint32_t,0,65535)))
-NT2_TIMING(nt2::functors::prod_,(RS(vuint16_t,0,65535)))
+NT2_TIMING(nt2::tag::prod_,(RS(vfloat,-10000.0f,10000.0f)))
+NT2_TIMING(nt2::tag::prod_,(RS(vdouble,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::prod_,(RS(vint64_t,-10000,10000)))
+NT2_TIMING(nt2::tag::prod_,(RS(vint32_t,-10000,10000)))
+NT2_TIMING(nt2::tag::prod_,(RS(vint16_t,-32768,32767)))
+NT2_TIMING(nt2::tag::prod_,(RS(vint8_t,-128,127)))
+NT2_TIMING(nt2::tag::prod_,(RS(vuint64_t,0,65535)))
+NT2_TIMING(nt2::tag::prod_,(RS(vuint32_t,0,65535)))
+NT2_TIMING(nt2::tag::prod_,(RS(vuint16_t,0,65535)))
 
 
 #undef RS

@@ -25,28 +25,22 @@
 #include <nt2/include/functions/is_ltz.hpp>
 
 
-namespace nt2 { namespace functors
-{
-  template<class Extension,class Info>
-  struct validate<yni_,tag::simd_(tag::arithmetic_,Extension),Info>
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : 
-      boost::mpl::and_<meta::is_real_convertible<A1>
-		       ,meta::is_scalar<A0>
-		       ,meta::is_integral<A0>
-      >{};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute yni(const A0& a0, const A0& a1)
-  /////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<yni_,tag::simd_(tag::arithmetic_,Extension),float,Info> : callable
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
+                      (A0)(A1)(X),
+                      ((integer_<A0>))
+                      ((simd_<arithmetic_<A1>,X> ))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::yni_(tag::integer_,
+                        tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -54,78 +48,97 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-	typedef A1 result_type; 
-	result_type x = a1;
-	const int32_t n1 = abs(a0);
-	result_type sign = splat<result_type>(a0<0?cospi(n1):1);
-	if( n1 == 0 )
-	  return( sign * y0(x) );
-	if( n1 == 1 )
-	  return( sign * y1(x) );
-	if( n1 == 2 )
-	  return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
-	result_type an1 = splat<result_type>(n1);
-	result_type res1 = an1*log(an1/x); 
-	if (n1 > 29)
-	  return  res1; 
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::yni(a0, tofloat(a1));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
+                      (A0)(A1)(X),
+                      ((integer_<A0>))
+                      ((simd_<double_<A1>,X>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::yni_(tag::integer_,
+	                tag::simd_(tag::double_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      const A1 r(yni(a0, a1[0]),yni(a0, a1[1])) ;
+      return r;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::yni_, tag::cpu_,
+                      (A0)(A1)(X),
+                      ((integer_<A0>))
+                      ((simd_<float_<A1>,X>))
+                     );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::yni_(tag::integer_,
+                        tag::simd_(tag::float_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef A1 result_type;
+      result_type x = a1;
+      const int32_t n1 = abs(a0);
+      result_type sign = splat<result_type>(a0<0?cospi(n1):1);
+      if( n1 == 0 )
+        return( sign * y0(x) );
+      if( n1 == 1 )
+        return( sign * y1(x) );
+      if( n1 == 2 )
+        return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
+      result_type an1 = splat<result_type>(n1);
+      result_type res1 = an1*log(an1/x);
+      if (n1 > 29)
+        return  res1;
         /* forward recurrence on n */
 
-	result_type anm2 = y0(x);
-	result_type anm1 = y1(x);
-	int32_t k = 1;
-	result_type r = splat<result_type>(k << 1);
-	result_type xinv = rec(x);
-	result_type an; 
-	do
-	  {
-	    an = r*anm1*xinv-anm2;
-	    anm2 = anm1;
-	    anm1 = an;
-	    r +=Two<result_type>();
-	    ++k;
-	  }
-	while( k < n1 );
-	return b_or(isltz(a1), select(islt(a1,One<result_type>()),res1,sign*an));
+      result_type anm2 = y0(x);
+      result_type anm1 = y1(x);
+      int32_t k = 1;
+      result_type r = splat<result_type>(k << 1);
+      result_type xinv = rec(x);
+      result_type an;
+      do
+        {
+          an = r*anm1*xinv-anm2;
+          anm2 = anm1;
+          anm1 = an;
+          r +=Two<result_type>();
+          ++k;
+        }
+      while( k < n1 );
+      return b_or(isltz(a1), select(islt(a1,One<result_type>()),res1,sign*an));
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<yni_,tag::simd_(tag::arithmetic_,Extension),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      const A1 r(yni(a0, a1[0]),yni(a0, a1[1])) ; 
-      return r; 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<yni_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(2)::type type; 
-      return nt2::yni(a0, tofloat(a1)); 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 05/01/2011

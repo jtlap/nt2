@@ -28,18 +28,18 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(comparator, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL(comparator, (float))//NT2_SIMD_TYPES )
 {
  using nt2::comparator;
- using nt2::functors::comparator_;    
+ using nt2::tag::comparator_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
 
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
  typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<comparator_(n_t, n_t, int32_t)>::type call_type;
- typedef typename  boost::fusion::tuple<n_t,n_t,int32_t>               rn_t;
+ typedef typename nt2::meta::call<comparator_(n_t, n_t, int)>::type call_type;
+ typedef typename  boost::fusion::tuple<n_t,n_t,int>               rn_t;
  
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
@@ -51,12 +51,12 @@ NT2_TEST_CASE_TPL(comparator, NT2_SIMD_TYPES )
      n_t a0 = load<n_t>(&data[0],0); 
      n_t a1 = load<n_t>(&data[0],1);
      n_t v1, v0;
-     int32_t b;
+     int b;
      boost::fusion::tie(v0, v1, b) = comparator(a0, a1,  0);
-     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
        { 
-	 NT2_TEST_EQUAL(v0[j], nt2::min(a0[j],a1[j] ));
-	 NT2_TEST_EQUAL(v1[j], nt2::max(a0[j],a1[j] ));
+       NT2_TEST_EQUAL(v0[j], nt2::min(a0[j],a1[j] )); 
+       NT2_TEST_EQUAL(v1[j], nt2::max(a0[j],a1[j] ));
        }
      std::cout << a0 << "  " << a1 << std::endl;
      std::cout << v0 << "  " << v1 << std::endl;

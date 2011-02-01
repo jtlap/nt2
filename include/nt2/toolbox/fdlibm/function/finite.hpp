@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct finite_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::finite_, finite, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::finite_, finite, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/finite.hpp>
 // #include NT2_FDLIBM_INCLUDE(finite.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

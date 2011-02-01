@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(dist, (double)(float) )
 {
  using nt2::dist;
- using nt2::functors::dist_;    
+ using nt2::tag::dist_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;

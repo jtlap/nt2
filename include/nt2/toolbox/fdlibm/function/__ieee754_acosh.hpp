@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct __ieee754_acosh_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::__ieee754_acosh_, __ieee754_acosh, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_acosh_, __ieee754_acosh, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/__ieee754_acosh.hpp>
 // #include NT2_FDLIBM_INCLUDE(__ieee754_acosh.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

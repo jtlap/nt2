@@ -25,7 +25,7 @@
 // NT2_TEST_CASE_TPL(remainder, (double)(float)(int32_t)(uint32_t)(uint64_t)(int16_t)(uint16_t)(int8_t)(uint8_t) )
 // {
 //  using nt2::remainder;
-//  using nt2::functors::remainder_;    
+//  using nt2::tag::remainder_;    
 //  using nt2::load;  
 //  using nt2::simd::native; 
 //  using nt2::meta::cardinal_of;

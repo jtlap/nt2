@@ -24,7 +24,7 @@
 NT2_TEST_CASE_TPL(idivceil, (double)(float)(nt2::int32_t)(nt2::int64_t)(nt2::int8_t)(nt2::int16_t))
 {
  using nt2::idivceil;
- using nt2::functors::idivceil_;    
+ using nt2::tag::idivceil_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -38,14 +38,14 @@ NT2_TEST_CASE_TPL(idivceil, (double)(float)(nt2::int32_t)(nt2::int64_t)(nt2::int
   for(int n = -5; n <= 5; n++){
     for(int i=0;i<2*cardinal_of<n_t>::value;++i)
       {    
-	data[i] = i-n ? i-n : 13; // good value here for idivceil
+      data[i] = i-n ? i-n : 13; // good value here for idivceil
       }
     n_t a1 = load<n_t>(&data[0],0);      
     n_t a0 = load<n_t>(&data[0],1);  
-    n_t v  = idivceil(a0, a1);
+    n_t v = idivceil(a0, a1);
     for(int j=0;j<cardinal_of<n_t>::value;++j) 
       {
-	NT2_TEST_EQUAL( v[j], idivceil(a0[j], a1[j]) );
+      NT2_TEST_EQUAL( v[j], idivceil(a0[j], a1[j]) );
       }
   }
 }
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(idivceil, (double)(float)(nt2::int32_t)(nt2::int64_t)(nt2::int
 NT2_TEST_CASE_TPL(unsigned_idivceil, NT2_SIMD_UNSIGNED_TYPES )
 {
  using nt2::idivceil;
- using nt2::functors::idivceil_;    
+ using nt2::tag::idivceil_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL(unsigned_idivceil, NT2_SIMD_UNSIGNED_TYPES )
  }
    n_t a1 = load<n_t>(&data[0],0);   
    n_t a0 = load<n_t>(&data[0],1);
-   n_t v  = idivceil(a0, a1);
+   n_t v = idivceil(a0, a1);
    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
      {
        NT2_TEST_EQUAL( v[j], idivceil(a0[j], a1[j]) );

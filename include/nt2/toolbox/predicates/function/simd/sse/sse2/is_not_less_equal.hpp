@@ -11,50 +11,22 @@
 #include <nt2/sdk/meta/strip.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_not_less_equal_, tag::cpu_,
+                                    (A0),
+                                    ((simd_<arithmetic_<A0>,tag::sse_>))
+                                    ((simd_<arithmetic_<A0>,tag::sse_>))
+                                   );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for is_not_less_equal
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_not_less_equal_,tag::simd_(tag::arithmetic_,tag::sse_),float,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  { _mm_cmpnle_ps(a0,a1)}; return that; 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_not_less_equal_,tag::simd_(tag::arithmetic_,tag::sse_),double,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 that =  { _mm_cmpnle_pd(a0,a1)}; return that; 
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct call<is_not_less_equal_,tag::simd_(tag::arithmetic_,tag::sse_),arithmetic_,Info> : callable
+  template<class Dummy>
+  struct call<tag::is_not_less_equal_(tag::simd_(tag::arithmetic_, tag::sse_),
+                                      tag::simd_(tag::arithmetic_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -65,8 +37,61 @@ namespace nt2 { namespace functors
       return gt(a0,a1);
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_not_less_equal_, tag::cpu_,
+                                    (A0),
+                                    ((simd_<double_<A0>,tag::sse_>))
+                                    ((simd_<double_<A0>,tag::sse_>))
+                                   );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_not_less_equal_(tag::simd_(tag::double_, tag::sse_),
+                                      tag::simd_(tag::double_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that =  { _mm_cmpnle_pd(a0,a1)}; return that;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_not_less_equal_, tag::cpu_,
+                                    (A0),
+                                    ((simd_<float_<A0>,tag::sse_>))
+                                    ((simd_<float_<A0>,tag::sse_>))
+                                   );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::is_not_less_equal_(tag::simd_(tag::float_, tag::sse_),
+                                      tag::simd_(tag::float_, tag::sse_)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 that =  { _mm_cmpnle_ps(a0,a1)}; return that;
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

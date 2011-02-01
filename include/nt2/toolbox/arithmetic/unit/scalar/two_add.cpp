@@ -8,29 +8,28 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - two_add/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/arithmetic/include/two_add.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/tuple.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/two_add.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-NT2_TEST_CASE_TPL ( two_add,  (double)
-                          (float)
-                  )
+NT2_TEST_CASE_TPL ( two_add_real__2,  NT2_REAL_TYPES)
 {
   using nt2::two_add;
-  using nt2::functors::two_add_;
+  using nt2::tag::two_add_;
+  typedef typename nt2::meta::call<two_add_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::tuple<T,T> wished_r_t;
 
-  typedef typename boost::result_of<nt2::meta::floating(T, T)>::type rtype;
-  typedef typename boost::fusion::tuple<rtype,rtype>              type;
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<two_add_(T, T)>::type
-              , type
-              >::value)
-           );
-}
-          
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+} // end of test for real_

@@ -9,20 +9,20 @@
 #include <nt2/toolbox/cephes/include/sin.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
-
+ 
 
 
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<sin_> from cephes
 //////////////////////////////////////////////////////////////////////////////
-using nt2::cephes::sin_;
+using nt2::cephes::tag::sin_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::cephes::sin_,(RS(float,-31.4,31.4)))
-NT2_TIMING(nt2::cephes::sin_,(RS(double,-31.4,31.4)))
+NT2_TIMING(nt2::cephes::tag::sin_,(RS(float,-31.4,31.4)))
+NT2_TIMING(nt2::cephes::tag::sin_,(RS(double,-31.4,31.4)))
 
 #undef RS

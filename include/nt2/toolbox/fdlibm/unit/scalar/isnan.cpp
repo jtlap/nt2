@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( isnan,  (double)(float) )
 {
   using nt2::fdlibm::isnan;
-  using nt2::fdlibm::isnan_;
+  using nt2::fdlibm::tag::isnan_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::isnan_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::isnan_(T)>::type,
                            T
                            >::value)
           );

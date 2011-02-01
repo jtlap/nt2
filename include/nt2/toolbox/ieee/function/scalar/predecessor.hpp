@@ -14,72 +14,100 @@
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/minusone.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
+                             (A0)(A1),
+                             (arithmetic_<A0>)(integer_<A1>)
+                            )
+
+namespace nt2 { namespace ext
 {
-
-  template<class Info>
-  struct validate<predecessor_,tag::scalar_(tag::arithmetic_),Info>
+  template<class Dummy>
+  struct call<tag::predecessor_(tag::arithmetic_,tag::integer_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::mpl::true_ {};
-
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
-          : boost::is_integral<A1> {};
-  };
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute predecessor(const A0& a0, const A1& a1)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<predecessor_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0> {};
     template<class This,class A0,class A1>
       struct result<This(A0, A1)> : meta::strip<A0> {};
 
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0==Inf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
-    }
-    NT2_FUNCTOR_CALL(2)
-    {
-       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<predecessor_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0> {};
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return minusone(a0);
-    }
     NT2_FUNCTOR_CALL(2)
     {
       return a0-a1;
     }
   };
+} }
 
+NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
+                             (A0),
+                             (arithmetic_<A0>)
+                            )
+  
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::predecessor_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return minusone(a0);
+    }
+  };
+} }
+
+////
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
+                             (A0)(A1),
+                             (real_<A0>)(integer_<A1>)
+                            )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::predecessor_(tag::real_,tag::integer_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+      struct result<This(A0, A1)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
+    }
+  };
+} }
+
+NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
+                             (A0),
+                             (real_<A0>)
+                            )namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::predecessor_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0> {};
+
+  NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_integer<A0,unsigned>::type int_type; 
+      return a0==Inf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
-/// No restore -- hand modifications
+// modified by jt the 26/12/2010

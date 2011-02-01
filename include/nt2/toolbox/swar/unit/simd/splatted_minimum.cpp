@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp> 
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(splatted_minimum, NT2_SIMD_TYPES) 
 {
  using nt2::splatted_minimum;
- using nt2::functors::splatted_minimum_;    
+ using nt2::tag::splatted_minimum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -44,15 +44,16 @@ NT2_TEST_CASE_TPL(splatted_minimum, NT2_SIMD_TYPES)
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
  for(int j =  0;  j < 10; j++)
    {
-     for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = cardinal_of<n_t>::value-i-1; // good value here for splatted_minimum
+     for(int i=0;i<1*cardinal_of<n_t>::value;++i){
+       data[i] = int(cardinal_of<n_t>::value/2)-i-1; // good value here for splatted_minimum
      }
      n_t a0 = load<n_t>(&data[0],0); 
      n_t v  = splatted_minimum(a0);
-     std::cout << "  " << a0 << "  " << v << std::endl; 
-     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     std::cout << "  " << a0 << "  " << v << "  " << nt2::minimum(a0) << std::endl; 
+     for(std::size_t k=0;k<cardinal_of<n_t>::value;++k)
        { 
-	 NT2_TEST_EQUAL(v[j], nt2::minimum(a0));
+       NT2_TEST_EQUAL(v[k], nt2::minimum(a0));
        }
    }
-}
+} 
+  

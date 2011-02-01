@@ -9,23 +9,24 @@
 #ifndef NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 #define NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 
-#include <nt2/sdk/meta/category.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class T, class Sign, class Categry>	struct from_bits;
+  template<class T, class Sign, class Hierarchy>
+  struct from_bits
+  {
+    typedef typename meta::as_integer<T, Sign>::type  bits_type;
+    typedef typename meta::as_integer<T, Sign>::type  value_type;
 
-  template<class T, class Sign, class X>
-  struct from_bits<T, Sign, tag::scalar_(X)>
-	{
-		typedef union
-		{
-			typename meta::as_integer<T, Sign>::type  bits;
-			T  																				value;
-		} type;
-	};
+    typedef union
+    {
+      typename meta::as_integer<T, Sign>::type  bits;
+      T                                          value;
+    } type;
+  };
 } }
 
 namespace nt2 { namespace meta
@@ -35,7 +36,10 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign = unsigned>
   struct  from_bits
-        : details::from_bits<T,Sign,typename category_of<T>::type::tag > {};
+        : details::from_bits< typename strip<T>::type
+                            , Sign
+                            , typename hierarchy_of<T>::type
+                            > {};
 } }
 
 #endif

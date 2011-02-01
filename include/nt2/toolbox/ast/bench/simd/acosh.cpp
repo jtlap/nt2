@@ -19,15 +19,15 @@ typedef nt2::simd::native<int32_t,ext_t> vint32_t;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<acosh_> from ast
 //////////////////////////////////////////////////////////////////////////////
-using nt2::ast::acosh_;
+using nt2::ast::tag::acosh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::ast::acosh_,(RS(vfloat,1.0f,10.0f)))
-NT2_TIMING(nt2::ast::acosh_,(RS(vdouble,1.0,100.0)))
-NT2_TIMING(nt2::ast::acosh_,(RS(vint32_t,1.0,100.0)))
+NT2_TIMING(nt2::ast::tag::acosh_,(RS(vfloat,1.0f,10.0f)))
+NT2_TIMING(nt2::ast::tag::acosh_,(RS(vdouble,1.0,100.0)))
+NT2_TIMING(nt2::ast::tag::acosh_,(RS(vint32_t,1.0,100.0)))
 
 #undef RS

@@ -100,6 +100,18 @@ namespace nt2 { namespace memory
       }
     }
   };
+
+  template<class T>
+  bool operator== (allocator<T> const&, allocator<T> const&)
+  {
+    return true;
+  }
+
+  template<class T>
+  bool operator!= (allocator<T> const&, allocator<T> const&)
+  {
+    return false;
+  }
 } }
 
 #endif

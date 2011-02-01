@@ -23,12 +23,12 @@
 // Test behavior of arithmetic component frac using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(frac, 
-		  (nt2::uint64_t)(nt2::int64_t)
-	          (nt2::uint32_t)(nt2::int32_t)
+              (nt2::uint64_t)(nt2::int64_t)
+                (nt2::uint32_t)(nt2::int32_t)
                          )
 {
  using nt2::frac; 
- using nt2::functors::frac_;
+ using nt2::tag::frac_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

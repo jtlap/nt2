@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(firstbitunset, NT2_SIMD_TYPES
                          )
 {
  using nt2::firstbitunset; 
- using nt2::functors::firstbitunset_;
+ using nt2::tag::firstbitunset_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

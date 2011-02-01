@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( __ieee754_sqrt,  (double)(float) )
 {
   using nt2::fdlibm::__ieee754_sqrt;
-  using nt2::fdlibm::__ieee754_sqrt_;
+  using nt2::fdlibm::tag::__ieee754_sqrt_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::__ieee754_sqrt_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::fdlibm::tag::__ieee754_sqrt_(T)>::type,
                            T
                            >::value)
           );

@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/trigonometric/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct fast_sincosd_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::fast_sincosd_, fast_sincosd, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::fast_sincosd_, fast_sincosd, 1)
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/fast_sincosd.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

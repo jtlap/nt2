@@ -12,29 +12,29 @@
 
 
 namespace nt2 {
-  namespace functors
-  {
-    struct plevl_;
-    struct polevl_;
-    struct tchebeval_;
-  }
+//   namespace functors
+//   {
+//     struct plevl_;
+//     struct polevl_;
+//     struct tchebeval_;
+//   }
 
-namespace meta {
-  template<class Info, class A0,class A1>
-  struct  categorize<functors::tchebeval_,Info,A0,A1>
-  {
-    typedef typename meta::category_of<A0>::type::tag type;
-  };
+// namespace meta {
+//   template<class Info, class A0,class A1>
+//   struct  categorize<functors::tchebeval_,Info,A0,A1>
+//   {
+//     typedef typename meta::category_of<A0>::type::tag type;
+//   };
   
-  template<class Info, class A0,class A1>struct
-  categorize<functors::polevl_,Info,A0,A1> :
-  categorize<functors::tchebeval_,Info,A0,A1>{};
+//   template<class Info, class A0,class A1>struct
+//   categorize<functors::polevl_,Info,A0,A1> :
+//   categorize<functors::tchebeval_,Info,A0,A1>{};
 
-  template<class Info, class A0,class A1>struct
-  categorize<functors::plevl_,Info,A0,A1> :
-  categorize<functors::tchebeval_,Info,A0,A1>{};
+//   template<class Info, class A0,class A1>struct
+//   categorize<functors::plevl_,Info,A0,A1> :
+//   categorize<functors::tchebeval_,Info,A0,A1>{};
   
-}
+// }
 }
 
 

@@ -30,11 +30,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(group, (double)(int16_t)(uint16_t)
-		  (int32_t)(uint32_t)(int64_t)(uint64_t) )
+NT2_TEST_CASE_TPL(group, //(double)(int16_t)(uint16_t)
+		  //(int32_t)(uint32_t)(int64_t))
+		  (uint64_t) )
 {
  using nt2::group;
- using nt2::functors::group_;    
+ using nt2::tag::group_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -44,7 +45,7 @@ NT2_TEST_CASE_TPL(group, (double)(int16_t)(uint16_t)
  typedef typename nt2::meta::call<group_(n_t, n_t)>::type call_type;
  typedef typename nt2::meta::downgrade<T>::type                                   utype;
  typedef nt2::simd::native<utype,ext_t>                                           type1;
- typedef nt2::simd::native< typename nt2::meta::float_<T>::type, ext_t>               type2;
+ typedef nt2::simd::native< typename nt2::meta::float__<T>::type, ext_t>               type2;
  typedef typename boost::mpl::if_c < boost::is_same<T,double>::value
                                         , type2
                                         , type1
@@ -63,11 +64,11 @@ NT2_TEST_CASE_TPL(group, (double)(int16_t)(uint16_t)
      rn_t v  = group(a0, a1);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 std::cout << a0 << "   " << a1 << std::endl; 
-	 std::cout << v << std::endl;
-	 boost::fusion::tie(a2, a3) = nt2::split(v);
-	 NT2_TEST(nt2::all(nt2::eq(a0,a2))); 
-	 NT2_TEST(nt2::all(nt2::eq(a1,a3))); 
+       std::cout << a0 << "   " << a1 << std::endl; 
+       std::cout << v << std::endl;
+       boost::fusion::tie(a2, a3) = nt2::split(v);
+       NT2_TEST(nt2::all(nt2::eq(a0,a2))); 
+       NT2_TEST(nt2::all(nt2::eq(a1,a3))); 
        }
    }
 }

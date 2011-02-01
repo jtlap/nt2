@@ -18,6 +18,7 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <iostream>
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components using NT2_TEST_CASE
@@ -25,7 +26,7 @@
 NT2_TEST_CASE_TPL(iceil, NT2_SIMD_TYPES )
 {
  using nt2::iceil;
- using nt2::functors::iceil_;    
+ using nt2::tag::iceil_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -34,13 +35,15 @@ NT2_TEST_CASE_TPL(iceil, NT2_SIMD_TYPES )
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::as_integer<n_t>::type in_t; 
  typedef typename nt2::meta::call<iceil_(n_t)>::type call_type;
+ std::cout << nt2::type_id<in_t>() << std::endl;
+ std::cout << nt2::type_id<n_t>()     << std::endl;   
 
  NT2_TEST( (boost::is_same<call_type, in_t>::value) );  
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value]; 
   for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
     data[i] = i; // good value here for iceil
   }
- n_t a0 = load<n_t>(&data[0],0); 
+  n_t a0 = load<n_t>(&data[0],0); 
  in_t v  = iceil(a0);
  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
    {

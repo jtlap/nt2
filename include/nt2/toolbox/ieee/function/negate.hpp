@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/ieee/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct negate_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::negate_, negate, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::negate_, negate, 2)
 }
  
 #include <nt2/toolbox/ieee/function/scalar/negate.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

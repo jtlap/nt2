@@ -12,21 +12,19 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::bitfloating_, tag::cpu_,
+                             (A0),
+                             (arithmetic_<A0>)
+                            )
 
-namespace nt2 { namespace functors
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for bitfloating
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute bitfloating(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<bitfloating_,tag::scalar_(tag::arithmetic_),unsigned,Info> : callable
+  template<class Dummy>
+  struct call<tag::bitfloating_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -34,33 +32,45 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
+      typedef typename NT2_RETURN_TYPE(1)::type           rtype;
+      typedef typename meta::from_bits<rtype>::type       type;
+      typedef typename meta::from_bits<rtype>::bits_type  bits_type;
+      type that = { a0 >= Zero<A0>()
+                  ? bits_type(a0)
+                  : bits_type((1LL << (8*sizeof(A0)-1))-a0)
+                  };
+      // TOVERIFY PERFS
+      return that.value;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::bitfloating_, tag::cpu_,
+                             (A0),
+                             (unsigned_<A0>)
+                            )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::bitfloating_(tag::unsigned_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> { typedef typename meta::as_real<A0>::type type; };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type rtype;
       typename meta::from_bits<rtype, signed>::type  that =  {a0};
-      return that.value; 
+      return that.value;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<bitfloating_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> { typedef typename meta::as_real<A0>::type type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type rtype;
-      typedef typename meta::from_bits<rtype>::type  type;
-      type that =  {a0>=Zero<A0>()?a0:((1LL << (8*sizeof(A0)-1))-a0)};//TOVERIFY PERFS
-      return that.value; 
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

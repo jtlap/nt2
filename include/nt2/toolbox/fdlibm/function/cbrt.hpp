@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct cbrt_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::cbrt_, cbrt, 1)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::cbrt_, cbrt, 1)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/cbrt.hpp>
 // #include NT2_FDLIBM_INCLUDE(cbrt.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

@@ -17,26 +17,54 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/log.hpp>
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::spence_, tag::cpu_,
+                        (A0),
+                        (arithmetic_<A0>)
+                       )
+
+namespace nt2 { namespace ext
 {
-
-  //  no special validate for spence
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute spence(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<spence_,tag::scalar_(tag::arithmetic_),real_,Info> : callable
+  template<class Dummy>
+  struct call<tag::spence_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : 
+    struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
-    
+
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return spence(type(a0));
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::spence_, tag::cpu_,
+                        (A0),
+                        (real_<A0>)
+                       )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::spence_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
+
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -60,14 +88,14 @@ namespace nt2 { namespace functors
   3.54771340985225096217E0,
   9.99999999999999998740E-1,
       }};
-      static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>(); 
-      A0 x = a0; 
+      static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>();
+      A0 x = a0;
       if( x < 0.0 )        return Nan<A0>();
       if( x == One<A0>() ) return Zero<A0>();
       if( is_eqz(x) )       return C ;
       int flag = 0;
       if( x > Two<A0>() ){ x = rec(x); flag |= 2;}
-      A0 w; 
+      A0 w;
       if( x > 1.5 )      { w = minusone(rec(x)); flag |= 2;}
       else if( x < 0.5 ) { w = -x; flag |= 1;}
       else w = minusone(x);
@@ -78,31 +106,10 @@ namespace nt2 { namespace functors
           A0 z = log(x);
           y = Mhalf<A0>() * sqr(z)  -  y;
         }
-      return y; 
+      return y;
     }
   };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Info>
-  struct  call<spence_,tag::scalar_(tag::arithmetic_),arithmetic_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : 
-      boost::result_of<meta::floating(A0)>{};
-    
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_CALL_RETURN_TYPE(1)::type type;
-      return spence(type(a0));
-    }
-  };
-
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 26/12/2010

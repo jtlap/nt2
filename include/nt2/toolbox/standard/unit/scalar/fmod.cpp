@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( fmod,  (double)(float) )
 {
   using nt2::standard::fmod;
-  using nt2::standard::fmod_;
+  using nt2::standard::tag::fmod_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::standard::fmod_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::standard::tag::fmod_(T, T)>::type,
                            T
                            >::value)
           );

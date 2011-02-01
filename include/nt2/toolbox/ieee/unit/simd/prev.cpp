@@ -25,11 +25,11 @@
 // Test behavior of arithmetic component prev using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(prev, 
-		  NT2_TYPES
+              NT2_TYPES
                          )
 {
  using nt2::prev; 
- using nt2::functors::prev_;
+ using nt2::tag::prev_;
  using nt2::load;  
  using nt2::simd::native;
  using nt2::meta::cardinal_of; 

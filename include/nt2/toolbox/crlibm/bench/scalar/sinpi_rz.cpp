@@ -15,14 +15,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<sinpi_rz_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
-using nt2::crlibm::sinpi_rz_;
+using nt2::crlibm::tag::sinpi_rz_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::crlibm::sinpi_rz_,(RS(float,-10.0,10.0)))
-NT2_TIMING(nt2::crlibm::sinpi_rz_,(RS(double,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::sinpi_rz_,(RS(float,-10.0,10.0)))
+NT2_TIMING(nt2::crlibm::tag::sinpi_rz_,(RS(double,-10.0,10.0)))
 
 #undef RS

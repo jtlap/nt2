@@ -6,51 +6,128 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/scalar Mode"
-#include <nt2/sdk/functor/meta/call.hpp>
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - predecessor/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// modified by jt the 04/12/2010
+/// modified by jt the 12/12/2010
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/ieee/include/predecessor.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/ieee/include/predecessor.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/prev.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+// specific includes for arity 2 tests
+#include <nt2/include/functions/next.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( predecessor,   NT2_REAL_TYPES        
-                  )
+NT2_TEST_CASE_TPL ( predecessor_real__1,  NT2_REAL_TYPES)
 {
   using nt2::predecessor;
-  using nt2::functors::predecessor_;
+  using nt2::tag::predecessor_;
+  typedef typename nt2::meta::call<predecessor_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<predecessor_(T)>::type
-	     , T
-              >::value)
-           );
-  NT2_TEST_EQUAL(  predecessor( T(2) ), T(2)-nt2::Eps<T>() );
-  NT2_TEST_EQUAL(  predecessor( T(1) ), T(1)-nt2::Eps<T>()/2 );
-//   NT2_TEST_EQUAL(  predecessor( T(2), 1), T(2)-nt2::Eps<T>() );
-//   NT2_TEST_EQUAL(  predecessor( T(1), 1), T(1)-nt2::Eps<T>()/2 );
-  
-    
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
-}
 
-NT2_TEST_CASE_TPL ( integral_predecessor,   NT2_INTEGRAL_TYPES        
-                  )
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Mone<T>()), nt2::Mone<r_t>()-nt2::Eps<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::One<T>()), nt2::One<r_t>()-nt2::Eps<r_t>()/2, 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Zero<T>()), -nt2::Mindenormal<T>(), 0);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( predecessor_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::predecessor;
-  using nt2::functors::predecessor_;
+  using nt2::tag::predecessor_;
+  typedef typename nt2::meta::call<predecessor_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<predecessor_(T)>::type
-	     , T
-              >::value)
-           );
-  NT2_TEST_EQUAL(  predecessor( T(42) ), T(41) );
-  NT2_TEST_EQUAL(  predecessor( T(-59) ), T(-60) );
-  
-    
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
-}
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( predecessor_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::predecessor;
+  using nt2::tag::predecessor_;
+  typedef typename nt2::meta::call<predecessor_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Mone<T>()), -nt2::Two<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(  predecessor(nt2::Zero<T>()), nt2::Mone<r_t>(), 0);
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( predecessor_real__2,  NT2_REAL_TYPES)
+{
+  using nt2::predecessor;
+  using nt2::tag::predecessor_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<predecessor_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( predecessor_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::predecessor;
+  using nt2::tag::predecessor_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<predecessor_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( predecessor_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::predecessor;
+  using nt2::tag::predecessor_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<predecessor_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+
+} // end of test for signed_int_

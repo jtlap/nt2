@@ -12,11 +12,11 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bitwise/include.hpp>
 
-namespace nt2 { namespace functors
-  {	       
+namespace nt2 { namespace tag
+  {         
     struct bitwise_select_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(functors::bitwise_select_, bitwise_select, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_select_, bitwise_select, 3)
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_select.hpp>
@@ -24,3 +24,5 @@ namespace nt2 { namespace functors
 
  
 #endif
+
+// modified by jt the 25/12/2010

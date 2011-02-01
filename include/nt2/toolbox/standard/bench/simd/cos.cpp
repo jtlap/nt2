@@ -18,14 +18,14 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<cos_> from standard
 //////////////////////////////////////////////////////////////////////////////
-using nt2::standard::cos_;
+using nt2::standard::tag::cos_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::standard::cos_,(RS(vfloat,-31.4f,31.4f)))
-NT2_TIMING(nt2::standard::cos_,(RS(vdouble,-31.4,31.4)))
+NT2_TIMING(nt2::standard::tag::cos_,(RS(vfloat,-31.4f,31.4f)))
+NT2_TIMING(nt2::standard::tag::cos_,(RS(vdouble,-31.4,31.4)))
 
 #undef RS

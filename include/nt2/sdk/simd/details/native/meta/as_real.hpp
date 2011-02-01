@@ -17,10 +17,10 @@
 
 namespace nt2 { namespace details
 {
-  template<class Type, class C, class X>
-  struct  as_real<Type,tag::simd_(C,X) >
-        : meta::make_real< sizeof(typename meta::scalar_of<Type>::type)
-                          , simd::native<boost::mpl::_,X>
+  template<class T, class H, class X>
+  struct  as_real<T,meta::simd_<H,X> >
+        : T::template cast< typename meta::
+                            make_real<sizeof(typename T::value_type)>::type
                           >
   {};
 } }

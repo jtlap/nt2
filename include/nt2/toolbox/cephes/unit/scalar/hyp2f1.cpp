@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( hyp2f1,  (double)(float) )
 {
   using nt2::cephes::hyp2f1;
-  using nt2::cephes::hyp2f1_;
+  using nt2::cephes::tag::hyp2f1_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::hyp2f1_(T, T, T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::hyp2f1_(T, T, T, T)>::type,
                            T
                            >::value)
           );

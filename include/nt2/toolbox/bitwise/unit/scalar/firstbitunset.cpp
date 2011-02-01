@@ -18,31 +18,31 @@
 // Test behavior of bitwise components using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL ( firstbitunset,  (double)(nt2::uint64_t)(nt2::int64_t) 
-		    (float)(nt2::uint32_t)(nt2::int32_t)  
-		    (nt2::uint16_t)(nt2::int16_t)         
-		    (nt2::uint8_t)(nt2::int8_t)
+                (float)(nt2::uint32_t)(nt2::int32_t)  
+                (nt2::uint16_t)(nt2::int16_t)         
+                (nt2::uint8_t)(nt2::int8_t)
                   )
 {
   using nt2::firstbitunset;
-  using nt2::functors::firstbitunset_;
+  using nt2::tag::firstbitunset_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<firstbitunset_(T)>::type
-	     , typename nt2::meta::as_integer<T, unsigned>::type
+           , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
 }
 
 NT2_TEST_CASE_TPL ( firstbitunset_1,  (nt2::uint64_t)(nt2::int64_t) 
-		    (nt2::uint32_t)(nt2::int32_t)  
-		    (nt2::uint16_t)(nt2::int16_t)         
-		    (nt2::uint8_t)(nt2::int8_t)
+                (nt2::uint32_t)(nt2::int32_t)  
+                (nt2::uint16_t)(nt2::int16_t)         
+                (nt2::uint8_t)(nt2::int8_t)
                   )
 {
   using nt2::firstbitunset;
-  using nt2::functors::firstbitunset_;
+  using nt2::tag::firstbitunset_;
 
   NT2_TEST( (boost::is_same < typename nt2::meta::call<firstbitunset_(T)>::type
-	     , typename nt2::meta::as_integer<T, unsigned>::type
+           , typename nt2::meta::as_integer<T, unsigned>::type
               >::value)
            );
   NT2_TEST_EQUAL(  firstbitunset( T(1)), 2 );

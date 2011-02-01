@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( incbet,  (double)(float) )
 {
   using nt2::cephes::incbet;
-  using nt2::cephes::incbet_;
+  using nt2::cephes::tag::incbet_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::incbet_(T, T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::incbet_(T, T, T)>::type,
                            T
                            >::value)
           );

@@ -25,11 +25,11 @@
 // Test behavior of arithmetic component nextpow2 using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(nextpow2, 
-		  NT2_SIMD_TYPES
+              NT2_SIMD_TYPES
                          )
 { 
  using nt2::nextpow2; 
- using nt2::functors::nextpow2_;  
+ using nt2::tag::nextpow2_;  
  using nt2::load;  
  using nt2::simd::native;  
  using nt2::meta::cardinal_of; 
@@ -54,11 +54,11 @@ NT2_TEST_CASE_TPL(nextpow2,
 } 
 
 // NT2_TEST_CASE_TPL(signed_nextpow2, 
-// 		  NT2_SIMD_SIGNED_TYPES
+//               NT2_SIMD_SIGNED_TYPES
 //                          ) 
 // {
 //  using nt2::nextpow2; 
-//  using nt2::functors::nextpow2_;
+//  using nt2::tag::nextpow2_;
 //  using nt2::load;  
 //  using nt2::simd::native;
 //  using nt2::meta::cardinal_of; 

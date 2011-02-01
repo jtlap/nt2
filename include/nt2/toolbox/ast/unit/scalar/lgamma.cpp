@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( lgamma,  (double)(float) )
 {
   using nt2::ast::lgamma;
-  using nt2::ast::lgamma_;
+  using nt2::ast::tag::lgamma_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::ast::lgamma_(T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::ast::tag::lgamma_(T)>::type,
                            T
                            >::value)
           );

@@ -12,23 +12,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 // List constants tied to type properties and bit representation
 ////////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constant tag
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace constants
+namespace nt2 { namespace tag
 {
-  struct val_max_           {};
-  struct val_min_           {};
-  struct signmask_          {};
-  struct max_left_shift_    {};
-  struct nb_mantissa_bits_  {};
-  struct nb_exponent_bits_  {};
-  struct max_exponent_      {};
-  struct min_exponent_      {};
-  struct nb_digits_         {};
-  struct ldexp_mask_        {};
+  struct val_max_           {}; struct val_min_           {};
+  struct ldexp_mask_        {}; struct signmask_          {};
+  struct nb_digits_         {}; struct max_left_shift_    {};
+  struct nb_mantissa_bits_  {}; struct nb_exponent_bits_  {};
+  struct max_exponent_      {}; struct min_exponent_      {};
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,17 +32,16 @@ namespace nt2 { namespace constants
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_max_          , Valmax         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::val_min_          , Valmin         )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::signmask_         , Signmask       )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_left_shift_   , Maxleftshift   )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::ldexp_mask_       , Ldexpmask      )
-
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_mantissa_bits_ , Nbmantissabits )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_exponent_bits_ , Nbexponentbits )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::max_exponent_     , Maxexponent    )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::min_exponent_     , Minexponent    )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::constants::nb_digits_        , Nbdigits       )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::val_max_          , Valmax         )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::val_min_          , Valmin         )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::signmask_         , Signmask       )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::max_left_shift_   , Maxleftshift   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::ldexp_mask_       , Ldexpmask      )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nb_mantissa_bits_ , Nbmantissabits )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nb_exponent_bits_ , Nbexponentbits )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::max_exponent_     , Maxexponent    )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::min_exponent_     , Minexponent    )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nb_digits_        , Nbdigits       )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +51,6 @@ namespace nt2
 #include <nt2/sdk/constant/details/valmin.hpp>
 #include <nt2/sdk/constant/details/signmask.hpp>
 #include <nt2/sdk/constant/details/ieee_spec.hpp>
-#include <nt2/sdk/constant/details/ldexp_mask.hpp>
-//#include <nt2/sdk/constant/details/maxleftshift.hpp>
+#include <nt2/sdk/constant/details/maxleftshift.hpp>
 
 #endif

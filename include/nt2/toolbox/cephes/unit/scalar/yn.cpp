@@ -20,9 +20,9 @@
 NT2_TEST_CASE_TPL ( yn,  (double)(float) )
 {
   using nt2::cephes::yn;
-  using nt2::cephes::yn_;
+  using nt2::cephes::tag::yn_;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::yn_(T, T)>::type,
+  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::yn_(T, T)>::type,
                            T
                            >::value)
           );

@@ -17,35 +17,20 @@
 #include <nt2/include/functions/trunc.hpp>
 
 
-namespace nt2 { namespace functors
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::frac_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
 {
-  //  no special validate for frac
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Compute frac(const A0& a0)
-  /////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<frac_,tag::simd_(tag::arithmetic_,Extension),real_,Info> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return sel(is_invalid(a0), Nan<A0>(), a0-nt2::trunc(a0));
-    }
-  };
-
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is arithmetic_
-  /////////////////////////////////////////////////////////////////////////////
-  template<class Extension, class Info>
-  struct call<frac_,tag::simd_(tag::arithmetic_,Extension),arithmetic_,Info> : callable
+  template<class X, class Dummy>
+  struct call<tag::frac_(tag::simd_(tag::arithmetic_, X)),
+              tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
@@ -56,8 +41,31 @@ namespace nt2 { namespace functors
       return Zero<A0>();
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::frac_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<real_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::frac_(tag::simd_(tag::real_, X)),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return sel(is_invalid(a0), Nan<A0>(), a0-nt2::trunc(a0));
+    }
+  };
 } }
 
 #endif
-/// Revised by jt the 15/11/2010
+// modified by jt the 04/01/2011

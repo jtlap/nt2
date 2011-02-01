@@ -18,16 +18,16 @@ typedef nt2::simd::native<double,ext_t> vdouble;
 //////////////////////////////////////////////////////////////////////////////
 // Simd Runtime benchmark for functor<j0_> from bessel
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::j0_;
+using nt2::tag::j0_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::functors::j0_,(RS(vfloat,0.0f,100.0f)))
-NT2_TIMING(nt2::functors::j0_,(RS(vdouble,0.0,100.0)))
-NT2_TIMING(nt2::functors::j0_,(RS(vfloat,0.0f,2.0f)))
-NT2_TIMING(nt2::functors::j0_,(RS(vdouble,0.0,2.0)))
+NT2_TIMING(nt2::tag::j0_,(RS(vfloat,0.0f,100.0f)))
+NT2_TIMING(nt2::tag::j0_,(RS(vdouble,0.0,100.0)))
+NT2_TIMING(nt2::tag::j0_,(RS(vfloat,0.0f,2.0f)))
+NT2_TIMING(nt2::tag::j0_,(RS(vdouble,0.0,2.0)))
 
 #undef RS

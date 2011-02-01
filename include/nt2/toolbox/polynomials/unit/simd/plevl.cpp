@@ -28,7 +28,7 @@
 NT2_TEST_CASE_TPL(plevl, NT2_REAL_TYPES )
 {
  using nt2::plevl;
- using nt2::functors::plevl_;    
+ using nt2::tag::plevl_;    
  using nt2::load; 
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -52,8 +52,8 @@ NT2_TEST_CASE_TPL(plevl, NT2_REAL_TYPES )
      rn_t v  = plevl(a0, A);
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 NT2_TEST_LESSER_EQUAL( z = nt2::ulpdist(v[j], plevl(a0[j], A)), 1);
-	 if (z > m) m = z; 
+       NT2_TEST_LESSER_EQUAL( z = nt2::ulpdist(v[j], plevl(a0[j], A)), 1);
+       if (z > m) m = z; 
        }
    }
  std::cout << "ulp max = " << m << std::endl;

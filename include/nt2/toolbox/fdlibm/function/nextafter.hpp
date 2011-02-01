@@ -12,15 +12,17 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-namespace nt2 { namespace fdlibm
-  {	       
+namespace nt2 { namespace fdlibm { namespace tag
+  {         
     struct nextafter_ {};
-    NT2_FUNCTION_IMPLEMENTATION(fdlibm::nextafter_, nextafter, 2)
   }
-}
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::nextafter_, nextafter, 2)
+  } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/nextafter.hpp>
 // #include NT2_FDLIBM_INCLUDE(nextafter.hpp) 
 
  
 #endif
+
+// modified by jt the 29/12/2010

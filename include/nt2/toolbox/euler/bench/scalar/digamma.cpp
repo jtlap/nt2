@@ -15,15 +15,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Scalar Runtime benchmark for functor<digamma_> from euler
 //////////////////////////////////////////////////////////////////////////////
-using nt2::functors::digamma_;
+using nt2::tag::digamma_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::functors::digamma_,(RS(float,-30.0f,30.0f)))
-NT2_TIMING(nt2::functors::digamma_,(RS(double,-30.0,30.0)))
-NT2_TIMING(nt2::functors::digamma_,(RS(int32_t,-30.0,30.0)))
+NT2_TIMING(nt2::tag::digamma_,(RS(float,-30.0f,30.0f)))
+NT2_TIMING(nt2::tag::digamma_,(RS(double,-30.0,30.0)))
+NT2_TIMING(nt2::tag::digamma_,(RS(int32_t,-30.0,30.0)))
 
 #undef RS

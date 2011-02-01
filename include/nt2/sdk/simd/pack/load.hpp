@@ -19,7 +19,16 @@ namespace nt2 { namespace functors
   {
     template<class A0,class A1>
     struct  apply
-          : meta::is_native<typename meta::strip<A0>::type::base_type>
+          : meta::is_native<typename meta::strip<T>::type::base_type>
+    {};
+  };
+
+  template<class T,class X, class Info>
+  struct dispatch<load_<T,0>,tag::simd_(tag::ast_,X),Info>
+  {
+    template<class A0,class A1>
+    struct  apply
+          : meta::is_native<typename meta::strip<T>::type::base_type>
     {};
   };
 

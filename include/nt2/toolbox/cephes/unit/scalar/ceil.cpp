@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL ( real_ceil,  (double)(float)
                   )
 {
   using nt2::cephes::ceil;
-  using nt2::cephes::ceil_;
+  using nt2::cephes::tag::ceil_;
 
  NT2_TEST( (boost::is_same < typename nt2::meta::call<ceil_(T)>::type
              ,T

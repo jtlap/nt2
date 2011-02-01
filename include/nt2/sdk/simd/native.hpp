@@ -9,12 +9,13 @@
 #ifndef NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 #define NT2_SDK_SIMD_NATIVE_HPP_INCLUDED
 
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/memory/overload.hpp>
-#include <nt2/sdk/functor/category.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
+#include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/sdk/simd/details/native/iterator.hpp>
 
@@ -27,22 +28,38 @@ namespace nt2 { namespace simd
   {
     NT2_STATIC_ASSERT ( (meta::is_vectorizable<Scalar,Extension>::value)
                       , INVALID_SCALAR_TYPE_IN_SIMD_NATIVE_TYPE
-                      , "Native SIMD type instanciated with non-vectorizable base scalar type."
+                      , "Native SIMD type instanciated with non-vectorizable "
+                        "base scalar type. Check that you compiled this program "
+                        "with the proper SIMD extension enabling options."
                       );
 
     ////////////////////////////////////////////////////////////////////////////
-    // Various interface typedefs
+    // native<S,E> is a SIMD type encapsulation
     ////////////////////////////////////////////////////////////////////////////
-    typedef Scalar                                          value_type;
     typedef Extension                                       extension_type;
-    typedef functors::simd_<tag::arithmetic_,Extension,1>   nt2_category_tag;
     typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
+    ////////////////////////////////////////////////////////////////////////////
+    // native<S,E> models FusionRandomAccessSequence
+    ////////////////////////////////////////////////////////////////////////////
+    typedef Scalar                                          value_type;
     typedef value_type                                      reference;
     typedef value_type                                      const_reference;
     typedef std::size_t                                     size_type;
     typedef details::native_iterator<native>                iterator;
     typedef details::native_iterator<native>                const_iterator;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // hierarchy tag for native
+    ////////////////////////////////////////////////////////////////////////////
+    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
+                        , Extension
+                        >                                   nt2_hierarchy_tag;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // native cast to another type
+    ////////////////////////////////////////////////////////////////////////////
+    template<class U> struct cast { typedef native<U,extension_type> type; };
 
     ////////////////////////////////////////////////////////////////////////////
     // vector size
@@ -95,8 +112,11 @@ namespace nt2 { namespace simd
 
     ////////////////////////////////////////////////////////////////////////////
     // Type casting operator for compatibility with intrinsic functions
+    // The operator() version is here for some variation of Altivec which fails
+    // to perform the proper automatic type-casting on intrinsic calls.
     ////////////////////////////////////////////////////////////////////////////
-    operator native_type() const { return data_; }
+    operator native_type()    const { return data_; }
+    native_type operator()()  const { return data_; }
 
     ////////////////////////////////////////////////////////////////////////////
     // new/delete operator to force alignment on heap of native values
@@ -115,19 +135,19 @@ namespace nt2 { namespace simd
     this_type const& operator+() const { return *this; }
     this_type operator!() const
     {
-      functors::functor<functors::logical_not_> callee;
+      functor<tag::logical_not_> callee;
       return callee(*this);
     }
 
     this_type operator-() const
     {
-      functors::functor<functors::neg_> callee;
+      functor<tag::unary_minus_> callee;
       return callee(*this);
     }
 
     this_type operator~()  const
     {
-      functors::functor<functors::complement_> callee;
+      functor<tag::complement_> callee;
       return callee(*this);
     }
 

@@ -31,7 +31,7 @@
 NT2_TEST_CASE_TPL(cumsum, NT2_SIMD_TYPES )
 {
  using nt2::cumsum;
- using nt2::functors::cumsum_;    
+ using nt2::tag::cumsum_;    
  using nt2::load;  
  using nt2::simd::native; 
  using nt2::meta::cardinal_of;
@@ -52,9 +52,9 @@ NT2_TEST_CASE_TPL(cumsum, NT2_SIMD_TYPES )
      T z = 0; 
      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
        {
-	 z+= a0[j]; 
-	 NT2_TEST_EQUAL(v[j], z);
-	 std::cout << v[j] << "  " << z << std::endl; 
+       z+= a0[j]; 
+       NT2_TEST_EQUAL(v[j], z);
+       std::cout << v[j] << "  " << z << std::endl; 
        }
    }
 }
