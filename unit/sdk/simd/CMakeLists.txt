@@ -19,6 +19,8 @@ SET( SOURCES
     cardinal_of.cpp
     category_of.cpp
     comma.cpp
+    compare_equal.cpp
+    compare_not_equal.cpp
     complement.cpp
     divides.cpp
     downgrade.cpp
@@ -37,6 +39,7 @@ SET( SOURCES
     make_real.cpp
     minus.cpp
     modulo.cpp
+    multiplies.cpp
 #    native.cpp
     native_cast.cpp
     neg.cpp
@@ -44,6 +47,8 @@ SET( SOURCES
     plus.cpp
     scalar_of.cpp
     sign_of.cpp
+    shift_left.cpp
+    shift_right.cpp
     upgrade.cpp
    )
 

@@ -6,32 +6,47 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::multiplies"
+#define NT2_UNIT_MODULE "nt2::multiplies SIMD"
 
+#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/functor/operators.hpp>
-#include <nt2/sdk/meta/supported_types.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test behavior for plus
+// Test behavior for multiplies
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( multiplies, NT2_TYPES )
+NT2_TEST_CASE_TPL ( multiplies, NT2_SIMD_TYPES )
 {
   using boost::is_same;
   using nt2::tag::multiplies_;
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<multiplies_(T,T)>::type
-                            , BOOST_TYPEOF_TPL(T(1)*T(1))
+  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef native<T,ext_t>                 n_t;
+
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<multiplies_(n_t,n_t)>::type
+                            , n_t
                             >::value
             )
           );
 
-  T value  = 4;
-  NT2_TEST_EQUAL( nt2::multiplies(value ,value ), value*value );
-  NT2_TEST_EQUAL( nt2::mul(value ,value ) , value*value );
+  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
+  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
+    data[i] = 1+i;
+
+  n_t v = nt2::load<n_t>(&data[0],0);
+  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+  {
+    NT2_TEST_EQUAL( (v*v)[j]                 , T(v[j]*v[j]) );
+    NT2_TEST_EQUAL( (nt2::multiplies(v,v))[j], T(v[j]*v[j]) );
+    NT2_TEST_EQUAL( (nt2::mul(v,v))[j]       , T(v[j]*v[j]) );
+  }
 }
 

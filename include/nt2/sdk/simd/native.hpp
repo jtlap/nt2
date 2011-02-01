@@ -29,22 +29,32 @@ namespace nt2 { namespace simd
     NT2_STATIC_ASSERT ( (meta::is_vectorizable<Scalar,Extension>::value)
                       , INVALID_SCALAR_TYPE_IN_SIMD_NATIVE_TYPE
                       , "Native SIMD type instanciated with non-vectorizable "
-                        "base scalar type. Check that you compiled this programm "
+                        "base scalar type. Check that you compiled this program "
                         "with the proper SIMD extension enabling options."
                       );
 
     ////////////////////////////////////////////////////////////////////////////
-    // Various interface typedefs
+    // native<S,E> is a SIMD type encapsulation
     ////////////////////////////////////////////////////////////////////////////
-    typedef Scalar                                          value_type;
     typedef Extension                                       extension_type;
     typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
+    ////////////////////////////////////////////////////////////////////////////
+    // native<S,E> models FusionRandomAccessSequence
+    ////////////////////////////////////////////////////////////////////////////
+    typedef Scalar                                          value_type;
     typedef value_type                                      reference;
     typedef value_type                                      const_reference;
     typedef std::size_t                                     size_type;
     typedef details::native_iterator<native>                iterator;
     typedef details::native_iterator<native>                const_iterator;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // hierarchy tag for native
+    ////////////////////////////////////////////////////////////////////////////
+    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
+                        , Extension
+                        >                                   nt2_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     // native cast to another type
@@ -228,6 +238,6 @@ namespace nt2 { namespace simd
 #include <nt2/sdk/simd/details/native/constants.hpp>
 #include <nt2/sdk/simd/details/native/functions.hpp>
 #include <nt2/sdk/simd/details/native/operators.hpp>
-//#include <nt2/sdk/simd/details/native/comparisons.hpp>
+#include <nt2/sdk/simd/details/native/comparisons.hpp>
 
 #endif

@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::shift_right SIMD"
+#define NT2_UNIT_MODULE "nt2::compare_not_equal on SIMD types"
 
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -19,37 +19,41 @@
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test behavior for shift_right
+// Test behavior for compare_not_equal
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( shift_right, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( compare_not_equal, NT2_SIMD_TYPES )
 {
   using boost::is_same;
-  using nt2::tag::shift_right_;
+  using nt2::tag::compare_not_equal_;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  using nt2::meta::as_integer;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION            ext_t;
-  typedef native<T,ext_t>                       n_t;
-  typedef typename as_integer<n_t>::type  i_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef native<T,ext_t>                 n_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<shift_right_(n_t,i_t)>::type
-                            , n_t
+  NT2_TEST( (boost::is_same < typename nt2::meta::call<compare_not_equal_(n_t,n_t)>::type
+                            , bool
                             >::value
             )
           );
 
-  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
+  NT2_ALIGNED_TYPE(T) base[cardinal_of<n_t>::value];
+    for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
+      base[i] = 1+i;
+
+  NT2_ALIGNED_TYPE(T) comp[cardinal_of<n_t>::value];
   for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    comp[i] = 1+i;
 
-  n_t v = nt2::load<n_t>(&data[0],0);
-  i_t s = nt2::splat<i_t>(2);
+  n_t v = nt2::load<n_t>(&base[0],0);
+  NT2_TEST( !(v != v) );
 
-  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
   {
-    NT2_TEST_EQUAL( (v >> s)[j]              , nt2::shift_right(v[j],s[j]) );
-    NT2_TEST_EQUAL( (nt2::shift_right(v,s))[j], nt2::shift_right(v[j],s[j]) );
+    comp[i] = 0;
+    n_t w = nt2::load<n_t>(&comp[0],0);
+    NT2_TEST( v != w );
+    comp[i] = i+1;
   }
 }
 

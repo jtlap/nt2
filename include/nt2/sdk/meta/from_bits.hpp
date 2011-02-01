@@ -18,6 +18,9 @@ namespace nt2 { namespace details
   template<class T, class Sign, class Hierarchy>
   struct from_bits
   {
+    typedef typename meta::as_integer<T, Sign>::type  bits_type;
+    typedef typename meta::as_integer<T, Sign>::type  value_type;
+
     typedef union
     {
       typename meta::as_integer<T, Sign>::type  bits;

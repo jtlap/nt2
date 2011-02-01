@@ -32,9 +32,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype;
-      typedef typename meta::from_bits<rtype>::type  type;
-      type that =  {a0>=Zero<A0>()?a0:((1LL << (8*sizeof(A0)-1))-a0)};//TOVERIFY PERFS
+      typedef typename NT2_RETURN_TYPE(1)::type           rtype;
+      typedef typename meta::from_bits<rtype>::type       type;
+      typedef typename meta::from_bits<rtype>::bits_type  bits_type;
+      type that = { a0 >= Zero<A0>()
+                  ? bits_type(a0)
+                  : bits_type((1LL << (8*sizeof(A0)-1))-a0)
+                  };
+      // TOVERIFY PERFS
       return that.value;
     }
   };
