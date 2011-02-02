@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_PROTO_EXTENDS_HPP
-#define BOOST_PROTO_EXTENDS_HPP
+#ifndef NT2_SDK_DSL_PROTO_EXTENDS_HPP
+#define NT2_SDK_DSL_PROTO_EXTENDS_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
 // BOOST_PROTO_BASIC_EXTENDS working with template Domain
