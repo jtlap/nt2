@@ -12,35 +12,82 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Basic category registration
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/category.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Use this macro to put a type in the SIMD familly
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_CATEGORY_AST_FAMILY 0x1000
-
-////////////////////////////////////////////////////////////////////////////////
-// Family tags for call/validate writings
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag
+namespace nt2 { namespace meta
 {
-  struct ast_ {};
+  //////////////////////////////////////////////////////////////////////////////
+  // Proto domain hierarchy is itself. parent domain is computed from
+  // proto_super_domain.
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  struct domain_ : domain_<typename T::proto_super_domain>
+  {
+    typedef domain_<typename T::proto_super_domain> parent;
+    typedef T                                       type;
+  };
+
+  template<>
+  struct  domain_<boost::proto::detail::not_a_domain>
+        : unspecified_<boost::proto::detail::not_a_domain>
+  {
+    typedef unspecified_<boost::proto::detail::not_a_domain>  parent;
+    typedef boost::proto::detail::not_a_domain                type;
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Proto expression hierarchy is defined by its domain and :
+  //  - the top-most node for expression
+  //  - the terminal value hierarchy (and its parent branches) for terminal
+  //////////////////////////////////////////////////////////////////////////////
+//  template<class T,class Domain>
+//  struct expr_ : expr_<T,typename Domain::parent>
+//  {
+//    typedef expr_<T,typename Domain::parent> parent;
+//    typedef tag::expr_      type(typename Domain::type);
+//  };
+//
+//  template<class T,class Domain>
+//  struct expr_<T,unspecified_<Domain> > : unspecified_<T>
+//  {
+//    typedef unspecified_<T> parent;
+//    typedef tag::expr_      type(typename unspecified_<Domain>::type);
+//  };
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// ast_ metafunction for building an AST category
-// Every proto expression have ast_(?) category, the ? depends on underlying
-// elements and semantic.
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
+namespace nt2 { namespace details
 {
-  template<class Base>
-  struct  ast_ : nt2::tag::category<ast_<Base>,NT2_CATEGORY_AST_FAMILY,1>
+  template<class T> struct hierarchy_of<T, typename T::proto_is_domain_>
   {
-    typedef nt2::tag::ast_ tag(Base);
+    typedef meta::domain_<T> type;
   };
+
+//  template<class T,class Node,class Domain>
+//  struct expr_impl_
+//  {
+//    typedef expr_< T
+//                 , node_type
+//                 , typename meta::hierarchy_of<Domain>::type
+//                 >                             type;
+//  };
+//  template<class T,class Node,class Domain>
+//  struct expr_impl_<T,boost::proto::tag::terminal,Domain>
+//  {
+//    typedef typename boost::proto::result_of::value<T>::type value_type;
+//    typedef expr_< T
+//                 , typename meta::hierarchy_of<value_type>::type
+//                 , typename meta::hierarchy_of<Domain>::type
+//                 >                             type;
+//  };
+//  template<class T> struct hierarchy_of<T, typename T::proto_is_expr_>
+//  {
+//    typedef typename boost::proto::domain_of<T>::type domain_type;
+//    typedef typename boost::proto::tag_of<T>::type    node_type;
+//    typedef expr_impl_ < T
+//                       , node_type
+//                       , typename meta::hierarchy_of<domain_type>::type
+//                       >                             type;
+//  };
 } }
 
 #endif
