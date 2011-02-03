@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
+#include <iostream>
 
 
 
@@ -59,7 +60,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      return ::ffsl(t1.bits);
+      return ::ffsll(t1.bits);
     }
   };
 } }
@@ -110,6 +111,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      std::cout << t1.bits <<  std::endl; 
       return ::ffs(t1.bits);
     }
   };
