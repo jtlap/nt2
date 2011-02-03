@@ -4,7 +4,7 @@
         'arity'         : '1',    ## functor number of parameters
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['real_', 'integer_'],     ## list of types string
-        'rturn'         : { 'default' : 'T' },     ## dictionary of return types
+        'rturn'         : { 'default' : 'typename nt2::meta::as_integer<T, unsigned>::type' },     ## dictionary of return types
         'call_types'    : [],## types used in call ['T']*arity if omitted 
         'type_defs'     : [],  ## supplementary typedefs
         }, ## end of functor
@@ -18,26 +18,25 @@
             },
         'specific_values' : {
                 'real_'       : {
-                    'nt2::Inf<T>()' :  {'result' : 'nt2::Inf<r_t>()' ,'ulp_thresh':'0.5'},
-                    'nt2::Minf<T>()':  {'result' : 'nt2::Zero<r_t>()' ,'ulp_thresh':'0.5'},
-                    'nt2::Nan<T>()' :  {'result' : 'nt2::Nan<r_t>()' ,'ulp_thresh':'0.5'},
+                    'nt2::Nan<T>()' :  {'result' : 'sizeof(T)*8' ,'ulp_thresh':'0.5'},
                     'nt2::Zero<T>()':  {'result' : 'nt2::Zero<r_t>()','ulp_thresh':'0.5'},
-                },
-                'signed_int_   ': {
-                    'nt2::Zero<T>()': {'result' : 'nt2::Zero<r_t>()','ulp_thresh':'0.5'},
                 },
                 'default': {
                     'nt2::Zero<T>()': {'result' : 'nt2::Zero<r_t>()','ulp_thresh':'0.5'},
-                },
+                    'nt2::One<T>()':   {'result' : 'nt2::One<r_t>()' ,'ulp_thresh':'0.5'},
+                    'nt2::Two<T>()':   {'result' : 'nt2::One<r_t>()' ,'ulp_thresh':'0.5'},
+                    'nt2::Three<T>()':   {'result' : 'nt2::Two<r_t>()' ,'ulp_thresh':'0.5'},
+                    'nt2::Mone<T>()':   {'result' : 'sizeof(T)*8' ,'ulp_thresh':'0.5'},
+                 },
            },  ## dictionary of parameters and values to be tested
         'ranges'          :  {
              'default'       : [["T(-10000)","T(10000)"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd
-            'property_call'   : {'integer_' : ['nt2::popcnt(a0)'],},  ## dictionary of calls per types
-            'property_value'  : {'integer_' : ['nt2::popcnt(a0)'],}, ## dictionary of alternate calls
-            'ulp_thresh'      : {'default' : ['0'],},     ## validity thresholds(s)
+            'property_call'   : {},   ##'integer_' : ['nt2::popcnt(a0)'],},  ## dictionary of calls per types
+            'property_value'  : {},   ##'integer_' : ['nt2::popcnt(a0)'],}, ## dictionary of alternate calls
+            'ulp_thresh'      : {},   ##'default' : ['0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 
 },
