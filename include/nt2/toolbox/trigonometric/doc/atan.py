@@ -4,6 +4,7 @@
         'arity'         : '1',    ## functor number of parameters
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['real_', 'unsigned_int_', 'signed_int_'],     ## list of types string
+##        'simd_types'    : ['real_convert_'],
         'rturn'         : { 'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type' },     ## ditionary of return types
         'call_types'    : [],## types used in call ['T']*arity if omitted 
         'type_defs'     : [],  ## supplementary typedefs
@@ -41,9 +42,11 @@
         'ranges'          :  {
              'default'       : [["nt2::Zero<T>()","nt2::One<T>()"]],
              'real_'         : [["nt2::Mone<T>()","nt2::One<T>()"]], 
+             'real_convert_' : [["nt2::Mone<T>()","nt2::One<T>()"]], 
              'signed_int_'   : [["T(-1)","T(1)"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
+            'simd'            : {'real_convert_' : 'real_'},    
             'property_call'   : {'real_' : ['nt2::atan(a0)'],},  ## dictionary of calls per types
             'property_value'  : {'real_' : ['nt2::crlibm::atan<nt2::rn>(a0)'],}, ## dictionary of alternate calls
             'ulp_thresh'      : {'real_' : ['0.5'],},     ## validity thresholds(s)
