@@ -42,6 +42,5 @@ NT2_TEST_CASE_TPL ( rol_integer__2,  NT2_INTEGRAL_TYPES)
   NT2_TEST_ULP_EQUAL(  rol(nt2::Mone<T>(),1), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  rol(nt2::Mone<T>(),5), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  rol(nt2::One<T>(), nt2::One<T>()), nt2::Two<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  rol(nt2::One<T>()<<(sizeof(T)*8-1),1), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  rol(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for integer_
