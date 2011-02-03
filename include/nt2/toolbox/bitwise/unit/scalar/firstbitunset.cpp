@@ -6,49 +6,80 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - firstbitunset/scalar Mode"
 
-#include <nt2/toolbox/bitwise/include/firstbitunset.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/bitwise/include/firstbitunset.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( firstbitunset,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                (float)(nt2::uint32_t)(nt2::int32_t)  
-                (nt2::uint16_t)(nt2::int16_t)         
-                (nt2::uint8_t)(nt2::int8_t)
-                  )
+NT2_TEST_CASE_TPL ( firstbitunset_real__1,  NT2_REAL_TYPES)
 {
   using nt2::firstbitunset;
   using nt2::tag::firstbitunset_;
+  typedef typename nt2::meta::call<firstbitunset_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<firstbitunset_(T)>::type
-           , typename nt2::meta::as_integer<T, unsigned>::type
-              >::value)
-           );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
 
-NT2_TEST_CASE_TPL ( firstbitunset_1,  (nt2::uint64_t)(nt2::int64_t) 
-                (nt2::uint32_t)(nt2::int32_t)  
-                (nt2::uint16_t)(nt2::int16_t)         
-                (nt2::uint8_t)(nt2::int8_t)
-                  )
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Inf<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Minf<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Nan<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Signmask<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::firstbitunset;
   using nt2::tag::firstbitunset_;
+  typedef typename nt2::meta::call<firstbitunset_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<firstbitunset_(T)>::type
-           , typename nt2::meta::as_integer<T, unsigned>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  firstbitunset( T(1)), 2 );
-  NT2_TEST_EQUAL(  firstbitunset( T(2)), 1 );
-  NT2_TEST_EQUAL(  firstbitunset( T(7)), 8 );
-  NT2_TEST_EQUAL(  firstbitunset( T(15)), 16); 
-}
-  
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::One<T>()), nt2::Two<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Signmask<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( firstbitunset_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+{
+  using nt2::firstbitunset;
+  using nt2::tag::firstbitunset_;
+  typedef typename nt2::meta::call<firstbitunset_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::One<T>()), nt2::Two<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+} // end of test for unsigned_int_

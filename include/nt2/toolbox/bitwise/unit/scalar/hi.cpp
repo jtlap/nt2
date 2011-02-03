@@ -6,29 +6,101 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - hi/scalar Mode"
 
-#include <nt2/toolbox/bitwise/include/hi.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/bitwise/include/hi.hpp>
+// specific includes for arity 1 tests
+#include<nt2/sdk/meta/downgrade.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( hi,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                (float)(nt2::uint32_t)(nt2::int32_t)  
-                (nt2::uint16_t)(nt2::int16_t)         
-                (nt2::uint8_t)(nt2::int8_t)
-                  )
+NT2_TEST_CASE_TPL ( hi_real__1,  NT2_REAL_TYPES)
 {
   using nt2::hi;
   using nt2::tag::hi_;
+  typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
+  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<hi_(T)>::type
-           , typename nt2::meta::as_integer<T, unsigned>::type
-              >::value)
-           );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  hi(nt2::Nan<T>()), nt2::Mone<dr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( hi_int64__1,  (int64_t)(uint64_t))
+{
+  using nt2::hi;
+  using nt2::tag::hi_;
+  typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
+  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  hi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for int64_
+
+NT2_TEST_CASE_TPL ( hi_int32__1,  (int32_t)(uint32_t))
+{
+  using nt2::hi;
+  using nt2::tag::hi_;
+  typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
+  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  hi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for int32_
+
+NT2_TEST_CASE_TPL ( hi_int16__1,  (int16_t)(uint16_t))
+{
+  using nt2::hi;
+  using nt2::tag::hi_;
+  typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
+  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  hi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for int16_
