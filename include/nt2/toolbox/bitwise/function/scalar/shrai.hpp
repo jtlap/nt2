@@ -33,8 +33,31 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0,signed>::type type;
-      return type(a0) >> a1;
+      return a0 >> a1;
+    }
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is unsigned_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
+                       (A0)(A1),
+                       (unsigned_<A0>)(arithmetic_<A1>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::shrai_(tag::unsigned_,tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+       struct result<This(A0,A1)> : meta::strip <A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return a0 >> a1;
     }
   };
 } }
