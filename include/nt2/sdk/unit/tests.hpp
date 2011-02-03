@@ -18,7 +18,8 @@
 #include <nt2/sdk/unit/details/tests.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/include/functions/random.hpp>
-
+#define NT2_NB_RANDOM_TEST 128
+//1024
 ////////////////////////////////////////////////////////////////////////////////
 // Evaluates an expression and checks if it evaluates to true or not
 ////////////////////////////////////////////////////////////////////////////////
@@ -116,6 +117,22 @@
   nt2::memory::buffer<TYPE,int,int,				\
 		      nt2::memory::allocator<TYPE> >		\
   tab_##NAME(0, SIZE);						\
+  TYPE NAME;							\
+  for(int k = 0; k < SIZE; ++k){				\
+    tab_##NAME[k] = nt2::random(MIN, MAX);			\
+  }								\
+/**/
+#define NT2_CREATE_SCALAR_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
+  nt2::memory::buffer<TYPE,int,int,				\
+		      nt2::memory::allocator<TYPE> >		\
+  tab_##NAME(0, SIZE);						\
+  TYPE NAME;							\
+  for(int k = 0; k < SIZE; ++k){				\
+    tab_##NAME[k] = nt2::random(MIN, MAX);			\
+  }								\
+/**/
+#define NT2_CREATE_SIMD_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
+  NT2_ALIGNED_TYPE(T) tab_##NAME[SIZE*cardinal_of<n_t>::value];	\
   TYPE NAME;							\
   for(int k = 0; k < SIZE; ++k){				\
     tab_##NAME[k] = nt2::random(MIN, MAX);			\
