@@ -6,30 +6,40 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - reversebits/scalar Mode"
 
-#include <nt2/toolbox/bitwise/include/reversebits.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <iostream>
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( reversebits, NT2_INTEGRAL_TYPES
-                  )
-{
-  using nt2::reversebits; 
-  using nt2::tag::reversebits_;
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/bitwise/include/reversebits.hpp>
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<reversebits_(T)>::type
-           , T
-              >::value)
-           );
-  NT2_TEST_EQUAL(reversebits(T(-1)),  T(-1)); 
-  NT2_TEST_EQUAL(reversebits(T(0)), 0);
-  NT2_TEST_EQUAL(reversebits(T(1)), T(1ull << sizeof(T)*8-1));
-  std::cout << std::hex << reversebits(T(1)) << "  " << nt2::Signmask<T>() << std::endl; 
-}
+NT2_TEST_CASE_TPL ( reversebits_integer__1,  NT2_INTEGRAL_TYPES)
+{
+  using nt2::reversebits;
+  using nt2::tag::reversebits_;
+  typedef typename nt2::meta::call<reversebits_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  reversebits(nt2::Mone<T>()), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  reversebits(nt2::One<T>()), nt2::One<r_t>()<<(sizeof(r_t)*8-1), 0.5);
+  NT2_TEST_ULP_EQUAL(  reversebits(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for integer_

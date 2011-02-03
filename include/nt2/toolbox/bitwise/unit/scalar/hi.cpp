@@ -29,10 +29,11 @@ NT2_TEST_CASE_TPL ( hi_real__1,  NT2_REAL_TYPES)
 {
   using nt2::hi;
   using nt2::tag::hi_;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
-  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+  typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -41,7 +42,7 @@ NT2_TEST_CASE_TPL ( hi_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  hi(nt2::Nan<T>()), nt2::Mone<dr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  hi(nt2::Nan<T>()), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for real_
 
@@ -49,10 +50,11 @@ NT2_TEST_CASE_TPL ( hi_int64__1,  (int64_t)(uint64_t))
 {
   using nt2::hi;
   using nt2::tag::hi_;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
-  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+  typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -69,10 +71,11 @@ NT2_TEST_CASE_TPL ( hi_int32__1,  (int32_t)(uint32_t))
 {
   using nt2::hi;
   using nt2::tag::hi_;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
-  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+  typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -89,10 +92,11 @@ NT2_TEST_CASE_TPL ( hi_int16__1,  (int16_t)(uint16_t))
 {
   using nt2::hi;
   using nt2::tag::hi_;
+  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type wished_r_t;
-  typedef typename nt2::meta::downgrade<r_t>::type dr_t;
+  typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

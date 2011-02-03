@@ -6,47 +6,62 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - popcnt/scalar Mode"
 
-#include <nt2/toolbox/bitwise/include/popcnt.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/bitwise/include/popcnt.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( popcnt,  (nt2::uint64_t)(nt2::int64_t) 
-                (nt2::uint32_t)(nt2::int32_t)  
-                (nt2::uint16_t)(nt2::int16_t)         
-                (nt2::uint8_t)(nt2::int8_t)
-                  )
+NT2_TEST_CASE_TPL ( popcnt_real__1,  NT2_REAL_TYPES)
 {
   using nt2::popcnt;
   using nt2::tag::popcnt_;
+  typedef typename nt2::meta::call<popcnt_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<popcnt_(T)>::type
-           , typename nt2::meta::as_integer<T, unsigned>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  popcnt( T(1)), 1 );
-  NT2_TEST_EQUAL(  popcnt( T(0)), 0 );
-  NT2_TEST_EQUAL(  popcnt( T(3)), 2 ); 
-}
-NT2_TEST_CASE_TPL ( real_popcnt,  (double) 
-                (float)
-                  )
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Nan<T>()), sizeof(T)*8, 0.5);
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( popcnt_integer__1,  NT2_INTEGRAL_TYPES)
 {
   using nt2::popcnt;
   using nt2::tag::popcnt_;
+  typedef typename nt2::meta::call<popcnt_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<popcnt_(T)>::type
-           ,typename nt2::meta::as_integer<T, unsigned>::type
-              >::value)
-           );
-  NT2_TEST_EQUAL(  popcnt( T(nt2::Nan<T>())), sizeof(T)*8 );
-  NT2_TEST_EQUAL(  popcnt( T(0)), 0 );
-}
-         
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Mone<T>()), sizeof(T)*8, 0.5);
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::One<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Three<T>()), nt2::Two<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Two<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for integer_
