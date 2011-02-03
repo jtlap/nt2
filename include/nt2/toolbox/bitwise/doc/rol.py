@@ -20,7 +20,7 @@
                 'integer_': {
                     'nt2::Zero<T>()': {'result' : 'nt2::Zero<r_t>()','ulp_thresh':'0.5'},
                     'nt2::One<T>()': {'result' : 'nt2::Two<r_t>()','ulp_thresh':'0.5'},
-                    'nt2::One<T>()<<(sizeof(T)*8-1),1': {'result' : 'nt2::One<r_t>()','ulp_thresh':'0.5'},
+#                    'nt2::One<T>()<<(sizeof(T)*8-1),1': {'result' : 'nt2::One<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Mone<T>(),1': {'result' : 'nt2::Mone<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Mone<T>(),5': {'result' : 'nt2::Mone<r_t>()','ulp_thresh':'0.5'},
                  },
