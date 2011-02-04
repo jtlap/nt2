@@ -19,13 +19,10 @@ SET( SOURCES
     allocate.cpp
     overload.cpp
     allocator.cpp
-    dynamic_buffer.cpp
-    dynamic_static_buffer.cpp
-    static_dynamic_buffer.cpp
-    static_buffer.cpp
+    buffer.cpp
     slice.cpp
     stride.cpp
-    block1D.cpp
+    #block1D.cpp
   )
 
 ADD_CUSTOM_TARGET(sdk.memory.unit)
