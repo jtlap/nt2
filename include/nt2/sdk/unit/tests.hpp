@@ -66,10 +66,12 @@
 ( ::nt2::details::test_ge(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
 /**/
 
+
 #define NT2_TEST_ULP_EQUAL(A,B,N)					\
   {									\
-    r_t r1 = A;								\
-    r_t r2 = B;								\
+    typedef typename nt2::meta::scalar_of<r_t>::type sr_t;		\
+    sr_t r1 = A;							\
+    sr_t r2 = B;							\
     ulpd = nt2::ulpdist(r1, r2);					\
     bool b; 								\
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,		\
