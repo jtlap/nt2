@@ -27,6 +27,7 @@ NT2_TEST_CASE_TPL ( reversebits_integer__1,  NT2_INTEGRAL_TYPES)
 {
   using nt2::reversebits;
   using nt2::tag::reversebits_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<reversebits_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;

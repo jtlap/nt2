@@ -6,58 +6,140 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/simd Mode"
- 
-#include <nt2/toolbox/bitwise/include/select.hpp> 
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - select/simd Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/include/functions/random.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/bitwise/include/select.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL ( select_real__3,  NT2_REAL_TYPES)
+{
+  using nt2::select;
+  using nt2::tag::select_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<select_(vT,vT,vT)>::type r_t;
 
-NT2_TEST_CASE_TPL(select, NT2_SIMD_TYPES )
-{ 
- using nt2::select; 
- using nt2::tag::select_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
-
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t; 
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::as_integer < T, signed>::type iT;
-  typedef native<iT,ext_t>             in_t;
- typedef typename nt2::meta::call<select_(in_t, n_t, n_t)>::type call_type;
-
-  NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
-  NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value];
-  NT2_ALIGNED_TYPE(iT) data0[cardinal_of<n_t>::value];
-  for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
-    data[i] = nt2::random(0.0, 50.0); // good value here for select
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(0), T(0));
+    NT2_CREATE_SIMD_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SIMD_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a1 = load<n_t>(&tab_a1[0],j);
+        vT a2 = load<n_t>(&tab_a2[0],j);
+        r_t v = select(a0,a1,a2);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::select(tab_a0[k],tab_a1[k],tab_a2[k]),1.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
   }
-<<<<<<< HEAD
-  for(int i=0;i<cardinal_of<n_t>::value;++i){    
-=======
-  for(int i=0;i<cardinal_of<n_t>::value;++i){
->>>>>>> 281742d9365593cf4bad08c4d637b694d5e53da3
-    data0[i] = nt2::random(-1, 0); // good value here for select
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, nt2::Nan<T>(), nt2::Nan<T>());
+    NT2_CREATE_SIMD_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SIMD_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a1 = load<n_t>(&tab_a1[0],j);
+        vT a2 = load<n_t>(&tab_a2[0],j);
+        r_t v = select(a0,a1,a2);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::select(tab_a0[k],tab_a1[k],tab_a2[k]),1.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
   }
-   n_t a1 = load<n_t>(&data[0],0);   
-   n_t a2 = load<n_t>(&data[0],1);
-  in_t a0 = load<in_t>(&data0[0],0);    
-   n_t v  = select(a0, a1, a2);
-   std::cout << a0 << a1 << a2 << std::endl; 
-   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
-     {
-       NT2_TEST_EQUAL( v[j], select(a0[j], a1[j], a2[j]) );
-     }
- }
- 
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( select_integer__3,  NT2_INTEGRAL_TYPES)
+{
+  using nt2::select;
+  using nt2::tag::select_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<select_(vT,vT,vT)>::type r_t;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(0), T(0));
+    NT2_CREATE_SIMD_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SIMD_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a1 = load<n_t>(&tab_a1[0],j);
+        vT a2 = load<n_t>(&tab_a2[0],j);
+        r_t v = select(a0,a1,a2);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::select(tab_a0[k],tab_a1[k],tab_a2[k]),1.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+  }
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-1), T(-1));
+    NT2_CREATE_SIMD_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SIMD_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a1 = load<n_t>(&tab_a1[0],j);
+        vT a2 = load<n_t>(&tab_a2[0],j);
+        r_t v = select(a0,a1,a2);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::select(tab_a0[k],tab_a1[k],tab_a2[k]),1.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+  }
+} // end of test for integer_
+

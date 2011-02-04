@@ -27,9 +27,11 @@ NT2_TEST_CASE_TPL ( bits_real__1,  NT2_REAL_TYPES)
 {
   using nt2::bits;
   using nt2::tag::bits_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bits_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -46,9 +48,11 @@ NT2_TEST_CASE_TPL ( bits_integer__1,  NT2_INTEGRAL_TYPES)
 {
   using nt2::bits;
   using nt2::tag::bits_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bits_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

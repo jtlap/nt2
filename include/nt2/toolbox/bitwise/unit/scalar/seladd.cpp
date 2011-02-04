@@ -27,9 +27,11 @@ NT2_TEST_CASE_TPL ( seladd_real__3,  NT2_REAL_TYPES)
 {
   using nt2::seladd;
   using nt2::tag::seladd_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<seladd_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -50,9 +52,11 @@ NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
 {
   using nt2::seladd;
   using nt2::tag::seladd_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<seladd_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -67,7 +71,7 @@ NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(0), T(0));
     NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
     NT2_CREATE_SCALAR_BUFFER(a2,T, NR, T(-10000), T(10000));
     double ulp0 = 0.0, ulpd = 0.0;
@@ -84,24 +88,7 @@ NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
-    NT2_CREATE_SCALAR_BUFFER(a2,T, NR, T(-10000), T(10000));
-    double ulp0 = 0.0, ulpd = 0.0;
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << ", a2 = "<< u_t(a2 = tab_a2[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::seladd(a0,a1,a2),a0?a1+a2:a1,0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
-  {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-1), T(-1));
     NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
     NT2_CREATE_SCALAR_BUFFER(a2,T, NR, T(-10000), T(10000));
     double ulp0 = 0.0, ulpd = 0.0;

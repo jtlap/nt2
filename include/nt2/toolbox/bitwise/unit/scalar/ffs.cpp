@@ -27,9 +27,11 @@ NT2_TEST_CASE_TPL ( ffs_float_1,  (float))
 {
   using nt2::ffs;
   using nt2::tag::ffs_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ffs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,9 +51,11 @@ NT2_TEST_CASE_TPL ( ffs_double_1,  (double))
 {
   using nt2::ffs;
   using nt2::tag::ffs_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ffs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -71,9 +75,11 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::ffs;
   using nt2::tag::ffs_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ffs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -91,9 +97,11 @@ NT2_TEST_CASE_TPL ( ffs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::ffs;
   using nt2::tag::ffs_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ffs_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -104,11 +112,4 @@ NT2_TEST_CASE_TPL ( ffs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(  ffs(nt2::One<T>()), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  ffs(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-//   uint64_t j = 1; 
-//   for (int i =  0; i < 64; ++i)
-//     {
-//       j *= 2;
-//       std::cout << j << "   " << ::ffsl(j) <<  std::endl; 
-//       std::cout << j << "   " << nt2::ffs(j) <<  std::endl; 
-//    }
 } // end of test for unsigned_int_

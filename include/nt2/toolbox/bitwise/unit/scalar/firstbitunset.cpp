@@ -27,9 +27,11 @@ NT2_TEST_CASE_TPL ( firstbitunset_real__1,  NT2_REAL_TYPES)
 {
   using nt2::firstbitunset;
   using nt2::tag::firstbitunset_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitunset_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,9 +51,11 @@ NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::firstbitunset;
   using nt2::tag::firstbitunset_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitunset_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -69,9 +73,11 @@ NT2_TEST_CASE_TPL ( firstbitunset_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::firstbitunset;
   using nt2::tag::firstbitunset_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitunset_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

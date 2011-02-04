@@ -27,9 +27,11 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_real__2,  NT2_REAL_TYPES)
 {
   using nt2::bitwise_andnot;
   using nt2::tag::bitwise_andnot_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitwise_andnot_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,9 +51,11 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_integer__2,  NT2_INTEGRAL_TYPES)
 {
   using nt2::bitwise_andnot;
   using nt2::tag::bitwise_andnot_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitwise_andnot_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

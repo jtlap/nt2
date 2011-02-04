@@ -27,9 +27,11 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real__2,  NT2_REAL_TYPES)
 {
   using nt2::bitwise_notand;
   using nt2::tag::bitwise_notand_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitwise_notand_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,9 +51,11 @@ NT2_TEST_CASE_TPL ( bitwise_notand_integer__2,  NT2_INTEGRAL_TYPES)
 {
   using nt2::bitwise_notand;
   using nt2::tag::bitwise_notand_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitwise_notand_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -65,21 +69,6 @@ NT2_TEST_CASE_TPL ( bitwise_notand_integer__2,  NT2_INTEGRAL_TYPES)
   NT2_TEST_ULP_EQUAL(  bitwise_notand(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
-    double ulp0 = 0.0, ulpd = 0.0;
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::bitwise_notand(a0,a1),(~a0)&a1,0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
   {
     NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
     NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));

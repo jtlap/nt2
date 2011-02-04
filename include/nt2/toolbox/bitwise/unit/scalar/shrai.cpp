@@ -29,7 +29,9 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 {
   using nt2::shrai;
   using nt2::tag::shrai_;
-  typedef typename nt2::meta::call<shrai_(T,T)>::type r_t;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<shrai_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -49,8 +51,9 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    typedef typename nt2::meta::as_integer<T>::type iT;
     NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(0), sizeof(T)*8-1);
+    NT2_CREATE_SCALAR_BUFFER(a1,iT, NR, T(0), sizeof(T)*8-1);
     double ulp0 = 0.0, ulpd = 0.0;
     for (int j =0; j < NR; ++j )
       {
@@ -69,7 +72,9 @@ NT2_TEST_CASE_TPL ( shrai_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::shrai;
   using nt2::tag::shrai_;
-  typedef typename nt2::meta::call<shrai_(T,T)>::type r_t;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<shrai_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 

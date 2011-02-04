@@ -24,9 +24,6 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/toolbox/bitwise/include/bitwise_andnot.hpp>
-// specific includes for arity 2 tests
-#include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/boost_math/include/bitwise_andnot.hpp>
 
 NT2_TEST_CASE_TPL ( bitwise_andnot_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
 {
@@ -35,15 +32,32 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_real<T>::type r_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>               n_t;
-  typedef native<r_t,ext_t>            rn_t;
-  typedef n_t                            vT;
-  typedef typename nt2::meta::call<bitwise_andnot_(vT,vT)>::type call_type;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<bitwise_andnot_(vT,vT)>::type r_t;
 
-  // return type conformity test 
-  NT2_TEST( (boost::is_same< call_type, rn_t >::value) );
-
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-1000), T(1000));
+    NT2_CREATE_SIMD_BUFFER(a1,T, NR, T(-1000), T(1000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a1 = load<n_t>(&tab_a1[0],j);
+        r_t v = bitwise_andnot(a0,a1);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::bitwise_andnot(tab_a0[k],tab_a1[k]),1.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+  }
 } // end of test for real_convert_

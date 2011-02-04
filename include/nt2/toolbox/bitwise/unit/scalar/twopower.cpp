@@ -29,6 +29,7 @@ NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::twopower;
   using nt2::tag::twopower_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<twopower_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;

@@ -27,7 +27,8 @@ NT2_TEST_CASE_TPL ( rol_integer__2,  NT2_INTEGRAL_TYPES)
 {
   using nt2::rol;
   using nt2::tag::rol_;
-  typedef typename nt2::meta::call<rol_(T,T)>::type r_t;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<rol_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
