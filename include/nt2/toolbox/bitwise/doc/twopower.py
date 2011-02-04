@@ -4,6 +4,7 @@
         'arity'         : '1',    ## functor number of parameters
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['unsigned_int_'],     ## list of types string
+        'simd_types'    : ['unsigned_int_'],     ## list of types string
         'rturn'         : { 'default' : 'typename boost::result_of<nt2::meta::arithmetic(T)>::type' },     ## dictionary of return types
         'call_types'    : [],## types used in call ['T']*arity if omitted 
         'type_defs'     : [],  ## supplementary typedefs

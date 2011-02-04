@@ -4,6 +4,7 @@
         'arity'         : '3',    ## functor number of parameters
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['real_', 'integer_'],     ## list of types string
+        'simd_types'    : ['real_', 'integer_'],     ## list of types string
         'rturn'         : { 'default' :  'typename boost::result_of<nt2::meta::arithmetic(T,T)>::type' },     ## dictionary of return types
         'call_types'    : [],## types used in call ['T']*arity if omitted 
         'type_defs'     : [],  ## supplementary typedefs
@@ -37,7 +38,10 @@
                  },
            },  ## dictionary of parameters and values to be tested
         'ranges'          :  {
-             'default'       : [["T(0)","T(1)"],["T(-10000)","T(10000)"],["T(-10000)","T(10000)"]],
+             'default'       : [[["T(0)","T(0)"],["T(-10000)","T(10000)"],["T(-10000)","T(10000)"]],
+                                [["T(-1)","T(-1)"],["T(-10000)","T(10000)"],["T(-10000)","T(10000)"]]],
+             'real_'       : [[["T(0)","T(0)"],["T(-10000)","T(10000)"],["T(-10000)","T(10000)"]],
+                                [["nt2::Nan<T>()","nt2::Nan<T>()"],["T(-10000)","T(10000)"],["T(-10000)","T(10000)"]]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd

@@ -4,8 +4,9 @@
         'arity'         : '2',    ## functor number of parameters
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['integer_'],     ## list of types string
+        'simd_types'    : ['integer_'],     ## list of types string
         'rturn'         : { 'default' : 'T' },     ## dictionary of return types
-        'call_types'    : [],## types used in call ['T']*arity if omitted 
+        'call_types'    : ['T','iT'],## types used in call ['T']*arity if omitted 
         'type_defs'     : [],  ## supplementary typedefs
         }, ## end of functor
     'unit'    : {       ## informations for creating unit tests
@@ -26,7 +27,7 @@
                  },
           },  ## dictionary of parameters and values to be tested
         'ranges'          :  {
-             'default'       : [["T(-10000)","T(10000)"],["T(-10000)","T(10000)"]],
+             'default'       : [["T(-10000)","T(10000)"],["T(0)","sizeof(T)*8-1"]],
               },  ## dictionary of ranges for random tests
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd

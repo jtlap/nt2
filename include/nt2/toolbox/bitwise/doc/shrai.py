@@ -4,9 +4,10 @@
         'arity'         : '2',    ## functor number of parameters
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['unsigned_int_','signed_int_'],     ## list of types string
+        'simd_types'    : ['integer_'],     ## list of types string
         'rturn'         : { 'default' : 'T' },     ## dictionary of return types
-        'call_types'    : [],## types used in call ['T']*arity if omitted 
-        'type_defs'     : [],  ## supplementary typedefs
+        'call_types'    : ['T','iT'],## types used in call ['T']*arity if omitted 
+        'type_defs'     : ['typedef typename nt2::meta::as_integer<T>::type iT;'],  ## supplementary typedefs
         }, ## end of functor
     'unit'    : {       ## informations for creating unit tests
         'global_header' : { ## header of machin.cpp
