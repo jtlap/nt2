@@ -45,87 +45,21 @@ namespace nt2 { namespace meta
   };
 
   //////////////////////////////////////////////////////////////////////////////
-  // Proto expression hierarchy is defined by its domain and :
-  //  - the top-most node for expression
-  //  - the terminal value hierarchy (and its parent branches) for terminal
+  // Proto expression hierarchy is defined by its domain and the top-most
+  // node for expression
   //////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Case for terminals
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Domain,class Node,bool Enable=true>
-  struct expr_ : expr_<T,Domain,typename Node::parent>
+  template<class T,class Domain,class Node>
+  struct expr_ : expr_<T,typename Domain::parent,Node>
   {
-    typedef expr_<T,Domain,typename Node::parent> parent;
-    typedef tag::expr_  type(Domain,typename Node::type);
+    typedef expr_<T,typename Domain::parent,Node> parent;
+    typedef tag::expr_                            type(Domain,Node);
   };
 
   template<class T,class Domain,class Node>
-  struct expr_<T,Domain,unspecified_<Node> >
-       : expr_<T
-              ,typename Domain::parent
-              ,typename meta::hierarchy_of<Node>::type
-              >
-  {
-    typedef expr_ < T
-                  , typename Domain::parent
-                  , typename meta::hierarchy_of<Node>::type
-                  >         parent;
-    typedef tag::expr_      type(Domain, typename unspecified_<Node>::type);
-  };
-
-  template<class T,class Domain,class Node>
-  struct expr_<T,unspecified_<Domain>,unspecified_<Node> >
-       : unspecified_<T>
-  {
-    typedef unspecified_<T> parent;
-    typedef tag::expr_      type( typename unspecified_<Domain>::type
-                                , typename unspecified_<Node>::type
-                                );
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Case for non-terminals
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Domain,class Node>
-  struct expr_<T,Domain,Node,false>
-       : expr_<T,typename Domain::parent,Node,false>
-  {
-    typedef expr_<T,typename Domain::parent,Node,false> parent;
-    typedef tag::expr_                                  type(Domain,Node);
-  };
-
-  template<class T,class Domain,class Node>
-  struct expr_<T,unspecified_<Domain>,Node,false>
-       : unspecified_<T>
+  struct expr_<T,unspecified_<Domain>,Node> : unspecified_<T>
   {
     typedef unspecified_<T> parent;
     typedef tag::expr_ type(typename unspecified_<T>::type,Node);
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Select between terminals and non-terminals
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,long Arity>
-  struct expr_impl_
-  {
-    typedef typename boost::proto::domain_of<T>::type domain_type;
-    typedef typename boost::proto::tag_of<T>::type    node_type;
-    typedef expr_ < T
-                  , typename meta::hierarchy_of<domain_type>::type
-                  , node_type
-                  , false
-                  >                             type;
-  };
-
-  template<class T> struct expr_impl_<T,0>
-  {
-    typedef typename boost::proto::domain_of<T>::type        domain_type;
-    typedef typename boost::proto::result_of::value<T>::type value_type;
-    typedef expr_< T
-                 , typename meta::hierarchy_of<domain_type>::type
-                 , typename meta::hierarchy_of<value_type>::type
-                 >                             type;
   };
 } }
 
@@ -144,8 +78,14 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  hierarchy_of<T, typename T::proto_is_expr_>
-        : meta::expr_impl_< T, boost::proto::arity_of<T>::value >
-  {};
+  {
+    typedef typename boost::proto::domain_of<T>::type         domain_type;
+    typedef typename boost::proto::result_of::value<T>::type  value_type;
+    typedef meta::expr_< T
+                       , typename meta::hierarchy_of<domain_type>::type
+                       , typename meta::hierarchy_of<value_type>::type
+                       >                                      type;
+  };
 } }
 
 #endif
