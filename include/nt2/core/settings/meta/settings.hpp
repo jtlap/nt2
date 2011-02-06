@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_META_SETTINGS_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_META_SETTINGS_HPP_INCLUDED
 
-#include <nt2/core/settings/meta/settings.hpp>
+#include <nt2/core/settings/meta/option.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
