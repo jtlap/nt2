@@ -12,7 +12,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,13 +45,40 @@ namespace nt2 { namespace ext
   };
 } }
 
-/*
-    NT2_FUNCTOR_CALL_EVAL_IF(2,types16_ )
+////////////////////////////////////////////////////////////////////////////////
+// Overload registration
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
+                      , ((simd_<types16_<A0>,tag::altivec_>))
+                        ((simd_<types16_<A0>,tag::altivec_>))
+                      );
+
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct  call< tag::multiplies_( tag::simd_(tag::types16_,tag::altivec_)
+                                , tag::simd_(tag::types16_,tag::altivec_)
+                                )
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { vec_mladd(a0,a1,vec_xor(a0,a0)); };
+      A0 that = { vec_mladd(a0(),a1(),Zero<A0>()) };
       return that;
     }
+  };
+} }
 
+/*
     NT2_FUNCTOR_CALL_EVAL_IF(2,types8_ )
     {
       A0 l = { vec_mule(a0,a1); }; // replace A0 by upgrade<A0>
