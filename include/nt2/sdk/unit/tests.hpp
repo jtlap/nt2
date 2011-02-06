@@ -125,7 +125,7 @@
   }								\
 /**/
 #define NT2_CREATE_SCALAR_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
-  nt2::memory::buffer<TYPE,int,int,				\
+  nt2::memory::buffer<TYPE,					\
 		      nt2::memory::allocator<TYPE> >		\
   tab_##NAME(0, SIZE);						\
   TYPE NAME;							\
