@@ -25,7 +25,7 @@ NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::ints16_, tag::sse_)),
+  struct call<tag::splatted_maximum_(tag::simd_(*)(tag::ints16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -61,7 +61,7 @@ NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::double_, tag::sse_)),
+  struct call<tag::splatted_maximum_(tag::simd_(*)(tag::double_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -88,7 +88,7 @@ NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::ints64_, tag::sse_)),
+  struct call<tag::splatted_maximum_(tag::simd_(*)(tag::ints64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -117,7 +117,7 @@ NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::float_, tag::sse_)),
+  struct call<tag::splatted_maximum_(tag::simd_(*)(tag::float_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -145,7 +145,7 @@ NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::ints8_, tag::sse_)),
+  struct call<tag::splatted_maximum_(tag::simd_(*)(tag::ints8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -171,7 +171,7 @@ NT2_REGISTER_DISPATCH(tag::splatted_maximum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_maximum_(tag::simd_(tag::ints32_, tag::sse_)),
+  struct call<tag::splatted_maximum_(tag::simd_(*)(tag::ints32_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

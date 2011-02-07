@@ -27,8 +27,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(tag::arithmetic_, tag::sse_),
-                            tag::simd_(tag::arithmetic_, tag::sse_)),
+  struct call<tag::average_(tag::simd_(*)(tag::arithmetic_, tag::sse_),
+                            tag::simd_(*)(tag::arithmetic_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -55,8 +55,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(tag::uint16_, tag::sse_),
-                            tag::simd_(tag::uint16_, tag::sse_)),
+  struct call<tag::average_(tag::simd_(*)(tag::uint16_, tag::sse_),
+                            tag::simd_(*)(tag::uint16_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -84,8 +84,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(tag::uint8_, tag::sse_),
-                            tag::simd_(tag::uint8_, tag::sse_)),
+  struct call<tag::average_(tag::simd_(*)(tag::uint8_, tag::sse_),
+                            tag::simd_(*)(tag::uint8_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -113,8 +113,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(tag::real_, tag::sse_),
-                            tag::simd_(tag::real_, tag::sse_)),
+  struct call<tag::average_(tag::simd_(*)(tag::real_, tag::sse_),
+                            tag::simd_(*)(tag::real_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

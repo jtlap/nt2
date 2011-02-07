@@ -30,7 +30,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ilogb_(tag::simd_(tag::signed_, X)),
+  struct call<tag::ilogb_(tag::simd_(*)(tag::signed_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -62,7 +62,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ilogb_(tag::simd_(tag::uint32_, X)),
+  struct call<tag::ilogb_(tag::simd_(*)(tag::uint32_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -128,7 +128,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ilogb_(tag::simd_(tag::uint16_, X)),
+  struct call<tag::ilogb_(tag::simd_(*)(tag::uint16_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -186,7 +186,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ilogb_(tag::simd_(tag::uint8_, X)),
+  struct call<tag::ilogb_(tag::simd_(*)(tag::uint8_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -235,7 +235,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ilogb_(tag::simd_(tag::real_, X)),
+  struct call<tag::ilogb_(tag::simd_(*)(tag::real_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
