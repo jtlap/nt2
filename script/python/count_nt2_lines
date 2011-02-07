@@ -1,0 +1,202 @@
+#! /usr/bin/env python
+# -*- coding: iso-8859-15  -*-
+##############################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
+
+
+"""count nt2 lines of code
+"""
+
+__author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"
+__version__   = "$Revision: 1.0 $"
+__date__      = "$Date: 2010    $"
+__copyright__ = """ Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+                    Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI"""
+__license__   = "Boost Software License, Version 1.0"
+
+import sys
+import os
+import re
+import shutil
+from optparse import OptionParser
+
+def read(filename):  
+    "read the file as list of strings"
+    source = open(filename,'r')
+    s=source.read()
+    source.close()
+    return s.split('\n')
+
+def get_nt2_dir() :
+    """    nt2_dir() returns the absolute path to the directory under which
+    stands the main nt2 directory
+    The path is taken
+        from the environment if "NT2_DIR" is defined
+    or
+        default to the absolute path in the current call directory up
+        but non comprising the first /nt2/ occurence...
+        This path can be sometimes erroneous
+    or
+        abort if the path does not contain /nt2/
+        """
+    try :
+        d = os.environ["NT2_DIR"]
+    except KeyError :
+        d = sys.path[0] 
+        if not d : d = os.getcwd()
+        try :
+            d1 = re.match("(.*/)nt2/",d).groups()
+        except :
+            print "\n Environment chain 'NT2_DIR' is not defined"
+            print "and your current path does not contain /nt2/"
+            print "sorry aborting"
+            print get_nt2_dir.__doc__
+            raise SystemExit
+        if len(d1)!=0 : d = d1[0]
+    return os.path.expanduser(os.path.join(d,"nt2/include/"))
+
+def Walk( root, recurse=0, pattern='*', return_folders=0 ):
+	import fnmatch, os, string
+	
+	# initialize
+	result = []
+
+	# must have at least root folder
+	try:
+		names = os.listdir(root)
+	except os.error:
+		return result
+
+	# expand pattern
+	pattern = pattern or '*'
+	pat_list = string.splitfields( pattern , ';' )
+	
+	# check each file
+	for name in names:
+		fullname = os.path.normpath(os.path.join(root, name))
+
+		# grab if it matches our pattern and entry type
+		for pat in pat_list:
+			if fnmatch.fnmatch(name, pat) :
+				if os.path.isfile(fullname) or (return_folders and os.path.isdir(fullname)):
+					result.append(fullname)
+				continue
+				
+		# recursively scan other folders, appending results
+		if recurse:
+			if os.path.isdir(fullname) and not os.path.islink(fullname):
+				result = result + Walk( fullname, recurse, pattern, return_folders )
+			
+	return result
+
+def filters(filter) :
+    Filters = {
+        'c++' : '*.hpp;*.cpp;', 
+        'c'   : '*.h,*.c',
+        'c,c++' :'*.hpp;*.cpp;*.h,*.c*.hh,*.cc',
+        'doc'   :'*.rst'
+        }
+    if filter.lower() in Filters.keys() :
+        return (Filters[filter],filter.lower())
+    else :
+        return (filter,filter)
+    
+def is_excluded(f, exclude) :
+    if exclude is None : return False
+    if type(exclude) is str :
+        if re.search(exclude,f) :
+            return True
+        else :
+            return False
+    else :
+        exclude = ';'.split(exclude)
+        for ex in exclude :
+            if re.search(ex,f) : return True
+        return False
+
+def is_included(f, include) :
+    if include is None : return True
+    if type(include) is str :
+        if re.search(include,f) :
+            return True
+        else :
+            return False
+    else :
+        include = ';'.split(include)
+        for inc in include :
+            if re.search(inc,f) : return True
+        return False
+
+def exclude_comments(s, omit = True) :
+    if omit :
+        return [ ss for ss in s if not re.match(" *//",ss)]
+    else :
+        return s
+if __name__ == '__main__':
+    parser = OptionParser()
+    parser.add_option("-p", "--path",
+                      dest="path",
+                      default = os.path.join(get_nt2_dir(),"nt2"),
+                      help="""root path for computations
+                              can be absolute or relative to nt2 location
+                              (default to nt2 location)
+                      """)
+    parser.add_option("-f", "--filter",
+                      dest="filter",
+                      default =  '*.hpp;*.cpp;',
+                      help="""FILTER can be 'c', 'c++', 'c,c++'
+                      or any filtering string style: '*.h;*.cpp'
+                      of filter semi column separated  options  
+                      """)
+    parser.add_option("-e", "--exclude",
+                      dest="exclude",
+                      default = None,
+                      help="""EXCLUDE is a semi colon separated string of
+                      regexp that are not to be found in the path to the file
+                      """)
+    parser.add_option("-i", "--includeonly",
+                      dest="include",
+                      default = None,
+                      help="""INCLUDE is a semi colon separated string of
+                      regexp that are to be found in the path to the file
+                      """)
+    parser.add_option("-o", "--omit_comment_lines",
+                      dest="omit",
+                      default = True,
+                      help="""Omit counting lines beginning by " *//" in the
+                      visited files
+                      """)
+     
+    (options, args) = parser.parse_args()
+    path = options.path
+    exclude = options.exclude
+    include = options.include
+    filter = options.filter
+    filter, msg = filters(filter)
+    omit = options.omit
+    
+    if not os.path.exists(path) :
+        path =  os.path.join(get_nt2_dir(),path)
+        if not os.path.exists(path) :
+            path = os.path.join(get_nt2_dir(),"nt2")         
+    l = 0
+    nbf = 0
+    files = Walk(path, 1, filter, 1)
+    for f in files:
+        p,n = os.path.split(f)
+        if  (not is_excluded(p,exclude)) and is_included(p,include) :
+            nbf += 1
+            l+=len(exclude_comments(read(f),omit))
+    if not omit :
+        inc = "including comment lines"
+    else :
+        inc = "non including comment lines"
+            
+    print "%s\n contains %d lines of %s code, %s, in %d files" % (path,l,msg,inc,nbf)
+sys.path.pop(0)

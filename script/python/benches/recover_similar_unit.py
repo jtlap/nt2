@@ -197,11 +197,9 @@ if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
     length = len(sys.argv)
     if length == 2 :
-        r = Recover_similar_units(sys.argv[1])
-        r.replace_scalar_units()
-    else :
-##        r = Recover_similar_units("crlibm")
+##        r = Recover_similar_units(sys.argv[1])
 ##        r.replace_scalar_units()
+    else :
         print __doc__
 
 sys.path.pop(0)

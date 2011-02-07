@@ -47,3 +47,4 @@ namespace nt2 { namespace ext
 #undef NT2_SSE2_IS_EQUAL_64_DEFINED
 
 #endif
+

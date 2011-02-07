@@ -13,6 +13,7 @@
 #include <nt2/include/functions/bitfloating.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -83,7 +84,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
+      if (is_nan(a0)) return a0; 
+       return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
     }
   };
 } }
@@ -103,8 +105,8 @@ NT2_REGISTER_DISPATCH(tag::predecessor_, tag::cpu_,
 
   NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0,unsigned>::type int_type; 
-      return a0==Inf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
+      if (is_nan(a0)) return a0; 
+      return a0==Minf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
     }
   };
 } }

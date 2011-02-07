@@ -10,12 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_TANPI_HPP_INCLUDED
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -33,12 +28,13 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
       details::ignore_unused(a0);
-      return Zero<A0>();
+      return Zero<type>();
     }
   };
 } }
@@ -59,15 +55,15 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return impl::trig_base<type,pi_tag,trig_tag,tag::not_simd_type>::tana(type(a0));
+      if(is_odd(Two<A0>()*a0)) return Nan<A0>(); 
+      return impl::trig_base<A0,pi_tag,trig_tag,tag::not_simd_type>::tana(a0);
     }
   };
 } }
 
 #endif
-// modified by jt the 26/12/2010
+// modified by jt the 22/01/2011

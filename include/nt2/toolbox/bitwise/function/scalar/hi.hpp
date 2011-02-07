@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_HI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_HI_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
 
 
 
@@ -17,23 +18,23 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::hi_, tag::cpu_,
                     (A0),
-                    (fundamental_<A0>)
+                    (arithmetic_<A0>)
                    )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::hi_(tag::fundamental_),
+  struct call<tag::hi_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      meta::as_integer<A0,unsigned>{};
+      meta::downgrade<typename meta::as_integer<A0,unsigned>::type >{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef typename meta::as_integer<A0,unsigned>::type type;
       BOOST_STATIC_CONSTANT(type, shift = sizeof(type)*4);
       BOOST_STATIC_CONSTANT(type, pattern = type(type(-1)<<shift));
 

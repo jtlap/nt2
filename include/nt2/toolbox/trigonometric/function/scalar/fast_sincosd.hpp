@@ -11,30 +11,27 @@
 #include <boost/fusion/tuple.hpp>
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
-
+#include <nt2/include/functions/tofloat.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::fast_sincosd_, tag::cpu_,
-                              (A0),
-                              (fundamental_<A0>)
-                             )
+                               (A0),
+                               (real_<A0>)
+                              )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::fast_sincosd_(tag::fundamental_),
+  struct call<tag::fast_sincosd_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      typedef typename meta::strip<A0>::type                      etype;
       typedef boost::fusion::tuple<etype, etype>                   type;
     };
 
@@ -53,6 +50,39 @@ namespace nt2 { namespace ext
 
   };
 } }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::fast_sincosd_, tag::cpu_,
+                               (A0),
+                               (arithmetic_<A0>)
+                              )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::fast_sincosd_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)>
+    {
+      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      typedef boost::fusion::tuple<etype, etype>                   type;
+    };
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename NT2_RETURN_TYPE(1)::type res;
+      typedef typename boost::result_of<meta::floating(A0)>::type etype;
+      return nt2::fast_sincosd(tofloat(a0)); 
+    }
+
+  };
+} }
+
 
 #endif
 // modified by jt the 26/12/2010

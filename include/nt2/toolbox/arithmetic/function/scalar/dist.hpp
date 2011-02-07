@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_DIST_HPP_INCLUDED
 
 #include <nt2/include/functions/logical_xor.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

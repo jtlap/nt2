@@ -119,9 +119,9 @@ if __name__ == "__main__" :
         old.modify_Cmake_benches_txt()
         old.modify_functors_defs() 
     else :
-        old = Sup_simd("cephes")
-        old.remove_simd_dir()
-        old.modify_Cmake_benches_txt()
+        old = Sup_simd("gsl_specfun")
+//        old.remove_simd_dir()
+//        old.modify_Cmake_benches_txt()
         old.modify_functors_defs()
         print __doc__
 

@@ -12,10 +12,6 @@
 #include <nt2/sdk/constant/digits.hpp>
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -34,7 +30,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      boost::result_of<meta::arithmetic(A0)>{};
+      boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -60,8 +56,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {

@@ -21,13 +21,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::tanh_, tag::cpu_,
                       (A0),
-                      (fundamental_<A0>)
+                      (arithmetic_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tanh_(tag::fundamental_),
+  struct call<tag::tanh_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -38,11 +38,39 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
+      return atanh(type(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::tanh_, tag::cpu_,
+                      (A0),
+                      (real_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::tanh_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> : meta::strip<A0>{}; 
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (is_eqz(a0)) return a0; 
       type x = nt2::abs(a0);
       if (x > 1.836840028483855e+01) return nt2::sign(a0);
       type tmp1=nt2::expm1(-(x+x));
       type tmp2=-tmp1/(Two<type>()+tmp1);
-      return b_xor(tmp2, bitofsign(a0));
+      return b_or(tmp2, bitofsign(a0));
     }
 
   };

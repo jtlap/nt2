@@ -14,6 +14,7 @@
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -65,6 +66,7 @@ namespace nt2 { namespace ext
 	  return Valmin<rtype>(); 
 	else
 	  return Valmax<rtype>(); 
+      if (is_nan(a0)) return Zero<rtype>(); 
       return round(a0);
     }
 

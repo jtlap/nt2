@@ -12,7 +12,7 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
-#include <nt2/include/functions/shli.hpp>
+#include <nt2/include/functions/is_true.hpp>
 
 
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a1 - shli(b_and(a1, a0), 1);
+      return  sel(is_true(a0),-a1,a1);
     }
   };
 } }
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return b_xor(a1, b_and(a0, Signmask<A0>()));
+      return b_xor(a1, b_and(is_true(a0), Signmask<A0>()));
     }
   };
 } }

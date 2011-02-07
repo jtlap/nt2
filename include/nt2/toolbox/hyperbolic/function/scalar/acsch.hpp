@@ -11,20 +11,21 @@
 
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/asinh.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::acsch_, tag::cpu_,
                        (A0),
-                       (fundamental_<A0>)
+                       (arithmetic_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::acsch_(tag::fundamental_),
+  struct call<tag::acsch_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -34,11 +35,37 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return asinh(rec(type(a0)));
+      if (!a0) return Nan<type>(); 
+      return acsch(type(a0));
     }
 
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::acsch_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::acsch_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return asinh(rec(a0));
+    }
+
+  };
+} }
 #endif
 // modified by jt the 26/12/2010

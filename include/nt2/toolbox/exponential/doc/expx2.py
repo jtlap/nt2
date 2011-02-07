@@ -1,4 +1,5 @@
-[{'functor': {'arity': '1',
+[ ##script manually modified 
+{'functor': {'arity': '1',
               'call_types': [], 
               'ret_arity': '0',
               'rturn': {'default': 'typename boost::result_of<nt2::meta::floating(T)>::type'},
