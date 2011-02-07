@@ -54,7 +54,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_nan(a0)) return False<A0>(); 
       return sbits(a0) < 0;
     }
   };

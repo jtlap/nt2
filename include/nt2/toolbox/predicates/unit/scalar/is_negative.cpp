@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  is_negative(nt2::Inf<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_negative(nt2::Minf<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_negative(nt2::Mone<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_negative(nt2::Nan<T>()), nt2::False<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_negative(nt2::Nan<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_negative(nt2::One<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_negative(nt2::Quarter<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_negative(nt2::Two<T>()), nt2::False<r_t>(), 0.5);
