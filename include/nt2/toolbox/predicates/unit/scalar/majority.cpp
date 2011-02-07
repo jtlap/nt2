@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( majority_real__3,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  majority(-nt2::Zero<T>(), -nt2::Zero<T>(), -nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  majority(-nt2::Zero<T>(), -nt2::Zero<T>(), -nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Half<T>(), nt2::Half<T>(), nt2::Half<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Minf<T>(), nt2::Minf<T>(), nt2::Minf<T>()), nt2::True<r_t>(), 0.5);
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( majority_real__3,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  majority(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Quarter<T>(), nt2::Quarter<T>(), nt2::Quarter<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Two<T>(), nt2::Two<T>(), nt2::Two<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  majority(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  majority(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( majority_real__3,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::majority(a0,a1,a2),nt2::majority(a0,a1,a2),0);
+        NT2_TEST_ULP_EQUAL( nt2::majority(a0,a1,a2),(a0&&a1)||(a1&&a2)||(a2&&a0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL ( majority_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(  majority(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Two<T>(), nt2::Two<T>(), nt2::Two<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  majority(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  majority(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -108,7 +108,7 @@ NT2_TEST_CASE_TPL ( majority_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::majority(a0,a1,a2),nt2::majority(a0,a1,a2),0);
+        NT2_TEST_ULP_EQUAL( nt2::majority(a0,a1,a2),(a0&&a1)||(a1&&a2)||(a2&&a0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -134,7 +134,7 @@ NT2_TEST_CASE_TPL ( majority_unsigned_int__3,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(  majority(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  majority(nt2::Two<T>(), nt2::Two<T>(), nt2::Two<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  majority(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  majority(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -149,7 +149,7 @@ NT2_TEST_CASE_TPL ( majority_unsigned_int__3,  NT2_UNSIGNED_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::majority(a0,a1,a2),nt2::majority(a0,a1,a2),0);
+        NT2_TEST_ULP_EQUAL( nt2::majority(a0,a1,a2),(a0&&a1)||(a1&&a2)||(a2&&a0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

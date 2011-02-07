@@ -42,16 +42,16 @@ NT2_TEST_CASE_TPL ( is_nlez_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  is_nlez(-nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(-nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Half<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Inf<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Minf<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Mone<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Minf<T>()), nt2::False<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Mone<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Nan<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Quarter<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Two<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( is_nlez_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_nlez(a0),nt2::is_nlez(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::is_nlez(a0),a0>0,0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -86,10 +86,10 @@ NT2_TEST_CASE_TPL ( is_nlez_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Mone<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Mone<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Two<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -100,7 +100,7 @@ NT2_TEST_CASE_TPL ( is_nlez_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_nlez(a0),nt2::is_nlez(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::is_nlez(a0),a0>0,0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -126,7 +126,7 @@ NT2_TEST_CASE_TPL ( is_nlez_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Two<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_nlez(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -137,7 +137,7 @@ NT2_TEST_CASE_TPL ( is_nlez_unsigned_int__1,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_nlez(a0),nt2::is_nlez(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::is_nlez(a0),a0>0,0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

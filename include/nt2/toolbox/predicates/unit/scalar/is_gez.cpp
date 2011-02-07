@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( is_gez_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Inf<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Minf<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Mone<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_gez(nt2::Nan<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_gez(nt2::Nan<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Quarter<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Two<T>()), nt2::True<r_t>(), 0.5);
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  is_gez(nt2::Mone<T>()), nt2::True<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_gez(nt2::Mone<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::One<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Two<T>()), nt2::True<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_gez(nt2::Zero<T>()), nt2::True<r_t>(), 0.5);

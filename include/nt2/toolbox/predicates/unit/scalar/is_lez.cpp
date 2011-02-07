@@ -126,7 +126,7 @@ NT2_TEST_CASE_TPL ( is_lez_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(  is_lez(nt2::One<T>()), nt2::False<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  is_lez(nt2::Two<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_lez(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  is_lez(nt2::Zero<T>()), nt2::True<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {

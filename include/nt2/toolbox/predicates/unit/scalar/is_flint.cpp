@@ -24,6 +24,7 @@
 #include <nt2/toolbox/predicates/include/is_flint.hpp>
 // specific includes for arity 1 tests
 #include <nt2/sdk/meta/logical.hpp>
+#include <nt2/include/functions/frac.hpp>
 
 NT2_TEST_CASE_TPL ( is_flint_real__1,  NT2_REAL_TYPES)
 {
@@ -62,7 +63,7 @@ NT2_TEST_CASE_TPL ( is_flint_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_flint(a0),a0==int(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::is_flint(a0),nt2::frac(a0)==nt2::Zero<T>(),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -100,7 +101,7 @@ NT2_TEST_CASE_TPL ( is_flint_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_flint(a0),a0==int(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::is_flint(a0),nt2::True<T>(),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -137,7 +138,7 @@ NT2_TEST_CASE_TPL ( is_flint_unsigned_int__1,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_flint(a0),a0==int(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::is_flint(a0),nt2::True<T>(),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
