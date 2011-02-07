@@ -47,8 +47,8 @@ namespace nt2 { namespace details
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::compare_less_( tag::simd_(tag::double_,tag::sse_)
-                                  , tag::simd_(tag::double_,tag::sse_)
+  struct  call< tag::compare_less_( tag::simd_(*)(tag::double_,tag::sse_)
+                                  , tag::simd_(*)(tag::double_,tag::sse_)
                                   )
               , tag::cpu_, Dummy
               >
@@ -64,8 +64,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::compare_less_( tag::simd_(tag::float_,tag::sse_)
-                                  , tag::simd_(tag::float_,tag::sse_)
+  struct  call< tag::compare_less_( tag::simd_(*)(tag::float_,tag::sse_)
+                                  , tag::simd_(*)(tag::float_,tag::sse_)
                                   )
               , tag::cpu_, Dummy
               >
@@ -81,8 +81,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::compare_less_( tag::simd_(tag::integer_,tag::sse_)
-                                  , tag::simd_(tag::integer_,tag::sse_)
+  struct  call< tag::compare_less_( tag::simd_(*)(tag::integer_,tag::sse_)
+                                  , tag::simd_(*)(tag::integer_,tag::sse_)
                                   )
               , tag::cpu_, Dummy
               >

@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   // unary_minus is 0 - a0
   //////////////////////////////////////////////////////////////////////////////
   template<class X, class Dummy>
-  struct  call< tag::unary_minus_( tag::simd_(tag::arithmetic_,X) )
+  struct  call< tag::unary_minus_( tag::simd_(*)(tag::arithmetic_,X) )
               , tag::cpu_, Dummy
               >
         : callable

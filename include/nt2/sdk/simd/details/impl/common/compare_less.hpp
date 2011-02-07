@@ -25,8 +25,8 @@ NT2_REGISTER_DISPATCH ( tag::compare_less_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::compare_less_( tag::simd_(tag::arithmetic_,tag::sse_)
-                                  , tag::simd_(tag::arithmetic_,tag::sse_)
+  struct  call< tag::compare_less_( tag::simd_(*)(tag::arithmetic_,tag::sse_)
+                                  , tag::simd_(*)(tag::arithmetic_,tag::sse_)
                                   )
               , tag::cpu_, Dummy
               >

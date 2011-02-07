@@ -38,13 +38,13 @@ NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)(X)
 namespace nt2 { namespace ext
 {
   template<class Dummy,class X>
-  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
-                                  , tag::simd_(tag::type8_,X)
+  struct  call< tag::bitwise_and_ ( tag::simd_(*)(tag::type8_,X)
+                                  , tag::simd_(*)(tag::type8_,X)
                                   )
               , tag::cpu_, Dummy
               >
-        : call< tag::bitwise_and_ ( tag::simd_(tag::arithmetic_,X)
-                                  , tag::simd_(tag::arithmetic_,X)
+        : call< tag::bitwise_and_ ( tag::simd_(*)(tag::arithmetic_,X)
+                                  , tag::simd_(*)(tag::arithmetic_,X)
                                   )
               , tag::cpu_, Dummy
               >
@@ -52,39 +52,39 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy,class X>
-  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type16_,X)
-                                  , tag::simd_(tag::type16_,X)
+  struct  call< tag::bitwise_and_ ( tag::simd_(*)(tag::type16_,X)
+                                  , tag::simd_(*)(tag::type16_,X)
                                   )
               , tag::cpu_, Dummy
               >
-        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
-                                  , tag::simd_(tag::type8_,X)
-                                  )
-              , tag::cpu_, Dummy
-              >
-  {};
-
-  template<class Dummy,class X>
-  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type32_,X)
-                                  , tag::simd_(tag::type32_,X)
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
-                                  , tag::simd_(tag::type8_,X)
+        : call< tag::bitwise_and_ ( tag::simd_(*)(tag::type8_,X)
+                                  , tag::simd_(*)(tag::type8_,X)
                                   )
               , tag::cpu_, Dummy
               >
   {};
 
   template<class Dummy,class X>
-  struct  call< tag::bitwise_and_ ( tag::simd_(tag::type64_,X)
-                                  , tag::simd_(tag::type64_,X)
+  struct  call< tag::bitwise_and_ ( tag::simd_(*)(tag::type32_,X)
+                                  , tag::simd_(*)(tag::type32_,X)
                                   )
               , tag::cpu_, Dummy
               >
-        : call< tag::bitwise_and_ ( tag::simd_(tag::type8_,X)
-                                  , tag::simd_(tag::type8_,X)
+        : call< tag::bitwise_and_ ( tag::simd_(*)(tag::type8_,X)
+                                  , tag::simd_(*)(tag::type8_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+  {};
+
+  template<class Dummy,class X>
+  struct  call< tag::bitwise_and_ ( tag::simd_(*)(tag::type64_,X)
+                                  , tag::simd_(*)(tag::type64_,X)
+                                  )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::bitwise_and_ ( tag::simd_(*)(tag::type8_,X)
+                                  , tag::simd_(*)(tag::type8_,X)
                                   )
               , tag::cpu_, Dummy
               >
