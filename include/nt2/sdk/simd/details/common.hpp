@@ -39,7 +39,7 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
 ////////////////////////////////////////////////////////////////////////////////
 // Generate all the common map calls over Tag using nt2::map
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) tag::simd_(tag::unspecified_,X)
+#define M0(z,n,t) tag::simd_(*)(tag::unspecified_,X)
 
 #define M1(z,n,t)                                                         \
 namespace nt2 { namespace ext                                             \

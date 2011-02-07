@@ -23,7 +23,7 @@ NT2_REGISTER_DISPATCH ( tag::true_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct  call< tag::true_( tag::target_(tag::simd_(tag::real_,X)) )
+  struct  call< tag::true_( tag::target_(tag::simd_(*)(tag::real_,X)) )
               , tag::cpu_
               , Dummy
               >
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
   };
 
   template<class X, class Dummy>
-  struct  call< tag::true_(tag::target_(tag::simd_(tag::integer_,X)) )
+  struct  call< tag::true_(tag::target_(tag::simd_(*)(tag::integer_,X)) )
               , tag::cpu_
               , Dummy
               >

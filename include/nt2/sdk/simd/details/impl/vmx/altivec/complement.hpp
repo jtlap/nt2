@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
   // Implement ~ using nor
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::complement_( tag::simd_(tag::arithmetic_,tag::altivec_) )
+  struct  call< tag::complement_( tag::simd_(*)(tag::arithmetic_,tag::altivec_) )
               , tag::cpu_, Dummy
               >
         : callable

@@ -37,8 +37,8 @@ namespace nt2 { namespace ext
   // dobule and float has an intrinsic
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::divides_ ( tag::simd_(tag::double_,tag::sse_)
-                                  , tag::simd_(tag::double_,tag::sse_)
+  struct  call< tag::divides_ ( tag::simd_(*)(tag::double_,tag::sse_)
+                                  , tag::simd_(*)(tag::double_,tag::sse_)
                                   )
               , tag::cpu_, Dummy
               >
@@ -56,8 +56,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::divides_ ( tag::simd_(tag::float_,tag::sse_)
-                              , tag::simd_(tag::float_,tag::sse_)
+  struct  call< tag::divides_ ( tag::simd_(*)(tag::float_,tag::sse_)
+                              , tag::simd_(*)(tag::float_,tag::sse_)
                               )
               , tag::cpu_, Dummy
               >
@@ -78,13 +78,13 @@ namespace nt2 { namespace ext
   // Integers use maps as it is what compiler do anyway
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::divides_ ( tag::simd_(tag::integer_,tag::sse_)
-                              , tag::simd_(tag::integer_,tag::sse_)
+  struct  call< tag::divides_ ( tag::simd_(*)(tag::integer_,tag::sse_)
+                              , tag::simd_(*)(tag::integer_,tag::sse_)
                               )
               , tag::cpu_, Dummy
               >
-        : call< tag::divides_ ( tag::simd_(tag::unspecified_,tag::sse_)
-                              , tag::simd_(tag::unspecified_,tag::sse_)
+        : call< tag::divides_ ( tag::simd_(*)(tag::unspecified_,tag::sse_)
+                              , tag::simd_(*)(tag::unspecified_,tag::sse_)
                               )
               , tag::cpu_, Dummy
               >
