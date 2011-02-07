@@ -25,8 +25,8 @@ NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::lookup_(tag::simd_(tag::arithmetic_, tag::sse_),
-                           tag::simd_(tag::integer_, tag::sse_)),
+  struct call<tag::lookup_(tag::simd_(*)(tag::arithmetic_, tag::sse_),
+                           tag::simd_(*)(tag::integer_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

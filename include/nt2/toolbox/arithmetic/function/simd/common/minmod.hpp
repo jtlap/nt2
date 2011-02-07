@@ -28,8 +28,8 @@ NT2_REGISTER_DISPATCH(tag::minmod_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::minmod_(tag::simd_(tag::arithmetic_, X),
-                           tag::simd_(tag::arithmetic_, X)),
+  struct call<tag::minmod_(tag::simd_(*)(tag::arithmetic_, X),
+                           tag::simd_(*)(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -55,8 +55,8 @@ NT2_REGISTER_DISPATCH(tag::minmod_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::minmod_(tag::simd_(tag::unsigned_, X),
-                           tag::simd_(tag::unsigned_, X)),
+  struct call<tag::minmod_(tag::simd_(*)(tag::unsigned_, X),
+                           tag::simd_(*)(tag::unsigned_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -82,8 +82,8 @@ NT2_REGISTER_DISPATCH(tag::minmod_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::minmod_(tag::simd_(tag::real_, X),
-                           tag::simd_(tag::real_, X)),
+  struct call<tag::minmod_(tag::simd_(*)(tag::real_, X),
+                           tag::simd_(*)(tag::real_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

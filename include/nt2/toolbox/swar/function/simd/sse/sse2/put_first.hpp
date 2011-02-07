@@ -27,7 +27,7 @@ NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::put_first_(tag::simd_(tag::double_, tag::sse_),
+  struct call<tag::put_first_(tag::simd_(*)(tag::double_, tag::sse_),
                               tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -59,7 +59,7 @@ NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::put_first_(tag::simd_(tag::type8_, tag::sse_),
+  struct call<tag::put_first_(tag::simd_(*)(tag::type8_, tag::sse_),
                               tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -92,7 +92,7 @@ NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::put_first_(tag::simd_(tag::type64_, tag::sse_),
+  struct call<tag::put_first_(tag::simd_(*)(tag::type64_, tag::sse_),
 			      tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -124,7 +124,7 @@ NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::put_first_(tag::simd_(tag::type16_, tag::sse_),
+  struct call<tag::put_first_(tag::simd_(*)(tag::type16_, tag::sse_),
                               tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -158,7 +158,7 @@ NT2_REGISTER_DISPATCH(tag::put_first_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::put_first_(tag::simd_(tag::type32_, tag::sse_),
+  struct call<tag::put_first_(tag::simd_(*)(tag::type32_, tag::sse_),
                               tag::integer_),
               tag::cpu_, Dummy> : callable
   {

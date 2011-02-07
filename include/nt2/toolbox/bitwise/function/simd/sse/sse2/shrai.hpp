@@ -29,7 +29,7 @@ NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::simd_(tag::unsigned_, tag::sse_),
+  struct call<tag::shrai_(tag::simd_(*)(tag::unsigned_, tag::sse_),
                           tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -56,7 +56,7 @@ NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::simd_(tag::int32_, tag::sse_),
+  struct call<tag::shrai_(tag::simd_(*)(tag::int32_, tag::sse_),
                           tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -85,7 +85,7 @@ NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::simd_(tag::int16_, tag::sse_),
+  struct call<tag::shrai_(tag::simd_(*)(tag::int16_, tag::sse_),
                           tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -114,7 +114,7 @@ NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::simd_(tag::int8_, tag::sse_),
+  struct call<tag::shrai_(tag::simd_(*)(tag::int8_, tag::sse_),
                           tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -145,7 +145,7 @@ NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::simd_(tag::int64_, tag::sse_),
+  struct call<tag::shrai_(tag::simd_(*)(tag::int64_, tag::sse_),
                           tag::integer_),
               tag::cpu_, Dummy> : callable
   {

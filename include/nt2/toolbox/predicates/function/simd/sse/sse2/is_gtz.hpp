@@ -27,7 +27,7 @@ NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_gtz_(tag::simd_(tag::arithmetic_, tag::sse_)),
+  struct call<tag::is_gtz_(tag::simd_(*)(tag::arithmetic_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -48,7 +48,7 @@ NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_gtz_(tag::simd_(tag::unsigned_, tag::sse_)),
+  struct call<tag::is_gtz_(tag::simd_(*)(tag::unsigned_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -69,7 +69,7 @@ NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_gtz_(tag::simd_(tag::int64_, tag::sse_)),
+  struct call<tag::is_gtz_(tag::simd_(*)(tag::int64_, tag::sse_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
