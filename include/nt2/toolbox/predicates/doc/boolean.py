@@ -5,7 +5,7 @@
         'ret_arity'     : '0',## must be '0' or omitted if not a tuple
         'types'         : ['real_', 'signed_int_','unsigned_int_'],     ## list of types string
         'simd_types'    : ['real_','signed_int_','unsigned_int_'],     ## list of simd types string
-        'rturn'         : { 'default' : 'typename nt2::meta::logical<T>::type' },     ## dictionary of return types
+        'rturn'         : { 'default' : 'T' },     ## dictionary of return types
         'call_types'    : [],## types used in call ['T']*arity if omitted 
         'type_defs'     : [],  ## supplementary typedefs
         'special'       : ['predicate',],        ## special property
@@ -28,17 +28,17 @@
                     'nt2::Nan<T>()' :  {'result' : 'nt2::True<r_t>()',  'ulp_thresh':'0.5'},
                     'nt2::Half<T>()':   {'result' : 'nt2::True<r_t>()',  'ulp_thresh':'0.5'},
                     'nt2::Quarter<T>()':  {'result' : 'nt2::True<r_t>()','ulp_thresh':'0.5'},
-                    'nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
-                    '-nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
+                    'nt2::Zero<T>()':  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
+                    '-nt2::Zero<T>()':  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                 },
                 'signed_int_': {
-                    'nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()','ulp_thresh':'0.5'},
+                    'nt2::Zero<T>()':  {'result' : 'nt2::False<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Two<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::Mone<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::One<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                 },
                 'default': {
-                    'nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()','ulp_thresh':'0.5'},
+                    'nt2::Zero<T>()':  {'result' : 'nt2::False<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Two<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::One<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                 },
@@ -49,7 +49,7 @@
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd
             'property_call'   : {'default' : ['nt2::boolean(a0)'],},  ## dictionary of calls per types
-            'property_value'  : {'default' : ['nt2::boolean(a0)'],}, ## dictionary of alternate calls
+            'property_value'  : {'default' : ['a0!=0'],}, ## dictionary of alternate calls
             'ulp_thresh'      : {'default' : ['0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 

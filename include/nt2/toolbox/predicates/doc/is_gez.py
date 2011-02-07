@@ -25,7 +25,7 @@
                     'nt2::One<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::Mone<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::Two<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
-                    'nt2::Nan<T>()' :  {'result' : 'nt2::True<r_t>()',  'ulp_thresh':'0.5'},
+                    'nt2::Nan<T>()' :  {'result' : 'nt2::False<r_t>()',  'ulp_thresh':'0.5'},
                     'nt2::Half<T>()':   {'result' : 'nt2::True<r_t>()',  'ulp_thresh':'0.5'},
                     'nt2::Quarter<T>()':  {'result' : 'nt2::True<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
@@ -34,7 +34,7 @@
                 'signed_int_': {
                     'nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Two<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
-                    'nt2::Mone<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
+                    'nt2::Mone<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::One<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                 },
                 'default': {

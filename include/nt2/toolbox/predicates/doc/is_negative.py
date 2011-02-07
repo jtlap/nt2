@@ -35,7 +35,7 @@
                 'signed_int_': {
                     'nt2::Zero<T>()':  {'result' : 'nt2::False<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Two<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
-                    'nt2::Mone<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
+                    'nt2::Mone<T>()' :  {'result' : 'nt2::True<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::One<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                 },
                 'default': {
@@ -50,7 +50,7 @@
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd
             'property_call'   : {'default' : ['nt2::is_negative(a0)'],},  ## dictionary of calls per types
-            'property_value'  : {'default' : ['a0<=0'],'real_' : ['nt2::bitofsign(a0)!=0']}, ## dictionary of alternate calls
+            'property_value'  : {'default' : ['a0<0']}, ## dictionary of alternate calls
             'ulp_thresh'      : {'default' : ['0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 

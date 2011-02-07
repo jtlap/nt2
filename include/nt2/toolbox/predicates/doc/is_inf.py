@@ -49,7 +49,7 @@
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd
             'property_call'   : {'default' : ['nt2::is_inf(a0)'],},  ## dictionary of calls per types
-            'property_value'  : {'default' : ['False<r_t>()'],'real_' : ['nt2::abs(a0)<nt2::Inf<r_t>()'],}, ## dictionary of alternate calls
+            'property_value'  : {'default' : ['nt2::False<T>()'],}, ## dictionary of alternate calls
             'ulp_thresh'      : {'default' : ['0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 

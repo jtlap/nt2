@@ -14,7 +14,8 @@
         'global_header' : { ## header of machin.cpp
             'first_stamp' : 'created  by $author$ the $date$', ## creation stamp
             'stamp'       : 'modified by $author$ the $date$', ## modification stamp
-            'included'    : ['#include <nt2/sdk/meta/logical.hpp>'],     ## list of supplementary include directives
+            'included'    : ['#include <nt2/sdk/meta/logical.hpp>',
+                             '#include <nt2/include/functions/frac.hpp>'],     ## list of supplementary include directives
             'notes'       : [],        ## list of strings that will be included in a
                                             ## global comment
             },
@@ -49,7 +50,7 @@
         'verif_test'      : { ## verification dictionary
             'simd'            : {},   ## dictionary of translations for simd
             'property_call'   : {'default' : ['nt2::is_flint(a0)'],},  ## dictionary of calls per types
-            'property_value'  : {'default' : ['a0==int(a0)'],}, ## dictionary of alternate calls
+            'property_value'  : {'default' : ['nt2::True<T>()'],'real_':['nt2::frac(a0)==nt2::Zero<T>()'],}, ## dictionary of alternate calls
             'ulp_thresh'      : {'default' : ['0'],},     ## validity thresholds(s)
         },  ## end of verif_test
     },  ## end of unit 

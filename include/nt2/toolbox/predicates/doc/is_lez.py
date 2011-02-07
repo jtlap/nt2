@@ -38,7 +38,7 @@
                     'nt2::One<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                 },
                 'default': {
-                    'nt2::Zero<T>()':  {'result' : 'nt2::False<r_t>()','ulp_thresh':'0.5'},
+                    'nt2::Zero<T>()':  {'result' : 'nt2::True<r_t>()','ulp_thresh':'0.5'},
                     'nt2::Two<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                     'nt2::One<T>()' :  {'result' : 'nt2::False<r_t>()', 'ulp_thresh':'0.5'},
                 },
