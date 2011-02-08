@@ -50,9 +50,9 @@ namespace nt2 { namespace ext                                               \
 {                                                                           \
   template<class Dummy>                                                     \
   struct call < tag::map_ ( tag::unspecified_                               \
-                          , tag::simd_( tag::BOOST_PP_TUPLE_ELEM(4,0,t)     \
-                                      , tag::sse_                           \
-                                      )                                     \
+                          , tag::simd_(*)( tag::BOOST_PP_TUPLE_ELEM(4,0,t)  \
+                                         , tag::sse_                        \
+                                         )                                  \
                             BOOST_PP_REPEAT(BOOST_PP_DEC(n),M1,t)           \
                           )                                                 \
               , tag::cpu_ , Dummy> : callable                               \
