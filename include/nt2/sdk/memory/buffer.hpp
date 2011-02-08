@@ -72,6 +72,7 @@ namespace nt2 { namespace memory
 
       allocator() = src.allocator();
       std::copy(src.begin(),src.end(),begin());
+      return *this;
     }
 
     ////////////////////////////////////////////////////////////////////////////
