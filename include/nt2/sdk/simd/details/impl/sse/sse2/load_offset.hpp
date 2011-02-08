@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   template<class Dummy>
   struct  call< tag::load_( tag::iterator_(tag::fundamental_)
                           , tag::fundamental_
-                          , tag::target_(tag::simd_(tag::fundamental_,tag::sse_))
+                          , tag::target_(tag::simd_(*)(tag::fundamental_,tag::sse_))
                           , tag::mpl_integral_(tag::integer_)
                           )
               , tag::cpu_

@@ -27,7 +27,7 @@
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
 #define M3(z,n,t) a0(BOOST_PP_ENUM(t,M4,n))
 #define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(n))>,tag::sse_>))
-#define M1(z,n,t) ,tag::simd_(tag::arithmetic_,tag::sse_)
+#define M1(z,n,t) ,tag::simd_(*)(tag::arithmetic_,tag::sse_)
 
 #define M64(n,t) A1 that = {{BOOST_PP_ENUM(2,M3,n)}}
 

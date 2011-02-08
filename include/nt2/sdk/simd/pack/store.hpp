@@ -17,7 +17,7 @@ namespace nt2 { namespace functors
   // When storing pack, we dispatch on the fact the underlying type is SIMD
   //////////////////////////////////////////////////////////////////////////////
   template<class X, class Info>
-  struct dispatch<store_,tag::simd_(tag::ast_,X),Info>
+  struct dispatch<store_,tag::simd_(*)(tag::ast_,X),Info>
   {
     template<class A0,class A1,class A2>
     struct  apply
@@ -29,7 +29,7 @@ namespace nt2 { namespace functors
   // Loading native SIMD is delegated to native<>
   //////////////////////////////////////////////////////////////////////////////
   template<class X, class Info>
-  struct  call<store_,tag::simd_(tag::ast_,X), boost::mpl::true_, Info>
+  struct  call<store_,tag::simd_(*)(tag::ast_,X), boost::mpl::true_, Info>
         : callable
   {
     template<class Sig> struct result;
@@ -47,7 +47,7 @@ namespace nt2 { namespace functors
   // Loading emulated SIMD is memcpy
   //////////////////////////////////////////////////////////////////////////////
   template<class X, class Info>
-  struct  call<store_,tag::simd_(tag::ast_,X), boost::mpl::false_, Info>
+  struct  call<store_,tag::simd_(*)(tag::ast_,X), boost::mpl::false_, Info>
         : callable
   {
     template<class Sig> struct result;

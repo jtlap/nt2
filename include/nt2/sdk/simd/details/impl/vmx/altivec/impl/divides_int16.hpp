@@ -18,8 +18,8 @@ namespace nt2 { namespace ext
   // a/b use a bit preserving algorithm from vecLib by Apple
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::divides_( tag::simd_(tag::ints16_,tag::altivec_)
-                             , tag::simd_(tag::ints16_,tag::altivec_)
+  struct  call< tag::divides_( tag::simd_(*)(tag::ints16_,tag::altivec_)
+                             , tag::simd_(*)(tag::ints16_,tag::altivec_)
                              )
               , tag::cpu_, Dummy
               >

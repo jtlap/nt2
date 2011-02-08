@@ -20,8 +20,8 @@ NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_equal_( tag::simd_(tag::ints64_,tag::sse_)
-                              , tag::simd_(tag::ints64_,tag::sse_)
+  struct  call< tag::is_equal_( tag::simd_(*)(tag::ints64_,tag::sse_)
+                              , tag::simd_(*)(tag::ints64_,tag::sse_)
                               )
               , tag::cpu_, Dummy
               >

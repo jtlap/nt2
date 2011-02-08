@@ -30,8 +30,8 @@ NT2_REGISTER_DISPATCH ( tag::bitwise_or_, tag::cpu_, (A0)(A1)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::bitwise_or_ ( tag::simd_(tag::arithmetic_,tag::altivec_)
-                                  , tag::simd_(tag::arithmetic_,tag::altivec_)
+  struct  call< tag::bitwise_or_ ( tag::simd_(*)(tag::arithmetic_,tag::altivec_)
+                                  , tag::simd_(*)(tag::arithmetic_,tag::altivec_)
                                   )
               , tag::cpu_, Dummy
               >

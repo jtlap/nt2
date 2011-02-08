@@ -116,7 +116,7 @@
   std::cout << "   for a0 = " << ARG << std::endl;	\
 /**/
 #define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)		\
-  nt2::memory::buffer<TYPE,int,int,				\
+  nt2::memory::buffer<TYPE,				\
 		      nt2::memory::allocator<TYPE> >		\
   tab_##NAME(0, SIZE);						\
   TYPE NAME;							\

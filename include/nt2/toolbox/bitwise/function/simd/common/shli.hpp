@@ -23,7 +23,7 @@ NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::shli_(tag::simd_(tag::arithmetic_, X),
+  struct call<tag::shli_(tag::simd_(*)(tag::arithmetic_, X),
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {

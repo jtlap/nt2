@@ -26,8 +26,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::double_, tag::avx_),
-                          tag::simd_(tag::double_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::double_, tag::avx_),
+                          tag::simd_(*)(tag::double_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -69,8 +69,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::int32_, tag::avx_),
-                          tag::simd_(tag::int32_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::int32_, tag::avx_),
+                          tag::simd_(*)(tag::int32_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -121,8 +121,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::int16_, tag::avx_),
-                          tag::simd_(tag::int16_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::int16_, tag::avx_),
+                          tag::simd_(*)(tag::int16_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -171,8 +171,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::uint32_, tag::avx_),
-                          tag::simd_(tag::uint32_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::uint32_, tag::avx_),
+                          tag::simd_(*)(tag::uint32_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -223,8 +223,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::int64_, tag::avx_),
-                          tag::simd_(tag::int64_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::int64_, tag::avx_),
+                          tag::simd_(*)(tag::int64_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -257,8 +257,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::uint64_, tag::avx_),
-                          tag::simd_(tag::uint64_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::uint64_, tag::avx_),
+                          tag::simd_(*)(tag::uint64_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -291,8 +291,8 @@ NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::group_(tag::simd_(tag::uint16_, tag::avx_),
-                          tag::simd_(tag::uint16_, tag::avx_)),
+  struct call<tag::group_(tag::simd_(*)(tag::uint16_, tag::avx_),
+                          tag::simd_(*)(tag::uint16_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
