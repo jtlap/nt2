@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Compute the number of slice between inner adn the Nth outer dimension
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/size_t.hpp>
 #include <nt2/sdk/meta/mpl.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/memory/padding.hpp>
@@ -51,7 +52,7 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   template<std::size_t N, class Seq,class Padding> inline
   typename boost::
-  lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value < N)
+  lazy_enable_if_c< !(boost::fusion::result_of::size<Seq>::value >= N)
                   , boost::mpl::int_<1>
                   >::type
   slice(Seq const& , Padding const& )
