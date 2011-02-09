@@ -49,7 +49,7 @@ NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_( tag::integer_, tag::mpl_integral_(tag::integer_))
+  struct  call< tag::align_on_( tag::integer_, tag::mpl_integral_<tag::integer_>)
               , tag::cpu_, Dummy
               >
         : callable
@@ -98,8 +98,8 @@ NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_( tag::mpl_integral_(tag::integer_)
-                              , tag::mpl_integral_(tag::integer_)
+  struct  call< tag::align_on_( tag::mpl_integral_<tag::integer_>
+                              , tag::mpl_integral_<tag::integer_>
                               )
               , tag::cpu_, Dummy
               >
@@ -127,7 +127,7 @@ NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_(tag::mpl_integral_(tag::integer_))
+  struct  call< tag::align_on_(tag::mpl_integral_<tag::integer_>)
               , tag::cpu_, Dummy
               >
         : callable
@@ -154,7 +154,7 @@ NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_( tag::iterator_(tag::fundamental_)
+  struct  call< tag::align_on_( tag::iterator_<tag::fundamental_>
                               , tag::integer_
                               )
               , tag::cpu_, Dummy
@@ -185,8 +185,8 @@ NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_( tag::iterator_(tag::fundamental_)
-                              , tag::mpl_integral_(tag::integer_)
+  struct  call< tag::align_on_( tag::iterator_<tag::fundamental_>
+                              , tag::mpl_integral_<tag::integer_>
                               )
               , tag::cpu_, Dummy
               >
@@ -213,7 +213,7 @@ NT2_REGISTER_DISPATCH(tag::align_on_,tag::cpu_,(A0),(iterator_<fundamental_<A0> 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::align_on_(tag::iterator_(tag::fundamental_)), tag::cpu_, Dummy >
+  struct  call< tag::align_on_(tag::iterator_<tag::fundamental_>), tag::cpu_, Dummy >
         : callable
   {
     template<class Sig> struct result;

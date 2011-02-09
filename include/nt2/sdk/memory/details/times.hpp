@@ -42,7 +42,9 @@ NT2_REGISTER_DISPATCH ( tag::multiplies_ , tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::multiplies_(tag::mpl_integral_(tag::integer_),tag::integer_)
+  struct  call< tag::multiplies_( tag::mpl_integral_<tag::integer_>
+                                , tag::integer_
+                                )
               , tag::cpu_, Dummy
               > : callable
   {
@@ -60,7 +62,9 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_(tag::integer_,tag::mpl_integral_(tag::integer_))
+  struct  call< tag::multiplies_( tag::integer_
+                                , tag::mpl_integral_<tag::integer_>
+                                )
               , tag::cpu_, Dummy
               > : callable
   {
@@ -78,8 +82,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::mpl_integral_(tag::integer_)
-                                , tag::mpl_integral_(tag::integer_)
+  struct  call< tag::multiplies_( tag::mpl_integral_<tag::integer_>
+                                , tag::mpl_integral_<tag::integer_>
                                 )
               , tag::cpu_, Dummy
               > : callable

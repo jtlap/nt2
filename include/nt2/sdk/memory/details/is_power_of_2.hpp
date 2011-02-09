@@ -42,7 +42,7 @@ NT2_REGISTER_DISPATCH ( tag::is_power_of_2_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_power_of_2_(tag::mpl_integral_(tag::integer_))
+  struct  call< tag::is_power_of_2_(tag::mpl_integral_<tag::integer_>)
               , tag::cpu_, Dummy
               >
         : callable

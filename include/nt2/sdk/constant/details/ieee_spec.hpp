@@ -18,7 +18,7 @@
 
 #define LOCAL_CALL(TAG, SEL, VAL)                                           \
 template<class Dummy>                                                       \
-struct call< TAG(tag::target_(SEL) ), tag::cpu_, Dummy>  : callable          \
+struct call< TAG(tag::target_<SEL>), tag::cpu_, Dummy>  : callable          \
 {                                                                           \
   template<class Sig> struct result;                                        \
   template<class This, class A0>                                            \

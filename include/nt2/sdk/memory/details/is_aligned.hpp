@@ -43,7 +43,9 @@ NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_( tag::integer_, tag::mpl_integral_(tag::integer_))
+  struct  call< tag::is_aligned_( tag::integer_
+                                , tag::mpl_integral_<tag::integer_>
+                                )
               , tag::cpu_, Dummy
               >
         : callable
@@ -84,8 +86,8 @@ NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_( tag::mpl_integral_(tag::integer_)
-                                , tag::mpl_integral_(tag::integer_)
+  struct  call< tag::is_aligned_( tag::mpl_integral_<tag::integer_>
+                                , tag::mpl_integral_<tag::integer_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -107,7 +109,7 @@ NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_(tag::mpl_integral_(tag::integer_))
+  struct  call< tag::is_aligned_(tag::mpl_integral_<tag::integer_>)
               , tag::cpu_, Dummy
               >
         : callable
@@ -131,7 +133,7 @@ NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_( tag::iterator_(tag::unspecified_)
+  struct  call< tag::is_aligned_( tag::iterator_<tag::unspecified_>
                                 , tag::integer_
                                 )
               , tag::cpu_, Dummy
@@ -158,9 +160,9 @@ NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_( tag::iterator_(tag::unspecified_)
-                              , tag::mpl_integral_(tag::integer_)
-                              )
+  struct  call< tag::is_aligned_( tag::iterator_<tag::unspecified_>
+                                , tag::mpl_integral_<tag::integer_>
+                                )
               , tag::cpu_, Dummy
               >
         : callable
@@ -182,7 +184,9 @@ NT2_REGISTER_DISPATCH(tag::is_aligned_,tag::cpu_,(A0),(iterator_<unspecified_<A0
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_aligned_(tag::iterator_(tag::unspecified_)), tag::cpu_, Dummy >
+  struct  call< tag::is_aligned_(tag::iterator_<tag::unspecified_>)
+              , tag::cpu_, Dummy
+              >
         : callable
   {
     typedef bool result_type;

@@ -14,14 +14,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
-  namespace tag { struct padding_ {}; }
+  namespace tag { template<class T> struct padding_ {}; }
 
   namespace meta
   {
     template<class T> struct padding_ : unspecified_<T>
     {
-      typedef unspecified_<T> parent;
-      typedef tag::padding_   type(T);
+      typedef unspecified_<T>   parent;
+      typedef tag::padding_<T>  type;
     };
   }
 }
