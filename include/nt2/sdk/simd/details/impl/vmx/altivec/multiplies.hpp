@@ -26,8 +26,8 @@ NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::float_,tag::altivec_)
-                                , tag::simd_(*)(tag::float_,tag::altivec_)
+  struct  call< tag::multiplies_( tag::simd_<tag::float_,tag::altivec_>
+                                , tag::simd_<tag::float_,tag::altivec_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -59,8 +59,8 @@ NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::types16_,tag::altivec_)
-                                , tag::simd_(*)(tag::types16_,tag::altivec_)
+  struct  call< tag::multiplies_( tag::simd_<tag::types16_,tag::altivec_>
+                                , tag::simd_<tag::types16_,tag::altivec_>
                                 )
               , tag::cpu_, Dummy
               >

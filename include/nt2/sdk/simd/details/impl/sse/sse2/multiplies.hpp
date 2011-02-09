@@ -58,8 +58,8 @@ NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::double_,tag::sse_)
-                                , tag::simd_(*)(tag::double_,tag::sse_)
+  struct  call< tag::multiplies_( tag::simd_<tag::double_,tag::sse_>
+                                , tag::simd_<tag::double_,tag::sse_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -76,8 +76,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::float_,tag::sse_)
-                                , tag::simd_(*)(tag::float_,tag::sse_)
+  struct  call< tag::multiplies_( tag::simd_<tag::float_,tag::sse_>
+                                , tag::simd_<tag::float_,tag::sse_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -94,8 +94,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::ints8_,tag::sse_)
-                                , tag::simd_(*)(tag::ints8_,tag::sse_)
+  struct  call< tag::multiplies_( tag::simd_<tag::ints8_,tag::sse_>
+                                , tag::simd_<tag::ints8_,tag::sse_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -122,8 +122,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::ints16_,tag::sse_)
-                                , tag::simd_(*)(tag::ints16_,tag::sse_)
+  struct  call< tag::multiplies_( tag::simd_<tag::ints16_,tag::sse_>
+                                , tag::simd_<tag::ints16_,tag::sse_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -140,8 +140,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::ints32_,tag::sse_)
-                                , tag::simd_(*)(tag::ints32_,tag::sse_)
+  struct  call< tag::multiplies_( tag::simd_<tag::ints32_,tag::sse_>
+                                , tag::simd_<tag::ints32_,tag::sse_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -172,8 +172,8 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_(*)(tag::ints64_,tag::sse_)
-                                , tag::simd_(*)(tag::ints64_,tag::sse_)
+  struct  call< tag::multiplies_( tag::simd_<tag::ints64_,tag::sse_>
+                                , tag::simd_<tag::ints64_,tag::sse_>
                                 )
               , tag::cpu_, Dummy
               >

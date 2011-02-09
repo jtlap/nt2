@@ -18,8 +18,7 @@
 #include <boost/fusion/include/is_sequence.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Specialize hierarchy for a selection of Fusion sequence types
-// TODO : Add vector and other stuff like that
+// Specialize hierarchy for Fusion sequence types
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {

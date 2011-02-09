@@ -15,7 +15,7 @@
 namespace nt2 { namespace functors
 {
   template<class C, class X,class Info>
-  struct  call<is_greater_,tag::simd_(C,X), fundamental_, Info>
+  struct  call<is_greater_,tag::simd_<C,X> , fundamental_, Info>
         : callable
   {
     template<class Sig> struct result;
