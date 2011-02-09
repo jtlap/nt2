@@ -26,7 +26,7 @@ NT2_REGISTER_DISPATCH(tag::plevl_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::plevl_(tag::simd_(*)(tag::arithmetic_, X),
+  struct call<tag::plevl_(tag::simd_<tag::arithmetic_, X> ,
                           tag::fusion_sequence_), 
               tag::cpu_, Dummy> : callable
   {
@@ -54,7 +54,7 @@ NT2_REGISTER_DISPATCH(tag::plevl_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::plevl_(tag::simd_(*)(tag::real_, X),
+  struct call<tag::plevl_(tag::simd_<tag::real_, X> ,
                           tag::fusion_sequence_),
               tag::cpu_, Dummy> : callable
   {

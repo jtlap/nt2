@@ -36,7 +36,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_(*)(tag::signed_, tag::sse_)),
+  struct call<tag::ilogb_(tag::simd_<tag::signed_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -68,7 +68,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_(*)(tag::real_, tag::sse_)),
+  struct call<tag::ilogb_(tag::simd_<tag::real_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -97,7 +97,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_(*)(tag::uint8_, tag::sse_)),
+  struct call<tag::ilogb_(tag::simd_<tag::uint8_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -147,7 +147,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_(*)(tag::uint32_, tag::sse_)),
+  struct call<tag::ilogb_(tag::simd_<tag::uint32_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -214,7 +214,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_(*)(tag::uint64_, tag::sse_)),
+  struct call<tag::ilogb_(tag::simd_<tag::uint64_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -245,7 +245,7 @@ NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_(*)(tag::uint16_, tag::sse_)),
+  struct call<tag::ilogb_(tag::simd_<tag::uint16_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

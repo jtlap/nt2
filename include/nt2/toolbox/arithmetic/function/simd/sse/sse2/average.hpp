@@ -10,10 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_AVERAGE_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/shrai.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -27,8 +24,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(*)(tag::arithmetic_, tag::sse_),
-                            tag::simd_(*)(tag::arithmetic_, tag::sse_)),
+  struct call<tag::average_(tag::simd_<tag::arithmetic_, tag::sse_>,
+                            tag::simd_<tag::arithmetic_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -55,8 +52,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(*)(tag::uint16_, tag::sse_),
-                            tag::simd_(*)(tag::uint16_, tag::sse_)),
+  struct call<tag::average_(tag::simd_<tag::uint16_, tag::sse_>,
+                            tag::simd_<tag::uint16_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -84,8 +81,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(*)(tag::uint8_, tag::sse_),
-                            tag::simd_(*)(tag::uint8_, tag::sse_)),
+  struct call<tag::average_(tag::simd_<tag::uint8_, tag::sse_>,
+                            tag::simd_<tag::uint8_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -113,8 +110,8 @@ NT2_REGISTER_DISPATCH(tag::average_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::average_(tag::simd_(*)(tag::real_, tag::sse_),
-                            tag::simd_(*)(tag::real_, tag::sse_)),
+  struct call<tag::average_(tag::simd_<tag::real_, tag::sse_>,
+                            tag::simd_<tag::real_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

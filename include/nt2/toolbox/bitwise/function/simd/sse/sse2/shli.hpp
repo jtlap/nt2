@@ -13,8 +13,6 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +25,7 @@ NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shli_(tag::simd_(*)(tag::type8_, tag::sse_),
+  struct call<tag::shli_(tag::simd_<tag::type8_, tag::sse_>,
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -64,7 +62,7 @@ NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shli_(tag::simd_(*)(tag::type32_, tag::sse_),
+  struct call<tag::shli_(tag::simd_<tag::type32_, tag::sse_>,
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -93,7 +91,7 @@ NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shli_(tag::simd_(*)(tag::type64_, tag::sse_),
+  struct call<tag::shli_(tag::simd_<tag::type64_, tag::sse_>,
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -122,7 +120,7 @@ NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shli_(tag::simd_(*)(tag::type16_, tag::sse_),
+  struct call<tag::shli_(tag::simd_<tag::type16_, tag::sse_>,
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
