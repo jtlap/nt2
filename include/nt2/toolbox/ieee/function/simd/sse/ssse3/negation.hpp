@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSSE3_NEGATION_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint32_t
 /////////////////////////////////////////////////////////////////////////////
@@ -24,8 +22,8 @@ NT2_REGISTER_DISPATCH(tag::negation_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negation_(tag::simd_(*)(tag::uint32_, tag::sse_),
-                             tag::simd_(*)(tag::uint32_, tag::sse_)),
+  struct call<tag::negation_(tag::simd_<tag::uint32_, tag::sse_>,
+                             tag::simd_<tag::uint32_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -52,8 +50,8 @@ NT2_REGISTER_DISPATCH(tag::negation_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negation_(tag::simd_(*)(tag::int32_, tag::sse_),
-                             tag::simd_(*)(tag::int32_, tag::sse_)),
+  struct call<tag::negation_(tag::simd_<tag::int32_, tag::sse_>,
+                             tag::simd_<tag::int32_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -80,8 +78,8 @@ NT2_REGISTER_DISPATCH(tag::negation_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negation_(tag::simd_(*)(tag::int16_, tag::sse_),
-                             tag::simd_(*)(tag::int16_, tag::sse_)),
+  struct call<tag::negation_(tag::simd_<tag::int16_, tag::sse_>,
+                             tag::simd_<tag::int16_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -108,8 +106,8 @@ NT2_REGISTER_DISPATCH(tag::negation_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negation_(tag::simd_(*)(tag::int8_, tag::sse_),
-                             tag::simd_(*)(tag::int8_, tag::sse_)),
+  struct call<tag::negation_(tag::simd_<tag::int8_, tag::sse_>,
+                             tag::simd_<tag::int8_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -136,8 +134,8 @@ NT2_REGISTER_DISPATCH(tag::negation_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::negation_(tag::simd_(*)(tag::real_, tag::sse_),
-                             tag::simd_(*)(tag::real_, tag::sse_)),
+  struct call<tag::negation_(tag::simd_<tag::real_, tag::sse_>,
+                             tag::simd_<tag::real_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

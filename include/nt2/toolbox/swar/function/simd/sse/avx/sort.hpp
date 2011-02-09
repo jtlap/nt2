@@ -27,7 +27,7 @@ NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sort_(tag::simd_(*)(tag::arithmetic_, tag::avx_)),
+  struct call<tag::sort_(tag::simd_<tag::arithmetic_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -30,8 +30,8 @@ NT2_REGISTER_DISPATCH(tag::comparator_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::comparator_(tag::simd_(*)(tag::arithmetic_, X),
-                               tag::simd_(*)(tag::arithmetic_, X),
+  struct call<tag::comparator_(tag::simd_<tag::arithmetic_, X> ,
+                               tag::simd_<tag::arithmetic_, X> ,
                                tag::integer_),
               tag::cpu_, Dummy> : callable
   {
