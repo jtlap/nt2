@@ -12,6 +12,9 @@
 
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
