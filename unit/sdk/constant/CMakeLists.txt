@@ -6,6 +6,9 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+
+INCLUDE(macro/MakeNT2Test)
+
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
     digits.cpp
@@ -23,17 +26,6 @@ ADD_DEPENDENCIES(sdk.unit sdk.constant.unit)
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  ##############################################################################
-  # Build the executable filename from the example source filename
-  ##############################################################################
   STRING(REGEX REPLACE ".cpp" ".unit" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-unit" TEST "${EXAMPLE}")
-
-  ##############################################################################
-  # Add as a target
-  ##############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
-  ADD_DEPENDENCIES(sdk.constant.unit ${EXECUTABLE})
+  MAKE_NT2_TEST(${EXAMPLE} ${EXECUTABLE} "sdk.constant.unit")
 ENDFOREACH()
