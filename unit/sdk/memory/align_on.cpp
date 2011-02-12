@@ -12,8 +12,9 @@
 #include <nt2/sdk/memory/meta/align_on.hpp>
 
 #include <boost/mpl/int.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test the dynamic align_on version on integer

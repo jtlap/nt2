@@ -9,8 +9,8 @@
 #define NT2_UNIT_MODULE "nt2::constants real"
 
 #include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of real constants for every base real types

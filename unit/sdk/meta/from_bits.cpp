@@ -10,9 +10,8 @@
 
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/from_bits.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that from_bits return the proper value
