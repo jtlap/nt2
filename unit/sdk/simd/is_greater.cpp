@@ -16,7 +16,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( is_greater  , NT2_SIMD_REAL_TYPES )
   NT2_ALIGNED_TYPE(T) small[2*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<2*cardinal_of<n_t>::value;++i)
   {
-    big[i] = 10*i+1; small[i] = i;
+    big[i] = 2*i+1; small[i] = i;
   }
 
   n_t v = nt2::load<n_t>(&big[0],0);

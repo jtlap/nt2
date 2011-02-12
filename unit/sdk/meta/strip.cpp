@@ -10,9 +10,8 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/type_traits/is_same.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that strip is correct

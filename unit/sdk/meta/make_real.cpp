@@ -13,9 +13,8 @@
 #include <nt2/sdk/meta/make_real.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/add_pointer.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test make_real output

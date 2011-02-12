@@ -9,9 +9,8 @@
 #define NT2_UNIT_MODULE "nt2::memory::buffer"
 
 #include <nt2/sdk/memory/buffer.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic default buffer ctor
