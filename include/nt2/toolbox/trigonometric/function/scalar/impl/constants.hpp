@@ -59,6 +59,10 @@ NT2_CONSTANT_MAKE_REAL(constants::deg_in_rad_  , 0x3f91df46a2529d39LL, 0x3c8efa3
 NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_  , 0x404ca5dc1a63c1f8LL, 0x42652ee1)
 NT2_CONSTANT_MAKE_REAL(constants::rad_in_deg_r_, 0xbce1e7ab456405f8ll, 0xb53387c1)
 NT2_CONSTANT_MAKE_REAL(constants::sqrt_2pi_    , 0x40040d931ff62704ll, 0x40206c99)
- 
 
+  namespace nt2 {
+    static const long double long_pi = 3.141592653589793238462643383279502884197l;
+    static const long double long_deginrad = 0.017453292519943295769236907684886l; 
+    static const long double long_radindeg =  57.295779513082320876798154814105l; 
+  }
 #endif
