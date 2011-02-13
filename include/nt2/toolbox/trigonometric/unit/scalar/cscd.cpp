@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 11/02/2011
+/// modified by jt the 13/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,19 +20,21 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/cscd.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/include/functions/csc.hpp>
-#include <nt2/include/functions/inrad.hpp>
+extern "C" {extern long double cephes_sinl(long double);}
 
 NT2_TEST_CASE_TPL ( cscd_real__1,  NT2_REAL_TYPES)
 {
   using nt2::cscd;
   using nt2::tag::cscd_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<cscd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -53,16 +55,16 @@ NT2_TEST_CASE_TPL ( cscd_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(  cscd(nt2::_45<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  cscd(nt2::_90<T>()), nt2::One<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = 10000;
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUFFER(a0,T, NR, T(-179), T(179));
-    double ulp0 = 0.0;
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-79), T(79));
+    double ulp0 = 0.0, ulpd = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cscd(a0),nt2::csc(nt2::inrad(a0)),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::cscd(a0),1.0l/(::cephes_sinl(nt2::long_deginrad*(a0))),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -73,9 +75,11 @@ NT2_TEST_CASE_TPL ( cscd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::cscd;
   using nt2::tag::cscd_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<cscd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -85,6 +89,7 @@ NT2_TEST_CASE_TPL ( cscd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(  cscd(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  cscd(nt2::_180<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  cscd(nt2::_45<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  cscd(nt2::_90<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for unsigned_int_
@@ -93,9 +98,11 @@ NT2_TEST_CASE_TPL ( cscd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::cscd;
   using nt2::tag::cscd_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<cscd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -104,6 +111,8 @@ NT2_TEST_CASE_TPL ( cscd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(  cscd(-nt2::_45<T>()), -nt2::Sqrt_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  cscd(-nt2::_90<T>()), nt2::Mone<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  cscd(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  cscd(nt2::_45<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(  cscd(nt2::_90<T>()), nt2::One<r_t>(), 0.5);

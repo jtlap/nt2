@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 11/02/2011
+/// modified by jt the 13/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,9 +20,11 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
+<<<<<<< HEAD
 //#include <nt2/toolbox/crlibm/include/rem_pio2.hpp>
 
 NT2_TEST_CASE_TPL ( rem_pio2_real__1,  NT2_REAL_TYPES)
@@ -103,3 +105,5 @@ NT2_TEST_CASE_TPL ( rem_pio2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(  rem_pio2(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for signed_int_
+=======
+>>>>>>> unit for trigo
