@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
       boost::fusion::tie(m2, e2) = nt2::frexp(a1);
       itype expo = -nt2::max(e1, e2);
       A0 e = sel(is_equal(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo)));
-      return sel((is_nan(a0)&is_nan(a1))|is_nan(a0-a1),  Zero<A0>(), e/Eps<A0>());
+      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1),  Zero<A0>(), e/Eps<A0>());
     }
   };
 } }

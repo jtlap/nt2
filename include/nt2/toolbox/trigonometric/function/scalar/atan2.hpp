@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ATAN2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ATAN2_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
+#include <nt2/toolbox/predicates/include/is_invalid.hpp>
 #include <cmath>
 
 
@@ -17,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
                        (A0)(A1),
-                       (fundamental_<A0>)(fundamental_<A1>)
+                       (arithmetic_<A0>)(arithmetic_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::atan2_(tag::fundamental_,tag::fundamental_),
+  struct call<tag::atan2_(tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -34,6 +35,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
         typedef typename NT2_RETURN_TYPE(2)::type rtype;
+	if (is_invalid(a0) && is_invalid(a1)) return Nan<rtype>(); 
         return std::atan2(rtype(a0),rtype(a1));
     }
 

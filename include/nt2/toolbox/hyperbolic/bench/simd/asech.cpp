@@ -25,7 +25,7 @@ using nt2::tag::asech_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::tag::asech_,(RS(vfloat,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::tag::asech_,(RS(vdouble,-10000.0,10000.0)))
+NT2_TIMING(nt2::tag::asech_,(RS(vfloat,0.0f,1.0f)))
+NT2_TIMING(nt2::tag::asech_,(RS(vdouble,0.0,1.0)))
 
 #undef RS

@@ -31,7 +31,7 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    if( nt2::ulpdist(tt, uu ) <= vv)					
+    if( nt2::ulpdist(t, u ) <= v)					
       {									
 	std::cout << " * Test `"					
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
@@ -54,5 +54,48 @@ namespace nt2 { namespace details
       }									
   }									
 
+  template<class T, class U, class V>					
+  inline bool test_ulp_tuple_eq( char const* x1
+			   , char const* x2		
+			   , char const* x3				
+			   , int line
+			   , char const * fn			
+			   , T const & t
+			   , U const & u			
+			   , V const & v				
+			   )						
+  {									
+    test_count()++;							
+    volatile T tt(t);							
+    volatile U uu(u);							
+    volatile V vv(v);
+    typedef typename nt2::meta::upgrade<T>::type TT;
+    typedef typename nt2::meta::upgrade<U>::type UU;
+    bool r =   nt2::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
+    r &= nt2::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
+    if(r)					
+      {									
+	std::cout << " * Test `"					
+		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "` **passed**."					
+		  << " (" << line << ")"				
+		  << std::endl;
+	return true; 
+      }									
+    else								
+      {									
+// 	std::cout << " * Test `"					
+// 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+// 		  << "` **failed** in function "			
+// 		  << fn << " (" << line << ")"				
+// 		  << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
+// 		  <<  nt2::ulpdist(tt, uu )				
+// 		  << std::endl;						
+	++error_count();
+	return false; 
+      }									
+  }
+
 } }
 #endif
+

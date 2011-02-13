@@ -65,6 +65,9 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::digit_< 90> , Ninety            )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::digit_<180> , Onehundredeighty  )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::digit_<180> , C_180             )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::digit_< 45> , _45               )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::digit_< 90> , _90               )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::digit_<180> , _180              )
 
   ////////////////////////////////////////////////////////////////////////////////
   // Local digit based constant generator

@@ -19,11 +19,11 @@ ADD_CUSTOM_TARGET(gsl_specfun.bench)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#ADD_SUBDIRECTORY(simd)
 
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.scalar.bench)
-ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.simd.bench)
+#ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.simd.bench)
 #ADD_DEPENDENCIES(bench gsl_specfun.bench)

@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_HYPERBOLIC_HYPERBOLIC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/hyperbolic/include/asech1m.hpp>
 #include <nt2/toolbox/hyperbolic/include/sinhc.hpp>
 #include <nt2/toolbox/hyperbolic/include/tanh.hpp>
 #include <nt2/toolbox/hyperbolic/include/sinh.hpp>

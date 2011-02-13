@@ -65,8 +65,9 @@ namespace nt2 { namespace ext
 	if (is_ltz(a0))
 	  return Valmin<rtype>(); 
 	else
-	  return  Valmax<rtype>(); 
-      return floor(a0);
+	  return  Valmax<rtype>();
+      if (is_nan(a0)) return Zero<rtype>(); 
+      return rtype(floor(a0));
     }
 
   };

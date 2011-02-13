@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::constants digits"
 
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/unit/tests.hpp> 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 

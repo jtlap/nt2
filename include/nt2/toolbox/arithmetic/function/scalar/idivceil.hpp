@@ -12,6 +12,7 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/rdivide.hpp>
+#include <nt2/include/functions/toint.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -35,22 +36,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return ceil(float(a0)/float(a1)); // TO DO
-//       typedef typename NT2_RETURN_TYPE(2)::type  type;
-//        if (a0 > 0)
-//    {
-//      if (a1 > 0)
-//          return rdivide((a0+(a1-One<type>())), a1);
-//      else
-//          return -rdivide((a0+(-a1-One<type>())), -a1);
-//    }
-//        else
-//    {
-//      if (a1 > 0)
-//          return -rdivide((-a0+(a1+One<type>())), a1);
-//      else
-//          return rdivide((-a0+(-a1-One<type>())), -a1);
-//    }
+      typedef typename NT2_RETURN_TYPE(2)::type  type;
+      return toint(ceil(float(a0)/float(a1)));
     }
   };
 } }

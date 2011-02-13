@@ -17,8 +17,6 @@
 #include <nt2/include/functions/is_not_finite.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -87,3 +85,4 @@ namespace nt2 { namespace ext
 
 #endif
 // modified by jt the 26/12/2010
+

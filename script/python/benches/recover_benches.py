@@ -176,9 +176,9 @@ if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
     length = len(sys.argv)
     if length == 2 :
-        old = Recover_benches(sys.argv[1])
-        old.make_new_benches('scalar')
-        old.make_new_benches('simd')
+##        old = Recover_benches(sys.argv[1])
+##        old.make_new_benches('scalar')
+##        old.make_new_benches('simd')
     else :
         print __doc__
 

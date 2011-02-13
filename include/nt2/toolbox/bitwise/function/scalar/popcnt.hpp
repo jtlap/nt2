@@ -21,13 +21,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
                         (A0),
-                        (arithmetic_<A0>)
+                        (type32_<A0>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::popcnt_(tag::arithmetic_),
+  struct call<tag::popcnt_(tag::type32_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -98,13 +98,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
                         (A0),
-                        (int8_<A0>)
+                        (type8_<A0>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::popcnt_(tag::int8_),
+  struct call<tag::popcnt_(tag::type8_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return __builtin_popcount(a0 & 0xFF);
+      return __builtin_popcount(int32_t(a0) & 0xFF);
     }
   };
 } }
@@ -123,13 +123,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
                         (A0),
-                        (int16_<A0>)
+                        (type16_<A0>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::popcnt_(tag::int16_),
+  struct call<tag::popcnt_(tag::type16_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -138,7 +138,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return __builtin_popcount(a0 & 0xFFFF);
+      return __builtin_popcount(int32_t(a0) & 0xFFFF);
     }
   };
 } }
@@ -148,13 +148,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::popcnt_, tag::cpu_,
                         (A0),
-                        (int64_<A0>)
+                        (type64_<A0>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::popcnt_(tag::int64_),
+  struct call<tag::popcnt_(tag::type64_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

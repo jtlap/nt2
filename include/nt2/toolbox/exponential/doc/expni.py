@@ -1,4 +1,5 @@
-[{'functor': {'arity': '2',
+[ ##script manually modified 
+{'functor': {'arity': '2',
               'call_types': ['iT','T'], 
               'ret_arity': '0',
               'rturn': {'default': 'T'},

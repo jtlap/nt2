@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// modified by jt the 08/12/2010
-/// modified by jt the 15/12/2010
+/// created by jt the 08/12/2010
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -38,6 +38,7 @@ NT2_TEST_CASE_TPL ( exp2_real__1,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -52,14 +53,18 @@ NT2_TEST_CASE_TPL ( exp2_real__1,  NT2_REAL_TYPES)
   {
     #include <nt2/include/functions/sqr.hpp>
     NT2_CREATE_BUFFER(a0,T, 100, T(-10), T(10));
+    double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::log2(nt2::exp2(a0)),T(a0),3);
+        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::log2(nt2::sqr(a0)),2*log2(nt2::abs(a0)),3);
+        ulp0=nt2::max(ulpd,ulp0);
      }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
 
@@ -75,6 +80,7 @@ NT2_TEST_CASE_TPL ( exp2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -85,14 +91,18 @@ NT2_TEST_CASE_TPL ( exp2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   {
     #include <nt2/include/functions/sqr.hpp>
     NT2_CREATE_BUFFER(a0,T, 100, 0, 10);
+    double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::log2(nt2::exp2(a0)),T(a0),3);
+        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::log2(nt2::sqr(a0)),2*log2(nt2::abs(a0)),3);
+        ulp0=nt2::max(ulpd,ulp0);
      }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for unsigned_int_
 
@@ -108,6 +118,7 @@ NT2_TEST_CASE_TPL ( exp2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -119,13 +130,17 @@ NT2_TEST_CASE_TPL ( exp2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   {
     #include <nt2/include/functions/sqr.hpp>
     NT2_CREATE_BUFFER(a0,T, 100, -10, 10);
+    double ulp0 = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::log2(nt2::exp2(a0)),T(a0),3);
+        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::log2(nt2::sqr(a0)),2*log2(nt2::abs(a0)),3);
+        ulp0=nt2::max(ulpd,ulp0);
      }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for signed_int_

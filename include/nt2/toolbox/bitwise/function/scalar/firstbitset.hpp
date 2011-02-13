@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/as_bits.hpp>
 
 #include <nt2/include/functions/firstbitunset.hpp>
+#include <iostream>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      meta::as_integer<A0, signed>{};
+      meta::as_integer<A0, unsigned>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      meta::as_integer<A0, signed>{};
+      meta::as_integer<A0, unsigned>{};
 
     NT2_FUNCTOR_CALL(1)
     {
