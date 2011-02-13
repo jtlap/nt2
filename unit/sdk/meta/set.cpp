@@ -17,9 +17,8 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/int.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test empty set 'emptyness'

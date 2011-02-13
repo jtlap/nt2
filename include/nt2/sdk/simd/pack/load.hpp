@@ -15,7 +15,7 @@ namespace nt2 { namespace functors
   // When loading pack, we dispatch on the fact the underlying type is SIMD
   //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset,class X, class Info>
-  struct dispatch<load_<T,Offset>,tag::simd_(*)(tag::ast_,X),Info>
+  struct dispatch<load_<T,Offset>,tag::simd_<tag::ast_,X> ,Info>
   {
     template<class A0,class A1>
     struct  apply
@@ -24,7 +24,7 @@ namespace nt2 { namespace functors
   };
 
   template<class T,class X, class Info>
-  struct dispatch<load_<T,0>,tag::simd_(*)(tag::ast_,X),Info>
+  struct dispatch<load_<T,0>,tag::simd_<tag::ast_,X> ,Info>
   {
     template<class A0,class A1>
     struct  apply
@@ -36,7 +36,7 @@ namespace nt2 { namespace functors
   // Loading from a native SIMD type
   //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset, class X, class Info>
-  struct  call<load_<T,Offset>,tag::simd_(*)(tag::ast_,X), boost::mpl::true_, Info>
+  struct  call<load_<T,Offset>,tag::simd_<tag::ast_,X> , boost::mpl::true_, Info>
         : callable
   {
     typedef T result_type;
@@ -52,7 +52,7 @@ namespace nt2 { namespace functors
   // Loading from an emulated SIMD type
   //////////////////////////////////////////////////////////////////////////////
   template<class T, int Offset, class X, class Info>
-  struct  call<load_<T,Offset>,tag::simd_(*)(tag::ast_,X), boost::mpl::false_, Info>
+  struct  call<load_<T,Offset>,tag::simd_<tag::ast_,X> , boost::mpl::false_, Info>
         : callable
   {
     typedef T result_type;

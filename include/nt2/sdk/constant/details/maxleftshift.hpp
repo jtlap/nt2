@@ -17,12 +17,15 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-NT2_REGISTER_DISPATCH(tag::max_left_shift_,tag::cpu_,(A0), (target_< arithmetic_<A0>    > ) )
+NT2_REGISTER_DISPATCH ( tag::max_left_shift_
+                      , tag::cpu_,(A0)
+                      , (target_< arithmetic_<A0> > )
+                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::max_left_shift_(tag::target_(tag::arithmetic_) )
+  struct  call< tag::max_left_shift_(tag::target_<tag::arithmetic_>)
               , tag::cpu_
               , Dummy
               >

@@ -12,6 +12,9 @@
 
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -58,12 +61,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type rtype; 
-      if (is_inf(a0))
-	if (is_ltz(a0))
+      if (nt2::is_inf(a0))
+	if (nt2::is_ltz(a0))
 	  return Valmin<rtype>(); 
 	else
 	  return  Valmax<rtype>();
-      if (is_nan(a0)) return Zero<rtype>(); 
+      if (nt2::is_nan(a0)) return Zero<rtype>(); 
       return rtype(floor(a0));
     }
 

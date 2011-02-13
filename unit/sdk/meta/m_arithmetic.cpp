@@ -12,9 +12,8 @@
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <boost/type_traits/is_same.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with 1 types

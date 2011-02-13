@@ -19,8 +19,9 @@
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test for 1D dynamic buffer default ctor

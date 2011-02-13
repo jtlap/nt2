@@ -21,13 +21,12 @@
 /**/
 #endif
 
-#define NT2_REAL (double)(float)
-
 #if !defined(NT2_REAL_TYPES)
 #define NT2_REAL_TYPES	     \
   (double)			     \
   (float)			     \
 /**/
+#define NT2_REAL NT2_REAL_TYPES
 #endif
 
 #if !defined(NT2_REAL_CONVERTIBLE_TYPES)

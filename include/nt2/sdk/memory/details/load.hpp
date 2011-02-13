@@ -30,9 +30,9 @@ NT2_REGISTER_DISPATCH ( tag::load_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::load_( tag::iterator_(tag::fundamental_)
+  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
                           , tag::fundamental_
-                          , tag::target_(tag::fundamental_)
+                          , tag::target_<tag::fundamental_>
                           )
               , tag::cpu_
               , Dummy
@@ -67,10 +67,10 @@ NT2_REGISTER_DISPATCH ( tag::load_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::load_( tag::iterator_(tag::fundamental_)
+  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
                           , tag::fundamental_
-                          , tag::target_(tag::fundamental_)
-                          , tag::mpl_integral_(tag::integer_)
+                          , tag::target_<tag::fundamental_>
+                          , tag::mpl_integral_<tag::integer_>
                           )
               , tag::cpu_
               , Dummy

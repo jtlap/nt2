@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_(tag::simd_(*)(tag::double_,tag::sse_))
+                            , tag::target_<tag::simd_<tag::double_,tag::sse_> >
                             )
               , tag::cpu_
               , Dummy
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
 
   template<class Dummy>
   struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_(tag::simd_(*)(tag::float_,tag::sse_))
+                            , tag::target_<tag::simd_<tag::float_,tag::sse_> >
                             )
               , tag::cpu_
               , Dummy
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
 
   template<class Dummy>
   struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_(tag::simd_(*)(tag::ints8_,tag::sse_))
+                            , tag::target_<tag::simd_<tag::ints8_,tag::sse_> >
                             )
               , tag::cpu_
               , Dummy
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
 
   template<class Dummy>
   struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_(tag::simd_(*)(tag::ints16_,tag::sse_))
+                            , tag::target_<tag::simd_<tag::ints16_,tag::sse_> >
                             )
               , tag::cpu_
               , Dummy
@@ -140,7 +140,7 @@ namespace nt2 { namespace ext
 
   template<class Dummy>
   struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_(tag::simd_(*)(tag::ints32_,tag::sse_))
+                            , tag::target_<tag::simd_<tag::ints32_,tag::sse_> >
                             )
               , tag::cpu_
               , Dummy
@@ -161,7 +161,7 @@ namespace nt2 { namespace ext
 
   template<class Dummy>
   struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_(tag::simd_(*)(tag::ints64_,tag::sse_))
+                            , tag::target_<tag::simd_<tag::ints64_,tag::sse_> >
                             )
               , tag::cpu_
               , Dummy

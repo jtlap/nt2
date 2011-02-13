@@ -24,7 +24,7 @@ NT2_REGISTER_DISPATCH(tag::cumsum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::cumsum_(tag::simd_(*)(tag::type8_, tag::sse_)),
+  struct call<tag::cumsum_(tag::simd_<tag::type8_, tag::sse_> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -66,7 +66,7 @@ NT2_REGISTER_DISPATCH(tag::cumsum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::cumsum_(tag::simd_(*)(tag::type64_, tag::sse_)),
+  struct call<tag::cumsum_(tag::simd_<tag::type64_, tag::sse_> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -93,7 +93,7 @@ NT2_REGISTER_DISPATCH(tag::cumsum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::cumsum_(tag::simd_(*)(tag::type16_, tag::sse_)),
+  struct call<tag::cumsum_(tag::simd_<tag::type16_, tag::sse_> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -127,7 +127,7 @@ NT2_REGISTER_DISPATCH(tag::cumsum_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::cumsum_(tag::simd_(*)(tag::type32_, tag::sse_)),
+  struct call<tag::cumsum_(tag::simd_<tag::type32_, tag::sse_> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

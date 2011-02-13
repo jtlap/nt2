@@ -43,24 +43,6 @@ namespace nt2 { namespace meta
                             >::type                 parent;
     typedef T                                       type;
   };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Proto expression hierarchy is defined by its domain and the top-most
-  // node for expression
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Domain,class Node>
-  struct expr_ : expr_<T,typename Domain::parent,Node>
-  {
-    typedef expr_<T,typename Domain::parent,Node> parent;
-    typedef tag::expr_                            type(Domain,Node);
-  };
-
-  template<class T,class Domain,class Node>
-  struct expr_<T,unspecified_<Domain>,Node> : unspecified_<T>
-  {
-    typedef unspecified_<T> parent;
-    typedef tag::expr_ type(typename unspecified_<T>::type,Node);
-  };
 } }
 
 namespace nt2 { namespace details
@@ -71,20 +53,6 @@ namespace nt2 { namespace details
   template<class T> struct hierarchy_of<T, typename T::proto_is_domain_>
   {
     typedef meta::domain_<T> type;
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Proto expression hierarchy specialization
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  hierarchy_of<T, typename T::proto_is_expr_>
-  {
-    typedef typename boost::proto::domain_of<T>::type         domain_type;
-    typedef typename boost::proto::result_of::value<T>::type  value_type;
-    typedef meta::expr_< T
-                       , typename meta::hierarchy_of<domain_type>::type
-                       , typename meta::hierarchy_of<value_type>::type
-                       >                                      type;
   };
 } }
 

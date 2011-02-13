@@ -11,8 +11,8 @@
 #include <nt2/sdk/memory/meta/is_power_of_2.hpp>
 
 #include <boost/mpl/int.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test the meta::is_power_of_2 version on int_

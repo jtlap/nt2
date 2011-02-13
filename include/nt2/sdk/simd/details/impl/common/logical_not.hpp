@@ -14,8 +14,8 @@
 namespace nt2 { namespace ext
 {
   template<class X,class Dummy>
-  struct  call< tag::logical_not_ ( tag::simd_(*)(tag::arithmetic_,X)
-                                  , tag::simd_(*)(tag::arithmetic_,X)
+  struct  call< tag::logical_not_ ( tag::simd_<tag::arithmetic_,X> 
+                                  , tag::simd_<tag::arithmetic_,X> 
                                   )
               , tag::cpu_, Dummy
               >

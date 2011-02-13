@@ -15,7 +15,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

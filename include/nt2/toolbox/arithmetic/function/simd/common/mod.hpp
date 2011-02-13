@@ -27,8 +27,8 @@ NT2_REGISTER_DISPATCH(tag::mod_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::mod_(tag::simd_(*)(tag::arithmetic_, X),
-                        tag::simd_(*)(tag::arithmetic_, X)),
+  struct call<tag::mod_(tag::simd_<tag::arithmetic_, X> ,
+                        tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

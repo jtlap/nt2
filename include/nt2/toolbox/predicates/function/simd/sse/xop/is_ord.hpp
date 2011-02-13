@@ -26,8 +26,8 @@ NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_ord_(tag::simd_(*)(tag::arithmetic_, tag::xop_),
-                           tag::simd_(*)(tag::arithmetic_, tag::xop_)),
+  struct call<tag::is_ord_(tag::simd_<tag::arithmetic_, tag::xop_),
+                           tag::simd_<tag::arithmetic_, tag::xop_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -56,8 +56,8 @@ NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_ord_(tag::simd_(*)(tag::double_, tag::xop_),
-                           tag::simd_(*)(tag::double_, tag::xop_)),
+  struct call<tag::is_ord_(tag::simd_<tag::double_, tag::xop_),
+                           tag::simd_<tag::double_, tag::xop_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -85,8 +85,8 @@ NT2_REGISTER_DISPATCH(tag::is_ord_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::is_ord_(tag::simd_(*)(tag::float_, tag::xop_),
-                           tag::simd_(*)(tag::float_, tag::xop_)),
+  struct call<tag::is_ord_(tag::simd_<tag::float_, tag::xop_),
+                           tag::simd_<tag::float_, tag::xop_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -31,8 +31,8 @@ NT2_REGISTER_DISPATCH ( tag::store_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_(*)(tag::double_,tag::sse_)
-                            , tag::iterator_(tag::double_)
+  struct  call< tag::store_ ( tag::simd_<tag::double_,tag::sse_>
+                            , tag::iterator_<tag::double_>
                             , tag::integer_
                             )
               , tag::cpu_
@@ -66,8 +66,8 @@ NT2_REGISTER_DISPATCH ( tag::store_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_(*)(tag::float_,tag::sse_)
-                            , tag::iterator_(tag::float_)
+  struct  call< tag::store_ ( tag::simd_<tag::float_,tag::sse_>
+                            , tag::iterator_<tag::float_>
                             , tag::integer_
                             )
               , tag::cpu_
@@ -101,8 +101,8 @@ NT2_REGISTER_DISPATCH ( tag::store_
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_(*)(tag::integer_,tag::sse_)
-                            , tag::iterator_(tag::integer_)
+  struct  call< tag::store_ ( tag::simd_<tag::integer_,tag::sse_>
+                            , tag::iterator_<tag::integer_>
                             , tag::integer_
                             )
               , tag::cpu_

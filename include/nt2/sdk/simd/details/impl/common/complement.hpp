@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   // Implement ~ using xor
   //////////////////////////////////////////////////////////////////////////////
   template<class X, class Dummy>
-  struct  call< tag::complement_( tag::simd_(*)(tag::arithmetic_,X) )
+  struct  call< tag::complement_( tag::simd_<tag::arithmetic_,X>  )
               , tag::cpu_, Dummy
               >
         : callable

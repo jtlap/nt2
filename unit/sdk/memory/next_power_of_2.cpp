@@ -11,8 +11,8 @@
 #include <nt2/sdk/memory/meta/next_power_of_2.hpp>
 
 #include <boost/mpl/int.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test the meta::next_power_of_2 version on int_

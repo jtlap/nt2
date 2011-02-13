@@ -25,7 +25,7 @@ NT2_REGISTER_DISPATCH(tag::signmask_,tag::cpu_,(A0), (target_< signed_<A0>    > 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::signmask_(tag::target_(tag::double_) )
+  struct  call< tag::signmask_(tag::target_<tag::double_>)
               , tag::cpu_
               , Dummy
               >
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::signmask_(tag::target_(tag::float_) )
+  struct  call< tag::signmask_(tag::target_<tag::float_>)
               , tag::cpu_
               , Dummy
               >
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::signmask_(tag::target_(tag::unsigned_) )
+  struct  call< tag::signmask_(tag::target_<tag::unsigned_>)
               , tag::cpu_
               , Dummy
               >
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy>
-  struct  call< tag::signmask_(tag::target_(tag::signed_) )
+  struct  call< tag::signmask_(tag::target_<tag::signed_>)
               , tag::cpu_
               , Dummy
               >

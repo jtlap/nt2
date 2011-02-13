@@ -9,8 +9,8 @@
 #define NT2_UNIT_MODULE "nt2 constants properties"
 
 #include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for sigmask

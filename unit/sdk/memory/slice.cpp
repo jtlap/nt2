@@ -18,8 +18,8 @@
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <nt2/sdk/memory/global_padding.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test for slice with no_padding

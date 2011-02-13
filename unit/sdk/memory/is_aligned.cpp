@@ -12,8 +12,8 @@
 #include <nt2/sdk/memory/meta/is_aligned.hpp>
 
 #include <boost/mpl/int.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test the is_aligned version on integer
