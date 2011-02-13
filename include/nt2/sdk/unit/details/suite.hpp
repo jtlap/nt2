@@ -10,6 +10,9 @@
 #define NT2_SDK_UNIT_DETAILS_SUITE_HPP_INCLUDED
 
 #include <cstdio>
+#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/config/type_lists.hpp>
+#include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/register.hpp>
 
 namespace nt2 { namespace details
