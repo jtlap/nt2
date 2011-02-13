@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - unit/simd Mode"
 
-#include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>
+//#include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 

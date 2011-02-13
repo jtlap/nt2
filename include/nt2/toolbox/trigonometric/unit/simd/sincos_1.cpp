@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - cos/simd Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - sincos/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 11/02/2011
+/// modified by jt the 13/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -23,41 +23,44 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/toolbox/trigonometric/include/cos.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/crlibm/include/cos.hpp>
+#include <nt2/toolbox/trigonometric/include/sincos.hpp>
 
-NT2_TEST_CASE_TPL ( cos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
+NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_TYPES)
 {
-  using nt2::cos;
-  using nt2::tag::cos_;
+  using nt2::sincos;
+  using nt2::tag::sincos_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<cos_(vT)>::type r_t;
+  typedef typename nt2::meta::call<sincos_(vT)>::type r_t;
+  typedef typename nt2::meta::call<sincos_(T)>::type sr_t;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
     NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-60), T(60));
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<n_t>(&tab_a0[0],j);
-        r_t v = cos(a0);
+	r_t r = nt2::sincos(a0); 
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],nt2::cos(tab_a0[k]),1.5);
+	  sr_t sr =  nt2::sincos(tab_a0[k]);
+	  NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i], boost::fusion::get<0>(sr), 0.5);
+	  NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i], boost::fusion::get<1>(sr), 0.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
+ 
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl; 
   }
