@@ -22,9 +22,31 @@ MACRO(MAKE_NT2_TEST FILENAME EXECUTABLE SUITE)
   ##############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${FILENAME})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-#  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2-test)
-
+  
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
   
   ADD_DEPENDENCIES(${SUITE} ${EXECUTABLE})
 ENDMACRO(MAKE_NT2_TEST)
+
+################################################################################
+# This macros package everything needed to make a NT2 unit test for ctest with
+# customizable compilation flags
+################################################################################
+
+MACRO(MAKE_NT2_TEST_WITH FILENAME EXECUTABLE SUITE FLAGS)
+  ##############################################################################
+  # Build target name from the executable name
+  ##############################################################################
+  STRING(REGEX REPLACE ".unit" "-unit" TEST "${EXECUTABLE}")
+  
+  ##############################################################################
+  # Build executable from the files and link to nt2 components
+  ##############################################################################
+  ADD_EXECUTABLE(${EXECUTABLE} ${FILENAME})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  
+  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${FLAGS})
+  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
+  
+  ADD_DEPENDENCIES(${SUITE} ${EXECUTABLE})
+ENDMACRO(MAKE_NT2_TEST_WITH)
