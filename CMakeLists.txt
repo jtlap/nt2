@@ -155,14 +155,7 @@ ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 # System-level toolbox inclusion
 ################################################################################
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 281742d9365593cf4bad08c4d637b694d5e53da3
-=======
 
->>>>>>> Stashed changes
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/trigonometric EXCLUDE_FROM_ALL)
@@ -172,7 +165,7 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fuzzy EXCLUDE_FROM_AL
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/hyperbolic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/exponential EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/reduction EXCLUDE_FROM_ALL)
-<<<<<<< HEAD
+
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bessel EXCLUDE_FROM_ALL)
@@ -190,25 +183,6 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/boost_math EXCLUDE_FR
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_ALL)
 
 ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
-=======
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bessel EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/combinatorial EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/euler EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/polynomials EXCLUDE_FROM_ALL)
-
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/cephes EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/crlibm EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/ast EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fdlibm EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/libc EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/standard EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/boost_math EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_ALL)
-
-#ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
->>>>>>> 281742d9365593cf4bad08c4d637b694d5e53da3
 
 ################################################################################
 # Post-config message
