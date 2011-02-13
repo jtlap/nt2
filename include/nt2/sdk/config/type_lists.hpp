@@ -26,6 +26,7 @@
   (double)			     \
   (float)			     \
 /**/
+#define NT2_REAL NT2_REAL_TYPES
 #endif
 
 #if !defined(NT2_REAL_CONVERTIBLE_TYPES)
