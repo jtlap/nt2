@@ -79,9 +79,21 @@ file( GLOB_RECURSE source_files
     )
 
 # Generate the shared library.
+
 add_library(nt2 SHARED ${source_files})
 set_target_properties(nt2 PROPERTIES VERSION 3.0.0 SOVERSION 3)
-SET_TARGET_PROPERTIES(nt2 PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
+
+# Cannot have two targets with the same name so the static version has
+# '-static' appended and then the name of the output file is set
+# separately.
+
+add_library(nt2-static STATIC ${source_files})
+set_target_properties(nt2-static PROPERTIES OUTPUT_NAME "nt2")
+
+# These next two lines are required but it is unclear exactly what they do.
+# The CMake FAQ mentions they are necessary and it does not work otherwise.
+SET_TARGET_PROPERTIES(nt2 PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+SET_TARGET_PROPERTIES(nt2-static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 
 ################################################################################
 # Install libnt2
@@ -139,15 +151,7 @@ ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 # System-level toolbox inclusion
 ################################################################################
 
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/trigonometric EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/predicates EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/ieee EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fuzzy EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/hyperbolic EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/exponential EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/reduction EXCLUDE_FROM_ALL)
+<
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bessel EXCLUDE_FROM_ALL)
@@ -156,14 +160,14 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/euler EXCLUDE_FROM_AL
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/polynomials EXCLUDE_FROM_ALL)
 
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/cephes EXCLUDE_FROM_ALL)
+
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/crlibm EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/ast EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fdlibm EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/libc EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/standard EXCLUDE_FROM_ALL)
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/boost_math EXCLUDE_FROM_ALL)
-#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_ALL)
-
+#ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_AL
 ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 
 ################################################################################
