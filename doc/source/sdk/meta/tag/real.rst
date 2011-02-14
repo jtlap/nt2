@@ -1,16 +1,16 @@
-.. _tag_unknown_:
+.. _tag_real_:
 
-unknown
+real
 =======
 
 .. index::
-    single: unknown_ (tag)
-    single: tag; unknown_
+    single: real_ (tag)
+    single: tag; real_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| hierarchical overload
-resolution.
+Tag type used in |nt2| hierarchical overload resolution for discriminating
+floating-point types.
 
 Header File
 ^^^^^^^^^^^
@@ -26,5 +26,5 @@ Synopsis
 
   namespace nt2 { namespace tag
   {
-    struct unknown_;
+    struct real_;
   } }

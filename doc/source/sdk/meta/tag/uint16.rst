@@ -1,16 +1,16 @@
-.. _tag_unknown_:
+.. _tag_uint16_:
 
-unknown
+uint16
 =======
 
 .. index::
-    single: unknown_ (tag)
-    single: tag; unknown_
+    single: uint16_ (tag)
+    single: tag; uint16_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| hierarchical overload
-resolution.
+Tag type used in |nt2| hierarchical overload resolution for discriminating
+unsigned integers of 16 bits.
 
 Header File
 ^^^^^^^^^^^
@@ -26,5 +26,5 @@ Synopsis
 
   namespace nt2 { namespace tag
   {
-    struct unknown_;
+    struct uint16_;
   } }

@@ -1,16 +1,16 @@
-.. _tag_unknown_:
+.. _tag_void_:
 
-unknown
+void
 =======
 
 .. index::
-    single: unknown_ (tag)
-    single: tag; unknown_
+    single: void_ (tag)
+    single: tag; void_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| hierarchical overload
-resolution.
+Tag type used in |nt2| hierarchical overload resolution for discriminating
+the ``void`` type.
 
 Header File
 ^^^^^^^^^^^
@@ -26,5 +26,5 @@ Synopsis
 
   namespace nt2 { namespace tag
   {
-    struct unknown_;
+    struct void_;
   } }

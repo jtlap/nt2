@@ -9,8 +9,8 @@ Boost.Fusion or Boost.TypeTraits.
 .. toctree::
    :maxdepth: 1
 
+   meta/hierarchies
    meta/algo
-   meta/categories
    meta/helper
    meta/sets
    meta/tags

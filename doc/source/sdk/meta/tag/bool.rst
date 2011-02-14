@@ -1,16 +1,16 @@
-.. _tag_unknown_:
+.. _tag_bool_:
 
-unknown
+bool
 =======
 
 .. index::
-    single: unknown_ (tag)
-    single: tag; unknown_
+    single: bool_ (tag)
+    single: tag; bool_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| hierarchical overload
-resolution.
+Tag type used in |nt2| hierarchical overload resolution for discriminating
+the ``bool`` type.
 
 Header File
 ^^^^^^^^^^^
@@ -26,5 +26,5 @@ Synopsis
 
   namespace nt2 { namespace tag
   {
-    struct unknown_;
+    struct bool_;
   } }

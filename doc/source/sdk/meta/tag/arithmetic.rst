@@ -1,0 +1,30 @@
+.. _tag_arithmetic_:
+
+arithmetic
+==========
+
+.. index::
+    single: arithmetic_ (tag)
+    single: tag; arithmetic_
+
+Description
+^^^^^^^^^^^
+Tag type used in |nt2| hierarchical overload resolution for discriminating
+arithmetic types, i.e. built-in integral and floating-point types.
+
+Header File
+^^^^^^^^^^^
+
+.. code-block:: cpp
+
+  #include <nt2/sdk/meta/hierarchy.hpp>
+
+Synopsis
+^^^^^^^^
+
+.. code-block:: cpp
+
+  namespace nt2 { namespace tag
+  {
+    struct arithmetic_;
+  } }

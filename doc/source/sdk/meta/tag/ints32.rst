@@ -1,16 +1,16 @@
-.. _tag_unknown_:
+.. _tag_ints32_:
 
-unknown
+ints32
 =======
 
 .. index::
-    single: unknown_ (tag)
-    single: tag; unknown_
+    single: ints32_ (tag)
+    single: tag; ints32_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| hierarchical overload
-resolution.
+Tag type used in |nt2| hierarchical overload resolution for discriminating
+integers of 32 bits.
 
 Header File
 ^^^^^^^^^^^
@@ -26,5 +26,5 @@ Synopsis
 
   namespace nt2 { namespace tag
   {
-    struct unknown_;
+    struct ints32_;
   } }

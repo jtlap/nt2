@@ -1,15 +1,15 @@
-.. _tag_unknown_:
+.. _tag_unspecified_:
 
-unknown
-=======
+unspecified
+===========
 
 .. index::
-    single: unknown_ (tag)
-    single: tag; unknown_
+    single: unspecified_ (tag)
+    single: tag; unspecified_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| hierarchical overload
+Tag type for discriminating non-categorized types in |nt2| hierarchical overload
 resolution.
 
 Header File
@@ -26,5 +26,5 @@ Synopsis
 
   namespace nt2 { namespace tag
   {
-    struct unknown_;
+    struct unspecified_;
   } }
