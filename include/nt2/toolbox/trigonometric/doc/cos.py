@@ -16,7 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
-             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>', '#include <nt2/toolbox/cephes/include/cos.hpp>'],
+             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
+                 'extern "C" {extern long double cephes_cosl(long double);}'],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },
@@ -51,7 +52,7 @@
                  'real_' : ['nt2::cos(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cos(a0)'],
+                 'real_' : ['::cephes_cosl(a0)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['0.5'],

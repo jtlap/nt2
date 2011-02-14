@@ -16,7 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
-             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>', '#include <nt2/toolbox/cephes/include/cos.hpp>'],
+             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
+                           'extern "C" {extern long double cephes_cosl(long double);}'],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },
@@ -52,7 +53,7 @@
                  'real_' : ['nt2::fast_cosd(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cos(a0*nt2::Deginrad<T>())'],
+                 'real_' : ['::cephes_cosl(a0*nt2::long_deginrad)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['1.0'],

@@ -18,8 +18,7 @@
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : 
                 ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                 '#include <nt2/toolbox/cephes/include/asin.hpp>',
-                 '#include <nt2/include/functions/rec.hpp>'],
+                 'extern "C" {extern long double cephes_asinl(long double);}'],
              'notes' : ['asin(1/a0)*Radindeg'],
              'stamp' : 'modified by jt the 11/02/2011',
             },
@@ -57,7 +56,7 @@
                  'real_' : ['nt2::acscd(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::asinl(1.0l/(a0))*nt2::long_radindeg'],
+                 'real_' : ['::cephes_asinl(1.0l/(a0))*nt2::long_radindeg'],
                 },
              'ulp_thresh' : {
                  'real_' : ['1.0'],

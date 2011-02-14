@@ -18,8 +18,7 @@
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : 
                 ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                 '#include <nt2/toolbox/cephes/include/acos.hpp>',
-                 '#include <nt2/include/functions/rec.hpp>'],
+                 'extern "C" {extern long double cephes_acosl(long double);}'],
              'notes' : ['acos(1/a0)'],
              'stamp' : 'modified by jt the 11/02/2011',
             },
@@ -57,7 +56,7 @@
                  'real_' : ['nt2::asec(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::acosl(1.0l/(a0))'],
+                 'real_' : ['::cephes_acosl(1.0l/(a0))'],
                 },
              'ulp_thresh' : {
                  'real_' : ['4.0'],

@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 13/02/2011
+/// modified by jt the 14/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -24,7 +24,7 @@
 #include <nt2/toolbox/trigonometric/include/fast_cospi.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/cephes/include/cos.hpp>
+extern "C" {extern long double cephes_cosl(long double);}
 
 NT2_TEST_CASE_TPL ( fast_cospi_real__1,  NT2_REAL_TYPES)
 {
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fast_cospi(a0),::cos(nt2::Pi<T>()*a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::fast_cospi(a0),::cephes_cosl(nt2::long_pi*a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 13/02/2011
+/// modified by jt the 14/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -24,8 +24,7 @@
 #include <nt2/toolbox/trigonometric/include/secd.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/cephes/include/cos.hpp>
-#include <nt2/include/functions/rec.hpp>
+extern "C" {extern long double cephes_cosl(long double);}
 
 NT2_TEST_CASE_TPL ( secd_real__1,  NT2_REAL_TYPES)
 {
@@ -57,14 +56,14 @@ NT2_TEST_CASE_TPL ( secd_real__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-80), T(80));
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-79), T(79));
     double ulp0 = 0.0, ulpd = 0.0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::secd(a0),nt2::rec(::cos(a0*nt2::Deginrad<T>())),3.5);
+        NT2_TEST_ULP_EQUAL( nt2::secd(a0),1.0l/(::cephes_cosl(a0*nt2::long_deginrad)),3.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
