@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 11/02/2011
+/// modified by jt the 14/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -24,9 +24,6 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/toolbox/trigonometric/include/cos.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/crlibm/include/cos.hpp>
 
 NT2_TEST_CASE_TPL ( cos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
 {
@@ -42,6 +39,7 @@ NT2_TEST_CASE_TPL ( cos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<cos_(vT)>::type r_t;
+  typedef typename nt2::meta::call<cos_(T)>::type sr_t;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;

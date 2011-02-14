@@ -16,7 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
-             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>', '#include <nt2/toolbox/cephes/include/tan.hpp>'],
+             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
+                           'extern "C" {extern long double cephes_tanl(long double);}'],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },
@@ -51,7 +52,7 @@
                  'real_' : ['nt2::tanpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::tanl(nt2::long_pi*a0)'],
+                 'real_' : ['::cephes_tanl(nt2::long_pi*a0)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['1.0'],

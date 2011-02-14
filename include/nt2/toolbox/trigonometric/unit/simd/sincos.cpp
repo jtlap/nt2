@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 13/02/2011
+/// modified by jt the 14/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>

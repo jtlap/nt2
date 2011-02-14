@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_convert_'],
+         'simd_types' : ['real_'],
          'special' : ['trigonometric'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
@@ -18,13 +18,12 @@
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : 
                 ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                 '#include <nt2/toolbox/cephes/include/cos.hpp>',
-                 '#include <nt2/include/functions/rec.hpp>'],
+                 'extern "C" {extern long double cephes_cosl(long double);}'],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },
          'ranges' : {
-             'real_' : [['T(-80)', 'T(80)']],
+             'real_' : [['T(-79)', 'T(79)']],
             },
          'specific_values' : {
              'default' : {
@@ -54,7 +53,7 @@
                  'real_' : ['nt2::secd(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['nt2::rec(::cos(a0*nt2::Deginrad<T>()))'],
+                 'real_' : ['1.0l/(::cephes_cosl(a0*nt2::long_deginrad))'],
                 },
              'ulp_thresh' : {
                  'real_' : ['3.5'],

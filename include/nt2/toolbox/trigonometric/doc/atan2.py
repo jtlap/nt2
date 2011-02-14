@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_convert_'],
+         'simd_types' : ['real_'],
          'special' : ['trigonometric'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
@@ -16,7 +16,10 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
-             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>', '#include <nt2/toolbox/libc/include/atan2.hpp>'],
+             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
+                           '#include <nt2/toolbox/libc/include/atan2.hpp>',
+                           'extern "C" {extern long double cephes_atanl(long double);}',
+                            ],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },
@@ -52,15 +55,14 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::atan2(a0,a1)'],
+##                 'real_' : [['nt2::atan2(a0,a1)'],['nt2::atan2(nt2::abs(a0),nt2::abs(a1))']],
+                 'real_' : ['nt2::atan2(a0,a1)'],   
                 },
              'property_value' : {
-                 'real_' : ['nt2::libc::atan2(a0,a1)'],
+##                 'real_' : [['nt2::libc::atan2(a0,a1)'],['::cephes_atanl(nt2::abs(a0)/nt2::abs(a1))']],
+                 'real_' :  ['nt2::libc::atan2(a0,a1)'],   
                 },
-             'simd' : {
-                 'real_convert_' : 'real_',
-                },
-             'ulp_thresh' : {
+            'ulp_thresh' : {
                  'real_' : '0.5',
                 },
             },

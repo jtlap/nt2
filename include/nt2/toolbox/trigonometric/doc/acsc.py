@@ -18,8 +18,7 @@
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : 
                 ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                 '#include <nt2/toolbox/cephes/include/asin.hpp>',
-                 '#include <nt2/include/functions/rec.hpp>'],
+                 'extern "C" {extern long double cephes_asinl(long double);}'],
              'notes' : ['asin(1/a0)'],
              'stamp' : 'modified by jt the 11/02/2011',
             },
