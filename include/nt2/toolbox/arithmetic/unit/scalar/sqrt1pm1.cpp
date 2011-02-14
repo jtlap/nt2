@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 24/01/2011
+/// modified by jt the 14/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,15 +20,18 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/sqrt1pm1.hpp>
 
 NT2_TEST_CASE_TPL ( sqrt1pm1_real__1,  NT2_REAL_TYPES)
 {
   using nt2::sqrt1pm1;
   using nt2::tag::sqrt1pm1_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sqrt1pm1_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,9 +52,11 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::sqrt1pm1;
   using nt2::tag::sqrt1pm1_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sqrt1pm1_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -68,9 +73,11 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::sqrt1pm1;
   using nt2::tag::sqrt1pm1_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sqrt1pm1_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

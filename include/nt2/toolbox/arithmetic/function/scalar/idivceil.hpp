@@ -13,6 +13,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/rdivide.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/iceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,7 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type  type;
-      return toint(ceil(float(a0)/float(a1)));
+      return iceil(tofloat(a0)/tofloat(a1));
     }
   };
 } }
@@ -86,11 +88,11 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::result_of<meta::arithmetic(A0,A1)>{};
+      meta::as_integer < typename boost::result_of<meta::arithmetic(A0,A1)>::type > {};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return ceil(a0/a1);
+      return iceil(a0/a1);
     }
   };
 } }

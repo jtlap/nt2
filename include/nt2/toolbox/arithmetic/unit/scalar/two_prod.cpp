@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 24/01/2011
+/// modified by jt the 14/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,6 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/two_prod.hpp>
 
 NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
@@ -27,9 +28,11 @@ NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
   using nt2::two_prod;
   using nt2::tag::two_prod_;
   typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
+  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<two_prod_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<r0_t,r0_t> wished_r_t;
+
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

@@ -44,10 +44,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
       {
-//       typedef typename NT2_RETURN_TYPE(2)::type type;
-//       type a = nt2::abs(a0);
-//       type b = nt2::abs(a1);
-//       return b ? nt2::negate(a-nt2::idivfix(a, b)*b, a) : a;
 	if (!a1) return a0; 
 	return a0-nt2::idivround(a0, a1)*a1; 
     }

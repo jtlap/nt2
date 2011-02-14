@@ -6,39 +6,39 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - random - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - random/simd Mode"
 
-#include <nt2/toolbox/arithmetic/include/random.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created by jt the 01/12/2010
+/// modified by jt the 14/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/random.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-//Test behavior of arithmetic component random using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(random, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( random_real__2,  NT2_REAL_TYPES)
 {
- using nt2::random;
- using nt2::tag::random_;
+  using nt2::random;
+  using nt2::tag::random_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<random_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<random_(T,T)>::type sr_t;
 
- using nt2::load; 
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
-
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<random_(n_t, n_t)>::type call_type;
-
- NT2_TEST( (boost::is_same<call_type,
-                           n_t
-                           >::value)
-         );
- 
- }
-
-
+} // end of test for real_

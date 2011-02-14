@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_IDIVROUND_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/round2even.hpp>
+#include <nt2/include/functions/iround2even.hpp>
 #include <nt2/include/functions/iround.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/group.hpp>
@@ -153,9 +153,9 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::strip<A0>{};
+    struct result<This(A0,A0)>  : meta::as_integer<A0>{};
 
-    NT2_FUNCTOR_CALL(2){ return round2even(a0/a1); }
+    NT2_FUNCTOR_CALL(2){ return iround2even(a0/a1); }
   };
 } }
 

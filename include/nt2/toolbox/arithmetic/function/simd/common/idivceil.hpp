@@ -10,12 +10,10 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_IDIVCEIL_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/iceil.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
-#include <nt2/include/functions/tofloat.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -95,7 +93,7 @@ namespace nt2 { namespace ext
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
       return simd::native_cast<A0>(group(idivceil(a0l, a1l),
-                               idivceil(a0h, a1h)));
+					 idivceil(a0h, a1h)));
     }
   };
 } }
@@ -152,9 +150,9 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::strip<A0>{};
+    struct result<This(A0,A0)>  : meta::as_integer<A0>{};
 
-    NT2_FUNCTOR_CALL(2){ return ceil(a0/a1); }
+    NT2_FUNCTOR_CALL(2){ return iceil(a0/a1); }
   };
 } }
 

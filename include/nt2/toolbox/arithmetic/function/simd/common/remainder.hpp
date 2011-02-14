@@ -13,6 +13,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/idivfix.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 
 
@@ -39,10 +40,34 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-//       const A0 a = abs(a0);
-//       const A0 b = abs(a1);
-//       return sel(b, negate(a-idivfix(a, b)*b, a), a);
       return a0-idivround(a0, a1)*a1; 
+    }
+
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::remainder_, tag::cpu_,
+                            (A0)(X),
+                            ((simd_<real_<A0>,X>))
+                            ((simd_<real_<A0>,X>))
+                           );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::remainder_(tag::simd_<tag::real_, X> ,
+                              tag::simd_<tag::real_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return a0-tofloat(idivround(a0, a1))*a1; 
     }
 
   };

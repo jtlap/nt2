@@ -10,7 +10,10 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_REMQUO_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/idivfix.hpp>
+#include <nt2/include/functions/idivround.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/remainder.hpp>
 
 
 
@@ -35,7 +38,8 @@ namespace nt2 { namespace ext
     struct result<This(A0,A0)>
     {
       typedef typename meta::strip<A0>::type                 stA0;
-      typedef boost::fusion::tuple<stA0,stA0>                type;
+      typedef typename meta::as_integer<A0>::type             iA0;             
+      typedef boost::fusion::tuple<stA0,iA0>                 type;
     };
 
     NT2_FUNCTOR_CALL(2)
@@ -50,15 +54,13 @@ namespace nt2 { namespace ext
     template<class A0,class A1,class R0,class R1> inline void
     eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1) const
     {
-      r1 = idivfix(a0, a1);
-      r0 = a0-r1*a1;
+      r1 = idivround(a0, a1);
+      r0 = remainder(a0, a1);
+      r1 = b_and(r1, nt2::Seven<R1>());
+      R1 r2 =  b_not(b_xor(nt2::Seven<R1>(), r1));
+      r1 = sel(is_gtz(b_and(a0, a1)), r1, r2); 
     }
-//     template<class A0,class A1,class R0,class R1> inline void
-//     eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1, arithmetic_ const &) const
-//     {
-//       r1 = rdivide(a0, a1);
-//       r0 = a0-r1*a1;
-//     }
+
 
   };
 } }

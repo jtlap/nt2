@@ -8,6 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
+  divround.cpp
+  divfloor.cpp
+  divfix.cpp
+  divceil.cpp
   random.cpp
   logical_xor.cpp
   ifloor.cpp

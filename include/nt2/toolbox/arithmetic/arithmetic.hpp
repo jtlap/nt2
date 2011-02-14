@@ -10,6 +10,10 @@
 #define NT2_TOOLBOX_ARITHMETIC_ARITHMETIC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/arithmetic/include/divround.hpp>
+#include <nt2/toolbox/arithmetic/include/divfloor.hpp>
+#include <nt2/toolbox/arithmetic/include/divfix.hpp>
+#include <nt2/toolbox/arithmetic/include/divceil.hpp>
 #include <nt2/toolbox/arithmetic/include/random.hpp>
 #include <nt2/toolbox/arithmetic/include/logical_xor.hpp>
 #include <nt2/toolbox/arithmetic/include/ifloor.hpp>
