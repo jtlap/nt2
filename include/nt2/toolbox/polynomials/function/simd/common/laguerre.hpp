@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::laguerre_(tag::integer_,
-                             tag::simd_(tag::arithmetic_, X)),
+                             tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::laguerre_(tag::integer_,
-                             tag::simd_(tag::real_, X)),
+                             tag::simd_<tag::real_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

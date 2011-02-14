@@ -31,7 +31,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::uint8_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::uint8_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -77,7 +77,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::arithmetic_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::arithmetic_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -88,7 +88,11 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0,signed>::type     int_type;
       typedef typename meta::as_integer<A0,unsigned>::type  uint_type;
-      return b_and(is_gtz(a0), simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));
+      return b_and( is_gtz(a0)
+                  , simd::
+                    native_cast<int_type>(sqrt( simd::
+                                                native_cast<uint_type>(a0)))
+                  );
     }
   };
 } }
@@ -104,7 +108,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::double_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::double_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -129,7 +133,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::float_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::float_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -154,7 +158,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::uint32_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::uint32_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -180,11 +184,8 @@ namespace nt2 { namespace ext
                                 )
                         )
                   );
-      std::cout << "1n " << n << std::endl;
       A0 ok =  is_gtz(n);
-      std::cout << "ok " << ok << std::endl;
       n = select(ok, n, one);
-      std::cout << "2n " << n << std::endl;
       A0 n1 = select(ok, shri(n+a0/n, 1), one);
 
       ok = lt(n1, n);
@@ -218,7 +219,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::uint64_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::uint64_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -243,7 +244,7 @@ NT2_REGISTER_DISPATCH(tag::sqrt_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::sqrt_(tag::simd_(tag::uint16_, tag::sse_)),
+  struct call<tag::sqrt_(tag::simd_<tag::uint16_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -26,8 +26,8 @@ NT2_REGISTER_DISPATCH ( tag::is_greater_equal_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_greater_equal_( tag::simd_(tag::float_,tag::altivec_)
-                                      , tag::simd_(tag::float_,tag::altivec_)
+  struct  call< tag::is_greater_equal_( tag::simd_<tag::float_,tag::altivec_>
+                                      , tag::simd_<tag::float_,tag::altivec_>
                                       )
               , tag::cpu_, Dummy
               >
@@ -58,8 +58,8 @@ NT2_REGISTER_DISPATCH ( tag::is_greater_equal_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_greater_equal_( tag::simd_(tag::arithmetic_,tag::altivec_)
-                                      , tag::simd_(tag::arithmetic_,tag::altivec_)
+  struct  call< tag::is_greater_equal_( tag::simd_<tag::arithmetic_,tag::altivec_>
+                                      , tag::simd_<tag::arithmetic_,tag::altivec_>
                                       )
               , tag::cpu_, Dummy
               >

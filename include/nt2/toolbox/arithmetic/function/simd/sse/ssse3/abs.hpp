@@ -30,14 +30,15 @@ NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::abs_(tag::simd_(tag::int32_, tag::sse_)),
-              tag::cpu_, Dummy> : callable
+  struct call < tag::abs_(tag::simd_<tag::int32_, tag::sse_>)
+              , tag::cpu_, Dummy
+              > : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi32(a0) };return that; }
+    NT2_FUNCTOR_CALL(1) { A0 that = {_mm_abs_epi32(a0) }; return that; }
   };
 } }
 
@@ -52,14 +53,15 @@ NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::abs_(tag::simd_(tag::int8_, tag::sse_)),
-              tag::cpu_, Dummy> : callable
+  struct call < tag::abs_(tag::simd_<tag::int8_, tag::sse_>)
+              , tag::cpu_, Dummy
+              > : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(1){ A0 that = {_mm_abs_epi8(a0) };return that; }
+    NT2_FUNCTOR_CALL(1) { A0 that = {_mm_abs_epi8(a0) }; return that; }
   };
 } }
 
@@ -74,7 +76,7 @@ NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::abs_(tag::simd_(tag::int16_, tag::sse_)),
+  struct call<tag::abs_(tag::simd_<tag::int16_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -96,7 +98,7 @@ NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::abs_(tag::simd_(tag::real_, tag::sse_)),
+  struct call<tag::abs_(tag::simd_<tag::real_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -118,7 +120,7 @@ NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::abs_(tag::simd_(tag::int64_, tag::sse_)),
+  struct call<tag::abs_(tag::simd_<tag::int64_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -146,7 +148,7 @@ NT2_REGISTER_DISPATCH(tag::abs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::abs_(tag::simd_(tag::unsigned_, tag::sse_)),
+  struct call<tag::abs_(tag::simd_<tag::unsigned_, tag::sse_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

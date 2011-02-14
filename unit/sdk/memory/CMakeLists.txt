@@ -7,6 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+INCLUDE(macro/MakeNT2Test)
+
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 
 SET( SOURCES
@@ -19,13 +21,10 @@ SET( SOURCES
     allocate.cpp
     overload.cpp
     allocator.cpp
-    dynamic_buffer.cpp
-    dynamic_static_buffer.cpp
-    static_dynamic_buffer.cpp
-    static_buffer.cpp
+    buffer.cpp
     slice.cpp
     stride.cpp
-    block1D.cpp
+    #block1D.cpp
   )
 
 ADD_CUSTOM_TARGET(sdk.memory.unit)
@@ -35,17 +34,6 @@ ADD_DEPENDENCIES(sdk.unit sdk.memory.unit)
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  ##############################################################################
-  # Build the executable filename from the example source filename
-  ##############################################################################
   STRING(REGEX REPLACE ".cpp" ".unit" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-unit" TEST "${EXAMPLE}")
-
-  ##############################################################################
-  # Add as a target
-  ##############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
-  ADD_DEPENDENCIES(sdk.memory.unit ${EXECUTABLE})
+  MAKE_NT2_TEST(${EXAMPLE} ${EXECUTABLE} "sdk.memory.unit")
 ENDFOREACH()

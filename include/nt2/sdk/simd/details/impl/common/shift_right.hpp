@@ -38,13 +38,13 @@ NT2_REGISTER_DISPATCH ( tag::shift_right_, tag::cpu_, (A0)(A1)(X)
 namespace nt2 { namespace ext
 {
   template<class Dummy,class X>
-  struct  call< tag::shift_right_( tag::simd_(tag::type8_,X)
-                                , tag::simd_(tag::ints8_,X)
+  struct  call< tag::shift_right_( tag::simd_<tag::type8_,X> 
+                                , tag::simd_<tag::ints8_,X> 
                                 )
               , tag::cpu_, Dummy
               >
-        : call< tag::shift_right_ ( tag::simd_(tag::unspecified_,X)
-                                  , tag::simd_(tag::unspecified_,X)
+        : call< tag::shift_right_ ( tag::simd_<tag::unspecified_,X> 
+                                  , tag::simd_<tag::unspecified_,X> 
                                   )
               , tag::cpu_, Dummy
               >
@@ -52,39 +52,39 @@ namespace nt2 { namespace ext
   };
 
   template<class Dummy,class X>
-  struct  call< tag::shift_right_( tag::simd_(tag::type16_,X)
-                                , tag::simd_(tag::ints16_,X)
+  struct  call< tag::shift_right_( tag::simd_<tag::type16_,X> 
+                                , tag::simd_<tag::ints16_,X> 
                                 )
               , tag::cpu_, Dummy
               >
-        : call< tag::shift_right_( tag::simd_(tag::type8_,X)
-                                , tag::simd_(tag::ints8_,X)
-                                )
-              , tag::cpu_, Dummy
-              >
-  {};
-
-  template<class Dummy,class X>
-  struct  call< tag::shift_right_( tag::simd_(tag::type32_,X)
-                                , tag::simd_(tag::ints32_,X)
-                                )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::shift_right_( tag::simd_(tag::type8_,X)
-                                , tag::simd_(tag::ints8_,X)
+        : call< tag::shift_right_( tag::simd_<tag::type8_,X> 
+                                , tag::simd_<tag::ints8_,X> 
                                 )
               , tag::cpu_, Dummy
               >
   {};
 
   template<class Dummy,class X>
-  struct  call< tag::shift_right_( tag::simd_(tag::type64_,X)
-                                , tag::simd_(tag::ints64_,X)
+  struct  call< tag::shift_right_( tag::simd_<tag::type32_,X> 
+                                , tag::simd_<tag::ints32_,X> 
                                 )
               , tag::cpu_, Dummy
               >
-        : call< tag::shift_right_( tag::simd_(tag::type8_,X)
-                                , tag::simd_(tag::ints8_,X)
+        : call< tag::shift_right_( tag::simd_<tag::type8_,X> 
+                                , tag::simd_<tag::ints8_,X> 
+                                )
+              , tag::cpu_, Dummy
+              >
+  {};
+
+  template<class Dummy,class X>
+  struct  call< tag::shift_right_( tag::simd_<tag::type64_,X> 
+                                , tag::simd_<tag::ints64_,X> 
+                                )
+              , tag::cpu_, Dummy
+              >
+        : call< tag::shift_right_( tag::simd_<tag::type8_,X> 
+                                , tag::simd_<tag::ints8_,X> 
                                 )
               , tag::cpu_, Dummy
               >

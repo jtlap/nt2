@@ -61,13 +61,13 @@ namespace nt2 { namespace meta
 #define NT2_REGISTER_HIERARCHY(Name)                                \
 namespace nt2                                                       \
 {                                                                   \
-  namespace tag { struct Name {}; }                                 \
+  namespace tag { template<class T> struct Name {}; }               \
   namespace meta                                                    \
   {                                                                 \
     template<class T> struct Name : Name< typename T::parent >      \
     {                                                               \
       typedef Name< typename T::parent > parent;                    \
-      typedef tag::Name type(typename T::type);                     \
+      typedef tag::Name<typename T::type> type;                     \
     };                                                              \
                                                                     \
     template<class T> struct Name< unknown_<T> > : unknown_<T> {};  \

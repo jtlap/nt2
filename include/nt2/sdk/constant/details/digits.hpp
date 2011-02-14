@@ -27,7 +27,7 @@ NT2_REGISTER_DISPATCH_TPL ( tag::digit_<N>
 namespace nt2 { namespace ext
 {
   template< nt2::int64_t N, class Dummy >
-  struct  call< tag::digit_<N>(tag::target_(tag::fundamental_) )
+  struct  call< tag::digit_<N>(tag::target_<tag::fundamental_> )
               , tag::cpu_
               , Dummy
               >

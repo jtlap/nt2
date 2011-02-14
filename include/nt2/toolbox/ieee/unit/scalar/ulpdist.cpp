@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// modified by jt the 04/12/2010
-/// modified by jt the 12/12/2010
+/// created by jt the 04/12/2010
+/// modified by jt the 24/01/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -33,6 +33,7 @@ NT2_TEST_CASE_TPL ( ulpdist_real__2,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -55,6 +56,7 @@ NT2_TEST_CASE_TPL ( ulpdist_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests
@@ -73,6 +75,7 @@ NT2_TEST_CASE_TPL ( ulpdist_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
 
 
   // specific values tests

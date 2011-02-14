@@ -36,8 +36,8 @@ NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::atan2_(tag::simd_(tag::arithmetic_, X),
-                          tag::simd_(tag::arithmetic_, X)),
+  struct call<tag::atan2_(tag::simd_<tag::arithmetic_, X> ,
+                          tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::atan2(tofloat(a0), tofloat(a1));
     }
   };
@@ -64,8 +64,8 @@ NT2_REGISTER_DISPATCH(tag::atan2_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::atan2_(tag::simd_(tag::real_, X),
-                          tag::simd_(tag::real_, X)),
+  struct call<tag::atan2_(tag::simd_<tag::real_, X> ,
+                          tag::simd_<tag::real_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
+      A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z);
       z = sel(is_nez(a1), z, z*Half<A0>());
       z = z*signnz(a0);

@@ -43,8 +43,8 @@ NT2_REGISTER_DISPATCH(tag::ellik_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ellik_(tag::simd_(tag::arithmetic_, X),
-                          tag::simd_(tag::arithmetic_, X)),
+  struct call<tag::ellik_(tag::simd_<tag::arithmetic_, X> ,
+                          tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -72,8 +72,8 @@ NT2_REGISTER_DISPATCH(tag::ellik_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ellik_(tag::simd_(tag::double_, X),
-                          tag::simd_(tag::double_, X)),
+  struct call<tag::ellik_(tag::simd_<tag::double_, X> ,
+                          tag::simd_<tag::double_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -99,8 +99,8 @@ NT2_REGISTER_DISPATCH(tag::ellik_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ellik_(tag::simd_(tag::float_, X),
-                          tag::simd_(tag::float_, X)),
+  struct call<tag::ellik_(tag::simd_<tag::float_, X> ,
+                          tag::simd_<tag::float_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

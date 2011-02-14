@@ -25,15 +25,14 @@ NT2_REGISTER_DISPATCH(tag::amul_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::amul_(tag::simd_(tag::arithmetic_, X),
-                         tag::simd_(tag::arithmetic_, X),
-                         tag::simd_(tag::arithmetic_, X)),
+  struct call<tag::amul_(tag::simd_<tag::arithmetic_, X> ,
+                         tag::simd_<tag::arithmetic_, X> ,
+                         tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0,A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(3)
     {

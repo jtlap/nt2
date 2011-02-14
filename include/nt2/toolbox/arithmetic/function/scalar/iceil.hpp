@@ -12,6 +12,9 @@
 
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/ceil.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,7 +66,8 @@ namespace nt2 { namespace ext
 	  return Valmin<rtype>(); 
 	else
 	  return  Valmax<rtype>(); 
-      return ceil(a0);
+      if (is_nan(a0)) return Zero<rtype>(); 
+      return rtype(ceil(a0));
     }
 
   };

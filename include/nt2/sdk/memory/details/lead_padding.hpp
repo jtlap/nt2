@@ -24,8 +24,8 @@ namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct  call< tag::slice_ ( tag::fusion_sequence_
-                            , tag::padding_(memory::lead_padding)
-                            , tag::mpl_integral_(tag::integer_)
+                            , tag::padding_<memory::lead_padding>
+                            , tag::mpl_integral_<tag::integer_>
                             )
               , tag::cpu_, Dummy  >
         : callable
@@ -91,8 +91,8 @@ namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct  call< tag::stride_( tag::fusion_sequence_
-                            , tag::padding_(memory::lead_padding)
-                            , tag::mpl_integral_(tag::integer_)
+                            , tag::padding_<memory::lead_padding>
+                            , tag::mpl_integral_<tag::integer_>
                             )
               , tag::cpu_, Dummy  >
         : callable

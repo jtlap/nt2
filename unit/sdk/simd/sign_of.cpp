@@ -11,8 +11,7 @@
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/meta/sign_of.hpp>
 #include <boost/type_traits/is_same.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -20,13 +20,13 @@ NT2_REGISTER_DISPATCH ( tag::modulo_, tag::cpu_, (A0)(X)
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct  call< tag::modulo_( tag::simd_(tag::integer_,X)
-                            , tag::simd_(tag::integer_,X)
+  struct  call< tag::modulo_( tag::simd_<tag::integer_,X> 
+                            , tag::simd_<tag::integer_,X> 
                             )
               , tag::cpu_, Dummy
               >
-        : call< tag::modulo_( tag::simd_(tag::unspecified_,X)
-                            , tag::simd_(tag::unspecified_,X)
+        : call< tag::modulo_( tag::simd_<tag::unspecified_,X> 
+                            , tag::simd_<tag::unspecified_,X> 
                             )
               , tag::cpu_, Dummy
               >

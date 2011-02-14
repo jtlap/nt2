@@ -17,7 +17,7 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   template<class Extension,class Dummy>
   struct call<gsl_specfun::gsl_sf_bessel_I0_scaled_,
-              tag::simd_(tag::arithmetic_,Extension),Dummy>
+              tag::simd_<tag::arithmetic_,Extension),Dummy>
   {
     template<class Sig> struct result;
     template<class This,class A0>

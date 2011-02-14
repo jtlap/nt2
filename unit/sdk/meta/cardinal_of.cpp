@@ -11,8 +11,8 @@
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that cardinal_of scalars is 1

@@ -24,7 +24,7 @@
 namespace nt2 { namespace functors
 {
   template<class Extension,class Info>
-  struct validate<model_four_branches_,tag::simd_(tag::arithmetic_,Extension),Info>
+  struct validate<model_four_branches_,tag::simd_<tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>
@@ -35,7 +35,7 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   template<class Extension,class Info>
   struct call<model_four_branches_,
-              tag::simd_(tag::arithmetic_,Extension),Info>
+              tag::simd_<tag::arithmetic_,Extension),Info>
   {
     template<class Sig> struct result;
     template<class This,class A0>

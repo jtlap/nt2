@@ -21,13 +21,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::coth_, tag::cpu_,
                       (A0),
-                      (fundamental_<A0>)
+                      (arithmetic_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::coth_(tag::fundamental_),
+  struct call<tag::coth_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -39,6 +39,32 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       if (!a0) return Nan<type>();
+      return rec(tanh(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::coth_, tag::cpu_,
+                      (A0),
+                      (real_<A0>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::coth_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
       return rec(tanh(a0));
     }
 

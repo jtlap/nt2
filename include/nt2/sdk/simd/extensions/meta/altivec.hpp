@@ -13,6 +13,8 @@
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/config/types.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_integral.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Tag for Altivec PPC extensions
@@ -49,22 +51,27 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct  as_simd<T,tag::altivec_>
   {
-    template<class Key, class Dummy=void> struct entry  { typedef na_ type; };
+    template< class Type
+            , std::size_t Sz = sizeof(Type)*CHAR_BITS
+            , bool Integral = boost::is_integral<T>::value
+            , class Dummy=void
+            >
+    struct entry { typedef na_ type; };
 
     template<class Dummy>
-    struct entry<float,Dummy>     { typedef __vector float          type; };
-    template<class Dummy>
-    struct entry<uint32_t,Dummy>  { typedef __vector unsigned int   type; };
-    template<class Dummy>
-    struct entry<uint16_t,Dummy>  { typedef __vector unsigned short type; };
-    template<class Dummy>
-    struct entry<uint8_t,Dummy>   { typedef __vector unsigned char  type; };
-    template<class Dummy>
-    struct entry<int32_t,Dummy>   { typedef __vector signed int     type; };
-    template<class Dummy>
-    struct entry<int16_t,Dummy>   { typedef __vector signed short   type; };
-    template<class Dummy>
-    struct entry<int8_t,Dummy>    { typedef __vector signed char    type; };
+    struct entry<float, 32, false ,Dummy> { typedef __vector float  type;         };
+    template<class Type, class Dummy>
+    struct entry<Type , 32, false ,Dummy> { typedef __vector unsigned int   type; };
+    template<class Type, class Dummy>
+    struct entry<Type , 16, false ,Dummy> { typedef __vector unsigned short type; };
+    template<class Type, class Dummy>
+    struct entry<Type , 8 , false ,Dummy> { typedef __vector unsigned char  type; };
+    template<class Type, class Dummy>
+    struct entry<Type , 32, true  ,Dummy> { typedef __vector signed int   type;   };
+    template<class Type, class Dummy>
+    struct entry<Type , 16, true  ,Dummy> { typedef __vector signed short type;   };
+    template<class Type, class Dummy>
+    struct entry<Type , 8 , true  ,Dummy> { typedef __vector signed char  type;   };
 
     typedef typename entry<T>::type type;
   };
@@ -86,6 +93,12 @@ namespace nt2 { namespace meta
   struct extension_of<__vector signed short   ,X> { typedef tag::altivec_ type; };
   template<class X>
   struct extension_of<__vector signed char    ,X> { typedef tag::altivec_ type; };
+  template<class X>
+  struct extension_of<__vector __bool int     ,X> { typedef tag::altivec_ type; };
+  template<class X>
+  struct extension_of<__vector __bool short   ,X> { typedef tag::altivec_ type; };
+  template<class X>
+  struct extension_of<__vector __bool char    ,X> { typedef tag::altivec_ type; };
 } }
 
 #endif

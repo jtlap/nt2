@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
       if (a0 < One<A0>()) return Nan<A0>();
       if (a0 == Inf<A0>()) return a0;
       type t = minusone(a0);
-//       if (t < 16*Sqrteps<A0>()){
+      if (t < 16*Sqrteps<A0>()) return sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
 //    return sqrt(Two<A0>()*t)*(oneminus(t/12)); //A0 y =  nt2::sqrt(minusone(a0));
 //       }
       return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));

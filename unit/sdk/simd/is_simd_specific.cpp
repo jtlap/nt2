@@ -9,7 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::meta::is_simd_specific SIMD"
 
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -9,37 +9,50 @@
 #ifndef NT2_SDK_DSL_CATEGORY_HPP_INCLUDED
 #define NT2_SDK_DSL_CATEGORY_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Basic category registration
-////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/category.hpp>
-#include <nt2/sdk/meta/category_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Use this macro to put a type in the SIMD familly
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_CATEGORY_AST_FAMILY 0x1000
-
-////////////////////////////////////////////////////////////////////////////////
-// Family tags for call/validate writings
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace tag
 {
-  struct ast_ {};
+  //////////////////////////////////////////////////////////////////////////////
+  // Expression category tag
+  //////////////////////////////////////////////////////////////////////////////
+  struct expr_ {};
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// ast_ metafunction for building an AST category
-// Every proto expression have ast_(?) category, the ? depends on underlying
-// elements and semantic.
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace functors
+namespace nt2 { namespace meta
 {
-  template<class Base>
-  struct  ast_ : nt2::tag::category<ast_<Base>,NT2_CATEGORY_AST_FAMILY,1>
+  //////////////////////////////////////////////////////////////////////////////
+  // Proto domain hierarchy is itself. parent domain is computed from
+  // proto_super_domain. If no super_domain exist, we forward to unspecified
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  struct  domain_
+        : boost::mpl::if_< boost::is_same < typename T::proto_super_domain
+                                          , boost::proto::detail::not_a_domain
+                                          >
+        , unspecified_<T>
+        , domain_<typename T::proto_super_domain>
+        >::type
   {
-    typedef nt2::tag::ast_ tag(Base);
+    typedef
+    typename boost::mpl::if_< boost::is_same< typename T::proto_super_domain
+                                            , boost::proto::detail::not_a_domain
+                                            >
+                            , unspecified_<T>
+                            , domain_<typename T::proto_super_domain>
+                            >::type                 parent;
+    typedef T                                       type;
+  };
+} }
+
+namespace nt2 { namespace details
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Proto domain hierarchy specialization
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T> struct hierarchy_of<T, typename T::proto_is_domain_>
+  {
+    typedef meta::domain_<T> type;
   };
 } }
 

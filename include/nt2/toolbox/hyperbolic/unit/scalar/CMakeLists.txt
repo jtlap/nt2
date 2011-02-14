@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  asech1m.cpp
   sinhc.cpp
   tanh.cpp
   sinh.cpp
@@ -39,6 +40,8 @@ FOREACH( EXAMPLE ${SOURCES})
   ############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesf)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesd)
   ADD_DEPENDENCIES(hyperbolic.scalar.unit ${EXECUTABLE})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()

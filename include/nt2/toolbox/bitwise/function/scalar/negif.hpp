@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_NEGIF_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_NEGIF_HPP_INCLUDED
+#include <nt2/include/functions/is_true.hpp>
 
 
 
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0?-a1:a1;
+      return is_true(a0)?-a1:a1;
     }
   };
 } }

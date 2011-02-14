@@ -30,7 +30,7 @@ NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::type8_, X)),
+  struct call<tag::ffs_(tag::simd_<tag::type8_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -61,7 +61,7 @@ NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::type64_, X)),
+  struct call<tag::ffs_(tag::simd_<tag::type64_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -87,7 +87,7 @@ NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::type16_, X)),
+  struct call<tag::ffs_(tag::simd_<tag::type16_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -119,7 +119,7 @@ NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_(tag::type32_, X)),
+  struct call<tag::ffs_(tag::simd_<tag::type32_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -18,14 +18,18 @@
                                          'nt2::Mone<T>()': 'nt2::One<T>()',
                                          'nt2::Nan<T>()': 'nt2::Nan<T>()',
                                          'nt2::One<T>()': 'nt2::One<T>()',
-                                         'nt2::Zero<T>()': 'nt2::Nan<T>()'},
+##                                         'nt2::Zero<T>()': 'nt2::Nan<T>()'
+                                         },
                                'signed_int_': {'4,3': '1',
                                                'nt2::Mone<T>()': 'nt2::One<T>()',
                                                'nt2::One<T>()': 'nt2::One<T>()',
-                                               'nt2::Zero<T>()': 'nt2::Zero<T>()'},
+##                                               'nt2::Zero<T>()': 'nt2::Zero<T>()'
+                                               },
                                'unsigned_int_': {'4,3': '1',
                                                  'nt2::One<T>()': 'nt2::One<T>()',
-                                                 'nt2::Zero<T>()': 'nt2::Zero<T>()'}},
+##                                                 'nt2::Zero<T>()': 'nt2::Zero<T>()'
+                                                 }
+                               },
            'verif_test': {'property_call': None,
                           'property_value': {'default': ['r_t(nt2::floor((1.0*a0)/a1))']},
                           'ulp_thresh': {'default': ['0']}}},

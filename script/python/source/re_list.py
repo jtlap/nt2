@@ -22,6 +22,23 @@ def sub_list(pattern, repl, stringlist, count=0):
         outlist.append(re.sub(pattern, repl, string, count))
     return outlist
 
+def sup_list(pattern, stringlist, count=1):
+    "suppress matched elements of a list" 
+    outlist=[]
+##    if type(pattern) is str :
+##      pattern = re.compile(pattern)
+    outlist = []
+    nb = 0
+    for string in stringlist :
+        if nb > 0 :
+            nb-=1
+        elif re.match(pattern, string):
+            nb = count
+        else :
+            outlist.append(string)
+    return outlist
+
+
 ##def search_list(pattern, stringlist, flags=None):
 ##    "apply re.search to all elements of a list" 
 ##    outlist=[]
@@ -70,5 +87,18 @@ if __name__ == "__main__":
         "ENDFOREACH()",
         ]
     l=sub_if_match_list(" *##", "\*", "#", inner_text)
-    show(l)
+    text = [
+        "function y = acosd(x)",
+        "%ACOSD  Inverse cosine, result in degrees.",
+        "%   ACOSD(X) is the inverse cosine, expressed in degrees,",
+        "%   of the elements of X.",
+        "%",
+        "%   Class support for input X:",
+        "%      float: double, single",
+        "%",
+        "%   See also COSD, ACOS."
+        ]
+    r = sup_list('% *Class support *',text,2)
+
+    show(r)
    

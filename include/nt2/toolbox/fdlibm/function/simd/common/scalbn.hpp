@@ -17,7 +17,7 @@ namespace nt2 { namespace functors
   /////////////////////////////////////////////////////////////////////////////
   template<class Extension,class Dummy>
   struct call<fdlibm::scalbn_,
-              tag::simd_(tag::arithmetic_,Extension),Dummy>
+              tag::simd_<tag::arithmetic_,Extension),Dummy>
   {
     template<class Sig> struct result;
     template<class This,class A0>

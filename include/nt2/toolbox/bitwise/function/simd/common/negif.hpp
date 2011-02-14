@@ -12,7 +12,7 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
-#include <nt2/include/functions/shli.hpp>
+#include <nt2/include/functions/is_true.hpp>
 
 
 
@@ -28,8 +28,8 @@ NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::negif_(tag::simd_(tag::arithmetic_, X),
-                          tag::simd_(tag::arithmetic_, X)),
+  struct call<tag::negif_(tag::simd_<tag::arithmetic_, X> ,
+                          tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a1 - shli(b_and(a1, a0), 1);
+      return  sel(is_true(a0),-a1,a1);
     }
   };
 } }
@@ -55,8 +55,8 @@ NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::negif_(tag::simd_(tag::real_, X),
-                          tag::simd_(tag::real_, X)),
+  struct call<tag::negif_(tag::simd_<tag::real_, X> ,
+                          tag::simd_<tag::real_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return b_xor(a1, b_and(a0, Signmask<A0>()));
+      return b_xor(a1, b_and(is_true(a0), Signmask<A0>()));
     }
   };
 } }

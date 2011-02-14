@@ -18,8 +18,8 @@ namespace nt2 { namespace ext
   // a/b use the reciprocal estimate and one pass of Newton-Raphson refinement
   //////////////////////////////////////////////////////////////////////////////
   template<class Dummy>
-  struct  call< tag::divides_( tag::simd_(tag::float_,tag::altivec_)
-                             , tag::simd_(tag::float_,tag::altivec_)
+  struct  call< tag::divides_( tag::simd_<tag::float_,tag::altivec_)
+                             , tag::simd_<tag::float_,tag::altivec_)
                              )
               , tag::cpu_, Dummy
               >

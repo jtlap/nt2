@@ -190,13 +190,10 @@ if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
     length = len(sys.argv)
     if length == 2 :
-        r = Recover_similar_benchs(sys.argv[1])
-        r.replace_benchs('scalar')
-        r.replace_benchs('simd')
+##        r = Recover_similar_benchs(sys.argv[1])
+##        r.replace_benchs('scalar')
+##        r.replace_benchs('simd')
     else :
-        r = Recover_similar_benchs("crlibm")
-        r.replace_benchs('scalar')
-        r.replace_benchs('simd')
         print __doc__
 
 sys.path.pop(0)

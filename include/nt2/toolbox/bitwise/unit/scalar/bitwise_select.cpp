@@ -6,50 +6,83 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - bitwise_select/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/bitwise/include/bitwise_select.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/bitwise/include/bitwise_select.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( bitwise_select,  (nt2::uint64_t)(nt2::int64_t) 
-                (nt2::uint32_t)(nt2::int32_t)  
-                (nt2::uint16_t)(nt2::int16_t)         
-                (nt2::uint8_t)(nt2::int8_t)
-                )
+NT2_TEST_CASE_TPL ( bitwise_select_real__3,  NT2_REAL_TYPES)
 {
   using nt2::bitwise_select;
   using nt2::tag::bitwise_select_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<bitwise_select_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_select_(T, T, T)>::type
-           , T
-              >::value)
-           );
-NT2_TEST_EQUAL(  bitwise_select( T(0), T(1), T(2)), T(2) );
-NT2_TEST_EQUAL(  bitwise_select( T(-1), T(1), T(2)), T(1) );
-}
 
-NT2_TEST_CASE_TPL ( real_bitwise_select,  (double) 
-                (float)
-                )
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  bitwise_select(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  bitwise_select(nt2::Minf<T>(), nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  bitwise_select(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  bitwise_select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( bitwise_select_integer__3,  NT2_INTEGRAL_TYPES)
 {
   using nt2::bitwise_select;
   using nt2::tag::bitwise_select_;
-
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<bitwise_select_(T, T, T)>::type
-           , T
-              >::value)
-           );
-NT2_TEST_EQUAL(  bitwise_select( T(0), T(1), T(2)), T(2) );
- NT2_TEST_EQUAL(  bitwise_select( nt2::Nan<T>(), T(1), T(2)), T(1) );
-}
-           
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<bitwise_select_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  bitwise_select(-1,1,2), 1, 0.5);
+  NT2_TEST_ULP_EQUAL(  bitwise_select(0,1,2), 2, 0.5);
+  NT2_TEST_ULP_EQUAL(  bitwise_select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SCALAR_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << ", a2 = "<< u_t(a2 = tab_a2[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::bitwise_select(a0,a1,a2),(a1&a0)|(a2&(~a0)),0);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for integer_

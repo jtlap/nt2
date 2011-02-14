@@ -22,9 +22,9 @@ NT2_REGISTER_DISPATCH ( tag::is_less_equal_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_less_equal_( tag::simd_(tag::double_,tag::sse_)
-                                      , tag::simd_(tag::double_,tag::sse_)
-                                      )
+  struct  call< tag::is_less_equal_ ( tag::simd_<tag::double_,tag::sse_>
+                                    , tag::simd_<tag::double_,tag::sse_>
+                                    )
               , tag::cpu_, Dummy
               >
         : callable
@@ -52,9 +52,9 @@ NT2_REGISTER_DISPATCH ( tag::is_less_equal_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_less_equal_( tag::simd_(tag::float_,tag::sse_)
-                                      , tag::simd_(tag::float_,tag::sse_)
-                                      )
+  struct  call< tag::is_less_equal_ ( tag::simd_<tag::float_,tag::sse_>
+                                    , tag::simd_<tag::float_,tag::sse_>
+                                    )
               , tag::cpu_, Dummy
               >
         : callable
@@ -82,8 +82,8 @@ NT2_REGISTER_DISPATCH ( tag::is_less_equal_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_less_equal_ ( tag::simd_(tag::integer_,tag::sse_)
-                                    , tag::simd_(tag::integer_,tag::sse_)
+  struct  call< tag::is_less_equal_ ( tag::simd_<tag::integer_,tag::sse_>
+                                    , tag::simd_<tag::integer_,tag::sse_>
                                     )
               , tag::cpu_, Dummy
               >

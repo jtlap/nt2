@@ -10,9 +10,11 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_ACOTH_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
 
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/log.hpp>
+// #include <nt2/include/functions/minusone.hpp>
+// #include <nt2/include/functions/oneplus.hpp>
+// #include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/atanh.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,7 +65,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return Half<A0>()*nt2::log(oneplus(a0)/minusone(a0));
+      return atanh(rec(a0)); 
+      //      return Half<A0>()*nt2::log(oneplus(a0)/minusone(a0));
     }
   };
 } }

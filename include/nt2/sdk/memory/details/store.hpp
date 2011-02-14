@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
 {
   template<class Dummy>
   struct  call< tag::store_ ( tag::fundamental_
-                            , tag::iterator_(tag::fundamental_)
+                            , tag::iterator_<tag::fundamental_>
                             , tag::integer_
                             )
               , tag::cpu_

@@ -9,18 +9,16 @@
 #define NT2_UNIT_MODULE "nt2 combinatorial toolbox - anp/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of combinatorial components in scalar mode
+// Test behavior of combinatorial components in scalar 
 //////////////////////////////////////////////////////////////////////////////
-/// modified by jt the 30/11/2010
-/// modified by jt the 02/01/2011
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/toolbox/combinatorial/include/anp.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/toolbox/combinatorial/include/anp.hpp>
 
 NT2_TEST_CASE_TPL ( anp_real__2,  NT2_REAL_TYPES)
 {
@@ -29,6 +27,7 @@ NT2_TEST_CASE_TPL ( anp_real__2,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<anp_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  double ulpd;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,6 +48,7 @@ NT2_TEST_CASE_TPL ( anp_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<anp_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  double ulpd;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -67,6 +67,7 @@ NT2_TEST_CASE_TPL ( anp_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<anp_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  double ulpd;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

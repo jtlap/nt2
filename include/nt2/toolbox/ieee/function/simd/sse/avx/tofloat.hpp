@@ -30,7 +30,7 @@ NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_(tag::int32_, tag::avx_)),
+  struct call<tag::tofloat_(tag::simd_<tag::int32_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -58,7 +58,7 @@ NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_(tag::uint64_, tag::avx_)),
+  struct call<tag::tofloat_(tag::simd_<tag::uint64_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -87,7 +87,7 @@ NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_(tag::real_, tag::avx_)),
+  struct call<tag::tofloat_(tag::simd_<tag::real_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -113,7 +113,7 @@ NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_(tag::uint32_, tag::avx_)),
+  struct call<tag::tofloat_(tag::simd_<tag::uint32_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -148,7 +148,7 @@ NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_(tag::int64_, tag::avx_)),
+  struct call<tag::tofloat_(tag::simd_<tag::int64_, tag::avx_)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

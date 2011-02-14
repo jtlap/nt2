@@ -6,33 +6,98 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - select/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by $author$ the $date$
+/// modified by $author$ the $date$
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/bitwise/include/select.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/bitwise/include/select.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( select,  (double)(float)(nt2::uint64_t)(nt2::int64_t) 
-                (nt2::uint32_t)(nt2::int32_t)  
-                (nt2::uint16_t)(nt2::int16_t)         
-                (nt2::uint8_t)(nt2::int8_t)
-                )
+NT2_TEST_CASE_TPL ( select_real__3,  NT2_REAL_TYPES)
 {
   using nt2::select;
   using nt2::tag::select_;
-
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<select_(bool, T, T)>::type
-           , T
-              >::value)
-           );
-  NT2_TEST_EQUAL(  select( 0, T(1), T(2)), T(2) );
-  NT2_TEST_EQUAL(  select( 1, T(1), T(2)), T(1) );
-}
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<select_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  select(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  select(nt2::Minf<T>(), nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  select(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(  select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( select_integer__3,  NT2_INTEGRAL_TYPES)
+{
+  using nt2::select;
+  using nt2::tag::select_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<select_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(  select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(0), T(0));
+    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SCALAR_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << ", a2 = "<< u_t(a2 = tab_a2[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::select(a0,a1,a2),nt2::select(a0,a1,a2),0);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+  {
+    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-1), T(-1));
+    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_SCALAR_BUFFER(a2,T, NR, T(-10000), T(10000));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << ", a2 = "<< u_t(a2 = tab_a2[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::select(a0,a1,a2),nt2::select(a0,a1,a2),0);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for integer_

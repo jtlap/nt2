@@ -10,11 +10,11 @@
 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/functor/operators.hpp>
-#include <nt2/sdk/meta/supported_types.hpp>
 #include <boost/type_traits/is_same.hpp>
-
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test behavior for comma

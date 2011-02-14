@@ -34,10 +34,10 @@ if __name__ == "__main__" :
     Mylogging.set_level('CRITICAL')
     ts = Toolboxes()
     for tb in ts.get_usr_tb_list() :
-        print "treating toolbox %s" %tb
-        susi=Sup_simd(tb)
-        susi.modify_Cmake_benches_txt()
-        susi.modify_functors_defs()     
+##        print "treating toolbox %s" %tb
+##        susi=Sup_simd(tb)
+##        susi.modify_Cmake_benches_txt()
+##        susi.modify_functors_defs()     
 sys.path.pop(0)
            
        

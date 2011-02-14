@@ -11,8 +11,9 @@
 #include <nt2/sdk/memory/overload.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 class foo
 {

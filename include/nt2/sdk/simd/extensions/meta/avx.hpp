@@ -12,6 +12,8 @@
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/config/types.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_integral.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Tag for AVX extensions
@@ -33,21 +35,21 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct  as_simd<T,tag::avx_>
-  {
-    template<class Key, class Dummy=void> struct entry  { typedef na_     type; };
-    template<class Dummy> struct entry<float    ,Dummy> { typedef __m256  type; };
-    template<class Dummy> struct entry<double   ,Dummy> { typedef __m256d type; };
-    template<class Dummy> struct entry<uint64_t ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<uint32_t ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<uint16_t ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<uint8_t  ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<int64_t  ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<int32_t  ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<int16_t  ,Dummy> { typedef __m256i type; };
-    template<class Dummy> struct entry<int8_t   ,Dummy> { typedef __m256i type; };
-    typedef typename entry<T>::type type;
-  };
+  template<class T>
+  struct  as_simd<T,tag::avx_>
+        : boost::mpl::if_ < boost::is_integral<T>
+                          , __m256i
+                          , typename  boost::mpl
+                            ::if_ < boost::is_same<T,float>
+                                  , __m256
+                                  , typename  boost::mpl
+                                    ::if_ < boost::is_same<T,double>
+                                        , __m256d
+                                        , na_
+                                        >::type
+                                  >::type
+                          >
+  {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag

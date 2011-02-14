@@ -26,8 +26,8 @@ NT2_REGISTER_DISPATCH ( tag::is_greater_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::is_greater_( tag::simd_(tag::arithmetic_,tag::altivec_)
-                                , tag::simd_(tag::arithmetic_,tag::altivec_)
+  struct  call< tag::is_greater_( tag::simd_<tag::arithmetic_,tag::altivec_>
+                                , tag::simd_<tag::arithmetic_,tag::altivec_>
                                 )
               , tag::cpu_, Dummy
               >

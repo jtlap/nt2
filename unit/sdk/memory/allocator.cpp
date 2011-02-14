@@ -12,9 +12,9 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 
 #include <vector>
-#include <iostream>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test allocator with std::vector
