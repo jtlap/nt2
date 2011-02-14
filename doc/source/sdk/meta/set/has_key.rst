@@ -37,8 +37,7 @@ For any type ``T`` and any :ref:`meta_set` ``Set``:
 
   typedef has_key<Set,T>::type c;
 
-**Return type:**	Boolean
-`Integral Constant <http://www.boost.org/doc/libs/1_43_0/libs/mpl/doc/refmanual/integral-constant.html>`_
+**Return type:**	Boolean |mpl_int|_
 
 **Semantic:**	``c::value`` evaluates to ``true`` if ``Set`` contains an element
 of type ``T``, evaluates to false otherwise.
