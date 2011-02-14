@@ -9,6 +9,9 @@
 #ifndef NT2_SDK_META_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_META_HIERARCHY_HPP_INCLUDED
 
+// Hierarchy of built-in types
+// See: http://nt2.metascale.org/sdk/meta/tags.html
+
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
