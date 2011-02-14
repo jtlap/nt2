@@ -83,14 +83,11 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::result_of<meta::arithmetic(A0,A1)>{};
+      meta::as_integer< boost::result_of<meta::arithmetic(A0,A1)>::type >{};
 
     NT2_FUNCTOR_CALL(2)
     {
-//       std::cout << "pipo" << std::endl;
-//       std::cout << "      a0/a1  "  <<       a0/a1  << std::endl;
-//       std::cout << "floor(a0/a1) " << nt2::floor(a0/a1) << std::endl;
-      return nt2::floor(a0/a1);
+      return nt2::ifloor(a0/a1);
     }
   };
 } }

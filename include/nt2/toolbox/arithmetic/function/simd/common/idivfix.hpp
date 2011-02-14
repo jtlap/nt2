@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/rdivide.hpp>
+#include <nt2/include/functions/toint.hpp>
 
 
 
@@ -32,8 +33,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2){ return rdivide(a0, a1); }
   };
@@ -57,10 +57,9 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::as_integer<A0>{};
 
-    NT2_FUNCTOR_CALL(2){ return trunc(a0/a1); }
+      NT2_FUNCTOR_CALL(2){ return toint(trunc(a0/a1)); }
   };
 } }
 

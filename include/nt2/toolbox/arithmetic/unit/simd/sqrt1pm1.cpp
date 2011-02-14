@@ -6,42 +6,39 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - sqrt1pm1/simd Mode"
 
-#include <nt2/toolbox/arithmetic/include/sqrt1pm1.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created by jt the 01/12/2010
+/// modified by jt the 14/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/sqrt1pm1.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL(sqrt1pm1, NT2_SIMD_TYPES )
-// {
-//  using nt2::sqrt1pm1;
-//  using nt2::tag::sqrt1pm1_;    
-//  using nt2::load; 
-//  using nt2::simd::native; 
-//  using nt2::meta::cardinal_of;
+NT2_TEST_CASE_TPL ( sqrt1pm1_real__1,  NT2_REAL_TYPES)
+{
+  using nt2::sqrt1pm1;
+  using nt2::tag::sqrt1pm1_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<sqrt1pm1_(vT)>::type r_t;
+  typedef typename nt2::meta::call<sqrt1pm1_(T)>::type sr_t;
 
-//  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-//  typedef native<T,ext_t>             n_t;
-//  typedef typename nt2::meta::call<sqrt1pm1_(n_t)>::type call_type;
-
-//  NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
-//  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value]; 
-//  for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-//    data[i] = i; // good value here for sqrt1pm1
-//  }
-//    n_t a0 = load<n_t>(&data[0],0); 
-//    n_t v  = sqrt1pm1(a0);
-//    for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//    {
-//      NT2_TEST_EQUAL( v[j], sqrt1pm1(a0[j]) );
-//    }
-//  }
+} // end of test for real_
