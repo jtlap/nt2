@@ -9,23 +9,51 @@
 #ifndef NT2_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
+#include <boost/proto/core.hpp>
+
 namespace nt2 { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
-  // pack, implemented in terms of simd::expr
+  // pack, implemented in terms of simd::expr via non-inheritance to preserve
+  // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
   template<class Type,std::size_t Cardinal,class BP>
   struct  pack
-        : expression_facade<Type,boost::mpl::size_t<Cardinal> >::type
   {
+    ////////////////////////////////////////////////////////////////////////////
+    // Pack must be sized with a power of 2
+    ////////////////////////////////////////////////////////////////////////////
     NT2_STATIC_ASSERT ( (meta::is_power_of_2_c<Cardinal>::value)
                       , INVALID_SIMD_PACK_CARDINAL
-                      , "SIMD pqck instanciated with non-power of 2 Cardinal."
+                      , "SIMD pack instanciated with non-power of 2 Cardinal."
                       );
 
-    typedef typename
-    expression_facade<Type,boost::mpl::size_t<Cardinal> >::type parent;
+    ////////////////////////////////////////////////////////////////////////////
+    // Data holder of pack terminals
+    ////////////////////////////////////////////////////////////////////////////
     typedef data<Type,boost::mpl::size_t<Cardinal> >            data_type;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Make pack a POD proto expression
+    ////////////////////////////////////////////////////////////////////////////
+    BOOST_PROTO_BASIC_EXTENDS_TPL
+    ( typename boost::proto::terminal<data_type>::type
+    , (pack<Type,Cardinal>)
+    , (simd::domain<Type, boost::mpl::size_t<Cardinal> >)
+    )
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Hierarchizable interface
+    // expr_< typename meta::hierarchy_of<domain_type>::type
+    //      , tag::terminal_
+    //      , typename meta::hierarchy_of<data_type>::type
+    //      >
+    ////////////////////////////////////////////////////////////////////////////
+    typedef typename meta::hierarchy_of<data_type>::type nt2_hierarchy_tag;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Range interface
+    ////////////////////////////////////////////////////////////////////////////
 
     typedef typename data_type::parent          base_type;
     typedef typename data_type::value_type      value_type;
@@ -36,16 +64,19 @@ namespace nt2 { namespace simd
     typedef typename data_type::const_iterator  const_iterator;
 
     ////////////////////////////////////////////////////////////////////////////
-    // vector size
+    // Array interface
     ////////////////////////////////////////////////////////////////////////////
     BOOST_STATIC_CONSTANT(size_type, static_size = base_type::static_size);
 
     ////////////////////////////////////////////////////////////////////////////
     // Constructors
     ////////////////////////////////////////////////////////////////////////////
-    pack() : parent() {}
+    pack() {}
 
-    pack(pack const& src) { boost::proto::value(*this) = boost::proto::value(src);}
+    pack(pack const& src)
+    {
+      boost::proto::value(*this) = boost::proto::value(src);
+    }
 
     explicit pack(Type const& a0)
     {
@@ -86,7 +117,7 @@ namespace nt2 { namespace simd
     iterator        end()           { return boost::proto::value(*this).end();   }
     const_iterator  begin()  const  { return boost::proto::value(*this).begin(); }
     const_iterator  end()    const  { return boost::proto::value(*this).end();   }
-
+/*
     ////////////////////////////////////////////////////////////////////////////
     // SIMD expression evaluates as pack
     ////////////////////////////////////////////////////////////////////////////
@@ -105,6 +136,7 @@ namespace nt2 { namespace simd
       boost::proto::value(*this).evaluate(xpr);
       return *this;
     }
+     */
   };
 } }
 
