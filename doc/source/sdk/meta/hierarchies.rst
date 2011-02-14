@@ -1,14 +1,15 @@
-Types Categorization
+Types Hierarchization
 ====================
 
 .. rubric:: Description
 
-Some |nt2| components relies on the fact that type can be discriminated on some
-:ref:`sdk_tags` which describe some of its properties with respect to its usage
-in said components. This module provides tools and types for this task.
+The |nt2| hierarchical overloading system relies on the ability to
+establish a hierarchy between types. :ref:`sdk_tags` is the base hierarchy
+that includes built-in types, but it also possible to define arbitrary
+new hierarchies of types that can be plugged into it.
 
 .. toctree::
    :maxdepth: 1
-
-   category/category
-   category/category_of
+   
+   hierarchy/hierachy
+   hierarchy/hierarchy_of

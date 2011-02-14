@@ -1,11 +1,11 @@
-.. _meta_category_of:
+.. _meta_hierarchy_of:
 
 category_of
 ===========
 
 .. index::
-    single: category_of (meta)
-    single: meta; category_of
+    single: hierarchy_of (meta)
+    single: meta; hierarchy_of
 
 Description
 ^^^^^^^^^^^
@@ -16,7 +16,7 @@ Header File
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/meta/category_of.hpp>
+  #include <nt2/sdk/meta/hierarchy_of.hpp>
 
 Synopsis
 ^^^^^^^^
@@ -25,7 +25,7 @@ Synopsis
 
   namespace nt2 { namespace meta
   {
-    template<class T> struct category_of;
+    template<class T> struct hierarchy_of;
   } }
 
 Expression semantic
@@ -35,8 +35,8 @@ For any type ``T``:
 
 .. code-block:: cpp
 
-  typedef category_of<T> c;
+  typedef hierarchy_of<T> c;
 
-**Semantic:**	``c::type`` evaluates to any tag type if ``T`` has an inner
-`nt2_category_tag` or if :ref:`meta_category_of` is specialized. Otherwise,
-``c::type`` evaluates to :ref:`tag_unknown`.
+**Semantic:**	``c::type`` evaluates the entry point of ``T`` inside the
+type hierarchy lattice, or the hierarchy which type is :ref:`tag_unknown_` if
+``T`` is not hierarchizable.
