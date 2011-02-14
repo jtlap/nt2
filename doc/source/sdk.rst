@@ -13,28 +13,27 @@ Those tools are gathered in five categories:
 .. toctree::
    :maxdepth: 1
 
-   sdk/concepts
    sdk/meta
+   sdk/dsl
 
-.. rubric:: System Abstraction and Configuration
+.. rubric:: Runtime Abstraction and Configuration
 
 .. toctree::
    :maxdepth: 1
 
    sdk/config
    sdk/errors
-   sdk/details
+   sdk/memory
 
-.. rubric:: Architecture Abstraction and Configuration
+.. rubric:: Architecture Abstraction
 
 .. toctree::
    :maxdepth: 1
 
-   sdk/memory
    sdk/simd
    sdk/threading
 
-.. rubric:: Numeric Foundations
+.. rubric:: Hierarchical Overloading
 
 .. toctree::
    :maxdepth: 1
@@ -48,3 +47,10 @@ Those tools are gathered in five categories:
    :maxdepth: 1
 
    sdk/unit
+   
+.. rubric:: Miscellaneous Components
+
+.. toctree::
+   :maxdepth: 1
+   
+   sdk/details
