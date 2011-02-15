@@ -16,7 +16,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/module.hpp> 
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
   double ulpd;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const uint32_t NR = 1024;
   {
     NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(0), T(10));
     NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(0), T(10));
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
         NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::remainder(a0,a1), 0);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::b_and(nt2::idivround(a0,a1),nt2::Seven<r_t1>()), 0);
+        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::idivround(a0,a1), 0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }

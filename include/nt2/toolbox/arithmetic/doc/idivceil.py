@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::arithmetic(T,T)>::type',
+             'default' : 'typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::arithmetic(T,T)>::type>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -29,14 +29,14 @@
                 },
              'real_' : {
                  '4,3' : '2',
-                 'nt2::Inf<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::Inf<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Minf<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
                  'nt2::Mone<T>(),nt2::Zero<T>()' : 'nt2::Minf<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::Nan<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::One<T>(),nt2::Zero<T>()' : 'nt2::Inf<r_t>()',
-                 'nt2::Zero<T>(),nt2::Zero<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::Zero<T>(),nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },
              'signed_int_' : {
                  '4,3' : '2',

@@ -9,6 +9,7 @@
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
+         'notes' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
@@ -16,11 +17,6 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 30/11/2010',
              'included' : ['#include<nt2/toolbox/standard/include/abs.hpp>'],
-             'notes' : 
-                ['for integer standard implementation produces double and there can be a loss in precision.This is not the case of nt2::abs that produces unsigned integer output for integer entries',
-                 'take care that if abs is called with floating types,
-                YOU MUST use nt2::abs. If not the punishment is generally calling the wrong system abs function,
-                that transforms your real in integer !'],
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {

@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 14/02/2011
+/// modified by jt the 15/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -58,11 +58,13 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
           sr_t sr =  nt2::remquo(tab_a0[k],tab_a1[k]);
           NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i],
                                     boost::fusion::get<0>(sr), 0.5);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i], 
-                                    boost::fusion::get<1>(sr), 0);
           ulp0 = nt2::max(ulpd,ulp0);
+	  NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i],
+                                     boost::fusion::get<1>(sr), 0.5);
+	  ulp0 = nt2::max(ulpd,ulp0);
         }
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl; 
   }
 } // end of test for real_
+ 

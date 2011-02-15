@@ -56,9 +56,9 @@ namespace nt2 { namespace ext
     {
       r1 = idivround(a0, a1);
       r0 = remainder(a0, a1);
-      r1 = b_and(r1, nt2::Seven<R1>());
-      R1 r2 =  b_not(b_xor(nt2::Seven<R1>(), r1));
-      r1 = sel(is_gtz(b_and(a0, a1)), r1, r2); 
+//       r1 = b_and(r1, nt2::Seven<R1>());
+//       R1 r2 =  b_not(b_xor(nt2::Seven<R1>(), r1));
+//       r1 = sel(is_gtz(b_and(a0, a1)), r1, r2); 
     }
 
 

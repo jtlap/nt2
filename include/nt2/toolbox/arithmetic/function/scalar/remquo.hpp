@@ -13,7 +13,8 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
-
+#include <nt2/include/functions/remainder.hpp>
+#include <nt2/include/functions/idivround.hpp>
 
 namespace nt2 { namespace details
 {
@@ -36,7 +37,7 @@ namespace nt2 { namespace details
     
   template <class Dummy> struct remquo<float,Dummy>{
     typedef float                                           rem; 
-    typedef typename meta::as_integer<double,signed>::type  quo;
+    typedef typename meta::as_integer<float,signed>::type  quo;
     typedef boost::fusion::tuple<rem,quo>                 rtype;
     
     static inline rtype eval(const float& a0, const float& a1)
@@ -76,8 +77,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename boost::result_of<meta::floating(A0,A1)>::type ftype;
-      return  details::remquo<ftype,void>::eval(ftype(a0), ftype(a1));
+      typedef typename NT2_RETURN_TYPE(2)::type rtype; 
+      rtype res;
+      boost::fusion::at_c<0>(res) = nt2::remainder(ftype(a0), ftype(a1));
+      boost::fusion::at_c<1>(res) = nt2::idivround(ftype(a0), ftype(a1));
+      return res; 
     }
+    
   };
 } }
 

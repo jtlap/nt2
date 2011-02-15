@@ -17,10 +17,10 @@
              'first_stamp' : 'modified by jt the 01/12/2010',
              'included' : ['#include<nt2/include/functions/idivround.hpp>'],
              'notes' : 
-                ['The remainder() function computes the remainder of dividing x by y.  The return value is x-n*y,
-                 where n is the value x / y,
-                 rounded to the nearest\n integer.  If the absolute value of x-n*y is 0.5,
-                 n is chosen to be even.\n The drem() function does precisely the same thing.'],
+                ['The remainder() function computes the remainder of dividing x by y.',
+                 'The return value is x-n*y, where n is the value x / y,',
+                 'rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,',
+                 'n is chosen to be even. The drem() function does precisely the same thing.'],
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {
