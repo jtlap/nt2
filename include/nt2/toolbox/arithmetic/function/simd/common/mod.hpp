@@ -11,7 +11,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/selsub.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/idivfloor.hpp>
+#include <nt2/include/functions/divfloor.hpp>
 
 
 
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return selsub(is_nez(a1), a0,idivfloor(a0,a1)*a1);
+      return selsub(is_nez(a1), a0, divfloor(a0,a1)*a1);
     }
   };
 } }

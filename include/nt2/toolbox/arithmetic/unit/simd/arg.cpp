@@ -6,51 +6,57 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - arg - simd/unit Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - arg/simd Mode"
 
-#include <nt2/include/functions/arg.hpp>
-#include <nt2/sdk/unit/tests.hpp>   
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created by jt the 28/11/2010
+/// modified by jt the 15/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp> 
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp> 
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/arg.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic component arg using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(arg, (nt2::uint64_t)
-              (nt2::uint64_t)(nt2::int64_t)(double)
-                (nt2::uint32_t)(nt2::int32_t)(float) 
-                         )
+NT2_TEST_CASE_TPL ( arg_real__1,  NT2_REAL_TYPES)
 {
- using nt2::arg; 
- using nt2::tag::arg_;
- using nt2::load;  
- using nt2::simd::native;
- using nt2::meta::cardinal_of; 
+  using nt2::arg;
+  using nt2::tag::arg_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<arg_(vT)>::type r_t;
+  typedef typename nt2::meta::call<arg_(T)>::type sr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<arg_(n_t)>::type call_type;
-
- typedef typename nt2::meta::as_real<T>::type rT;
- typedef native<rT,ext_t>            rn_t;
-  
- NT2_TEST( (boost::is_same<call_type, rn_t>::value) );
- NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i)
-   data[i] = i-T(cardinal_of<n_t>::value/2); // good value here for arg
-
- n_t a0 = load<n_t>(&data[0],0); 
- rn_t v  = nt2::arg(a0);
- for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-   { 
-     NT2_TEST_EQUAL( v[j], arg(a0[j]) );
-   } 
-}
-
- 
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        r_t v = arg(a0);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::arg(tab_a0[k]),2.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+  }
+} // end of test for real_

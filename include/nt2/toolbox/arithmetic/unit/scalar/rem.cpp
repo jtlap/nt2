@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 14/02/2011
+/// modified by jt the 15/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -42,8 +42,8 @@ NT2_TEST_CASE_TPL ( rem_real__2,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  rem(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  rem(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  rem(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(  rem(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<T>(), 0);
   NT2_TEST_ULP_EQUAL(  rem(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(  rem(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(  rem(nt2::One<T>(), nt2::One<T>()), nt2::Zero<T>(), 0);

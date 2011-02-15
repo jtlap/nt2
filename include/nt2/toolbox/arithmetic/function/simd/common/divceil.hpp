@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::idivceil_, tag::cpu_,
+NT2_REGISTER_DISPATCH(tag::divceil_, tag::cpu_,
                            (A0)(X),
                            ((simd_<arithmetic_<A0>,X>))
                            ((simd_<arithmetic_<A0>,X>))
@@ -152,7 +152,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::as_integer<A0>{};
+    struct result<This(A0,A0)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2){ return ceil(a0/a1); }
   };

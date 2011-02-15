@@ -11,7 +11,7 @@
 
 #include <nt2/include/functions/idivceil.hpp>
 #include <nt2/include/functions/rdivide.hpp>
-#include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/ifloor.hpp>
 #include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      meta::as_integer< boost::result_of<meta::arithmetic(A0,A1)>::type >{};
+      meta::as_integer<typename boost::result_of<meta::arithmetic(A0,A1)>::type >{};
 
     NT2_FUNCTOR_CALL(2)
     {

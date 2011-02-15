@@ -34,7 +34,7 @@
                  'real_' : ['nt2::remquo(a0,a1)'],
                 },
              'property_value' : {
-                 'real_' : [['nt2::remainder(a0,a1)', 'nt2::b_and(nt2::idivround(a0,a1),nt2::Seven<r_t1>())']],
+                 'real_' : [['nt2::remainder(a0,a1)', 'nt2::idivround(a0,a1)']],
                 },
              'ulp_thresh' : {
                  'real_' : ['0'],

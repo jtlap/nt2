@@ -6,46 +6,59 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - minmod/simd Mode"
 
-#include <nt2/toolbox/arithmetic/include/minmod.hpp> 
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created by jt the 01/12/2010
+/// modified by jt the 15/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/include/functions/is_gez.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/toolbox/arithmetic/include/minmod.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(minmod, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( minmod_real__2,  NT2_REAL_TYPES)
 {
- using nt2::minmod;
- using nt2::tag::minmod_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
+  using nt2::minmod;
+  using nt2::tag::minmod_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<minmod_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<minmod_(T,T)>::type sr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<minmod_(n_t, n_t)>::type call_type;
-
-  NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
-  NT2_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value]; 
- for(int i=0;i<2*cardinal_of<n_t>::value;++i){    
-   data[i] = (5*i+1)/3; // good value here for minmod
- } 
-   n_t a0 = load<n_t>(&data[0],0);   
-   n_t a1 = load<n_t>(&data[0],1);  
-   n_t v  = minmod(a0, a1);
-   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
-     {
-       std::cout << a0[j] <<  "  " << a1[j] << "  " <<  v[j] <<  "  " << minmod(a0[j], a1[j]) << std::endl; 
-      NT2_TEST_EQUAL( v[j], minmod(a0[j], a1[j]) );
-     }
-}
- 
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-10), T(10));
+    NT2_CREATE_SIMD_BUFFER(a1,T, NR, T(-10), T(10));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a1 = load<n_t>(&tab_a1[0],j);
+        r_t v = minmod(a0,a1);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],nt2::minmod(tab_a0[k],tab_a1[k]),2.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+  }
+} // end of test for real_
