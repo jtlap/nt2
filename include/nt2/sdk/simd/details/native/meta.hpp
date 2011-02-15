@@ -12,8 +12,6 @@
 #include <nt2/sdk/simd/details/native/meta/factory_of.hpp>
 #include <nt2/sdk/simd/details/native/meta/primitive_of.hpp>
 
-#include <nt2/sdk/simd/details/native/meta/as_signed.hpp>
-#include <nt2/sdk/simd/details/native/meta/as_unsigned.hpp>
 #include <nt2/sdk/simd/details/native/meta/sign_of.hpp>
 #include <nt2/sdk/simd/details/native/meta/scalar_of.hpp>
 #include <nt2/sdk/simd/details/native/meta/behave_as.hpp>
