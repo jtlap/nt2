@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_AS_SIGNED_HPP_INCLUDED
 #define NT2_SDK_META_AS_SIGNED_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Return the equivalent type signed or the type itself if not arithmetic
+// See: http://nt2.metascale.org/sdk/meta/traits/as_signed.html
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>

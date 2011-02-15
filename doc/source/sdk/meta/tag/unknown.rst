@@ -28,3 +28,7 @@ Synopsis
   {
     struct unknown_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

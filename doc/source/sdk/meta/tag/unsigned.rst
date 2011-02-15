@@ -28,3 +28,7 @@ Synopsis
   {
     struct unsigned_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

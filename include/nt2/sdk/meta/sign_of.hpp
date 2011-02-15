@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_META_SIGN_OF_HPP_INCLUDED
 #define NT2_SDK_META_SIGN_OF_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Meta-function that returns signed if the type is arithmetic and signed
+// and unsigned otherwise.
+// See: http://nt2.metascale.org/sdk/meta/traits/sign_of.html
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/config/types.hpp>
@@ -44,9 +49,6 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Return trues or false depending on T is signed or not
-  //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  sign_of
         : details::sign_of< typename strip<T>::type

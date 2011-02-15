@@ -9,7 +9,7 @@ strip
 
 Description
 ^^^^^^^^^^^
-Remove all ``const`` and reference qualifier from any given types.
+Removes all ``const`` and reference qualifier from any given types.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -22,7 +22,7 @@ Template Parameters
 
 Model
 ^^^^^
-`Metafunction <http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html>`_
+|metafunction|_
 
 Header File
 ^^^^^^^^^^^

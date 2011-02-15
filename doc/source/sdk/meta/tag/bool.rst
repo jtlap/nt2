@@ -28,3 +28,7 @@ Synopsis
   {
     struct bool_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

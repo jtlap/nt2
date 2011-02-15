@@ -28,3 +28,7 @@ Synopsis
   {
     struct signed_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

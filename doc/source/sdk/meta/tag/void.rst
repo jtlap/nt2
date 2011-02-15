@@ -28,3 +28,7 @@ Synopsis
   {
     struct void_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

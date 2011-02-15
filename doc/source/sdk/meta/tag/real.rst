@@ -28,3 +28,7 @@ Synopsis
   {
     struct real_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

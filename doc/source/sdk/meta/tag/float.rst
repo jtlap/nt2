@@ -28,3 +28,7 @@ Synopsis
   {
     struct float_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

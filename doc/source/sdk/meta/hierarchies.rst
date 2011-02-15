@@ -1,5 +1,5 @@
 Types Hierarchization
-====================
+=====================
 
 .. rubric:: Description
 
@@ -11,5 +11,5 @@ new hierarchies of types that can be plugged into it.
 .. toctree::
    :maxdepth: 1
    
-   hierarchy/hierachy
+   hierarchy/hierarchy
    hierarchy/hierarchy_of

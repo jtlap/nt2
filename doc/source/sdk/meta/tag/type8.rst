@@ -28,3 +28,7 @@ Synopsis
   {
     struct type8_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

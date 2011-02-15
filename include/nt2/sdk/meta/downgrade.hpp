@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_META_DOWNGRADE_HPP_INCLUDED
 #define NT2_SDK_META_DOWNGRADE_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// For any type, return the integer type of size equals to sizeof(T)/2
+// with an optional sign change, or the real type if input is real
+// See: http://nt2.metascale.org/sdk/meta/traits/downgrade.html
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/sign_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
@@ -45,10 +50,6 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // For any type, return the integer type of size equals to sizeof(T)/2
-  // with an optional sign change
-  //////////////////////////////////////////////////////////////////////////////
   template< class T
           , class S=typename meta::sign_of<typename meta::strip<T>::type>::type
           >

@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_AS_REAL_HPP_INCLUDED
 #define NT2_SDK_META_AS_REAL_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Turn any type into its real equivalent
+// See: http://nt2.metascale.org/sdk/meta/traits/as_real.html
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/make_real.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>

@@ -28,3 +28,7 @@ Synopsis
   {
     struct double_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

@@ -28,3 +28,7 @@ Synopsis
   {
     struct fundamental_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

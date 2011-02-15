@@ -28,3 +28,7 @@ Synopsis
   {
     struct uint16_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 #define NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Turn any type into its integral equivalent
+// See: http://nt2.metascale.org/sdk/meta/traits/as_integer.html
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/sign_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
@@ -22,9 +26,6 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Turn any type into its integral equivalent
-  //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign=typename meta::sign_of<T>::type >
   struct  as_integer
         : details::as_integer < typename meta::strip<T>::type

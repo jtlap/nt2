@@ -10,6 +10,7 @@
 #define NT2_SDK_META_IS_SIGNED_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 

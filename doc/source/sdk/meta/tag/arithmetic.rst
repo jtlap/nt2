@@ -11,6 +11,7 @@ Description
 ^^^^^^^^^^^
 Tag type used in |nt2| hierarchical overload resolution for discriminating
 arithmetic types, i.e. built-in integral and floating-point types.
+Note ``bool`` is not considered an arithmetic type.
 
 Header File
 ^^^^^^^^^^^
@@ -28,3 +29,7 @@ Synopsis
   {
     struct arithmetic_;
   } }
+
+.. seealso::
+
+  :ref:`sdk_tags`

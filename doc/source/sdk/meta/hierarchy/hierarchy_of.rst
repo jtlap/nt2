@@ -1,7 +1,7 @@
 .. _meta_hierarchy_of:
 
-category_of
-===========
+hierarchy_of
+============
 
 .. index::
     single: hierarchy_of (meta)
