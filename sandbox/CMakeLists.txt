@@ -12,8 +12,9 @@
 ################################################################################
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
 SET(SOURCES
+pack.cpp
 #    foo.cpp
-table_dim.cpp
+#table_dim.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)
