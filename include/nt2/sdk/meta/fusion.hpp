@@ -44,9 +44,9 @@ namespace nt2
     };
 
     template<class T, std::size_t N>
-    struct array_<unspecified_<T>, N> : unspecified_<T>
+    struct array_<unspecified_<T>, N> : fusion_sequence_<T>
     {
-      typedef unspecified_<T>                       parent;
+      typedef fusion_sequence_<T>                   parent;
       typedef tag::array_<typename parent::type, N> type;
     };
 } }
