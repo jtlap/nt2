@@ -9,7 +9,8 @@ sign_of
 
 Description
 ^^^^^^^^^^^
-Returns ``signed`` if the primitive of the input type is of hierarcy :ref:`tag_signed_` and ``unsigned`` otherwise.
+Returns ``signed`` if the primitive of the input type is of hierarchy :ref:`tag_signed_`
+and ``unsigned`` otherwise.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^

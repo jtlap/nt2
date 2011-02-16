@@ -9,7 +9,7 @@ upgrade
 
 Description
 ^^^^^^^^^^^
-Returns the input type without with an integral type that is twice as big as its primitive, with optional sign.
+Returns the input type rebound with an integral type that is twice as big as its primitive, with optional sign.
 If the primitive type is floating-point, use the floating-point type that is twice as big and discard the sign.
 
 For :ref:`simd_pack`, also makes cardinal twice as small.

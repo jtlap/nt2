@@ -10,8 +10,9 @@
 #define NT2_SDK_META_DOWNGRADE_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// For any type, return the integer type of size equals to sizeof(T)/2
-// with an optional sign change, or the real type if input is real
+// Returns the input type rebound with a type that is twice as small
+// as its primitive, with optional sign.
+// If the primitive type is floating-point, sign is ignored.
 // See: http://nt2.metascale.org/sdk/meta/traits/downgrade.html
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>

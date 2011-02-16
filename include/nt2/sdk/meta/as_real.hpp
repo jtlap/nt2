@@ -10,7 +10,8 @@
 #define NT2_SDK_META_AS_REAL_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Turn any type into its real equivalent
+// Returns the input type rebound with the floating-point type with the same size
+// and sign as its primitive type.
 // See: http://nt2.metascale.org/sdk/meta/traits/as_real.html
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>

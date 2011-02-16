@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // Take a bit pattern and turn it into a value
-// See: http://nt2.metascale.org/sdk/traits/from_bits.html
+// See: http://nt2.metascale.org/sdk/meta/traits/from_bits.html
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

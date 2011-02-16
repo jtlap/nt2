@@ -10,7 +10,8 @@
 #define NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Turn any type into its integral equivalent
+// Returns the input type rebound with an integral type that has the same size
+// and sign as its primitive type.
 // See: http://nt2.metascale.org/sdk/meta/traits/as_integer.html
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/sign_of.hpp>

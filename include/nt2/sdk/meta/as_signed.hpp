@@ -10,7 +10,7 @@
 #define NT2_SDK_META_AS_SIGNED_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Return the equivalent type signed or the type itself if not arithmetic
+// Returns the input type rebound with the equivalent signed type of its primitive type.
 // See: http://nt2.metascale.org/sdk/meta/traits/as_signed.html
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/eval_if.hpp>

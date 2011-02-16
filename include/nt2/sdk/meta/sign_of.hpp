@@ -10,8 +10,8 @@
 #define NT2_SDK_META_SIGN_OF_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Meta-function that returns signed if the type is arithmetic and signed
-// and unsigned otherwise.
+// Returns 'signed' if the primitive of the input type is of hierarchy
+// signed and 'unsigned' otherwise.
 // See: http://nt2.metascale.org/sdk/meta/traits/sign_of.html
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>

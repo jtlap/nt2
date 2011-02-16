@@ -10,7 +10,7 @@
 #define NT2_SDK_META_AS_UNSIGNED_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Return the equivalent type unsigned or the type itself if not arithmetic
+// Returns the input type rebound with the equivalent unsigned type of its primitive type.
 // See: http://nt2.metascale.org/sdk/meta/traits/as_unsigned.html
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/eval_if.hpp>
@@ -25,9 +25,6 @@
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Turn any type into its signed equivalent
-  //////////////////////////////////////////////////////////////////////////////
   template<class T> struct as_unsigned;
 } }
 
