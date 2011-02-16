@@ -14,48 +14,43 @@
 // and unsigned otherwise.
 // See: http://nt2.metascale.org/sdk/meta/traits/sign_of.html
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/meta/is_signed.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
+#include <nt2/sdk/meta/is_unspecified.hpp>
+#include <boost/type_traits/is_base_of.hpp>
+
+namespace nt2 { namespace meta
+{
+  template<class T> struct sign_of;
+} }
 
 namespace nt2 { namespace details
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Sign is Ok for arithmetic types
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Hierarchy> struct sign_of { typedef signed type; };
+  template<class T, class Enable = void> struct  sign_of
+  {
+    typedef unsigned type;
+  };
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Sign has no meanign on other types most of the time
-  //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct sign_of<T, meta::unspecified_<T> > {  typedef unsigned type; };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // ... unless they are unsigned of course
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Hierarchy>
-  struct sign_of<uint8_t ,Hierarchy> { typedef unsigned type; };
-  template<class Hierarchy>
-  struct sign_of<uint16_t,Hierarchy> { typedef unsigned type; };
-  template<class Hierarchy>
-  struct sign_of<uint32_t,Hierarchy> { typedef unsigned type; };
-  template<class Hierarchy>
-  struct sign_of<uint64_t,Hierarchy> { typedef unsigned type; };
-  template<class Hierarchy>
-  struct sign_of<bool    ,Hierarchy> { typedef unsigned type; };
+  struct  sign_of < T
+                  , typename boost::enable_if< meta::is_signed<T> >::type
+                  >
+  {
+    typedef signed type;
+  };
 } }
 
 namespace nt2 { namespace meta
 {
   template<class T>
-  struct  sign_of
-        : details::sign_of< typename strip<T>::type
-                          , typename meta::hierarchy_of<T>::type
-                          >
-  {};
+  struct  sign_of : details::sign_of < typename meta::strip<T>::type >
+  {
+    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
+                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_SIGN_OF
+                      , "An unhierarchized type is used in nt2::meta::sign_of."
+                      );
+  };
 } }
-
-
 #endif

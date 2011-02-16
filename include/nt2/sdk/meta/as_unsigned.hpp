@@ -15,30 +15,63 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/meta/is_fundamental.hpp>
+#include <nt2/sdk/meta/is_unspecified.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 
+namespace nt2 { namespace meta
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Turn any type into its signed equivalent
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T> struct as_unsigned;
+} }
+
 namespace nt2 { namespace details
 {
-  template<class T, class Category>
+  template<class T, class Enable = void>
   struct  as_unsigned
-        : boost::mpl::eval_if < boost::mpl::bool_  <  boost::is_integral<T>::value
-                                                 && !boost::is_same<bool,T>::value
-                                                  >
-                              , boost::make_unsigned<T>
-                              , boost::mpl::identity<T>
-                              > {};
+        : boost::mpl::apply < typename meta::factory_of<T>::type
+                            , typename meta::
+                              as_unsigned < typename meta::primitive_of<T>::type
+                                          >::type
+                            >
+  {};
+
+  template<class T>
+  struct  as_unsigned < T
+                      , typename boost::enable_if < typename meta::
+                                                    is_fundamental<T>::type
+                                                  >::type
+                      >
+       : boost::mpl::eval_if< boost::mpl::
+                              bool_ <   boost::is_integral<T>::value
+                                    &&  !boost::is_same<bool,T>::value
+                                    >
+                            , boost::make_unsigned<T>
+                            , boost::mpl::identity<T>
+                            > {};
 } }
 
 namespace nt2 { namespace meta
 {
+  //////////////////////////////////////////////////////////////////////////////
+  // Turn any type into its integral equivalent
+  //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  as_unsigned
-        : details::as_unsigned< typename meta::strip<T>::type
-                              , typename hierarchy_of<T>::type
-                              > {};
+        : details::as_unsigned < typename meta::strip<T>::type >
+  {
+    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
+                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_AS_UNSIGNED
+                      , "An unhierarchized type is used in nt2::meta::as_unsigned."
+                      );
+  };
 } }
 
 #endif

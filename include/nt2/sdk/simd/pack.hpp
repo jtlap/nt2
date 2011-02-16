@@ -16,16 +16,13 @@
 #include <nt2/sdk/simd/pack/grammar.hpp>
 #include <nt2/sdk/simd/pack/generator.hpp>
 #include <nt2/sdk/simd/pack/expression.hpp>
-#include <nt2/sdk/simd/pack/terminal.hpp>
+//#include <nt2/sdk/simd/pack/terminal.hpp>
 #include <nt2/sdk/simd/pack/domain.hpp>
-#include <nt2/sdk/simd/pack/call.hpp>
+//#include <nt2/sdk/simd/pack/call.hpp>
 #include <nt2/sdk/simd/pack/pack.hpp>
-#include <nt2/sdk/simd/pack/load.hpp>
-#include <nt2/sdk/simd/pack/store.hpp>
-#include <nt2/sdk/simd/pack/splat.hpp>
+//#include <nt2/sdk/simd/pack/load.hpp>
+//#include <nt2/sdk/simd/pack/store.hpp>
+//#include <nt2/sdk/simd/pack/splat.hpp>
 #include <nt2/sdk/simd/pack/io.hpp>
-
-// pack is fusion compatible
-// #include <nt2/support/numeric/simd/dsl/fusion.hpp>
 
 #endif

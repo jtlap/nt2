@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::downgrade"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/module.hpp>

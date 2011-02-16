@@ -20,16 +20,6 @@ namespace nt2 { namespace simd
                                       , grammar<Type,Cardinal>
                                       >
   {};
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Build a simd::expr from a pair of type/cardinal value
-  ////////////////////////////////////////////////////////////////////////////
-  template<class Type,class Cardinal>
-  struct expression_facade
-  {
-    typedef typename boost::proto::terminal< data<Type,Cardinal> >::type  base;
-    typedef expression<base, Type, Cardinal>                              type;
-  };
 } }
 
 #endif

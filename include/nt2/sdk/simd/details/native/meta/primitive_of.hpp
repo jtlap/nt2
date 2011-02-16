@@ -6,22 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_AS_UNSIGNED_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_NATIVE_META_AS_UNSIGNED_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_PRIMITIVE_OF_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_NATIVE_META_PRIMITIVE_OF_HPP_INCLUDED
 
-#include <nt2/sdk/simd/category.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/as_unsigned.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace meta
 {
-  template<class T,class H,class X>
-  struct  as_unsigned<T,meta::simd_<H,X> >
-        : T::template cast< typename meta::
-                            as_unsigned<typename T::value_type>::type
-                          >
-  {};
+  template<class Type,class Extension>
+  struct primitive_of< simd::native<Type,Extension> >
+  {
+    typedef Type type;
+  };
 } }
 
 #endif

@@ -10,6 +10,7 @@
 #define NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
 
 #include <climits>
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/hierarchy.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
