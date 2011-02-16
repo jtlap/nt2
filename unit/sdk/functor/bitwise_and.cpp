@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::bitwise_and"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/functor/operators.hpp>
 #include <boost/type_traits/is_same.hpp>

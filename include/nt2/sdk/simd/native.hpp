@@ -26,19 +26,13 @@ namespace nt2 { namespace simd
   //////////////////////////////////////////////////////////////////////////////
   template<class Scalar,class Extension> struct native
   {
-    NT2_STATIC_ASSERT ( (meta::is_vectorizable<Scalar,Extension>::value)
-                      , INVALID_SCALAR_TYPE_IN_SIMD_NATIVE_TYPE
-                      , "Native SIMD type instanciated with non-vectorizable "
-                        "base scalar type. Check that you compiled this program "
-                        "with the proper SIMD extension enabling options."
-                      );
-
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> is a SIMD type encapsulation
     ////////////////////////////////////////////////////////////////////////////
     typedef Extension                                       extension_type;
     typedef native<Scalar,Extension>                        this_type;
     typedef typename meta::as_simd<Scalar,Extension>::type  native_type;
+
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> models FusionRandomAccessSequence
     ////////////////////////////////////////////////////////////////////////////

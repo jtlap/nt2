@@ -17,8 +17,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that sign_of is correct
 ////////////////////////////////////////////////////////////////////////////////
-struct foo {};
-
 NT2_TEST_CASE(sign_of)
 {
   using nt2::meta::sign_of;
@@ -35,5 +33,4 @@ NT2_TEST_CASE(sign_of)
   NT2_TEST( (is_same<sign_of<nt2::uint16_t>::type,unsigned>::value ));
   NT2_TEST( (is_same<sign_of<nt2::uint8_t >::type,unsigned>::value ));
   NT2_TEST( (is_same<sign_of<bool         >::type,unsigned>::value ));
-  NT2_TEST( (is_same<sign_of<foo          >::type,unsigned>::value ));
 }

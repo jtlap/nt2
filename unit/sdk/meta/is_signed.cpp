@@ -16,8 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that is_signed is correct
 ////////////////////////////////////////////////////////////////////////////////
-struct foo {};
-
 NT2_TEST_CASE(is_signed)
 {
   using nt2::meta::is_signed;
@@ -34,8 +32,8 @@ NT2_TEST_CASE(is_signed)
   NT2_TEST( is_signed<nt2::int16_t>::value  );
   NT2_TEST( is_signed<nt2::int8_t>::value   );
   NT2_TEST( !is_signed<bool>::value         );
-  NT2_TEST( !is_signed<foo>::value          );
 }
+
 NT2_TEST_CASE(is_unsigned)
 {
   using nt2::meta::is_unsigned;
@@ -43,14 +41,13 @@ NT2_TEST_CASE(is_unsigned)
 
   NT2_TEST( !is_unsigned<double>::value        );
   NT2_TEST( !is_unsigned<float>::value         );
-  NT2_TEST( is_unsigned<nt2::uint64_t>::value);
-  NT2_TEST( is_unsigned<nt2::uint32_t>::value);
-  NT2_TEST( is_unsigned<nt2::uint16_t>::value);
-  NT2_TEST( is_unsigned<nt2::uint8_t>::value );
+  NT2_TEST(  is_unsigned<nt2::uint64_t>::value );
+  NT2_TEST(  is_unsigned<nt2::uint32_t>::value );
+  NT2_TEST(  is_unsigned<nt2::uint16_t>::value );
+  NT2_TEST(  is_unsigned<nt2::uint8_t>::value  );
   NT2_TEST( !is_unsigned<nt2::int64_t>::value  );
   NT2_TEST( !is_unsigned<nt2::int32_t>::value  );
   NT2_TEST( !is_unsigned<nt2::int16_t>::value  );
   NT2_TEST( !is_unsigned<nt2::int8_t>::value   );
-  NT2_TEST( is_unsigned<bool>::value         );
-  NT2_TEST( is_unsigned<foo>::value          );
+  NT2_TEST(  is_unsigned<bool>::value          );
 }

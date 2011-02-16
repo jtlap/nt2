@@ -10,21 +10,24 @@
 #define NT2_SDK_META_BEHAVE_AS_HPP_INCLUDED
 
 #include <boost/mpl/apply.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
-
-namespace nt2 { namespace details
-{
-  template<class Lambda,class T,class Tag>
-  struct behave_as_impl : boost::mpl::apply1<Lambda,T>::type {};
-} }
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
+#include <nt2/sdk/error/static_assert.hpp>
+#include <nt2/sdk/meta/is_unspecified.hpp>
 
 namespace nt2 { namespace meta
 {
   template<class Lambda,class T>
-  struct behave_as : details::behave_as_impl<Lambda
-                                            ,typename meta::strip<T>::type
-                                            ,typename hierarchy_of<T>::type
-                                            > {};
+  struct  behave_as
+        : boost::mpl::apply1< Lambda
+                            , typename primitive_of<typename strip<T>::type>::type
+                            >::type
+  {
+    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
+                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_BEHAVE_AS
+                      , "An unhierarchized type is used in nt2::meta::behave_as."
+                      );
+  };
 } }
 
 #endif

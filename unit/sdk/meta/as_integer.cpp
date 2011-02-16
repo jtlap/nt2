@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::as_integer"
 
+#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
 

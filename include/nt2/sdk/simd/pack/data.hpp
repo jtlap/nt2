@@ -10,8 +10,8 @@
 #define NT2_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/dsl/compute.hpp>
-#include <nt2/sdk/dsl/category.hpp>
+//#include <nt2/sdk/dsl/compute.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace simd
@@ -24,9 +24,15 @@ namespace nt2 { namespace simd
   struct  data
   {
     typedef typename meta::vector_of<Type,Cardinal::value>::type  parent;
-    typedef typename meta::category_of<parent>::type              parent_tag;
-    typedef functors::ast_<parent_tag>                            nt2_category_tag;
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Hierarchizable interface
+    ////////////////////////////////////////////////////////////////////////////
+    typedef typename meta::hierarchy_of<parent>::type nt2_hierarchy_tag;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Range interface
+    ////////////////////////////////////////////////////////////////////////////
     typedef typename parent::value_type               value_type;
     typedef typename parent::reference                reference;
     typedef typename parent::const_reference          const_reference;
@@ -72,7 +78,7 @@ namespace nt2 { namespace simd
     iterator        end()           { return mData.end();   }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Fill current data by evaluating soem expression
+    // Fill current data by evaluating some expression
     ////////////////////////////////////////////////////////////////////////////
     template<class X> void evaluate(X const& xpr )
     {
@@ -103,8 +109,8 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
-      dsl::compile<dsl::compute_,parent>  eval;
-      mData = eval(xpr);
+      //dsl::compile<dsl::compute_,parent>  eval;
+      //mData = eval(xpr);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -118,9 +124,9 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
-      dsl::compile<dsl::compute_,parent>  eval;
-      for(std::size_t i=0;i<Cardinal::value;++i)
-        mData[i] = eval(xpr,i,i);
+      //dsl::compile<dsl::compute_,parent>  eval;
+      //for(std::size_t i=0;i<Cardinal::value;++i)
+      //  mData[i] = eval(xpr,i,i);
     }
   };
 } }

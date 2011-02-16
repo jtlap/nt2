@@ -13,14 +13,5 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
 
-namespace nt2 { namespace details
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Except for SIMD types
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class H, class X>
-  struct  is_signed<T,meta::simd_<H,X> >
-        : meta::is_signed<typename T::value_type>  {};
-} }
 
 #endif

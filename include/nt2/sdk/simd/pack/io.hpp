@@ -14,21 +14,34 @@
 namespace nt2 { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
-  // Stream insertion for vec<T,C> and SIMD expression
+  // Stream insertion for pack<T,C>
   ////////////////////////////////////////////////////////////////////////////
-  template<class X,class T,class C> inline std::ostream&
-  operator<<(std::ostream& os, expression<X,T,C> const& v )
+  template<class T,std::size_t C> inline std::ostream&
+  operator<<(std::ostream& os, pack<T,C> const& v )
   {
     // We want to display (u)int8_t as a number
     typedef typename
             boost::mpl::if_c< (sizeof(T)==1), int, T>::type display_type;
 
     os << "{";
-    for(std::size_t i=0;i<C::value-1;++i)
+    for(std::size_t i=0;i<C-1;++i)
       os << static_cast<display_type>(v[i]) << ",";
-    os << static_cast<display_type>(v[C::value-1]) << "}";
+    os << static_cast<display_type>(v[C-1]) << "}";
     return os;
   }
+
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Stream insertion for SIMD expression
+  ////////////////////////////////////////////////////////////////////////////
+  template<class X,class T,class C> inline std::ostream&
+  operator<<(std::ostream& os, expression<X,T,C> const& v )
+  {
+    pack<T,C::value> that(v);
+    os << that;
+    return os;
+  }
+
 } }
 
 #endif
