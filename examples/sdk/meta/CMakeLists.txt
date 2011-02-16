@@ -27,6 +27,7 @@ SET(SOURCES
     downgrade.cpp
     upgrade.cpp
     is_fundamental.cpp
+    is_unspecified.cpp
     )
 
 ################################################################################

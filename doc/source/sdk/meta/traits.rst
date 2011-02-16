@@ -26,6 +26,7 @@ This component defines type traits used throughout |nt2|.
    traits/sign_of
    traits/is_signed
    traits/is_fundamental
+   traits/is_unspecified
    
    traits/make_real
    traits/make_integer
