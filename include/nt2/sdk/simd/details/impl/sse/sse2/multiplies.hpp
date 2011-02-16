@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
