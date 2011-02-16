@@ -49,7 +49,7 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign, class Lambda>
   struct  downgrade<T,1,Sign, Lambda>
-        : meta::make_integer<1,Sign> {};
+        : meta::make_integer<1,Sign, Lambda> {};
 } }
 
 namespace nt2 { namespace meta
@@ -59,7 +59,7 @@ namespace nt2 { namespace meta
           >
   struct  downgrade
         : details::downgrade< typename meta::primitive_of<typename meta::strip<T>::type>::type
-                            , sizeof(T)
+                            , sizeof(typename meta::primitive_of<typename meta::strip<T>::type>::type)
                             , S
                             , typename meta::factory_of<typename meta::strip<T>::type>::type
                             >
