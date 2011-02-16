@@ -20,7 +20,6 @@
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/meta/is_fundamental.hpp>
-#include <nt2/sdk/meta/is_unspecified.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 
@@ -67,9 +66,9 @@ namespace nt2 { namespace meta
   struct  as_unsigned
         : details::as_unsigned < typename meta::strip<T>::type >
   {
-    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
-                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_AS_UNSIGNED
-                      , "An unhierarchized type is used in nt2::meta::as_unsigned."
+    NT2_STATIC_ASSERT ( (is_fundamental<typename meta::primitive_of<typename meta::strip<T>::type>::type>::value)
+                      , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_UNSIGNED
+                      , "A type with a non-fundamental primitive is used in nt2::meta::as_unsigned."
                       );
   };
 } }

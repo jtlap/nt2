@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
-#include <nt2/sdk/meta/is_unspecified.hpp>
+#include <nt2/sdk/meta/is_fundamental.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -23,9 +23,9 @@ namespace nt2 { namespace meta
                             , typename primitive_of<typename strip<T>::type>::type
                             >::type
   {
-    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
-                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_BEHAVE_AS
-                      , "An unhierarchized type is used in nt2::meta::behave_as."
+    NT2_STATIC_ASSERT ( (is_fundamental<typename meta::primitive_of<typename meta::strip<T>::type>::type>::value)
+                      , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_BEHAVE_AS
+                      , "A type with a non-fundamental primitive is used in nt2::meta::behave_as."
                       );
   };
 } }
