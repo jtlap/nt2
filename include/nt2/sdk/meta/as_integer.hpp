@@ -16,46 +16,17 @@
 #include <nt2/sdk/meta/sign_of.hpp>
 #include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/make_integer.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
-#include <nt2/sdk/meta/is_fundamental.hpp>
 #include <nt2/sdk/meta/is_unspecified.hpp>
 
 namespace nt2 { namespace meta
 {
-  template<class T,class Sign = typename meta::sign_of<T>::type >
-  struct as_integer;
-} }
-
-namespace nt2 { namespace details
-{
-  template<class T, class Sign, class Enable = void>
+  template<class T, class Sign = typename meta::sign_of<T>::type >
   struct  as_integer
-        : boost::mpl::apply < typename meta::factory_of<T>::type
-                            , typename meta::
-                              as_integer< typename meta::primitive_of<T>::type
-                                        , Sign
-                                        >::type
-                            >
-  {};
-
-  template<class T, class Sign>
-  struct  as_integer< T
-                    , Sign
-                    , typename boost::enable_if < typename meta::
-                                                  is_fundamental<T>::type
-                                                >::type
-                    >
-       : meta::make_integer<sizeof(T),Sign> {};
-} }
-
-namespace nt2 { namespace meta
-{
-  template<class T,class Sign>
-  struct  as_integer
-        : details::as_integer < typename meta::strip<T>::type
-                              , Sign
-                              >
+        : meta::make_integer < sizeof(typename meta::primitive_of<typename meta::strip<T>::type>::type)
+                             , Sign
+                             , typename meta::factory_of<typename meta::strip<T>::type>::type
+                             >
   {
     NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
                       , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_AS_INTEGER
