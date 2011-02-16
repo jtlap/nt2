@@ -6,6 +6,8 @@ float
 .. index::
     single: float_ (tag)
     single: tag; float_
+    single: float_ (meta)
+    single: meta; float_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct float_;
-  } }
+    namespace tag
+    {
+      struct float_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct float_;
+    }
+  }
 
 .. seealso::
 

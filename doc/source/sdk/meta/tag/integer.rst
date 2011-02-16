@@ -6,6 +6,8 @@ integer
 .. index::
     single: integer_ (tag)
     single: tag; integer_
+    single: integer_ (meta)
+    single: meta; integer_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct integer_;
-  } }
+    namespace tag
+    {
+      struct integer_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct integer_;
+    }
+  }
 
 .. seealso::
 

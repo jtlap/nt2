@@ -6,6 +6,8 @@ int16
 .. index::
     single: int16_ (tag)
     single: tag; int16_
+    single: int16_ (meta)
+    single: meta; int16_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct int16_;
-  } }
+    namespace tag
+    {
+      struct int16_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct int16_;
+    }
+  }
 
 .. seealso::
 

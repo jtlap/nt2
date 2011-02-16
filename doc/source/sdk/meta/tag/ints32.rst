@@ -6,6 +6,8 @@ ints32
 .. index::
     single: ints32_ (tag)
     single: tag; ints32_
+    single: ints32_ (meta)
+    single: meta; ints32_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct ints32_;
-  } }
+    namespace tag
+    {
+      struct ints32_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct ints32_;
+    }
+  }
 
 .. seealso::
 

@@ -6,6 +6,8 @@ void
 .. index::
     single: void_ (tag)
     single: tag; void_
+    single: void_ (meta)
+    single: meta; void_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct void_;
-  } }
+    namespace tag
+    {
+      struct void_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct void_;
+    }
+  }
 
 .. seealso::
 

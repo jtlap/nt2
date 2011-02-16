@@ -6,6 +6,8 @@ real
 .. index::
     single: real_ (tag)
     single: tag; real_
+    single: real_ (meta)
+    single: meta; real_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct real_;
-  } }
+    namespace tag
+    {
+      struct real_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct real_;
+    }
+  }
 
 .. seealso::
 

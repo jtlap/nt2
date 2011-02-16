@@ -6,6 +6,8 @@ fundamental
 .. index::
     single: fundamental_ (tag)
     single: tag; fundamental_
+    single: fundamental_ (meta)
+    single: meta; fundamental_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct fundamental_;
-  } }
+    namespace tag
+    {
+      struct fundamental_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct fundamental_;
+    }
+  }
 
 .. seealso::
 

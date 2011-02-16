@@ -6,6 +6,8 @@ uint8
 .. index::
     single: uint8_ (tag)
     single: tag; uint8_
+    single: uint8_ (meta)
+    single: meta; uint8_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct uint8_;
-  } }
+    namespace tag
+    {
+      struct uint8_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct uint8_;
+    }
+  }
 
 .. seealso::
 

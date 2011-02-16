@@ -6,6 +6,8 @@ arithmetic
 .. index::
     single: arithmetic_ (tag)
     single: tag; arithmetic_
+    single: arithmetic_ (meta)
+    single: meta; arithmetic_
 
 Description
 ^^^^^^^^^^^
@@ -25,10 +27,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct arithmetic_;
-  } }
+    namespace tag
+    {
+      struct arithmetic_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct arithmetic_;
+    }
+  }
 
 .. seealso::
 

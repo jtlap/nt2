@@ -6,6 +6,8 @@ double
 .. index::
     single: double_ (tag)
     single: tag; double_
+    single: double_ (meta)
+    single: meta; double_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct double_;
-  } }
+    namespace tag
+    {
+      struct double_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct double_;
+    }
+  }
 
 .. seealso::
 

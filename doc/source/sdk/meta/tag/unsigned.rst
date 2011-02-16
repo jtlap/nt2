@@ -6,6 +6,8 @@ unsigned
 .. index::
     single: unsigned_ (tag)
     single: tag; unsigned_
+    single: unsigned_ (meta)
+    single: meta; unsigned_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct unsigned_;
-  } }
+    namespace tag
+    {
+      struct unsigned_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct unsigned_;
+    }
+  }
 
 .. seealso::
 

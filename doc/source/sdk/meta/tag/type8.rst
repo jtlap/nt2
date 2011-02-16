@@ -6,6 +6,8 @@ type8
 .. index::
     single: type8_ (tag)
     single: tag; type8_
+    single: type8_ (meta)
+    single: meta; type8_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct type8_;
-  } }
+    namespace tag
+    {
+      struct type8_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct type8_;
+    }
+  }
 
 .. seealso::
 

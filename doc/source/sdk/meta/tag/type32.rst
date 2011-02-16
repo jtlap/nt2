@@ -6,6 +6,8 @@ type32
 .. index::
     single: type32_ (tag)
     single: tag; type32_
+    single: type32_ (meta)
+    single: meta; type32_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct type32_;
-  } }
+    namespace tag
+    {
+      struct type32_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct type32_;
+    }
+  }
 
 .. seealso::
 

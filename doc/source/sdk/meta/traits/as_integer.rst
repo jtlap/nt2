@@ -9,18 +9,19 @@ as_integer
 
 Description
 ^^^^^^^^^^^
-Returns the integral type with the same size and sign as the input type.
+Returns the input type rebound with an integral type that has the same size and sign
+as its primitive type.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
 
-  +-----------+----------------------------+----------------------------------------------------------+
-  | Parameter | Requirement                | Description                                              |
-  +===========+============================+==========================================================+ 
-  | T         | None                       | Input type                                               |
-  +-----------+----------------------------+----------------------------------------------------------+
-  | Sign      | ``signed`` or ``unsigned`` | Whether the return integral type should be signed or not |
-  +-----------+----------------------------+----------------------------------------------------------+
+  +-----------+--------------------------------------+----------------------------------------------------------+
+  | Parameter | Requirement                          | Description                                              |
+  +===========+======================================+==========================================================+ 
+  | T         | :ref:`concept_has_primitive_factory` | Input type                                               |
+  +-----------+--------------------------------------+----------------------------------------------------------+
+  | Sign      | ``signed`` or ``unsigned``           | Whether the return integral type should be signed or not |
+  +-----------+--------------------------------------+----------------------------------------------------------+
 
 Model
 ^^^^^
@@ -51,13 +52,13 @@ Expression Semantics
 
   typedef nt2::meta::as_integer<T, Sign>::type r;
 
-**Return type:** :ref:`tag_integer_`
+**Return type:** :ref:`concept_has_primitive_factory`
 
 **Semantic:** Equivalent to:
 
 .. code-block:: cpp
 
-  typedef make_integer<sizeof(T), Sign>::type r;
+  typedef make_integer<sizeof(primitive_of<T>::type), Sign, factory_of<T>::type>::type r;
 
 .. seealso::
 

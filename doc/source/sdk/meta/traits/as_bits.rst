@@ -18,7 +18,7 @@ Template Parameters
   +-----------+----------------------------+------------------------------------------------------------+
   | Parameter | Requirement                | Description                                                |
   +===========+============================+============================================================+ 
-  | T         | None                       | Type to put in the union                                   |
+  | T         | POD                        | Type to put in the union                                   |
   +-----------+----------------------------+------------------------------------------------------------+
   | Sign      | ``signed`` or ``unsigned`` | Whether the integral type for bits should be signed or not |
   +-----------+----------------------------+------------------------------------------------------------+
@@ -52,7 +52,7 @@ Expression Semantics
 
   typedef nt2::meta::as_bits<T, Sign>::type r;
 
-**Return type:** union
+**Return type:** unspecified
 
 **Semantic:** Equivalent to:
 

@@ -6,6 +6,8 @@ type64
 .. index::
     single: type64_ (tag)
     single: tag; type64_
+    single: type64_ (meta)
+    single: meta; type64_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct type64_;
-  } }
+    namespace tag
+    {
+      struct type64_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct type64_;
+    }
+  }
 
 .. seealso::
 

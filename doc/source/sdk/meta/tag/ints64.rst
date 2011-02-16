@@ -4,8 +4,10 @@ ints64
 =======
 
 .. index::
-    single: ints62_ (tag)
-    single: tag; ints62_
+    single: ints64_ (tag)
+    single: tag; ints64_
+    single: ints64_ (meta)
+    single: meta; ints64_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct ints62_;
-  } }
+    namespace tag
+    {
+      struct ints64_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct ints64_;
+    }
+  }
 
 .. seealso::
 

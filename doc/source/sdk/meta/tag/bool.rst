@@ -6,6 +6,8 @@ bool
 .. index::
     single: bool_ (tag)
     single: tag; bool_
+    single: bool_ (meta)
+    single: meta; bool_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct bool_;
-  } }
+    namespace tag
+    {
+      struct bool_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct bool_;
+    }
+  }
 
 .. seealso::
 

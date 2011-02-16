@@ -6,6 +6,8 @@ unspecified
 .. index::
     single: unspecified_ (tag)
     single: tag; unspecified_
+    single: unspecified_ (meta)
+    single: meta; unspecified_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct unspecified_;
-  } }
+    namespace tag
+    {
+      struct unspecified_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct unspecified_;
+    }
+  }
 
 .. seealso::
 

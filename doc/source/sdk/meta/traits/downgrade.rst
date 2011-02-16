@@ -9,19 +9,21 @@ downgrade
 
 Description
 ^^^^^^^^^^^
-Returns the integral type that is twice as small as the input type, with optional sign.
-If the input type is floating-point, return the floating-point type that is twice as small.
+Returns the input type without with an integral type that is twice as small as its primitive, with optional sign.
+If the primitive type is floating-point, use the floating-point type that is twice as small and discard the sign.
+
+For :ref:`simd_pack`, also makes cardinal twice as big.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
 
-  +-----------+----------------------------+---------------------------------------------------------------+
-  | Parameter | Requirement                | Description                                                   |
-  +===========+============================+===============================================================+ 
-  | T         | None                       | Input type                                                    |
-  +-----------+----------------------------+---------------------------------------------------------------+
-  | Sign      | ``signed`` or ``unsigned`` | Whether the return type should be signed or not (if integral) |
-  +-----------+----------------------------+---------------------------------------------------------------+
+  +-----------+--------------------------------------+------------------------------------------------------------------+
+  | Parameter | Requirement                          | Description                                                      |
+  +===========+======================================+==================================================================+ 
+  | T         | :ref:`concept_has_primitive_factory` | Input type                                                       |
+  +-----------+--------------------------------------+------------------------------------------------------------------+
+  | Sign      | ``signed`` or ``unsigned``           | Whether the primitive type should be signed or not (if integral) |
+  +-----------+--------------------------------------+------------------------------------------------------------------+
 
 Model
 ^^^^^
@@ -52,19 +54,19 @@ Expression Semantics
 
   typedef nt2::meta::downgrade<T, Sign>::type r;
 
-**Return type:** :ref:`tag_real_` if T is :ref:`tag_real_`, :ref:`tag_integer_` otherwise.
+**Return type:** :ref:`concept_has_primitive_factory`
 
 **Semantic:** Equivalent to:
 
 .. code-block:: cpp
 
-  typedef make_real<max<sizeof(T)/2, 4>::value>::type r;
+  typedef make_real<max<sizeof(primitive_of<T>::type)/2, 4>::value, factory_of<T>::type>::type r;
   
-if T is :ref:`tag_real_` and
+if primitive is of hierarchy :ref:`tag_real_` and
 
 .. code-block:: cpp
 
-  typedef make_integer<max<sizeof(T)/2, 1>::value, Sign>::type r;
+  typedef make_integer<max<sizeof(primitive_of<T>::type)/2, 1>::value, Sign, factory_of<T>::type>::type r;
   
 otherwise.
 

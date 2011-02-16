@@ -9,16 +9,17 @@ as_unsigned
 
 Description
 ^^^^^^^^^^^
-Returns the equivalent unsigned type if the input is an :ref:`tag_arithmetic_` type and the input type otherwise.
+Returns the input type rebound with the equivalent unsigned type
+of its primitive type.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
 
-  +-----------+----------------------------+----------------------------------------------------------+
-  | Parameter | Requirement                | Description                                              |
-  +===========+============================+==========================================================+ 
-  | T         | None                       | Input type                                               |
-  +-----------+----------------------------+----------------------------------------------------------+
+  +-----------+--------------------------------------+-----------------------------------------+
+  | Parameter | Requirement                          | Description                             |
+  +===========+======================================+=========================================+ 
+  | T         | :ref:`concept_has_primitive_factory` | Input type                              |
+  +-----------+--------------------------------------+-----------------------------------------+
 
 Model
 ^^^^^
@@ -49,21 +50,14 @@ Expression Semantics
 
   typedef nt2::meta::as_unsigned<T>::type r;
 
-**Return type:** unspecified
+**Return type:** :ref:`concept_has_primitive_factory`
 
 **Semantic:** Equivalent to:
 
 .. code-block:: cpp
 
-  typedef boost::make_unsigned<T>::type r;
+  typedef factory_of<T>::type::apply<boost::make_unsigned<primitive_of<T>::type>::type>::type r;
   
-if T is :ref:`tag_arithmetic_` and
-
-.. code-block:: cpp
-
-  typedef T r;
-  
-otherwise.
 
 Example
 ^^^^^^^

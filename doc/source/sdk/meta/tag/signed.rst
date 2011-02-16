@@ -6,6 +6,8 @@ signed
 .. index::
     single: signed_ (tag)
     single: tag; signed_
+    single: signed_ (meta)
+    single: meta; signed_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct signed_;
-  } }
+    namespace tag
+    {
+      struct signed_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct signed_;
+    }
+  }
 
 .. seealso::
 

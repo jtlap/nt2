@@ -9,7 +9,8 @@ as_signed
 
 Description
 ^^^^^^^^^^^
-Returns the equivalent signed type if the input is an :ref:`tag_arithmetic_` type and the input type otherwise.
+Returns the input type rebound with the equivalent signed type
+of its primitive type.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -17,7 +18,7 @@ Template Parameters
   +-----------+----------------------------+----------------------------------------------------------+
   | Parameter | Requirement                | Description                                              |
   +===========+============================+==========================================================+ 
-  | T         | None                       | Input type                                               |
+  | T         | HasPrimitiveFactory        | Input type                                               |
   +-----------+----------------------------+----------------------------------------------------------+
 
 Model
@@ -49,21 +50,14 @@ Expression Semantics
 
   typedef nt2::meta::as_signed<T>::type r;
 
-**Return type:** unspecified
+**Return type:** :ref:`concept_has_primitive_factory`
 
 **Semantic:** Equivalent to:
 
 .. code-block:: cpp
 
-  typedef boost::make_signed<T>::type r;
+  typedef factory_of<T>::type::apply<boost::make_signed<primitive_of<T>::type>::type>::type r;
   
-if T is :ref:`tag_arithmetic_` and
-
-.. code-block:: cpp
-
-  typedef T r;
-  
-otherwise.
 
 Example
 ^^^^^^^

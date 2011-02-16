@@ -17,6 +17,7 @@ SET(SOURCES
     make_real.cpp
     make_integer.cpp
     as_bits.cpp
+    from_bits.cpp
     as_integer.cpp
     as_real.cpp
     as_signed.cpp
@@ -25,6 +26,7 @@ SET(SOURCES
     is_signed.cpp
     downgrade.cpp
     upgrade.cpp
+    is_fundamental.cpp
     )
 
 ################################################################################

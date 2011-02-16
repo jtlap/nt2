@@ -6,6 +6,8 @@ uint
 .. index::
     single: uint_ (tag)
     single: tag; uint_
+    single: uint_ (meta)
+    single: meta; uint_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct uint_;
-  } }
+    namespace tag
+    {
+      struct uint_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct uint_;
+    }
+  }
 
 .. seealso::
 

@@ -9,16 +9,17 @@ as_real
 
 Description
 ^^^^^^^^^^^
-Returns the floating-point type with the same size and sign as the input type.
+Returns the input type rebound with the floating-point type with the same size and sign as
+its primitive type.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
 
-  +-----------+----------------------------+----------------------------------------------------------+
-  | Parameter | Requirement                | Description                                              |
-  +===========+============================+==========================================================+ 
-  | T         | None                       | Input type                                               |
-  +-----------+----------------------------+----------------------------------------------------------+
+  +-----------+--------------------------------------+------------------------------------------+
+  | Parameter | Requirement                          | Description                              |
+  +===========+======================================+==========================================+ 
+  | T         | :ref:`concept_has_primitive_factory` | Input type                               |
+  +-----------+--------------------------------------+------------------------------------------+
 
 Model
 ^^^^^
@@ -49,13 +50,13 @@ Expression Semantics
 
   typedef nt2::meta::as_real<T>::type r;
 
-**Return type:** :ref:`tag_real_`
+**Return type:** :ref:`concept_has_primitive_factory`
 
 **Semantic:** Equivalent to:
 
 .. code-block:: cpp
 
-  typedef make_real<sizeof(T)>::type r;
+  typedef make_real<sizeof(primitive_of<T>::type), factory_of<T>::type>::type r;
   
 .. seealso::
 

@@ -6,6 +6,8 @@ unknown
 .. index::
     single: unknown_ (tag)
     single: tag; unknown_
+    single: unknown_ (meta)
+    single: meta; unknown_
 
 Description
 ^^^^^^^^^^^
@@ -24,10 +26,19 @@ Synopsis
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct unknown_;
-  } }
+    namespace tag
+    {
+      struct unknown_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct unknown_;
+    }
+  }
 
 .. seealso::
 
