@@ -13,9 +13,9 @@
 #include <nt2/sdk/simd/details/native/meta/primitive_of.hpp>
 
 #include <nt2/sdk/simd/details/native/meta/scalar_of.hpp>
-#include <nt2/sdk/simd/details/native/meta/behave_as.hpp>
-#include <nt2/sdk/simd/details/native/meta/is_scalar.hpp>
 #include <nt2/sdk/simd/details/native/meta/cardinal_of.hpp>
+
+#include <nt2/sdk/simd/details/native/meta/is_scalar.hpp>
 #include <nt2/sdk/simd/details/native/meta/downgrade.hpp>
 #include <nt2/sdk/simd/details/native/meta/upgrade.hpp>
 
