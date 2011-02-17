@@ -9,53 +9,28 @@
 #ifndef NT2_SDK_META_AS_REAL_HPP_INCLUDED
 #define NT2_SDK_META_AS_REAL_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Returns the input type rebound with the floating-point type with the same size
+// and sign as its primitive type.
+// See: http://nt2.metascale.org/sdk/meta/traits/as_real.html
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/make_real.hpp>
 #include <nt2/sdk/meta/factory_of.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/meta/is_fundamental.hpp>
-#include <nt2/sdk/meta/is_unspecified.hpp>
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Turn any type into its integral equivalent
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct as_real;
-} }
-
-namespace nt2 { namespace details
-{
-  template<class T, class Enable = void>
-  struct  as_real
-        : boost::mpl::apply < typename meta::factory_of<T>::type
-                            , typename meta::
-                              as_real< typename meta::primitive_of<T>::type >::type
-                            >
-  {};
-
-  template<class T>
-  struct  as_real < T
-                  , typename boost::enable_if < typename meta::
-                                                is_fundamental<T>::type
-                                              >::type
-                  >
-       : meta::make_real<sizeof(T)> {};
-} }
-
-namespace nt2 { namespace meta
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Turn any type into its integral equivalent
-  //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  as_real
-        : details::as_real < typename meta::strip<T>::type >
+        : meta::make_real< sizeof(typename meta::primitive_of<typename meta::strip<T>::type>::type)
+                         , typename meta::factory_of<typename meta::strip<T>::type>::type
+                         >
   {
-    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
-                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_AS_REAL
-                      , "An unhierarchized type is used in nt2::meta::as_real."
+    NT2_STATIC_ASSERT ( (is_fundamental<typename meta::primitive_of<typename meta::strip<T>::type>::type>::value)
+                      , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_REAL
+                      , "A type with a non-fundamental primitive is used in nt2::meta::as_real."
                       );
   };
 } }

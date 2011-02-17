@@ -26,7 +26,7 @@ Template Parameters
 
 Model
 ^^^^^
-`Metafunction <http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html>`_
+|metafunction|_
 
 Header File
 ^^^^^^^^^^^

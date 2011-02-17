@@ -10,6 +10,7 @@
 #define NT2_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
 #include <boost/proto/core.hpp>
+#include <nt2/sdk/simd/pack/meta.hpp>
 
 namespace nt2 { namespace simd
 {

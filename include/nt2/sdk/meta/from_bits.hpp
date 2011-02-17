@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 #define NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Take a bit pattern and turn it into a value
+// See: http://nt2.metascale.org/sdk/meta/traits/from_bits.html
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
@@ -31,9 +35,6 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Take a bit pattern and turn it into a value
-  //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign = unsigned>
   struct  from_bits
         : details::from_bits< typename strip<T>::type

@@ -1,15 +1,17 @@
-.. _tag_unknown:
+.. _tag_unknown_:
 
 unknown
 =======
 
 .. index::
-    single: unknown (tag)
-    single: tag; unknown
+    single: unknown_ (tag)
+    single: tag; unknown_
+    single: unknown_ (meta)
+    single: meta; unknown_
 
 Description
 ^^^^^^^^^^^
-Tag type for discriminating unregistered types in |nt2| function calls overload
+Tag type for discriminating unregistered types in |nt2| hierarchical overload
 resolution.
 
 Header File
@@ -17,14 +19,27 @@ Header File
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/meta/unknown.hpp>
+  #include <nt2/sdk/meta/hierarchy.hpp>
 
 Synopsis
 ^^^^^^^^
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace tag
+  namespace nt2
   {
-    struct unknown;
-  } }
+    namespace tag
+    {
+      struct unknown_;
+    }
+    
+    namespace meta
+    {
+      template<typename T>
+      struct unknown_;
+    }
+  }
+
+.. seealso::
+
+  :ref:`sdk_tags`
