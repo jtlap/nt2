@@ -18,6 +18,11 @@
 #include <nt2/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4996) // std::copy may be unsafe
+#endif
+
 namespace nt2 { namespace memory
 {
   template<class Type,class Allocator = nt2::memory::allocator<Type> >
@@ -153,5 +158,9 @@ namespace nt2 { namespace memory
     a.swap(b);
   }
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif
