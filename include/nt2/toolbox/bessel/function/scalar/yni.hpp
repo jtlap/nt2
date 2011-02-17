@@ -17,6 +17,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/cospi.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
 
@@ -63,8 +64,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::result_of<meta::floating(A0,A1)>{};
+    struct result<This(A0,A1)> : meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -89,26 +89,21 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      boost::result_of<meta::floating(A0,A1)>{};
+    struct result<This(A0,A1)> : meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef A1 result_type;
-      if (isltz(a1)) return Nan<result_type>();
+      typedef float result_type;
+      if (is_ltz(a1)) return Nan<result_type>();
       result_type x = a1;
       const int32_t n1 = abs(a0);
       result_type sign = a0<0?nt2::cospi(n1):1;
-      if( n1 == 0 )
-      return( sign * y0(x) );
-      if( n1 == 1 )
-      return( sign * y1(x) );
-      if( n1 == 2 )
-      return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
+      if( n1 == 0 ) return( sign * y0(x) );
+      if( n1 == 1 ) return( sign * y1(x) );
+      //      if( n1 == 2 ) return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
       result_type an1 = n1;
-      result_type res1 = an1*log(an1/x);
-      if ((x < 1.0) || (n1 > 29))
-      return  res1;
+//       result_type res1 = an1*log(an1/x);
+//       if ((x < 1.0) || (n1 > 29)) return  res1;
       /* forward recurrence on n */
 
       result_type anm2 = y0(x);

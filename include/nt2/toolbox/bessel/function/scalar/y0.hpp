@@ -69,7 +69,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-        return ::y0(a0);
+      if (a0 < 0) return Nan<A0>();
+      if (!a0) return Minf<A0>(); 
+      return ::y0(a0);
     }
   };
 } }
@@ -96,6 +98,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type stype;
+      if (!a0) return Minf<A0>();
       if (a0 < 0) return Nan<A0>();
       if (a0 <= Two<A0>())
       {
