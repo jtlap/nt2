@@ -9,6 +9,11 @@
 #ifndef NT2_SDK_META_MAKE_INTEGER_HPP_INCLUDED
 #define NT2_SDK_META_MAKE_INTEGER_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Build a standard integer type from a sign and a size in bytes
+// As all make_xxx, also provides an optional lambda to apply to the result.
+// See: http://nt2.metascale.org/sdk/meta/traits/make_integer.html
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/integer.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/mpl/apply.hpp>
@@ -16,10 +21,6 @@
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a standard integer type from a sign and a size in bytes
-  // As all make_xxx, also provides a optional lambda to apply to the result.
-  //////////////////////////////////////////////////////////////////////////////
   template< std::size_t Size
           , class Sign      = unsigned
           , class Transform = na_

@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_AS_BITS_HPP_INCLUDED
 #define NT2_SDK_META_AS_BITS_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Take a value and provide access to its bits
+// See: http://nt2.metascale.org/sdk/meta/traits/as_bits.html
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
@@ -27,9 +31,6 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Take a value and provide access to its bits
-  //////////////////////////////////////////////////////////////////////////////
   template<class T, class Sign = unsigned>
   struct  as_bits
         : details::as_bits< typename meta::strip<T>::type

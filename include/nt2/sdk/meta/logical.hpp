@@ -8,15 +8,16 @@
  ******************************************************************************/
 #ifndef NT2_SDK_META_LOGICAL_HPP_INCLUDED
 #define NT2_SDK_META_LOGICAL_HPP_INCLUDED
+
+//////////////////////////////////////////////////////////////////////////////
+// logical<T>::type is bool if T is anything but SIMD type in which case it is the SIMD type itself
+// The rationale is to provide an easy way to write common code for SIMD and scalar in various
+// situations of selection or test.
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/is_scalar.hpp>
-
-
 
 namespace nt2
 {
-  // logical<T>::type is bool if T is anything but SIMD type in which case it is the SIMD type itself
-  // The rationale is to provide an easy way to write common code for SIMD and scalar in various
-  // situations of selection or test.
   namespace details
   {
     template<class T,class C> struct logical_impl  { typedef T type; };
@@ -33,7 +34,3 @@ namespace nt2
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of logical.hpp
-// /////////////////////////////////////////////////////////////////////////////

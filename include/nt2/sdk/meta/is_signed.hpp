@@ -9,6 +9,10 @@
 #ifndef NT2_SDK_META_IS_SIGNED_HPP_INCLUDED
 #define NT2_SDK_META_IS_SIGNED_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Return false or true depending on whether the primitive of T is signed or not
+// See: http://nt2.metascale.org/sdk/meta/traits/is_signed.html
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/not.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
@@ -16,9 +20,6 @@
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Return true or false depending on T is signed or not
-  //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  is_signed
         : boost::is_base_of < meta::signed_<typename meta::primitive_of<T>::type>
@@ -27,9 +28,6 @@ namespace nt2 { namespace meta
                             >
   {};
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Return false or true depending on T is signed or not
-  //////////////////////////////////////////////////////////////////////////////
   template<class T> struct is_unsigned : boost::mpl::not_< is_signed<T> >
   {};
 } }

@@ -9,14 +9,16 @@
 #ifndef NT2_SDK_META_AS_SIGNED_HPP_INCLUDED
 #define NT2_SDK_META_AS_SIGNED_HPP_INCLUDED
 
+//////////////////////////////////////////////////////////////////////////////
+// Returns the input type rebound with the equivalent signed type of its primitive type.
+// See: http://nt2.metascale.org/sdk/meta/traits/as_signed.html
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <nt2/sdk/meta/factory_of.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/meta/is_fundamental.hpp>
-#include <nt2/sdk/meta/is_unspecified.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/make_signed.hpp>
 
@@ -56,16 +58,13 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Turn any type into its integral equivalent
-  //////////////////////////////////////////////////////////////////////////////
   template<class T>
   struct  as_signed
         : details::as_signed < typename meta::strip<T>::type >
   {
-    NT2_STATIC_ASSERT ( (!is_unspecified<T>::value)
-                      , NT2_UNHIERARCHIZED_TYPE_USED_IN_META_AS_SIGNED
-                      , "An unhierarchized type is used in nt2::meta::as_signed."
+    NT2_STATIC_ASSERT ( (is_fundamental<typename meta::primitive_of<typename meta::strip<T>::type>::type>::value)
+                      , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_SIGNED
+                      , "A type with a non-fundamental primitive is used in nt2::meta::as_signed."
                       );
   };
 } }

@@ -9,15 +9,16 @@
 #ifndef NT2_SDK_META_MAKE_REAL_HPP_INCLUDED
 #define NT2_SDK_META_MAKE_REAL_HPP_INCLUDED
 
+////////////////////////////////////////////////////////////////////////////////
+// Meta-function that creates a standard real type from a size in bytes.
+// As all make_xxx, also provides an optional lambda to apply to the result.
+// See: http://nt2.metascale.org/sdk/meta/traits/make_real.html
+////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/apply.hpp>
 #include <nt2/sdk/meta/na.hpp>
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a standard real type from a size in bytes
-  // As all make_xxx, also provides a optional lambda to apply to the result.
-  //////////////////////////////////////////////////////////////////////////////
   template<std::size_t Size, class Transform = na_>
   struct  make_real;
 
