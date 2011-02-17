@@ -49,12 +49,13 @@
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
               BOOST_CURRENT_FUNCTION,    \
               A, B, N);       \
+    ulpd = nt2::ulpdist(A, B);          \
       if (!b)                \
   {                \
     std::cout << "   because " << #A << " = " << A    \
         << " and " << #B << " = " << B <<  std::endl;  \
     std::cout << "   and ulp distance is "      \
-        << nt2::ulpdist(A, B) << std::endl;      \
+        << ulpd << std::endl;      \
   }                \
   }                  \
 /**/
