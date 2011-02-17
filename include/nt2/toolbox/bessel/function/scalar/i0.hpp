@@ -125,6 +125,7 @@ namespace nt2 { namespace ext
         8.04490411014108831608E-1
       }};
       A0 x =  abs(a0);
+      if (is_inf(x)) return x; 
       if( x <= 8.0 )
       {
         A0 y = x*Half<A0>() - Two<A0>();
@@ -201,6 +202,7 @@ namespace nt2 { namespace ext
          8.04490411014108831608E-1f
        };
       A0 x =  abs(a0);
+      if (is_inf(x)) return x; 
       if( x <= 8.0f )
       {
         A0 y = x*Half<A0>() - Two<A0>();

@@ -69,7 +69,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return ::j1(a0);
+      if (is_ltz(a0)||is_invalid(a0)) return Nan<A0>(); 
+      return ::y1(a0);
     }
   };
 } }
@@ -78,7 +79,7 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::y1_, tag::cpu_,
-                    (A0),
+		      (A0),
                     (float_<A0>)
                    )
 
@@ -95,48 +96,50 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type stype;
-      if (is_ltz(a0)) return Nan<float>();
-      if (is_eqz(a0)) return Minf<float>();
-      A0 x = nt2::abs(a0);
-      if (lt(x,Two<A0>()))
-        {
-          A0 z = sqr(x);
-          return (z-single_constant<float,0x416ae95a> ())*x*
-            horner< NT2_HORNER_COEFF_T(stype, 5,
-                               (0xb1a7a246,
-                              0x35214df5,
-                              0xb83e7a4f,
-                              0x3afdefd1,
-                              0xbd0b7da6
-                              ) ) > (z);
-         }
-      A0 q = rec(x);
-      A0 w = sqrt(q);
-      A0 p3 = w *
-        horner< NT2_HORNER_COEFF_T(stype, 8,
-                           (0x3d8d98f9,
-                            0xbe69f6b3,
-                            0x3ea0ad85,
-                            0xbe574699,
-                            0x3bb21b25,
-                            0x3e18ec50,
-                            0x36a6f7c5,
-                            0x3f4c4229
-                            ) ) > (q);
-          w = sqr(q);
-          A0 xn =  q*
-          horner< NT2_HORNER_COEFF_T(stype, 8,
-                         (0xc233e16d,
-                        0x424af04a,
-                        0xc1c6dca7,
-                        0x40e72299,
-                        0xbfc5bd69,
-                        0x3eb364d9,
-                        0xbe27bad7,
-                        0x3ebfffdd
-                        ) ) > (w)-single_constant<float,0x4016cbe4 > ();
-          return p3*nt2::cos(xn+x);
+      if (is_ltz(a0)||is_invalid(a0)) return Nan<A0>(); 
+      return ::y1f(a0); 
+//       typedef typename meta::scalar_of<A0>::type stype;
+//       if (is_ltz(a0)) return Nan<float>();
+//       if (is_eqz(a0)) return Minf<float>();
+//       A0 x = nt2::abs(a0);
+//       if (lt(x,Two<A0>()))
+//         {
+//           A0 z = sqr(x);
+//           return (z-single_constant<float,0x416ae95a> ())*x*
+//             horner< NT2_HORNER_COEFF_T(stype, 5,
+//                                (0xb1a7a246,
+//                               0x35214df5,
+//                               0xb83e7a4f,
+//                               0x3afdefd1,
+//                               0xbd0b7da6
+//                               ) ) > (z);
+//          }
+//       A0 q = rec(x);
+//       A0 w = sqrt(q);
+//       A0 p3 = w *
+//         horner< NT2_HORNER_COEFF_T(stype, 8,
+//                            (0x3d8d98f9,
+//                             0xbe69f6b3,
+//                             0x3ea0ad85,
+//                             0xbe574699,
+//                             0x3bb21b25,
+//                             0x3e18ec50,
+//                             0x36a6f7c5,
+//                             0x3f4c4229
+//                             ) ) > (q);
+//           w = sqr(q);
+//           A0 xn =  q*
+//           horner< NT2_HORNER_COEFF_T(stype, 8,
+//                          (0xc233e16d,
+//                         0x424af04a,
+//                         0xc1c6dca7,
+//                         0x40e72299,
+//                         0xbfc5bd69,
+//                         0x3eb364d9,
+//                         0xbe27bad7,
+//                         0x3ebfffdd
+//                         ) ) > (w)-single_constant<float,0x4016cbe4 > ();
+//           return p3*nt2::cos(xn+x);
     }
   };
 } }
