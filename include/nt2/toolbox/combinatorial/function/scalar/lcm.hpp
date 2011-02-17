@@ -14,6 +14,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/gcd.hpp>
 #include <nt2/include/functions/trunc.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,6 +64,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      typedef typename NT2_RETURN_TYPE(2)::type type; 
+      if (is_invalid(a0+a1)) return Nan<type>(); 
       return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
     }
   };

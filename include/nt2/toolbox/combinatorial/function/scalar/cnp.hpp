@@ -40,6 +40,7 @@ namespace nt2 { namespace ext
     {
       typedef typename boost::result_of<meta::floating(A0, A1)>::type type;
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
+      if (is_inf(a1)) return (rtype)Nan<type>(); 
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (a0 < a1) return (rtype) Zero<type>();
       if (eq(a0,a1)) return (rtype)One<type>(); 
