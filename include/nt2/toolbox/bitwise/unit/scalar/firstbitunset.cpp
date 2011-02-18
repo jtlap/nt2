@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 18/02/2011
+/// modified by jt the 18/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -40,11 +40,11 @@ NT2_TEST_CASE_TPL ( firstbitunset_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Inf<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Minf<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Nan<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Signmask<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_EQUAL(firstbitunset(nt2::Inf<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Minf<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Nan<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Signmask<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Zero<T>()), nt2::One<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -64,9 +64,9 @@ NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::One<T>()), nt2::Two<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Signmask<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_EQUAL(firstbitunset(nt2::One<T>()), nt2::Two<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Signmask<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Zero<T>()), nt2::One<r_t>());
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( firstbitunset_unsigned_int__1,  NT2_UNSIGNED_TYPES)
@@ -86,6 +86,6 @@ NT2_TEST_CASE_TPL ( firstbitunset_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::One<T>()), nt2::Two<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  firstbitunset(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_EQUAL(firstbitunset(nt2::One<T>()), nt2::Two<r_t>());
+  NT2_TEST_EQUAL(firstbitunset(nt2::Zero<T>()), nt2::One<r_t>());
 } // end of test for unsigned_int_

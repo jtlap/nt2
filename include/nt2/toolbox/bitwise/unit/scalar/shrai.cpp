@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 18/02/2011
+/// modified by jt the 18/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -43,11 +43,11 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Mone<T>(),(sizeof(T)*8-1)), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Mone<T>(),(sizeof(T)*8-2)), nt2::Three<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::One<T>(),1), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Two<T>(),1), nt2::One<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Zero<T>(),1), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(shrai(nt2::Mone<T>(),(sizeof(T)*8-1)), nt2::One<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<T>(),(sizeof(T)*8-2)), nt2::Three<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::One<T>(),1), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Two<T>(),1), nt2::One<T>());
+  NT2_TEST_EQUAL(shrai(nt2::Zero<T>(),1), nt2::Zero<r_t>());
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::shrai(a0,a1),a0/nt2::twopower(a1),0);
+        NT2_TEST_EQUAL( nt2::shrai(a0,a1),a0/nt2::twopower(a1));
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -86,12 +86,12 @@ NT2_TEST_CASE_TPL ( shrai_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  shrai(-nt2::Four<T>(),1), -nt2::Two<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(-nt2::Three<T>(),1), -nt2::Two<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(-nt2::Two<T>(),1), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Mone<T>(),(sizeof(T)*8-1)), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Mone<T>(),(sizeof(T)*8-2)), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::One<T>(),1), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Two<T>(),1), nt2::One<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  shrai(nt2::Zero<T>(),1), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(shrai(-nt2::Four<T>(),1), -nt2::Two<r_t>());
+  NT2_TEST_EQUAL(shrai(-nt2::Three<T>(),1), -nt2::Two<r_t>());
+  NT2_TEST_EQUAL(shrai(-nt2::Two<T>(),1), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<T>(),(sizeof(T)*8-1)), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<T>(),(sizeof(T)*8-2)), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::One<T>(),1), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Two<T>(),1), nt2::One<T>());
+  NT2_TEST_EQUAL(shrai(nt2::Zero<T>(),1), nt2::Zero<r_t>());
 } // end of test for signed_int_
