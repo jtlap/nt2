@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::arithmetic(T)>::type',
             },
-         'simd_types' : ['real_', 'integer_'],
+         'simd_types' : ['real_', 'signed_int_'],
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },
@@ -21,7 +21,7 @@
              'stamp' : 'modified by jt the 18/02/2011',
             },
          'ranges' : {
-             'default' : [['T(-10000)', 'T(10000)'], ['T(-10000)', 'T(10000)']],
+             'default' : [['T(0)', 'T(1)'], ['T(-10000)', 'T(10000)']],
             },
          'specific_values' : {
              'default' : {
@@ -48,7 +48,7 @@
                  'integer_' : ['nt2::negif(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0?-a1:a1'],
+                 'integer_' : ['a0?-r_t(a1):r_t(a1))'],
                 },
              'simd' : {
                 },

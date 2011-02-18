@@ -11,15 +11,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 18/02/2011
+/// modified by jt the 18/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
@@ -39,6 +39,8 @@ NT2_TEST_CASE_TPL ( firstbitset_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<firstbitset_(vT)>::type r_t;
+  typedef typename nt2::meta::call<firstbitset_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -52,10 +54,9 @@ NT2_TEST_CASE_TPL ( firstbitset_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],nt2::firstbitset(tab_a0[k]),1.5);
-          ulp0 = nt2::max(ulpd,ulp0);
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::firstbitset(tab_a0[k])));
         }
       }
-    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+    
   }
 } // end of test for real_convert_
