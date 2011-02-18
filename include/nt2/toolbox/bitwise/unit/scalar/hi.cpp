@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 18/02/2011
+/// modified by jt the 18/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -43,8 +43,8 @@ NT2_TEST_CASE_TPL ( hi_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  hi(nt2::Nan<T>()), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(hi(nt2::Nan<T>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( hi_int64__1,  (int64_t)(uint64_t))
@@ -65,8 +65,8 @@ NT2_TEST_CASE_TPL ( hi_int64__1,  (int64_t)(uint64_t))
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  hi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(hi(nt2::One<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int64_
 
 NT2_TEST_CASE_TPL ( hi_int32__1,  (int32_t)(uint32_t))
@@ -87,8 +87,8 @@ NT2_TEST_CASE_TPL ( hi_int32__1,  (int32_t)(uint32_t))
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  hi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(hi(nt2::One<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int32_
 
 NT2_TEST_CASE_TPL ( hi_int16__1,  (int16_t)(uint16_t))
@@ -109,6 +109,6 @@ NT2_TEST_CASE_TPL ( hi_int16__1,  (int16_t)(uint16_t))
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  hi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  hi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(hi(nt2::One<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int16_

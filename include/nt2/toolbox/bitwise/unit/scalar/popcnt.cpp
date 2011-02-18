@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 18/02/2011
+/// modified by jt the 18/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -40,8 +40,8 @@ NT2_TEST_CASE_TPL ( popcnt_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Nan<T>()), sizeof(T)*8, 0.5);
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(popcnt(nt2::Nan<T>()), sizeof(T)*8);
+  NT2_TEST_EQUAL(popcnt(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( popcnt_integer__1,  NT2_INTEGRAL_TYPES)
@@ -61,9 +61,9 @@ NT2_TEST_CASE_TPL ( popcnt_integer__1,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Mone<T>()), sizeof(T)*8, 0.5);
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::One<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Three<T>()), nt2::Two<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Two<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  popcnt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(popcnt(nt2::Mone<T>()), sizeof(T)*8);
+  NT2_TEST_EQUAL(popcnt(nt2::One<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(popcnt(nt2::Three<T>()), nt2::Two<r_t>());
+  NT2_TEST_EQUAL(popcnt(nt2::Two<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(popcnt(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_

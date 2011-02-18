@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 18/02/2011
+/// modified by jt the 18/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( reversebits_integer__1,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  reversebits(nt2::Mone<T>()), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  reversebits(nt2::One<T>()), nt2::One<r_t>()<<(sizeof(r_t)*8-1), 0.5);
-  NT2_TEST_ULP_EQUAL(  reversebits(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_EQUAL(reversebits(nt2::Mone<T>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(reversebits(nt2::One<T>()), r_t(nt2::One<r_t>()<<(sizeof(r_t)*8-1)));
+  NT2_TEST_EQUAL(reversebits(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_
