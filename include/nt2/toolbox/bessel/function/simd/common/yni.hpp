@@ -9,9 +9,7 @@
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_YNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_YNI_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -20,7 +18,6 @@
 #include <nt2/include/functions/y0.hpp>
 #include <nt2/include/functions/y1.hpp>
 #include <nt2/include/functions/cospi.hpp>
-
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 
@@ -72,11 +69,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+    struct result<This(A0,A1)> :  meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A1 r(yni(a0, a1[0]),yni(a0, a1[1])) ;
+      const A1 r = {yni(a0, a1[0]),yni(a0, a1[1])} ;
       return r;
     }
   };
@@ -100,25 +97,18 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+    struct result<This(A0,A1)> :  meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
       typedef A1 result_type;
       result_type x = a1;
-      const int32_t n1 = abs(a0);
-      result_type sign = splat<result_type>(a0<0?cospi(n1):1);
-      if( n1 == 0 )
-        return( sign * y0(x) );
-      if( n1 == 1 )
-        return( sign * y1(x) );
-      if( n1 == 2 )
-        return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
+      const int32_t n1 = nt2::abs(a0);
+      result_type sign = splat<result_type>((a0<0)?cospi(n1):1);
+      if( n1 == 0 ) return( sign * y0(x) );
+      if( n1 == 1 ) return( sign * y1(x) );
       result_type an1 = splat<result_type>(n1);
-      result_type res1 = an1*log(an1/x);
-      if (n1 > 29)
-        return  res1;
-        /* forward recurrence on n */
+      /* forward recurrence on n */
 
       result_type anm2 = y0(x);
       result_type anm1 = y1(x);
@@ -135,7 +125,7 @@ namespace nt2 { namespace ext
           ++k;
         }
       while( k < n1 );
-      return b_or(isltz(a1), select(islt(a1,One<result_type>()),res1,sign*an));
+      return b_or(is_ltz(a1),sign*an);
     }
   };
 } }

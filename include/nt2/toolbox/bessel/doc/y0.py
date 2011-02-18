@@ -9,6 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_'],
+         'simd_types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -29,16 +30,16 @@
             },
          'verif_test' : {
              'nb_rand' : {
-                 'default' : 'NT2_NB_RANDOM_TEST',
+                 'real_' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['nt2::y0(a0)'],
+                 'real_' : ['nt2::y0(a0)'],
                 },
              'property_value' : {
-                 'default' : ['cephes_y0l(a0)'],
+                 'real_' : ['cephes_y0l(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['100'],
+                 'real_' : ['0.5'],
                 },
             },
         },

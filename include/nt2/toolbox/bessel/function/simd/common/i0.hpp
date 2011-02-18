@@ -128,20 +128,21 @@ namespace nt2 { namespace ext
           3.36911647825569408990E-3,
           8.04490411014108831608E-1
         }};
-      A0 x =  abs(a0);
+      A0 x =  nt2::abs(a0);
       A0 r = Nan<A0>();
       int32_t nb = 0;
-      A0 test = le(x,  splat<A0>(8.0f));
+      A0 test = le(x,  Eight<A0>());
       if( (nb = nbtrue(test)) > 0)
       {
         A0 y = x*Half<A0>() - Two<A0>();
-        r = b_or(exp(x) * tchebeval( y, A), test);
+        r = b_ornot(exp(x) * tchebeval( y, A), test);
       }
       if (nb >= meta::cardinal_of<A0>::value)
       {
         return r;
       }
-      r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
+      r &= b_or(exp(x) * tchebeval( splat<A0>(32.0)/x - Two<A0>(), B) / sqrt(x), test);
+      r =  seladd(is_inf(x), r, x); 
       return r;
     }
   };
@@ -214,7 +215,7 @@ namespace nt2 { namespace ext
       A0 x =  abs(a0);
       A0 r = Nan<A0>();
       int32_t nb = 0;
-      A0 test = le(x,  splat<A0>(8.0f));
+      A0 test = le(x, Eight<A0>());
       if( (nb = nbtrue(test)) > 0)
       {
         A0 y = x*Half<A0>() - Two<A0>();
@@ -225,6 +226,7 @@ namespace nt2 { namespace ext
         return r;
       }
       r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
+      r =  seladd(is_inf(x), r, x); 
       return r;
     }
   };

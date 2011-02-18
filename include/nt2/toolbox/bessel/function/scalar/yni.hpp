@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_YNI_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/real.hpp>
-
+#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -18,7 +18,8 @@
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/include/functions/y0.hpp>
+#include <nt2/include/functions/y1.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -93,21 +94,18 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef float result_type;
+      typedef A1 result_type;
       if (is_ltz(a1)) return Nan<result_type>();
       result_type x = a1;
-      const int32_t n1 = abs(a0);
-      result_type sign = a0<0?nt2::cospi(n1):1;
-      if( n1 == 0 ) return( sign * y0(x) );
-      if( n1 == 1 ) return( sign * y1(x) );
-      //      if( n1 == 2 ) return mul(sign, (mul(Two<result_type>(), j1(x) / x)  -  j0(x)) );
+      const int32_t n1 = nt2::abs(a0);
+      result_type sign = (a0<0)?nt2::cospi(n1):1;
+      if( n1 == 0 ) return( sign * nt2::y0(x) );
+      if( n1 == 1 ) return( sign * nt2::y1(x) );
       result_type an1 = n1;
-//       result_type res1 = an1*log(an1/x);
-//       if ((x < 1.0) || (n1 > 29)) return  res1;
       /* forward recurrence on n */
 
-      result_type anm2 = y0(x);
-      result_type anm1 = y1(x);
+      result_type anm2 = nt2::y0(x);
+      result_type anm1 = nt2::y1(x);
       int32_t k = 1;
       result_type r = k << 1;
       result_type xinv = rec(x);
