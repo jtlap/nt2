@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
         r = r-Two<type>();
       }
       while( --k > 0 );
-      return sign*sel(isgt(abs(pk), abs(pkm1)),j1(x)/pk, j0(x)/pkm1);
+      return sign*sel(is_greater(nt2::abs(pk), nt2::abs(pkm1)),j1(x)/pk, j0(x)/pkm1);
     }
   };
 } }

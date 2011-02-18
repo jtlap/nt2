@@ -102,6 +102,51 @@ namespace nt2 { namespace ext
       // as branch1 is quick there is no need for an "else if" case
       // computing only branch2,  this probably due to the double pipeline
     }
+    private:
+
+    template < class A0 > static inline A0 branch1(const A0 & x)
+    {
+      typedef typename meta::scalar_of<A0>::type stype; 
+      const A0 z = sqr(x);
+      return (z-single_constant<A0,0x416ae95a> ())*x*
+	horner< NT2_HORNER_COEFF_T(stype, 5,
+				 (0xb1a7a246,
+				 0x35214df5,
+				 0xb83e7a4f,
+				 0x3afdefd1,
+				 0xbd0b7da6
+				  ) ) > (z);
+    }
+    template < class A0 > static inline A0 branch2(const A0 & x)
+    {
+      typedef typename meta::scalar_of<A0>::type stype; 
+      A0 q = rec(x);
+      A0 w = sqrt(q);
+      A0 p3 = w *
+	horner< NT2_HORNER_COEFF_T(stype, 8,
+				 (0x3d8d98f9,
+				  0xbe69f6b3,
+				  0x3ea0ad85,
+				  0xbe574699,
+				  0x3bb21b25,
+				  0x3e18ec50,
+				  0x36a6f7c5,
+				  0x3f4c4229
+				  ) ) > (q);
+      w = sqr(q);
+      A0 xn =  q*
+      horner< NT2_HORNER_COEFF_T(stype, 8,
+			       (0xc233e16d,
+				0x424af04a,
+				0xc1c6dca7,
+				0x40e72299,
+				0xbfc5bd69,
+				0x3eb364d9,
+				0xbe27bad7,
+				0x3ebfffdd
+				) ) > (w)-single_constant<A0,0x4016cbe4 > ();
+      return p3*cos(xn+x);
+    }
   };
 } }
 
