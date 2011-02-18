@@ -21,15 +21,15 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
                         (A0)(X),
-                        ((simd_<arithmetic_<A0>,X>))
-                        ((simd_<arithmetic_<A0>,X>))
+                        ((simd_<signed_<A0>,X>))
+                        ((simd_<signed_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::negif_(tag::simd_<tag::arithmetic_, X> ,
-                          tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::negif_(tag::simd_<tag::signed_, X> ,
+                          tag::simd_<tag::signed_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

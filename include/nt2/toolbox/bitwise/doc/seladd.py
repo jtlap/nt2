@@ -55,7 +55,7 @@
                  'integer_' : ['nt2::seladd(a0,a1,a2)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0?a1+a2:a1'],
+                 'integer_' : ['r_t(a0?a1+a2:a1)'],
                 },
              'simd' : {
                 },

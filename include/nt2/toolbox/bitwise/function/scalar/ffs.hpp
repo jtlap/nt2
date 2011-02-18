@@ -58,9 +58,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      std::cout << "icitte" << std::endl; 
       if(!t1.bits) return 0; 
-      std::cout << t1.bits <<  "   " << (uint64_t(-1) >> 32) << std::endl; 
       if (b_and(t1.bits, (uint64_t(-1) >> 32)))
 	return ::ffs(t1.bits);
       return 32+::ffs(t1.bits >> 32);
