@@ -78,8 +78,8 @@ namespace nt2 { namespace ext
       A1 x = a1;
       const int32_t n =  a0;
       if( n < 0 ||  x < 0)      return Nan<A1>();
-      if( x > Maxlog<A1>() )  return Zero<A1>();
-      if( is_eqz(x) )            return (n < 2) ? Inf<A1>() : rec(n-One<A1>());
+      if( x > Maxlog<A1>() )    return Zero<A1>();
+      if( is_eqz(x) )           return (n < 2) ? Inf<A1>() : rec(n-One<A1>());
       if( n == 0 )              return exp(-x)/x;
       /* Expansion for large n */
       if( n > 5000 )
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
         /*        Power series expansion        */
         A1 psi = -Euler<A1>() - nt2::log(x);
         for( int32_t i=n-1; i; --i )  psi += rec((A1)i);
-          A1 t;
+	A1 t;
         A1 z = -x;
         A1 xk = Zero<A1>();
         A1 yk = One<A1>();

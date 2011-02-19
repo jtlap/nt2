@@ -18,6 +18,7 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/negif.hpp>
 
 
 
@@ -67,17 +68,21 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)> :  meta::as_real<A0>{};
+    struct result<This(A0,A0)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return seladd(is_nez(a0),
-                Zero<A0>(),
-                sel(is_eqz(a1),
-                  One<A0>(),
-                  exp(a1*log(a0))
-                  )
-                );
+      A0 res = exp(a1*log(nt2::abs(a0)));
+      A0 isltza0 = is_ltz(a0); 
+      return b_or( b_andnot(isltza0, is_flint(a1)),
+		   seladd(is_nez(a0),
+			  Zero<A0>(),
+			  sel(is_eqz(a1),
+			      One<A0>(),
+			      negif(b_and(is_odd(a1), isltza0),res)
+			      )
+			  )
+		   );
     }
   };
 } }
