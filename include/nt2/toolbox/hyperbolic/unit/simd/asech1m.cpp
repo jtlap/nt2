@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of hyperbolic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 20/02/2011
+/// modified by jt the 20/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -24,10 +24,6 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/toolbox/hyperbolic/include/asech1m.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/hyperbolic/include/asech.hpp>
-#include <nt2/include/functions/rec.hpp>
 
 NT2_TEST_CASE_TPL ( asech1m_real__1,  NT2_REAL_TYPES)
 {
@@ -36,33 +32,32 @@ NT2_TEST_CASE_TPL ( asech1m_real__1,  NT2_REAL_TYPES)
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::call<asech1m_(T)>::type call_type;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_real<T>::type r_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>               n_t;
-  typedef native<r_t,ext_t>            rn_t;
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same< call_type, rn_t >::value) );
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<asech1m_(vT)>::type r_t;
+  typedef typename nt2::meta::call<asech1m_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
-  static const uint32_t NR = 10000;
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(0), T(0.9));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(1));
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
-        n_t a0 = load<n_t>(&tab_a0[0],j);
-        rn_t v = asech1m(a0);
+        vT a0 = load<n_t>(&tab_a0[0],j);
+        r_t v = asech1m(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],nt2::asech1m(tab_a0[k]),1.0);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::asech1m(tab_a0[k])), 40.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
-    std::cout << "max ulp found is" << ulp0 << std::endl; 
+    std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
 } // end of test for real_
-
