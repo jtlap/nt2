@@ -20,9 +20,7 @@
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
-#define NT2_NB_RANDOM_TEST 128
-//1024
+#include <nt2/sdk/unit/nb_rand_tests.hpp>
 
 #define NT2_TEST_ULP_EQUAL(A,B,N)          \
   {                  \
@@ -73,11 +71,20 @@
 #define NT2_SHOW_ARG1(ARG)        \
   std::cout << "   for a0 = " << ARG << std::endl;  \
 /**/
-#define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)    \
+
+#define NT2_CREATE_BUF(NAME, TYPE, SIZE, MIN, MAX)	\
+  nt2::memory::buffer<TYPE,				\
+		      nt2::memory::allocator<TYPE> >    \
+		      NAME(0, SIZE);			\
+  for(int k = 0; k < SIZE; ++k){			\
+    NAME[k] = nt2::random(MIN, MAX);			\
+  }							\
+  /**/
+
+#define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
   nt2::memory::buffer<TYPE,        \
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
-  TYPE NAME;              \
   for(int k = 0; k < SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
@@ -86,14 +93,14 @@
   nt2::memory::buffer<TYPE,          \
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
-  TYPE NAME;              \
   for(int k = 0; k < SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
 /**/
 #define NT2_CREATE_SIMD_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
-  NT2_ALIGNED_TYPE(T) tab_##NAME[SIZE*cardinal_of<n_t>::value];  \
-  TYPE NAME;              \
+  nt2::memory::buffer<TYPE,          \
+          nt2::memory::allocator<TYPE> >    \
+  tab_##NAME(0, SIZE);            \
   for(int k = 0; k < SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
