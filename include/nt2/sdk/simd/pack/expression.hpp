@@ -9,8 +9,9 @@
 #ifndef NT2_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 
-#include <nt2/sdk/simd/meta/extension_of.hpp>
+#include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/dsl/proto/extends.hpp>
+#include <nt2/sdk/simd/meta/extension_of.hpp>
 
 namespace nt2 { namespace simd
 {
@@ -20,22 +21,53 @@ namespace nt2 { namespace simd
   template<class Expr,class Type,class Cardinal, class Dummy>
   struct expression
   {
+    ////////////////////////////////////////////////////////////////////////////
+    // Make this a proto expression
+    ////////////////////////////////////////////////////////////////////////////
     typedef domain<Type,Cardinal>                 domain_type;
     typedef expression<Expr,Type,Cardinal,Dummy>  self_type;
-/*
-    typedef expr_< domain, tag>                nt2_hierarchy_tag;
-*/
-    typedef Type& reference;
-    typedef Type  const_reference;
 
     BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, self_type, domain_type)
+
+    ////////////////////////////////////////////////////////////////////////////
+    // FusionRandomAccessSequence interface
+    ////////////////////////////////////////////////////////////////////////////
+    typedef data<Type,Cardinal>                     data_type;
+    typedef typename data_type::value_type          value_type;
+    typedef typename data_type::reference           reference;
+    typedef typename data_type::const_reference     const_reference;
+    typedef typename data_type::size_type           size_type;
+    typedef typename data_type::iterator            iterator;
+    typedef typename data_type::const_iterator      const_iterator;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Array interface
+    ////////////////////////////////////////////////////////////////////////////
+    BOOST_STATIC_CONSTANT(size_type, static_size = Cardinal::value);
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Range interface
+    ////////////////////////////////////////////////////////////////////////////
+    const_iterator  begin()  const
+    {
+      data_type that;
+      that.evaluate(*this);
+      return that.begin();
+    }
+
+    const_iterator  end()    const
+    {
+      data_type that;
+      that.evaluate(*this);
+      return that.end();
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // Extract element
     ////////////////////////////////////////////////////////////////////////////
     const_reference operator[](int i)     const
     {
-      data<Type,Cardinal> that;
+      data_type that;
       that.evaluate(*this);
       return that[i];
     }
