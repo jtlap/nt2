@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 14/02/2011
+/// modified by jt the 21/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -43,21 +43,22 @@ NT2_TEST_CASE_TPL ( fast_cos_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  fast_cos(-nt2::Pi<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(-nt2::Pi<T>()/2), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(-nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Pi<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Pi<T>()/2), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  fast_cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(-nt2::Pi<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(-nt2::Pi<T>()/2), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(-nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Pi<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Pi<T>()/2), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Pi<T>()/4), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
+    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
