@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by $author$ the $date$
-/// modified by $author$ the $date$
+/// created  by jt the 21/02/2011
+/// modified by jt the 21/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -42,30 +42,30 @@ NT2_TEST_CASE_TPL ( is_invalid_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  is_invalid(-nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Half<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Inf<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Minf<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Mone<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Nan<T>()), nt2::True<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::One<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Quarter<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Two<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
+  NT2_TEST_EQUAL(is_invalid(-nt2::Zero<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Half<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Inf<T>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Minf<T>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Mone<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Nan<T>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::One<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Quarter<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Two<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Zero<T>()), nt2::False<r_t>());
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_invalid(a0),nt2::False<T>(),0);
-        ulp0=nt2::max(ulpd,ulp0);
+        NT2_TEST_EQUAL( nt2::is_invalid(a0),nt2::False<T>());
      }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
+     
    }
 } // end of test for real_
 
@@ -86,24 +86,24 @@ NT2_TEST_CASE_TPL ( is_invalid_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Mone<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::One<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Two<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
+  NT2_TEST_EQUAL(is_invalid(nt2::Mone<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::One<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Two<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Zero<T>()), nt2::False<r_t>());
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_invalid(a0),nt2::False<T>(),0);
-        ulp0=nt2::max(ulpd,ulp0);
+        NT2_TEST_EQUAL( nt2::is_invalid(a0),nt2::False<T>());
      }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
+     
    }
 } // end of test for signed_int_
 
@@ -124,22 +124,22 @@ NT2_TEST_CASE_TPL ( is_invalid_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::One<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Two<T>()), nt2::False<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(  is_invalid(nt2::Zero<T>()), nt2::False<r_t>(), 0.5);
+  NT2_TEST_EQUAL(is_invalid(nt2::One<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Two<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(is_invalid(nt2::Zero<T>()), nt2::False<r_t>());
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::is_invalid(a0),nt2::False<T>(),0);
-        ulp0=nt2::max(ulpd,ulp0);
+        NT2_TEST_EQUAL( nt2::is_invalid(a0),nt2::False<T>());
      }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
+     
    }
 } // end of test for unsigned_int_
