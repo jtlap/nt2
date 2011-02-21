@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 
@@ -34,7 +35,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-       return a0 ? ::ilogb(a0) : Zero<A0>();
+      if (is_invalid(a0)) return Zero<A0>(); 
+      return a0 ? ::ilogb(a0) : Zero<A0>();
     }
   };
 } }
@@ -59,6 +61,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      if (is_invalid(a0)) return Zero<A0>(); 
       return a0 ? ::ilogbf(a0) : Zero<A0>();
     }
   };

@@ -6,50 +6,62 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - ldexp/simd Mode"
 
-#include <nt2/toolbox/ieee/include/ldexp.hpp>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created by jt the 04/12/2010
+/// modified by jt the 21/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/ieee/include/ldexp.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-NT2_TEST_CASE_TPL(ldexp, NT2_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL ( ldexp_real__2,  NT2_REAL_TYPES)
 {
- using nt2::ldexp;
- using nt2::tag::ldexp_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
+  using nt2::ldexp;
+  using nt2::tag::ldexp_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<ldexp_(vT,ivT)>::type r_t;
+  typedef typename nt2::meta::call<ldexp_(T,iT)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<ldexp_(n_t, n_t)>::type call_type;
- typedef typename nt2::meta::as_integer<T>::type iT; 
- typedef typename nt2::meta::as_integer<n_t>::type in_t; 
-
-  NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
-  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
-  NT2_ALIGNED_TYPE(iT) data1[1*cardinal_of<n_t>::value];
-  for(int i=0;i<cardinal_of<n_t>::value;++i){    
-    data[i] = nt2::random(-10.0, 10.0); // good value here for mantissa
-    data1[i] = nt2::random(-10, 10); // good value here for exponent
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    typedef typename nt2::meta::as_integer<T>::type iT;
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,iT, NR, iT(-10), iT(10));
+    double ulp0 = 0.0, ulpd = 0.0;
+    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        ivT a1 = load<ivT>(&tab_a1[0],j);
+        r_t v = ldexp(a0,a1);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::ldexp(tab_a0[k],tab_a1[k])));
+        }
+      }
+    
   }
-   n_t a0 = load<n_t>(&data[0],0);   
-   in_t a1 = load<in_t>(&data1[0],0);
-   n_t v  = ldexp(a0, a1);
-   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j) 
-     {
-       NT2_TEST_EQUAL( v[j], ldexp(a0[j], a1[j]) );
-     }
- }
- 
+} // end of test for real_

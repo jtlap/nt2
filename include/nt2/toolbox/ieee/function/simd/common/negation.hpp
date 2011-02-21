@@ -34,12 +34,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0,A0)> : meta::strip<A0>{};//
 
     NT2_FUNCTOR_CALL(2)
     {
-        return  sel(isltz(a1),-a0,isnez(a1)&a0);
+      return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
     }
   };
 } }
@@ -67,7 +66,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return  isnez(a1)&a0;
+        return  is_nez(a1)&a0;
     }
   };
 } }
