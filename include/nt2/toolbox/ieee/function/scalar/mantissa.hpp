@@ -12,7 +12,7 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,12 +37,13 @@ namespace nt2 { namespace ext
     {
       //TO DO incorrect
       if(!a0) return a0;
-        typedef typename meta::as_integer<A0, unsigned>::type int_type;
-        static const int_type n1 = (((Maxexponent<A0>()<<1)+1)<< Nbmantissabits<A0>());
+      if(is_invalid(a0)) return a0; 
+      typedef typename meta::as_integer<A0, unsigned>::type int_type;
+      static const int_type n1 = (((Maxexponent<A0>()<<1)+1)<< Nbmantissabits<A0>());
       static const int_type n2 = (sizeof(int_type)-2);
       static const int_type mask0 = ((n1<<2)>>2);
       static const int_type mask1 = ((~n1)|n2);
-        return b_or(b_and(a0, mask1),mask0);
+      return b_or(b_and(a0, mask1),mask0);
     }
 
   };

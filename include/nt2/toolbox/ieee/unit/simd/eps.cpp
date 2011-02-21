@@ -6,47 +6,41 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - eps/simd Mode"
 
-#include <nt2/include/functions/eps.hpp>
-#include <nt2/sdk/unit/tests.hpp>   
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ieee components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created by jt the 04/12/2010
+/// modified by jt the 21/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp> 
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp> 
-#include <nt2/sdk/meta/as_real.hpp>
-#include <iostream>
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic component eps using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(eps, 
-              NT2_TYPES
-                         )
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/ieee/include/eps.hpp>
+
+NT2_TEST_CASE_TPL ( eps_real__1,  NT2_REAL_TYPES)
 {
- using nt2::eps; 
- using nt2::tag::eps_;
- using nt2::load;  
- using nt2::simd::native;
- using nt2::meta::cardinal_of; 
+  using nt2::eps;
+  using nt2::tag::eps_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<eps_(vT)>::type r_t;
+  typedef typename nt2::meta::call<eps_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<eps_(n_t)>::type call_type;
-
- NT2_TEST( (boost::is_same<call_type, n_t>::value) );
- NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- for(int i=0;i<1*cardinal_of<n_t>::value;++i)
-   data[i] = 5*(i-T(cardinal_of<n_t>::value)/2); // good value here for eps
-
- n_t a0 = load<n_t>(&data[0],0);  
- n_t v  = nt2::eps(a0);
- for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-   { 
-     NT2_TEST_EQUAL( v[j], eps(a0[j]) ); 
-   } 
-}
-
- 
+} // end of test for real_
