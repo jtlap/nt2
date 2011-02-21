@@ -19,7 +19,10 @@ namespace nt2 { namespace simd
   struct domain : boost::proto::domain< generator<Type,Cardinal>
                                       , grammar<Type,Cardinal>
                                       >
-  {};
+  {
+    typedef Type      simd_type;
+    typedef Cardinal  simd_cardinal;
+  };
 } }
 
 #endif
