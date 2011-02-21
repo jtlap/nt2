@@ -21,7 +21,7 @@ namespace nt2 { namespace simd
   template<class T, class Card>
   struct grammar
     : boost::proto
-        ::or_ < boost::proto::terminal< data<T,Card> >
+        ::or_ < boost::proto::terminal< data<boost::proto::_,boost::proto::_> >
            //   , boost::proto::terminal< constants::constant_<boost::proto::_> >
               , boost::proto::
                 and_< boost::proto::terminal<boost::proto::_>

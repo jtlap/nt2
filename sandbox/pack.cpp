@@ -141,6 +141,6 @@ int main()
   foo(x);
   foo(nt2::exponentbits(y));
   foo(nt2::cos(y) + nt2::cos(y)); // ok
-  foo(nt2::exponentbits(y) + x); // not ok
+  foo(nt2::exponentbits(y) + x); //  ok
 
 }
