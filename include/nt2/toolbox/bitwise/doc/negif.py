@@ -48,7 +48,7 @@
                  'integer_' : ['nt2::negif(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0?-r_t(a1):r_t(a1))'],
+                 'integer_' : ['a0?-r_t(a1):r_t(a1)'],
                 },
              'simd' : {
                 },

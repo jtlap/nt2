@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 18/02/2011
+/// modified by jt the 21/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL ( ffs_float_1,  (float))
 {
-  using nt2::ffs; 
+  using nt2::ffs;
   using nt2::tag::ffs_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ffs_(T)>::type r_t;
