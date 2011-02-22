@@ -14,6 +14,7 @@ SET( SOURCES
   ellint_1.cpp
   ellik.cpp
   ellie.cpp
+  ellipke.cpp 
 # List of simd test files for toolbox elliptic
    )
 
