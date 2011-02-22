@@ -43,19 +43,11 @@ namespace nt2 { namespace simd
     , (simd::domain<Type, boost::mpl::size_t<Cardinal> >)
     )
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Hierarchizable interface
-    // expr_< typename meta::hierarchy_of<domain_type>::type
-    //      , tag::terminal_
-    //      , typename meta::hierarchy_of<data_type>::type
-    //      >
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::hierarchy_of<data_type>::type nt2_hierarchy_tag;
+    typedef data_type semantic_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-
     typedef typename data_type::parent          base_type;
     typedef typename data_type::value_type      value_type;
     typedef typename data_type::reference       reference;

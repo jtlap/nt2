@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_DSL_CATEGORY_HPP_INCLUDED
 #define NT2_SDK_DSL_CATEGORY_HPP_INCLUDED
 
+#include <nt2/sdk/dsl/semantic_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace tag
@@ -16,7 +17,7 @@ namespace nt2 { namespace tag
   //////////////////////////////////////////////////////////////////////////////
   // Expression category tag
   //////////////////////////////////////////////////////////////////////////////
-  struct expr_ {};
+  template<class Domain, class Tag, class Semantic> struct expr_ {};
 } }
 
 namespace nt2 { namespace meta
@@ -43,6 +44,32 @@ namespace nt2 { namespace meta
                             >::type                 parent;
     typedef T                                       type;
   };
+
+  template<class T>
+  struct  domain_< unknown_<T> > : unknown_<T>
+  {
+    typedef unknown_<T>                 parent;
+    typedef typename unknown_<T>::type  type;
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Proto expression hierarchy depends of the EDSL nature. They however has
+  // the same inheritance scheme based on domain
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T, class Domain, class Tag, class Semantic>
+  struct  expr_
+        : expr_<T, typename Domain::parent, Tag, Semantic>
+  {
+    typedef expr_<T, typename Domain::parent, Tag, Semantic>   parent;
+    typedef tag::expr_< typename Domain::type, Tag, Semantic> type;
+  };
+
+  template<class T, class Domain, class Tag, class Semantic>
+  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : unknown_<T>
+  {
+    typedef unknown_<T>   parent;
+    typedef tag::expr_< typename unspecified_<Domain>::type, Tag, Semantic> type;
+  };
 } }
 
 namespace nt2 { namespace details
@@ -53,6 +80,20 @@ namespace nt2 { namespace details
   template<class T> struct hierarchy_of<T, typename T::proto_is_domain_>
   {
     typedef meta::domain_<T> type;
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Proto expression hierarchy specialization
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T> struct hierarchy_of<T, typename T::proto_is_expr_>
+  {
+    typedef typename boost::proto::domain_of<T>::type domain_type;
+    typedef typename boost::proto::tag_of<T>::type    tag_type;
+    typedef meta::expr_ < T
+                        , typename meta::hierarchy_of<domain_type>::type
+                        , tag_type
+                        , typename meta::semantic_of<T>::type
+                        > type;
   };
 } }
 
