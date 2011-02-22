@@ -107,6 +107,53 @@ namespace nt2 { namespace ext
       return r|is_nan(a0);
 
     }
+  private :
+    template < class A0 >  static inline A0 other(const A0& test, const A0& xx)
+      {
+      typedef typename meta::scalar_of<A0>::type sA0; 
+      static boost::array<sA0, 7> P = {{
+	  1.60119522476751861407E-4,
+	  1.19135147006586384913E-3,
+	  1.04213797561761569935E-2,
+	  4.76367800457137231464E-2,
+	  2.07448227648435975150E-1,
+	  4.94214826801497100753E-1,
+	  9.99999999999999996796E-1
+	}};
+      static boost::array<sA0, 8>  Q = {{
+	  -2.31581873324120129819E-5,
+	  5.39605580493303397842E-4,
+	  -4.45641913851797240494E-3,
+	  1.18139785222060435552E-2,
+	  3.58236398605498653373E-2,
+	  -2.34591795718243348568E-1,
+	  7.14304917030273074085E-2,
+	  1.00000000000000000320E0
+        }};
+      A0 x =  sel(test, Five<A0>()/Two<A0>(), xx);
+      A0 z = One<A0>();
+      A0 test1;
+      while( any(test1 = ge(x,Three<A0>())) )
+	{
+	  x = seladd(test1, x, Mone<A0>());
+	  z = sel(   test1, z*x, z);
+	}
+      A0 test2;
+      while( any(test2 = is_ltz(x)) )
+	{
+	  z = sel(   test2, z/x, z);
+	  x = seladd(test2, x, One<A0>());
+	}
+      while( any(test1 =lt(x,Two<A0>())) )
+	{
+	  z = sel(   test1, z/x, z);
+	  x = seladd(test1, x, One<A0>());
+	}
+      x -= Two<A0>();
+      A0 p = polevl(x,P);
+      A0 q = polevl(x,Q);
+      return z*p/q; 	     
+    }
   };
 } }
 
