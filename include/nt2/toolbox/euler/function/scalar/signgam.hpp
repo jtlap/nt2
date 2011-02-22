@@ -39,15 +39,16 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-        if (is_lez(a0))
-        {
-          if (is_flint(a0))
-            return Nan<type>();
-          else
-            return One<type>()-is_odd(floor(a0))*Two<A0>();
-        }
-      else
-        return One<type>();
+      bool isinfa0 =  is_inf<A0>(a0); 
+      if (is_lez(a0))
+	{
+	  if (is_flint(a0)||isinfa0)
+	    return Nan<type>();
+	  else
+	    return One<type>()-is_odd(floor(a0))*Two<A0>();
+	}
+      else if (is_nan(a0)) return a0; 
+      return One<type>();
     }
 
   };
