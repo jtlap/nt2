@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 18/02/2011
+/// modified by jt the 22/02/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -23,6 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bitwise/include/lo.hpp>
 
 NT2_TEST_CASE_TPL ( lo_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
@@ -47,11 +48,11 @@ NT2_TEST_CASE_TPL ( lo_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
-        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = lo(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
