@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 18/02/2011
+/// modified by jt the 21/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -70,9 +70,10 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_integer__2,  NT2_INTEGRAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-1000), T(1000));
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-1000), T(1000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1000), T(1000));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-1000), T(1000));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -80,8 +81,7 @@ NT2_TEST_CASE_TPL ( bitwise_andnot_integer__2,  NT2_INTEGRAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_EQUAL( nt2::bitwise_andnot(a0,a1),a0&(~a1));
-        ulp0=nt2::max(ulpd,ulp0);
      }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
+     
    }
 } // end of test for integer_
