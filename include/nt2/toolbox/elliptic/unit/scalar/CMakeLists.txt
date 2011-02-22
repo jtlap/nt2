@@ -14,6 +14,7 @@ SET( SOURCES
   ellint_1.cpp
   ellik.cpp
   ellie.cpp
+  ellipke.cpp
 # List of scalar test files for toolbox elliptic
    )
 
@@ -32,6 +33,7 @@ FOREACH( EXAMPLE ${SOURCES})
   ############################################################################
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesl)
   ADD_DEPENDENCIES(elliptic.scalar.unit ${EXECUTABLE})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()
