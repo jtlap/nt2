@@ -19,13 +19,22 @@ NT2_TEST_CASE_TPL(buffer_default_ctor, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
-  typedef buffer<T> buffer_type;
+  typedef          buffer<T>             buffer_type;
+  typedef typename buffer<T>::size_type  size_type;
+  const size_type s = 10;
   buffer_type b;
 
   NT2_TEST_EQUAL( b.size()  , 0U      );
   NT2_TEST_EQUAL( b.lower() ,  0      );
   NT2_TEST_EQUAL( b.upper() , -1      );
   NT2_TEST_EQUAL( b.begin() , (T*)(0) );
+
+  b.resize(s);
+  NT2_TEST_EQUAL( b.size()  , s       );
+  NT2_TEST_EQUAL( b.lower() , 0       );
+  NT2_TEST_EQUAL( b.upper() , (s-1)   );
+  NT2_TEST_NOT_EQUAL( b.begin() , (T*)(0) );
+  
 }
 
 ////////////////////////////////////////////////////////////////////////////////

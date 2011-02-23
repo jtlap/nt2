@@ -44,8 +44,16 @@ namespace nt2 { namespace details
     template<class Size, class Allocator>
     void resize(Size s, Allocator& alloc)
     {
-      origin_ = alloc.resize(origin_,s,end_ - begin_);
-      clamp(s, origin_ - begin_);
+      if(!origin_)
+      {
+        origin_ = alloc.allocate(s);
+        clamp(s, 0);
+      }
+      else
+      {
+        origin_ = alloc.resize(origin_,s,end_ - begin_);
+        clamp(s, origin_ - begin_);
+      }
     }
 
     template<class Diff> void rebase(Diff b) { clamp(size(), b); }
