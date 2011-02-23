@@ -20,7 +20,7 @@ ADD_SUBDIRECTORY(sdk/details)
 #ADD_SUBDIRECTORY(sdk/errors)
 ADD_SUBDIRECTORY(sdk/meta)
 ADD_SUBDIRECTORY(sdk/functor)
-#ADD_SUBDIRECTORY(sdk/memory)
+ADD_SUBDIRECTORY(sdk/memory)
 #ADD_SUBDIRECTORY(sdk/constants)
 #ADD_SUBDIRECTORY(sdk/simd)
 

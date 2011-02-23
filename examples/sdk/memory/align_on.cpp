@@ -1,7 +1,7 @@
 #include <iostream>
-#include <nt2/sdk/aligned/align_on.hpp>
+#include <nt2/sdk/memory/align_on.hpp>
 
-using nt2::aligned::align_on;
+using nt2::memory::align_on;
 
 int main()
 {
