@@ -26,7 +26,7 @@
              'real_' : {
                  'nt2::One<T>()' : {'result' : 'r_t(-7.812128213002889e-01)','ulp_thresh' : '1.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Inf<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

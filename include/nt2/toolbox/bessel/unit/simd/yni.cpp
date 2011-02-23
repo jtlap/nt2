@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( yni_real__2,  NT2_REAL_TYPES)
           int k = i+j*cardinal_of<n_t>::value;
 	std::cout <<" a0[" << j << "] "<< tab_a0[j] << std::endl;
 	std::cout <<" a1[" << k << "] "<< tab_a1[k] << std::endl;
-          NT2_TEST_ULP_EQUAL( v[i],nt2::yni(tab_a0[j],tab_a1[k]),1);
+          NT2_TEST_ULP_EQUAL( v[i],nt2::yni(tab_a0[j],tab_a1[k]),100);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       } 

@@ -95,7 +95,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef A1 result_type;
-      if (is_ltz(a1)) return Nan<result_type>();
+      if (is_ltz(a1)||is_nan(a1)) return Nan<result_type>();
+      if (is_inf(a1)) return Zero<result_type>(); 
+      if (is_eqz(a1)) return Minf<result_type>(); 
       result_type x = a1;
       const int32_t n1 = nt2::abs(a0);
       result_type sign = (a0<0)?nt2::cospi(n1):1;

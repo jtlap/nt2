@@ -39,7 +39,7 @@
                  'real_' : ['cephes_y0l(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5'],
+                 'real_' : ['30'],
                 },
             },
         },

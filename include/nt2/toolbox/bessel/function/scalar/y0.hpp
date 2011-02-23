@@ -68,8 +68,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (a0 < 0) return Nan<A0>();
-      if (!a0) return Minf<A0>(); 
+      typedef typename NT2_RETURN_TYPE(1)::type result_type; 
+      if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
+      if (is_inf(a0)) return Zero<result_type>(); 
+      if (is_eqz(a0)) return Minf<result_type>(); 
       return ::y0(a0);
     }
   };
@@ -96,9 +98,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename NT2_RETURN_TYPE(1)::type result_type; 
       typedef typename meta::scalar_of<A0>::type stype;
-      if (!a0) return Minf<A0>();
-      if (a0 < 0) return Nan<A0>();
+      if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
+      if (is_inf(a0)) return Zero<result_type>(); 
+      if (is_eqz(a0)) return Minf<result_type>(); 
       if (a0 <= Two<A0>())
 	{
 	  A0 z = sqr(a0);
