@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 14/02/2011
+/// modified by jt the 23/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -40,18 +40,19 @@ NT2_TEST_CASE_TPL ( minmod_real__2,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10), T(10));
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -82,14 +83,15 @@ NT2_TEST_CASE_TPL ( minmod_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, 0, 100);
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, 0, 100);
+    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
+    NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -120,15 +122,16 @@ NT2_TEST_CASE_TPL ( minmod_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(  minmod(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(minmod(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, -100, 100);
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, -100, 100);
+    NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
+    NT2_CREATE_BUF(tab_a1,T, NR, -100, 100);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
