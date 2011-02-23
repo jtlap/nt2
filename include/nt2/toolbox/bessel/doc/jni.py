@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 16/02/2011',
-             'included' : ['extern "C" {long double cephes_jnl(long double);}'],
+             'included' : ['extern "C" {long double cephes_jnl(int,long double);}'],
              'notes' : [],
              'stamp' : 'modified by jt the 16/02/2011',
             },
