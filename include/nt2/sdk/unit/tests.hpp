@@ -34,7 +34,7 @@
               r1, r2, N);       \
       if (!b)                \
   {                \
-    std::cout << "   because " << #A << " = " << r1    \
+    std::cout <<	std::setprecision(20) << "   because " << #A << " = " << r1    \
         << " and " << #B << " = " << r2 <<  std::endl;  \
     std::cout << "   and ulp distance is "      \
         << ulpd << std::endl;        \

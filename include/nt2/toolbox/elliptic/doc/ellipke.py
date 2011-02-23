@@ -5,10 +5,12 @@
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+             'default' : 'rtype',
             },
          'simd_types' : ['real_'],
-         'type_defs' : [],
+         'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;',
+                        'typedef boost::fusion::tuple<etype, etype>                   rtype;'
+                        ],
          'types' : ['real_'],
         },
      'info' : 'manually modified',
@@ -25,23 +27,11 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' :['nt2::Pio_2<r_t0>()','nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0',},
                  },
             },
          'verif_test' : {
-             'nb_rand' : {
-                 'default' : 'NT2_NB_RANDOM_TEST',
-                },
-             'property_call' : {
-                 'default' : ['nt2::ellike(a0)'],
-                },
-             'property_value' : {
-                 'default' : [['nt2::ellike(a0)'],['nt2::ellike(a0)']],
-                },
-             'ulp_thresh' : {
-                 'default' : ['1.0'],
-                },
             },
         },
     },
@@ -51,10 +41,12 @@
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+             'default' : 'rtype',
             },
          'simd_types' : ['real_'],
-         'type_defs' : [],
+         'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;',
+                        'typedef boost::fusion::tuple<etype, etype>                   rtype;'
+                        ],
          'types' : ['real_'],
         },
      'info' : 'manually modified',
@@ -70,25 +62,13 @@
              'real_' : [['T(0)', 'T(1)'],['T(0)','T(0.01)']],
             },
          'specific_values' : {
-             'real_' : {
-                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+             'default' : {
+                 'nt2::One<T>(),0' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0',},
+                 'nt2::Zero<T>(),0' : {'result' :['nt2::Pio_2<r_t0>()','nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0',},
                  },
             },
          'verif_test' : {
-             'nb_rand' : {
-                 'default' : 'NT2_NB_RANDOM_TEST',
-                },
-             'property_call' : {
-                 'default' : ['nt2::ellipke(a0,a1)'],
-                },
-             'property_value' : {
-                 'default' : ['nt2::ellipke(a0,a1)'],
-                },
-             'ulp_thresh' : {
-                 'default' : ['1.0'],
                 },
             },
-        },
     },
 ]
