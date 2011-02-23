@@ -3,7 +3,7 @@
 
 #include <nt2/toolbox/matlab/details/array/traits.hpp>
 #include <nt2/toolbox/matlab/details/array/fundamental.hpp>
-#include <nt2/toolbox/matlab/details/array/iterator.hpp>
-#include <nt2/toolbox/matlab/details/array/range.hpp>
+#include <nt2/toolbox/matlab/details/array/container.hpp>
+#include <nt2/toolbox/matlab/details/array/container_tuple.hpp>
 
 #endif

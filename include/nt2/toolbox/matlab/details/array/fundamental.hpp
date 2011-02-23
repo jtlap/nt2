@@ -5,6 +5,7 @@
 #include <nt2/sdk/meta/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits.hpp>
+#include <boost/array.hpp>
 
 namespace nt2 { namespace matlab { namespace traits
 {
@@ -33,21 +34,41 @@ namespace nt2 { namespace matlab { namespace traits
     template<> struct class_<float>  { static const mxClassID value = mxSINGLE_CLASS; };
     template<> struct class_<double> { static const mxClassID value = mxDOUBLE_CLASS; };
     
-    template<typename T>
-    struct get_buffer_impl<T, typename boost::enable_if< meta::is_fundamental<T> >::type>
+    template<typename T, typename Out>
+    struct linearize_impl<T, Out, typename boost::enable_if< meta::is_fundamental<typename meta::strip<T>::type> >::type>
     {
-        static T* call(T& t)
+        static Out call(const T& t, Out out)
         {
-            return &t;
+            *out++ = t;
+            return out;
         }
     };
+    
+    template<typename T, typename Iterator>
+    struct assign_from_iterators_impl<T, Iterator, typename boost::enable_if< meta::is_fundamental<typename meta::strip<T>::type> >::type>
+    {
+        static void call(Iterator const& begin, Iterator const& end, T& t)
+        {
+            t = *begin;
+        }
+    };
+    
+    namespace result_of
+    {
+        template<typename T>
+        struct size<T, typename boost::enable_if< meta::is_fundamental<T> >::type>
+        {
+            typedef boost::array<std::size_t, 1> type;
+        };
+    }
     
     template<typename T>
     struct size_impl<T, typename boost::enable_if< meta::is_fundamental<T> >::type>
     {
-        static std::vector<std::size_t> call(const T&)
+        static typename result_of::size<T>::type call(const T&)
         {
-            return std::vector<std::size_t>(1, 1);
+            boost::array<std::size_t, 1> a = { 1 };
+            return a;
         }
     };
 }

@@ -27,19 +27,22 @@ namespace nt2 { namespace matlab
         template<typename T, typename Dummy = void>
         struct class_;
         
-        template<typename T, typename Dummy = void>
-        struct get_buffer_impl;
+        template<typename T, typename Out, typename Dummy = void>
+        struct linearize_impl;
         
-        template<typename T>
-        typename meta::primitive_of<T>::type* get_buffer(T& t)
+        template<typename T, typename Out>
+        Out linearize(const T& t, Out out)
         {
-            return get_buffer_impl<T>::call(t);
+            return linearize_impl<T, Out>::call(t, out);
         }
         
-        template<typename T>
-        typename meta::primitive_of<T>::type const* get_buffer(const T& t)
+        template<typename T, typename Iterator, typename Dummy = void>
+        struct assign_from_iterators_impl;
+        
+        template<typename T, typename Iterator>
+        void assign_from_iterators(Iterator const& begin, Iterator const& end, T& t)
         {
-            return get_buffer_impl<T>::call(const_cast<T&>(t));
+            assign_from_iterators_impl<T, Iterator>::call(begin, end, t);
         }
         
         template<typename T, typename Dummy = void>
@@ -47,11 +50,17 @@ namespace nt2 { namespace matlab
         {
         };
         
+        namespace result_of
+        {
+            template<typename T, typename Dummy = void>
+            struct size;
+        }
+        
         template<typename T, typename Dummy = void>
         struct size_impl;
         
         template<typename T>
-        std::vector<std::size_t> size(const T& t)
+        typename result_of::size<T>::type size(const T& t)
         {
             return size_impl<T>::call(t);
         }
@@ -61,7 +70,7 @@ namespace nt2 { namespace matlab
         {
             static mxArray* call(const T& t)
             {
-                std::vector<std::size_t> dims = size(t);
+                typename result_of::size<T>::type dims = traits::size(t);
                 
                 typedef typename meta::primitive_of<typename meta::strip<T>::type>::type Primitive;
                 mxArray* p = 
@@ -72,22 +81,8 @@ namespace nt2 { namespace matlab
                         is_complex<T>::value ? mxCOMPLEX : mxREAL
                     )
                 ;
-    
-                std::size_t nb_elems =
-                    std::accumulate(
-                        dims.begin(),
-                        dims.end(),
-                        1,
-                        std::multiplies<std::size_t>()
-                    )
-                ;
-    
-                std::memcpy(
-                    details::get_data<T>(p),
-                    get_buffer(t),
-                    nb_elems*sizeof(Primitive)
-                );
                 
+                traits::linearize(t, details::get_data<T>(p));
                 return p;
             }
         };
@@ -108,8 +103,6 @@ namespace nt2 { namespace matlab
                 const mwSize* dims = mxGetDimensions(t);
                 mwSize dims_size = mxGetNumberOfDimensions(t);
                 
-                T out;
-                
                 mwSize nb_elems =
                     std::accumulate(
                         dims,
@@ -119,10 +112,11 @@ namespace nt2 { namespace matlab
                     )
                 ;
                 
-                std::memcpy(
-                    get_buffer(out),
+                T out;
+                traits::assign_from_iterators(
                     details::get_data<T>(t),
-                    nb_elems*sizeof(Primitive)
+                    details::get_data<T>(t) + nb_elems*sizeof(Primitive),
+                    out
                 );
                 
                 return out;
