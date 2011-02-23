@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 14/02/2011
+/// modified by jt the 23/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -22,6 +22,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/two_prod.hpp>
+#include <boost/fusion/tuple.hpp>
 
 NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
 {

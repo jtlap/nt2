@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 14/02/2011
+/// modified by jt the 23/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -43,17 +43,18 @@ NT2_TEST_CASE_TPL ( divround_real__2,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  divround(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  divround(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  divround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  divround(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  divround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10), T(10));
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -84,13 +85,14 @@ NT2_TEST_CASE_TPL ( divround_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  divround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, 0, 100);
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, 1, 100);
+    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
+    NT2_CREATE_BUF(tab_a1,T, NR, 1, 100);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -121,14 +123,15 @@ NT2_TEST_CASE_TPL ( divround_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(  divround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(  divround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divround(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, -100, 100);
-    NT2_CREATE_SCALAR_BUFFER(a1,T, NR, 1, 100);
+    NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
+    NT2_CREATE_BUF(tab_a1,T, NR, 1, 100);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
