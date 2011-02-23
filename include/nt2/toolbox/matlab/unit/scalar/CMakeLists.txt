@@ -4,7 +4,6 @@ SET( SOURCES
    )
    
 FIND_PACKAGE(Matlab)
-IF(MATLAB_FOUND)
 
 ##****************************************************************************
 # For each filename
@@ -19,19 +18,25 @@ FOREACH( EXAMPLE ${SOURCES})
   ##**************************************************************************
   ## Add as a target
   ##**************************************************************************
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE} libnt2_mw_mcc_component_data.c)
-  INCLUDE_DIRECTORIES(${MATLAB_INCLUDE_DIR})
+  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE} libnt2_mw.h)
+  SET_SOURCE_FILES_PROPERTIES(lint2_mw.h HEADER_FILE_ONLY)
   
-  ADD_CUSTOM_COMMAND(OUTPUT libnt2_mw_mcc_component_data.c
-                     COMMAND "${MATLAB_BIN_DIR}/mcc" -C -W lib:libnt2_mw eval)
+  IF(NOT MATLAB_FOUND)
+    MESSAGE(SEND_ERROR "Matlab not found")
+  ELSE(NOT MATLAB_FOUND)
+    INCLUDE_DIRECTORIES(${MATLAB_INCLUDE_DIR} .)
+  
+    ADD_CUSTOM_COMMAND(OUTPUT libnt2_mw.h
+                       COMMAND "${MATLAB_BIN_DIR}/mcc" -B csharedlib:libnt2_mw feval)
+  
+    TARGET_LINK_LIBRARIES(${EXECUTABLE} ${MATLAB_MX_LIBRARY})
+    TARGET_LINK_LIBRARIES(${EXECUTABLE} ${MATLAB_MCR_LIBRARY})
+  ENDIF(NOT MATLAB_FOUND)
+    
+  FIND_LIBRARY(NT2_MW_LIBRARY nt2_mw .)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} ${NT2_MW_LIBRARY})
   
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} ${MATLAB_MX_LIBRARY})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} ${MATLAB_MCR_LIBRARY})
   ADD_DEPENDENCIES(matlab.scalar.unit ${EXECUTABLE})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()
-
-ELSE(MATLAB_FOUND)
-    MESSAGE("Matlab not found")
-ENDIF(MATLAB_FOUND)

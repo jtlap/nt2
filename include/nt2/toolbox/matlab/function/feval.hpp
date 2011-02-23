@@ -23,10 +23,12 @@ namespace nt2
         template<typename R BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, typename T)>\
         R feval(const char* s BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_BINARY_PARAMS(n, const T, & a))\
         {                                                                      \
-            mxArray* in[] = { BOOST_PP_ENUM(n, M1, ~) };                       \
+            details::mcr::instance();                                          \
+                                                                               \
+            mxArray* in[] = { mxCreateString(s) BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM(n, M1, ~) };\
             mxArray* out[1];                                                   \
                                                                                \
-            mclFeval(details::mcr_instance(), s, sizeof out / sizeof *out, out, sizeof in / sizeof *in, in);\
+            mlxFeval(sizeof out / sizeof *out, out, sizeof in / sizeof *in, in);\
                                                                                \
             for(int i=0; i<sizeof in / sizeof *in; ++i)                        \
                 mxDestroyArray(in[i]);                                         \
