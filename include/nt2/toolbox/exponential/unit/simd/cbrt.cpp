@@ -26,7 +26,7 @@
 #include <nt2/toolbox/exponential/include/cbrt.hpp>
 
 NT2_TEST_CASE_TPL ( cbrt_real__1,  NT2_REAL_TYPES)
-{
+{ 
   using nt2::cbrt;
   using nt2::tag::cbrt_;
   using nt2::load; 

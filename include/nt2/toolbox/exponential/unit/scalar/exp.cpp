@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 18/02/2011
+/// modified by jt the 23/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -53,8 +53,9 @@ NT2_TEST_CASE_TPL ( exp_real__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
@@ -93,8 +94,9 @@ NT2_TEST_CASE_TPL ( exp_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, 0, 10);
+    NT2_CREATE_BUF(tab_a0,T, NR, 0, 10);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
@@ -134,8 +136,9 @@ NT2_TEST_CASE_TPL ( exp_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SCALAR_BUFFER(a0,T, NR, -10, 10);
+    NT2_CREATE_BUF(tab_a0,T, NR, -10, 10);
     double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
