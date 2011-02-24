@@ -14,5 +14,6 @@ classes to make memory management safe and efficient within |nt2| requirements.
 
    memory/entity
    memory/function
+   memory/misc
    memory/meta
    memory/macro

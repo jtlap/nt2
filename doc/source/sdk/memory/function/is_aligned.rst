@@ -39,14 +39,14 @@ Header File
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/alignment/is_aligned.hpp>
+  #include <nt2/sdk/memory/is_aligned.hpp>
 
 Synopsis
 ^^^^^^^^
 
 .. code-block:: cpp
 
-  namespace nt2 { namespace aligned
+  namespace nt2 { namespace memory
   {
                                     bool is_aligned( std::size_t v )
     template<class T>               bool is_aligned( T* v )

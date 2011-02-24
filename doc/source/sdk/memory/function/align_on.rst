@@ -61,7 +61,7 @@ Expression Semantics
 
 **Return type:** Type of ``v``
 
-**Semantics:** If ``N`` is a power of 2, returns the an integer or address ``w``
+**Semantics:** If ``N`` is a power of 2, returns the integer or address ``w``
 greater than ``v`` for which ``w % N == 0``. Otherwise, the function is removed
 by :term:`SFINAE`.
 
@@ -71,11 +71,24 @@ by :term:`SFINAE`.
 
 **Return type:** Type of ``v``
 
-**Semantics:** Returns the an integer or address ``w`` greater than ``v``
+**Semantics:** Returns the integer or address ``w`` greater than ``v``
 for which ``w % NT2_CONFIG_ALIGNMENT == 0``.
 
 Example
 ^^^^^^^
 
+The compilation of the following code sample:
+
 .. literalinclude:: ../../../../../examples/sdk/memory/align_on.cpp
    :language: cpp
+
+leads to the following compiler output when compiled with g++ on a Linux machine:
+
+.. code-block:: bash
+
+  0
+  4
+  12
+  1340
+
+
