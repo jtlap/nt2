@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::at_, tag::cpu_,
                     (A0)(A1),
-                    (fundamental_<A0>)(fundamental_<A1>)
+                    (fundamental_<A0>)(integer_<A1>)
                    )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::at_(tag::fundamental_,tag::fundamental_),
+  struct call<tag::at_(tag::fundamental_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

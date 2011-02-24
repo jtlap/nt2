@@ -6,32 +6,57 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - second scalar Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - second/scalar Mode"
 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of reduction components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// 
+/// modified by jt the 24/02/2011
+#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/reduction/include/second.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of nt2::second in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( second, (double)(nt2::uint64_t)(nt2::int64_t) 
-                        (float)(nt2::uint32_t)(nt2::int32_t)  
-                        (nt2::uint16_t)(nt2::int16_t)         
-                        (nt2::uint8_t)(nt2::int8_t)
-                        (bool)
-                  )
+NT2_TEST_CASE_TPL ( second_integer__1,  NT2_INTEGRAL_TYPES)
 {
   using nt2::second;
   using nt2::tag::second_;
+  typedef typename nt2::meta::scalar_of<T>::type sT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<second_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef sT wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<second_(T)>::type
-                            , T
-                            >::value)
-          );
 
-  NT2_TEST_EQUAL(  second( T(42) ), T(42) );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(second(nt2::One<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(second(nt2::Zero<T>()), nt2::Zero<r_t>());
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    typedef typename nt2::meta::scalar_of<T>::type sT;
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_EQUAL( nt2::second(a0),a0);
+     }
+     
+   }
+} // end of test for integer_
