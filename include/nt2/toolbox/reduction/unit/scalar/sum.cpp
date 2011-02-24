@@ -6,34 +6,64 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - sum scalar Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - sum/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/toolbox/reduction/include/sum.hpp>
-
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of reduction components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 24/02/2011
+/// modified by jt the 24/02/2011
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/reduction/include/sum.hpp>
+// specific includes for arity 1 tests
+#include <nt2/sdk/meta/logical.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of nt2::all in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( sum,  (double)(nt2::uint64_t)(nt2::int64_t) 
-                          (float)(nt2::uint32_t)(nt2::int32_t)  
-                          (nt2::uint16_t)(nt2::int16_t)         
-                          (nt2::uint8_t)(nt2::int8_t)
-                          (bool)
-                  )
+NT2_TEST_CASE_TPL ( sum_real__1,  NT2_REAL_TYPES)
 {
   using nt2::sum;
   using nt2::tag::sum_;
+  typedef typename nt2::meta::scalar_of<T>::type sT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<sum_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename std::tr1::result_of<nt2::meta::arithmetic(sT,sT)>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<sum_(T)>::type
-                            , typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type
-                            >::value)
-          );
-          
-  NT2_TEST_EQUAL(  sum(T(0)) , T(0)  );
-  NT2_TEST_EQUAL(  sum(T(1)) , T(1)  );
-  NT2_TEST_EQUAL(  sum(T(42)), T(42) );
-}
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(sum(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(nt2::Minf<T>()), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(nt2::One<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    typedef typename nt2::meta::scalar_of<T>::type sT;
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::sum(a0),a0,0);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
