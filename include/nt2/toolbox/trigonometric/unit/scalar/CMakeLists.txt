@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  rem_pio2.cpp
+#  rem_pio2.cpp
   tanpi.cpp
   tand.cpp
   tan.cpp
