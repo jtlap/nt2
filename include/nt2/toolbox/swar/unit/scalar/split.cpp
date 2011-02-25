@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 swar toolbox - splatted_second/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - split/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of swar components in scalar mode
@@ -15,20 +15,20 @@
 /// modified by jt the 24/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/swar/include/splatted_second.hpp>
+#include <nt2/toolbox/swar/include/split.hpp>
 
-NT2_TEST_CASE_TPL ( splatted_second_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( split_real__1,  NT2_REAL_TYPES)
 {
-  using nt2::splatted_second;
-  using nt2::tag::splatted_second_;
+  using nt2::split;
+  using nt2::tag::split_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<splatted_second_(T)>::type r_t;
+  typedef typename nt2::meta::call<split_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -40,12 +40,12 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Minf<T>()), nt2::Minf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_EQUAL(split(nt2::Inf<T>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(split(nt2::Minf<T>()), nt2::Minf<r_t>());
+  NT2_TEST_EQUAL(split(nt2::Mone<T>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(split(nt2::Nan<T>()), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(split(nt2::One<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(split(nt2::Zero<T>()), nt2::Zero<r_t>());
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -57,9 +57,11 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::splatted_second(a0),::cephes_splatted_secondl(a0),0.5);
-        ulp0=nt2::max(ulpd,ulp0);
+        r_t r = nt2::split(a0);
+        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+        r_t0 r0 = boost::fusion::get<0>(r);
+        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), :, 0.5);
      }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
+     
    }
 } // end of test for real_
