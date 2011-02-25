@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( acosh, (double)
    NT2_TEST_EQUAL(  nt2::cephes::acosh(nt2::Inf<T>() ), nt2::Inf<T>());
    NT2_TEST      (  nt2::is_nan(nt2::cephes::acosh(nt2::Nan<T>()) )); 
 
-   for(int i=0; i < 10; i++)
+   for(int i=1; i < 10; i++)
      {
        T x =  i; 
        NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, nt2::cosh(nt2::cephes::acosh(x))), 1); 

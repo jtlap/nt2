@@ -22,7 +22,9 @@ using nt2::libc::tag::cos_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) , T(V2))
 
-NT2_TIMING(nt2::libc::tag::cos_,(RS(float,-3.14,3.14)))
-NT2_TIMING(nt2::libc::tag::cos_,(RS(double,-3.14,3.14)))
+NT2_TIMING(nt2::libc::tag::cos_,(RS(float,-0.785398f,-0.785398f)))
+NT2_TIMING(nt2::libc::tag::cos_,(RS(double,-0.785398,-0.785398)))
+NT2_TIMING(nt2::libc::tag::cos_,(RS(float,-31.4,31.4)))
+NT2_TIMING(nt2::libc::tag::cos_,(RS(double,-31.4,31.4)))
 
 #undef RS

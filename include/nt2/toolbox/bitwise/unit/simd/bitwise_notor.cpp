@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( bitwise_notor_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a0 = load<vT>(&tab_a0[0],j); 
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = bitwise_notor(a0,a1);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
