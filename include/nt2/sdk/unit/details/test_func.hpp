@@ -42,10 +42,41 @@
     }                                                                       \
   }                                                                         \
 /**/
+////////////////////////////////////////////////////////////////////////////////
+// Helpers for building implementation fo some predicate based tests
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_MAKE_TEST_NAN_FUNC(NAME,OP,COP)		  		    \
+  template<class T, class U>                                                \
+  inline void NAME( char const* x1, char const* x2                          \
+                  , int line, char const * fn                               \
+                  , T const & t, U const & u                                \
+                  )                                                         \
+  {                                                                         \
+    test_count()++;                                                         \
+    volatile T tt(t);                                                       \
+    volatile U uu(u);                                                       \
+    if( (tt OP uu) || (tt != tt) && (uu != uu)) 			    \
+    {                                                                       \
+      std::cout << " * Test `"                                              \
+                << x1 << " " << #OP << " " << x2                            \
+                << "` **passed**."                                          \
+                << " (" << line << ")"                                      \
+                << std::endl;                                               \
+    }                                                                       \
+    else                                                                    \
+    {                                                                       \
+      std::cout << " * Test `"<< x1 << " "<< #OP << " " << x2               \
+                << "` **failed** in function " << fn << " (" << line << ")" \
+                << ":  '" << t << " "<< #COP << " " << u << "'"             \
+                << std::endl;                                               \
+      ++error_count();                                                      \
+    }                                                                       \
+  }                                                                         \
+/**/
 
 namespace nt2 { namespace details
 {
-  NT2_MAKE_TEST_FUNC(test_eq  , ==, !=  )
+  NT2_MAKE_TEST_NAN_FUNC(test_eq  , ==, !=  )
   NT2_MAKE_TEST_FUNC(test_neq , !=, ==  )
   NT2_MAKE_TEST_FUNC(test_lt  , < , >=  )
   NT2_MAKE_TEST_FUNC(test_gt  , > , <=  )
