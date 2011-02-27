@@ -21,7 +21,7 @@ namespace nt2 { namespace simd
                                       >
   {
     typedef Type      simd_type;
-    typedef Cardinal  simd_cardinal;
+    typedef Cardinal  cardinal_type;
   };
 } }
 
