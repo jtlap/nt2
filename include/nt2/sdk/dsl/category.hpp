@@ -18,6 +18,11 @@ namespace nt2 { namespace tag
   // Expression category tag
   //////////////////////////////////////////////////////////////////////////////
   template<class Domain, class Tag, class Semantic> struct expr_ {};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Degenerate Expression category tag
+  //////////////////////////////////////////////////////////////////////////////
+  struct ast_ {};
 } }
 
 namespace nt2 { namespace meta
@@ -65,9 +70,9 @@ namespace nt2 { namespace meta
   };
 
   template<class T, class Domain, class Tag, class Semantic>
-  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : unknown_<T>
+  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : unspecified_<T>
   {
-    typedef unknown_<T>   parent;
+    typedef unspecified_<T>   parent;
     typedef tag::expr_< typename unspecified_<Domain>::type, Tag, Semantic> type;
   };
 } }
