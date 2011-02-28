@@ -24,6 +24,7 @@
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
 #include <iostream>
 
 
@@ -95,21 +96,17 @@ namespace nt2 { namespace ext
       A0 y = a0;
       int32_t nb1, nb2;
       A0 lezy =  is_lez(y);
-      A0 parity = False<A0>(); 
       if (nbtrue(lezy) > 0)
 	{
-	  parity = is_odd(y) & lezy;
-	  y =  negif(lezy, a0);
-	  res = frac(y); 
-	  fact =  sel(lezy, -Pi<A0>()/sinpi(res), One<A0>());
-          y =  seladd(lezy, y, One<A0>());
+	  y =  sel(lezy, oneminus(y), y); 
+	  fact =  sel(lezy, Pi<A0>()/sinpi(y), One<A0>());
 	}
       A0 lteps = lt(y, Eps<A0>());
       if ((nb1 = nbtrue(lteps)) > 0)
 	{
 	  A0 r1 =  b_ornot(rec(y), lteps);
 	  res &=  r1;
-	  if(nb1 > Card) return finalize(res, fact, parity);
+	  if(nb1 > Card) return finalize(res, fact, lezy);
 	  y |= lteps; 
 	}
       A0 lt12 = lt(y, splat<A0>(12));   
@@ -120,7 +117,6 @@ namespace nt2 { namespace ext
 	  A0 n =  minusone(trunc(y));
 	  A0 z = frac(y); 
 	  y =  oneplus(z);
-	  std::cout << "z " << z << " y " << y << std::endl; 
 	  A0 xnum =  Zero<A0>();
 	  A0 xden =  One<A0>();
 	  for (int32_t i = 0; i < 8; ++i)
@@ -129,7 +125,7 @@ namespace nt2 { namespace ext
 	      xden = xden * z +splat<A0>( g_q[i]);		
 	    }
 	  A0 r = oneplus(xnum/xden);
-	  r =  sel(islt1, r/y1, r);
+	  r =  sel(lt(y1, y), r/y1, r);
 	  A0 r1 =  r;
 	  for (int32_t i = 0; i < maximum(n); ++i)
 	    {
@@ -137,27 +133,23 @@ namespace nt2 { namespace ext
 	      r *= sel(t, y, One<A0>());
 	      y = seladd(t, y, One<A0>()) ;
 	    }
-	  std::cout << "r  "<< r << std::endl; 
-	  std::cout << "r1 "<< r1 << std::endl; 
 	  r =  sel(gt(y1, y), r1, r); 
 	  res =  res & r;
-	  if(nb1+nb2 > Card) return finalize(res, fact, parity);
+	  if(nb1+nb2 > Card) return finalize(res, fact, lezy);
 	  y |= lteps; 
 	}
       A0 ysq = sqr(y);
       A0 sum =  splat<A0>(g_c[6]);
-      for (int32_t i = 0; i < 6; ++i) sum /= ysq + splat<A0>(g_c[i]);
-      sum = sum / y - y + LOGSQRT2PI;
-      sum += (y - Half<A0>()) * log(y);
+      for (int32_t i = 0; i < 6; ++i) sum = (sum/ysq) + splat<A0>(g_c[i]);
+      sum = (sum/y) - y + LOGSQRT2PI;
+      sum += (y - Half<A0>())*log(y);
       res = sel(lt12, res, exp(sum));
-      std::cout << "res " << res << std::endl; 
-      return finalize(res, fact, parity);      
+      return finalize(res, fact, lezy);      
     }
   private :
-    template < class A0 > static inline A0 finalize(const A0& res,  const A0& fact, const A0& parity)
+    template < class A0 > static inline A0 finalize(const A0& res,  const A0& fact, const A0& lezy)
       {
-	A0 r =  negif(parity, res); 
-	return sel(eq(fact, One<A0>()), res, fact/res);
+	return sel(lezy, fact/res, res);
       }
 
   };

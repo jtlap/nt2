@@ -44,15 +44,15 @@ NT2_TEST_CASE_TPL ( remainder_real__2,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
 
-
+  srand(0); 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(remainder(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(remainder(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<T>(), 0);
   NT2_TEST_ULP_EQUAL(remainder(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(remainder(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(remainder(nt2::One<T>(), nt2::One<T>()), nt2::Zero<T>(), 0);
-  NT2_TEST_ULP_EQUAL(remainder(nt2::One<T>(),nt2::Zero<T>()), nt2::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(remainder(nt2::Zero<T>(),nt2::Zero<T>()), nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(nt2::One<T>(),nt2::Zero<T>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(nt2::Zero<T>(),nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {

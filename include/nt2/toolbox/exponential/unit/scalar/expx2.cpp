@@ -26,7 +26,7 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 extern "C" { long double cephes_expx2l(long double); }
-
+ 
 NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
 {
   using nt2::expx2;

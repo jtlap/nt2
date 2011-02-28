@@ -15,6 +15,7 @@
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

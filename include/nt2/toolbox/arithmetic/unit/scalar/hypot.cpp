@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( hypot_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
-
+ 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(hypot(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);

@@ -25,7 +25,7 @@
 #include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
 // specific includes for arity 3 tests
 #include <nt2/sdk/constant/eps_related.hpp>
-
+#include <iomanip>
 NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
 {
   using nt2::correct_fma;
@@ -48,11 +48,14 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
-  NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()), -nt2::Eps<T>()*nt2::Eps<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()), -nt2::Eps<T>()*nt2::Eps<T>(), 0.5);
+  std::cout << std::setprecision(20) << "zz" << nt2::ulpdist(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()),
+		       -nt2::Eps<T>()*nt2::Eps<T>()) << std::endl; 
+
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
+  { 
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));

@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0-nt2::round(a0/a1)*a1; 
+      return a0-idivround(a0, a1)*a1; 
     }
   };
 } }
