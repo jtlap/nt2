@@ -78,6 +78,42 @@ dispatching( NT2_PP_STRIP(Tag) const&, Site const&                              
 } }                                                                           \
 /**/
 
+////////////////////////////////////////////////////////////////////////////////
+// User macro to register an accepted overload for function Tag on Site
+// for a list of hierarchy specified by (Types,Seq) under the static condition
+// Cond. If COnd is satisfied, then Ret will be used as a dispatching strategy
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)               \
+namespace nt2 { namespace meta {                                            \
+template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types)>   \
+typename boost::enable_if < NT2_PP_STRIP(Cond)                              \
+                          , nt2::ext::call<NT2_PP_STRIP(Ret),Site>          \
+                          >::type                                           \
+dispatching( Tag const&, Site const&                                        \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)        \
+        , adl_helper = adl_helper()                                         \
+        );                                                                  \
+} }                                                                         \
+/**/
+
+////////////////////////////////////////////////////////////////////////////////
+// User macro to register an accepted overload for function Tag on Site
+// for a list of hierarchy specified by (Types,Seq) where Types is a list of
+// fully qualified tempalte parameters under the static condition
+// Cond. If COnd is satisfied, then Ret will be used as a dispatching strategy
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
+namespace nt2 { namespace meta {                                              \
+template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types)> \
+typename boost::enable_if < NT2_PP_STRIP(Cond)                                \
+                          , nt2::ext::call<NT2_PP_STRIP(Ret),Site>            \
+                          >::type                                             \
+dispatching( Tag const&, Site const&                                          \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)          \
+        , adl_helper = adl_helper()                                           \
+        );                                                                    \
+} }                                                                           \
+/**/
 namespace nt2 { namespace meta
 {
   struct adl_helper {};

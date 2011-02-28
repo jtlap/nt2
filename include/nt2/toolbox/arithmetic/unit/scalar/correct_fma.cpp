@@ -48,6 +48,7 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
+<<<<<<< HEAD
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()), -nt2::Eps<T>()*nt2::Eps<T>(), 0.5);
   std::cout << std::setprecision(20) << "zz" << nt2::ulpdist(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()),
 		       -nt2::Eps<T>()*nt2::Eps<T>()) << std::endl; 
@@ -56,6 +57,13 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   { 
+=======
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()), -nt2::Eps<T>()*nt2::Eps<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+>>>>>>> c160cb578091c0bea985078dc8ea9dbcaa1b2b9a
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));
@@ -156,4 +164,8 @@ NT2_TEST_CASE_TPL ( correct_fma_unsigned_int__3,  NT2_UNSIGNED_TYPES)
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
+<<<<<<< HEAD
 } // end of test for unsigned_int_
+=======
+} // end of test for unsigned_int_
+>>>>>>> c160cb578091c0bea985078dc8ea9dbcaa1b2b9a

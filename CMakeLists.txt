@@ -114,6 +114,10 @@ INSTALL( TARGETS nt2
 	      LIBRARY DESTINATION lib/
 	      ARCHIVE DESTINATION lib/)
 
+INSTALL( TARGETS nt2-static
+	      LIBRARY DESTINATION lib/
+	      ARCHIVE DESTINATION lib/)
+
 ################################################################################
 # Add Documentation target
 ################################################################################
@@ -151,6 +155,7 @@ ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 # System-level toolbox inclusion
 ################################################################################
 
+
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/trigonometric EXCLUDE_FROM_ALL)
@@ -160,7 +165,15 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fuzzy EXCLUDE_FROM_AL
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/hyperbolic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/exponential EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/reduction EXCLUDE_FROM_ALL)
+<<<<<<< HEAD
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/cephes EXCLUDE_FROM_ALL)
+=======
+
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/swar EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bessel EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/combinatorial EXCLUDE_FROM_ALL)
+>>>>>>> c160cb578091c0bea985078dc8ea9dbcaa1b2b9a
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/euler EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM_ALL)
 
@@ -173,6 +186,17 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/elliptic EXCLUDE_FROM
 ##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/boost_math EXCLUDE_FROM_ALL)
 ##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_ALL)
 
+<<<<<<< HEAD
+=======
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/cephes EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/crlibm EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/ast EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fdlibm EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/libc EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/standard EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/boost_math EXCLUDE_FROM_ALL)
+##ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/gsl_specfun EXCLUDE_FROM_ALL)
+>>>>>>> c160cb578091c0bea985078dc8ea9dbcaa1b2b9a
 
 ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 
