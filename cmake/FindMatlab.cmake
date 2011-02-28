@@ -43,39 +43,38 @@ IF(WIN32)
 
   IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 6")
     SET(MATLAB_LIB_DIR "${MATLAB_ROOT}/extern/lib/win32/microsoft/msvc60")
-  ELSE(${CMAKE_GENERATOR} MATCHES "Visual Studio 6")
-    IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-      # Assume people are generally using 7.1,
-      # if using 7.0 need to link to: ../extern/lib/win32/microsoft/msvc70
-      SET(MATLAB_LIB_DIR "${MATLAB_ROOT}/extern/lib/win32/microsoft/msvc71")
-    ELSE(${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-      IF(${CMAKE_GENERATOR} MATCHES "Borland")
-        # Same here, there are also: bcc50 and bcc51 directories
-        SET(MATLAB_LIB_DIR "${MATLAB_ROOT}/extern/lib/win32/microsoft/bcc54")
-      ELSE(${CMAKE_GENERATOR} MATCHES "Borland")
-        IF(MATLAB_FIND_REQUIRED)
-          MESSAGE(FATAL_ERROR "Generator not compatible: ${CMAKE_GENERATOR}")
-        ENDIF(MATLAB_FIND_REQUIRED)
-      ENDIF(${CMAKE_GENERATOR} MATCHES "Borland")
-    ENDIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-  ENDIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 6")
+  ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
+    # Assume people are generally using 7.1,
+    # if using 7.0 need to link to: ../extern/lib/win32/microsoft/msvc70
+   SET(MATLAB_LIB_DIR "${MATLAB_ROOT}/extern/lib/win32/microsoft/msvc71")
+  ELSEIF(${CMAKE_GENERATOR} MATCHES "Borland")
+    # Same here, there are also: bcc50 and bcc51 directories
+    SET(MATLAB_LIB_DIR "${MATLAB_ROOT}/extern/lib/win32/microsoft/bcc54")
+  ELSE()
+    IF(MATLAB_FIND_REQUIRED)
+      MESSAGE(FATAL_ERROR "Generator not compatible: ${CMAKE_GENERATOR}")
+    ENDIF(MATLAB_FIND_REQUIRED)
+  ENDIF()
 
-ELSE( WIN32 )
+ENDIF(WIN32)
 
+IF(NOT MATLAB_ROOT)
   # Search in the following directories for a directory that contains
   # the name 'matlab' case-insensitively.
   SET(DIRECTORIES /usr/local /opt $ENV{HOME} /Applications)
-  
+
   FOREACH(DIR ${DIRECTORIES})
     FILE(GLOB NAMES "${DIR}/*[mM][aA][tT][lL][aA][bB]*")
     FOREACH(NA ${NAMES})
-        IF(NOT MATLAB_ROOT AND IS_DIRECTORY ${NA})
-            SET(MATLAB_ROOT ${NA})
-        ENDIF(NOT MATLAB_ROOT AND IS_DIRECTORY ${NA})
+      IF( IS_DIRECTORY ${NA}
+      AND IS_DIRECTORY "${NA}/bin"
+      AND IS_DIRECTORY "${NA}/runtime"
+      AND IS_DIRECTORY "${NA}/toolbox" )
+        SET(MATLAB_ROOT ${NA})
+      ENDIF()
     ENDFOREACH()
-  ENDFOREACH()
-
-ENDIF(WIN32)
+  ENDFOREACH()    
+ENDIF(NOT MATLAB_ROOT)
 
 IF(NOT MATLAB_ROOT AND MATLAB_FIND_REQUIRED)
   MESSAGE(FATAL_ERROR "Matlab root not found")
