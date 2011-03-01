@@ -16,9 +16,14 @@
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/plevl.hpp>
+#include <nt2/include/functions/polevl.hpp>
+#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <boost/array.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -64,16 +69,92 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type; 
-      if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
-      if (is_inf(a0)) return Zero<result_type>(); 
-      if (is_eqz(a0)) return Minf<result_type>(); 
-      return ::y1(a0);
+      static boost::array<A0, 7> PP = {{
+	7.62125616208173112003E-4,
+	7.31397056940917570436E-2,
+	1.12719608129684925192E0,
+	5.11207951146807644818E0,
+	8.42404590141772420927E0,
+	5.21451598682361504063E0,
+	1.00000000000000000254E0,
+      }};
+      static boost::array<A0, 7> PQ = {{
+	5.71323128072548699714E-4,
+	6.88455908754495404082E-2,
+	1.10514232634061696926E0,
+	5.07386386128601488557E0,
+	8.39985554327604159757E0,
+	5.20982848682361821619E0,
+	9.99999999999999997461E-1,
+      }};
+      static boost::array<A0,6> YP = {{
+	1.26320474790178026440E9,
+	-6.47355876379160291031E11,
+	1.14509511541823727583E14,
+	-8.12770255501325109621E15,
+	2.02439475713594898196E17,
+	-7.78877196265950026825E17,
+      }};
+      static boost::array<A0,8> YQ = {{
+	/* 1.00000000000000000000E0,*/
+	5.94301592346128195359E2,
+	2.35564092943068577943E5,
+	7.34811944459721705660E7,
+	1.87601316108706159478E10,
+	3.88231277496238566008E12,
+	6.20557727146953693363E14,
+	6.87141087355300489866E16,
+	3.97270608116560655612E18,
+      }};
+      static boost::array<A0,8> QP = {{
+	5.10862594750176621635E-2,
+	4.98213872951233449420E0,
+	7.58238284132545283818E1,
+	3.66779609360150777800E2,
+	7.10856304998926107277E2,
+	5.97489612400613639965E2,
+	2.11688757100572135698E2,
+	2.52070205858023719784E1,
+      }};
+      static boost::array<A0,7> QQ = {{
+	/* 1.00000000000000000000E0,*/
+	7.42373277035675149943E1,
+	1.05644886038262816351E3,
+	4.98641058337653607651E3,
+	9.56231892404756170795E3,
+	7.99704160447350683650E3,
+	2.82619278517639096600E3,
+	3.36093607810698293419E2,
+      }};
+      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
+      if (is_ltz(a0)||is_nan(a0)) return Nan<rtype>();
+      if (is_inf(a0)) return Zero<rtype>(); 
+      if (is_eqz(a0)) return Minf<rtype>(); 
+      rtype x = a0; 
+      if( x <= Five<A0>() )
+	{
+	  //	  const A0 TWOOPI =  6.36619772367581343075535E-1; //       2/pi
+	  A0 z = sqr(x);
+	  A0 w = x * (polevl( z, YP) / p1evl( z, YQ));
+	  w += Twoopi<A0>() * ( j1(x) * log(x)  -  rec(x) );
+	  return w;
+	}
+      //      const A0 SQ2OPI =  7.9788456080286535587989E-1; // sqrt( 2/pi )      
+      //      const A0 THPIO4 =  2.35619449019234492885; //           3*pi/4
+      A0 w = Five<A0>()/x;
+      A0 z = w * w;
+      A0 p = polevl( z, PP)/polevl( z, PQ);
+      A0 q = polevl( z, QP)/p1evl( z, QQ);
+      A0 xn = x - Threepio_4<A0>(); 
+      A0 c, s; 
+      boost::fusion::tie(s, c) = sincos(xn); 
+      p = p * s + w * q * c;
+      return( p * Sqrt_2opi<A0>() / sqrt(x) );
+      //return ::y1(a0);
     }
   };
 } }
@@ -94,8 +175,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
