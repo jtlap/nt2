@@ -1,5 +1,8 @@
 #include <iostream>
+//#define BOOST_PROTO_STRICT_RESULT_OF
+
 #include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/meta/any.hpp>
 #include <nt2/sdk/simd/pack.hpp>
 #include <boost/proto/debug.hpp>
 
@@ -9,42 +12,10 @@
 
 using namespace std;
 
-NT2_REGISTER_DISPATCH ( Func , tag::cpu_
-                      , (Func)(D)
-                        (A0)(T0)(S0)
-                      , ((expr_<A0, domain_<D>, T0, S0>))
-                      )
-
-NT2_REGISTER_DISPATCH ( Func , tag::cpu_
-                      , (Func)(D)
-                        (A0)(T0)(S0)
-                        (A1)
-                      , ((expr_<A0, domain_<D>, T0, S0>))
-                        (fundamental_<A1>)
-                      )
-
-NT2_REGISTER_DISPATCH ( Func , tag::cpu_
-                      , (Func)(D)
-                        (A0)
-                        (A1)(T1)(S1)
-                      , (fundamental_<A0>)
-                        ((expr_<A1, domain_<D>, T1, S1>))
-                      )
-
-NT2_REGISTER_DISPATCH ( Func , tag::cpu_
-                      , (Func)(D)
-                        (A0)(T0)(S0)
-                        (A1)(T1)(S1)
-                      , ((expr_<A0, domain_<D>, T0, S0>))
-                        ((expr_<A1, domain_<D>, T1, S1>))
-                      )
-
 namespace nt2 { namespace ext
 {
-  template< class Func, class D, class T0, class S0 , class Dummy >
-  struct  call< Func(tag::expr_<D,T0,S0>)
-              , tag::cpu_, Dummy
-              >
+  template<class Dummy >
+  struct  call< tag::exponentbits_(tag::ast_), tag::cpu_, Dummy>
         : callable
   {
     template<class Sig> struct result;
@@ -52,62 +23,12 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename boost::proto::result_of::
-      make_expr < Func
-                , typename meta::strip<A0>::type const&
-                >::type type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return boost::proto::make_expr<Func>(boost::cref(a0));
-    }
-  };
-
-
-  template< class Func, class D
-          , class T0, class S0
-          , class T1, class S1
-          , class Dummy >
-  struct  call< Func(tag::expr_<D,T0,S0>,tag::expr_<D,T1,S1>)
-              , tag::cpu_, Dummy
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-    {
-      typedef typename boost::proto::result_of::
-      make_expr < Func
-                , typename meta::strip<A0>::type const&
-                , typename meta::strip<A1>::type const&
-                >::type type;
-    };
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return boost::proto::make_expr<Func>(boost::cref(a0),boost::cref(a1));
-    }
-  };
-
-  template<class D, class T0, class S0 , class Dummy >
-  struct  call< tag::exponentbits_(tag::expr_<D,T0,S0>)
-              , tag::cpu_, Dummy
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
+      typedef typename boost::proto::domain_of<A0>::type domain_type;
       typedef typename boost::proto::result_of::
       make_expr < tag::exponentbits_
                 , simd::domain< typename meta::
-                                as_integer<typename D::simd_type, signed>::type
-                              , typename D::simd_cardinal
+                                as_integer<typename domain_type::simd_type, signed>::type
+                              , typename domain_type::cardinal_type
                               >
                 , typename meta::strip<A0>::type const&
                 >::type type;
@@ -115,9 +36,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename boost::proto::domain_of<A0>::type base_type;
       typedef simd::domain< typename meta::
-                            as_integer<typename D::simd_type, signed>::type
-                          , typename D::simd_cardinal
+                            as_integer<typename base_type::simd_type, signed>::type
+                          , typename base_type::cardinal_type
                           > domain_type;
 
       return  boost::proto::
@@ -129,8 +51,7 @@ namespace nt2 { namespace ext
 template<class Xpr> void
 foo(Xpr const& x)
 {
-  std::cout << "Proto:\n"; boost::proto::display_expr(x);
-  std::cout << nt2::type_id<typename boost::proto::domain_of<Xpr>::type>() << "\n";
+  std::cout << nt2::type_id(x) << "\n";
 }
 
 int main()
@@ -139,8 +60,14 @@ int main()
   nt2::simd::pack<float> y(5.321);
 
   foo(x);
+  foo(nt2::exponentbits(1.f));
   foo(nt2::exponentbits(y));
   foo(nt2::cos(y) + nt2::cos(y)); // ok
-  foo(nt2::exponentbits(y) + x); //  ok
-
+  foo(nt2::plus(x , x) ); //  ok
+  foo(nt2::plus(nt2::exponentbits(y) , 3) ); //  ok
+  foo(nt2::plus(nt2::exponentbits(y) , nt2::exponentbits(y)) ); //  ok
+  foo(nt2::plus(nt2::exponentbits(1.f) , x) ); //  ok
+  foo(nt2::plus(nt2::exponentbits(1.f) , 3) ); //  ok
+  foo(nt2::where(y,y,y) ); //  ok
+  foo(nt2::where(1,2,y) ); //  ok
 }
