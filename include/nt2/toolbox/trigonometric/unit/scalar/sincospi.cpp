@@ -115,8 +115,8 @@ NT2_TEST_CASE_TPL ( sincospi_real__1,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), (T)::sinl(nt2::long_pi*a0), 1.0);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), (T)::cosl(nt2::long_pi*a0), 1.0);
+        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), (T)sin(nt2::long_pi*a0), 1.0);
+        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), (T)cos(nt2::long_pi*a0), 1.0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
