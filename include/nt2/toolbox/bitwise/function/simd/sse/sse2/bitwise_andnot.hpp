@@ -13,11 +13,13 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::bitwise_andnot_, tag::cpu_,
-                                 (A0)(A1),
-                                 ((simd_<arithmetic_<A0>,tag::sse_>))
-                                 ((simd_<arithmetic_<A1>,tag::sse_>))
-                                );
+NT2_REGISTER_DISPATCH_IF(tag::bitwise_andnot_, tag::cpu_,
+			 (A0)(A1),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::bitwise_andnot_(tag::simd_<tag::arithmetic_,tag::sse_>, tag::simd_<tag::arithmetic_,tag::sse_>)), 
+			 ((simd_<arithmetic_<A0>,tag::sse_>))
+			 ((simd_<arithmetic_<A1>,tag::sse_>))
+                       );
 
 namespace nt2 { namespace ext
 {

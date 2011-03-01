@@ -19,16 +19,18 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<signed_<A0>,X>))
-                        ((simd_<signed_<A0>,X>))
+NT2_REGISTER_DISPATCH_IF(tag::negif_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::negif_(tag::simd_<tag::arithmetic_,X>, tag::simd_<tag::signed_,X>)), 
+			 ((simd_<arithmetic_<A0>,X>))
+			 ((simd_<signed_<A1>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::negif_(tag::simd_<tag::signed_, X> ,
+  struct call<tag::negif_(tag::simd_<tag::arithmetic_, X> ,
                           tag::simd_<tag::signed_, X> ),
               tag::cpu_, Dummy> : callable
   {
@@ -46,16 +48,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::negif_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<real_<A0>,X>))
-                        ((simd_<real_<A0>,X>))
+NT2_REGISTER_DISPATCH_IF(tag::negif_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::negif_(tag::simd_<tag::arithmetic_,X>, tag::simd_<tag::real_,X>)), 
+			 ((simd_<arithmetic_<A0>,X>))
+			 ((simd_<real_<A1>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::negif_(tag::simd_<tag::real_, X> ,
+  struct call<tag::negif_(tag::simd_<tag::arithmetic_, X> ,
                           tag::simd_<tag::real_, X> ),
               tag::cpu_, Dummy> : callable
   {
@@ -71,4 +75,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 04/01/2011
+// modified by jt the 01/03/2011

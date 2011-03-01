@@ -16,12 +16,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::selsub_, tag::cpu_,
-                         (A0)(A1)(X),
-                         ((simd_<arithmetic_<A0>,X>))
-                         ((simd_<arithmetic_<A1>,X>))
-                         ((simd_<arithmetic_<A1>,X>))
-                        );
+NT2_REGISTER_DISPATCH_IF(tag::selsub_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::selsub_(tag::simd_<tag::arithmetic_,X>,
+					       tag::simd_<tag::arithmetic_,X>,
+					       tag::simd_<tag::arithmetic_,X>)), 
+			 ((simd_<arithmetic_<A0>,X>))
+			 ((simd_<arithmetic_<A1>,X>))
+			 ((simd_<arithmetic_<A1>,X>))
+			 ); 
 
 namespace nt2 { namespace ext
 {

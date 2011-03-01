@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// modified by jt the 22/02/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp> 
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
