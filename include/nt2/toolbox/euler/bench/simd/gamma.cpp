@@ -26,13 +26,13 @@ using nt2::tag::gamma_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, V1 , V2)
 
-NT2_TIMING(nt2::tag::gamma_,(RS(vfloat,-15.0f,15.0f)))
-NT2_TIMING(nt2::tag::gamma_,(RS(vdouble,-15.0,15.0)))
-NT2_TIMING(nt2::tag::gamma_,(RS(float,-15.0f,15.0f)))
-NT2_TIMING(nt2::tag::gamma_,(RS(double,-15.0,15.0)))
-NT2_TIMING(nt2::tag::fast_gamma_,(RS(vfloat,-15.0f,15.0f)))
-NT2_TIMING(nt2::tag::fast_gamma_,(RS(vdouble,-15.0,15.0)))
-NT2_TIMING(nt2::tag::fast_gamma_,(RS(float,-15.0f,15.0f)))
-NT2_TIMING(nt2::tag::fast_gamma_,(RS(double,-15.0,15.0)))
+NT2_TIMING(nt2::tag::gamma_,(RS(vfloat,0.0f,12.0f)))
+NT2_TIMING(nt2::tag::gamma_,(RS(vdouble,0.0,12.0)))
+NT2_TIMING(nt2::tag::gamma_,(RS(float,0.0f,12.0f)))
+NT2_TIMING(nt2::tag::gamma_,(RS(double,0.0,12.0)))
+NT2_TIMING(nt2::tag::fast_gamma_,(RS(vfloat,0.0f,12.0f)))
+NT2_TIMING(nt2::tag::fast_gamma_,(RS(vdouble,0.0,12.0)))
+NT2_TIMING(nt2::tag::fast_gamma_,(RS(float,0.0f,12.0f)))
+NT2_TIMING(nt2::tag::fast_gamma_,(RS(double,0.0,12.0)))
 
 #undef RS
