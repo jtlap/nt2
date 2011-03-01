@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct plevl_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, plevl, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, p1evl, 2)
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/plevl.hpp>
