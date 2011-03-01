@@ -29,7 +29,8 @@
              'default' : {
                 },
              'real_' : {
-                 '4,3' : '2',
+                 'T(4),T(3)' : '2',
+                 'T(4),T(0)' : 'nt2::Inf<r_t>()',   
                  'nt2::Inf<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
@@ -41,10 +42,12 @@
                 },
              'signed_int_' : {
                  '4,3' : '2',
+                 '4,0' : '0',   
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
              'unsigned_int_' : {
+                 '4,0' : '0',   
                  '4,3' : '2',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
@@ -54,7 +57,8 @@
                  'default' : ['nt2::divceil(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['r_t(nt2::ceil((1.0*a0)/a1))'],
+                 'default' : ['r_t(a1 ? nt2::ceil((1.0*a0)/a1) : 0)'],
+                 'real_' : ['r_t(nt2::ceil(a0/a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

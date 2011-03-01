@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return round(tofloat(a0)/tofloat(a1));
+      return (!a1) ? a1 : round(double(a0)/double(a1));
     }
   };
 } }

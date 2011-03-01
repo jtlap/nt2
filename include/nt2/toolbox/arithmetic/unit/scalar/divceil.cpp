@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 28/02/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -42,7 +42,8 @@ NT2_TEST_CASE_TPL ( divceil_real__2,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divceil(4,3), 2, 0);
+  NT2_TEST_ULP_EQUAL(divceil(T(4),T(0)), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(T(4),T(3)), 2, 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
@@ -64,7 +65,7 @@ NT2_TEST_CASE_TPL ( divceil_real__2,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(nt2::ceil((1.0*a0)/a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(nt2::ceil(a0/a1)),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -88,6 +89,7 @@ NT2_TEST_CASE_TPL ( divceil_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(divceil(4,0), 0, 0);
   NT2_TEST_ULP_EQUAL(divceil(4,3), 2, 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   // random verifications
@@ -103,7 +105,7 @@ NT2_TEST_CASE_TPL ( divceil_unsigned_int__2,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(nt2::ceil((1.0*a0)/a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(a1 ? nt2::ceil((1.0*a0)/a1) : 0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -127,6 +129,7 @@ NT2_TEST_CASE_TPL ( divceil_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(divceil(4,0), 0, 0);
   NT2_TEST_ULP_EQUAL(divceil(4,3), 2, 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
@@ -143,7 +146,7 @@ NT2_TEST_CASE_TPL ( divceil_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(nt2::ceil((1.0*a0)/a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(a1 ? nt2::ceil((1.0*a0)/a1) : 0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

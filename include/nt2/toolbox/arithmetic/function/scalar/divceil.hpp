@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
-      return iceil(float(a0)/float(a1));
+      return (!a1) ? a1 : iceil(double(a0)/double(a1));
 
     }
   };

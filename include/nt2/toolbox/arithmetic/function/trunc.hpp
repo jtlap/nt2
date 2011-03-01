@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct trunc_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/trunc.hpp>

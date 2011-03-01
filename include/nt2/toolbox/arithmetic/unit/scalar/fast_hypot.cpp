@@ -22,6 +22,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/fast_hypot.hpp>
+#include <nt2/toolbox/arithmetic/include/hypot.hpp>
 
 NT2_TEST_CASE_TPL ( fast_hypot_real__2,  NT2_REAL_TYPES)
 {
@@ -59,7 +60,8 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fast_hypot(a0,a1),r_t(::hypot(a0,a1)),0);
+        NT2_TEST_ULP_EQUAL( nt2::fast_hypot(a0,a1),r_t(::hypot(a0,a1)),0.5);
+	NT2_TEST_ULP_EQUAL( nt2::fast_hypot(a0,a1), nt2::hypot(a0,a1),0.5); 
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
