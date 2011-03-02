@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/cephes/include/incbps.hpp>
 
-NT2_TEST_CASE_TPL ( incbps_real__3,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( incbps_real__3,  (float))
 {
   using nt2::cephes::incbps;
   using nt2::cephes::tag::incbps_;
@@ -41,9 +41,9 @@ NT2_TEST_CASE_TPL ( incbps_real__3,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a2,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a2,T, NR, T(0), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
     T a0,a1,a2;
     for (int j =0; j < NR; ++j )

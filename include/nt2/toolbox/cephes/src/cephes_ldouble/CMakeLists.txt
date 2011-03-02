@@ -30,7 +30,7 @@ SET( SOURCES
 #zetal.c zetacl.c ndtrl.c psil.c sindgl.c struvel.c tandgl.c setprecl.c econst.c
 #mtherrl.c rgammal.c roundl.c 
 ADD_LIBRARY(nt2_cephesl STATIC ${SOURCES} )
-SET_TARGET_PROPERTIES(nt2_cephesl PROPERTIES COMPILE_FLAGS "-fno-builtin")
+SET_TARGET_PROPERTIES(nt2_cephesl PROPERTIES COMPILE_FLAGS "-DANSIC  -DANSIPROT -fno-builtin")
 
 
 

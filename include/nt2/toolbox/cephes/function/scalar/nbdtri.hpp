@@ -20,13 +20,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(cephes::tag::nbdtri_, tag::cpu_,
                         (A0)(A1)(A2),
-                        (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                        (integer_<A0>)(integer_<A1>)(arithmetic_<A2>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<cephes::tag::nbdtri_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<cephes::tag::nbdtri_(tag::integer_,tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
-      return nt2::cephes::nbdtri((a0), (a1), type(a2));
+      return nt2::cephes::nbdtri((a0), (a1), double(a2));
     }
   };
 } }
@@ -46,13 +46,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(cephes::tag::nbdtri_, tag::cpu_,
                         (A0)(A1)(A2),
-                        (double_<A0>)(double_<A1>)(double_<A2>)
+                        (integer_<A0>)(integer_<A1>)(double_<A2>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<cephes::tag::nbdtri_(tag::double_,tag::double_,tag::double_),
+  struct call<cephes::tag::nbdtri_(tag::integer_,tag::integer_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

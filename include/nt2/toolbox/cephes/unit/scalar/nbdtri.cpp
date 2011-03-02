@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( nbdtri_real__3,  NT2_REAL_TYPES)
   using nt2::cephes::nbdtri;
   using nt2::cephes::tag::nbdtri_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<nbdtri_(T,T,T)>::type r_t;
+  typedef typename nt2::meta::call<nbdtri_(iT,iT,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -41,11 +41,12 @@ NT2_TEST_CASE_TPL ( nbdtri_real__3,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a0,T, NR, iT(0), iT(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, iT(0), iT(10));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-100), T(100));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
+    iT a0,a1;
+    T a2;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "

@@ -21,7 +21,7 @@
              'stamp' : 'modified by jt the 01/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-100)', 'T(100)']],
+             'default' : [['T(-50)', 'T(50)']],
             },
          'specific_values' : {
             },
@@ -35,7 +35,7 @@
              'simd' : {
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5'],
+                 'default' : ['1.0'],
                 },
             },
         },

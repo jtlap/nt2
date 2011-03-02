@@ -12,7 +12,7 @@
 // Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
-/// modified by jt the 01/03/2011
+/// modified by jt the 02/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,6 +27,7 @@
 
 NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::cephes::powi;
   using nt2::cephes::tag::powi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -44,7 +45,7 @@ NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a1,iT, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,iT, NR, iT(0), iT(10));
     double ulp0 = 0.0, ulpd = 0.0;
     T a0;  iT a1;
     for (int j =0; j < NR; ++j )
@@ -53,7 +54,7 @@ NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cephes::powi(a0,a1),nt2::powi(a0,a1),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::cephes::powi(a0,a1),nt2::powi(a0,a1),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

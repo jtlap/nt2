@@ -23,13 +23,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(cephes::tag::jn_, tag::cpu_,
                     (A0)(A1),
-                    (arithmetic_<A0>)(arithmetic_<A1>)
+                    (integer_<A0>)(arithmetic_<A1>)
                    )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<cephes::tag::jn_(tag::arithmetic_,tag::arithmetic_),
+  struct call<cephes::tag::jn_(tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::cephes::jn((a0), type(a1));
+      return nt2::cephes::jn(a0, type(a1));
     }
   };
 } }
@@ -55,7 +55,7 @@ NT2_REGISTER_DISPATCH(cephes::tag::jn_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<cephes::tag::jn_(tag::double_,tag::double_),
+  struct call<cephes::tag::jn_(tag::integer_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(cephes::tag::jn_, tag::cpu_,
                     (A0)(A1),
-                    (float_<A0>)(float_<A1>)
+                    (integer_<A0>)(float_<A1>)
                    )
 
 namespace nt2 { namespace ext
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(cephes::tag::jn_, tag::cpu_,
                     (A0)(A1),
-                    (long_double_<A0>)(long_double_<A1>)
+                    (integer_<A0>)(long_double_<A1>)
                    )
 
 namespace nt2 { namespace ext
