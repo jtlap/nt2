@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+  atanpi.cpp
+  asinpi.cpp
+  acospi.cpp
   tanpi.cpp
   tand.cpp
   tan.cpp

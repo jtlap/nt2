@@ -17,8 +17,8 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                           'extern "C" {extern long double cephes_acosl(long double);}'],
-             'notes' : [],
+                           'extern "C" {extern long double cephes_atanl(long double);}'],
+            'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },
          'ranges' : {
@@ -28,34 +28,32 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : '90','ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'result' : '0.25','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 'nt2::Half<T>()' : {'result' : '60','ulp_thresh' : '0.5',},
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Mhalf<T>()' : {'result' : '120','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Mone<T>()' : {'result' : '180','ulp_thresh' : '0.5',},
+                 'nt2::Inf<T>()' : {'result' : '0.5','ulp_thresh' : '0.5',},
+                 'nt2::Minf<T>()' : {'result' : '-0.5','ulp_thresh' : '0.5',},
+                 'nt2::Mone<T>()' : {'result' : '-0.25','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : '90','ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'result' : '0.25','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : '180','ulp_thresh' : '0.5',},
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : '90','ulp_thresh' : '0.5',},
+                 'nt2::Mone<T>()' : {'result' : '-0.25','ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'result' : '0.25','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::acosd(a0)'],
+                 'real_' : ['nt2::atanpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_acosl(a0)*nt2::long_radindeg'],
+                 'real_' : ['::cephes_atanl(a0)/nt2::long_pi'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['1.0'],
+                 'real_' : '1.0',
                 },
             },
         },

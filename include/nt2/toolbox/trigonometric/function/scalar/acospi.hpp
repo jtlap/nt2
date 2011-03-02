@@ -6,25 +6,22 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOSD_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOSD_HPP_INCLUDED
-
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOSPI_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOSPI_HPP_INCLUDED
 #include <nt2/include/functions/acos.hpp>
-#include <nt2/include/functions/indeg.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::acosd_, tag::cpu_,
-                       (A0),
-                       (arithmetic_<A0>)
-                      )
+NT2_REGISTER_DISPATCH(tag::acospi_, tag::cpu_,
+                      (A0),
+                      (arithmetic_<A0>)
+                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::acosd_(tag::arithmetic_),
+  struct call<tag::acospi_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,9 +32,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return indeg(nt2::acos(type(a0)));
+      return Invpi<type>()*(nt2::acos(type(a0)));
     }
-
   };
 } }
 

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - acosd/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - atanpi/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of trigonometric components in scalar mode
@@ -21,18 +21,18 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/trigonometric/include/acosd.hpp>
+#include <nt2/toolbox/trigonometric/include/atanpi.hpp>
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-extern "C" {extern long double cephes_acosl(long double);}
+extern "C" {extern long double cephes_atanl(long double);}
 
-NT2_TEST_CASE_TPL ( acosd_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( atanpi_real__1,  NT2_REAL_TYPES)
 {
   
-  using nt2::acosd;
-  using nt2::tag::acosd_;
+  using nt2::atanpi;
+  using nt2::tag::atanpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<acosd_(T)>::type r_t;
+  typedef typename nt2::meta::call<atanpi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
@@ -44,14 +44,12 @@ NT2_TEST_CASE_TPL ( acosd_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Half<T>()), 60, 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Mhalf<T>()), 120, 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Mone<T>()), 180, 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Zero<T>()), 90, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Inf<T>()), 0.5, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Minf<T>()), -0.5, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Mone<T>()), -0.25, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::One<T>()), 0.25, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
@@ -63,20 +61,20 @@ NT2_TEST_CASE_TPL ( acosd_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::acosd(a0),::cephes_acosl(a0)*nt2::long_radindeg,1.0);
+        NT2_TEST_ULP_EQUAL( nt2::atanpi(a0),::cephes_atanl(a0)/nt2::long_pi,1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( acosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( atanpi_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   
-  using nt2::acosd;
-  using nt2::tag::acosd_;
+  using nt2::atanpi;
+  using nt2::tag::atanpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<acosd_(T)>::type r_t;
+  typedef typename nt2::meta::call<atanpi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
@@ -88,17 +86,17 @@ NT2_TEST_CASE_TPL ( acosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(acosd(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Zero<T>()), 90, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::One<T>()), 0.25, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( acosd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( atanpi_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::acosd;
-  using nt2::tag::acosd_;
+  using nt2::atanpi;
+  using nt2::tag::atanpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<acosd_(T)>::type r_t;
+  typedef typename nt2::meta::call<atanpi_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
@@ -110,7 +108,7 @@ NT2_TEST_CASE_TPL ( acosd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Mone<T>()), 180, 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(acosd(nt2::Zero<T>()), 90, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Mone<T>()), -0.25, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::One<T>()), 0.25, 0.5);
+  NT2_TEST_ULP_EQUAL(atanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for signed_int_

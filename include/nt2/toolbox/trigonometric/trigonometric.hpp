@@ -10,6 +10,9 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_TRIGONOMETRIC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/trigonometric/include/atanpi.hpp>
+#include <nt2/toolbox/trigonometric/include/asinpi.hpp>
+#include <nt2/toolbox/trigonometric/include/acospi.hpp>
 #include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>
 #include <nt2/toolbox/trigonometric/include/tanpi.hpp>
 #include <nt2/toolbox/trigonometric/include/tand.hpp>
