@@ -6,43 +6,54 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ast toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ast toolbox - acosh/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp> 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of ast components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 02/03/2011
+/// modified by jt the 02/03/2011
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/ast/include/acosh.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/cosh.hpp>
+#include <nt2/toolbox/ast/include/acosh.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/acosh.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( acosh, (double) 
-                (float) 
-                )
+NT2_TEST_CASE_TPL ( acosh_real__1,  NT2_REAL_TYPES)
 {
-  using nt2::ast::acosh; 
+  using nt2::ast::acosh;
   using nt2::ast::tag::acosh_;
-  const int N = 2; 
-   NT2_TEST( (boost::is_same < typename nt2::meta::call<acosh_(T)>::type
-            , T
-            >::value)
-           );
-   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-   NT2_TEST(  nt2::is_nan(nt2::ast::acosh( T(0) )));
-   NT2_TEST_EQUAL(  nt2::ast::acosh( T(1) )  , 0 );
-   NT2_TEST_EQUAL(  nt2::ast::acosh(nt2::Inf<T>() ), nt2::Inf<T>());
-   NT2_TEST      (  nt2::is_nan(nt2::ast::acosh(nt2::Nan<T>()) )); 
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<acosh_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-   for(int i=0; i < 10; i++)
-     {
-       T x =  i; 
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(x, nt2::cosh(nt2::ast::acosh(x))), 1); 
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::ast::acosh(a0),nt2::acosh(a0),0.5);
+        ulp0=nt2::max(ulpd,ulp0);
      }
-}
-  
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
