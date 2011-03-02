@@ -6,41 +6,55 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 crlibm toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 crlibm toolbox - asin_rn/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp> 
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of crlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 02/03/2011
+/// modified by jt the 02/03/2011
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/crlibm/include/asin_rn.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <iostream>
- 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( asin_rn, (double) 
-                (float) 
-                ) 
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/crlibm/include/asin_rn.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/asin.hpp>
+
+NT2_TEST_CASE_TPL ( asin_rn_real__1,  NT2_REAL_TYPES)
 {
+  using nt2::rn;
   using nt2::crlibm::asin_rn;
   using nt2::crlibm::tag::asin_rn_;
-  const int N = 1; 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<asin_rn_(T)>::type
-           , T
-            >::value)
-    );
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-  NT2_TEST_EQUAL(  asin_rn( T(0) )  , 0 );
-  NT2_TEST_EQUAL(  asin_rn( T(1) )  , nt2::Pi<r_t>()/2 );
-  NT2_TEST_EQUAL(  asin_rn( T(-1) )  , -nt2::Pi<r_t>()/2 );
-  NT2_TEST_LESSER(  nt2::ulpdist(asin_rn( T(0.5) ), nt2::Pi<r_t>()/6),  N); 
-  NT2_TEST_LESSER(  nt2::ulpdist(asin_rn( T(-0.5) ), -nt2::Pi<r_t>()/6),  N); 
-}
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<asin_rn_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  
-  
-  
- 
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::crlibm::asin_rn(a0),nt2::asin(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_

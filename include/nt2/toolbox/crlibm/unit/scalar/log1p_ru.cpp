@@ -6,51 +6,55 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 crlibm toolbox - unit/scalar Mode"
-#include <nt2/sdk/functor/meta/call.hpp> 
+#define NT2_UNIT_MODULE "nt2 crlibm toolbox - log1p_ru/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of crlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 02/03/2011
+/// modified by jt the 02/03/2011
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/crlibm/include/log1p_ru.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/exp10.hpp>
-#include <iostream>
-#include <iomanip>
+#include <nt2/toolbox/crlibm/include/log1p_ru.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/log1p.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( log1p_ru, (double) 
-                (float) 
-                )
+NT2_TEST_CASE_TPL ( log1p_ru_real__1,  NT2_REAL_TYPES)
 {
-  using nt2::crlibm::log1p_ru; 
+  using nt2::rn;
+  using nt2::crlibm::log1p_ru;
   using nt2::crlibm::tag::log1p_ru_;
-  const int N = 2; 
-   NT2_TEST( (boost::is_same < typename nt2::meta::call<log1p_ru_(T)>::type
-            , T
-            >::value)
-           );
-   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-   NT2_TEST_EQUAL(  nt2::crlibm::log1p_ru( T(0) )  , 0 );
-   NT2_TEST_EQUAL(  nt2::crlibm::log1p_ru( T(-1) )  , nt2::Minf<T>() );
-   NT2_TEST_EQUAL(  nt2::crlibm::log1p_ru( nt2::Inf<T>() )  , nt2::Inf<T>() );
-   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::crlibm::log1p_ru(nt2::Exp_1<T>()-1 ), T(1)), 1); 
-   NT2_TEST_LESSER_EQUAL(  nt2::ulpdist(nt2::crlibm::log1p_ru(nt2::Eps<T>()), nt2::Eps<T>()), 1); 
-   NT2_TEST(  nt2::is_nan(log1p(nt2::Nan<T>() )));
-   T t[] ={    6.931471805599453e-01,     9.985023295895228e-04,     4.996252914324852e-04,     3.331667530401490e-04, 
-     2.499062864436910e-04,     1.999400186606686e-04,     1.666250107995764e-04,     1.428265374134045e-04, 
-     1.249765670563763e-04,     1.110925957927527e-04  }; 
-   T v[] ={    1.000000000000000e+00,     9.990009990009990e-04,     4.997501249375312e-04,     3.332222592469177e-04, 
-     2.499375156210947e-04,     1.999600079984003e-04,     1.666388935177471e-04,     1.428367376089130e-04, 
-     1.249843769528809e-04,     1.110987668036885e-04 };
- 
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<log1p_ru_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-   for(int i=0; i < 10; i++)  
-     {
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(nt2::crlibm::log1p_ru(v[i]), t[i]), 3);
-       std::cout << std::setprecision(20) << v[i] << "  " << nt2::crlibm::log1p_ru(v[i]) << "  " << t[i] << std::endl; 
-     } }
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::crlibm::log1p_ru(a0),nt2::log1p(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
