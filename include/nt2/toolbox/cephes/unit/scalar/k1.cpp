@@ -6,24 +6,52 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 cephes toolbox - k1 - unit/scalar Mode"
-#include <nt2/include/functions/acos.hpp> 
-#include <nt2/toolbox/cephes/include/k1.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp>
+#define NT2_UNIT_MODULE "nt2 cephes toolbox - k1/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-//Test behavior of cephes component k1 using NT2_TEST_CASE
+// Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( k1,  (double)(float) )
+/// created  by jt the 01/03/2011
+/// modified by jt the 01/03/2011
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/cephes/include/k1.hpp>
+
+NT2_TEST_CASE_TPL ( k1_real__1,  NT2_REAL_TYPES)
 {
   using nt2::cephes::k1;
   using nt2::cephes::tag::k1_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<k1_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same<typename nt2::meta::call<nt2::cephes::tag::k1_(T)>::type,
-                           T
-                           >::value)
-          );
-}
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::cephes::k1(a0),nt2::cephes::k1(a0),0.5);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
