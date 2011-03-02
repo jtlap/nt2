@@ -10,7 +10,7 @@
 #define NT2_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
-//#include <nt2/sdk/dsl/compute.hpp>
+#include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 
@@ -109,8 +109,9 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
-      //dsl::compile<dsl::compute_,parent>  eval;
-      //mData = eval(xpr);
+      meta::compile<meta::compute,tag::cpu_> compiler;
+      meta::as_<parent> target;
+      mData = compiler(xpr,target);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -124,9 +125,9 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
-      //dsl::compile<dsl::compute_,parent>  eval;
+      //meta::compile<meta::compute_,tag::cpu_>  compiler;
       //for(std::size_t i=0;i<Cardinal::value;++i)
-      //  mData[i] = eval(xpr,i,i);
+      //  mData[i] = compiler(xpr,i,i);
     }
   };
 } }
