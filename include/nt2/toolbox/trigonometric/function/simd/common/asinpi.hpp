@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_ASINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_ASINPI_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/include/functions/asin.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -21,7 +23,7 @@ NT2_REGISTER_DISPATCH(tag::asinpi_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::asinpi_(tag::simd_(tag::arithmetic_, X)),
+  struct call<tag::asinpi_(tag::simd_ < tag::arithmetic_, X > ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -31,8 +33,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      // CODE HERE
-      return WHATEVER
+      return Invpi<type>()*(nt2::asin(tofloat(a0)));
     }
   };
 } }
