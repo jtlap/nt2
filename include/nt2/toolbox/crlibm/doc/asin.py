@@ -21,7 +21,7 @@
              'stamp' : 'modified by jt the 02/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-100)', 'T(100)']],
+             'default' : [['T(-1)', 'T(1)']],
             },
          'specific_values' : {
             },
