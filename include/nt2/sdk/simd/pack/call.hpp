@@ -9,76 +9,72 @@
 #ifndef NT2_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
-namespace nt2 { namespace functors
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // When in SIMD, dispatch on the scalar of argument A0
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Tag, class X, class Info>
-  struct  dispatch<Tag,tag::simd_<tag::ast_,X> ,Info>
-        : boost::mpl::always< fundamental_ >
-  {};
+////////////////////////////////////////////////////////////////////////////////
+// Register terminal handlers for SIMD expression - native case
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::terminal_,tag::cpu_
+                     ,(A0)(A1)(A2)(X)(Y)
+                     ,((simd_<arithmetic_<A0>,X>))
+                      ((target_<simd_<arithmetic_<A1>,Y> >))
+                      (int32_<A2>)
+                     )
 
-  template<class Tag, class X, class Info>
-  struct  call<Tag,tag::simd_<tag::ast_,X> ,fundamental_, Info>
-        : callable
+NT2_REGISTER_DISPATCH(tag::terminal_,tag::cpu_
+                     ,(A0)(A1)(A2)(X)
+                     ,(arithmetic_<A0>)
+                      ((target_<simd_<arithmetic_<A1>,X> >))
+                      (int32_<A2>)
+                     )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy,class X,class Y>
+  struct call<tag::terminal_( tag::simd_<tag::arithmetic_,X>
+                            , tag::target_< tag::simd_<tag::arithmetic_,Y> >
+                            , tag::int32_
+                            ),tag::cpu_,Dummy>
+  : callable
   {
     template<class Sig> struct result;
 
-    template<class This,class A0>
-    struct  result<This(A0)>
+    template<class This, class Value, class State, class Data>
+    struct result<This(Value,State,Data)>
     {
-      typedef typename meta::strip<A0>::type arg0;
-      typedef typename boost::proto::result_of
-                                    ::make_expr < Tag
-                                                , arg0 const&
-                                                >::type  type;
+      typedef typename meta::strip<Value>::type::parent type;
     };
 
-    template<class This,class A0,class A1>
-    struct  result<This(A0,A1)>
+    template<class Value, class State, class Data> inline
+    typename result<call(Value,State,Data)>::type
+    operator()( Value& v, State& , Data&  ) const
     {
-      typedef typename meta::strip<A0>::type arg0;
-      typedef typename meta::strip<A1>::type arg1;
-      typedef typename boost::proto::result_of
-                                    ::make_expr < Tag
-                                                , arg0 const&
-                                                , arg1 const&
-                                                >::type  type;
-    };
-
-    template<class This,class A0,class A1,class A2>
-    struct  result<This(A0,A1,A2)>
-    {
-      typedef typename meta::strip<A0>::type arg0;
-      typedef typename meta::strip<A1>::type arg1;
-      typedef typename meta::strip<A2>::type arg2;
-      typedef typename boost::proto::result_of
-                                    ::make_expr < Tag
-                                                , arg0 const&
-                                                , arg1 const&
-                                                , arg2 const&
-                                                >::type  type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return boost::proto::make_expr<Tag>( boost::cref(a0) );
+      return v.value();
     }
+  };
+  template<class Dummy,class X>
+  struct call<tag::terminal_( tag::arithmetic_
+                            , tag::target_< tag::simd_<tag::arithmetic_,X> >
+                            , tag::int32_
+                            ),tag::cpu_,Dummy>
+  : callable
+  {
+    template<class Sig> struct result;
 
-    NT2_FUNCTOR_CALL(2)
-    {
-      return boost::proto::make_expr<Tag>( boost::cref(a0), boost::cref(a1) );
-    }
+    template<class This, class Value, class State, class Data>
+    struct result<This(Value,State,Data)> :  meta::strip<State>::type {};
 
-    NT2_FUNCTOR_CALL(3)
+    template<class Value, class State, class Data> inline
+    typename result<call(Value,State,Data)>::type
+    operator()( Value& v, State& , Data&  ) const
     {
-      return boost::proto::make_expr<Tag> ( boost::cref(a0)
-                                          , boost::cref(a1)
-                                          , boost::cref(a2)
-                                          );
+      typedef typename result<call(Value,State,Data)>::type type;
+      return splat<type>(v);
     }
   };
 } }
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Register terminal handlers for SIMD expression - emulated case
+////////////////////////////////////////////////////////////////////////////////
 
 #endif

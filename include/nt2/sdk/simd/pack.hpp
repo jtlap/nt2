@@ -16,7 +16,7 @@
 #include <nt2/sdk/simd/pack/grammar.hpp>
 #include <nt2/sdk/simd/pack/generator.hpp>
 #include <nt2/sdk/simd/pack/expression.hpp>
-//#include <nt2/sdk/simd/pack/terminal.hpp>
+#include <nt2/sdk/simd/pack/call.hpp>
 #include <nt2/sdk/simd/pack/domain.hpp>
 #include <nt2/sdk/simd/pack/pack.hpp>
 //#include <nt2/sdk/simd/pack/load.hpp>

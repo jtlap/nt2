@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
       : boost::proto::switch_< compile<Phase,Target> >
   {
     template <typename Tag, typename Dummy = void>
-    struct case_ : boost::proto::otherwise < Phase<Target,Tag> >
+    struct case_ : boost::proto::otherwise < Phase<Tag,Target> >
     {};
   };
 } }

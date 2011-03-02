@@ -111,7 +111,6 @@ namespace nt2 { namespace simd
     iterator        end()           { return boost::proto::value(*this).end();   }
     const_iterator  begin()  const  { return boost::proto::value(*this).begin(); }
     const_iterator  end()    const  { return boost::proto::value(*this).end();   }
-/*
     ////////////////////////////////////////////////////////////////////////////
     // SIMD expression evaluates as pack
     ////////////////////////////////////////////////////////////////////////////
@@ -130,7 +129,6 @@ namespace nt2 { namespace simd
       boost::proto::value(*this).evaluate(xpr);
       return *this;
     }
-     */
   };
 } }
 

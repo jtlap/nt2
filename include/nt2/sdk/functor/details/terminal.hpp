@@ -28,7 +28,7 @@ namespace nt2
     };
 
     template<class Value, class State, class Data> inline
-    typename meta::enable_call<tag::terminal_(Value&,State&,Data&)>::type
+    typename meta::enable_call<tag::terminal_(Value,State,Data)>::type
     operator()( Value& v, State& s, Data& d ) const
     {
       typename

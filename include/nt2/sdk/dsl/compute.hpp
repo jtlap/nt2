@@ -6,38 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_DSL_COMPUTE_HPP_INCLUDED
-#define NT2_CORE_DSL_COMPUTE_HPP_INCLUDED
+#ifndef NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
+#define NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
 
 #include <nt2/sdk/dsl/compile.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/functor/details/tags.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// compute evaluates a nt2 AST numerically
+// compute evaluates a nt2 AST by passing its elements through a raw functor
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag
-{
-  template<class Tag> struct compute_ {};
-} }
-
 namespace nt2 { namespace meta
 {
-  template <class Target, class Tag>
+  template <class Tag, class Target>
   struct compute
       : boost::proto::
         unpack< boost::proto::
-                call< functor < tag::compute_<Tag>
-                              , Target
-                              >
-                    >(compile<compute,Target>)
+                call< functor<Tag, Target> >(compile<compute,Target>)
               >
   {};
 
   template<class Target>
-  struct  compute<Target, tag::terminal_>
+  struct  compute<tag::terminal_,Target>
         : boost::proto::
-          call< functor < tag::compute_<tag::terminal_>
+          call< functor < tag::terminal_
                         , Target
                         > ( boost::proto::_value
                           , boost::proto::_state
@@ -49,8 +41,8 @@ namespace nt2 { namespace meta
 
 namespace boost { namespace proto
 {
-  template<class Target,class Tag>
-  struct  is_callable<nt2::meta::compute<Target, Tag> >
+  template<class Tag, class Target>
+  struct  is_callable<nt2::meta::compute<Tag, Target> >
         : boost::mpl::true_  {};
 } }
 
