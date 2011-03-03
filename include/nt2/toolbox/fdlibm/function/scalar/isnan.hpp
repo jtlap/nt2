@@ -28,13 +28,10 @@ namespace nt2 { namespace ext
   struct call<fdlibm::tag::isnan_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+    typedef bool result_type; 
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       return nt2::fdlibm::isnan(double(a0));
     }
   };
@@ -54,9 +51,7 @@ namespace nt2 { namespace ext
   struct call<fdlibm::tag::isnan_(tag::double_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+    typedef bool result_type; 
 
     NT2_FUNCTOR_CALL(1){ return fd_isnan(a0); }
   };

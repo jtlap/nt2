@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_SCALBN_HPP_INCLUDED
 
   extern "C"{
-    extern double fd_scalbn ( double,double );
+    extern double fd_scalbn ( double,int );
   }
 
 
@@ -19,13 +19,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::scalbn_, tag::cpu_,
                         (A0)(A1),
-                        (arithmetic_<A0>)(arithmetic_<A1>)
+                        (arithmetic_<A0>)(integer_<A1>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::scalbn_(tag::arithmetic_,tag::arithmetic_),
+  struct call<fdlibm::tag::scalbn_(tag::arithmetic_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::fdlibm::scalbn(double(a0), double(a1));
+      return nt2::fdlibm::scalbn(double(a0), a1);
     }
   };
 } }
@@ -45,18 +45,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::scalbn_, tag::cpu_,
                         (A0)(A1),
-                        (double_<A0>)(double_<A1>)
+                        (double_<A0>)(integer_<A1>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::scalbn_(tag::double_,tag::double_),
+  struct call<fdlibm::tag::scalbn_(tag::double_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0, A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2){ return fd_scalbn(a0, a1); }
   };

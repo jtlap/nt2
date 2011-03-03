@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR__IEEE754_POW_HPP_INCLUDED
 
   extern "C"{
-    extern double fd___ieee754_pow ( double );
+    extern double fd___ieee754_pow ( double, double);
   }
 
 
@@ -18,24 +18,24 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::__ieee754_pow_, tag::cpu_,
-                               (A0),
-                               (arithmetic_<A0>)
-                              )
+		      (A0)(A1),
+		      (arithmetic_<A0>)
+		      (arithmetic_<A1>)
+		      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::__ieee754_pow_(tag::arithmetic_),
+  struct call<fdlibm::tag::__ieee754_pow_(tag::arithmetic_, tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : boost::result_of<meta::floating(A0, A1)>{};
 
-    NT2_FUNCTOR_CALL(1)
+    NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::fdlibm::__ieee754_pow(double(a0));
+      return nt2::fdlibm::__ieee754_pow(double(a0), double(a1));
     }
   };
 } }
@@ -44,21 +44,21 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::__ieee754_pow_, tag::cpu_,
-                               (A0),
-                               (double_<A0>)
-                              )
-
+		      (A0)(A1),
+		      (double_<A0>)(double_<A1>)
+		      )
+		      
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::__ieee754_pow_(tag::double_),
+  struct call<fdlibm::tag::__ieee754_pow_(tag::double_, tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(1){ return fd___ieee754_pow(a0); }
+    NT2_FUNCTOR_CALL(2){ return fd___ieee754_pow(a0, a1); }
   };
 } }
 

@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_FINITE_HPP_INCLUDED
 
   extern "C"{
-    extern double fd_finite ( double );
+    extern bool fd_finite ( double );
   }
 
 
@@ -28,9 +28,7 @@ namespace nt2 { namespace ext
   struct call<fdlibm::tag::finite_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+    typedef bool result_type; 
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -54,9 +52,7 @@ namespace nt2 { namespace ext
   struct call<fdlibm::tag::finite_(tag::double_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : boost::result_of<meta::floating(A0)>{};
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1){ return fd_finite(a0); }
   };

@@ -16,7 +16,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   {         
     struct fmod_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::fmod_, fmod, 1)
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::fmod_, fmod, 2)
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/fmod.hpp>

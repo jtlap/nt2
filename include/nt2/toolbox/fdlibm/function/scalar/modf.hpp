@@ -18,24 +18,25 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is double_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::modf_, tag::cpu_,
                       (A0),
-                      (fundamental_<A0>)
+                      (double_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::modf_(tag::fundamental_),
+  struct call<fdlibm::tag::modf_(tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef boost::fusion::vector<double, double>        type;
+      typedef typename meta::strip<A0>::type            etype;
+      typedef boost::fusion::vector<etype, etype>        type;
     };
 
     NT2_FUNCTOR_CALL(1)
