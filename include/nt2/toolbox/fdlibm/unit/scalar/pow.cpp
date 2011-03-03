@@ -6,42 +6,57 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 fdlibm toolbox - unit/scalar Mode"
-#include <nt2/sdk/functor/meta/call.hpp> 
+#define NT2_UNIT_MODULE "nt2 fdlibm toolbox - pow/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 03/03/2011
+/// modified by jt the 03/03/2011
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/fdlibm/include/pow.hpp> 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/toolbox/fdlibm/include/pow.hpp>
+// specific includes for arity 2 tests
+#include <nt2/include/functions/pow.hpp>
 
-
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( pow, (double) 
-                (float) 
-                )
+NT2_TEST_CASE_TPL ( pow_real__2,  NT2_REAL_TYPES)
 {
-  using nt2::fdlibm::pow; 
+  
+  using nt2::fdlibm::pow;
   using nt2::fdlibm::tag::pow_;
-   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t; 
-   NT2_TEST( (boost::is_same < typename nt2::meta::call<pow_(T, T)>::type
-            , r_t
-            >::value)
-           );
-   NT2_TEST_EQUAL(  nt2::fdlibm::pow( T(0), T(0))  , 1 );
-   NT2_TEST_EQUAL(  nt2::fdlibm::pow( T(1), T(28))  , nt2::One<T>() );
-   NT2_TEST_EQUAL(  nt2::fdlibm::pow(T(2), T(3)), nt2::Eight<T>());
-   T x =  1.5;
-   T y =  nt2::sqrt(x);
-   for(int i=1; i < 100; i++)
-     {
-       T z = nt2::fdlibm::pow(x, T(i+0.5));
-       y *=  x; 
-       NT2_TEST_LESSER_EQUAL(nt2::ulpdist(z, y), 10); 
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<pow_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0,a1;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::fdlibm::pow(a0,a1),nt2::pow(a0,a1),1);
+        ulp0=nt2::max(ulpd,ulp0);
      }
-}
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_

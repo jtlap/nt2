@@ -6,42 +6,64 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 fdlibm toolbox - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 fdlibm toolbox - frexp/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 03/03/2011
+/// modified by jt the 03/03/2011
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/fdlibm/include/frexp.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/fusion/include/vector.hpp>
-#include <boost/fusion/include/at.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/fdlibm/include/frexp.hpp>
+#include <boost/fusion/tuple.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/frexp.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-
-
-NT2_TEST_CASE_TPL ( frexp,  (double)
-                  )
+NT2_TEST_CASE_TPL ( frexp_real__1,  (double))
 {
+  
   using nt2::fdlibm::frexp;
   using nt2::fdlibm::tag::frexp_;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type mantissa;
-  typedef int                                                      exponent;
-  typedef boost::fusion::vector<mantissa,exponent>                   type_t;
- 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<frexp_(T)>::type
-           , type_t
-              >::value)
-           );
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<frexp_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::vector<double,int64_t>  wished_r_t;
 
-  T d[] = {1  , -1, 4,  -4};
-  T m[] = {0.5, -0.5, 1.0, -1 };
-  T e[] = {1  , 1,    2 ,  2  };
-  for(int i = 0;  i < 2;  i++){
-    type_t r = frexp(d[i]);
-    NT2_TEST_EQUAL(  boost::fusion::at_c<0>(r), m[i]);
-    NT2_TEST_EQUAL(  boost::fusion::at_c<1>(r), e[i]); 
-  }
-}
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        r_t r = nt2::frexp(a0);
+	r_t s= nt2::fdlibm::frexp(a0);   
+        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+        typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+        r_t0 r0 = boost::fusion::get<0>(r);
+        r_t1 r1 = boost::fusion::get<1>(r);
+        r_t0 s0 = boost::fusion::get<0>(s);
+        r_t1 s1 = boost::fusion::get<1>(s);
+        NT2_TEST_TUPLE_ULP_EQUAL( r0, s0, 0);
+        NT2_TEST_TUPLE_ULP_EQUAL( r1, s1, 0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
