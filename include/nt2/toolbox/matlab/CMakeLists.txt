@@ -7,7 +7,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(unit)
+FIND_PACKAGE(Matlab)
+IF(MATLAB_FOUND)
+  ADD_SUBDIRECTORY(unit)
+ENDIF(MATLAB_FOUND)
 
 ##############################################################################
 ## TODO: Write command for building your own sources
