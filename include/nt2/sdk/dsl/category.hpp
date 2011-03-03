@@ -88,9 +88,9 @@ namespace nt2 { namespace details
   };
 
   //////////////////////////////////////////////////////////////////////////////
-  // Proto expression hierarchy specialization
+  // Proto expression hierarchy computation
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct hierarchy_of<T, typename T::proto_is_expr_>
+  template<class T> struct hierarchy_of_expr
   {
     typedef typename boost::proto::domain_of<T>::type domain_type;
     typedef typename boost::proto::tag_of<T>::type    tag_type;
