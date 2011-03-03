@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::result_of<meta::floating(A0,A1)>{};
+      boost::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -87,20 +87,20 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::result_of<meta::floating(A0,A1)>{};
+      boost::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef float result_type;
+      typedef typename NT2_RETURN_TYPE(2)::type result_type;
       result_type x = a1;
       const int32_t n1 = nt2::abs(a0);
       result_type sign = a0<0?cospi(n1):1;
       if( n1 == 0 )
-        return( sign * j0(x) );
+        return( sign * nt2::j0(x) );
       if( n1 == 1 )
-        return( sign * j1(x) );
+        return( sign * nt2::j1(x) );
       if( n1 == 2 )
-        return mul(sign, (mul(Two<result_type>(), nt2::j1(x) / x)  -  j0(x)) );
+        return mul(sign, (mul(Two<result_type>(), nt2::j1(x) / x)  -  nt2::j0(x)) );
 
       /* continued fraction */
       int k = 24;
@@ -125,7 +125,7 @@ namespace nt2 { namespace ext
         const result_type pkm2 = (pkm1 * r  -  pk * x) * xinv;
         pk = pkm1;
         pkm1 = pkm2;
-        r = r-Two<result_type>();
+        r -= Two<result_type>();
       }
       while( --k > 0 );
       return sign*sel(gt(abs(pk), nt2::abs(pkm1)),nt2::j1(x)/pk, nt2::j0(x)/pkm1);
