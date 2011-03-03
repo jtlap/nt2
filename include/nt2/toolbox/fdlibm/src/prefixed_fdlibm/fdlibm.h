@@ -1,3 +1,4 @@
+#define _IEEE_LIBM
 // THIS IS A NT2 ADDING TO AVOID NATIVE CALLS
 //#undef _IEEE_LIBM
 /////////////////////////////////////////////

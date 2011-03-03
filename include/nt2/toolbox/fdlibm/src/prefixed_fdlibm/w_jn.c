@@ -38,6 +38,7 @@
  */
 
 #include "fdlibm.h"
+#include "stdio.h"
 
 #ifdef __STDC__
 	double fd_jn(int n, double x)	/* wrapper jn */
@@ -59,13 +60,14 @@
 #endif
 }
 
-#ifdef __STDC__
+/* #ifdef __STDC__ */
 	double fd_yn(int n, double x)	/* wrapper yn */
-#else
-	double fd_yn(n,x)			/* wrapper yn */
-	double x; int n;
-#endif
+/* #else */
+	  /* 	double fd_yn(n,x)*/			/* wrapper yn */ 
+/* 	double x; int n; */
+/* #endif */
 {
+
 #ifdef _IEEE_LIBM
 	return fd___ieee754_yn(n,x);
 #else

@@ -41,10 +41,9 @@ tiny   = 1.0e-300;
 	hx = fd___HI(x);
 	lx = fd___LO(x);
         k = (hx&0x7ff00000)>>20;		/* extract exponent */
-	double z;
+/* 	double z; */
 /*         fd__set_HI(&z,hx); */
 /*         fd__set_LO(&z,lx); */
-/* 	printf("n= %d,k=%d, hx = %d, lx = %d, z = %f\n",n,k,hx,lx,z); */
         if (k==0) {				/* 0 or subnormal x */
             if ((lx|(hx&0x7fffffff))==0) return x; /* +-0 */
 	    x *= two54; 
@@ -54,7 +53,6 @@ tiny   = 1.0e-300;
 	    }
         if (k==0x7ff) return x+x;		/* NaN or Inf */
         k = k+n; 
-	printf("k=%d\n",k);
         if (k >  0x7fe) return huge*fd_copysign(huge,x); /* overflow  */
         if (k > 0) 				/* normal result */
 	  {fd__set_HI(&x, (hx&0x800fffff)|(k<<20)); return x;}

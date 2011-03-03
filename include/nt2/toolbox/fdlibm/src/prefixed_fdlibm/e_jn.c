@@ -38,6 +38,7 @@
  */
 
 #include "fdlibm.h"
+#include "stdio.h"
 
 #ifdef __STDC__
 static const double
@@ -221,7 +222,7 @@ static double zero  =  0.00000000000000000000e+00;
 	int i,hx,ix,lx;
 	int sign;
 	double a, b, temp;
-
+	printf("x %f, n %d\n",x,n);
 	hx = fd___HI(x);
 	ix = 0x7fffffff&hx;
 	lx = fd___LO(x);
