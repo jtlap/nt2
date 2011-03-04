@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::splatted_sum_, tag::cpu_,
+NT2_REGISTER_DISPATCH(tag::split_, tag::cpu_,
                               (A0),
                               (arithmetic_<A0>)
                              )
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>  meta::strip<A0> {};
+      struct result<This(A0)> :  meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1)
     {
