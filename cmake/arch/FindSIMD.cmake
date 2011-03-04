@@ -48,10 +48,13 @@ ENDIF()
 # Intel/AMD SSE Familly fix-up to force arithmetic to be sse style everywhere
 ################################################################################
 IF( NT2_PROCESSOR STREQUAL AMD OR NT2_PROCESSOR STREQUAL X86 OR NT2_PROCESSOR STREQUAL AMD )
-SET ( NT2_CXX_PRECISION_FLAGS "-mfpmath=sse" )
+  IF( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
+    SET ( NT2_CXX_PRECISION_FLAGS "-mfpmath=sse" )
+  ENDIF()
 ELSE()
-SET ( NT2_CXX_PRECISION_FLAGS "" )
+  SET ( NT2_CXX_PRECISION_FLAGS "" )
 ENDIF()
+
 SET ( NT2_CXX_SIMD_FLAGS "${NT2_SIMD_FLAGS} ${NT2_CXX_PRECISION_FLAGS}"
       CACHE STRING "SIMD extensions compiler flags"
     )
