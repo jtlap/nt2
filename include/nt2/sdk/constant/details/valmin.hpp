@@ -14,6 +14,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/splat.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
@@ -92,8 +94,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<typename A0::type>::type base;
-      BOOST_STATIC_CONSTANT(base, value = base(1) << (sizeof(base)*CHAR_BIT-1) );
-      return splat<typename A0::type>(value);
+      typedef typename meta::as_unsigned<base>::type base_u;
+      BOOST_STATIC_CONSTANT(base_u, value = base_u(1) << (sizeof(base_u)*CHAR_BIT-1) );
+      return splat<typename A0::type>(base(value));
     }
   };
 } }
