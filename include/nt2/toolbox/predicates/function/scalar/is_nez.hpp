@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-       return a0;
+       return a0 != 0;
     }
   };
 } }
