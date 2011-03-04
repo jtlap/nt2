@@ -41,7 +41,7 @@ NT2_TEST_CASE(signmask)
 NT2_TEST_CASE(valmax)
 {
   NT2_TEST_EQUAL( nt2::Valmax<double>() , 1.7976931348623157e+308 );
-  NT2_TEST_EQUAL( nt2::Valmax<float>()  , 3.4028235e+38           );
+  NT2_TEST_EQUAL( nt2::Valmax<float>()  , float(3.4028235e+38)    );
 
   NT2_TEST_EQUAL( nt2::Valmax<nt2::uint64_t>(), 0xFFFFFFFFFFFFFFFFULL  );
   NT2_TEST_EQUAL( nt2::Valmax<nt2::uint32_t>(), 0xFFFFFFFFUL           );
@@ -60,7 +60,7 @@ NT2_TEST_CASE(valmax)
 NT2_TEST_CASE(valmin)
 {
   NT2_TEST_EQUAL( nt2::Valmin<double>() , -1.7976931348623157e+308);
-  NT2_TEST_EQUAL( nt2::Valmin<float>()  , -3.4028235e+38          );
+  NT2_TEST_EQUAL( nt2::Valmin<float>()  , float(-3.4028235e+38)   );
 
   NT2_TEST_EQUAL( nt2::Valmin<nt2::uint64_t>(), 0 );
   NT2_TEST_EQUAL( nt2::Valmin<nt2::uint32_t>(), 0  );
