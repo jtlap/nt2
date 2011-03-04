@@ -68,7 +68,7 @@ namespace nt2
           , NT2_TARGET_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
           , "target is not the same size as source in nt2::bitwise_cast"
         );
-        return details::bitwise_cast<To, From>::call<To>(from);
+        return details::bitwise_cast<To, From>::template call<To>(from);
     }
 }
 
