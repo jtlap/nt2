@@ -17,7 +17,7 @@
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],
              'notes' : [],
-             'no_ulp' : 'True',
+             'no_ulp' : True,
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
@@ -28,21 +28,21 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : ['nt2::One<r_t0>()','nt2::One<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : ['nt2::Zero<r_t0>()','nt2::Zero<r_t0>()','0'],'ulp_thresh' : '0',},
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Mone<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Inf<T>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Inf<r_t1>()','0'],'ulp_thresh' : '0',},
+                 'nt2::Minf<T>()' : {'result' : ['nt2::Minf<r_t0>()','nt2::Minf<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : ['nt2::Mone<r_t0>()','nt2::Mone<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::Nan<T>()' : {'result' : ['nt2::Nan<r_t0>()','nt2::Nan<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : ['nt2::One<r_t0>()','nt2::One<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : ['nt2::Zero<r_t0>()','nt2::Zero<r_t0>()','0'],'ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : ['nt2::Mone<r_t0>()','nt2::Mone<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : ['nt2::One<r_t0>()','nt2::One<r_t0>()','0'],'ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : ['nt2::Zero<r_t0>()','nt2::Zero<r_t0>()','0'],'ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {
@@ -53,7 +53,7 @@
                  'default' : ['nt2::comparator(a0,a1,a2)'],
                 },
              'property_value' : {
-                 'default' : [['nt2::min(a0,a1)','nt2::max(a0,a1)','a0<=a1']],
+                 'default' : [['nt2::min(a0,a1)','nt2::max(a0,a1)','a0>a1']],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],

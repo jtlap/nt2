@@ -16,17 +16,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::comparator_, tag::cpu_,
                             (A0)(A1)(A2),
-                            (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
+                            (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
                            )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::comparator_(tag::fundamental_,tag::fundamental_,tag::fundamental_),
+  struct call<tag::comparator_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

@@ -12,7 +12,7 @@
 // Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 24/02/2011
+/// modified by jt the 04/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -26,6 +26,7 @@
 
 NT2_TEST_CASE_TPL ( comparator_real__3,  NT2_REAL_TYPES)
 {
+  
   using nt2::comparator;
   using nt2::tag::comparator_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -43,41 +44,42 @@ NT2_TEST_CASE_TPL ( comparator_real__3,  NT2_REAL_TYPES)
   // specific values tests
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
   {
     r_t res = comparator(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Inf<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Inf<r_t>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Inf<r_t1>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
     r_t res = comparator(nt2::Minf<T>(), nt2::Minf<T>(), nt2::Minf<T>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Minf<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Minf<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Minf<r_t>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Minf<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Minf<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
     r_t res = comparator(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Mone<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Mone<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Mone<r_t>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Mone<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Mone<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
     r_t res = comparator(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Nan<r_t>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
     r_t res = comparator(nt2::One<T>(), nt2::One<T>(), nt2::One<T>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::One<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res), nt2::One<r_t>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::One<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
     r_t res = comparator(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t>(), 0);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Zero<r_t>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -86,7 +88,9 @@ NT2_TEST_CASE_TPL ( comparator_real__3,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-100), T(100));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
+    T a0;
+    T a1;
+    T a2;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -101,9 +105,9 @@ NT2_TEST_CASE_TPL ( comparator_real__3,  NT2_REAL_TYPES)
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
         r_t2 r2 = boost::fusion::get<2>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::min(a0,a1), 0.5);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::max(a0,a1), 0.5);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(r), a0<=a1, 0.5);
+        NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::min(a0,a1));
+        NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::max(a0,a1));
+        NT2_TEST_EQUAL( boost::fusion::get<2>(r), a0>a1);
      }
      
    }

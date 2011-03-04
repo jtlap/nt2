@@ -12,7 +12,7 @@
 // Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 24/02/2011
+/// modified by jt the 04/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -25,6 +25,7 @@
 
 NT2_TEST_CASE_TPL ( split_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::split;
   using nt2::tag::split_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -60,7 +61,7 @@ NT2_TEST_CASE_TPL ( split_real__1,  NT2_REAL_TYPES)
         r_t r = nt2::split(a0);
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
         r_t0 r0 = boost::fusion::get<0>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), :, 0.5);
+        NT2_TEST_EQUAL( boost::fusion::get<0>(r), ();
      }
      
    }

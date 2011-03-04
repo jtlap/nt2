@@ -12,7 +12,7 @@
 // Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 24/02/2011
+/// modified by jt the 04/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -25,6 +25,7 @@
 
 NT2_TEST_CASE_TPL ( cumsum_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::cumsum;
   using nt2::tag::cumsum_;
   typedef typename nt2::meta::as_integer<T>::type iT;

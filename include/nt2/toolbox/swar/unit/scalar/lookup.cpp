@@ -12,7 +12,7 @@
 // Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 24/02/2011
+/// modified by jt the 04/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -25,10 +25,11 @@
 
 NT2_TEST_CASE_TPL ( lookup_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::lookup;
   using nt2::tag::lookup_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<lookup_(T,T)>::type r_t;
+  typedef typename nt2::meta::call<lookup_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -40,26 +41,27 @@ NT2_TEST_CASE_TPL ( lookup_real__2,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(lookup(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(lookup(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>());
-  NT2_TEST_EQUAL(lookup(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(lookup(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>());
-  NT2_TEST_EQUAL(lookup(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(lookup(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(lookup(nt2::Inf<T>(),0), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(lookup(nt2::Minf<T>(),0), nt2::Minf<r_t>());
+  NT2_TEST_EQUAL(lookup(nt2::Mone<T>(),0), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(lookup(nt2::Nan<T>(),0), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(lookup(nt2::One<T>(),0), nt2::One<r_t>());
+  NT2_TEST_EQUAL(lookup(nt2::Zero<T>(),0), nt2::Zero<r_t>());
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a1,iT, NR, T(-100), T(100));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
+    T a0;
+    iT a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::lookup(a0),::cephes_lookupl(a0));
+        NT2_TEST_EQUAL( nt2::lookup(a0,a1),a0);
      }
      
    }

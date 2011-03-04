@@ -12,7 +12,7 @@
 // Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 24/02/2011
+/// modified by jt the 04/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/no_ulp_tests.hpp>
@@ -25,6 +25,7 @@
 
 NT2_TEST_CASE_TPL ( splatted_sum_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::splatted_sum;
   using nt2::tag::splatted_sum_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -57,7 +58,7 @@ NT2_TEST_CASE_TPL ( splatted_sum_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::splatted_sum(a0),::cephes_splatted_suml(a0));
+        NT2_TEST_EQUAL( nt2::splatted_sum(a0),(a0));
      }
      
    }

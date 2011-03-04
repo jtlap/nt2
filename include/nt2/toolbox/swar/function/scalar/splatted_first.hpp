@@ -12,22 +12,22 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::splatted_first_, tag::cpu_,
                                 (A0),
-                                (fundamental_<A0>)
+                                (arithmetic_<A0>)
                                )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::splatted_first_(tag::fundamental_),
+  struct call<tag::splatted_first_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> {typedef A0 type; };
+      struct result<This(A0)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1)
     {

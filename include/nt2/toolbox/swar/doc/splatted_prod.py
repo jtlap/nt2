@@ -53,7 +53,7 @@
                  'default' : ['nt2::splatted_prod(a0)'],
                 },
              'property_value' : {
-                 'default' : ['::cephes_splatted_prodl(a0)'],
+                 'default' : ['(a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],

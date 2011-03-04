@@ -53,7 +53,7 @@
                  'default' : ['nt2::splatted_sum(a0)'],
                 },
              'property_value' : {
-                 'default' : ['::cephes_splatted_suml(a0)'],
+                 'default' : ['(a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],

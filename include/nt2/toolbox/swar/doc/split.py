@@ -53,7 +53,7 @@
                  'default' : ['nt2::split(a0)'],
                 },
              'property_value' : {
-                 'default' : ['::cephes_splitl(a0)'],
+                 'default' : ['(a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],

@@ -53,7 +53,7 @@
                  'default' : ['nt2::sort(a0)'],
                 },
              'property_value' : {
-                 'default' : ['::cephes_sortl(a0)'],
+                 'default' : ['a0'],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],

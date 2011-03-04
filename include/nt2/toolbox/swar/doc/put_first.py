@@ -2,7 +2,7 @@
     {
      'functor' : {
          'arity' : '2',
-         'call_types' : [],
+         'call_types' : ['T','iT'],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'T',
@@ -28,21 +28,21 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Mone<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Inf<T>(),0' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Minf<T>(),0' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>(),0' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Nan<T>(),0' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>(),0' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {
@@ -50,7 +50,7 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['nt2::put_first(a0)'],
+                 'default' : ['nt2::put_first(a0,a1)'],
                 },
              'property_value' : {
                  'default' : ['a0'],
