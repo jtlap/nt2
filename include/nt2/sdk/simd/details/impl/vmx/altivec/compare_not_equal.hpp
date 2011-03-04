@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
         : callable
   {
     typedef bool result_type;
-    NT2_FUNCTOR_CALL(2) { return vec_all_ne(a0(),a1()); }
+    NT2_FUNCTOR_CALL(2) { return vec_any_ne(a0(),a1()); }
   };
 } }
 
