@@ -21,19 +21,16 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::definitely_less_, tag::cpu_,
                                  (A0)(A1)(A2),
-                                 (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                                 (integer_<A0>)(integer_<A1>)(integer_<A2>)
                                 )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::definitely_less_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::definitely_less_(tag::integer_,tag::integer_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> :
-      boost::result_of<meta::arithmetic(A0,A1,A2)>{};
+    typedef bool result_type; 
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -47,25 +44,22 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::definitely_less_, tag::cpu_,
                                  (A0)(A1)(A2),
-                                 (real_<A0>)(real_<A1>)(real_<A2>)
+                                 (real_<A0>)(real_<A1>)(integer_<A2>)
                                 )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::definitely_less_(tag::real_,tag::real_,tag::real_),
+  struct call<tag::definitely_less_(tag::real_,tag::real_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> :
-      boost::result_of<meta::arithmetic(A0,A1,A2)>{};
+    typedef bool result_type; 
 
     NT2_FUNCTOR_CALL(3)
     {
-      if (isfin(a0) && a1 == Inf<A1>()) return true;
-      if (isfin(a1) && a0 == Minf<A0>()) return true;
-      if (isnan(a0) || isnan(a1)) return false;
+      if (is_finite(a0) && a1 == Inf<A1>()) return true;
+      if (is_finite(a1) && a0 == Minf<A0>()) return true;
+      if (is_nan(a0) || is_nan(a1)) return false;
       return  a0 < successor(a1,-a2);
     }
   };

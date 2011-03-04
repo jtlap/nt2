@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       details::ignore_unused(a2);
-      return iseq(a0, a1);
+      return eq(a0, a1);
     }
   };
 } }

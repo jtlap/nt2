@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::definitely_greater_, tag::cpu_,
                                     (A0)(A1)(A2),
-                                    (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                                    (integer_<A0>)(integer_<A1>)(integer_<A2>)
                                    )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::definitely_greater_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::definitely_greater_(tag::integer_,tag::integer_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -43,13 +43,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::definitely_greater_, tag::cpu_,
                                     (A0)(A1)(A2),
-                                    (real_<A0>)(real_<A1>)(real_<A2>)
+                                    (real_<A0>)(real_<A1>)(integer_<A2>)
                                    )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::definitely_greater_(tag::real_,tag::real_,tag::real_),
+  struct call<tag::definitely_greater_(tag::real_,tag::real_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       return b_and(
-               isord(a0, a1),
+               is_ord(a0, a1),
                (a0 >  successor(a1, a2))
                );
     }
