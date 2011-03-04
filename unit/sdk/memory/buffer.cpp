@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(buffer_ctor, NT2_TYPES )
   NT2_TEST_EQUAL( &b[b.lower()] , b.begin()   );
 
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    b[i] = 1+i;
+    b[i] = buffer_type::value_type(1+i);
 
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     NT2_TEST_EQUAL( b[i], 1+i );
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   typedef buffer<float> buffer_type;
   buffer_type b,x(0,5);
   for ( buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    x[i] = 1+i;
+    x[i] = buffer_type::value_type(1+i);
 
   b = x;
 
@@ -94,9 +94,9 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   typedef buffer<float> buffer_type;
   buffer_type b(-1,3),x(0,5);
   for ( buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    x[i] = 1+i;
+    x[i] = buffer_type::value_type(1+i);
   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    b[i] = i;
+    b[i] = buffer_type::value_type(i);
 
   swap(b,x);
 
