@@ -12,7 +12,7 @@
 // Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 05/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,6 +28,7 @@ extern "C" {long double cephes_elliel(long double,long double);}
 
 NT2_TEST_CASE_TPL ( ellie_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::ellie;
   using nt2::tag::ellie_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -52,14 +53,15 @@ NT2_TEST_CASE_TPL ( ellie_real__2,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(1));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
+    T a0;
+    T a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::ellie(a0,a1),::cephes_elliel(a0,a1),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::ellie(a0,a1),::cephes_elliel(a0,a1),2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

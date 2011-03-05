@@ -12,7 +12,7 @@
 #include <nt2/include/functions/negate.hpp>
 //#include <nt2/include/functions/idivfix.hpp>
 #include <nt2/include/functions/idivround.hpp>
-#include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/divround.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // The remainder() function computes the remainder of dividing x by y.  The
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0-idivround(a0, a1)*a1; 
+      return a0-divround(a0, a1)*a1; 
     }
   };
 } }

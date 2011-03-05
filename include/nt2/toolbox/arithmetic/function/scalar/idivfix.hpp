@@ -11,6 +11,7 @@
 
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/rdivide.hpp>
+#include <nt2/include/functions/toint.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return trunc(a0/a1);
+      return toint(trunc(a0/a1));
     }
   };
 } }

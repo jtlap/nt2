@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TWO_ADD_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 
@@ -18,13 +19,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::two_add_, tag::cpu_,
                          (A0)(A1),
-                         (fundamental_<A0>)(fundamental_<A1>)
+                         (real_<A0>)(real_<A1>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::two_add_(tag::fundamental_,tag::fundamental_),
+  struct call<tag::two_add_(tag::real_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -46,6 +47,11 @@ namespace nt2 { namespace ext
     eval(A0 const& a, A1 const& b,R0& r0, R1& r1)const
     {
       r0 = a+b;
+      if (is_invalid(r0))
+	{
+	  r1 = Zero<R1>();
+	  return;
+	}
       A0 z = (r0-a);
       r1 =  (a-(r0-z))+(b-z);
     }

@@ -13,7 +13,7 @@
 #include <nt2/include/functions/rdivide.hpp>
 #include <nt2/include/functions/iround.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
+#include <nt2/include/functions/toint.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type; 
-      return (type)round2even(a0/a1);
+      return toint(round2even(a0/a1));
     }
   };
 } }

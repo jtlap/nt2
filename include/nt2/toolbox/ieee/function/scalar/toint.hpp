@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_TOINT_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_TOINT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+
 
 
 
@@ -17,13 +19,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
                        (A0),
-                       (fundamental_<A0>)
+                       (arithmetic_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::toint_(tag::fundamental_),
+  struct call<tag::toint_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -34,7 +36,36 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-        return type(a0);
+      return type(a0);
+    }
+  };
+} }
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is fundamental_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
+                       (A0),
+                       (real_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::toint_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      meta::as_integer<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (is_nan(a0)) return Zero<type>(); 
+      return type(a0);
     }
 
   };

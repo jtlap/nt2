@@ -37,7 +37,7 @@
                          ## values uniformly distributed in ranges
             'property_call' : { 'default' :  ['nt2::ellie(a0,a1)'], },
             'property_value' :{ 'default' :  ['::cephes_elliel(a0,a1)'], },
-            'ulp_thresh'     :{ 'default' :   ['1.0'], }, 
+            'ulp_thresh'     :{ 'default' :   ['2.0'], }, 
             'nb_rand'        :{ 'default' : 'NT2_NB_RANDOM_TEST' },  ## number of generated tests 
         },
     },

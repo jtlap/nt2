@@ -60,11 +60,34 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-//        A0 p, rp, s, rs;
-//        boost::fusion::tie(p, rp) = two_prod(a0, a1);
-//        boost::fusion::tie(s, rs) = two_add(p, a2);
-//        return s+(rp+rs);
-         return ::fma(a0, a1, a2);
+        A0 p, rp, s, rs;
+        boost::fusion::tie(p, rp) = two_prod(a0, a1);
+        boost::fusion::tie(s, rs) = two_add(p, a2);
+        return s+(rp+rs);
+	//         return ::fma(a0, a1, a2);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is float_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::correct_fma_, tag::cpu_,
+                             (A0)(A1)(A2),
+                             (float_<A0>)(float_<A1>)(float_<A2>)
+                            )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::correct_fma_(tag::float_,tag::float_,tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    typedef float result_type; 
+
+    NT2_FUNCTOR_CALL(3)
+    {
+      return float(double(a0)*a1+a2); 
     }
   };
 } }
