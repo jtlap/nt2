@@ -61,8 +61,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       if (a0 == a1) return false;
-      if (isinf(a0) || isinf(a1)) return (a0 != a1);
-      if (isnan(a0) || isnan(a1)) return true;
+      if (is_inf(a0) || is_inf(a1)) return (a0 != a1);
+      if (is_nan(a0) || is_nan(a1)) return true;
       // see http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
       // by Bruce Dawson
       // Do not choose a2 negative or too large
