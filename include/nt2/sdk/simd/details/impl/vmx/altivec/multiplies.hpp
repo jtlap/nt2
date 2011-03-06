@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { vec_madd(a0(),a1(),Zero<A0>()) };
+      A0 that = { vec_madd(a0(),a1(),Zero<A0>()()) };
       return that;
     }
   };
@@ -49,8 +49,8 @@ namespace nt2 { namespace ext
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
-                      , ((simd_<types16_<A0>,tag::altivec_>))
-                        ((simd_<types16_<A0>,tag::altivec_>))
+                      , ((simd_<type16_<A0>,tag::altivec_>))
+                        ((simd_<type16_<A0>,tag::altivec_>))
                       );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -59,8 +59,8 @@ NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_<tag::types16_,tag::altivec_>
-                                , tag::simd_<tag::types16_,tag::altivec_>
+  struct  call< tag::multiplies_( tag::simd_<tag::type16_,tag::altivec_>
+                                , tag::simd_<tag::type16_,tag::altivec_>
                                 )
               , tag::cpu_, Dummy
               >
@@ -72,14 +72,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { vec_mladd(a0(),a1(),Zero<A0>()) };
+      A0 that = { vec_mladd(a0(),a1(),Zero<A0>()()) };
       return that;
     }
   };
 } }
 
 /*
-    NT2_FUNCTOR_CALL_EVAL_IF(2,types8_ )
+    NT2_FUNCTOR_CALL_EVAL_IF(2,type8_ )
     {
       A0 l = { vec_mule(a0,a1); }; // replace A0 by upgrade<A0>
       A0 r = { vec_mulo(a0,a1); };

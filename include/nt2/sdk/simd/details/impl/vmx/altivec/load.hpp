@@ -9,6 +9,9 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 
+#include <iostream>
+#include <nt2/sdk/details/type_id.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd integers
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +28,7 @@ namespace nt2 { namespace ext
   template<class Dummy>
   struct  call< tag::load_( tag::iterator_<tag::fundamental_>
                           , tag::fundamental_
-                          , tag::target_(tag::simd_<tag::arithmetic_,tag::altivec_> >
+                          , tag::target_< tag::simd_<tag::arithmetic_,tag::altivec_> >
                           )
               , tag::cpu_
               , Dummy

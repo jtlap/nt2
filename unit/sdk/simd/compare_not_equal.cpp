@@ -8,6 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::compare_not_equal on SIMD types"
 
+#include <iostream>
+
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -43,7 +45,7 @@ NT2_TEST_CASE_TPL ( compare_not_equal, NT2_SIMD_TYPES )
 
   NT2_ALIGNED_TYPE(T) comp[cardinal_of<n_t>::value];
   for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    comp[i] = 1+i;
+    comp[i] = (1+i);
 
   n_t v = nt2::load<n_t>(&base[0],0);
   NT2_TEST( !(v != v) );
