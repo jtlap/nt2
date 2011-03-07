@@ -29,11 +29,20 @@ namespace nt2 { namespace meta
                       );
   };
 
+  //////////////////////////////////////////////////////////////////////////////
+  // By default, return the default options :p
+  //////////////////////////////////////////////////////////////////////////////
   template<class Type, class Option, class Default>
   struct option<Type,Option,Default, typename Option::nt2_is_option_type>
   {
     typedef Default type;
   };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Forward option checking on S(*)(X) to S(X)
+  //////////////////////////////////////////////////////////////////////////////
+  template<class Type, class Option, class Default>
+  struct option<Type*,Option,Default> : option<Type,Option,Default> {};
 } }
 
 #endif
