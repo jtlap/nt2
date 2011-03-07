@@ -15,6 +15,9 @@
 #include <nt2/include/functions/sbits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
+#ifdef BOOST_MSVC
+  #include <intrin.h>
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -36,7 +39,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #ifdef BOOST_MSVC
+      return __popcnt(a0);
+    #else
       return __builtin_popcount(a0); //& Mone<A0>());
+    #endif
     }
   };
 } }
@@ -62,8 +69,15 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       int64_t v = sbits(a0);
+    #if defined BOOST_MSVC && defined _WIN64
+      return __popcnt64(v);
+    #elif defined BOOST_MSVC
+      return  __popcnt( hi(v) )
+            + __popcnt( lo(v) );
+    #else
       return  __builtin_popcount( hi(v) )
             + __builtin_popcount( lo(v) );
+    #endif
     }
   };
 } }
@@ -88,7 +102,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #ifdef BOOST_MSVC
+      return __popcnt(sbits(a0));
+    #else
       return __builtin_popcount(sbits(a0));
+    #endif
     }
   };
 } }
@@ -113,7 +131,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #ifdef BOOST_MSVC
+      return __popcnt16(int16_t(a0) & 0xFF);
+    #else
       return __builtin_popcount(int32_t(a0) & 0xFF);
+    #endif
     }
   };
 } }
@@ -138,7 +160,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #ifdef BOOST_MSVC
+      return __popcnt16(a0);
+    #else
       return __builtin_popcount(int32_t(a0) & 0xFFFF);
+    #endif
     }
   };
 } }
@@ -163,8 +189,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #if defined BOOST_MSVC && defined _WIN64
+      return __popcnt64(a0);
+    #elif defined BOOST_MSVC
+      return  __popcnt( hi(a0) )
+            + __popcnt( lo(a0) );
+    #else
       return  __builtin_popcount( hi(a0) )
             + __builtin_popcount( lo(a0) );
+    #endif
     }
   };
 } }

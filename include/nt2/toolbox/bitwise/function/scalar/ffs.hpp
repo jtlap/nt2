@@ -10,7 +10,10 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
-#include <iostream>
+
+#ifdef BOOST_MSVC
+  #include <intrin.h>
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
@@ -32,7 +35,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return ::ffs(uint32_t(uint8_t(a0)));
+    #ifdef BOOST_MSVC
+      unsigned long index = 0;
+      _BitScanForward(&index, uint32_t(uint8_t(a0)));
+      return index;
+    #else
+      return __builtin_ffs(uint32_t(uint8_t(a0)));
+    #endif
     }
   };
 } }
@@ -59,9 +68,24 @@ namespace nt2 { namespace ext
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
       if(!t1.bits) return 0; 
+    #if defined BOOST_MSVC && defined _WIN64
+      unsigned long index;
+      _BitScanForward64(&index, uint64_t(a0));
+      return index;
+    #elif defined BOOST_MSVC
+      unsigned long index;
       if (b_and(t1.bits, (uint64_t(-1) >> 32)))
-	return ::ffs(t1.bits);
-      return 32+::ffs(t1.bits >> 32);
+      {
+	    _BitScanForward(&index, t1.bits);
+        return index;
+      }
+      _BitScanForward(&index, t1.bits >> 32);
+      return 32+index;
+    #else
+      if (b_and(t1.bits, (uint64_t(-1) >> 32)))
+	    return __builtin_ffs(t1.bits);
+      return 32+__builtin_ffs(t1.bits >> 32);
+    #endif
     }
   };
 } }
@@ -86,7 +110,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return ::ffs(uint32_t(uint16_t(a0)));
+    #ifdef BOOST_MSVC
+      unsigned long index = 0;
+      _BitScanForward(&index, uint32_t(uint16_t(a0)));
+      return index;
+    #else
+      return __builtin_ffs(uint32_t(uint16_t(a0)));
+    #endif
     }
   };
 } }
@@ -112,7 +142,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      return ::ffs(t1.bits);
+    #ifdef BOOST_MSVC
+      unsigned long index = 0;
+      _BitScanForward(&index, t1.bits);
+      return index;
+    #else
+      return __builtin_ffs(t1.bits);
+    #endif
     }
   };
 } }
