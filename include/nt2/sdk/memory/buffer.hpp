@@ -68,15 +68,23 @@ namespace nt2 { namespace memory
       parent_data::allocate(b,s,allocator());
     }
 
+    template<class Base, class Size>
+    buffer( buffer const& src )
+          : parent_data(), parent_allocator(src.allocator())
+    {
+      restructure(src.lower(), src.size());
+      std::copy(src.begin(),src.end(),begin());
+    }
+
     ~buffer() { parent_data::deallocate(allocator()); }
 
-    buffer& operator=(buffer const& src)
+    ////////////////////////////////////////////////////////////////////////////
+    // Assignment operator
+    ////////////////////////////////////////////////////////////////////////////
+    buffer& operator=(buffer const& src) //nothrow
     {
-      if(!size()) parent_data::allocate(src.lower(),src.size(),allocator());
-      else        restructure(src.lower(), src.size());
-
-      allocator() = src.allocator();
-      std::copy(src.begin(),src.end(),begin());
+      buffer that(src);
+      that.swap(*this);
       return *this;
     }
 
@@ -120,7 +128,7 @@ namespace nt2 { namespace memory
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // resize/rebase buffer
+    // resize/rebase/restructure buffer
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::rebase;
 
