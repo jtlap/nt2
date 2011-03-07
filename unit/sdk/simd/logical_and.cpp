@@ -49,11 +49,11 @@ NT2_TEST_CASE_TPL ( logical_and, NT2_SIMD_TYPES )
   n_t e = nt2::load<n_t>(&even[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
   {
-    NT2_TEST_EQUAL( (bool)(o && o)[j]               , (o[j] && o[j]) );
-    NT2_TEST_EQUAL( (bool)(nt2::logical_and(o,o))[j], (o[j] && o[j]) );
-    NT2_TEST_EQUAL( (bool)(nt2::l_and(o,o))[j]      , (o[j] && o[j]) );
-    NT2_TEST_EQUAL( (bool)(o && e)[j]               , (o[j] && e[j]) );
-    NT2_TEST_EQUAL( (bool)(nt2::logical_and(o,e))[j], (o[j] && e[j]) );
-    NT2_TEST_EQUAL( (bool)(nt2::l_and(o,e))[j]      , (o[j] && e[j]) );
+    NT2_TEST_EQUAL( !!(o && o)[j]               , (o[j] && o[j]) );
+    NT2_TEST_EQUAL( !!(nt2::logical_and(o,o))[j], (o[j] && o[j]) );
+    NT2_TEST_EQUAL( !!(nt2::l_and(o,o))[j]      , (o[j] && o[j]) );
+    NT2_TEST_EQUAL( !!(o && e)[j]               , (o[j] && e[j]) );
+    NT2_TEST_EQUAL( !!(nt2::logical_and(o,e))[j], (o[j] && e[j]) );
+    NT2_TEST_EQUAL( !!(nt2::l_and(o,e))[j]      , (o[j] && e[j]) );
   }
 }
