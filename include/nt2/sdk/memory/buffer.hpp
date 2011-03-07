@@ -68,11 +68,10 @@ namespace nt2 { namespace memory
       parent_data::allocate(b,s,allocator());
     }
 
-    template<class Base, class Size>
     buffer( buffer const& src )
           : parent_data(), parent_allocator(src.allocator())
     {
-      restructure(src.lower(), src.size());
+      restructure(src.lower(),src.size());
       std::copy(src.begin(),src.end(),begin());
     }
 
@@ -84,7 +83,7 @@ namespace nt2 { namespace memory
     buffer& operator=(buffer const& src) //nothrow
     {
       buffer that(src);
-      that.swap(*this);
+      swap(that);
       return *this;
     }
 
