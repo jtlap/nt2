@@ -15,17 +15,17 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(standard::tag::frexp_, tag::cpu_,
                        (A0),
-                       (fundamental_<A0>)
+                       (real_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<standard::tag::frexp_(tag::fundamental_),
+  struct call<standard::tag::frexp_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
