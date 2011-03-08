@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( frexp_real__1,  NT2_REAL_TYPES)
         r_t0 s0 = boost::fusion::get<0>(s);
         r_t1 s1 = boost::fusion::get<1>(s);
         NT2_TEST_TUPLE_ULP_EQUAL( r0, s0, 0);
-        NT2_TEST_TUPLE_ULP_EQUAL( r0, s0, 1);
+        NT2_TEST_TUPLE_ULP_EQUAL( r1, s1, 0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
