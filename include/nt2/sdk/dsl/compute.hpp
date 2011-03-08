@@ -22,7 +22,12 @@ namespace nt2 { namespace meta
   struct compute
       : boost::proto::
         unpack< boost::proto::
-                call< functor<Tag, Target> >(compile<compute,Target>)
+                call< functor<Tag, Target> >(compile< compute < boost::mpl::_1
+                                                              , boost::mpl::_2
+                                                              >
+                                                    , Target
+                                                    >
+                                            )
               >
   {};
 

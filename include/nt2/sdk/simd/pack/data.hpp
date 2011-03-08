@@ -109,9 +109,10 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
-      meta::compile<meta::compute,tag::cpu_> compiler;
       meta::as_<parent> target;
-      mData = compiler(xpr,target);
+      mData = meta::compile < meta::compute<boost::mpl::_1,boost::mpl::_2>
+                            , tag::cpu_
+                            >()(xpr,target);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -125,9 +126,11 @@ namespace nt2 { namespace simd
     template<class X>
     void evaluate ( X const& xpr, boost::mpl::false_ const& )
     {
-      //meta::compile<meta::compute_,tag::cpu_>  compiler;
-      //for(std::size_t i=0;i<Cardinal::value;++i)
-      //  mData[i] = compiler(xpr,i,i);
+      meta::as_<parent> target;
+      for(std::size_t i=0;i<Cardinal::value;++i)
+        mData[i] = meta::compile< meta::compute<boost::mpl::_1,boost::mpl::_2>
+                                , tag::cpu_
+                                >()(xpr,target,i);
     }
   };
 } }

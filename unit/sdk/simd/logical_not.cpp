@@ -46,8 +46,8 @@ NT2_TEST_CASE_TPL ( logical_not_ , NT2_SIMD_TYPES )
   n_t v = nt2::load<n_t>(&data[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
   {
-    NT2_TEST_EQUAL( (!v)[j]                 , nt2::logical_not(v[j]) );
-    NT2_TEST_EQUAL( (nt2::logical_not(v))[j], nt2::logical_not(v[j]) );
-    NT2_TEST_EQUAL( (nt2::l_not(v))[j]      , nt2::logical_not(v[j]) );
+    NT2_TEST_EQUAL( !!(!v)[j]                 , nt2::logical_not(v[j]) );
+    NT2_TEST_EQUAL( !!(nt2::logical_not(v))[j], nt2::logical_not(v[j]) );
+    NT2_TEST_EQUAL( !!(nt2::l_not(v))[j]      , nt2::logical_not(v[j]) );
   }
 }
