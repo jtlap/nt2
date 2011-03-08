@@ -55,7 +55,7 @@
                  'default' : ['nt2::spence(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['2.0'],
+                 'default' : ['2'],
                 },
             },
         },
