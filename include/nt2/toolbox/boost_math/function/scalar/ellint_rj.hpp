@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_ELLINT_RJ_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_ELLINT_RJ_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -27,12 +28,12 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2, class A3>
     struct result<This(A0, A1, A2, A3)> :
-      boost::result_of<meta::floating(A0, A1, A2, A3)>{};
+      boost::result_of<meta::floating(A0, A1, A2, A3)>{};//TO DO
 
     NT2_FUNCTOR_CALL(4)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::ellint_rj(type(a0), type(a1), type(a2), type(a3));
+      typedef typename NT2_RETURN_TYPE(4)::type type;
+      return ellint_rj(type(a0), type(a1), type(a2), type(a3));
     }
   };
 } }
@@ -54,9 +55,9 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2, class A3>
     struct result<This(A0, A1, A2, A3)> :
-      boost::result_of<meta::floating(A0, A1, A2, A3)>{};
+      boost::result_of<meta::floating(A0, A1, A2/*, A3*/)>{}; //TO DO
 
-    NT2_FUNCTOR_CALL(4){ return boost::math::ellint_rj(a0, a1, a2, a3); }
+      NT2_FUNCTOR_CALL(4){ return boost::math::ellint_rj(a0, a1, a2, a3, nt2_policy()); }
   };
 } }
 

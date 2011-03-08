@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_LOG1P_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_LOG1P_HPP_INCLUDED
-
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -53,10 +53,9 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(1){ return boost::math::log1p(a0); }
+      NT2_FUNCTOR_CALL(1){ return boost::math::log1p(a0, nt2_policy()); }
   };
 } }
 

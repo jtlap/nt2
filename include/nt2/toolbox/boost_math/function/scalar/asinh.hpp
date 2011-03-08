@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_ASINH_HPP_INCLUDED
 #include <boost/math/special_functions/asinh.hpp>
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +58,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)> :
       boost::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL(1){ return boost::math::asinh(a0); }
+      NT2_FUNCTOR_CALL(1){ return boost::math::asinh(a0, nt2_policy()); }
   };
 } }
 

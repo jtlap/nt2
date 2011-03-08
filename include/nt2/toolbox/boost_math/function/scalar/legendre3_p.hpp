@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_LEGENDRE3_P_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_LEGENDRE3_P_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -15,24 +16,24 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(boost_math::tag::legendre3_p_, tag::cpu_,
                              (A0)(A1)(A2),
-                             (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                             (integer_<A0>)(integer_<A1>)(arithmetic_<A2>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<boost_math::tag::legendre3_p_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<boost_math::tag::legendre3_p_(tag::integer_,tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
     struct result<This(A0, A1, A2)> :
-      boost::result_of<meta::floating(A0, A1, A2)>{};
+      boost::result_of<meta::floating(A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::legendre3_p(type(a0), type(a1), type(a2));
+      return legendre3_p(a0, a1, type(a2));
     }
   };
 } }
@@ -42,21 +43,20 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(boost_math::tag::legendre3_p_, tag::cpu_,
                              (A0)(A1)(A2),
-                             (real_<A0>)(real_<A1>)(real_<A2>)
+                             (integer_<A0>)(integer_<A1>)(real_<A2>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<boost_math::tag::legendre3_p_(tag::real_,tag::real_,tag::real_),
+  struct call<boost_math::tag::legendre3_p_(tag::integer_,tag::integer_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> :
-      boost::result_of<meta::floating(A0, A1, A2)>{};
+    struct result<This(A0, A1, A2)> : meta::strip<A2>{};
 
-    NT2_FUNCTOR_CALL(3){ return boost::math::legendre_p(a0, a1, a2); }
+      NT2_FUNCTOR_CALL(3){ return boost::math::legendre_p(a0, a1, a2, nt2_policy()); }
   };
 } }
 

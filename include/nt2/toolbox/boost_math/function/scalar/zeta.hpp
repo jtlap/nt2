@@ -8,31 +8,32 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_ZETA_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_ZETA_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(boost_math::tag::zeta_, tag::cpu_,
-                      (A0)(A1)(A2),
-                      (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                      (A0),
+                      (arithmetic_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<boost_math::tag::zeta_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<boost_math::tag::zeta_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> :
-      boost::result_of<meta::floating(A0, A1, A2)>{};
+    template<class This,class A0>
+    struct result<This(A0)> :
+      boost::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::zeta(type(a0), type(a1), type(a2));
+      return zeta(type(a0));
     }
   };
 } }
@@ -41,22 +42,21 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(boost_math::tag::zeta_, tag::cpu_,
-                      (A0)(A1)(A2),
-                      (real_<A0>)(real_<A1>)(real_<A2>)
+                      (A0),
+                      (real_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<boost_math::tag::zeta_(tag::real_,tag::real_,tag::real_),
+  struct call<boost_math::tag::zeta_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> :
-      boost::result_of<meta::floating(A0, A1, A2)>{};
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(3){ return boost::math::zeta(a0, a1, a2); }
+      NT2_FUNCTOR_CALL(1){ return boost::math::zeta(a0, nt2_policy()); }
   };
 } }
 

@@ -11,12 +11,13 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/factorials.hpp>
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 namespace nt2 { namespace boost_math { namespace tag
   {         
-    struct factorial_ {};
+    template < class T> struct factorial_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::factorial_, factorial, 1)
+  NT2_BOOST_MATH_FUNCTION_IMPLEMENTATION_TPL(factorial,1)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/factorial.hpp>

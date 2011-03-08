@@ -16,7 +16,7 @@ namespace nt2 { namespace boost_math { namespace tag
   {         
     struct zeta_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::zeta_, zeta, 3)
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::zeta_, zeta, 1)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/zeta.hpp>

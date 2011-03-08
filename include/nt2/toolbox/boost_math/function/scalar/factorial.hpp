@@ -8,55 +8,29 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_FACTORIAL_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
+// Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(boost_math::tag::factorial_, tag::cpu_,
-                           (A0),
-                           (arithmetic_<A0>)
-                          )
+NT2_REGISTER_DISPATCH(boost_math::tag::factorial_<T>, tag::cpu_,
+		      (A0)(T),
+		      (integer_<A0>)
+		      )
 
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct call<boost_math::tag::factorial_(tag::arithmetic_),
+  template<class T, class Dummy>
+  struct call<boost_math::tag::factorial_<T>(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
+    typedef T result_type; 
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::factorial(type(a0));
+      return boost::math::factorial<T>(a0, nt2_policy());
     }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(boost_math::tag::factorial_, tag::cpu_,
-                           (A0),
-                           (real_<A0>)
-                          )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<boost_math::tag::factorial_(tag::real_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      boost::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return boost::math::factorial(a0); }
   };
 } }
 

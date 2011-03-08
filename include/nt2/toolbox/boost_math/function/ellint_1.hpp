@@ -10,12 +10,15 @@
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_ELLINT_1_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
+
+
 #include <boost/math/special_functions/ellint_1.hpp>
 
 namespace nt2 { namespace boost_math { namespace tag
   {         
     struct ellint_1_ {};
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_1_, ellint_1, 1)
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_1_, ellint_1, 2)
   } }
  
