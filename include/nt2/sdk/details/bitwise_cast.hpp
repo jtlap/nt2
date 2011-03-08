@@ -12,7 +12,7 @@
 #include <nt2/sdk/error/static_assert.hpp>
 
 #include <cstring>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 
 namespace nt2
 {
@@ -55,9 +55,8 @@ namespace nt2
         template<typename To, typename From, typename Enable = void>
         struct bitwise_cast : memcpy_cast {};
 
-        // is_convertible causes problems for some types.
         template<typename To, typename From>
-        struct bitwise_cast<To, From, typename boost::is_same<From, To>::type> : convert_cast {};
+        struct bitwise_cast<To, From, typename boost::is_convertible<From, To>::type> : convert_cast {};
     }
 
     template<typename To, typename From>
