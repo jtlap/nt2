@@ -6,29 +6,61 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost_math toolbox - ellint_rj - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost_math toolbox - ellint_rj/scalar Mode"
 
-#include <nt2/toolbox/boost_math/include/ellint_rj.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of boost_math components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 07/03/2011
+/// modified by jt the 07/03/2011
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/boost_math/include/ellint_rj.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of boost_math component ellint_rj using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-//NT2_TEST_CASE_TPL ( boost_math,  (double)(nt2::uint64_t)(nt2::int64_t) 
-//                          (float)(nt2::uint32_t)(nt2::int32_t)  
-//                          (nt2::uint16_t)(nt2::int16_t)         
-//                          (nt2::uint8_t)(nt2::int8_t)
-//                          (bool)
-//                  )
-//{
-//  using nt2::ellint_rj;
-//  using nt2::functors::ellint_rj_;
-//
-//  NT2_TEST( (boost::is_same<typename nt2::meta::call<boost_math_(T, T, T, T)>::type,
-//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
-//                            >::value)
-//          );
-//}
+NT2_TEST_CASE_TPL ( ellint_rj_real__4,  NT2_REAL_TYPES)
+{
+  
+  using nt2::boost_math::ellint_rj;
+  using nt2::boost_math::tag::ellint_rj_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<ellint_rj_(T,T,T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a2,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a3,T, NR, T(-10), T(10));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    T a1;
+    T a2;
+    T a3;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << ", a2 = "<< u_t(a2 = tab_a2[j])
+                  << ", a3 = "<< u_t(a3 = tab_a3[j])
+                  << std::endl;
+        NT2_TEST_EQUAL( nt2::boost_math::ellint_rj(a0,a1,a2,a3),nt2::boost_math::ellint_rj(a0,a1,a2,a3));
+     }
+     
+   }
+} // end of test for real_

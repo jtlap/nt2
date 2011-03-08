@@ -6,29 +6,55 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost_math toolbox - cyl_neumann - unit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost_math toolbox - cyl_neumann/scalar Mode"
 
-#include <nt2/toolbox/boost_math/include/cyl_neumann.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of boost_math components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 07/03/2011
+/// modified by jt the 07/03/2011
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/boost_math/include/cyl_neumann.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of boost_math component cyl_neumann using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-//NT2_TEST_CASE_TPL ( boost_math,  (double)(nt2::uint64_t)(nt2::int64_t) 
-//                          (float)(nt2::uint32_t)(nt2::int32_t)  
-//                          (nt2::uint16_t)(nt2::int16_t)         
-//                          (nt2::uint8_t)(nt2::int8_t)
-//                          (bool)
-//                  )
-//{
-//  using nt2::cyl_neumann;
-//  using nt2::functors::cyl_neumann_;
-//
-//  NT2_TEST( (boost::is_same<typename nt2::meta::call<boost_math_(T, T)>::type,
-//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
-//                            >::value)
-//          );
-//}
+NT2_TEST_CASE_TPL ( cyl_neumann_real__2,  NT2_REAL_TYPES)
+{
+  
+  using nt2::boost_math::cyl_neumann;
+  using nt2::boost_math::tag::cyl_neumann_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<cyl_neumann_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    T a1;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        NT2_TEST_EQUAL( nt2::boost_math::cyl_neumann(a0,a1),nt2::boost_math::cyl_neumann(a0,a1));
+     }
+     
+   }
+} // end of test for real_
