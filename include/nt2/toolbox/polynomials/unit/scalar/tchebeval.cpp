@@ -6,38 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 polynomials toolbox - unit/scalar Mode"
-#include <nt2/sdk/functor/meta/call.hpp> 
+#define NT2_UNIT_MODULE "nt2 polynomials toolbox - tchebeval/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of polynomials components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 06/03/2011
+/// modified by jt the 06/03/2011
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/no_ulp_tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <boost/array.hpp>
-
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( tchebeval, (double) 
-                (float) (int32_t) (int64_t)
-                )
-{
-  using nt2::tchebeval; 
-  using nt2::tag::tchebeval_;
-   NT2_TEST( (boost::is_same < typename nt2::meta::call<tchebeval_(T,boost::array<T,3>)>::type
-            , typename boost::result_of<nt2::meta::floating(T)>::type
-            >::value)
-           );
-   typedef typename boost::result_of<nt2::meta::floating(T)>::type r_t;
-static const boost::array<T, 3 > A = {{1,2,3}}; 
- NT2_TEST_EQUAL(  nt2::tchebeval( T(0), A), (0.5)  );
-   NT2_TEST_EQUAL(  nt2::tchebeval( T(1), A), (2)  );
-   NT2_TEST_EQUAL(  nt2::tchebeval( T(2), A), (4.5) );
-   NT2_TEST_EQUAL(  nt2::tchebeval( T(8), A), (40.5) ); 
-
-}
+#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
+// specific includes for arity 2 tests
 
