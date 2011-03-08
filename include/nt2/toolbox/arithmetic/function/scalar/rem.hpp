@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-       return a0%a1;
+      return if (a1) return a0%a1; else return a0; 
     }
   };
 } }
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-     return a1 ? a0-a1*idivfix(a0,a1) : a0;
+      if (a1) return a0-a1*idivfix(a0,a1);  else return a0;
     }
   };
 } }
