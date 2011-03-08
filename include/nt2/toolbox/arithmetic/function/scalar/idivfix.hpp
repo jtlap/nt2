@@ -11,7 +11,7 @@
 
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/rdivide.hpp>
-#include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return toint(trunc(a0/a1));
+      typedef typename boost::result_of<meta::arithmetic(A0,A1)>::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type rtype; 
+      const type z = a0/a1; 
+      return is_nan(z) ? Zero<rtype>() : rtype(trunc(z)); //TO DO itrunc
     }
   };
 } }

@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type; 
-      return round2even(a0/a1);
+      return iround(a0/a1);
     }
   };
 } }
