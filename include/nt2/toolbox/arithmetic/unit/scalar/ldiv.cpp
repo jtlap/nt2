@@ -88,7 +88,6 @@ NT2_TEST_CASE_TPL ( ldiv_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(ldiv(2,3), 1, 0);
   NT2_TEST_ULP_EQUAL(ldiv(3,2), 0, 0);
   NT2_TEST_ULP_EQUAL(ldiv(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(ldiv(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
