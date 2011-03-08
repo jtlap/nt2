@@ -40,7 +40,6 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
       return (!a1) ? a1 : iceil(double(a0)/double(a1));
-
     }
   };
 } }
@@ -66,7 +65,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type  type;
-      return rdivide((a0+(a1-One<type>())), a1);
+      return (!a1) ? a1 : rdivide((a0+(a1-One<type>())), a1);
     }
   };
 } }

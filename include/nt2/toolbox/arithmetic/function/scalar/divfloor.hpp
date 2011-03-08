@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-       return rdivide(a0,a1);
+      return (!a1) ? a1 : rdivide(a0,a1);
     }
   };
 } }
