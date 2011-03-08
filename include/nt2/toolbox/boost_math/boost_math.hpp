@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_BOOST_MATH_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_BOOST_MATH_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 //<include> please don't modify between these tags
 #include <nt2/toolbox/boost_math/include/gamma_p_inv.hpp>
