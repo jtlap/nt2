@@ -18,6 +18,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -31,7 +32,7 @@ namespace nt2
     template<int N, class Seq> struct static_horner_
     {
       template<class Sig> struct result;
-      template<class This,class T> struct result<This(T)> { typedef T type; };
+      template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
       template<class T> inline
       typename std::tr1::result_of<static_horner_(T)>::type
@@ -48,7 +49,7 @@ namespace nt2
     template<class Seq> struct static_horner_<1,Seq>
     {
       template<class Sig> struct result;
-      template<class This,class T> struct result<This(T)> { typedef T   type; };
+      template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
       template<class T> inline
       typename std::tr1::result_of<static_horner_(T)>::type
