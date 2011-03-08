@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
-      return ellint_1(type(a0), type(a1), nt2_policy());
+      return ellint_1(type(a0), type(a1));
     }
   };
 } }

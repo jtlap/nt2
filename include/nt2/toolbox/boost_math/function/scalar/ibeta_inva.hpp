@@ -8,12 +8,14 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_IBETA_INVA_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_IBETA_INVA_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ibeta_inva_, tag::cpu_,
+NT2_REGISTER_DISPATCH(boost_math::tag::ibeta_inva_, tag::cpu_,
                             (A0)(A1)(A2),
                             (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
                            )
@@ -21,7 +23,7 @@ NT2_REGISTER_DISPATCH(tag::ibeta_inva_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ibeta_inva_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<boost_math::tag::ibeta_inva_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -40,7 +42,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ibeta_inva_, tag::cpu_,
+NT2_REGISTER_DISPATCH(boost_math::tag::ibeta_inva_, tag::cpu_,
                             (A0)(A1)(A2),
                             (real_<A0>)(real_<A1>)(real_<A2>)
                            )
@@ -48,7 +50,7 @@ NT2_REGISTER_DISPATCH(tag::ibeta_inva_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ibeta_inva_(tag::real_,tag::real_,tag::real_),
+  struct call<boost_math::tag::ibeta_inva_(tag::real_,tag::real_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -58,7 +60,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-       return boost::math::ibeta_inva(a0, a1, a2);
+      return boost::math::ibeta_inva(a0, a1, a2, nt2_policy());
     }
   };
 } }

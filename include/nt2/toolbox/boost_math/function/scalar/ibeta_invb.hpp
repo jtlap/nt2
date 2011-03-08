@@ -8,6 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_IBETA_INVB_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_IBETA_INVB_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -32,7 +34,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::ibeta_invb(type(a0), type(a1), type(a2));
+      return nt2::boost_math::ibeta_invb(type(a0), type(a1), type(a2), nt2_policy());
     }
   };
 } }
@@ -56,7 +58,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A1, A2)> :
       boost::result_of<meta::floating(A0, A1, A2)>{};
 
-    NT2_FUNCTOR_CALL(3){ return boost::math::ibeta_invb(a0, a1, a2); }
+      NT2_FUNCTOR_CALL(3){ return boost::math::ibeta_invb(a0, a1, a2, nt2_policy()); }
   };
 } }
 

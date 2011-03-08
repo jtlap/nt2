@@ -22,7 +22,7 @@
              'stamp' : 'modified by jt the 07/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)']],
+             'default' : [['T(0)', 'T(1)']],
             },
          'specific_values' : {
             },
@@ -64,7 +64,7 @@
              'stamp' : 'modified by jt the 07/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['T(0)', 'T(1)'], ['T(0)', 'nt2::Pio_2<T>()']],
             },
          'specific_values' : {
             },
