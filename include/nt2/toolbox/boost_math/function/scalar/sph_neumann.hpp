@@ -8,31 +8,31 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_SPH_NEUMANN_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_SPH_NEUMANN_HPP_INCLUDED
-
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(boost_math::tag::sph_neumann_, tag::cpu_,
                              (A0)(A1),
-                             (arithmetic_<A0>)(arithmetic_<A1>)
+                             (integer_<A0>)(arithmetic_<A1>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<boost_math::tag::sph_neumann_(tag::arithmetic_,tag::arithmetic_),
+  struct call<boost_math::tag::sph_neumann_(tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> :
-      boost::result_of<meta::floating(A0, A1)>{};
+      boost::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::sph_neumann(type(a0), type(a1));
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::boost_math::sph_neumann(a0, type(a1));
     }
   };
 } }
@@ -42,21 +42,20 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(boost_math::tag::sph_neumann_, tag::cpu_,
                              (A0)(A1),
-                             (real_<A0>)(real_<A1>)
+                             (integer_<A0>)(real_<A1>)
                             )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<boost_math::tag::sph_neumann_(tag::real_,tag::real_),
+  struct call<boost_math::tag::sph_neumann_(tag::integer_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> :
-      boost::result_of<meta::floating(A0, A1)>{};
+    struct result<This(A0, A1)> : meta::strip<A1>{};
 
-    NT2_FUNCTOR_CALL(2){ return boost::math::sph_neumann(a0, a1); }
+      NT2_FUNCTOR_CALL(2){ return boost::math::sph_neumann(a0, a1, nt2_policy()); }
   };
 } }
 
