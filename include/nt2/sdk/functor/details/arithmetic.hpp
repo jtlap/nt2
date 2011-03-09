@@ -74,6 +74,11 @@ namespace nt2 { namespace ext
   //////////////////////////////////////////////////////////////////////////////
   // Unary minus
   //////////////////////////////////////////////////////////////////////////////
+  #ifdef BOOST_MSVC
+    #pragma warning(push)
+    #pragma warning(disable: 4146) // unary minus applied to unsigned
+  #endif
+
   template<class Dummy>
   struct call<tag::unary_minus_(tag::arithmetic_), tag::cpu_, Dummy> : callable
   {
@@ -88,6 +93,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1) { return -a0; }
   };
+
+  #ifdef BOOST_MSVC
+    #pragma warning(pop)
+  #endif
 
   //////////////////////////////////////////////////////////////////////////////
   // Unary plus
