@@ -16,7 +16,10 @@ namespace nt2 { namespace boost_math { namespace tag
   {         
     struct expint_ {};
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expint_, expint, 1)
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expint_, ei, 1)
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expint_, expint, 2)
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expint_, en, 2)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/expint.hpp>
