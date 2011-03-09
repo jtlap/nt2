@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_GAMMA_P_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_GAMMA_P_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::boost_math::gamma_p(type(a0), type(a1));
+      return nt2::boost_math::gamma_p(type(a0), type(a1), nt2_policy());
     }
   };
 } }

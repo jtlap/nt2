@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A1, A2, A3)> :
       boost::result_of<meta::floating(A2, A3)>{};
 
-    NT2_FUNCTOR_CALL(4){ return boost::math::spherical_harmonic_i(a0, a1, a2, a3); }
+    NT2_FUNCTOR_CALL(4){ return boost::math::spherical_harmonic_i(a0, a1, a2, a3, nt2_policy()); }
   };
 } }
 

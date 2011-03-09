@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_POWM1_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_POWM1_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -56,7 +57,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A1)> :
       boost::result_of<meta::floating(A0, A1)>{};
 
-    NT2_FUNCTOR_CALL(2){ return boost::math::powm1(a0, a1); }
+    NT2_FUNCTOR_CALL(2){ return boost::math::powm1(a0, a1, nt2_policy()); }
   };
 } }
 
