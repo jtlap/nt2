@@ -12,7 +12,7 @@
 // Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 07/03/2011
+/// modified by jt the 09/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
