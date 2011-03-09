@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'double',
             },
          'simd_types' : [],
          'special' : ['boost_math'],

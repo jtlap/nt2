@@ -16,8 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 07/03/2011',
-             'included' : [],
-             'no_ulp' : 'False',
+             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 07/03/2011',
             },
