@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( double_factorial_integer__1,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<double_factorial_ < double > (T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T,T)>::type wished_r_t;
+  typedef double wished_r_t;
 
 
   // return type conformity test 

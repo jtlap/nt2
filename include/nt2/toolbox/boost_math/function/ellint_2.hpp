@@ -16,6 +16,7 @@ namespace nt2 { namespace boost_math { namespace tag
   {         
     struct ellint_2_ {};
   }
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_2_, ellint_2, 1)
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint_2_, ellint_2, 2)
   } }
  

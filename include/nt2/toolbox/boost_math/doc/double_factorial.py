@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T,T)>::type',
+             'default' : 'double',
             },
          'simd_types' : [],
          'special' : ['boost_math'],
