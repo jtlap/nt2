@@ -12,7 +12,7 @@
 // Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 07/03/2011
+/// modified by jt the 09/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -29,9 +29,9 @@ NT2_TEST_CASE_TPL ( factorial_integer__1,  NT2_INTEGRAL_TYPES)
   using nt2::boost_math::factorial;
   using nt2::boost_math::tag::factorial_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef double r_t;
+  typedef typename nt2::meta::call<factorial_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef double wished_r_t;
 
 
   // return type conformity test 

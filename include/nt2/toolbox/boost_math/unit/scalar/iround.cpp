@@ -12,10 +12,10 @@
 // Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 07/03/2011
+/// modified by jt the 09/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -52,8 +52,9 @@ NT2_TEST_CASE_TPL ( iround_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::boost_math::iround(a0),nt2::iround(a0));
+        NT2_TEST_ULP_EQUAL( nt2::boost_math::iround(a0),nt2::iround(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
      }
-     
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
