@@ -10,7 +10,7 @@
 ################################################################################
 # Find and detect Boost libraries and setup the bootstrap macro
 ################################################################################
-SET(Boost_ADDITIONAL_VERSIONS "1.46" "1.46.0")
+SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0")
 INCLUDE(FindBoost)
 FIND_PACKAGE( Boost 1.46.0 )
 
