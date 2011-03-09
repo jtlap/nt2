@@ -39,11 +39,10 @@ namespace nt2 { namespace ext
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type a(a0);
       type b(a1);
-      if (is_eqz(b)) return a;
       while (is_nez(b)) {
-      const type  r = a % b;
-      a = b;
-      b = r;
+	const type  r = a % b;
+	a = b;
+	b = r;
       }
       return a;
     }
