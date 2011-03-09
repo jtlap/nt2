@@ -20,7 +20,7 @@ SET( SOURCES
   rint.cpp
   log.cpp
   atanh.cpp
-  expm1.cpp
+  expm1.cpp 
 # List of scalar test files for toolbox ast
    )
 
@@ -41,5 +41,6 @@ FOREACH( EXAMPLE ${SOURCES})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
   TARGET_LINK_LIBRARIES(${EXECUTABLE} ast)
 
+  ADD_DEPENDENCIES(ast.scalar.unit ${EXECUTABLE})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
 ENDFOREACH()
