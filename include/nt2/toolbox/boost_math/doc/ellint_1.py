@@ -17,7 +17,6 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 07/03/2011',
              'included' : ['#include <nt2/include/functions/ellint_1.hpp>'],
-             'no_ulp' : 'False',
              'notes' : [],
              'stamp' : 'modified by jt the 07/03/2011',
             },
@@ -59,7 +58,6 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 07/03/2011',
              'included' : [],
-             'no_ulp' : 'False',
              'notes' : [],
              'stamp' : 'modified by jt the 07/03/2011',
             },
