@@ -22,8 +22,44 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/boost_math/include/ellint_2.hpp>
-// specific includes for arity 2 tests
+// specific includes for arity 1 tests
 #include <nt2/include/functions/ellint_2.hpp>
+// specific includes for arity 2 tests
+#include <nt2/toolbox/trigonometric/include/constants.hpp>
+
+NT2_TEST_CASE_TPL ( ellint_2_real__1,  NT2_REAL_TYPES)
+{
+  
+  using nt2::boost_math::ellint_2;
+  using nt2::boost_math::tag::ellint_2_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<ellint_2_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(1));
+    double ulp0 = 0.0, ulpd = 0.0;
+    T a0;
+    for (int j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::boost_math::ellint_2(a0),nt2::ellint_2(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( ellint_2_real__2,  NT2_REAL_TYPES)
 {
@@ -44,8 +80,8 @@ NT2_TEST_CASE_TPL ( ellint_2_real__2,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(1));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), nt2::Pio_2<T>());
     double ulp0 = 0.0, ulpd = 0.0;
     T a0;
     T a1;
@@ -55,7 +91,7 @@ NT2_TEST_CASE_TPL ( ellint_2_real__2,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::boost_math::ellint_2(a0,a1),nt2::ellint_2(a0,a1),1);
+        NT2_TEST_ULP_EQUAL( nt2::boost_math::ellint_2(a0,a1),nt2::boost_math::ellint_2(a0,a1),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

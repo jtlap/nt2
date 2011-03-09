@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( factorial_integer__1,  NT2_INTEGRAL_TYPES)
   using nt2::boost_math::factorial;
   using nt2::boost_math::tag::factorial_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<factorial_(T)>::type r_t;
+  typedef typename nt2::meta::call<factorial_ < double>(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef double wished_r_t;
 

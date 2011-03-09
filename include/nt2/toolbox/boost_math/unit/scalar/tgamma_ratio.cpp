@@ -42,8 +42,8 @@ NT2_TEST_CASE_TPL ( tgamma_ratio_real__2,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
     T a0;
     T a1;
