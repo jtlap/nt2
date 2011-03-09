@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_IBETAC_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTION_SCALAR_IBETAC_HPP_INCLUDED
-
+#include <nt2/toolbox/boost_math/specific/interface.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A1, A2)> :
       boost::result_of<meta::floating(A0, A1, A2)>{};
 
-    NT2_FUNCTOR_CALL(3){ return boost::math::ibetac(a0, a1, a2); }
+      NT2_FUNCTOR_CALL(3){ return boost::math::ibetac(a0, a1, a2, nt2_policy()); }
   };
 } }
 
