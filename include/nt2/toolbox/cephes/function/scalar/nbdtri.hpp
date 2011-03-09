@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/include/functions/is_lez.hpp>
 
   extern "C"{
     extern double cephes_nbdtri ( int,int,double );
@@ -36,7 +37,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
-      return nt2::cephes::nbdtri((a0), (a1), double(a2));
+      return nt2::cephes::nbdtri(a0, a1, double(a2));
     }
   };
 } }
@@ -57,9 +58,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A2)>{};
+    struct result<This(A0, A1, A2)> : meta::strip<A2>{};
 
-    NT2_FUNCTOR_CALL(3){ return cephes_nbdtri(a0, a1, a2); }
+    NT2_FUNCTOR_CALL(3){
+      if (is_lez(a0)||is_lez(a1)) return Nan<double>(); 
+      return cephes_nbdtri(a0, a1, a2); }
   };
 } }
 

@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( nbdtri_real__3,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, iT(0), iT(10));
     NT2_CREATE_BUF(tab_a1,T, NR, iT(0), iT(10));
-    NT2_CREATE_BUF(tab_a2,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a2,T, NR, T(0), T(1));
     double ulp0 = 0.0, ulpd = 0.0;
     iT a0,a1;
     T a2;
