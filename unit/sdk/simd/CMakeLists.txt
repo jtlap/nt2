@@ -52,6 +52,7 @@ SET( SOURCES
     shift_left.cpp
     shift_right.cpp
     upgrade.cpp
+    splat.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)
