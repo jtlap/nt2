@@ -20,7 +20,7 @@
              'stamp' : 'modified by jt the 22/02/2011',
             },
          'ranges' : {
-             'real_' : [['T(-10)', 'T(10)']],
+             'real_' : [['T(0)', 'T(15)']],
             },
          'specific_values' : {
              'real_' : {
@@ -43,7 +43,7 @@
                  'default' : ['cephes_gammal(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['4.0'],
+                 'default' : ['25.0'],
                 },
             },
         },
