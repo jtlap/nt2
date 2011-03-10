@@ -12,10 +12,7 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 
-  extern "C"{
-    extern double cephes_nbdtri ( int,int,double );
-  }
-
+extern "C" { extern double cephes_nbdtri(int,int,double); }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A2 is arithmetic_
@@ -62,7 +59,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A1, A2)> : meta::strip<A2>{};
 
     NT2_FUNCTOR_CALL(3){
-      if (is_lez(a0)||is_lez(a1)) return nt2::Nan<double>(); 
+      if (is_lez(a0)||is_lez(a1)) return Nan<A2>(); 
       return cephes_nbdtri(a0, a1, a2); }
   };
 } }
