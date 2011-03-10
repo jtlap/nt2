@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( gamma_real__1,  NT2_REAL_TYPES)
   // random verifications    
   static const uint32_t NR = 128;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-15), T(15)); 
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(15)); 
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
       { 
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( gamma_real__1,  NT2_REAL_TYPES)
         {
           int k = i+j*cardinal_of<n_t>::value;
 	  std::cout << std::setprecision(20) << tab_a0[k] << std::endl; 
-            NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::gamma(tab_a0[k])), 1.0);
+            NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::gamma(tab_a0[k])), 25.0);
             //NT2_TEST_ULP_EQUAL( v[i],ssr_t(boost::math::tr1::tgamma(tab_a0[k])), 2.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
