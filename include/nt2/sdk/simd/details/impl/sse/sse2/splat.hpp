@@ -175,7 +175,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = {{a0,a0}};
+      type that = {
+          _mm_setr_epi32( (a0 & 0x00000000FFFFFFFFULL)
+                        , (a0 & 0xFFFFFFFF00000000ULL) >> 32
+                        , (a0 & 0x00000000FFFFFFFFULL)
+                        , (a0 & 0xFFFFFFFF00000000ULL) >> 32 )
+      };
       return that;
     }
   };

@@ -21,7 +21,7 @@
 // This is done by enumerating all cases of function calls over the different
 // vector cardinal and function arity. SSE specifications make it requires a
 // painfull process of using mm_setr_xxx named functions depending on types
-// categories. Special case is the 64 bits integers that can be filled directly.
+// categories. Special case is the 64 bits integers that need special care.
 ////////////////////////////////////////////////////////////////////////////////
 #define M5(z,n,t) (BOOST_PP_CAT(A,n))
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
@@ -29,7 +29,15 @@
 #define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(n))>,tag::sse_>))
 #define M1(z,n,t) ,tag::simd_<tag::arithmetic_,tag::sse_>
 
-#define M64(n,t) A1 that = {{BOOST_PP_ENUM(2,M3,n)}}
+#define M64(n,t)                                                             \
+A1 that = { _mm_setr_epi32(                                                  \
+                            (M3(0, 0, n) & 0x00000000FFFFFFFFULL)            \
+                          , (M3(0, 0, n) & 0xFFFFFFFF00000000ULL) >> 32      \
+                          , (M3(1, 1, n) & 0x00000000FFFFFFFFULL)            \
+                          , (M3(1, 1, n) & 0xFFFFFFFF00000000ULL) >> 32      \
+                          )                                                  \
+          }                                                                  \
+/**/
 
 #define MN64(n,t)                                           \
 A1 that = { BOOST_PP_TUPLE_ELEM(4,2,t)                      \
