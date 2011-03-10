@@ -78,12 +78,24 @@ namespace nt2 { namespace memory
     ~buffer() { parent_data::deallocate(allocator()); }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator
+    // Assignment operator - SG version
     ////////////////////////////////////////////////////////////////////////////
-    buffer& operator=(buffer const& src) //nothrow
+    buffer& operator=(buffer const& src)
     {
-      buffer that(src);
-      swap(that);
+      // we want to have a Strong Garantee and yet be performant
+      // so we check if we need some resizing
+      if(src.size() > this->size())
+      {
+        // If we do, use the SG copy+swap method
+        buffer that(src);
+        swap(that);
+      }
+      else
+      {
+        // If not we just need to resize/rebase and copy which is SG here
+        restructure(src.lower(),src.size());
+        std::copy(src.begin(),src.end(),begin());
+      }
       return *this;
     }
 
