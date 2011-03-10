@@ -2,13 +2,14 @@
     {
      'functor' : {
          'arity' : '1',
-         'call_types' : [],
+        'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'double',
             },
          'simd_types' : [],
          'special' : ['boost_math'],
+         'tpl'   : '<double>',   
          'type_defs' : [],
          'types' : ['integer_'],
         },
