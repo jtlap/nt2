@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/sdk/constant/real.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 
   extern "C"{
@@ -61,7 +62,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A1, A2)> : meta::strip<A2>{};
 
     NT2_FUNCTOR_CALL(3){
-      if (is_lez(a0)||is_lez(a1)) return Nan<double>(); 
+      if (is_lez(a0)||is_lez(a1)) return nt2::Nan<double>(); 
       return cephes_nbdtri(a0, a1, a2); }
   };
 } }
