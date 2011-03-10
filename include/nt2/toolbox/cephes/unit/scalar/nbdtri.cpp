@@ -12,8 +12,8 @@
 // Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
-/// modified by jt the 01/03/2011
-#include <boost/type_traits/is_same.hpp>
+/// modified by jt the 01/03/2011 
+#include <boost/type_traits/is_same.hpp> 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( nbdtri_real__3,  NT2_REAL_TYPES)
     double ulp0 = 0.0, ulpd = 0.0;
     iT a0,a1;
     T a2;
-    for (int j =0; j < NR; ++j )
+    for (int j =0; j < NR; ++j ) 
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
