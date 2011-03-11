@@ -12,6 +12,10 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+#ifdef BOOST_MSVC
+  #pragma warning(disable: 4309) // truncation of constant value
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of digit constant for every base types
 ////////////////////////////////////////////////////////////////////////////////

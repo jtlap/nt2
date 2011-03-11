@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/details/bitwise_cast.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
@@ -57,6 +58,27 @@ namespace nt2 { namespace meta
   template<class X> struct extension_of<__m128 ,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128d,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
-} }
+}}
+
+////////////////////////////////////////////////////////////////////////////////
+// Conversion between vector types
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace details
+{
+    #if defined BOOST_MSVC || defined BOOST_INTEL
+        #define NT2_SSE_CONVERT union_cast
+    #else
+        #define NT2_SSE_CONVERT convert_cast
+    #endif
+
+    template<> struct bitwise_cast<__m128 , __m128d> : NT2_SSE_CONVERT {};
+    template<> struct bitwise_cast<__m128 , __m128i> : NT2_SSE_CONVERT {};
+    template<> struct bitwise_cast<__m128d, __m128 > : NT2_SSE_CONVERT {};
+    template<> struct bitwise_cast<__m128d, __m128i> : NT2_SSE_CONVERT {};
+    template<> struct bitwise_cast<__m128i, __m128 > : NT2_SSE_CONVERT {};
+    template<> struct bitwise_cast<__m128i, __m128d> : NT2_SSE_CONVERT {};
+
+    #undef NT2_SSE_CONVERT
+}}
 
 #endif

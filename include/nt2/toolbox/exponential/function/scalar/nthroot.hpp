@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      boost::result_of<meta::floating(A0)>{};
+      std::tr1::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename boost::result_of<meta::floating(A0)>::type type;
+      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
       if (!a1) return One<type>();
       if (is_even(a1) && is_ltz(a0)) return Nan<type>(); 
       if (is_inf(a0)) return a0; 

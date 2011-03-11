@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( bitwise_xor_real, NT2_REAL )
             )
           );
 
-  int_t mask = (1LL << (sizeof(T)*CHAR_BIT)-1);
+  int_t mask = (1ULL << ((sizeof(T)*CHAR_BIT)-1));
 
   NT2_TEST_EQUAL( nt2::bitwise_xor(T(1.) ,mask ), T(-1.) );
   NT2_TEST_EQUAL( nt2::b_xor(T(1.) ,mask ), T(-1.) );

@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL(sum, NT2_SIMD_INTEGRAL_TYPES )
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;    
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::call<sum_(n_t)>::type call_type;
- typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type rn_t; 
+ typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type rn_t; 
 
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );
  std::cout <<" type_id <rn_t>()       "<< nt2::type_id <rn_t>()      << std::endl;
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL(real_sum, NT2_REAL_TYPES )
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;    
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::call<sum_(n_t)>::type call_type;
- typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type rn_t; 
+ typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type rn_t; 
 
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );
  std::cout <<" type_id <rn_t>()       "<< nt2::type_id <rn_t>()      << std::endl;

@@ -10,6 +10,7 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
 
+#include <climits>
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/config/types.hpp>
@@ -52,7 +53,7 @@ namespace nt2 { namespace meta
   template<class T> struct  as_simd<T,tag::altivec_>
   {
     template< class Type
-            , std::size_t Sz = sizeof(Type)*CHAR_BITS
+            , std::size_t Sz = sizeof(Type)*CHAR_BIT
             , bool Integral = boost::is_integral<T>::value
             , class Dummy=void
             >

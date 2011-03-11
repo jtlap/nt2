@@ -25,7 +25,7 @@ namespace nt2 { namespace simd
   native_cast( U const& a )
   {
     typedef typename T::native_type native_type;
-    T that = { native_type(a.data_) };
+    T that = { bitwise_cast<native_type>(a.data_) };
     return that;
   }
 
@@ -40,7 +40,7 @@ namespace nt2 { namespace simd
   native_cast( U const& a )
   {
     typedef typename T::native_type native_type;
-    T that = { native_type(a) };
+    T that = { bitwise_cast<native_type>(a) };
     return that;
   }
 } }

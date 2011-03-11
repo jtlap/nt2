@@ -15,6 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
+#include <boost/utility/result_of.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
@@ -23,8 +24,17 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #endif
 
+namespace nt2 { namespace details
+{
+  template<typename T> struct callable_type
+  {
+    typedef typename T::callable_type type;
+  };
+} }
+
 namespace nt2 { namespace meta
 {
+
   template<class Sig, class Site = tag::cpu_, class Enable = void>
   struct enable_call;
 
@@ -32,29 +42,31 @@ namespace nt2 { namespace meta
   template<class F, class Site, class... Args>
   struct enable_call< F(Args...), Site
                     , typename
-                      enable_if_type< typename
-                                      dispatch_call < F(Args...)
-                                                    , Site
-                                                    >::type::callable_type
+                      enable_if_type< typename details::callable_type< typename
+                                                                       dispatch_call < F(Args...)
+                                                                                     , Site
+                                                                                     >::type
+                                                                     >::type
                                     >::type
                     >
     : std::tr1::result_of<functor<F>(Args...)>
   {};
   #else
 
-  #define M0(z,n,t)                                                                   \
-  template<class F, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                      \
-  struct  enable_call < F(BOOST_PP_ENUM_PARAMS(n,A))                                  \
-                      , Site                                                          \
-                      , typename                                                      \
-                        enable_if_type< typename                                      \
-                                        dispatch_call < F(BOOST_PP_ENUM_PARAMS(n,A))  \
-                                                      , Site                          \
-                                                      >::type::callable_type          \
-                                      >::type                                         \
-                    >                                                                 \
-        : std::tr1::result_of<functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>                  \
-  {};                                                                                 \
+  #define M0(z,n,t)                                                                                                    \
+  template<class F, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                                                       \
+  struct  enable_call < F(BOOST_PP_ENUM_PARAMS(n,A))                                                                   \
+                      , Site                                                                                           \
+                      , typename                                                                                       \
+                        enable_if_type< typename details::callable_type< typename                                      \
+                                                                         dispatch_call < F(BOOST_PP_ENUM_PARAMS(n,A))  \
+                                                                                       , Site                          \
+                                                                                       >::type                         \
+                                                                       >::type                                         \
+                                      >::type                                                                          \
+                    >                                                                                                  \
+        : std::tr1::result_of<functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>                                                   \
+  {};                                                                                                                  \
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)

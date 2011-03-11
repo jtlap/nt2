@@ -72,7 +72,11 @@ namespace nt2 { namespace memory
           : parent_data(), parent_allocator(src.allocator())
     {
       restructure(src.lower(),src.size());
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600)
+      std::copy(src.begin(),src.end(),stdext::make_unchecked_array_iterator(begin()));
+#else
       std::copy(src.begin(),src.end(),begin());
+#endif
     }
 
     ~buffer() { parent_data::deallocate(allocator()); }
@@ -94,7 +98,11 @@ namespace nt2 { namespace memory
       {
         // If not we just need to resize/rebase and copy which is SG here
         restructure(src.lower(),src.size());
-        std::copy(src.begin(),src.end(),begin());
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600)
+      std::copy(src.begin(),src.end(),stdext::make_unchecked_array_iterator(begin()));
+#else
+      std::copy(src.begin(),src.end(),begin());
+#endif
       }
       return *this;
     }

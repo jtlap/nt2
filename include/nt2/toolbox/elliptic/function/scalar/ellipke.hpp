@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
       {
-	typedef typename boost::result_of<meta::floating(A0)>::type etype;
+	typedef typename std::tr1::result_of<meta::floating(A0)>::type etype;
 	typedef boost::fusion::tuple<etype, etype>                   type;
       };
 
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename boost::result_of<meta::floating(A0)>::type type;
+      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
       return ellipke(type(a0), type(a1)); 
     }
   };

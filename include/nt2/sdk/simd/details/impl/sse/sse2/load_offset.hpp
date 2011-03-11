@@ -98,9 +98,9 @@ namespace nt2 { namespace ext
 
       type a      = load<type>(a0,a1+offset);
       type b      = load<type>(a0,a1+offset+1);
-      __m128i sa = _mm_srli_si128((__m128i)(a.data_),shifta);
-      __m128i sb = _mm_slli_si128((__m128i)(b.data_),shiftb);
-      type that   = { (raw_type)_mm_or_si128(sa,sb) };
+      __m128i sa = _mm_srli_si128(bitwise_cast<__m128i>(a.data_),shifta);
+      __m128i sb = _mm_slli_si128(bitwise_cast<__m128i>(b.data_),shiftb);
+      type that   = { bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }
     ////////////////////////////////////////////////////////////////////////////
@@ -128,9 +128,9 @@ namespace nt2 { namespace ext
 
       type a      = load<type>(a0,a1-offset);
       type b      = load<type>(a0,a1-offset-1);
-      __m128i sa = _mm_slli_si128((__m128i)(a.data_),shifta);
-      __m128i sb = _mm_srli_si128((__m128i)(b.data_),shiftb);
-      type that   = { (raw_type)_mm_or_si128(sa,sb) };
+      __m128i sa = _mm_slli_si128(bitwise_cast<__m128i>(a.data_),shifta);
+      __m128i sb = _mm_srli_si128(bitwise_cast<__m128i>(b.data_),shiftb);
+      type that   = { bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }
   };

@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T,T)>::type r0_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;

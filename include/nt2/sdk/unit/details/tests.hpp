@@ -10,6 +10,7 @@
 #define NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <iostream>
 
 namespace nt2 { namespace details
@@ -31,7 +32,9 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    if( nt2::ulpdist(t, u ) <= v)					
+
+    typedef typename nt2::meta::call<tag::ulpdist_(volatile T, volatile U)>::type R;
+    if( nt2::ulpdist(t, u ) <= (R)v)
       {									
 	std::cout << " * Test `"					
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	

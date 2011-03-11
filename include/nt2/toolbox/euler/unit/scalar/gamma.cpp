@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( gamma_real__1,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<gamma_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 

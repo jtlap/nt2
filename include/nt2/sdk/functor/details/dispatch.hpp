@@ -10,7 +10,7 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 #include <nt2/sdk/meta/hierarchy.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
@@ -145,13 +145,11 @@ template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>        \
 struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>              \
 {                                                                       \
   BOOST_PP_REPEAT(n,NT2_DISPATCH_TYPES,~)                               \
-  BOOST_TYPEOF_NESTED_TYPEDEF_TPL ( nested                              \
-                                  , dispatching ( Tag(), Site()         \
-                                                , BOOST_PP_ENUM(n,M0,~) \
-                                                , adl_helper()          \
-                                                )                       \
-                                  )                                     \
-  typedef typename nested::type                             type;       \
+  NT2_DECLTYPE( dispatching ( Tag(), Site()                             \
+                            , BOOST_PP_ENUM(n,M0,~)                     \
+                            , adl_helper()                              \
+                            )                                           \
+              , type );                                                 \
 };                                                                      \
 /**/
 

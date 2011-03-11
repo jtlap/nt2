@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename boost::result_of<meta::arithmetic(A0, A1) >::type type;
+      typedef typename std::tr1::result_of<meta::arithmetic(A0, A1) >::type type;
       typedef typename meta::as_integer<A0>::type itype;
       if (a0 == a1)               return Zero<type>();
       if (is_nan(a0)&&is_nan(a1)) return Zero<type>();
