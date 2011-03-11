@@ -59,7 +59,7 @@
                  'real_convert_' : 'real_',
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5'],
+                 'real_' : ['1.0'],
                 },
             },
         },

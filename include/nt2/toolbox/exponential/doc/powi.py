@@ -56,7 +56,7 @@
                  'real_' : ['cephes_powil(a0,a1)', 'nt2::sqr(a0)', 'a0*nt2::sqr(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5','1', '1'],
+                 'default' : ['2','2', '2'],
                 },
             },
         },

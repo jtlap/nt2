@@ -55,7 +55,7 @@
                  'real_' : ['::cephes_atanl(a0)*nt2::long_radindeg'],
                 },
              'ulp_thresh' : {
-                 'real_' : '1.0',
+                 'real_' : '2.0',
                 },
             },
         },

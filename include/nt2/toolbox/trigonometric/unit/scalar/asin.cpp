@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 11/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,6 +28,7 @@ extern "C" {extern long double cephes_asinl(long double);}
 
 NT2_TEST_CASE_TPL ( asin_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::asin;
   using nt2::tag::asin_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -62,7 +63,7 @@ NT2_TEST_CASE_TPL ( asin_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::asin(a0),::cephes_asinl(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::asin(a0),::cephes_asinl(a0),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -71,6 +72,7 @@ NT2_TEST_CASE_TPL ( asin_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( asin_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::asin;
   using nt2::tag::asin_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -92,6 +94,7 @@ NT2_TEST_CASE_TPL ( asin_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( asin_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::asin;
   using nt2::tag::asin_;
   typedef typename nt2::meta::as_integer<T>::type iT;

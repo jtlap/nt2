@@ -50,14 +50,14 @@
          'verif_test' : {
              'property_call' : {
                  'default' : [],
-                 'real_' : ['nt2::expx2(a0)','nt2::log(nt2::expx2(nt2::sqrt(a0)))'],
+                 'real_' : ['nt2::log(nt2::expx2(nt2::sqrt(a0)))'],
                 },
              'property_value' : {
                  'default' : [],
-                 'real_' : ['cephes_expx2l(a0)','a0'],
+                 'real_' : ['a0'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5','7'],
+                 'default' : ['7'],
                 },
             },
         },

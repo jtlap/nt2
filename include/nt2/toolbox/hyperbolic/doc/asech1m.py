@@ -47,7 +47,7 @@
                  'real_' : ['::cephes_acoshl(nt2::rec(nt2::oneminus(a0)))'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['5.0'],
+                 'real_' : ['37.5'],
                 },
             },
         },

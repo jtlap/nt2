@@ -46,7 +46,7 @@
                  'real_' : ['::cephes_tanhl(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5'],
+                 'real_' : ['1.0'],
                 },
             },
         },

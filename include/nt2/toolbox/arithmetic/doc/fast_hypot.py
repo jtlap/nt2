@@ -53,7 +53,7 @@
                  'default' : ['r_t(nt2::hypot(a0,a1))'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5'],
+                 'default' : ['2.0'],
                 },
             },
         },
