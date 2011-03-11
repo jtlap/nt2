@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
 {
   using nt2::two_prod;
   using nt2::tag::two_prod_;
-  typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T,T)>::type r0_t;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<two_prod_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;

@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1,  NT2_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type etype;
   typedef boost::fusion::tuple<etype, etype>                   rtype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellipke_(T)>::type r_t;
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__2,  NT2_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type etype;
   typedef boost::fusion::tuple<etype, etype>                   rtype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellipke_(T,T)>::type r_t;

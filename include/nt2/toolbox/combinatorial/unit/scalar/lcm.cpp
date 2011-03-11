@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( lcm_real__2,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<lcm_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<lcm_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( lcm_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<lcm_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
 
   // return type conformity test 

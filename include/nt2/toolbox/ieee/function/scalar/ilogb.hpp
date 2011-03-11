@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename   boost::result_of<meta::floating(A0)>::type type;
+      typedef typename   std::tr1::result_of<meta::floating(A0)>::type type;
       return nt2::ilogb(type(a0));
     }
   };

@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1,  NT2_REAL_TYPES)
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+    typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
     double ulp0 = 0.0, ulpd = 0.0;
     T a0;
@@ -116,7 +116,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -148,7 +148,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;

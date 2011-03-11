@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL(prod, NT2_SIMD_TYPES )
  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
  typedef native<T,ext_t>             n_t;
  typedef typename nt2::meta::call<prod_(n_t)>::type call_type;
- typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type rn_t;
+ typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type rn_t;
 
  NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];

@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( seladd_real__3,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<seladd_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<seladd_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
