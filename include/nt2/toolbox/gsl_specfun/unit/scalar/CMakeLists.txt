@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  gsl_sf_bessel_klu_scaled.cpp
   gsl_sf_sinc.cpp
   gsl_sf_beta_inc.cpp
   gsl_sf_bessel_i1_scaled.cpp
@@ -51,7 +52,6 @@ SET( SOURCES
   gsl_sf_exprel_n.cpp
   gsl_sf_pochrel.cpp
   gsl_sf_lndoublefact.cpp
-  gsl_sf_bessel_klu_scaled_.cpp
   gsl_sf_hyperg_0f1.cpp
   gsl_sf_bessel_j0.cpp
   gsl_sf_bessel_inu_scaled_.cpp

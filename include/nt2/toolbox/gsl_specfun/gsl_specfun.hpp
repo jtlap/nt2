@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_GSL_SPECFUN_GSL_SPECFUN_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_klu_scaled.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_sinc.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_beta_inc.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_i1_scaled.hpp>
@@ -54,7 +55,6 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_exprel_n.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_pochrel.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_lndoublefact.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_klu_scaled_.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_0f1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_j0.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_inu_scaled_.hpp>
