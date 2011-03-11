@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 ///  created by jt the 08/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 11/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,9 +26,10 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 extern "C" { long double cephes_expx2l(long double); }
- 
+
 NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::expx2;
   using nt2::tag::expx2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -61,8 +62,6 @@ NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::expx2(a0),cephes_expx2l(a0),0.5);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::log(nt2::expx2(nt2::sqrt(a0))),a0,7);
         ulp0=nt2::max(ulpd,ulp0);
      }
@@ -72,6 +71,7 @@ NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( expx2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::expx2;
   using nt2::tag::expx2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -93,6 +93,7 @@ NT2_TEST_CASE_TPL ( expx2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( expx2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::expx2;
   using nt2::tag::expx2_;
   typedef typename nt2::meta::as_integer<T>::type iT;

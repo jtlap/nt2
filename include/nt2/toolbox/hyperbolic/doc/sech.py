@@ -46,7 +46,7 @@
                  'real_' : ['1.0l/(::cephes_coshl(a0))'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5'],
+                 'real_' : ['1.0'],
                 },
             },
         },

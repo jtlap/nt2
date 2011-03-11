@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 11/03/2011
 /// 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -23,12 +23,12 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
-#include <nt2/toolbox/arithmetic/include/fma.hpp>
 // specific includes for arity 3 tests
 #include <nt2/sdk/constant/eps_related.hpp>
-#include <iomanip>
+
 NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
 {
+  
   using nt2::correct_fma;
   using nt2::tag::correct_fma_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -50,9 +50,6 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()), -nt2::Eps<T>()*nt2::Eps<T>(), 0);
-  std::cout << nt2::fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()) << std::endl;
-  std::cout << nt2::correct_fma(nt2::One<T>()+nt2::Eps<T>(), nt2::One<T>()-nt2::Eps<T>(),nt2::Mone<T>()) << std::endl;
-  std::cout <<                 (nt2::One<T>()+nt2::Eps<T>()*nt2::One<T>()-nt2::Eps<T>()+nt2::Mone<T>()) << std::endl;     
   NT2_TEST_ULP_EQUAL(correct_fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -61,7 +58,9 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
+    T a0;
+    T a1;
+    T a2;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -69,7 +68,7 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::correct_fma(a0,a1,a2),a0*a1+a2,0);
+        NT2_TEST_ULP_EQUAL( nt2::correct_fma(a0,a1,a2),a0*a1+a2,2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -78,6 +77,7 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( correct_fma_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::correct_fma;
   using nt2::tag::correct_fma_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -103,7 +103,9 @@ NT2_TEST_CASE_TPL ( correct_fma_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
+    T a0;
+    T a1;
+    T a2;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -111,7 +113,7 @@ NT2_TEST_CASE_TPL ( correct_fma_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::correct_fma(a0,a1,a2),a0*a1+a2,0);
+        NT2_TEST_ULP_EQUAL( nt2::correct_fma(a0,a1,a2),a0*a1+a2,2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -120,6 +122,7 @@ NT2_TEST_CASE_TPL ( correct_fma_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( correct_fma_unsigned_int__3,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::correct_fma;
   using nt2::tag::correct_fma_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -144,7 +147,9 @@ NT2_TEST_CASE_TPL ( correct_fma_unsigned_int__3,  NT2_UNSIGNED_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
+    T a0;
+    T a1;
+    T a2;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
@@ -152,10 +157,9 @@ NT2_TEST_CASE_TPL ( correct_fma_unsigned_int__3,  NT2_UNSIGNED_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::correct_fma(a0,a1,a2),a0*a1+a2,0);
+        NT2_TEST_ULP_EQUAL( nt2::correct_fma(a0,a1,a2),a0*a1+a2,2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for unsigned_int_
-

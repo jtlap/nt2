@@ -12,7 +12,7 @@
 // Test behavior of hyperbolic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
-/// modified by jt the 20/02/2011
+/// modified by jt the 11/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -29,6 +29,7 @@ extern "C" { long double cephes_coshl(long double); }
 
 NT2_TEST_CASE_TPL ( sech_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::sech;
   using nt2::tag::sech_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -53,13 +54,13 @@ NT2_TEST_CASE_TPL ( sech_real__1,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    r_t a0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::sech(a0),1.0l/(::cephes_coshl(a0)),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::sech(a0),1.0l/(::cephes_coshl(a0)),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -68,6 +69,7 @@ NT2_TEST_CASE_TPL ( sech_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( sech_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::sech;
   using nt2::tag::sech_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -88,6 +90,7 @@ NT2_TEST_CASE_TPL ( sech_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( sech_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::sech;
   using nt2::tag::sech_;
   typedef typename nt2::meta::as_integer<T>::type iT;

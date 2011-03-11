@@ -59,7 +59,7 @@
                  'default' : ['a0*a1+a2'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0'],
+                 'default' : ['2.0'],
                 },
             },
         },

@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 11/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -29,6 +29,7 @@ extern "C" { long double cephes_log1pl(long double); }
 
 NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::log1p;
   using nt2::tag::log1p_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -74,6 +75,7 @@ NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( log1p_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::log1p;
   using nt2::tag::log1p_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -95,6 +97,7 @@ NT2_TEST_CASE_TPL ( log1p_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( log1p_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::log1p;
   using nt2::tag::log1p_;
   typedef typename nt2::meta::as_integer<T>::type iT;

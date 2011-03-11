@@ -29,22 +29,22 @@
              'default' : {
                 },
              'real_' : {
-                 'T(8)' : 'T(2)',
-                 'nt2::Inf<T>()' : 'nt2::Inf<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Minf<r_t>()',
-                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'T(8)' : {'T(2)','ulp_thresh' : '0.5',},
+                 'nt2::Inf<T>()' : {'nt2::Inf<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Minf<T>()' :{ 'nt2::Minf<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Mone<T>()' :{ 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Nan<T>()' :{ 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' :{ 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Mone<T>()' :{ 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' :{ 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::One<T>()' : {'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' :{ 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
@@ -55,7 +55,7 @@
                  'default' : ['r_t(::cephes_cbrtl(a0))', 'r_t(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['1', '1.5'],
+                 'default' : ['2', '3'],
                 },
             },
         },

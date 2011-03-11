@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 11/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,6 +27,7 @@ extern "C" { long double cephes_powil(long double,int); }
 
 NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::powi;
   using nt2::tag::powi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -62,11 +63,11 @@ NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,a1),cephes_powil(a0,a1),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::powi(a0,a1),cephes_powil(a0,a1),2);
         ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Two<iT>()),nt2::sqr(a0),1);
+        NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Two<iT>()),nt2::sqr(a0),2);
         ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),1);
+        NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),2);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
