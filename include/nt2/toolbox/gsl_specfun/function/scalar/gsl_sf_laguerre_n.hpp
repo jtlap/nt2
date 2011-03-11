@@ -19,23 +19,23 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_laguerre_n_, tag::cpu_,
                                    (A0)(A1)(A2),
-                                   (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                                   (integer_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
                                   )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_laguerre_n_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<gsl_specfun::tag::gsl_sf_laguerre_n_(tag::integer_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A1, A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
-      return nt2::gsl_specfun::gsl_sf_laguerre_n((a0), type(a1), type(a2));
+      return nt2::gsl_specfun::gsl_sf_laguerre_n(a0, type(a1), type(a2));
     }
   };
 } }
@@ -45,18 +45,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_laguerre_n_, tag::cpu_,
                                    (A0)(A1)(A2),
-                                   (double_<A0>)(double_<A1>)(double_<A2>)
+                                   (integer_<A0>)(double_<A1>)(double_<A2>)
                                   )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_laguerre_n_(tag::double_,tag::double_,tag::double_),
+  struct call<gsl_specfun::tag::gsl_sf_laguerre_n_(tag::integer_,tag::double_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0, A1, A2)> : meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(3){ return gsl_sf_laguerre_n(a0, a1, a2); }
   };
@@ -67,18 +67,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_laguerre_n_, tag::cpu_,
                                    (A0)(A1)(A2),
-                                   (float_<A0>)(float_<A1>)(float_<A2>)
+                                   (integer_<A0>)(float_<A1>)(float_<A2>)
                                   )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_laguerre_n_(tag::float_,tag::float_,tag::float_),
+  struct call<gsl_specfun::tag::gsl_sf_laguerre_n_(tag::integer_,tag::float_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : boost::result_of<meta::floating(A0)>{};
+    struct result<This(A0, A1, A2)> :  meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(3){ return gsl_sf_laguerre_n(a0, a1, a2); }
   };

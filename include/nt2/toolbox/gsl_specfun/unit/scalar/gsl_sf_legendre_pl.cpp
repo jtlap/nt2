@@ -12,7 +12,7 @@
 // Test behavior of gsl_specfun components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 10/03/2011
-/// modified by jt the 10/03/2011
+/// modified by jt the 11/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( gsl_sf_legendre_pl_real__2,  NT2_REAL_TYPES)
   using nt2::gsl_specfun::gsl_sf_legendre_pl;
   using nt2::gsl_specfun::tag::gsl_sf_legendre_pl_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<gsl_sf_legendre_pl_(T,T)>::type r_t;
+  typedef typename nt2::meta::call<gsl_sf_legendre_pl_(iT,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -42,10 +42,10 @@ NT2_TEST_CASE_TPL ( gsl_sf_legendre_pl_real__2,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,iT, NR, iT(-10), iT(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0;
+    iT a0;
     T a1;
     for (int j =0; j < NR; ++j )
       {
