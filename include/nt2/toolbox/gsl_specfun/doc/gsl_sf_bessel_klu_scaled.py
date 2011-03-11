@@ -22,16 +22,16 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['iT(-10)', 'iT(10)'], ['T(1)', 'T(10)']],
+             'default' : [['iT(-10)', 'iT(10)'], ['T(-10)', 'T(10)']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_bessel_kn(a0,a1)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_bessel_klu_scaled(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_bessel_kn(a0,a1)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_bessel_klu_scaled(a0,a1)'],
                 },
              'simd' : {
                 },
