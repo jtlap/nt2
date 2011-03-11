@@ -24,16 +24,16 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #endif
 
+namespace nt2 { namespace details
+{
+  template<typename T> struct callable_type
+  {
+    typedef typename T::callable_type type;
+  };
+} }
+
 namespace nt2 { namespace meta
 {
-  namespace details
-  {
-      template<typename T>
-      struct callable_type
-      {
-          typedef typename T::callable_type type;
-      };
-  }
 
   template<class Sig, class Site = tag::cpu_, class Enable = void>
   struct enable_call;
