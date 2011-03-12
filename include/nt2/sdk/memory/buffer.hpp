@@ -43,6 +43,8 @@ namespace nt2 { namespace memory
     typedef typename parent_allocator::value_type       value_type;
     typedef typename parent_allocator::pointer          pointer;
     typedef typename parent_allocator::const_pointer    const_pointer;
+    typedef typename parent_allocator::pointer          iterator;
+    typedef typename parent_allocator::const_pointer    const_iterator;
     typedef typename parent_allocator::reference        reference;
     typedef typename parent_allocator::const_reference  const_reference;
     typedef typename parent_allocator::size_type        size_type;
