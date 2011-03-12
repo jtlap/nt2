@@ -58,10 +58,11 @@ namespace nt2 { namespace ext
     template<class This,class A0, class A1, class A2>
     struct result<This(A0, A1, A2)> : meta::strip<A2>{};
 
-    NT2_FUNCTOR_CALL(3){
-      if (is_lez(a0)||is_lez(a1)) return Nan<A2>(); 
+    NT2_FUNCTOR_CALL(3)
+    {
+      if (is_lez(a0)||is_lez(a1)) return nt2::Nan<A2>(); 
       return cephes_nbdtri(a0, a1, a2); }
-  };
+    };
 } }
 
 #endif
