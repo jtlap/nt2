@@ -22,7 +22,7 @@
  */
 
 #include "fdlibm.h"
-
+#include "stdio.h"
 #ifdef __STDC__
 static const double
 #else
@@ -42,7 +42,8 @@ TWO52[2]={
 {
 	int i0,j0,sx;
 	unsigned i,i1;
-	double w,t;
+	double t;
+	volatile double w; 
 	i0 =  fd___HI(x);
 	sx = (i0>>31)&1;
 	i1 =  fd___LO(x);
