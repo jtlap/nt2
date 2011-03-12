@@ -20,7 +20,7 @@
              'stamp' : 'modified by jt the 22/02/2011',
             },
          'ranges' : {
-             'real_' : [['T(0)', 'T(15)']],
+             'real_' : [['T(0)', 'T(10)']],
             },
          'specific_values' : {
              'real_' : {

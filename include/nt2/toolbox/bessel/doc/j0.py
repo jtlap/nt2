@@ -40,7 +40,7 @@
                  'default' : ['cephes_j0l(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['10.0'],
+                 'default' : ['64.0'],
                 },
             },
         },
