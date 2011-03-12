@@ -24,6 +24,7 @@
 #include <nt2/toolbox/fdlibm/include/rint.hpp>
 // specific includes for arity 1 tests
 #include <nt2/include/functions/round2even.hpp>
+extern "C" {double fd_rint(double); }
 
 NT2_TEST_CASE_TPL ( rint_real__1,  NT2_REAL_TYPES)
 {
