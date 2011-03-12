@@ -11,7 +11,6 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(libc.scalar.unit)
-ADD_CUSTOM_TARGET(libc.simd.unit)
 ADD_CUSTOM_TARGET(libc.unit)
 
 ##****************************************************************************
@@ -19,11 +18,9 @@ ADD_CUSTOM_TARGET(libc.unit)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
 
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(libc.unit libc.scalar.unit)
-ADD_DEPENDENCIES(libc.unit libc.simd.unit)
 ADD_DEPENDENCIES(unit libc.unit)

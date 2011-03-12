@@ -11,7 +11,6 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(ast.scalar.unit)
-ADD_CUSTOM_TARGET(ast.simd.unit)
 ADD_CUSTOM_TARGET(ast.unit)
 
 ##****************************************************************************
@@ -19,11 +18,9 @@ ADD_CUSTOM_TARGET(ast.unit)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
 
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(ast.unit ast.scalar.unit)
-ADD_DEPENDENCIES(ast.unit ast.simd.unit)
 ADD_DEPENDENCIES(unit ast.unit)
