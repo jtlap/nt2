@@ -12,7 +12,7 @@
 // Test behavior of bessel components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// modified by jt the 23/02/2011
+/// modified by jt the 12/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,12 +27,13 @@ extern "C" {double cephes_i0( double);}
 
 NT2_TEST_CASE_TPL ( i0_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::i0;
   using nt2::tag::i0_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<i0_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -42,9 +43,9 @@ NT2_TEST_CASE_TPL ( i0_real__1,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(i0(nt2::Inf<T>()), nt2::Inf<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(i0(nt2::One<T>()), r_t(1.266065877752008e+00), 0.5);
-  NT2_TEST_ULP_EQUAL(i0(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(i0(nt2::Inf<T>()), nt2::Inf<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(i0(nt2::One<T>()), r_t(1.266065877752008e+00), 1.0);
+  NT2_TEST_ULP_EQUAL(i0(nt2::Zero<T>()), nt2::One<r_t>(), 1.0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {

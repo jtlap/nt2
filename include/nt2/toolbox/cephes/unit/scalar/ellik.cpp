@@ -12,7 +12,7 @@
 // Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
-/// modified by jt the 01/03/2011
+/// modified by jt the 12/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,6 +27,7 @@
 
 NT2_TEST_CASE_TPL ( ellik_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::cephes::ellik;
   using nt2::cephes::tag::ellik_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,14 +47,15 @@ NT2_TEST_CASE_TPL ( ellik_real__2,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(3));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(1));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
+    T a0;
+    T a1;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cephes::ellik(a0,a1),nt2::ellik(a0,a1),2);
+        NT2_TEST_ULP_EQUAL( nt2::cephes::ellik(a0,a1),nt2::ellik(a0,a1),13);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
