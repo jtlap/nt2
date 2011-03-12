@@ -41,7 +41,7 @@
                  'default' : ['::cephes_ynl(a0,a1)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['100'],
+                 'default' : ['200'],
                 },
             },
         },
