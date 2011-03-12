@@ -11,7 +11,6 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(boost_math.scalar.unit)
-ADD_CUSTOM_TARGET(boost_math.simd.unit)
 ADD_CUSTOM_TARGET(boost_math.unit)
 
 ##****************************************************************************
@@ -19,11 +18,9 @@ ADD_CUSTOM_TARGET(boost_math.unit)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
 
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(boost_math.unit boost_math.scalar.unit)
-ADD_DEPENDENCIES(boost_math.unit boost_math.simd.unit)
 ADD_DEPENDENCIES(unit boost_math.unit)
