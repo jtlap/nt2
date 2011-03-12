@@ -11,7 +11,6 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(crlibm.scalar.unit)
-ADD_CUSTOM_TARGET(crlibm.simd.unit)
 ADD_CUSTOM_TARGET(crlibm.unit)
 
 ##****************************************************************************
@@ -19,11 +18,9 @@ ADD_CUSTOM_TARGET(crlibm.unit)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
 
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(crlibm.unit crlibm.scalar.unit)
-ADD_DEPENDENCIES(crlibm.unit crlibm.simd.unit)
 ADD_DEPENDENCIES(unit crlibm.unit)
