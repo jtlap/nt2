@@ -16,7 +16,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   {         
     struct gsl_sf_hzeta_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_hzeta_, gsl_sf_hzeta, 1)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_hzeta_, gsl_sf_hzeta, 2)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_hzeta.hpp>

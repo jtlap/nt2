@@ -1,8 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
-         'call_types' : [],
+         'arity' : '2',
+         'call_types' : ['iT','T'],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'T',
@@ -17,21 +17,20 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 10/03/2011',
              'included' : [],
-             'no_ulp' : 'False',
              'notes' : [],
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)']],
+             'default' : [['iT(0)', 'iT(10)'],['T(0)', 'T(10)']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_psi_n(a0)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_psi_n(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_psi_n(a0)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_psi_n(a0,a1)'],
                 },
              'simd' : {
                 },

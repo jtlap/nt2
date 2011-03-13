@@ -2,7 +2,7 @@
     {
      'functor' : {
          'arity' : '3',
-         'call_types' : ['iT','iT','T'],
+         'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'T',
@@ -22,7 +22,7 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['iT(-10)', 'iT(10)'], ['iT(-10)', 'iT(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['T(0)', 'T(10)'], ['T(0)', 'T(10)'], ['T(0)', 'T(10)']],
             },
          'specific_values' : {
             },
