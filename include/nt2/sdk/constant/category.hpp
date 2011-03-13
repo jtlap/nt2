@@ -17,11 +17,25 @@
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// constant_ wraps a constant type into a EDSL element
+// constant_ wraps a constant type into a EDSL element and has its own hierarchy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag
+namespace nt2
 {
-  template<class ConstantID> struct constant_ { typedef ConstantID type; };
-} }
+  namespace tag { template<class ID> struct constant_ { typedef ID type; }; }
+  namespace meta
+  {
+    template<class T> struct constant_ : unspecified_<T>
+    {
+      typedef unspecified_<T>   parent;
+      typedef tag::constant_<T> type;
+    };
+  }
+}
+
+namespace nt2
+{
+  template<class ID>
+  struct constant_ { typedef meta::constant_<ID> nt2_hierarchy_tag; };
+}
 
 #endif
