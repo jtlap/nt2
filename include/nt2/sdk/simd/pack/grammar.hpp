@@ -9,26 +9,31 @@
 #ifndef NT2_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 
-//#include <nt2/sdk/constant/category.hpp>
+#include <nt2/sdk/dsl/from_domain.hpp>
+#include <nt2/sdk/constant/category.hpp>
 
 namespace nt2 { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
   // grammar is a template class to avoid a complex, recursive type matching
   // to ensure that SIMD expression of different T/Card are not mixed.
-  // * TODO: Add a rule to match named constant placeholder
   ////////////////////////////////////////////////////////////////////////////
   template<class T, class Card>
   struct grammar
     : boost::proto
-        ::or_ < boost::proto::terminal< data<boost::proto::_,boost::proto::_> >
-           //   , boost::proto::terminal< constants::constant_<boost::proto::_> >
+        ::or_ <
+              //  Terminals are pack, named and unnamed constants
+                boost::proto::terminal< data<T,Card> >
+              , boost::proto::terminal< tag::constant_<boost::proto::_> >
               , boost::proto::
                 and_< boost::proto::terminal<boost::proto::_>
                     , boost::proto::if_ < boost::
                                           is_arithmetic<boost::proto::_value>()
                                         >
                     >
+              //  Nodes are cross-domain node, any non-low level nodes with
+              //  matching type/cardinal
+              , dsl::from_domain< boost::proto::_ >
               , boost::proto::
                 and_< boost::proto::
                       nary_expr < boost::proto::_
