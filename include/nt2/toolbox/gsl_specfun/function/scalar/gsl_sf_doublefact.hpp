@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_DOUBLEFACT_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_DOUBLEFACT_HPP_INCLUDED
+#include <nt2/toolbox/gsl_specfun/specific/interface.hpp>
 
   extern "C"{
     extern double gsl_sf_doublefact ( double );
@@ -15,74 +16,29 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
+// Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_doublefact_, tag::cpu_,
-                                   (A0),
-                                   (arithmetic_<A0>)
-                                  )
+NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_doublefact_<T>, tag::cpu_,
+		      (A0)(T),
+		      (integer_<A0>)
+		      )
 
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_doublefact_(tag::arithmetic_),
+  template<class T, class Dummy>
+  struct call<gsl_specfun::tag::gsl_sf_doublefact_<T>(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
+    typedef T result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::gsl_specfun::gsl_sf_doublefact(type(a0));
+      return gsl_sf_doublefact(a0);
     }
   };
 } }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_doublefact_, tag::cpu_,
-                                   (A0),
-                                   (double_<A0>)
-                                  )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_doublefact_(tag::double_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return gsl_sf_doublefact(a0); }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_doublefact_, tag::cpu_,
-                                   (A0),
-                                   (float_<A0>)
-                                  )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_doublefact_(tag::float_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return gsl_sf_doublefact(a0); }
-  };
-} }
 
 #endif
 // modified by jt the 29/12/2010
