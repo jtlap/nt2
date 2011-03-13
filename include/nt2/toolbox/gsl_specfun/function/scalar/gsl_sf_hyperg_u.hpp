@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_HYPERG_U_HPP_INCLUDED
 
   extern "C"{
-    double gsl_sf_hyperg_U(int,int,double); 
+    double gsl_sf_hyperg_U(double,double,double); 
   }
 
 
@@ -19,18 +19,18 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_hyperg_u_, tag::cpu_,
                                  (A0)(A1)(A2),
-                                 (integer_<A0>)(integer_<A1>)(arithmetic_<A2>)
+                                 (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
                                 )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_hyperg_u_(tag::integer_,tag::integer_,tag::arithmetic_),
+  struct call<gsl_specfun::tag::gsl_sf_hyperg_u_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A2)>{};
+    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A0, A1, A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -45,13 +45,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_hyperg_u_, tag::cpu_,
                                  (A0)(A1)(A2),
-                                 (integer_<A0>)(integer_<A1>)(double_<A2>)
+                                 (double_<A0>)(double_<A1>)(double_<A2>)
                                 )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_hyperg_u_(tag::integer_,tag::integer_,tag::double_),
+  struct call<gsl_specfun::tag::gsl_sf_hyperg_u_(tag::double_,tag::double_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -67,13 +67,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_hyperg_u_, tag::cpu_,
                                  (A0)(A1)(A2),
-                                 (integer_<A0>)(integer_<A1>)(float_<A2>)
+                                 (float_<A0>)(float_<A1>)(float_<A2>)
                                 )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_hyperg_u_(tag::integer_,tag::integer_,tag::float_),
+  struct call<gsl_specfun::tag::gsl_sf_hyperg_u_(tag::float_,tag::float_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

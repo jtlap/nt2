@@ -11,7 +11,7 @@
 #include <nt2/toolbox/gsl_specfun/specific/interface.hpp>
 
   extern "C"{
-    extern double gsl_sf_doublefact ( double );
+    extern double gsl_sf_doublefact ( int );
   }
 
 

@@ -5,12 +5,12 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'double',
             },
          'simd_types' : [],
          'special' : ['gsl_specfun'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['integer_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -22,7 +22,7 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)']],
+             'default' : [['T(0)', 'T(18)']],
             },
          'specific_values' : {
             },
