@@ -33,7 +33,7 @@
 
 #define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
-nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM_PARAMS(n, A))>  \
+nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M1,~))>  \
 dispatching ( Tag const&, Site const&, BOOST_PP_ENUM(n,M0,~)                    \
             , adl_helper = adl_helper()                                         \
             );                                                                  \
@@ -108,10 +108,10 @@ template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types)> \
 typename boost::enable_if < NT2_PP_STRIP(Cond)                                \
                           , nt2::ext::call<NT2_PP_STRIP(Ret),Site>            \
                           >::type                                             \
-dispatching( Tag const&, Site const&                                          \
-        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)          \
-        , adl_helper = adl_helper()                                           \
-        );                                                                    \
+dispatching ( Tag const&, Site const&                                         \
+            , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)      \
+            , adl_helper = adl_helper()                                       \
+            );                                                                \
 } }                                                                           \
 /**/
 namespace nt2 { namespace meta
