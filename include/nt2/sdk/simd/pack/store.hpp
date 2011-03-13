@@ -16,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH ( tag::store_
                       , tag::cpu_
-                      , (A0)(A1)(A2)
+                      , (A0)(A1)(A2)(T)(C)(Sema)
                       , (( expr_< A0
                                 , domain_< simd::domain<T,C> >
                                 , tag::terminal_
@@ -53,14 +53,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
-/*
-NT2_FUNCTOR_CALL(3)
-{
-  for(typename A0::size_type i=0;i<A0::static_size;++i)
-    a1[A0::static_size*a2+i] = a0[i];
-  return a0;
-}
-*/
 
 #endif
