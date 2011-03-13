@@ -27,8 +27,8 @@ NT2_REGISTER_DISPATCH ( tag::splat_
 
 namespace nt2 { namespace ext
 {
- template<class T, class C, class Sema, class Dummy>
- struct  call< tag::splat_( tag::fundamental_
+  template<class T, class C, class Sema, class Dummy>
+  struct  call< tag::splat_( tag::fundamental_
                           , tag::target_<tag::expr_ < simd::domain<T,C>
                                                     , tag::terminal_
                                                     , Sema
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
              , Dummy
              >
        : callable
- {
+  {
    template<class Sig> struct result;
 
    template<class This,class A0, class Target>
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
      that.fill(a0);
      return that;
    }
- };
+  };
 } }
 
 #endif
