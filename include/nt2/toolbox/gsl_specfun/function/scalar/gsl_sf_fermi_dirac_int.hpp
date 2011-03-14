@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_FERMI_DIRAC_INT_HPP_INCLUDED
 
   extern "C"{
-    extern double gsl_sf_fermi_dirac_int ( double );
+    extern double gsl_sf_fermi_dirac_int ( int, double );
   }
 
 
@@ -18,24 +18,24 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_fermi_dirac_int_, tag::cpu_,
-                                        (A0),
-                                        (arithmetic_<A0>)
+                                        (A0)(A1),
+                                        (integer_<A0>)(arithmetic_<A1>)
                                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_fermi_dirac_int_(tag::arithmetic_),
+  struct call<gsl_specfun::tag::gsl_sf_fermi_dirac_int_(tag::integer_, tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : std::tr1::result_of<meta::floating(A1)>{};
 
-    NT2_FUNCTOR_CALL(1)
+    NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::gsl_specfun::gsl_sf_fermi_dirac_int(type(a0));
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      return nt2::gsl_specfun::gsl_sf_fermi_dirac_int(a0, type(a1));
     }
   };
 } }
@@ -44,45 +44,24 @@ namespace nt2 { namespace ext
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_fermi_dirac_int_, tag::cpu_,
-                                        (A0),
-                                        (double_<A0>)
+                                        (A0)(A1),
+                                        (integer_<A0>)(real_<A1>)
                                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_fermi_dirac_int_(tag::double_),
+  struct call<gsl_specfun::tag::gsl_sf_fermi_dirac_int_(tag::integer_, tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
+    template<class This,class A0, class A1 >
+      struct result<This(A0, A1)> : meta::strip<A1>{};
 
-    NT2_FUNCTOR_CALL(1){ return gsl_sf_fermi_dirac_int(a0); }
+      NT2_FUNCTOR_CALL(2){ return gsl_sf_fermi_dirac_int(a0, a1); }
   };
 } }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_fermi_dirac_int_, tag::cpu_,
-                                        (A0),
-                                        (float_<A0>)
-                                       )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_fermi_dirac_int_(tag::float_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return gsl_sf_fermi_dirac_int(a0); }
-  };
-} }
 
 #endif
 // modified by jt the 29/12/2010
