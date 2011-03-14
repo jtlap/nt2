@@ -16,7 +16,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   {         
     struct gsl_sf_exprel_n_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_exprel_n_, gsl_sf_exprel_n, 1)
+  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_exprel_n_, gsl_sf_exprel_n, 2)
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_exprel_n.hpp>
