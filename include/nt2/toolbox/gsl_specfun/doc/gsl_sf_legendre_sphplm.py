@@ -22,16 +22,16 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['iT(-10)', 'iT(10)'], ['iT(-10)', 'iT(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['iT(0)', 'iT(10)'], ['iT(0)', 'iT(10)'], ['T(-1)', 'T(1)']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_legendre_sphplm(a0,a1,a2)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_legendre_sphplm(a0+a1,a0,a2)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_legendre_sphplm(a0,a1,a2)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_legendre_sphplm(a0+a1,a0,a2)'],
                 },
              'simd' : {
                 },

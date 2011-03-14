@@ -22,7 +22,7 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['T(1)', 'T(2)'], ['T(3)', 'T(4)'], ['T(-10)', 'T(0)']],
             },
          'specific_values' : {
             },
