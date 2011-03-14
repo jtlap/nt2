@@ -39,6 +39,13 @@ int main()
   std::cout << vr << std::endl;
   std::cout << d/vd << std::endl;
 
+  nt2::simd::pack<float> yyy;
+  yyy = nt2::load< nt2::simd::pack<float> >(&b[0],0);
+  b[1] = 10;
+  nt2::simd::pack<float> www;
+  www = nt2::load< nt2::simd::pack<float>, 1 >(&b[0],0);
+  std::cout << yyy << " "<< www << "\n";
+
   nt2::simd::pack<float> xxx =
   nt2::splat< nt2::simd::pack<float> >( 1.234 );
 
