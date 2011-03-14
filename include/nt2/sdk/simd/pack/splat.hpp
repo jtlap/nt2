@@ -9,14 +9,48 @@
 #ifndef NT2_SDK_SIMD_PACK_SPLAT_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_SPLAT_HPP_INCLUDED
 
-namespace nt2 { namespace functors
+////////////////////////////////////////////////////////////////////////////////
+// Splat over terminal of simd domain using the pack::fill method
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::splat_
+                      , tag::cpu_
+                      , (A0)(A1)(T)(C)(Sema)
+                      , (fundamental_<A0>)
+                        ((target_< expr_< A1
+                                        , domain_< simd::domain<T,C> >
+                                        , tag::terminal_
+                                        , Sema
+                                        >
+                                 >
+                        ))
+                      );
+
+namespace nt2 { namespace ext
 {
-  template<class T, class X, class Info>
-  struct  call<splat_<T>,tag::simd_<tag::ast_,X> , fundamental_, Info>
-        : callable
+  template<class T, class C, class Sema, class Dummy>
+  struct  call< tag::splat_( tag::fundamental_
+                          , tag::target_<tag::expr_ < simd::domain<T,C>
+                                                    , tag::terminal_
+                                                    , Sema
+                                                    >
+                                        >
+                          )
+             , tag::cpu_
+             , Dummy
+             >
+       : callable
   {
-    typedef T result_type;
-    NT2_FUNCTOR_CALL(1) { T that(a0); return that; }
+   template<class Sig> struct result;
+
+   template<class This,class A0, class Target>
+   struct result<This(A0,Target)> : meta::strip<Target>::type {};
+
+   NT2_FUNCTOR_CALL(2)
+   {
+     typename NT2_RETURN_TYPE(2)::type that;
+     that.fill(a0);
+     return that;
+   }
   };
 } }
 

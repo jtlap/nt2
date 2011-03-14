@@ -46,8 +46,7 @@ namespace nt2 { namespace simd
 
     typename iterator::reference dereference() const
     {
-      T const* ptr = reinterpret_cast<T const*>(this->base());
-      pack<T,C> that = load< pack<T,C> >(ptr,0);
+      pack<T,C> that(reinterpret_cast<T const*>(this->base()),0);
       return that;
     }
   };

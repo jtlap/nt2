@@ -11,54 +11,45 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 
-namespace nt2 { namespace functors
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // When storing pack, we dispatch on the fact the underlying type is SIMD
-  //////////////////////////////////////////////////////////////////////////////
-  template<class X, class Info>
-  struct dispatch<store_,tag::simd_<tag::ast_,X> ,Info>
-  {
-    template<class A0,class A1,class A2>
-    struct  apply
-          : meta::is_native<typename meta::strip<A0>::type::base_type>
-    {};
-  };
+////////////////////////////////////////////////////////////////////////////////
+// Splat over terminal of simd domain using the pack::fill method
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::store_
+                      , tag::cpu_
+                      , (A0)(A1)(A2)(T)(C)(Sema)
+                      , (( expr_< A0
+                                , domain_< simd::domain<T,C> >
+                                , tag::terminal_
+                                , Sema
+                                >
+                        ))
+                        (iterator_< fundamental_<A1> >)
+                        (integer_<A2>)
+                      )
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Loading native SIMD is delegated to native<>
-  //////////////////////////////////////////////////////////////////////////////
-  template<class X, class Info>
-  struct  call<store_,tag::simd_<tag::ast_,X> , boost::mpl::true_, Info>
+namespace nt2 { namespace ext
+{
+  template<class T, class C, class Sema, class Dummy>
+  struct  call< tag::store_ ( tag::expr_< simd::domain<T,C>
+                                        , tag::terminal_
+                                        , Sema
+                                        >
+                            , tag::iterator_<tag::fundamental_>
+                            , tag::integer_
+                            )
+              , tag::cpu_
+              , Dummy
+              >
         : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
+    template<class This, class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(3)
     {
       A0 that = store(boost::proto::value(a0).value(),a1,a2);
       return that;
-    }
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Loading emulated SIMD is memcpy
-  //////////////////////////////////////////////////////////////////////////////
-  template<class X, class Info>
-  struct  call<store_,tag::simd_<tag::ast_,X> , boost::mpl::false_, Info>
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1, class A2>
-    struct  result<This(A0,A1,A2)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(3)
-    {
-      for(typename A0::size_type i=0;i<A0::static_size;++i)
-        a1[A0::static_size*a2+i] = a0[i];
-      return a0;
     }
   };
 } }
