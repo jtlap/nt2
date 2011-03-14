@@ -5,12 +5,12 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'double',
             },
          'simd_types' : [],
          'special' : ['gsl_specfun'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['integer_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -22,16 +22,16 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['T(0)', 'T(10)'], ['T(0)', 'T(10)']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_lnchoose(a0,a1)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_lnchoose(a0+a1,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_lnchoose(a0,a1)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_lnchoose(a0+a1,a1)'],
                 },
              'simd' : {
                 },

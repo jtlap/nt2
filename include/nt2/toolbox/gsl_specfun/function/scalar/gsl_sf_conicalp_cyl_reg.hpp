@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SCALAR_GSL_SF_CONICALP_CYL_REG_HPP_INCLUDED
 
   extern "C"{
-    double gsl_sf_conicalP_cyl_reg(double, double, double); 
+    double gsl_sf_conicalP_cyl_reg(int, double, double); 
   }
 
 
@@ -19,23 +19,23 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_, tag::cpu_,
                                          (A0)(A1)(A2),
-                                         (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                                         (integer_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
                                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_(tag::integer_,tag::arithmetic_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A1, A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
-      return nt2::gsl_specfun::gsl_sf_conicalp_cyl_reg(type(a0), type(a1), type(a2));
+      return nt2::gsl_specfun::gsl_sf_conicalp_cyl_reg(a0, type(a1), type(a2));
     }
   };
 } }
@@ -45,18 +45,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_, tag::cpu_,
                                          (A0)(A1)(A2),
-                                         (double_<A0>)(double_<A1>)(double_<A2>)
+                                         (integer_<A0>)(double_<A1>)(double_<A2>)
                                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_(tag::double_,tag::double_,tag::double_),
+  struct call<gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_(tag::integer_,tag::double_,tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1, A2)> : meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(3){ return gsl_sf_conicalP_cyl_reg(a0, a1, a2); }
   };
@@ -67,18 +67,18 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_, tag::cpu_,
                                          (A0)(A1)(A2),
-                                         (float_<A0>)(float_<A1>)(float_<A2>)
+                                         (integer_<A0>)(float_<A1>)(float_<A2>)
                                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_(tag::float_,tag::float_,tag::float_),
+  struct call<gsl_specfun::tag::gsl_sf_conicalp_cyl_reg_(tag::integer_,tag::float_,tag::float_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1, A2)> :  meta::strip<A1>{};
 
     NT2_FUNCTOR_CALL(3){ return gsl_sf_conicalP_cyl_reg(a0, a1, a2); }
   };
