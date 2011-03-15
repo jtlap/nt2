@@ -94,9 +94,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 tmp = isnez(a1)&a0;
-      tmp = select(isltz(a1), -a0, tmp);
-      tmp = seladd(isnan(a1), tmp, a1); //TODO signed Nan ?
+      A0 tmp = is_nez(a1)&a0;
+      tmp = select(is_ltz(a1), -a0, tmp);
+      tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
         return tmp;
     }
   };

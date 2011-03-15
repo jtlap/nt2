@@ -16,7 +16,7 @@ project(nt2)
 ################################################################################
 # Global Options
 ################################################################################
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 set(INCLUDE_INSTALL_DIR
     "${CMAKE_INSTALL_PREFIX}/include/nt2"
@@ -71,8 +71,8 @@ CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
 
-include_directories( ${PROJECT_SOURCE_DIR}/include)
 include_directories( ${PROJECT_BINARY_DIR}/include)
+include_directories( ${PROJECT_SOURCE_DIR}/include)
 
 file( GLOB_RECURSE source_files
       ${PROJECT_SOURCE_DIR}/src/*

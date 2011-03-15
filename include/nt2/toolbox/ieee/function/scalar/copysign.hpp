@@ -13,6 +13,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/signnz.hpp>
 
+#include <nt2/toolbox/ieee/details/math.hpp>
+#include <boost/math/special_functions/sign.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -59,7 +61,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+    #ifdef NT2_TOOLBOX_IEEE_HAS_COPYSIGN
       return ::copysign(a0, a1);
+    #elif defined(NT2_TOOLBOX_IEEE_HAS__COPYSIGN)
+      return ::_copysign(a0, a1);
+    #else
+      return boost::math::copysign(a0, a1);
+    #endif
     }
   };
 } }
@@ -84,7 +92,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+    #ifdef NT2_TOOLBOX_IEEE_HAS_COPYSIGNF
       return ::copysignf(a0, a1);
+    #elif defined(NT2_TOOLBOX_IEEE_HAS__COPYSIGNF)
+      return ::_copysignf(a0, a1);
+    #else
+        return boost::math::copysign(a0, a1);
+    #endif
     }
   };
 } }
