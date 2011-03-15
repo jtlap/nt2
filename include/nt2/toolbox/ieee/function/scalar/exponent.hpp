@@ -13,8 +13,9 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 
+#include <nt2/toolbox/ieee/details/math.hpp>
 
-
+#ifdef NT2_TOOLBOX_IEEE_HAS_ILOGB
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
@@ -40,7 +41,9 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#endif
 
+#ifdef NT2_TOOLBOX_IEEE_HAS_ILOGBF
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
@@ -63,6 +66,35 @@ namespace nt2 { namespace ext
     {
       if (is_invalid(a0)) return Zero<A0>(); 
       return a0 ? ::ilogbf(a0) : Zero<A0>();
+    }
+  };
+} }
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::exponent_, tag::cpu_,
+                           (A0),
+                           (real_<A0>)
+                          );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::exponent_(tag::real_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0)> :meta::as_integer<A0, signed>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type result_type;
+      const int nmb= Nbmantissabits<A0>();
+      const result_type x = shri(exponentbits(a0), nmb);
+      return x-b_and(Maxexponent<A0>(), A0(is_nez(a0)));
     }
   };
 } }
