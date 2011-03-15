@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  gsl_sf_bessel_klu_scaled.cpp
   gsl_sf_sinc.cpp
   gsl_sf_beta_inc.cpp
   gsl_sf_bessel_i1_scaled.cpp
@@ -33,7 +32,6 @@ SET( SOURCES
   gsl_sf_poch.cpp
   gsl_sf_hypot.cpp
   gsl_sf_legendre_h3d.cpp
-  gsl_sf_hyperg_2f1_renorm.cpp
   gsl_sf_fermi_dirac_0.cpp
   gsl_sf_fermi_dirac_1.cpp
   gsl_sf_zeta.cpp
@@ -55,7 +53,6 @@ SET( SOURCES
   gsl_sf_lndoublefact.cpp
   gsl_sf_hyperg_0f1.cpp
   gsl_sf_bessel_j0.cpp
-  gsl_sf_bessel_inu_scaled_.cpp
   gsl_sf_legendre_sphplm.cpp
   gsl_sf_fermi_dirac_int.cpp
   gsl_sf_hyperg_2f1.cpp
@@ -102,10 +99,8 @@ SET( SOURCES
   gsl_sf_erf_z.cpp
   gsl_sf_erf.cpp
   gsl_sf_erf_q.cpp
-  gsl_sf_bessel_in.cpp
   gsl_sf_doublefact.cpp
   gsl_sf_bessel_il_scaled.cpp
-  gsl_sf_hyperg_2f1_conj_renorm.cpp
   gsl_sf_bessel_jnu.cpp
   gsl_sf_psi_1.cpp
   gsl_sf_lnfact.cpp

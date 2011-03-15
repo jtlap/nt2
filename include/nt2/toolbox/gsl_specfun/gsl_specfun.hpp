@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_GSL_SPECFUN_GSL_SPECFUN_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_klu_scaled.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_sinc.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_beta_inc.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_i1_scaled.hpp>
@@ -35,7 +34,6 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_poch.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_hypot.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_h3d.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_2f1_renorm.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_fermi_dirac_0.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_fermi_dirac_1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_zeta.hpp>
@@ -57,7 +55,6 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_lndoublefact.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_0f1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_j0.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_inu_scaled_.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_sphplm.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_fermi_dirac_int.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_2f1.hpp>
@@ -106,10 +103,8 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_erf.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_erf_q.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_k1_scaled.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_in.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_doublefact.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_il_scaled.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_2f1_conj_renorm.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_jnu.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_psi_1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_lnfact.hpp>
