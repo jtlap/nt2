@@ -12,7 +12,7 @@
 // Test behavior of hyperbolic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
-/// modified by jt the 20/02/2011
+/// modified by jt the 15/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,12 +28,13 @@ extern "C" { long double cephes_tanhl(long double); }
 
 NT2_TEST_CASE_TPL ( coth_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::coth;
   using nt2::tag::coth_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<coth_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -53,13 +54,13 @@ NT2_TEST_CASE_TPL ( coth_real__1,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    r_t a0;
+    T a0;
     for (int j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::coth(a0),1.0l/(::cephes_tanhl(a0)),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::coth(a0),1.0l/(::cephes_tanhl(a0)),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -68,12 +69,13 @@ NT2_TEST_CASE_TPL ( coth_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( coth_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::coth;
   using nt2::tag::coth_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<coth_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -88,12 +90,13 @@ NT2_TEST_CASE_TPL ( coth_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( coth_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::coth;
   using nt2::tag::coth_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<coth_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 

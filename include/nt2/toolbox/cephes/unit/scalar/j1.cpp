@@ -12,7 +12,7 @@
 // Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
-/// modified by jt the 01/03/2011
+/// modified by jt the 15/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,6 +27,7 @@
 
 NT2_TEST_CASE_TPL ( j1_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::cephes::j1;
   using nt2::cephes::tag::j1_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -51,7 +52,7 @@ NT2_TEST_CASE_TPL ( j1_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cephes::j1(a0),nt2::j1(a0),300);
+        NT2_TEST_ULP_EQUAL( nt2::cephes::j1(a0),nt2::j1(a0),330);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

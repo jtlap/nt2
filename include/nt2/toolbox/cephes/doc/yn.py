@@ -21,7 +21,7 @@
              'stamp' : 'modified by jt the 01/03/2011',
             },
          'ranges' : {
-             'default' : [['iT(0)', 'iT(10)'],['T(0)', 'T(50)']],
+             'default' : [['iT(0)', 'iT(10)'],['T(0)', 'T(10)']],
             },
          'specific_values' : {
             },
@@ -35,7 +35,7 @@
              'simd' : {
                 },
              'ulp_thresh' : {
-                 'default' : [128'],#1valeur en 64bits...
+                 'default' : ['10000'],#1valeur en 64bits...
                 },
             },
         },

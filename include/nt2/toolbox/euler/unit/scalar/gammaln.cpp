@@ -12,7 +12,7 @@
 // Test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 22/02/2011
+/// modified by jt the 15/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,12 +28,13 @@ extern "C" {long double cephes_logl  (long double);}
 
 NT2_TEST_CASE_TPL ( gammaln_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::gammaln;
   using nt2::tag::gammaln_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<gammaln_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 

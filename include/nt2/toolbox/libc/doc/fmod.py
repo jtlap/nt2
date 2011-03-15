@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 05/03/2011',
-             'included' : ['#include <nt2/include/functions/fmod.hpp>'],
+             'included' : ['#include <nt2/include/functions/rem.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 05/03/2011',
             },

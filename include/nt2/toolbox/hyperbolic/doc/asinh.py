@@ -47,7 +47,7 @@
                  'real_' : ['::cephes_asinhl(a0)','nt2::boost_math::asinh(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5','1.0'],
+                 'real_' : ['1.5','1.0'],
                 },
             },
         },
