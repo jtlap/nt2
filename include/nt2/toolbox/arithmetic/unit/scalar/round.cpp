@@ -22,6 +22,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/round.hpp>
+#include <boost/math/special_functions/round.hpp>
 
 NT2_TEST_CASE_TPL ( round_real__1,  NT2_REAL_TYPES)
 {
@@ -63,7 +64,7 @@ NT2_TEST_CASE_TPL ( round_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::round(a0),::round(a0),0);
+        NT2_TEST_ULP_EQUAL( nt2::round(a0),boost::math::round(a0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
