@@ -8,8 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_GAMMA_HPP_INCLUDED
-#include <boost/math/special_functions.hpp>
-#include <boost/math/tr1.hpp>
+
+#include <nt2/toolbox/euler/details/math.hpp>
+#include <boost/math/special_functions/gamma.hpp>
+
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -27,11 +29,9 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
+// Implementation when type is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
                        (A0),
@@ -53,7 +53,44 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       if (a0 == -Inf<A0>()) return Nan<A0>();
-      return boost::math::tr1::tgamma(type(a0));
+    #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
+      return ::tgamma(type(a0));
+    #else
+      return boost::math::tgamma(type(a0));
+    #endif
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type is float_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
+                       (A0),
+                       (float_<A0>)
+                      )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::gamma_(tag::float_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :
+      std::tr1::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (a0 == -Inf<A0>()) return Nan<A0>();
+    #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMAF
+      return ::tgammaf(type(a0));
+    #else
+      return boost::math::tgamma(type(a0));
+    #endif
     }
 
   };
@@ -81,7 +118,11 @@ namespace nt2 { namespace ext
     {
        typedef typename NT2_RETURN_TYPE(1)::type type;
        if (a0 == -Inf<A0>()) return Nan<A0>();
-       return boost::math::tr1::tgamma(type(a0));
+    #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
+       return ::tgamma(type(a0));
+    #else
+       return boost::math::tgamma(type(a0));
+    #endif
 //       const double g_p[] = { -1.71618513886549492533811,
 // 			     24.7656508055759199108314,-379.804256470945635097577,
 // 			     629.331155312818442661052,866.966202790413211295064,
