@@ -65,6 +65,29 @@ NT2_REGISTER_DISPATCH(tag::hypot_, tag::cpu_,
 
 namespace nt2 { namespace ext
 {
+  template < class T, class I = typename meta::as_integer<T, signed>::type>
+  struct hypot_ctnts;
+  template <class I, class CAT> struct hypot_ctnts<simd::native<float, CAT>, I>
+  {
+    typedef I  int_type;
+    static inline int_type C1(){ return integral_constant<int_type, 50>();};
+    static inline int_type C2(){ return integral_constant<int_type, 60>();};
+    static inline int_type MC1(){ return integral_constant<int_type, -50>();};
+    static inline int_type MC2(){ return integral_constant<int_type, -60>();};
+    static inline int_type C3(){ return integral_constant<int_type, 0x00800000>();};
+    static inline int_type M1(){ return integral_constant<int_type, 0xfffff000>();};
+  };
+  template <class I, class CAT> struct hypot_ctnts<simd::native<double, CAT>, I>
+  {
+    typedef I  int_type;
+    static inline int_type C1(){ return integral_constant<int_type, 500>();};
+    static inline int_type C2(){ return integral_constant<int_type, 600>();};
+    static inline int_type MC1(){ return integral_constant<int_type, -500>();};
+    static inline int_type MC2(){ return integral_constant<int_type, -600>();};
+    static inline int_type C3(){ return integral_constant<int_type, 0x0010000000000000ll>();}
+    static inline int_type M1(){ return integral_constant<int_type, 0xffffffff00000000ll>();};
+  };
+
   template<class X, class Dummy>
   struct call<tag::hypot_(tag::simd_<tag::real_, X> ,
                           tag::simd_<tag::real_, X> ),
@@ -77,7 +100,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
-      typedef ctnts<A0, int_type> cts;
+      typedef hypot_ctnts<A0, int_type> cts;
       A0 x =  abs(a0);
       A0 y =  abs(a1);
       A0 tinf = is_inf(x+y);
@@ -111,29 +134,6 @@ namespace nt2 { namespace ext
       if (te3) w = ldexp(w, -e);
       return sel(tinf, Inf<A0>(), w);
     }
-  private:
-    template < class T, class I = typename meta::as_integer<T, signed>::type>
-    struct ctnts;
-    template <class I, class CAT> struct ctnts<simd::native<float, CAT>, I>
-    {
-      typedef I  int_type;
-      static inline int_type C1(){ return integral_constant<int_type, 50>();};
-      static inline int_type C2(){ return integral_constant<int_type, 60>();};
-      static inline int_type MC1(){ return integral_constant<int_type, -50>();};
-      static inline int_type MC2(){ return integral_constant<int_type, -60>();};
-      static inline int_type C3(){ return integral_constant<int_type, 0x00800000>();};
-      static inline int_type M1(){ return integral_constant<int_type, 0xfffff000>();};
-    };
-    template <class I, class CAT> struct ctnts<simd::native<double, CAT>, I>
-    {
-      typedef I  int_type;
-      static inline int_type C1(){ return integral_constant<int_type, 500>();};
-      static inline int_type C2(){ return integral_constant<int_type, 600>();};
-      static inline int_type MC1(){ return integral_constant<int_type, -500>();};
-      static inline int_type MC2(){ return integral_constant<int_type, -600>();};
-      static inline int_type C3(){ return integral_constant<int_type, 0x0010000000000000ll>();}
-      static inline int_type M1(){ return integral_constant<int_type, 0xffffffff00000000ll>();};
-    };
   };
 } }
 
