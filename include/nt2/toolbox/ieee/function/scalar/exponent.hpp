@@ -13,6 +13,10 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 
+#include <nt2/include/functions/shri.hpp>
+#include <nt2/include/functions/exponentbits.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+
 #include <nt2/toolbox/ieee/details/math.hpp>
 
 #ifdef NT2_TOOLBOX_IEEE_HAS_ILOGB
