@@ -75,7 +75,7 @@ namespace nt2
 		    );
       }
 
-      inline native<double> acos(const  native<double>& a0)
+      inline native<double> acos(const native<double>& a0)
       {
 	typedef native<double> A0;
 	A0 z1 = Two<A0>() * asin(  sqrt(Half<A0>() - Half<A0>()*a0) );
@@ -83,7 +83,7 @@ namespace nt2
 	return b_or(abs(a0) > One<A0>(), sel( a0 > Half<A0>(), z1, z2)); 
       }
 
-      inline native<double> atan(const  native<double>& a0)
+      inline native<double> atan(const native<double>& a0)
       {
 	typedef native<double> A0;
 	static const A0 tan3pio8  = Const<native<double>, 0x4003504f333f9de6ll>();

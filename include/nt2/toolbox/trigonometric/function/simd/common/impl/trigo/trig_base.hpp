@@ -46,7 +46,7 @@ namespace nt2
 
 	
 
-	static inline A0 cosa( A0 a0)
+	static inline A0 cosa(const A0& a0)
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x = abs(a0);
@@ -68,7 +68,7 @@ namespace nt2
 	    }
 	}
 	
-	static inline A0 sina( A0 a0)
+	static inline A0 sina(const A0& a0)
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x = abs(a0);
@@ -89,7 +89,7 @@ namespace nt2
 	    }
 	}
 
-	static inline A0 tana(const  A0& a0)
+	static inline A0 tana(const A0& a0)
 	{
 	  A0 x =  abs(a0); 
 	  if (any(redu_t::replacement_needed(x)))
@@ -107,7 +107,7 @@ namespace nt2
 	    }
 	}
 
-	static inline A0 cota(const  A0& a0)
+	static inline A0 cota(const A0& a0)
 	{
 	  A0 x =  abs(a0); 
 	  if (any(redu_t::replacement_needed(x)))
@@ -125,7 +125,7 @@ namespace nt2
 	    }
 	}
 	// simultaneous cosa and sina function
-	static inline void sincosa(const  A0& a0, A0& s, A0& c)
+	static inline void sincosa(const A0& a0, A0& s, A0& c)
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x =  abs(a0);

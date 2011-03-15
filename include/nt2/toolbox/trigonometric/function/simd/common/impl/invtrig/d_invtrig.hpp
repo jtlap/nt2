@@ -86,14 +86,14 @@ namespace nt2
 		      );
 	}
 
-        static inline A0 acos(const  A0& a0)
+        static inline A0 acos(const A0& a0)
 	{
 	  A0 z1 = Two<A0>() * asin(  sqrt(Half<A0>() - Half<A0>()*a0) );
 	  A0 z2 = ((Pio_4<A0>() - asin(a0))+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
 	  return b_or( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
 	}
 
-	static inline A0 atan(const  A0& a0)
+	static inline A0 atan(const A0& a0)
 	{
 	  typedef typename meta::scalar_of<A0>::type sA0;
 	  static const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
