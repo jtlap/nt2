@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return (a1>0) ? (a0 << a1) : (a0 >> -a1);
+      return (a1>0) ? (a0 << a1) : (a0 >> nt2::neg(a1));
     }
   };
 } }
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = (a1>0) ? (t0.bits << a1) : (t0.bits >> -a1);
+      t0.bits = (a1>0) ? (t0.bits << a1) : (t0.bits >> nt2::neg(a1));
       return t0.value;
     }
   };
