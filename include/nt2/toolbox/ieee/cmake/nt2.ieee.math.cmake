@@ -25,6 +25,11 @@ check_function_exists(copysignf NT2_TOOLBOX_IEEE_HAS_COPYSIGNF)
 check_function_exists(_copysign NT2_TOOLBOX_IEEE_HAS__COPYSIGN)
 check_function_exists(_copysignf NT2_TOOLBOX_IEEE_HAS__COPYSIGNF)
 
+check_function_exists(copysign NT2_TOOLBOX_IEEE_HAS_NEXTAFTER)
+check_function_exists(copysignf NT2_TOOLBOX_IEEE_HAS_NEXTAFTERF)
+check_function_exists(_copysign NT2_TOOLBOX_IEEE_HAS__NEXTAFTER)
+check_function_exists(_copysignf NT2_TOOLBOX_IEEE_HAS__NEXTAFTERF)
+
 ################################################################################
 # Generate math.hpp
 ################################################################################

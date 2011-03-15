@@ -12,6 +12,8 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 
+#include <nt2/toolbox/ieee/details/math.hpp>
+#include <boost/math/special_functions/next.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -60,7 +62,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+    #ifdef NT2_TOOLBOX_IEEE_HAS_NEXTAFTER
       return ::nextafter(a0, a1);
+    #elif defined(NT2_TOOLBOX_IEEE_HAS__NEXTAFTER)
+      return ::_nextafter(a0, a1);
+    #else
+      return boost::math::nextafter(a0, a1);
+    #endif
     }
   };
 } }
@@ -86,7 +94,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+    #ifdef NT2_TOOLBOX_IEEE_HAS_NEXTAFTERF
       return ::nextafterf(a0, a1);
+    #elif defined(NT2_TOOLBOX_IEEE_HAS__NEXTAFTERF)
+      return ::_nextafterf(a0, a1);
+    #else
+      return boost::math::nextafter(a0, a1);
+    #endif
     }
   };
 } }

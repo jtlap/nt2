@@ -12,8 +12,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
-
-
+#include <nt2/include/functions/nextafter.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -41,17 +40,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
+// Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::prev_, tag::cpu_,
                       (A0),
-                      (double_<A0>)
+                      (real_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::prev_(tag::double_),
+  struct call<tag::prev_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -60,32 +59,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return ::nextafter(a0, Minf<A0>());
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::prev_, tag::cpu_,
-                      (A0),
-                      (float_<A0>)
-                     )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::prev_(tag::float_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return ::nextafterf(a0, Minf<A0>());
+      return nt2::nextafter(a0, Minf<A0>());
     }
   };
 } }
