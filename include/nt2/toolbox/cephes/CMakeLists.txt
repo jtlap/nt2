@@ -9,7 +9,10 @@
 
 ADD_SUBDIRECTORY(src/cephes_single)
 ADD_SUBDIRECTORY(src/cephes_double)
-ADD_SUBDIRECTORY(src/cephes_ldouble)
+IF(NOT WIN32)
+  ADD_SUBDIRECTORY(src/cephes_ldouble)
+ENDIF()
+
 ADD_SUBDIRECTORY(bench)
 ADD_SUBDIRECTORY(unit)
 
