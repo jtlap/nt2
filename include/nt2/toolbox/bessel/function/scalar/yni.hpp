@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
       result_type sign = (a0<0)?nt2::cospi(n1):1;
       if( n1 == 0 ) return( sign * nt2::y0(x) );
       if( n1 == 1 ) return( sign * nt2::y1(x) );
-      result_type an1 = n1;
+      //      result_type an1 = n1;
       /* forward recurrence on n */
 
       result_type anm2 = nt2::y0(x);

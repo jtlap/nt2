@@ -14,6 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 
 NT2_REGISTER_DISPATCH ( tag::splat_
                       , tag::cpu_
@@ -38,6 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type result_type;
+      details::ignore_unused(a1); 
       result_type that = static_cast<result_type>(a0);
       return that;
     }

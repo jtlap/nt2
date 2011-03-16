@@ -17,13 +17,14 @@
 
 namespace nt2 { namespace tag
 {
-  struct inf_   {}; struct m_inf_ {};
+  struct inf_   {}; struct m_inf_ {}; struct nan_  {};
 } }
 
 namespace nt2
 {
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::inf_    , Inf   )
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::m_inf_  , Minf  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nan_    , Nan   )
 }
 
 #include <nt2/sdk/constant/details/infinites.hpp>

@@ -16,7 +16,7 @@ namespace nt2 { namespace boost_math { namespace tag
   {         
     struct legendre_next_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::legendre_next_, legendre_next, 4)
+  NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::legendre_next_, legendre_next, 5)
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/legendre_next.hpp>

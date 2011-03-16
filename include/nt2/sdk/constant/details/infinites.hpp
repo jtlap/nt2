@@ -26,6 +26,10 @@ NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (target_< double_<A0>     > ) 
 NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (target_< float_<A0>      > ) )
 NT2_REGISTER_DISPATCH(tag::m_inf_,tag::cpu_,(A0), (target_< arithmetic_<A0> > ) )
 
+NT2_REGISTER_DISPATCH(tag::nan_,tag::cpu_,(A0), (target_< double_<A0>     > ) )
+NT2_REGISTER_DISPATCH(tag::nan_,tag::cpu_,(A0), (target_< float_<A0>      > ) )
+NT2_REGISTER_DISPATCH(tag::nan_,tag::cpu_,(A0), (target_< arithmetic_<A0> > ) )
+  
 namespace nt2 { namespace ext
 {
   template<class Dummy>
@@ -133,6 +137,60 @@ namespace nt2 { namespace ext
       return Valmin<typename A0::type>();
     }
   };
+
+  template<class Dummy>
+  struct  call< tag::nan_(tag::target_<tag::double_>)
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      meta::from_bits<double>::type const that = {0xFFFFFFFFFFFFFFFFLL};
+      return splat<typename A0::type>(that.value);
+    }
+  };
+
+  template<class Dummy>
+  struct  call< tag::nan_(tag::target_<tag::float_> )
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      meta::from_bits<float>::type const that = {0xFFFFFFFF};
+      return splat<typename A0::type>(that.value);
+    }
+  };
+
+  template<class Dummy>
+  struct  call< tag::nan_(tag::target_<tag::arithmetic_> )
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class Sig> struct result;
+    template<class This, class Target>
+    struct result<This(Target)> : meta::strip<Target>::type {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return splat<typename A0::type>(0);
+    }
+  };
+
 } }
 
 #endif

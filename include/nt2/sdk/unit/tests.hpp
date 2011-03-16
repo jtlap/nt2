@@ -76,7 +76,7 @@
   nt2::memory::buffer<TYPE,				\
 		      nt2::memory::allocator<TYPE> >    \
 		      NAME(0, SIZE);			\
-  for(int k = 0; k < SIZE; ++k){			\
+  for(int k = 0; k < (int)SIZE; ++k){			\
     NAME[k] = nt2::random(MIN, MAX);			\
   }							\
   /**/
@@ -85,7 +85,7 @@
   nt2::memory::buffer<TYPE,        \
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
-  for(int k = 0; k < SIZE; ++k){        \
+  for(int k = 0; k < (int)SIZE; ++k){		\
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
 /**/
@@ -93,7 +93,7 @@
   nt2::memory::buffer<TYPE,          \
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
-  for(int k = 0; k < SIZE; ++k){        \
+  for(int k = 0; k < (int)SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
 /**/
@@ -101,7 +101,7 @@
   nt2::memory::buffer<TYPE,          \
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
-  for(int k = 0; k < SIZE; ++k){        \
+  for(int k = 0; k < (int)SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
 /**/

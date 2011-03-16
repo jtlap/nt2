@@ -55,7 +55,7 @@
     test_count()++;                                                         \
     volatile T tt(t);                                                       \
     volatile U uu(u);                                                       \
-    if( (tt OP uu) || (tt != tt) && (uu != uu)) 			    \
+    if( (tt OP uu) || ((tt != tt) && (uu != uu)))			\
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \

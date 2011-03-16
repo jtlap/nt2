@@ -128,6 +128,6 @@ NT2_CONSTANT_MAKE_REAL(tag::sqrt_2_o_2_  ,0x3fe6a09e667f3bcdLL, 0x3f3504f3  )
 NT2_CONSTANT_MAKE_REAL(tag::sqrt_2_      ,0x3ff6a09e667f3bccll, 0x3fb504f3  )
 NT2_CONSTANT_MAKE_REAL(tag::gold_        ,0x3ff9e3779b97f4a8LL, 0x3fcf1bbd  )
 NT2_CONSTANT_MAKE_REAL(tag::c_gold_      ,0x3fd8722191a02d61LL, 0x3ec3910d  )
-NT2_CONSTANT_MAKE_REAL(tag::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
+//NT2_CONSTANT_MAKE_REAL(tag::nan_         ,0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFF  )
 
 #endif
