@@ -98,7 +98,7 @@ namespace nt2
 	    }
 	  else
 	    {	  
-	      A0 xr, xc, y;
+	      A0 xr = Zero<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::tan_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));           // 1 -- n even
 							                              //-1 -- n odd 

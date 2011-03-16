@@ -15,6 +15,7 @@
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/constant/constant.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
 
 namespace nt2 { namespace tag
 {

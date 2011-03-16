@@ -174,22 +174,22 @@ namespace nt2 { namespace ext
     }
   };
 
-  template<class Dummy>
-  struct  call< tag::nan_(tag::target_<tag::arithmetic_> )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This, class Target>
-    struct result<This(Target)> : meta::strip<Target>::type {};
+//   template<class Dummy>
+//   struct  call< tag::nan_(tag::target_<tag::arithmetic_> )
+//               , tag::cpu_
+//               , Dummy
+//               >
+//         : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This, class Target>
+//     struct result<This(Target)> : meta::strip<Target>::type {};
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return splat<typename A0::type>(0);
-    }
-  };
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return splat<typename A0::type>(0);
+//     }
+//   };
 
 } }
 

@@ -127,11 +127,11 @@ namespace nt2 { namespace ext
       typedef typename NT2_RETURN_TYPE(1)::type  type;
       typedef typename meta::scalar_of<type>::type stype;
 
-      type that = { static_cast<stype>(a0[0])
+      type that = {{ static_cast<stype>(a0[0])
                   , static_cast<stype>(a0[1])
                   , static_cast<stype>(a0[2])
                   , static_cast<stype>(a0[3])
-                  }; //TO DO
+	}}; //TO DO
       return that;
  //      typedef typename meta::scalar_of<A0>::type stype;
 //       typedef typename meta::as_integer<A0,signed>::type sint_type;
@@ -170,9 +170,9 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<type>::type sftype;
       if (maximum(abs(a0)) > Valmax<int32_t>())
       {
-        type const v =  { static_cast<sftype>(a0[0])
+        type const v =  {{ static_cast<sftype>(a0[0])
                         , static_cast<sftype>(a0[1])
-                        };
+	  }};
          return v;
       }
       typedef typename meta::int32_t_<A0>::type htype;

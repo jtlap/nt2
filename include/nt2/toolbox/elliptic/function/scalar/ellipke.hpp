@@ -45,7 +45,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return ellipke(a0, Eps<A0>()); 
+      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
+      return ellipke(type(a0), Eps<type>()); 
     }
   };
 } }

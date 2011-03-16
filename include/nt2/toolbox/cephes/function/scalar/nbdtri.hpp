@@ -41,17 +41,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A2 is double
+// Implementation when type A2 is real
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(cephes::tag::nbdtri_, tag::cpu_,
                         (A0)(A1)(A2),
-                        (integer_<A0>)(integer_<A1>)(double_<A2>)
+                        (integer_<A0>)(integer_<A1>)(real_<A2>)
                        )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<cephes::tag::nbdtri_(tag::integer_,tag::integer_,tag::double_),
+  struct call<cephes::tag::nbdtri_(tag::integer_,tag::integer_,tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       if (is_lez(a0)||is_lez(a1)) return nt2::Nan<A2>(); 
-      return cephes_nbdtri(a0, a1, a2); }
+      return cephes_nbdtri(a0, a1, double(a2)); }
     };
 } }
 

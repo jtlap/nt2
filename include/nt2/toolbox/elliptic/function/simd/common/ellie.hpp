@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::ellie(tofloat(a0), tofloat(a1));
     }
   };

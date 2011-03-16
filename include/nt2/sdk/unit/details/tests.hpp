@@ -49,7 +49,7 @@ namespace nt2 { namespace details
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
-		  << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
+		  << "ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
 		  <<  nt2::ulpdist(tt, uu )				
 		  << std::endl;						
 	++error_count();
