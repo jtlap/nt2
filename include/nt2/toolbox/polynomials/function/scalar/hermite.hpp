@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
       A1 p0 = One<A1>();
       if(a0 == 0) return p0;
       A1 p1 = a1+a1;
-      uint32_t c = 1;
+      A0 c = 1;
       while(c < a0)
       {
         std::swap(p0, p1);
