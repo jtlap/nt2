@@ -173,3 +173,7 @@ int cephes_mtherr();
 
 /* Variable for error reporting.  See mtherr.c.  */
 extern int merror;
+
+/* Constants to avoid MSVC 'division by zero' errors */
+static const float ZEROF = 0.0f;
+static const double ZERO = 0.0;

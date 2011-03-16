@@ -79,9 +79,9 @@ fe = 0.0;
 if( x <= 0.0 )
 	{
 	if( x == 0.0 )
-	  return -1.0f/0.0f;
+	  return -1.0f/ZEROF;
 	else
-	  return 0.0f/0.0f;
+	  return 0.0f/ZEROF;
 	}
 
 x = cephes_frexpf( x, &e );
