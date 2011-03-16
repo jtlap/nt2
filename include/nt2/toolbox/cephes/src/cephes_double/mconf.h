@@ -140,7 +140,9 @@ typedef struct
  * roundoff problems in pow.c:
  * (Sun SPARCstation)
  */
+#if !defined(DEC) && !defined(IBMPC) && !defined(MIEEE)
 #define UNK 1
+#endif
 
 /* If you define UNK, then be sure to set BIGENDIAN properly. */
 #ifdef FLOAT_WORDS_BIGENDIAN

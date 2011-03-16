@@ -29,8 +29,15 @@ SET( SOURCES
 #lrandl.c planckl.c polmiscl.c polylogl.c polynl.c shichil.c sicil.c spencel.c 
 #zetal.c zetacl.c ndtrl.c psil.c sindgl.c struvel.c tandgl.c setprecl.c econst.c
 #mtherrl.c rgammal.c roundl.c 
+
+SET(CEPHES_FLAGS "-DANSIC -DANSIPROT")
+
+IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  SET(CEPHES_FLAGS "${CEPHES_FLAGS} -fno-builtin")
+ENDIF()
+
 ADD_LIBRARY(nt2_cephesl STATIC ${SOURCES} )
-SET_TARGET_PROPERTIES(nt2_cephesl PROPERTIES COMPILE_FLAGS "-DANSIC  -DANSIPROT -fno-builtin")
+SET_TARGET_PROPERTIES(nt2_cephesl PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
 
 
 
