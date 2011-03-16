@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return (a1 > 0) ? ror(a0, a1) :rol(a0, -a1);
+      return (a1 > 0) ? ror(a0, a1) :rol(a0, nt2::neg(a1));
     }
 
   };

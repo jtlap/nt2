@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_UNIT_DETAILS_TESTS_FUNC_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TESTS_FUNC_HPP_INCLUDED
 
+#include <boost/type_traits/common_type.hpp>
 #include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +25,8 @@
     test_count()++;                                                         \
     volatile T tt(t);                                                       \
     volatile U uu(u);                                                       \
-    if( tt OP uu )                                                          \
+    typedef typename boost::common_type<T, U>::type R;                      \
+    if( (R)tt OP (R)uu )                                                    \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
@@ -45,7 +47,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Helpers for building implementation fo some predicate based tests
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_MAKE_TEST_NAN_FUNC(NAME,OP,COP)		  		    \
+#define NT2_MAKE_TEST_NAN_FUNC(NAME,OP,COP)                                 \
   template<class T, class U>                                                \
   inline void NAME( char const* x1, char const* x2                          \
                   , int line, char const * fn                               \
@@ -55,7 +57,8 @@
     test_count()++;                                                         \
     volatile T tt(t);                                                       \
     volatile U uu(u);                                                       \
-    if( (tt OP uu) || ((tt != tt) && (uu != uu)))			\
+    typedef typename boost::common_type<T, U>::type R;                      \
+    if( ((R)tt OP (R)uu) || (tt != tt) && (uu != uu))                       \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \

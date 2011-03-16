@@ -69,9 +69,9 @@ else
 if( z > MAXLOGF )
 	{
 	  if( x > 0 )
-	    return( 1.0/0.0 );
+	    return( 1.0/ZERO );
 	  else
-	    return( -1.0/0.0 );
+	    return( -1.0/ZERO );
 	}
 if( z > 1.0 )
 	{

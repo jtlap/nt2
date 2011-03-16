@@ -70,10 +70,10 @@ else
 if( z >= 1.0 )
 	{
 	if( x == 1.0 )
-		return( 1.0/0.0 );
+		return( 1.0/ZERO );
 	if( x == -1.0 )
-		return( -1.0/0.0 );
-	return( 0.0/0.0 );
+		return( -1.0/ZERO );
+	return( 0.0/ZERO );
 	}
 
 if( z < 1.0e-4 )
@@ -96,5 +96,5 @@ if( z < 0.5 )
 	z = 0.5 * cephes_logf( (1.0+x)/(1.0-x) );
 	return z;
 	}
- return( 0.0/0.0 );
+ return( 0.0/ZERO );
 }

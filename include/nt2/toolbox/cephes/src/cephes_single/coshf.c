@@ -67,7 +67,7 @@ if( x < 0 )
 	x = -x;
 if( x > MAXLOGF )
 	{
-	return( 1.0f/0.0f );
+	return( 1.0f/ZEROF );
 	}	
 y = cephes_expf(x);
 y = y + 1.0/y;

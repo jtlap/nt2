@@ -94,11 +94,11 @@ x = xx;
 if( x <= 0.0 )
 	{
 	if( x == 0.0 )
-	  return -1.0/0.0;
+	  return -1.0/ZERO;
 	else
-	  return 0.0/0.0;
+	  return 0.0/ZERO;
 	}
- if (x == 1.0/0.0) return x;
+ if (x == 1.0/ZERO) return x;
  if (x != x) return x;  
 /* separate mantissa from exponent */
 

@@ -34,7 +34,7 @@ namespace nt2
       template < class A0 >
       struct logarithm< A0, tag::simd_type, float>
       {
-	static inline void kernel_log(const  A0& a0,
+	static inline void kernel_log(const A0& a0,
 				      A0& fe,
 				      A0& x,
 				      A0& x2,
@@ -61,7 +61,7 @@ namespace nt2
 	  fe = tofloat(e);
 	}
 
-	static inline A0 log(const  A0& a0)
+	static inline A0 log(const A0& a0)
 	{
 	  A0 x, fe, x2, y;
 	  kernel_log(a0, fe, x, x2, y);
@@ -79,7 +79,7 @@ namespace nt2
 	  return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
 
-	static inline A0 log2(const  A0& a0)
+	static inline A0 log2(const A0& a0)
 	{
 	  A0 x, fe, x2, y;
 	  kernel_log(a0, fe, x, x2, y);
@@ -91,7 +91,7 @@ namespace nt2
 	  return seladd(is_inf(y1),b_or(z1, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
 
-	static inline A0 log10(const  A0& a0)
+	static inline A0 log10(const A0& a0)
 	{
 	  A0 x, fe, x2, y;
 	  kernel_log(a0, fe, x, x2, y);

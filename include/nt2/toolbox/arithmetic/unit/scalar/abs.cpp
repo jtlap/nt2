@@ -96,7 +96,7 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::abs(a0),a0>0 ? a0 : -a0,0);
+        NT2_TEST_ULP_EQUAL( nt2::abs(a0),a0>0 ? a0 : nt2::neg(a0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

@@ -22,7 +22,7 @@ namespace nt2
 	typedef exp_reduction<A0,Tag>                        reduc_t;
 	typedef exp_finalization<A0,Tag,Speed_Tag>        finalize_t; 
 	// compute exp(ax)
-	static inline A0 expa( A0 a0)
+	static inline A0 expa(const A0& a0)
 	{
 	  A0 hi, lo, x; 
 	  A0 k = reduc_t::reduce(a0, hi, lo, x);

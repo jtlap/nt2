@@ -25,7 +25,7 @@ namespace nt2
       template < class A0 > 
       struct logarithm< A0, tag::simd_type, double>
       {
-	static inline void kernel_log(const  A0& a0,
+	static inline void kernel_log(const A0& a0,
 				      A0& dk,
 				      A0& hfsq,
 				      A0& s,
@@ -59,7 +59,7 @@ namespace nt2
          hfsq = mul(Half<A0>(), sqr(f));
 	}
 
-	static inline A0 log(const  A0& a0)
+	static inline A0 log(const A0& a0)
 	{
 	  // ln(2)hi  =  6.93147180369123816490e-01  or  0x3fe62e42fee00000
 	  // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
@@ -70,7 +70,7 @@ namespace nt2
 	  A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
 	  return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
-	static inline A0 log2(const  A0& a0)
+	static inline A0 log2(const A0& a0)
 	{
 	  A0 dk, hfsq, s, R, f;
 	  kernel_log(a0, dk, hfsq, s, R, f);
@@ -79,7 +79,7 @@ namespace nt2
 	  return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
 	}
 	
-	static inline A0 log10(const  A0& a0)
+	static inline A0 log10(const A0& a0)
 	{
 	  A0 dk, hfsq, s, R, f;
 	  kernel_log(a0, dk, hfsq, s, R, f);

@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<divide_>
 ////////////////////////////////////////////////////////////////////////////////
-using nt2::functors::divides_;
+using nt2::tag::divides_;
 using namespace nt2;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,5 +36,4 @@ NT2_TIMING( divides_ , ((nt2::uint64_t , 1, ~0ULL))((nt2::uint64_t , 1, ~0ULL)) 
 NT2_TIMING( divides_ , ((nt2::uint32_t , 1, ~0U))((nt2::uint32_t   , 1, ~0U))   )
 NT2_TIMING( divides_ , ((nt2::uint16_t , 1, 65535))((nt2::uint16_t , 1, 6535))  )
 NT2_TIMING( divides_ , ((nt2::uint8_t  , 1, 255))((nt2::uint8_t    , 1, 255))   )
-
 

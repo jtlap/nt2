@@ -24,7 +24,7 @@ namespace nt2
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<A0>::type stype; 
-	static inline A0 cos_eval(const A0 z, const A0, const A0)
+	static inline A0 cos_eval(const A0& z, const A0&, const A0&)
 	{
 	  const A0 y = horner< NT2_HORNER_COEFF_T(stype, 7, (0x3da8ff831ad9b219ll, 
 							    0xbe21eea7c1e514d4ll, 
@@ -35,7 +35,7 @@ namespace nt2
 							    0x3fe0000000000000ll) ) > (z);
           return oneminus(y*z);
 	}
-	static inline A0 sin_eval(const A0 z, const A0 x, const A0)
+	static inline A0 sin_eval(const A0& z, const A0& x, const A0&)
 	{
 	  const A0 y1 = horner< NT2_HORNER_COEFF_T(stype, 6, (0x3de5d8fd1fcf0ec1ll, 
 							     0xbe5ae5e5a9291691ll, 
@@ -45,7 +45,7 @@ namespace nt2
 							     0xbfc5555555555548ll) ) > (z);
           return fma(y1*z,x,x);
 	}
-	static inline A0 base_tancot_eval(const A0 z)
+	static inline A0 base_tancot_eval(const A0& z)
 	{
 	  const A0 zz = sqr(z);
 	  const A0 num = horner< NT2_HORNER_COEFF_T(stype, 3, (0xc0c992d8d24f3f38ll, 
@@ -58,12 +58,12 @@ namespace nt2
 							      0xc189afe03cbe5a31ll))>(zz);
           return z+ z*(zz*(num/den));
 	}
-	static inline A0 tan_eval(const A0 z, const A0,  const int_type n )
+	static inline A0 tan_eval(const A0& z, const A0&,  const int_type n )
 	{
 	  A0 y = base_tancot_eval(z); 
 	  return sel(is_equal(n, One<int_type>()),y,-rec(y)); 
 	}
-	static inline A0 cot_eval(const A0 z, const A0 ,  const int_type n )
+	static inline A0 cot_eval(const A0& z, const A0&,  const int_type n )
 	{	  
 	  A0 y = base_tancot_eval(z); 
 	  return sel(is_equal(n, One<int_type>()),rec(y),-y); 

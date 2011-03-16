@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return hmsb(is_nez(a0));
+      return hmsb(is_nez(a0)) != 0;
     }
   };
 } }

@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<neg_>
 ////////////////////////////////////////////////////////////////////////////////
-using nt2::functors::neg_;
+using nt2::tag::unary_minus_;
 using namespace nt2;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,14 +23,14 @@ using namespace nt2;
 ////////////////////////////////////////////////////////////////////////////////
 // Scalar benchmark
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TIMING( neg_ , RS(double,2000000))
-NT2_TIMING( neg_ , RS(float ,2000000))
-NT2_TIMING( neg_ , RS(nt2::int64_t,2000000))
-NT2_TIMING( neg_ , RS(nt2::int32_t,2000000))
-NT2_TIMING( neg_ , RS(nt2::int16_t,32768))
-NT2_TIMING( neg_ , RS(nt2::int8_t,127))
-NT2_TIMING( neg_ , ((nt2::uint64_t, 0, ~0ULL)) )
-NT2_TIMING( neg_ , ((nt2::uint32_t, 0, ~0U)) )
-NT2_TIMING( neg_ , ((nt2::uint16_t, 0, 65535)) )
-NT2_TIMING( neg_ , ((nt2::uint8_t , 0, 255)) )
+NT2_TIMING( unary_minus_ , RS(double,2000000))
+NT2_TIMING( unary_minus_ , RS(float ,2000000))
+NT2_TIMING( unary_minus_ , RS(nt2::int64_t,2000000))
+NT2_TIMING( unary_minus_ , RS(nt2::int32_t,2000000))
+NT2_TIMING( unary_minus_ , RS(nt2::int16_t,32768))
+NT2_TIMING( unary_minus_ , RS(nt2::int8_t,127))
+NT2_TIMING( unary_minus_ , ((nt2::uint64_t, 0, ~0ULL)) )
+NT2_TIMING( unary_minus_ , ((nt2::uint32_t, 0, ~0U)) )
+NT2_TIMING( unary_minus_ , ((nt2::uint16_t, 0, 65535)) )
+NT2_TIMING( unary_minus_ , ((nt2::uint8_t , 0, 255)) )
 

@@ -17,7 +17,7 @@ namespace nt2
     {
       using simd::native;
       
-      native<float> asin(const  native<float>& a0)
+      native<float> asin(const native<float>& a0)
       {
 	typedef native<float> A0;
 	A0 sign, x;
@@ -45,7 +45,7 @@ namespace nt2
 	return b_xor(z, sign);
       }
 
-      native<float> acos(const  native<float>& a0)
+      native<float> acos(const native<float>& a0)
       {
 	typedef  native<float> A0;
 	A0 x = abs(a0);
@@ -58,7 +58,7 @@ namespace nt2
 	//	return Pi_o_2<A0>()-asin(a0); 
       }
 
-      native<float> atan(const  native<float>& a0)
+      native<float> atan(const native<float>& a0)
       {
 	typedef native<float> A0;
 	A0 x, sign;
