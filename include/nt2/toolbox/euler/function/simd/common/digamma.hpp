@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
       A0 result = Zero<A0>();
       A0 x = a0;
       A0 test = is_lez(a0);
-      uint32_t nb, nb1;
+      uint32_t nb;
       if( (nb = nbtrue(test)) > 0)
       {
         x = sel(test, oneminus(a0), a0);

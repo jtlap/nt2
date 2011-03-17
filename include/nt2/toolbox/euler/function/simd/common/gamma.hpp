@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
 		       -5.952379913043012e-4,7.93650793500350248e-4,
 		       -.002777777777777681622553,.08333333333333333331554247,
 		       .0057083835261 };
-     const  double g_xbig = 171.624;
+      //     const  double g_xbig = 171.624;
 		//return map(functor<tag::gamma_>(), tofloat(a0));
       const int32_t Card = meta::cardinal_of<A0>::value;
       const A0 LOGSQRT2PI =  log(sqrt(Two<A0>()*Pi<A0>())); 
