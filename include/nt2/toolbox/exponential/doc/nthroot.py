@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'type_defs' : ['typedef int32_t iT;'],
+         'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
          'simd_types' : ['real_'],
         },

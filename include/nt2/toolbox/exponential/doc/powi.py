@@ -10,7 +10,6 @@
          'type_defs' : [],
          'types' : ['real_'],
          'simd_types' : ['real_'],
-         'no_simd_tests' : True,   
         },
      'info' : 'manually modified',
      'unit' : {

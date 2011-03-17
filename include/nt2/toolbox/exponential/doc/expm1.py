@@ -32,7 +32,7 @@
              'real_' : {
                  'nt2::Inf<T>()' : {"result" :'nt2::Inf<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::Minf<T>()' : {"result" :'nt2::Mone<r_t>()','ulp_thresh' : '1.0',},
-                 'nt2::Mone<T>()' : {"result" :'nt2::One<r_t>()/nt2::Exp_1<r_t>()-nt2::One<r_t>()',},
+                 'nt2::Mone<T>()' : {"result" :'nt2::One<r_t>()/nt2::Exp_1<r_t>()-nt2::One<r_t>()','ulp_thresh' : '1.0'},
                  'nt2::Nan<T>()' : {"result" :'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::One<T>()' : {"result" :'nt2::Exp_1<r_t>()-nt2::One<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::Zero<T>()' :{"result" : 'nt2::Zero<r_t>()','ulp_thresh' : '1.0',},
