@@ -87,5 +87,89 @@ namespace nt2 { namespace ext
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is integer_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::pow_, tag::cpu_,
+                       (A0)(A1)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                       ((simd_<integer_<A1>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::pow_(tag::simd_<tag::arithmetic_, X> ,
+                         tag::simd_<tag::integer_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+        typedef typename meta::as_integer<A0, signed>::type int_type;
+	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
+	r_type a00 =  tofloat(a0); 
+        r_type sign_x = bitofsign(a0);
+        r_type x = b_xor(a0, sign_x);//x = abs(a0)
+        int_type sign_n = signnz( a1 );
+        int_type n = abs(a1);
+
+        int_type   n_odd = is_odd(n);
+        r_type n_oddf = tofloat(-n_odd);
+        r_type nf = n_oddf;
+
+        r_type y = madd(n_oddf,x,oneminus(n_oddf));
+
+        r_type w = x;
+        n = shri(n,1);
+        while( any(n) )
+          {
+            w =sqr( w);
+            n_oddf = tofloat(-is_odd(n));
+            y = y*madd(n_oddf,w,oneminus(n_oddf));
+            n = shri(n,1);
+          }
+
+        w = b_xor(y, sign_x);
+        y = madd(nf, w, (oneminus(nf))*y);
+
+        w = rec(y);
+        x = tofloat(shri(oneplus(sign_n),1));  // 1 if positiv, else 0
+        return madd(x,y,oneminus(x)*w);
+    }
+
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A1 is scalar integer_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::pow_, tag::cpu_,
+		      (A0)(A1)(X),
+		      ((simd_<arithmetic_<A0>,X>))
+		      ((integer_<A1>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::pow_(tag::simd_<tag::arithmetic_, X> ,
+                         tag::integer_ ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::as_real<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return powi(a0, a1);
+    }
+
+  };
+} }
+
 #endif
 // modified by jt the 05/01/2011
