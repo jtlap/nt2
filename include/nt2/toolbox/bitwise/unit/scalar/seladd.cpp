@@ -12,10 +12,10 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -25,18 +25,20 @@
 
 NT2_TEST_CASE_TPL ( seladd_real__3,  NT2_REAL_TYPES)
 {
+  
   using nt2::seladd;
   using nt2::tag::seladd_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<seladd_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -50,18 +52,20 @@ NT2_TEST_CASE_TPL ( seladd_real__3,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
 {
+  
   using nt2::seladd;
   using nt2::tag::seladd_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<seladd_(T,T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -74,9 +78,11 @@ NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-10000), T(10000));
-    double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
-    for (int j =0; j < NR; ++j )
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    T a1;
+    T a2;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -91,9 +97,11 @@ NT2_TEST_CASE_TPL ( seladd_integer__3,  NT2_INTEGRAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-10000), T(10000));
-    double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1,a2;
-    for (int j =0; j < NR; ++j )
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    T a1;
+    T a2;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
