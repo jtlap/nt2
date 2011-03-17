@@ -12,7 +12,7 @@
 // Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 23/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -33,10 +33,11 @@ extern "C" {long double cephes_ellikl(long double,long double);}
 
 NT2_TEST_CASE_TPL ( ellipke_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::ellipke;
   using nt2::tag::ellipke_;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type etype;
-  typedef boost::fusion::tuple<etype, etype>                   rtype;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;
+  typedef boost::fusion::tuple<etype,etype> rtype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellipke_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -47,6 +48,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -66,10 +68,11 @@ NT2_TEST_CASE_TPL ( ellipke_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( ellipke_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::ellipke;
   using nt2::tag::ellipke_;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type etype;
-  typedef boost::fusion::tuple<etype, etype>                   rtype;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;
+  typedef boost::fusion::tuple<etype,etype> rtype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellipke_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -80,6 +83,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
