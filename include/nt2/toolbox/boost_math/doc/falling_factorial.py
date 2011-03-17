@@ -9,7 +9,6 @@
             },
          'simd_types' : [],
          'special' : ['boost_math'],
-         'tpl'   : '<double>',   
          'type_defs' : [],
          'types' : ['real_'],
         },
