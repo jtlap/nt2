@@ -65,7 +65,7 @@ namespace nt2
           return le(a0,double_constant<A0,0xc08ff00000000000ll>());
         }
 
-        static inline A0 reduce(const A0& a0, A0 , A0 , A0& x)
+        static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
         {
           A0 k = round2even(a0);
           x = (a0 - k)*Log_2<A0>();
@@ -107,7 +107,7 @@ namespace nt2
           return k;
         }
 
-        static inline A0 approx(A0 x)
+        static inline A0 approx(const A0& x)
         {
 	  typedef typename meta::scalar_of<A0>::type sA0;
           A0 xx =  sqr(x);
@@ -117,13 +117,13 @@ namespace nt2
                    0x40796b7a050349e4ll,
                    0x40a2b4798e134a01ll)
                   )> (xx);
-          x =  px/( horner<NT2_HORNER_COEFF_T(sA0, 4,
+          A0 x2 =  px/( horner<NT2_HORNER_COEFF_T(sA0, 4,
                   (0x3ff0000000000000ll,
                    0x405545fdce51ca08ll,
                    0x4093e05eefd67782ll,
                    0x40a03f37650df6e2ll)
                   )> (xx)-px);
-                return oneplus(x+x);
+                return oneplus(x2+x2);
         }
       };
     }

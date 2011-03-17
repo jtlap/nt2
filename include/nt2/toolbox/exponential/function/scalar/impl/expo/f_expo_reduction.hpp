@@ -81,7 +81,7 @@ namespace nt2
                                             )> (t);
 	}
 
-        static inline A0 reduce(const A0& a0, A0 , A0 , A0& x)
+        static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
         {
           A0 k = round2even(a0);
           x = (a0 - k)*Log_2<A0>();

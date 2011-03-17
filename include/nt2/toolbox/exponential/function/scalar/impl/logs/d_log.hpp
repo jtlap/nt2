@@ -35,7 +35,7 @@ namespace nt2
       template < class A0 > 
       struct logarithm< A0, tag::not_simd_type, double>
       {
-	static inline void kernel_log(const  A0& a0,
+	static inline void kernel_log(const A0& a0,
 				      A0& dk,
 				      A0& hfsq,
 				      A0& s,
@@ -69,7 +69,7 @@ namespace nt2
 	  hfsq = mul(Half<A0>(), sqr(f));
 	}
 	
-	inline A0 log(const  A0& a0)
+	inline A0 log(const A0& a0)
 	{
 	  // ln(2)hi  =  6.93147180369123816490e-01  or  0x3fe62e42fee00000
 	  // ln(2)lo  =  1.90821492927058770002e-10  or  0x3dea39ef35793c76
@@ -81,7 +81,7 @@ namespace nt2
 	  return  mul(dk, double_constant<A0, 0x3fe62e42fee00000ll>())-
 	    ((hfsq-(s*(hfsq+R)+mul(dk,double_constant<A0, 0x3dea39ef35793c76ll>())))-f);
 	}
-	inline A0 log2(const  A0& a0)
+	inline A0 log2(const A0& a0)
 	{
 	  if (a0 == Inf<A0>()) return a0;
 	  if (iseqz(a0)) return Minf<A0>();
@@ -91,7 +91,7 @@ namespace nt2
 	  return -(hfsq-(s*(hfsq+R))-f)*Invlog_2<A0>()+dk;
 	}
 	
-	inline A0 log10(const  A0& a0)
+	inline A0 log10(const A0& a0)
 	{
 	  if (a0 == Inf<A0>()) return a0;
 	  if (iseqz(a0)) return Minf<A0>();

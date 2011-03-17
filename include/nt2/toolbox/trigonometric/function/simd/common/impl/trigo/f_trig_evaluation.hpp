@@ -40,12 +40,12 @@ namespace nt2
 						     0x3e0896dd, 
 						     0x3eaaaa6f))>(zz)*zz*z+z;
 	}
-	static inline A0 tan_eval(const A0& z, const A0&,  const int_type n)
+	static inline A0 tan_eval(const A0& z, const A0&,  const int_type& n)
 	{
 	  A0 y = base_tancot_eval(z); 
 	  return sel(is_equal(n, One<int_type>()),y,-rec(y)); 
 	}
-	static inline A0 cot_eval(const A0& z, const A0&,  const int_type n)
+	static inline A0 cot_eval(const A0& z, const A0&,  const int_type& n)
 	{
 	  A0 y = base_tancot_eval(z); 
 	  return sel(is_equal(n, One<int_type>()),rec(y),-y); 

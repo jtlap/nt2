@@ -49,25 +49,25 @@ namespace nt2
 	  return n;
 	}
 
-	static inline int_type fdlibm_medium_reduction(A0 t, A0& xr, A0& xc)
+	static inline int_type fdlibm_medium_reduction(const A0& t, A0& xr, A0& xc)
 	{
 	  A0 fn = round2even(t*single_constant<A0,0x3f22f984>());
 	  A0 r  = t-fn*single_constant<A0,0x3fc90f80>();
 	  A0 w  = fn*single_constant<A0,0x37354443>();	/* 1st round good to 40 bit */
-	  t  = r;
+	  A0 t2 = r;
 	  w  = fn*single_constant<A0,0x37354400>();
-	  r  = t-w;
-	  w  = fn*single_constant<A0,0x2e85a308>()-((t-r)-w);
-	  t  = r;	                        /* 2nd round will cover all possible cases */
+	  r  = t2-w;
+	  w  = fn*single_constant<A0,0x2e85a308>()-((t2-r)-w);
+	  t2 = r;	                        /* 2nd round will cover all possible cases */
 	  w  = fn*single_constant<A0,0x2e85a300>();
-	  r  = t-w;
-	  w  = fn*single_constant<A0,0x248d3132>()-((t-r)-w);
+	  r  = t2-w;
+	  w  = fn*single_constant<A0,0x248d3132>()-((t2-r)-w);
 	  xr = r-w;
 	  xc = (r-xr)-w;
 	  return  toint(fn);
 	}
 
-	static inline int_type fdlibm_big_reduction(A0 /*t*/, A0& /*xr*/, A0& /*xc*/)
+	static inline int_type fdlibm_big_reduction(const A0& /*t*/, A0& /*xr*/, A0& /*xc*/)
 	{
 	  int_type i = Zero<int_type>();
 	  //	  bf::tie(xr, xc, i) = nt2::rem_pio2(t);

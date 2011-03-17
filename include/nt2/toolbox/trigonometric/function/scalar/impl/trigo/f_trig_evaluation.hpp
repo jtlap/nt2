@@ -27,12 +27,12 @@ namespace nt2
 		 class style, 
 		 class base_A0 = typename meta::scalar_of<A0>::type >
       struct trig_evaluation{
-  	static inline A0 cos_eval(const A0 , const A0 , const A0 )
+  	static inline A0 cos_eval(const A0&, const A0&, const A0&)
 	{
 	  std::cout << "icitte " << style::value << std::endl;
 	  exit(1); 
 	}       
-  	static inline A0 sin_eval(const A0 , const A0 , const A0 )
+  	static inline A0 sin_eval(const A0&, const A0&, const A0&)
 	{
 	  std::cout << "icitte " << style::value << std::endl;
 	  exit(1); 
@@ -50,17 +50,17 @@ namespace nt2
       template < class A0> struct trig_evaluation < A0, trig_tag, tag::not_simd_type, float>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
-	static inline A0 cos_eval(const A0 z, const A0, const A0)
+	static inline A0 cos_eval(const A0& z, const A0&, const A0&)
 	{
 	  const A0 y = horner< NT2_HORNER_COEFF_T(A0, 3, (0x37ccf5ce, 0xbab60619, 0x3d2aaaa5) ) > (z);
 	  return oneplus(madd(z,Mhalf<A0>(), y*sqr(z)));
 	}
-	static inline A0 sin_eval(const A0 z, const A0 x, const A0)
+	static inline A0 sin_eval(const A0& z, const A0& x, const A0&)
 	{
 	  const A0 y1 = horner< NT2_HORNER_COEFF_T(A0, 3, (0xb94ca1f9, 0x3c08839d, 0xbe2aaaa2) ) > (z);
 	  return madd(mul(y1,z),x,x);
 	}
-	static inline A0 base_tan_eval(const A0 z)
+	static inline A0 base_tan_eval(const A0& z)
 	{
 	  const A0 zz = sqr(z);
 	  A0 y = horner< NT2_HORNER_COEFF_T(A0, 6, (0x3c19c53b, 
@@ -71,12 +71,12 @@ namespace nt2
 						     0x3eaaaa6f))>(zz)*zz*z+z;
 	  return y; 
 	}
-	static inline A0 tan_eval(const A0 z, const A0,  const int n )
+	static inline A0 tan_eval(const A0& z, const A0&,  const int n )
 	{
 	  const A0 y = base_tan_eval(z); 
 	  if (n == 1) return y;  else return -rec(y); 
 	}
-	static inline A0 cot_eval(const A0 z, const A0,  const int n )
+	static inline A0 cot_eval(const A0& z, const A0&,  const int n )
 	{
 	  const A0 y = base_tan_eval(z); 
 	  if (n == 1) return rec(y);  else return -y; 

@@ -27,7 +27,7 @@ namespace nt2
       // math log functions
       //////////////////////////////////////////////////////////////////////////////
 
-      inline void kernel_log(const  float& a0,
+      inline void kernel_log(const float& a0,
 			     float& fe,
 			     float& x,
 			     float& x2,
@@ -54,7 +54,7 @@ namespace nt2
         fe = tofloat(e);
       }
 
-      inline float log(const  float& a0)
+      inline float log(const float& a0)
       {
         typedef float A0;
         if (a0 == Inf<A0>()) return a0;
@@ -68,7 +68,7 @@ namespace nt2
         return fma(Const<float, 0x3f318000>(), fe, z);
       }
 
-      inline float log2(const  float& a0)
+      inline float log2(const float& a0)
       {
         typedef float A0;
         if (a0 == Inf<A0>()) return a0;
@@ -85,7 +85,7 @@ namespace nt2
         return ((z+y)+x)+fe;
       }
 
-      inline float log10(const  float& a0)
+      inline float log10(const float& a0)
       {
         typedef float A0;
         if (a0 == Inf<A0>()) return a0;

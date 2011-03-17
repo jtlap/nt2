@@ -31,7 +31,7 @@ namespace nt2
 	typedef exp_reduction<A0,Tag>                        reduc_t;
 	typedef exp_finalization<A0,Tag,Speed_Tag>        finalize_t; 
 	// compute exp(ax) where a is 1, 2 or ten depending on Tag
-	static inline A0 expa( A0 a0)
+	static inline A0 expa(const A0& a0)
 	{
  	  if (reduc_t::isgemaxlog(a0)) return Inf<A0>();
  	  if (reduc_t::isleminlog(a0)) return Zero<A0>();

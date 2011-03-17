@@ -91,20 +91,20 @@ namespace nt2
 
 	typedef trig_evaluation<A0,trig_tag,tag::not_simd_type> eval_t;
 	
-	static inline A0 cosa( A0 a0)
+	static inline A0 cosa(const A0& a0)
 	{
 	  A0 x =  scale(a0); 
 	  if(not_in_range(a0)) return Nan<A0>(); else return eval_t::cos_eval(sqr(x), x, Zero<A0>());
 	}
 
 	
-	static inline A0 sina(const  A0& a0)
+	static inline A0 sina(const A0& a0)
 	{
 	  A0 x =  scale(a0); 
 	  if(not_in_range(a0)) return Nan<A0>(); else return eval_t::sin_eval(sqr(x), x, Zero<A0>());
 	}
 
-	static inline A0 tana(const  A0& a0)
+	static inline A0 tana(const A0& a0)
 	{
 	  A0 x =  scale(a0); 
 	  if(not_in_range(a0)) return Nan<A0>(); else return eval_t::base_tan_eval(x);
@@ -116,7 +116,7 @@ namespace nt2
 	}
 
 
-	static inline void sincosa(const  A0& a0, A0& s, A0& c)
+	static inline void sincosa(const A0& a0, A0& s, A0& c)
 	{
 	  if(not_in_range(a0)){c = s = Nan<A0>(); return; }
 	  A0 x =  scale(a0);

@@ -27,7 +27,7 @@ namespace nt2
         typedef typename meta::as_integer<A0, signed>::type int_type;
 
         static inline void
-        kernel_log(const  A0& a0,A0& fe, A0& x,A0& x2, A0& y, A0)
+        kernel_log(const A0& a0,A0& fe, A0& x,A0& x2, A0& y, const A0&)
         {
           int_type e;
           bf::tie(x, e) = fast_frexp(a0);

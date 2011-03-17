@@ -92,7 +92,7 @@ namespace nt2
 	// * evaluations
 	// * return with flag based corrections
 
-	static inline A0 cosa( A0 a0)
+	static inline A0 cosa(const A0& a0)
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;   // size in bits of the scalar types minus one
 	  if (is_invalid(a0)) return Nan<A0>(); //Nan or Inf input
@@ -120,7 +120,7 @@ namespace nt2
 	    }
 	}
 
-	static inline A0 sina(const  A0& a0)
+	static inline A0 sina(const A0& a0)
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;
 	  if (is_invalid(a0)) return Nan<A0>();
@@ -148,7 +148,7 @@ namespace nt2
 	    }
 	}
 
-	static inline A0 tana(const  A0& a0)
+	static inline A0 tana(const A0& a0)
 	{
 	  if (redu_t::tan_invalid(a0)) return Nan<A0>();
 	  if (is_eqz(a0)) return a0;
@@ -167,7 +167,7 @@ namespace nt2
 	      return b_xor(y, bitofsign(a0));
 	    }
 	}
-	static inline A0 cota(const  A0& a0)
+	static inline A0 cota(const A0& a0)
 	{
 	  if (redu_t::cot_invalid(a0)) return Nan<A0>();
 	  A0 x =  abs(a0);
@@ -187,7 +187,7 @@ namespace nt2
 	}
 
 
-	static inline void sincosa(const  A0& a0, A0& s, A0& c)
+	static inline void sincosa(const A0& a0, A0& s, A0& c)
 	{
 	  if (is_invalid(a0)) { s = c = Nan<A0>(); return; }
 	  A0 x =  abs(a0);

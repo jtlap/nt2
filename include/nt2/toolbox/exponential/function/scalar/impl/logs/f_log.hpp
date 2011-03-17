@@ -42,7 +42,7 @@ namespace nt2
       struct logarithm< A0, tag::not_simd_type, float>
       {
       
-	static inline void kernel_log(const  A0& a0,
+	static inline void kernel_log(const A0& a0,
 				      A0& fe,
 				      A0& x,
 				      A0& x2,
@@ -69,7 +69,7 @@ namespace nt2
 	  fe = tofloat(e);
 	}
 	
-	static inline A0 log(const  A0& a0)
+	static inline A0 log(const A0& a0)
 	{
 	  typedef typename meta::strip<A0>::type stA0; 
 	  if (a0 == Inf<stA0>()) return a0;
@@ -83,7 +83,7 @@ namespace nt2
 	  return madd(single_constant<stA0, 0x3f318000>(), fe, z);
 	}
 	
-	static inline A0 log2(const  A0& a0)
+	static inline A0 log2(const A0& a0)
 	{
 	  typedef typename meta::strip<A0>::type stA0; 
 	  if (a0 == Inf<stA0>()) return a0;
@@ -100,7 +100,7 @@ namespace nt2
 	  return ((z+y)+x)+fe;
 	}
 	
-	static inline A0 log10(const  A0& a0)
+	static inline A0 log10(const A0& a0)
 	{
 	  typedef typename meta::strip<A0>::type stA0; 
 	  if (a0 == Inf<stA0>()) return a0;

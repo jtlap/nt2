@@ -18,7 +18,7 @@ namespace nt2
       template < class A0>
       struct log_finalization< A0, natural_tag, double>
       {
-        inline A0 finalize(const A0& fe,const  A0& x,const  A0& x2,A0 y)
+        inline A0 finalize(const A0& fe,const  A0& x,const  A0& x2,const A0& y)
         {
           y = fma(fe, Const<A0, 0xb95e8083>(), y);
           y = fma(Mhalf<A0>(), x2, y);
@@ -30,7 +30,7 @@ namespace nt2
       template < class A0>
       struct log_finalization< A0, two_tag, double>
       {
-        inline A0 finalize(const A0& fe,const  A0& x,const  A0& x2,A0 y)
+        inline A0 finalize(const A0& fe,const  A0& x,const  A0& x2,const A0& y)
         {
           y =  fma(Mhalf<A0>(),x2, y);
           A0 z = fma(x,Const<A0, 0x3ee2a8ed>(),mul(y,Const<A0, 0x3ee2a8ed>()));
@@ -41,7 +41,7 @@ namespace nt2
       template < class A0>
       struct log_finalization< A0, ten_tag, double>
       {
-        inline A0 finalize(const A0& fe,const  A0& x,const  A0& x2,A0 y)
+        inline A0 finalize(const A0& fe,const  A0& x,const  A0& x2,const A0& y)
         {
           y     =  amul(y, -Half<A0>(), x2);
 

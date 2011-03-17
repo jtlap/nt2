@@ -184,11 +184,11 @@ namespace nt2
         static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x/C_180<A0>()); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint((x-Ninety<A0>())/C_180<A0>()); }
 
-        static inline int_type reduce(A0 x, A0& xr, A0& xc)
+        static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
-          x -= xi * Ninety<A0>();//90.0f
-          xr =  x*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
+          A0 x2 = x - xi * Ninety<A0>();//90.0f
+          xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);
         }
@@ -230,11 +230,11 @@ namespace nt2
         static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 
-        static inline int_type reduce(A0 x,  A0& xr, A0&xc)
+        static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
         {
           A0 xi = round2even(x*Two<A0>());
-          x -= xi * Half<A0>();
-          xr = x*Pi<A0>();
+          A0 x2 = x - xi * Half<A0>();
+          xr = x2*Pi<A0>();
           xc = Zero<A0>();
           return toint(xi);
         }
