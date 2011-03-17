@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -30,6 +30,7 @@
 
 NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::remquo;
   using nt2::tag::remquo_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -42,6 +43,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -49,8 +51,9 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
-    for (int j =0; j < NR; ++j )
+    T a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -61,8 +64,8 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::remainder(a0,a1), 0);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::idivround(a0,a1), 0);
+        NT2_TEST_TUPLE_ULP_EQUAL( r0, nt2::remainder(a0,a1), 0);
+        NT2_TEST_TUPLE_ULP_EQUAL( r1, nt2::idivround(a0,a1), 0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
