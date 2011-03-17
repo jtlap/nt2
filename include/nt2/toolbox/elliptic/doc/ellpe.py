@@ -24,8 +24,8 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::Pio_2<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::Pio_2<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Pio_2<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                 },
             },

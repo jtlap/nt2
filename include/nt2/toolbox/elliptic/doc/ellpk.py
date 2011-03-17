@@ -15,8 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 21/02/2011',
-             'included' : ['extern "C" {long double cephes_ellpkl(long double);}',
-                           '#include <nt2/toolbox/trigonometric/include/constants.hpp>'],
+             'included' : ['extern "C" {long double cephes_ellpkl(long double);}', '#include <nt2/toolbox/trigonometric/include/constants.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 21/02/2011',
             },
@@ -25,9 +24,9 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::Pio_2<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::Pio_2<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Pio_2<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
                 },
             },
