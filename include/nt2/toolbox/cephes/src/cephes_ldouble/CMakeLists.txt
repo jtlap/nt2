@@ -30,7 +30,7 @@ SET( SOURCES
 #zetal.c zetacl.c ndtrl.c psil.c sindgl.c struvel.c tandgl.c setprecl.c econst.c
 #mtherrl.c rgammal.c roundl.c 
 
-SET(CEPHES_FLAGS "-DANSIC -DANSIPROT")
+SET(CEPHES_FLAGS "-DANSIC")
 
 IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
   SET(CEPHES_FLAGS "${CEPHES_FLAGS} -fno-builtin")
