@@ -100,10 +100,10 @@ namespace nt2 { namespace ext
       }
       A0 r1, r2;
       test = gt(x, Digammalargelim<A0>());
-      if(nb = nbtrue(test))
+      if((nb = nbtrue(test)))
       { // If we're above the lower-limit for the asymptotic expansion then use it:
         r1 = b_and(digamma_imp_large(x, sA0()), test)+result;
-        if (nb >= meta::cardinal_of<A0>::value) return r1;
+        if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;
       }
       // If x > 2 reduce to the interval [1,2]:
       A0 cond;

@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 euler toolbox - digamma/simd Mode"
+#define NT2_UNIT_MODULE "nt2 euler toolbox - digamma/simd Mode" 
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of euler components in simd mode
+// Test behavior of euler components in simd mode 
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 17/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
