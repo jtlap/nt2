@@ -58,7 +58,7 @@
     volatile T tt(t);                                                       \
     volatile U uu(u);                                                       \
     typedef typename boost::common_type<T, U>::type R;                      \
-    if( ((R)tt OP (R)uu) || (tt != tt) && (uu != uu))                       \
+    if( ((R)tt OP (R)uu) || ((tt != tt) && (uu != uu)))			\
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
