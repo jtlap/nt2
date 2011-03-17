@@ -12,7 +12,7 @@
 // Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 19/02/2011
+/// modified by jt the 17/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -23,6 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/exponential/include/expni.hpp>
 
 NT2_TEST_CASE_TPL ( expni_real__2,  NT2_REAL_TYPES)
@@ -42,29 +43,24 @@ NT2_TEST_CASE_TPL ( expni_real__2,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<expni_(iT,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
-  // random verifications 
+  // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {  
-    NT2_CREATE_BUF(tab_a0,iT, NR, iT(1), iT(10)); 
-    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));  
-     double ulp0 = 0.0, ulpd = 0.0;
-    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      { 
+  {
+    NT2_CREATE_BUF(tab_a0,iT, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
         iT a0 = tab_a0[j];
-        vT a1 = load<n_t>(&tab_a1[0],j);
+        vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = expni(a0,a1);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
-           int k = i+j*cardinal_of<n_t>::value;
-	  std::cout << "a1 " << a1 <<           std::endl;  
-	  std::cout << "v  " << v <<           std::endl;  
-	  std::cout << a0 << "  " << a1[i] << std::endl; 
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::expni(a0,a1[i])), 10);
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::expni(tab_a0[j],tab_a1[k])), 10);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
-} // end of test for real_ 
-  
- 
+} // end of test for real_
