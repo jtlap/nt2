@@ -10,6 +10,7 @@
          'type_defs' : [],
          'types' : ['real_'],
          'simd_types' : ['real_'],
+         'simd_ulp_thresh'   : '50.0',
         },
      'info' : 'manually modified',
      'unit' : {
@@ -40,8 +41,9 @@
                  'default' : ['cephes_y1l(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['21.5'],
+                 'default' : ['50.0'],
                 },
+ 
             },
         },
     },
