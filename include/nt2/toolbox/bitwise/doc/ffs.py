@@ -24,15 +24,15 @@
             },
          'specific_values' : {
              'double' : {
-                 'nt2::Inf<T>()' : {'result' : '53','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : '53','ulp_thresh' : '0.5',},
+                 'nt2::Inf<T>()' : {'result' : '53u','ulp_thresh' : '0.5',},
+                 'nt2::Minf<T>()' : {'result' : '53u','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Signmask<T>()' : {'result' : 'sizeof(T)*8','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'float' : {
-                 'nt2::Inf<T>()' : {'result' : '24','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : '24','ulp_thresh' : '0.5',},
+                 'nt2::Inf<T>()' : {'result' : '24u','ulp_thresh' : '0.5',},
+                 'nt2::Minf<T>()' : {'result' : '24u','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Signmask<T>()' : {'result' : 'sizeof(T)*8','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
