@@ -104,40 +104,42 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 lphi = abs(a0);
-      A0 m   =  a1;
-      A0 a = One<A0>();
-      A0 b = sqrt(oneminus(m));
-      A0 c = sqrt(m);
-      A0 d = One<A0>();
-      A0 e = Zero<A0>();
-      A0 t = tan( lphi );
-      A0 mod = ceil(lphi/Pi<A0>());
-      while(1)
-        {
-          A0 test = gt(abs(c),Eps<A0>()*abs(a));
-          if (any(test))
-            {
-            A0 temp = b/a;
-            lphi = lphi + atan(t*temp) + mod * Pi < A0>();
-            mod = ceil(lphi/Pi<A0>());
-            t = oneplus(temp)/(rec(t)-temp*t);
-            c = average(a,-b);
-            temp = sqrt(a*b);
-            a = average(a,b);
-            b = temp;
-            d = d+d;
-            e = seladd(test, e, c*sin(lphi));
-            }
-          else
-            break;
-        }
-      b = oneminus(m);
-      A0 temp = ellpe(b)/ellpk(b);
-      temp = temp*(atan(t) + mod * Pi < A0>())/(d * a);
-      temp = temp+e;
-      temp = b_xor(temp, bitofsign(a0));
-      return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
+      return map(functor<tag::ellie_>(), a0, a1);
+      // broken TO DO
+//       A0 lphi = abs(a0);
+//       A0 m   =  a1;
+//       A0 a = One<A0>();
+//       A0 b = sqrt(oneminus(m));
+//       A0 c = sqrt(m);
+//       A0 d = One<A0>();
+//       A0 e = Zero<A0>();
+//       A0 t = tan( lphi );
+//       A0 mod = ceil(lphi/Pi<A0>());
+//       while(1)
+//         {
+//           A0 test = gt(abs(c),Eps<A0>()*abs(a));
+//           if (any(test))
+//             {
+//             A0 temp = b/a;
+//             lphi = lphi + atan(t*temp) + mod * Pi < A0>();
+//             mod = ceil(lphi/Pi<A0>());
+//             t = oneplus(temp)/(rec(t)-temp*t);
+//             c = average(a,-b);
+//             temp = sqrt(a*b);
+//             a = average(a,b);
+//             b = temp;
+//             d = d+d;
+//             e = seladd(test, e, c*sin(lphi));
+//             }
+//           else
+//             break;
+//         }
+//       b = oneminus(m);
+//       A0 temp = ellpe(b)/ellpk(b);
+//       temp = temp*(atan(t) + mod * Pi < A0>())/(d * a);
+//       temp = temp+e;
+//       temp = b_xor(temp, bitofsign(a0));
+//       return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
     }
   };
 } }

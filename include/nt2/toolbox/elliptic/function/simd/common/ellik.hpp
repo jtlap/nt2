@@ -109,31 +109,33 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 phi = nt2::abs(a0);
-      A0 m = a1;
-      A0 a = One<A0>();
-      A0 b = oneminus(m);
+      return map(functor<tag::ellik_>(), a0, a1);
+      // broken TO DO
+//       A0 phi = nt2::abs(a0);
+//       A0 m = a1;
+//       A0 a = One<A0>();
+//       A0 b = oneminus(m);
 
-      b = sqrt(b);
-      A0 c = sqrt(m);
-      A0 d = One<A0>();
-      A0 t = tan(phi);
-      A0 mod = ceil(phi/Pi<A0>());
-      while( any(gt(abs(c), abs(a)*Eps<A0>())) )
-      {
-        A0 temp = b/a;
-        phi = phi + atan(t*temp) + mod*Pi<A0>();
-        mod = ceil(phi/Pi<A0>());
-        t = oneplus(temp)/(rec(t)-temp*t);
-        c = average(a,-b);
-        temp = sqrt(a*b);
-        a = average(a,b);
-        b = temp;
-        d += d;
-      }
-      A0 temp = (atan(t) + mod * Pi<A0>())/(d * a);
-      temp = b_xor(temp, bitofsign(a0));
-      return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
+//       b = sqrt(b);
+//       A0 c = sqrt(m);
+//       A0 d = One<A0>();
+//       A0 t = tan(phi);
+//       A0 mod = ceil(phi/Pi<A0>());
+//       while( any(gt(abs(c), abs(a)*Eps<A0>())) )
+//       {
+//         A0 temp = b/a;
+//         phi = phi + atan(t*temp) + mod*Pi<A0>();
+//         mod = ceil(phi/Pi<A0>());
+//         t = oneplus(temp)/(rec(t)-temp*t);
+//         c = average(a,-b);
+//         temp = sqrt(a*b);
+//         a = average(a,b);
+//         b = temp;
+//         d += d;
+//       }
+//       A0 temp = (atan(t) + mod * Pi<A0>())/(d * a);
+//       temp = b_xor(temp, bitofsign(a0));
+//       return b_or(b_or(is_ltz(a1), gt(a1, One<A0>())), temp);
     }
   };
 } }
