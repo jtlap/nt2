@@ -31,7 +31,7 @@ namespace nt2
 	typedef log_approximation<A0,Tag>                          approx_t;
 	typedef log_finalization<A0,Tag>                         finalize_t; 
 	// compute log in base a of x, where a is 1, 2 or ten depending on Tag
-	static inline A0 loga( A0 a0)
+	static inline A0 loga(const A0& a0)
 	{
 	  if (a0 == Inf<A0>()) return a0;
 	  if (iseqz(a0)) return Minf<A0>();

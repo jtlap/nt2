@@ -72,7 +72,7 @@ namespace nt2
 }
 
 #define NT2_COEFF_GEN(z,n,text)                                           \
-boost::mpl::integral_c< BOOST_PP_TUPLE_ELEM(3,0,text)                     \
+boost::mpl::integral_c< NT2_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))       \
                       , BOOST_PP_TUPLE_ELEM(BOOST_PP_TUPLE_ELEM(3,1,text) \
                                            ,n                             \
                                            ,BOOST_PP_TUPLE_ELEM(3,2,text) \
@@ -86,7 +86,7 @@ boost::mpl::integral_c< BOOST_PP_TUPLE_ELEM(3,0,text)                     \
 #define NT2_HORNER_COEFF(Type, Size, Seq)                                     \
 boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
                                  ,NT2_COEFF_GEN                               \
-                                 ,(nt2::meta::as_integer<Type>::type,Size,Seq)\
+                                 ,((nt2::meta::as_integer<Type, unsigned>::type),Size,Seq)\
                                  ) >                                          \
 /**/
 
@@ -96,7 +96,7 @@ boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
 #define NT2_HORNER_COEFF_T(Type, Size, Seq)                                   \
 boost::mpl::vector< BOOST_PP_ENUM(Size                                        \
                                  ,NT2_COEFF_GEN                               \
-                                 ,(typename nt2::meta::as_integer<Type>::type \
+                                 ,((typename nt2::meta::as_integer<Type, unsigned>::type)\
                                   ,Size                                       \
                                   ,Seq)                                       \
                                  ) >                                          \

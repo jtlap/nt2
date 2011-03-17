@@ -60,7 +60,7 @@ namespace nt2
           return a0 <= Const<A0,0xc08ff00000000000ll>();
         }
 
-        static inline A0 reduce(const A0& a0, A0 , A0 , A0& x)
+        static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
         {
           A0 k = round2even(a0);
           x = (a0 - k)*Log_2<A0>();
@@ -101,7 +101,7 @@ namespace nt2
           return k;
         }
 
-        static inline A0 approx(A0 x)
+        static inline A0 approx(const A0& x)
         {
           A0 xx =  sqr(x);
           A0 px = x*horner<NT2_HORNER_COEFF(double, 4,
