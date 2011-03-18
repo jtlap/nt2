@@ -12,21 +12,21 @@
 // Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// modified by jt the 21/02/2011
+/// modified by jt the 18/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/ieee/include/successor.hpp>
 
-NT2_TEST_CASE_TPL ( successor_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::successor;
   using nt2::tag::successor_;
@@ -47,8 +47,8 @@ NT2_TEST_CASE_TPL ( successor_real__1,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
-    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = successor(a0);
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( successor_real__1,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( successor_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_REAL_TYPES)
 {
   using nt2::successor;
   using nt2::tag::successor_;
@@ -85,9 +85,9 @@ NT2_TEST_CASE_TPL ( successor_real__2,  NT2_REAL_TYPES)
   {
     typedef typename nt2::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, iT(2), iT(2));
-    double ulp0 = 0.0, ulpd = 0.0;
-    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    NT2_CREATE_BUF(tab_a1,iT, NR, iT(0), iT(10));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
