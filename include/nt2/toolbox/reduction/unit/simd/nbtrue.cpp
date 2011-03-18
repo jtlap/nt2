@@ -6,56 +6,61 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - nbtrue/simd Mode"
 
-#include <nt2/toolbox/reduction/include/nbtrue.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of reduction components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 24/02/2011
+/// modified by jt the 18/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/include/functions/boolean.hpp>
-#include <nt2/include/functions/hmsb.hpp>
-#include <nt2/include/functions/is_eqz.hpp> 
-#include <iostream>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/reduction/include/nbtrue.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(nbtrue, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_REAL_TYPES)
 {
- using nt2::nbtrue;
- using nt2::tag::nbtrue_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
+  using nt2::nbtrue;
+  using nt2::tag::nbtrue_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef typename nt2::meta::scalar_of<T>::type sT;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<nbtrue_(vT)>::type r_t;
+  typedef typename nt2::meta::call<nbtrue_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<nbtrue_(n_t)>::type call_type;
-
- NT2_TEST( (boost::is_same<call_type, int32_t>::value) );  
- NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- for(int j =  0;  j < 10; j++)
-   {
-     for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = nt2::random(-1, 1); // good value here for nbtrue
-     }
-     n_t a0 = load<n_t>(&data[0],0); 
-     int32_t v  = nbtrue(a0);
-     std::cout << a0 << "-> " << v << std::endl; 
-     int32_t z = 0; 
-     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-       { 
-       z = z + (a0[j]!= 0); 
-       }
-     NT2_TEST_EQUAL(z, v);
-   }
-}
-
- 
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    typedef typename nt2::meta::scalar_of<T>::type sT;
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = nbtrue(a0);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::nbtrue(tab_a0[k])), 2.5);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl;
+  }
+} // end of test for real_

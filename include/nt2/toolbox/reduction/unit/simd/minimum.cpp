@@ -6,47 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - minimum simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - minimum/simd Mode"
 
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of reduction components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 24/02/2011
+/// modified by jt the 18/03/2011
+#include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/toolbox/reduction/include/minimum.hpp>
-
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/reduction/include/minimum.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of nt2::minimum in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( minimum, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL ( minimum_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::minimum;
-  using nt2::load;
   using nt2::tag::minimum_;
+  using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
- 
+  typedef typename nt2::meta::scalar_of<T>::type sT;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>             n_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<minimum_(vT)>::type r_t;
+  typedef typename nt2::meta::call<minimum_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<minimum_(native<T,ext_t>)>::type
-                            , T 
-                            >::value)
-          );
-  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
-  for(int i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = -int(cardinal_of<n_t>::value/2)+i;
-  //  data[cardinal_of<n_t>::value/2] = 2;
-  
-  n_t v = load<n_t>(&data[0],0);
-  std::cout << v << std::endl; 
-  T z = v[0];
-  for(int i = 1; i<cardinal_of<n_t>::value;++i)
-    if (v[i] < z) z = v[i];
-  std::cout << z << std::endl;
-  std::cout <<  nt2::minimum(v) << std::endl;
-  NT2_TEST_EQUAL( nt2::minimum(v), z );
-}
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    typedef typename nt2::meta::scalar_of<T>::type sT;
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = minimum(a0);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::minimum(tab_a0[k])));
+        }
+      }
+    
+  }
+} // end of test for real_
