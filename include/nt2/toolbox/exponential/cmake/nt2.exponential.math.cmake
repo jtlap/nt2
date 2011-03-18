@@ -17,8 +17,8 @@ if(UNIX)
   set(CMAKE_REQUIRED_LIBRARIES m)
 endif()
 
-check_function_exists(ilogb NT2_TOOLBOX_IEEE_HAS_CBRT)
-check_function_exists(ilogbf NT2_TOOLBOX_IEEE_HAS_CBRTF)
+check_function_exists(cbrt NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT)
+check_function_exists(cbrtf NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF)
 
 ################################################################################
 # Generate math.hpp
