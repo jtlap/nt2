@@ -2,10 +2,10 @@
     {
      'functor' : {
          'arity' : '1',
-         'call_types' : ['T','iT'],
-         'ret_arity' : '0',
+         'call_types' : [],
+         'ret_arity' : '2',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type>',
             },
          'simd_types' : [],
          'special' : ['standard'],
@@ -16,8 +16,12 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 06/03/2011',
-             'included' : ['#include <nt2/include/functions/frexp.hpp>'],
-             'no_ulp' : 'False',
+             'included' :
+                ['#include <boost/fusion/tuple.hpp>',
+                 '#include <nt2/include/functions/mantissa.hpp>',
+                 '#include <nt2/include/functions/exponent.hpp>'],
+
+             'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 06/03/2011',
             },
@@ -31,7 +35,7 @@
                  'default' : ['nt2::standard::frexp(a0)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::frexp(a0)'],
+                 'default' : [['nt2::mantissa(a0)/2', 'nt2::exponent(a0)+1']],
                 },
              'simd' : {
                 },
