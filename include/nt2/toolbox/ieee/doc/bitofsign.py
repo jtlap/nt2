@@ -36,7 +36,7 @@
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'T(1ull << sizeof(T)*8-1)',
+                 'nt2::Mone<T>()' : 'T(1ull << (sizeof(T)*8-1))',
                  'nt2::One<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },

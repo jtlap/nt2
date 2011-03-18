@@ -15,7 +15,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : ['#include <nt2/include/functions/next.hpp>', '#include <nt2/sdk/constant/eps_related.hpp>'],
+             'included' : ['#include <nt2/include/functions/next.hpp>',
+                           '#include <nt2/sdk/constant/eps_related.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',
@@ -74,7 +75,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : ['#include <nt2/include/functions/next.hpp>', '#include <nt2/sdk/constant/eps_related.hpp>'],
+             'included' : ['#include <nt2/include/functions/next.hpp>',
+                           '#include <nt2/sdk/constant/eps_related.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',
@@ -90,7 +92,7 @@
                  'default' : ['nt2::successor(a0,a1)'],
                     },
              'property_value' : {
-                 'default' : ['nt2::next(nt2::next(a0)'],
+                 'default' : ['nt2::next(nt2::next(a0))'],
                 },
              'ulp_thresh' : '0',
             },
