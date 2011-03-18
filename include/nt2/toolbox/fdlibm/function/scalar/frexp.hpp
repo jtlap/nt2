@@ -35,7 +35,9 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0> struct result<This(A0)>
     {
-      typedef boost::fusion::vector<double,int64_t>             type;
+      typedef typename meta::strip<A0>::type         f_type;
+      typedef typename meta::as_integer<A0>::type    i_type; 
+      typedef boost::fusion::vector<f_type, i_type>    type;
     };
 
     NT2_FUNCTOR_CALL(1)
