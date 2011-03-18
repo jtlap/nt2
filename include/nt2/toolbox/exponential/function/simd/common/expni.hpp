@@ -84,7 +84,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A1 x =  b_or(a1, is_lez(a1));
+      A1 isleza1 = is_lez(a1); 
+      A1 x =  b_or(a1, isleza1);
       const int32_t sn =  a0;
       if( sn == 0 )  return nt2::exp(-x)/x;
       if (sn < 0 )   return Nan<A1>();
@@ -103,35 +104,27 @@ namespace nt2 { namespace ext
       A1 test1 = le(a1, One<A1>());
       std::cout << test1 << std::endl; 
       int32_t nb = 0;
-      std::cout << "nbtrue(test1) " <<  nbtrue(test1) << std::endl; 
-      std::cout << "test1 " <<  test1 << std::endl; 
       if ((nb = nbtrue(test1)) > 0)
       {
-	std::cout << "nb " <<  nb << std::endl; 
         A1 xx = sel(test1, x, One<A1>());
-	std::cout << "x " <<  x << std::endl; 
-	std::cout << "xx " <<  xx << std::endl; 
-        A1 y1 = case_1(xx, sn);
-	std::cout << "y1 " <<  y1 << std::endl; 
+        A1 y1 = case_1(xx, sn, n);
         r = b_ornot(y1, test1);
-	std::cout << "r " <<  r << std::endl; 
-        if (nb >= meta::cardinal_of<A1>::value) return r;
+        if (nb >= meta::cardinal_of<A1>::value) return b_or(r, isleza1);
       }
       A1 xx = sel(test1, Two<A1>(), x);
-      A1 y2 =  case_2(xx, sn);
+      A1 y2 =  case_2(xx, sn, n);
       r &= b_or(y2, test1);
       r =  seladd(lt(x, Maxlog<A1>()), Zero<A1>(), r);
-      return b_or(r, is_nan(a1)); // we are done
+      return b_or(r,  b_or(is_nan(a1), isleza1)); // we are done
     }
   private :
     template < class A1 >
-    static inline A1 case_1(const A1 & x,  int32_t sn)
+    static inline A1 case_1(const A1 & x,  int32_t sn, const A1 & n)
     {
       typedef typename meta::scalar_of<A1>::type sA1; 
       /*		Power series expansion		*/
       sA1 psi1 = Zero<sA1>(); 
       for( int32_t i=sn-1; i; --i )  psi1 += rec((sA1)i);
-      A1 n = splat<A1>(sn); 
       A1 psi = -Euler<A1>()-nt2::log(x)+splat<A1>(psi1); 
       A1 t; 
       A1 z = -x;
@@ -150,15 +143,14 @@ namespace nt2 { namespace ext
        while( any(gt(t, Halfeps<A1>())));
        t = n;
        A1 r = n - One<A1>();
-       return (nt2::pow(z, r) * psi / nt2::gamma(t)) - ans;
+       return (nt2::powi(z, sn-1) * psi / nt2::gamma(t)) - ans;
        //TO DO pow->powi and gamma splatted from scalar or mere factorial call
     }
     
     template < class A1 >
-    static inline A1 case_2(const A1 & x,  int32_t sn)
+    static inline A1 case_2(const A1 & x,  int32_t sn, const A1 & n)
     {
      typedef typename meta::scalar_of<A1>::type sA1;
-      A1 n = splat<A1>(sn); 
       int32_t sk = 1;
       A1 t; 
       A1 pkm2 = One<A1>();

@@ -17,12 +17,13 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/pow.hpp>
-#include <nt2/include/functions/powi.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+
 
 
 
@@ -79,7 +80,7 @@ namespace nt2 { namespace ext
       A0 x =  nt2::abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
-      y = seladd(is_nez(y), y, - (powi(y, a1) - x)/(aa1* powi(y, sub(a1, One<A1>()))));
+      y = seladd(is_nez(y), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a1, One<A1>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       return  b_and(is_nez(a0),
@@ -88,7 +89,8 @@ namespace nt2 { namespace ext
 			    a0,
 			    sel(b_and(is_even(a1), is_ltz(a0)),
 				Nan<A0>(),
-				y)
+				b_or(y, bitofsign(a0))
+				)
 			    )
 			)
 		    );
