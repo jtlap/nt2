@@ -52,7 +52,7 @@ namespace nt2
 	  A0 x = abs(a0);
 	  if (any(redu_t::replacement_needed(x)))
 	    {
-	      return map(sredu_t::cos_replacement, a0);
+	      return map(&sredu_t::cos_replacement, a0);
 	    }
 	  else
 	    {
@@ -67,14 +67,14 @@ namespace nt2
 	      return b_or(testnan, z);
 	    }
 	}
-	
+
 	static inline A0 sina(const A0& a0)
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x = abs(a0);
 	  if (any(redu_t::replacement_needed(x)))
 	    {
-	      return map(sredu_t::sin_replacement, a0);
+	      return map(&sredu_t::sin_replacement, a0);
 	    }
 	  else
 	    {
@@ -94,7 +94,7 @@ namespace nt2
 	  A0 x =  abs(a0); 
 	  if (any(redu_t::replacement_needed(x)))
 	    {
-	      return map(sredu_t::tan_replacement, a0);
+	      return map(&sredu_t::tan_replacement, a0);
 	    }
 	  else
 	    {	  
@@ -112,7 +112,7 @@ namespace nt2
 	  A0 x =  abs(a0); 
 	  if (any(redu_t::replacement_needed(x)))
 	    {
-	      return map(sredu_t::cot_replacement, a0);
+	      return map(&sredu_t::cot_replacement, a0);
 	    }
 	  else
 	    {	   
@@ -131,7 +131,7 @@ namespace nt2
 	  A0 x =  abs(a0);
 	  if (false && any(redu_t::replacement_needed(x)))
 	    {
-	      // map(sredu_t::sincos_replacement, a0, s, c);
+	      // map(&sredu_t::sincos_replacement, a0, s, c);
 	    }
 	  else
 	    {
