@@ -18,19 +18,23 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_greater_or_equal_, tag::cpu_,
-                                          (A0)(X),
-                                          ((simd_<arithmetic_<A0>,X>))
-                                          ((simd_<arithmetic_<A0>,X>))
-                                          ((simd_<arithmetic_<A0>,X>))
-                                         );
+
+NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::almost_greater_or_equal_(tag::simd_<tag::integer_,X>,
+					     tag::simd_<tag::integer_,X>, 
+			  		     tag::simd_<tag::integer_,X>)), 
+			 ((simd_<integer_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
+                       );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::almost_greater_or_equal_(tag::simd_<tag::arithmetic_, X> ,
-                                            tag::simd_<tag::arithmetic_, X> ,
-                                            tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::almost_greater_or_equal_(tag::simd_<tag::integer_, X> ,
+                                            tag::simd_<tag::integer_, X> ,
+                                            tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -39,7 +43,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return isge(a0, a1-abs(a2));
+      return ge(a0, a1-abs(a2));
     }
   };
 } }
@@ -47,19 +51,23 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_greater_or_equal_, tag::cpu_,
-                                          (A0)(X),
-                                          ((simd_<real_<A0>,X>))
-                                          ((simd_<real_<A0>,X>))
-                                          ((simd_<real_<A0>,X>))
-                                         );
+NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::almost_greater_or_equal_(tag::simd_<tag::real_,X>,
+					     tag::simd_<tag::real_,X>, 
+			  		     tag::simd_<tag::integer_,X>)), 
+			 ((simd_<real_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
+                       );
+                                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::almost_greater_or_equal_(tag::simd_<tag::real_, X> ,
                                             tag::simd_<tag::real_, X> ,
-                                            tag::simd_<tag::real_, X> ),
+                                            tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -70,7 +78,7 @@ namespace nt2 { namespace ext
     {
       return b_and(
                isord(a0, a1),
-               isge(a0, predecessor(a1, a2))
+               ge(a0, predecessor(a1, a2))
                );
     }
   };
