@@ -12,7 +12,7 @@
 // Test behavior of gsl_specfun components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 10/03/2011
-/// modified by jt the 12/03/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_knu.hpp>
 
-NT2_TEST_CASE_TPL ( gsl_sf_bessel_knu_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( gsl_sf_bessel_knu_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::gsl_specfun::gsl_sf_bessel_knu;
@@ -38,16 +38,17 @@ NT2_TEST_CASE_TPL ( gsl_sf_bessel_knu_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,iT, NR, iT(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, iT(-10), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     iT a0;
     T a1;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

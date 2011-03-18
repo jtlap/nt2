@@ -139,7 +139,6 @@ SET( SOURCES
   gsl_sf_ci.cpp
   gsl_sf_laguerre_n.cpp
   gsl_sf_legendre_p1.cpp
-  gsl_sf_bessel_klu.cpp
   gsl_sf_legendre_p2.cpp
   gsl_sf_sin.cpp
   gsl_sf_hyperg_1f1_int.cpp
