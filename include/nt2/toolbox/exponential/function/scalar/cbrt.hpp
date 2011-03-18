@@ -9,7 +9,8 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_CBRT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_CBRT_HPP_INCLUDED
 
-
+#include <nt2/toolbox/exponential/details/math.hpp>
+#include <boost/math/special_functions/cbrt.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -59,7 +60,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT
       return ::cbrt(a0);
+    #else
+      return boost::math::cbrt(a0);
+    #endif
     }
   };
 } }
@@ -85,7 +90,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+    #ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF
       return ::cbrtf(a0);
+    #else
+      return boost::math::cbrt(a0);
+    #endif
     }
   };
 } }
