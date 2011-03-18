@@ -43,43 +43,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
+// Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::log_, tag::cpu_,
                      (A0),
-                     (double_<A0>)
+                     (real_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::log_(tag::double_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return std::log(a0);
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::log_, tag::cpu_,
-                     (A0),
-                     (float_<A0>)
-                    )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::log_(tag::float_),
+  struct call<tag::log_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
