@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a1,iT, NR, T(0), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     iT a1;
