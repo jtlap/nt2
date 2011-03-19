@@ -42,12 +42,12 @@ namespace nt2 { namespace container
     ////////////////////////////////////////////////////////////////////////////
     // Default explicit constructor
     ////////////////////////////////////////////////////////////////////////////
-    template<class Xpr>
-    explicit  expression( Xpr const& xpr = Xpr() )
+    explicit  expression( Expr const& xpr = Expr() )
             : parent(xpr), is_silent(false)
     {
       // If Expr is an assignment node, set xpr.is_evaluable to false
-      if(meta::is_assignment_expression<Expr>::value) xpr.silence();
+      //if(meta::is_assignment_expression<Expr>::value)
+      //  boost::proto::right(*this).silence();
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,17 @@ namespace nt2 { namespace container
     ////////////////////////////////////////////////////////////////////////////
     void operator()()
     {
+      // current_target::evaluate(*this);
+    }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // table expression have an operator[] that adds specific settings
+    ////////////////////////////////////////////////////////////////////////////
+    template<class Settings>
+    expression& operator[](Settings const& )
+    {
+      // ????
+      return *this;
     }
 
     ////////////////////////////////////////////////////////////////////////////
