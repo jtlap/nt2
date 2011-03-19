@@ -8,6 +8,7 @@
              'default' : 'T',
             },
          'simd_types' : ['real_'],
+         'special' : ['reduction'],  
          'type_defs' : [],
          'types' : ['integer_'],
         },
@@ -15,7 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : [],
+             'included' : [],   
+             'simd_included' : ['#include <nt2/include/functions/bits.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
@@ -50,6 +52,16 @@
              'ulp_thresh' : {
                  'default' : ['0'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        iT z = nt2::bits(a0[0])&1;",
+                        "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
+                        "        {",
+                        "          z |= nt2::bits(a0[i])&1<<i;",
+                        "        }",
+                        "        NT2_TEST_EQUAL( v,z);",
+                            ]
+               },
             },
         },
     },

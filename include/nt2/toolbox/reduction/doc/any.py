@@ -8,6 +8,7 @@
              'default' : 'typename nt2::meta::logical<T>::type',
             },
          'simd_types' : ['real_'],
+         'special' : ['reduction'],  
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },
@@ -50,6 +51,16 @@
              'ulp_thresh' : {
                  'default' : ['0'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        bool z = false;",
+                        "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
+                        "        {",
+                        "          z = z||a0[i];",
+                        "        }",
+                        "        NT2_TEST_EQUAL( v,z);",
+                            ]
+               },
             },
         },
     },
