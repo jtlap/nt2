@@ -49,7 +49,7 @@ namespace nt2
 	  boost::fusion::vector_tie(x, k) = fast_frexp(a0);
 	  const int_type x_lt_sqrthf = -is_greater(Sqrt_2o_2<A0>(), x);
 	  k += x_lt_sqrthf;
-	  f = minusone(x+b_and(x, genmask<A0>(x_lt_sqrthf)));
+	  f = minusone(x+b_and(x, genmask(x_lt_sqrthf)));
 	  dk = tofloat(k);
 	  s = f/add(Two<A0>(),f);
 	  A0 z = sqr(s);
