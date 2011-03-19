@@ -11,6 +11,7 @@
          'special' : ['trigonometric'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'simd_types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {
