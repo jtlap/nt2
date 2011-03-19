@@ -6,9 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::memory::allocator"
+#define NT2_UNIT_MODULE "nt2::memory::allocator_adaptor"
 
-#include <nt2/sdk/memory/allocator.hpp>
+#include <nt2/sdk/memory/allocator_adaptor.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 
 #include <vector>
@@ -22,7 +22,10 @@
 NT2_TEST_CASE_TPL(vector, NT2_TYPES)
 {
   using nt2::memory::is_aligned;
-  std::vector<T, nt2::memory::allocator<T> > p(5);
+
+  typedef std::allocator<float> base;
+  typedef nt2::memory::allocator_adaptor<T,base> alloc;
+  std::vector<T, alloc > p(5);
 
   NT2_TEST( is_aligned( &p[0] ) );
   for(int i=0;i<5;++i) p[i] = T(10)*i;
