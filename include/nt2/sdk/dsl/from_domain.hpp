@@ -11,7 +11,7 @@
 
 #include <boost/proto/proto.hpp>
 #include <nt2/sdk/dsl/category.hpp>
-#include <nt2/sdk/functor/details/dispatch.hpp>
+#include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/functor/preprocessor/function.hpp>
 

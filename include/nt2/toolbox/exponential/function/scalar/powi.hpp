@@ -21,6 +21,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/copysign.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

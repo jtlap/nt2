@@ -64,7 +64,7 @@ namespace nt2 { namespace container
     // size,lower and upper require a dimension, return 1 if out of bound
     // size has a std conformant version that return total number of elements
     ////////////////////////////////////////////////////////////////////////////
-    size_t    size()       const { return mData.size();  }
+    size_t    size() const { return mData.size();  }
 
     template<std::size_t I>
     size_t    size() const { return (I==1) ? mData.size()   : 1;  }
