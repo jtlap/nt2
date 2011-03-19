@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,20 +26,22 @@
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 extern "C" {extern long double cephes_acosl(long double);}
 
-NT2_TEST_CASE_TPL ( acos_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( acos_real__1_0,  NT2_REAL_TYPES)
 {
+  
   using nt2::acos;
   using nt2::tag::acos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acos_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -55,9 +57,9 @@ NT2_TEST_CASE_TPL ( acos_real__1,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Mone<T>(), nt2::One<T>());
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -69,20 +71,22 @@ NT2_TEST_CASE_TPL ( acos_real__1,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( acos_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( acos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::acos;
   using nt2::tag::acos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acos_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -90,20 +94,22 @@ NT2_TEST_CASE_TPL ( acos_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(acos(nt2::Zero<T>()), nt2::Pi<r_t>()/2, 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( acos_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( acos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::acos;
   using nt2::tag::acos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acos_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests

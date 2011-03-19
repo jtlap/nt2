@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,11 +28,12 @@
 #include <nt2/include/functions/sind.hpp>
 #include <nt2/include/functions/cosd.hpp>
 
-NT2_TEST_CASE_TPL ( fast_sincosd_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_REAL_TYPES)
 {
+  
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -43,6 +44,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -91,11 +93,11 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -105,18 +107,19 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r), nt2::sind(a0), 1.0);
-        NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r), nt2::cosd(a0), 1.0);
+        NT2_TEST_TUPLE_ULP_EQUAL( r0, nt2::sind(a0), 1.0);
+        NT2_TEST_TUPLE_ULP_EQUAL( r1, nt2::cosd(a0), 1.0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( fast_sincosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( fast_sincosd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -127,6 +130,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -144,11 +148,12 @@ NT2_TEST_CASE_TPL ( fast_sincosd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   }
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( fast_sincosd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( fast_sincosd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -159,6 +164,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests

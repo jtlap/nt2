@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 15/03/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 #include <nt2/include/functions/cotd.hpp>
 
-NT2_TEST_CASE_TPL ( fast_cotd_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fast_cotd_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::fast_cotd;
@@ -41,6 +41,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_real__1,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -59,9 +60,9 @@ NT2_TEST_CASE_TPL ( fast_cotd_real__1,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -73,7 +74,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_real__1,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( fast_cotd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( fast_cotd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::fast_cotd;
@@ -88,6 +89,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -95,7 +97,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 1.0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( fast_cotd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( fast_cotd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::fast_cotd;
@@ -110,6 +112,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
