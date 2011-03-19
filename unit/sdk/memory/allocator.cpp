@@ -19,12 +19,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test allocator with std::vector
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(vector)
+NT2_TEST_CASE_TPL(vector, NT2_TYPES)
 {
   using nt2::memory::is_aligned;
-  std::vector<float, nt2::memory::allocator<float> > p(5);
+  std::vector<T, nt2::memory::allocator<T> > p(5);
 
   NT2_TEST( is_aligned( &p[0] ) );
-  for(int i=0;i<5;++i) p[i] = 10.f*i;
-  for(int i=0;i<5;++i) NT2_TEST_EQUAL(p[i],10*i);
+  for(int i=0;i<5;++i) p[i] = T(10)*i;
+  for(int i=0;i<5;++i) NT2_TEST_EQUAL(p[i],T(10)*i);
 }
