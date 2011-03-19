@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+ 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(log1p(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
@@ -52,6 +52,7 @@ NT2_TEST_CASE_TPL ( log1p_real__1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(log1p(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(log1p(nt2::One<T>()), nt2::Log_2<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(log1p(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(log1p(nt2::Eps<T>()), nt2::Eps<r_t>(), 0.5);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {

@@ -36,6 +36,7 @@
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>()' : 'nt2::Log_2<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Eps<T>()' : 'nt2::Eps<r_t>()',
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::Minf<r_t>()',
