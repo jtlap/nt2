@@ -10,19 +10,19 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(swar.scalar.unit)
+##ADD_CUSTOM_TARGET(swar.scalar.unit)
 ADD_CUSTOM_TARGET(swar.simd.unit)
 ADD_CUSTOM_TARGET(swar.unit)
 
 ##############################################################################
 # Toolbox swar unit tests
 ##############################################################################
-ADD_SUBDIRECTORY(scalar)
+##ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 
 ################################################################################
 # Add driver rule dependencies
 ################################################################################
-ADD_DEPENDENCIES(swar.unit swar.scalar.unit)  
+##ADD_DEPENDENCIES(swar.unit swar.scalar.unit)  
 ADD_DEPENDENCIES(swar.unit swar.simd.unit)
 ADD_DEPENDENCIES(unit swar.unit)
