@@ -62,6 +62,8 @@ Cephes Math Library Release 2.3:  June, 1995
 Copyright 1984, 1987, 1989, 1995 by Stephen L. Moshier
 */
 
+#ifndef _MCONF_H_LDOUBLE_INCLUDED_
+#define _MCONF_H_LDOUBLE_INCLUDED_
 
 /* Constant definitions for math error conditions
  */
@@ -167,3 +169,5 @@ int cephes_mtherr();
 
 /* Variable for error reporting.  See mtherr.c.  */
 extern int merror;
+
+#endif /* _MCONF_H_LDOUBLE_INCLUDED_ */

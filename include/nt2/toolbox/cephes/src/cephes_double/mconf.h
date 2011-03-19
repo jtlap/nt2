@@ -62,6 +62,9 @@ Copyright 1984, 1987, 1989, 1995 by Stephen L. Moshier
 */
 
 
+#ifndef _MCONF_H_DOUBLE_INCLUDED_
+#define _MCONF_H_DOUBLE_INCLUDED_
+
 /* Define if the `long double' type works.  */
 #define HAVE_LONG_DOUBLE 1
 
@@ -199,3 +202,5 @@ int cephes_mtherr();
 
 /* Variable for error reporting.  See mtherr.c.  */
 extern int merror;
+
+#endif /* _MCONF_H_DOUBLE_INCLUDED_ */

@@ -62,6 +62,8 @@ Cephes Math Library Release 2.3:  June, 1995
 Copyright 1984, 1987, 1989, 1995 by Stephen L. Moshier
 */
 
+#ifndef _MCONF_H_SINGLE_INCLUDED_
+#define _MCONF_H_SINGLE_INCLUDED_
 
 /* Constant definitions for math error conditions
  */
@@ -177,3 +179,5 @@ extern int merror;
 /* Constants to avoid MSVC 'division by zero' errors */
 static const float ZEROF = 0.0f;
 static const double ZERO = 0.0;
+
+#endif /* _MCONF_H_SINGLE_INCLUDED_ */
