@@ -13,6 +13,7 @@
 // This file generate basic EDSL expression wrapper over any nt2 function
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/any.hpp>
+#include <boost/proto/proto.hpp>
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/extension/parameters.hpp>
 
