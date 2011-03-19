@@ -21,7 +21,6 @@
 #include <nt2/toolbox/reduction/include/maximum.hpp>
 #include <nt2/toolbox/reduction/include/first.hpp>
 #include <nt2/toolbox/reduction/include/dot.hpp>
-#include <nt2/toolbox/reduction/include/at.hpp>
 #include <nt2/toolbox/reduction/include/all.hpp>
 #include <nt2/toolbox/reduction/include/any.hpp>
 //<\include>
