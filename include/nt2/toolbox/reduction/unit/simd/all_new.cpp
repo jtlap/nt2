@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - posmax/simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - all/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 19/03/2011
+/// modified by jt the 18/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -24,44 +24,42 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/reduction/include/posmax.hpp>
+#include <nt2/toolbox/reduction/include/all.hpp>
 
-NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_REAL_TYPES)
 {
-  using nt2::posmax;
-  using nt2::tag::posmax_;
+  using nt2::all;
+  using nt2::tag::all_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::scalar_of<T>::type sT;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<posmax_(vT)>::type r_t;
-  typedef typename nt2::meta::call<posmax_(T)>::type sr_t;
+  typedef typename nt2::meta::call<all_(vT)>::type r_t;
+  typedef typename nt2::meta::call<all_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename nt2::meta::scalar_of<T>::type sT;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        T v = posmax(a0);
-        T z = a0[0];
-        uint32_t p = 0;
-        for(int i = 1; i< cardinal_of<n_t>::value; ++i)
-        {
-          if (a0[i]>z) {z=a0[i]; p=i;}
+        r_t v = all(a0);
+	bool z = true; 
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+	  { 
+	    z = z && (a0[j]); 
+	  }
+	NT2_TEST_EQUAL( v, z);
         }
-        NT2_TEST_EQUAL( v,p);
       }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
+    
   }
 } // end of test for real_

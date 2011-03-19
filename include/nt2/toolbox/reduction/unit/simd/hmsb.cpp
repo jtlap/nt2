@@ -12,7 +12,7 @@
 // Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 19/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -25,6 +25,8 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/reduction/include/hmsb.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/bits.hpp>
 
 NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_REAL_TYPES)
 {
@@ -51,12 +53,13 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_REAL_TYPES)
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = hmsb(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        T v = hmsb(a0);
+        iT z = nt2::bits(a0[0])&1;
+        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::hmsb(tab_a0[k])));
+          z |= nt2::bits(a0[i])&1<<i;
         }
+        NT2_TEST_EQUAL( v,z);
       }
     
   }

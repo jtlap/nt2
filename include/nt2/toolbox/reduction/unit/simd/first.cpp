@@ -12,7 +12,7 @@
 // Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 19/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -53,12 +53,8 @@ NT2_TEST_CASE_TPL ( first_real__1_0,  NT2_REAL_TYPES)
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = first(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::first(tab_a0[k])));
-        }
+        T v = first(a0);
+        NT2_TEST_EQUAL( v,a0[0]);
       }
     
   }
