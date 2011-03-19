@@ -21,6 +21,7 @@ SET( SOURCES
     allocate.cpp
     overload.cpp
     allocator.cpp
+    allocator_adaptor.cpp
     buffer.cpp
     slice.cpp
     stride.cpp
