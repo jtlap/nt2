@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 18/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/include/asecd.hpp>
 
-NT2_TEST_CASE_TPL ( asecd_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
+NT2_TEST_CASE_TPL ( asecd_real_convert__1_0,  NT2_REAL_CONVERTIBLE_TYPES)
 {
   using nt2::asecd;
   using nt2::tag::asecd_;
@@ -47,8 +47,8 @@ NT2_TEST_CASE_TPL ( asecd_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::One<T>(), nt2::Ten<T>());
-    double ulp0 = 0.0, ulpd = 0.0;
-    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = asecd(a0);
