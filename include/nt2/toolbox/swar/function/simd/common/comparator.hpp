@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     struct result<This(A0,A0,A2)>
     {
       typedef typename meta::strip<A0>::type                       nA0;
-      typedef boost::fusion::tuple<nA0,nA0,int>                   type;
+      typedef boost::fusion::vector<nA0,nA0,int>                   type;
     };
 
     NT2_FUNCTOR_CALL(3)
