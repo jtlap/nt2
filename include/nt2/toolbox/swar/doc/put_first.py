@@ -2,12 +2,14 @@
     {
      'functor' : {
          'arity' : '2',
-         'call_types' : ['T','iT'],
+         'call_types' : ['T', 'iT'],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_'],
+         'simd_types' : ['real_','signed_int_','unsigned_int_'],
+         'scalar_ints': 'True',   
+         'special' : ['swar'],  
          'type_defs' : [],
          'types' : ['real_'],
         },
@@ -16,15 +18,13 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],
-             'no_ulp' : 'True',   
+             'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
-             'real_' : [['T(-100)', 'T(100)']],
-             'signed_int_' : [],
-             'unsigned_int_' : [],
+             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()'],['0','nt2::meta::cardinal_of<r_t>::value-1']],
+             'real_' : [['T(-100)', 'T(100)'],['0','nt2::meta::cardinal_of<r_t>::value-1']],
             },
          'specific_values' : {
              'default' : {
@@ -58,6 +58,11 @@
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        NT2_TEST_EQUAL(v[0],a0[a1]);",
+                            ]
+               },
             },
         },
     },

@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'T',
             },
+         'special' : ['swar'],  
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_'],
@@ -15,8 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : [],
-             'no_ulp' : 'True',   
+             'simd_included' : ['#include <nt2/include/functions/prod.hpp>'],
+             'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
@@ -58,6 +59,15 @@
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        T p= nt2::prod(a0);",
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)",      
+                        "        {",
+                        "           NT2_TEST_EQUAL(v[i],p);",
+                        "        }",
+                            ]
+               },
             },
         },
     },
