@@ -6,67 +6,58 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 swar toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - split/simd Mode"
 
-#include <nt2/toolbox/swar/include/split.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of swar components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 24/02/2011
+/// modified by jt the 20/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/include/functions/boolean.hpp>
-#include <nt2/include/functions/hmsb.hpp>
-#include <nt2/include/functions/group.hpp> 
-#include <nt2/include/functions/boolean.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/sdk/meta/templatize.hpp>
-#include <iostream>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/swar/include/split.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(split, (float))//(int16_t)(uint16_t)
-// (int32_t)(uint32_t)(int8_t)(uint8_t) )
+NT2_TEST_CASE_TPL ( split_lt_64__1_0,  (int16_t)(uint16_t)(int32_t)(uint32_t)(int8_t)(uint8_t)(float))
 {
- using nt2::split;
- using nt2::tag::split_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
+  using nt2::split;
+  using nt2::tag::split_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<split_(vT)>::type r_t;
+  typedef typename nt2::meta::call<split_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<split_(n_t)>::type                   call_type;
- typedef typename nt2::meta::upgrade<T>::type                              utype;
- typedef nt2::simd::native<utype,ext_t>                                    ttype;
- typedef nt2::meta::is_floating_point<T>                                    rtag;
- typedef nt2::simd::native<typename  nt2::meta::double__<T>::type,ext_t>    dtype;
- typedef typename boost::mpl::if_c < rtag::value
-                                  , dtype, ttype>::type                    rtype;
- typedef boost::fusion::tuple<rtype,rtype>                                  rn_t;
-
-
- NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
- NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- for(int j =  0;  j < 10; j++)
-   {
-     for(int i=0;i<2*cardinal_of<n_t>::value;++i){
-       data[i] = i; // good value here for split
-     }
-     n_t a0 = load<n_t>(&data[0],0); 
-     rtype v1, v0; 
-     boost::fusion::tie(v0, v1) = split(a0);
-     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-       {
-       std::cout << a0 << std::endl; 
-       std::cout << v0 << "   " << v1 << std::endl;
-       n_t a1 = nt2::group(v0, v1);
-       NT2_TEST(nt2::all(nt2::eq(a0,a1))); 
-       }
-   }
-}
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = split(a0);
+        for(int i = 0; i< cardinal_of<n_t>::value/2; i++)
+        {
+          NT2_TEST_EQUAL( boost::fusion::get<0>(v)[i],a0[i]);
+          NT2_TEST_EQUAL( boost::fusion::get<1>(v)[i],a0[i+cardinal_of<n_t>::value/2]);
+        }
+      }
+    
+  }
+} // end of test for lt_64_

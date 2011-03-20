@@ -6,54 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 swar toolbox - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - splatted_minimum/simd Mode"
 
-#include <nt2/toolbox/swar/include/splatted_minimum.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of swar components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 24/02/2011
+/// modified by jt the 20/03/2011
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp> 
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/include/functions/boolean.hpp>
-#include <nt2/include/functions/hmsb.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/swar/include/splatted_minimum.hpp>
+// specific includes for arity 1 tests
 #include <nt2/include/functions/minimum.hpp>
-#include <nt2/include/functions/boolean.hpp> 
-#include <iostream>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(splatted_minimum, NT2_SIMD_TYPES) 
+NT2_TEST_CASE_TPL ( splatted_minimum_real__1_0,  NT2_REAL_TYPES)
 {
- using nt2::splatted_minimum;
- using nt2::tag::splatted_minimum_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
+  using nt2::splatted_minimum;
+  using nt2::tag::splatted_minimum_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<splatted_minimum_(vT)>::type r_t;
+  typedef typename nt2::meta::call<splatted_minimum_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<splatted_minimum_(n_t)>::type call_type;
-
- NT2_TEST( (boost::is_same<call_type, n_t>::value) );  
- NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
- for(int j =  0;  j < 10; j++)
-   {
-     for(int i=0;i<1*cardinal_of<n_t>::value;++i){
-       data[i] = int(cardinal_of<n_t>::value/2)-i-1; // good value here for splatted_minimum
-     }
-     n_t a0 = load<n_t>(&data[0],0); 
-     n_t v  = splatted_minimum(a0);
-     std::cout << "  " << a0 << "  " << v << "  " << nt2::minimum(a0) << std::endl; 
-     for(std::size_t k=0;k<cardinal_of<n_t>::value;++k)
-       { 
-       NT2_TEST_EQUAL(v[k], nt2::minimum(a0));
-       }
-   }
-} 
-  
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = splatted_minimum(a0);
+        T ma = nt2::minimum(a0);
+        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)
+        {
+           NT2_TEST_EQUAL(v[i],ma);
+        }
+      }
+    
+  }
+} // end of test for real_
