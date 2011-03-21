@@ -7,6 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+include(nt2.bessel.math)
+
 ADD_SUBDIRECTORY(bench)
 ADD_SUBDIRECTORY(unit)
 

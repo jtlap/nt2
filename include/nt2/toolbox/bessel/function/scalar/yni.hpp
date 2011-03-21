@@ -21,6 +21,7 @@
 #include <nt2/include/functions/y0.hpp>
 #include <nt2/include/functions/y1.hpp>
 
+#include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -69,7 +70,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return ::yn(a0, a1);
+    #ifdef NT2_TOOLBOX_BESSEL_HAS_YN
+      return ::yn(a0, a1);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS__YN)
+      return ::_yn(a0, a1);
+    #else
+      #warning yn not supported
+    #endif
     }
   };
 } }

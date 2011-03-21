@@ -19,6 +19,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/sin.hpp>
 
+#include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -72,7 +73,13 @@ namespace nt2 { namespace ext
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>(); 
       if (is_eqz(a0)) return Minf<result_type>(); 
+    #ifdef NT2_TOOLBOX_BESSEL_HAS_Y0
       return ::y0(a0);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS__Y0)
+      return ::_y0(a0);
+    #else
+      #warning y0 not supported
+    #endif
     }
   };
 } }

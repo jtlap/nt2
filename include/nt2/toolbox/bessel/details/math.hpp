@@ -6,12 +6,5 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_EXPONENTIAL_MATH_HPP_INCLUDED
-#define NT2_TOOLBOX_EXPONENTIAL_MATH_HPP_INCLUDED
 
-#cmakedefine NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT
-#cmakedefine NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF
-
-#include <math.h>
-
-#endif
+#error This file must be generated
