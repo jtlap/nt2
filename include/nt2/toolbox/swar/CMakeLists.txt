@@ -9,7 +9,6 @@
 
 ADD_SUBDIRECTORY(bench)
 ADD_SUBDIRECTORY(unit)
-
 ##############################################################################
 ## TODO: Write command for building your own sources
 ##############################################################################
