@@ -12,6 +12,25 @@
 /////////////////////////////////////////////////////////////////////////////
 // group as currently no meaning in scalar mode
 /////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
+                        (A0),
+                        ((arithmetic_<A0>))
+                        ((arithmetic_<A0>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::group_(tag::arithmetic_, 
+                          tag::arithmetic_ ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+      struct result<This(A0, A0)> : meta::strip<A0>{}; 
+
+  };
+} }
       
 #endif
 // modified by jt the 26/12/2010
