@@ -7,17 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-ADD_CUSTOM_TARGET(sdk.examples)
+include(nt2.compiler.options)
+include(nt2.boost)
+include(nt2.simd)
 
-################################################################################
-# Add all examples directories for sdk/
-################################################################################
-ADD_SUBDIRECTORY(config)
-ADD_SUBDIRECTORY(details)
-#ADD_SUBDIRECTORY(errors)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(functor)
-ADD_SUBDIRECTORY(memory)
-#ADD_SUBDIRECTORY(constants)
-#ADD_SUBDIRECTORY(simd)
-
+SET(NT2_SDK_DEPENDENCIES_INCLUDE_DIR " ")

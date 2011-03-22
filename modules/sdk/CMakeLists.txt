@@ -7,17 +7,20 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-ADD_CUSTOM_TARGET(sdk.examples)
+cmake_minimum_required(VERSION 2.6)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+include(dependencies.cmake)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include NT2_SDK_DEPENDENCIES_INCLUDE_DIR)
 
 ################################################################################
-# Add all examples directories for sdk/
+# Generate bootstrap.hpp
 ################################################################################
-ADD_SUBDIRECTORY(config)
-ADD_SUBDIRECTORY(details)
-#ADD_SUBDIRECTORY(errors)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(functor)
-ADD_SUBDIRECTORY(memory)
-#ADD_SUBDIRECTORY(constants)
-#ADD_SUBDIRECTORY(simd)
+CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
+                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
+              )
 
+add_subdirectory(bench)
+add_subdirectory(examples)
+add_subdirectory(unit)

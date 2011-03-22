@@ -10,9 +10,10 @@
 ################################################################################
 # Check for SIMD extensions availability
 ################################################################################
+INCLUDE(nt2.info)
 
 ################################################################################
-# Intel AVX Familly
+# Intel AVX Family
 ################################################################################
 IF(NT2_PROCESSOR STREQUAL X86)
 INCLUDE(arch/FindAVX)
@@ -26,7 +27,7 @@ INCLUDE(arch/FindXOP)
 ENDIF()
 
 ################################################################################
-# Intel/AMD SSE Familly
+# Intel/AMD SSE Family
 ################################################################################
 IF( NT2_PROCESSOR STREQUAL X86 OR NT2_PROCESSOR STREQUAL AMD )
 INCLUDE(arch/FindFMA4)
@@ -38,14 +39,14 @@ INCLUDE(arch/FindMMX)
 ENDIF()
 
 ################################################################################
-# IBM/Motorola/Apple VMX Familly
+# IBM/Motorola/Apple VMX Family
 ################################################################################
 IF(NT2_PROCESSOR STREQUAL PowerPC)
 INCLUDE(arch/FindVMX)
 ENDIF()
 
 ################################################################################
-# Intel/AMD SSE Familly fix-up to force arithmetic to be sse style everywhere
+# Intel/AMD SSE Family fix-up to force arithmetic to be sse style everywhere
 ################################################################################
 IF( NT2_PROCESSOR STREQUAL AMD OR NT2_PROCESSOR STREQUAL X86 OR NT2_PROCESSOR STREQUAL AMD )
   IF( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )

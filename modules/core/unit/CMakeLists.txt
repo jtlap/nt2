@@ -10,13 +10,14 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(sdk.unit)
+ADD_CUSTOM_TARGET(core.unit)
 
 ################################################################################
-# Add all examples directories for sdk/
+# Add all unit directories for core/
 ################################################################################
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(functor)
-ADD_SUBDIRECTORY(constant)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(simd)
+#ADD_SUBDIRECTORY(core/time)
+
+################################################################################
+# Add driver rule dependencies
+################################################################################
+ADD_DEPENDENCIES(unit core.unit)

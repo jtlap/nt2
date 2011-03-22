@@ -8,22 +8,12 @@
 ################################################################################
 
 ################################################################################
-# Add all directories for benchmark/
-################################################################################
-
-################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(functions.bench)
-ADD_CUSTOM_TARGET(operators.bench)
+ADD_CUSTOM_TARGET(sdk.bench)
+ADD_CUSTOM_TARGET(sdk.operators.bench DEPENDS sdk.bench)
 
 ################################################################################
-# Add all examples directories for sdk/
+# Add all bench directories for sdk/
 ################################################################################
 ADD_SUBDIRECTORY(operators)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(benchmarks functions.bench)  
-ADD_DEPENDENCIES(benchmarks operators.bench)
