@@ -14,10 +14,9 @@
 // Documentation: http://nt2.lri.fr/sdk/unit/tests.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/include/functions/random.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
-
+#include <nt2/sdk/unit/details/random.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/nb_rand_tests.hpp>
@@ -27,7 +26,7 @@
     typedef typename nt2::meta::scalar_of<r_t>::type sr_t;    \
     sr_t r1 = A;              \
     sr_t r2 = B;              \
-    ulpd = nt2::ulpdist(r1, r2);          \
+    ulpd = nt2::details::ulpdist(r1, r2);          \
     bool b;                 \
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
               BOOST_CURRENT_FUNCTION,    \
@@ -47,7 +46,7 @@
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
               BOOST_CURRENT_FUNCTION,    \
               A, B, N);       \
-    ulpd = nt2::ulpdist(A, B);          \
+    ulpd = nt2::details::ulpdist(A, B);          \
       if (!b)                \
   {                \
     std::cout << "   because " << #A << " = " << A    \
@@ -65,7 +64,7 @@
     if (!b)                \
       {                  \
   std::cout << "   because " << #A << " = " << r1 << " and " << #B << " = " << r2 <<  std::endl; \
-  std::cout << "   and ulp distance is " << nt2::ulpdist(A, B) << std::endl; \
+  std::cout << "   and ulp distance is " << nt2::details::ulpdist(A, B) << std::endl; \
       }                  \
 /**/
 #define NT2_SHOW_ARG1(ARG)        \
@@ -77,7 +76,7 @@
 		      nt2::memory::allocator<TYPE> >    \
 		      NAME(0, SIZE);			\
   for(int k = 0; k < (int)SIZE; ++k){			\
-    NAME[k] = nt2::random(MIN, MAX);			\
+    NAME[k] = nt2::details::random(MIN, MAX);			\
   }							\
   /**/
 
@@ -86,7 +85,7 @@
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
   for(int k = 0; k < (int)SIZE; ++k){		\
-    tab_##NAME[k] = nt2::random(MIN, MAX);      \
+    tab_##NAME[k] = nt2::details::random(MIN, MAX);      \
   }                \
 /**/
 #define NT2_CREATE_SCALAR_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
@@ -94,7 +93,7 @@
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
   for(int k = 0; k < (int)SIZE; ++k){        \
-    tab_##NAME[k] = nt2::random(MIN, MAX);      \
+    tab_##NAME[k] = nt2::details::random(MIN, MAX);      \
   }                \
 /**/
 #define NT2_CREATE_SIMD_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
@@ -102,7 +101,7 @@
           nt2::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
   for(int k = 0; k < (int)SIZE; ++k){        \
-    tab_##NAME[k] = nt2::random(MIN, MAX);      \
+    tab_##NAME[k] = nt2::details::random(MIN, MAX);      \
   }                \
 /**/
 

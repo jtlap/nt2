@@ -19,7 +19,6 @@
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/include/functions/max.hpp>
 
 template<class T0,class T1
         ,class Dummy,class Func

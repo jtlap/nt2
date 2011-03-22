@@ -8,9 +8,11 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/unit/details/ulpdist.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/type_traits/common_type.hpp>
+#include <boost/fusion/include/at_c.hpp>
 #include <iostream>
 
 namespace nt2 { namespace details
@@ -33,8 +35,8 @@ namespace nt2 { namespace details
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
 
-    typedef typename nt2::meta::call<tag::ulpdist_(volatile T, volatile U)>::type R;
-    if( nt2::ulpdist(tt, uu ) <= (R)vv)
+    typedef typename boost::common_type<volatile T, volatile U>::type R;
+    if( nt2::details::ulpdist(tt, uu ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
@@ -50,7 +52,7 @@ namespace nt2 { namespace details
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
 		  << "ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
-		  <<  nt2::ulpdist(tt, uu )				
+		  <<  nt2::details::ulpdist(tt, uu )				
 		  << std::endl;						
 	++error_count();
 	return false; 
@@ -74,8 +76,8 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    bool r =   nt2::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
-    r &= nt2::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
+    bool r =   nt2::details::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
+    r &= nt2::details::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
     if(r)					
       {									
 	std::cout << " * Test `"					
@@ -92,7 +94,7 @@ namespace nt2 { namespace details
 // 		  << "` **failed** in function "			
 // 		  << fn << " (" << line << ")"				
 // 		  << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
-// 		  <<  nt2::ulpdist(tt, uu )				
+// 		  <<  nt2::details::ulpdist(tt, uu )				
 // 		  << std::endl;						
 	++error_count();
 	return false; 
