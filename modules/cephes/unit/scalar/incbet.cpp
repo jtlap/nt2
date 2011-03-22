@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/cephes/include/incbet.hpp>
 
 NT2_TEST_CASE_TPL ( incbet_real__3_0,  NT2_REAL_TYPES)

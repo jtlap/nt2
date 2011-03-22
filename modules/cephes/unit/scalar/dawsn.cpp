@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/cephes/include/dawsn.hpp>
 
 NT2_TEST_CASE_TPL ( dawsn_real__1_0,  NT2_REAL_TYPES)
