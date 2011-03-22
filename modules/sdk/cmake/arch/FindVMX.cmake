@@ -16,7 +16,8 @@ IF( NOT NT2_HAS_VMX_SUPPORT)
 # On UNIX, we grep the /proc/cpuinfo entry
 ################################################################################
 IF(NT2_PLATFORM_UNIX)
-EXECUTE_PROCESS(COMMAND ${CMAKE_MODULE_PATH}/arch/altivec.sh
+FIND_FILE(ALTIVEC_SH arch/altivec.sh ${CMAKE_MODULE_PATH})
+EXECUTE_PROCESS( COMMAND ${ALTIVEC_SH}
                  OUTPUT_VARIABLE TMP_VMX
                 )
 ENDIF()
@@ -25,7 +26,7 @@ ENDIF()
 # On OS X, we use systcl
 ################################################################################
 IF(NT2_PLATFORM_OSX)
-EXECUTE_PROCESS(COMMAND sysctl -n hw.optional.altivec
+EXECUTE_PROCESS( COMMAND sysctl -n hw.optional.altivec
                  OUTPUT_VARIABLE TMP_VMX
                 )
 ENDIF()

@@ -11,10 +11,12 @@
 # Check for MMX availability
 ################################################################################
 IF( NOT NT2_HAS_MMX_SUPPORT)
+FIND_FILE(SRC_CPUID src/cpuid.cpp ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
 TRY_RUN(RUN_RESULT_VAR COMPILE_RESULT_VAR
-        ${CMAKE_MODULE_PATH}
-        ${CMAKE_MODULE_PATH}/src/cpuid.cpp
+        ${PROJECT_BINARY_DIR}/cmake
+        ${SRC_CPUID}
         CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${NT2_CURRENT_FLAGS}
+        OUTPUT_VARIABLE LOG
         ARGS mmx
        )
 
