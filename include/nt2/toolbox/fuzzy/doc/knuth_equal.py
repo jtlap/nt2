@@ -10,7 +10,8 @@
          'simd_types' : ['real_', 'signed_int_', 'unsigned_int_'],
          'special' : ['fuzzy'],
          'type_defs' : [],
-         'types' : ['real_', 'signed_int_', 'unsigned_int_'],
+         'types' : ['real_'],
+         'simd_types' : ['real_'],   
         },
      'info' : 'manually modified',
      'unit' : {
@@ -26,8 +27,9 @@
             },
          'specific_values' : {
              'default' : {
-                 '0,0,1' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
-                 '0,1,1' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(0),T(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(1),T(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(1),T(0.5)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

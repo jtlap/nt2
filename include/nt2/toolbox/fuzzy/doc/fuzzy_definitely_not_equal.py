@@ -7,10 +7,10 @@
          'rturn' : {
              'default' : 'typename nt2::meta::logical<T>::type',
             },
-         'simd_types' : ['real_', 'signed_int_', 'unsigned_int_'],
+         'simd_types' : ['real_'],
          'special' : ['fuzzy'],
          'type_defs' : [],
-         'types' : ['real_', 'signed_int_', 'unsigned_int_'],
+         'types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -22,7 +22,7 @@
              'stamp' : 'modified by jt the 04/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['T(0)', 'T(10)']],
             },
          'specific_values' : {
              'default' : {
