@@ -13,6 +13,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/toolbox/polynomials/include/tchebeval.hpp>
 #include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <boost/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
