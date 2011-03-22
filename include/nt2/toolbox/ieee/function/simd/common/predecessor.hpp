@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
-      return minusone(a0);
+	return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
       }
   };
 } }
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
-      return prev(a0);
+	return prev(a0);
       }
   };
 } }
@@ -99,7 +99,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0-a1;
+      return selsub( le(Valmin<A0>()+nt2::abs(a1), a0), a0, nt2::abs(a1));
     }
   };
 } }
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
       {
-	return sel(is_equal(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-a1));
+	return sel(eq(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-nt2::abs(a1)));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;

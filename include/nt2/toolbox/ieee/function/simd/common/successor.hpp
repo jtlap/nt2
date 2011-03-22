@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
       {
-      return oneplus(a0);
+      return  seladd(neq(a0, Valmax<A0>()), a0, One<A0>());
       }
   };
 } }
@@ -97,7 +97,10 @@ namespace nt2 { namespace ext
     template<class This,class A0,class A1>
       struct result<This(A0, A1)>: meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
+    NT2_FUNCTOR_CALL(2)
+      {
+      return seladd( gt(Valmax<A0>()-nt2::abs(a1), a0), a0, nt2::abs(a1));
+      }
   };
 } }
 
@@ -123,7 +126,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return sel(is_equal(a0, Inf<A0>()), a0,  bitfloating(bitinteger(a0)+a1));
+      return sel(eq(a0, Inf<A0>()), a0,  bitfloating(bitinteger(a0)+a1));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;

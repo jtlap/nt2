@@ -44,7 +44,13 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> : meta::strip<A0> {};
-    NT2_FUNCTOR_CALL(1){ return oneplus(a0); }
+    NT2_FUNCTOR_CALL(1)
+      {
+      if (a0 != Valmax<A0>())
+	return  oneplus(a0);
+      else
+	return Valmax<A0>(); 
+      }
   };
 } }
 
@@ -86,7 +92,11 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
       struct result<This(A0, A1)> : meta::strip<A0> {};
-    NT2_FUNCTOR_CALL(2){ return a0+a1;       }
+    NT2_FUNCTOR_CALL(2)
+      {
+      if (Valmax<A0>()-nt2::abs(a1) <  a0) return Valmax<A0>(); 
+      return a0+nt2::abs(a1);
+      }
   };
 } }
 
@@ -109,7 +119,7 @@ namespace nt2 { namespace ext
       struct result<This(A0, A1)> : meta::strip<A0> {};
     NT2_FUNCTOR_CALL(2)
     {
-       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+a1);
+       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+nt2::abs(a1));
     }
 
   };

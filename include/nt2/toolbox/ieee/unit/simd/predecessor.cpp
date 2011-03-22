@@ -12,7 +12,7 @@
 // Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// modified by jt the 18/03/2011
+/// modified by jt the 22/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>

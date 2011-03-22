@@ -11,7 +11,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/nextafter.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0-One<A0>();
+      if (Valmin<A0>() == a0) return a0; 
+      return minusone(a0);
     }
   };
 } }

@@ -30,6 +30,7 @@
                 },
              'real_' : {
                  'nt2::Inf<T>()' : 'nt2::Valmax<r_t>()',
+                 'nt2::Valmin<T>()' : 'nt2::Minf<r_t>()',   
                  'nt2::Minf<T>()' : 'nt2::Minf<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()-nt2::Eps<r_t>()',
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
@@ -40,10 +41,12 @@
                  'nt2::Mone<T>()' : '-nt2::Two<r_t>()',
                  'nt2::One<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Mone<r_t>()',
+                 'nt2::Valmin<T>()' : 'nt2::Valmin<r_t>()',   
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Valmax<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Valmin<T>()' : 'nt2::Valmin<r_t>()',   
                 },
             },
          'verif_test' : {
