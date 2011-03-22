@@ -16,8 +16,3 @@ ADD_CUSTOM_TARGET(core.unit)
 # Add all unit directories for core/
 ################################################################################
 #ADD_SUBDIRECTORY(core/time)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(unit core.unit)
