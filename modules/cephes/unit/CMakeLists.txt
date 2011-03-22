@@ -26,4 +26,3 @@ ADD_SUBDIRECTORY(simd)
 ################################################################################
 ADD_DEPENDENCIES(cephes.unit cephes.scalar.unit)
 ADD_DEPENDENCIES(cephes.unit cephes.simd.unit)
-ADD_DEPENDENCIES(unit cephes.unit)
