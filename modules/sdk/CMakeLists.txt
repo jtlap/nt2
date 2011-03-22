@@ -10,16 +10,12 @@
 cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-include(dependencies.cmake)
+include(nt2.sdk.dependencies)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include NT2_SDK_DEPENDENCIES_INCLUDE_DIR)
-
-################################################################################
-# Generate bootstrap.hpp
-################################################################################
-CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bootstrap.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
-              )
+include_directories( ${PROJECT_BINARY_DIR}/include
+                     ${CMAKE_CURRENT_SOURCE_DIR}/include
+                     ${NT2_SDK_DEPENDENCIES_INCLUDE_DIR}
+                   )
 
 add_subdirectory(bench)
 add_subdirectory(examples)
