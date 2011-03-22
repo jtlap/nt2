@@ -18,20 +18,20 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::almost_less_or_equal_, tag::cpu_,
                                       (A0)(A1)(A2),
-                                      (arithmetic_<A0>)(arithmetic_<A1>)(arithmetic_<A2>)
+                                      (arithmetic_<A0>)(arithmetic_<A1>)(integer_<A2>)
                                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::almost_less_or_equal_(tag::arithmetic_,tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::almost_less_or_equal_(tag::arithmetic_,tag::arithmetic_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     typedef bool result_type; 
 
     NT2_FUNCTOR_CALL(3)
     {
-      return a0 <= a1+a2;
+      return a0 <= a1+abs(a2);
     }
   };
 } }
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::almost_less_or_equal_, tag::cpu_,
                                       (A0)(A1)(A2),
-                                      (real_<A0>)(real_<A1>)(real_<A2>)
+                                      (real_<A0>)(real_<A1>)(integer_<A2>)
                                      )
 
 namespace nt2 { namespace ext
@@ -61,7 +61,12 @@ namespace nt2 { namespace ext
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  (a0 <= successor(a1, a2)); 
+      std::cout << "a0     " << a0 << std::endl;
+      std::cout << "a1     " << a1 << std::endl;
+      std::cout << "a2    " << a2 << std::endl;
+      std::cout << "succa1a2 " << successor(a1, nt2::abs(a2)) << std::endl;
+      std::cout << "le(a0, succa1a2)  " << (a0 <= successor(a1, nt2::abs(a2)))<< std::endl;
+      return  (a0 <= successor(a1, nt2::abs(a2))); 
     }
   };
 } }

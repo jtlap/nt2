@@ -23,8 +23,9 @@ NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
 			 (A0)(A1)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
 			 (tag::almost_greater_or_equal_(tag::simd_<tag::integer_,X>,
-					     tag::simd_<tag::integer_,X>, 
-			  		     tag::simd_<tag::integer_,X>)), 
+							tag::simd_<tag::integer_,X>, 
+							tag::simd_<tag::integer_,X>)), 
+			 ((simd_<integer_<A0>,X>))
 			 ((simd_<integer_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
                        );
@@ -39,11 +40,13 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0,A0,A1)> : meta::strip<A0>{};//
+    struct result<This(A0,A0,A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(3)
     {
-      return ge(a0, a1-abs(a2));
+      return  (a0 >= predecessor(a1, nt2::abs(a2))); 
+//       A0 aa2 = abs(a2); 
+//       return b_or(ge(a0, a1-aa2),gt(Valmin<A0>()+nt2::aa2, a0));
     }
   };
 } }
@@ -55,12 +58,13 @@ NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
 			 (A0)(A1)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
 			 (tag::almost_greater_or_equal_(tag::simd_<tag::real_,X>,
-					     tag::simd_<tag::real_,X>, 
-			  		     tag::simd_<tag::integer_,X>)), 
+							tag::simd_<tag::real_,X>, 
+							tag::simd_<tag::integer_,X>)), 
+			 ((simd_<real_<A0>,X>))
 			 ((simd_<real_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
                        );
-                                        );
+
 
 namespace nt2 { namespace ext
 {
@@ -77,8 +81,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       return b_and(
-               isord(a0, a1),
-               ge(a0, predecessor(a1, a2))
+               is_ord(a0, a1),
+               ge(a0, predecessor(a1, nt2::abs(a2)))
                );
     }
   };

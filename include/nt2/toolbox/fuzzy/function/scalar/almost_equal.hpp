@@ -14,6 +14,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -21,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::almost_equal_, tag::cpu_,
                               (A0)(A1)(A2),
-                              (arithmetic_<A0>)(arithmetic_<A1>)(integer_<A2>)
+                              (real_<A0>)(real_<A1>)(integer_<A2>)
                              )
 
 namespace nt2 { namespace ext
@@ -36,7 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return dist(a0, a1) <= a2;
+      return dist(a0, a1) <= nt2::abs(a2);
     }
   };
 } }

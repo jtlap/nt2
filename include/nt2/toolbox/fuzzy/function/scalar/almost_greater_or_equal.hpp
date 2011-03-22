@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/functions/predecessor.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 
@@ -30,7 +31,10 @@ namespace nt2 { namespace ext
     
     NT2_FUNCTOR_CALL(3)
     {
-      return a0 >= a1-a2;
+      return  (a0 >= predecessor(a1, nt2::abs(a2))); 
+//       typedef typename std::tr1::result_of<meta::floating(A0, A1)>::type type; 
+//       if (Valmin<type>()+nt2::abs(a2) > a0) return true; 
+//       return a0 >= a1-nt2::abs(a2);
     }
   };
 } }
@@ -60,7 +64,7 @@ namespace nt2 { namespace ext
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  (a0 >= predecessor(a1, a2)); 
+      return  (a0 >= predecessor(a1, nt2::abs(a2))); 
     }
   };
 } }

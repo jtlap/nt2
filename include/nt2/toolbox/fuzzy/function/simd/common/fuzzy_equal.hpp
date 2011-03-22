@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return isle(dist(a0,a1), max(abs(a0),abs(a1))*a2);
+      return le(dist(a0,a1), max(abs(a0),abs(a1))*a2);
     }
 
   };

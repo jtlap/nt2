@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return isge(a0,a1-max(abs(a0),abs(a1))*a2);
+      return ge(a0,a1-max(abs(a0),abs(a1))*a2);
     }
 
   };

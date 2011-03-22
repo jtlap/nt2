@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/dist.hpp>
 
 
 
@@ -40,7 +41,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-       return isgt(abs(a0-a1), max(abs(a0),abs(a1))*a2);
+       return gt(dist(a0, a1), max(abs(a0),abs(a1))*a2);
     }
 
   };
