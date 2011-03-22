@@ -12,5 +12,4 @@ ADD_CUSTOM_TARGET(core.examples)
 ################################################################################
 # Add all examples directories for core/
 ################################################################################
-ADD_SUBDIRECTORY(timing)
 

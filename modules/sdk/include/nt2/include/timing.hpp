@@ -6,25 +6,13 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_TIMING_IMPL_NONE_HPP_INCLUDED
-#define NT2_CORE_TIMING_IMPL_NONE_HPP_INCLUDED
+#ifndef NT2_INCLUDE_TIMING_HPP_INCLUDED
+#define NT2_INCLUDE_TIMING_HPP_INCLUDED
 
-#if !defined(NT2_TIMING_DETECTED)
-
-#define NT2_TIMING_DETECTED
-#include <ctime>
-#include <boost/cstdint.hpp>
-
-namespace nt2
-{
-  namespace details
-  {
-    inline double now()
-    {
-      return std::clock()/double(CLOCKS_PER_SEC);
-    }
-  }
-}
-#endif
+#include <nt2/sdk/config/types.hpp>
+#include <nt2/sdk/timing/tic.hpp>
+#include <nt2/sdk/timing/ctic.hpp>
+#include <nt2/sdk/timing/cycle_timer.hpp>
+#include <nt2/sdk/timing/second_timer.hpp>
 
 #endif

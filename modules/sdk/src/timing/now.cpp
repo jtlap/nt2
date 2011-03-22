@@ -7,7 +7,7 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 
-#include <nt2/core/timing/now.hpp>
+#include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/config/arch.hpp>
 #include <nt2/sdk/config/types.hpp>
 

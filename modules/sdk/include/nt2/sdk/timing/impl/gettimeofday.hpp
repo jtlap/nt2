@@ -6,23 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_TIMING_IMPL_QUERYPERFORMANCECOUNTER_HPP_INCLUDED
-#define NT2_CORE_TIMING_IMPL_QUERYPERFORMANCECOUNTER_HPP_INCLUDED
+#ifndef NT2_SDK_TIMING_IMPL_GETTIMEOFDAY_HPP_INCLUDED
+#define NT2_SDK_TIMING_IMPL_GETTIMEOFDAY_HPP_INCLUDED
 
 #if !defined(NT2_TIMING_DETECTED)
 
-#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+#if defined( BOOST_HAS_GETTIMEOFDAY )
 
 #define NT2_TIMING_DETECTED
-#if !defined(VC_EXTRALEAN)
-#define VC_EXTRALEAN
-#endif
-
-#if !defined(WIN32_LEAN_AND_MEAN)
-#define WIN32_LEAN_AND_MEAN
-#endif
-
-#include <windows.h>
+#include <sys/time.h>
 #include <boost/cstdint.hpp>
 
 namespace nt2
@@ -31,11 +23,9 @@ namespace nt2
   {
     inline double now()
     {
-      union pli { LARGE_INTEGER li; double d; };
-      pli freq,t;
-      QueryPerformanceFrequency( &freq.li );
-      QueryPerformanceCounter( &t.li );
-      return (((t.d*1000000000)/freq.d)/1000000000);
+      struct timeval tp;
+      gettimeofday(&tp,NULL);
+      return double(tp.tv_sec) + double(tp.tv_usec)*1e-6;
     }
   }
 }

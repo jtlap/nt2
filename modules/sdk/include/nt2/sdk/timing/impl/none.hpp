@@ -6,20 +6,25 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_TIMING_EXCEPTIONS_HPP_INCLUDED
-#define NT2_CORE_TIMING_EXCEPTIONS_HPP_INCLUDED
+#ifndef NT2_SDK_TIMING_IMPL_NONE_HPP_INCLUDED
+#define NT2_SDK_TIMING_IMPL_NONE_HPP_INCLUDED
 
-#include <nt2/sdk/error/details/exception.hpp>
+#if !defined(NT2_TIMING_DETECTED)
 
-namespace nt2 { namespace time
+#define NT2_TIMING_DETECTED
+#include <ctime>
+#include <boost/cstdint.hpp>
+
+namespace nt2
 {
-  struct unbalanced_timing : virtual nt2::exception
+  namespace details
   {
-    virtual void display(std::ostream& os) const throw()
+    inline double now()
     {
-      os  << "Unbalanced timer use\n";
+      return std::clock()/double(CLOCKS_PER_SEC);
     }
-  };
-} }
+  }
+}
+#endif
 
 #endif

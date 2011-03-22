@@ -6,20 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_TIMING_SECOND_TIMER_HPP_INCLUDED
-#define NT2_CORE_TIMING_SECOND_TIMER_HPP_INCLUDED
+#ifndef NT2_SDK_TIMING_EXCEPTIONS_HPP_INCLUDED
+#define NT2_SDK_TIMING_EXCEPTIONS_HPP_INCLUDED
 
-#include <nt2/core/timing/tic.hpp>
+#include <nt2/sdk/error/details/exception.hpp>
 
 namespace nt2 { namespace time
 {
-  struct second_timer
+  struct unbalanced_timing : virtual nt2::exception
   {
-     second_timer(double& e, bool d = true) : elapsed(e), display(d) { tic(); }
-    ~second_timer () { elapsed = toc(display); }
-
-    double& elapsed;
-    bool display;
+    virtual void display(std::ostream& os) const throw()
+    {
+      os  << "Unbalanced timer use\n";
+    }
   };
 } }
 
