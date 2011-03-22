@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
-      int r1t;
+      int r1t = 0;
       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
       return res;

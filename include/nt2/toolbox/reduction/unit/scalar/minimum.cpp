@@ -12,10 +12,10 @@
 // Test behavior of reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 24/02/2011
+/// modified by jt the 19/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -23,8 +23,9 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/reduction/include/minimum.hpp>
 
-NT2_TEST_CASE_TPL ( minimum_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( minimum_real__1_0,  NT2_REAL_TYPES)
 {
+  
   using nt2::minimum;
   using nt2::tag::minimum_;
   typedef typename nt2::meta::scalar_of<T>::type sT;
@@ -38,6 +39,7 @@ NT2_TEST_CASE_TPL ( minimum_real__1,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -52,9 +54,9 @@ NT2_TEST_CASE_TPL ( minimum_real__1,  NT2_REAL_TYPES)
   {
     typedef typename nt2::meta::scalar_of<T>::type sT;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

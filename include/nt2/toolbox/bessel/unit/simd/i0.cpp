@@ -12,7 +12,7 @@
 // Test behavior of bessel components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// modified by jt the 17/02/2011
+/// modified by jt the 16/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -23,9 +23,10 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bessel/include/i0.hpp>
 
-NT2_TEST_CASE_TPL ( i0_real__1,  (double))
+NT2_TEST_CASE_TPL ( i0_real__1,  NT2_REAL_TYPES)
 {
   using nt2::i0;
   using nt2::tag::i0_;
@@ -40,27 +41,24 @@ NT2_TEST_CASE_TPL ( i0_real__1,  (double))
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<i0_(vT)>::type r_t;
   typedef typename nt2::meta::call<i0_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
-        vT a0 = load<n_t>(&tab_a0[0],j);
+        vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = i0(a0);
-	std::cout << "a0 " << a0 << std::endl; 
-	std::cout << "v " << v << std::endl; 
-        for(int i = 0; i< cardinal_of<n_t>::value; i++) 
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-	std::cout << "tab_a0[" << k << "] " << tab_a0[k] << std::endl; 
-	std::cout << "v[" << i << "] " << v[i] << std::endl; 
-          NT2_TEST_ULP_EQUAL( v[i],nt2::i0(tab_a0[k]),2.5);
-          ulp0 = nt2::max(ulpd,ulp0); 
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::i0(tab_a0[k])), 2.5);
+          ulp0 = nt2::max(ulpd,ulp0);
         }
       }
-    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+    std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
 } // end of test for real_

@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,6 +25,7 @@
 
 NT2_TEST_CASE_TPL ( logical_xor_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::logical_xor;
   using nt2::tag::logical_xor_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -37,6 +38,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -54,8 +56,9 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
-    for (int j =0; j < NR; ++j )
+    T a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -70,6 +73,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::logical_xor;
   using nt2::tag::logical_xor_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -82,6 +86,7 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -93,8 +98,9 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2,  NT2_UNSIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
-    for (int j =0; j < NR; ++j )
+    T a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -109,6 +115,7 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( logical_xor_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::logical_xor;
   using nt2::tag::logical_xor_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -121,6 +128,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -133,8 +141,9 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     NT2_CREATE_BUF(tab_a1,T, NR, -100, 100);
     double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
-    for (int j =0; j < NR; ++j )
+    T a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

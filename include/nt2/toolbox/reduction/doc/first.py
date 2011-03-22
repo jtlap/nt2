@@ -8,6 +8,7 @@
              'default' : 'sT',
             },
          'simd_types' : ['real_'],
+         'special' : ['reduction'],  
          'type_defs' : ['typedef typename nt2::meta::scalar_of<T>::type sT;'],
          'types' : ['integer_'],
         },
@@ -50,6 +51,11 @@
              'ulp_thresh' : {
                  'default' : ['0'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        NT2_TEST_EQUAL( v,a0[0]);",
+                            ]
+               },
             },
         },
     },

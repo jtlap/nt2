@@ -76,13 +76,13 @@ namespace nt2 { namespace ext
       A0 x = a0;
       A0 test0 = gt(q, Fastgammalargelim<A0>());
       int32_t nb = 0;
-      if (nb = nbtrue(test0) > 0)
+      if ((nb = (nbtrue(test0) > 0)))
       {
         A0 negative = is_ltz(a0);
         A0 s =  stirling(q);
         int32_t nb1 = 0;
         A0 r1;
-        if (nb1 = nbtrue(negative) > 0)
+        if ((nb1 = (nbtrue(negative) > 0)))
           {
             A0 p = floor(q);
             A0 test1 = is_equal(p, q); //must return Nan<A0>();

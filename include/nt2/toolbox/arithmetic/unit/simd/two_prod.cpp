@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 15/02/2011
+/// modified by jt the 16/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -23,7 +23,9 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/arithmetic/include/two_prod.hpp>
+#include <boost/fusion/tuple.hpp>
 
 NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
 {
@@ -32,7 +34,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T,T)>::type r0_t;
+  typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -41,5 +43,6 @@ NT2_TEST_CASE_TPL ( two_prod_real__2,  NT2_REAL_TYPES)
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<two_prod_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<two_prod_(T,T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
 } // end of test for real_

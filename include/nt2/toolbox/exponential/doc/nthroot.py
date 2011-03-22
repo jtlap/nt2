@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'type_defs' : ['typedef int32_t iT;'],
+         'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
          'simd_types' : ['real_'],
         },
@@ -20,7 +20,7 @@
              'stamp' : 'modified by jt the 15/12/2010',
             },
          'ranges' : {
-             'real_' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'real_' : [['T(0)', 'T(10)'], ['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100'], ['-100', '100']],
              'unsigned_int_' : [['0', '100'], ['0', '100']],
             },

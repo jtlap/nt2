@@ -11,7 +11,7 @@
 
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/rem_pio2.hpp>
+//#include <nt2/include/functions/rem_pio2.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 namespace nt2
@@ -70,7 +70,7 @@ namespace nt2
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
           int_type i;
-          boost::fusion::tie(xr, xc, i) = nt2::rem_pio2(t);
+          //boost::fusion::tie(xr, xc, i) = nt2::rem_pio2(t);
           return i;
         }
       };

@@ -62,10 +62,12 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type rtype; 
       if (nt2::is_inf(a0))
-	if (nt2::is_ltz(a0))
-	  return Valmin<rtype>(); 
-	else
-	  return  Valmax<rtype>();
+	{
+	  if (nt2::is_ltz(a0))
+	    return Valmin<rtype>(); 
+	  else
+	    return  Valmax<rtype>();
+	}
       if (nt2::is_nan(a0)) return Zero<rtype>(); 
       return rtype(floor(a0));
     }

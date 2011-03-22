@@ -12,10 +12,10 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -27,6 +27,7 @@
 
 NT2_TEST_CASE_TPL ( lo_real__1,  NT2_REAL_TYPES)
 {
+  
   using nt2::lo;
   using nt2::tag::lo_;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
@@ -40,6 +41,7 @@ NT2_TEST_CASE_TPL ( lo_real__1,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -50,6 +52,7 @@ NT2_TEST_CASE_TPL ( lo_real__1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( lo_int64__1,  (int64_t)(uint64_t))
 {
+  
   using nt2::lo;
   using nt2::tag::lo_;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
@@ -63,6 +66,7 @@ NT2_TEST_CASE_TPL ( lo_int64__1,  (int64_t)(uint64_t))
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -72,6 +76,7 @@ NT2_TEST_CASE_TPL ( lo_int64__1,  (int64_t)(uint64_t))
 
 NT2_TEST_CASE_TPL ( lo_int32__1,  (int32_t)(uint32_t))
 {
+  
   using nt2::lo;
   using nt2::tag::lo_;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
@@ -85,6 +90,7 @@ NT2_TEST_CASE_TPL ( lo_int32__1,  (int32_t)(uint32_t))
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -94,6 +100,7 @@ NT2_TEST_CASE_TPL ( lo_int32__1,  (int32_t)(uint32_t))
 
 NT2_TEST_CASE_TPL ( lo_int16__1,  (int16_t)(uint16_t))
 {
+  
   using nt2::lo;
   using nt2::tag::lo_;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
@@ -107,6 +114,7 @@ NT2_TEST_CASE_TPL ( lo_int16__1,  (int16_t)(uint16_t))
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests

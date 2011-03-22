@@ -151,7 +151,6 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_ci.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_laguerre_n.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_p1.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_klu.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_p2.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_sin.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_1f1_int.hpp>

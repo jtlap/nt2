@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 23/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,6 +25,7 @@
 
 NT2_TEST_CASE_TPL ( two_add_real__2,  NT2_REAL_TYPES)
 {
+  
   using nt2::two_add;
   using nt2::tag::two_add_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -37,5 +38,6 @@ NT2_TEST_CASE_TPL ( two_add_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 } // end of test for real_

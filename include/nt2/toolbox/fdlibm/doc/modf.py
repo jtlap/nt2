@@ -2,21 +2,22 @@
     {
      'functor' : {
          'arity' : '1',
-         'call_types' : [],
+         'call_types' : ['T'],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'boost::fusion::vector<T,T>',
             },
          'simd_types' : [],
          'special' : ['fdlibm'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['double'],
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 03/03/2011',
-             'included' : ['#include <nt2/include/functions/modf.hpp>'],
+             'included' : ['#include <nt2/include/functions/trunc.hpp>',
+                           '#include <nt2/include/functions/frac.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 03/03/2011',
             },
@@ -30,7 +31,7 @@
                  'default' : ['nt2::fdlibm::modf(a0)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::modf(a0)'],
+                 'default' : [['nt2::frac(a0)','nt2::trunc(a0)']],
                 },
              'simd' : {
                 },

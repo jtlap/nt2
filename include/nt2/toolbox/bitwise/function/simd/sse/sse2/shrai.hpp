@@ -155,7 +155,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
 
-      A0 that = {shrai(a0[0], a1), shrai(a0[1], a1)};
+      A0 that = {{shrai(a0[0], a1), shrai(a0[1], a1)}};
       return that;
     }
   };

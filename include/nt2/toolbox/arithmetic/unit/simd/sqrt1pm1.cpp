@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 15/02/2011
+/// modified by jt the 16/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -23,6 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/arithmetic/include/sqrt1pm1.hpp>
 
 NT2_TEST_CASE_TPL ( sqrt1pm1_real__1,  NT2_REAL_TYPES)
@@ -40,5 +41,6 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1,  NT2_REAL_TYPES)
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<sqrt1pm1_(vT)>::type r_t;
   typedef typename nt2::meta::call<sqrt1pm1_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
 } // end of test for real_

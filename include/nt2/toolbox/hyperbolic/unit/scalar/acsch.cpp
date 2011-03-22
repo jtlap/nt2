@@ -12,7 +12,7 @@
 // Test behavior of hyperbolic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
-/// modified by jt the 20/02/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,20 +28,22 @@
 extern "C" { long double cephes_asinhl(long double); }
 #include <nt2/include/functions/rec.hpp>
 
-NT2_TEST_CASE_TPL ( acsch_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( acsch_real__1_0,  NT2_REAL_TYPES)
 {
+  
   using nt2::acsch;
   using nt2::tag::acsch_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acsch_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -54,56 +56,60 @@ NT2_TEST_CASE_TPL ( acsch_real__1,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    double ulp0 = 0.0, ulpd = 0.0;
-    r_t a0;
-    for (int j =0; j < NR; ++j )
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::acsch(a0),nt2::boost_math::asinh(nt2::rec(a0)),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::acsch(a0),nt2::boost_math::asinh(nt2::rec(a0)),1.5);
         ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::acsch(a0),::cephes_asinhl(nt2::rec(a0)),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::acsch(a0),::cephes_asinhl(nt2::rec(a0)),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( acsch_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( acsch_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::acsch;
   using nt2::tag::acsch_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acsch_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acsch(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( acsch_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( acsch_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::acsch;
   using nt2::tag::acsch_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acsch_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests

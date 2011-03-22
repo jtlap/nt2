@@ -15,11 +15,12 @@
 #include <nt2/sdk/constant/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/constant/constant.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
 
 namespace nt2 { namespace tag
 {
   struct pi_          {};
-  struct nan_         {};
+  //  struct nan_         {};
   struct sqrt_2_o_2_  {}; struct sqrt_2_      {};
   struct gold_        {}; struct c_gold_      {};
   struct m_half_      {}; struct m_zero_      {};
@@ -61,7 +62,7 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   // Basic named constant
   //////////////////////////////////////////////////////////////////////////////
-  NT2_CONSTANT_IMPLEMENTATION(tag::nan_         , Nan         )
+  //  NT2_CONSTANT_IMPLEMENTATION(tag::nan_         , Nan         )
   NT2_CONSTANT_IMPLEMENTATION(tag::m_half_      , Mhalf       )
   NT2_CONSTANT_IMPLEMENTATION(tag::m_zero_      , Mzero       )
   NT2_CONSTANT_IMPLEMENTATION(tag::half_        , Half        )

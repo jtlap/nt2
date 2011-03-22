@@ -9,9 +9,9 @@ Motivation
 The simplest entry point to extend |nt2| is to provide new user or internal
 polymorphic functions. Use-cases are aplenty: forwarding some third-party
 library calls, building a new domain-specific set of operations or creating
-new internal helpers are a few examples. This section described the process
+new internal helpers are a few examples. This section describes the process
 of creating such a function using the various element from the :ref:`functors`
-components as specified in its :ref:`functors_rationale` by implement
+components as specified in its :ref:`functors_rationale` by implementing
 a ``fibonacci`` function for scalar arithmetic values.
 
 Registering the function
@@ -148,7 +148,7 @@ work on the naked type and not some const qualified or reference type.
 Tag Dispatching
 ^^^^^^^^^^^^^^^
 
-In the previous case, we have a general implementation the function. If one
+In the previous case, we had a general implementation of the function. If one
 wants to provide a different implementation of ``fibonacci`` for real numbers. This
 implementation could be simply written by creating a new dispatch and a new call using
 ``real_`` for tagging ``A1`` and ``A2``. 

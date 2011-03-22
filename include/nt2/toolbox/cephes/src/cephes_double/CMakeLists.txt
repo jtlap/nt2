@@ -25,7 +25,7 @@ SET( SOURCES
      sqrt.c floor.c setprec.c mtherr.c
     )
 
-SET(CEPHES_FLAGS "-DANSIC -DANSIPROT")
+SET(CEPHES_FLAGS "-DANSIC")
 
 # const.c does not define constants in a strict C way in UNK mode,
 # so we force IEEE754 little-endian on Windows to avoid problems.

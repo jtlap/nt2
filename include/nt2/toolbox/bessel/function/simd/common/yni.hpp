@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A1 r = {yni(a0, a1[0]),yni(a0, a1[1])} ;
+      const A1 r = {{yni(a0, a1[0]),yni(a0, a1[1])}} ;
       return r;
     }
   };

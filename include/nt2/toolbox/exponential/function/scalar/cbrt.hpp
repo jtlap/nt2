@@ -11,6 +11,7 @@
 
 #include <nt2/toolbox/exponential/details/math.hpp>
 #include <boost/math/special_functions/cbrt.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -60,11 +61,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-    #ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT
+      if (is_invalid(a0)) return a0; 
+#ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT
       return ::cbrt(a0);
-    #else
+#else
       return boost::math::cbrt(a0);
-    #endif
+#endif
     }
   };
 } }
@@ -90,11 +92,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-    #ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF
+      if (is_invalid(a0)) return a0; 
+#ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF
       return ::cbrtf(a0);
-    #else
+#else
       return boost::math::cbrt(a0);
-    #endif
+#endif
     }
   };
 } }

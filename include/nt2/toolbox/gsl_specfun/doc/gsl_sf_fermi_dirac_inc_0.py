@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
+         'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
@@ -22,16 +22,16 @@
              'stamp' : 'modified by jt the 10/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)']],
+             'default' : [['T(0)', 'T(10)'],['T(0)', 'T(10)']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_fermi_dirac_inc_0(a0)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_fermi_dirac_inc_0(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::gsl_specfun::gsl_sf_fermi_dirac_inc_0(a0)'],
+                 'default' : ['nt2::gsl_specfun::gsl_sf_fermi_dirac_inc_0(a0,a1)'],
                 },
              'simd' : {
                 },

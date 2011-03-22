@@ -27,7 +27,7 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Inf<T>()',
+                 'nt2::Inf<T>()' : 'nt2::Nan<T>()',
                  'nt2::Nan<T>()' : 'nt2::Nan<T>()',
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::One<T>()',

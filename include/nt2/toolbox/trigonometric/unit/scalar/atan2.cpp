@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,20 +27,22 @@
 #include <nt2/toolbox/libc/include/atan2.hpp>
 extern "C" {extern long double cephes_atanl(long double);}
 
-NT2_TEST_CASE_TPL ( atan2_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( atan2_real__2_0,  NT2_REAL_TYPES)
 {
+  
   using nt2::atan2;
   using nt2::tag::atan2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<atan2_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -61,9 +63,10 @@ NT2_TEST_CASE_TPL ( atan2_real__2,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Mone<T>(), nt2::One<T>());
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Mone<T>(), nt2::One<T>());
-    double ulp0 = 0.0, ulpd = 0.0;
-    T a0,a1;
-    for (int j =0; j < NR; ++j )
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -76,20 +79,22 @@ NT2_TEST_CASE_TPL ( atan2_real__2,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( atan2_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( atan2_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::atan2;
   using nt2::tag::atan2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<atan2_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -97,20 +102,22 @@ NT2_TEST_CASE_TPL ( atan2_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(atan2(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( atan2_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( atan2_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
+  
   using nt2::atan2;
   using nt2::tag::atan2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<atan2_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests

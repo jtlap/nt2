@@ -71,9 +71,10 @@ namespace nt2 { namespace ext
       if (a0 == Inf<A0>())   return Inf<A0>();
       volatile type u = oneplus(a0);
       volatile type t =(minusone(u)-a0);
-      type r =nt2::log(u);
+      type v = u; 
+      type r =nt2::log(v);
       if (t)
-      return r*(a0/minusone(u)); //-t/u; /* cancels errors with IEEE arithmetic */
+      return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */
       else
       return r;
     }

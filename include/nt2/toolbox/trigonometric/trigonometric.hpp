@@ -13,7 +13,6 @@
 #include <nt2/toolbox/trigonometric/include/atanpi.hpp>
 #include <nt2/toolbox/trigonometric/include/asinpi.hpp>
 #include <nt2/toolbox/trigonometric/include/acospi.hpp>
-#include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>
 #include <nt2/toolbox/trigonometric/include/tanpi.hpp>
 #include <nt2/toolbox/trigonometric/include/tand.hpp>
 #include <nt2/toolbox/trigonometric/include/tan.hpp>

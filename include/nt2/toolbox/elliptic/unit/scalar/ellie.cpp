@@ -12,7 +12,7 @@
 // Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 05/03/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -34,13 +34,14 @@ NT2_TEST_CASE_TPL ( ellie_real__2,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ellie_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -52,10 +53,10 @@ NT2_TEST_CASE_TPL ( ellie_real__2,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(1));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

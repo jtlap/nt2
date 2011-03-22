@@ -49,7 +49,7 @@
                  'real_' : ['::cephes_atanhl(a0)','nt2::boost_math::atanh(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5','1.0'],
+                 'real_' : ['1.5','1.0'],
                 },
             },
         },

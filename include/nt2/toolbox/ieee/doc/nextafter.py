@@ -29,7 +29,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::nextafter(a0,a1))'],
+                 'default' : ['nt2::nextafter(a0,a1)'],
                 },
              'property_value' : {
                  'double' : ['::nextafter(a0,a1)'],

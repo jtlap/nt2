@@ -6,60 +6,61 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 reduction toolbox - hmsb - unit/simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - hmsb/simd Mode"
 
-#include <nt2/toolbox/reduction/include/hmsb.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/simd/native.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// Test behavior of reduction components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 24/02/2011
+/// modified by jt the 19/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/include/functions/boolean.hpp>
-#include <nt2/include/functions/shli.hpp>
-#include <nt2/include/functions/is_eqz.hpp> 
-#include <iostream>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/reduction/include/hmsb.hpp>
+// specific includes for arity 1 tests
+#include <nt2/include/functions/bits.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components using NT2_TEST_CASE
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(hmsb, (int16_t)(uint16_t)
-              (int32_t)(uint32_t)
-              (int64_t)(uint64_t))
+NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_REAL_TYPES)
 {
- using nt2::hmsb;
- using nt2::tag::hmsb_;    
- using nt2::load;  
- using nt2::simd::native; 
- using nt2::meta::cardinal_of;
+  using nt2::hmsb;
+  using nt2::tag::hmsb_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename nt2::meta::call<hmsb_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
- typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
- typedef native<T,ext_t>             n_t;
- typedef typename nt2::meta::call<hmsb_(n_t)>::type call_type;
- typedef typename nt2::meta::as_integer<T>::type         rn_t;
-
- NT2_TEST( (boost::is_same<call_type, rn_t>::value) );  
-//  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];
-//  for(int j =  0;  j < 10; j++)
-//    {
-//      for(std::size_t i=0;i<1*cardinal_of<n_t>::value;++i){
-//        data[i] = nt2::random(-10000.0, 10000.0); // good value here for hmsb
-//      }
-//      n_t a0 = load<n_t>(&data[0],0); 
-//      T v  = hmsb(a0);
-//      rn_t z = 0; 
-//      for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//        { 
-//        z = z + (nt2::shri(a0[j], 8*sizeof(T)-1) << j); 
-//        }
-//      NT2_TEST_EQUAL(z, v);
-//    }
-}
-
- 
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        T v = hmsb(a0);
+        iT z = nt2::bits(a0[0])&1;
+        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        {
+          z |= nt2::bits(a0[i])&1<<i;
+        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for real_

@@ -34,7 +34,7 @@ namespace nt2 { namespace details
     typedef typename nt2::meta::upgrade<U>::type UU;
 
     typedef typename nt2::meta::call<tag::ulpdist_(volatile T, volatile U)>::type R;
-    if( nt2::ulpdist(t, u ) <= (R)v)
+    if( nt2::ulpdist(tt, uu ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
@@ -49,7 +49,7 @@ namespace nt2 { namespace details
 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
-		  << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
+		  << "ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
 		  <<  nt2::ulpdist(tt, uu )				
 		  << std::endl;						
 	++error_count();

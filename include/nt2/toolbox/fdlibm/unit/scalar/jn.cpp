@@ -12,7 +12,7 @@
 // Test behavior of fdlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
-/// modified by jt the 03/03/2011
+/// modified by jt the 18/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +25,7 @@
 // specific includes for arity 2 tests
 #include <nt2/include/functions/jni.hpp>
 
-NT2_TEST_CASE_TPL ( jn_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( jn_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::fdlibm::jn;
@@ -40,25 +40,23 @@ NT2_TEST_CASE_TPL ( jn_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
- 
-    NT2_CREATE_BUF(tab_a0,T, NR, iT(0), iT(10));
+    NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
-    iT a0;  T a1;
-    for (int j =0; j < NR; ++j )
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    iT a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-	r_t z1 = nt2::jni(a0,a1);
-	r_t z2 = nt2::fdlibm::jn(a0,a1);
-	// 	std::cout << std::setprecision(20) << "z1-z2 " << z1-z2 << std::endl; 
-        NT2_TEST_ULP_EQUAL( z1, z2, 150); //nt2::jni(a0,a1),nt2::jni(a0,a1),1);
+        NT2_TEST_ULP_EQUAL( nt2::fdlibm::jn(a0,a1),nt2::jni(a0,a1),6.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

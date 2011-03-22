@@ -12,10 +12,10 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 16/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
@@ -27,18 +27,20 @@
 
 NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 {
+  
   using nt2::twopower;
   using nt2::tag::twopower_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<twopower_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -47,9 +49,9 @@ NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, sizeof(T)*8-1);
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

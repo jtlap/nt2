@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 ///  created by jt the 08/12/2010
-/// modified by jt the 11/03/2011
+/// modified by jt the 17/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -35,29 +35,30 @@ NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<expx2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Minf<T>()), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Mone<T>()), nt2::Exp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::One<T>()), nt2::Exp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Inf<T>()), nt2::Inf<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Minf<T>()), nt2::Inf<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Mone<T>()), nt2::Exp_1<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Nan<T>()), nt2::Nan<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::One<T>()), nt2::Exp_1<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Zero<T>()), nt2::One<r_t>(), 1.0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(5));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (int j =0; j < NR; ++j )
+    for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -77,18 +78,19 @@ NT2_TEST_CASE_TPL ( expx2_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<expx2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(expx2(nt2::One<T>()), nt2::Exp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::One<T>()), nt2::Exp_1<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Zero<T>()), nt2::One<r_t>(), 1.0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( expx2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -99,17 +101,18 @@ NT2_TEST_CASE_TPL ( expx2_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<expx2_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Mone<T>()), nt2::Exp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::One<T>()), nt2::Exp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(expx2(nt2::Zero<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Mone<T>()), nt2::Exp_1<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::One<T>()), nt2::Exp_1<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expx2(nt2::Zero<T>()), nt2::One<r_t>(), 1.0);
 } // end of test for signed_int_

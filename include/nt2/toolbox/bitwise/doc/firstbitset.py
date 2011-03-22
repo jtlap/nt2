@@ -31,8 +31,8 @@
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'float' : {
-                 'nt2::Inf<T>()' : {'result' : '8388608','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : '8388608','ulp_thresh' : '0.5',},
+                 'nt2::Inf<T>()' : {'result' : '8388608u','ulp_thresh' : '0.5',},
+                 'nt2::Minf<T>()' : {'result' : '8388608u','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Signmask<T>()' : {'result' : 'nt2::One<r_t>()+nt2::Valmax<r_t>()/2','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},

@@ -39,7 +39,7 @@
                  'default' : ['boost::math::ellint_1(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['1.0'],
+                 'default' : ['3.5'],
                 },
             },
         },

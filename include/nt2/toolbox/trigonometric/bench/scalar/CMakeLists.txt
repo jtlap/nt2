@@ -11,7 +11,6 @@ SET( SOURCES
   atanpi.cpp
   asinpi.cpp
   acospi.cpp
-  rem_pio2.cpp
   tanpi.cpp
   tand.cpp
   tan.cpp

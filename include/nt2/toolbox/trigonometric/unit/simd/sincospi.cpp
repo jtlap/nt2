@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 21/02/2011
+/// modified by jt the 18/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -27,14 +27,14 @@
 #include <nt2/toolbox/trigonometric/include/sincospi.hpp>
 #include <boost/fusion/tuple.hpp>
 
-NT2_TEST_CASE_TPL ( sincospi_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::sincospi;
   using nt2::tag::sincospi_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -48,10 +48,10 @@ NT2_TEST_CASE_TPL ( sincospi_real__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-40), T(40));
-    double ulp0 = 0.0, ulpd = 0.0;
-    for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t r = nt2::sincospi(a0);

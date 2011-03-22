@@ -19,7 +19,6 @@ SET( SOURCES
   maximum.cpp
   first.cpp
   dot.cpp
-  at.cpp
   all.cpp
   any.cpp
 # List of simd test files for toolbox reduction

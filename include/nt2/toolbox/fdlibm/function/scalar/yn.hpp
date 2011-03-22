@@ -28,7 +28,9 @@ namespace nt2 { namespace ext
   struct call<fdlibm::tag::yn_(tag::integer_,tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
-    typedef double result_type; 
+    template<class Sig> struct result;
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : std::tr1::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {

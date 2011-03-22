@@ -8,6 +8,7 @@
              'default' : 'typename std::tr1::result_of<nt2::meta::arithmetic(sT,sT)>::type',
             },
          'simd_types' : ['real_'],
+         'special' : ['reduction'],  
          'type_defs' : ['typedef typename nt2::meta::scalar_of<T>::type sT;'],
          'types' : ['real_'],
         },
@@ -54,6 +55,16 @@
              'ulp_thresh' : {
                  'default' : ['0'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        T z = a0[0];",
+                        "        for(int i = 1; i< cardinal_of<n_t>::value; ++i)",
+                        "        {",
+                        "          z+=a0[i];",
+                        "        }",
+                        "        NT2_TEST_EQUAL( v,z);",
+                            ]
+               },
             },
         },
     },
