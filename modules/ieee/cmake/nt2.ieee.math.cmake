@@ -33,6 +33,7 @@ check_function_exists(_nextafterf NT2_TOOLBOX_IEEE_HAS__NEXTAFTERF)
 ################################################################################
 # Generate math.hpp
 ################################################################################
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/math.hpp.cmake
-                ${CMAKE_CURRENT_BINARY_DIR}/details/math.hpp
+find_file(NT2_IEEE_MATH_HPP math.hpp.cmake ${CMAKE_MODULE_PATH})
+configure_file( ${NT2_IEEE_MATH_HPP}
+                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee/details/math.hpp
               )
