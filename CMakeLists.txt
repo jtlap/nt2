@@ -53,7 +53,6 @@ include(nt2.threading)
 
 ################################################################################
 # Find number CPU information
-
 ################################################################################
 include(nt2.cpucount)
 include(nt2.cpucache)
@@ -155,7 +154,6 @@ ADD_SUBDIRECTORY(benchmark EXCLUDE_FROM_ALL)
 # System-level toolbox inclusion
 ################################################################################
 
-
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/arithmetic EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/bitwise EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/trigonometric EXCLUDE_FROM_ALL)
@@ -174,7 +172,6 @@ ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/euler EXCLUDE_FROM_AL
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/polynomials EXCLUDE_FROM_ALL)
 
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/crlibm EXCLUDE_FROM_ALL)
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/ast EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/fdlibm EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/libc EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/include/nt2/toolbox/standard EXCLUDE_FROM_ALL)
