@@ -8,7 +8,7 @@
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
          'simd_types' : ['real_'],
-         'simd_ulp_thresh' : ['40.0'],   
+         'simd_ulp_thresh' : ['300'],   
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
@@ -47,7 +47,7 @@
                  'real_' : ['::cephes_acoshl(nt2::rec(nt2::oneminus(a0)))'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['37.5'],
+                 'real_' : ['300'],
                 },
             },
         },

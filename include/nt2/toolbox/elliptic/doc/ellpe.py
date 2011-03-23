@@ -40,7 +40,7 @@
                  'default' : ['::cephes_ellpel(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5'],
+                 'default' : ['1.0'],
                 },
             },
         },

@@ -57,7 +57,7 @@
                  'default' : ['cephes_exp2l(a0)','r_t(a0)', '2*log2(nt2::abs(a0))'],
                 },
              'ulp_thresh' : {
-                 'default' : ['7','7', '7'],
+                 'default' : ['7','11', '7'],
                 },
             },
         },

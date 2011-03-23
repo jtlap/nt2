@@ -22,7 +22,7 @@
              'stamp' : 'modified by jt the 21/02/2011',
             },
          'ranges' : {
-             'real_' : [['T(0)', 'nt2::Pio_2<T>()'], ['T(0)', 'T(1)']],
+             'real_' : [['T(0.1)', 'nt2::Pio_2<T>()'], ['T(0)', 'T(1)']],
             },
          'specific_values' : {
              'real_' : {

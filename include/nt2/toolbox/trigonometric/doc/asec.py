@@ -59,7 +59,7 @@
                  'real_' : ['::cephes_acosl(1.0l/(a0))'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['4.0'],
+                 'real_' : ['5.0'],
                 },
             },
         },

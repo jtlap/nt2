@@ -55,7 +55,7 @@
                  'real_' : ['::cephes_tanl(nt2::long_pi*a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['1.0'],
+                 'real_' : ['5.0'],
                 },
             },
         },
