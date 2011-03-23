@@ -12,7 +12,7 @@
 // Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,7 +27,7 @@
 // specific includes for arity 2 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 
-NT2_TEST_CASE_TPL ( ellint_2_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::boost_math::ellint_2;
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( ellint_2_real__1,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( ellint_2_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellint_2_real__2_1,  NT2_REAL_TYPES)
 {
   
   using nt2::boost_math::ellint_2;

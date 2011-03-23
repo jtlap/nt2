@@ -12,7 +12,7 @@
 // Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/boost_math/include/double_factorial.hpp>
 
-NT2_TEST_CASE_TPL ( double_factorial_integer__1,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( double_factorial_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
   
   using nt2::boost_math::double_factorial;
