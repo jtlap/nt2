@@ -12,7 +12,7 @@
 // Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +25,7 @@
 // specific includes for arity 1 tests
 #include <nt2/include/functions/i0.hpp>
 
-NT2_TEST_CASE_TPL ( i0_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( i0_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::cephes::i0;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( i0_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cephes::i0(a0),nt2::i0(a0),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::cephes::i0(a0),nt2::i0(a0),2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
