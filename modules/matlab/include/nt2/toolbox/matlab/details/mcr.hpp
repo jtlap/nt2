@@ -1,7 +1,7 @@
 #ifndef NT2_TOOLBOX_MATLAB_DETAILS_MCR_HPP_INCLUDED
 #define NT2_TOOLBOX_MATLAB_DETAILS_MCR_HPP_INCLUDED
 
-#include <libnt2_mw.h>
+#include <nt2/toolbox/matlab/details/libnt2_mw.h>
 
 namespace nt2 { namespace matlab { namespace details
 {

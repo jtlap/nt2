@@ -23,4 +23,3 @@ ADD_SUBDIRECTORY(scalar)
 # Add driver rule dependencies
 ################################################################################
 ADD_DEPENDENCIES(matlab.unit matlab.scalar.unit)
-ADD_DEPENDENCIES(unit matlab.unit)

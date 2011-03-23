@@ -66,6 +66,7 @@ endmacro()
 set(NT2_MODULAR_ROOT ${PROJECT_SOURCE_DIR})
 nt2_load_module(sdk)
 nt2_load_module(cephes)
+nt2_load_module(matlab)
 
 ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 
