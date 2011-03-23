@@ -7,6 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
+INCLUDE_DIRECTORIES(${GSL_INCLUDE_DIRS} ${GSLCBLAS_INCLUDE_DIRS})
+
 SET( SOURCES
   gsl_sf_sinc.cpp
   gsl_sf_beta_inc.cpp
@@ -166,8 +168,8 @@ FOREACH( EXAMPLE ${SOURCES})
   ##**************************************************************************
   ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
   TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} gsl)
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} blas)
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} ${GSL_LIBRARIES})
+  TARGET_LINK_LIBRARIES(${EXECUTABLE} ${GSLCBLAS_LIBRARIES})
 
   ADD_DEPENDENCIES(gsl_specfun.scalar.unit ${EXECUTABLE})
   ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})

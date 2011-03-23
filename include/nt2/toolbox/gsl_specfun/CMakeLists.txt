@@ -7,8 +7,12 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(bench)
-ADD_SUBDIRECTORY(unit)
+SET(GSL_FIND_QUIETLY 1)
+FIND_PACKAGE(GSL)
+IF(GSL_FOUND)
+  ADD_SUBDIRECTORY(bench)
+  ADD_SUBDIRECTORY(unit)
+ENDIF(GSL_FOUND)
 
 ##############################################################################
 ## TODO: Write command for building your own sources
