@@ -13,8 +13,6 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-//#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

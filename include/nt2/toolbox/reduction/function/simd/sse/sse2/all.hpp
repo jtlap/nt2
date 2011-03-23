@@ -16,9 +16,6 @@
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

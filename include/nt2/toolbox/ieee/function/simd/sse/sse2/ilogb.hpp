@@ -20,7 +20,6 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/dist.hpp>
-#include <iostream>
 
 #define MKN(N) simd::native_cast<vtype##N>
 

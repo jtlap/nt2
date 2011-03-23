@@ -30,8 +30,6 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/any.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_

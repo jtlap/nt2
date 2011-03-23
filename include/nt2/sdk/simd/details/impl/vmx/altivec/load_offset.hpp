@@ -8,9 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_LOAD_OFFSET_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_LOAD_OFFSET_HPP_INCLUDED
-
 #include <nt2/sdk/simd/meta/as_simd.hpp>
-#include <iostream>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types with an offset
 ////////////////////////////////////////////////////////////////////////////////

@@ -24,7 +24,6 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <iostream>
 
 namespace nt2
 {
