@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,a1),8);
+        NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,a1),9);
         ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<T>()),nt2::sqr(a0),1);
         ulp0=nt2::max(ulpd,ulp0);

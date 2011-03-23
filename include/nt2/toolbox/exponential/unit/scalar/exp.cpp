@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,7 +27,7 @@
 #include <nt2/include/functions/sqr.hpp>
 extern "C" { long double cephes_expl(long double); }
 
-NT2_TEST_CASE_TPL ( exp_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exp_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::exp;
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( exp_real__1,  NT2_REAL_TYPES)
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::exp(a0),::cephes_expl(a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::log(nt2::exp(a0)),r_t(a0),4.0);
+        NT2_TEST_ULP_EQUAL( nt2::log(nt2::exp(a0)),r_t(a0),35.0);
         ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::sqr(nt2::exp(a0)),nt2::exp(2*a0),1.5);
         ulp0=nt2::max(ulpd,ulp0);
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( exp_real__1,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( exp_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( exp_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::exp;
@@ -108,7 +108,7 @@ NT2_TEST_CASE_TPL ( exp_unsigned_int__1,  NT2_UNSIGNED_TYPES)
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::exp(a0),::cephes_expl(a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::log(nt2::exp(a0)),r_t(a0),4.0);
+        NT2_TEST_ULP_EQUAL( nt2::log(nt2::exp(a0)),r_t(a0),35.0);
         ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::sqr(nt2::exp(a0)),nt2::exp(2*a0),1.5);
         ulp0=nt2::max(ulpd,ulp0);
@@ -117,7 +117,7 @@ NT2_TEST_CASE_TPL ( exp_unsigned_int__1,  NT2_UNSIGNED_TYPES)
    }
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( exp_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( exp_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::exp;
@@ -152,7 +152,7 @@ NT2_TEST_CASE_TPL ( exp_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::exp(a0),::cephes_expl(a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::log(nt2::exp(a0)),r_t(a0),4.0);
+        NT2_TEST_ULP_EQUAL( nt2::log(nt2::exp(a0)),r_t(a0),35.0);
         ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::sqr(nt2::exp(a0)),nt2::exp(2*a0),1.5);
         ulp0=nt2::max(ulpd,ulp0);

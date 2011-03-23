@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/abs.hpp>
 
-NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::nthroot;
@@ -54,8 +54,8 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,iT, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     iT a1;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( nthroot_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( nthroot_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::nthroot;
@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( nthroot_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::nthroot;

@@ -12,7 +12,7 @@
 // Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow(tab_a0[k],tab_a1[k])), 8);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow(tab_a0[k],tab_a1[k])), 9);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

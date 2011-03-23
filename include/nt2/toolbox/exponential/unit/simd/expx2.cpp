@@ -12,7 +12,7 @@
 // Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 ///  created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/exponential/include/expx2.hpp>
 
-NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( expx2_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::expx2;
   using nt2::tag::expx2_;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( expx2_real__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(5));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(1), T(5));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {

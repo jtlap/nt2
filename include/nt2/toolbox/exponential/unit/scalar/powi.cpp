@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +25,7 @@
 // specific includes for arity 2 tests
 extern "C" { long double cephes_powil(long double,int); }
 
-NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( powi_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::powi;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( powi_real__2,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,iT, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    iT a1; 
+    iT a1;
     for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "

@@ -12,7 +12,7 @@
 // Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/exponential/include/nthroot.hpp>
 
-NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_REAL_TYPES)
 {
   using nt2::nthroot;
   using nt2::tag::nthroot_;
@@ -46,15 +46,15 @@ NT2_TEST_CASE_TPL ( nthroot_real__2,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,iT, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
         r_t v = nthroot(a0,a1);
-	for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::nthroot(tab_a0[k],tab_a1[k])), 1);
