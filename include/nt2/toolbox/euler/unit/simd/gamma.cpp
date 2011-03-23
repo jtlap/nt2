@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( gamma_real__1,  NT2_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::gamma(tab_a0[k])), 5.0);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::gamma(tab_a0[k])), 25.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

@@ -43,8 +43,8 @@ NT2_TEST_CASE_TPL ( gsl_sf_bessel_knu_real__2_0,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,iT, NR, iT(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, iT(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(4));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0.25), T(0.75));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     iT a0;
     T a1;
