@@ -12,7 +12,7 @@
 // Test behavior of standard components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( fmod_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::standard::fmod(a0,a1),nt2::rem(a0,a1),140);
+        NT2_TEST_ULP_EQUAL( nt2::standard::fmod(a0,a1),nt2::rem(a0,a1),180);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
