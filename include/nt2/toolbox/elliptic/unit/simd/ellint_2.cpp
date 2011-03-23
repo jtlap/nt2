@@ -4,7 +4,7 @@
 ///
 ///          Distributed under the Boost Software License, Version 1.0
 ///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt 
+///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 elliptic toolbox - ellint_2/simd Mode"
 
@@ -12,7 +12,7 @@
 // Test behavior of elliptic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/elliptic/include/ellint_2.hpp>
 
-NT2_TEST_CASE_TPL ( ellint_2_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::ellint_2;
   using nt2::tag::ellint_2_;

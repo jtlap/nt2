@@ -12,7 +12,7 @@
 // Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +26,7 @@
 extern "C" {long double cephes_ellikl(long double,long double);}
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 
-NT2_TEST_CASE_TPL ( ellik_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellik_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::ellik;
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( ellik_real__2,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), nt2::Pio_2<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0.1), nt2::Pio_2<T>());
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(1));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;

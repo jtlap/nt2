@@ -12,7 +12,7 @@
 // Test behavior of elliptic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -28,7 +28,7 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/fusion/tuple.hpp>
 
-NT2_TEST_CASE_TPL ( ellipke_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1,  NT2_REAL_TYPES)
 
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( ellipke_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
