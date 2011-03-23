@@ -7,6 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+INCLUDE(nt2.euler.math)
+
 FIND_PACKAGE(NT2 COMPONENTS sdk)
-include(nt2.euler.math)
-SET(NT2_EULER_DEPENDENCIES_INCLUDE_DIR ${NT2_SDK_INCLUDE_DIR})
+SET(NT2_EULER_DEPENDENCIES_FOUND ${NT2_FOUND})
+SET(NT2_EULER_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})
+SET(NT2_EULER_DEPENDENCIES_LIBRARIES ${NT2_LIBRARIES})

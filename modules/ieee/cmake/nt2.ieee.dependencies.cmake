@@ -7,6 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(NT2 COMPONENTS arithmetic reduction)
 INCLUDE(nt2.ieee.math)
-SET(NT2_IEEE_DEPENDENCIES_INCLUDE_DIR ${NT2_ARITHMETIC_INCLUDE_DIR} ${NT2_REDUCTION_INCLUDE_DIR})
+
+FIND_PACKAGE(NT2 COMPONENTS arithmetic reduction)
+SET(NT2_IEEE_DEPENDENCIES_FOUND ${NT2_FOUND})
+SET(NT2_IEEE_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})
+SET(NT2_IEEE_DEPENDENCIES_LIBRARIES ${NT2_LIBRARIES})

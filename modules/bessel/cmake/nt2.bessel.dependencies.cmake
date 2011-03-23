@@ -7,6 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(NT2 COMPONENTS predicates)
 include(nt2.bessel.math)
-SET(NT2_BESSEL_DEPENDENCIES_INCLUDE_DIR ${NT2_PREDICATES_INCLUDE_DIR})
+
+FIND_PACKAGE(NT2 COMPONENTS predicates)
+SET(NT2_BESSEL_DEPENDENCIES_FOUND ${NT2_FOUND})
+SET(NT2_BESSEL_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})
+SET(NT2_BESSEL_DEPENDENCIES_LIBRARIES ${NT2_LIBRARIES})

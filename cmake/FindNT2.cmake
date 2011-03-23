@@ -7,12 +7,40 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-# A function is necessary for recursive invocations of the find script
-function(nt2_find COMPONENT)
+# This script defines the following variables, with ${COMPONENT_U} being a component
+# set to uppercase:
+# - NT2_${COMPONENT_U}_FOUND        boolean that tells whether the associated component
+#                                   and all of its dependencies were found.
+# - NT2_FOUND                       boolean that tells whether all the requested components
+#                                   were found.
+# - NT2_${COMPONENT_U}_INCLUDE_DIR  list of directories that are necessary to add to the INCLUDE_PATH
+#                                   to use the component
+# - NT2_INCLUDE_DIR                 list of directories that are necessary to add to the INCLUDE_PATH
+#                                   to use all the requested components
+# - NT2_${COMPONENT_U}_LIBRARY_DIR  list of directories that are necessary to add to the LIBRARY_PATH
+#                                   to use the component
+# - NT2_LIBRARY_DIR                 list of directories that are necessary to add to the LIBRARY_PATH
+#                                   to use all the requested components
+# - NT2_${COMPONENT_U}_LIBRARIES    list of libraries that are necessary to link to use the component
+# - NT2_LIBRARIES                   list of libraries that are necessary to link all the requested components
+# - NT2_FOUND_COMPONENTS            list of components that were found, including their dependencies.
+#
+# Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
+#
+# When searching for a NT2 module within another NT2 module, with the former depending on the latter, set
+# the NT2_CURRENT_MODULE variable to the current module (lowercase) to avoid circular dependencies.
 
+macro(nt2_copy_parent)
+  foreach(ARG ${ARGV})
+    set(${ARG} ${${ARG}} PARENT_SCOPE)
+  endforeach()
+endmacro()
+
+function(nt2_find COMPONENT)
+  
   string(TOUPPER ${COMPONENT} COMPONENT_U)
   
-  if(${NT2_${COMPONENT_U}_FOUND})
+  if(NT2_${COMPONENT_U}_FOUND)
     return()
   endif()
   
@@ -20,40 +48,120 @@ function(nt2_find COMPONENT)
   # TODO
   
   # Search for source
-  if(DEFINED ENV{NT2_${COMPONENT_U}_ROOT})
+  if(NOT DEFINED NT2_MODULAR_ROOT AND DEFINED ENV{NT2_${COMPONENT_U}_ROOT})
     set(NT2_${COMPONENT_U}_ROOT $ENV{NT2_${COMPONENT_U}_ROOT})
   elseif(DEFINED NT2_MODULAR_ROOT)
     set(NT2_${COMPONENT_U}_ROOT "${NT2_MODULAR_ROOT}/modules/${COMPONENT}")
   endif()
     
   if(DEFINED NT2_${COMPONENT_U}_ROOT)
-    message(STATUS "[NT2] Found ${COMPONENT} module source, setting dependencies")
     
-    set(CMAKE_MODULE_PATH "${NT2_${COMPONENT_U}_ROOT}/cmake" ${CMAKE_MODULE_PATH})
-    find_file(NT2_${COMPONENT_U}_DEPENDENCIES_FILE "nt2.${COMPONENT}.dependencies.cmake" ${CMAKE_MODULE_PATH})
-    IF(NOT ${NT2_${COMPONENT_U}_DEPENDENCIES_FILE} MATCHES "NOTFOUND")
-      include(${NT2_${COMPONENT_U}_DEPENDENCIES_FILE})
-    ENDIF()
+    if(${NT2_CURRENT_MODULE} STREQUAL ${COMPONENT})
+      message(STATUS "[FindNT2] Found ${COMPONENT} module source, being built")
+    else()
+      message(STATUS "[FindNT2] Found ${COMPONENT} module source, setting dependencies")
     
-    set(NT2_${COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR} "${NT2_${COMPONENT_U}_ROOT}/include" PARENT_SCOPE)
+      set(CMAKE_MODULE_PATH "${NT2_${COMPONENT_U}_ROOT}/cmake" ${CMAKE_MODULE_PATH})
+      find_file(NT2_${COMPONENT_U}_DEPENDENCIES_FILE "nt2.${COMPONENT}.dependencies.cmake" ${CMAKE_MODULE_PATH})
+      if(NOT ${NT2_${COMPONENT_U}_DEPENDENCIES_FILE} MATCHES "NOTFOUND")
+        include(${NT2_${COMPONENT_U}_DEPENDENCIES_FILE})
+      endif()
+    endif()
     
-  else()
-    message(STATUS "[NT2] Module ${COMPONENT} not found")
-    set(NT2_FOUND 0 PARENT_SCOPE)
+    if(NOT DEFINED NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
+      set(NT2_${COMPONENT_U}_FOUND 1)
+    elseif(NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
+      set(NT2_${COMPONENT_U}_FOUND 1)
+    else()
+      set(NT2_${COMPONENT_U}_FOUND 0)
+    endif()
+    set(NT2_${COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR} "${NT2_${COMPONENT_U}_ROOT}/include")
+    if(NT2_${COMPONENT_U}_INCLUDE_DIR)
+      list(REMOVE_DUPLICATES NT2_${COMPONENT_U}_INCLUDE_DIR)
+    endif()
+    set(NT2_${COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR})
+    set(NT2_${COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES} ${NT2_${COMPONENT_U}_LIBRARIES})
+    if(NT2_${COMPONENT_U}_LIBRARIES)
+      list(REMOVE_DUPLICATES NT2_${COMPONENT_U}_LIBRARIES)
+    endif()
+    
+    #message(STATUS "[FindNT2] Variables for module ${COMPONENT}")
+    #message(STATUS "[FindNT2] -- NT2_${COMPONENT_U}_FOUND = ${NT2_${COMPONENT_U}_FOUND}")
+    #message(STATUS "[FindNT2] -- NT2_${COMPONENT_U}_INCLUDE_DIR = ${NT2_${COMPONENT_U}_INCLUDE_DIR}")
+    #message(STATUS "[FindNT2] -- NT2_${COMPONENT_U}_LIBRARY_DIR = ${NT2_${COMPONENT_U}_LIBRARY_DIR}")
+    #message(STATUS "[FindNT2] -- NT2_${COMPONENT_U}_LIBRARIES = ${NT2_${COMPONENT_U}_LIBRARIES}")
     
   endif()
-  
-  set(NT2_${COMPONENT_U}_FOUND ${NT2_FOUND} PARENT_SCOPE)
+    
+    nt2_copy_parent( NT2_${COMPONENT_U}_FOUND
+                     NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR
+                     NT2_${COMPONENT_U}_LIBRARIES
+                   )
+                   
+    set(NT2_${COMPONENT_U}_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} PARENT_SCOPE)
   
 endfunction()
 
-set(NT2_FOUND 1)
+macro(nt2_prepend_module name)
+  set(NT2_${name} ${NT2_${COMPONENT_U}_${name}} ${NT2_${name}})
+  if(NT2_${name})
+    list(REMOVE_DUPLICATES NT2_${name})
+  endif()
+endmacro()
 
-if(DEFINED ENV{NT2_MODULAR_ROOT})
-  message(STATUS "[NT2] Found modular root")
-  set(NT2_MODULAR_ROOT $ENV{NT2_MODULAR_ROOT})
+macro(nt2_flag_found)
+  foreach(COMPONENT_ ${NT2_FOUND_COMPONENTS})
+    string(TOUPPER ${COMPONENT_} COMPONENT_U_)
+    nt2_copy_parent( NT2_${COMPONENT_U_}_FOUND
+                     NT2_${COMPONENT_U_}_INCLUDE_DIR NT2_${COMPONENT_U_}_LIBRARY_DIR
+                     NT2_${COMPONENT_U_}_LIBRARIES
+                   )
+  endforeach()
+endmacro()
+
+function(nt2_find_top)
+
+  set(NT2_FOUND 1)
+  set(NT2_INCLUDE_DIR "")
+  set(NT2_LIBRARY_DIR "")
+  set(NT2_LIBRARIES "")
+  set(NT2_FOUND_COMPONENTS "")
+  
+  set(NT2_FIND_RECURSIVE 1)
+  if(NOT DEFINED NT2_CURRENT_MODULE)
+      set(NT2_CURRENT_MODULE " ")
+  endif()
+
+  if(NOT DEFINED NT2_MODULAR_ROOT AND DEFINED ENV{NT2_MODULAR_ROOT})
+    message(STATUS "[FindNT2] Found modular root")
+    set(NT2_MODULAR_ROOT $ENV{NT2_MODULAR_ROOT})
+  endif()
+
+  foreach(COMPONENT ${ARGV})
+    string(TOUPPER ${COMPONENT} COMPONENT_U)
+    nt2_find(${COMPONENT})
+    if(NT2_FOUND AND NT2_${COMPONENT_U}_FOUND)
+        set(NT2_FOUND 1)
+        set(NT2_FOUND_COMPONENTS ${COMPONENT} ${NT2_FOUND_COMPONENTS})
+    else()
+        set(NT2_FOUND 0)
+    endif()
+    nt2_prepend_module(INCLUDE_DIR)
+    nt2_prepend_module(LIBRARY_DIR)
+    nt2_prepend_module(LIBRARIES)
+    nt2_prepend_module(FOUND_COMPONENTS)
+    nt2_flag_found()
+  endforeach()
+  
+  nt2_copy_parent( NT2_FOUND
+                   NT2_INCLUDE_DIR NT2_LIBRARY_DIR
+                   NT2_LIBRARIES
+                   NT2_FOUND_COMPONENTS
+                 )
+
+endfunction()
+
+nt2_find_top(${NT2_FIND_COMPONENTS})
+if(NT2_FIND_RECURSIVE)
+  nt2_flag_found()
 endif()
-
-foreach(COMPONENT ${NT2_FIND_COMPONENTS})
-  nt2_find(${COMPONENT})
-endforeach()

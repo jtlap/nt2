@@ -11,6 +11,10 @@ cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 include(nt2.cephes.dependencies)
+if(NOT NT2_CEPHES_DEPENDENCIES_FOUND)
+  message(WARNING "[nt2.cephes] dependencies not met, skipping module")
+  return()
+endif()
 
 include_directories( ${PROJECT_BINARY_DIR}/include
                      ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -30,9 +34,14 @@ find_package(NT2 COMPONENTS arithmetic euler
                             bessel hyperbolic
                             elliptic
             )
-include_directories( ${NT2_ARITHMETIC_INCLUDE_DIR} ${NT2_EULER_INCLUDE_DIR}
-                     ${NT2_EXPONENTIAL_INCLUDE_DIR} ${NT2_TRIGONOMETRIC_INCLUDE_DIR}
-                     ${NT2_BESSEL_INCLUDE_DIR} ${NT2_HYPERBOLIC_INCLUDE_DIR}
-                     ${NT2_ELLIPTIC_INCLUDE_DIR}
-                   )
-ADD_SUBDIRECTORY(unit)
+if(NOT NT2_FOUND)
+  message(WARNING "[nt2.cephes] dependencies for unit tests not met, skipping")
+else()
+  include_directories(${NT2_INCLUDE_DIR})
+  link_directories(${NT2_LIBRARY_DIR})
+  ADD_SUBDIRECTORY(unit)
+endif()
+
+if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+  nt2_flag_found()
+endif()

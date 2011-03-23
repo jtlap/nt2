@@ -10,7 +10,8 @@
 ################################################################################
 # Some global random test
 ################################################################################
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
+FIND_PACKAGE(NT2 COMPONENTS sdk)
+INCLUDE_DIRECTORIES(${NT2_INCLUDE_DIR})
 SET(SOURCES
 pack.cpp
 #    foo.cpp
