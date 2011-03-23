@@ -12,7 +12,7 @@
 // Test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -26,7 +26,7 @@
 extern "C" {long double cephes_gammal(long double);}
 extern "C" {long double cephes_logl  (long double);}
 
-NT2_TEST_CASE_TPL ( gammaln_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( gammaln_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::gammaln;
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( gammaln_real__1,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::gammaln(a0),cephes_logl(std::abs(cephes_gammal(a0))),1);
+        NT2_TEST_ULP_EQUAL( nt2::gammaln(a0),cephes_logl(std::abs(cephes_gammal(a0))),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

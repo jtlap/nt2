@@ -12,7 +12,7 @@
 // Test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/euler/include/beta.hpp>
 
-NT2_TEST_CASE_TPL ( beta_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( beta_real__2_0,  NT2_REAL_TYPES)
 {
   using nt2::beta;
   using nt2::tag::beta_;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( beta_real__2,  NT2_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::beta(tab_a0[k],tab_a1[k])), 2.5);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::beta(tab_a0[k],tab_a1[k])), 5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
