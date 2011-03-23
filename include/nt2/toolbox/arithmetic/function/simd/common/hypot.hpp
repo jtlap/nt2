@@ -22,9 +22,6 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/sqrt.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

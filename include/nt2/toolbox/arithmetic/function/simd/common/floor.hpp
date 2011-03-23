@@ -12,8 +12,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/seladd.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

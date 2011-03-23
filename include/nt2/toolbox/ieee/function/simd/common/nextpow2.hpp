@@ -21,9 +21,6 @@
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/firstbitset.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

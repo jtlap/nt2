@@ -12,9 +12,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
-
 #include <nt2/include/functions/is_positive.hpp>
-//#include <iostream>
 
 
 /////////////////////////////////////////////////////////////////////////////

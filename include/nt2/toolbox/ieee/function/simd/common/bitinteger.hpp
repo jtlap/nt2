@@ -14,8 +14,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_positive.hpp>
-//#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

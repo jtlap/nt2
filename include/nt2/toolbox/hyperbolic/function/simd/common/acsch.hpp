@@ -14,9 +14,6 @@
 #include <nt2/include/functions/asinh.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

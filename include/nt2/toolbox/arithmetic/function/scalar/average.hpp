@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_AVERAGE_HPP_INCLUDED
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/include/functions/shrai.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

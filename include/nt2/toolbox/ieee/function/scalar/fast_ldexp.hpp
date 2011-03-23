@@ -13,7 +13,6 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

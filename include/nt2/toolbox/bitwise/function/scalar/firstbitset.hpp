@@ -13,7 +13,6 @@
 #include <nt2/sdk/meta/as_bits.hpp>
 
 #include <nt2/include/functions/firstbitunset.hpp>
-#include <iostream>
 
 
 /////////////////////////////////////////////////////////////////////////////

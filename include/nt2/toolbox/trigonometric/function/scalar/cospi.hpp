@@ -9,11 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_COSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_COSPI_HPP_INCLUDED
 #include <nt2/sdk/constant/digits.hpp>
-
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

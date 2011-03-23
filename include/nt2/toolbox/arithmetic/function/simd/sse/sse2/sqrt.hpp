@@ -17,8 +17,6 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/shri.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t

@@ -13,8 +13,6 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/sign.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

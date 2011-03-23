@@ -14,8 +14,6 @@
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/rem.hpp>
-#include <iostream> 
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_
