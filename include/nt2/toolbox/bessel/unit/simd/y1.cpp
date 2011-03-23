@@ -12,7 +12,7 @@
 // Test behavior of bessel components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// modified by jt the 17/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bessel/include/y1.hpp>
 
-NT2_TEST_CASE_TPL ( y1_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( y1_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::y1;
   using nt2::tag::y1_;

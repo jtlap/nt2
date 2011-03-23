@@ -12,7 +12,7 @@
 // Test behavior of bessel components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bessel/include/jni.hpp>
 
-NT2_TEST_CASE_TPL ( jni_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( jni_real__2_0,  NT2_REAL_TYPES)
 {
   using nt2::jni;
   using nt2::tag::jni_;
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( jni_real__2,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,iT, NR, 1, 10);
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         iT a0 = tab_a0[j];

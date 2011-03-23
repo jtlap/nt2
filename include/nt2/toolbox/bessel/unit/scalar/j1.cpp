@@ -12,7 +12,7 @@
 // Test behavior of bessel components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +25,7 @@
 // specific includes for arity 1 tests
 extern "C" {long double cephes_j1l(long double);}
 
-NT2_TEST_CASE_TPL ( j1_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( j1_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::j1;
@@ -51,14 +51,14 @@ NT2_TEST_CASE_TPL ( j1_real__1,  NT2_REAL_TYPES)
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::j1(a0),cephes_j1l(a0),300);
+        NT2_TEST_ULP_EQUAL( nt2::j1(a0),cephes_j1l(a0),350);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
