@@ -36,7 +36,6 @@ SET( SOURCES
   gsl_sf_fermi_dirac_1.cpp
   gsl_sf_zeta.cpp
   gsl_sf_psi_1piy.cpp
-  gsl_sf_bessel_knu.cpp
   gsl_sf_expm1.cpp
   gsl_sf_expint_e1.cpp
   gsl_sf_expint_e2.cpp
