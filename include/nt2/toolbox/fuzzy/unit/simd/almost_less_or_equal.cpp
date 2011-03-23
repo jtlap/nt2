@@ -12,7 +12,7 @@
 // Test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// modified by jt the 21/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -51,20 +51,17 @@ NT2_TEST_CASE_TPL ( almost_less_or_equal_real__3_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a2,iT, NR, T(0), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      { 
+      {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
-        ivT a2 = load<ivT>(&tab_a2[0],j); 
+        ivT a2 = load<ivT>(&tab_a2[0],j);
         r_t v = almost_less_or_equal(a0,a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
-           int k = i+j*cardinal_of<n_t>::value;
-	  std::cout << tab_a0[k] << "  " << tab_a1[k] << "   " << tab_a2[k] << "  " << std::endl;
-	  std::cout <<  (v[i]!=0)  << "  " << nt2::almost_less_or_equal(tab_a0[k],tab_a1[k],tab_a2[k]) << std::endl;
+          int k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::almost_less_or_equal(tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
     
   }
 } // end of test for real_
- 

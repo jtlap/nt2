@@ -12,7 +12,7 @@
 // Test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// modified by jt the 21/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( definitely_not_equal_real__3_0,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a2,iT, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a2,iT, NR, iT(0), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
