@@ -12,7 +12,7 @@
 // Test behavior of fuzzy components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// modified by jt the 21/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_not_equal_real__3_0,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a2,T, NR, T(0), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
@@ -68,4 +68,3 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_not_equal_real__3_0,  NT2_REAL_TYPES)
      
    }
 } // end of test for real_
-
