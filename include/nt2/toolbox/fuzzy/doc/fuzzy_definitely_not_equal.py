@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'typename nt2::meta::logical<T>::type',
             },
+         'types' : ['real_'],
          'simd_types' : ['real_'],
          'special' : ['fuzzy'],
          'type_defs' : [],

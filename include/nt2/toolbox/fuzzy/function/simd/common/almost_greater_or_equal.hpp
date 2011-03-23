@@ -26,6 +26,7 @@ NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
 					     tag::simd_<tag::integer_,X>, 
 			  		     tag::simd_<tag::integer_,X>)), 
 			 ((simd_<integer_<A0>,X>))
+			 ((simd_<integer_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
                        );
 
@@ -58,6 +59,7 @@ NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
 					     tag::simd_<tag::real_,X>, 
 			  		     tag::simd_<tag::integer_,X>)), 
 			 ((simd_<real_<A0>,X>))
+			 ((simd_<real_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
                        );
 
@@ -76,7 +78,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       return b_and(
-               isord(a0, a1),
+               is_ord(a0, a1),
                ge(a0, predecessor(a1, a2))
                );
     }
