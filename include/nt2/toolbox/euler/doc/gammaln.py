@@ -44,7 +44,7 @@
                  'default' : ['cephes_logl(std::abs(cephes_gammal(a0)))'],
                 },
              'ulp_thresh' : {
-                 'default' : ['1'],
+                 'default' : ['1.5'],
                 },
             },
         },

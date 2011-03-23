@@ -56,7 +56,7 @@
                  'real_' : ['::cephes_log1pl(a0)','a0', 'nt2::Half<T>()*nt2::log1p(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['1','1.5', '1.5'],
+                 'default' : ['1','1.5', '2.0'],
                 },
             },
         },

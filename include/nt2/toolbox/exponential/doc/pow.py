@@ -57,7 +57,7 @@
                  'real_' : ['::cephes_powl(a0,a1)', 'nt2::sqr(a0)', 'nt2::sqrt(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['8','1', '1'],
+                 'real_' : ['9','1', '1'],
                 },
             },
         },

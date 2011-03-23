@@ -56,7 +56,7 @@
                  'default' : ['::cephes_expl(a0)', 'r_t(a0)', 'nt2::exp(2*a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5', '4.0', '1.5'],
+                 'default' : ['0.5', '35.0', '1.5'],
                 },
             },
         },

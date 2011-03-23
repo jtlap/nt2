@@ -56,7 +56,7 @@
                  'real_' : ['::cephes_exp10l(a0)', 'r_t(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['0.5','1.5'],
+                 'default' : ['0.5','5'],
                 },
             },
         },

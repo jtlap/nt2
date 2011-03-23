@@ -27,8 +27,8 @@
             },
          'specific_values' : {
              'default' : {
-                 '0,0,1' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
-                 '0,1,1' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(0),T(1)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(1),T(1)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

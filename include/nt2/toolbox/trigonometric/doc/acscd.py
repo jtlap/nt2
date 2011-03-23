@@ -59,7 +59,7 @@
                  'real_' : ['::cephes_asinl(1.0l/(a0))*nt2::long_radindeg'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['1.0'],
+                 'real_' : ['7.0'],
                 },
             },
         },
