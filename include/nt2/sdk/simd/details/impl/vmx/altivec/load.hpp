@@ -8,8 +8,6 @@
  ******************************************************************************/
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_LOAD_HPP_INCLUDED
-
-#include <iostream>
 #include <nt2/sdk/details/type_id.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
