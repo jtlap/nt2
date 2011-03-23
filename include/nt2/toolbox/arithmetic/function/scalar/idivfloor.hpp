@@ -35,7 +35,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-       return -idivceil(-a0,a1);
+      if(a1)
+        return -idivceil(-a0,a1);
+      else
+      {
+        typedef typename NT2_RETURN_TYPE(2)::type type;
+        return (a0>0) ? Valmax<type>() : Valmin<type>();
+      }
+
     }
   };
 } }
