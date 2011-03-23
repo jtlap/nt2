@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 /// for integer values average does not,coincide with (a0+a1)/2 by at most one unit.
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
@@ -27,7 +27,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/arithmetic/include/average.hpp>
 
-NT2_TEST_CASE_TPL ( average_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( average_real__2_0,  NT2_REAL_TYPES)
 {
   using nt2::average;
   using nt2::tag::average_;
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( average_real__2,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);

@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +28,7 @@
 #include <nt2/include/functions/remainder.hpp>
 #include <nt2/include/functions/idivround.hpp>
 
-NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( remquo_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::remquo;
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
     for (uint32_t j =0; j < NR; ++j )

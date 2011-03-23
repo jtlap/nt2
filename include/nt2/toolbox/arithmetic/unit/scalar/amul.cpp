@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 23/03/2011
 /// 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -24,7 +24,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/amul.hpp>
 
-NT2_TEST_CASE_TPL ( amul_real__3,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( amul_real__3_0,  NT2_REAL_TYPES)
 {
   
   using nt2::amul;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( amul_real__3,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
     T a2;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( amul_real__3,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( amul_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( amul_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::amul;
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL ( amul_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
     T a2;
@@ -121,7 +121,7 @@ NT2_TEST_CASE_TPL ( amul_signed_int__3,  NT2_INTEGRAL_SIGNED_TYPES)
    }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( amul_unsigned_int__3,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( amul_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::amul;
@@ -149,7 +149,7 @@ NT2_TEST_CASE_TPL ( amul_unsigned_int__3,  NT2_UNSIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
-    double ulp0 = 0.0, ulpd = 0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
     T a2;
