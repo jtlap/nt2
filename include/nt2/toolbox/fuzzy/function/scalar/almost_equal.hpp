@@ -14,6 +14,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/abs.hpp>
 
 
@@ -22,7 +23,7 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::almost_equal_, tag::cpu_,
                               (A0)(A1)(A2),
-                              (real_<A0>)(real_<A1>)(integer_<A2>)
+                              (arithmetic_<A0>)(arithmetic_<A1>)(integer_<A2>)
                              )
 
 namespace nt2 { namespace ext
@@ -69,7 +70,8 @@ namespace nt2 { namespace ext
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  (a0 <= successor(a1, a2)) && (a0 >= successor(a1, -a2));
+      A2 aa2 =  nt2::abs(a2); 
+      return  (a0 <= successor(a1, aa2)) && (a0 >= predecessor(a1, aa2));
     }
   };
 } }
