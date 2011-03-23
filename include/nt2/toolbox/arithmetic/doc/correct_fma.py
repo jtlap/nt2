@@ -52,16 +52,7 @@
                 },
             },
          'verif_test' : {
-             'property_call' : {
-                 'default' : ['nt2::correct_fma(a0,a1,a2)'],
-                },
-             'property_value' : {
-                 'default' : ['a0*a1+a2'],
-                },
-             'ulp_thresh' : {
-                 'default' : ['2.0'],
-                },
-            },
+              },
         },
      'version' : '0.1',
     },
