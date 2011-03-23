@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 23/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( cotpi_real_convert__1_0,  NT2_REAL_CONVERTIBLE_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cotpi(tab_a0[k])), 1.5);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cotpi(tab_a0[k])), 10.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

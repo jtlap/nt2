@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 23/03/2011
 /// asin(1/a0)*Radindeg
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( acscd_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::acscd(a0),::cephes_asinl(1.0l/(a0))*nt2::long_radindeg,1.0);
+        NT2_TEST_ULP_EQUAL( nt2::acscd(a0),::cephes_asinl(1.0l/(a0))*nt2::long_radindeg,7.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
