@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 gsl_specfun toolbox - gsl_sf_bessel_knu/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - saturate/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of gsl_specfun components in scalar mode
+// Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 10/03/2011
-/// modified by jt the 18/03/2011
+/// created  by jt the 20/03/2011
+/// modified by jt the 21/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -21,15 +21,15 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_knu.hpp>
+#include <nt2/toolbox/ieee/include/saturate.hpp>
 
-NT2_TEST_CASE_TPL ( gsl_sf_bessel_knu_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
-  using nt2::gsl_specfun::gsl_sf_bessel_knu;
-  using nt2::gsl_specfun::tag::gsl_sf_bessel_knu_;
+  using nt2::saturate;
+  using nt2::tag::saturate_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<gsl_sf_bessel_knu_(iT,T)>::type r_t;
+  typedef typename nt2::meta::call<saturate_<uint16_t>(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -43,20 +43,18 @@ NT2_TEST_CASE_TPL ( gsl_sf_bessel_knu_real__2_0,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(4));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(0.25), T(0.75));
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    iT a0;
-    T a1;
+    T a0;
     for (uint32_t j =0; j < NR; ++j )
       {
-        std::cout << "for params "
+        std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::gsl_specfun::gsl_sf_bessel_knu(a0,a1),nt2::gsl_specfun::gsl_sf_bessel_knu(a0,a1),1);
+        NT2_TEST_ULP_EQUAL( saturate<uint16_t>(a0),a0>nt2::Valmax<uint16_t>() ? nt2::Valmax<uint16_t>() : a0,1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
-} // end of test for real_
+} // end of test for unsigned_int_
+ 

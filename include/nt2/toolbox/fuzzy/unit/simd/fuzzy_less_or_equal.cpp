@@ -12,7 +12,7 @@
 // Test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 21/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( fuzzy_less_or_equal_real__3_0,  NT2_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::fuzzy_less_or_equal(tab_a0[k],tab_a1[k],tab_a2[k])));
+          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::fuzzy_less_or_equal(tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
     

@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  saturate.cpp
   negate.cpp
   sign.cpp
   negation.cpp

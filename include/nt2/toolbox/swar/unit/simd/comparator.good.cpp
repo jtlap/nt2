@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - fuzzy_equal/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - comparator/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of fuzzy components in simd mode
+// Test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 04/03/2011
-/// modified by jt the 21/03/2011
+/// created  by jt the 24/02/2011
+/// modified by jt the 20/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -24,12 +24,17 @@
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_equal.hpp>
+#include <nt2/toolbox/swar/include/comparator.hpp>
+#include <boost/fusion/tuple.hpp>
+// specific includes for arity 3 tests
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/min.hpp>
 
-NT2_TEST_CASE_TPL ( fuzzy_equal_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
 {
-  using nt2::fuzzy_equal;
-  using nt2::tag::fuzzy_equal_;
+  using nt2::comparator;
+  using nt2::tag::comparator_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
@@ -38,29 +43,29 @@ NT2_TEST_CASE_TPL ( fuzzy_equal_real__3_0,  NT2_REAL_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<fuzzy_equal_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<fuzzy_equal_(T,T,T)>::type sr_t;
+  typedef native<iT,ext_t>                        ivT;
+  typedef typename nt2::meta::call<comparator_(vT,vT,iT)>::type r_t;
+  typedef typename nt2::meta::call<comparator_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a2,iT, NR, iT(0), iT(1));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
-        vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = fuzzy_equal(a0,a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::fuzzy_equal(tab_a0[k],tab_a1[k],tab_a2[k])));
-        }
+        iT a2 = tab_a2[j];
+        r_t v = comparator(a0,a1,a2);
+        vT ma = nt2::max(a0,a1);
+        vT mi = nt2::min(a0,a1);
+	std::cout << a2 << "  " << mi << "   " << ma << std::endl; 
+        NT2_TEST(nt2::all(nt2::eq(boost::fusion::get<0>(v),(a2)?ma:mi)));
+        NT2_TEST(nt2::all(nt2::eq(boost::fusion::get<1>(v),(a2)?mi:ma)));
       }
     
   }

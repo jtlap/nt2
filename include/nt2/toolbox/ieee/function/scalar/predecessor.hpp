@@ -36,7 +36,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0-a1;
+      if (Valmin<A0>()+nt2::abs(a1) > a0) return Valmin<A0>(); 
+      return a0-nt2::abs(a1);
     }
   };
 } }
@@ -58,7 +59,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return minusone(a0);
+      if (a0 != Valmin<A0>())
+	return minusone(a0);
+      else
+	return Valmin<A0>(); 
     }
   };
 } }
@@ -85,7 +89,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       if (is_nan(a0)) return a0; 
-       return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-a1);
+      return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-nt2::abs(a1));
     }
   };
 } }

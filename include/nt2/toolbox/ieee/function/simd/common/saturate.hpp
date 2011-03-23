@@ -6,32 +6,37 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_GROUP_HPP_INCLUDED
-#define NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_GROUP_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_SATURATE_HPP_INCLUDED
+#define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_SATURATE_HPP_INCLUDED
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/functions/select.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// group as currently no meaning in scalar mode
+// Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
-                        (A0),
-                        ((arithmetic_<A0>))
-                        ((arithmetic_<A0>))
-                       );
+NT2_REGISTER_DISPATCH(tag::saturate_<T>, tag::cpu_,
+		      (A0)(T)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                      );
 
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct call<tag::group_(tag::arithmetic_, 
-                          tag::arithmetic_ ),
+  template<class T, class X, class Dummy>
+  struct call<tag::saturate_<T>(tag::simd_<tag::arithmetic_,X>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-      struct result<This(A0, A0)> : meta::strip<A0>{}; 
+    struct result<This(A0)> : meta::strip<A0>{};
 
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::scalar_of<T>::type stype;
+      const A0 vma = splat<A0>(Valmax<stype>());
+      const A0 vmi = splat<A0>(Valmin<stype>()); 
+      return sel(gt(a0, vma), vma, sel(lt(a0, vmi), vmi, a0)); 
+    }
   };
 } }
-      
+
 #endif
-// modified by jt the 26/12/2010
-/// No restore -- hand modifications

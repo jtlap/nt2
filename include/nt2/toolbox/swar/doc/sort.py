@@ -7,7 +7,8 @@
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_'],
+         'special' : ['swar'],  
+         'simd_types' : ['gt_16_'],
          'type_defs' : [],
          'types' : ['real_'],
         },
@@ -16,12 +17,12 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],
-             'no_ulp' : 'True',   
+             'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
+             'default' : [['0', '100']],
              'real_' : [['T(-100)', 'T(100)']],
              'signed_int_' : [],
              'unsigned_int_' : [],
@@ -58,6 +59,20 @@
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        T z[cardinal_of<r_t>::value];",
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++) z[i]=a0[i];",
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++){",
+                        "          for(uint32_t k=0; k<cardinal_of<n_t>::value; k++){",
+                        "             if (z[i]<z[k]) std::swap(z[i],z[k]);",
+                        "          }",
+                        "        }",
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++){",
+                        "          NT2_TEST_EQUAL(v[i],z[i]);",
+                        "        }",
+                            ]
+               },
             },
         },
     },

@@ -38,7 +38,6 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_fermi_dirac_1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_zeta.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_psi_1piy.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_knu.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_j1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_expm1.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_expint_e1.hpp>

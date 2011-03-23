@@ -5,18 +5,19 @@
          'call_types' : [],
          'ret_arity' : '1',
          'rturn' : {
-                'default' : 'T',
+             'default' : 'T',
             },
-         'simd_types' : ['real_'],
+         'special' : ['swar'],  
+         'simd_types' : ['lt_64_',],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : [],
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],
-             'no_ulp' : 'True',   
+             'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
@@ -58,7 +59,16 @@
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
-            },
+             'scalar_simul' :{
+                    'default' : [
+                        "        for(int i = 0; i< cardinal_of<n_t>::value/2; i++)",
+                        "        {",
+                        "          NT2_TEST_EQUAL( boost::fusion::get<0>(v)[i],a0[i]);",
+                        "          NT2_TEST_EQUAL( boost::fusion::get<1>(v)[i],a0[i+cardinal_of<n_t>::value/2]);",
+                        "        }",
+                            ]
+               },
+           },
         },
     },
 ]

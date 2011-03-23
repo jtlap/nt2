@@ -21,19 +21,23 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::definitely_not_equal_, tag::cpu_,
-                                       (A0)(X),
-                                       ((simd_<arithmetic_<A0>,X>))
-                                       ((simd_<arithmetic_<A0>,X>))
-                                       ((simd_<arithmetic_<A0>,X>))
-                                      );
+NT2_REGISTER_DISPATCH_IF(tag::definitely_not_equal_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::definitely_not_equal_(tag::simd_<tag::integer_,X>,
+					     tag::simd_<tag::integer_,X>, 
+			  		     tag::simd_<tag::integer_,X>)), 
+			 ((simd_<integer_<A0>,X>))
+			 ((simd_<integer_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
+                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::definitely_not_equal_(tag::simd_<tag::arithmetic_, X> ,
-                                         tag::simd_<tag::arithmetic_, X> ,
-                                         tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::definitely_not_equal_(tag::simd_<tag::integer_, X> ,
+                                         tag::simd_<tag::integer_, X> ,
+                                         tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -43,7 +47,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return isgt(dist(a0, a1), abs(a2));
+      return gt(dist(a0, a1), abs(a2));
     }
   };
 } }
@@ -51,19 +55,23 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::definitely_not_equal_, tag::cpu_,
-                                       (A0)(X),
-                                       ((simd_<real_<A0>,X>))
-                                       ((simd_<real_<A0>,X>))
-                                       ((simd_<real_<A0>,X>))
-                                      );
+NT2_REGISTER_DISPATCH_IF(tag::definitely_not_equal_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::definitely_not_equal_(tag::simd_<tag::real_,X>,
+					     tag::simd_<tag::real_,X>, 
+			  		     tag::simd_<tag::integer_,X>)), 
+			 ((simd_<real_<A0>,X>))
+			 ((simd_<real_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
+                       );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::definitely_not_equal_(tag::simd_<tag::real_, X> ,
                                          tag::simd_<tag::real_, X> ,
-                                         tag::simd_<tag::real_, X> ),
+                                         tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -73,17 +81,18 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
+      A2 aa2 =  nt2::abs(a2); 
       return b_and(
-               isord(a0, a1),
+               is_ord(a0, a1),
                b_and(
                    b_and(
-                         isfin(a0+a1),
+                         is_finite(a0+a1),
                          b_or(
-                            isgt(a0, successor(a1, a2)),
-                            islt(a0, predecessor(a1,a2))
+                            gt(a0, successor(a1, aa2)),
+                            lt(a0, predecessor(a1,aa2))
                             )
                          ),
-                   isneq(a0, a1)
+                   neq(a0, a1)
                    )
                );
     }

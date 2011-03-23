@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SIMD_SSE_FMA4_GSL_SF_BESSEL_KNU_HPP_INCLUDED
-#define NT2_TOOLBOX_GSL_SPECFUN_FUNCTION_SIMD_SSE_FMA4_GSL_SF_BESSEL_KNU_HPP_INCLUDED
-#include <nt2/toolbox/gsl_specfun/function/simd/sse/xop/gsl_sf_bessel_Knu.hpp>
+#ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_AVX_SATURATE_HPP_INCLUDED
+#define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_AVX_SATURATE_HPP_INCLUDED
+#include <nt2/toolbox/ieee/function/simd/sse/sse4_2/saturate.hpp>
 #endif

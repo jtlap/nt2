@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'T',
             },
+         'special' : ['swar'],  
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_'],
@@ -21,8 +22,8 @@
             },
          'ranges' : {
              'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
+             'no_ulp' : 'True',
              'real_' : [['T(-100)', 'T(100)']],
-             'no_ulp' : 'True',   
              'signed_int_' : [],
              'unsigned_int_' : [],
             },
@@ -58,7 +59,15 @@
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
-            },
+             'scalar_simul' :{
+                    'default' : [
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)",      
+                        "        {",
+                        "           NT2_TEST_EQUAL(v[i],a0[1]);",
+                        "        }",
+                            ]
+               },
+             },
         },
     },
 ]

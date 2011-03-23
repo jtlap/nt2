@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {minimum(a0), maximum(a0)};
+      A0 that = {{minimum(a0), maximum(a0)}};
       return that;
     }
   };

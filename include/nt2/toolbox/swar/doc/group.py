@@ -5,26 +5,25 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'vT',
             },
          'simd_types' : ['real_'],
+         'special' : ['swar'],   
          'type_defs' : [],
          'types' : ['real_'],
+         'simd_types' : ['gt_8_'],
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],
-             'no_ulp' : 'True',   
+             'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
-             'real_' : [['T(-100)', 'T(100)']],
-             'signed_int_' : [],
-             'unsigned_int_' : [],
+             'default' : [['0', '100']],
             },
          'specific_values' : {
              'default' : {
@@ -58,7 +57,16 @@
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
-            },
+             'scalar_simul' :{
+                    'default' : [
+                        "        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",      
+                        "         {",      
+                        "            NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));",      
+                        "            NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));",      
+                        "         }",                
+                            ]
+               },
+           },
         },
     },
 ]

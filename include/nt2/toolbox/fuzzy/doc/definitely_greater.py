@@ -11,6 +11,7 @@
          'special' : ['fuzzy'],
          'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
+         'simd_types' : ['real_'],         
         },
      'info' : 'manually modified',
      'unit' : {

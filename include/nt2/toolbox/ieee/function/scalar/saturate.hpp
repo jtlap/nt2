@@ -6,32 +6,39 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_GROUP_HPP_INCLUDED
-#define NT2_TOOLBOX_SWAR_FUNCTION_SCALAR_GROUP_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
+#define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
+#include <nt2/sdk/constant/real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// group as currently no meaning in scalar mode
+// Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::group_, tag::cpu_,
-                        (A0),
-                        ((arithmetic_<A0>))
-                        ((arithmetic_<A0>))
-                       );
+NT2_REGISTER_DISPATCH(tag::saturate_<T> , tag::cpu_,
+                      (A0)(T),
+                      (unsigned_<A0>)
+                     )
 
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct call<tag::group_(tag::arithmetic_, 
-                          tag::arithmetic_ ),
+  template<class T, class Dummy>
+  struct call<tag::saturate_<T>(tag::unsigned_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-      struct result<This(A0, A0)> : meta::strip<A0>{}; 
+    struct result<This(A0)> : meta::strip<A0>{};
 
+    NT2_FUNCTOR_CALL(1)
+    {
+      if (a0 > Valmax<T>())
+	return Valmax<T>();
+      else if (a0 <  Valmin<T>())
+ 	return Valmin<T>();
+      else
+	return a0; 
+    }
   };
+  
 } }
-      
+
 #endif
-// modified by jt the 26/12/2010
-/// No restore -- hand modifications
