@@ -12,7 +12,7 @@
 // Test behavior of hyperbolic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
-/// modified by jt the 18/03/2011
+/// modified by jt the 23/03/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
