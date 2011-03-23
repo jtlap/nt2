@@ -60,7 +60,6 @@ NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
 			 ((simd_<real_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
                        );
-                                        );
 
 namespace nt2 { namespace ext
 {

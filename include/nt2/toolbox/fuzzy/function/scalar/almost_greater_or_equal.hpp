@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  (a0 >= predecessor(a1, a2)); 
+      return  a0 >= predecessor(a1, a2); 
     }
   };
 } }
