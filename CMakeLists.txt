@@ -65,6 +65,7 @@ endmacro()
 
 set(NT2_MODULAR_ROOT ${PROJECT_SOURCE_DIR})
 nt2_load_module(sdk)
+nt2_load_module(arithmetic)
 nt2_load_module(cephes)
 nt2_load_module(matlab)
 
