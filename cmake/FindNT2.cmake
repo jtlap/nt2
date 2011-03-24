@@ -36,11 +36,18 @@ macro(nt2_copy_parent)
   endforeach()
 endmacro()
 
+function(nt2_find_log)
+  if(DEFINED NT2_FIND_VERBOSE OR DEFINED ENV{NT2_FIND_VERBOSE})
+    message(STATUS "[FindNT2]${NT2_FIND_RECURSIVE}${ARGV}")
+  endif()
+endfunction()
+
 function(nt2_find COMPONENT)
   
   string(TOUPPER ${COMPONENT} COMPONENT_U)
   
   if(NT2_${COMPONENT_U}_FOUND)
+    nt2_find_log("${COMPONENT} already found")
     return()
   endif()
   
@@ -57,9 +64,9 @@ function(nt2_find COMPONENT)
   if(DEFINED NT2_${COMPONENT_U}_ROOT)
     
     if(${NT2_CURRENT_MODULE} STREQUAL ${COMPONENT})
-      message(STATUS "[FindNT2] Found ${COMPONENT} module source, being built")
+      nt2_find_log("${COMPONENT} being built")
     else()
-      message(STATUS "[FindNT2] Found ${COMPONENT} module source, setting dependencies")
+      nt2_find_log("${COMPONENT} found, testing dependencies")
     
       set(CMAKE_MODULE_PATH "${NT2_${COMPONENT_U}_ROOT}/cmake" ${CMAKE_MODULE_PATH})
       find_file(NT2_${COMPONENT_U}_DEPENDENCIES_FILE "nt2.${COMPONENT}.dependencies.cmake" ${CMAKE_MODULE_PATH})
@@ -83,6 +90,10 @@ function(nt2_find COMPONENT)
     set(NT2_${COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES} ${NT2_${COMPONENT_U}_LIBRARIES})
     if(NT2_${COMPONENT_U}_LIBRARIES)
       list(REMOVE_DUPLICATES NT2_${COMPONENT_U}_LIBRARIES)
+    endif()
+    
+    if(NOT NT2_${COMPONENT_U}_FOUND)
+      nt2_find_log("${COMPONENT} dependencies not met")
     endif()
     
     #message(STATUS "[FindNT2] Variables for module ${COMPONENT}")
@@ -127,13 +138,18 @@ function(nt2_find_top)
   set(NT2_LIBRARIES "")
   set(NT2_FOUND_COMPONENTS "")
   
-  set(NT2_FIND_RECURSIVE 1)
+  if(DEFINED NT2_FIND_RECURSIVE)
+    set(NT2_FIND_RECURSIVE_ "${NT2_FIND_RECURSIVE_}  ")
+    set(NT2_FIND_RECURSIVE "${NT2_FIND_RECURSIVE_} \\_ ")
+  else()
+    set(NT2_FIND_RECURSIVE " ")
+  endif()
   if(NOT DEFINED NT2_CURRENT_MODULE)
       set(NT2_CURRENT_MODULE " ")
   endif()
 
   if(NOT DEFINED NT2_MODULAR_ROOT AND DEFINED ENV{NT2_MODULAR_ROOT})
-    message(STATUS "[FindNT2] Found modular root")
+    nt2_find_log("found modular root")
     set(NT2_MODULAR_ROOT $ENV{NT2_MODULAR_ROOT})
   endif()
 
