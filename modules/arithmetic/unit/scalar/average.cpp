@@ -21,7 +21,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/arithmetic/include/average.hpp>
 
 NT2_TEST_CASE_TPL ( average_real__2_0,  NT2_REAL_TYPES)

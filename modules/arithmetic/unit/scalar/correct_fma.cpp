@@ -21,7 +21,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
 // specific includes for arity 3 tests
 #include <nt2/sdk/constant/eps_related.hpp>

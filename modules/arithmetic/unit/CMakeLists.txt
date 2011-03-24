@@ -25,4 +25,3 @@ ADD_SUBDIRECTORY(simd)
 ################################################################################
 ADD_DEPENDENCIES(arithmetic.unit arithmetic.scalar.unit)  
 ADD_DEPENDENCIES(arithmetic.unit arithmetic.simd.unit)
-ADD_DEPENDENCIES(unit arithmetic.unit)
