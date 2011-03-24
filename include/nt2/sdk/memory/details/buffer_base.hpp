@@ -71,8 +71,14 @@ namespace nt2 { namespace details
     Pointer begin() { return origin_;           }
     Pointer end()   { return origin_ + size();  }
 
+    Pointer first() { return begin_;           }
+    Pointer last()  { return begin_ + size();  }
+
     Pointer const begin() const { return origin_;           }
     Pointer const end()   const { return origin_ + size();  }
+
+    Pointer const first() const { return begin_;           }
+    Pointer const last()  const { return begin_ + size();  }
 
     void swap(buffer_data& src)
     {
