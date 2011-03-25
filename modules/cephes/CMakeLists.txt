@@ -21,13 +21,9 @@ include_directories( ${PROJECT_BINARY_DIR}/include
                      ${NT2_CEPHES_DEPENDENCIES_INCLUDE_DIR}
                    )
 
-ADD_SUBDIRECTORY(src/cephes_single)
-ADD_SUBDIRECTORY(src/cephes_double)
-IF(NOT WIN32)
-  ADD_SUBDIRECTORY(src/cephes_ldouble)
-ENDIF()
+ADD_SUBDIRECTORY(src)
 
-ADD_SUBDIRECTORY(bench)
+ADD_SUBDIRECTORY(bench EXCLUDE_FROM_ALL)
 
 find_package(NT2 COMPONENTS arithmetic euler
                             exponential trigonometric
@@ -39,7 +35,7 @@ if(NOT NT2_FOUND)
 else()
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})
-  ADD_SUBDIRECTORY(unit)
+  ADD_SUBDIRECTORY(unit EXCLUDE_FROM_ALL)
 endif()
 
 if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})

@@ -16,14 +16,6 @@ project(nt2)
 ################################################################################
 # Global Options
 ################################################################################
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-
-set(INCLUDE_INSTALL_DIR
-    "${CMAKE_INSTALL_PREFIX}/include/nt2"
-    CACHE PATH
-    "The directory where we install the header files"
-    FORCE)
-
 set(NT2_VERSION_NUMBER "3.0.0")
 set(NT2_VERSION "${NT2_VERSION_NUMBER}")
 
@@ -63,7 +55,7 @@ macro(nt2_load_module module)
   add_dependencies(unit ${module}.unit)
 endmacro()
 
-set(NT2_MODULAR_ROOT ${PROJECT_SOURCE_DIR})
+set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 nt2_load_module(sdk)
 nt2_load_module(arithmetic)
 nt2_load_module(cephes)
@@ -74,4 +66,5 @@ ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 ################################################################################
 # Post-config message
 ################################################################################
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 INCLUDE(nt2.directive) 

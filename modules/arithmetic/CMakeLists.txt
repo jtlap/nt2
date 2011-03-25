@@ -21,7 +21,7 @@ include_directories( ${PROJECT_BINARY_DIR}/include
                      ${NT2_ARITHMETIC_DEPENDENCIES_INCLUDE_DIR}
                    )
 
-ADD_SUBDIRECTORY(bench)
+ADD_SUBDIRECTORY(bench EXCLUDE_FROM_ALL)
 
 find_package(NT2 COMPONENTS predicates standard)
 if(NOT NT2_FOUND)
@@ -29,9 +29,7 @@ if(NOT NT2_FOUND)
 else()
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})
-  ADD_SUBDIRECTORY(unit)
+  ADD_SUBDIRECTORY(unit EXCLUDE_FROM_ALL)
 endif()
 
-if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-  nt2_flag_found()
-endif()
+nt2_find_transfer_parent()
