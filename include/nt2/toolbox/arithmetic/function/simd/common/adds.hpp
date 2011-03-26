@@ -6,40 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
-#define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
+#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ADDS_HPP_INCLUDED
+#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ADDS_HPP_INCLUDED
+#include <nt2/sdk/meta/as_real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::saturate_<T> , tag::cpu_,
-                      (A0)(T),
-                      (integer_<A0>)
-                     )
+NT2_REGISTER_DISPATCH(tag::adds_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                      );
 
 namespace nt2 { namespace ext
 {
-  template<class T, class Dummy>
-  struct call<tag::saturate_<T>(tag::integer_),
+  template<class X, class Dummy>
+  struct call<tag::adds_(tag::simd_(tag::arithmetic_, X),tag::simd_(tag::arithmetic_, X)),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL(1)
+    NT2_FUNCTOR_CALL(2)
     {
-
-      if (a0 > Valmax<T>())
-	return Valmax<T>();
-      else if (a0 <  Valmin<T>())
- 	return Valmin<T>();
-      else
-	return a0; 
+      typedef typename NT2_RETURN_TYPE(2)::type type;
+      // CODE HERE
+      return WHATEVER
     }
   };
-  
 } }
 
 #endif
