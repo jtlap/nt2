@@ -17,17 +17,33 @@
 
 namespace nt2 { namespace details
 {
-  template<class Pointer> class buffer_data
+  template<class Allocator>
+  struct buffer_data : private Allocator
   {
-    public:
-    buffer_data() : origin_(0), begin_(0), end_(0) {}
+    ////////////////////////////////////////////////////////////////////////////
+    // Forwarded types
+    ////////////////////////////////////////////////////////////////////////////
+    typedef Allocator                             parent_allocator;
+    typedef typename Allocator::value_type        value_type;
+    typedef typename Allocator::pointer           pointer;
+    typedef typename Allocator::const_pointer     const_pointer;
+    typedef typename Allocator::pointer           iterator;
+    typedef typename Allocator::const_pointer     const_iterator;
+    typedef typename Allocator::reference         reference;
+    typedef typename Allocator::const_reference   const_reference;
+    typedef typename Allocator::size_type         size_type;
+    typedef typename Allocator::difference_type   difference_type;
+    typedef typename Allocator::difference_type   index_type;
 
-    template<class Size, class Diff, class Allocator>
-    void allocate(Diff b, Size s, Allocator& alloc)
+    buffer_data(Allocator const& a) : parent_allocator(a)
+                                    , origin_(0), begin_(0), end_(0) {}
+
+    template<class Size, class Diff>
+    void allocate(Diff const& b, Size const& s)
     {
       if(s)
       {
-        origin_ = alloc.allocate(s);
+        origin_ = parent_allocator::allocate(s);
         clamp(s, b);
       }
       else
@@ -36,49 +52,49 @@ namespace nt2 { namespace details
       }
     }
 
-    template<class Allocator> void deallocate(Allocator& alloc)
+    void deallocate()
     {
-      if(origin_) alloc.deallocate(origin_,end_ - begin_);
+      if(origin_) parent_allocator::deallocate(origin_,end_ - begin_);
     }
 
-    template<class Size, class Allocator>
-    void resize(Size s, Allocator& alloc)
+    template<class Size> void resize(Size const& s)
     {
       if(!origin_)
       {
-        origin_ = alloc.allocate(s);
+        origin_ = parent_allocator::allocate(s);
         clamp(s, 0);
       }
       else
       {
-        origin_ = alloc.resize(origin_,s,end_ - begin_);
+        origin_ = parent_allocator::resize(origin_,s,end_ - begin_);
         clamp(s, origin_ - begin_);
       }
     }
 
-    template<class Diff> void rebase(Diff b) { clamp(size(), b); }
+    template<class Diff> void rebase(Diff const& b) { clamp(size(), b); }
 
-    template<class Size, class Diff> void clamp(Size size, Diff lower)
+    template<class Size, class Diff>
+    void clamp(Size const& size, Diff const& lower)
     {
       begin_  = origin_ - lower;
       end_    = begin_  + size;
     }
 
-    size_t    size()  const { return end_    - begin_;      }
-    ptrdiff_t lower() const { return origin_ - begin_;      }
-    ptrdiff_t upper() const { return size()  - 1 + lower(); }
+    size_type       size()  const { return end_    - begin_;      }
+    difference_type lower() const { return origin_ - begin_;      }
+    difference_type upper() const { return size()  - 1 + lower(); }
 
-    Pointer begin() { return origin_;           }
-    Pointer end()   { return origin_ + size();  }
+    pointer begin() { return origin_;           }
+    pointer end()   { return origin_ + size();  }
 
-    Pointer first() { return begin_;           }
-    Pointer last()  { return begin_ + size();  }
+    pointer first() { return begin_;           }
+    pointer last()  { return begin_ + size();  }
 
-    Pointer const begin() const { return origin_;           }
-    Pointer const end()   const { return origin_ + size();  }
+    pointer const begin() const { return origin_;           }
+    pointer const end()   const { return origin_ + size();  }
 
-    Pointer const first() const { return begin_;           }
-    Pointer const last()  const { return begin_ + size();  }
+    pointer const first() const { return begin_;           }
+    pointer const last()  const { return begin_ + size();  }
 
     void swap(buffer_data& src)
     {
@@ -87,7 +103,17 @@ namespace nt2 { namespace details
       boost::swap(end_   , src.end_    );
     }
 
-    Pointer origin_, begin_, end_;
+    parent_allocator& allocator()
+    {
+      return static_cast<parent_allocator&>(*this);
+    }
+
+    parent_allocator const& allocator() const
+    {
+      return static_cast<parent_allocator const&>(*this);
+    }
+
+    pointer origin_, begin_, end_;
   };
 } }
 
