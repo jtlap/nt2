@@ -8,20 +8,25 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MULS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MULS_HPP_INCLUDED
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/rdivide.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
+// Implementation when type A0 is int 32 8 64
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
                        (A0)(X),
-                       ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                       ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::muls_(tag::simd_<tag::arithmetic_, X> ,
-			 tag::simd_<tag::arithmetic_, X>),
+  struct call<tag::muls_(tag::simd_<tag::integer_, X> ,
+			 tag::simd_<tag::integer_, X>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -30,42 +35,29 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::upgrade<A0>::type utype; 
-      utype res = utype(a0)*utype(a1);
-      return A0(res) | genmask(A0(res >> sizeof(A0)*8)); 	
+      A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
+      A0 aa0 = nt2::abs(a0);
+      A0 aa1 = nt2::abs(a1);
+      A0 ga =  nt2::max(aa0, aa1);
+      A0 la =  nt2::min(aa0, aa1);
+      std::cout << "a0 "<< a0 << std::endl;
+      std::cout << "a1 "<< a1 << std::endl;
+      std::cout << "ga  "<< ga  << std::endl;
+      std::cout << "la  "<< la  << std::endl;
+      std::cout << "sgn "<< sign<< std::endl;
+      std::cout << "rd  "<< rdivide(Valmax<A0>(), ga)<< std::endl;
+      std::cout << "is_ltz(a0) " << is_ltz(a0)<< std::endl;
+      std::cout << "is_ltz(a1) " << is_ltz(a1)<< std::endl;
+      return sel( lt(rdivide(Valmax<A0>(), ga), la),
+		  sel(sign, Valmin<A0>(), Valmax<A0>()),
+		  a0*a1
+		 ); 
     }
   };
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<uint16_<A0>,X>))((simd_<uint16_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::muls_(tag::simd_<tag::uint16_, X> ,
-			 tag::simd_<tag::uint16_, X>),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 mulhi =  _mm_mulhi_epu16(a0, a1);
-      A0 mullo =  _mm_mullo_epu16(a0, a1);
-      return sel(eqz(mulhi), mullo, Valmax<A0>()); 
-    }
-  };
-} }
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
+// Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
                        (A0)(X),
@@ -85,18 +77,29 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 mulhi =  _mm_mulhi_epi16(a0, a1);
-      A0 mullo =  _mm_mullo_epi16(a0, a1);
-      return sel(eqz(mulhi), mullo, Valmax<A0>()); 
+      A0 aa0 = nt2::abs(a0);
+      A0 aa1 = nt2::abs(a1);
+      A0 mulhi =  simd::native_cast<A0>(_mm_mulhi_epu16(aa0, aa1));
+      A0 mullo =  simd::native_cast<A0>(_mm_mullo_epi16(a0, a1));
+      A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
+      return sel(is_eqz(mulhi), mullo, sel(sign, Valmin<A0>(), Valmax<A0>())); 
     }
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint 32 8 64
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
+                      );
+
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::muls_(tag::simd_<tag::uint8_, X> ,
-			 tag::simd_<tag::uint8_, X>),
+  struct call<tag::muls_(tag::simd_<tag::unsigned_, X> ,
+			 tag::simd_<tag::unsigned_, X>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -105,12 +108,185 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 mulhi =  _mm_mulhi_epu8(a0, a1);
-      A0 mullo =  _mm_mullo_epi8(a0, a1);
-      return sel(eqz(mulhi), mullo, Valmax<A0>()); 
+      return sel( lt(rdivide(Valmax<A0>(), a0), a1),
+		  Valmax<A0>(),
+		  a0*a1
+		 ); 
     }
   };
 } }
+  
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint16_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<uint16_<A0>,X>))((simd_<uint16_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::muls_(tag::simd_<tag::uint16_, X> ,
+			 tag::simd_<tag::uint16_, X>),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      A0 mulhi =  simd::native_cast<A0>(_mm_mulhi_epu16(a0, a1));
+      A0 mullo =  simd::native_cast<A0>(_mm_mullo_epi16(a0, a1));
+      return sel(is_eqz(mulhi), mullo, Valmax<A0>()); 
+    }
+  };
+} }
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is uint8_
+// /////////////////////////////////////////////////////////////////////////////
+// namespace nt2 { namespace ext
+// {
+//   template<class X, class Dummy>
+//   struct call<tag::muls_(tag::simd_<tag::uint8_, X> ,
+// 			 tag::simd_<tag::uint8_, X>),
+//               tag::cpu_, Dummy> : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0, A0)> : meta::strip<A0>{};
+
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       A0 mulhi =  simd::native_cast<A0>(_mm_mulhi_epu8(a0, a1));
+//       A0 mullo =  simd::native_cast<A0>(_mm_mullo_epi8(a0, a1));
+//       return sel(is_eqz(mulhi), mullo, Valmax<A0>()); 
+//     }
+//   };
+// } }
+// /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is uint 32, 16,  8
+// /////////////////////////////////////////////////////////////////////////////
+// namespace nt2 { namespace ext
+// {
+//   template<class X, class Dummy>
+//   struct call<tag::muls_(tag::simd_<tag::uint32_, X> ,
+// 			 tag::simd_<tag::uint32_, X>),
+//               tag::cpu_, Dummy> : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0, A0)> : meta::strip<A0>{};
+
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       A0 mulhi =  simd::native_cast<A0>(_mm_mulhi_epu32(a0, a1));
+//       A0 mullo =  simd::native_cast<A0>(_mm_mullo_epi32(a0, a1));
+//       return sel(is_eqz(mulhi), mullo, Valmax<A0>()); 
+//     }
+//   };
+// } }
+
+// /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is int16_
+// /////////////////////////////////////////////////////////////////////////////
+// NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+//                        (A0)(X),
+//                        ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
+//                       );
+
+// namespace nt2 { namespace ext
+// {
+//   template<class X, class Dummy>
+//   struct call<tag::muls_(tag::simd_<tag::int16_, X> ,
+// 			 tag::simd_<tag::int16_, X>),
+//               tag::cpu_, Dummy> : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0, A0)> : meta::strip<A0>{};
+
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       A0 aa0 = nt2::abs(a0);
+//       A0 aa1 = nt2::abs(a1);
+//       A0 mulhi =  simd::native_cast<A0>(_mm_mulhi_epu16(aa0, aa1));
+//       A0 mullo =  simd::native_cast<A0>(_mm_mullo_epi16(a0, a1));
+//       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
+//       return sel(is_eqz(mulhi), mullo, sel(sign, Valmin<A0>(), Valmax<A0>())); 
+//     }
+//   };
+// } }
+  
+// /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is arithmetic_
+// /////////////////////////////////////////////////////////////////////////////
+// NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+//                        (A0)(X),
+//                        ((simd_<int8_<A0>,X>))((simd_<int8_<A0>,X>))
+//                       );
+
+// namespace nt2 { namespace ext
+// {
+//   template<class X, class Dummy>
+//   struct call<tag::muls_(tag::simd_<tag::int8_, X> ,
+// 			 tag::simd_<tag::int8_, X>),
+//               tag::cpu_, Dummy> : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0, A0)> : meta::strip<A0>{};
+
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
+//       A0 aa0 = nt2::abs(a0);
+//       A0 aa1 = nt2::abs(a1);
+//       A0 ga =  nt2::max(aa0, aa1);
+//       A0 la =  nt2::min(aa0, aa1);
+//       return sel( lt(rdivide(Valmax<A0>(), ga), la),
+// 		  sel(sign, Valmin<A0>(), Valmax<A0>()),
+// 		  a0*a1
+// 		 );
+//     }
+//   };
+// } }
+// /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is int32_t
+// /////////////////////////////////////////////////////////////////////////////
+// NT2_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+//                        (A0)(X),
+//                        ((simd_<int32_<A0>,X>))((simd_<int32_<A0>,X>))
+//                       );
+
+// namespace nt2 { namespace ext
+// {
+//   template<class X, class Dummy>
+//   struct call<tag::muls_(tag::simd_<tag::int32_, X> ,
+// 			 tag::simd_<tag::int32_, X>),
+//               tag::cpu_, Dummy> : callable
+//   {
+//     template<class Sig> struct result;
+//     template<class This,class A0>
+//     struct result<This(A0, A0)> : meta::strip<A0>{};
+
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
+//       A0 aa0 = nt2::abs(a0);
+//       A0 aa1 = nt2::abs(a1);
+//       A0 ga =  nt2::max(aa0, aa1);
+//       A0 la =  nt2::min(aa0, aa1);
+//       return sel( lt(rdivide(Valmax<A0>(), ga), la),
+// 		  sel(sign, Valmin<A0>(), Valmax<A0>()),
+// 		  a0*a1
+// 		 ); 
+//     }
+//   };
+// } }
 
 #endif
 

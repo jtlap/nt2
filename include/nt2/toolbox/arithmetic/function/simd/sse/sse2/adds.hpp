@@ -38,7 +38,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A0 a0pa1 = a0+a1;
-      return sel(lt(a0pa1, nt2::max(a0, a1)), Valmax<A0>(), a0pa1); 
+      return b_or(a0pa1, lt(a0pa1, a0)); 
+     //      return sel(lt(a0pa1, nt2::max(a0, a1)), Valmax<A0>(), a0pa1); 
     }
   };
 } }
@@ -100,7 +101,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
      A0 a0pa1 = a0+a1;
-     return sel(lt(a0pa1, nt2::max(a0, a1)), Valmax<A0>(), a0pa1); 
+     return b_or(a0pa1, lt(a0pa1, a0)); 
+     //     return sel(lt(a0pa1, nt2::max(a0, a1)), Valmax<A0>(), a0pa1); 
     }
   };
 } }

@@ -22,8 +22,8 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/muls.hpp>
-
-NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  (int8_t)(int16_t)(int32_t))//NT2_INTEGRAL_SIGNED_TYPES)
+#include <cstdio>
+NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::muls;
@@ -53,8 +53,8 @@ NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  (int8_t)(int16_t)(int32_t))//NT2_INTE
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
-    NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
+    NT2_CREATE_BUF(tab_a0,T, NR, (nt2::Valmin<T>()/400), (nt2::Valmax<T>()/400));
+    NT2_CREATE_BUF(tab_a1,T, NR, (nt2::Valmin<T>()/400), (nt2::Valmax<T>()/400));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
@@ -67,10 +67,10 @@ NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  (int8_t)(int16_t)(int32_t))//NT2_INTE
         NT2_TEST_EQUAL( nt2::muls(a0,a1),nt2::muls(a0,a1));
      }
      
-   }
-} // end of test for signed_int_
+    }
+ } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( muls_unsigned_int__2_0,  (uint8_t)(uint16_t)(uint32_t))//NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( muls_unsigned_int__2_0, NT2_UNSIGNED_TYPES)
 {
   
   using nt2::muls;
@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( muls_unsigned_int__2_0,  (uint8_t)(uint16_t)(uint32_t))//NT2
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
-
+ 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
@@ -93,18 +93,20 @@ NT2_TEST_CASE_TPL ( muls_unsigned_int__2_0,  (uint8_t)(uint16_t)(uint32_t))//NT2
   NT2_TEST_EQUAL(muls(nt2::Valmax<T>(),nt2::Two<T>()), nt2::Valmax<T>());
   NT2_TEST_EQUAL(muls(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const uint32_t NR = 1024; //NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
-    NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
+    NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), T(10)); //3*(nt2::Valmax<T>()/4));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
     for (uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << "  a0 =     "<< u_t(a0 = tab_a0[j])
+                  << ", a1 =     "<< u_t(a1 = tab_a1[j]); 
+	std::cout << ", s(a1*a2) "<< nt2::muls(a0,a1)
+	          << ", a1*a2    "<< a0*a1       
                   << std::endl;
         NT2_TEST_EQUAL( nt2::muls(a0,a1),nt2::muls(a0,a1));
      }

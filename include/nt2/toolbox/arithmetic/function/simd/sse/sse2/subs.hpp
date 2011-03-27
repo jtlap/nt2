@@ -35,7 +35,9 @@ namespace nt2 { namespace ext
       
     NT2_FUNCTOR_CALL(2)
     {
-      return seladd(gt(a0, a1), Zero<A0>(), a0-a1); 
+      A0 a0ma1 = a0-a1;
+      return b_and(a0ma1, le(a0ma1, a0)); 
+      //      return seladd(gt(a0, a1), Zero<A0>(), a0-a1); 
     }
   };
 } }
@@ -62,7 +64,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A0 res =  adds(a0, -a1); 
-      if (any(eq(a1, Valmin<A0>()))
+      if (any(eq(a1, Valmin<A0>())))
 	return sel(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
       else
 	return res; 

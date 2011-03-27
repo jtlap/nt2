@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
     {
       typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> type;
       const type tmp1 = is_ltz(simd::native_cast<type>(a0));
-      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 2, 0, 0))};
+      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
       return  simd::native_cast<A0>(tmp);
     }
   };

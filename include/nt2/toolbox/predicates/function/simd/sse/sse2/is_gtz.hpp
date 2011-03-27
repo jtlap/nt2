@@ -77,10 +77,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      std::cout << "a0 " << a0 << std::endl;
       typedef simd::native<typename meta::int32_t_<A0>::type, tag::sse_> type;
       const type tmp1 = is_ltz(simd::native_cast<type>(a0));
-      std::cout << "tmp1 " << tmp1 << std::endl;
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
       return b_not(simd::native_cast<A0>(tmp)); 
     }

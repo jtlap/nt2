@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<adds_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<adds_(vT,vT)>::type r_t; 
   typedef typename nt2::meta::call<adds_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
