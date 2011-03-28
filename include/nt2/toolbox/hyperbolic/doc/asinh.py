@@ -8,7 +8,7 @@
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
          'simd_types' : ['real_'],
-         'simd_ulp_thresh' : ['1.0'],   
+         'simd_ulp_thresh' : ['1.5'],   
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
