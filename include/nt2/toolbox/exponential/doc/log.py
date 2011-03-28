@@ -49,13 +49,13 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::log(a0)','nt2::log(nt2::exp(a0))', 'nt2::log(nt2::sqr(a0))'],
+                 'real_' : ['nt2::log(a0)'],#,'nt2::log(nt2::exp(a0))', 'nt2::log(nt2::sqr(a0))'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_logl(a0)','a0', '2*log(a0)'],
+                 'real_' : ['::cephes_logl(a0)'],#,'a0', '2*log(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['0.5','3.5', '100'],
+                 'real_' : ['0.5'],#,'3.5', '100'],
                 },
             },
         },
