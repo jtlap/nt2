@@ -21,7 +21,7 @@
             },
          'ranges' : {
              'default' : [
-                [['T(-1000)', 'T(1000)'], ['T(-1000)', 'T(1000)']],
+                [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
                 ],
             },
          'specific_values' : {

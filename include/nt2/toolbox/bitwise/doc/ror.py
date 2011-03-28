@@ -21,7 +21,7 @@
              'stamp' : 'modified by jt the 18/02/2011',
             },
          'ranges' : {
-             'default' : [['T(-10000)', 'T(10000)'], ['T(0)', 'sizeof(T)*8-1']],
+             'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['T(0)', 'sizeof(T)*8-1']],
             },
          'specific_values' : {
              'integer_' : {
