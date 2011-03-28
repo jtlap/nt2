@@ -65,7 +65,7 @@ ADD_DEPENDENCIES(sdk.unit sdk.simd.unit)
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" ".simd.unit" EXECUTABLE "${EXAMPLE}")
-  MAKE_NT2_TEST_WITH(${EXAMPLE} ${EXECUTABLE} "sdk.simd.unit" ${NT2_CXX_SIMD_FLAGS})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(sdk.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()
 

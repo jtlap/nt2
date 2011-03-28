@@ -12,16 +12,11 @@
 ################################################################################
 ADD_CUSTOM_TARGET(arithmetic.scalar.unit)
 ADD_CUSTOM_TARGET(arithmetic.simd.unit)
-ADD_CUSTOM_TARGET(arithmetic.unit)
+ADD_DEPENDENCIES(arithmetic.unit arithmetic.scalar.unit arithmetic.simd.unit)
 
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
+nt2_module_use_modules(unit predicates standard)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(arithmetic.unit arithmetic.scalar.unit)  
-ADD_DEPENDENCIES(arithmetic.unit arithmetic.simd.unit)

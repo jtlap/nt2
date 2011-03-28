@@ -37,20 +37,12 @@ IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
   SET(CEPHES_FLAGS "${CEPHES_FLAGS} -fno-builtin")
 ENDIF()
 
-ADD_LIBRARY(nt2_cephesd STATIC ${SOURCES} )
-SET_TARGET_PROPERTIES(nt2_cephesd PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
-INSTALL( TARGETS nt2_cephesd
-         LIBRARY DESTINATION lib/
-         ARCHIVE DESTINATION lib
-       )
+nt2_module_add_library(nt2_cephesd ${SOURCES})
+set_target_properties(nt2_cephesd PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
 
 IF(WIN32)
-  ADD_LIBRARY(nt2_cephesl STATIC ${SOURCES} long_double.c )
-  SET_TARGET_PROPERTIES(nt2_cephesl PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
-  INSTALL( TARGETS nt2_cephesl
-           LIBRARY DESTINATION lib/
-           ARCHIVE DESTINATION lib
-         )
+  nt2_module_add_library(nt2_cephesl ${SOURCES} long_double.c)
+  set_target_properties(nt2_cephesl PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
 ENDIF()
 
 

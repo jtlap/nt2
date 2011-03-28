@@ -110,20 +110,6 @@ SET( SOURCES
 # For each filename
 ##****************************************************************************
 FOREACH( EXAMPLE ${SOURCES})
-  ##**************************************************************************
-  ## Build the executable filename from the example source filename
-  ##**************************************************************************
-  STRING(REGEX REPLACE ".cpp" ".cephes.simd.unit" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-cephes.simd.unit" TEST "${EXAMPLE}")
-
-  ##**************************************************************************
-  ## Add as a target
-  ##**************************************************************************
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesf)
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesd)
-  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
-  ADD_DEPENDENCIES(cephes.simd.unit ${EXECUTABLE})
-  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(cephes.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

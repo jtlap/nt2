@@ -12,17 +12,16 @@
 ################################################################################
 ADD_CUSTOM_TARGET(cephes.scalar.unit)
 ADD_CUSTOM_TARGET(cephes.simd.unit)
-ADD_CUSTOM_TARGET(cephes.unit)
+ADD_DEPENDENCIES(cephes.unit cephes.scalar.unit cephes.simd.unit)
 
 ##****************************************************************************
 ##*     Toolbox cephes unit tests
 ##****************************************************************************
 
+nt2_module_use_modules(unit arithmetic euler
+                            exponential trigonometric
+                            bessel hyperbolic
+                            elliptic
+                      )
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(cephes.unit cephes.scalar.unit)
-ADD_DEPENDENCIES(cephes.unit cephes.simd.unit)

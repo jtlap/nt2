@@ -129,10 +129,11 @@ macro(nt2_module_add_library libname)
       add_library(${libname} STATIC ${ARGN})
     endif()
   else()
-    add_library(${libname} ${source_files})
+    add_library(${libname} ${ARGN})
   endif()
 
   set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
+  set_target_properties(${libname} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
 
   install( TARGETS ${libname}
            LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}

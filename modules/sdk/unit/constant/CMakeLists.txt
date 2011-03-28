@@ -26,6 +26,6 @@ ADD_DEPENDENCIES(sdk.unit sdk.constant.unit)
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" ".unit" EXECUTABLE "${EXAMPLE}")
-  MAKE_NT2_TEST(${EXAMPLE} ${EXECUTABLE} "sdk.constant.unit")
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(sdk.constant.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

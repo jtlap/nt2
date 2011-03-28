@@ -35,6 +35,6 @@ ADD_DEPENDENCIES(sdk.unit sdk.memory.unit)
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" ".unit" EXECUTABLE "${EXAMPLE}")
-  MAKE_NT2_TEST(${EXAMPLE} ${EXECUTABLE} "sdk.memory.unit")
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(sdk.memory.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

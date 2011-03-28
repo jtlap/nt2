@@ -7,6 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+nt2_module_source_setup(cephes)
+
 ADD_SUBDIRECTORY(cephes_single)
 ADD_SUBDIRECTORY(cephes_double)
 IF(NOT WIN32)
