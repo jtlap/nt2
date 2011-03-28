@@ -11,7 +11,7 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(sdk.operators.bench)
-ADD_CUSTOM_TARGET(sdk.bench DEPENDS sdk.operators.bench)
+ADD_DEPENDENCIES(sdk.bench sdk.operators.bench)
 
 ################################################################################
 # Add all bench directories for sdk/

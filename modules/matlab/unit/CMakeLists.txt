@@ -11,15 +11,11 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(matlab.scalar.unit)
-ADD_CUSTOM_TARGET(matlab.unit)
+ADD_DEPENDENCIES(matlab.unit matlab.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox matlab unit tests
 ##****************************************************************************
 
+nt2_module_use_modules(unit trigonometric)
 ADD_SUBDIRECTORY(scalar)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(matlab.unit matlab.scalar.unit)

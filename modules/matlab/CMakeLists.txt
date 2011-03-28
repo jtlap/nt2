@@ -8,29 +8,5 @@
 ##############################################################################
 
 cmake_minimum_required(VERSION 2.6)
-
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-include(nt2.matlab.dependencies)
-if(NOT NT2_MATLAB_DEPENDENCIES_FOUND)
-  message(WARNING "[nt2.matlab] dependencies not met, skipping module")
-  return()
-endif()
-
-include_directories( ${PROJECT_BINARY_DIR}/include
-                     ${CMAKE_CURRENT_SOURCE_DIR}/include
-                     ${NT2_MATLAB_DEPENDENCIES_INCLUDE_DIR}
-                   )
-link_directories( ${NT2_MATLAB_DEPENDENCIES_LIBRARY_DIR} )
-
-find_package(NT2 COMPONENTS trigonometric)
-if(NOT NT2_FOUND)
-  message(WARNING "[nt2.matlab] dependencies for unit tests not met, skipping")
-else()
-  include_directories(${NT2_INCLUDE_DIR})
-  link_directories(${NT2_LIBRARY_DIR})
-  ADD_SUBDIRECTORY(unit)
-endif()
-
-if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-  nt2_flag_found()
-endif()
+include(NT2Module)
+nt2_module_main(matlab)

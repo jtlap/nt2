@@ -7,11 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-ADD_CUSTOM_TARGET(sdk.examples)
+nt2_module_use_modules(examples predicates)
 
-################################################################################
-# Add all examples directories for sdk/
-################################################################################
 ADD_SUBDIRECTORY(config)
 ADD_SUBDIRECTORY(details)
 #ADD_SUBDIRECTORY(errors)
@@ -21,4 +18,3 @@ ADD_SUBDIRECTORY(memory)
 #ADD_SUBDIRECTORY(constants)
 #ADD_SUBDIRECTORY(simd)
 ADD_SUBDIRECTORY(timing)
-

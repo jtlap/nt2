@@ -12,6 +12,7 @@ cmake_minimum_required(VERSION 2.6)
 # Project nt2 - See toolbox/CMakeLists.txt for toolbox CMake scripts
 ################################################################################
 project(nt2)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 ################################################################################
 # Global Options
@@ -40,9 +41,6 @@ ENABLE_TESTING()
 ADD_CUSTOM_TARGET( unit
                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/unit
                  )
-                 
-
-INCLUDE_DIRECTORIES( ${PROJECT_BINARY_DIR}/include )
 
 ################################################################################
 # Module inclusion
@@ -59,6 +57,7 @@ set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 nt2_load_module(sdk)
 nt2_load_module(arithmetic)
 nt2_load_module(cephes)
+
 nt2_load_module(matlab)
 
 ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
@@ -66,5 +65,4 @@ ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 ################################################################################
 # Post-config message
 ################################################################################
-SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 INCLUDE(nt2.directive) 
