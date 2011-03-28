@@ -118,8 +118,10 @@ namespace nt2 { namespace ext
 //       std::cout << a1h << std::endl;
 //       std::cout << a0l << std::endl;
 //       std::cout << a0h << std::endl;
-      return simd::native_cast<A0>(group(toint(tofloat(a0l)/tofloat(a1l)),
-                               toint(tofloat(a0h)/tofloat(a1h))));
+      return sel(is_eqz(a1),
+		 Zero<A0>(),
+		 simd::native_cast<A0>(group(toint(tofloat(a0l)/tofloat(a1l)),
+					     toint(tofloat(a0h)/tofloat(a1h)))));
     }
   };
 } }
