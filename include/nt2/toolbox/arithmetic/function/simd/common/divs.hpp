@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/include/functions/rdivide.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
@@ -31,7 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::ldivide(a0, a1); 
+      return nt2::rdivide(a0, a1); 
     }
   };
 } }
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
-      return ldivide( a0-c, a1); 
+      return rdivide( a0-c, a1); 
     }
   };
 } }

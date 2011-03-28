@@ -35,20 +35,23 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      typedef typename meta::as_integer<A0, unsigned>::type untype; 
       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
-      A0 aa0 = nt2::abs(a0);
-      A0 aa1 = nt2::abs(a1);
-      A0 ga =  nt2::max(aa0, aa1);
-      A0 la =  nt2::min(aa0, aa1);
-      std::cout << "a0 "<< a0 << std::endl;
-      std::cout << "a1 "<< a1 << std::endl;
-      std::cout << "ga  "<< ga  << std::endl;
-      std::cout << "la  "<< la  << std::endl;
-      std::cout << "sgn "<< sign<< std::endl;
-      std::cout << "rd  "<< rdivide(Valmax<A0>(), ga)<< std::endl;
-      std::cout << "is_ltz(a0) " << is_ltz(a0)<< std::endl;
-      std::cout << "is_ltz(a1) " << is_ltz(a1)<< std::endl;
-      return sel( lt(rdivide(Valmax<A0>(), ga), la),
+      untype aa0 = simd::native_cast<untype>(nt2::abs(a0));
+      untype aa1 = simd::native_cast<untype>(nt2::abs(a1));
+//       untype ga =  nt2::max(aa0, aa1);
+//       untype la =  nt2::min(aa0, aa1);
+//       std::cout << "a0 "<< a0 << std::endl;
+//       std::cout << "a1 "<< a1 << std::endl;
+//       std::cout << "aa0 "<< aa0 << std::endl;
+//       std::cout << "aa1 "<< aa1 << std::endl;
+//       std::cout << "ga  "<< ga  << std::endl;
+//       std::cout << "la  "<< la  << std::endl;
+//       std::cout << "sgn "<< sign<< std::endl;
+//       std::cout << "rd  "<< rdivide(simd::native_cast<untype>(Valmax<A0>()), ga)<< std::endl;
+//       std::cout << "is_ltz(a0) " << is_ltz(a0)<< std::endl;
+//       std::cout << "is_ltz(a1) " << is_ltz(a1)<< std::endl;
+      return sel( lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1),
 		  sel(sign, Valmin<A0>(), Valmax<A0>()),
 		  a0*a1
 		 ); 
