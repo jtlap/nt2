@@ -3,10 +3,11 @@
      'functor' : {
          'arity' : '2',
          'call_types' : [],
-         'ret_arity' : '0',
+         'ret_arity' : '0', 
          'rturn' : {
              'default' : 'bool',
             },
+         'special' : ['predicate'],
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],

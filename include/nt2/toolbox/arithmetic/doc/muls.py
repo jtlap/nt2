@@ -33,13 +33,13 @@
                  'nt2::Valmax<T>(),nt2::One<T>()' :  'nt2::Valmax<T>()',
                  'nt2::Valmax<T>(),nt2::Mone<T>()' :  'nt2::Valmin<T>()+nt2::One<T>()',
                  'nt2::Valmax<T>()' :  'nt2::Valmax<T>()',
-                 'nt2::Valmax<T>(),nt2::Two<T>()' :  'nt2::Valmax<T>()',
+                 'nt2::Valmax<T>(),T(2)' :  'nt2::Valmax<T>()',
                  'nt2::Valmin<T>(),nt2::Mone<T>()' :  'nt2::Valmax<T>()',
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
-                 'nt2::Valmax<T>(),nt2::Two<T>()' :  'nt2::Valmax<T>()',
+                 'nt2::Valmax<T>(),T(2)' :  'nt2::Valmax<T>()',
                   },
             },
          'verif_test' : {
