@@ -25,6 +25,8 @@
 #                                   to use all the requested components
 # - NT2_${COMPONENT_U}_LIBRARIES    list of libraries that are necessary to link to use the component
 # - NT2_LIBRARIES                   list of libraries that are necessary to link all the requested components
+# - NT2_${COMPONENT_U}_FLAGS        flags that must be passed to the compiler to use the component
+# - NT2_FLAGS                       flags that must be passed to the compiler to use all the requested components
 # - NT2_FOUND_COMPONENTS            list of components that were found, including their dependencies.
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
@@ -83,15 +85,16 @@ macro(nt2_find_module_return)
                          NT2_${COMPONENT_U}_LIBRARIES
                        )
     
-  #nt2_find_log("variables for module ${COMPONENT}")
-  #nt2_find_log("-- NT2_${COMPONENT_U}_FOUND = ${NT2_${COMPONENT_U}_FOUND}")
-  #nt2_find_log("-- NT2_${COMPONENT_U}_INCLUDE_DIR = ${NT2_${COMPONENT_U}_INCLUDE_DIR}")
-  #nt2_find_log("-- NT2_${COMPONENT_U}_LIBRARY_DIR = ${NT2_${COMPONENT_U}_LIBRARY_DIR}")
-  #nt2_find_log("-- NT2_${COMPONENT_U}_LIBRARIES = ${NT2_${COMPONENT_U}_LIBRARIES}")
+  nt2_find_log("variables for module ${COMPONENT}")
+  nt2_find_log("-- NT2_${COMPONENT_U}_FOUND = ${NT2_${COMPONENT_U}_FOUND}")
+  nt2_find_log("-- NT2_${COMPONENT_U}_INCLUDE_DIR = ${NT2_${COMPONENT_U}_INCLUDE_DIR}")
+  nt2_find_log("-- NT2_${COMPONENT_U}_LIBRARY_DIR = ${NT2_${COMPONENT_U}_LIBRARY_DIR}")
+  nt2_find_log("-- NT2_${COMPONENT_U}_LIBRARIES = ${NT2_${COMPONENT_U}_LIBRARIES}")
+  nt2_find_log("-- NT2_${COMPONENT_U}_FLAGS = ${NT2_${COMPONENT_U}_FLAGS}")
     
   nt2_copy_parent( NT2_${COMPONENT_U}_FOUND
                    NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR
-                   NT2_${COMPONENT_U}_LIBRARIES
+                   NT2_${COMPONENT_U}_LIBRARIES NT2_${COMPONENT_U}_FLAGS
                  )
                    
   set(NT2_${COMPONENT_U}_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} PARENT_SCOPE)
@@ -130,10 +133,11 @@ function(nt2_find_module COMPONENT)
     set(NT2_${COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR} ${NT2_${COMPONENT_U}_ROOT}/include)
     set(NT2_${COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR})
     set(NT2_${COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES} ${NT2_${COMPONENT_U}_LIBRARIES})
+    set(NT2_${COMPONENT_U}_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${COMPONENT_U}_FLAGS}")
     
     if(NOT NT2_CURRENT_MODULE STREQUAL COMPONENT)
       if(IS_DIRECTORY ${NT2_${COMPONENT_U}_ROOT}/src)
-        #add_subdirectory(${NT2_${COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${COMPONENT}/src EXCLUDE_FROM_ALL)
+        add_subdirectory(${NT2_${COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${COMPONENT}/src EXCLUDE_FROM_ALL)
       endif()
     endif()
     
@@ -159,6 +163,8 @@ function(nt2_find_module COMPONENT)
       list(APPEND NT2_${COMPONENT_U}_LIBRARY_DIR ${LIBRARY_PATH})
     endforeach()
     set(NT2_${COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES} ${NT2_${COMPONENT_U}_LIBRARIES})
+    
+    set(NT2_${COMPONENT_U}_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${COMPONENT_U}_FLAGS}")
 
     nt2_find_module_return()
   endif()      
@@ -183,7 +189,7 @@ macro(nt2_flag_found)
     string(TOUPPER ${COMPONENT_} COMPONENT_U_)
     nt2_copy_parent( NT2_${COMPONENT_U_}_FOUND
                      NT2_${COMPONENT_U_}_INCLUDE_DIR NT2_${COMPONENT_U_}_LIBRARY_DIR
-                     NT2_${COMPONENT_U_}_LIBRARIES
+                     NT2_${COMPONENT_U_}_LIBRARIES NT2_${COMPONENT_U_}_FLAGS
                    )
   endforeach()
 endmacro()
@@ -200,6 +206,7 @@ function(nt2_find)
   set(NT2_INCLUDE_DIR "")
   set(NT2_LIBRARY_DIR "")
   set(NT2_LIBRARIES "")
+  set(NT2_FLAGS " ")
   set(NT2_FOUND_COMPONENTS "")
   
   if(DEFINED NT2_FIND_RECURSIVE)
@@ -286,12 +293,15 @@ function(nt2_find)
     nt2_prepend_module(LIBRARY_DIR)
     nt2_prepend_module(LIBRARIES)
     nt2_prepend_module(FOUND_COMPONENTS)
+    
+    set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
+    
     nt2_flag_found()
   endforeach()
   
   nt2_copy_parent( NT2_FOUND
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
-                   NT2_LIBRARIES
+                   NT2_LIBRARIES NT2_FLAGS
                    NT2_FOUND_COMPONENTS
                  )
 
