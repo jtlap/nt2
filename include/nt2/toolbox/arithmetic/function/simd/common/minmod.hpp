@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_gez.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/sign.hpp>
@@ -90,7 +91,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return b_and(nt2::min(a0,a1), is_gez(a0*a1));
+      return b_or(b_or(is_nan(a0), is_nan(a1)),
+		   b_and(nt2::min(a0,a1), is_gez(a0*a1))
+		   );
     }
   };
 } }

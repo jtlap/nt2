@@ -11,6 +11,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/rdivide.hpp>
 
 
 
@@ -37,12 +38,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      const A0 iseqza0 = is_eqz(a0);
-      return (a1-(iseqza0&a1))/(a0+(iseqza0&One<A0>()));
+//       const A0 iseqza0 = is_eqz(a0);
+//       return (a1-(iseqza0&a1))/(a0+(iseqza0&One<A0>()));
+      return rdivide(a1, a0); 
     }
 
   };
 } }
+
 
 #endif
 // modified by jt the 04/01/2011

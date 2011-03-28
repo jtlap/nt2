@@ -13,6 +13,7 @@
 #include <nt2/include/functions/selsub.hpp>
 #include <nt2/include/functions/idivfix.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 
@@ -66,7 +67,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1);
+      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
     }
 
   };

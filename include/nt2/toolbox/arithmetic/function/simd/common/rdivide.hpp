@@ -18,8 +18,6 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -149,7 +147,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0/a1;
+      return b_or(b_and(is_eqz(a0), is_eqz(a1)), a0/a1);
     }
   };
 } }
