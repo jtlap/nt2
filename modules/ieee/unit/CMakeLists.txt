@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(ieee.scalar.unit)
 ADD_CUSTOM_TARGET(ieee.simd.unit)
-ADD_CUSTOM_TARGET(ieee.unit)
+ADD_DEPENDENCIES(ieee.unit ieee.scalar.unit ieee.simd.unit)
 
 ##############################################################################
 # Toolbox ieee unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(ieee.unit ieee.scalar.unit)  
-ADD_DEPENDENCIES(ieee.unit ieee.simd.unit)
-ADD_DEPENDENCIES(unit ieee.unit)

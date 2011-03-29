@@ -7,6 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(NT2Module)
 nt2_module_source_setup(sdk)
 
 file( GLOB_RECURSE source_files

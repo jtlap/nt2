@@ -11,5 +11,9 @@
 ###     Toolbox elliptic bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(elliptic.scalar.bench)
+ADD_CUSTOM_TARGET(elliptic.simd.bench)
+ADD_DEPENDENCIES(elliptic.bench elliptic.scalar.bench elliptic.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

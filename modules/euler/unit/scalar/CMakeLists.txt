@@ -27,18 +27,6 @@ SET( SOURCES
 # For each filename
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  ############################################################################
-  ## Build the executable filename from the example source filename
-  ############################################################################
-  STRING(REGEX REPLACE ".cpp" ".euler.scalar.unit" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-euler.scalar.unit" TEST "${EXAMPLE}")
-
-  ############################################################################
-  ## Add as a target
-  ############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2_cephesl)
-  ADD_DEPENDENCIES(euler.scalar.unit ${EXECUTABLE})
-  ADD_TEST(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(euler.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

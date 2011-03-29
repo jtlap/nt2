@@ -11,5 +11,9 @@
 ###     Toolbox fuzzy bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(fuzzy.scalar.bench)
+ADD_CUSTOM_TARGET(fuzzy.simd.bench)
+ADD_DEPENDENCIES(fuzzy.bench fuzzy.scalar.bench fuzzy.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

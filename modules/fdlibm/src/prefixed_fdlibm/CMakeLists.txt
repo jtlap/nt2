@@ -34,6 +34,8 @@ SET( SOURCES
 	s_tan.c s_tanh.c
     )
 
-ADD_LIBRARY(nt2_fdlibm STATIC ${SOURCES} )
-SET_TARGET_PROPERTIES(nt2_fdlibm PROPERTIES COMPILE_FLAGS " -fno-builtin")
+nt2_module_add_library(nt2_fdlibm ${SOURCES})
+IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  SET_TARGET_PROPERTIES(nt2_fdlibm PROPERTIES COMPILE_FLAGS " -fno-builtin")
+ENDIF()
 

@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(bessel.scalar.unit)
 ADD_CUSTOM_TARGET(bessel.simd.unit)
-ADD_CUSTOM_TARGET(bessel.unit)
+ADD_DEPENDENCIES(bessel.unit bessel.scalar.unit bessel.simd.unit)
 
 ##############################################################################
 # Toolbox bessel unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(bessel.unit bessel.scalar.unit)  
-ADD_DEPENDENCIES(bessel.unit bessel.simd.unit)
-ADD_DEPENDENCIES(unit bessel.unit)

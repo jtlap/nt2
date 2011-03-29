@@ -7,23 +7,13 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-################################################################################
-# Add global bench driver rules
-################################################################################
-ADD_CUSTOM_TARGET(crlibm.scalar.bench)
-ADD_CUSTOM_TARGET(crlibm.simd.bench)
-ADD_CUSTOM_TARGET(crlibm.bench)
-
 ##****************************************************************************
 ##*     Toolbox crlibm bench tests
 ##****************************************************************************
 
+ADD_CUSTOM_TARGET(crlibm.scalar.bench)
+ADD_CUSTOM_TARGET(crlibm.simd.bench)
+ADD_DEPENDENCIES(crlibm.bench crlibm.scalar.bench crlibm.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(crlibm.bench crlibm.scalar.bench)
-ADD_DEPENDENCIES(crlibm.bench crlibm.simd.bench)
-#ADD_DEPENDENCIES(bench crlibm.bench)

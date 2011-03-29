@@ -11,16 +11,12 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(crlibm.scalar.unit)
-ADD_CUSTOM_TARGET(crlibm.unit)
+ADD_CUSTOM_TARGET(crlibm.simd.unit)
+ADD_DEPENDENCIES(crlibm.unit crlibm.scalar.unit crlibm.simd.unit)
 
 ##****************************************************************************
 ##*     Toolbox crlibm unit tests
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(crlibm.unit crlibm.scalar.unit)
-ADD_DEPENDENCIES(unit crlibm.unit)
+ADD_SUBDIRECTORY(simd)

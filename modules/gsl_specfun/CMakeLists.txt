@@ -7,13 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET(GSL_FIND_QUIETLY 1)
-FIND_PACKAGE(GSL)
-IF(GSL_FOUND)
-  ADD_SUBDIRECTORY(bench)
-  ADD_SUBDIRECTORY(unit)
-ENDIF(GSL_FOUND)
-
-##############################################################################
-## TODO: Write command for building your own sources
-##############################################################################
+cmake_minimum_required(VERSION 2.6)
+include(NT2Module)
+nt2_module_main(gsl_specfun)

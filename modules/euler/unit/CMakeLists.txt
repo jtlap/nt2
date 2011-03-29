@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(euler.scalar.unit)
 ADD_CUSTOM_TARGET(euler.simd.unit)
-ADD_CUSTOM_TARGET(euler.unit)
+ADD_DEPENDENCIES(euler.unit euler.scalar.unit euler.simd.unit)
 
 ##############################################################################
 # Toolbox euler unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(euler.unit euler.scalar.unit)  
-ADD_DEPENDENCIES(euler.unit euler.simd.unit)
-ADD_DEPENDENCIES(unit euler.unit)

@@ -11,5 +11,9 @@
 ###     Toolbox bessel bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(bessel.scalar.bench)
+ADD_CUSTOM_TARGET(bessel.simd.bench)
+ADD_DEPENDENCIES(bessel.bench bessel.scalar.bench bessel.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

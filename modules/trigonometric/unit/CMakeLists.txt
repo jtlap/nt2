@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(trigonometric.scalar.unit)
 ADD_CUSTOM_TARGET(trigonometric.simd.unit)
-ADD_CUSTOM_TARGET(trigonometric.unit)
+ADD_DEPENDENCIES(trigonometric.unit trigonometric.scalar.unit trigonometric.simd.unit)
 
 ##############################################################################
 # Toolbox trigonometric unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(trigonometric.unit trigonometric.scalar.unit)  
-ADD_DEPENDENCIES(trigonometric.unit trigonometric.simd.unit)
-ADD_DEPENDENCIES(unit trigonometric.unit)

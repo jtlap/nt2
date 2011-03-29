@@ -65,15 +65,6 @@ SET( SOURCES
 # For each filename
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  ############################################################################
-  ## Build the executable filename from the example source filename
-  ############################################################################
-  STRING(REGEX REPLACE ".cpp" ".arithmetic.scalar.bench" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-arithmetic.scalar.bench" TEST "${EXAMPLE}")
-
-  ############################################################################
-  ## Add as a target
-  ############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_bench(arithmetic.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
 ENDFOREACH()

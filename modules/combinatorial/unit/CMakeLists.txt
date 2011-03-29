@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(combinatorial.scalar.unit)
 ADD_CUSTOM_TARGET(combinatorial.simd.unit)
-ADD_CUSTOM_TARGET(combinatorial.unit)
+ADD_DEPENDENCIES(combinatorial.unit combinatorial.scalar.unit combinatorial.simd.unit)
 
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(combinatorial.unit combinatorial.scalar.unit)  
-ADD_DEPENDENCIES(combinatorial.unit combinatorial.simd.unit)
-ADD_DEPENDENCIES(unit combinatorial.unit)

@@ -11,16 +11,12 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(boost_math.scalar.unit)
-ADD_CUSTOM_TARGET(boost_math.unit)
+ADD_CUSTOM_TARGET(boost_math.simd.unit)
+ADD_DEPENDENCIES(boost_math.unit boost_math.scalar.unit boost_math.simd.unit)
 
 ##****************************************************************************
 ##*     Toolbox boost_math unit tests
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(boost_math.unit boost_math.scalar.unit)
-ADD_DEPENDENCIES(unit boost_math.unit)
+ADD_SUBDIRECTORY(simd)

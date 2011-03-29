@@ -10,17 +10,13 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-#ADD_CUSTOM_TARGET(fdlibm.scalar.unit)
-#ADD_CUSTOM_TARGET(fdlibm.unit)
+ADD_CUSTOM_TARGET(fdlibm.scalar.unit)
+ADD_CUSTOM_TARGET(fdlibm.simd.unit)
+ADD_DEPENDENCIES(fdlibm.unit fdlibm.scalar.unit fdlibm.simd.unit)
 
 ##****************************************************************************
 ##*     Toolbox fdlibm unit tests
 ##****************************************************************************
 
-#ADD_SUBDIRECTORY(scalar)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-#ADD_DEPENDENCIES(fdlibm.unit fdlibm.scalar.unit)
-#ADD_DEPENDENCIES(unit fdlibm.unit)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

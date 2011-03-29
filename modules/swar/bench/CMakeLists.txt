@@ -11,5 +11,9 @@
 ###     Toolbox swar bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(swar.scalar.bench)
+ADD_CUSTOM_TARGET(swar.simd.bench)
+ADD_DEPENDENCIES(swar.bench swar.scalar.bench swar.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

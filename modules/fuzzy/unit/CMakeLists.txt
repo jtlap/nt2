@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(fuzzy.scalar.unit)
 ADD_CUSTOM_TARGET(fuzzy.simd.unit)
-ADD_CUSTOM_TARGET(fuzzy.unit)
+ADD_DEPENDENCIES(fuzzy.unit fuzzy.scalar.unit fuzzy.simd.unit)
 
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(fuzzy.unit fuzzy.scalar.unit)  
-ADD_DEPENDENCIES(fuzzy.unit fuzzy.simd.unit)
-ADD_DEPENDENCIES(unit fuzzy.unit)

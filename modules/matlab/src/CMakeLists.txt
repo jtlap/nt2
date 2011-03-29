@@ -7,6 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(NT2Module)
+nt2_module_source_setup(matlab)
+
 SET(NT2_MW_LIBRARY "libnt2_mw${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 IF(NOT EXISTS ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/libnt2_mw.h

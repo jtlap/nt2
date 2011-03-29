@@ -54,11 +54,12 @@ macro(nt2_load_module module)
 endmacro()
 
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
-nt2_load_module(sdk)
-nt2_load_module(arithmetic)
-nt2_load_module(cephes)
 
-nt2_load_module(matlab)
+file(GLOB MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
+foreach(module ${MODULES})
+  message(STATUS "[nt2] loading module ${module}")
+  nt2_load_module(${module})
+endforeach()
 
 ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
 

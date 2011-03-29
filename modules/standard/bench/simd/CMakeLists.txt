@@ -36,17 +36,6 @@ SET( SOURCES
 # For each filename
 ##****************************************************************************
 FOREACH( EXAMPLE ${SOURCES})
-  ##**************************************************************************
-  ## Build the executable filename from the example source filename
-  ##**************************************************************************
-  STRING(REGEX REPLACE ".cpp" ".standard.simd.bench" EXECUTABLE "${EXAMPLE}")
-  STRING(REGEX REPLACE ".cpp" "-standard.simd.bench" TEST "${EXAMPLE}")
-
-  ##**************************************************************************
-  ## Add as a target
-  ##**************************************************************************
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
-
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_bench(standard.simd.${EXAMPLE}.bench ${EXAMPLE}.cpp)
 ENDFOREACH()

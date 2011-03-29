@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(exponential.scalar.unit)
 ADD_CUSTOM_TARGET(exponential.simd.unit)
-ADD_CUSTOM_TARGET(exponential.unit)
+ADD_DEPENDENCIES(exponential.unit exponential.scalar.unit exponential.simd.unit)
 
 ##############################################################################
 # Toolbox exponential unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(exponential.unit exponential.scalar.unit)  
-ADD_DEPENDENCIES(exponential.unit exponential.simd.unit)
-ADD_DEPENDENCIES(unit exponential.unit)

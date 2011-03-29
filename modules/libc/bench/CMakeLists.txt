@@ -7,23 +7,13 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-################################################################################
-# Add global bench driver rules
-################################################################################
-ADD_CUSTOM_TARGET(libc.scalar.bench)
-ADD_CUSTOM_TARGET(libc.simd.bench)
-ADD_CUSTOM_TARGET(libc.bench)
-
 ##****************************************************************************
 ##*     Toolbox libc bench tests
 ##****************************************************************************
 
+ADD_CUSTOM_TARGET(libc.scalar.bench)
+ADD_CUSTOM_TARGET(libc.simd.bench)
+ADD_DEPENDENCIES(libc.bench libc.scalar.bench libc.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(libc.bench libc.scalar.bench)
-ADD_DEPENDENCIES(libc.bench libc.simd.bench)
-#ADD_DEPENDENCIES(bench libc.bench)

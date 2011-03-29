@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(elliptic.scalar.unit)
 ADD_CUSTOM_TARGET(elliptic.simd.unit)
-ADD_CUSTOM_TARGET(elliptic.unit)
+ADD_DEPENDENCIES(elliptic.unit elliptic.scalar.unit elliptic.simd.unit)
 
 ##############################################################################
 # Toolbox elliptic unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(elliptic.unit elliptic.scalar.unit)  
-ADD_DEPENDENCIES(elliptic.unit elliptic.simd.unit)
-ADD_DEPENDENCIES(unit elliptic.unit)

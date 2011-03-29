@@ -11,5 +11,9 @@
 ###     Toolbox trigonometric bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(trigonometric.scalar.bench)
+ADD_CUSTOM_TARGET(trigonometric.simd.bench)
+ADD_DEPENDENCIES(trigonometric.bench trigonometric.scalar.bench trigonometric.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

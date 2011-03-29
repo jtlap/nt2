@@ -7,21 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-  i0.cpp
-  yni.cpp
-  y1.cpp
-  y0.cpp
-  jni.cpp
-  j1.cpp
-  j0.cpp
-# List of simd test files for toolbox bessel
-   )
-
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(bessel.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+cmake_minimum_required(VERSION 2.6)
+include(NT2Module)
+nt2_module_main(extension)

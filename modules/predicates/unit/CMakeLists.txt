@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(predicates.scalar.unit)
 ADD_CUSTOM_TARGET(predicates.simd.unit)
-ADD_CUSTOM_TARGET(predicates.unit)
+ADD_DEPENDENCIES(predicates.unit predicates.scalar.unit predicates.simd.unit)
 
 ##############################################################################
 # Toolbox predicates unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(predicates.unit predicates.scalar.unit)  
-ADD_DEPENDENCIES(predicates.unit predicates.simd.unit)
-ADD_DEPENDENCIES(unit predicates.unit)

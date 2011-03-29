@@ -11,5 +11,9 @@
 ###     Toolbox combinatorial bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(combinatorial.scalar.bench)
+ADD_CUSTOM_TARGET(combinatorial.simd.bench)
+ADD_DEPENDENCIES(combinatorial.bench combinatorial.scalar.bench combinatorial.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

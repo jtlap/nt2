@@ -11,5 +11,9 @@
 ###     Toolbox euler bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(euler.scalar.bench)
+ADD_CUSTOM_TARGET(euler.simd.bench)
+ADD_DEPENDENCIES(euler.bench euler.scalar.bench euler.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

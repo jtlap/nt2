@@ -11,5 +11,9 @@
 ###     Toolbox exponential bench tests
 ##############################################################################
 
+ADD_CUSTOM_TARGET(exponential.scalar.bench)
+ADD_CUSTOM_TARGET(exponential.simd.bench)
+ADD_DEPENDENCIES(exponential.bench exponential.scalar.bench exponential.simd.bench)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

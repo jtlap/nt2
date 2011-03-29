@@ -6,6 +6,7 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-ADD_SUBDIRECTORY(src/prefixed_fdlibm)
-ADD_SUBDIRECTORY(bench)
-ADD_SUBDIRECTORY(unit)
+
+cmake_minimum_required(VERSION 2.6)
+include(NT2Module)
+nt2_module_main(fdlibm)

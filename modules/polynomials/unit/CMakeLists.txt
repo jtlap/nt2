@@ -12,17 +12,10 @@
 ################################################################################
 ADD_CUSTOM_TARGET(polynomials.scalar.unit)
 ADD_CUSTOM_TARGET(polynomials.simd.unit)
-ADD_CUSTOM_TARGET(polynomials.unit)
+ADD_DEPENDENCIES(polynomials.unit polynomials.scalar.unit polynomials.simd.unit)
 
 ##############################################################################
 # Toolbox polynomials unit tests
 ##############################################################################
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
-
-################################################################################
-# Add driver rule dependencies
-################################################################################
-ADD_DEPENDENCIES(polynomials.unit polynomials.scalar.unit)  
-ADD_DEPENDENCIES(polynomials.unit polynomials.simd.unit)
-ADD_DEPENDENCIES(unit polynomials.unit)
