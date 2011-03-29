@@ -35,8 +35,10 @@ set( NT2_INSTALL_LIBRARY_DIR
 
 macro(nt2_module_source_setup module)
   string(TOUPPER ${module} module_U)
-
+  
+  set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+  
   include_directories( ${PROJECT_BINARY_DIR}/include
                        ${NT2_${module_U}_INCLUDE_DIR}
                      )
@@ -46,31 +48,38 @@ endmacro()
 macro(nt2_module_main module)
   string(TOUPPER ${module} module_U)
   
-  # load dependencies
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
   set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
   
-  #message(STATUS "[nt2.${module}] checking dependencies...")
-  include(nt2.${module}.dependencies)
+  if(NOT NT2_${module_U}_FOUND)
   
-  if(NOT NT2_${module_U}_DEPENDENCIES_FOUND)
-    message(WARNING "[nt2.${module}] dependencies not met, skipping module")
-    nt2_find_transfer_parent()
-    return()
+    # load dependencies
+    #message(STATUS "[nt2.${module}] checking dependencies...")
+    include(nt2.${module}.dependencies OPTIONAL)
+    
+    if(DEFINED NT2_${module_U}_DEPENDENCIES_FOUND AND NOT NT2_${module_U}_DEPENDENCIES_FOUND)
+      message(WARNING "[nt2.${module}] dependencies not met, skipping module")
+      nt2_find_transfer_parent()
+      return()
+    endif()
+    
+    # set FindNT2 variables
+    set(NT2_${module_U}_FOUND 1)
+    set(NT2_${module_U}_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR})
+    set(NT2_${module_U}_LIBRARY_DIR ${PROJECT_BINARY_DIR}/lib ${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
+    set(NT2_${module_U}_LIBRARIES ${NT2_${module_U}_DEPENDENCIES_LIBRARIES} ${NT2_${module_U}_LIBRARIES})
+    set(NT2_${module_U}_FLAGS "${NT2_${module_U}_DEPENDENCIES_FLAGS} ${NT2_${module_U}_FLAGS}")
+    set(NT2_FOUND_COMPONENTS ${module} ${NT2_FOUND_COMPONENTS})
+         
+    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
+      add_subdirectory(src)
+    endif()
+    
   endif()
-  
-  # set FindNT2 variables
-  set(NT2_CURRENT_MODULE ${module})
-  set(NT2_${module_U}_FOUND 1)
-  set(NT2_${module_U}_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR})
-  set(NT2_${module_U}_LIBRARY_DIR ${PROJECT_BINARY_DIR}/lib ${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
-  set(NT2_${module_U}_LIBRARIES ${NT2_${module_U}_DEPENDENCIES_LIBRARIES} ${NT2_${module_U}_LIBRARIES})
-  set(NT2_${module_U}_FLAGS "${NT2_${module_U}_DEPENDENCIES_FLAGS} ${NT2_${module_U}_FLAGS}")
-  set(NT2_FOUND_COMPONENTS ${module} ${NT2_FOUND_COMPONENTS})
   
   # set include/link directories
   nt2_module_source_setup(${module})
-     
+  
   # install headers, cmake modules and manifest
   install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
            DESTINATION ${NT2_INSTALL_INCLUDE_DIR}
@@ -92,10 +101,6 @@ macro(nt2_module_main module)
            COMPONENT ${NT2_CURRENT_MODULE}
            FILES_MATCHING PATTERN "*.cmake"
          )
-       
-  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
-    add_subdirectory(src)
-  endif()
 
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bench)
     add_custom_target(${module}.bench)
@@ -133,7 +138,9 @@ macro(nt2_module_add_library libname)
   endif()
 
   set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
-  set_target_properties(${libname} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
+  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
+    set_target_properties(${libname} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
+  endif()
 
   install( TARGETS ${libname}
            LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
@@ -171,5 +178,20 @@ macro(nt2_module_add_unit EXECUTABLE)
   set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
   
   add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
+  add_dependencies(${suite} ${EXECUTABLE})
+endmacro()
+
+macro(nt2_module_add_bench EXECUTABLE)
+  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
+
+  string(REGEX REPLACE "\\.([^.]+)\\.bench$" ".bench" suite ${EXECUTABLE})
+
+  add_executable(${EXECUTABLE} ${ARGN})
+  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bench)
+  target_link_libraries(${EXECUTABLE} ${NT2_${NT2_CURRENT_MODULE_U}_LIBRARIES})
+  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
+    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
+  endif()
+  
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()

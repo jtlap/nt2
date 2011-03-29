@@ -137,7 +137,7 @@ function(nt2_find_module COMPONENT)
     
     if(NOT NT2_CURRENT_MODULE STREQUAL COMPONENT)
       if(IS_DIRECTORY ${NT2_${COMPONENT_U}_ROOT}/src)
-        add_subdirectory(${NT2_${COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${COMPONENT}/src EXCLUDE_FROM_ALL)
+        add_subdirectory(${NT2_${COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${COMPONENT}/src)
       endif()
     endif()
     
