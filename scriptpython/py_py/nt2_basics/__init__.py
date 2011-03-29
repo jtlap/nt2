@@ -13,7 +13,7 @@ import os
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..'))
 
 
-import nt2_fundamentals
+##import nt2_fundamentals
 import nt2_archis
 import nt2_toolbox_infos
 import nt2_tb_functors

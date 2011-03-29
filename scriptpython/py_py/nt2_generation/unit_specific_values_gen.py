@@ -30,9 +30,9 @@ from nt2_fct_props import Nt2_fct_props
 from unit_base_gen import Base_gen
 
 class Specific_values_test_gen(Base_gen) :
-    Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
 ##    Spec_values_tuple_tpl = "  NT2_TEST_%sEQUAL(  $fct_name$($call_param_vals$), $call_param_res$, $specific_thresh$);"
-    def __init__(self, base_gen,d,typ,ret_arity) :
+    def __init__(self, base_gen,d,typ,ret_arity,mode) :
+        self.mode = mode
         self.bg = base_gen
         if ret_arity <= 1 :
             self.__gen_result = self.__create_values_test(d,typ)
@@ -49,13 +49,23 @@ class Specific_values_test_gen(Base_gen) :
         no_ulp = False if no_ulp == 'False' else no_ulp        
         ulp_str = "" if no_ulp else "ULP_"
         thresh_str = "" if no_ulp else ", $specific_thresh$"
+        if self.mode == 'simd' :
+            if dl["functor"].get('special',[''])[0]=='predicate' :
+                Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+            else :
+                Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
+        else :
+            Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
         for k in sorted(dd.keys()) :
-            s = Specific_values_test_gen.Spec_values_tpl%  (ulp_str,thresh_str)
+            s = Spec_values_tpl%  (ulp_str,thresh_str)
             s =re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
             if k.count(',')==0 : ## one for all but no , !
                 g = ', '.join([k]*int(dl["functor"]["arity"]))
             else :                 ## regular call parameters list
                 g = k
+            if self.mode == 'simd' :
+                g =re.sub("T","vT",g)
+                g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
             if type(dd[k]) is str :
                 rep = dd[k]
@@ -66,6 +76,8 @@ class Specific_values_test_gen(Base_gen) :
             else :
                 rep = dd[k][0]
                 thr = dd[k][1]
+            if self.mode == 'simd' :
+                rep =re.sub("r_t","sr_t",rep)
             s =re.sub("\$call_param_res\$",rep,s)
             s =re.sub("\$specific_thresh\$",thr,s)
             r.append(s)
@@ -113,6 +125,8 @@ class Specific_values_test_gen(Base_gen) :
                 s1 =re.sub("\$i\$",str(i),Call)
                 s1 =re.sub("\$call_param_res\$",rep[i],s1)
                 s1 =re.sub("\$specific_thresh\$",thr[i],s1)
+                if self.mode == 'simd' :
+                    s1 =re.sub("T","vT",s1)
                 r.append(s1)
             r.append("  }")
         return r    

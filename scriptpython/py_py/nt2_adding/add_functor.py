@@ -53,18 +53,19 @@ def create_unit(tb_name,fct_name,mode) :
     r = ghg.get_gen_result()
     if True:#    try :
         dl = bg.get_fct_dict_list()
-        for d in dl :
-            types = bg.recover("types",d["functor"],[])
+        for  rank, d in enumerate(dl) :
+            origin ="types" if mode == 'scalar' else 'simd_types'
+            types = bg.recover(origin,d["functor"],["real_convert_"])
             ret_arity = int(d["functor"]["ret_arity"])
             d_unit = d["unit"]
             for typ in types :
-                thg = Type_header_test_gen(bg,d,typ)
+                thg = Type_header_test_gen(bg,d,typ,rank)
                 r+=thg.get_gen_beg()
                 if d_unit.get("specific_values",None) :
-                    svt = Specific_values_test_gen(bg,d,typ,ret_arity)
+                    svt = Specific_values_test_gen(bg,d,typ,ret_arity,mode)
                     r += svt. get_gen_result()
                 if d_unit.get("verif_test",None) :
-                    vtg = Random_verif_test_gen(bg,d,typ)
+                    vtg = Random_verif_test_gen(bg,d,typ,mode)
                     r += vtg. get_gen_result()
                 r+=thg.get_gen_end()
         return r
@@ -359,7 +360,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                 "namespace nt2 { namespace ext",
                 "{",
                 "  template<class X, class Dummy>",
-                "  struct call<tag::%s_(%s),"% (name,self.strlist('tag::simd_(tag::arithmetic_, X)',n=0,sep=',',arity=a)),
+                "  struct call<tag::%s_(%s),"% (name,self.strlist('tag::simd_<tag::arithmetic_, X>',n=0,sep=',',arity=a)),
                 "              tag::cpu_, Dummy> : callable",
                 "  {",
                 "    template<class Sig> struct result;",
@@ -521,8 +522,8 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
 
     
 if __name__ == "__main__" :
-    tb_name = "ieee"
-    fcts = ["saturate"]
+    tb_name = "arithmetic"
+    fcts = ["negs"]
     for fct_name in fcts :
         print fct_name
         afs = Add_functor_skel(tb_name,fct_name,no_simd=False)
