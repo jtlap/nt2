@@ -14,6 +14,7 @@
 #include <nt2/include/functions/bitinteger.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

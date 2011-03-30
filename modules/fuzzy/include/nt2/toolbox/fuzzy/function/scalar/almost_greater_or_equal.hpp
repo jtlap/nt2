@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/functions/predecessor.hpp>
-
+#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

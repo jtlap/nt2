@@ -12,7 +12,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/abs.hpp>
-
+#include <nt2/include/functions/dist.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
