@@ -18,5 +18,6 @@ ADD_DEPENDENCIES(standard.unit standard.scalar.unit standard.simd.unit)
 ##*     Toolbox standard unit tests
 ##****************************************************************************
 
+nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#ADD_SUBDIRECTORY(simd) # FIXME

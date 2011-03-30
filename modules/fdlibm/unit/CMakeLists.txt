@@ -18,5 +18,6 @@ ADD_DEPENDENCIES(fdlibm.unit fdlibm.scalar.unit fdlibm.simd.unit)
 ##*     Toolbox fdlibm unit tests
 ##****************************************************************************
 
+nt2_module_use_modules(unit arithmetic ieee trigonometric hyperbolic exponential euler bessel)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#ADD_SUBDIRECTORY(simd) # FIXME

@@ -18,5 +18,6 @@ ADD_DEPENDENCIES(libc.unit libc.scalar.unit libc.simd.unit)
 ##*     Toolbox libc unit tests
 ##****************************************************************************
 
+nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#ADD_SUBDIRECTORY(simd) # FIXME

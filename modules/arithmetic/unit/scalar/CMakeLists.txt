@@ -58,6 +58,8 @@ SET( SOURCES
   average.cpp
   amul.cpp
   abs.cpp
+  toint.cpp
+  tofloat.cpp
 # List of scalar test files for toolbox arithmetic
    )
 

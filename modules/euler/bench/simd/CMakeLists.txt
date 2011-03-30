@@ -20,6 +20,7 @@ SET( SOURCES
   gammaln.cpp
   gamma.cpp
   beta.cpp
+  expni.cpp
 # List of simd test files for toolbox euler
    )
 

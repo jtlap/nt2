@@ -9,7 +9,6 @@
 
 SET( SOURCES
   expx2.cpp
-  expni.cpp
   powi.cpp
   pow.cpp
   nthroot.cpp
@@ -31,4 +30,5 @@ SET( SOURCES
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_unit(exponential.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+  TARGET_LINK_LIBRARIES(exponential.scalar.${EXAMPLE}.unit ${NT2_CEPHES_LIBRARIES})
 ENDFOREACH()

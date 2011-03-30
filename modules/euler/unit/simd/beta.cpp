@@ -25,6 +25,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/euler/include/beta.hpp>
+#include <nt2/sdk/constant/eps_related.hpp>
 
 NT2_TEST_CASE_TPL ( beta_real__2_0,  NT2_REAL_TYPES)
 {

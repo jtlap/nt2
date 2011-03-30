@@ -9,7 +9,6 @@
 
 SET( SOURCES
   expx2.cpp
-  expni.cpp
   powi.cpp
   pow.cpp
   nthroot.cpp

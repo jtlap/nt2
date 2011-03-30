@@ -17,8 +17,6 @@ SET( SOURCES
   next.cpp
   ulpdist.cpp
   ulp.cpp
-  toint.cpp
-  tofloat.cpp
   successor.cpp
   round2even.cpp
   predecessor.cpp

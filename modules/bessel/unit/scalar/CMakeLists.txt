@@ -24,4 +24,5 @@ SET( SOURCES
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_unit(bessel.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+  TARGET_LINK_LIBRARIES(bessel.scalar.${EXAMPLE}.unit ${NT2_CEPHES_LIBRARIES})
 ENDFOREACH()
