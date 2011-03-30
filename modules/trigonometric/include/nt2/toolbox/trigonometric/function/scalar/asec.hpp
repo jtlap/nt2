@@ -15,7 +15,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/log.hpp>
+//#include <nt2/include/functions/log.hpp>
 
 
 
