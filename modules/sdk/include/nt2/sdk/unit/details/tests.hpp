@@ -30,23 +30,15 @@ namespace nt2 { namespace details
 			   )						
   {									
     test_count()++;							
-    T tt(t);							
-    U uu(u);							
-    V vv(v);
+    volatile T tt(t);							
+    volatile U uu(u);							
+    volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-//     typedef typename boost::mpl::if_ <
-//       typename boost::mpl::and_ < typename boost::is_same<T, double>::type,
-// 				  typename boost::is_same<U, double>::type
-//                                  >::type ,
-//                               double,
-// 			      float >::type R; 
-    //    typedef typename nt2::meta::call<tag::nt2_ulpdist(volatile T, volatile U)>::type R;
-    //    typedef typeof(nt2_ulpdist(tt, uu))  R; 
-    if( nt2::details::random(tt, uu ) <= vv)
+    if( nt2::details::ulpdist(tt, uu ) <= vv)
       {									
 	std::cout << " * Test `"					
-		  << "details::random(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **passed**."					
 		  << " (" << line << ")"				
 		  << std::endl;
@@ -55,11 +47,11 @@ namespace nt2 { namespace details
     else								
       {									
 	std::cout << " * Test `"					
-		  << "details::random(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
-		  << "details::random(" << TT(tt) << ", " <<  UU(uu) << ") == "		
-		  <<  nt2::details::random(tt, uu )				
+		  << "details::ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
+		  <<  nt2::details::ulpdist(tt, uu )				
 		  << std::endl;						
 	++error_count();
 	return false; 
