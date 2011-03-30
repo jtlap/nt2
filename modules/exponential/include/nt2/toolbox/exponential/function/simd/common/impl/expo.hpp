@@ -13,7 +13,7 @@
 #include <nt2/sdk/simd/tags.hpp> 
 #include <nt2/toolbox/polynomials/function/scalar/impl/horner.hpp>
 #include <nt2/toolbox/exponential/function/scalar/impl/constants.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/selection_tags.hpp>
+#include <nt2/toolbox/exponential/function/scalar/impl/selection_tags.hpp>
 #include <nt2/toolbox/exponential/function/simd/common/impl/expo/expo_base.hpp>
 
 #endif
