@@ -85,6 +85,8 @@ def path_split(str):
     l = str.replace('\\', '/').replace('//', '/').split('/')
     if(l[0] == ''):
         l[0] = '/'
+    elif(len(l[0]) == 2 and l[0][1] == ':'):
+        l[0] = l[0]+'\\'
     return l
 
 import os
@@ -178,6 +180,7 @@ def main():
         path = sys.argv[1] + '/' + sys.argv[3]
         if(os.path.exists(path)):
           for file in os.listdir(path):
+            if(len(file) > 4 and file[-4:] == '.hpp'):
               main_(sys.argv[1], sys.argv[2], sys.argv[3], file)
     else:
         sys.stderr.write("Not enough parameters\n")
