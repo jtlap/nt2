@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A0)>
     {
       typedef typename meta::scalar_of<A0>::type      stype; 
-      typedef typename meta::float__<stype>::type    sftype; 
+      typedef typename meta::as_float<stype>::type    sftype; 
       typedef simd::native<sftype,tag::sse_>           type;
     };
 
