@@ -43,10 +43,10 @@ namespace nt2 { namespace details
 // 			      float >::type R; 
     //    typedef typename nt2::meta::call<tag::nt2_ulpdist(volatile T, volatile U)>::type R;
     //    typedef typeof(nt2_ulpdist(tt, uu))  R; 
-    if( nt2::nt2_ulpdist(tt, uu ) <= vv)
+    if( nt2::details::random(tt, uu ) <= vv)
       {									
 	std::cout << " * Test `"					
-		  << "nt2_ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "details::random(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **passed**."					
 		  << " (" << line << ")"				
 		  << std::endl;
@@ -55,11 +55,11 @@ namespace nt2 { namespace details
     else								
       {									
 	std::cout << " * Test `"					
-		  << "nt2_ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "details::random(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
-		  << "nt2_ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
-		  <<  nt2::nt2_ulpdist(tt, uu )				
+		  << "details::random(" << TT(tt) << ", " <<  UU(uu) << ") == "		
+		  <<  nt2::details::random(tt, uu )				
 		  << std::endl;						
 	++error_count();
 	return false; 
@@ -83,12 +83,12 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    bool r =   nt2::nt2_ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
-    r &= nt2::nt2_ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
+    bool r =   nt2::details::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
+    r &= nt2::details::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
     if(r)					
       {									
 	std::cout << " * Test `"					
-		  << "nt2_ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **passed**."					
 		  << " (" << line << ")"				
 		  << std::endl;
@@ -97,11 +97,11 @@ namespace nt2 { namespace details
     else								
       {									
 // 	std::cout << " * Test `"					
-// 		  << "nt2_ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+// 		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 // 		  << "` **failed** in function "			
 // 		  << fn << " (" << line << ")"				
-// 		  << "nt2_ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
-// 		  <<  nt2::nt2_ulpdist(tt, uu )				
+// 		  << "details::ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
+// 		  <<  nt2::details::ulpdist(tt, uu )				
 // 		  << std::endl;						
 	++error_count();
 	return false; 

@@ -9,7 +9,6 @@
 #ifndef NT2_SDK_UNIT_DETAILS_ULPDIST_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_ULPDIST_HPP_INCLUDED
 #include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/constant/digits.hpp>
 
 namespace nt2
 {
@@ -60,13 +59,14 @@ namespace nt2
     template <class T> struct classif  { typedef   other_ type; };
     template <> struct classif<double> { typedef  double_ type; };
     template <> struct classif<float>  { typedef   float_ type; };
-    
-    template < class T > T  ulpdist(T a0, T a1)
-    {
-      typedef typename meta::strip<T>::type type; 
-      return nt2_ulpdist(type(a0), type(a1), typename details::classif<T>::type()); 
-    }
+  }    
+
+  template < class T > T  nt2_ulpdist(T a0, T a1)
+  {
+    typedef typename meta::strip<T>::type type; 
+    return nt2_ulpdist(type(a0), type(a1), typename details::classif<T>::type()); 
   }
+
 }
 #endif
 
