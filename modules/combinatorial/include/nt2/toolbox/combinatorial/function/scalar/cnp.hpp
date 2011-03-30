@@ -15,6 +15,7 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/gammaln.hpp>
 #include <nt2/include/functions/is_ngez.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

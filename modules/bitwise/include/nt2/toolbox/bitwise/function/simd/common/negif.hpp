@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
 #include <nt2/include/functions/is_true.hpp>
-
+#include <nt2/include/functions/select.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
