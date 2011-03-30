@@ -29,14 +29,14 @@
 #define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(n))>,tag::sse_>))
 #define M1(z,n,t) ,tag::simd_<tag::arithmetic_,tag::sse_>
 
-#define M64(n,t)                                                             \
-A1 that = { _mm_setr_epi32(                                                  \
-                            (M3(0, 0, n) & 0x00000000FFFFFFFFULL)            \
-                          , (M3(0, 0, n) & 0xFFFFFFFF00000000ULL) >> 32      \
-                          , (M3(1, 1, n) & 0x00000000FFFFFFFFULL)            \
-                          , (M3(1, 1, n) & 0xFFFFFFFF00000000ULL) >> 32      \
-                          )                                                  \
-          }                                                                  \
+#define M64(n,t)                                                                  \
+A1 that = { _mm_setr_epi32(                                                       \
+                            (uint64_t(M3(0, 0, n)) & 0x00000000FFFFFFFFULL)       \
+                          , (uint64_t(M3(0, 0, n)) & 0xFFFFFFFF00000000ULL) >> 32 \
+                          , (uint64_t(M3(1, 1, n)) & 0x00000000FFFFFFFFULL)       \
+                          , (uint64_t(M3(1, 1, n)) & 0xFFFFFFFF00000000ULL) >> 32 \
+                          )                                                       \
+          }                                                                       \
 /**/
 
 #define MN64(n,t)                                           \

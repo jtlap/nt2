@@ -63,6 +63,7 @@ namespace nt2 { namespace memory
     // Access to base allocator
     ////////////////////////////////////////////////////////////////////////////
     base_type&        base()        { return static_cast<base_type&>(*this); }
+    base_type const&  base() const  { return static_cast<base_type const&>(*this); }
 
     ////////////////////////////////////////////////////////////////////////////
     // Memory handling
