@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bessel/include/yni.hpp>
 // specific includes for arity 2 tests
 extern "C" {long double cephes_ynl(int,long double);}

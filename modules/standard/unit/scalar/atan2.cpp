@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/standard/include/atan2.hpp>
 // specific includes for arity 2 tests
 #include <nt2/include/functions/atan2.hpp>
