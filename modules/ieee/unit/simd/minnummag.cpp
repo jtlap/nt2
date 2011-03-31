@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( minnummag_real__2_0,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    double ulp0, ulpd ; ulpd=ulp0=0.0; 
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
@@ -57,6 +57,9 @@ NT2_TEST_CASE_TPL ( minnummag_real__2_0,  NT2_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
+	  std ::cout << "a0 " << tab_a0[k] << " a1 " << tab_a1[k] << std::endl;
+	  std ::cout << "v  " << v[i] << std::endl;
+	  std ::cout << "s  " << nt2::minnummag(tab_a0[k],tab_a1[k]) << std::endl;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::minnummag(tab_a0[k],tab_a1[k])));
         }
       }

@@ -47,18 +47,18 @@ NT2_TEST_CASE_TPL ( fast_tan_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_tan(-nt2::Pi<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(-nt2::Pi<T>()/2), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_tan(-nt2::Pi<T>()/4), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_tan(-nt2::Pi<T>()/4), nt2::Mone<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Pi<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Pi<T>()/2), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Pi<T>()/4), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_tan(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_tan(nt2::Zero<T>()), nt2::Zero<r_t>(), 1.0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Pi<T>()/4, nt2::Pi<T>()/4);
+    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pi<T>()/4, nt2::Pi<T>()/4);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for (uint32_t j =0; j < NR; ++j )

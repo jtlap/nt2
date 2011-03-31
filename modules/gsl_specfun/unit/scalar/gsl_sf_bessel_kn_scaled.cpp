@@ -20,7 +20,6 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_kn_scaled.hpp>
 
 NT2_TEST_CASE_TPL ( gsl_sf_bessel_kn_scaled_real__2_0,  NT2_REAL_TYPES)
@@ -55,7 +54,7 @@ NT2_TEST_CASE_TPL ( gsl_sf_bessel_kn_scaled_real__2_0,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::gsl_specfun::gsl_sf_bessel_kn_scaled(a0,a1),nt2::gsl_specfun::gsl_sf_bessel_kn_scaled(a0,a1),1);
-        ulp0=nt2::max(ulpd,ulp0);
+        ulp0=std::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }

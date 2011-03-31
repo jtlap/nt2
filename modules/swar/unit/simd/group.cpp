@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/swar/include/group.hpp>
 
-NT2_TEST_CASE_TPL ( group_gt_8__2_0,  (int16_t)(uint16_t)(int32_t)(uint32_t)(int64_t)(uint64_t)(double))
+NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(uint32_t)(int64_t)(uint64_t)(double))
 {
   using nt2::group;
   using nt2::tag::group_;
@@ -54,6 +54,8 @@ NT2_TEST_CASE_TPL ( group_gt_8__2_0,  (int16_t)(uint16_t)(int32_t)(uint32_t)(int
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = group(a0,a1);
+	std::cout << "a0     "<< a0 << " a1 " << a1 << std::endl;
+	std::cout << "v      "<< v                  << std::endl;
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));

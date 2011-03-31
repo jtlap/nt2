@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/fdlibm/include/lgamma.hpp>
 
-NT2_TEST_CASE_TPL ( lgamma_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( lgamma_real__1_0,  (double))
 {
   
   using nt2::fdlibm::lgamma;

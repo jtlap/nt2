@@ -25,7 +25,7 @@
 // specific includes for arity 1 tests
 #include <nt2/include/functions/sqrt.hpp>
 
-NT2_TEST_CASE_TPL ( sqrt_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))
 {
   
   using nt2::fdlibm::sqrt;

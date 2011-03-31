@@ -25,7 +25,7 @@
 // specific includes for arity 2 tests
 #include <nt2/include/functions/remainder.hpp>
 
-NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  (double))
 {
   
   using nt2::fdlibm::__ieee754_remainder;

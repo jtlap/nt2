@@ -20,7 +20,6 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_gammastar.hpp>
 
 NT2_TEST_CASE_TPL ( gsl_sf_gammastar_real__1_0,  NT2_REAL_TYPES)
@@ -52,7 +51,7 @@ NT2_TEST_CASE_TPL ( gsl_sf_gammastar_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::gsl_specfun::gsl_sf_gammastar(a0),nt2::gsl_specfun::gsl_sf_gammastar(a0),1);
-        ulp0=nt2::max(ulpd,ulp0);
+        ulp0=std::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }

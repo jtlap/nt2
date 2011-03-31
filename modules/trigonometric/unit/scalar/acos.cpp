@@ -25,7 +25,7 @@
 // specific includes for arity 1 tests
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 extern "C" {extern long double cephes_acosl(long double);}
-
+ 
 NT2_TEST_CASE_TPL ( acos_real__1_0,  NT2_REAL_TYPES)
 {
   
@@ -36,14 +36,14 @@ NT2_TEST_CASE_TPL ( acos_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
-
+ 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
-  ulpd=0.0;
-
-
+  ulpd=0.0;  
+ 
+  
   // specific values tests
   NT2_TEST_ULP_EQUAL(acos(nt2::Half<T>()), nt2::Pi<r_t>()/3, 0);
   NT2_TEST_ULP_EQUAL(acos(nt2::Inf<T>()), nt2::Nan<r_t>(), 0);

@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( spence_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cephes::spence(a0),nt2::spence(a0),1.5);
+        NT2_TEST_ULP_EQUAL( nt2::cephes::spence(a0),nt2::spence(a0),2.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

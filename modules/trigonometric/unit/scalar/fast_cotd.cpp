@@ -47,14 +47,14 @@ NT2_TEST_CASE_TPL ( fast_cotd_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::Zero<T>()), -nt2::Inf<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::_180<T>()), nt2::Nan<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::_45<T>()), nt2::Mone<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::_45<T>()), nt2::Mone<r_t>(), 4.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::_90<T>()), nt2::Nan<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::Inf<T>()), nt2::Nan<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::Minf<T>()), nt2::Nan<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::Nan<T>()), nt2::Nan<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::Zero<T>()), nt2::Inf<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_180<T>()), nt2::Nan<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 4.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_90<T>()), nt2::Nan<r_t>(), 1.0);
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::Zero<T>()), nt2::Nan<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 4.0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( fast_cotd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -116,7 +116,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::_45<T>()), nt2::Mone<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(fast_cotd(-nt2::_45<T>()), nt2::Mone<r_t>(), 4.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::Zero<T>()), nt2::Nan<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 4.0);
 } // end of test for signed_int_
