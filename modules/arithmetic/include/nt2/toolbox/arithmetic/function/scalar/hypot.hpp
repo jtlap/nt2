@@ -93,8 +93,8 @@ namespace nt2 { namespace ext
       // The float constants are provided in order to modify
       // the algorithm if a architecture gived different speed results
       typedef typename meta::as_integer<A0, signed>::type  int_type;
-      A0 x =  abs(a0);
-      A0 y =  abs(a1);
+      A0 x =  nt2::abs(a0);
+      A0 y =  nt2::abs(a1);
       if (nt2::is_inf(x+y)) return Inf<A0>();
       if (nt2::is_nan(x+y)) return Nan<A0>();
       A0 a =  nt2::max(x, y);

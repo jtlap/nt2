@@ -70,8 +70,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, signed>::type  int_type;
-      A0 x =  abs(a0);
-      A0 y =  abs(a1);
+      A0 x =  nt2::abs(a0);
+      A0 y =  nt2::abs(a1);
       if (nt2::is_inf(x+y)) return Inf<float>();
       if (nt2::is_nan(x+y)) return Nan<float>();
       if (y > x) std::swap(x, y);

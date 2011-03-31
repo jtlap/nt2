@@ -64,7 +64,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (is_nan(a0)) return Zero<type>(); 
+      if (is_nan(a0)) return Zero<type>();
+      if (a0 == Inf<A0>()) return Valmax<type>(); 
       return type(a0);
     }
 

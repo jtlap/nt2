@@ -98,8 +98,8 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef hypot_ctnts<A0, int_type> cts;
-      A0 x =  abs(a0);
-      A0 y =  abs(a1);
+      A0 x =  nt2::abs(a0);
+      A0 y =  nt2::abs(a1);
       A0 tinf = is_inf(x+y);
       A0 a =  nt2::max(x, y);
       A0 b =  nt2::min(x, y);

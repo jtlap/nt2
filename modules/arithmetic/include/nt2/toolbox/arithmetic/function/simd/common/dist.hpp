@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return abs(a0-a1);
+        return nt2::abs(a0-a1);
     }
   };
 } }

@@ -72,8 +72,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 x =  abs(a0);
-      A0 y =  abs(a1);
+      A0 x =  nt2::abs(a0);
+      A0 y =  nt2::abs(a1);
       A0 gtyx = gt(y,x);
       A0 xx = sel(gtyx,y,x);
       A0 yy = sel(gtyx,x,y);

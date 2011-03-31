@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // The remainder() function computes the remainder of dividing x by y.  The
 // return value is x-n*y, where n is the value x / y, rounded to the nearest
-// integer.  If the absolute value of x-n*y is 0.5, n is chosen to be even.
+// integer.  If the nt2::absolute value of x-n*y is 0.5, n is chosen to be even.
 // The drem function is just an alias for the same thing.
 /////////////////////////////////////////////////////////////////////////////
 
