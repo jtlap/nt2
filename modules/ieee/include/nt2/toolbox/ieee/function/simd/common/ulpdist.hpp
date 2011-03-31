@@ -30,7 +30,7 @@
 //    Properly normalize the two numbers by the same factor in a way that 
 //    the largest of the two numbers exponents will be brought to zero
 //
-//    Return this absolute difference of these normalized numbers
+//    Return this nt2::absolute difference of these normalized numbers
 //    divided by the rounding error Eps
 //
 //    The roundind error is the ulp (unit in the last place) value, i.e. the

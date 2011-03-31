@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0,signed>::type int_type;
       if (is_eqz(a0)) return Smallestposval<A0>();
-      const A0 x = abs(a0);
+      const A0 x = nt2::abs(a0);
       if (x == Inf<A0>()) return x; //Valmax<A0>()-prev(Valmax<A0>());
       typename meta::as_bits<A0>::type aa = {x},  bb = aa;
       --bb.bits;

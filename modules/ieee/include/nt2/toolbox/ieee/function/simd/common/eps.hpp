@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
       {
       typedef typename meta::as_integer<A0, signed>::type        int_type;
-      const A0 a = abs(a0);
+      const A0 a = nt2::abs(a0);
       return seladd(is_invalid(a),
                 select(is_less(a, Smallestposval<A0>()),
                      Mindenormal<A0>(),

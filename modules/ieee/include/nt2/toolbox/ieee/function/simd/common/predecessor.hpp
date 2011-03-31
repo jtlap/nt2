@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
 //       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;
-//       const A0 fac =  abs(tofloat(a1));
+//       const A0 fac =  nt2::abs(tofloat(a1));
 //       boost::fusion::tie(m, expon) = fast_frexp(a0);
 //       expon =  seladd(is_equal(m, Mhalf<A0>()), expon, Mone<itype>());
 //       A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());

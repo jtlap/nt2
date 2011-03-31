@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-       const type v = abs(a0);
+      const type v = nt2::abs(a0);
        const type t2n = Two2nmb<type>();
        volatile type d0 = (v+t2n);
        volatile type d = (d0-t2n);

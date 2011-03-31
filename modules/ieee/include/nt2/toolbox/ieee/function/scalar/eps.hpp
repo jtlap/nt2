@@ -17,6 +17,7 @@
 #include <nt2/include/functions/is_not_finite.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -66,7 +67,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type value_type;
       typedef std::numeric_limits<A0> lim;
-      const A0 a = abs(a0);
+      const A0 a = nt2::abs(a0);
       if (is_not_finite(a))
       {
         return value_type(Nan<A0>());

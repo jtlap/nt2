@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 x = abs(a0);
+      const A0 x = nt2::abs(a0);
       //     return sel(iseq(x, Inf<A0>()), x,  successor(x)-x);
       A0 xp = predecessor(x);
       return sel(is_equal(x, Inf<A0>()), xp-predecessor(xp), x - xp);
