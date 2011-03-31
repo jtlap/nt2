@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return abs(round2even(a0)*rdivide(round2even(a1), gcd(a0,a1)));
+      return nt2::abs(round2even(a0)*rdivide(round2even(a1), gcd(a0,a1)));
     }
 
   };
