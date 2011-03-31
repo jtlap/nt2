@@ -128,9 +128,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 tmp = {{_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))}}; 
+      A0 tmp = {_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))}; 
       A0 max1 = nt2::max(a0,tmp);
-      A0 tmp1 ={{_mm_shuffle_ps(max1, max1, _MM_SHUFFLE(2, 3, 0, 1))}}; 
+      A0 tmp1 ={_mm_shuffle_ps(max1, max1, _MM_SHUFFLE(2, 3, 0, 1))}; 
       A0 that = nt2::max(max1,tmp1);
       return that;
     }

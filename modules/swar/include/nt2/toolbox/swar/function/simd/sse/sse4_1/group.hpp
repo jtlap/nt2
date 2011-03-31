@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
       typedef typename meta::as_integer<rtype>::type itype;
-      rtype z  = {{_mm_cvtpd_ps(a1)}};
+      rtype z  = {_mm_cvtpd_ps(a1)};
       itype iz = simd::native_cast<itype>(z);
       iz = _mm_slli_si128(iz, 8); 
       rtype r = simd::native_cast<rtype>(iz);

@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::native_cast<sint>(a0);
-      sint tmp1 = {{ _mm_slli_si128(tmp,1)}}; 
+      sint tmp1 = { _mm_slli_si128(tmp,1)}; 
       a = a+simd::native_cast<A0>(tmp1);
       tmp1 = _mm_slli_si128(tmp,2); 
       a = a+simd::native_cast<A0>(tmp1);
@@ -97,7 +97,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type sint;
       sint tmp = simd::native_cast<sint>(a0); 
-      sint tmp1 = {{ _mm_slli_si128(tmp,8)}}; 
+      sint tmp1 = { _mm_slli_si128(tmp,8)}; 
       return a0+simd::native_cast<A0>(tmp1);
     }
   };
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::native_cast<sint>(a0); 
-      sint tmp1 = {{ _mm_slli_si128(tmp,2)}}; 
+      sint tmp1 = { _mm_slli_si128(tmp,2)}; 
       a = a+simd::native_cast<A0>(tmp1);
       tmp1 = _mm_slli_si128(tmp,4); 
       a = a+simd::native_cast<A0>(tmp1);
@@ -170,7 +170,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::native_cast<sint>(a0);
-      sint tmp1 = {{_mm_slli_si128(tmp, 4)}}; 
+      sint tmp1 = {_mm_slli_si128(tmp, 4)}; 
       a = a+simd::native_cast<A0>(tmp1);
       tmp1 = _mm_slli_si128(tmp, 8); 
       a = a+simd::native_cast<A0>(tmp1);
