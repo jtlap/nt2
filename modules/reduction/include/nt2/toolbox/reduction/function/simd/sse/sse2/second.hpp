@@ -14,7 +14,7 @@
 #include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-
+#include <nt2/sdk/simd/native_cast.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
@@ -69,7 +69,10 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
-      return _mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)));
+      type tmp = simd::native_cast<type>(a0);
+      type tmp1= {{_mm_srli_si128(tmp, 8)}}; 
+      rtype z = simd::native_cast<rtype>(tmp1); 
+      return _mm_cvtsd_f64(z);
     }
   };
 } }
