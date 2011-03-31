@@ -10,7 +10,7 @@
          'type_defs' : [],
          'types' : ['real_'],
          'simd_types' : ['real_'],
-         'simd_ulp_thresh'   : '32.0',
+         'simd_ulp_thresh'   : '4096.0',
         },
      'info' : 'manually modified',
      'unit' : {

@@ -10,7 +10,7 @@
          'simd_types' : [],
          'special' : ['cephes'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['double'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -35,7 +35,7 @@
              'simd' : {
                 },
              'ulp_thresh' : {
-                 'default' : ['128'],
+                 'default' : ['3000'],
                 },
             },
         },

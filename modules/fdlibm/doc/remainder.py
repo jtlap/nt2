@@ -10,7 +10,7 @@
          'simd_types' : [],
          'special' : ['fdlibm'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['double'],
         },
      'info' : 'manually modified',
      'unit' : {

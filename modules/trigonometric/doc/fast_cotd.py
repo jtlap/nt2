@@ -26,25 +26,25 @@
          'specific_values' : {
              'default' : {
                  'nt2::Zero<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
-                 'nt2::_45<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '1.0',},
+                 'nt2::_45<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '4.0',},
                 },
              'real_' : {
                  '-nt2::Zero<T>()' : {'result' : '-nt2::Inf<r_t>()','ulp_thresh' : '1.0',},
                  '-nt2::_180<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
-                 '-nt2::_45<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '1.0',},
+                 '-nt2::_45<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '4.0',},
                  '-nt2::_90<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::Minf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '1.0',},
                  'nt2::_180<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
-                 'nt2::_45<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '1.0',},
+                 'nt2::_45<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '4.0',},
                  'nt2::_90<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
                 },
              'signed_int_' : {
-                 '-nt2::_45<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '1.0',},
+                 '-nt2::_45<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '4.0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
-                 'nt2::_45<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '1.0',},
+                 'nt2::_45<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '4.0',},
                 },
             },
          'verif_test' : {
