@@ -174,8 +174,12 @@ macro(nt2_module_add_unit EXECUTABLE)
 
   add_executable(${EXECUTABLE} ${ARGN})
   set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/unit)
-  target_link_libraries(${EXECUTABLE} ${NT2_${NT2_CURRENT_MODULE_U}_LIBRARIES})
-  set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
+  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
+    target_link_libraries(${EXECUTABLE} ${NT2_${NT2_CURRENT_MODULE_U}_LIBRARIES})
+    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
+                                                   LINK_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
+                         )
+  endif()
   
   add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
   add_dependencies(${suite} ${EXECUTABLE})
@@ -190,7 +194,9 @@ macro(nt2_module_add_bench EXECUTABLE)
   set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bench)
   target_link_libraries(${EXECUTABLE} ${NT2_${NT2_CURRENT_MODULE_U}_LIBRARIES})
   if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
-    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
+    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
+                                                   LINK_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
+                         )
   endif()
   
   add_dependencies(${suite} ${EXECUTABLE})
