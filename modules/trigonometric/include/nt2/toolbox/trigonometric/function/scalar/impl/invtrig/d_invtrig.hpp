@@ -33,7 +33,7 @@ namespace nt2
 	typedef typename meta::scalar_of<A0>::type stype; 
 	static inline A0 asin(const  A0& a0)
 	{
-	  A0 x = abs(a0);
+	  A0 x = nt2::abs(a0);
 	  if ((x >  One<A0>())) return Nan<A0>();
 	  if ((x <  Sqrteps<A0>())) return a0;
 	  A0 zz;
@@ -106,7 +106,7 @@ namespace nt2
 	  //	static const A0 tanpio8 = double_constant<double, 0x3fda827999fcef31ll>();
 	  if (is_eqz(a0))  return a0;
 	  if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  A0 y;
 	  A0 flag = (x >  double_constant<double,0x4003504f333f9de6ll>());
 	  if (flag)

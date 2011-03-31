@@ -31,7 +31,7 @@ namespace nt2
 	{
 	  A0 sign, x;
 	  //	bf::tie(sign, x) = sign_and_abs(a0);
-	  x = abs(a0);
+	  x = nt2::abs(a0);
 	  sign = bitofsign(a0);
 	  A0 x_smaller_1e_4 = lt(x, single_constant<A0, 0x38d1b717>()); //1.0e-4f;
 	  A0 x_larger_05    = gt(x, Half<A0>());
@@ -56,7 +56,7 @@ namespace nt2
 	
 	static inline A0 acos(const A0& a0)
 	{
-	  A0 x = abs(a0);
+	  A0 x = nt2::abs(a0);
 	  A0 z2 = asin(a0);
 	  A0 isgtxh = gt(x, Half<A0>());
 	  if (any(isgtxh))

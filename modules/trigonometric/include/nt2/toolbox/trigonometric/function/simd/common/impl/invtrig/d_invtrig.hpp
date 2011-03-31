@@ -30,7 +30,7 @@ namespace nt2
 	static inline A0 asin(const A0& a0)
 	{
 	  typedef typename meta::scalar_of<A0>::type sA0;
-	  A0 x = abs(a0);
+	  A0 x = nt2::abs(a0);
 	  static const A0 pio4 =  Pio_4<A0>();
 	  static const A0 small=  lt(x, Sqrteps<A0>());
 	  static const A0 morebits = double_constant<A0, 0xbc91a62633145c07ll>();
@@ -99,7 +99,7 @@ namespace nt2
 	  static const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
 	  static const A0 Twothird = double_constant<A0, 0x3fe51eb851eb851fll>();
 	  static const A0 tanpio8 = double_constant<A0, 0x3fda827999fcef31ll>();
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  const A0 flag1 = lt(x,  double_constant<A0, 0x4003504f333f9de6ll>());              //tan3pio8
 	  const A0 flag2 = b_and(ge(x, double_constant<A0, 0x3fda827999fcef31ll>()), flag1); //tanpio8
 	  A0 yy =  b_notand(flag1, Pio_2<A0>());

@@ -88,7 +88,7 @@ namespace nt2
   	  if (is_eqz(a0))  return a0;
   	  if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
           A0 y;
-	  A0 x = abs(a0);
+	  A0 x = nt2::abs(a0);
 	  A0 sgn =  bitofsign(a0);
 	  if( x >single_constant<float,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
 	    {

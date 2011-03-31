@@ -95,7 +95,7 @@ namespace nt2
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;   // size in bits of the scalar types minus one
 	  if (is_invalid(a0)) return Nan<A0>(); //Nan or Inf input
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
 	      return redu_t::cos_replacement(a0);
@@ -123,7 +123,7 @@ namespace nt2
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;
 	  if (is_invalid(a0)) return Nan<A0>();
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
 	      return redu_t::sin_replacement(a0);
@@ -151,7 +151,7 @@ namespace nt2
 	{
 	  if (redu_t::tan_invalid(a0)) return Nan<A0>();
 	  if (is_eqz(a0)) return a0;
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
 	      return redu_t::tan_replacement(a0);
@@ -169,7 +169,7 @@ namespace nt2
 	static inline A0 cota(const A0& a0)
 	{
 	  if (redu_t::cot_invalid(a0)) return Nan<A0>();
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
 	      return redu_t::cot_replacement(a0);
@@ -189,7 +189,7 @@ namespace nt2
 	static inline void sincosa(const A0& a0, A0& s, A0& c)
 	{
 	  if (is_invalid(a0)) { s = c = Nan<A0>(); return; }
-	  A0 x =  abs(a0);
+	  A0 x =  nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
 	      redu_t::sincos_replacement(a0, s, c);

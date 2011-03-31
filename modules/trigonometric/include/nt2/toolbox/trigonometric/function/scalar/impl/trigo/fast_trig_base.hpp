@@ -126,7 +126,7 @@ namespace nt2
 	}
       private:
 	typedef typename meta::logical<A0>::type                                                          logic; 
-        static inline logic not_in_range(const A0& a0){return abs(a0) > trig_ranges<A0,unit_tag>::max_range(); }
+        static inline logic not_in_range(const A0& a0){return nt2::abs(a0) > trig_ranges<A0,unit_tag>::max_range(); }
         static inline A0    scale       (const A0& a0){return a0*trig_ranges<A0,unit_tag>::scale();            }
       }; 	
     }
