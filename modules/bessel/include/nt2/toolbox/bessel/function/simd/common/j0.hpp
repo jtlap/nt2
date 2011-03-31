@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 x   =  abs(a0);
+      A0 x   =  nt2::abs(a0);
       A0 lt2 = lt(x, Two<A0>());
       if (all(lt2))
       return branch1(x);

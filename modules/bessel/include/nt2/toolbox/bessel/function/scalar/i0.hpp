@@ -14,6 +14,7 @@
 #include <nt2/toolbox/polynomials/include/tchebeval.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <boost/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -125,7 +126,7 @@ namespace nt2 { namespace ext
         3.36911647825569408990E-3,
         8.04490411014108831608E-1
       }};
-      A0 x =  abs(a0);
+      A0 x =  nt2::abs(a0);
       if (is_inf(x)) return x; 
       if( x <= 8.0 )
       {
@@ -202,7 +203,7 @@ namespace nt2 { namespace ext
          3.36911647825569408990E-3f,
          8.04490411014108831608E-1f
 	   }};
-      A0 x =  abs(a0);
+      A0 x =  nt2::abs(a0);
       if (is_inf(x)) return x; 
       if( x <= 8.0f )
       {

@@ -212,7 +212,7 @@ namespace nt2 { namespace ext
         3.36911647825569408990E-3f,
         8.04490411014108831608E-1f
       }};
-      A0 x =  abs(a0);
+      A0 x =  nt2::abs(a0);
       A0 r = Nan<A0>();
       int32_t nb = 0;
       A0 test = le(x, Eight<A0>());

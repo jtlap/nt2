@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
     {
       typedef A1 type;
       type x = a1;
-      const int32_t n1 = abs(a0);
+      const int32_t n1 = nt2::abs(a0);
       type sign = splat<type>(a0<0?nt2::cospi(n1):1);
       if( n1 == 0 )
         return( sign * j0(x) );
