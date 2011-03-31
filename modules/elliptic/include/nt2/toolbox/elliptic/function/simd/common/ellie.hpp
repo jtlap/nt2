@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
     {
       return map(functor<tag::ellie_>(), a0, a1);
       // broken TO DO
-//       A0 lphi = abs(a0);
+//       A0 lphi = nt2::abs(a0);
 //       A0 m   =  a1;
 //       A0 a = One<A0>();
 //       A0 b = sqrt(oneminus(m));

@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
     {
       A0 sgngam = One<A0>(); //positive
       A0 r =  Nan<A0>(), r2=  Nan<A0>();
-      A0 q =  abs(a0);
+      A0 q =  nt2::abs(a0);
       A0 x = a0;
       A0 test0 = gt(q, Fastgammalargelim<A0>());
       int32_t nb = 0;

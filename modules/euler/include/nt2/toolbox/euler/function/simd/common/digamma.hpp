@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
       // digamma(x) = (x - root) * (Y + R(x-1))
       //
       // Where root is the location of the positive root of digamma,
-      // Y is a constant, and R is optimised for low absolute error
+      // Y is a constant, and R is optimised for low nt2::absolute error
       // compared to Y.
       //
       // Maximum Deviation Found:              3.388e-010
@@ -187,7 +187,7 @@ namespace nt2 { namespace ext
       // digamma(x) = (x - root) * (Y + R(x-1))
       //
       // Where root is the location of the positive root of digamma,
-      // Y is a constant, and R is optimised for low absolute error
+      // Y is a constant, and R is optimised for low nt2::absolute error
       // compared to Y.
       //
       // Maximum Deviation Found:              3.388e-010

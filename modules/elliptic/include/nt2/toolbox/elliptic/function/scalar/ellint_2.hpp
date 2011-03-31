@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      type x = abs(a0);
+      type x = nt2::abs(a0);
       if (x>One<A0>())    return Nan<A0>();
       if (x == One<A0>()) return x;
       return boost::math::ellint_2(a0);
