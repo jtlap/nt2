@@ -8,6 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 #define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 
@@ -32,7 +34,7 @@ namespace nt2 { namespace ext
     struct result<This(A0, A0)>
     {
       typedef typename meta::scalar_of<A0>::type      stype; 
-      typedef typename meta::as_real<stype>::type    sftype; 
+      typedef typename meta::downgrade<stype>::type  sftype; 
       typedef simd::native<sftype,tag::sse_>           type;
     };
 
@@ -40,7 +42,10 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
       typedef typename meta::as_integer<rtype>::type itype;
-      rtype r = simd::native_cast<rtype>(_mm_slli_si128(simd::native_cast<itype >(_mm_cvtpd_ps(a1)), 8));
+      rtype z  = {{_mm_cvtpd_ps(a1)}};
+      itype iz = simd::native_cast<itype>(z);
+      iz = _mm_slli_si128(iz, 8); 
+      rtype r = simd::native_cast<rtype>(iz);
       return b_or(r, simd::native_cast<rtype>(_mm_cvtpd_ps(a0)));
     }
   };

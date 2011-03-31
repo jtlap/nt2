@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
+
 
 
 
@@ -36,21 +38,38 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 1));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 2));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 3));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 4));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 5));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 6));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 7));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 9));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 10));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 11));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 12));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 13));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 14));
-      return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 15));
+      sint tmp = simd::native_cast<sint>(a0);
+      sint tmp1 = {{ _mm_slli_si128(tmp,1)}}; 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,2); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,3); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,4); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,5); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,6); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,7); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,8); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,9); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,10); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,11); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,12); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,13); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,14); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp, 15); 
+      a += simd::native_cast<A0>(tmp1);
+      return a; 
     }
   };
 } }
@@ -77,7 +96,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type sint;
-      return a0+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
+      sint tmp = simd::native_cast<sint>(a0); 
+      sint tmp1 = {{ _mm_slli_si128(tmp,8)}}; 
+      return a0+simd::native_cast<A0>(tmp1);
     }
   };
 } }
@@ -105,13 +126,22 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 2));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 4));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 6));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 10));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 12));
-      return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 14));
+      sint tmp = simd::native_cast<sint>(a0); 
+      sint tmp1 = {{ _mm_slli_si128(tmp,2)}}; 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,4); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp, 6); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,8); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,10); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,12); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp,14); 
+      return a+simd::native_cast<A0>(tmp1);
+
     }
   };
 } }
@@ -139,9 +169,13 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type sint;
       A0 a = a0;
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 4));
-      a = a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 8));
-      return a+simd::native_cast<A0>(_mm_slli_si128(simd::native_cast<sint>(a0), 12));
+      sint tmp = simd::native_cast<sint>(a0);
+      sint tmp1 = {{_mm_slli_si128(tmp, 4)}}; 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp, 8); 
+      a = a+simd::native_cast<A0>(tmp1);
+      tmp1 = _mm_slli_si128(tmp, 12); 
+      return a+simd::native_cast<A0>(tmp1);
     }
   };
 } }

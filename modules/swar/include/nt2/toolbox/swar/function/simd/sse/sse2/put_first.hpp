@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -172,7 +173,9 @@ namespace nt2 { namespace ext
       typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
       if(a1 > 1)
       {
-        A0 t = { simd::native_cast<A0>(_mm_srli_si128(simd::native_cast<type64>(a0), 8 ))};
+	type64 z = simd::native_cast<type64>(a0);
+	z = _mm_srli_si128(z, 8 ); 
+        A0 t = simd::native_cast<A0>(z);
         return simd::native_cast<A0>(shri(simd::native_cast<type64>(t), (a1-2) << 5));
       }
       return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 5));

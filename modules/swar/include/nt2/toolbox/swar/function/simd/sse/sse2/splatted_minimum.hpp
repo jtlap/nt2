@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/minimum.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

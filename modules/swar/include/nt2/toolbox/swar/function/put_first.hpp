@@ -11,6 +11,7 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/swar/include.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 namespace nt2 { namespace tag
   {         
