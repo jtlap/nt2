@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return gt(dist(a0, a1), abs(a2));
+      return gt(dist(a0, a1), nt2::abs(a2));
     }
   };
 } }

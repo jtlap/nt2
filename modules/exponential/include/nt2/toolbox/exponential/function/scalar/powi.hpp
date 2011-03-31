@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
       const type one = One<type>();
       type x = nt2::abs(a0);
       A1 sign_n = signnz(a1);
-      A1 n = abs(a1);
+      A1 n = nt2::abs(a1);
 
       type n_oddf = is_odd(n);
       type nf = n_oddf;

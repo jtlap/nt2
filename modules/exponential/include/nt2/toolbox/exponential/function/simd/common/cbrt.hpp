@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 z =  abs(a0);
+      const A0 z =  nt2::abs(a0);
       const A0 CBRT2  = double_constant< A0, 0x3ff428a2f98d728bll> ();
       const A0 CBRT4  = double_constant< A0, 0x3ff965fea53d6e3dll> ();
       const A0 CBRT2I = double_constant< A0, 0x3fe965fea53d6e3dll> ();
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
                              0x3fd9c0c12122a4fell)
                             ) > (x);
       const int_type flag = is_gez(e);
-      int_type e1 =  abs(e);
+      int_type e1 =  nt2::abs(e);
       int_type rem = e1;
       e1 = rdiv(e1, Three<int_type>());           //TO DO remquo
       rem = sub(rem, mul(e1, Three<int_type>()));
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 z =  abs(a0);
+      const A0 z =  nt2::abs(a0);
       const A0 CBRT2  = single_constant< A0, 0x3fa14518> ();
       const A0 CBRT4  = single_constant< A0, 0x3fcb2ff5> ();
       const A0 CBRT2I = single_constant< A0, 0x3f4b2ff5> ();

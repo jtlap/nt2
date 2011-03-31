@@ -113,9 +113,9 @@ namespace nt2 { namespace ext
 	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
 	r_type a00 =  tofloat(a0); 
         r_type sign_x = bitofsign(a0);
-        r_type x = b_xor(a0, sign_x);//x = abs(a0)
+        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
-        int_type n = abs(a1);
+        int_type n = nt2::abs(a1);
 
         int_type   n_odd = is_odd(n);
         r_type n_oddf = tofloat(-n_odd);

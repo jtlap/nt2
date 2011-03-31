@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
     {
 	typedef typename NT2_RETURN_TYPE(2)::type r_type;
         r_type sign_x = bitofsign(a0);
-        r_type x = b_xor(a0, sign_x);//x = abs(a0)
+        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
 	if (is_even(a1)) sign_x = Zero<r_type>(); 
         A1 n = nt2::abs(a1);
         r_type ret = One<r_type>();

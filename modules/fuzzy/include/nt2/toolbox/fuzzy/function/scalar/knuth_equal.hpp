@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return abs(a0-a1) <= fast_ldexp(a2, exponent(maxnummag(a0, a1)));
+      return nt2::abs(a0-a1) <= fast_ldexp(a2, exponent(maxnummag(a0, a1)));
     }
   };
 } }
