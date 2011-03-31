@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
       type tmp = simd::native_cast<type>(a0);
-      type tmp1= {{_mm_srli_si128(tmp, 8)}}; 
+      type tmp1= {_mm_srli_si128(tmp, 8)}; 
       rtype z = simd::native_cast<rtype>(tmp1); 
       return _mm_cvtsd_f64(z);
     }
