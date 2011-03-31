@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 absa0 = abs(a0);
+      A0 absa0 = nt2::abs(a0);
 //       const A0 small_mask    = is_lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
 //       return select(small_mask,
 //              a0*madd(Third<A0>(), sqr(a0), One<A0>()),

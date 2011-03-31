@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     {
         A0 xx, sign;
       //    bf::tie(sign, xx)= sign_and_abs(a0);
-      xx =  abs(a0);
+      xx =  nt2::abs(a0);
       sign =  bitofsign(a0);
         const A0 Infmask       = is_inf(xx);
         const A0 x2            = sqr(xx);
@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 x = abs(a0);
+      A0 x = nt2::abs(a0);
       A0 lthalf = lt(x,Half<A0>());
       A0 x2 = sqr(x);
       A0 z;

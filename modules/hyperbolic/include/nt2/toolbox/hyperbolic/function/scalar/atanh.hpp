@@ -16,6 +16,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -64,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 absa0 = abs(a0);
+      A0 absa0 = nt2::abs(a0);
       //     const A0 small_mask    = lt(absa0, Twotom10<A0>());  /* x <  2**-10 */
       //     if (small_mask) { return a0*fma(Third<A0>(), sqr(a0), One<A0>()); }
       A0 t =  absa0+absa0;

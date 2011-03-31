@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       type tmp = nt2::exp(a0);
-      if ( abs(a0) > 0.6)
+      if ( nt2::abs(a0) > 0.6)
       {
         return (tmp-rec(tmp))*Half<A0>();
       }

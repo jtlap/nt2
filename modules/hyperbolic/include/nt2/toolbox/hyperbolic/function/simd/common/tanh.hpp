@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 x = abs(a0);
+      const A0 x = nt2::abs(a0);
       if (all(gt(x,splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
       const A0 tmp1=expm1(-(x+x));
       const A0 tmp2=-tmp1/(Two<A0>()+tmp1);

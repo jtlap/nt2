@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 a = abs(a0);
+      A0 a = nt2::abs(a0);
       A0 r1 = sinh(a)*rec(a);
       A0 a2 = sqr(a);
       A0 r2 = oneplus(a2*fma(a2, Oneo_120<A0>(), Oneo_6<A0>()));
