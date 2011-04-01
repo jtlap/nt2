@@ -57,11 +57,13 @@ set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 
 file(GLOB MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
 foreach(module ${MODULES})
-  message(STATUS "[nt2] loading module ${module}")
-  nt2_load_module(${module})
+  if(EXISTS ${PROJECT_SOURCE_DIR}/modules/${module}/CMakeLists.txt)
+    message(STATUS "[nt2] loading module ${module}")
+    nt2_load_module(${module})
+  endif()
 endforeach()
 
-ADD_SUBDIRECTORY(sandbox EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(sandbox)
 
 ################################################################################
 # Post-config message
