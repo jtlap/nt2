@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-       return (max(a0, a1)-min(a1,a0));
+      return (nt2::max(a0, a1)-nt2::min(a1,a0));
     }
   };
 } }

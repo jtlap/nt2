@@ -11,6 +11,7 @@
 
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/dist.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return dist(a0, a1) <= a2*nt2::max(nt2::abs(a0),nt2::abs(a1));
+      return nt2::dist(a0, a1) <= a2*nt2::max(nt2::abs(a0),nt2::abs(a1));
     }
 
   };
