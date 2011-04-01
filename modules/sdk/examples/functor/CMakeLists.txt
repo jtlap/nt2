@@ -12,20 +12,14 @@ SET(SOURCES
  #   dominant.cpp
    )
 
+ADD_CUSTOM_TARGET(sdk.functor.examples)
+ADD_DEPENDENCIES(sdk.examples sdk.functor.examples)
+
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  ##############################################################################
-  # Build the executable filename from the example source filename
-  ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".sample" EXECUTABLE "${EXAMPLE}")
-
-  ##############################################################################
-  # Add as a target
-  ##############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  ADD_DEPENDENCIES(sdk.examples ${EXECUTABLE})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_example(sdk.functor.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 

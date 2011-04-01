@@ -14,21 +14,14 @@ SET(SOURCES
     status.cpp
    )
 
+ADD_CUSTOM_TARGET(sdk.config.examples)
+ADD_DEPENDENCIES(sdk.examples sdk.config.examples)
+
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
-  ##############################################################################
-  # Build the executable filename from the example source filename
-  ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".sample" EXECUTABLE "${EXAMPLE}")
-
-  ##############################################################################
-  # Add as a target
-  ##############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
-  ADD_DEPENDENCIES(sdk.examples ${EXECUTABLE})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_example(sdk.config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 
