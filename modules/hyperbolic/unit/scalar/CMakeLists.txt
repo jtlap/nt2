@@ -31,5 +31,4 @@ SET( SOURCES
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_unit(hyperbolic.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-  TARGET_LINK_LIBRARIES(hyperbolic.scalar.${EXAMPLE}.unit ${NT2_CEPHES_LIBRARIES})
 ENDFOREACH()

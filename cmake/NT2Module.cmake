@@ -43,6 +43,7 @@ macro(nt2_module_source_setup module)
                        ${NT2_${module_U}_INCLUDE_DIR}
                      )
   link_directories(${NT2_${module_U}_LIBRARY_DIR})
+  link_libraries(${NT2_${module_U}_LIBRARIES})
 endmacro()
 
 macro(nt2_module_main module)
@@ -104,17 +105,17 @@ macro(nt2_module_main module)
 
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bench)
     add_custom_target(${module}.bench)
-    add_subdirectory(bench EXCLUDE_FROM_ALL)
+    add_subdirectory(bench)
   endif()
   
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
     add_custom_target(${module}.examples)
-    add_subdirectory(examples EXCLUDE_FROM_ALL)
+    add_subdirectory(examples)
   endif()
   
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit)
     add_custom_target(${module}.unit)
-    add_subdirectory(unit EXCLUDE_FROM_ALL)
+    add_subdirectory(unit)
   endif()
   
   nt2_find_transfer_parent()
@@ -141,7 +142,7 @@ macro(nt2_module_add_library libname)
   if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
     set_target_properties(${libname} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
   endif()
-
+  
   install( TARGETS ${libname}
            LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
            ARCHIVE DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
@@ -162,42 +163,45 @@ macro(nt2_module_use_modules component)
 
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})
+  link_libraries(${NT2_LIBRARIES})
   
   nt2_find_transfer_parent()
 endmacro()
 
-macro(nt2_module_add_unit EXECUTABLE)
+macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
+
+  add_executable(${EXECUTABLE} EXCLUDE_FROM_ALL ${ARGN})
+  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${DIRECTORY})
+  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
+    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
+                                                   LINK_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
+                         )
+  endif()
+endmacro()
+
+macro(nt2_module_add_unit EXECUTABLE)
+  nt2_module_add_exe(unit ${EXECUTABLE} ${ARGN})
 
   string(REGEX REPLACE "\\.([^.]+)\\.unit$" ".unit" suite ${EXECUTABLE})
   string(REGEX REPLACE "\\.unit$" "-unit" TEST ${EXECUTABLE})
-
-  add_executable(${EXECUTABLE} ${ARGN})
-  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/unit)
-  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
-    target_link_libraries(${EXECUTABLE} ${NT2_${NT2_CURRENT_MODULE_U}_LIBRARIES})
-    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
-                                                   LINK_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
-                         )
-  endif()
   
-  add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
   add_dependencies(${suite} ${EXECUTABLE})
+  add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
 endmacro()
 
 macro(nt2_module_add_bench EXECUTABLE)
-  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
+  nt2_module_add_exe(bench ${EXECUTABLE} ${ARGN})
 
   string(REGEX REPLACE "\\.([^.]+)\\.bench$" ".bench" suite ${EXECUTABLE})
+  
+  add_dependencies(${suite} ${EXECUTABLE})
+endmacro()
 
-  add_executable(${EXECUTABLE} ${ARGN})
-  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bench)
-  target_link_libraries(${EXECUTABLE} ${NT2_${NT2_CURRENT_MODULE_U}_LIBRARIES})
-  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
-    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
-                                                   LINK_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
-                         )
-  endif()
+macro(nt2_module_add_example EXECUTABLE)
+  nt2_module_add_exe(examples ${EXECUTABLE} ${ARGN})
+
+  string(REGEX REPLACE "\\.([^.]+)\\.sample$" ".examples" suite ${EXECUTABLE})
   
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()
