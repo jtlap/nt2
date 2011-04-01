@@ -30,17 +30,4 @@ SET( SOURCES
 #zetal.c zetacl.c ndtrl.c psil.c sindgl.c struvel.c tandgl.c setprecl.c econst.c
 #mtherrl.c rgammal.c roundl.c 
 
-SET(CEPHES_FLAGS "-DANSIC")
-
-IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} -fno-builtin")
-ELSEIF(MSVC)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} /Oi-")
-ENDIF()
-
 nt2_module_add_library(nt2_cephesl ${SOURCES})
-set_target_properties(nt2_cephesl PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
-
-
-
-

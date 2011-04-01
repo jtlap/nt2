@@ -30,13 +30,4 @@ SET( SOURCES
       polevlf.c setprec.c mtherr.c
     )
 
-SET(CEPHES_FLAGS "-DANSIC")
-
-IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} -fno-builtin")
-ELSEIF(MSVC)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} /Oi-")
-ENDIF()
-
 nt2_module_add_library(nt2_cephesf ${SOURCES})
-set_target_properties(nt2_cephesf PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})

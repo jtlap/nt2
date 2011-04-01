@@ -25,26 +25,14 @@ SET( SOURCES
      sqrt.c floor.c setprec.c mtherr.c
     )
 
-SET(CEPHES_FLAGS "-DANSIC")
-
 # const.c does not define constants in a strict C way in UNK mode,
 # so we force IEEE754 little-endian on Windows to avoid problems.
 IF(WIN32)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} -DIBMPC")
-ENDIF()
-
-IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} -fno-builtin")
-ELSEIF(MSVC)
-  SET(CEPHES_FLAGS "${CEPHES_FLAGS} /Oi-")
+  SET(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DIBMPC")
 ENDIF()
 
 nt2_module_add_library(nt2_cephesd ${SOURCES})
-set_target_properties(nt2_cephesd PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
 
 IF(WIN32)
   nt2_module_add_library(nt2_cephesl ${SOURCES} long_double.c)
-  set_target_properties(nt2_cephesl PROPERTIES COMPILE_FLAGS ${CEPHES_FLAGS})
 ENDIF()
-
-

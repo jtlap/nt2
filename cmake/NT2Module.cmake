@@ -7,43 +7,64 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-# set up installation directories
-if(NOT UNIX)
-  set( NT2_INSTALL_SHARE_DIR
-       ${CMAKE_INSTALL_PREFIX}
-       CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
-       FORCE
-     )
-else()
-  set( NT2_INSTALL_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/nt2
-       CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
-       FORCE
-     )
-endif()
+macro(nt2_str_remove_duplicates)
+  foreach(str ${ARGV})
+    string(REPLACE "  " " " str_ws ${${str}})
+    string(REPLACE " " ";" str_list ${str_ws})
+    if(str_list)
+      list(REMOVE_DUPLICATES str_list)
+    endif()
+    string(REPLACE ";" " " str_new "${str_list}")
+    if(NOT str_new)
+      set(str_new " ")
+    endif()
+    set(${str} ${str_new})
+  endforeach()
+endmacro()
 
-set( NT2_INSTALL_INCLUDE_DIR
-     ${CMAKE_INSTALL_PREFIX}/include
-     CACHE PATH "The directory where we install the header files"
-     FORCE
-   )
+macro(nt2_module_install_setup)
+  if(NOT UNIX)
+    set( NT2_INSTALL_SHARE_DIR
+         ${CMAKE_INSTALL_PREFIX}
+         CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
+         FORCE
+       )
+  else()
+    set( NT2_INSTALL_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/nt2
+         CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
+         FORCE
+       )
+  endif()
+
+  set( NT2_INSTALL_INCLUDE_DIR
+       ${CMAKE_INSTALL_PREFIX}/include
+       CACHE PATH "The directory where we install the header files"
+       FORCE
+     )
    
-set( NT2_INSTALL_LIBRARY_DIR
-     ${CMAKE_INSTALL_PREFIX}/lib
-     CACHE PATH "The directory where we install the libraries"
-     FORCE
-   )
+  set( NT2_INSTALL_LIBRARY_DIR
+       ${CMAKE_INSTALL_PREFIX}/lib
+       CACHE PATH "The directory where we install the libraries"
+       FORCE
+     )
+endmacro()
 
 macro(nt2_module_source_setup module)
+  nt2_module_install_setup()
   string(TOUPPER ${module} module_U)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
   
   include_directories( ${PROJECT_BINARY_DIR}/include
-                       ${NT2_${module_U}_INCLUDE_DIR}
+                       ${CMAKE_CURRENT_SOURCE_DIR}/include
+                       ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR}
                      )
-  link_directories(${NT2_${module_U}_LIBRARY_DIR})
-  link_libraries(${NT2_${module_U}_LIBRARIES})
+  link_directories(${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
+  link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
+  
+  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_DEPENDENCIES_FLAGS}")
+  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
 endmacro()
 
 macro(nt2_module_main module)
@@ -78,8 +99,17 @@ macro(nt2_module_main module)
     
   endif()
   
+  set(NT2_CURRENT_MODULE ${module})
+  
   # set include/link directories
-  nt2_module_source_setup(${module})
+  include_directories(${NT2_${module_U}_INCLUDE_DIR})
+  link_directories(${NT2_${module_U}_LIBRARY_DIR})
+  link_libraries(${NT2_${module_U}_LIBRARIES})
+  
+  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
+  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
+  
+  nt2_module_install_setup()
   
   # install headers, cmake modules and manifest
   install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
@@ -139,9 +169,8 @@ macro(nt2_module_add_library libname)
   endif()
 
   set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
-  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
-    set_target_properties(${libname} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
-  endif()
+  
+  set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS "${NT2_CURRENT_FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_SOURCE")
   
   install( TARGETS ${libname}
            LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
@@ -165,6 +194,9 @@ macro(nt2_module_use_modules component)
   link_directories(${NT2_LIBRARY_DIR})
   link_libraries(${NT2_LIBRARIES})
   
+  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
+  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
+  
   nt2_find_transfer_parent()
 endmacro()
 
@@ -172,10 +204,9 @@ macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   add_executable(${EXECUTABLE} EXCLUDE_FROM_ALL ${ARGN})
+  
+  set_property(TARGET ${EXECUTABLE} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${DIRECTORY})
-  if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
-    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
-  endif()
 endmacro()
 
 macro(nt2_module_add_unit EXECUTABLE)
