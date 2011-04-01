@@ -10,6 +10,7 @@
 #define NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 //#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/details/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
@@ -35,7 +36,8 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    if( nt2::details::ulpdist(tt, uu ) <= vv)
+    typedef typename boost::common_type<TT, UU>::type R;
+    if( nt2::details::ulpdist(tt, uu ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
 		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
