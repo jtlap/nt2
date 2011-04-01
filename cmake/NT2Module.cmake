@@ -174,9 +174,7 @@ macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
   add_executable(${EXECUTABLE} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${DIRECTORY})
   if(NT2_${NT2_CURRENT_MODULE_U}_FLAGS)
-    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
-                                                   LINK_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}
-                         )
+    set_target_properties(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS})
   endif()
 endmacro()
 
