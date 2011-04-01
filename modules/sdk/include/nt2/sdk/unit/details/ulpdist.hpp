@@ -30,8 +30,8 @@ namespace nt2
       m2 = ::frexp(a1, &e2);
       itype expo = -(e1 > e2)?e1:e2;
       type e = (e1 == e2) ?
-	std::abs(m1-m2) :
-	std::abs(::ldexp(a0, expo) - ::ldexp(a1, expo));
+        std::abs(m1-m2) :
+        std::abs(::ldexp(a0, expo) - ::ldexp(a1, expo));
       return e/nt2::Eps<type>();
     }
     
@@ -42,13 +42,13 @@ namespace nt2
       if (a0 == a1)              return Zero<type>();
       if ((a0!=a0) && (a1!= a1)) return Zero<type>();
       itype e1 = 0, e2 = 0;
-      double m1, m2;
+      float m1, m2;
       m1 = ::frexpf(a0, &e1);
       m2 = ::frexpf(a1, &e2);
       itype expo = -(e1 > e2)?e1:e2;
       type e = (e1 == e2) ?
-	std::abs(m1-m2) :
-	std::abs(::ldexpf(a0, expo) - ::ldexpf(a1, expo));
+	    std::abs(m1-m2) :
+	    std::abs(::ldexpf(a0, expo) - ::ldexpf(a1, expo));
       return e/Eps<type>();
     }
     
