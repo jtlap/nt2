@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MULS_HPP_INCLUDED
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/adds.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
