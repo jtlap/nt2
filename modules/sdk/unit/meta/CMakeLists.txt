@@ -31,6 +31,7 @@ SET( SOURCES
     sign_of.cpp
     strip.cpp
     upgrade.cpp
+    set.cpp
    )
 
 include_directories( ${PROJECT_SOURCE_DIR}/)
