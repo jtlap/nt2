@@ -8,6 +8,11 @@
 ##############################################################################
 
 SET( SOURCES
+  abss.cpp
+  adds.cpp
+  subs.cpp
+  divs.cpp
+  muls.cpp
   divround.cpp
   divfloor.cpp
   divfix.cpp

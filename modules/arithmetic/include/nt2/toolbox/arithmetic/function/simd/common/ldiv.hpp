@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_LDIV_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_LDIV_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/rdivide.hpp>
 
 
 
@@ -36,6 +37,34 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       return divides(a1, a0);
+    }
+
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ldiv_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<real_<A0>,X>))
+                       ((simd_<real_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::ldiv_(tag::simd_<tag::real_, X> ,
+                         tag::simd_<tag::real_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0,A0)>
+      : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return rdivide(a1, a0);
     }
 
   };

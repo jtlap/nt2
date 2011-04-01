@@ -206,6 +206,7 @@ NT2_REGISTER_DISPATCH ( tag::is_greater_, tag::cpu_, (A0)
                         ((simd_<int64_<A0>,tag::sse_>))
                       );
 
+#if !defined(NT2_SSE2_IS_GREATER_64_DEFINED)
 namespace nt2 { namespace ext
 {
   template<class Dummy>
@@ -235,5 +236,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#endif
 
 #endif

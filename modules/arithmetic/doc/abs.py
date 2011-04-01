@@ -11,12 +11,14 @@
          'type_defs' : [],
          'notes' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],     
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 30/11/2010',
              'included' : ['#include<nt2/toolbox/standard/include/abs.hpp>'],
+             'no_ulp' : 'True',
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {
@@ -33,15 +35,22 @@
                  'nt2::Nan<T>()' : 'nt2::Nan<T>()',
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Valmax<T>()' : 'nt2::Valmax<T>()',
+                 'nt2::Valmin<T>()' : 'nt2::Valmax<T>()',
+                 'T(1)':'T(1)',   
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::One<T>()',
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Valmax<T>()' : 'nt2::Valmax<T>()',
+                 'nt2::Valmin<T>()' : 'nt2::Valmin<T>()',
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Valmin<T>()' : 'nt2::Valmin<T>()',
+                 'nt2::Valmax<T>()' : 'nt2::Valmax<T>()',
                 },
             },
          'verif_test' : {

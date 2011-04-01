@@ -11,6 +11,8 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/select.hpp>
 
 
 
@@ -51,7 +53,7 @@ namespace nt2 { namespace ext
     {
       r0 = a+b;
       A0 z = (r0-a);
-      r1 =  (a-(r0-z))+(b-z);
+      r1 =  sel(is_inf(r0), Zero<R1>(), (a-(r0-z))+(b-z));
     }
 
   };

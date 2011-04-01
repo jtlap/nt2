@@ -102,7 +102,7 @@ namespace nt2 { namespace ext
 
       A0 y = select(lt(k, Twenty<A0>()),ct1,ct2);
       y =  fast_ldexp(y, toint(k));
-      return y;
+      return sel(eq(a0, Inf<A0>()), a0, y);
       //return impl::expm1(a0);
     }
   };

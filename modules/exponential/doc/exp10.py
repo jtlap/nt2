@@ -49,11 +49,11 @@
          'verif_test' : {
              'property_call' : {
                  'default' : [],
-                 'real_' : ['nt2::exp10(a0)','nt2::log10(nt2::exp10(a0))'],
+                 'real_' : ['nt2::exp10(a0)'],#,'nt2::log10(nt2::exp10(a0))'],
                 },
              'property_value' : {
                  'default' : [],
-                 'real_' : ['::cephes_exp10l(a0)', 'r_t(a0)'],
+                 'real_' : ['::cephes_exp10l(a0)'],#, 'r_t(a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5','5'],

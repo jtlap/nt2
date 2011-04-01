@@ -49,11 +49,19 @@ namespace nt2 { namespace details
     else								
       {									
 	std::cout << " * Test `"					
+<<<<<<< HEAD:modules/sdk/include/nt2/sdk/unit/details/tests.hpp
 		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
 		  << "details::ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
 		  <<  nt2::details::ulpdist(tt, uu )				
+=======
+		  << "nt2_ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "` **failed** in function "			
+		  << fn << " (" << line << ")"				
+		  << "nt2_ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
+		  <<  nt2::nt2_ulpdist(tt, uu )				
+>>>>>>> e7c632102b7f2bec51c5528dc5495ed11bc01dcb:include/nt2/sdk/unit/details/tests.hpp
 		  << std::endl;						
 	++error_count();
 	return false; 

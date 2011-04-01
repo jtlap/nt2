@@ -11,9 +11,11 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/negate.hpp>
 #include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/idivfix.hpp>
+#include <nt2/include/functions/idivround.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 
@@ -67,7 +69,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return a0-tofloat(idivround(a0, a1))*a1; 
+      return b_or(is_invalid(a0), b_or(is_eqz(a1), a0-tofloat(idivround(a0, a1))*a1)); 
     }
 
   };

@@ -28,7 +28,7 @@
              'default' : {
                 },
              'real_' : {
-                 '4,3' : '2',
+                 'T(4),T(3)' : 'T(2)',
                  'nt2::Inf<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::Minf<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
@@ -39,12 +39,12 @@
                  'nt2::Zero<T>(),nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },
              'signed_int_' : {
-                 '4,3' : '2',
+                 'T(4),T(3)' : 'T(2)',
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
              'unsigned_int_' : {
-                 '4,3' : '2',
+                 'T(4),T(3)' : 'T(2)',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
             },

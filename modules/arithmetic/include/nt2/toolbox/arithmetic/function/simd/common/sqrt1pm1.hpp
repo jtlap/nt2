@@ -11,8 +11,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-// #include <nt2/include/functions/expm1.hpp>
-// #include <nt2/include/functions/log1p.hpp>
+#include <nt2/include/functions/expm1.hpp>
+#include <nt2/include/functions/log1p.hpp>
 
 
 
@@ -36,7 +36,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return expm1(log1p(tofloat(a0))*Half<A0>());
+      typedef typename meta::as_real<A0>::type rtype; 
+      return sel(eq(a0, Mone<rtype>()),
+		 Mone<rtype>(),
+		 nt2::expm1(nt2::log1p(tofloat(a0))*Half<rtype>())
+		 );
     }
 
   };

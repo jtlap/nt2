@@ -10,7 +10,7 @@
          'simd_types' : [],
          'special' : ['crlibm'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['float','double'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -21,7 +21,8 @@
              'stamp' : 'modified by jt the 02/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-100)', 'T(100)']],
+             'double_' : [['T(-706)', 'T(706)']],
+             'float_'   : [['T(-85)', 'T(85)']],   
             },
          'specific_values' : {
             },

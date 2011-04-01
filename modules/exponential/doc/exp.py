@@ -50,10 +50,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::exp(a0)', 'nt2::log(nt2::exp(a0))', 'nt2::sqr(nt2::exp(a0))'],
+                 'default' : ['nt2::exp(a0)'],#, 'nt2::log(nt2::exp(a0))', 'nt2::sqr(nt2::exp(a0))'],
                 },
              'property_value' : {
-                 'default' : ['::cephes_expl(a0)', 'r_t(a0)', 'nt2::exp(2*a0)'],
+                 'default' : ['::cephes_expl(a0)'],#, 'r_t(a0)', 'nt2::exp(2*a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5', '35.0', '1.5'],

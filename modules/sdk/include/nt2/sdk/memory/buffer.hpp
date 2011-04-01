@@ -27,37 +27,35 @@ namespace nt2 { namespace memory
 {
   template<class Type,class Allocator = nt2::memory::allocator<Type> >
   class buffer
-      : private details::buffer_data< typename Allocator
-                                      ::template rebind<Type>::other::pointer
-                                    >
-      , private Allocator::template rebind<Type>::other
+      : private
+        details::buffer_data< typename Allocator::template rebind<Type>::other >
   {
     public:
 
     typedef typename Allocator::template rebind<Type>::other  parent_allocator;
-    typedef details::buffer_data<typename parent_allocator::pointer> parent_data;
+    typedef details::buffer_data<parent_allocator>            parent_data;
 
     ////////////////////////////////////////////////////////////////////////////
     // Forwarded types
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename parent_allocator::value_type       value_type;
-    typedef typename parent_allocator::pointer          pointer;
-    typedef typename parent_allocator::const_pointer    const_pointer;
-    typedef typename parent_allocator::pointer          iterator;
-    typedef typename parent_allocator::const_pointer    const_iterator;
-    typedef typename parent_allocator::reference        reference;
-    typedef typename parent_allocator::const_reference  const_reference;
-    typedef typename parent_allocator::size_type        size_type;
-    typedef typename parent_allocator::difference_type  difference_type;
-    typedef typename parent_allocator::difference_type  index_type;
+    typedef typename parent_data::value_type       value_type;
+    typedef typename parent_data::pointer          pointer;
+    typedef typename parent_data::const_pointer    const_pointer;
+    typedef typename parent_data::pointer          iterator;
+    typedef typename parent_data::const_pointer    const_iterator;
+    typedef typename parent_data::reference        reference;
+    typedef typename parent_data::const_reference  const_reference;
+    typedef typename parent_data::size_type        size_type;
+    typedef typename parent_data::difference_type  difference_type;
+    typedef typename parent_data::difference_type  index_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Constructor & destructor
     ////////////////////////////////////////////////////////////////////////////
     buffer( Allocator const& a = Allocator() )
-          : parent_data(), parent_allocator(a)
+          : parent_data(a)
     {
-      parent_data::allocate(0,0,allocator());
+      parent_data::allocate(0,0);
     }
 
     template<class Base, class Size>
@@ -65,23 +63,19 @@ namespace nt2 { namespace memory
           , Size const& s
           , Allocator const& a = Allocator()
           )
-          : parent_data(), parent_allocator(a)
+          : parent_data(a)
     {
-      parent_data::allocate(b,s,allocator());
+      parent_data::allocate(b,s);
     }
 
     buffer( buffer const& src )
-          : parent_data(), parent_allocator(src.allocator())
+          : parent_data(src.allocator())
     {
       restructure(src.lower(),src.size());
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600)
-      std::copy(src.begin(),src.end(),stdext::make_unchecked_array_iterator(begin()));
-#else
       std::copy(src.begin(),src.end(),begin());
-#endif
     }
 
-    ~buffer() { parent_data::deallocate(allocator()); }
+    ~buffer() { parent_data::deallocate(); }
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator - SG version
@@ -100,11 +94,7 @@ namespace nt2 { namespace memory
       {
         // If not we just need to resize/rebase and copy which is SG here
         restructure(src.lower(),src.size());
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600)
-      std::copy(src.begin(),src.end(),stdext::make_unchecked_array_iterator(begin()));
-#else
-      std::copy(src.begin(),src.end(),begin());
-#endif
+        std::copy(src.begin(),src.end(),begin());
       }
       return *this;
     }
@@ -114,6 +104,8 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::begin;
     using parent_data::end;
+    using parent_data::first;
+    using parent_data::last;
 
     ////////////////////////////////////////////////////////////////////////////
     // Forward size related methods
@@ -125,15 +117,15 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // RandomAccessContainer Interface
     ////////////////////////////////////////////////////////////////////////////
-    typename parent_allocator::reference
-    operator[](typename parent_allocator::difference_type const& i)
+    typename parent_data::reference
+    operator[](typename parent_data::difference_type const& i)
     {
       NT2_ASSERT( (i >= lower()) && (i <= upper()) );
       return parent_data::begin_[i];
     }
 
-    typename parent_allocator::const_reference
-    operator[](typename parent_allocator::difference_type const& i) const
+    typename parent_data::const_reference
+    operator[](typename parent_data::difference_type const& i) const
     {
       NT2_ASSERT( (i >= lower()) && (i <= upper()) );
       return parent_data::begin_[i];
@@ -154,7 +146,7 @@ namespace nt2 { namespace memory
     using parent_data::rebase;
 
     template<class Size>
-    void resize(Size s) { parent_data::resize(s,allocator()); }
+    void resize(Size s) { parent_data::resize(s); }
 
     template<class Base,class Size>
     void restructure( Base const& b, Size const& s )
@@ -167,15 +159,7 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Allocator access
     ////////////////////////////////////////////////////////////////////////////
-    parent_allocator& allocator()
-    {
-      return static_cast<parent_allocator&>(*this);
-    }
-
-    parent_allocator const& allocator() const
-    {
-      return static_cast<parent_allocator const&>(*this);
-    }
+    using parent_data::allocator;
   };
 
   //////////////////////////////////////////////////////////////////////////////

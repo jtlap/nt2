@@ -15,13 +15,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::saturate_<T> , tag::cpu_,
                       (A0)(T),
-                      (unsigned_<A0>)
+                      (integer_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class T, class Dummy>
-  struct call<tag::saturate_<T>(tag::unsigned_),
+  struct call<tag::saturate_<T>(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -30,6 +30,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+
       if (a0 > Valmax<T>())
 	return Valmax<T>();
       else if (a0 <  Valmin<T>())

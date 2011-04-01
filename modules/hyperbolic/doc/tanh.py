@@ -10,7 +10,7 @@
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
-         'simd_ulp_thresh' : ['1.0']   
+         'simd_ulp_thresh' : ['1.5']   
         },
      'info' : 'manually modified',
      'unit' : {

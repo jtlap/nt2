@@ -9,6 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['float', 'double', 'signed_int_', 'unsigned_int_'],
+         'simd_types' : ['float', 'double', 'signed_int_', 'unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -20,7 +21,7 @@
              'stamp' : 'modified by jt the 18/02/2011',
             },
          'ranges' : {
-             'default' : [['T(-10000)', 'T(10000)']],
+             'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
             },
          'specific_values' : {
              'double' : {

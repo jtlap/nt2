@@ -51,10 +51,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::exp2(a0)','nt2::log2(nt2::exp2(a0))', 'nt2::log2(nt2::sqr(a0))'],
+                 'default' : ['nt2::exp2(a0)'],#,'nt2::log2(nt2::exp2(a0))', 'nt2::log2(nt2::sqr(a0))'],
                 },
              'property_value' : {
-                 'default' : ['cephes_exp2l(a0)','r_t(a0)', '2*log2(nt2::abs(a0))'],
+                 'default' : ['cephes_exp2l(a0)'],#,'r_t(a0)', '2*log2(nt2::abs(a0))'],
                 },
              'ulp_thresh' : {
                  'default' : ['7','11', '7'],

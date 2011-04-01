@@ -12,6 +12,8 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/two_split.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/select.hpp>
 
 
 
@@ -50,10 +52,11 @@ namespace nt2 { namespace ext
     eval(A0 const& a, A1 const& b, R0& r0, R1& r1)const
     {
       r0  = a*b;
+      A0 isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
       A0 a1, a2, b1, b2;
       boost::fusion::tie(a1, a2) = two_split(a);
       boost::fusion::tie(b1, b2) = two_split(b);
-      r1 = a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2);
+      r1 = sel(isinf, Zero<R1>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
     }
   };
 } }

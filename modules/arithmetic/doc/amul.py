@@ -33,7 +33,7 @@
              'default' : {
                 },
              'real_' : {
-                 '1,2,3' : '7',
+                 'T(1),T(2),T(3)' : 'T(7)',
                  'nt2::Inf<T>()' : 'nt2::Inf<T>()',
                  'nt2::Minf<T>()' : 'nt2::Nan<T>()',
                  'nt2::Mone<T>()' : 'nt2::Zero<T>()',
@@ -42,13 +42,13 @@
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
                 },
              'signed_int_' : {
-                 '1,2,3' : '7',
+                 'T(1),T(2),T(3)' : '7',
                  'nt2::Mone<T>()' : 'nt2::Zero<T>()',
                  'nt2::One<T>()' : 'nt2::Two<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
                 },
              'unsigned_int_' : {
-                 '1,2,3' : '7',
+                 'T(1),T(2),T(3)' : '7',
                  'nt2::One<T>()' : 'nt2::Two<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
                 },
