@@ -56,10 +56,7 @@ macro(nt2_module_source_setup module)
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
   
-  include_directories( ${PROJECT_BINARY_DIR}/include
-                       ${CMAKE_CURRENT_SOURCE_DIR}/include
-                       ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR}
-                     )
+  include_directories(${NT2_${module_U}_INCLUDE_DIR})
   link_directories(${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
   
@@ -87,7 +84,7 @@ macro(nt2_module_main module)
     
     # set FindNT2 variables
     set(NT2_${module_U}_FOUND 1)
-    set(NT2_${module_U}_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR})
+    set(NT2_${module_U}_INCLUDE_DIR ${PROJECT_BINARY_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/include ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR})
     set(NT2_${module_U}_LIBRARY_DIR ${PROJECT_BINARY_DIR}/lib ${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
     set(NT2_${module_U}_LIBRARIES ${NT2_${module_U}_DEPENDENCIES_LIBRARIES} ${NT2_${module_U}_LIBRARIES})
     set(NT2_${module_U}_FLAGS "${NT2_${module_U}_DEPENDENCIES_FLAGS} ${NT2_${module_U}_FLAGS}")
