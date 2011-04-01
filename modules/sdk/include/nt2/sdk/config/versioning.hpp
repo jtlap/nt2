@@ -9,11 +9,17 @@
 #ifndef NT2_SDK_CONFIG_VERSIONING_HPP_INCLUDED
 #define NT2_SDK_CONFIG_VERSIONING_HPP_INCLUDED
 
-#include <boost/system/config.hpp>
+#include <boost/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/stringize.hpp>
 
 #define NT2_VERSION_MESSAGE _library_version_mismatch_
+
+#ifdef NT2_SDK_SOURCE
+#   define NT2_SDK_DECL BOOST_SYMBOL_EXPORT
+# else 
+#   define NT2_SDK_DECL BOOST_SYMBOL_IMPORT
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Define a library version
@@ -21,7 +27,7 @@
 #define NT2_USE_LIBRARY_VERSION(S,V)                    \
 namespace nt2 { namespace config                        \
 {                                                       \
-  bool BOOST_SYSTEM_DECL                                \
+  bool NT2_SDK_DECL                                     \
   BOOST_PP_CAT(S,BOOST_PP_CAT(NT2_VERSION_MESSAGE,V))() \
   {                                                     \
     return true;                                        \
@@ -35,7 +41,7 @@ namespace nt2 { namespace config                        \
 #define NT2_REGISTER_LIBRARY_VERSION(S,V)                 \
 namespace nt2 { namespace config                          \
 {                                                         \
-  bool BOOST_SYSTEM_DECL                                  \
+  bool NT2_SDK_DECL                                       \
   BOOST_PP_CAT(S,BOOST_PP_CAT(NT2_VERSION_MESSAGE,V))();  \
   bool const BOOST_PP_CAT(check_,BOOST_PP_CAT(S,V)) =     \
   BOOST_PP_CAT(S,BOOST_PP_CAT(NT2_VERSION_MESSAGE,V))();  \
