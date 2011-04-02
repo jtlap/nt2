@@ -29,9 +29,9 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  is_simd_specific<T,tag::sse_>
-        : has_key < set<__m128d, __m128, __m128i>, T > {};
+  template<> struct is_simd_specific<__m128 , tag::sse_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m128d, tag::sse_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m128i, tag::sse_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
