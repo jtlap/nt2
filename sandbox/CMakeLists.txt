@@ -10,7 +10,10 @@
 ################################################################################
 # Some global random test
 ################################################################################
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
+FIND_PACKAGE(NT2 COMPONENTS sdk)
+INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include ${NT2_INCLUDE_DIR})
+LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
+LINK_LIBRARIES(${NT2_LIBRARIES})
 SET(SOURCES
 pack.cpp
 #    foo.cpp
@@ -26,14 +29,15 @@ FOREACH( EXAMPLE ${SOURCES})
   ##############################################################################
   # Build the executable filename from the example source filename
   ##############################################################################
-  STRING(REGEX REPLACE ".cpp" ".exe" EXECUTABLE "${EXAMPLE}")
+  STRING(REGEX REPLACE ".cpp" "" EXECUTABLE "${EXAMPLE}")
 
   ##############################################################################
   # Add as a target
   ##############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} ${EXAMPLE})
-  TARGET_LINK_LIBRARIES(${EXECUTABLE} nt2)
-  SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_CXX_SIMD_FLAGS})
+  ADD_EXECUTABLE(${EXECUTABLE} EXCLUDE_FROM_ALL ${EXAMPLE})
+  IF(NT2_FLAGS)
+    SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_FLAGS})
+  ENDIF()
   ADD_DEPENDENCIES(sandbox ${EXECUTABLE})
 ENDFOREACH()
 

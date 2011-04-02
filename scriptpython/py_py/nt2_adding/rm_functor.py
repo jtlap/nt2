@@ -172,8 +172,8 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
             return (False,text)
    
 if __name__ == "__main__" :
-    tb_name = "gsl_specfun"
-    fcts = ["gsl_sf_bessel_knu"]
+    tb_name = "arithmetic"
+    fcts = ["sadd"]
     for fct_name in fcts :
         print fct_name
         afs = Rm_functor(tb_name,fct_name,no_simd=False)

@@ -72,6 +72,8 @@ class Type_header_test_gen() :
             "  typedef typename nt2::meta::call<$fct_name$_($call_type$)>::type r_t;",
             "  typedef typename nt2::meta::call<$fct_name$_($scall_type$)>::type sr_t;",
             "  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;",
+            "  double ulpd;",
+            "  ulpd=0.0;",
             "",
             ]
         }

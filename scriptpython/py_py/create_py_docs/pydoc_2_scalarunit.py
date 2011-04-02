@@ -45,7 +45,7 @@ sys.path.pop(0)
 sys.path.pop(0)
 
 
-def create_unit(tb_name,fct_name,mode) :
+def create_unit(tb_name,fct_name,mode,parts =["verif","values"]) :
     bg = Base_gen(tb_name,fct_name,mode)
     ghg = Global_header_gen(bg)
     r = ghg.get_gen_result()
@@ -59,10 +59,10 @@ def create_unit(tb_name,fct_name,mode) :
             for typ in types :
                 thg = Type_header_test_gen(bg,d,typ,rank)
                 r+=thg.get_gen_beg()
-                if (mode=="scalar") and d_unit.get("specific_values",None) :
-                    svt = Specific_values_test_gen(bg,d,typ,ret_arity)
+                if ("values" in parts) and d_unit.get("specific_values",None) :
+                    svt = Specific_values_test_gen(bg,d,typ,ret_arity,mode)
                     r += svt. get_gen_result()
-                if d_unit.get("verif_test",None) :
+                if ("verif" in parts) and d_unit.get("verif_test",None) :
                     vtg = Random_verif_test_gen(bg,d,typ,mode)
                     r += vtg. get_gen_result()
                 r+=thg.get_gen_end()
@@ -78,12 +78,13 @@ def write_unit(tb_name,fct_name,mode,s,check=False) :
 
     
 if __name__ == "__main__" :
-    tb_name = "crlibm"
+    tb_name = "bitwise"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()
-    fcts = ["exp"]##   fcts = ["tan_rd"]##,"dawson","signgam","beta","gamma","gammaln","fast_gamma"]
+    fcts = ["rol","ror"]
+    parts = ["values","verif"]
     for fct in fcts :
         print fct
-        r= create_unit(tb_name,fct,'scalar')
+        r= create_unit(tb_name,fct,'scalar',parts)
         if r is None :
             print('error for %s' % fct)
         else :
