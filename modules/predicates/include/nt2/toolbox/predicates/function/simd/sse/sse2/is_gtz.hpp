@@ -12,7 +12,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
-#include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 
 
