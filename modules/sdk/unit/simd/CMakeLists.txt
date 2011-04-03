@@ -7,8 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-INCLUDE(macro/MakeNT2Test)
-
 SET( SOURCES
     access.cpp
     as_integer.cpp
@@ -54,8 +52,6 @@ SET( SOURCES
     upgrade.cpp
     splat.cpp
    )
-
-include_directories( ${PROJECT_SOURCE_DIR}/)
 
 ADD_CUSTOM_TARGET(sdk.simd.unit)
 ADD_DEPENDENCIES(sdk.unit sdk.simd.unit)

@@ -7,8 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-INCLUDE(macro/MakeNT2Test)
-
 SET( SOURCES
     any.cpp
     all.cpp
@@ -33,8 +31,6 @@ SET( SOURCES
     upgrade.cpp
     set.cpp
    )
-
-include_directories( ${PROJECT_SOURCE_DIR}/)
 
 ADD_CUSTOM_TARGET(sdk.meta.unit)
 ADD_DEPENDENCIES(sdk.unit sdk.meta.unit)  

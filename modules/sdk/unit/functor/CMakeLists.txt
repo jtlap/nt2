@@ -7,10 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-INCLUDE(macro/MakeNT2Test)
-
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
-
 SET(SOURCES
     unary_plus.cpp
     complement.cpp
