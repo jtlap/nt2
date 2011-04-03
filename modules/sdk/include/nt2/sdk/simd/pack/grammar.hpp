@@ -10,6 +10,7 @@
 #define NT2_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 
 #include <nt2/sdk/dsl/from_domain.hpp>
+#include <nt2/sdk/dsl/is_assignment_expression.hpp>
 #include <nt2/sdk/constant/category.hpp>
 
 namespace nt2 { namespace simd
@@ -48,6 +49,8 @@ namespace nt2 { namespace simd
                                                 comma < grammar<T,Card>
                                                       , grammar<T,Card>
                                                       >
+                                              , boost::proto::
+                                                switch_<details::assign_cases>
                                               >
                           >
                     >

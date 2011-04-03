@@ -181,12 +181,36 @@ namespace nt2 { namespace simd
       boost::proto::value(*this).evaluate(xpr);
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // SIMD expression evaluates as pack in assignment context
+    // TODO: fix to use obliviosu AST evaluation
+    ////////////////////////////////////////////////////////////////////////////
     template<class X> pack& operator=(X const& xpr )
     {
-      // TODO: check that X can be put in a pack via evaluation
       boost::proto::value(*this).evaluate(xpr);
       return *this;
     }
+
+    #define NT2_MAKE_ASSIGN_OP(OP)                                      \
+    template<class X> pack& operator BOOST_PP_CAT(OP,=)(X const& xpr )  \
+    {                                                                   \
+      boost::proto::value(*this).evaluate(*this OP xpr);                \
+      return *this;                                                     \
+    }                                                                   \
+    /**/
+
+    NT2_MAKE_ASSIGN_OP(+)
+    NT2_MAKE_ASSIGN_OP(-)
+    NT2_MAKE_ASSIGN_OP(*)
+    NT2_MAKE_ASSIGN_OP(/)
+    NT2_MAKE_ASSIGN_OP(%)
+    NT2_MAKE_ASSIGN_OP(^)
+    NT2_MAKE_ASSIGN_OP(&)
+    NT2_MAKE_ASSIGN_OP(|)
+    NT2_MAKE_ASSIGN_OP(>>)
+    NT2_MAKE_ASSIGN_OP(<<)
+
+    #undef NT2_MAKE_ASSIGN_OP
   };
 } }
 
