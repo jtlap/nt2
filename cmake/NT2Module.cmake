@@ -64,6 +64,15 @@ macro(nt2_module_source_setup module)
   nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
 endmacro()
 
+macro(nt2_setup_variant)
+  if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+  elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DNT2_DEBUG")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DNT2_DEBUG")
+  endif()
+endmacro()
+
 macro(nt2_module_main module)
   string(TOUPPER ${module} module_U)
   
@@ -97,6 +106,7 @@ macro(nt2_module_main module)
   endif()
   
   set(NT2_CURRENT_MODULE ${module})
+  nt2_setup_variant()
   
   # set include/link directories
   include_directories(${NT2_${module_U}_INCLUDE_DIR})

@@ -7,7 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.compiler.options)
 include(nt2.boost)
 include(nt2.simd)
 
