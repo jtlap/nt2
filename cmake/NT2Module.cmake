@@ -242,7 +242,7 @@ macro(nt2_module_add_example EXECUTABLE)
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()
 
-macro(nt2_module_configure_simd path no_scalar)
+macro(nt2_module_configure_simd path)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   if(NOT PYTHON_EXECUTABLE)
@@ -253,20 +253,14 @@ macro(nt2_module_configure_simd path no_scalar)
     endif()
   endif()
 
-  if(no_scalar)
-    set(SIMD_FW_PY_NO_SCALAR "--no-scalar")
-  else()
-    set(SIMD_FW_PY_NO_SCALAR "")
-  endif()
-
   find_file(SIMD_FWD_PY simd_fwd.py ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
   execute_process( COMMAND ${PYTHON_EXECUTABLE}
-                   ${SIMD_FWD_PY} ${SIMD_FW_PY_NO_SCALAR}
+                   ${SIMD_FWD_PY} ${ARGN}
                    ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include
                    ${path}
                  )
 endmacro()
 
 macro(nt2_module_configure_simd_toolbox toolbox)
-  nt2_module_configure_simd(nt2/toolbox/${toolbox}/function 0)
+  nt2_module_configure_simd(nt2/toolbox/${toolbox}/function)
 endmacro()

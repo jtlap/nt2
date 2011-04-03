@@ -96,8 +96,9 @@ class SimdFile(object):
         
         self.path_prefix = path_split(context['PATH_PREFIX'])
         self.basefile = [context['FUNCTION_FILE']]
+        self.extra_dir = [context['EXTRA_DIR']]
         
-        self.file = self.path_prefix + ['simd'] + dir + self.basefile
+        self.file = self.path_prefix + self.extra_dir + dir + self.basefile
         self.file_path_source = path_split(context['SOURCE_INCLUDE_PATH']) + self.file
         self.file_path_binary = path_split(context['BINARY_INCLUDE_PATH']) + self.file
         
@@ -149,7 +150,7 @@ class SimdFile(object):
             f.write("#error function has no SIMD implementation\n")
         else:
             for parent in parents:
-                parent_file = self.path_prefix + ['simd'] + parent + self.basefile
+                parent_file = self.path_prefix + self.extra_dir + parent + self.basefile
                 f.write("#include <" + str.join('/', parent_file) + ">\n")
         self.write_footer(f)
 
@@ -160,12 +161,13 @@ def create_forward_file(context, value, parent):
       parents.append(parent.value)
     f.create_forward(parents)
 
-def main_(source, binary, prefix, function):
+def main_(source, binary, prefix, function, simd_dir):
     context = {
         'SOURCE_INCLUDE_PATH': source,
         'BINARY_INCLUDE_PATH': binary,
         'PATH_PREFIX': prefix,
-        'FUNCTION_FILE': function
+        'FUNCTION_FILE': function,
+        'EXTRA_DIR': 'simd' if simd_dir else '.'
     }
     tree.walk(create_forward_file, context)
 
@@ -173,15 +175,36 @@ def main_(source, binary, prefix, function):
     f.create_forward(tree.linearize())
 
 import sys
+import optparse
 def main():
-    if(len(sys.argv) >= 5):
-        main_(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    elif(len(sys.argv) == 4):
-        path = sys.argv[1] + '/' + sys.argv[3]
-        if(os.path.exists(path)):
-          for file in os.listdir(path):
-            if(len(file) > 4 and file[-4:] == '.hpp'):
-              main_(sys.argv[1], sys.argv[2], sys.argv[3], file)
+    parser = optparse.OptionParser()
+    parser.add_option('', '--no-simd-dir',
+                      default=False,
+                      action="store_true",
+                     )
+    parser.add_option('', '--no-default-baseline',
+                      default=False,
+                      action="store_true",
+                     ) 
+    parser.add_option('-B', '--baseline',
+                      default=[],
+                      action="append",
+                     ) 
+    options, args = parser.parse_args()
+    options = options.__dict__
+    
+    if(not options['no_default_baseline']):
+        options['baseline'].insert(0, '.')
+    
+    if(len(args) >= 4):
+        main_(args[0], args[1], args[2], args[3], not options['no_simd_dir'])
+    elif(len(args) == 3):
+        for baseline in options['baseline']:
+            path = args[0] + '/' + args[2] + '/' + baseline
+            if(os.path.exists(path)):
+                for file in os.listdir(path):
+                    if(len(file) > 4 and file[-4:] == '.hpp'):
+                        main_(args[0], args[1], args[2], file, not options['no_simd_dir'])
     else:
         sys.stderr.write("Not enough parameters\n")
 
