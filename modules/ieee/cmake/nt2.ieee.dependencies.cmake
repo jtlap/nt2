@@ -7,8 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-INCLUDE(nt2.ieee.math)
-
 FIND_PACKAGE(NT2 COMPONENTS predicates reduction)
 SET(NT2_IEEE_DEPENDENCIES_FOUND ${NT2_FOUND})
 SET(NT2_IEEE_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})
