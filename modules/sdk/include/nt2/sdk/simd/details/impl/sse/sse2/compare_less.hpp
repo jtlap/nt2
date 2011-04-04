@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     {
       int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
       int mask_a_gt_b =  _mm_movemask_pd(gt(a0,a1));
-      return compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
 
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     {
       int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
       int mask_a_gt_b =  _mm_movemask_ps(gt(a0,a1));
-      return compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
 
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
     {
       int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
       int mask_a_gt_b =  _mm_movemask_epi8(gt(a0,a1));
-      return compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
 } }
