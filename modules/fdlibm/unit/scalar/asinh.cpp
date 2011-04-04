@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( asinh_real__1_0,  (double))
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fdlibm::asinh(a0),nt2::asinh(a0),1);
+        NT2_TEST_ULP_EQUAL( nt2::fdlibm::asinh(a0),nt2::asinh(a0),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
