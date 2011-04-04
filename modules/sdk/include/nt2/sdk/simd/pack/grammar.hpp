@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/dsl/from_domain.hpp>
 #include <nt2/sdk/dsl/is_assignment_expression.hpp>
+#include <nt2/sdk/dsl/is_comparison_expression.hpp>
 #include <nt2/sdk/constant/category.hpp>
 
 namespace nt2 { namespace simd
@@ -22,9 +23,7 @@ namespace nt2 { namespace simd
   template<class T, class Card>
   struct grammar
     : boost::proto
-        ::or_ <
-              //  Terminals are pack, named and unnamed constants
-                boost::proto::terminal< data<T,Card> >
+        ::or_ < boost::proto::terminal< data<T,Card> >
               , boost::proto::terminal< tag::constant_<boost::proto::_> >
               , boost::proto::
                 and_< boost::proto::terminal<boost::proto::_>
@@ -32,8 +31,6 @@ namespace nt2 { namespace simd
                                           is_arithmetic<boost::proto::_value>()
                                         >
                     >
-              //  Nodes are cross-domain node, any non-low level nodes with
-              //  matching type/cardinal
               , dsl::from_domain< boost::proto::_ >
               , boost::proto::
                 and_< boost::proto::
@@ -49,8 +46,8 @@ namespace nt2 { namespace simd
                                                 comma < grammar<T,Card>
                                                       , grammar<T,Card>
                                                       >
-                                              , boost::proto::
-                                                switch_<details::assign_cases>
+                                              , meta::assignment_operators
+                                              , meta::comparison_operators
                                               >
                           >
                     >
