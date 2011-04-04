@@ -24,7 +24,7 @@ namespace nt2 { namespace simd
   struct grammar
     : boost::proto
         ::or_ < boost::proto::terminal< data<T,Card> >
-              , boost::proto::terminal< tag::constant_<boost::proto::_> >
+              , boost::proto::terminal< constant_<boost::proto::_> >
               , boost::proto::
                 and_< boost::proto::terminal<boost::proto::_>
                     , boost::proto::if_ < boost::
