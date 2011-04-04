@@ -7,8 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-INCLUDE(nt2.exponential.math)
-
 FIND_PACKAGE(NT2 COMPONENTS ieee polynomials common)
 SET(NT2_EXPONENTIAL_DEPENDENCIES_FOUND ${NT2_FOUND})
 SET(NT2_EXPONENTIAL_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})

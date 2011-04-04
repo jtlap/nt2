@@ -7,8 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-INCLUDE(nt2.euler.math)
-
 FIND_PACKAGE(NT2 COMPONENTS trigonometric exponential)
 SET(NT2_EULER_DEPENDENCIES_FOUND ${NT2_FOUND})
 SET(NT2_EULER_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})

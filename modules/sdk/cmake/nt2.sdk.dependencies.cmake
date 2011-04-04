@@ -10,14 +10,6 @@
 include(nt2.boost)
 include(nt2.simd)
 
-################################################################################
-# Generate bootstrap.hpp
-################################################################################
-FIND_FILE(NT2_SDK_BOOTSTRAP_FILE bootstrap.hpp.cmake ${CMAKE_MODULE_PATH})
-CONFIGURE_FILE( ${NT2_SDK_BOOTSTRAP_FILE}
-                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
-              )
-
 FIND_PACKAGE(NT2 COMPONENTS extension)
 
 IF(NOT Boost_FOUND OR NOT NT2_FOUND)

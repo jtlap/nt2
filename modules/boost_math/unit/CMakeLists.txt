@@ -20,4 +20,3 @@ ADD_DEPENDENCIES(boost_math.unit boost_math.scalar.unit boost_math.simd.unit)
 
 nt2_module_use_modules(unit ieee arithmetic euler exponential hyperbolic elliptic)
 ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd) # FIXME

@@ -19,4 +19,3 @@ ADD_DEPENDENCIES(crlibm.unit crlibm.scalar.unit crlibm.simd.unit)
 ##****************************************************************************
 nt2_module_use_modules(unit arithmetic ieee trigonometric exponential hyperbolic)
 ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd) # FIXME

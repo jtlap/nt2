@@ -7,10 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Find and detect Boost libraries
-################################################################################
-SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1")
-INCLUDE(FindBoost)
-FIND_PACKAGE( Boost 1.46.0 )
+nt2_module_source_setup(bessel)
 
+include(nt2.bessel.math)
+nt2_module_configure_simd_toolbox(bessel)

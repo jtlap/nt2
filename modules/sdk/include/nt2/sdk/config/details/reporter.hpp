@@ -11,7 +11,6 @@
 
 #include <cstdio>
 #include <boost/preprocessor/cat.hpp>
-#include <nt2/sdk/config/details/boost.hpp>
 
 namespace nt2 { namespace details
 {
