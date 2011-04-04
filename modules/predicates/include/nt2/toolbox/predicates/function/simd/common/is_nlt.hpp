@@ -31,9 +31,40 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0, A0)> : meta::strip<A0>{};
 
+    NT2_FUNCTOR_CALL(2)
+    {
+      return b_not(lt(a0,a1));
+    }
 
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is integer_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::is_nlt_, tag::cpu_,
+                         (A0)(X),
+                         ((simd_<integer_<A0>,X>))
+                         ((simd_<integer_<A0>,X>))
+                        );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::is_nlt_(tag::simd_<tag::integer_, X> ,
+                           tag::simd_<tag::integer_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0, A0)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return ge(a0,a1);
+    }
+  };
+} }
+
 #endif
-// modified by jt the 04/01/2011
+// modified by mg the 04/04/2011

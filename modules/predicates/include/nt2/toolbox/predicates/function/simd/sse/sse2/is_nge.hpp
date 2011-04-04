@@ -8,36 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_NGE_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_NGE_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_nge_, tag::cpu_,
-                         (A0),
-                         ((simd_<arithmetic_<A0>,tag::sse_>))
-                         ((simd_<arithmetic_<A0>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::is_nge_(tag::simd_<tag::arithmetic_, tag::sse_> ,
-                           tag::simd_<tag::arithmetic_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return lt(a0,a1);
-    }
-  };
-} }
+#include <nt2/toolbox/predicates/function/simd/common/is_nge.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
@@ -94,4 +66,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 04/01/2011
+// modified by mg the 04/04/2011
