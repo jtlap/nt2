@@ -25,13 +25,25 @@ namespace nt2 { namespace ext
   struct call<tag::hmsb_(tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
+      
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+    struct result<This(A0)>
+      : meta::as_integer<typename meta::scalar_of<A0>::type>
+    {
+    };
 
-
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename NT2_RETURN_TYPE(1)::type z = nt2::bits(a0[0])&1;
+      for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+      {
+        z |= nt2::bits(a0[i])&1<<i;
+      }
+      return z;
+    }
   };
 } }
 
 #endif
-// modified by jt the 05/01/2011
+// modified by mg the 04/04/2011

@@ -25,13 +25,19 @@ namespace nt2 { namespace ext
   struct call<tag::nbtrue_(tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+    typedef int32_t result_type;
 
-
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename NT2_RETURN_TYPE(1)::type z = a0[0] != 0;
+      for(int i = 1; i< meta::cardinal_of<A0>::value; ++i)
+      {
+          z += a0[i] != 0;
+      }
+      return z;
+    }
   };
 } }
 
 #endif
-// modified by jt the 05/01/2011
+// modified by mg the 04/04/2011
