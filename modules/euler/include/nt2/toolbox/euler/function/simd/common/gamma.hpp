@@ -22,6 +22,7 @@
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/is_lez.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
