@@ -23,5 +23,6 @@
 #include <nt2/sdk/simd/pack/store.hpp>
 #include <nt2/sdk/simd/pack/splat.hpp>
 #include <nt2/sdk/simd/pack/io.hpp>
+#include <nt2/sdk/simd/pack/compare.hpp>
 
 #endif
