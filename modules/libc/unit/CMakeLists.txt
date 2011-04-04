@@ -20,4 +20,3 @@ ADD_DEPENDENCIES(libc.unit libc.scalar.unit libc.simd.unit)
 
 nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
 ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd) # FIXME
