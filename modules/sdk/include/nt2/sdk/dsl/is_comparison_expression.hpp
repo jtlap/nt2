@@ -6,11 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_CONTAINER_META_IS_ASSIGNMENT_EXPRESSION_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_IS_ASSIGNMENT_EXPRESSION_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_META_IS_COMPARISON_EXPRESSION_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_META_IS_COMPARISON_EXPRESSION_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Check if a given proto expression has a ?= tag
+// Check if a given proto expression has a tag of a comaprison operator
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <boost/proto/tags.hpp>
@@ -18,62 +18,46 @@
 
 namespace nt2 { namespace details
 {
-  struct assign_cases
+  struct compare_cases
   {
     template<class Tag> struct case_ : boost::proto::not_< boost::proto::_ > {};
   };
 
   template<>
-  struct  assign_cases::case_< boost::proto::tag::shift_right_assign >
+  struct  compare_cases::case_< boost::proto::tag::equal_to >
         : boost::proto::_ {};
 
   template<>
-  struct  assign_cases::case_< boost::proto::tag::shift_left_assign >
+  struct  compare_cases::case_< boost::proto::tag::not_equal_to >
         : boost::proto::_ {};
 
   template<>
-  struct  assign_cases::case_< boost::proto::tag::multiplies_assign >
+  struct  compare_cases::case_< boost::proto::tag::less >
         : boost::proto::_ {};
 
   template<>
-  struct  assign_cases::case_< boost::proto::tag::divides_assign >
+  struct  compare_cases::case_< boost::proto::tag::greater >
         : boost::proto::_ {};
 
   template<>
-  struct  assign_cases::case_< boost::proto::tag::modulus_assign >
+  struct  compare_cases::case_< boost::proto::tag::less_equal >
         : boost::proto::_ {};
 
   template<>
-  struct  assign_cases::case_< boost::proto::tag::plus_assign >
-        : boost::proto::_ {};
-
-  template<>
-  struct  assign_cases::case_< boost::proto::tag::minus_assign >
-        : boost::proto::_ {};
-
-  template<>
-  struct  assign_cases::case_< boost::proto::tag::bitwise_and_assign >
-        : boost::proto::_ {};
-
-  template<>
-  struct  assign_cases::case_< boost::proto::tag::bitwise_or_assign >
-        : boost::proto::_ {};
-
-  template<>
-  struct  assign_cases::case_< boost::proto::tag::bitwise_xor_assign >
+  struct  compare_cases::case_< boost::proto::tag::greater_equal >
         : boost::proto::_ {};
 } }
 
 namespace nt2 { namespace meta
 {
-  struct  assignment_operators
-        : boost::proto::switch_< details::assign_cases>
+  struct  comparison_operators
+        : boost::proto::switch_< details::compare_cases>
   {};
 
   template<class Expr>
-  struct  is_assignment_expression
+  struct  is_comaprison_expression
         : boost::proto::matches < Expr
-                                , assignment_operators
+                                , comparison_operators
                                 >
   {};
 } }
