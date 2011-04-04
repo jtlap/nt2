@@ -45,10 +45,27 @@ def get_parts(namespace) :
     if namespace.eq_sp_values : parts.append('eq_verif')
     return parts
 
+def showoptions(namespace):
+    d = namespace.__dict__
+    print("""units_from_py was invoked with:
+    modules name(s)             = <%(md_name)s>
+    functor list          (-f)  = <%(fct_list)s>
+    modes                 (-m)  = <%(modes)s>
+    all functors          (-a)  = <%(all_functors)s>
+    show only             (-s)  = <%(show)s>
+    write                 (-w)  = <%(write)s>
+    backup on write       (-b)  = <%(backup)s>
+    check  on write       (-c)  = <%(check)s>
+    equally spaced values (-e)  = <%(eq_sp_values)s>
+    random values         (-r)  = <%(rd_values)s>
+    peculiar values       (-p)  = <%(pe_values)s>
+    options display       (-o)  = <%(options)s>
+    """% d)
+    
 if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description="create cpp unit test files from existing py files")
     parser.add_argument("md_name",
-                      help="""module name
+                      help="""module name(s)
                       """)
     parser.add_argument("-a", "--all",
                       dest="all_functors",
@@ -116,42 +133,62 @@ if __name__ == "__main__" :
                       help="""generate files for modes that can be chosen
                               as 'scalar' and/or 'simd' or both
                       """)
+    parser.add_argument("-o", "--options_display",
+                      dest="options",
+                      action="store_true",
+                      default = False,
+                      help="""show options with which the command was invoked
+                      """)
 ##    namespace = parser.parse_args( "-ps bitwise -f=ffs".split())
-    namespace = parser.parse_args( "-h".split())
+    namespace = parser.parse_args( "-a -f=bits bitwise".split())
 ##    namespace = parser.parse_args()
     all_functors = namespace.all_functors
     fct_list     = listify(namespace.fct_list)
-    md_name      = namespace.md_name
+    md_name      = listify(namespace.md_name)
     wr           = namespace.write
     sh           = namespace.show
     modes        = listify(namespace.modes)
     check        = namespace.check
     backup       = namespace.backup
     parts        = get_parts(namespace)
+    options      = namespace.options
 
-    if fct_list is None and not all_functors :
-        print("""please use option --all (in short -a)
-                   or explicitely give the functor list (-f) as:
-                   For example --fct_list=['abs','average','toint']
-                   or --fct_list='abs','average','toint'
-                   or --fct_list= abs,average,toint
-                   or --fct_list= \"['abs',  average ,\"toint\"]\"
-                   if you have spaces in your text list
+    if fct_list is None and not all_functors:
+        print("""ERROR
+                 please use option --all (in short -a)
+                 or explicitely give the functor list (-f)
+                 For examples
+                    --fct_list=['abs','average','toint']
+                 or --fct_list='abs','average','toint'
+                 or --fct_list= abs,average,toint
+                 or --fct_list= \"['abs',  average ,\"toint\"]\"
+                 if you have spaces in your text list
                  """
               )
+        showoptions(namespace)
+    elif len(md_name)!=1  and (not all_functors or ( all_functors and not(fct_list is None))):
+        print("""
+                 ERROR
+                 unit are generated for multiple modules, only for all functors
+                 in each module: you must in this case add -a option and
+                 suppress any -f option"""
+              )
+        showoptions(namespace)
     else :
-        print("all_functors = %s"% all_functors)
-        print("fct_list     = %s"% fct_list)
-        print("md_name      = %s"% md_name)
-        print("wr           = %s"% wr)
-        print("show         = %s"% sh)
-        print("modes        = %s"% modes)
-        print("parts        = %s"% parts)
-        create_unit(md_name,
-                    fct_list=fct_list,
-                    modes=modes,
-                    parts=parts,
-                    show=sh,
-                    write_files=wr,
-                    check_on_write=check,
-                    backup_on_write=backup)
+        if fct_list is not None and all_functors :
+            print("""
+            ERROR
+                 you must choose between -a and -f options:
+                 if you do not want to generate all functors unit for this module
+                 please suppress -f option else suppress -a option"""
+              )
+            showoptions(namespace)
+        else :
+            create_unit(md_name,
+                        fct_list=fct_list,
+                        modes=modes,
+                        parts=parts,
+                        show=sh,
+                        write_files=wr,
+                        check_on_write=check,
+                        backup_on_write=backup)
