@@ -222,9 +222,9 @@ if __name__ == "__main__" :
                       help="""generate files for modes that can be chosen
                               as 'scalar' and/or 'simd' or both
                       """)
-    namespace = parser.parse_args( " -o bitwise  -ns -a -m=scalar".split())
+##    namespace = parser.parse_args( " -o bitwise  -ns -a -m=scalar".split())
 ##    namespace = parser.parse_args( "-a -f bitwise".split())
-##    namespace = parser.parse_args()
+    namespace = parser.parse_args()
     all_functors = namespace.all_functors
     fct_list     = listify(namespace.fct_list)
     md_name      = listify(namespace.md_name)
