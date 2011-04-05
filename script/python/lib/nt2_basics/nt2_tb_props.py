@@ -38,6 +38,8 @@ class Nt2_tb_props(Nt2_base_infos,Nt2_tb_struct) :
         Nt2_base_infos.__init__(self)
         Nt2_tb_struct.__init__(self)
         self.__tb_name = tb_name
+        print(self.get_nt2_path())
+        print(tb_name)
         self.__md_path = os.path.join(self.get_nt2_path(),'modules',tb_name)
         self.__tb_style = self. __read_style()
 ##        self.__tb_path  = "" ##os.path.join(self.__md_path,'include','nt2','toolbox',tb_name)
