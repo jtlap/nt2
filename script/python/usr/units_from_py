@@ -1,0 +1,194 @@
+#! /usr/bin/env python
+# -*- coding: iso-8859-15  -*-
+##############################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
+__author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"
+__version__   = "$Revision: 1.0 $"
+__date__      = "$Date: 2010    $"
+__copyright__ = """ Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+                    Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI"""
+__license__   = "Boost Software License, Version 1.0"
+
+"""Allow to create  cpp unit test files for module functors
+   from the data contained in py dictionnary files
+   related to the functor
+   """
+
+import sys
+import os
+import re
+import argparse
+
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"nt2_generation"))
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"utils"))
+from unit_creation     import create_unit
+from files_utils       import exist
+sys.path.pop(0)
+sys.path.pop(0)
+
+def listify(data) :
+    if data is None : return data
+    data = re.sub('\s|"|\[|\]','',data)
+    data = re.sub("'",'',data)
+    return data.split(',')
+
+def get_parts(namespace) :
+    parts = []
+    if namespace.rd_values : parts.append('rd_verif')
+    if namespace.pe_values : parts.append('pe_values')
+    if namespace.eq_sp_values : parts.append('eq_verif')
+    return parts
+
+def showoptions(namespace):
+    d = namespace.__dict__
+    print("""units_from_py was invoked with:
+    modules name(s)             = <%(md_name)s>
+    functor list          (-f)  = <%(fct_list)s>
+    modes                 (-m)  = <%(modes)s>
+    all functors          (-a)  = <%(all_functors)s>
+    show only             (-s)  = <%(show)s>
+    write                 (-w)  = <%(write)s>
+    backup on write       (-b)  = <%(backup)s>
+    check  on write       (-c)  = <%(check)s>
+    equally spaced values (-e)  = <%(eq_sp_values)s>
+    random values         (-r)  = <%(rd_values)s>
+    peculiar values       (-p)  = <%(pe_values)s>
+    options display       (-o)  = <%(options)s>
+    """% d)
+    
+if __name__ == "__main__" :
+    parser = argparse.ArgumentParser(description="create cpp unit test files from existing py files")
+    parser.add_argument("md_name",
+                      help="""module name(s)
+                      """)
+    parser.add_argument("-a", "--all",
+                      dest="all_functors",
+                      action="store_true",
+                      default=False,
+                      help="""generate test files for all functors of the given toolbox
+                      """)
+    parser.add_argument("-p", "--peculiar_values",
+                      dest="pe_values",
+                      action="store_true",
+                      default=True,
+                      help="""generate test files for some peculiar values of the functors arguments
+                      the result of which is known
+                      """)
+    parser.add_argument("-r", "--random_values",
+                      dest="rd_values",
+                      action="store_true",
+                      default=False,
+                       help="""generate test files for random values of the functors arguments
+                      against an other implementation for (near)-equality  
+                      """)
+    parser.add_argument("-e", "--equally_spaced_values",
+                      dest="eq_sp_values",
+                      action="store_true",
+                      help="""generate test for equally spaced values of the functors arguments
+                      against an other implementation for (near)-equality  
+                      """)
+    parser.add_argument("-f", "--fct_list",
+                      dest="fct_list",
+                      default =  None,
+                      help="""the list of functor names for which the tests files
+                      are to be generated. If you want to generate for all functors
+                      use -a (--all)
+                      """)
+    parser.add_argument("-w", "--write",
+                      dest="write",
+                      action="store_true",
+                      default = False,
+                      help="""effectively write the files to disk
+                      """)
+    parser.add_argument("-c", "--check_on_write",
+                      dest="check",
+                      action="store_true",
+                      default = True,
+                      help="""effectively write the files to disk only if it does not exist
+                      """)
+    parser.add_argument("-b", "--backup_on_write",
+                      dest="backup",
+                      action="store_true",
+                      default = True,
+                      help="""backup existing files if they does exist, before replacing
+                      """)
+    parser.add_argument("-s", "--show",
+                      dest="show",
+                      action="store_true",
+                      default = True,
+                      help="""if True, only show the generation results and
+                              doesn't write files to disk
+                              if False generated files are written to disk
+                              and showed to standard output
+                      """)
+    parser.add_argument("-m", "--modes",
+                      dest="modes",
+                      default = 'scalar,simd',
+                      help="""generate files for modes that can be chosen
+                              as 'scalar' and/or 'simd' or both
+                      """)
+    parser.add_argument("-o", "--options_display",
+                      dest="options",
+                      action="store_true",
+                      default = False,
+                      help="""show options with which the command was invoked
+                      """)
+##    namespace = parser.parse_args( "-ps bitwise -f=ffs".split())
+    namespace = parser.parse_args( "-a -f=bits bitwise".split())
+##    namespace = parser.parse_args()
+    all_functors = namespace.all_functors
+    fct_list     = listify(namespace.fct_list)
+    md_name      = listify(namespace.md_name)
+    wr           = namespace.write
+    sh           = namespace.show
+    modes        = listify(namespace.modes)
+    check        = namespace.check
+    backup       = namespace.backup
+    parts        = get_parts(namespace)
+    options      = namespace.options
+
+    if fct_list is None and not all_functors:
+        print("""ERROR
+                 please use option --all (in short -a)
+                 or explicitely give the functor list (-f)
+                 For examples
+                    --fct_list=['abs','average','toint']
+                 or --fct_list='abs','average','toint'
+                 or --fct_list= abs,average,toint
+                 or --fct_list= \"['abs',  average ,\"toint\"]\"
+                 if you have spaces in your text list
+                 """
+              )
+        showoptions(namespace)
+    elif len(md_name)!=1  and (not all_functors or ( all_functors and not(fct_list is None))):
+        print("""
+                 ERROR
+                 unit are generated for multiple modules, only for all functors
+                 in each module: you must in this case add -a option and
+                 suppress any -f option"""
+              )
+        showoptions(namespace)
+    else :
+        if fct_list is not None and all_functors :
+            print("""
+            ERROR
+                 you must choose between -a and -f options:
+                 if you do not want to generate all functors unit for this module
+                 please suppress -f option else suppress -a option"""
+              )
+            showoptions(namespace)
+        else :
+            create_unit(md_name,
+                        fct_list=fct_list,
+                        modes=modes,
+                        parts=parts,
+                        show=sh,
+                        write_files=wr,
+                        check_on_write=check,
+                        backup_on_write=backup)
