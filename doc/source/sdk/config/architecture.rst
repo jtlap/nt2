@@ -15,25 +15,16 @@ be used when developing extensions to handle code variations points.
 
   #include <nt2/sdk/config/arch.hpp>
 
-.. _nt2_arch_detected:
+.. _nt2_arch:
 
-NT2_ARCH_DETECTED
-^^^^^^^^^^^^^^^^^
-
-.. index::
-    single: NT2_ARCH_DETECTED
-
-This macro is defined when a supported architecture is detected.
-
-.. _nt2_arch_string:
-
-NT2_ARCH_STRING
-^^^^^^^^^^^^^^^
+NT2_ARCH
+^^^^^^^^
 
 .. index::
-    single: NT2_ARCH_STRING
+    single: NT2_ARCH
 
-Defines a string value containing the name of current architecture.
+Defines a string value containing the name of the current architecture.
+Undefined if no architecture was detected.
 
 .. _nt2_arch_alignment:
 
@@ -44,7 +35,7 @@ NT2_ARCH_ALIGNMENT
     single: NT2_ARCH_ALIGNMENT
 
 Defines a value that represent the number of bytes on which memory should be
-aligned on current architecture.
+aligned on the current architecture.
 
 .. _nt2_arch_ia64:
 
@@ -54,7 +45,7 @@ NT2_ARCH_IA64
 .. index::
     single: NT2_ARCH_IA64
 
-This macro is defined when |nt2| is compiled on IA64 architecture.
+This macro is defined when |nt2| is compiled on a IA64 (Itanium) architecture.
 
 .. _nt2_arch_powerpc:
 
@@ -64,7 +55,7 @@ NT2_ARCH_POWERPC
 .. index::
     single: NT2_ARCH_POWERPC
 
-This macro is defined when |nt2| is compiled on PowerPC architecture.
+This macro is defined when |nt2| is compiled on a PowerPC architecture.
 
 .. _nt2_arch_x86:
 
@@ -74,7 +65,17 @@ NT2_ARCH_X86
 .. index::
     single: NT2_ARCH_X86
 
-This macro is defined when |nt2| is compiled on X86 architecture.
+This macro is defined when |nt2| is compiled on x86 or amd64 architectures.
+
+.. _nt2_arch_x86_64:
+
+NT2_ARCH_X86_64
+^^^^^^^^^^^^^^^
+
+.. index::
+    single: NT2_ARCH_X86_64
+
+This macro is defined when |nt2| is compiled on amd64 architectures.
 
 .. rubric:: Example
 

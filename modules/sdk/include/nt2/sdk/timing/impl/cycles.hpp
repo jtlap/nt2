@@ -17,7 +17,7 @@ namespace nt2
   namespace details
   {
   #if    (defined(__GNUC__)     || defined(__ICC)        ) \
-      && (defined(NT2_ARCH_X86) || defined(NT2_ARCH_IA64))
+      && defined(NT2_ARCH_X86)
     inline cycles_t read_cycles()
     {
       nt2::uint32_t hi = 0, lo = 0;
@@ -39,21 +39,12 @@ namespace nt2
     }
 
     cycles_t that =   static_cast<cycles_t>(lo)
-                    | ( static_cast<cycles_t>(hi)<<32 );
+                  | ( static_cast<cycles_t>(hi)<<32 );
     return that;
   }
-  #elif (                                                       \
-          (                                                     \
-            (                                                   \
-                    (defined(__GNUC__) && (defined(__powerpc__) \
-                ||  defined(__ppc__)))                          \
-            ||  (defined(__MWERKS__) && defined(macintosh))     \
-            )                                                   \
-          )                                                     \
-          ||(   defined(__IBM_GCC_ASM) && (defined(__powerpc__) \
-            ||  defined(__ppc__))                               \
-            )                                                   \
-        )
+  #elif  (defined(__GNUC__)      && defined(NT2_ARCH_POWERPC))  \
+      || (defined(__MWERKS__)    && defined(macintosh)       )  \
+      || (defined(__IBM_GCC_ASM) && defined(NT2_ARCH_POWERPC))
   inline cycles_t read_cycles()
   {
     nt2::uint32_t tbl, tbu0, tbu1;

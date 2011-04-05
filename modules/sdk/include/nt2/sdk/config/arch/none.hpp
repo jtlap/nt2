@@ -9,8 +9,8 @@
 #ifndef NT2_SDK_CONFIG_ARCH_NONE_HPP_INCLUDED
 #define NT2_SDK_CONFIG_ARCH_NONE_HPP_INCLUDED
 
-#if !defined(NT2_ARCH_DETECTED)
-#error NT2 Configuration Error: No valdi architecture detected
+#if !defined(NT2_ARCH)
+#error NT2 Configuration Error: No valid architecture detected
 #endif
 
 #endif

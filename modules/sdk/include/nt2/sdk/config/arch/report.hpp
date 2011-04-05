@@ -22,7 +22,7 @@ namespace nt2 { namespace config
   //////////////////////////////////////////////////////////////////////////////
   inline void architecture()
   {
-    puts(" CPU Architecture        : " NT2_ARCH_STRING "\n");
+    puts(" CPU Architecture        : " NT2_ARCH "\n");
   }
 
   NT2_REGISTER_STATUS(architecture);
