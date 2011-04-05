@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_FIRST_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_FIRST_HPP_INCLUDED
-#ifdef __x86_64__
+#ifdef NT2_ARCH_X86_64
 #define NT2_X64_SSE4_1_FIRST
 #endif
 #include <nt2/toolbox/reduction/function/simd/sse/sse2/first.hpp>
