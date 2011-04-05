@@ -11,7 +11,7 @@
 #ifdef __x86_64__
 #define NT2_X64_SSE4_1_FIRST
 #endif
-#include <nt2/toolbox/reduction/function/simd/see/sse2/first.hpp>
+#include <nt2/toolbox/reduction/function/simd/sse/sse2/first.hpp>
 
 #endif
 

@@ -11,7 +11,7 @@
 #ifdef __x86_64__
 #define NT2_X64_SSE4_2_SECOND
 #endif
-#include <nt2/toolbox/reduction/function/simd/see/sse2/second.hpp>
+#include <nt2/toolbox/reduction/function/simd/sse/sse2/second.hpp>
 
 #endif
 
