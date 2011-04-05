@@ -9,6 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
+         'simd_types' : ['real_', 'integer_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -23,11 +24,11 @@
              'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
             },
          'specific_values' : {
-             'default' : {
+             'integer_' : {
                  'nt2::Mone<T>()' : {'result' : 'sizeof(T)*8','ulp_thresh' : '0.5',},
                  'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Three<T>()' : {'result' : 'nt2::Two<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Two<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'T(3)' : {'result' : 'nt2::Two<r_t>()','ulp_thresh' : '0.5',},
+                 'T(2)' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {

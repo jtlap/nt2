@@ -28,7 +28,7 @@
                  'nt2::Mone<T>(),1' : {'result' : 'r_t(-2)','ulp_thresh' : '0.5',},
                  'nt2::Mone<T>(),2' : {'result' : 'r_t(-4)','ulp_thresh' : '0.5',},
                  'nt2::One<T>(),1' : {'result' : 'nt2::Two<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Two<T>(),2' : {'result' : 'nt2::Eight<r_t>()','ulp_thresh' : '0.5',},
+                 'T(2),2' : {'result' : 'nt2::Eight<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>(),1' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
             },

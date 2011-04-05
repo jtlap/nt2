@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['integer_'],
+         'simd_types' : ['unsigned_int_'],
          'type_defs' : [],
          'types' : ['unsigned_int_'],
         },
@@ -25,10 +25,10 @@
             },
          'specific_values' : {
              'unsigned_int_' : {
-                 'nt2::Mone<T>(),(sizeof(T)*8-1)' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Mone<T>(),(sizeof(T)*8-2)' : {'result' : 'nt2::Three<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Mone<T>(),(sizeof(ssr_t)*8-1)' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Mone<T>(),(sizeof(ssr_t)*8-2)' : {'result' : 'nt2::Three<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::One<T>(),1' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Two<T>(),1' : {'result' : 'nt2::One<T>()','ulp_thresh' : '0.5',},
+                 'T(2),1' : {'result' : 'nt2::One<T>()','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>(),1' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
             },

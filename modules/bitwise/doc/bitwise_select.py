@@ -9,6 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
+         'simd_types' : ['real_', 'integer_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -23,14 +24,9 @@
              'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
             },
          'specific_values' : {
-             'default' : {
-                 '-1,1,2' : {'result' : '1','ulp_thresh' : '0.5',},
-                 '0,1,2' : {'result' : '2','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                },
-             'integer_   ' : {
-                 '-1,1,2' : {'result' : '1','ulp_thresh' : '0.5',},
-                 '0,1,2' : {'result' : '2','ulp_thresh' : '0.5',},
+             'integer_' : {
+                 'T(-1),T(1),T(2)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'T(0),T(1),T(2)' : {'result' : '2','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {

@@ -9,6 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
+         'simd_types' : ['real_', 'integer_'],
         },
      'info' : 'manually modified',
      'unit' : {

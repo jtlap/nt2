@@ -9,6 +9,7 @@
             },
          'type_defs' : ['typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;'],
          'types' : ['real_', 'int64_', 'int32_', 'int16_'],
+         'simd_types' : ['real_', 'int64_', 'int32_', 'int16_'],
         },
      'info' : 'manually modified',
      'unit' : {
