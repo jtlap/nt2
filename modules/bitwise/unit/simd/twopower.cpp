@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bitwise/include/twopower.hpp>
 
-NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   using nt2::twopower;
   using nt2::tag::twopower_;
@@ -42,22 +42,10 @@ NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<twopower_(vT)>::type r_t;
   typedef typename nt2::meta::call<twopower_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, sizeof(T)*8-1);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = twopower(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::twopower(tab_a0[k])));
-        }
-      }
-    
-  }
+
+  // specific values tests
+  NT2_TEST_EQUAL(twopower(nt2::Zero<vT>())[0], nt2::One<sr_t>());
 } // end of test for unsigned_int_

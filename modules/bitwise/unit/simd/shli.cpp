@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bitwise/include/shli.hpp>
 
-NT2_TEST_CASE_TPL ( shli_integer__2,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
   using nt2::shli;
   using nt2::tag::shli_;
@@ -42,24 +42,14 @@ NT2_TEST_CASE_TPL ( shli_integer__2,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::call<shli_(vT,iT)>::type r_t;
   typedef typename nt2::meta::call<shli_(T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    NT2_CREATE_BUF(tab_a1,iT, NR, T(0), sizeof(T)*8-1);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        iT a1 = tab_a1[j];
-        r_t v = shli(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::shli(tab_a0[k],tab_a1[j])));
-        }
-      }
-    
-  }
+
+  // specific values tests
+  NT2_TEST_EQUAL(shli(nt2::splat<vT>(2),2)[0], nt2::Eight<sr_t>());
+  NT2_TEST_EQUAL(shli(nt2::Mone<vT>(),1)[0], sr_t(-2));
+  NT2_TEST_EQUAL(shli(nt2::Mone<vT>(),2)[0], sr_t(-4));
+  NT2_TEST_EQUAL(shli(nt2::One<vT>(),1)[0], nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(shli(nt2::Zero<vT>(),1)[0], nt2::Zero<sr_t>());
 } // end of test for integer_

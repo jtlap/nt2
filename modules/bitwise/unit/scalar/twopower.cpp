@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +25,7 @@
 // specific includes for arity 1 tests
 #include <nt2/include/functions/shli.hpp>
 
-NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::twopower;
@@ -45,19 +45,4 @@ NT2_TEST_CASE_TPL ( twopower_unsigned_int__1,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(twopower(nt2::Zero<T>()), nt2::One<r_t>());
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, sizeof(T)*8-1);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_EQUAL( nt2::twopower(a0),nt2::shli(T(1),a0));
-     }
-     
-   }
 } // end of test for unsigned_int_

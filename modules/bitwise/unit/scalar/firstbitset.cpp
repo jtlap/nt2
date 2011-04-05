@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/bitwise/include/firstbitset.hpp>
 
-NT2_TEST_CASE_TPL ( firstbitset_float_1,  (float))
+NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
 {
   
   using nt2::firstbitset;
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1,  (float))
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for float
 
-NT2_TEST_CASE_TPL ( firstbitset_double_1,  (double))
+NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
 {
   
   using nt2::firstbitset;
@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( firstbitset_double_1,  (double))
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for double
 
-NT2_TEST_CASE_TPL ( firstbitset_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::firstbitset;
@@ -99,7 +99,7 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::firstbitset;

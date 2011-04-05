@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/bitwise/include/popcnt.hpp>
 
-NT2_TEST_CASE_TPL ( popcnt_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( popcnt_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::popcnt;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( popcnt_real__1,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(popcnt(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( popcnt_integer__1,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( popcnt_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
   
   using nt2::popcnt;
