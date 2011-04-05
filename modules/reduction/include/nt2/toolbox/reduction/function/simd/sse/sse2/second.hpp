@@ -156,11 +156,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-#ifdef NT2_X64_SSE4_2_SECOND
+#ifdef NT2_X64_SSE4_1_SECOND
       typedef typename meta::scalar_of<A0>::type type; 
       type z = {_mm_extract_epi64(a0, 1)};
       return z;
-#undef NT2_X64_SSE4_2_SECOND
+#undef NT2_X64_SSE4_1_SECOND
 #else
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
