@@ -39,7 +39,6 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       int that = _mm_extract_epi16(a0, 0);
-      printf("%d\n",that);
       return that & 0xFF;
     }
   };
@@ -147,10 +146,18 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+#ifdef NT2_X64_SEE4_1_FIRST
+      typedef typename meta::scalar_of<A0>::type type; 
+      type z = {_mm_extract_epi64(a0, 0)};
+      return z;
+#undef NT2_X64_SEE4_1_FIRST
+#else
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
       meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(a0))};
       return t.bits;
+#endif
+      
     }
   };
 } }
