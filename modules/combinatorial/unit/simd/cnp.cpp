@@ -12,7 +12,7 @@
 // Test behavior of combinatorial components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 06/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/combinatorial/include/cnp.hpp>
 
-NT2_TEST_CASE_TPL ( cnp_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
+NT2_TEST_CASE_TPL ( cnp_real_convert__2_0,  NT2_REAL_CONVERTIBLE_TYPES)
 {
   using nt2::cnp;
   using nt2::tag::cnp_;
@@ -42,5 +42,9 @@ NT2_TEST_CASE_TPL ( cnp_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
   typedef typename nt2::meta::call<cnp_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<cnp_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
+
+  // specific values tests
 } // end of test for real_convert_
