@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
       type a(a0);
       type b(a1);
       if (!b) return a;
-      if (is_not_finite(a+b)||!is_flint(a)||!is_flint(b)) return Nan <type>();
+      if (!is_flint(a)||!is_flint(b)) return Nan <type>();
       while (b) {
       type  r  = rem(a, b);
       a = b;
