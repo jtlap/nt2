@@ -42,10 +42,10 @@ NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(gcd(120,80), 40, 0);
-  NT2_TEST_ULP_EQUAL(gcd(3,15), 3, 0);
-  NT2_TEST_ULP_EQUAL(gcd(3,5), 1, 0);
-  NT2_TEST_ULP_EQUAL(gcd(6,15), 3, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(120),T(80)), 40, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(3),T(15)), 3, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(3),T(5)), 1, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(6),T(15)), 3, 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);

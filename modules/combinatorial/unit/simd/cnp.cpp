@@ -47,4 +47,6 @@ NT2_TEST_CASE_TPL ( cnp_real_convert__2_0,  NT2_REAL_CONVERTIBLE_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(cnp(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::One<T>(), 0);
 } // end of test for real_convert_
