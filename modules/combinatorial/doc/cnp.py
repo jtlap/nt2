@@ -25,7 +25,9 @@
             },
          'specific_values' : {
              'default' : {
-                },
+                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'nt2::Zero<T>()' : 'nt2::One<T>()',
+                 },
              'real_' : {
                  'T(10),T(1)' : 'T(10)',
                  'T(10),T(2)' : 'T(45)',

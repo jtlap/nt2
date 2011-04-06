@@ -25,6 +25,8 @@
             },
          'specific_values' : {
              'default' : {
+                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'nt2::Zero<T>()' : 'nt2::One<T>()',
                 },
              'real_' : {
                  'nt2::Inf<T>()' : 'nt2::Nan<T>()',
