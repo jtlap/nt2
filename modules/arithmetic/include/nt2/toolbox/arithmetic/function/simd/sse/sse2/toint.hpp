@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/select.hpp>
 
 
 
@@ -91,7 +92,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       type that =  {_mm_cvttps_epi32(a0)};
-      return  that;
+      return  sel(eq(a0, Inf<A0>()), Inf<type>(), that);
     }
   };
 } }
