@@ -24,10 +24,11 @@ import os
 import sys
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
-
-import re
 from nt2_fct_props import Nt2_fct_props
 from unit_base_gen import Base_gen
+sys.path.pop(0)
+sys.path.pop(0)
+import re
 
 def extract(d,key_substitute,default_value,*fromkeys) :
     d1 =d
@@ -63,18 +64,14 @@ class Specific_values_test_gen(Base_gen) :
         return spec_values_tpl
 
     def __create_values_test(self,dl,typ) :
-##        d = extract(dl,"","",'unit',"specific_values")
         unit_specific = extract(dl,"","",'unit',"specific_values")
-##        dd = d.get(typ,d.get("default",None))
         r = ["", "  // specific values tests"]
         no_ulp = extract(dl,"","False","unit","global_header","no_ulp")
-##        no_ulp = dl["unit"]["global_header"].get("no_ulp",False)
         no_ulp = False if no_ulp == 'False' else no_ulp      #does we do an ulp-equality test or merely an equality test    
         ulp_str = "" if no_ulp else "ULP_"                   #string to modify the macro name accordingly
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
-
-        spec_values_tpl = self.get_spec_value_call_tpl(dl)
-        typ_values = extract(unit_specific,"default",None,typ)
+        spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
+        typ_values = extract(unit_specific,"default",None,typ)       
         # typ_values is the dictionnary of types for which specific values calls will be generated
         for k in sorted(typ_values.keys()) :
             # k is here the string representation of the list of parameters f the functor
@@ -88,7 +85,9 @@ class Specific_values_test_gen(Base_gen) :
             else :                 ## regular call parameters list
                 g = k
             if self.mode == 'simd' :
-                g =re.sub("\T\b","vT",g)
+                g =re.sub("T","vT",g)
+                g =re.sub("vTwo","Two",g)
+                g =re.sub("vThree","Three",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
             def get_rep_thr(dd) :
@@ -179,5 +178,3 @@ if __name__ == "__main__" :
             r+=thg.get_gen_end()
     PrettyPrinter().pprint(r)
 
-sys.path.pop(0)
-sys.path.pop(0)
