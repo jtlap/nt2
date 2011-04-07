@@ -63,7 +63,7 @@ namespace nt2
     };                                                                        \
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                          \
-    typename meta::enable_call<Tag(BOOST_PP_ENUM_PARAMS(n,A))>::type          \
+    typename meta::enable_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type     \
     operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a)  ) const            \
     {                                                                         \
       typename                                                                \
