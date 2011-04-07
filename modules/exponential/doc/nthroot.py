@@ -9,7 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
-         'simd_types' : ['real_'],
+         'simd_types' : ['real_', "sintgt_16_", "uintgt_16_"],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -26,14 +26,38 @@
             },
          'specific_values' : {
              'default' : {
+                 'T(8),iT(3)' : 'r_t(2)',
+                 'T(81),iT(4)' : 'r_t(3)',                        
                 },
-             'real_' : {
-                 'nt2::Inf<T>(),3' : 'nt2::Inf<r_t>()',
-                 'nt2::Minf<T>(),3' : 'nt2::Minf<r_t>()',
-                 'nt2::Mone<T>(),3' : 'nt2::Mone<r_t>()',
-                 'nt2::Nan<T>(),3' : 'nt2::Nan<r_t>()',
-                 'nt2::One<T>(),3' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>(),3' : 'nt2::Zero<r_t>()',
+             'signed_int_' : {
+                 'T(8),iT(3)' : 'r_t(2)',
+                 'T(81),iT(4)' : 'r_t(3)',                        
+                 'T(-8),iT(3)' : 'r_t(-2)',
+                },
+             'uintgt_16_' : {
+                 'T(8),iT(3)' : 'r_t(2)',
+                 'T(256),iT(4)' : 'r_t(4)',                        
+                },
+             'sintgt_16_' : {
+                 'T(8),iT(3)' : 'r_t(2)',
+                 'T(256),iT(4)' : 'r_t(4)',                        
+                 'T(-8),iT(3)' : 'r_t(-2)',
+                },
+              'real_' : {
+                 'T(8),iT(3)' : 'T(2)',
+                 'T(256),iT(4)' : 'T(4)',    
+                 'nt2::Inf<T>(),iT(3)' : 'nt2::Inf<r_t>()',
+                 'nt2::Minf<T>(),iT(3)' : 'nt2::Minf<r_t>()',
+                 'nt2::Mone<T>(),iT(3)' : 'nt2::Mone<r_t>()',
+                 'nt2::Nan<T>(),iT(3)' : 'nt2::Nan<r_t>()',
+                 'nt2::One<T>(),iT(3)' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>(),iT(3)' : 'nt2::Zero<r_t>()',
+                 'nt2::Inf<T>(),iT(4)' : 'nt2::Inf<r_t>()',
+                 'nt2::Minf<T>(),iT(4)' : 'nt2::Nan<r_t>()',
+                 'nt2::Mone<T>(),iT(4)' : 'nt2::Nan<r_t>()',
+                 'nt2::Nan<T>(),iT(4)' : 'nt2::Nan<r_t>()',
+                 'nt2::One<T>(),iT(4)' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>(),iT(4)' : 'nt2::Zero<r_t>()',
                 },
             },
          'verif_test' : {
