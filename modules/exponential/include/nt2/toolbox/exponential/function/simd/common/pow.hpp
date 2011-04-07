@@ -20,8 +20,6 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -72,17 +70,21 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 res = exp(a1*log(nt2::abs(a0)));
-      A0 isltza0 = is_ltz(a0); 
-      return b_or( b_andnot(isltza0, is_flint(a1)),
-		   seladd(is_nez(a0),
-			  Zero<A0>(),
-			  sel(is_eqz(a1),
-			      One<A0>(),
-			      negif(b_and(is_odd(a1), isltza0),res)
-			      )
-			  )
-		   );
+      A0 isltza0 = is_ltz(a0);
+      A0 allz = b_and(is_eqz(a0), is_eqz(a1)); 
+      A0 res = negif(b_and(is_odd(a1), isltza0), exp(a1*log(nt2::abs(a0))));
+      A0 invalid = is_nan(a0) | is_nan(a1) | b_andnot(isltza0, is_flint(a1)); 
+      return b_or(invalid,  sel(allz, One<A0>(), res));
+      
+//       return b_or( b_andnot(isltza0, is_flint(a1)),
+// 		   seladd(is_nez(a0),
+// 			  Zero<A0>(),
+// 			  sel(is_eqz(a1),
+// 			      One<A0>(),
+// 			      negif(b_and(is_odd(a1), isltza0),res)
+// 			      )
+// 			  )
+// 		   );
     }
   };
 } }

@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
       A0 u = oneplus(a0);
       return sel(eq(u, Inf<A0>()),
 		 u,
-		 log(u) - ((u-One<A0>())-a0)/u); /* cancels errors with IEEE arithmetic */
+		 seladd(is_nez(u), log(u), - ((u-One<A0>())-a0)/u)); /* cancels errors with IEEE arithmetic */
       
 //    typedef typename meta::as_integer<A0, signed>::type int_type;
 //    const A0 ln2_hi  =  nt2::vector_of<A0>(6.93147180369123816490e-01);     /* 3fe62e42 fee00000 */
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
       A0 u = oneplus(a0);
       return sel(eq(u, Inf<A0>()),
 		 u,
-		 log(u) - ((u-One<A0>())-a0)/u); /* cancels errors with IEEE arithmetic */
+		 seladd(is_nez(u), log(u), - ((u-One<A0>())-a0)/u)); /* cancels errors with IEEE arithmetic */
 
 //    const A0 u = oneplus(a0);
 //    const A0 small_mask = b_or(iseq(u,One<A0>()),iseq(a0,Inf<A0>()));

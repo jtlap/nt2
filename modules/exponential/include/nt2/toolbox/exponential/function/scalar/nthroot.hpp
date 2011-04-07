@@ -24,13 +24,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
                          (A0)(A1),
-                         (arithmetic_<A0>)(arithmetic_<A1>)
+                         (integer_<A0>)(integer_<A1>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::nthroot_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::nthroot_(tag::integer_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::nthroot(type(a0),a1);
     }
   };
@@ -68,14 +68,17 @@ namespace nt2 { namespace ext
     {
       typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
       if (!a1) return One<type>();
-      if (is_even(a1) && is_ltz(a0)) return Nan<type>(); 
+      if (!a0) return Zero<type>();
+      bool is_ltza0 = is_ltz(a0); 
+      if (!is_odd(a1) && is_ltza0) return Nan<type>(); 
       if (is_inf(a0)) return a0; 
-      type a1b = a1;
-      type y = signnz(a0)*nt2::pow(nt2::abs(a0),rec(a1b));
+      type aa1 = a1;
+      type x = nt2::abs(a0); 
+      type y = nt2::pow(x,rec(aa1));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
-      if (a0) y -= (nt2::pow(y, a1b) - a0) / (a1* nt2::pow(y,minusone(a1b)));
-      return y;
+      if (y) y -= (nt2::pow(y, a1) - x) / (aa1* nt2::pow(y,minusone(a1)));
+	  return (is_ltza0) ? -y : y;
     }
   };
 } }
