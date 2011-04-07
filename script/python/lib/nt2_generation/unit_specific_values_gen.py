@@ -88,6 +88,7 @@ class Specific_values_test_gen(Base_gen) :
                 g =re.sub("T","vT",g)
                 g =re.sub("vTwo","Two",g)
                 g =re.sub("vThree","Three",g)
+                g =re.sub("ivT\(","nt2::splat<ivT>(",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
             def get_rep_thr(dd) :
