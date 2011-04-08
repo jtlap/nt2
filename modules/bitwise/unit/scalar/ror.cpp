@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// modified by jt the 08/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -42,9 +42,9 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ror(T(2),T(2)), r_t(nt2::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(T(2),T(2)), r_t(nt2::One<T>()<<(sizeof(r_t)*8-1)));
   NT2_TEST_EQUAL(ror(nt2::Mone<T>(),T(1)), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(ror(nt2::Mone<T>(),T(5)), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(ror(nt2::One<T>(),T(1)), r_t(nt2::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(nt2::One<T>(),T(1)), r_t(nt2::One<T>()<<(sizeof(r_t)*8-1)));
   NT2_TEST_EQUAL(ror(nt2::Zero<T>(),T(1)), nt2::Zero<r_t>());
 } // end of test for integer_

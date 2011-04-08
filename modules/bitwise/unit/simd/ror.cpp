@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// modified by jt the 08/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -47,9 +47,9 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ror(nt2::splat<vT>(2),nt2::splat<vT>(2))[0], sr_t(nt2::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(nt2::splat<vT>(2),nt2::splat<vT>(2))[0], sr_t(nt2::One<T>()<<(sizeof(sr_t)*8-1)));
   NT2_TEST_EQUAL(ror(nt2::Mone<vT>(),nt2::splat<vT>(1))[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(ror(nt2::Mone<vT>(),nt2::splat<vT>(5))[0], nt2::Mone<sr_t>());
-  NT2_TEST_EQUAL(ror(nt2::One<vT>(),nt2::splat<vT>(1))[0], sr_t(nt2::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(nt2::One<vT>(),nt2::splat<vT>(1))[0], sr_t(nt2::One<T>()<<(sizeof(sr_t)*8-1)));
   NT2_TEST_EQUAL(ror(nt2::Zero<vT>(),nt2::splat<vT>(1))[0], nt2::Zero<sr_t>());
 } // end of test for integer_
