@@ -61,12 +61,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      bool ltza1 = a1 < Zero<A0>(); 
-      if (a0 == a1 && a0 == Minf<A0>() ||
-	  (ltza1 && !is_flint(a1))
+      bool ltza0 = a0 < Zero<A0>(); 
+      if ((a0 == a1 && a0 == Minf<A0>()) ||
+	  (ltza0 && !is_flint(a1))
 	  ) return Nan<A0>(); 
       A0 res =  ::pow(nt2::abs(a0), a1);
-      return  (ltza1) ? -res : res; 
+      return  (ltza0) ? -res : res; 
     }
   };
 } }
@@ -92,12 +92,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      bool ltza1 = a1 < Zero<A0>(); 
+      bool ltza0 = a0 < Zero<A0>(); 
       if (a0 == a1 && a0 == Minf<A0>() ||
-	  (ltza1 && !is_flint(a1))
+	  (ltza0 && !is_flint(a1))
 	  ) return Nan<A0>(); 
       A0 res =  ::powf(nt2::abs(a0), a1);
-      return  (ltza1) ? -res : res; 
+      return  (ltza0) ? -res : res; 
     }
   };
 } }

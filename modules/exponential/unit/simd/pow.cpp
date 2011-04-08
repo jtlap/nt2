@@ -148,7 +148,7 @@ NT2_TEST_CASE_TPL ( pow_uint64_t_2_0,  (nt2::uint64_t))
 } // end of test for uint64_t
 
 NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
-{
+{ 
   using nt2::pow;
   using nt2::tag::pow_;
   using nt2::load; 
