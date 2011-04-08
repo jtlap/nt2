@@ -26,6 +26,7 @@
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/is_ltz.hpp> 
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/sdk/constant/eps_related.hpp>
@@ -52,7 +53,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (a0 == -Inf<A0>()) return Nan<A0>();
+      if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
       return ::tgamma(type(a0));
     #else
@@ -85,7 +86,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (a0 == -Inf<A0>()) return Nan<A0>();
+      if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMAF
       return ::tgammaf(type(a0));
     #else
@@ -116,8 +117,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-       typedef typename NT2_RETURN_TYPE(1)::type type;
-       if (a0 == -Inf<A0>()) return Nan<A0>();
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
        return ::tgamma(type(a0));
     #else
