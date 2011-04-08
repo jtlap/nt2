@@ -22,8 +22,9 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/gamma.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
@@ -37,20 +38,19 @@
 NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
                         (A0)(A1)(X),
                         ((integer_<A0>))
-                        ((simd_<arithmetic_<A0>,X>))
+                        ((simd_<integer_<A0>,X>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::expni_(tag::integer_,
-                          tag::simd_<tag::arithmetic_, X> ),
+                          tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
-    struct result<This(A0, A1)> :
-      std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1)> : meta::as_real<A1>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -82,8 +82,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A1 isleza1 = is_lez(a1); 
-      A1 x =  b_or(a1, isleza1);
+      A1 isltza1 = is_ltz(a1); 
+      A1 x =  b_or(a1, isltza1);
       const int32_t sn =  a0;
       if( sn == 0 )  return nt2::exp(-x)/x;
       if (sn < 0 )   return Nan<A1>();
@@ -100,27 +100,28 @@ namespace nt2 { namespace ext
       }
       A1 r =  Nan<A1>();
       A1 test1 = le(a1, One<A1>());
-      std::cout << test1 << std::endl; 
       int32_t nb = 0;
       if ((nb = nbtrue(test1)) > 0)
       {
         A1 xx = sel(test1, x, One<A1>());
         A1 y1 = case_1(xx, sn, n);
         r = b_ornot(y1, test1);
-        if (nb >= meta::cardinal_of<A1>::value) return b_or(r, isleza1);
+        if (nb >= meta::cardinal_of<A1>::value) return b_or(r, isltza1);
       }
       A1 xx = sel(test1, Two<A1>(), x);
       A1 y2 =  case_2(xx, sn, n);
       r &= b_or(y2, test1);
       r =  seladd(lt(x, Maxlog<A1>()), Zero<A1>(), r);
-      return b_or(r,  b_or(is_nan(a1), isleza1)); // we are done
+      return b_or(r,  b_or(is_nan(a1), isltza1)); // we are done
     }
   private :
     template < class A1 >
-    static inline A1 case_1(const A1 & x,  int32_t sn, const A1 & n)
+    static inline A1 case_1(A1 & x,  int32_t sn, const A1 & n)
     {
       typedef typename meta::scalar_of<A1>::type sA1; 
       /*		Power series expansion		*/
+      A1 eqzx = is_eqz(x);
+      x = seladd(is_eqz(x), x, One<A1>()); //loop is infinite for x == 0
       sA1 psi1 = Zero<sA1>(); 
       for( int32_t i=sn-1; i; --i )  psi1 += rec((sA1)i);
       A1 psi = -Euler<A1>()-nt2::log(x)+splat<A1>(psi1); 
@@ -141,7 +142,7 @@ namespace nt2 { namespace ext
        while( any(gt(t, Halfeps<A1>())));
        t = n;
        A1 r = n - One<A1>();
-       return (nt2::powi(z, sn-1) * psi / nt2::gamma(t)) - ans;
+       return seladd(eqzx,(nt2::powi(z, sn-1) * psi / nt2::gamma(t)) - ans, Inf<A1>());
        //TO DO pow->powi and gamma splatted from scalar or mere factorial call
     }
     

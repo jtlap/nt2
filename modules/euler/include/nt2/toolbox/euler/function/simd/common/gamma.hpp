@@ -107,7 +107,7 @@ namespace nt2 { namespace ext
 	{
 	  A0 r1 =  b_ornot(rec(y), lteps);
 	  res &=  r1;
-	  if(nb1 > Card) return finalize(res, fact, lezy);
+	  if(nb1 > Card) return finalize(a0, res, fact, lezy);
 	  y |= lteps; 
 	}
       A0 lt12 = lt(y, splat<A0>(12));   
@@ -136,7 +136,7 @@ namespace nt2 { namespace ext
 	    }
 	  r =  sel(gt(y1, y), r1, r); 
 	  res =  res & r;
-	  if(nb1+nb2 > Card) return finalize(res, fact, lezy);
+	  if(nb1+nb2 > Card) return finalize(a0, res, fact, lezy);
 	  y |= lteps; 
 	}
       A0 ysq = sqr(y);
@@ -144,13 +144,15 @@ namespace nt2 { namespace ext
       for (int32_t i = 0; i < 6; ++i) sum = (sum/ysq) + splat<A0>(g_c[i]);
       sum = (sum/y) - y + LOGSQRT2PI;
       sum += (y - Half<A0>())*log(y);
-      res = sel(lt12, res, exp(sum));
-      return finalize(res, fact, lezy);      
+      res = sel(eq(a0, Inf<A0>()), a0, sel(lt12, res, exp(sum)));
+      return finalize(a0, res, fact, lezy);      
     }
   private :
-    template < class A0 > static inline A0 finalize(const A0& res,  const A0& fact, const A0& lezy)
+    template < class A0 > static inline A0 finalize(const A0& a0, const A0& res,  const A0& fact, const A0& lezy)
       {
-	return sel(lezy, fact/res, res);
+	A0 eqza0 = is_eqz(a0); 
+	A0 integer =  b_andnot(is_flint(a0), eqza0);
+	return sel(eqza0, rec(a0), sel(lezy, b_or(fact/res, integer), res));
       }
 
   };
