@@ -7,8 +7,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_CONTAINER_DETAILS_BLOCK_NRC_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DETAILS_BLOCK_NRC_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DETAILS_BLOCK_EXTENT_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DETAILS_BLOCK_EXTENT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Hoisted class for base index related block member functions
@@ -36,11 +36,11 @@ namespace nt2 { namespace details
     
     typedef typename type_::type difference_type;
     
-   ////////////////////////////////////////////////////////////////////////////
-   // Check that Bases adn Sizes have correct size
-   ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    // Check that Bases adn Sizes have correct size
+    ////////////////////////////////////////////////////////////////////////////
 
-   block_extent ( Bases const& b, Sizes const& s)
+    block_extent ( Bases const& b, Sizes const& s)
                 : block_size<Sizes>(s)
                 , block_base<Bases>(b)
     {}
