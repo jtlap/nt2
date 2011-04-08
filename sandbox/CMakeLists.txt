@@ -10,12 +10,13 @@
 ################################################################################
 # Some global random test
 ################################################################################
-FIND_PACKAGE(NT2 COMPONENTS sdk)
+FIND_PACKAGE(NT2 COMPONENTS sdk core)
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include ${NT2_INCLUDE_DIR})
 LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
 LINK_LIBRARIES(${NT2_LIBRARIES})
 SET(SOURCES
-pack.cpp
+rec_block.cpp
+#pack.cpp
 #    foo.cpp
 #table_dim.cpp
     )
