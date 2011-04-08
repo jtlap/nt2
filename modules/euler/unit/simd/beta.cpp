@@ -12,7 +12,7 @@
 // Test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 23/03/2011
+/// modified by jt the 08/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -25,7 +25,6 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/euler/include/beta.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
 
 NT2_TEST_CASE_TPL ( beta_real__2_0,  NT2_REAL_TYPES)
 {
@@ -43,25 +42,11 @@ NT2_TEST_CASE_TPL ( beta_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<beta_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<beta_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Eps<T>(), T(1));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Eps<T>(), T(1));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        r_t v = beta(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::beta(tab_a0[k],tab_a1[k])), 5);
-          ulp0 = nt2::max(ulpd,ulp0);
-        }
-      }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
-  }
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(beta(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(beta(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
 } // end of test for real_
