@@ -22,7 +22,7 @@
          'ranges' : {
              'real_' : [['T(0)', 'T(10000)']],
              'signed_int_' : [['0', '100']],
-             'unsigned_int_' : [['0', '100']],
+             'default' : [['0', '100']],
             },
          'specific_values' : {
              'default' : {

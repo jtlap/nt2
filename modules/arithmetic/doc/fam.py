@@ -10,6 +10,7 @@
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -23,6 +24,7 @@
              'real_' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100'], ['-100', '100'], ['-100', '100']],
              'unsigned_int_' : [['0', '100'], ['0', '100'], ['0', '100']],
+             'default' : [['0', '100'], ['0', '100'], ['0', '100']],
             },
          'specific_values' : {
              'default' : {
