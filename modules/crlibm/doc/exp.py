@@ -21,8 +21,8 @@
              'stamp' : 'modified by jt the 02/03/2011',
             },
          'ranges' : {
-             'double_' : [['T(-706)', 'T(706)']],
-             'float_'   : [['T(-85)', 'T(85)']],   
+             'double' : [['T(-706)', 'T(706)']],
+             'float'   : [['T(-85)', 'T(85)']],   
             },
          'specific_values' : {
             },
