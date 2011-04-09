@@ -63,9 +63,11 @@ class Nt2_base_infos(object) :
 
     def __mk_toolbox_list(self) :
         l = []
-        for name in os.listdir(self.get_toolboxes_path()) :
-            if name[-4:]=='.hpp' :
-                h = name[:-4]
+        p = self.get_toolboxes_path()
+        for name in os.listdir(p) :
+            p1 = os.path.join(p,name)
+            if os.path.isdir(p1) and exist(os.path.join(p1,'py_data.py')):
+                h = name
                 l.append(h)
         return l
 
