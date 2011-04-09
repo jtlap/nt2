@@ -24,6 +24,8 @@
             },
          'ranges' : {
              'real_' : [['T(-79)', 'T(79)']],
+             'unsigned_int_' : [['T(0)', 'T(79)']],
+             'default' : [['T(-79)', 'T(79)']],
             },
          'specific_values' : {
              'default' : {
