@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
                                                                      >::type
                                     >::type
                     >
-    : std::tr1::result_of<functor<F>(Args...)>
+    : std::tr1::result_of<functor<F,Site>(Args...)>
   {};
   #else
 
@@ -63,9 +63,9 @@ namespace nt2 { namespace meta
                                                                                        , Site                          \
                                                                                        >::type                         \
                                                                        >::type                                         \
-                                      >::type                                                                          \
+                                      >::type                                                                           \
                     >                                                                                                  \
-        : std::tr1::result_of<functor<F>(BOOST_PP_ENUM_PARAMS(n,A))>                                                   \
+        : std::tr1::result_of<functor<F,Site>(BOOST_PP_ENUM_PARAMS(n,A))>                                                   \
   {};                                                                                                                  \
   /**/
 

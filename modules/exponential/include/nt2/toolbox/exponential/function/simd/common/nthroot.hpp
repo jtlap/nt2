@@ -32,14 +32,14 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
                           (A0)(A1)(X),
-                          ((simd_<arithmetic_<A0>,X>))
+                          ((simd_<integer_<A0>,X>))
                           ((simd_<integer_<A0>,X>))
                          );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::nthroot_(tag::simd_<tag::arithmetic_, X> ,
+  struct call<tag::nthroot_(tag::simd_<tag::integer_, X> ,
                             tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
@@ -83,16 +83,16 @@ namespace nt2 { namespace ext
       y = seladd(is_nez(y), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a1, One<A1>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
+      A0 invalid = b_and(is_ltz(a0), is_even(a1)); 
       return  b_and(is_nez(a0),
-		    sel(is_eqz(aa1), One<A0>(), 
-			sel(is_equal(a1, One<A1>()),
-			    a0,
-			    sel(b_and(is_even(a1), is_ltz(a0)),
-				Nan<A0>(),
-				b_or(y, bitofsign(a0))
-				)
-			    )
-			)
+		    b_or(invalid, 
+			 sel(is_eqz(aa1), One<A0>(),  
+			     sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
+				 a0,
+				 b_or(y, bitofsign(a0))
+				 )
+			     )
+			 )
 		    );
     }
   };

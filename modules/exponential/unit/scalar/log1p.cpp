@@ -12,7 +12,7 @@
 // Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 23/03/2011
+/// modified by jt the 07/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -53,26 +53,6 @@ NT2_TEST_CASE_TPL ( log1p_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(log1p(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(log1p(nt2::One<T>()), nt2::Log_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(log1p(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0.1), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::log1p(a0),::cephes_log1pl(a0),1);
-        ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::expm1(a0)),a0,1.5);
-        ulp0=nt2::max(ulpd,ulp0);
-        NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::sqrt1pm1(a0)),nt2::Half<T>()*nt2::log1p(a0),2.0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( log1p_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

@@ -17,7 +17,7 @@
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
-#include <nt2/sdk/memory/details/no_padding.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace ext

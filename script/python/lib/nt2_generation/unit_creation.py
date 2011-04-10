@@ -74,8 +74,14 @@ def write_unit(tb_name,fct_name,mode,s,check=False,backup=True) :
     p = nfp.get_fct_unit_path(mode)
     print ('p = %s'%p)
     if backup :
-        print("backing to %s"% p+'.bak')
-        shutil.copy(p,p+'.bak')
+        print("p=%s" %p)
+        i = 1;
+        while True :
+            pi = p+'.'+str(i)+'.bak'
+            if not(exist(pi)) : break
+            i += 1
+        print("backing to %s"% pi)
+        shutil.copy(p,pi)
     print "writing to %s"%p
     write(p,s,check)
  
@@ -96,6 +102,7 @@ def create_unit(tb_name, fct_list=None,
     if  isinstance(modes,str ) : modes = [modes]    
     for fct in fcts :
         for mode in modes :
+            print("fct=%s,mode=%s"%(fct,mode))
             r= create_one_unit(tb_name,fct,mode,parts)
             if r is None :
                 print('error for %s' % fct)

@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_'],
+         'simd_types' : ['real_','uint32_t','uint64_t','int32_t','int64_t'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
@@ -36,6 +36,16 @@
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },
+             'int32_t' : {
+                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                },
+             'int64_t' : {
+                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
@@ -45,7 +55,15 @@
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },
-            },
+             'uint32_t' : {
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                },
+             'uint64_t' : {
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                },
+             },
          'verif_test' : {
              'property_call' : {
                  'default' : ['nt2::tofloat(a0)'],

@@ -15,10 +15,14 @@
 
 #define NT2_VERSION_MESSAGE _library_version_mismatch_
 
-#ifdef NT2_SDK_SOURCE
-#   define NT2_SDK_DECL BOOST_SYMBOL_EXPORT
-# else 
-#   define NT2_SDK_DECL BOOST_SYMBOL_IMPORT
+#ifdef NT2_SDK_DYN_LINK
+#  ifdef NT2_SDK_SOURCE
+#    define NT2_SDK_DECL BOOST_SYMBOL_EXPORT
+#  else
+#    define NT2_SDK_DECL BOOST_SYMBOL_IMPORT
+#  endif
+#else
+#  define NT2_SDK_DECL
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////

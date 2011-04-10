@@ -31,23 +31,18 @@
                 ],
             },
          'specific_values' : {
-             'default' : {
+            'real_' : {
                  'T(0),T(1),T(2)' : {'result' : 'T(1)','ulp_thresh' : '0.5',},
-                 'T(25),T(1),T(2)' : {'result' : 'T(3)','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Nan<T>(),T(1),T(2)' : {'result' : 'T(3)','ulp_thresh' : '0.5',},
+                 'nt2::Nan<T>(),nt2::Inf<T>(),nt2::Inf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Nan<T>(),nt2::Minf<T>(),nt2::Minf<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Nan<T>(),nt2::Nan<T>(),nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Nan<T>(),nt2::Zero<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
-             'real_' : {
+             'integer_' : {
                  'T(0),T(1),T(2)' : {'result' : 'T(1)','ulp_thresh' : '0.5',},
-                 'T(25),T(1),T(2)' : {'result' : 'T(3)','ulp_thresh' : '0.5',},
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                },
-             'signed_int_   ' : {
-                 'T(0),T(1),T(2)' : {'result' : 'T(1)','ulp_thresh' : '0.5',},
-                 'T(25),T(1),T(2)' : {'result' : 'T(3)','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
+                 'T(-1),T(1),T(2)' : {'result' : 'T(3)','ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>(),nt2::Zero<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {

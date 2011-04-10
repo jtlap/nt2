@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 23/03/2011
+/// modified by jt the 06/04/2011
 /// 
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
@@ -21,7 +21,6 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
-#include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
@@ -44,5 +43,16 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<correct_fma_(vT,vT,vT)>::type r_t;
   typedef typename nt2::meta::call<correct_fma_(T,T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::Inf<vT>(), nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::Minf<vT>(), nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::Mone<vT>(), nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::Nan<vT>(), nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<vT>(), nt2::One<vT>(), nt2::One<vT>())[0], nt2::Two<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::One<vT>()+nt2::Eps<vT>(), nt2::One<vT>()-nt2::Eps<vT>(),nt2::Mone<vT>())[0], -nt2::Eps<T>()*nt2::Eps<T>(), 0);
+  NT2_TEST_ULP_EQUAL(correct_fma(nt2::Zero<vT>(), nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>(), 0);
 } // end of test for real_

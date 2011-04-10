@@ -12,7 +12,7 @@
 // Test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 06/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/combinatorial/include/anp.hpp>
 
-NT2_TEST_CASE_TPL ( anp_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( anp_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::anp;
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( anp_real__2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(anp(nt2::Zero<T>(), nt2::Zero<T>()), nt2::One<T>(), 0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( anp_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( anp_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::anp;
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( anp_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(anp(nt2::Zero<T>(), nt2::Zero<T>()), nt2::One<T>(), 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( anp_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( anp_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::anp;

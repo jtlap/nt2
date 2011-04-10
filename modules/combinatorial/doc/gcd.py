@@ -9,6 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -27,10 +28,10 @@
              'default' : {
                 },
              'real_' : {
-                 '120,80' : '40',
-                 '3,15' : '3',
-                 '3,5' : '1',
-                 '6,15' : '3',
+                 'T(120),T(80)' : '40',
+                 'T(3),T(15)' : '3',
+                 'T(3),T(5)' : '1',
+                 'T(6),T(15)' : '3',
                  'nt2::Inf<T>()' : 'nt2::Nan<T>()',
                  'nt2::Minf<T>()' : 'nt2::Nan<T>()',
                  'nt2::Mone<T>()' : 'nt2::Mone<T>()',
@@ -44,6 +45,10 @@
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
                 },
              'unsigned_int_' : {
+                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                },
+             'default' : {
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
                 },

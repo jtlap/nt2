@@ -18,7 +18,14 @@ namespace nt2 { namespace container
   //////////////////////////////////////////////////////////////////////////////
   // block is the main container-like value to be used in NT2 terminals
   //////////////////////////////////////////////////////////////////////////////
-  template<class Type, class Dimension, class Settings> struct block;
+  template< class Type
+          , class Extend
+          , class Bases
+          , class Sizes
+          , class StorageOrder
+          , class StorageKind
+          , class Padding
+          > struct block;
 } }
 
 #endif

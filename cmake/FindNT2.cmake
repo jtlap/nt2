@@ -69,6 +69,7 @@ macro(nt2_find_module_dependencies)
     
   if(NOT NT2_${COMPONENT_U}_FOUND)
     nt2_find_log("${COMPONENT} dependencies not met")
+    nt2_find_module_return()
   endif()
 endmacro()
 
@@ -99,6 +100,25 @@ macro(nt2_find_module_return)
                    
   set(NT2_${COMPONENT_U}_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} PARENT_SCOPE)
   return()
+endmacro()
+
+macro(nt2_find_module_dependencies)
+  if(NOT NT2_CURRENT_MODULE STREQUAL COMPONENT)
+    include("nt2.${COMPONENT}.dependencies" OPTIONAL)
+  endif()
+
+  if(NOT DEFINED NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
+    set(NT2_${COMPONENT_U}_FOUND 1)
+  elseif(NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
+    set(NT2_${COMPONENT_U}_FOUND 1)
+  else()
+    set(NT2_${COMPONENT_U}_FOUND 0)
+  endif()
+
+  if(NOT NT2_${COMPONENT_U}_FOUND)
+    nt2_find_log("${COMPONENT} dependencies not met")
+    nt2_find_module_return()
+  endif()
 endmacro()
 
 function(nt2_find_module COMPONENT)

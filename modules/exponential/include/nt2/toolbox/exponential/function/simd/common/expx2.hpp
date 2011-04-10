@@ -76,7 +76,13 @@ namespace nt2 { namespace ext
       A0 u = sqr(m);
       A0 u1 = Two<A0>() * m * x  +  sqr(x);
       /* u is exact, u1 is small.  */
-      return sel(gt(u+u1, Maxlog<A0>()), Inf<A0>(), exp(u) * exp(u1));
+      return sel(is_inf(a0),
+		 Inf<A0>(),
+		 sel(gt(u+u1, Maxlog<A0>()),
+		     Inf<A0>(),
+		     exp(u) * exp(u1)
+		     )
+		 );
     }
   };
 } }

@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 26/03/2011
+/// modified by jt the 06/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -39,29 +39,19 @@ NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<adds_(vT,vT)>::type r_t; 
+  typedef typename nt2::meta::call<adds_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<adds_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
-    NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        r_t v = adds(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::adds(tab_a0[k],tab_a1[k])));
-        }
-      }
-    
-  }
+
+  // specific values tests
+  NT2_TEST_EQUAL(adds(nt2::Mone<vT>(), nt2::Mone<vT>())[0], -nt2::Two<T>());
+  NT2_TEST_EQUAL(adds(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Two<T>());
+  NT2_TEST_EQUAL(adds(nt2::Valmax<vT>(),nt2::One<vT>())[0], nt2::Valmax<T>());
+  NT2_TEST_EQUAL(adds(nt2::Valmin<vT>(),nt2::Mone<vT>())[0], nt2::Valmin<T>());
+  NT2_TEST_EQUAL(adds(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>());
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( adds_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -80,24 +70,12 @@ NT2_TEST_CASE_TPL ( adds_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<adds_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<adds_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
-    NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        r_t v = adds(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::adds(tab_a0[k],tab_a1[k])));
-        }
-      }
-    
-  }
+
+  // specific values tests
+  NT2_TEST_EQUAL(adds(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Two<T>());
+  NT2_TEST_EQUAL(adds(nt2::Valmax<vT>(),nt2::One<vT>())[0], nt2::Valmax<T>());
+  NT2_TEST_EQUAL(adds(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>());
 } // end of test for unsigned_int_

@@ -12,7 +12,7 @@
 // Test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 23/03/2011
+/// modified by jt the 08/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -44,23 +44,4 @@ NT2_TEST_CASE_TPL ( beta_real__2_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(beta(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(beta(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Eps<T>(), T(1));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Eps<T>(), T(1));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::beta(a0,a1),nt2::beta(a0,a1),0.5);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_

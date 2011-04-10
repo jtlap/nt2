@@ -16,6 +16,8 @@
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/rem.hpp>
 #include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/bitwise_ornot.hpp>
+#include <nt2/include/functions/is_flint.hpp>
 
 
 
@@ -77,7 +79,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 a(round2even(a0)), b(round2even(a1));
+      A0 ints = b_and(is_flint(a1), is_flint(a0)); 
+      A0 a =  b_and(round2even(a0),ints); 
+      A0 b =  b_and(round2even(a1),ints);
       A0 t= is_nez(b);
       while (any(t))
       {
@@ -86,7 +90,7 @@ namespace nt2 { namespace ext
         b = r;
         t= is_nez(b);
       }
-      return round2even(a);
+      return b_ornot(round2even(a), ints);
     }
   };
 } }

@@ -10,9 +10,9 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of bitwise components in simd mode
-////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/bitwise/include/shrai.hpp>
 
-NT2_TEST_CASE_TPL ( shrai_integer__2,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   using nt2::shrai;
   using nt2::tag::shrai_;
@@ -43,25 +43,46 @@ NT2_TEST_CASE_TPL ( shrai_integer__2,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::call<shrai_(vT,iT)>::type r_t;
   typedef typename nt2::meta::call<shrai_(T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    typedef typename nt2::meta::as_integer<T>::type iT;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    NT2_CREATE_BUF(tab_a1,iT, NR, T(0), sizeof(T)*8-1);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        iT a1 = tab_a1[j];
-        r_t v = shrai(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::shrai(tab_a0[k],tab_a1[j])));
-        }
-      }
-    
-  }
-} // end of test for integer_
+
+  // specific values tests
+  NT2_TEST_EQUAL(shrai(nt2::splat<vT>(2),(1))[0], nt2::One<T>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<vT>(),(sizeof(ssr_t)*8-1))[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<vT>(),(sizeof(ssr_t)*8-2))[0], nt2::Three<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::One<vT>(),(1))[0], nt2::Zero<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Zero<vT>(),(1))[0], nt2::Zero<sr_t>());
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( shrai_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::shrai;
+  using nt2::tag::shrai_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<shrai_(vT,iT)>::type r_t;
+  typedef typename nt2::meta::call<shrai_(T,iT)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(shrai(-nt2::Four<vT>(),1)[0], -nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::splat<vT>(-2),(1))[0], nt2::Mone<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::splat<vT>(-3),(1))[0], -nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::splat<vT>(2),(1))[0], nt2::One<T>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<vT>(),(sizeof(ssr_t)*8-1))[0], nt2::Mone<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Mone<vT>(),(sizeof(ssr_t)*8-2))[0], nt2::Mone<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::One<vT>(),1)[0], nt2::Zero<sr_t>());
+  NT2_TEST_EQUAL(shrai(nt2::Zero<vT>(),1)[0], nt2::Zero<sr_t>());
+} // end of test for signed_int_

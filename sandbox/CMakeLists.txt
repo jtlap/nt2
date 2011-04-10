@@ -15,7 +15,8 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include ${NT2_INCLUDE_DIR})
 LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
 LINK_LIBRARIES(${NT2_LIBRARIES})
 SET(SOURCES
-pack.cpp
+rec_block.cpp
+#pack.cpp
 #    foo.cpp
 #table_dim.cpp
 transform_pass.cpp

@@ -24,13 +24,19 @@ import os
 import sys
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"utils"))
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
-
-import re
 from nt2_fct_props import Nt2_fct_props
 from unit_base_gen import Base_gen
+sys.path.pop(0)
+sys.path.pop(0)
+import re
+
+def extract(d,key_substitute,default_value,*fromkeys) :
+    d1 =d
+    for k in fromkeys :
+        d1 = d1.get(k,d1.get(key_substitute,default_value))
+    return d1    
 
 class Specific_values_test_gen(Base_gen) :
-##    Spec_values_tuple_tpl = "  NT2_TEST_%sEQUAL(  $fct_name$($call_param_vals$), $call_param_res$, $specific_thresh$);"
     def __init__(self, base_gen,d,typ,ret_arity,mode) :
         self.mode = mode
         self.bg = base_gen
@@ -40,24 +46,39 @@ class Specific_values_test_gen(Base_gen) :
             self.__gen_result = self.__create_tuple_values_test(d,typ,ret_arity)
 
     def get_gen_result(self) : return  self.__gen_result
+    def get_spec_value_call_tpl(self,d) :
+        """ this is the call template to the test of the value
+            Two main cases scalar and simd
+               in simd the value passed is a splat of one scalar value
+               and only the first result element is considered
+               If special property of functor is predicate we now that the result is logical.
+               This imply that we have to convert simd logical to bool in comparison.
+               """
+        if self.mode == 'simd' :
+            if extract(d,"",[""],"functor","special")[0]=='predicate' :
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+            else :
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
+        else :
+            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
+        return spec_values_tpl
 
     def __create_values_test(self,dl,typ) :
-        d = dl['unit']["specific_values"]
-        dd = d.get(typ,d.get("default",None))
+        unit_specific = extract(dl,"","",'unit',"specific_values")
         r = ["", "  // specific values tests"]
-        no_ulp = dl["unit"]["global_header"].get("no_ulp",False)
-        no_ulp = False if no_ulp == 'False' else no_ulp        
-        ulp_str = "" if no_ulp else "ULP_"
-        thresh_str = "" if no_ulp else ", $specific_thresh$"
-        if self.mode == 'simd' :
-            if dl["functor"].get('special',[''])[0]=='predicate' :
-                Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0]!=0, $call_param_res$%s);"
-            else :
-                Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
-        else :
-            Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
-        for k in sorted(dd.keys()) :
-            s = Spec_values_tpl%  (ulp_str,thresh_str)
+        no_ulp = extract(dl,"","False","unit","global_header","no_ulp")
+        no_ulp = False if no_ulp == 'False' else no_ulp      #does we do an ulp-equality test or merely an equality test    
+        ulp_str = "" if no_ulp else "ULP_"                   #string to modify the macro name accordingly
+        thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
+        spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
+        typ_values = extract(unit_specific,"default",None,typ)       
+        # typ_values is the dictionnary of types for which specific values calls will be generated
+        for k in sorted(typ_values.keys()) :
+            # k is here the string representation of the list of parameters f the functor
+            # with only one parameter (and no commas init) it will be repeated
+            #   to reach correct arity
+            # else it will be taken as it is  
+            s = spec_values_tpl%  (ulp_str,thresh_str)
             s =re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
             if k.count(',')==0 : ## one for all but no , !
                 g = ', '.join([k]*int(dl["functor"]["arity"]))
@@ -65,19 +86,25 @@ class Specific_values_test_gen(Base_gen) :
                 g = k
             if self.mode == 'simd' :
                 g =re.sub("T","vT",g)
+                g =re.sub("vTwo","Two",g)
+                g =re.sub("vThree","Three",g)
+                g =re.sub("ivT\(","nt2::splat<ivT>(",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
-            if type(dd[k]) is str :
-                rep = dd[k]
-                thr = '0'
-            elif type(dd[k]) is dict :
-               rep = dd[k]["result"]
-               thr = dd[k].get("ulp_thresh",'1.0')
-            else :
-                rep = dd[k][0]
-                thr = dd[k][1]
-            if self.mode == 'simd' :
-                rep =re.sub("r_t","sr_t",rep)
+            def get_rep_thr(dd) :
+                if type(dd[k]) is str :
+                    rep = dd[k]
+                    thr = '0'
+                elif type(dd[k]) is dict :
+                    rep = dd[k]["result"]
+                    thr = dd[k].get("ulp_thresh",'1.0')
+                else :
+                    rep = dd[k][0]
+                    thr = dd[k][1]
+                if self.mode == 'simd' :
+                    rep =re.sub("r_t","sr_t",rep)
+                return (rep,thr)
+            rep, thr =get_rep_thr(typ_values)
             s =re.sub("\$call_param_res\$",rep,s)
             s =re.sub("\$specific_thresh\$",thr,s)
             r.append(s)
@@ -136,20 +163,19 @@ if __name__ == "__main__" :
     from unit_base_gen import Base_gen
     from unit_type_header_gen import Type_header_test_gen
 ##    print (__doc__)
-    bg = Base_gen("exponential",'pipo','scalar')
+    bg = Base_gen("arithmetic",'abs','scalar')
     dl = bg.get_fct_dict_list()
     r = []
     for d in dl :
+        ret_arity = int(extract(d,"","","functor","ret_arity"))
         types = bg.recover("types",d["functor"],[])
         d_unit = d["unit"]
         for typ in types :
-            thg = Type_header_test_gen(bg,d,typ)
+            thg = Type_header_test_gen(bg,d,typ,0)
             r+=thg.get_gen_beg()
             if d_unit.get("specific_values",None) :
-                svt = Specific_values_test_gen(bg,d,typ)
+                svt = Specific_values_test_gen(bg,d,typ,ret_arity,'scalar')
                 r += svt. get_gen_result()
             r+=thg.get_gen_end()
     PrettyPrinter().pprint(r)
 
-sys.path.pop(0)
-sys.path.pop(0)

@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,7 +25,7 @@
 // specific includes for arity 1 tests
 #include<nt2/sdk/meta/downgrade.hpp>
 
-NT2_TEST_CASE_TPL ( lo_real__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( lo_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::lo;
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( lo_real__1,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(lo(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( lo_int64__1,  (int64_t)(uint64_t))
+NT2_TEST_CASE_TPL ( lo_int64__1_0,  (int64_t)(uint64_t))
 {
   
   using nt2::lo;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( lo_int64__1,  (int64_t)(uint64_t))
   NT2_TEST_EQUAL(lo(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int64_
 
-NT2_TEST_CASE_TPL ( lo_int32__1,  (int32_t)(uint32_t))
+NT2_TEST_CASE_TPL ( lo_int32__1_0,  (int32_t)(uint32_t))
 {
   
   using nt2::lo;
@@ -98,7 +98,7 @@ NT2_TEST_CASE_TPL ( lo_int32__1,  (int32_t)(uint32_t))
   NT2_TEST_EQUAL(lo(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int32_
 
-NT2_TEST_CASE_TPL ( lo_int16__1,  (int16_t)(uint16_t))
+NT2_TEST_CASE_TPL ( lo_int16__1_0,  (int16_t)(uint16_t))
 {
   
   using nt2::lo;

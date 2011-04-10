@@ -12,7 +12,7 @@
 // Test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 06/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/combinatorial/include/gcd.hpp>
 
-NT2_TEST_CASE_TPL ( gcd_real__2,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::gcd;
@@ -42,10 +42,10 @@ NT2_TEST_CASE_TPL ( gcd_real__2,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(gcd(120,80), 40, 0);
-  NT2_TEST_ULP_EQUAL(gcd(3,15), 3, 0);
-  NT2_TEST_ULP_EQUAL(gcd(3,5), 1, 0);
-  NT2_TEST_ULP_EQUAL(gcd(6,15), 3, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(120),T(80)), 40, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(3),T(15)), 3, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(3),T(5)), 1, 0);
+  NT2_TEST_ULP_EQUAL(gcd(T(6),T(15)), 3, 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( gcd_real__2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(gcd(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( gcd_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::gcd;
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( gcd_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(gcd(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( gcd_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( gcd_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::gcd;

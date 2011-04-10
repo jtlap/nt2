@@ -9,7 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
-         'simd_types' : ['real_']   
+         'simd_types' : ['real_','int32_t','int64_t','uint32_t','uint64_t']   
         },
      'info' : 'manually modified',
      'unit' : {
@@ -31,7 +31,7 @@
                 },
              'real_' : {
                  'nt2::Inf<T>()' : 'nt2::Inf<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
@@ -41,10 +41,13 @@
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Two<T>(),nt2::Three<T>()' : 'nt2::Eight<r_t>()',
+                 'T(-2),T(3)' : 'r_t(-8)',
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Two<T>(),nt2::Three<T>()' : 'nt2::Eight<r_t>()',
                 },
             },
          'verif_test' : {
@@ -98,6 +101,9 @@
                  'nt2::Nan<T>(),3' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>(),3' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>(),3' : 'nt2::Zero<r_t>()',
+                 'nt2::Zero<T>(),0' : 'nt2::One<r_t>()',
+                 'nt2::Two <T>(),3' : 'T(8)',
+                 'nt2::Mone<T>(),3' : 'T(-1)',   
                 },
              'signed_int_' : {
                  'nt2::Mone<T>(),3' : 'nt2::Mone<r_t>()',

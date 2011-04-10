@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_POW_HPP_INCLUDED
 #include <nt2/include/functions/powi.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 
@@ -60,7 +61,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-       return ::pow(a0, a1);
+      bool ltza0 = a0 < Zero<A0>(); 
+      if ((a0 == a1 && a0 == Minf<A0>()) ||
+	  (ltza0 && !is_flint(a1))
+	  ) return Nan<A0>(); 
+      A0 res =  ::pow(nt2::abs(a0), a1);
+      return  (ltza0) ? -res : res; 
     }
   };
 } }
@@ -86,7 +92,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return ::powf(a0, a1);
+      bool ltza0 = a0 < Zero<A0>(); 
+      if (a0 == a1 && a0 == Minf<A0>() ||
+	  (ltza0 && !is_flint(a1))
+	  ) return Nan<A0>(); 
+      A0 res =  ::powf(nt2::abs(a0), a1);
+      return  (ltza0) ? -res : res; 
     }
   };
 } }

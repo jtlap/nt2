@@ -12,7 +12,7 @@
 // Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 16/03/2011
+/// modified by jt the 05/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +23,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/bitwise/include/rol.hpp>
 
-NT2_TEST_CASE_TPL ( rol_integer__2,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( rol_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
   
   using nt2::rol;
@@ -42,8 +42,8 @@ NT2_TEST_CASE_TPL ( rol_integer__2,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(rol(nt2::Mone<T>(),1), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(rol(nt2::Mone<T>(),5), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(rol(nt2::Mone<T>(),T(1)), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(rol(nt2::Mone<T>(),T(5)), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(rol(nt2::One<T>(), nt2::One<T>()), nt2::Two<r_t>());
   NT2_TEST_EQUAL(rol(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_

@@ -7,9 +7,9 @@
          'rturn' : {
              'default' : 'typename nt2::meta::as_integer<T, unsigned>::type',
             },
-         'simd_types' : ['real_', 'integer_'],
+         'simd_types' : ['real_', 'signed_int_','unsigned_int_'],
          'type_defs' : [],
-         'types' : ['real_', 'integer_'],
+         'types' : ['real_',  'signed_int_','unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -24,15 +24,18 @@
              'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
             },
          'specific_values' : {
-             'default' : {
+             'unsigned_int_' : {
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'nt2::Nan<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-             'signed_int_   ' : {
+             'signed_int_' : {
+                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

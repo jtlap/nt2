@@ -168,16 +168,23 @@ macro(nt2_module_add_library libname)
   if(DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     if(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
       add_library(${libname} SHARED ${ARGN})
+      set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK 1)
     else()
       add_library(${libname} STATIC ${ARGN})
     endif()
   else()
     add_library(${libname} ${ARGN})
+    set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK ${BUILD_SHARED_LIBS})
   endif()
 
   set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
   
-  set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS "${NT2_CURRENT_FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_SOURCE")
+  set(FLAGS "${NT2_CURRENT_FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_SOURCE")
+  if(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK)
+    set(FLAGS "${FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_DYN_LINK")
+  endif()
+  set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
+  
   
   install( TARGETS ${libname}
            LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}

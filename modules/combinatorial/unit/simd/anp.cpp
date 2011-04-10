@@ -12,7 +12,7 @@
 // Test behavior of combinatorial components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// modified by jt the 16/03/2011
+/// modified by jt the 06/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/combinatorial/include/anp.hpp>
 
-NT2_TEST_CASE_TPL ( anp_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
+NT2_TEST_CASE_TPL ( anp_real_convert__2_0,  NT2_REAL_CONVERTIBLE_TYPES)
 {
   using nt2::anp;
   using nt2::tag::anp_;
@@ -42,5 +42,11 @@ NT2_TEST_CASE_TPL ( anp_real_convert__2,  NT2_REAL_CONVERTIBLE_TYPES)
   typedef typename nt2::meta::call<anp_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<anp_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(anp(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(anp(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::One<T>(), 0);
 } // end of test for real_convert_

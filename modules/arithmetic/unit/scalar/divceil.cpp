@@ -12,7 +12,7 @@
 // Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 23/03/2011
+/// modified by jt the 06/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/divceil.hpp>
 // specific includes for arity 2 tests
 #include<nt2/include/functions/ceil.hpp>
@@ -54,25 +54,6 @@ NT2_TEST_CASE_TPL ( divceil_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(divceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::One<T>(),nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::Zero<T>(),nt2::Zero<T>()), nt2::Nan<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(nt2::ceil(a0/a1)),0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( divceil_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -97,25 +78,6 @@ NT2_TEST_CASE_TPL ( divceil_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(divceil(4,0), 0, 0);
   NT2_TEST_ULP_EQUAL(divceil(4,3), 2, 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(a1 ? nt2::ceil((1.0*a0)/a1) : 0),0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( divceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -141,23 +103,4 @@ NT2_TEST_CASE_TPL ( divceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(divceil(4,3), 2, 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
-    NT2_CREATE_BUF(tab_a1,T, NR, -100, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::divceil(a0,a1),r_t(a1 ? nt2::ceil((1.0*a0)/a1) : 0),0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for signed_int_

@@ -12,10 +12,10 @@
 // Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// modified by jt the 28/03/2011
+/// modified by jt the 06/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp> 
+#include <nt2/sdk/memory/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -56,23 +56,6 @@ NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(abss(nt2::Valmax<vT>())[0], nt2::Valmax<T>());
   NT2_TEST_EQUAL(abss(nt2::Valmin<vT>())[0], nt2::Valmax<T>());
   NT2_TEST_EQUAL(abss(nt2::Zero<vT>())[0], nt2::Zero<T>());
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = abss(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abss(tab_a0[k])));
-        }
-      }
-    
-  }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
@@ -100,23 +83,6 @@ NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(abss(nt2::Valmax<vT>())[0], nt2::Valmax<T>());
   NT2_TEST_EQUAL(abss(nt2::Valmin<vT>())[0], nt2::Valmin<T>());
   NT2_TEST_EQUAL(abss(nt2::Zero<vT>())[0], nt2::Zero<T>());
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(100));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = abss(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abss(tab_a0[k])));
-        }
-      }
-    
-  }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( abss_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -145,21 +111,4 @@ NT2_TEST_CASE_TPL ( abss_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(abss(nt2::Valmax<vT>())[0], nt2::Valmax<T>());
   NT2_TEST_EQUAL(abss(nt2::Valmin<vT>())[0], nt2::Valmax<T>());
   NT2_TEST_EQUAL(abss(nt2::Zero<vT>())[0], nt2::Zero<T>());
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = abss(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abss(tab_a0[k])));
-        }
-      }
-    
-  }
 } // end of test for signed_int_
