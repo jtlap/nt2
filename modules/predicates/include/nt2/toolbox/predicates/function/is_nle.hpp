@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct is_nle_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::is_nle_, is_nle, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_nle_, is_not_less_equal, 2)
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_nle.hpp>
@@ -25,4 +26,4 @@ namespace nt2 { namespace tag
  
 #endif
 
-// modified by jt the 25/12/2010
+// modified by mg the 04/04/2011
