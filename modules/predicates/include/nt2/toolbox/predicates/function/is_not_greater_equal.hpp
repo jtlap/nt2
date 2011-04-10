@@ -6,23 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NLT_HPP_INCLUDED
-#define NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NLT_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
-#include <nt2/include/functor.hpp>
-#include <nt2/toolbox/predicates/include.hpp>
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 
-namespace nt2 { namespace tag
-  {         
-    struct is_nlt_ {};
-  }
-  NT2_FUNCTION_IMPLEMENTATION(tag::is_nlt_, is_nlt, 2)
+#include <nt2/toolbox/predicates/function/is_nge.hpp>
+
+namespace nt2
+{
+    NT2_FUNCTION_IMPLEMENTATION(tag::is_nge_, is_not_greater_equal, 2)
 }
- 
-#include <nt2/toolbox/predicates/function/scalar/is_nlt.hpp>
-#include NT2_PREDICATES_INCLUDE(is_nlt.hpp) 
 
- 
 #endif
-
-// modified by mg the 04/04/2011
