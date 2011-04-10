@@ -253,7 +253,7 @@ macro(nt2_module_configure_simd path)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   if(NOT PYTHON_EXECUTABLE)
-    find_package(PythonInterp)
+    find_package(PythonInterp QUIET)
     if(NOT PYTHONINTERP_FOUND)
       set(NT2_ARITHMETIC_DEPENDENCIES_FOUND 0)
       message(FATAL_ERROR "Python is necessary to configure sources of module ${NT2_CURRENT_MODULE}")
