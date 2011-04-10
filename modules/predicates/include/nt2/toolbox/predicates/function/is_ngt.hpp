@@ -17,7 +17,6 @@ namespace nt2 { namespace tag
     struct is_ngt_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::is_ngt_, is_ngt, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::is_ngt_, is_not_greater, 2)
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_ngt.hpp>
