@@ -7,10 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET(GSL_FIND_QUIETLY 1)
-
 FIND_PACKAGE(NT2 COMPONENTS sdk)
-FIND_PACKAGE(GSL)
+FIND_PACKAGE(GSL QUIET)
 IF(NOT NT2_FOUND OR NOT GSL_FOUND)
   SET(NT2_GSL_SPECFUN_DEPENDENCIES_FOUND 0)
 ELSE()

@@ -80,7 +80,10 @@ FIND_PROGRAM(GSL_CONFIG gsl-config
 
 IF (GSL_CONFIG)
 
+IF(NOT GSL_FIND_QUIETLY)
  MESSAGE(STATUS "GSL using gsl-config ${GSL_CONFIG}")
+ENDIF(NOT GSL_FIND_QUIETLY)
+ 
  # set CXXFLAGS to be fed into CXX_FLAGS by the user:
  EXEC_PROGRAM(${GSL_CONFIG}
    ARGS --cflags
@@ -129,7 +132,9 @@ IF (GSL_CONFIG)
    GSL_LINK_DIRECTORIES
    GSL_DEFINITIONS
 )
+IF(NOT GSL_FIND_QUIETLY)
  MESSAGE(STATUS "Using GSL from ${GSL_PREFIX}")
+ENDIF(NOT GSL_FIND_QUIETLY)
 
 ELSE(GSL_CONFIG)
 
@@ -142,7 +147,9 @@ ELSE(GSL_CONFIG)
 #     checks for given modules and uses the first working one
 
 
+IF(NOT GSL_FIND_QUIETLY)
  MESSAGE(STATUS "GSL using pkgconfig")
+ENDIF(NOT GSL_FIND_QUIETLY)
  #      PKGCONFIG(gsl includedir libdir linkflags cflags)
  pkg_search_module(gsl GSL_INCLUDE_DIR GSL_LINK_DIRECTORIES GSL_LIBRARIES GSL_CXX_FLAGS)
  IF(GSL_INCLUDE_DIR)
@@ -153,7 +160,7 @@ MARK_AS_ADVANCED(
      GSL_LINK_DIRECTORIES
 )
 
- ELSE(GSL_INCLUDE_DIR)
+ ELSEIF(NOT GSL_FIND_QUIETLY)
 MESSAGE("FindGSL.cmake: gsl-config/pkg-config gsl not found. Please set it manually. GSL_CONFIG=${GSL_CONFIG}")
  ENDIF(GSL_INCLUDE_DIR)
 
