@@ -13,6 +13,7 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/seladd.hpp>
 
 
 

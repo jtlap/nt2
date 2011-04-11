@@ -19,7 +19,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_j1_, gsl_sf_bessel_j1, 1)
   } }
  
-#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_J1.hpp>
+#include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_bessel_j1.hpp>
 // #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_bessel_J1.hpp) 
 
  
