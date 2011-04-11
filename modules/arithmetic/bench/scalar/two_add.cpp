@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - two_add/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of arithmetic components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/two_add.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<two_add_> from arithmetic
+// scalar runtime benchmark for functor<two_add_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::two_add_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::two_add_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::tag::two_add_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(two_add_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(two_add_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
 
 #undef RS

@@ -6,24 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 fdlibm toolbox - acosh/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/fdlibm/include/acosh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<acosh_> from fdlibm
+// scalar runtime benchmark for functor<acosh_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::fdlibm::tag::acosh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::fdlibm::tag::acosh_,(RS(float,1.0f,10.0f)))
-NT2_TIMING(nt2::fdlibm::tag::acosh_,(RS(double,1.0,100.0)))
-NT2_TIMING(nt2::fdlibm::tag::acosh_,(RS(int32_t,1.0,100.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(acosh_,(RS(T,T(-1),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(acosh_,(RS(T,T(-1),T(1))))
+}
 
 #undef RS

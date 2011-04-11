@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 cephes toolbox - nbdtri/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of cephes components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/nbdtri.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
+
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<nbdtri_> from cephes
+// scalar runtime benchmark for functor<nbdtri_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::tag::nbdtri_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-// TO DO Check ranges
-NT2_TIMING(nt2::cephes::tag::nbdtri_,(RS(int32_t,-1.0f,1.0f))(RS(int32_t,-1.0f,1.0f))(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::cephes::tag::nbdtri_,(RS(int32_t,-1.0f,1.0f))(RS(int32_t,-1.0f,1.0f))(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::cephes::tag::nbdtri_,(RS(int32_t,-1,1))(RS(int32_t,-1,1))(RS(int32_t,-1,1)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nbdtri_,(RS(iT,iT(0),iT(10)))(RS(iT,iT(-10),iT(10)))(RS(T,T(0),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nbdtri_,(RS(iT,iT(0),iT(10)))(RS(iT,iT(-10),iT(10)))(RS(T,T(0),T(1))))
+}
 
 #undef RS

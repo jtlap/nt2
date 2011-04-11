@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - cscpi/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/cscpi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<cscpi_> from trigonometric
+// scalar runtime benchmark for functor<cscpi_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::cscpi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::cscpi_,(RS(float,-10.0,10.0)))
-NT2_TIMING(nt2::tag::cscpi_,(RS(double,-10.0,10.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cscpi_,(RS(T,T(-40),T(40))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cscpi_,(RS(T,T(-40),T(40))))
+}
 
 #undef RS

@@ -6,31 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 swar toolbox - splatted_maximum/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of swar components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/swar/include/splatted_maximum.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<splatted_maximum_> from swar
+// scalar runtime benchmark for functor<splatted_maximum_> from swar
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::splatted_maximum_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(double,-10000.0,10000.0)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(int64_t,-10000,10000)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(int32_t,-10000,10000)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(int16_t,-32768,32767)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(int8_t,-128,127)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(uint64_t,0,65535)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(uint32_t,0,65535)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(uint16_t,0,65535)))
-NT2_TIMING(nt2::tag::splatted_maximum_,(RS(uint8_t,0,255)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(splatted_maximum_,(RS(T,T(-100),T(100))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(splatted_maximum_,(RS(T,T(-100),T(100))))
+}
 
 #undef RS

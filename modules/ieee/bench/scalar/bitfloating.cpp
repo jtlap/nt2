@@ -6,17 +6,31 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/bitfloating.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 ieee toolbox - bitfloating/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<bitfloating_> from ieee
+// timing Test behavior of ieee components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/ieee/include/bitfloating.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<bitfloating_> from ieee
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::bitfloating_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( bitfloating_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+
+namespace n1 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,0,100)))
+}
+
+#undef RS

@@ -28,11 +28,13 @@ using nt2::tag::abs_;
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(nt2::tag::abs_,(RS(T,T(-100),T(100))))
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(abs_,(RS(T,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(nt2::tag::abs_,(RS(T,T(-100),T(100))))
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(abs_,(RS(T,T(-100),T(100))))
 }
 
 #undef RS

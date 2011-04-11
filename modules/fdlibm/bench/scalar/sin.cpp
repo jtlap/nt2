@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 fdlibm toolbox - sin/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/fdlibm/include/sin.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<sin_> from fdlibm
+// scalar runtime benchmark for functor<sin_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::fdlibm::tag::sin_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::fdlibm::tag::sin_,(RS(float,-31.4,31.4)))
-NT2_TIMING(nt2::fdlibm::tag::sin_,(RS(double,-31.4,31.4)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_,(RS(T,T(-10),T(10))))
+}
 
 #undef RS

@@ -6,21 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_U.hpp>
+#define NT2_BENCH_MODULE "nt2 gsl_specfun toolbox - gsl_sf_hyperg_u/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of gsl_specfun components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_hyperg_u.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
+
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<gsl_sf_hyperg_U_> from gsl_specfun
+// scalar runtime benchmark for functor<gsl_sf_hyperg_u_> from gsl_specfun
 //////////////////////////////////////////////////////////////////////////////
-using nt2::gsl_specfun::gsl_sf_hyperg_U_;
+using nt2::gsl_specfun::tag::gsl_sf_hyperg_u_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-// TO DO Check ranges
-NT2_TIMING(nt2::gsl_specfun::gsl_sf_hyperg_U_,(RS(int32_t,0,10))(RS(int32_t,0,10))(RS(double,-1.0,1.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(gsl_sf_hyperg_u_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(gsl_sf_hyperg_u_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
+}
 
 #undef RS

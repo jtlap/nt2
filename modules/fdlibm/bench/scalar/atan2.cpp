@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 fdlibm toolbox - atan2/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/fdlibm/include/atan2.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<atan2_> from fdlibm
+// scalar runtime benchmark for functor<atan2_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::fdlibm::tag::atan2_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::fdlibm::tag::atan2_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::fdlibm::tag::atan2_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan2_,(RS(T,T(-1),T(1)))(RS(T,T(-1),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan2_,(RS(T,T(-1),T(1)))(RS(T,T(-1),T(1))))
+}
 
 #undef RS

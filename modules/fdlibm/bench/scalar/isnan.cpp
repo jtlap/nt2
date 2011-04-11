@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 fdlibm toolbox - isnan/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/fdlibm/include/isnan.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
+
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<isnan_> from fdlibm
+// scalar runtime benchmark for functor<isnan_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::fdlibm::tag::isnan_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-// TO DO Check ranges
-NT2_TIMING(nt2::fdlibm::tag::isnan_,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::tag::isnan_,(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::fdlibm::tag::isnan_,(RS(int32_t,-1,1)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(isnan_,(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(isnan_,(RS(T,T(-10),T(10))))
+}
 
 #undef RS

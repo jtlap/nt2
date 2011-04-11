@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 libc toolbox - sinh/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of libc components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/libc/include/sinh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<sinh_> from libc
+// scalar runtime benchmark for functor<sinh_> from libc
 //////////////////////////////////////////////////////////////////////////////
 using nt2::libc::tag::sinh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::libc::tag::sinh_,(RS(float,-10.0,10.0)))
-NT2_TIMING(nt2::libc::tag::sinh_,(RS(double,-10.0,10.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sinh_,(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sinh_,(RS(T,T(-10),T(10))))
+}
 
 #undef RS

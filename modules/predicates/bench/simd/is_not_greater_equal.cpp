@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/predicates/include/is_not_greater_equal.hpp>
+//#include <nt2/toolbox/predicates/include/is_not_greater_equal.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<is_not_greater_equal_> from predicates
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::is_not_greater_equal_;
+//using nt2::tag::is_not_greater_equal_;
 
 //////////////////////////////////////////////////////////////////////////////
 // bench/simd

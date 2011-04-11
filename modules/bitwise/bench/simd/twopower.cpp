@@ -6,31 +6,50 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bitwise/include/twopower.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <cmath>
-
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<int32_t,ext_t> vint32_t;
-typedef nt2::simd::native<int64_t,ext_t> vint64_t;
-typedef nt2::simd::native<uint32_t,ext_t> vuint32_t;
-typedef nt2::simd::native<uint64_t,ext_t> vuint64_t;
+#define NT2_BENCH_MODULE "nt2 bitwise toolbox - twopower/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Simd Runtime benchmark for functor<twopower_> from bitwise
+// timing Test behavior of bitwise components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/bitwise/include/twopower.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<twopower_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::twopower_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::twopower_,(RS(vint32_t,-10,30)))
-NT2_TIMING(nt2::tag::twopower_,(RS(vuint32_t,0,31)))
-
-NT2_TIMING(nt2::tag::twopower_,(RS(vint64_t,-10,62)))
-NT2_TIMING(nt2::tag::twopower_,(RS(vuint64_t,0,63)))
+namespace n1 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
+}
+namespace n2 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
+}
+namespace n3 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
+}
+namespace n4 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(twopower_,(RS(vT,0,sizeof(T)*8-1)))
+}
 
 #undef RS

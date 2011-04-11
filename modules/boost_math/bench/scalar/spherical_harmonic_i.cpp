@@ -6,20 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/boost_math/include/spherical_harmonic_i.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 boost_math toolbox - spherical_harmonic_i/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<spherical_harmonic_i_> from boost_math
+// timing Test behavior of boost_math components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/boost_math/include/spherical_harmonic_i.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<spherical_harmonic_i_> from boost_math
 //////////////////////////////////////////////////////////////////////////////
 using nt2::boost_math::tag::spherical_harmonic_i_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( spherical_harmonic_i_ , ((nt2::uint32_t, -10, 10))
-//                                     ((nt2::uint32_t, -10, 10))
-//                                     ((nt2::uint32_t, -10, 10))
-//                                     ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(spherical_harmonic_i_,(RS(iT,iT(0),iT(10)))(RS(iT,iT(0),iT(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(spherical_harmonic_i_,(RS(iT,iT(0),iT(10)))(RS(iT,iT(0),iT(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
+
+#undef RS

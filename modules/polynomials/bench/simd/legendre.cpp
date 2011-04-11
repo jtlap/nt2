@@ -6,22 +6,39 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/polynomials/include/legendre.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<float,ext_t> vfloat;
-typedef nt2::simd::native<double,ext_t> vdouble;
+#define NT2_BENCH_MODULE "nt2 polynomials toolbox - legendre/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<legendre_> from polynomials
+// timing Test behavior of polynomials components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/polynomials/include/legendre.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<legendre_> from polynomials
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::legendre_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::legendre_,(RS(int32_t,0,10))(RS(vfloat,-1.0f,1.f)))
-NT2_TIMING(nt2::tag::legendre_,(RS(int32_t,0,10))(RS(vdouble,-1.0,1.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(legendre_,(RS(viT,iT(0),T(10)))(RS(vT,iT(-1),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(legendre_,(RS(viT,iT(0),T(10)))(RS(vT,iT(-1),T(1))))
+}
 
+#undef RS

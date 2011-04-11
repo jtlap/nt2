@@ -6,17 +6,30 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fdlibm/include/frexp.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 fdlibm toolbox - frexp/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<frexp_> from fdlibm
+// timing Test behavior of fdlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/fdlibm/include/frexp.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<frexp_> from fdlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::fdlibm::tag::frexp_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( frexp_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+
+namespace n1 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(frexp_,(RS(T,T(-10),T(10))))
+}
+
+#undef RS

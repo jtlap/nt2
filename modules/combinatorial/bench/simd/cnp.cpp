@@ -6,30 +6,37 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/combinatorial/include/cnp.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <cmath>
-
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<int64_t,ext_t> vint64_t;
-typedef nt2::simd::native<int32_t,ext_t> vint32_t;
-typedef nt2::simd::native<uint64_t,ext_t> vuint64_t;
-typedef nt2::simd::native<uint32_t,ext_t> vuint32_t;
+#define NT2_BENCH_MODULE "nt2 combinatorial toolbox - cnp/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Simd Runtime benchmark for functor<cnp_> from combinatorial
+// timing Test behavior of combinatorial components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/combinatorial/include/cnp.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<cnp_> from combinatorial
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::cnp_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::cnp_,(RS(vint64_t,-10000,10000))(RS(vint64_t,-10000,10000)))
-NT2_TIMING(nt2::tag::cnp_,(RS(vint32_t,-10000,10000))(RS(vint32_t,-10000,10000)))
-NT2_TIMING(nt2::tag::cnp_,(RS(vuint64_t,0,65535))(RS(vuint64_t,0,65535)))
-NT2_TIMING(nt2::tag::cnp_,(RS(vuint32_t,0,65535))(RS(vuint32_t,0,65535)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cnp_,(RS(vT,T(0),T(10)))(RS(vT,T(0),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cnp_,(RS(vT,T(0),T(10)))(RS(vT,T(0),T(10))))
+}
 
 #undef RS

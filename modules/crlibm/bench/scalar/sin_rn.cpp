@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 crlibm toolbox - sin_rn/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of crlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/sin_rn.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<sin_rn_> from crlibm
+// scalar runtime benchmark for functor<sin_rn_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::tag::sin_rn_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::crlibm::tag::sin_rn_,(RS(float,-31.4,31.4)))
-NT2_TIMING(nt2::crlibm::tag::sin_rn_,(RS(double,-31.4,31.4)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_rn_,(RS(T,T(-100),T(100))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(sin_rn_,(RS(T,T(-100),T(100))))
+}
 
 #undef RS

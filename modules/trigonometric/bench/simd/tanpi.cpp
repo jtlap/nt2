@@ -6,26 +6,38 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/tanpi.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <cmath>
-
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<float,ext_t> vfloat;
-typedef nt2::simd::native<double,ext_t> vdouble;
+#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - tanpi/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Simd Runtime benchmark for functor<tanpi_> from trigonometric
+// timing Test behavior of trigonometric components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/trigonometric/include/tanpi.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<tanpi_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::tanpi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::tanpi_,(RS(vfloat,-10.0,10.0)))
-NT2_TIMING(nt2::tag::tanpi_,(RS(vdouble,-10.0,10.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
+}
 
 #undef RS

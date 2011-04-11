@@ -6,25 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 cephes toolbox - powi/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of cephes components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/powi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<powi_> from cephes
+// scalar runtime benchmark for functor<powi_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::tag::powi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::cephes::tag::powi_,(RS(float,-10.0f,10.0f))(RS(int32_t,-10,10)))
-NT2_TIMING(nt2::cephes::tag::powi_,(RS(double,-10.0,1.0))(RS(int64_t,-10,10)))
-
-
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(powi_,(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(powi_,(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(10))))
+}
 
 #undef RS

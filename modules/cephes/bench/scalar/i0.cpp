@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 cephes toolbox - i0/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of cephes components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/cephes/include/i0.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<i0_> from cephes
+// scalar runtime benchmark for functor<i0_> from cephes
 //////////////////////////////////////////////////////////////////////////////
 using nt2::cephes::tag::i0_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::cephes::tag::i0_,(RS(float,0.0f,2.0f)))
-NT2_TIMING(nt2::cephes::tag::i0_,(RS(double,0,4)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(i0_,(RS(T,T(-50),T(50))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(i0_,(RS(T,T(-50),T(50))))
+}
 
 #undef RS

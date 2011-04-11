@@ -6,8 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - asinpi/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/asinpi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -23,43 +29,13 @@ using nt2::tag::asinpi_;
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,nt2::Mone<T>(),nt2::One<T>())))
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(asinpi_,(RS(T,nt2::Mone<T>(),nt2::One<T>())))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,nt2::Mone<T>(),nt2::One<T>())))
-}
-namespace n3 {
-  typedef uint8_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n4 {
-  typedef uint16_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n5 {
-  typedef uint32_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n6 {
-  typedef uint64_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n7 {
-  typedef int8_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,T(-1),T(1))))
-}
-namespace n8 {
-  typedef int16_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,T(-1),T(1))))
-}
-namespace n9 {
-  typedef int32_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,T(-1),T(1))))
-}
-namespace n10 {
-  typedef int64_t T;
-  NT2_TIMING(nt2::tag::asinpi_,(RS(T,T(-1),T(1))))
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(asinpi_,(RS(T,nt2::Mone<T>(),nt2::One<T>())))
 }
 
 #undef RS

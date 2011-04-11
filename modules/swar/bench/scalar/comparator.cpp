@@ -6,31 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 swar toolbox - comparator/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of swar components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/swar/include/comparator.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<comparator_> from swar
+// scalar runtime benchmark for functor<comparator_> from swar
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::comparator_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::comparator_,(RS(float,-10000.0f,10000.0f))(RS(float,-10000.0f,10000.0f))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(double,-10000.0,10000.0))(RS(double,-10000.0,10000.0))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(int64_t,-10000,10000))(RS(int64_t,-10000,10000))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(int32_t,-10000,10000))(RS(int32_t,-10000,10000))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(int16_t,-32768,32767))(RS(int16_t,-32768,32767))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(int8_t,-128,127))(RS(int8_t,-128,127))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(uint64_t,0,65535))(RS(uint64_t,0,65535))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(uint32_t,0,65535))(RS(uint32_t,0,65535))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(uint16_t,0,65535))(RS(uint16_t,0,65535))(RS(int32_t,0,1)))
-NT2_TIMING(nt2::tag::comparator_,(RS(uint8_t,0,255))(RS(uint8_t,0,255))(RS(int32_t,0,1)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(comparator_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(comparator_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
+}
 
 #undef RS

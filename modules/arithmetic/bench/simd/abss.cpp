@@ -6,6 +6,11 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - abss/simd Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/abss.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
@@ -23,53 +28,15 @@ using nt2::tag::abss_;
 
 namespace n1 {
   typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(abss_,(RS(vT,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(-100),T(100))))
-}
-namespace n3 {
-  typedef uint8_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(0),T(100))))
-}
-namespace n4 {
-  typedef uint16_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(0),T(100))))
-}
-namespace n5 {
-  typedef uint32_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(0),T(100))))
-}
-namespace n6 {
-  typedef uint64_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(0),T(100))))
-}
-namespace n7 {
-  typedef int8_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(-100),T(100))))
-}
-namespace n8 {
-  typedef int16_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(-100),T(100))))
-}
-namespace n9 {
-  typedef int32_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(-100),T(100))))
-}
-namespace n10 {
-  typedef int64_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::abss_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(abss_,(RS(vT,T(-100),T(100))))
 }
 
 #undef RS

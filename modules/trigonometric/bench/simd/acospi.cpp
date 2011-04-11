@@ -6,8 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - acospi/simd Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of trigonometric components in simd mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/acospi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -23,33 +29,15 @@ using nt2::tag::acospi_;
 
 namespace n1 {
   typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::acospi_,(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
+  NT2_TIMING(acospi_,(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
 }
 namespace n2 {
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::acospi_,(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
-}
-namespace n5 {
-  typedef uint32_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::acospi_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n6 {
-  typedef uint64_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::acospi_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
-}
-namespace n9 {
-  typedef int32_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::acospi_,(RS(vT,T(-1),T(1))))
-}
-namespace n10 {
-  typedef int64_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::acospi_,(RS(vT,T(-1),T(1))))
+  NT2_TIMING(acospi_,(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
 }
 
 #undef RS

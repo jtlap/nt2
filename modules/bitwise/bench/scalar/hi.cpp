@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 bitwise toolbox - hi/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bitwise/include/hi.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<hi_> from bitwise
+// scalar runtime benchmark for functor<hi_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::hi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::hi_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::tag::hi_,(RS(double,-10000.0,10000.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
 
 #undef RS
