@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( fast_gamma_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Mone<T>()), nt2:Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Mone<T>()), nt2::Minf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
