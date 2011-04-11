@@ -11,9 +11,9 @@
 ###     Toolbox models bench tests
 ##############################################################################
 
-ADD_CUSTOM_TARGET(models.scalar.bench)
-ADD_CUSTOM_TARGET(models.simd.bench)
-ADD_DEPENDENCIES(models.bench models.scalar.bench models.simd.bench)
+##ADD_CUSTOM_TARGET(models.scalar.bench)
+##ADD_CUSTOM_TARGET(models.simd.bench)
+##ADD_DEPENDENCIES(models.bench models.scalar.bench models.simd.bench)
 
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+##ADD_SUBDIRECTORY(scalar)
+##ADD_SUBDIRECTORY(simd)
