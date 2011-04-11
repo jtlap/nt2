@@ -57,7 +57,7 @@ def write_bench(tb_name,fct_name,mode,s,check=False,backup=True) :
     nfp = Nt2_fct_props(tb_name,fct_name,mode)
     p = nfp.get_fct_bench_path(mode)
 ##    print ('p = %s'%p)
-    if backup :
+    if backup and exist(p) :
 ##        print("p=%s" %p)
         i = 1;
         while True :

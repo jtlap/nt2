@@ -11,6 +11,7 @@
          'special' : ['crlibm'],
          'type_defs' : [],
          'types' : ['float','double'],
+         'tpl' : '<nt2::rn>'   
         },
      'info' : 'manually modified',
      'unit' : {

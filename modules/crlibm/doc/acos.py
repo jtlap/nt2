@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'T',
             },
+         'tpl' : '<nt2::rn>',   
          'simd_types' : [],
          'special' : ['crlibm'],
          'type_defs' : [],
