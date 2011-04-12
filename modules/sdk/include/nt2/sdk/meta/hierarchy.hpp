@@ -18,18 +18,23 @@
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/sdk/meta/details/hierarchy.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Local macros handling boilerplate code for regular and template hierarchies
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_HIERARCHY_CLASS(Name, Parent) \
-template<class T> struct Name : Parent    \
-{                                         \
-  typedef Parent    parent;               \
-  typedef tag::Name type;                 \
-}                                         \
+#define NT2_HIERARCHY_CLASS(Name, Parent)     \
+struct Name : Parent                          \
+{                                             \
+  typedef Parent    parent;                   \
+  typedef tag::Name type;                     \
+}                                             \
 /**/
 
-#define NT2_HIERARCHY_CLASS_TPL(Name, Parent)               \
+#define NT2_HIERARCHY_CLASS_TPL(Name, Parent) \
+template<class T> struct Name : Parent        \
+{                                             \
+  typedef Parent    parent;                   \
+  typedef tag::Name type;                     \
+}                                             \
+/**/
+
+#define NT2_HIERARCHY_CLASS_TPL_META(Name, Parent)          \
 template<class T> struct Name : NT2_PP_STRIP(Parent)::type  \
 {                                                           \
   typedef typename NT2_PP_STRIP(Parent)::type    parent;    \
@@ -61,7 +66,7 @@ namespace nt2 { namespace meta
   // The unspecified_ hierarchy is used for non-categorized type that will still
   // want to catch without error
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(unspecified_, unknown_<T> );
+  NT2_HIERARCHY_CLASS_TPL(unspecified_, unknown_<T> );
 
   /////////////////////////////////////////////////////////////////////////////
   // Upper level hierarchies:
@@ -69,49 +74,49 @@ namespace nt2 { namespace meta
   // arithmetic_ gathers all native type except bool
   // integer_ gathers all native integer types
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(fundamental_, unspecified_<T> );
-  NT2_HIERARCHY_CLASS(arithmetic_ , fundamental_<T> );
-  NT2_HIERARCHY_CLASS(integer_    , arithmetic_<T>  );
+  NT2_HIERARCHY_CLASS_TPL(fundamental_, unspecified_<T> );
+  NT2_HIERARCHY_CLASS_TPL(arithmetic_ , fundamental_<T> );
+  NT2_HIERARCHY_CLASS_TPL(integer_    , arithmetic_<T>  );
 
 
-  NT2_HIERARCHY_CLASS_TPL (signed_, (boost::mpl::if_< boost::is_integral<T>
-                                                    , integer_<T>
-                                                    , arithmetic_<T>
-                                                    >
+  NT2_HIERARCHY_CLASS_TPL_META (signed_, (boost::mpl::if_< boost::is_integral<T>
+                                                         , integer_<T>
+                                                         , arithmetic_<T>
+                                                         >
                                     )
                           );
 
-  NT2_HIERARCHY_CLASS(unsigned_   , integer_<T>   );
+  NT2_HIERARCHY_CLASS_TPL(unsigned_   , integer_<T>   );
 
   //////////////////////////////////////////////////////////////////////////////
   // Floating point types hierarchy
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(real_       , signed_<T>    );
+  NT2_HIERARCHY_CLASS_TPL(real_       , signed_<T>    );
 
   //////////////////////////////////////////////////////////////////////////////
   // Sign based hierarchy - gather integral types of a given signedness
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(int_        , signed_<T>    );
-  NT2_HIERARCHY_CLASS(uint_       , unsigned_<T>  );
+  NT2_HIERARCHY_CLASS_TPL(int_        , signed_<T>    );
+  NT2_HIERARCHY_CLASS_TPL(uint_       , unsigned_<T>  );
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy - gather type which sizeof is equal to a given value
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS_TPL (type8_, (boost::mpl::if_< boost::is_signed<T>
-                                                    , int_<T>
-                                                    , uint_<T>
-                                                    >
+  NT2_HIERARCHY_CLASS_TPL_META (type8_, (boost::mpl::if_< boost::is_signed<T>
+                                                        , int_<T>
+                                                        , uint_<T>
+                                                        >
                                     )
                           );
 
-  NT2_HIERARCHY_CLASS_TPL (type16_, (boost::mpl::if_< boost::is_signed<T>
-                                                    , int_<T>
-                                                    , uint_<T>
-                                                    >
+  NT2_HIERARCHY_CLASS_TPL_META (type16_, (boost::mpl::if_< boost::is_signed<T>
+                                                         , int_<T>
+                                                         , uint_<T>
+                                                         >
                                     )
                           );
 
-  NT2_HIERARCHY_CLASS_TPL (type32_
+  NT2_HIERARCHY_CLASS_TPL_META (type32_
                           , (boost::mpl::if_<boost::is_floating_point<T>
                                             , real_<T>
                                             , typename
@@ -123,7 +128,7 @@ namespace nt2 { namespace meta
                                     )
                           );
 
-  NT2_HIERARCHY_CLASS_TPL (type64_
+  NT2_HIERARCHY_CLASS_TPL_META (type64_
                           , (boost::mpl::if_<boost::is_floating_point<T>
                                             , real_<T>
                                             , typename
@@ -138,46 +143,43 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of integers
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(ints8_        , type8_<T>       );
-  NT2_HIERARCHY_CLASS(ints16_       , type16_<T>      );
-  NT2_HIERARCHY_CLASS(ints32_       , type32_<T>      );
-  NT2_HIERARCHY_CLASS(ints64_       , type64_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(ints8_        , type8_<T>       );
+  NT2_HIERARCHY_CLASS_TPL(ints16_       , type16_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(ints32_       , type32_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(ints64_       , type64_<T>      );
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of signed integers
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(int8_         , ints8_<T>       );
-  NT2_HIERARCHY_CLASS(int16_        , ints16_<T>      );
-  NT2_HIERARCHY_CLASS(int32_        , ints32_<T>      );
-  NT2_HIERARCHY_CLASS(int64_        , ints64_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(int8_         , ints8_<T>       );
+  NT2_HIERARCHY_CLASS_TPL(int16_        , ints16_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(int32_        , ints32_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(int64_        , ints64_<T>      );
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of unsigned integers
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(uint8_        , ints8_<T>       );
-  NT2_HIERARCHY_CLASS(uint16_       , ints16_<T>      );
-  NT2_HIERARCHY_CLASS(uint32_       , ints32_<T>      );
-  NT2_HIERARCHY_CLASS(uint64_       , ints64_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(uint8_        , ints8_<T>       );
+  NT2_HIERARCHY_CLASS_TPL(uint16_       , ints16_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(uint32_       , ints32_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(uint64_       , ints64_<T>      );
 
   //////////////////////////////////////////////////////////////////////////////
   // Native real types hierarchy
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(double_       , type64_<T>      );
-  NT2_HIERARCHY_CLASS(float_        , type32_<T>      );
-  NT2_HIERARCHY_CLASS(long_double_  , fundamental_<T> );
+  NT2_HIERARCHY_CLASS_TPL(double_       , type64_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(float_        , type32_<T>      );
+  NT2_HIERARCHY_CLASS_TPL(long_double_  , fundamental_<T> );
 
   //////////////////////////////////////////////////////////////////////////////
   // Boolean type hierarchy
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(bool_         , fundamental_<T> );
+  NT2_HIERARCHY_CLASS_TPL(bool_         , fundamental_<T> );
 
   //////////////////////////////////////////////////////////////////////////////
   // void type hierarchy
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS(void_         , fundamental_<T> );
+  NT2_HIERARCHY_CLASS_TPL(void_         , fundamental_<T> );
 } }
-
-#undef NT2_HIERARCHY_CLASS
-#undef NT2_HIERARCHY_CLASS_TPL
 
 #endif
