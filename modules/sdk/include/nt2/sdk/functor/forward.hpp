@@ -9,14 +9,18 @@
 #ifndef NT2_SDK_FUNCTOR_FORWARD_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_FORWARD_HPP_INCLUDED
 
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Forward declaration for functor elements
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct cpu_ {}; } } // To do put elsewhere in config
-
 namespace nt2
 {
-  template< class Function, class Site = tag::cpu_> struct functor;
+  template< class Function, class Enable = void > struct default_site
+  {
+    typedef tag::cpu_ type;
+  };
+  template< class Function, class Site = typename default_site<Function>::type> struct functor;
 }
 
 namespace nt2 { namespace ext
