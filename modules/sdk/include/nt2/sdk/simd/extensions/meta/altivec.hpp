@@ -17,10 +17,15 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
-// Tag for Altivec PPC extensions
+// Tag hierarchy for Altivec PPC extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct altivec_ {}; } }
+namespace nt2 { namespace tag
+{
+  NT2_HIERARCHY_CLASS(altivec_, cpu_);
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec PPC extensions overload

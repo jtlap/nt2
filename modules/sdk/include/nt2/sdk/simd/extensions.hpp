@@ -23,4 +23,14 @@
 #include <nt2/sdk/simd/extensions/altivec.hpp>
 #include <nt2/sdk/simd/extensions/none.hpp>
 
+#include <nt2/sdk/functor/forward.hpp>
+namespace nt2
+{
+  template<class Tag>
+  struct default_site<Tag>
+  {
+    typedef NT2_SIMD_DEFAULT_SITE type;
+  };
+}
+
 #endif

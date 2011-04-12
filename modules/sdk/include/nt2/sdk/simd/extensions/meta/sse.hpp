@@ -16,10 +16,21 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
-// Tag for SSE extensions
+// Tag hierarchy for SSE extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct sse_ {}; } }
+namespace nt2 { namespace tag
+{
+  NT2_HIERARCHY_CLASS(sse_, cpu_);
+    NT2_HIERARCHY_CLASS(sse2_, sse_);
+      NT2_HIERARCHY_CLASS(sse3_, sse2_);
+        NT2_HIERARCHY_CLASS(ssse3_, sse3_);
+          NT2_HIERARCHY_CLASS(sse4a_, ssse3_);
+          NT2_HIERARCHY_CLASS(sse4_1_, ssse3_);
+            NT2_HIERARCHY_CLASS(sse4_2_, sse4_1_);
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // SSE extensions overload
