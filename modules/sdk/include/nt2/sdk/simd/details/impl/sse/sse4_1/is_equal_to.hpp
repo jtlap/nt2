@@ -9,10 +9,12 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_1_IS_EQUAL_TO_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_1_IS_EQUAL_TO_HPP_INCLUDED
 
+#include <nt2/sdk/simd/details/impl/sse/ssse3/is_equal_to.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints64
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (A0)
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::sse4_1_, (A0)
                       , ((simd_<ints64_<A0>,tag::sse_>))
                         ((simd_<ints64_<A0>,tag::sse_>))
                       );
@@ -23,7 +25,7 @@ namespace nt2 { namespace ext
   struct  call< tag::is_equal_( tag::simd_<tag::ints64_,tag::sse_>
                               , tag::simd_<tag::ints64_,tag::sse_>
                               )
-              , tag::cpu_, Dummy
+              , tag::sse4_1_, Dummy
               >
         : callable
   {
@@ -38,13 +40,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Reuse SSE2 implementation for the other
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_SSE2_IS_EQUAL_64_DEFINED
-#include <nt2/sdk/simd/details/impl/sse/sse2/is_equal_to.hpp>
-#undef NT2_SSE2_IS_EQUAL_64_DEFINED
 
 #endif
 
