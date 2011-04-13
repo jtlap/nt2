@@ -7,21 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-macro(nt2_str_remove_duplicates)
-  foreach(str ${ARGV})
-    string(REPLACE "  " " " str_ws ${${str}})
-    string(REPLACE " " ";" str_list ${str_ws})
-    if(str_list)
-      list(REMOVE_DUPLICATES str_list)
-    endif()
-    string(REPLACE ";" " " str_new "${str_list}")
-    if(NOT str_new)
-      set(str_new " ")
-    endif()
-    set(${str} ${str_new})
-  endforeach()
-endmacro()
-
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR
@@ -61,7 +46,6 @@ macro(nt2_module_source_setup module)
   link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
   
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_DEPENDENCIES_FLAGS}")
-  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
 endmacro()
 
 macro(nt2_setup_variant)
@@ -79,6 +63,8 @@ macro(nt2_module_main module)
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
   set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
   
+  set(NT2_CURRENT_MODULE ${module})
+  
   if(NOT NT2_${module_U}_FOUND)
   
     # load dependencies
@@ -89,6 +75,10 @@ macro(nt2_module_main module)
       message(STATUS "[nt2.${module}] warning: dependencies not met, skipping module")
       nt2_find_transfer_parent()
       return()
+    endif()
+    
+    if(NT2_${module_U}_DEPENDENCIES_EXTRA)
+        nt2_module_use_modules(extra ${NT2_${module_U}_DEPENDENCIES_EXTRA})
     endif()
     
     # set FindNT2 variables
@@ -105,7 +95,6 @@ macro(nt2_module_main module)
     
   endif()
   
-  set(NT2_CURRENT_MODULE ${module})
   nt2_setup_variant()
   
   # set include/link directories
@@ -114,7 +103,6 @@ macro(nt2_module_main module)
   link_libraries(${NT2_${module_U}_LIBRARIES})
   
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
-  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
   
   nt2_module_install_setup()
   
@@ -209,7 +197,6 @@ macro(nt2_module_use_modules component)
   link_libraries(${NT2_LIBRARIES})
   
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
-  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
   
   nt2_find_transfer_parent()
 endmacro()
