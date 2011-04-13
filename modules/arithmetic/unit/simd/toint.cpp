@@ -37,12 +37,12 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::as_integer<T>::type iT;  
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<toint_(vT)>::type r_t;
   typedef typename nt2::meta::call<toint_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
+  double ulpd;  
   ulpd=0.0;
 
 
@@ -54,3 +54,4 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(toint(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(toint(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
+ 

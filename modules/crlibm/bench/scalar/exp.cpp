@@ -6,23 +6,31 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 crlibm toolbox - exp/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of crlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/exp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<exp_> from crlibm
+// scalar runtime benchmark for functor<exp_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::tag::exp_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::crlibm::tag::exp_<nt2::rn>,(RS(float,-10.0f,10.0f)))
-NT2_TIMING(nt2::crlibm::tag::exp_<nt2::rn>,(RS(double,-100.0,100.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-85),T(85))))
+}
 
 #undef RS

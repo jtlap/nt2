@@ -201,7 +201,6 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for int64 types
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SSE2_IS_GREATER_64_DEFINED)
 NT2_REGISTER_DISPATCH ( tag::is_greater_, tag::cpu_, (A0)
                       , ((simd_<int64_<A0>,tag::sse_>))
                         ((simd_<int64_<A0>,tag::sse_>))
@@ -236,6 +235,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-#endif
 
 #endif

@@ -24,7 +24,7 @@
              'stamp' : 'modified by jt the 20/02/2011',
             },
          'ranges' : {
-             'default' : [['T(1)', 'T(1000)'], ['T(-1000)', 'T(-1)']],
+             'default' : [[['T(1)', 'T(1000)']], [['T(-1000)', 'T(-1)']]],
             },
          'specific_values' : {
              'default' : {

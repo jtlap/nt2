@@ -13,10 +13,16 @@
 #include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/config/types.hpp>
 
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
-// Tag for XOP extensions
+// Tag hierarchy for XOP extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct xop_ {}; } }
+namespace nt2 { namespace tag
+{
+  NT2_HIERARCHY_CLASS(xop_, sse4a_);
+    NT2_HIERARCHY_CLASS(fma4_, xop_);
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // XOP extensions overload

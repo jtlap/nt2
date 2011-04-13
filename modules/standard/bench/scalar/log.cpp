@@ -6,23 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 standard toolbox - log/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of standard components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/standard/include/log.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<log_> from standard
+// scalar runtime benchmark for functor<log_> from standard
 //////////////////////////////////////////////////////////////////////////////
 using nt2::standard::tag::log_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::standard::tag::log_,(RS(float,0.0f,10000.0f)))
-NT2_TIMING(nt2::standard::tag::log_,(RS(double,0.0,10000.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log_,(RS(T,T(-100),T(100))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log_,(RS(T,T(-100),T(100))))
+}
 
 #undef RS

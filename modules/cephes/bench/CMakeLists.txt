@@ -11,7 +11,6 @@
 # Add global bench driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(cephes.scalar.bench)
-ADD_CUSTOM_TARGET(cephes.simd.bench)
 ADD_DEPENDENCIES(cephes.bench cephes.scalar.bench cephes.simd.bench)
 
 ##****************************************************************************
@@ -19,4 +18,3 @@ ADD_DEPENDENCIES(cephes.bench cephes.scalar.bench cephes.simd.bench)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)

@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - asecd/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/asecd.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<asecd_> from trigonometric
+// scalar runtime benchmark for functor<asecd_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::asecd_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::asecd_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::tag::asecd_,(RS(double,-10000.0,10000.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(asecd_,(RS(T,T(1.05),nt2::Ten<T>())))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(asecd_,(RS(T,T(1.05),nt2::Ten<T>())))
+}
 
 #undef RS

@@ -6,18 +6,39 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bessel/include/yni.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 bessel toolbox - yni/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<yni_> from bessel
+// timing Test behavior of bessel components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/bessel/include/yni.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<yni_> from bessel
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::yni_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( yni_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10))
-//                    ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, (V1) ,(V2))
+
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(yni_,(RS(iT,iT(1),iT(10)))(RS(vT,T(0),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(yni_,(RS(iT,iT(1),iT(10)))(RS(vT,T(0),T(10))))
+}
+
+#undef RS

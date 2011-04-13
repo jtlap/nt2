@@ -10,7 +10,7 @@
          'simd_types' : ['real_'],
          'special' : ['trigonometric'],
          'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -23,6 +23,7 @@
             },
          'ranges' : {
              'real_' : [['-nt2::Pi<T>()/4', 'nt2::Pi<T>()/4']],
+             'default' : [['nt2::Pi<T>()/4', 'nt2::Pi<T>()/4']],
             },
          'specific_values' : {
              'default' : {

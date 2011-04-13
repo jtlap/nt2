@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 trigonometric toolbox - fast_cot/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of trigonometric components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/trigonometric/include/fast_cot.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<fast_cot_> from trigonometric
+// scalar runtime benchmark for functor<fast_cot_> from trigonometric
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::fast_cot_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::fast_cot_,(RS(float,-0.785,0.785)))
-NT2_TIMING(nt2::tag::fast_cot_,(RS(double,-0.785,0.785)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(fast_cot_,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(fast_cot_,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
 
 #undef RS

@@ -37,6 +37,7 @@ NT2_WARNING(AVX SIMD extension detected)
 #define NT2_SIMD_CARDINALS          (2)(4)(8)(16)(32)
 #define NT2_SIMD_TAG_SEQ            (::nt2::tag::avx_)(::nt2::tag::sse_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::avx_
+#define NT2_SIMD_DEFAULT_SITE       ::nt2::tag::avx_
 
 extern "C"
 {

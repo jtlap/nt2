@@ -11,9 +11,9 @@
 ###     Toolbox models unit tests
 ##############################################################################
 
-ADD_CUSTOM_TARGET(models.scalar.unit)
-ADD_CUSTOM_TARGET(models.simd.unit)
-ADD_DEPENDENCIES(models.unit models.scalar.unit models.simd.unit)
+#ADD_CUSTOM_TARGET(models.scalar.unit)
+#ADD_CUSTOM_TARGET(models.simd.unit)
+#ADD_DEPENDENCIES(models.unit models.scalar.unit models.simd.unit)
 
 #ADD_SUBDIRECTORY(scalar) # FIXME
 #ADD_SUBDIRECTORY(simd) # FIXME

@@ -15,7 +15,7 @@ INCLUDE(nt2.info)
 ################################################################################
 # Intel AVX Family
 ################################################################################
-IF(NT2_PROCESSOR STREQUAL X86)
+IF(NT2_PROCESSOR STREQUAL x86)
 INCLUDE(arch/FindAVX)
 ENDIF()
 
@@ -29,7 +29,7 @@ ENDIF()
 ################################################################################
 # Intel/AMD SSE Family
 ################################################################################
-IF( NT2_PROCESSOR STREQUAL X86 OR NT2_PROCESSOR STREQUAL AMD )
+IF( NT2_PROCESSOR STREQUAL x86 OR NT2_PROCESSOR STREQUAL AMD )
 INCLUDE(arch/FindFMA4)
 INCLUDE(arch/FindSSE4)
 INCLUDE(arch/FindSSSE3)
@@ -48,7 +48,7 @@ ENDIF()
 ################################################################################
 # Intel/AMD SSE Family fix-up to force arithmetic to be sse style everywhere
 ################################################################################
-IF( NT2_PROCESSOR STREQUAL AMD OR NT2_PROCESSOR STREQUAL X86 OR NT2_PROCESSOR STREQUAL AMD )
+IF( NT2_PROCESSOR STREQUAL AMD OR NT2_PROCESSOR STREQUAL x86 OR NT2_PROCESSOR STREQUAL AMD )
   IF( CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX )
     SET ( NT2_CXX_PRECISION_FLAGS "-mfpmath=sse" )
   ENDIF()

@@ -15,10 +15,15 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
-// Tag for AVX extensions
+// Tag hierarchy for AVX extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace tag { struct avx_ {}; } }
+namespace nt2 { namespace tag
+{
+  NT2_HIERARCHY_CLASS(avx_, sse4_2_);
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // AVX extensions overload

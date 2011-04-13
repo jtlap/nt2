@@ -6,25 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 combinatorial toolbox - anp/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of combinatorial components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/combinatorial/include/anp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<anp_> from combinatorial
+// scalar runtime benchmark for functor<anp_> from combinatorial
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::anp_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::anp_,(RS(int64_t,-10000,10000))(RS(int64_t,-10000,10000)))
-NT2_TIMING(nt2::tag::anp_,(RS(int32_t,-10000,10000))(RS(int32_t,-10000,10000)))
-NT2_TIMING(nt2::tag::anp_,(RS(uint64_t,0,65535))(RS(uint64_t,0,65535)))
-NT2_TIMING(nt2::tag::anp_,(RS(uint32_t,0,65535))(RS(uint32_t,0,65535)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(anp_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(anp_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
+}
 
 #undef RS

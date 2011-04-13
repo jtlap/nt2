@@ -19,15 +19,15 @@ SET( NT2_PLATFORM_UNIX "Unix")
 ENDIF(WIN32)
 
 IF(NT2_PLATFORM_WIN32)
-MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_WIN32} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
+MESSAGE( STATUS "[nt2] target system: ${NT2_PLATFORM_WIN32} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 ENDIF(NT2_PLATFORM_WIN32)
 
 IF(NT2_PLATFORM_OSX)
-MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_OSX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
+MESSAGE( STATUS "[nt2] target system: ${NT2_PLATFORM_OSX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 ENDIF(NT2_PLATFORM_OSX)
 
 IF(NT2_PLATFORM_UNIX)
-MESSAGE( STATUS "[NT2] Target system    : ${NT2_PLATFORM_UNIX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
+MESSAGE( STATUS "[nt2] target system: ${NT2_PLATFORM_UNIX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 ENDIF(NT2_PLATFORM_UNIX)
 
 ################################################################################
@@ -44,13 +44,13 @@ ELSEIF(   ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*"
 SET( NT2_PROCESSOR "AMD")
 SET( NT2_AMD_PROCESSOR 1)
 ################################################################################
-# X86 familly processor
+# x86 familly processor
 ################################################################################
 ELSEIF(  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[3-9]86*"
       OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86*"
       OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*"
       )
-SET( NT2_PROCESSOR "X86")
+SET( NT2_PROCESSOR "x86")
 SET( NT2_X86_PROCESSOR 1)
 ################################################################################
 # Power PC processor
@@ -62,4 +62,4 @@ SET( NT2_PROCESSOR "PowerPC")
 SET( NT2_PPC_PROCESSOR 1)
 ENDIF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm*")
 
-MESSAGE( STATUS "[NT2] Target processor : ${NT2_PROCESSOR}" )
+MESSAGE( STATUS "[nt2] target processor: ${NT2_PROCESSOR}" )

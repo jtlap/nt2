@@ -14,7 +14,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-
+#include <iostream> 
 namespace nt2
 {
   namespace details

@@ -6,31 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 reduction toolbox - prod/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of reduction components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/reduction/include/prod.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<prod_> from reduction
+// scalar runtime benchmark for functor<prod_> from reduction
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::prod_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::prod_,(RS(float,-10000.0f,10000.0f)))
-NT2_TIMING(nt2::tag::prod_,(RS(double,-10000.0,10000.0)))
-NT2_TIMING(nt2::tag::prod_,(RS(int64_t,-10000,10000)))
-NT2_TIMING(nt2::tag::prod_,(RS(int32_t,-10000,10000)))
-NT2_TIMING(nt2::tag::prod_,(RS(int16_t,-32768,32767)))
-NT2_TIMING(nt2::tag::prod_,(RS(int8_t,-128,127)))
-NT2_TIMING(nt2::tag::prod_,(RS(uint64_t,0,65535)))
-NT2_TIMING(nt2::tag::prod_,(RS(uint32_t,0,65535)))
-NT2_TIMING(nt2::tag::prod_,(RS(uint16_t,0,65535)))
-NT2_TIMING(nt2::tag::prod_,(RS(uint8_t,0,255)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(prod_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(prod_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
 
 #undef RS

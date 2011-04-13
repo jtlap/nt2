@@ -6,17 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/boost_math/include/asinh.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 boost_math toolbox - asinh/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<asinh_> from boost_math
+// timing Test behavior of boost_math components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/boost_math/include/asinh.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<asinh_> from boost_math
 //////////////////////////////////////////////////////////////////////////////
 using nt2::boost_math::tag::asinh_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( asinh_ , ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(asinh_,(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(asinh_,(RS(T,T(-10),T(10))))
+}
+
+#undef RS

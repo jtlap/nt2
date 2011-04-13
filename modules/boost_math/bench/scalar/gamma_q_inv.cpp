@@ -6,18 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/boost_math/include/gamma_q_inv.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 boost_math toolbox - gamma_q_inv/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<gamma_q_inv_> from boost_math
+// timing Test behavior of boost_math components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/boost_math/include/gamma_q_inv.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<gamma_q_inv_> from boost_math
 //////////////////////////////////////////////////////////////////////////////
 using nt2::boost_math::tag::gamma_q_inv_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( gamma_q_inv_ , ((nt2::uint32_t, -10, 10))
-//                            ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(gamma_q_inv_,(RS(T,T(0),T(10)))(RS(T,T(0),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(gamma_q_inv_,(RS(T,T(0),T(10)))(RS(T,T(0),T(1))))
+}
+
+#undef RS

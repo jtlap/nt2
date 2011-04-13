@@ -99,17 +99,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type32_
+// Implementation when type A0 is ints32_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::first_, tag::cpu_,
                         (A0),
-                        ((simd_<type32_<A0>,tag::sse_>))
+                        ((simd_<ints32_<A0>,tag::sse_>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::first_(tag::simd_<tag::type32_, tag::sse_> ),
+  struct call<tag::first_(tag::simd_<tag::ints32_, tag::sse_> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -126,17 +126,17 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type64_
+// Implementation when type A0 is ints64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::first_, tag::cpu_,
                         (A0),
-                        ((simd_<type64_<A0>,tag::sse_>))
+                        ((simd_<ints64_<A0>,tag::sse_>))
                        );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::first_(tag::simd_<tag::type64_, tag::sse_> ),
+  struct call<tag::first_(tag::simd_<tag::ints64_, tag::sse_> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -146,18 +146,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-#ifdef NT2_X64_SEE4_1_FIRST
-      typedef typename meta::scalar_of<A0>::type type; 
-      type z = {_mm_extract_epi64(a0, 0)};
-      return z;
-#undef NT2_X64_SEE4_1_FIRST
-#else
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
       meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(a0))};
-      return t.bits;
-#endif
-      
+      return t.bits;    
     }
   };
 } }

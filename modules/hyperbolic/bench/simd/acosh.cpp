@@ -6,28 +6,37 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/hyperbolic/include/acosh.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <cmath>
-
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<float,ext_t> vfloat;
-typedef nt2::simd::native<double,ext_t> vdouble;
-typedef nt2::simd::native<int32_t,ext_t> vint32_t;
+#define NT2_BENCH_MODULE "nt2 hyperbolic toolbox - acosh/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Simd Runtime benchmark for functor<acosh_> from hyperbolic
+// timing Test behavior of hyperbolic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/hyperbolic/include/acosh.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<acosh_> from hyperbolic
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::acosh_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::acosh_,(RS(vfloat,1.0f,10.0f)))
-NT2_TIMING(nt2::tag::acosh_,(RS(vdouble,1.0,100.0)))
-NT2_TIMING(nt2::tag::acosh_,(RS(vint32_t,1.0,100.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(acosh_,(RS(vT,T(1),T(1000))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(acosh_,(RS(vT,T(1),T(1000))))
+}
 
 #undef RS

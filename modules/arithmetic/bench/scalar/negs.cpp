@@ -6,6 +6,11 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - negs/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of arithmetic components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/negs.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
@@ -23,27 +28,13 @@ using nt2::tag::negs_;
 
 namespace n1 {
   typedef float T;
-  NT2_TIMING(nt2::tag::negs_,(RS(T,T(-100),T(100))))
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
-  NT2_TIMING(nt2::tag::negs_,(RS(T,T(-100),T(100))))
-}
-namespace n3 {
-  typedef int8_t T;
-  NT2_TIMING(nt2::tag::negs_,(RS(T,T(-100),T(100))))
-}
-namespace n4 {
-  typedef int16_t T;
-  NT2_TIMING(nt2::tag::negs_,(RS(T,T(-100),T(100))))
-}
-namespace n5 {
-  typedef int32_t T;
-  NT2_TIMING(nt2::tag::negs_,(RS(T,T(-100),T(100))))
-}
-namespace n6 {
-  typedef int64_t T;
-  NT2_TIMING(nt2::tag::negs_,(RS(T,T(-100),T(100))))
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
 }
 
 #undef RS

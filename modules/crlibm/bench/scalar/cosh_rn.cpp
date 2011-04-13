@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 crlibm toolbox - cosh_rn/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of crlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/cosh_rn.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<cosh_rn_> from crlibm
+// scalar runtime benchmark for functor<cosh_rn_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::tag::cosh_rn_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::crlibm::tag::cosh_rn_,(RS(float,-10.0,10.0)))
-NT2_TIMING(nt2::crlibm::tag::cosh_rn_,(RS(double,-10.0,10.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cosh_rn_,(RS(T,T(-80),T(80))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cosh_rn_,(RS(T,T(-80),T(80))))
+}
 
 #undef RS

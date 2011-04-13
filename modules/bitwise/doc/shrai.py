@@ -8,7 +8,7 @@
              'default' : 'T',
             },
          'simd_types' : ['unsigned_int_', 'signed_int_'],
-         'type_defs' : ['typedef typename nt2::meta::as_integer<T>::type iT;'],
+         'type_defs' : [],
          'types' : ['unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',

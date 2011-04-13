@@ -11,7 +11,6 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(gsl_specfun.scalar.unit)
-ADD_CUSTOM_TARGET(gsl_specfun.simd.unit)
 ADD_DEPENDENCIES(gsl_specfun.unit gsl_specfun.scalar.unit gsl_specfun.simd.unit)
 
 ##****************************************************************************
@@ -19,4 +18,3 @@ ADD_DEPENDENCIES(gsl_specfun.unit gsl_specfun.scalar.unit gsl_specfun.simd.unit)
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)

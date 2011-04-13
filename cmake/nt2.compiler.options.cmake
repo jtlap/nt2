@@ -22,17 +22,17 @@ INCLUDE(options/nt2.extra.warnings)
 # Log current choice
 ################################################################################
 IF( ${CMAKE_BUILD_TYPE} STREQUAL Release )
-MESSAGE( STATUS "[NT2] Build type: Release mode (${CMAKE_CXX_FLAGS_RELEASE})" )
+MESSAGE( STATUS "[nt2] build type: Release (${CMAKE_CXX_FLAGS_RELEASE})" )
 ENDIF()
 
 IF( ${CMAKE_BUILD_TYPE} STREQUAL Debug )
-MESSAGE( STATUS "[NT2] Build type: Debug mode (${CMAKE_CXX_FLAGS_DEBUG})" )
+MESSAGE( STATUS "[nt2] build type: Debug (${CMAKE_CXX_FLAGS_DEBUG})" )
 ENDIF()
 
 IF( ${CMAKE_BUILD_TYPE} STREQUAL RelWithDebInfo )
-MESSAGE( STATUS "[NT2] Build type: RelWithDebInfo mode (${CMAKE_CXX_FLAGS_RELWITHDEBINFO})" )
+MESSAGE( STATUS "[nt2] build type: RelWithDebInfo (${CMAKE_CXX_FLAGS_RELWITHDEBINFO})" )
 ENDIF()
 
 IF( ${CMAKE_BUILD_TYPE} STREQUAL MinSizeRel )
-MESSAGE( STATUS "[NT2] Build type: MinSizeRel mode (${CMAKE_CXX_FLAGS_MINSIZEREL})" )
+MESSAGE( STATUS "[nt2] build type: MinSizeRel (${CMAKE_CXX_FLAGS_MINSIZEREL})" )
 ENDIF()

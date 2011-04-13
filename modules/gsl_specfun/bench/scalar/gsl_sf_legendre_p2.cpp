@@ -6,21 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_P2.hpp>
+#define NT2_BENCH_MODULE "nt2 gsl_specfun toolbox - gsl_sf_legendre_p2/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of gsl_specfun components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_p2.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
+
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<gsl_sf_legendre_P2_> from gsl_specfun
+// scalar runtime benchmark for functor<gsl_sf_legendre_p2_> from gsl_specfun
 //////////////////////////////////////////////////////////////////////////////
-using nt2::gsl_specfun::gsl_sf_legendre_P2_;
+using nt2::gsl_specfun::tag::gsl_sf_legendre_p2_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-// TO DO Check ranges
-NT2_TIMING(nt2::gsl_specfun::gsl_sf_legendre_P2_,(RS(double,-1.0,1.0)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(gsl_sf_legendre_p2_,(RS(T,T(-1),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(gsl_sf_legendre_p2_,(RS(T,T(-1),T(1))))
+}
 
 #undef RS

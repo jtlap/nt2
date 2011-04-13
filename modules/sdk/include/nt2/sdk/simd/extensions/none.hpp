@@ -25,6 +25,7 @@ NT2_WARNING(No SIMD extensions detected)
 #define NT2_SIMD_BITS       128
 #define NT2_SIMD_STRING     "none"
 #define NT2_SIMD_CARDINALS (1)
+#define NT2_SIMD_DEFAULT_SITE ::nt2::tag::cpu_
 
 #if defined(NT2_SIMD_TYPES)
 #define NT2_SIMD_TYPES

@@ -6,30 +6,40 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/exponential/include/powi.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <cmath>
-
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<float,ext_t> vfloat;
-typedef nt2::simd::native<double,ext_t> vdouble;
-typedef nt2::simd::native<int64_t,ext_t> vint64_t;
-typedef nt2::simd::native<int32_t,ext_t> vint32_t;
+#define NT2_BENCH_MODULE "nt2 exponential toolbox - powi/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Simd Runtime benchmark for functor<powi_> from exponential
+// timing Test behavior of exponential components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/exponential/include/powi.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<powi_> from exponential
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::powi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::powi_,(RS(vfloat,-10.0f,10.0f))(RS(vint32_t,-10,10)))
-NT2_TIMING(nt2::tag::powi_,(RS(vdouble,-10.0,10.0))(RS(vint64_t,-10,10)))
-
-
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(powi_,(RS(vT,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(powi_,(RS(vT,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
+}
 
 #undef RS

@@ -8,7 +8,6 @@
 ##############################################################################
 
 ADD_CUSTOM_TARGET(gsl_specfun.scalar.bench)
-ADD_CUSTOM_TARGET(gsl_specfun.simd.bench)
 ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.scalar.bench gsl_specfun.simd.bench)
 
 ##****************************************************************************
@@ -16,4 +15,4 @@ ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.scalar.bench gsl_specfun.simd.ben
 ##****************************************************************************
 
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+ 

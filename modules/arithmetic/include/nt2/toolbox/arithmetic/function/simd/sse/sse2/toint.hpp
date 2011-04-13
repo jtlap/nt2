@@ -11,7 +11,8 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/select.hpp>
-
+#include <nt2/include/functions/bitwise_andnot.hpp>
+#include <iostream>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,8 +64,9 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       typedef typename meta::scalar_of<type>::type stype;
-      const type v = {{static_cast<stype>(a0[0]),static_cast<stype>(a0[1])}};
-      return v;
+      A0 aa0 = b_andnot(a0, is_nan(a0)); 
+      const type v = {{static_cast<stype>(aa0[0]),static_cast<stype>(aa0[1])}};
+      return  sel(eq(aa0, Inf<A0>()), Inf<type>(), v);
     }
   };
 } }

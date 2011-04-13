@@ -23,6 +23,7 @@
             },
          'ranges' : {
              'real_' : [['-nt2::Pi<T>()/4', 'nt2::Pi<T>()/4']],
+             'default': [['-nt2::Pi<T>()/4', 'nt2::Pi<T>()/4']],   
             },
          'specific_values' : {
              'default' : {

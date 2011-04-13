@@ -6,31 +6,66 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 bitwise toolbox - rror/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bitwise/include/rror.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<rror_> from bitwise
+// scalar runtime benchmark for functor<rror_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::rror_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::rror_,(RS(float,-10000.0f,10000.0f))(RS(int32_t,0,31)))
-NT2_TIMING(nt2::tag::rror_,(RS(double,-10000.0,10000.0))(RS(int64_t,0,63)))
-NT2_TIMING(nt2::tag::rror_,(RS(int64_t,-10000,10000))(RS(int64_t,0,63)))
-NT2_TIMING(nt2::tag::rror_,(RS(int32_t,-10000,10000))(RS(int32_t,0,31)))
-NT2_TIMING(nt2::tag::rror_,(RS(int16_t,-32768,32767))(RS(int16_t,0,16)))
-NT2_TIMING(nt2::tag::rror_,(RS(int8_t,-128,127))(RS(int8_t,0,7)))
-NT2_TIMING(nt2::tag::rror_,(RS(uint64_t,0,65535))(RS(uint64_t,0,63)))
-NT2_TIMING(nt2::tag::rror_,(RS(uint32_t,0,65535))(RS(uint32_t,0,31)))
-NT2_TIMING(nt2::tag::rror_,(RS(uint16_t,0,65535))(RS(uint16_t,0,16)))
-NT2_TIMING(nt2::tag::rror_,(RS(uint8_t,0,255))(RS(uint8_t,0,7)))
+namespace n1 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n2 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n5 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n6 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n7 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n8 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(rror_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
 
 #undef RS

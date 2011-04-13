@@ -6,38 +6,37 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/combinatorial/include/gcd.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <cmath> 
- 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-typedef nt2::simd::native<int64_t,ext_t> vint64_t;
-typedef nt2::simd::native<int32_t,ext_t> vint32_t;
-typedef nt2::simd::native<int16_t,ext_t> vint16_t;
-typedef nt2::simd::native<int8_t,ext_t> vint8_t;
-typedef nt2::simd::native<uint64_t,ext_t> vuint64_t;
-typedef nt2::simd::native<uint32_t,ext_t> vuint32_t;
-typedef nt2::simd::native<uint16_t,ext_t> vuint16_t;
-typedef nt2::simd::native<uint8_t,ext_t> vuint8_t;
+#define NT2_BENCH_MODULE "nt2 combinatorial toolbox - gcd/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Simd Runtime benchmark for functor<gcd_> from combinatorial
+// timing Test behavior of combinatorial components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/combinatorial/include/gcd.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<gcd_> from combinatorial
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::gcd_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2)
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-NT2_TIMING(nt2::tag::gcd_,(RS(vint64_t,1,255))(RS(vint64_t,1,255)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vint32_t,1,255))(RS(vint32_t,1,255)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vint16_t,1,255))(RS(vint16_t,1,255)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vint8_t,1,127))(RS(vint8_t,1,127)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vuint64_t,0,255))(RS(vuint64_t,0,255)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vuint32_t,0,255))(RS(vuint32_t,0,255)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vuint16_t,0,255))(RS(vuint16_t,0,255)))
-NT2_TIMING(nt2::tag::gcd_,(RS(vuint8_t,0,255))(RS(vuint8_t,0,255)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(gcd_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(gcd_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+}
 
 #undef RS

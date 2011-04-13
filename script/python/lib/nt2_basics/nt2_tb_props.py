@@ -28,21 +28,19 @@ sys.path.pop(0)
 
 import re
 from pprint            import PrettyPrinter
+from nt2_modules       import Nt2_modules
 from nt2_base_infos    import Nt2_base_infos
 from nt2_archis_struct import Nt2_archis_struct
 from nt2_tb_struct     import Nt2_tb_struct
 
-class Nt2_tb_props(Nt2_base_infos,Nt2_tb_struct) :
+class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
     """ fct properties of existing nt2 toolboxes"""
     def __init__(self, tb_name) :
-        Nt2_base_infos.__init__(self)
+        Nt2_modules.__init__(self)
         Nt2_tb_struct.__init__(self)
         self.__tb_name = tb_name
-        print(self.get_nt2_path())
-        print(tb_name)
         self.__md_path = os.path.join(self.get_nt2_path(),'modules',tb_name)
-        self.__tb_style = self. __read_style()
-##        self.__tb_path  = "" ##os.path.join(self.__md_path,'include','nt2','toolbox',tb_name)
+        self.__tb_style = self.get_module_style(tb_name)
 
     def get_tb_name(self)     : return self.__tb_name
     def get_md_path(self)     : return self.__md_path 
@@ -56,32 +54,12 @@ class Nt2_tb_props(Nt2_base_infos,Nt2_tb_struct) :
 
     def get_fcts_list(self) :
         l = []
-        print(self.get_def_path())
         for name in os.listdir(self.get_def_path()) :
             if name[-4:]=='.hpp' :
                 h = name[:-4]
                 l.append(h)
         return sorted(l)
 
-    def __read_style(self) :
-        dirname = self.get_tb_path()
-        filename = dirname+'.hpp'
-        if exist(filename) :
-            s = read(filename)
-            pattern = re.compile("^// This toolbox is of (.*) type")
-            for l in s :
-                d1 = re.match(pattern,l)
-                if d1 : return d1.groups()[0]
-  
-        filename = os.path.join(dirname,'py_data.py')
-        if exist(filename) :
-            if re.search("'usr'",' '.join(read(filename))) :
-               return 'usr'
-            else :
-               return 'sys'
-
-        self.__tb_style = 'usr'
-        return 'usr'
     
     def __str__(self) :
         r =  "tbi.get_tb_path():     %s" % tbi.get_tb_path    ()    

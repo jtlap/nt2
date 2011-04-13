@@ -6,18 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bessel/include/yni.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 bessel toolbox - yni/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<yni_> from bessel
+// timing Test behavior of bessel components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/bessel/include/yni.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<yni_> from bessel
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::yni_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/scalar
-// E.G:
-// NT2_TIMING( yni_ , ((nt2::uint32_t, -10, 10))
-//                    ((nt2::uint32_t, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
+
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(yni_,(RS(iT,1,10))(RS(T,T(0),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(yni_,(RS(iT,1,10))(RS(T,T(0),T(10))))
+}
+
+#undef RS

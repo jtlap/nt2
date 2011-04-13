@@ -22,6 +22,7 @@
             },
          'ranges' : {
              'real_' : [['-20*nt2::Pi<T>()', '20*nt2::Pi<T>()']],
+             'default' : [['-20*nt2::Pi<T>()', '20*nt2::Pi<T>()']],
             },
          'specific_values' : {
              'default' : {

@@ -6,6 +6,11 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - adds/simd Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of arithmetic components in simd mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/adds.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
@@ -23,43 +28,27 @@ using nt2::tag::adds_;
 
 namespace n1 {
   typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  NT2_TIMING(adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
 }
 namespace n2 {
   typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  NT2_TIMING(adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
 }
 namespace n3 {
   typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  NT2_TIMING(adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
 }
 namespace n4 {
   typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
-}
-namespace n5 {
-  typedef uint8_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
-}
-namespace n6 {
-  typedef uint16_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
-}
-namespace n7 {
-  typedef uint32_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
-}
-namespace n8 {
-  typedef uint64_t T;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(nt2::tag::adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  NT2_TIMING(adds_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
 }
 
 #undef RS

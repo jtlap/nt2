@@ -6,17 +6,74 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bitwise/include/reversebits.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#define NT2_BENCH_MODULE "nt2 bitwise toolbox - reversebits/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<reversebits_> from bitwise
+// timing Test behavior of bitwise components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/bitwise/include/reversebits.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<reversebits_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::reversebits_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( reversebits_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, (V1) ,(V2))
+
+namespace n1 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n2 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n5 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n6 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n7 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n8 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(reversebits_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+
+#undef RS

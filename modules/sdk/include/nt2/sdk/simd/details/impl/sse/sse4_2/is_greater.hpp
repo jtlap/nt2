@@ -9,12 +9,14 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_IS_GREATER_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_IS_GREATER_HPP_INCLUDED
 
+#include <nt2/sdk/simd/details/impl/sse/sse4_1/is_greater.hpp>
+
 #include <nt2/sdk/meta/strip.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for int64 types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::is_greater_, tag::cpu_, (A0)
+NT2_REGISTER_DISPATCH ( tag::is_greater_, tag::sse4_2_, (A0)
                       , ((simd_<int64_<A0>,tag::sse_>))
                         ((simd_<int64_<A0>,tag::sse_>))
                       );
@@ -25,7 +27,7 @@ namespace nt2 { namespace ext
   struct  call< tag::is_greater_( tag::simd_<tag::int64_,tag::sse_>
                                 , tag::simd_<tag::int64_,tag::sse_>
                                 )
-              , tag::cpu_, Dummy
+              , tag::sse4_2_, Dummy
               >
         : callable
   {
@@ -40,13 +42,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Reuse SSE2 implementation for the other
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_SSE2_IS_GREATER_64_DEFINED
-#include <nt2/sdk/simd/details/impl/sse/sse2/is_greater.hpp>
-#undef NT2_SSE2_IS_GREATER_64_DEFINED
 
 #endif
 

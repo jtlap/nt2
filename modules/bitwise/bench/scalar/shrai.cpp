@@ -6,29 +6,46 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+#define NT2_BENCH_MODULE "nt2 bitwise toolbox - shrai/scalar Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of bitwise components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bitwise/include/shrai.hpp>
+#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 
 
-
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<shrai_> from bitwise
+// scalar runtime benchmark for functor<shrai_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
 using nt2::tag::shrai_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-NT2_TIMING(nt2::tag::shrai_,(RS(int64_t,-10000,10000))(RS(int64_t,0,63)))
-NT2_TIMING(nt2::tag::shrai_,(RS(int32_t,-10000,10000))(RS(int32_t,0,31)))
-NT2_TIMING(nt2::tag::shrai_,(RS(int16_t,-32768,32767))(RS(int16_t,0,16)))
-NT2_TIMING(nt2::tag::shrai_,(RS(int8_t,-128,127))(RS(int8_t,0,7)))
-NT2_TIMING(nt2::tag::shrai_,(RS(uint64_t,0,65535))(RS(uint64_t,0,63)))
-NT2_TIMING(nt2::tag::shrai_,(RS(uint32_t,0,65535))(RS(uint32_t,0,31)))
-NT2_TIMING(nt2::tag::shrai_,(RS(uint16_t,0,65535))(RS(uint16_t,0,16)))
-NT2_TIMING(nt2::tag::shrai_,(RS(uint8_t,0,255))(RS(uint8_t,0,7)))
+namespace n1 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(shrai_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n2 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(shrai_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n3 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(shrai_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
+namespace n4 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(shrai_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,T(0),sizeof(T)*8-1)))
+}
 
 #undef RS

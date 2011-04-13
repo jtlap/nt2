@@ -6,23 +6,36 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/crlibm/include/atanpi.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <cmath>
+#define NT2_BENCH_MODULE "nt2 crlibm toolbox - atanpi/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Scalar Runtime benchmark for functor<atanpi_> from crlibm
+// timing Test behavior of crlibm components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/crlibm/include/atanpi.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+
+
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<atanpi_> from crlibm
 //////////////////////////////////////////////////////////////////////////////
 using nt2::crlibm::tag::atanpi_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, T(V1) , T(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-// TO DO Check ranges
-NT2_TIMING(nt2::crlibm::tag::atanpi_<nt2::rn>,(RS(float,-1.0f,1.0f)))
-NT2_TIMING(nt2::crlibm::tag::atanpi_<nt2::rn>,(RS(double,-1.0f,1.0f)))
-NT2_TIMING(nt2::crlibm::tag::atanpi_<nt2::rn>,(RS(int32_t,-1,1)))
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanpi_<nt2::rn>,(RS(T,T(-1),T(1))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanpi_<nt2::rn>,(RS(T,T(-1),T(1))))
+}
 
 #undef RS
