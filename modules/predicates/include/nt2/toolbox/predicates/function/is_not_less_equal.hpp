@@ -8,12 +8,19 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_LESS_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_LESS_EQUAL_HPP_INCLUDED
+#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/toolbox/predicates/include.hpp>
 
-#include <nt2/toolbox/predicates/function/is_nle.hpp>
-
-namespace nt2
-{
-    NT2_FUNCTION_IMPLEMENTATION(tag::is_nle_, is_not_less_equal, 2)
+namespace nt2 { namespace tag
+  {         
+    struct is_not_less_equal_ {};
+  }
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_not_less_equal_, is_not_less_equal, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_not_less_equal_, is_nle, 2)
 }
+ 
+#include <nt2/toolbox/predicates/function/scalar/is_not_less_equal.hpp>
+#include NT2_PREDICATES_INCLUDE(is_not_less_equal.hpp) 
 
 #endif
