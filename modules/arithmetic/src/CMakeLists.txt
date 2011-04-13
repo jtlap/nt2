@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(arithmetic)
-nt2_module_configure_simd_toolbox(arithmetic)
+nt2_module_configure_toolbox(arithmetic 1)

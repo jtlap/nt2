@@ -10,4 +10,4 @@
 nt2_module_source_setup(ieee)
 
 include(nt2.ieee.math)
-nt2_module_configure_simd_toolbox(ieee)
+nt2_module_configure_toolbox(ieee 1)

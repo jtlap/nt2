@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(reduction)
-nt2_module_configure_simd_toolbox(reduction)
+nt2_module_configure_toolbox(reduction 1)

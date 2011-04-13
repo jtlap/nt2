@@ -249,7 +249,7 @@ macro(nt2_module_add_example EXECUTABLE)
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()
 
-macro(nt2_module_configure_simd path)
+macro(nt2_module_configure_py pyfile)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   if(NOT PYTHON_EXECUTABLE)
@@ -260,14 +260,27 @@ macro(nt2_module_configure_simd path)
     endif()
   endif()
 
-  find_file(SIMD_FWD_PY simd_fwd.py ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
+  find_file(_${pyfile}_PY ${pyfile} ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
   execute_process( COMMAND ${PYTHON_EXECUTABLE}
-                   ${SIMD_FWD_PY} ${ARGN}
+                   ${_${pyfile}_PY}
                    ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include
-                   ${path}
+                   ${ARGN}
                  )
 endmacro()
 
-macro(nt2_module_configure_simd_toolbox toolbox)
-  nt2_module_configure_simd(nt2/toolbox/${toolbox}/function)
+macro(nt2_module_configure_simd)
+  nt2_module_configure_py(simd_fwd.py ${ARGN})
+endmacro()
+
+macro(nt2_module_configure_include)
+  nt2_module_configure_py(include_fwd.py ${ARGN})
+endmacro()
+
+macro(nt2_module_configure_toolbox toolbox is_sys)
+  if(${is_sys})
+    nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include -o nt2/include/functions)
+    nt2_module_configure_simd(nt2/toolbox/${toolbox}/function)
+  else()
+    nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include)
+  endif()
 endmacro()

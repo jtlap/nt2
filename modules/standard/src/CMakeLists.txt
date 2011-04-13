@@ -7,5 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_source_setup(combinatorial)
-nt2_module_configure_toolbox(combinatorial 1)
+nt2_module_source_setup(standard)
+nt2_module_configure_toolbox(standard 0)
