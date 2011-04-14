@@ -16,6 +16,7 @@
 #include <boost/proto/proto.hpp>
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate up to NT2_MAX_ARITY dispacth registration. If at least one parameter
@@ -24,7 +25,7 @@
 #define M2(z,n,t) (BOOST_PP_CAT(A,n))
 #define M1(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 #define M0(z,n,t)                                                             \
-NT2_REGISTER_DISPATCH_IF( Func, tag::cpu_                                     \
+NT2_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
                         , (Func)BOOST_PP_REPEAT(n,M2,~)                       \
                         , (any< boost::proto::is_expr<boost::mpl::_>          \
                               , BOOST_PP_ENUM_PARAMS(n,A)                     \
@@ -69,7 +70,7 @@ NT2_FUNCTOR_CALL(n)                                   \
 namespace nt2 { namespace ext
 {
   template<class Func,class Dummy>
-  struct call<Func(tag::ast_),tag::cpu_,Dummy> : callable
+  struct call<Func(tag::ast_),tag::formal_,Dummy> : callable
   {
     template<class Sig> struct result;
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
