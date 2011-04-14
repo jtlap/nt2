@@ -59,7 +59,7 @@ void timing_test( Func callee, size_t size
     in0[i] = roll<t_in0>(min0,max0);
     in1[i] = roll<t_in1>(min1,max1);
     in2[i] = roll<t_in2>(min2,max2);
-    in3[i] = roll<t_in2>(min3,max3);
+    in3[i] = roll<t_in3>(min3,max3);
   }
 
   std::cout << name << "("

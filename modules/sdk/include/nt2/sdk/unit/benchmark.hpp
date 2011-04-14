@@ -58,6 +58,7 @@ NT2_TEST_CASE( benchmark )
 #include <nt2/sdk/unit/details/binary_benchmark.hpp>
 #include <nt2/sdk/unit/details/ternary_benchmark.hpp>
 #include <nt2/sdk/unit/details/_4_ary_benchmark.hpp>
+#include <nt2/sdk/unit/details/_5_ary_benchmark.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Benchmark macros
