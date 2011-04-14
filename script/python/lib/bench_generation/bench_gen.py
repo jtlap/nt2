@@ -109,6 +109,13 @@ class Bench_gen() :
                             'int32_'        : ["uint32_t","int32_t"],
                             'int16_'        : ["uint16_t","int16_t"],
                             'int8_'         : ["uint8_t","int8_t"],
+                            "groupable_"    : ["int16_t","uint16_t","int32_t","uint32_t","int64_t","uint64_t","double"],
+                            "splitable_"    : ["int8_t","uint8_t","int16_t","uint16_t","int32_t","uint32_t","float"],
+                            "gt_8_"         : ["int16_t","uint16_t","int32_t","uint32_t","int64_t","uint64_t","double","float"], 
+                            "lt_64_"        : ["int16_t","uint16_t","int32_t","uint32_t","int8_t","uint8_t","float"],
+                            "gt_16_"        : ["int32_t","uint32_t","int64_t","uint64_t","float","double"],
+                            "sintgt_16_"    : ["int32_t","int64_t"],
+                            "uintgt_16_"    : ["uint32_t","uint64_t"],
                              }
                 r = []
                 k=1
@@ -128,13 +135,19 @@ class Bench_gen() :
                             print(rges)
                         if not isinstance(rges[0][0],list) : rges = [rges]
                         prefix = "v" if mode == 'simd' else ''
+                        scalar_ints = d['functor'].get('scalar_ints',False) == 'True'
+                        print("sca %s"% scalar_ints)
+                        iprefix = "v" if (mode == 'simd' and (name[-1]!='i') and (not scalar_ints)) else ''    
                         calls = d1["call_types"]*d1["arity"] if len( d1["call_types"]) == 1 else d1["call_types"]
                         if isinstance(calls,str) : calls = [calls]
                         print("calls %s"%calls)
                         for rgen in rges :
                             param=""
                             for j,rge in enumerate(rgen) :
-                                param += tpl%(prefix+calls[j],rge[0],rge[1])
+                                if calls[j][0]=='i' :
+                                    param += tpl%(iprefix+calls[j],rge[0],rge[1])
+                                else :
+                                    param += tpl%(prefix+calls[j],rge[0],rge[1])
                             r.append(call%param)    
                         r += ["}"]
                     else :
