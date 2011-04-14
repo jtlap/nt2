@@ -12,8 +12,8 @@
 // timing Test behavior of elliptic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/elliptic/include/ellpk.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 

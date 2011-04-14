@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/polynomials/include/plevl.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -29,13 +30,11 @@ using nt2::tag::plevl_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef std::vector<T> A_t;
   NT2_TIMING(plevl_,(RS(T,T(-10),T(10)))(RS(A_t,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef std::vector<T> A_t;
   NT2_TIMING(plevl_,(RS(T,T(-10),T(10)))(RS(A_t,T(-10),T(10))))
 }
 

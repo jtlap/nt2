@@ -27,15 +27,15 @@ using nt2::boost_math::tag::legendre_next_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-// namespace n1 {
-//   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   NT2_TIMING(legendre_next_,(RS(iT,T(0),T(10)))(RS(iT,T(0),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-// }
-// namespace n2 {
-//   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   NT2_TIMING(legendre_next_,(RS(iT,T(0),T(10)))(RS(iT,T(0),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
-// }
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(legendre_next_,(RS(iT,T(0),T(10)))(RS(iT,T(0),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(legendre_next_,(RS(iT,T(0),T(10)))(RS(iT,T(0),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+}
 
 #undef RS

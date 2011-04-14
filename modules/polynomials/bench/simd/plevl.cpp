@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/polynomials/include/plevl.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -29,7 +30,6 @@ using nt2::tag::plevl_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef std::vector<T> A_t;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<A_t,ext_t> vA_t;
   NT2_TIMING(plevl_,(RS(vT,T(-10),T(10)))(RS(vA_t,T(-10),T(10))))
@@ -37,7 +37,6 @@ namespace n1 {
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef std::vector<T> A_t;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<A_t,ext_t> vA_t;
   NT2_TIMING(plevl_,(RS(vT,T(-10),T(10)))(RS(vA_t,T(-10),T(10))))

@@ -12,8 +12,8 @@
 // timing Test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bitwise/include/ror.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
