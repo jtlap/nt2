@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(swar)
-nt2_module_configure_simd_toolbox(swar)
+nt2_module_configure_toolbox(swar 1)

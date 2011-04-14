@@ -10,4 +10,4 @@
 nt2_module_source_setup(euler)
 
 include(nt2.euler.math)
-nt2_module_configure_simd_toolbox(euler)
+nt2_module_configure_toolbox(euler 1)

@@ -14,7 +14,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/is_nlt.hpp>
+#include <nt2/include/functions/is_not_less.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
 #include <nt2/include/functions/is_invalid.hpp>

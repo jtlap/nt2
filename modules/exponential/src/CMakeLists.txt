@@ -10,4 +10,8 @@
 nt2_module_source_setup(exponential)
 
 include(nt2.exponential.math)
-nt2_module_configure_simd_toolbox(exponential)
+nt2_module_configure_toolbox(exponential 1)
+
+nt2_module_configure_include(nt2/toolbox/exponential/function/scalar/impl constants.hpp
+                             -o nt2/toolbox/exponential/include
+                            )

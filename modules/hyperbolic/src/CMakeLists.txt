@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(hyperbolic)
-nt2_module_configure_simd_toolbox(hyperbolic)
+nt2_module_configure_toolbox(hyperbolic 1)

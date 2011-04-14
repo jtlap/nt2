@@ -10,4 +10,4 @@
 nt2_module_source_setup(bessel)
 
 include(nt2.bessel.math)
-nt2_module_configure_simd_toolbox(bessel)
+nt2_module_configure_toolbox(bessel 1)

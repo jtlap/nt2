@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(fuzzy)
-nt2_module_configure_simd_toolbox(fuzzy)
+nt2_module_configure_toolbox(fuzzy 1)

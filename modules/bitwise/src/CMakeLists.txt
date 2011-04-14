@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(bitwise)
-nt2_module_configure_simd_toolbox(bitwise)
+nt2_module_configure_toolbox(bitwise 1)

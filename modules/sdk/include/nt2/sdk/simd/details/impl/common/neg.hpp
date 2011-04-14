@@ -10,6 +10,8 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_NEG_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/constant/real.hpp>
+#include <nt2/sdk/simd/details/impl/common/bitwise_xor.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation
@@ -36,6 +38,35 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       A0 that = { Zero<A0>() - a0 };
+      return that;
+    }
+  };
+} }
+////////////////////////////////////////////////////////////////////////////////
+// Overloads implementation for reals
+////////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::unary_minus_, tag::cpu_, (A0)(X)
+                      , ((simd_<real_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // unary_minus is 0 - a0
+  //////////////////////////////////////////////////////////////////////////////
+  template<class X, class Dummy>
+  struct  call< tag::unary_minus_( tag::simd_<tag::real_,X>  )
+              , tag::cpu_, Dummy
+              >
+        : callable
+  {
+    template<class Sig>           struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::strip<A0> {};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      A0 that = { b_xor(Mzero<A0>(),a0) };
       return that;
     }
   };

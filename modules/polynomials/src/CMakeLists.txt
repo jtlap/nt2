@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(polynomials)
-nt2_module_configure_simd_toolbox(polynomials)
+nt2_module_configure_toolbox(polynomials 1)
