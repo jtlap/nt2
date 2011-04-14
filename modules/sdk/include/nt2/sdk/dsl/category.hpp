@@ -61,6 +61,13 @@ namespace nt2 { namespace meta
   // Proto expression hierarchy depends of the EDSL nature. They however has
   // the same inheritance scheme based on domain
   //////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  struct ast_ : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+    typedef tag::ast_ type;
+  };
+  
   template<class T, class Domain, class Tag, class Semantic>
   struct  expr_
         : expr_<T, typename Domain::parent, Tag, Semantic>
@@ -70,7 +77,7 @@ namespace nt2 { namespace meta
   };
 
   template<class T, class Domain, class Tag, class Semantic>
-  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : unspecified_<T>
+  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : ast_<T>
   {
     typedef unspecified_<T>   parent;
     typedef tag::expr_< typename unspecified_<Domain>::type, Tag, Semantic> type;
