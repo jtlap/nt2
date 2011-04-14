@@ -110,8 +110,7 @@ namespace nt2 { namespace simd
     void evaluate ( X const& xpr, boost::mpl::true_ const& )
     {
       meta::as_<parent> target;
-      mData = meta::compile < meta::compute<boost::mpl::_1,boost::mpl::_2>
-                            , tag::cpu_
+      mData = meta::compile < meta::compute<boost::mpl::_1,tag::cpu_>
                             >()(xpr,target);
     }
 
@@ -128,8 +127,7 @@ namespace nt2 { namespace simd
     {
       meta::as_<parent> target;
       for(std::size_t i=0;i<Cardinal::value;++i)
-        mData[i] = meta::compile< meta::compute<boost::mpl::_1,boost::mpl::_2>
-                                , tag::cpu_
+        mData[i] = meta::compile< meta::compute<boost::mpl::_1,tag::cpu_>
                                 >()(xpr,target,i);
     }
   };

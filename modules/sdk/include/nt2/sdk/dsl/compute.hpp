@@ -23,9 +23,8 @@ namespace nt2 { namespace meta
       : boost::proto::
         unpack< boost::proto::
                 call< functor<Tag, Target> >(compile< compute < boost::mpl::_1
-                                                              , boost::mpl::_2
+                                                              , Target
                                                               >
-                                                    , Target
                                                     >
                                             )
               >
