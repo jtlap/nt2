@@ -12,7 +12,7 @@
 // Test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 08/04/2011
+/// modified by jt the 15/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -51,5 +51,5 @@ NT2_TEST_CASE_TPL ( fast_gamma_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Zero<vT>())[0], nt2::Nan<sr_t>(), 0);
 } // end of test for real_
