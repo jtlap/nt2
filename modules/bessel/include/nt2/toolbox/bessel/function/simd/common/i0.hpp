@@ -142,8 +142,7 @@ namespace nt2 { namespace ext
         return r;
       }
       r &= b_or(exp(x) * tchebeval( splat<A0>(32.0)/x - Two<A0>(), B) / sqrt(x), test);
-      r =  seladd(is_inf(x), r, x); 
-      return r;
+      return  sel(is_inf(x), x, r); 
     }
   };
 } }
@@ -226,7 +225,7 @@ namespace nt2 { namespace ext
         return r;
       }
       r &= b_or(exp(x) * tchebeval( splat<A0>(32.0f)/x - Two<A0>(), B) / sqrt(x), test);
-      r =  seladd(is_inf(x), r, x); 
+      r =  sel(is_inf(x), x, r); 
       return r;
     }
   };

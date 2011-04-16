@@ -95,9 +95,9 @@ namespace nt2 { namespace ext
       A0 x   =  nt2::abs(a0);
       A0 lt2 = lt(x, Two<A0>());
       if (all(lt2))
-      return branch1(x);
+	return branch1(x);
       else
-      return select (lt2, branch1(x), branch2(x));
+	return select (lt2, branch1(x), branch2(x));
       // as branch1 is quick there is no need for an "else if" case
       // computing only branch2,  this probably due to the double pipeline
     }
@@ -144,7 +144,7 @@ namespace nt2 { namespace ext
 				0x3d84ed6e,
 				0xbdffff97
 				) ) > (w)-Pio_4<A0>();
-      return p3*cos(xn+x);
+       return sel(eq(x, Inf<A0>()), Zero<A0>(), p3*cos(xn+x));
     }
   };
 } }

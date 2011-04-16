@@ -19,6 +19,7 @@
 #include <nt2/include/functions/j0.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/select.hpp>
 
 
 
@@ -145,7 +146,7 @@ namespace nt2 { namespace ext
 				  0x3d84ed6e, 
 				  0xbdffff97
 				  ) ) > (w)-Pio_4<A0>();
-      return p3*nt2::sin(xn+a0); 
+      return sel(eq(a0, Inf<A0>()), Zero<A0>(), p3*nt2::sin(xn+a0)); 
     }
   };
 } }

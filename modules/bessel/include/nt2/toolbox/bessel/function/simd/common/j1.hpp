@@ -145,7 +145,7 @@ namespace nt2 { namespace ext
 				0xbe27bad7,
 				0x3ebfffdd
 				) ) > (w)-single_constant<A0,0x4016cbe4 > ();
-      return p3*cos(xn+x);
+      return sel(eq(x, Inf<A0>()),  Zero<A0>(), p3*cos(xn+x));
     }
   };
 } }
