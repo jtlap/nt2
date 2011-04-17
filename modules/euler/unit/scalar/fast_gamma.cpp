@@ -12,7 +12,7 @@
 // Test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// modified by jt the 15/04/2011
+/// modified by jt the 17/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -46,5 +46,4 @@ NT2_TEST_CASE_TPL ( fast_gamma_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_gamma(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(fast_gamma(nt2::Zero<T>()), nt2::Nan<r_t>(), 0);
 } // end of test for real_
