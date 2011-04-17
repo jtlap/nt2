@@ -75,7 +75,7 @@ namespace nt2
 	static inline A0 cota(const A0& a0)
 	{
 	  A0 x =  scale(a0);
-	  return  b_or(b_or(not_in_range(a0), is_eqz(a0)), rec(eval_t::base_tancot_eval(x)));
+	  return  b_or(not_in_range(a0), rec(eval_t::base_tancot_eval(x)));
 	}
 
 

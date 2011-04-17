@@ -112,7 +112,7 @@ namespace nt2
 	static inline A0 cota(const  A0& a0)
 	{
 	  A0 x =  scale(a0); 
-	  if(not_in_range(a0)||!(a0)) return Nan<A0>(); else return rec(eval_t::base_tan_eval(x));
+	  if(not_in_range(a0)) return Nan<A0>(); else return rec(eval_t::base_tan_eval(x));
 	}
 
 

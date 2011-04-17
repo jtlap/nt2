@@ -181,7 +181,7 @@ namespace nt2
         {
           //::sincosf(inrad(a0), &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x/C_180<A0>()); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|(is_nez(x)&is_flint(x/C_180<A0>())); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint((x-Ninety<A0>())/C_180<A0>()); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
@@ -227,7 +227,7 @@ namespace nt2
           c = cos_replacement(a0);
           s = sin_replacement(a0);
         }
-        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|is_flint(x); }
+        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|(is_nez(x)&is_flint(x)); }
         static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
 
         static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
