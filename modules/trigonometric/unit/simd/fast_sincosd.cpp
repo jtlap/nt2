@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 23/03/2011
+/// modified by jt the 17/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -44,29 +44,21 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real_convert__1_0,  NT2_REAL_CONVERTIBLE_TYPES)
   typedef typename nt2::meta::call<fast_sincosd_(vT)>::type r_t;
   typedef typename nt2::meta::call<fast_sincosd_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+
+  // specific values tests
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
   {
-    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t r = nt2::fast_sincosd(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          sr_t sr =  nt2::fast_sincosd(tab_a0[k]);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i],
-                                    boost::fusion::get<0>(sr), 1.5);
-          ulp0 = nt2::max(ulpd,ulp0);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i],
-                                    boost::fusion::get<1>(sr), 1.5);
-          ulp0 = nt2::max(ulpd,ulp0);
-        }
-      }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
+    r_t res = fast_sincosd(nt2::Zero<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::One<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = fast_sincosd(nt2::_45<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
   }
 } // end of test for real_convert_
