@@ -16,6 +16,8 @@
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 
 
@@ -92,7 +94,7 @@ namespace nt2 { namespace ext
           }
         else
           {
-            return -tmp*nt2::expm1(-(a0+a0))*Half<A0>();
+            return sel(is_eqz(a0), a0, -tmp*nt2::expm1(-(a0+a0))*Half<A0>());
           }
     }
   };

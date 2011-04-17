@@ -21,13 +21,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::coth_, tag::cpu_,
                       (A0),
-                      (arithmetic_<A0>)
+                      (integer_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::coth_(tag::arithmetic_),
+  struct call<tag::coth_(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

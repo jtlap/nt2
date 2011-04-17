@@ -14,6 +14,8 @@
 
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sign.hpp>
+#include <iostream>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -38,7 +40,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return atanh(type(a0));
+      return tanh(type(a0));
     }
 
   };

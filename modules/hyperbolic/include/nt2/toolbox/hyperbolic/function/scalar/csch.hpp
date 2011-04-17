@@ -17,13 +17,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::csch_, tag::cpu_,
                       (A0),
-                      (arithmetic_<A0>)
+                      (integer_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::csch_(tag::arithmetic_),
+  struct call<tag::csch_(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type; 
       if (!a0) return Nan<type>(); 
-       return rec(nt2::sinh(a0));
+      return rec(nt2::sinh(a0));
     }
   };
 } }

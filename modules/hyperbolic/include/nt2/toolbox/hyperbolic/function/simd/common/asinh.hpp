@@ -73,18 +73,18 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-        A0 xx, sign;
+      A0 xx, sign;
       //    bf::tie(sign, xx)= sign_and_abs(a0);
       xx =  nt2::abs(a0);
       sign =  bitofsign(a0);
-        const A0 Infmask       = is_inf(xx);
-        const A0 x2            = sqr(xx);
-        return b_xor(seladd(is_equal(xx, Inf<A0>()),
-                      log1p(xx+x2/oneplus(sqrt(oneplus(x2)))),
-                      xx
-                      ),
-                 sign
-                 );
+      const A0 Infmask       = nt2::is_inf(xx);
+      const A0 x2            = nt2::sqr(xx);
+      return b_xor(sel(is_equal(xx, Inf<A0>()),
+		       xx, 
+		       nt2::log1p(xx+x2/nt2::oneplus(nt2::sqrt(nt2::oneplus(x2))))
+		       ),
+		   sign
+		   );
     }
   };
 } }
@@ -111,7 +111,7 @@ namespace nt2 { namespace ext
     {
       A0 x = nt2::abs(a0);
       A0 lthalf = lt(x,Half<A0>());
-      A0 x2 = sqr(x);
+      A0 x2 = nt2::sqr(x);
       A0 z;
       int32_t nb;
       if( ( nb = nbtrue(lthalf)) > 0)

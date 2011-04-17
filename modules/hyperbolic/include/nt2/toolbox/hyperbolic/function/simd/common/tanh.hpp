@@ -69,7 +69,9 @@ namespace nt2 { namespace ext
       if (all(gt(x,splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
       const A0 tmp1=expm1(-(x+x));
       const A0 tmp2=-tmp1/(Two<A0>()+tmp1);
-      return b_xor(tmp2, bitofsign(a0));
+      std::cout << "tmp2 " << tmp2 << std::endl;
+      std::cout << "bs   " <<  bitofsign(a0)<< std::endl; 
+      return sel(is_eqz(a0), a0, b_xor(tmp2, bitofsign(a0)));
     }
   };
 } }
