@@ -31,14 +31,14 @@
                 },
              'real_' : {
                  '-nt2::Pi<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 '-nt2::Pi<T>()/2' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 '-nt2::Pi<T>()/4' : {'result' : 'nt2::Sqrt_2o_2<r_t>()','ulp_thresh' : '0.5',},
+                 '-nt2::Pi<T>()/T(2)' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 '-nt2::Pi<T>()/T(4)' : {'result' : 'nt2::Sqrt_2o_2<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Minf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Pi<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Pi<T>()/2' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Pi<T>()/4' : {'result' : 'nt2::Sqrt_2o_2<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Pi<T>()/T(2)' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Pi<T>()/T(4)' : {'result' : 'nt2::Sqrt_2o_2<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {

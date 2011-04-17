@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_convert_'],
+         'simd_types' : ['real_'],
          'special' : ['trigonometric'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
