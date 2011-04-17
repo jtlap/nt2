@@ -34,7 +34,7 @@
                  'T(0),T(0),T(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'T(1),T(2),T(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'T(1),T(2),T(0.25)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
-                 'T(1),1+nt2::Eps<T>(),nt2::Eps<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                 'T(1),T(1)+nt2::Eps<T>(),nt2::Eps<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

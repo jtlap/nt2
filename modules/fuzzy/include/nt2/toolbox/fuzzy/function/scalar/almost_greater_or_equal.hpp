@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/subs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -31,6 +32,28 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       return a0 >= a1-a2;
+    }
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::almost_greater_or_equal_, tag::cpu_,
+                                         (A0)(A1)(A2),
+                                         (unsigned_<A0>)(unsigned_<A1>)(integer_<A2>)
+                                        )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::almost_greater_or_equal_(tag::unsigned_,tag::unsigned_,tag::integer_),
+              tag::cpu_, Dummy> : callable
+  {
+    typedef bool result_type; 
+    
+    NT2_FUNCTOR_CALL(3)
+    {
+      return a0 >= subs(a1, a2);
     }
   };
 } }

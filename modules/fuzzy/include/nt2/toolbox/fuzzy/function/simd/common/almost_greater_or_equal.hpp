@@ -12,6 +12,7 @@
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/is_ord.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/subs.hpp>
 
 
 
@@ -45,6 +46,36 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       return ge(a0, a1-abs(a2));
+    }
+  };
+} }
+
+NT2_REGISTER_DISPATCH_IF(tag::almost_greater_or_equal_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::almost_greater_or_equal_(tag::simd_<tag::unsigned_,X>,
+					     tag::simd_<tag::unsigned_,X>, 
+			  		     tag::simd_<tag::unsigned_,X>)), 
+			 ((simd_<unsigned_<A0>,X>))
+			 ((simd_<unsigned_<A0>,X>))
+			 ((simd_<unsigned_<A1>,X>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::almost_greater_or_equal_(tag::simd_<tag::unsigned_, X> ,
+                                            tag::simd_<tag::unsigned_, X> ,
+                                            tag::simd_<tag::unsigned_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A0,A1)> : meta::strip<A0>{};//
+
+    NT2_FUNCTOR_CALL(3)
+    {
+      return ge(a0, subs(a1, a2));
     }
   };
 } }

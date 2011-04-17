@@ -9,11 +9,12 @@
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
 #include <nt2/sdk/constant/infinites.hpp>
-
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_finite.hpp>
-
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/predecessor.hpp>
+#include <nt2/include/functions/subs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-        return a0 < a1-a2;
+      return a0 < nt2::subs(a1, nt2::abs(a2));
     }
   };
 } }
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
       if (is_finite(a0) && a1 == Inf<A1>()) return true;
       if (is_finite(a1) && a0 == Minf<A0>()) return true;
       if (is_nan(a0) || is_nan(a1)) return false;
-      return  a0 < successor(a1,-a2);
+      return  a0 < predecessor(a1,nt2::abs(a2));
     }
   };
 } }
