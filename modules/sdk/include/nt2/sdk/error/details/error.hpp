@@ -18,7 +18,7 @@
 #if defined(BOOST_NO_EXCEPTIONS)
 namespace boost
 {
-  void throw_exception( std::exception const & e )
+  inline void throw_exception( std::exception const & e )
   {
     #if defined(NT2_CUSTOM_ERROR)
     nt2::ext::throw_exception(e);
