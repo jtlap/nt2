@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
       if(!a0)  return b_or(Pio_2<A0>(), bitofsign(a0));;
       if(is_inf(a0)) return b_or(Zero<A0>(), bitofsign(a0));
         //                                 6.123233995736765886130E-17
-        return  b_or((Pio_2<A0>()-nt2::atan(abs(a0)))+double_constant<A0,0x3c91a62633145c07ll>(), bitofsign(a0));
+      return  b_or((Pio_2<A0>()-nt2::atan(nt2::abs(a0)))+double_constant<A0,0x3c91a62633145c07ll>(), bitofsign(a0));
       }
   };
 } }
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
       {
       if(!a0)  return b_or(Pio_2<A0>(), bitofsign(a0));;
       if(is_inf(a0)) return b_or(Zero<A0>(), bitofsign(a0));
-      return b_or(Pio_2<A0>()-nt2::atan(abs(a0)), bitofsign(a0));
+      return b_or(Pio_2<A0>()-nt2::atan(nt2::abs(a0)), bitofsign(a0));
       }
   };
 } }

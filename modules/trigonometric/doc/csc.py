@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_convert_'],
+         'simd_types' : ['real_','int_convert_','uint_convert_'],
          'special' : ['trigonometric'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
@@ -27,20 +27,22 @@
              'real_' : [['-20*nt2::Pi<T>()', '20*nt2::Pi<T>()']],
              'signed_int_' : [['T(-40)', 'T(40)']],
              'unsigned_int_' : [['T(0)', 'T(40)']],
+             'int_convert_' : [['T(-40)', 'T(40)']],
+             'uint_convert_' : [['T(0)', 'T(40)']],
             },
          'specific_values' : {
              'default' : {
                  'nt2::Zero<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 '-nt2::Pi<T>()/2' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
-                 '-nt2::Pi<T>()/4' : {'result' : '-nt2::Sqrt_2<r_t>()','ulp_thresh' : '0.5',},
+                 '-nt2::Pi<T>()/T(2)' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 '-nt2::Pi<T>()/T(4)' : {'result' : '-nt2::Sqrt_2<r_t>()','ulp_thresh' : '0.5',},
                  '-nt2::Zero<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Minf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Pi<T>()/2' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Pi<T>()/4' : {'result' : 'nt2::Sqrt_2<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Pi<T>()/T(2)' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Pi<T>()/T(4)' : {'result' : 'nt2::Sqrt_2<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {

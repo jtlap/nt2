@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'boost::fusion::tuple<ftype,ftype>',
             },
-         'simd_types' : ['real_convert_'],
+         'simd_types' : ['real_','int_convert_','uint_convert_'],
          'special' : ['trigonometric'],
          'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;'],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],

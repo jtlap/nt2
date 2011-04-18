@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 17/04/2011
+/// modified by jt the 18/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/load.hpp>
@@ -26,7 +26,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/include/tan.hpp>
 
-NT2_TEST_CASE_TPL ( tan_real_convert__1_0,  NT2_REAL_CONVERTIBLE_TYPES)
+NT2_TEST_CASE_TPL ( tan_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::tan;
   using nt2::tag::tan_;
@@ -47,5 +47,12 @@ NT2_TEST_CASE_TPL ( tan_real_convert__1_0,  NT2_REAL_CONVERTIBLE_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(tan(-nt2::Pi<vT>())[0], nt2::Zero<sr_t>(), 0.75);
+  NT2_TEST_ULP_EQUAL(tan(-nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Mone<sr_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(tan(nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(tan(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(tan(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(tan(nt2::Pi<vT>())[0], nt2::Zero<sr_t>(), 0.75);
+  NT2_TEST_ULP_EQUAL(tan(nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::One<sr_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(tan(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-} // end of test for real_convert_
+} // end of test for real_

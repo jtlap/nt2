@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 17/04/2011
+/// modified by jt the 18/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -46,12 +46,12 @@ NT2_TEST_CASE_TPL ( sec_real__1_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(sec(-nt2::Pi<T>()), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sec(-nt2::Pi<T>()/4), nt2::Sqrt_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sec(-nt2::Pi<T>()/T(4)), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sec(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sec(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sec(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sec(nt2::Pi<T>()), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sec(nt2::Pi<T>()/4), nt2::Sqrt_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sec(nt2::Pi<T>()/T(4)), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sec(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for real_
 

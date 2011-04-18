@@ -52,7 +52,7 @@
             },
          'arity' : '1'
          'ret_arity' : '0'
-         'simd_types' : ['real_convert_']
+         'simd_types' : ['real_','int_convert_','uint_convert_']
          'call_types' : []
          'types' : ['real_', 'unsigned_int_', 'signed_int_']
         },

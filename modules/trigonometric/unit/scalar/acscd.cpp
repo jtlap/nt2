@@ -12,7 +12,7 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 17/04/2011
+/// modified by jt the 18/04/2011
 /// asin(1/a0)*Radindeg
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

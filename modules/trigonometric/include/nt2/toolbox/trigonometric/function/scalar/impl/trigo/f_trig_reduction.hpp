@@ -228,7 +228,7 @@ namespace nt2
           s = sin_replacement(a0);
         }
         static inline logic cot_invalid(const A0& x) { return is_invalid(x)|(is_nez(x)&is_flint(x)); }
-        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
+        static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint(x-Half<A0>()) ; }
 
         static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
         {
