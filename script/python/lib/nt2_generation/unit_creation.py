@@ -54,7 +54,7 @@ def create_one_unit(tb_name,
         for rank,d in enumerate(dl) :
             origin ="types" if mode == 'scalar' else 'simd_types'
             if d["functor"].get('no_simd_tests',False) : return []
-            types = bg.recover(origin,d["functor"],["real_convert_"])
+            types = bg.recover(origin,d["functor"],["real_"])
             ret_arity = int(d["functor"]["ret_arity"])
             d_unit = d["unit"]
             for typ in types :

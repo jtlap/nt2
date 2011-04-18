@@ -72,8 +72,10 @@ class Specific_values_test_gen(Base_gen) :
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
         spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
         typ_values = extract(unit_specific,"default",None,typ)       
+        if (typ == 'real_convert_') : typ = 'real_'
         # typ_values is the dictionnary of types for which specific values calls will be generated
         for k in sorted(typ_values.keys()) :
+            print("typ = %s"%typ)
             # k is here the string representation of the list of parameters f the functor
             # with only one parameter (and no commas init) it will be repeated
             #   to reach correct arity
