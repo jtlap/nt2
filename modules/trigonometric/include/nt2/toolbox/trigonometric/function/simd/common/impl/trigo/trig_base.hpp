@@ -56,15 +56,16 @@ namespace nt2
 	    }
 	  else
 	    {
-	      A0 xr = Zero<A0>(), xc;
+	      A0 xr = Nan<A0>(), xc;
 	      int_type n =  redu_t::reduce(x, xr, xc); 
 	      int_type swap_bit = n&One<int_type>();
 	      int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), de); 
 	      A0 z = sqr(xr);
-	      const A0 testnan = is_invalid(a0);
+	      //	      const A0 testnan = is_invalid(a0);
 	      z = select(is_nez(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)); 
 	      z = b_xor(z,sign_bit);
-	      return b_or(testnan, z);
+	      //	      return b_or(testnan, z);
+	      return z; 
 	    }
 	}
 
@@ -78,14 +79,15 @@ namespace nt2
 	    }
 	  else
 	    {
-	      A0 xr, xc;
+	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      int_type swap_bit = n&One<int_type>();
 	      A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
 	      A0 z = sqr(xr);
 	      z = b_xor(select(is_eqz(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)),sign_bit); 
-	      const A0 testnan = is_invalid(a0);
-	      return b_or(testnan, z);
+	      //const A0 testnan = is_invalid(a0);
+	      //return b_or(testnan, z);
+	      return z; 
 	    }
 	}
 
@@ -98,7 +100,7 @@ namespace nt2
 	    }
 	  else
 	    {	  
-	      A0 xr = Zero<A0>(), xc, y;
+	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::tan_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));           // 1 -- n even
 							                              //-1 -- n odd 
@@ -116,7 +118,7 @@ namespace nt2
 	    }
 	  else
 	    {	   
-	      A0 xr, xc, y;
+	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::cot_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));           // 1 -- n even
 							                              //-1 -- n odd 
@@ -135,7 +137,7 @@ namespace nt2
 	    }
 	  else
 	    {
-	      A0 xr, xc;
+	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      int_type swap_bit = n&One<int_type>();
 	      A0 z = nt2::sqr(xr);
@@ -144,9 +146,11 @@ namespace nt2
 	      A0 t1 = eval_t::sin_eval(z, xr, xc);
 	      A0 t2 = eval_t::cos_eval(z, xr, xc);
 	      int_type test = is_nez(swap_bit);
-	      A0 invalid = is_invalid(a0); 
-	      c = b_or(invalid,b_xor(sel(test, t1, t2),cos_sign_bit));
-	      s = b_or(invalid,b_xor(sel(test, t2, t1),sin_sign_bit)); 
+	      //	      A0 invalid = is_invalid(a0); 
+	      //c = b_or(invalid,b_xor(sel(test, t1, t2),cos_sign_bit));
+	      //s = b_or(invalid,b_xor(sel(test, t2, t1),sin_sign_bit)); 
+	      c = b_xor(sel(test, t1, t2),cos_sign_bit);
+	      s = b_xor(sel(test, t2, t1),sin_sign_bit); 
 	    }
 	}
         static inline A0    scale       (const A0& a0){return a0*trig_ranges<A0,unit_tag>::scale();            }

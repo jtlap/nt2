@@ -15,6 +15,7 @@
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_not_less.hpp>
+#include <nt2/include/functions/is_not_greater.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
@@ -88,7 +89,7 @@ namespace nt2
         }
 
         static inline logic replacement_available()       { return True<A0>(); }
-        static inline logic isalreadyreduced(const A0&a0) { return le(a0,Pio_4<A0>()); }
+        static inline logic isalreadyreduced(const A0&a0) { return le(a0, Pio_4<A0>()); }
 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
@@ -117,8 +118,8 @@ namespace nt2
         {
           //::sincosf(a0, &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return is_invalid(x); }
-        static inline logic tan_invalid(const A0& x) { return is_invalid(x); }
+        static inline logic cot_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
+        static inline logic tan_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
@@ -181,8 +182,8 @@ namespace nt2
         {
           //::sincosf(inrad(a0), &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|(is_nez(x)&is_flint(x/C_180<A0>())); }
-        static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint((x-Ninety<A0>())/C_180<A0>()); }
+        static inline logic cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_flint(x/C_180<A0>())); }
+        static inline logic tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_flint((x-Ninety<A0>())/C_180<A0>()); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
@@ -227,8 +228,8 @@ namespace nt2
           c = cos_replacement(a0);
           s = sin_replacement(a0);
         }
-        static inline logic cot_invalid(const A0& x) { return is_invalid(x)|(is_nez(x)&is_flint(x)); }
-        static inline logic tan_invalid(const A0& x) { return is_invalid(x)|is_flint(x-Half<A0>()) ; }
+        static inline logic cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_flint(x)); }
+        static inline logic tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_flint(x-Half<A0>()) ; }
 
         static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
         {

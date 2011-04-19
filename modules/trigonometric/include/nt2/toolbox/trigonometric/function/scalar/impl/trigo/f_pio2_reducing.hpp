@@ -73,6 +73,13 @@ namespace nt2
 	  //	  bf::tie(xr, xc, i) = nt2::rem_pio2(t);
 	  return i;
 	}
+
+	static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& /*xc*/)
+	{
+	  int_type i = Zero<int_type>();
+	  xr =  Nan<A0>(); 
+	  return i;
+	}
       };
     }
   }
