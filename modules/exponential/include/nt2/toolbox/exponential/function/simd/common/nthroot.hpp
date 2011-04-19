@@ -24,16 +24,13 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
                           (A0)(A1)(X),
                           ((simd_<integer_<A0>,X>))
-                          ((simd_<integer_<A0>,X>))
+                          ((simd_<integer_<A1>,X>))
                          );
 
 namespace nt2 { namespace ext

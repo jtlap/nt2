@@ -111,7 +111,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename meta::as_integer<A0, signed>::type int_type;
+        typedef A1                                          int_type;
 	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
 	r_type a00 =  tofloat(a0); 
         r_type sign_x = bitofsign(a0);
