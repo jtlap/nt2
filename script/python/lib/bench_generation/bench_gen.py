@@ -76,6 +76,7 @@ class Bench_gen() :
             "",
             ]
         dl = self.bg.get_fct_dict_list()
+        k=1
         for d in dl :
             d1 = d.get('bench',False)
             if d1 :
@@ -84,6 +85,7 @@ class Bench_gen() :
                 d1 = { "arity"  : int(d["functor"]["arity"]), 
                        "ranges" : d["unit"]["ranges"],
                        "types"  : d["functor"]['types'],
+                       "simd_types"  : d["functor"].get('simd_types',d["functor"]['types']),
                        "type_defs": d["functor"]['type_defs'],
                        "call_types" :d["functor"]["call_types"],
                        }
@@ -118,8 +120,10 @@ class Bench_gen() :
                             "uintgt_16_"    : ["uint32_t","uint64_t"],
                              }
                 r = []
-                k=1
-                for typ in d1["types"] :
+                typs = d1["simd_types"] if mode == 'simd' else d1["types"]
+                print ("typs %s" % typs)
+                for typ in typs :
+                    print("typ = %s, variety = %s"%(typ,variety[typ]))
                     for t in variety[typ] :
                         r += ["namespace n%s {"%str(k) ]
                         k+=1;
@@ -136,11 +140,9 @@ class Bench_gen() :
                         if not isinstance(rges[0][0],list) : rges = [rges]
                         prefix = "v" if mode == 'simd' else ''
                         scalar_ints = d['functor'].get('scalar_ints',False) == 'True'
-                        print("sca %s"% scalar_ints)
                         iprefix = "v" if (mode == 'simd' and (name[-1]!='i') and (not scalar_ints)) else ''    
                         calls = d1["call_types"]*d1["arity"] if len( d1["call_types"]) == 1 else d1["call_types"]
                         if isinstance(calls,str) : calls = [calls]
-                        print("calls %s"%calls)
                         for rgen in rges :
                             param=""
                             for j,rge in enumerate(rgen) :
@@ -150,12 +152,11 @@ class Bench_gen() :
                                     param += tpl%(prefix+calls[j],rge[0],rge[1])
                             r.append(call%param)    
                         r += ["}"]
-                    else :
-                        pass
-                    txt += r+txtf;
-                    h = Headers(os.path.join(self.bg.get_nt2_rel_tb_path(tb_name),'bench',mode),
-                                name,inner=txt,guard_begin=[],guard_end=[]).txt()
-                    return h.split('\n')
+
+        txt += r+txtf;
+        h = Headers(os.path.join(self.bg.get_nt2_rel_tb_path(tb_name),'bench',mode),
+                    name,inner=txt,guard_begin=[],guard_end=[]).txt()
+        return h.split('\n')
          
 if __name__ == "__main__" :
     print __doc__
