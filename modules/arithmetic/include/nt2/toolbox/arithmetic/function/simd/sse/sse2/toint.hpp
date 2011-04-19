@@ -57,8 +57,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_integer<A0>::type type; };
+      struct result<This(A0)> : meta::as_integer<A0>{ };
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -87,14 +86,14 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_integer<A0>::type type; };
+      struct result<This(A0)> : meta::as_integer<A0>{ };
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      type that =  {_mm_cvttps_epi32(a0)};
-      return  sel(eq(a0, Inf<A0>()), Inf<type>(), that);
+      A0 aa0 = b_andnot(a0, is_nan(a0)); 
+      type that =  {_mm_cvtps_epi32(aa0)};
+      return  sel(eq(aa0, Inf<A0>()), Inf<type>(), that);
     }
   };
 } }
