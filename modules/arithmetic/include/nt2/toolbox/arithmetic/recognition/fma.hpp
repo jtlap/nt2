@@ -9,9 +9,10 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_RECOGNITION_FMA_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_RECOGNITION_FMA_HPP_INCLUDED
 
-#include <nt2/toolbox/arithmetic/function/fma.hpp>
+#include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/dsl/recognition.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/toolbox/arithmetic/function/fma.hpp>
 
 NT2_REGISTER_DISPATCH ( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
                       , ((expr_<A0,Dom,tag::multiplies_,Sema>))(unspecified_<A1>)

@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_DSL_RECOGNITION_HPP_INCLUDED
 #define NT2_SDK_DSL_RECOGNITION_HPP_INCLUDED
 
+#include <boost/proto/proto.hpp>
 #include <nt2/sdk/dsl/compile.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 
