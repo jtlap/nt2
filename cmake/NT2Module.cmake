@@ -79,6 +79,8 @@ macro(nt2_module_main module)
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
   set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
   
+  nt2_setup_variant()
+
   if(NOT NT2_${module_U}_FOUND)
   
     # load dependencies
@@ -106,7 +108,6 @@ macro(nt2_module_main module)
   endif()
   
   set(NT2_CURRENT_MODULE ${module})
-  nt2_setup_variant()
   
   # set include/link directories
   include_directories(${NT2_${module_U}_INCLUDE_DIR})
