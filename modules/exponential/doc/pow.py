@@ -9,7 +9,7 @@
             },
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
-         'simd_types' : ['real_','int32_t','int64_t','uint32_t','uint64_t']   
+         'simd_types' : ['real_']   
         },
      'info' : 'manually modified',
      'unit' : {
@@ -25,7 +25,9 @@
              'real_' : [['T(0)', 'T(10)'], ['T(0)', 'T(10)']],
              'signed_int_' : [['0', '10'], ['0', '10']],
              'unsigned_int_' : [['0', '10'], ['0', '10']],
-            },
+             'sintgt_16_' : [['0', '10'], ['0', '10']],
+             'uintgt_16_' : [['0', '10'], ['0', '10']],
+             },
          'specific_values' : {
              'default' : {
                 },

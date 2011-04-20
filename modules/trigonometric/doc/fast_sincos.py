@@ -10,7 +10,7 @@
          'simd_types' : ['real_'],
          'special' : ['trigonometric'],
          'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;'],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {
