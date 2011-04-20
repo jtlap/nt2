@@ -69,7 +69,7 @@ macro(nt2_setup_variant)
     set(CMAKE_BUILD_TYPE Release)
   elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DNT2_DEBUG")
-    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DNT2_DEBUG")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DNT2_DEBUG")
   endif()
 endmacro()
 
