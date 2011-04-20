@@ -24,6 +24,7 @@
 #include <cstdlib>
 #include <typeinfo>
 #include <string>
+#include <iostream>
 
 namespace nt2 { namespace details
 {
@@ -59,24 +60,72 @@ namespace nt2 { namespace details
     return out;
     #endif
   }
+  
+  std::ostream& indent(std::ostream& os, size_t depth)
+  {
+    for(size_t i=0; i<depth; ++i)
+      os << "    ";
+      
+    return os;
+  }
+  
 } }
 
 namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Return a string containing the demangled typename of a given variable
+  // Return a string containing the demangled typename of a given type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline std::string type_id(const T& )
+  template<class T> inline std::string type_id(const T& = *((T*)0))
   {
     return details::demangle(typeid(T).name());
   }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Return a string containing the demangled typename of a given type
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T> inline std::string type_id()
+  
+  template<typename T>
+  inline void display_type(const T& = *((T*)0))
   {
-    return details::demangle(typeid(T).name());
+    std::string s = type_id<T>();
+    
+    size_t depth = 0;
+    bool prevspace = true;
+    for(std::string::const_iterator it = s.begin(); it != s.end(); ++it)
+    {
+      switch(*it)
+      {
+        case '<':
+          depth++;
+          std::cout << *it;
+          std::cout << '\n';
+          details::indent(std::cout, depth);
+          prevspace = true;
+          break;
+          
+        case '>':
+          depth--;
+          std::cout << '\n';
+          details::indent(std::cout, depth);
+          std::cout << *it;
+          prevspace = false;
+          break;
+          
+        case ',':
+          std::cout << *it;
+          std::cout << '\n';
+          details::indent(std::cout, depth);
+          prevspace = true;
+          break;
+          
+        case ' ':
+          if(!prevspace)
+            std::cout << *it;
+          break;
+          
+        default:
+          std::cout << *it;
+          prevspace = false;
+      }
+    }
+    std::cout << std::endl;
   }
 }
 
