@@ -27,7 +27,7 @@ namespace nt2
   typename meta::enable_call<tag::splat_(A0, meta::as_<T>)>::type
   splat(A0 const& a0)
   {
-    functor<tag::splat_> callee;
+    typename make_functor<tag::splat_, A0>::type callee;
     return callee(a0, meta::as_<T>() );
   }
 }

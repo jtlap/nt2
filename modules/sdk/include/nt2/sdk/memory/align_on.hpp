@@ -36,7 +36,7 @@ namespace nt2
                 &&  "Invalid alignment boundary. You tried to align an "
                     "address or a value on a non-power of 2 boundary."
                 );
-      functor<tag::align_on_> callee;
+      typename make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,a1);
     }
 
@@ -54,7 +54,7 @@ namespace nt2
                           "address or a value on a non-power of 2 boundary."
                         );
 
-      functor<tag::align_on_> callee;
+      typename make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,boost::mpl::int_<N>());
     }
   }

@@ -23,7 +23,7 @@ template<class Target> inline                                       \
 typename nt2::meta::enable_call<TAG(nt2::meta::as_<Target>)>::type  \
 NAME()                                                              \
 {                                                                   \
-  nt2::functor<TAG> callee;                                         \
+  typename nt2::make_functor<TAG, Target>::type callee;             \
   return callee( nt2::meta::as_<Target>() );                        \
 }                                                                   \
 /**/

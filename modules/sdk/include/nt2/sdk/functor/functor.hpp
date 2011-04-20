@@ -32,6 +32,12 @@
 
 namespace nt2
 {
+  template<typename Tag, typename Dummy = void>
+  struct make_functor
+  {
+    typedef functor<Tag> type;
+  };
+  
   template<class Tag, class Site> struct functor
   {
     template<class Sig> struct result;

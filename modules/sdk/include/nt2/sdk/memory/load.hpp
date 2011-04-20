@@ -32,7 +32,7 @@ namespace nt2
                             >::type
   load(A0 const& a0,A1 const& a1 )
   {
-    functor<tag::load_> callee;
+    typename make_functor<tag::load_, A0>::type callee;
     return callee(a0,a1,meta::as_<T>());
   }
 
@@ -48,7 +48,7 @@ namespace nt2
                             >::type
   load(A0 const& a0,A1 const& a1 )
   {
-    functor<tag::load_> callee;
+    typename make_functor<tag::load_, A0>::type callee;
     return callee(a0,a1,meta::as_<T>(),boost::mpl::int_<Offset>());
   }
 }
