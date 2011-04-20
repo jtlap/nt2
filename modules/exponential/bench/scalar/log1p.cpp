@@ -37,5 +37,45 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(log1p_,(RS(T,T(0.1),T(10))))
 }
+namespace n3 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n4 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n7 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n8 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n9 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
+namespace n10 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(log1p_,(RS(T,0,100)))
+}
 
 #undef RS

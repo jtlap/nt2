@@ -33,7 +33,7 @@ namespace n1 {
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,T(0),T(10))))
+  NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
 }
 namespace n2 {
   typedef double T;
@@ -41,7 +41,7 @@ namespace n2 {
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,T(0),T(10))))
+  NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
 }
 
 #undef RS

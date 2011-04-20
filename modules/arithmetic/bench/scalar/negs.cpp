@@ -37,5 +37,25 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
 }
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(negs_,(RS(T,T(-100),T(100))))
+}
 
 #undef RS

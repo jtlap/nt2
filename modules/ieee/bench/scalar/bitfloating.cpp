@@ -32,5 +32,20 @@ namespace n1 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(bitfloating_,(RS(T,0,100)))
 }
+namespace n2 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,0,100)))
+}
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,-100,100)))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,-100,100)))
+}
 
 #undef RS

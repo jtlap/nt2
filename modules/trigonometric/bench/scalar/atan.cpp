@@ -37,5 +37,45 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(atan_,(RS(T,nt2::Mone<T>(),nt2::One<T>())))
 }
+namespace n3 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
+}
+namespace n4 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,nt2::Zero<T>(),nt2::One<T>())))
+}
+namespace n7 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,T(-1),T(1))))
+}
+namespace n8 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,T(-1),T(1))))
+}
+namespace n9 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,T(-1),T(1))))
+}
+namespace n10 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atan_,(RS(T,T(-1),T(1))))
+}
 
 #undef RS

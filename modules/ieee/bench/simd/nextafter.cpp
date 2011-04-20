@@ -33,5 +33,11 @@ namespace n1 {
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(nextafter_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
 }
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(nextafter_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+}
 
 #undef RS

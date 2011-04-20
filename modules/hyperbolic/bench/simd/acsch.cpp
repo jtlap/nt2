@@ -31,13 +31,15 @@ namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(acsch_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(acsch_,(RS(vT,T(1),T(100))))
+  NT2_TIMING(acsch_,(RS(vT,T(-100),T(-1))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(acsch_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(acsch_,(RS(vT,T(1),T(100))))
+  NT2_TIMING(acsch_,(RS(vT,T(-100),T(-1))))
 }
 
 #undef RS

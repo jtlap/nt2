@@ -33,5 +33,23 @@ namespace n1 {
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitfloating_,(RS(vT,0,100)))
 }
+namespace n2 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(bitfloating_,(RS(vT,0,100)))
+}
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(bitfloating_,(RS(vT,-100,100)))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(bitfloating_,(RS(vT,-100,100)))
+}
 
 #undef RS

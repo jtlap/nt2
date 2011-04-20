@@ -39,5 +39,19 @@ namespace n2 {
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(pow_,(RS(vT,T(0),T(10)))(RS(vT,T(0),T(10))))
 }
+namespace n3 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(pow_,(RS(vT,T(-10),T(10)))(RS(viT,T(-10),T(10))))
+}
+namespace n4 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(pow_,(RS(vT,T(-10),T(10)))(RS(viT,T(-10),T(10))))
+}
 
 #undef RS

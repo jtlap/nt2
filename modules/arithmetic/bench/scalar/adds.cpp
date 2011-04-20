@@ -47,5 +47,25 @@ namespace n4 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(adds_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
 }
+namespace n5 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(adds_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n6 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(adds_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n7 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(adds_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n8 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(adds_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
 
 #undef RS
