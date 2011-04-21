@@ -60,7 +60,6 @@ SET( SOURCES
   dist.cpp
   correct_fma.cpp
   average.cpp
-  amul.cpp
   abs.cpp
   toint.cpp
   tofloat.cpp

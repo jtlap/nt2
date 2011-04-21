@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_andnot.hpp>
+#include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/sqrt.hpp>

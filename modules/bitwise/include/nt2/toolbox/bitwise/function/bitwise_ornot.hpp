@@ -18,18 +18,6 @@ namespace nt2 { namespace tag
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, bitwise_ornot, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, b_ornot, 2)
-  
-  NT2_FUNCTION_INTERFACE(tag::bitwise_ornot_, bitwise_notor, 2)
-  {
-    typename make_functor<tag::bitwise_ornot_, A0>::type callee;
-    return callee(a1, a0);
-  }
-  
-  NT2_FUNCTION_INTERFACE(tag::bitwise_ornot_, b_notor, 2)
-  {
-    typename make_functor<tag::bitwise_ornot_, A0>::type callee;
-    return callee(a1, a0);
-  }
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_ornot.hpp>

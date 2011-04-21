@@ -6,24 +6,23 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_BITWISE_FUNCTION_BITWISE_ANDNOT_HPP_INCLUDED
-#define NT2_TOOLBOX_BITWISE_FUNCTION_BITWISE_ANDNOT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_BITWISE_FUNCTION_BITWISE_NOTAND_HPP_INCLUDED
+#define NT2_TOOLBOX_BITWISE_FUNCTION_BITWISE_NOTAND_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/bitwise/include.hpp>
 
 namespace nt2 { namespace tag
   {         
-    struct bitwise_andnot_ {};
+    struct bitwise_notand_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_notand_, bitwise_notand, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_notand_, b_notand, 2)
 }
  
-#include <nt2/toolbox/bitwise/function/scalar/bitwise_andnot.hpp>
-#include NT2_BITWISE_INCLUDE(bitwise_andnot.hpp) 
+#include <nt2/toolbox/bitwise/function/scalar/bitwise_notand.hpp>
+#include NT2_BITWISE_INCLUDE(bitwise_notand.hpp) 
 
-#include <nt2/toolbox/bitwise/recognition/bitwise_andnot.hpp>
  
 #endif
 

@@ -25,6 +25,12 @@ namespace nt2 { namespace tag
     return callee(a2, a0, a1);
   }
   
+  NT2_FUNCTION_INTERFACE(tag::fma_, amul, 3)
+  {
+    typename make_functor<tag::fma_, A0>::type callee;
+    return callee(a2, a0, a1);
+  }
+  
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/fma.hpp>

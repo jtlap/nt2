@@ -12,7 +12,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shri.hpp>
-#include <nt2/include/functions/bitwise_andnot.hpp>
+#include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/rem.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

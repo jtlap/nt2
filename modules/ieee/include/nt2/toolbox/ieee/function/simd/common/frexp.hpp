@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/bitwise_andnot.hpp>
+#include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_nez.hpp>

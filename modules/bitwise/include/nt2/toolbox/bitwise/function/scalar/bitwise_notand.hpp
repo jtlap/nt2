@@ -6,33 +6,37 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_AMUL_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_AMUL_HPP_INCLUDED
-
+#ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_NOTAND_HPP_INCLUDED
+#define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_NOTAND_HPP_INCLUDED
+#include <nt2/sdk/meta/size.hpp>
+#include <nt2/sdk/meta/as_bits.hpp>
+#include <nt2/sdk/meta/size.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::amul_, tag::cpu_,
-                      (A0)(A1)(A2),
-                      (fundamental_<A0>)(fundamental_<A1>)(fundamental_<A2>)
-                     )
+NT2_REGISTER_DISPATCH(tag::bitwise_notand_, tag::cpu_,
+                                (A0)(A1),
+                                (fundamental_<A0>)(fundamental_<A1>)
+                               )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::amul_(tag::fundamental_,tag::fundamental_,tag::fundamental_),
+  struct call<tag::bitwise_notand_(tag::fundamental_,tag::fundamental_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> :
-      std::tr1::result_of<meta::arithmetic(A0,A1,A2)>{};
+    template<class This,class A0,class A1>
+      struct result<This(A0,A1)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(3)
+    NT2_FUNCTOR_CALL(2)
     {
-      return a0+a1*a2;
+      typename meta::as_bits<A0>::type t0 = {a0};
+      typename meta::as_bits<A1>::type t1 = {a1};
+      t0.bits = b_and(b_not(t0.bits),t1.bits);
+      return t0.value;
     }
 
   };

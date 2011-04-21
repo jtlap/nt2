@@ -6,37 +6,37 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_AMUL_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_AMUL_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
+#define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::amul_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<arithmetic_<A0>,X>))
-                       ((simd_<arithmetic_<A0>,X>))
-                       ((simd_<arithmetic_<A0>,X>))
-                      );
+NT2_REGISTER_DISPATCH_IF(tag::bitwise_notand_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::bitwise_notand_(tag::simd_<tag::arithmetic_,X>, tag::simd_<tag::arithmetic_,X>)), 
+			 ((simd_<arithmetic_<A0>,X>))
+			 ((simd_<arithmetic_<A1>,X>))
+                       );
+
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::amul_(tag::simd_<tag::arithmetic_, X> ,
-                         tag::simd_<tag::arithmetic_, X> ,
-                         tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::bitwise_notand_(tag::simd_<tag::arithmetic_, X> ,
+                                   tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0,A0)> : meta::strip<A0>{};
+    template<class This,class A0, class A1>
+    struct result<This(A0, A1)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(3)
+    NT2_FUNCTOR_CALL(2)
     {
-      return a0+nt2::mul(a1, a2);
+      return bitwise_and(complement(a0),a1);
     }
 
   };
