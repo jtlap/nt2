@@ -16,7 +16,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/bitofsign.hpp>

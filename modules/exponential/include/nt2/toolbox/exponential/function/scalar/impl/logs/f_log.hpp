@@ -18,7 +18,7 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/amul.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/real.hpp>
 #include <nt2/sdk/constant/infinites.hpp>

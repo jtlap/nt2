@@ -25,4 +25,6 @@ namespace nt2
 #include <nt2/toolbox/predicates/function/scalar/is_not_greater_equal.hpp>
 #include NT2_PREDICATES_INCLUDE(is_not_greater_equal.hpp) 
 
+#include <nt2/toolbox/predicates/recognition/is_not_greater_equal.hpp>
+
 #endif

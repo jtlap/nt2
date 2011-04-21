@@ -49,7 +49,6 @@ SET( SOURCES
   minusone.cpp
   min.cpp
   max.cpp
-  madd.cpp
   ldivide.cpp
   ldiv.cpp
   idivround.cpp
@@ -58,7 +57,6 @@ SET( SOURCES
   idivceil.cpp
   hypot.cpp
   fma.cpp
-  fam.cpp
   dist.cpp
   correct_fma.cpp
   average.cpp

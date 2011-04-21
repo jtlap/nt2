@@ -18,7 +18,7 @@
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/amul.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 
 namespace nt2

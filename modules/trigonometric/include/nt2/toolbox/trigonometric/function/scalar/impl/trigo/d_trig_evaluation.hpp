@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
 
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 

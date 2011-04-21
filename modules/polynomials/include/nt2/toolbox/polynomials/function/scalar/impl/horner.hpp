@@ -12,7 +12,7 @@
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/pop_back.hpp>
 #include <boost/mpl/at.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/to_seq.hpp>
 #include <nt2/sdk/constant/digits.hpp>

@@ -15,7 +15,7 @@
 #include <nt2/sdk/constant/properties.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/bitwise_notand.hpp>
+#include <nt2/include/functions/bitwise_andnot.hpp>
 #include <nt2/include/functions/shri.hpp>
 
 

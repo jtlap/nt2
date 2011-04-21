@@ -17,6 +17,14 @@ namespace nt2 { namespace tag
     struct fma_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fma_, fma, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::fma_, madd, 3)
+  
+  NT2_FUNCTION_INTERFACE(tag::fma_, fam, 3)
+  {
+    typename make_functor<tag::fma_, A0>::type callee;
+    return callee(a2, a0, a1);
+  }
+  
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/fma.hpp>

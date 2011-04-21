@@ -11,7 +11,7 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/bitofsign.hpp>

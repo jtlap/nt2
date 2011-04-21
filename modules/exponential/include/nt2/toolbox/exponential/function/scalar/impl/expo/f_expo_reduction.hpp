@@ -12,7 +12,7 @@
 
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 

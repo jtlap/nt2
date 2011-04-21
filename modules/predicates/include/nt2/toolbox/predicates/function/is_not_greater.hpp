@@ -23,4 +23,6 @@ namespace nt2 { namespace tag
 #include <nt2/toolbox/predicates/function/scalar/is_not_greater.hpp>
 #include NT2_PREDICATES_INCLUDE(is_not_greater.hpp) 
 
+#include <nt2/toolbox/predicates/recognition/is_not_greater.hpp>
+
 #endif

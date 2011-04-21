@@ -31,10 +31,8 @@ SET( SOURCES
   firstbitset.cpp
   ffs.cpp
   bitwise_select.cpp
-  bitwise_notand.cpp
   bitwise_andnot.cpp
   bitwise_ornot.cpp
-  bitwise_notor.cpp
   bits.cpp
 # List of simd test files for toolbox bitwise
    )

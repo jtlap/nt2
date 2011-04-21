@@ -13,7 +13,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/oneplus.hpp>

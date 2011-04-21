@@ -18,11 +18,24 @@ namespace nt2 { namespace tag
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
+  
+  NT2_FUNCTION_INTERFACE(tag::bitwise_andnot_, bitwise_notand, 2)
+  {
+    typename make_functor<tag::bitwise_andnot_, A0>::type callee;
+    return callee(a1, a0);
+  }
+  
+  NT2_FUNCTION_INTERFACE(tag::bitwise_andnot_, b_notand, 2)
+  {
+    typename make_functor<tag::bitwise_andnot_, A0>::type callee;
+    return callee(a1, a0);
+  }
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_andnot.hpp>
 #include NT2_BITWISE_INCLUDE(bitwise_andnot.hpp) 
 
+#include <nt2/toolbox/bitwise/recognition/bitwise_andnot.hpp>
  
 #endif
 
