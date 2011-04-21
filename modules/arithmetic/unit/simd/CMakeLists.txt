@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  fast_toint.cpp
   abss.cpp
   adds.cpp
   subs.cpp
