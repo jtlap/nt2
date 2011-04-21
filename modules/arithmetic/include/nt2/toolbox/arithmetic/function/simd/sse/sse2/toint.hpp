@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       A0 aa0 = b_andnot(a0, is_nan(a0)); 
-      type that =  {_mm_cvtps_epi32(aa0)};
+      type that =  {_mm_cvttps_epi32(aa0)};
       return  sel(eq(aa0, Inf<A0>()), Inf<type>(), that);
     }
   };
