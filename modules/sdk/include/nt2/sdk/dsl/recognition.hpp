@@ -18,9 +18,7 @@ namespace nt2
 
 namespace tag
 {
-  struct recognition_ : formal_
-  {
-  };
+  NT2_HIERARCHY_CLASS(recognition_, formal_);
 }
   
 namespace meta
@@ -30,8 +28,8 @@ namespace meta
       : boost::proto::
         unpack< boost::proto::
                 call< functor<Tag, tag::recognition_> >(compile< recognition_ < boost::mpl::_1 >
-                                                            >
-                                                    )
+                                                               >
+                                                       )
               >
   {};
 
