@@ -22,13 +22,13 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_INTERFACE(tag::fma_, fam, 3)
   {
     typename make_functor<tag::fma_, A0>::type callee;
-    return callee(a2, a0, a1);
+    return callee(a1, a2, a0);
   }
   
   NT2_FUNCTION_INTERFACE(tag::fma_, amul, 3)
   {
     typename make_functor<tag::fma_, A0>::type callee;
-    return callee(a2, a0, a1);
+    return callee(a1, a2, a0);
   }
   
 }
