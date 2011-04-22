@@ -12,7 +12,6 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/rdivide.hpp>
-#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/iceil.hpp>
 

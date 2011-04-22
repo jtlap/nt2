@@ -14,7 +14,6 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/popcnt.hpp>
