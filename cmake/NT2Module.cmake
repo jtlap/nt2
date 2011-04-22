@@ -89,7 +89,9 @@ macro(nt2_module_main module)
     
     if(DEFINED NT2_${module_U}_DEPENDENCIES_FOUND AND NOT NT2_${module_U}_DEPENDENCIES_FOUND)
       message(STATUS "[nt2.${module}] warning: dependencies not met, skipping module")
-      nt2_find_transfer_parent()
+      if(NT2_FOUND_COMPONENTS)
+        nt2_find_transfer_parent()
+      endif()
       return()
     endif()
     
