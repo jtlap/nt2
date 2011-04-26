@@ -10,12 +10,15 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_IS_EQUAL_TO_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/functor/common.hpp>
+#include <nt2/include/functions/genmask.hpp>
 
-namespace nt2 { namespace functors
+NT2_REGISTER_DISPATCH ( tag::is_equal_, tag::cpu_, (X)(A0)(A1)
+                      , ((simd_<fundamental_<A0>, X>))((simd_<fundamental_<A1>, X>))
+                      )
+namespace nt2 { namespace ext
 {
-  template<class C, class X,class Info>
-  struct  call<is_equal_,tag::simd_<C,X> , fundamental_, Info>
+  template<class X,class Dummy>
+  struct call<tag::is_equal_(tag::simd_<tag::fundamental_,X>, tag::simd_<tag::fundamental_,X>), tag::cpu_, Dummy>
         : callable
   {
     template<class Sig> struct result;
@@ -24,10 +27,10 @@ namespace nt2 { namespace functors
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = map ( functor<genmask_>()
-                    , map(functor<is_equal_to_>(), a0, a1)
+      A0 that = map ( functor<tag::genmask_>()
+                    , map(functor<tag::is_equal_>(), a0, a1)
                     );
-      return -that;
+      return that;
     }
   };
 } }
