@@ -22,6 +22,9 @@ tree = Tree(
   ['common'],
   [
     Tree(
+      ['none']
+    ),
+    Tree(
       ['sse', 'common'],
       [
         Tree(
@@ -147,7 +150,8 @@ class SimdFile(object):
             
         self.write_header(f)
         if(len(parents) == 0):
-            f.write("#error function has no SIMD implementation\n")
+            f.write("#include <nt2/sdk/error/warning.hpp>\n")
+            f.write("NT2_WARNING(function has no SIMD implementation)\n")
         else:
             for parent in parents:
                 parent_file = self.path_prefix + self.extra_dir + parent + self.basefile

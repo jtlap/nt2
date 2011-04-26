@@ -19,12 +19,13 @@ NT2_WARNING(No SIMD extensions detected)
 
 ////////////////////////////////////////////////////////////////////////////////
 // If no SIMD extension are set, we still need to align on 128 bits to allow
-// linking with SIMD enabled obejct files
+// linking with SIMD enabled object files
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_SIMD_BYTES      16
 #define NT2_SIMD_BITS       128
 #define NT2_SIMD_STRING     "none"
 #define NT2_SIMD_CARDINALS (1)
+#define NT2_SIMD_DEFAULT_EXTENSION ::nt2::tag::none_
 #define NT2_SIMD_DEFAULT_SITE ::nt2::tag::cpu_
 
 #if defined(NT2_SIMD_TYPES)
@@ -35,6 +36,18 @@ NT2_WARNING(No SIMD extensions detected)
 #define NT2_SIMD_INTEGRAL_SIGNED_TYPES
 #define NT2_SIMD_INTEGRAL_UNSIGNED_TYPES
 #endif
+
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+
+namespace nt2
+{
+  namespace tag
+  {
+    NT2_HIERARCHY_CLASS(none_, cpu_);
+  }
+}
+
+#include <nt2/sdk/simd/native_cast.hpp>
 
 #endif
 

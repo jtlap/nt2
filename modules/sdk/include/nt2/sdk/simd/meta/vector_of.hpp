@@ -52,7 +52,9 @@ namespace nt2 { namespace meta
     typedef boost::array<T,Card> type;
   };
 
+#ifdef NT2_SIMD_DETECTED
   BOOST_PP_SEQ_FOR_EACH(NT2_LOCAL,~,NT2_SIMD_TAG_SEQ)
+#endif
 
 } }
 
