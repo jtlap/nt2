@@ -13,6 +13,7 @@
 #include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
+#include <nt2/sdk/simd/meta/is_native.hpp>
 
 namespace nt2 { namespace simd
 {

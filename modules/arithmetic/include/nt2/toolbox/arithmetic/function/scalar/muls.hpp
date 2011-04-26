@@ -11,6 +11,7 @@
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/adds.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
