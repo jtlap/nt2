@@ -12,12 +12,12 @@
 #include <nt2/sdk/config/arch.hpp>
 #include <nt2/sdk/config/types.hpp>
 
+#if    (defined(__GNUC__)     || defined(__ICC)        )      \
+    && defined(NT2_ARCH_X86)
 namespace nt2
 {
   namespace details
   {
-  #if    (defined(__GNUC__)     || defined(__ICC)        ) \
-      && defined(NT2_ARCH_X86)
     inline cycles_t read_cycles()
     {
       nt2::uint32_t hi = 0, lo = 0;
@@ -26,42 +26,68 @@ namespace nt2
                     | ( static_cast<cycles_t>(hi)<<32 );
       return that;
     }
-  #elif defined(BOOST_MSVC) && (_MSC_VER >= 1200 && _M_IX86 >= 500)
-  inline cycles_t read_cycles()
-  {
-    nt2::uint32_t hi = 0, lo = 0;
-
-    __asm
-    {
-      __asm __emit 0fh __asm __emit 031h
-      mov hi, edx
-      mov lo, eax
-    }
-
-    cycles_t that =   static_cast<cycles_t>(lo)
-                  | ( static_cast<cycles_t>(hi)<<32 );
-    return that;
-  }
-  #elif  (defined(__GNUC__)      && defined(NT2_ARCH_POWERPC))  \
-      || (defined(__MWERKS__)    && defined(macintosh)       )  \
-      || (defined(__IBM_GCC_ASM) && defined(NT2_ARCH_POWERPC))
-  inline cycles_t read_cycles()
-  {
-    nt2::uint32_t tbl, tbu0, tbu1;
-
-    do
-    {
-      __asm__ __volatile__ ("mftbu %0" : "=r"(tbu0));
-      __asm__ __volatile__ ("mftb %0"  : "=r"(tbl));
-      __asm__ __volatile__ ("mftbu %0" : "=r"(tbu1));
-    } while (tbu0 != tbu1);
-
-    return (cycles_t)((((boost::uint64_t)tbu0) << 32) | tbl);
-  }
-
-  #endif
-
   }
 }
+#elif defined(BOOST_MSVC) && (_MSC_VER >= 1200 && _M_IX86 >= 500)
+namespace nt2
+{
+  namespace details
+  {
+    inline cycles_t read_cycles()
+    {
+      nt2::uint32_t hi = 0, lo = 0;
+  
+      __asm
+      {
+        __asm __emit 0fh __asm __emit 031h
+        mov hi, edx
+        mov lo, eax
+      }
+  
+      cycles_t that =   static_cast<cycles_t>(lo)
+                    | ( static_cast<cycles_t>(hi)<<32 );
+      return that;
+    }
+  }
+}
+#elif  (defined(__GNUC__)      && defined(NT2_ARCH_POWERPC))  \
+    || (defined(__MWERKS__)    && defined(macintosh)       )  \
+    || (defined(__IBM_GCC_ASM) && defined(NT2_ARCH_POWERPC))
+namespace nt2
+{
+  namespace details
+  {
+    inline cycles_t read_cycles()
+    {
+      nt2::uint32_t tbl, tbu0, tbu1;
+  
+      do
+      {
+        __asm__ __volatile__ ("mftbu %0" : "=r"(tbu0));
+        __asm__ __volatile__ ("mftb %0"  : "=r"(tbl));
+        __asm__ __volatile__ ("mftbu %0" : "=r"(tbu1));
+      } while (tbu0 != tbu1);
+  
+      return (cycles_t)((((boost::uint64_t)tbu0) << 32) | tbl);
+    }
+  }
+}
+
+#elif !defined(_WIN32)
+#include <nt2/sdk/timing/now.hpp>
+#include <sys/times.h>
+
+namespace nt2
+{
+  namespace details
+  {
+    inline cycles_t read_cycles()
+    {
+      details::now() * sysconf(_SC_CLK_TCK);
+    }
+  }
+}
+  
+#endif
 
 #endif
