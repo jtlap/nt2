@@ -45,11 +45,12 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
 namespace nt2 { namespace ext                                             \
 {                                                                         \
   template<class Tag, class X, class Dummy>                               \
-  struct  call<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy> : callable \
+  struct call<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy> : callable  \
   {                                                                       \
     template<class Sig> struct result;                                    \
     template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                  \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))> : meta::strip<A0> {}; \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                        \
+      : meta::call<tag::map_(functor<Tag>, BOOST_PP_ENUM_PARAMS(n,A))> {};\
                                                                           \
     NT2_FUNCTOR_CALL(n)                                                   \
     {                                                                     \
