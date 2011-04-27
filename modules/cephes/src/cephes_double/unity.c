@@ -86,7 +86,7 @@ static double EQ[4] = {
  2.0000000000000000000897E0,
 };
 
-double expm1(x)
+double cephes_expm1(x)
 double x;
 {
 double r, xx;
@@ -125,7 +125,7 @@ static double coscof[7] = {
 
 extern double PIO4;
 
-double cosm1(x)
+double cephes_cosm1(x)
 double x;
 {
 double xx;

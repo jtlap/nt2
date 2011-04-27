@@ -462,12 +462,6 @@ extern long double cephes_incbil ( long double aaa, long double bbb, long double
     return cephes_incbi(aaa, bbb, yyy0);
 }
 
-extern double cephes_incbps ( double aa, double bb, double xx );
-extern long double cephes_incbpsl ( long double aa, long double bb, long double xx )
-{
-    return cephes_incbps(aa, bb, xx);
-}
-
 extern double cephes_iv ( double v, double x );
 extern long double cephes_ivl ( long double v, long double x )
 {
@@ -838,4 +832,16 @@ extern double cephes_zeta ( double xx, double qq );
 extern long double cephes_zetal ( long double xx, long double qq )
 {
     return cephes_zeta(xx, qq);
+}
+
+extern double cephes_expm1 ( double xx );
+extern long double cephes_expm1l ( long double xx )
+{
+    return cephes_expm1(xx);
+}
+
+extern double cephes_cosm1 ( double xx );
+extern long double cephes_cosm1l ( long double xx )
+{
+    return cephes_cosm1(xx);
 }

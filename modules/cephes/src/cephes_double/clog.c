@@ -43,9 +43,9 @@ Copyright 1984, 1995, 2000 by Stephen L. Moshier
 */
 #include "mconf.h"
 #ifdef ANSIPROT
-static void cephes_cchsh ( double x, double *c, double *s );
-static double cephes_redupi ( double x );
-static double cephes_ctans ( cmplx *z );
+void cephes_cchsh ( double x, double *c, double *s );
+double cephes_redupi ( double x );
+double cephes_ctans ( cmplx *z );
 /* These are supposed to be in some standard place. */
 double fabs (double);
 double cephes_sqrt (double);
@@ -62,17 +62,17 @@ double cephes_cabs (cmplx *);
 void cephes_cadd ( cmplx *, cmplx *, cmplx * );
 void cephes_cmul ( cmplx *, cmplx *, cmplx * );
 void cephes_csqrt ( cmplx *, cmplx * );
-static void cephes_cchsh ( double, double *, double * );
-static double cephes_redupi ( double );
-static double cephes_ctans ( cmplx * );
+void cephes_cchsh ( double, double *, double * );
+double cephes_redupi ( double );
+double cephes_ctans ( cmplx * );
 void cephes_clog ( cmplx *, cmplx * );
 void cephes_casin ( cmplx *, cmplx * );
 void cephes_cacos ( cmplx *, cmplx * );
 void cephes_catan ( cmplx *, cmplx * );
 #else
-static void cephes_cchsh();
-static double cephes_redupi();
-static double cephes_ctans();
+void cephes_cchsh();
+double cephes_redupi();
+double cephes_ctans();
 double cephes_cabs(), fabs(), cephes_sqrt(), cephes_pow();
 double cephes_log(), cephes_exp(), cephes_atan2(), cephes_cosh(), cephes_sinh();
 double cephes_asin(), cephes_sin(), cephes_cos();
@@ -198,7 +198,7 @@ w->i = cephes_cos( z->r ) * sh;
 
 /* calculate cosh and sinh */
 
-static void cephes_cchsh( x, c, s )
+void cephes_cchsh( x, c, s )
 double x, *c, *s;
 {
 double e, ei;
@@ -425,7 +425,7 @@ static unsigned short P3[] = {
 #define DP3 *(double *)P3
 #endif
 
-static double cephes_redupi(x)
+double cephes_redupi(x)
 double x;
 {
 double t;
@@ -445,7 +445,7 @@ return(t);
 
 /*  Taylor series expansion for cephes_cosh(2y) - cephes_cos(2x)	*/
 
-static double cephes_ctans(z)
+double cephes_ctans(z)
 cmplx *z;
 {
 double f, x, x2, y, y2, rn, t;
