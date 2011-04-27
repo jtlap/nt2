@@ -96,6 +96,7 @@ macro(nt2_find_module_return)
   nt2_copy_parent( NT2_${COMPONENT_U}_FOUND
                    NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR
                    NT2_${COMPONENT_U}_LIBRARIES NT2_${COMPONENT_U}_FLAGS
+                   CMAKE_MODULE_PATH
                  )
                    
   set(NT2_${COMPONENT_U}_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} PARENT_SCOPE)
@@ -210,6 +211,7 @@ macro(nt2_flag_found)
     nt2_copy_parent( NT2_${COMPONENT_U_}_FOUND
                      NT2_${COMPONENT_U_}_INCLUDE_DIR NT2_${COMPONENT_U_}_LIBRARY_DIR
                      NT2_${COMPONENT_U_}_LIBRARIES NT2_${COMPONENT_U_}_FLAGS
+                     CMAKE_MODULE_PATH
                    )
   endforeach()
 endmacro()
