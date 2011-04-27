@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_XOR_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_XOR_HPP_INCLUDED
 
+#include <nt2/sdk/details/bitwise_cast.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,13 +44,20 @@ namespace nt2 { namespace ext
                                   , tag::simd_<tag::type8_,X> 
                                   )
               , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_xor_ ( tag::simd_<tag::arithmetic_,X> 
-                                  , tag::simd_<tag::arithmetic_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
+              > : callable
   {
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0, class A1>
+    struct result<This(A0, A1)> : meta::strip<A0>
+    {
+    };
+    
+    NT2_FUNCTOR_CALL(2)
+    {
+      return bitwise_xor(a0, bitwise_cast<A0>(a1));
+    }
   };
 
   template<class Dummy,class X>
