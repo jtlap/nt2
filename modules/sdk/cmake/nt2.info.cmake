@@ -18,18 +18,6 @@ ELSEIF(UNIX)
 SET( NT2_PLATFORM_UNIX "Unix")
 ENDIF(WIN32)
 
-IF(NT2_PLATFORM_WIN32)
-MESSAGE( STATUS "[nt2] target system: ${NT2_PLATFORM_WIN32} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-ENDIF(NT2_PLATFORM_WIN32)
-
-IF(NT2_PLATFORM_OSX)
-MESSAGE( STATUS "[nt2] target system: ${NT2_PLATFORM_OSX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-ENDIF(NT2_PLATFORM_OSX)
-
-IF(NT2_PLATFORM_UNIX)
-MESSAGE( STATUS "[nt2] target system: ${NT2_PLATFORM_UNIX} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-ENDIF(NT2_PLATFORM_UNIX)
-
 ################################################################################
 # ARM processor
 ################################################################################
@@ -37,18 +25,19 @@ IF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm*")
 SET( NT2_PROCESSOR "ARM")
 SET( NT2_ARM_PROCESSOR 1)
 ################################################################################
-# AMD processor
+# x86 family processor, 64-bits
 ################################################################################
-ELSEIF(   ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*"
-		OR  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd*")
-SET( NT2_PROCESSOR "AMD")
-SET( NT2_AMD_PROCESSOR 1)
+ELSEIF(  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd64*"
+		  OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*"
+      )
+SET( NT2_PROCESSOR "x86_64")
+SET( NT2_X86_PROCESSOR 1)
 ################################################################################
-# x86 familly processor
+# x86 family processor
 ################################################################################
 ELSEIF(  ${CMAKE_SYSTEM_PROCESSOR} MATCHES "i[3-9]86*"
       OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86*"
-      OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64*"
+      OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "amd*"
       )
 SET( NT2_PROCESSOR "x86")
 SET( NT2_X86_PROCESSOR 1)
@@ -61,5 +50,3 @@ ELSEIF(   ${CMAKE_SYSTEM_PROCESSOR} MATCHES "ppc64*"
 SET( NT2_PROCESSOR "PowerPC")
 SET( NT2_PPC_PROCESSOR 1)
 ENDIF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm*")
-
-MESSAGE( STATUS "[nt2] target processor: ${NT2_PROCESSOR}" )
