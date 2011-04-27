@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_POWI_HPP_INCLUDED
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/signnz.hpp>

@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/seladd.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/constant/real.hpp>
 
