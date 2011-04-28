@@ -28,7 +28,7 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   // stride_ computes the jump in elements between two elements on a given dim
   //////////////////////////////////////////////////////////////////////////////
-  template<std::size_t N, class Seq,class Padding> inline
+  template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
                   , nt2::meta
