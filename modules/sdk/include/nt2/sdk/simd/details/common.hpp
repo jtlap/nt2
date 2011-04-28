@@ -14,6 +14,7 @@
 // nothing is implemented for doing otherwise.
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
