@@ -17,6 +17,7 @@
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/select.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -12,6 +12,7 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/select.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
