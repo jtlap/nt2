@@ -9,30 +9,31 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_XOR_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_XOR_HPP_INCLUDED
 
-#include <nt2/sdk/details/bitwise_cast.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+
+#include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/comparison.hpp>
+#include <boost/mpl/equal_to.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)(X)
-                      , ((simd_<type64_<A0>,X>))
-                        ((simd_<type64_<A1>,X>))
-                      );
 
-NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)(X)
-                      , ((simd_<type32_<A0>,X>))
-                        ((simd_<type32_<A1>,X>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)(X)
-                      , ((simd_<type16_<A0>,X>))
-                        ((simd_<type16_<A1>,X>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)(X)
-                      , ((simd_<type8_<A0>,X>))
-                        ((simd_<type8_<A1>,X>))
-                      );
+NT2_REGISTER_DISPATCH_IF(tag::bitwise_xor_, tag::cpu_,
+    (A0)(A1)(X),
+    (boost::mpl::and_<
+                       boost::mpl::not_< boost::is_same<A0, A1> >
+                     , boost::mpl::equal_to<boost::mpl::sizeof_<A0>, boost::mpl::sizeof_<A1> >
+                     >
+    ),
+    (tag::bitwise_xor_(tag::simd_<tag::arithmetic_,X>
+                      ,tag::simd_<tag::arithmetic_,X>
+                      )
+    ), 
+    ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
+); 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation
@@ -40,8 +41,8 @@ NT2_REGISTER_DISPATCH ( tag::bitwise_xor_, tag::cpu_, (A0)(A1)(X)
 namespace nt2 { namespace ext
 {
   template<class Dummy,class X>
-  struct  call< tag::bitwise_xor_ ( tag::simd_<tag::type8_,X> 
-                                  , tag::simd_<tag::type8_,X> 
+  struct  call< tag::bitwise_xor_ ( tag::simd_<tag::arithmetic_,X> 
+                                  , tag::simd_<tag::arithmetic_,X> 
                                   )
               , tag::cpu_, Dummy
               > : callable
@@ -56,48 +57,10 @@ namespace nt2 { namespace ext
     
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_xor(a0, bitwise_cast<A0>(a1));
+      typedef typename meta::as_integer<A0>::type int_type;
+      return simd::native_cast<int_type>(bitwise_xor(simd::native_cast<int_type>(a0), simd::native_cast<int_type>(a1)));
     }
   };
-
-  template<class Dummy,class X>
-  struct  call< tag::bitwise_xor_ ( tag::simd_<tag::type16_,X> 
-                                  , tag::simd_<tag::type16_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_xor_ ( tag::simd_<tag::type8_,X> 
-                                  , tag::simd_<tag::type8_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
-  {};
-
-  template<class Dummy,class X>
-  struct  call< tag::bitwise_xor_ ( tag::simd_<tag::type32_,X> 
-                                  , tag::simd_<tag::type32_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_xor_ ( tag::simd_<tag::type8_,X> 
-                                  , tag::simd_<tag::type8_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
-  {};
-
-  template<class Dummy,class X>
-  struct  call< tag::bitwise_xor_ ( tag::simd_<tag::type64_,X> 
-                                  , tag::simd_<tag::type64_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : call< tag::bitwise_xor_ ( tag::simd_<tag::type8_,X> 
-                                  , tag::simd_<tag::type8_,X> 
-                                  )
-              , tag::cpu_, Dummy
-              >
-  {};
 } }
 
 #endif
