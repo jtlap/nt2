@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
-  ulpd=0.0;
+  ulpd=0.0; 
 
 
   // specific values tests

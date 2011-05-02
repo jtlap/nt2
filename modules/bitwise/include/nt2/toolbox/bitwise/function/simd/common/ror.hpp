@@ -37,7 +37,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      std::cout << "icitte" << std::endl; 
       return map(functor<tag::ror_>(), a0, a1);
     }
 
