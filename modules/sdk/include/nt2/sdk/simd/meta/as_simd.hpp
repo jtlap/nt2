@@ -14,7 +14,6 @@ namespace nt2 { namespace meta
   template<class T,class Extension>
   struct as_simd
   {
-    typedef T type;
   };
 } }
 
