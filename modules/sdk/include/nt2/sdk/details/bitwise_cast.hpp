@@ -24,7 +24,7 @@ namespace nt2
             static To call(From const& from)
             {
                 To to;
-                std::memcpy(&to, &from, sizeof(From));
+                std::memcpy(&to, &from, sizeof(To));
                 return to;
             }
         };
@@ -63,9 +63,9 @@ namespace nt2
     To bitwise_cast(From const& from)
     {
         NT2_STATIC_ASSERT(
-            sizeof(From) == sizeof(To)
-          , NT2_TARGET_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-          , "target is not the same size as source in nt2::bitwise_cast"
+            sizeof(From) >= sizeof(To)
+          , NT2_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST
+          , "target is of a larger size than source in nt2::bitwise_cast"
         );
         return details::bitwise_cast<To, From>::template call<To>(from);
     }
