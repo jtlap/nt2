@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/simd/details/impl/common/bitwise_xor.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation
@@ -37,7 +36,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = { Zero<A0>() - a0 };
+      A0 that = Zero<A0>() - a0;
       return that;
     }
   };
@@ -66,8 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = { b_xor(Mzero<A0>(),a0) };
-      return that;
+      return b_xor(Mzero<A0>(),a0);
     }
   };
 } }

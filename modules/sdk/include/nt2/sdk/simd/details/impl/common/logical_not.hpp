@@ -32,8 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = { nt2::eq(a0,nt2::Zero<A0>()) };
-      return that;
+      return nt2::eq(a0,nt2::Zero<A0>());
     }
   };
 } }

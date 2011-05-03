@@ -32,8 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      A0 that = { neq(a0, Zero<A0>()) & neq(a1, Zero<A0>()) };
-      return that;
+      return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());
     }
   };
 } }
