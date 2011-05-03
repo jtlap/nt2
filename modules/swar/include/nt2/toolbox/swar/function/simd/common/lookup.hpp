@@ -17,16 +17,16 @@
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
-                         (A0)(A1),
-                         ((simd_<arithmetic_<A0>,tag::sse_>))
-                         ((simd_<integer_<A1>,tag::sse_>))
+                         (A0)(A1)(X),
+                         ((simd_<arithmetic_<A0>,X>))
+                         ((simd_<integer_<A1>,X>))
                         );
 
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct call<tag::lookup_(tag::simd_<tag::arithmetic_, tag::sse_> ,
-                           tag::simd_<tag::integer_, tag::sse_> ),
+  template<class X, class Dummy>
+  struct call<tag::lookup_(tag::simd_<tag::arithmetic_, X> ,
+                           tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
