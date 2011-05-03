@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
-      typedef simd::native<utype,tag::sse_>                                 ttype;
+      typedef simd::native<utype,X>                                         ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
-      typedef simd::native<utype,tag::sse_>                                 ttype;
+      typedef simd::native<utype,X>                                         ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));
@@ -102,4 +102,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 05/01/2011
+// modified by mg the 03/05/2011
