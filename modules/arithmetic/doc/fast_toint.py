@@ -29,9 +29,7 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Minf<T>()' : 'nt2::Minf<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },
