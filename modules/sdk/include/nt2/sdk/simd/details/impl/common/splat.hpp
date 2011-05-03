@@ -15,6 +15,8 @@
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/sdk/memory/load.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatches over splat_
@@ -40,13 +42,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<A1>::type sA1;
+      typedef typename A1::type ntype;
+      typedef typename meta::scalar_of<ntype>::type sA1;
       
-      NT2_ALIGNED_TYPE(sA1) tmp[meta::cardinal_of<A1>::value];
-      for(int i = 0; i != meta::cardinal_of<A1>::value; ++i)
+      NT2_ALIGNED_TYPE(sA1) tmp[meta::cardinal_of<ntype>::value];
+      for(int i = 0; i != meta::cardinal_of<ntype>::value; ++i)
         tmp[i] = a0;
       
-      return load<A1>(&tmp[0], 0);
+      return load<ntype>(&tmp[0], 0);
     }
   };
 } }
