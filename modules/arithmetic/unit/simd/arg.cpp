@@ -47,10 +47,10 @@ NT2_TEST_CASE_TPL ( arg_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Minf<vT>())[0], nt2::Pi<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Mone<vT>())[0], nt2::Pi<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::arg(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::arg(nt2::Minf<vT>())[0], nt2::Pi<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::arg(nt2::Mone<vT>())[0], nt2::Pi<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::arg(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::arg(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::arg(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
 } // end of test for real_
