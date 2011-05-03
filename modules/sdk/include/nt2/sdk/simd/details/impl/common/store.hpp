@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <nt2/sdk/details/bitwise_cast.hpp>
+#include <cstring>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over store for SIMD types
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      *(reinterpret_cast<A0*>(a1) + a2) = a0;
+      std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);
       return a0;
     }
   };

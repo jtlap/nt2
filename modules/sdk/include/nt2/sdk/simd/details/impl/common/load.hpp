@@ -17,6 +17,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <cstring>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types
@@ -48,7 +49,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
-      return *(reinterpret_cast<type*>(a0) + a1);
+      type that;
+      memcpy(&that, reinterpret_cast<type*>(a0) + a1, sizeof that);
+      return that;
     }
   };
 } }
@@ -85,7 +88,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(4)
     {
       typedef typename NT2_RETURN_TYPE(4)::type type;
-      return *(reinterpret_cast<type*>(a0 + A3::value) + a1);
+      type that;
+      std::memcpy(&that, reinterpret_cast<type*>(a0 + A3::value) + a1, sizeof that);
+      return that;
     }
   };
 } }
