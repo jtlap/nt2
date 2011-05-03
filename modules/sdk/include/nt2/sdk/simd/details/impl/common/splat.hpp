@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_NONE_SPLAT_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_NONE_SPLAT_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_SPLAT_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_SPLAT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // splat for SIMD types
@@ -19,15 +19,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatches over splat_
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
+NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)(X)
                       , (unspecified_<A0>)
-                        ((target_< simd_< unspecified_<A1>, tag::none_> >))
+                        ((target_< simd_< unspecified_<A1>, X > >))
                       )
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
+  template<class X, class Dummy>
   struct  call< tag::splat_ ( tag::unspecified_
-                            , tag::target_<tag::simd_<tag::unspecified_, tag::none_> >
+                            , tag::target_<tag::simd_<tag::unspecified_, X> >
                             )
               , tag::cpu_
               , Dummy
@@ -40,9 +40,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { a0 };
-      return that;
+      typedef typename meta::scalar_of<A1>::type sA1;
+      
+      NT2_ALIGNED_TYPE(sA1) tmp[meta::cardinal_of<A1>::value];
+      for(int i = 0; i != meta::cardinal_of<A1>::value; ++i)
+        tmp[i] = a0;
+      
+      return load<A1>(&tmp[0], 0);
     }
   };
 } }
