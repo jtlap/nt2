@@ -15,11 +15,8 @@
 #pragma warning(disable: 4996)
 #endif
 
-namespace nt2 { namespace sys
+namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Return a string with time stamp in readable human format
-  //////////////////////////////////////////////////////////////////////////////
   std::string timestamp()
   {
     time_t rawtime;
@@ -30,7 +27,7 @@ namespace nt2 { namespace sys
 
     return std::string(buffer);
   }
-} }
+}
 
 #if defined(BOOST_MSVC)
 #pragma warning(pop)

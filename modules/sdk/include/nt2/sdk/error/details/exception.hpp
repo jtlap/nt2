@@ -56,7 +56,7 @@ namespace nt2
   {
     os
     << "****************************** NT2 ERROR *******************************\n"
-    << "Raised: " << sys::timestamp().c_str()                         << "\n"
+    << "Raised: " << timestamp().c_str()                              << "\n"
     << "File  : " << *boost::get_error_info<boost::throw_file>(e)     << "\n"
     << "Line  : " << *boost::get_error_info<boost::throw_line>(e)     << "\n"
     << "In    : " << *boost::get_error_info<boost::throw_function>(e) << "\n"
