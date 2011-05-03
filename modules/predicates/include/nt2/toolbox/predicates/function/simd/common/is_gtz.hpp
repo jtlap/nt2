@@ -13,7 +13,6 @@
 #include <nt2/include/functions/is_nez.hpp>
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
@@ -35,7 +34,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_gt(a0, Zero<A0>());
+      return gt(a0, Zero<A0>());
     }
   };
 } }
