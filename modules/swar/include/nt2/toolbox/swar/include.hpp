@@ -8,15 +8,11 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_SWAR_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_INCLUDE_HPP_INCLUDED
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <nt2/sdk/simd/preprocessor/include.hpp>
 
 #define NT2_SWAR_BASE() nt2/toolbox/swar/function/scalar/
 #define NT2_SWAR_RELATIVE() nt2/toolbox/swar/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_SWAR_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_SWAR_RELATIVE, F)
-#else
-#define NT2_SWAR_INCLUDE(F) NT2_PP_INCLUDE(NT2_SWAR_BASE, F)
-#endif
 
 #endif
