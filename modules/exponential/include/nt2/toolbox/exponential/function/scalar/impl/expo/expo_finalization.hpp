@@ -43,7 +43,7 @@ namespace nt2
 				  const A0& c, const A0 & k,
 				  const A0& ,const A0& )
 	{
-	  details::ignore_unused(a0);
+	  ignore_unused(a0);
 	  A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
 	  return fast_ldexp(y, fast_toint(k));
 	}

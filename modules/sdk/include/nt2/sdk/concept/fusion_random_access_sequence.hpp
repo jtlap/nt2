@@ -29,7 +29,7 @@ namespace nt2
     BOOST_CONCEPT_USAGE(FusionRandomAccessSequence)
     {
       at_type a = boost::fusion::at_c<0>(s);
-      details::ignore_unused(a);
+      ignore_unused(a);
     }
 
     private:

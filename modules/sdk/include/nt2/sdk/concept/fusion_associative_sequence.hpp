@@ -30,7 +30,7 @@ namespace nt2
     {
               h = boost::fusion::has_key<void>(s);
       at_type a = boost::fusion::at_key<void>(s);
-      details::ignore_unused(a);
+      ignore_unused(a);
     }
 
     private:

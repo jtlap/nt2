@@ -32,8 +32,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      details::ignore_unused(a0);
-      details::ignore_unused(a1);
+      ignore_unused(a0);
+      ignore_unused(a1);
       return True<A0>();
     }
   };

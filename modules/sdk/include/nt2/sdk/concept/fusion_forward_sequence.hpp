@@ -40,7 +40,7 @@ namespace nt2
                   sz  = boost::fusion::size(s);
                   y   = boost::fusion::empty(s);
 
-      details::ignore_unused(f);
+      ignore_unused(f);
     }
 
     private:

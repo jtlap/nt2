@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A1> {};
 
-    NT2_FUNCTOR_CALL(2) { details::ignore_unused(a0); return a1; }
+    NT2_FUNCTOR_CALL(2) { ignore_unused(a0); return a1; }
   };
 } }
 

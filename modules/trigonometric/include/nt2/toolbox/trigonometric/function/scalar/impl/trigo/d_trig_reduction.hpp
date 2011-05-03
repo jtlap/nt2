@@ -78,7 +78,7 @@ namespace nt2
 	typedef typename meta::logical<A0>::type               logic;
 
 	//static const sint_type Med  = 0x412921fb54442d18ll; //2^18*pi   8.235496645826427e+05
-	static inline logic replacement_needed(const A0& a0) {return False<A0>();details::ignore_unused(a0); }//return a0 > double_constant<A0, Med>();}//
+	static inline logic replacement_needed(const A0& a0) {return False<A0>();ignore_unused(a0); }//return a0 > double_constant<A0, Med>();}//
 	static inline logic replacement_available(){return True<A0>(); }
 	static inline logic isalreadyreduced(const A0&a0){return lt(a0,Pio_4<A0>()); }
 	static inline logic issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
