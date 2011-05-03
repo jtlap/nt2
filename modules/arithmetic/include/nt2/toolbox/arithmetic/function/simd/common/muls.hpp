@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_MULS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_MULS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/include/functions/shri.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -32,8 +33,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::upgrade<A0>::type utype; 
-      utype res = utype(a0)*utype(a1);
-      return A0(res) | genmask(A0(res >> sizeof(A0)*8)); 	
+      utype res = simd::native_cast<utype>(a0)*simd::native_cast<utype>(a1);
+      return simd::native_cast<A0>(res) | genmask(simd::native_cast<A0>(shri(res, sizeof(A0)*8)));
     }
   };
 } }
