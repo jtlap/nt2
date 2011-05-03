@@ -25,6 +25,7 @@
 #include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/swar/include/group.hpp>
+#include <nt2/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(uint32_t)(int64_t)(uint64_t)(double))
 {
