@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_HMSB_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_HMSB_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/include/functions/bits.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type z = nt2::bits(a0[0])&1;
-      for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+      for(int i = 0; i< meta::cardinal_of<A0>::value; ++i)
       {
         z |= nt2::bits(a0[i])&1<<i;
       }
@@ -46,4 +46,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by mg the 04/04/2011
+// modified by mg the 03/05/2011
