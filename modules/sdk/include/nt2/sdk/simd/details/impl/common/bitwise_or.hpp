@@ -10,11 +10,8 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_BITWISE_OR_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native_cast.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
 
-#include <boost/mpl/sizeof.hpp>
-#include <boost/mpl/comparison.hpp>
-#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,11 +20,7 @@
 
 NT2_REGISTER_DISPATCH_IF(tag::bitwise_or_, tag::cpu_,
     (A0)(A1)(X),
-    (boost::mpl::and_<
-                       boost::mpl::not_< boost::is_same<A0, A1> >
-                     , boost::mpl::equal_to<boost::mpl::sizeof_<A0>, boost::mpl::sizeof_<A1> >
-                     >
-    ),
+    (boost::mpl::not_< boost::is_same<A0, A1> >),
     (tag::bitwise_or_(tag::simd_<tag::arithmetic_,X>
                      ,tag::simd_<tag::arithmetic_,X>
                      )
@@ -57,8 +50,8 @@ namespace nt2 { namespace ext
     
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0>::type int_type;
-      return simd::native_cast<int_type>(bitwise_or(simd::native_cast<int_type>(a0), simd::native_cast<int_type>(a1)));
+      typedef simd::native<uint8_t, X> int_type;
+      return simd::native_cast<A0>(bitwise_or(simd::native_cast<int_type>(a0), simd::native_cast<int_type>(a1)));
     }
   };
 } }
