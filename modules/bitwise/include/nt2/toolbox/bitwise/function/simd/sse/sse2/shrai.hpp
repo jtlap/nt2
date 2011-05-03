@@ -12,36 +12,10 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
-                        (A0)(A1),
-                        ((simd_<unsigned_<A0>,tag::sse_>))
-                         ((integer_<A1>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::shrai_(tag::simd_<tag::unsigned_, tag::sse_>,
-                          tag::integer_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0,A1)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return shri(a0, a1);
-    }
-  };
-} }
+#include <nt2/toolbox/bitwise/function/simd/common/shrai.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_t

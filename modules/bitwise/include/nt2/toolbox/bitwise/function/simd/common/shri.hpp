@@ -6,15 +6,15 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHLI_HPP_INCLUDED
-#define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHLI_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHRI_HPP_INCLUDED
+#define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHRI_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
+NT2_REGISTER_DISPATCH(tag::shri_, tag::cpu_,
                        (A0)(A1)(X),
                        ((simd_<arithmetic_<A0>,X>))
                        ((integer_<A1>))
@@ -23,7 +23,7 @@ NT2_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::shli_(tag::simd_<tag::arithmetic_, X> ,
+  struct call<tag::shri_(tag::simd_<tag::arithmetic_, X> ,
                          tag::integer_),
               tag::cpu_, Dummy> : callable
   {
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_unsigned<A0>::type ntype;
       return simd::native_cast<A0>(
-        map( functor<tag::shift_left_>()
+        map( functor<tag::shift_right_>()
            , simd::native_cast<ntype>(a0)
            , splat<ntype>(a1)
            )
@@ -45,4 +45,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by mg the 03/05/2011
