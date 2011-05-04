@@ -11,12 +11,17 @@ SET(SOURCES
     assertion_failed.cpp
     timestamp.cpp
     ignore_unused.cpp
+    
+# preprocessor examples
     pp_enum_value.cpp
-    pp_enum_shifted_value.cpp
     pp_include.cpp
     pp_index.cpp
-    pp_text.cpp
+    pp_strip.cpp
+    
+# meta examples
+    decltype.cpp
     type_id.cpp
+    display_type.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.details.examples)

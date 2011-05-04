@@ -9,24 +9,31 @@
 #ifndef NT2_SDK_DETAILS_TIMESTAMP_HPP_INCLUDED
 #define NT2_SDK_DETAILS_TIMESTAMP_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
 /*!
  * \file
  * Defines the timestamp utility function
  */
-////////////////////////////////////////////////////////////////////////////////
 
 #include <string>
 
 namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //==============================================================================
   /*!
+   * \ingroup sdk
    * timestamp returns a string containing current system time in a readable
    * format.
+   *
    * \return Current system time as a \c std::string
+   *
+   * \par Example Usage:
+   *
+   * \include timestamp.cpp
+   *
+   * This code will output a locale dependant string featuring current date and
+   * time information.
    */
-  //////////////////////////////////////////////////////////////////////////////
+  //==============================================================================
   std::string timestamp();
 }
 

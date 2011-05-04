@@ -9,14 +9,21 @@
 #ifndef NT2_SDK_DETAILS_DECLTYPE_HPP_INCLUDED
 #define NT2_SDK_DETAILS_DECLTYPE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
 /*!
  * \file
  * Defines a platform agnostic \c decltype macro.
+ *
  */
-////////////////////////////////////////////////////////////////////////////////
+
+/*!
+ * \ingroup sdk
+ * \defgroup meta NT2 Meta-Programming Utilities
+ * This module gathers macros, macro functions and meta-functions used in
+ * NT2 to write various meta-programms.
+ */
 
 #include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 
 //==============================================================================
 // Boost.Config isn't up to date for MSVC10 so we force it to be
@@ -25,14 +32,18 @@
 #undef BOOST_NO_DECLTYPE
 #endif
 
-//==============================================================================
+#include <boost/proto/detail/decltype.hpp>
+
 /*!
+ * \ingroup meta
  * Defines a type equivalent to the type of the epxression passed as arguments
  * \param EXPR Expression which type has to be evaluated
  * \param TYPE Typename to create
+ *
+ * \par Example Usage:
+ *
+ * \include decltype.cpp
  */
-//==============================================================================
-#include <boost/proto/detail/decltype.hpp>
 #define NT2_DECLTYPE(EXPR, TYPE) BOOST_PROTO_DECLTYPE_(EXPR, TYPE)
 
 #endif

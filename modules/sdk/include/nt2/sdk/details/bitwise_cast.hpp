@@ -9,12 +9,10 @@
 #ifndef NT2_SDK_DETAILS_BITWISE_CAST_HPP_INCLUDED
 #define NT2_SDK_DETAILS_BITWISE_CAST_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
 /*!
  * \file
  * Implements the bitwise_cast utility function
  */
-////////////////////////////////////////////////////////////////////////////////
 
 #include <cstring>
 #include <nt2/sdk/error/static_assert.hpp>
@@ -81,8 +79,9 @@ namespace nt2 { namespace details
 
 namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   /*!
+   * \ingroup sdk
    * bitwise_cast performs a bitwise conversion of a value of type \c From to a
    * value of type \c To by using the appropriate strategy depending on the
    * relation between \c To and \c From.
@@ -90,7 +89,7 @@ namespace nt2
    * \param from Value to convert
    * \return A value of type \c To which bits pattern is identical to \c from.
    */
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<typename To, typename From> To bitwise_cast(From const& from)
   {
     NT2_STATIC_ASSERT( sizeof(From) >= sizeof(To)

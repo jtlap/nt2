@@ -1,9 +1,8 @@
 #include <iostream>
 #include <nt2/sdk/details/preprocessor.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
 
 int main()
 {
-  // Prints (foo foo foo)
-  std::cout << NT2_PP_DEBUG( BOOST_PP_REPEAT(3,NT2_PP_TEXT,foo)) << std::endl;
+  std::cout << NT2_PP_DEBUG( NT2_PP_STRIP(no parens) ) << std::endl;
+  std::cout << NT2_PP_DEBUG( NT2_PP_STRIP((with parens)) ) << std::endl;
 }

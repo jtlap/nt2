@@ -3,6 +3,5 @@
 
 int main()
 {
-  // Prints (6 , 6 , 6 , 6 , 6)
   std::cout << NT2_PP_DEBUG( NT2_PP_ENUM_VALUE(5,6) ) << std::endl;
 }
