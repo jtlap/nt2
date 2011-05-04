@@ -36,6 +36,9 @@
  * If defined, all NT2 exceptions handling code is disabled. This macro can be
  * defined manually and is triggered automatically if \c BOOST_NO_EXCEPTIONS is
  * defined or if exceptions are disabled by the compiler options.
+ *
+ * \see NT2_DISABLE_ASSERTS
+ * \see NT2_ASSERTS_AS_EXCEPTIONS
  */
 //==============================================================================
 #define NT2_DISABLE_ERROR

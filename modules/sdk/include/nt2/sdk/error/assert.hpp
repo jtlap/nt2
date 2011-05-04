@@ -27,14 +27,26 @@
  */
 //==============================================================================
 #define NT2_ASSERTS_AS_EXCEPTIONS
+
+//==============================================================================
+/*!
+ * \ingroup error_config
+ * If \c NT2_DISABLE_ASSERTS is defined, all runtime assertion are disabled.
+ * Note than defining \c BOOST_DISABLE_ASSERTS triggers this definition.
+ *
+ * \see NT2_DISABLE_ERROR
+ * \see NT2_ASSERTS_AS_EXCEPTIONS
+ */
+//==============================================================================
+#define NT2_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
 // Make assertion into exceptions
 //==============================================================================
-#if   defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_DISABLE_ERROR) \
-  ||  defined(DOXYGEN_ONLY)
+#if  !defined(NT2_DISABLE_ERROR) || defined(DOXYGEN_ONLY)
 
+#include <iosfwd>
 #include <nt2/sdk/error/error.hpp>
 
 namespace nt2 { namespace details { NT2_ERROR_INFO(assert_info, char const*); } }
@@ -51,12 +63,7 @@ namespace nt2
   struct assert_exception : virtual nt2::exception
   {
     virtual ~assert_exception() throw() {}
-    virtual void display(std::ostream& os) const throw()
-    {
-      os  << "Assertion: "
-          << *boost::get_error_info<nt2::details::assert_info>(*this)
-          << " failed.\n";
-    }
+    virtual void display(std::ostream& os) const throw();
   };
 }
 
