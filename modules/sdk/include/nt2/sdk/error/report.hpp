@@ -1,25 +1,22 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_ERROR_REPORT_HPP_INCLUDED
 #define NT2_SDK_ERROR_REPORT_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Memory config header
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+// Configuration report for error handling settings
+//==============================================================================
 #include <nt2/sdk/config.hpp>
 #include <nt2/sdk/error/debug.hpp>
 
 namespace nt2 { namespace config
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Error configuration status reporter
-  //////////////////////////////////////////////////////////////////////////////
   static void errors()
   {
     #if defined(NT2_RELEASE)
