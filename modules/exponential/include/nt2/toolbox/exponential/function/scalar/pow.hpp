@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       bool ltza0 = a0 < Zero<A0>(); 
-      if (a0 == a1 && a0 == Minf<A0>() ||
+      if ((a0 == a1 && a0 == Minf<A0>()) ||
 	  (ltza0 && !is_flint(a1))
 	  ) return Nan<A0>(); 
       A0 res =  ::powf(nt2::abs(a0), a1);

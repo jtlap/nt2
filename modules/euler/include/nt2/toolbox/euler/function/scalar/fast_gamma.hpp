@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       {
         if( is_ltz(x))
           {
-            if (((p = floor(q)) == q)) return Nan<A0>();
+            if ((p = floor(q)) == q) return Nan<A0>();
             int32_t i = (int32_t)p;
             if( is_even(i) ) sgngam = -1;
             z = q - p;
