@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup sdk
- * \defgroup meta NT2 Meta-Programming Utilities
+ * \defgroup meta Meta-Programming Utilities
  * This module gathers macros, macro functions and meta-functions used in
  * NT2 to write various meta-programms.
  */

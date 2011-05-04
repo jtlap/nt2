@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup meta
- * \defgroup metadebug NT2 Meta-Programming Debug Utilities
+ * \defgroup metadebug Meta-Programming Debug Utilities
  * This module gathers functions and meta-functions to help debugging template
  * meta-programms in a Human rights compatible way.
  */

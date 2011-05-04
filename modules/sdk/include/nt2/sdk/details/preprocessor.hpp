@@ -19,7 +19,7 @@
  */
 
 /*!
- * \defgroup preprocessor NT2 Preprocessor Utilities
+ * \defgroup preprocessor Preprocessor Utilities
  * \ingroup sdk
  *
  * This module gathers frequently used preprocessor macros and macros functions
