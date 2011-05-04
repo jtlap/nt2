@@ -16,7 +16,10 @@
 #include <csignal>
 #endif
 
-#if (defined(_M_IX86) || defined(__i386__) || defined(_M_IA64) || defined(__ia64__)) && defined(__GNUC__)
+#if (   defined(_M_IX86) || defined(__i386__)   \
+    ||  defined(_M_IA64) || defined(__ia64__)   \
+    )                                           \
+    &&  defined(__GNUC__)
 #define NT2_DEBUG_TRAP()  __asm("int3")
 #elif defined(_MSC_VER)
 #define NT2_DEBUG_TRAP()  __debugbreak()
