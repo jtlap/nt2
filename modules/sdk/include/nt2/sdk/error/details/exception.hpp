@@ -9,30 +9,77 @@
 #ifndef NT2_SDK_ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
 #define NT2_SDK_ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
 
-//==============================================================================
-// Exception interface with std::exception and boost::exception
-//==============================================================================
+/*!
+ * \file
+ * Defines the nt2::exception class
+ */
+
 #include <iosfwd>
 #include <boost/exception/all.hpp>
 
 //==============================================================================
-// Define a new NT2 exception informations diagnostic holder
+/*!
+ * \ingroup error
+ * Define a new NT2 exception information carrier. Information carriers are
+ * used to feed informations from the throwing site to the exception instance
+ * in a safe way.
+ *
+ * \param NAME Name of the diagnostic carrier
+ * \param TYPE Type of the information gathered by the carrier
+ */
 //==============================================================================
 #define NT2_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
 namespace nt2
 {
-  //==============================================================================
-  // Exception base class
-  //==============================================================================
+  //============================================================================
+  /*!
+   * \ingroup error
+   * exception is the base abstract class for all NT2 exceptions. It implements
+   * the classical STD compliant interface, is compatible with boost::exception
+   * and can be directly streamed for easy display.
+   */
+  //============================================================================
   struct exception : virtual boost::exception, virtual std::exception
   {
     virtual ~exception() throw() {}
+
+    //==========================================================================
+    /*!
+     * Returns an informative human readable string containing information
+     * about the current exception throwing context. Such informations contains,
+     * but are not limited to filename, line, function adn time of the throw.
+     *
+     * \return A constant C-style string containing the information about the
+     * exception throwing context.
+     */
+    //==========================================================================
     virtual const char* what() const throw();
-    virtual void display(std::ostream& os) const throw() =0;
+
+    //==========================================================================
+    /*!
+     * Stream exception information context to an output stream. This abstract
+     * member function has to be overloaded when defining a new exception
+     * sub-class.
+     *
+     * \param os an output stream to send the exception context to.
+     */
+    //==========================================================================
+    virtual void display(std::ostream& os) const throw() = 0;
   };
 
+  //============================================================================
+  /*!
+   * \ingroup error
+   * Stream an exception information to an output stream.
+   *
+   * \param os an output stream to send the exception context to.
+   * \param e  exception instance to stream out.
+   *
+   * \return The updated output stream
+   */
+  //============================================================================
   std::ostream& operator<<( std::ostream& os, exception const& e );
 }
 
