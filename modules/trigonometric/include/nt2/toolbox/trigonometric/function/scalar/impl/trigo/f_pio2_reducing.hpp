@@ -12,6 +12,7 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/fast_toint.hpp>
 #include <nt2/include/functions/round2even.hpp>
+#include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/sdk/constant/digits.hpp>
 
 namespace nt2

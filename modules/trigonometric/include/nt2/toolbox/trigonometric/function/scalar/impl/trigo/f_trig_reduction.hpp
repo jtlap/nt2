@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/meta/logical.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
+#include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>
