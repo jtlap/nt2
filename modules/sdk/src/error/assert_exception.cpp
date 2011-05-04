@@ -6,29 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <time.h>
-#include <boost/config.hpp>
-#include <nt2/sdk/details/timestamp.hpp>
 
-#if defined(BOOST_MSVC)
-#pragma warning(push)
-#pragma warning(disable: 4996)
-#endif
+#include <iostream>
+#include <nt2/sdk/error/assert.hpp>
+
+#if !defined(NT2_DISABLE_ERROR)
 
 namespace nt2
 {
-  std::string timestamp()
+  void assert_exception::display(std::ostream& os) const throw()
   {
-    time_t rawtime;
-    char buffer[64];
-
-    time(&rawtime);
-    strftime(buffer,64,"%c",localtime(&rawtime));
-
-    return std::string(buffer);
+    os  << "Assertion: "
+        << *boost::get_error_info<nt2::details::assert_info>(*this)
+        << " failed.\n";
   }
 }
 
-#if defined(BOOST_MSVC)
-#pragma warning(pop)
 #endif

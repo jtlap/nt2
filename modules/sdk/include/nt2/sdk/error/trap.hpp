@@ -1,46 +1,60 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_ERROR_TRAP_HPP_INCLUDED
 #define NT2_SDK_ERROR_TRAP_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Template based SIGTRAP emitter
-// Documentation: http://nt2.lri.fr/sdk/error/trap.html
-////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+ * Implement a cross-platform system for conditionnal breakpoint trap triggers
+ */
+
 #include <boost/utility/enable_if.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/error/details/trap.hpp>
 
-namespace nt2 { namespace sys
+namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Compile-time trap
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Condition> static NT2_FORCE_INLINE
-  typename boost::enable_if_c<Condition::value>::type
-   trap()
+
+  //==============================================================================
+  /*!
+   * \ingroup error
+   * If \c cond is true, triggers a breakpoint trap.
+   *
+   * \param cond Runtime boolean value
+   */
+  //==============================================================================
+  NT2_FORCE_INLINE void trap(bool cond) { if(!cond) NT2_DEBUG_TRAP(); }
+
+  //==============================================================================
+  /*!
+   * \ingroup error
+   * Triggers a breakpoint trap unconditionnaly
+   */
+  //==============================================================================
+   NT2_FORCE_INLINE void trap()          { NT2_DEBUG_TRAP();           }
+
+   //==============================================================================
+   /*!
+    * \ingroup error
+    * If \c Condition::value is true, triggers a breakpoint trap.
+    *
+    * \param Condition Compile-time boolean integral constant
+    */
+   //==============================================================================
+  template<class Condition> NT2_FORCE_INLINE
+  trap( typename boost::enable_if_c<Condition::value>::type* = 0 )
   {
     NT2_DEBUG_TRAP();
   }
 
-  template<class Condition> static NT2_FORCE_INLINE
-  typename boost::disable_if_c<Condition::value>::type trap() {}
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Runtime trap
-  //////////////////////////////////////////////////////////////////////////////
-  static NT2_FORCE_INLINE void trap(bool cond) { if(!cond) NT2_DEBUG_TRAP(); }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Forced trap
-  //////////////////////////////////////////////////////////////////////////////
-  static NT2_FORCE_INLINE void trap() { NT2_DEBUG_TRAP(); }
-} }
+  template<class Condition> NT2_FORCE_INLINE
+  trap( typename boost::disable_if_c<Condition::value>::type* = 0) {}
+}
 
 #endif

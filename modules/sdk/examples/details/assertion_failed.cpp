@@ -1,3 +1,4 @@
+#define NT2_DEBUG
 #define NT2_ASSERTS_AS_EXCEPTIONS
 #include <iostream>
 #include <nt2/sdk/error/assert.hpp>
