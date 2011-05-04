@@ -18,7 +18,7 @@
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
 /*!
- * \ingroup error
+ * \ingroup error_config
  * If NT2_ASSERTS_AS_EXCEPTIONS is defined, all runtime assertion will throw
  * an instance of assert_exception instead of triggering a runtime assertion.
  *

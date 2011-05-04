@@ -19,7 +19,7 @@
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
 /*!
- * \ingroup error
+ * \ingroup error_config
  * If \c NT2_USE_CONCEPTS is used, Concepts conformance will be checked at
  * compile time to enforce structer typing rules. As Concepts checking increases
  * compile time, it has to be used conservatively.
