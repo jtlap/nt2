@@ -9,12 +9,18 @@
 #ifndef NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 #define NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
 /*!
  * \file
- * Defines the type_id and display_type utility functions
+ * Defines types to string conversion utility functions
+ *
  */
-////////////////////////////////////////////////////////////////////////////////
+
+/*!
+ * \ingroup meta
+ * \defgroup metadebug NT2 Meta-Programming Debug Utilities
+ * This module gathers functions and meta-functions to help debugging template
+ * meta-programms in a Human rights compatible way.
+ */
 
 #if (__GNUC__ && __cplusplus && __GNUC__ >= 3)
 //==============================================================================
@@ -72,10 +78,23 @@ namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
   /*!
+   * \ingroup metadebug
    * Returns a string containing the demangled typename of a given type
    *
    * \param expr Expression which type is to be stringized
    * \return \c T type name as a readable \c std::string
+   *
+   * \par Example Usage:
+   *
+   * \include type_id.cpp
+   *
+   * This examples outpus:
+   *
+   * \code
+   * char [21]
+   * float
+   * std::vector<long*, std::allocator<long*> >
+   * \endcode
    */
   //////////////////////////////////////////////////////////////////////////////
   template<typename T> inline std::string type_id(const T& expr = *((T*)0))
@@ -86,9 +105,27 @@ namespace nt2
   
   //////////////////////////////////////////////////////////////////////////////
   /*!
+   * \ingroup metadebug
    * Display the demangled typename of a given type on the standard output.
    *
    * \param expr Expression which type is to be displayed
+   *
+   * \par Example Usage:
+   *
+   * \include display_type.cpp
+   *
+   * This examples outpus:
+   *
+   * \code
+   * char [21]
+   * float
+   * std::vector<
+   *              long*
+   *              ,std::allocator<
+   *                              long*
+   *                              >
+   *            >
+   * \endcode
    */
   //////////////////////////////////////////////////////////////////////////////
   template<typename T> inline void display_type(const T& expr = *((T*)0))
@@ -118,9 +155,9 @@ namespace nt2
           break;
           
         case ',':
-          std::cout << *it;
           std::cout << '\n';
           details::indent(std::cout, depth);
+          std::cout << *it;
           prevspace = true;
           break;
           
