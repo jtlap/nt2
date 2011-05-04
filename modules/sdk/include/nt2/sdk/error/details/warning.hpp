@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_ERROR_DETAILS_WARNING_HPP_INCLUDED
 #define NT2_SDK_ERROR_DETAILS_WARNING_HPP_INCLUDED
 
@@ -22,9 +22,9 @@ nt2::details::emit_warning(                             \
 
 namespace nt2 { namespace details
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Forward a warning string to the proper default or user-defined logger
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<class T> inline void emit_warning( T const& msg )
   {
     #if !defined(NT2_WARNING_HANDLER)
@@ -39,14 +39,14 @@ namespace nt2 { namespace details
 #include <nt2/sdk/error/details/exception.hpp>
 namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // warning infos type
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   namespace details { NT2_ERROR_INFO(warning_,char const*); }
 
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // warning_exception is defined if warning are upgraded to errors
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   struct warning_exception : virtual nt2::exception
   {
     virtual void display(std::ostream& os) const throw()

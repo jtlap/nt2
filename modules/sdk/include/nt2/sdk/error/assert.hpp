@@ -28,12 +28,13 @@
 
 NT2_WARNING(Assertion Failures throw exceptions)
 
-namespace nt2 { namespace details { NT2_ERROR_INFO(assert_info,char const*); } }
+namespace nt2 { namespace details { NT2_ERROR_INFO(assert_info, char const*); } }
 
 namespace nt2
 {
   struct assert_exception : virtual nt2::exception
   {
+    virtual ~assert_exception() throw() {}
     virtual void display(std::ostream& os) const throw()
     {
       os  << "Assertion: "

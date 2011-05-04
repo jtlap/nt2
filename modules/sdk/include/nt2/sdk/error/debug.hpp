@@ -22,17 +22,6 @@
 #endif
 
 #if defined(NT2_RELEASE)
-
-////////////////////////////////////////////////////////////////////////////////
-// And of course, NDEBUG is set by NT2_RELEASE
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NDEBUG)
-#define NDEBUG
-#endif
-
-#define NT2_DISABLE_ASSERTS
-#define BOOST_DISABLE_ASSERTS
-#undef NT2_DEBUG
 NT2_WARNING(Compiling In Release Configuration)
 #endif
 
