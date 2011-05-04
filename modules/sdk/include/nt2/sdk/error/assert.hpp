@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros and functions controlling the handling of runtiem assertions
+ * Defines macros and functions controlling the handling of runtime assertions
  */
 #include <nt2/sdk/error/debug.hpp>
 
@@ -117,7 +117,7 @@ namespace boost
                       );
     #elif defined(NT2_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
-    ::nt2::sys::trap();
+    ::nt2::trap();
     #endif
   }
 }
