@@ -26,11 +26,13 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ldexp_, tag::cpu_,
-                        (A0)(A1)(X),
-                        ((simd_<arithmetic_<A0>,X>))
-                        ((simd_<integer_<A1>,X>))
-                       );
+NT2_REGISTER_DISPATCH_IF(tag::ldexp_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::ldexp_(tag::simd_<tag::arithmetic_,X>, tag::simd_<tag::integer_,X>)), 
+                         ((simd_<arithmetic_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
+			 );
 
 namespace nt2 { namespace ext
 {
@@ -51,13 +53,42 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is arithmetic_ and A1 scalar
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ldexp_, tag::cpu_,
-                        (A0)(A1)(X),
-                        ((simd_<real_<A0>,X>))
-                        ((simd_<integer_<A1>,X>))
-                       );
+		      (A0)(A1)(X),
+		      ((simd_<arithmetic_<A0>,X>))
+		      ((integer_<A1>))
+		      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::ldexp_(tag::simd_<tag::arithmetic_, X> ,
+                          tag::integer_ ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      return rshl(a0, a1);
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH_IF(tag::ldexp_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::ldexp_(tag::simd_<tag::real_,X>, tag::simd_<tag::integer_,X>)), 
+			 ((simd_<real_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
+			 );
 
 namespace nt2 { namespace ext
 {
@@ -78,10 +109,6 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<result_type, signed>::type  int_type;
       typedef typename meta::scalar_of<int_type>::type             sint_type;
 
-//       sint_type const nmb = Nbmantissabits<s_type>();
-//       sint_type const n1  = ((2*(Maxexponent<s_type>()-1)+3) << nmb);
-//       const int_type  vn1 = splat<int_type>(n1);
-
       // clear exponent in x
       result_type const x = {b_andnot(a0, Ldexpmask<A0>())};
 
@@ -92,6 +119,33 @@ namespace nt2 { namespace ext
                      , b_or(x, e)
                      , a0
                      );
+    }
+  };
+} }
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_ and A1 is scalar
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ldexp_, tag::cpu_,
+                        (A0)(A1)(X),
+                        ((simd_<real_<A0>,X>))
+                        ((integer_<A1>))
+                       );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::ldexp_(tag::simd_<tag::real_, X> ,
+                          tag::integer_ ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> : meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_integer<A0>::type iA0; 
+      return ldexp(a0, splat<iA0>(a1)); 
     }
   };
 } }
