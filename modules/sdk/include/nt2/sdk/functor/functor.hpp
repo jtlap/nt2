@@ -1,18 +1,26 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_FUNCTOR_FUNCTOR_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_FUNCTOR_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Main generic functor class
-// Documentation: http://nt2.lri.fr/sdk/functor/entity/functor.html
-////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+ * Implements NT2 main functor handler
+ */
+
+/*!
+ * \defgroup functors Functor system
+ * \ingroup sdk
+ * This module gathers macros, classes and functions to define, implement
+ * and specialize polymorphic functors.
+ */
+
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
 #include <nt2/sdk/meta/floating.hpp>
@@ -22,6 +30,7 @@
 #include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/functor/meta/enable_call.hpp>
+#include <nt2/sdk/functor/meta/make_functor.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>
@@ -32,28 +41,52 @@
 
 namespace nt2
 {
-  template<typename Tag, typename Dummy = void>
-  struct make_functor
-  {
-    typedef functor<Tag> type;
-  };
-  
-  template<class Tag, class Site> struct functor
+  //============================================================================
+  /*!
+   * \ingroup functors
+   * \ref functor is a generic, concept-dispatched polymorphic function object.
+   * Every function in NT2 are defined in term of implementing a call strategy
+   * for \ref functor. The main rationale is to centralize and homogenize the way
+   * functions with multiple possible implementation with respect to types,
+   * architectures and compilation phases are handled.
+   *
+   * \param Tag Function tag to dispatch to.
+   * \param EvalContext Tag defining how to perform said function call with
+   * respect to architecture or phase settings.
+   *
+   * \par Models:
+   * \dco
+   *
+   * \endcode
+   * \see call
+   * \see hierarchy
+   * \see enable_call
+   * \see make_functor
+   */
+  //============================================================================
+  template<class Tag, class EvalContext> struct functor
   {
     template<class Sig> struct result;
 
-    #if defined(BOOST_HAS_VARIADIC_TMPL)
+    #if defined(BOOST_HAS_VARIADIC_TMPL) || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
-      typedef typename meta::dispatch_call<Tag(Args...),Site>::type callee;
+      typedef typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
       typedef typename std::tr1::result_of<callee(Args...)>::type   type;
     };
 
+    //==========================================================================
+    /*!
+     * Polymorphic variadic function call operator. This catch-all operators
+     * dispatches its arguments to the proper type and architecture based
+     * implementation using the \ref hierarchy system.
+     */
+    //==========================================================================
     template<class... Args> inline typename result<functor(Args...)>::type
     operator()( Args const& ...args ) const
     {
-      typename meta::dispatch_call<Tag(Args...),Site>::type callee;
+      typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
       return callee( args... );
     }
     #else
@@ -63,17 +96,20 @@ namespace nt2
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
     {                                                                         \
       typedef typename                                                        \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type callee;  \
+      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
+                                                                    callee;   \
       typedef typename                                                        \
       std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;     \
     };                                                                        \
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                          \
-    typename meta::enable_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type     \
+    typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                \
+                              , EvalContext>::type                            \
     operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a)  ) const            \
     {                                                                         \
       typename                                                                \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site>::type callee;  \
+      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
+      callee;                                                                 \
       return callee( BOOST_PP_ENUM_PARAMS(n,a) );                             \
     }                                                                         \
     /**/
@@ -82,7 +118,7 @@ namespace nt2
     #undef M0
 
     #endif
-  };
+    };
 }
 
 #endif
