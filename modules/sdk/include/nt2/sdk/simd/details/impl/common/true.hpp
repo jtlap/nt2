@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 
+#include <nt2/sdk/details/ignore_unused.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type type;
       typedef typename meta::as_integer<type>::type    int_type;
@@ -56,6 +59,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type type;
       return splat<result_type>(~type(0));

@@ -14,6 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,6 +70,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type that = { _mm_set1_pd(a0)  };
       return that;
@@ -90,6 +92,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type that = { _mm_set1_ps(a0)  };
       return that;
@@ -111,6 +114,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type that = { _mm_set1_epi8(a0)  };
       return that;
@@ -132,6 +136,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type that = { _mm_set1_epi16(a0)  };
       return that;
@@ -153,6 +158,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type that = { _mm_set1_epi32(a0)  };
       return that;
@@ -174,6 +180,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       typedef typename NT2_RETURN_TYPE(2)::type type;
       type that = {
           _mm_setr_epi32( (a0 & 0x00000000FFFFFFFFULL)

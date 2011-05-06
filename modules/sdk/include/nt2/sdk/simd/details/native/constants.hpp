@@ -14,6 +14,7 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/constant/boolean.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/simd/details/impl/splat.hpp>
 #include <nt2/sdk/simd/details/impl/constants.hpp>
 
@@ -47,6 +48,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename meta::strip<A0>::type::type        target;
       typedef typename meta::scalar_of<target>::type      type;
       typedef typename NT2_RETURN_TYPE(1)::type           result_type;

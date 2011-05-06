@@ -16,6 +16,7 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +48,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
+      ignore_unused(a2);
       typedef typename NT2_RETURN_TYPE(3)::type type;
       type that = { _mm_load_pd(a0+a1*meta::cardinal_of<type>::value) };
       return that;
@@ -83,6 +85,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
+      ignore_unused(a2);
       typedef typename NT2_RETURN_TYPE(3)::type type;
       type that = { _mm_load_ps(a0+a1*meta::cardinal_of<type>::value) };
       return that;
@@ -119,6 +122,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
+      ignore_unused(a2);
       typedef typename NT2_RETURN_TYPE(3)::type type;
       type that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
       return that;
