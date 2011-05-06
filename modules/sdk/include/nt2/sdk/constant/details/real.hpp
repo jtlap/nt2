@@ -49,6 +49,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<double>::type const that = {D};
       return splat<typename A0::type>(that.value);
     }
@@ -67,6 +68,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<float>::type const that = {F};
       return splat<typename A0::type>(that.value);
     }
@@ -90,6 +92,7 @@ namespace nt2 { namespace ext                                           \
                                                                         \
     NT2_FUNCTOR_CALL(1)                                                 \
     {                                                                   \
+      ignore_unused(a0);                                                \
       meta::from_bits<double>::type const that = {DOUBLE};              \
       return splat<typename A0::type>(that.value);                      \
     }                                                                   \
@@ -104,6 +107,7 @@ namespace nt2 { namespace ext                                           \
                                                                         \
     NT2_FUNCTOR_CALL(1)                                                 \
     {                                                                   \
+      ignore_unused(a0);                                                \
       meta::from_bits<float>::type const that = {FLOAT};                \
       return splat<typename A0::type>(that.value);                      \
     }                                                                   \

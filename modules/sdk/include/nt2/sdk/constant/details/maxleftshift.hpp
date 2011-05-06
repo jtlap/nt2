@@ -38,6 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename  NT2_RETURN_TYPE(1)::type  type;
       typedef typename meta::scalar_of<type>::type base_t;
       BOOST_STATIC_CONSTANT(std::size_t, value = sizeof(base_t)*CHAR_BIT-1 );

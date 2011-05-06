@@ -26,6 +26,7 @@ struct call< TAG(tag::target_<SEL>), tag::cpu_, Dummy>  : callable          \
         : meta::as_integer<typename meta::strip<A0>::type::type,signed> {}; \
   NT2_FUNCTOR_CALL(1)                                                       \
   {                                                                         \
+    ignore_unused(a0);                                                      \
     typedef typename  NT2_RETURN_TYPE(1)::type type;                        \
     return splat<type>(VAL);                                                \
   }                                                                         \

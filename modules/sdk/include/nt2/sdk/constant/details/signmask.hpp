@@ -38,6 +38,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<double>::type const that = {0x8000000000000000LL};
       return splat<typename A0::type>(that.value);
     }
@@ -56,6 +57,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<float>::type const that = {0x80000000};
       return splat<typename A0::type>(that.value);
     }
@@ -74,6 +76,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename meta::scalar_of<typename A0::type>::type base;
       return splat<typename A0::type>(0);
     }
@@ -92,6 +95,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename meta::scalar_of<typename A0::type>::type base;
       typedef typename meta::as_unsigned<base>::type base_u;
       BOOST_STATIC_CONSTANT(base_u, value = base_u(1) << (sizeof(base_u)*CHAR_BIT-1) );

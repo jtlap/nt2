@@ -39,6 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       typedef typename NT2_RETURN_TYPE(1)::type result_type;
       result_type that = splat<result_type>(N);
       return that;

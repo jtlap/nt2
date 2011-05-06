@@ -45,6 +45,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<double>::type const that = {0x7FF0000000000000LL};
       return splat<typename A0::type>(that.value);
     }
@@ -63,6 +64,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<float>::type const that = {0x7F800000};
       return splat<typename A0::type>(that.value);
     }
@@ -81,6 +83,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       return Valmax<typename A0::type>();
     }
   };
@@ -98,6 +101,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<double>::type const that = {0xFFF0000000000000LL};
       return splat<typename A0::type>(that.value);
     }
@@ -116,6 +120,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<float>::type const that = {0xFF800000};
       return splat<typename A0::type>(that.value);
     }
@@ -134,6 +139,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       return Valmin<typename A0::type>();
     }
   };
@@ -151,6 +157,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<double>::type const that = {0xFFFFFFFFFFFFFFFFLL};
       return splat<typename A0::type>(that.value);
     }
@@ -169,28 +176,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       meta::from_bits<float>::type const that = {0xFFFFFFFF};
       return splat<typename A0::type>(that.value);
     }
   };
-
-//   template<class Dummy>
-//   struct  call< tag::nan_(tag::target_<tag::arithmetic_> )
-//               , tag::cpu_
-//               , Dummy
-//               >
-//         : callable
-//   {
-//     template<class Sig> struct result;
-//     template<class This, class Target>
-//     struct result<This(Target)> : meta::strip<Target>::type {};
-
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return splat<typename A0::type>(0);
-//     }
-//   };
-
 } }
 
 #endif
