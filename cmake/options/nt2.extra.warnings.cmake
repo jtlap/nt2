@@ -23,7 +23,7 @@ IF(NT2_EXTRA_WARNINGS)
 ################################################################################
 check_cxx_compiler_flag("-Wextra" HAS_GCC_WEXTRA)
 IF(HAS_GCC_WEXTRA)
-set(NT2_FLAGS "${NT2_FLAGS} -Wall -Wextra -pedantic -ansi")
+set(NT2_FLAGS "${NT2_FLAGS} -Wall -Wextra")
 set(NT2_EXTRA_WARNINGS_SET 1)
 ENDIF()
 
