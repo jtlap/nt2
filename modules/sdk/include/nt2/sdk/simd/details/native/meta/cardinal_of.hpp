@@ -22,7 +22,7 @@ namespace nt2 { namespace details
   struct  cardinal_of_impl< T
                           , meta::simd_<H,X>
                           >
-        : boost::mpl::int_<T::static_size> {};
+        : boost::mpl::size_t<T::static_size> {};
 } }
 
 #endif

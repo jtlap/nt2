@@ -9,13 +9,13 @@
 #ifndef NT2_SDK_META_CARDINAL_OF_HPP_INCLUDED
 #define NT2_SDK_META_CARDINAL_OF_HPP_INCLUDED
 
-#include <boost/mpl/int.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
   template<class Type,class Hierarchy>
-  struct cardinal_of_impl : boost::mpl::int_<1> {};
+  struct cardinal_of_impl : boost::mpl::size_t<1> {};
 } }
 
 namespace nt2 { namespace meta
