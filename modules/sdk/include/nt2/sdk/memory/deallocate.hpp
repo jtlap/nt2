@@ -33,7 +33,6 @@ namespace nt2 { namespace memory
     // Compute alignment values for fixing address
     BOOST_STATIC_CONSTANT(std::size_t, size  = sizeof(value_type)       );
     BOOST_STATIC_CONSTANT(std::size_t, align = NT2_CONFIG_ALIGNMENT     );
-    BOOST_STATIC_CONSTANT(std::size_t, fix   = ~(std::size_t(align-1))  );
 
     // How many elements are needed ot store proper number of bytes
     std::size_t nelems = align_on<size>(nbytes+align+sizeof(void*))/size;
@@ -42,5 +41,7 @@ namespace nt2 { namespace memory
     a.deallocate(reinterpret_cast<typename Allocator::pointer>(base),nelems);
   }
 } }
+
+
 
 #endif

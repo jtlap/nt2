@@ -45,6 +45,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
+      ignore_unused(a2);
       A0 that = a0;
       std::advance(that,a1);
       return *that;
@@ -83,6 +84,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(4)
     {
+      ignore_unused(a2);
+      ignore_unused(a3);
       A0 that = a0;
       std::advance(that,a1+A3::value);
       return *that;

@@ -18,6 +18,7 @@
 #include <boost/typeof/typeof.hpp>
 #include <boost/tr1/functional.hpp>
 #include <nt2/sdk/functor/operators.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +59,11 @@ namespace nt2 { namespace ext
       typedef typename nested::type type;
     };
 
-    NT2_FUNCTOR_CALL(2) { return A0::value*a1; }
+    NT2_FUNCTOR_CALL(2)
+    {
+      ignore_unused(a0);
+      return A0::value*a1;
+    }
   };
 
   template<class Dummy>
@@ -78,7 +83,11 @@ namespace nt2 { namespace ext
       typedef typename nested::type type;
     };
 
-    NT2_FUNCTOR_CALL(2) { return a0*A1::value; }
+    NT2_FUNCTOR_CALL(2)
+    {
+      ignore_unused(a1);
+      return a0*A1::value;
+    }
   };
 
   template<class Dummy>
@@ -98,6 +107,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a0);
+      ignore_unused(a1);
       return typename NT2_RETURN_TYPE(2)::type();
     }
   };

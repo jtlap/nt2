@@ -122,6 +122,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
+      ignore_unused(a1);
+      ignore_unused(a2);
       return boost::fusion::at_c<A2::value-1>(a0);
     }
   };
