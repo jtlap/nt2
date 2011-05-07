@@ -25,7 +25,7 @@ namespace nt2
   };
 
   template< class Tag
-          , class EvalContext = typename default_site<Function>::type
+          , class EvalContext = typename default_site<Tag>::type
           >
   struct functor;
 }
