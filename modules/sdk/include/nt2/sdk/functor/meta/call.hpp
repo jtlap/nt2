@@ -16,6 +16,7 @@
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
 #include <nt2/sdk/functor/functor.hpp>
+#include <boost/function_types/result_type.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>
@@ -31,7 +32,7 @@ namespace nt2 { namespace meta
    * argument lists \c ...Args, computes the return type of
    * functor<Tag,EvalContext>::operator()(Args...).
    *
-   * \param Signature function type build from Tag(Args...)
+   * \param Sig         function type build from Tag(Args...)
    * \param EvalContext evaluation context to use for type deduction
    *
    * \par Models:
@@ -50,7 +51,12 @@ namespace nt2 { namespace meta
    * \endcode
    */
   //============================================================================
-  template<class Signature, class EvalContext = tag::cpu_> struct call {};
+  template< class Sig
+          , class EvalContext = typename
+                                default_site< typename  boost::function_types::
+                                                        result_type<Sig>::type
+                                            >::type
+          > struct call {};
 
 #if defined(BOOST_HAS_VARIADIC_TMPL)
   template<class Tag, class... Args, class Site>
