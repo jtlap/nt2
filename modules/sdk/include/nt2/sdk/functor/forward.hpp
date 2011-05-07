@@ -19,7 +19,7 @@ namespace nt2
    * for functors.
    */
   //============================================================================
-  template< class Function, class Enable = void > struct default_site
+  template< class Tag, class Enable = void > struct default_site
   {
     typedef tag::cpu_ type;
   };
