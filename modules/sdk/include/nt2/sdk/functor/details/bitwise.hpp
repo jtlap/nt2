@@ -1,26 +1,26 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_FUNCTOR_DETAILS_BITWISE_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_DETAILS_BITWISE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 // bitwise operators extended implementation
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 // bitwise operators on scalar arithmetic types works on real types too
 // This behavior is tied to the prefix form. The traditionnal operator do
 // not has this property on scalar value.
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #define NT2_MAKE_BITWISE(TAG,OP)                                          \
 NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(bool_<A0>)(bool_<A1>))      \
 NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0)(A1),(type8_<A0>)(type8_<A1>))    \
