@@ -31,6 +31,7 @@
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/functor/meta/enable_call.hpp>
 #include <nt2/sdk/functor/meta/make_functor.hpp>
+#include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <nt2/extension/parameters.hpp>

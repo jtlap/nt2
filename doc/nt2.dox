@@ -20,15 +20,16 @@ PROJECT_NUMBER         = 3.0
 OUTPUT_DIRECTORY       = reference
 CREATE_SUBDIRS         = YES
 OUTPUT_LANGUAGE        = English
-BRIEF_MEMBER_DESC      = YES
+BRIEF_MEMBER_DESC      = NO
 REPEAT_BRIEF           = NO
 ABBREVIATE_BRIEF       =
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = YES
-FULL_PATH_NAMES        = NO
-STRIP_FROM_PATH        =
-STRIP_FROM_INC_PATH    = modules/
-SHORT_NAMES            = YES
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = /Users/joelfalcou/Documents/dev/github/nt2/modules/sdk/include/
+STRIP_FROM_PATH       += /Users/joelfalcou/Documents/dev/github/nt2/modules/core/include/
+STRIP_FROM_INC_PATH    = modules/sdk/include/
+SHORT_NAMES            = NO
 JAVADOC_AUTOBRIEF      = NO
 QT_AUTOBRIEF           = NO
 MULTILINE_CPP_IS_BRIEF = NO
@@ -138,7 +139,7 @@ REFERENCED_BY_RELATION = NO
 REFERENCES_RELATION    = NO
 REFERENCES_LINK_SOURCE = YES
 USE_HTAGS              = NO
-VERBATIM_HEADERS       = YES
+VERBATIM_HEADERS       = NO
 
 ################################################################################
 # configuration options related to the alphabetical class index
