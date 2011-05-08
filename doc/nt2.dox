@@ -44,8 +44,11 @@ TAB_SIZE               = 2
 # will result in a user-defined paragraph with heading "Side Effects:".
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES += "metafunction=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
-ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
+ALIASES += "metafunction=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
+ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
+ALIASES += "metasequence=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/forward-sequence.html\">MPL Sequence</a>"
+ALIASES += "true_=\c boost::mpl::true_"
+ALIASES += "false_=\c boost::mpl::false_"
 
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
