@@ -11,6 +11,7 @@ SET(SOURCES
     assertion_failed.cpp
     timestamp.cpp
     ignore_unused.cpp
+    bitwise_cast.cpp
     
 # preprocessor examples
     pp_enum_value.cpp

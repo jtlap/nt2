@@ -122,7 +122,8 @@ dispatching( Tag const&, Site const&                                        \
  * \param ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
-//==============================================================================#define NT2_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
+//==============================================================================
+#define NT2_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
 namespace nt2 { namespace meta {                                              \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types)> \
 typename boost::enable_if < NT2_PP_STRIP(Cond)                                \

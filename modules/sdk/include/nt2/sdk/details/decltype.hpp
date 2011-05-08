@@ -12,7 +12,6 @@
 /*!
  * \file
  * Defines a platform agnostic \c decltype macro.
- *
  */
 
 /*!
