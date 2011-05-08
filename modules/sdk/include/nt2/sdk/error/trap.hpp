@@ -44,17 +44,17 @@ namespace nt2
     * \ingroup error
     * If \c Condition::value is true, triggers a breakpoint trap.
     *
-    * \param Condition Compile-time boolean integral constant
+    * \tparam Condition Compile-time boolean integral constant
     */
    //==============================================================================
   template<class Condition> NT2_FORCE_INLINE
-  trap( typename boost::enable_if_c<Condition::value>::type* = 0 )
+  void trap( typename boost::enable_if_c<Condition::value>::type* = 0 )
   {
     NT2_DEBUG_TRAP();
   }
 
   template<class Condition> NT2_FORCE_INLINE
-  trap( typename boost::disable_if_c<Condition::value>::type* = 0) {}
+  void trap( typename boost::disable_if_c<Condition::value>::type* = 0) {}
 }
 
 #endif
