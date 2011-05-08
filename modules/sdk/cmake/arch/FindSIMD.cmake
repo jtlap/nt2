@@ -11,6 +11,7 @@
 # Check for SIMD extensions availability
 ################################################################################
 INCLUDE(nt2.info)
+INCLUDE(CheckCXXCompilerFlag)
 
 ################################################################################
 # x86 Family
