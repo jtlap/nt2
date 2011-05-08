@@ -86,8 +86,19 @@ namespace nt2
    * value of type \c To by using the appropriate strategy depending on the
    * relation between \c To and \c From.
    *
+   * \tparam To Type to convert to
+   *
    * \param from Value to convert
+   *
    * \return A value of type \c To which bits pattern is identical to \c from.
+   *
+   * \par Example Usage:
+   *
+   * \include bitwise_cast.cpp
+   *
+   * The expected out put is :
+   *
+   * \c bf800000
    */
   //============================================================================
   template<typename To, typename From> To bitwise_cast(From const& from)
