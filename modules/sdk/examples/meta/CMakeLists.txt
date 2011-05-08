@@ -12,6 +12,7 @@ SET(SOURCES
     is_set.cpp
     join.cpp
     any.cpp
+    all.cpp
     enable_if_type.cpp
     strip.cpp
     make_real.cpp
