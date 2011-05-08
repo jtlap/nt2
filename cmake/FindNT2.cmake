@@ -246,6 +246,7 @@ function(nt2_find)
   if(NOT NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
     nt2_find_log("found NT2 source root ${NT2_SOURCE_ROOT}")
     set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+    set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
   endif()
     
   # Search for install
