@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines and implements nt2::meta::all
+ * \brief Defines and implements nt2::meta::all
  */
 
 #include <boost/config.hpp>
