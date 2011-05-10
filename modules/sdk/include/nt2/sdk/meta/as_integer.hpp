@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines and implements \ref nt2::meta::as_integer
+ * \brief Defines and implements \ref nt2::meta::as_integer
  */
 
 #include <nt2/sdk/meta/sign_of.hpp>

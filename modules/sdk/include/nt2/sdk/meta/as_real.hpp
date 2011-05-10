@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines and implements \ref nt2::meta::as_real
+ * \brief Defines and implements \ref nt2::meta::as_real
  */
 
 #include <nt2/sdk/meta/strip.hpp>
