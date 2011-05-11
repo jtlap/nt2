@@ -28,6 +28,18 @@ namespace nt2 { namespace details
     typedef A0 type;
   };
   
+  template<class T>
+  T maybe_genmask(T const& t)
+  {
+    return t;
+  }
+  
+  template<class T>
+  T maybe_genmask(bool t)
+  {
+    return genmask(static_cast<T>(t));
+  }
+  
 } }
 
 #define M0(z,n,t) ((simd_< unspecified_<A0>, X >))
@@ -78,7 +90,7 @@ namespace nt2 { namespace ext                                                \
       NT2_ALIGNED_TYPE(stype) tmp[meta::cardinal_of<A0>::value];             \
                                                                              \
       for(int i = 0; i != meta::cardinal_of<A0>::value; ++i)                 \
-        tmp[i] = f(BOOST_PP_ENUM(n, M3, ~));                                 \
+        tmp[i] = details::maybe_genmask<stype>(f(BOOST_PP_ENUM(n, M3, ~)));  \
                                                                              \
       return load<ntype>(&tmp[0], 0);                                        \
     }                                                                        \
