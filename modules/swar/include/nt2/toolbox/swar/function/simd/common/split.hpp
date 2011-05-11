@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
       for(int i = 0; i != size/2; ++i)
         tmp1[i] = a0[i];
       for(int i = 0; i != size/2; ++i)
-        tmp2[i] = a0[i+size];
+        tmp2[i] = a0[i+size/2];
         
       return boost::fusion::make_tuple(
         load<rtype>(&tmp1[0], 0),
