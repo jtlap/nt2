@@ -20,7 +20,7 @@
 #include <nt2/include/functions/is_flint.hpp>
 
 
-
+#ifdef NT2_SIMD_DETECTED
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -94,6 +94,7 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#endif
 
 #endif
 // modified by jt the 05/01/2011
