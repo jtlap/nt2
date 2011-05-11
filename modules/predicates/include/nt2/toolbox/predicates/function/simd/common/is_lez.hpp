@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_less(a0, Zero<A0>());
+      return le(a0, Zero<A0>());
     }
   };
 } }
