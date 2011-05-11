@@ -9,6 +9,8 @@
 
 nt2_module_use_modules(examples predicates)
 
+nt2_module_use_modules(unit predicates bitwise) # workaround, FIXME
+
 ADD_SUBDIRECTORY(config)
 ADD_SUBDIRECTORY(details)
 #ADD_SUBDIRECTORY(errors)
