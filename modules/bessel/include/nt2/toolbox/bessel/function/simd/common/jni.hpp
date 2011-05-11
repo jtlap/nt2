@@ -53,47 +53,19 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is double
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::jni_, tag::cpu_,
-                      (A0)(A1)(X),
-                      ((integer_<A0>))
-                      ((simd_<double_<A1>,X>))
-                     );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::jni_(tag::integer_,
-                        tag::simd_<tag::double_, X> ),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      const A1 r = {{jni(a0, a1[0]),jni(a0, a1[1])}} ;
-      return r;
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is float
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::jni_, tag::cpu_,
                       (A0)(A1)(X),
                       ((integer_<A0>))
-                      ((simd_<float_<A1>,X>))
+                      ((simd_<real_<A1>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::jni_(tag::integer_,
-                        tag::simd_<tag::float_, X> ),
+                        tag::simd_<tag::real_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
