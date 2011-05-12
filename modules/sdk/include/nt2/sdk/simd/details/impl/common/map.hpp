@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/constant/boolean.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 
@@ -29,15 +30,23 @@ namespace nt2 { namespace details
   };
   
   template<class T>
-  T maybe_genmask(T const& t)
+  typename boost::disable_if<
+    boost::is_same<T, bool>,
+    T
+  >::type
+  maybe_genmask(T const& t)
   {
     return t;
   }
   
-  template<class T>
-  T maybe_genmask(bool t)
+  template<class T, class A>
+  typename boost::enable_if<
+    boost::is_same<A, bool>,
+    T
+  >::type
+  maybe_genmask(A const& t)
   {
-    return genmask(static_cast<T>(t));
+    return t ? True<T>() : False<T>();
   }
   
 } }

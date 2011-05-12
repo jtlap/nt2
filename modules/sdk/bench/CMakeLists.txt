@@ -16,5 +16,4 @@ ADD_DEPENDENCIES(sdk.bench sdk.operators.bench)
 ################################################################################
 # Add all bench directories for sdk/
 ################################################################################
-nt2_module_use_modules(unit predicates bitwise) # workaround, FIXME
 ADD_SUBDIRECTORY(operators)
