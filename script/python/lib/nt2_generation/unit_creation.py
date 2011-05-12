@@ -72,6 +72,10 @@ def create_one_unit(tb_name,
 def write_unit(tb_name,fct_name,mode,s,check=False,backup=True) :
     nfp = Nt2_fct_props(tb_name,fct_name,mode)
     p = nfp.get_fct_unit_path(mode)
+    p1 = os.path.split(p)
+    if not exist(p1[0]) :
+        print("path %s doesn't exist" %p1[0]) 
+        return
     print ('p = %s'%p)
     if backup and exist(p) :
         print("p=%s" %p)
