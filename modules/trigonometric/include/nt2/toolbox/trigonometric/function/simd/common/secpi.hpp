@@ -15,6 +15,7 @@
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_odd.hpp>
+#ifdef NT2_SIMD_DETECTED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -42,6 +43,6 @@ namespace nt2 { namespace ext
 
   };
 } }
-
+#endif
 #endif
 // modified by jt the 05/01/2011
