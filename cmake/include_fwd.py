@@ -99,6 +99,12 @@ def main():
             for file in os.listdir(path):
                 if(len(file) > 4 and file[-4:] == '.hpp'):
                     main_(args[0], args[1], args[2], options['output'], file)
+        for i in range(len(options['output'])):
+            path = args[0] + '/' + options['output'][i]
+            if(os.path.exists(path)):
+                for file in os.listdir(path):
+                    if(len(file) > 4 and file[-4:] == '.hpp'):
+                        main_(args[0], args[1], options['output'][i], options['output'][i+1:], file)
     else:
         sys.stderr.write("Not enough parameters\n")
 
