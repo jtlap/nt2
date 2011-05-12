@@ -10,9 +10,11 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_CUMSUM_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/store.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
-#include <boost/fusion/algorithm/iteration/fold.hpp>
+#include <algorithm>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -36,7 +38,15 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return boost::fusion::fold(a0,Zero<A0>(), functor<tag::plus_assign_>());
+      typedef typename meta::scalar_of<A0>::type stype;
+      static const int size = meta::cardinal_of<A0>::value;
+      NT2_ALIGNED_TYPE(stype) tmp[size];
+      store(a0, &tmp[0], 0);
+      
+      for(int i=1; i!=size; ++i)
+        tmp[i] += tmp[i-1];
+      
+      return load<A0>(&tmp[0], 0);
     }
   };
 } }
