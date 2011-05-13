@@ -16,6 +16,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/sdk/constant/real.hpp>
