@@ -77,7 +77,16 @@ namespace nt2 { namespace ext
       A0 x =  nt2::abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
-      y = seladd(is_nez(y), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a1, One<A1>()))));
+      A1 nul_a1 = is_eqz(a1);
+      A1 a11 = a1-nul_a1; 
+// 	std::cout << "icitte"<< std::endl;
+// 	std::cout << "y " << y << std::endl;
+// 	std::cout << "a1 " << a1<< std::endl;    
+// 	std::cout << "pow(y, a1) " << pow(y, a1) << std::endl;
+// 	std::cout << "sub(a1, One<A1>()) " << sub(a1, One<A1>()) << std::endl;
+// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a1, One<A1>())) << std::endl;
+// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a11, One<A1>())) << std::endl;
+      y = seladd(b_or(is_nez(y), nul_a1), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a11, One<A1>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       A0 invalid = b_and(is_ltz(a0), is_even(a1)); 
