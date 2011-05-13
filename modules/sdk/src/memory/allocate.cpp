@@ -7,8 +7,7 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <nt2/sdk/error/error.hpp>
-#include <nt2/sdk/memory/allocate.hpp>
-#include <nt2/sdk/memory/parameters.hpp>
+#include <nt2/sdk/memory/forward.hpp>
 
 namespace nt2 { namespace memory
 {
