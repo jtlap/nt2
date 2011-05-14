@@ -12,6 +12,11 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/include/functions/complement.hpp>
+#include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for double

@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_1_IS_EQUAL_TO_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_1_IS_EQUAL_TO_HPP_INCLUDED
 
-#include <nt2/sdk/simd/details/impl/sse/ssse3/is_equal_to.hpp>
+#include <nt2/toolbox/operators/function/simd/sse/ssse3/is_equal.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints64
