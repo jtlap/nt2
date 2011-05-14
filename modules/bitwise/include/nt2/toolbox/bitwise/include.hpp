@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_BITWISE_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 #include <nt2/toolbox/operators.hpp>
-#include <nt2/toolbox/constant/include/boolean.hpp>
+#include <nt2/toolbox/constant/include/true_false.hpp>
 
 #define NT2_BITWISE_BASE() nt2/toolbox/bitwise/function/scalar/
 #define NT2_BITWISE_RELATIVE() nt2/toolbox/bitwise/function/

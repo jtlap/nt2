@@ -16,6 +16,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
+#include <nt2/include/functions/true_false.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Implement a SIMD map that apply a given function to any SSE vector types
 // This is done by enumerating all cases of function calls over the different
@@ -23,9 +25,48 @@
 // painfull process of using mm_setr_xxx named functions depending on types
 // categories. Special case is the 64 bits integers that need special care.
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace nt2 { namespace details
+{
+  template<typename F, typename R, typename A0, typename Enable = void>
+  struct as_native
+  {
+    typedef R type;
+  };
+   
+  template<typename F, typename R, typename A0>
+  struct as_native<F, R, A0, typename boost::enable_if_c<sizeof(R)!=sizeof(A0) || boost::is_same<R, bool>::value>::type>
+  {
+    typedef A0 type;
+  };
+  
+  template<class T>
+  typename boost::disable_if<
+    boost::is_same<T, bool>,
+    T
+  >::type
+  maybe_genmask(T const& t)
+  {
+    return t;
+  }
+  
+  template<class T, class A>
+  typename boost::enable_if<
+    boost::is_same<A, bool>,
+    T
+  >::type
+  maybe_genmask(A const& t)
+  {
+    return t ? static_cast<T>(~0) : static_cast<T>(0);
+  }
+  
+} }
+
+
+#define M6(z,n,t) typename meta::scalar_of<A##n>::type
 #define M5(z,n,t) (BOOST_PP_CAT(A,n))
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) a0(BOOST_PP_ENUM(t,M4,n))
+#define M3(z,n,t) details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
 #define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(n))>,tag::sse_>))
 #define M1(z,n,t) ,tag::simd_<tag::arithmetic_,tag::sse_>
 
@@ -66,10 +107,26 @@ namespace nt2 { namespace ext                                               \
               , tag::cpu_ , Dummy> : callable                               \
   {                                                                         \
     template<class Sig> struct result;                                      \
-    template<class This,class F,BOOST_PP_ENUM_PARAMS(n,class A)>            \
-    struct result<This(F,BOOST_PP_ENUM_PARAMS(n,A))> : meta::strip<A0> {};  \
+    template<class This,class Func,BOOST_PP_ENUM_PARAMS(n,class A)>         \
+    struct result<This(Func, BOOST_PP_ENUM_PARAMS(n,A))>                    \
+    {                                                                       \
+      typedef typename std::tr1::                                           \
+      result_of< typename meta::                                            \
+                 strip<Func>::type const( BOOST_PP_ENUM(n,M6,~) )           \
+               >::type                                                      \
+      rtype;                                                                \
+      typedef typename details::                                            \
+      as_native< Func                                                       \
+               , rtype                                                      \
+               , typename meta::scalar_of<A0>::type                         \
+               >::type                                                      \
+      stype;                                                                \
+      typedef simd::native<stype, tag::sse_> type;                          \
+    };                                                                      \
+                                                                            \
     NT2_FUNCTOR_CALL(BOOST_PP_INC(n))                                       \
     {                                                                       \
+      typedef typename result<call(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A))>::stype stype;\
       BOOST_PP_TUPLE_ELEM(4,3,t)(n,t);                                      \
       return that;                                                          \
     }                                                                       \
