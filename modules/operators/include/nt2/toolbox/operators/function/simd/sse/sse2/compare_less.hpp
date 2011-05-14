@@ -9,6 +9,9 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////

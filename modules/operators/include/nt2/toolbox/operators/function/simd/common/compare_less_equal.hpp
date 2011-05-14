@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPARE_LESS_EQUAL_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_COMPARE_LESS_EQUAL_HPP_INCLUDED
 
+#include <nt2/include/functions/compare_less.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////

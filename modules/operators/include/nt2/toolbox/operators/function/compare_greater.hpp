@@ -13,17 +13,10 @@
 #include <nt2/toolbox/operators/include.hpp>
 #include <nt2/toolbox/operators/specific/common.hpp>
 
-#include <boost/proto/tags.hpp>
+#include <nt2/toolbox/operators/specific/compare_tags.hpp>
 
 namespace nt2
 {
-  namespace tag
-  {
-    struct compare_greater_
-    {
-    };
-  }
-  
   NT2_FUNCTION_IMPLEMENTATION(tag::compare_greater_, compare_greater , 2 )
   NT2_FUNCTION_IMPLEMENTATION(tag::compare_greater_, compare_gt      , 2 )
 }

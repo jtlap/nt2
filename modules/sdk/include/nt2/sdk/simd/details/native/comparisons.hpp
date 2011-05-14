@@ -13,22 +13,15 @@
 // Setup SIMD extension specific boolean operations
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
-#if 0
-#include <nt2/toolbox/operators/function/compare_equal.hpp>
-#include <nt2/toolbox/operators/function/compare_not_equal.hpp>
-#include <nt2/toolbox/operators/function/compare_less.hpp>
-#include <nt2/toolbox/operators/function/compare_less_equal.hpp>
-#include <nt2/toolbox/operators/function/compare_greater.hpp>
-#include <nt2/toolbox/operators/function/compare_greater_equal.hpp>
-#endif
+#include <nt2/toolbox/operators/specific/compare_tags.hpp>
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                  \
 template<class T,class X> inline                                    \
-bool /*typename nt2::meta::enable_call<TAG(native<T,X>,native<T,X>)>::type*/ \
+typename nt2::meta::enable_call<TAG(native<T,X>,native<T,X>)>::type \
 OP(native<T,X> const& a0, native<T,X> const& a1)                    \
 {                                                                   \
-  /*nt2::functor<TAG> callee;*/                                         \
-  return true; /*return callee(a0,a1);*/                                             \
+  nt2::functor<TAG> callee;                                         \
+  return callee(a0,a1);                                             \
 }                                                                   \
 /**/
 
