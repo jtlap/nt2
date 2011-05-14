@@ -11,45 +11,7 @@
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <nt2/include/functions/boolean.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-
-namespace nt2 { namespace details
-{
-  template<typename F, typename R, typename A0, typename Enable = void>
-  struct as_native
-  {
-    typedef R type;
-  };
-   
-  template<typename F, typename R, typename A0>
-  struct as_native<F, R, A0, typename boost::enable_if_c<sizeof(R)!=sizeof(A0) || boost::is_same<R, bool>::value>::type>
-  {
-    typedef A0 type;
-  };
-  
-  template<class T>
-  typename boost::disable_if<
-    boost::is_same<T, bool>,
-    T
-  >::type
-  maybe_genmask(T const& t)
-  {
-    return t;
-  }
-  
-  template<class T, class A>
-  typename boost::enable_if<
-    boost::is_same<A, bool>,
-    T
-  >::type
-  maybe_genmask(A const& t)
-  {
-    return t ? True<T>() : False<T>();
-  }
-  
-} }
+#include <nt2/toolbox/operators/specific/details/maybe_genmask.hpp>
 
 #define M0(z,n,t) ((simd_< unspecified_<A0>, X >))
 #define M1(z,n,t) tag::simd_<tag::unspecified_, X>                                  

@@ -15,8 +15,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-
-#include <nt2/include/functions/true_false.hpp>
+#include <nt2/toolbox/operators/specific/details/maybe_genmask.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Implement a SIMD map that apply a given function to any SSE vector types
@@ -25,43 +24,6 @@
 // painfull process of using mm_setr_xxx named functions depending on types
 // categories. Special case is the 64 bits integers that need special care.
 ////////////////////////////////////////////////////////////////////////////////
-
-namespace nt2 { namespace details
-{
-  template<typename F, typename R, typename A0, typename Enable = void>
-  struct as_native
-  {
-    typedef R type;
-  };
-   
-  template<typename F, typename R, typename A0>
-  struct as_native<F, R, A0, typename boost::enable_if_c<sizeof(R)!=sizeof(A0) || boost::is_same<R, bool>::value>::type>
-  {
-    typedef A0 type;
-  };
-  
-  template<class T>
-  typename boost::disable_if<
-    boost::is_same<T, bool>,
-    T
-  >::type
-  maybe_genmask(T const& t)
-  {
-    return t;
-  }
-  
-  template<class T, class A>
-  typename boost::enable_if<
-    boost::is_same<A, bool>,
-    T
-  >::type
-  maybe_genmask(A const& t)
-  {
-    return t ? static_cast<T>(~0) : static_cast<T>(0);
-  }
-  
-} }
-
 
 #define M6(z,n,t) typename meta::scalar_of<A##n>::type
 #define M5(z,n,t) (BOOST_PP_CAT(A,n))
