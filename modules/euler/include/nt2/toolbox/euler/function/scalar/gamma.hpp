@@ -30,6 +30,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/eps_related.hpp>
+#include <nt2/include/functions/signnz.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_
@@ -67,6 +68,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is float_
 /////////////////////////////////////////////////////////////////////////////
+#ifdef NT2_TOOLBOX_EULER_HAS_TGAMMAF
 NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
                        (A0),
                        (float_<A0>)
@@ -87,15 +89,10 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
-    #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMAF
       return ::tgammaf(type(a0));
-    #else
-      return boost::math::tgamma(type(a0));
-    #endif
-    }
-
   };
 } }
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
@@ -122,7 +119,9 @@ namespace nt2 { namespace ext
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
        return ::tgamma(type(a0));
     #else
-       return boost::math::tgamma(type(a0));
+      if (a0 == Inf<A0>()) return a0;
+      if (a0 == Zero<A0>()) return Inf<A0>() * signnz(a0);
+      return boost::math::tgamma(type(a0));
     #endif
 //       const double g_p[] = { -1.71618513886549492533811,
 // 			     24.7656508055759199108314,-379.804256470945635097577,

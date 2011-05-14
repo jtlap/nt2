@@ -14,7 +14,7 @@
 
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/digits.hpp>
-
+#include <nt2/include/functions/signnz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -43,6 +43,8 @@ namespace nt2 { namespace ext
     #ifdef NT2_TOOLBOX_EULER_HAS_LGAMMA
       return ::lgamma(type(a0));
     #else
+      if (a0 == Inf<A0>()) return a0;
+      if (a0 == Zero<A0>()) return Inf<A0>() * signnz(a0);
       return boost::math::lgamma(type(a0));
     #endif
     }
@@ -53,6 +55,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is float_
 /////////////////////////////////////////////////////////////////////////////
+#ifdef NT2_TOOLBOX_EULER_HAS_LGAMMAF
 NT2_REGISTER_DISPATCH(tag::gammaln_, tag::cpu_,
                          (A0),
                          (float_<A0>)
@@ -67,21 +70,17 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::strip<A0> {};
 
     NT2_FUNCTOR_CALL(1)
     {
       if (a0 < Zero<A0>()) return Nan<A0>();
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-    #ifdef NT2_TOOLBOX_EULER_HAS_LGAMMAF
-      return ::lgammaf(type(a0));
-    #else
-      return boost::math::lgamma(type(a0));
-    #endif
+      return ::lgammaf(a0);
     }
 
   };
 } }
+#endif
 
 #endif
 // modified by jt the 26/12/2010
