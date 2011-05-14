@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLIK_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLIK_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/functions/eps_related.hpp>
+#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/functions/real.hpp>
 
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/sqrt.hpp>

@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_CUMSUM_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/memory/load.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 

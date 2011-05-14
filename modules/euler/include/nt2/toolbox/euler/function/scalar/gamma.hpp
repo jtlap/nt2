@@ -12,8 +12,8 @@
 #include <nt2/toolbox/euler/details/math.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/functions/infinites.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
@@ -29,7 +29,7 @@
 #include <nt2/include/functions/is_ltz.hpp> 
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/functions/eps_related.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_

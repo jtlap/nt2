@@ -12,8 +12,8 @@
 #include <nt2/toolbox/euler/details/math.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/digits.hpp>
 
 
 

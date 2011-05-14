@@ -6,7 +6,7 @@
               'types': ['real_', 'unsigned_int_', 'signed_int_']},
   'unit': {'global_header': {'first_stamp': 'modified by jt the 04/12/2010',
                              'included': ['#include <nt2/include/functions/predecessor.hpp>',
-                                          '#include <nt2/sdk/constant/eps_related.hpp>'],
+                                          '#include <nt2/include/functions/eps_related.hpp>'],
                              'notes': [],
                              'ranges': {'real_': [['T(-10)', 'T(10)']],
                                         'signed_int_': [['-100', '100']],

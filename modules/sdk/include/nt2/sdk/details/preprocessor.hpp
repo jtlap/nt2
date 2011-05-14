@@ -12,6 +12,11 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_shifted.hpp>
+#include <boost/preprocessor/detail/is_unary.hpp>
+#include <boost/preprocessor/control/iif.hpp>
+#include <boost/preprocessor/tuple/eat.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/expand.hpp>
 
 /*!
  * \file
@@ -106,13 +111,64 @@
  *
  * \include pp_strip.cpp
  *
- * This produces the folowing output
+ * This produces the following output
  * \code
  * (no parens)
  * (with parens)
- *  \endcode
+ * \endcode
  */
 //==============================================================================
 #define NT2_PP_STRIP(X) NT2_PP_DETAILS_EVAL((NT2_PP_DETAILS_STRIP_PARENS_I X), X)
+//==============================================================================
+
+// Boost.Preprocessor author P. Mensodines confirmed on an Boost email thread
+// (subject ``check if a token is a keyword (was "BOOST_PP_IS_UNARY()")'')
+// that it is OK to used `PP_IS_UNARY()` to check if tokens match predefined
+// "keyword" as it is done by the macros below (even if `PP_IS_UNARY()` is
+// technically only part of Boost.Preprocessor private API).
+
+// `checking_prefix ## tokens` expand to unary (e.g., `(1)`) iff `tokens` start
+// with keyword to check.
+#define NT2_PP_DETAILS_KEYWORD_FACILITY_IS_FRONT(tokens, checking_prefix) \
+    BOOST_PP_IS_UNARY(BOOST_PP_CAT(checking_prefix, tokens))
+
+// `is_front_macro(tokens)` is 1 iff `tokens` start with keyword to remove.
+// `removing_prefix ## <keyword-to-remove>` must expand to nothing.
+#define NT2_PP_DETAILS_KEYWORD_FACILITY_REMOVE_FRONT( \
+        tokens, is_front_macro, removing_prefix) \
+    BOOST_PP_EXPAND( /* without EXPAND doesn't expand on MSVC */ \
+        BOOST_PP_IIF(is_front_macro(tokens), \
+            BOOST_PP_CAT \
+        , \
+            tokens BOOST_PP_TUPLE_EAT(2) \
+        )(removing_prefix, tokens) \
+    )
+
+#define NT2_PP_DETAILS_KEYWORD_TYPENAME_IS_typename (1) /* unary */
+#define typename_NT2_PP_DETAILS_KEYWORD_TYPENAME_IS (1) /* unary */
+#define NT2_PP_DETAILS_KEYWORD_TYPENAME_REMOVE_typename /* nothing */
+#define typename_NT2_PP_DETAILS_KEYWORD_TYPENAME_REMOVE /* nothing */
+
+#define NT2_PP_DETAILS_KEYWORD_IS_TYPENAME_FRONT(tokens) \
+    NT2_PP_DETAILS_KEYWORD_FACILITY_IS_FRONT(tokens, \
+            NT2_PP_DETAILS_KEYWORD_TYPENAME_IS_)
+
+//==============================================================================
+/*!
+ * \ingroup preprocessor
+ * For any symbol \c X, this macro returns the same symbol from which a potential
+ * leading \c typename keyword has been removed. If no typename keyword is present,
+ * this macros evaluates to \c X itself without error.
+ *
+ * The original implementation of this macro is from Lorenzo Caminiti.
+ *
+ * \param X Symbol to remove \c typename from
+ */
+//==============================================================================
+#define NT2_PP_REMOVE_TYPENAME(X) \
+    NT2_PP_DETAILS_KEYWORD_FACILITY_REMOVE_FRONT(X, \
+            NT2_PP_DETAILS_KEYWORD_IS_TYPENAME_FRONT, \
+            NT2_PP_DETAILS_KEYWORD_TYPENAME_REMOVE_)
+            
 
 #endif

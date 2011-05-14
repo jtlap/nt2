@@ -15,7 +15,7 @@
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp>  
+#include <nt2/include/functions/load.hpp>  
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp> 
 #include <nt2/sdk/meta/as_integer.hpp>

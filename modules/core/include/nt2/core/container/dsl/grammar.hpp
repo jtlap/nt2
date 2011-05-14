@@ -13,7 +13,7 @@
 // Generic grammar for table containers
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/dsl/from_domain.hpp>
-#include <nt2/sdk/constant/category.hpp>
+#include <nt2/include/functions/category.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 
 namespace nt2 { namespace container

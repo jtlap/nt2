@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_Y1_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_Y1_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/functions/infinites.hpp>
+#include <nt2/include/functions/real.hpp>
 
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>

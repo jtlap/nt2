@@ -10,7 +10,7 @@
 #define NT2_SDK_UNIT_DETAILS_HELPERS_HPP_INCLUDED
 
 #include <string>
-#include <nt2/sdk/constant/splat.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 #include <boost/algorithm/string/replace.hpp>
 

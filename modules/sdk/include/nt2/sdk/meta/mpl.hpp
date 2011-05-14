@@ -47,7 +47,7 @@ namespace nt2 { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for mpl integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_HIERARCHY(mpl_integral_)
+NT2_REGISTER_HIERARCHY_PARENT(mpl_integral_, typename hierarchy_of<T>::type)
 
 namespace nt2 { namespace details
 {

@@ -13,7 +13,7 @@
 #include <iostream>
 #include <algorithm>
 #include <nt2/include/timing.hpp>
-#include <nt2/sdk/memory/load.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/store.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/details/type_id.hpp>

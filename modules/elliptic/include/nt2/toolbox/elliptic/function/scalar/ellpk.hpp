@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLPK_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLPK_HPP_INCLUDED
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/functions/eps_related.hpp>
+#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/functions/real.hpp>
 
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/is_ltz.hpp>

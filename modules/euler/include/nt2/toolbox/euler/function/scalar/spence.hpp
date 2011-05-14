@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_SPENCE_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_SPENCE_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/digits.hpp>
 
 #include <nt2/include/functions/polevl.hpp>
 #include <nt2/include/functions/rec.hpp>

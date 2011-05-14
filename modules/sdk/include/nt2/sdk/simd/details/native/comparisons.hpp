@@ -13,27 +13,24 @@
 // Setup SIMD extension specific boolean operations
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/functor/operators.hpp>
+#if 0
+#include <nt2/toolbox/operators/function/compare_equal.hpp>
+#include <nt2/toolbox/operators/function/compare_not_equal.hpp>
+#include <nt2/toolbox/operators/function/compare_less.hpp>
+#include <nt2/toolbox/operators/function/compare_less_equal.hpp>
+#include <nt2/toolbox/operators/function/compare_greater.hpp>
+#include <nt2/toolbox/operators/function/compare_greater_equal.hpp>
+#endif
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                  \
 template<class T,class X> inline                                    \
-typename nt2::meta::enable_call<TAG(native<T,X>,native<T,X>)>::type \
+bool /*typename nt2::meta::enable_call<TAG(native<T,X>,native<T,X>)>::type*/ \
 OP(native<T,X> const& a0, native<T,X> const& a1)                    \
 {                                                                   \
-  nt2::functor<TAG> callee;                                         \
-  return callee(a0,a1);                                             \
+  /*nt2::functor<TAG> callee;*/                                         \
+  return true; /*return callee(a0,a1);*/                                             \
 }                                                                   \
 /**/
-
-namespace nt2 { namespace tag
-{
-  struct compare_equal_         {};
-  struct compare_not_equal_     {};
-  struct compare_less_          {};
-  struct compare_greater_       {};
-  struct compare_less_equal_    {};
-  struct compare_greater_equal_ {};
-} }
 
 namespace nt2 { namespace simd
 {
@@ -44,8 +41,6 @@ namespace nt2 { namespace simd
   NT2_MAKE_NATIVE_OP( tag::compare_less_equal_   , operator<= )
   NT2_MAKE_NATIVE_OP( tag::compare_greater_equal_, operator>= )
 } }
-
-#include <nt2/sdk/simd/details/impl/comparisons.hpp>
 
 #undef NT2_MAKE_NATIVE_OP
 

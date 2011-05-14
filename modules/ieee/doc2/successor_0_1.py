@@ -13,7 +13,7 @@
         'global_header': {
             'first_stamp': 'modified by jt the 04/12/2010',
             'included': "['#include <nt2/include/functions/next.hpp>',
-                          '#include <nt2/sdk/constant/eps_related.hpp>']",
+                          '#include <nt2/include/functions/eps_related.hpp>']",
             'notes': '[]',
             'ranges': " {
                 'signed_int_': [['-100', '100']],
@@ -58,7 +58,7 @@
               'types': "['real_', 'unsigned_int_', 'signed_int_']"},
   'unit': {'global_header': {'first_stamp': 'modified by jt the 04/12/2010',
                              'included': "['#include <nt2/include/functions/next.hpp>',
-                             '#include <nt2/sdk/constant/eps_related.hpp>']",
+                             '#include <nt2/include/functions/eps_related.hpp>']",
                              'notes': '[]',
                              'ranges': "{'signed_int_': [['-100', '100'], ['iT(2)', 'iT(2)']],
                                          'unsigned_int_': [['0', '100'], ['iT(2)', 'iT(2)']],

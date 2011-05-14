@@ -10,7 +10,6 @@
 #define NT2_SDK_SIMD_DETAILS_NATIVE_OPERATORS_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/functor/operators.hpp>
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                    \
 template<class T1, class T2,class X> inline                           \
@@ -24,21 +23,19 @@ OP(native<T1,X> const& a0, native<T2,X> const& a1)                    \
 
 namespace nt2 { namespace simd
 {
-  NT2_MAKE_NATIVE_OP( tag::bitwise_and_     , operator&  )
-  NT2_MAKE_NATIVE_OP( tag::bitwise_or_      , operator|  )
-  NT2_MAKE_NATIVE_OP( tag::bitwise_xor_     , operator^  )
-  NT2_MAKE_NATIVE_OP( tag::logical_and_     , operator&& )
-  NT2_MAKE_NATIVE_OP( tag::logical_or_      , operator|| )
-  NT2_MAKE_NATIVE_OP( tag::plus_            , operator+  )
-  NT2_MAKE_NATIVE_OP( tag::minus_           , operator-  )
-  NT2_MAKE_NATIVE_OP( tag::divides_         , operator/  )
-  NT2_MAKE_NATIVE_OP( tag::multiplies_      , operator*  )
-  NT2_MAKE_NATIVE_OP( tag::modulo_          , operator%  )
-  NT2_MAKE_NATIVE_OP( tag::shift_left_      , operator<< )
-  NT2_MAKE_NATIVE_OP( tag::shift_right_     , operator>> )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::bitwise_and     , operator&  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::bitwise_or      , operator|  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::bitwise_xor     , operator^  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::logical_and     , operator&& )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::logical_or      , operator|| )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::plus            , operator+  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::minus           , operator-  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::divides         , operator/  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::multiplies      , operator*  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::modulus         , operator%  )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::shift_left      , operator<< )
+  NT2_MAKE_NATIVE_OP( boost::proto::tag::shift_right     , operator>> )
 } }
-
-#include <nt2/sdk/simd/details/impl/operators.hpp>
 
 #undef NT2_MAKE_NATIVE_OP
 

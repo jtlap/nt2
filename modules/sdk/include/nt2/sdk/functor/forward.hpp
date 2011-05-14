@@ -10,6 +10,7 @@
 #define NT2_SDK_FUNCTOR_FORWARD_HPP_INCLUDED
 
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
+#include <boost/proto/tags.hpp>
 
 namespace nt2
 {
@@ -35,5 +36,13 @@ namespace nt2 { namespace ext
   template< class Signature , class Site, class Dummy = void> struct call;
   template< class Signature , class Site, class Dummy = void> struct validate;
 } }
+
+namespace nt2
+{
+  namespace tag
+  {
+    typedef boost::proto::tag::terminal terminal_;
+  }
+}
 
 #endif

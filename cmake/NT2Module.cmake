@@ -143,6 +143,8 @@ macro(nt2_module_main module)
            FILES_MATCHING PATTERN "*.cmake"
          )
 
+  ENABLE_TESTING()
+
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bench)
     add_custom_target(${module}.bench)
     add_subdirectory(bench)

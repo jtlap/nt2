@@ -8,7 +8,7 @@
 ################################################################################
 
 ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(functor)
-ADD_SUBDIRECTORY(constant)
+
+nt2_module_use_modules(unit operators)
 ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(simd)
