@@ -65,6 +65,7 @@ foreach(module ${MODULES})
   endif()
 endforeach()
 
+INCLUDE(nt2.template.profiler)
 ADD_SUBDIRECTORY(sandbox)
 
 ################################################################################
