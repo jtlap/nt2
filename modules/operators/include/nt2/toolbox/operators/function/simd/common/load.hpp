@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
       type that;
-      std::memcpy(&that, reinterpret_cast<type*>(a0) + a1, sizeof that);
+      std::memcpy(&that, reinterpret_cast<type const*>(a0) + a1, sizeof that);
       return that;
     }
   };
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(4)::type type;
       type that;
-      std::memcpy(&that, reinterpret_cast<type*>(a0 + A3::value) + a1, sizeof that);
+      std::memcpy(&that, reinterpret_cast<type const*>(a0 + A3::value) + a1, sizeof that);
       return that;
     }
   };
