@@ -62,21 +62,18 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      std::tr1::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> :meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,signed>::type int_type;
-      if (is_eqz(a0)) return Smallestposval<A0>();
+      if (is_eqz(a0)) return Mindenormal<A0>();
       const A0 x = nt2::abs(a0);
-      if (x == Inf<A0>()) return x; //Valmax<A0>()-prev(Valmax<A0>());
+      if (x == Inf<A0>()) return x; 
       typename meta::as_bits<A0>::type aa = {x},  bb = aa;
       --bb.bits;
       ++aa.bits;
       return nt2::min(x-bb.value, aa.value-x);
-      //     const A0 pred = predecessor(x);
-      //     return (x == Inf<A0>()) ? pred-predecessor(x) : min(dist(pred, x), dist(x, successor(x)));
     }
   };
 } }

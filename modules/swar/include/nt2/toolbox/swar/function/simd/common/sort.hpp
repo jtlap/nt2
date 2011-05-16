@@ -6,43 +6,49 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_SECPI_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_SECPI_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SORT_HPP_INCLUDED
+#define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SORT_HPP_INCLUDED
+
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/cospi.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#ifdef NT2_SIMD_DETECTED
+#include <nt2/sdk/memory/load.hpp>
+#include <nt2/sdk/memory/store.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
+#include <algorithm>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
+// Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::secpi_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<arithmetic_<A0>,X>))
-                       );
+NT2_REGISTER_DISPATCH( tag::sort_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<arithmetic_<A0>,X>))
+                     );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::secpi_(tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::sort_(tag::simd_<tag::arithmetic_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>: meta::as_real<A0>{};
+    struct result<This(A0)>
+      : meta::strip<A0>
+    {};
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(cospi(tofloat(a0))), is_odd(a0*Two<A0>()));
+      typedef typename meta::scalar_of<A0>::type stype;
+      static const int size = meta::cardinal_of<A0>::value;
+      NT2_ALIGNED_TYPE(stype) tmp[size];
+      store(a0, &tmp[0], 0);
+      
+      std::sort(tmp, tmp + size);
+      
+      return load<A0>(&tmp[0], 0);
     }
-
   };
 } }
+
 #endif
-#endif
-// modified by jt the 05/01/2011
+// modified by mg the 11/05/2011

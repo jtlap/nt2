@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/constant/boolean.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 
@@ -27,6 +28,26 @@ namespace nt2 { namespace details
   {
     typedef A0 type;
   };
+  
+  template<class T>
+  typename boost::disable_if<
+    boost::is_same<T, bool>,
+    T
+  >::type
+  maybe_genmask(T const& t)
+  {
+    return t;
+  }
+  
+  template<class T, class A>
+  typename boost::enable_if<
+    boost::is_same<A, bool>,
+    T
+  >::type
+  maybe_genmask(A const& t)
+  {
+    return t ? True<T>() : False<T>();
+  }
   
 } }
 
@@ -78,7 +99,7 @@ namespace nt2 { namespace ext                                                \
       NT2_ALIGNED_TYPE(stype) tmp[meta::cardinal_of<A0>::value];             \
                                                                              \
       for(int i = 0; i != meta::cardinal_of<A0>::value; ++i)                 \
-        tmp[i] = f(BOOST_PP_ENUM(n, M3, ~));                                 \
+        tmp[i] = details::maybe_genmask<stype>(f(BOOST_PP_ENUM(n, M3, ~)));  \
                                                                              \
       return load<ntype>(&tmp[0], 0);                                        \
     }                                                                        \

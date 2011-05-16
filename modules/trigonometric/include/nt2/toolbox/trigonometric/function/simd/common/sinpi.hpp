@@ -14,6 +14,7 @@
 #include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+#ifdef NT2_SIMD_DETECTED
 
 
 
@@ -70,5 +71,6 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif
 // modified by jt the 05/01/2011

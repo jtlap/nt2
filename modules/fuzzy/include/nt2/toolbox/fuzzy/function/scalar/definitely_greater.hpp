@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return (a0 > a1+a2);
+      return (a0 > a1+nt2::abs(a2));
     }
   };
 } }
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     {
       return b_and(
                is_ord(a0, a1),
-               (a0 >  successor(a1, a2))
+               (a0 >  successor(a1, nt2::abs(a2)))
                );
     }
   };

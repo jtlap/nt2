@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/functions/rdivide.hpp>
+#ifdef NT2_SIMD_DETECTED
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
@@ -63,4 +64,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#endif
 #endif

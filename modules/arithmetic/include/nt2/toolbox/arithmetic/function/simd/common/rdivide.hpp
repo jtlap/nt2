@@ -18,6 +18,7 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/select.hpp>
+#ifdef NT2_SIMD_DETECTED
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -152,6 +153,7 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#endif
 
 #endif
 // modified by jt the 04/01/2011

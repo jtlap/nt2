@@ -42,7 +42,7 @@ NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gamma_(tag::arithmetic_),
+  struct call<tag::gamma_(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
+      if (is_ltz(a0) ) return Nan<type>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
       return ::tgamma(type(a0));
     #else
@@ -80,17 +80,18 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+    struct result<This(A0)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
+      if (a0 == Inf<A0>()) return a0;
+      if(is_eqz(a0)) return rec(a0); 
+      if (is_invalid(a0) || (is_ltz(a0) && is_flint(a0))) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMAF
-      return ::tgammaf(type(a0));
+      return ::tgammaf(a0);
     #else
-      return boost::math::tgamma(type(a0));
+      return boost::math::tgamma(a0);
     #endif
     }
 
@@ -102,13 +103,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
                        (A0),
-                       (real_<A0>)
+                       (double_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gamma_(tag::real_),
+  struct call<tag::gamma_(tag::double_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -118,11 +119,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (is_ltz(a0) && (a0 == -Inf<A0>()|| is_flint(a0))) return Nan<A0>();
+      if (a0 == Inf<A0>()) return a0;
+      if(is_eqz(a0)) return rec(a0); 
+      if (is_invalid(a0) || (is_ltz(a0) && is_flint(a0))) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
-       return ::tgamma(type(a0));
+       return ::tgamma(a0);
     #else
-       return boost::math::tgamma(type(a0));
+       return boost::math::tgamma(a0);
     #endif
 //       const double g_p[] = { -1.71618513886549492533811,
 // 			     24.7656508055759199108314,-379.804256470945635097577,

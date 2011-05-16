@@ -12,6 +12,7 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/adds.hpp>
 #include <nt2/include/functions/any.hpp>
+#ifdef NT2_SIMD_DETECTED
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
@@ -100,4 +101,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif

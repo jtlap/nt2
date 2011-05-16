@@ -8,11 +8,11 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
-#include <nt2/include/functions/exponent.hpp>
+#include <nt2/toolbox/ieee/function/simd/common/ilogb.hpp>
+
+#include <nt2/sdk/constant/digits.hpp>
+
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
@@ -52,35 +52,6 @@ namespace nt2 { namespace ext
       static const A0 z = Zero<A0>();
       vtype tmp = ilogb(simd::native_cast<vtype>(a0));
       return seladd(is_gtz(a0), z, simd::native_cast<A0>(tmp));
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ilogb_, tag::cpu_,
-                        (A0),
-                        ((simd_<real_<A0>,tag::sse_>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::ilogb_(tag::simd_<tag::real_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      {
-//    typedef typename meta::scalar_of<A0>::type sA0;
-//         typedef typename meta::is_signed<sA0>::type sgn;
-      typedef typename meta::as_integer<A0>::type  type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return exponent(a0);
     }
   };
 } }

@@ -16,6 +16,7 @@
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/exponentbits.hpp>
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 #include <nt2/toolbox/ieee/details/math.hpp>
 
@@ -68,8 +69,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_invalid(a0)) return Zero<A0>(); 
-      return a0 ? ::ilogbf(a0) : Zero<A0>();
+      if (is_invalid(a0) || is_eqz(a0)) return Zero<A0>(); 
+      return ilogbf(a0); 
     }
   };
 } }

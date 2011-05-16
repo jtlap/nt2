@@ -11,6 +11,4 @@ ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(functor)
 ADD_SUBDIRECTORY(constant)
 ADD_SUBDIRECTORY(memory)
-
-nt2_module_use_modules(unit predicates bitwise) # workaround, FIXME
 ADD_SUBDIRECTORY(simd)

@@ -19,6 +19,7 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -140,7 +141,8 @@ namespace nt2 { namespace ext
 
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positiv, else 0
-        return madd(x,y,oneminus(x)*w);
+	r_type r = sel(is_even(a1), nt2::abs(a0), a0); 			
+        return b_or(is_nan(a0), sel(is_inf(a0), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
 
   };
