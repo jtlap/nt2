@@ -31,6 +31,7 @@
 #undef BOOST_NO_DECLTYPE
 #endif
 
+#include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/detail/decltype.hpp>
 
 /*!
