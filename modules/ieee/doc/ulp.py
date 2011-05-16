@@ -37,7 +37,7 @@
                  'nt2::Mone<T>()' : 'nt2::Eps<r_t>()/2',
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>()' : 'nt2::Eps<r_t>()/2',
-                 'nt2::Zero<T>()' : 'nt2::Smallestposval<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Mindenormal<r_t>()',
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
