@@ -49,6 +49,8 @@ ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/
 ALIASES += "metasequence=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/forward-sequence.html\">MPL Sequence</a>"
 ALIASES += "true_=\c boost::mpl::true_"
 ALIASES += "false_=\c boost::mpl::false_"
+ALIASES += "readableiterator=<a href=\"http://www.boost.org/doc/libs/release/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators\">ReadableIterator</a>"
+ALIASES += "singlepassrange=<a href=\"http://www.boost.org/doc/libs/release/libs/range/doc/html/range/concepts/single_pass_range.html\">SinglePassRange</a>"
 
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
