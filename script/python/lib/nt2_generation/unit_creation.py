@@ -72,41 +72,41 @@ def create_one_unit(tb_name,
         return r
 
 
-def insert_after(token, txt, line2add) :
-    """ insertion of a line after a line
-    containing a token in a list of lines
-    """
-    pattern = re.compile(line2add)
-    def find_index(p) :
-        for i,l in enumerate(txt) :
-            if p.match(l) : return i+1
-        return 0
-    if find_index(pattern) :
-        return (False,txt)
-    else :
-        #### match for token
-        pattern = re.compile(token)
-        i = find_index(pattern)
-        if i != 0 : txt.insert(i,line2add)
-        return (True,txt)
+##def insert_after(token, txt, line2add) :
+##    """ insertion of a line after a line
+##    containing a token in a list of lines
+##    """
+##    pattern = re.compile(line2add)
+##    def find_index(p) :
+##        for i,l in enumerate(txt) :
+##            if p.match(l) : return i+1
+##        return 0
+##    if find_index(pattern) :
+##        return (False,txt)
+##    else :
+##        #### match for token
+##        pattern = re.compile(token)
+##        i = find_index(pattern)
+##        if i != 0 : txt.insert(i,line2add)
+##        return (True,txt)
 
-def update_cmakelist(p,fct_name) :
-    txt_orig = read(p)
-    txt = "  %s.cpp"%fct_name
-    done, new_txt = insert_after("SET\( SOURCES",txt_orig,txt)
-    print("----------------------------------------------------------")
-    print("new_txt %s"%new_txt)
-    print("----------------------------------------------------------")
+##def update_cmakelist(p,fct_name) :
+##    txt_orig = read(p)
+##    txt = "  %s.cpp"%fct_name
+##    done, new_txt = insert_after("SET\( SOURCES",txt_orig,txt)
+##    print("----------------------------------------------------------")
+##    print("new_txt %s"%new_txt)
+##    print("----------------------------------------------------------")
    
-    if not done :
-        print("Warning : line\n  %s\nis already in CMakelists.txt file"%txt ) 
-    else :
-        if exist(p) :
-            print("file\n  %s\nwill be updated"%p)
-            write(p,new_txt,False)
-            print("file\n  %s\nis now updated"%p)
-        else :
-            print("file\n  %s\n does not exist"%p)         
+##    if not done :
+##        print("Warning : line\n  %s\nis already in CMakelists.txt file"%txt ) 
+##    else :
+##        if exist(p) :
+##            print("file\n  %s\nwill be updated"%p)
+##            write(p,new_txt,False)
+##            print("file\n  %s\nis now updated"%p)
+##        else :
+##            print("file\n  %s\n does not exist"%p)         
 
 
 def write_unit(tb_name,fct_name,mode,part,s,check=False,backup=True) :
@@ -141,7 +141,7 @@ def create_unit(tb_name, fct_list=None,
     elif isinstance(fct_list,str ) :
         fcts = [fct_list]
     else :
-        fcts = fct_list/home/jt/DevC++/dev_lasmea/github/metascale/nt2/modules/ieee/cover/simd/CMakeLists.txt
+        fcts = fct_list
     if  isinstance(parts,str ) : parts = [parts]
     if  isinstance(modes,str ) : modes = [modes]    
     for fct in fcts :
@@ -156,7 +156,7 @@ def create_unit(tb_name, fct_list=None,
                     print('no regeneration possible for %s %s-tests, please do it manually' % (fct,mode))
                 else :
                     just = "just" if show and not write_files else ""
-                    if show :
+                    if show : 
                         print("%s showing text of %s.cpp for %s-test: %s"% (just,fct,mode,part))
                         print("<"+"="*40)
                         PrettyPrinter().pprint(r)            
