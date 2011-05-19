@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/proto.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/category.hpp>
+#include <nt2/toolbox/constant/specific/category.hpp>
 
 namespace nt2
 {

@@ -16,9 +16,9 @@ LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
 LINK_LIBRARIES(${NT2_LIBRARIES})
 SET(SOURCES
 rec_block.cpp
-#pack.cpp
+pack.cpp
 #    foo.cpp
-#table_dim.cpp
+table_dim.cpp
 transform_pass.cpp
     )
 

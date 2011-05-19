@@ -13,6 +13,7 @@
 #include <nt2/sdk/dsl/call.hpp>
 #include <nt2/sdk/simd/pack/meta.hpp>
 #include <nt2/sdk/meta/is_iterator.hpp>
+#include <nt2/include/functions/load.hpp>
 
 namespace nt2 { namespace simd
 {

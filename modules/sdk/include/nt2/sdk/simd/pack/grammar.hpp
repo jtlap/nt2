@@ -12,7 +12,7 @@
 #include <nt2/sdk/dsl/from_domain.hpp>
 #include <nt2/sdk/dsl/is_assignment_expression.hpp>
 #include <nt2/sdk/dsl/is_comparison_expression.hpp>
-#include <nt2/include/functions/category.hpp>
+#include <nt2/toolbox/constant/specific/category.hpp>
 
 namespace nt2 { namespace simd
 {

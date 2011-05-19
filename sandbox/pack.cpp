@@ -8,8 +8,10 @@
 #include <nt2/include/timing.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/constant/dsl/digits.hpp>
-#include <nt2/sdk/constant/dsl/boolean.hpp>
+#include <nt2/toolbox/constant/function/dsl/digits.hpp>
+#include <nt2/toolbox/constant/function/dsl/true.hpp>
+#include <nt2/toolbox/constant/function/dsl/false.hpp>
+#include <nt2/toolbox/operators.hpp>
 
 using namespace std;
 
