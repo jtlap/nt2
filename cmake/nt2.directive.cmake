@@ -20,7 +20,7 @@ MESSAGE ( STATUS "
      system
    - make doc to build the HTML documentation
    - make examples to build the documentation examples
-   - make benchmarks to build the performance test
+   - make bench to build the performance test
    - make unit to build the unit test
 
  * If you use Microsoft Visual C++ or XCode, you may open the IDE-specific 
