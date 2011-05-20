@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONSTANT_DSL_DIGITS_HPP_INCLUDED
-#define NT2_SDK_CONSTANT_DSL_DIGITS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DSL_DIGITS_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_CONSTANTS_DSL_DIGITS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Turn some digits consatnt into DSL terminals

@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_DIGITS_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_DIGITS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DIGITS_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_CONSTANTS_DIGITS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // List all basic -10,-9,...,0,...,10,100,1000 constants

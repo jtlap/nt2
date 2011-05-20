@@ -6,8 +6,8 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_IS_GREATER_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_IMPL_SSE_SSE4_2_IS_GREATER_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATORS_FUNCTION_SIMD_SSE_SSE4_2_IS_GREATER_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATORS_FUNCTION_SIMD_SSE_SSE4_2_IS_GREATER_HPP_INCLUDED
 
 #include <nt2/toolbox/operators/function/simd/sse/sse4_1/is_greater.hpp>
 

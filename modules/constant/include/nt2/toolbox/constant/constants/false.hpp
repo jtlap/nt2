@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_FALSE_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_FALSE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
