@@ -6,28 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_VAL_MAX_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_VAL_MAX_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_INFINITES_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_FUNCTION_INFINITES_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
+// Generating an infinite constant
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
+#include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <nt2/sdk/constant/common.hpp>
+
+namespace nt2 { namespace tag
+{
+  struct inf_   {}; struct m_inf_ {}; struct nan_  {};
+} }
 
 namespace nt2
 {
-  namespace tag
-  {
-    struct val_max_ {};
-  }
-  
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::val_max_, Valmax)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::inf_    , Inf   )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::m_inf_  , Minf  )
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nan_    , Nan   )
 }
 
-#include <nt2/toolbox/constant/function/scalar/val_max.hpp>
-#include NT2_CONSTANT_INCLUDE(val_max.hpp)
+#include <nt2/toolbox/constant/constants/scalar/infinites.hpp>
+#include NT2_CONSTANT_INCLUDE(infinites.hpp)
 
 #endif

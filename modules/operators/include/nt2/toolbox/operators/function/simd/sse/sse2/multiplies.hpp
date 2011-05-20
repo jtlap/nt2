@@ -15,7 +15,7 @@
 #include <nt2/sdk/simd/native_cast.hpp>
 
 #include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration

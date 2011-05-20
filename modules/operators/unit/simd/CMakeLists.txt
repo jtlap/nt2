@@ -33,6 +33,7 @@ SET( SOURCES
     plus.cpp
     shift_left.cpp
     shift_right.cpp
+    splat.cpp
    )
 
 ################################################################################

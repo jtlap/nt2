@@ -16,4 +16,4 @@ ADD_DEPENDENCIES(constant.unit constant.scalar.unit constant.simd.unit)
 
 nt2_module_use_modules(unit operators)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#ADD_SUBDIRECTORY(simd)

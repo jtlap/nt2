@@ -13,9 +13,9 @@
 // List all basic -10,-9,...,0,...,10,100,1000 constants
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
+#include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <nt2/sdk/constant/common.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constant tag
@@ -82,7 +82,7 @@ namespace nt2
   }
 }
 
-#include <nt2/toolbox/constant/function/scalar/digits.hpp>
+#include <nt2/toolbox/constant/constants/scalar/digits.hpp>
 #include NT2_CONSTANT_INCLUDE(digits.hpp)
 
 #endif

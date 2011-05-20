@@ -16,7 +16,7 @@
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for double

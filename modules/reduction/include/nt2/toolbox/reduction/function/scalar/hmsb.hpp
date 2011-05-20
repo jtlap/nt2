@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_HMSB_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_HMSB_HPP_INCLUDED
-#include <nt2/include/functions/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

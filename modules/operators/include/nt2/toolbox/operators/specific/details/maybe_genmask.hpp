@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_OPERATORS_SPECIFIC_DETAILS_MAYBE_GENMASK_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATORS_SPECIFIC_DETAILS_MAYBE_GENMASK_HPP_INCLUDED
 
-#include <nt2/include/functions/digits.hpp>
-#include <nt2/include/functions/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>

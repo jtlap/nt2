@@ -20,8 +20,8 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/digits.hpp>
-#include <nt2/include/functions/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 
 namespace nt2
 {

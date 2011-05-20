@@ -10,8 +10,8 @@
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_NEG_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/functions/minus.hpp>
 

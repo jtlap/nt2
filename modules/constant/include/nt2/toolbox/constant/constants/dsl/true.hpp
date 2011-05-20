@@ -6,24 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_FALSE_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_FALSE_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
-#include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_DSL_TRUE_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_FUNCTION_DSL_TRUE_HPP_INCLUDED
+
+////////////////////////////////////////////////////////////////////////////////
+// Turn some digits consatnt into DSL terminals
+////////////////////////////////////////////////////////////////////////////////
+#include <boost/proto/proto.hpp>
+#include <nt2/toolbox/constant/function/true.hpp>
+#include <nt2/sdk/constant/category.hpp>
 
 namespace nt2
 {
-  namespace tag
-  {
-    struct false_  {};
-  }
-  
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::false_, False)
+  boost::proto::terminal< constant_<tag::true_ > >::type true_  = {{}};
 }
-
-#include <nt2/toolbox/constant/function/scalar/false.hpp>
-#include NT2_CONSTANT_INCLUDE(false.hpp)
 
 #endif

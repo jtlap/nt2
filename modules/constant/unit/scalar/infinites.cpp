@@ -9,8 +9,8 @@
 #define NT2_UNIT_MODULE "nt2::constants infinites"
 
 #include <limits>
-#include <nt2/include/functions/infinites.hpp>
-#include <nt2/include/functions/properties.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/properties.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

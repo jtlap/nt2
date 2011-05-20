@@ -16,7 +16,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <nt2/include/functions/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 
 NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (target_< double_<A0>      > ) )
 NT2_REGISTER_DISPATCH(tag::inf_,tag::cpu_,(A0), (target_< float_<A0>       > ) )

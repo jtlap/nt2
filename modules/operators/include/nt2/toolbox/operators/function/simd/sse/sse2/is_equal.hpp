@@ -14,7 +14,7 @@
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/include/functions/bitwise_and.hpp>
 #include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for double

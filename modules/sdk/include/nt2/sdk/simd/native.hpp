@@ -234,7 +234,7 @@ namespace nt2 { namespace simd
 #include <nt2/sdk/simd/details/native/comparisons.hpp>
 
 #if 0
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 namespace nt2 { namespace simd
 {
   template<class T, class X>

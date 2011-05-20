@@ -12,7 +12,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 NT2_REGISTER_DISPATCH ( tag::logical_or_, tag::cpu_, (A0)(A1)(X)
                       , ((simd_<arithmetic_<A0>,X>))

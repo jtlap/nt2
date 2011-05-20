@@ -19,7 +19,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {

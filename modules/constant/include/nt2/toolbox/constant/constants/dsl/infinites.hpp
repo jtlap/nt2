@@ -6,29 +6,20 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_SIGNMASK_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_SIGNMASK_HPP_INCLUDED
+#ifndef NT2_SDK_CONSTANT_DSL_INFINITES_HPP_INCLUDED
+#define NT2_SDK_CONSTANT_DSL_INFINITES_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
+// Turn some digits consatnt into DSL terminals
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
-#include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <boost/proto/proto.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/constant/category.hpp>
 
 namespace nt2
 {
-  namespace tag
-  {
-    struct signmask_ {};
-  }
-  
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::signmask_, Signmask)
+  boost::proto::terminal< constant_<tag::inf_ > >::type   inf_  = {{}};
+  boost::proto::terminal< constant_<tag::m_inf_> >::type  minf_ = {{}};
 }
 
-#include <nt2/toolbox/constant/function/scalar/signmask.hpp>
-#include NT2_CONSTANT_INCLUDE(signmask.hpp)
-
 #endif
-

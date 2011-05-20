@@ -8,10 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_EXPNI_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_EXPNI_HPP_INCLUDED
-#include <nt2/include/functions/infinites.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/digits.hpp>
-#include <nt2/include/functions/eps_related.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/oneplus.hpp>

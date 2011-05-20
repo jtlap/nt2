@@ -9,8 +9,8 @@
 #ifndef NT2_SDK_UNIT_BENCH_INCLUDES_HPP_INCLUDED
 #define NT2_SDK_UNIT_BENCH_INCLUDES_HPP_INCLUDED
 
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
 
 

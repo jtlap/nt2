@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_CONSTANT_FUNCTION_EPS_RELATED_HPP_INCLUDED
 
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
+#include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <nt2/sdk/constant/common.hpp>
 
 namespace nt2 { namespace tag
 {
@@ -40,7 +40,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::smallest_pos_val_, Smallestposval)
 }
 
-#include <nt2/toolbox/constant/function/scalar/eps_related.hpp>
+#include <nt2/toolbox/constant/constants/scalar/eps_related.hpp>
 #include NT2_CONSTANT_INCLUDE(eps_related.hpp)
 
 #endif

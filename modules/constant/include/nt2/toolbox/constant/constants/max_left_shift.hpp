@@ -6,28 +6,29 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_VAL_MIN_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_VAL_MIN_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_MAX_LEFT_SHIFT_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_FUNCTION_MAX_LEFT_SHIFT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Make some real based constants
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
+#include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <nt2/sdk/constant/common.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct val_min_ {};
+    struct max_left_shift_ {};
   }
   
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::val_min_, Valmin)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::max_left_shift_, Maxleftshift)
 }
 
-#include <nt2/toolbox/constant/function/scalar/val_min.hpp>
-#include NT2_CONSTANT_INCLUDE(val_min.hpp)
+#include <nt2/toolbox/constant/constants/scalar/max_left_shift.hpp>
+#include NT2_CONSTANT_INCLUDE(max_left_shift.hpp)
 
 #endif
+

@@ -13,9 +13,9 @@
 // Make some real based constants
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
+#include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <nt2/sdk/constant/common.hpp>
 
 namespace nt2
 {
@@ -34,7 +34,7 @@ namespace nt2
   NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nb_digits_        , Nbdigits       )
 }
 
-#include <nt2/toolbox/constant/function/scalar/ieee_spec.hpp>
+#include <nt2/toolbox/constant/constants/scalar/ieee_spec.hpp>
 #include NT2_CONSTANT_INCLUDE(ieee_spec.hpp)
 
 #endif

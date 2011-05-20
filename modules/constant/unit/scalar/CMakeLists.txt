@@ -13,7 +13,6 @@ SET(SOURCES
     infinites.cpp
     properties.cpp
     real.cpp
-    splat.cpp
     )
 
 ################################################################################

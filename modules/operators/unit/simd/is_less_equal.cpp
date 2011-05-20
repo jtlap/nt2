@@ -19,7 +19,7 @@
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test behavior for is_less_equal

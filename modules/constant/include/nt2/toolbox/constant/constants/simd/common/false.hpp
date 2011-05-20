@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_FALSE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_FALSE_HPP_INCLUDED
 
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, False is simply 0 adn forward to its actual optimized version

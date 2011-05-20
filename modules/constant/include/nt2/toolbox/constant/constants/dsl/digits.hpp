@@ -13,8 +13,8 @@
 // Turn some digits consatnt into DSL terminals
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/proto.hpp>
-#include <nt2/include/functions/digits.hpp>
-#include <nt2/toolbox/constant/specific/category.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/sdk/constant/category.hpp>
 
 namespace nt2
 {

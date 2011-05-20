@@ -13,9 +13,9 @@
 // Make some real based constants
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
+#include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/toolbox/constant/specific/common.hpp>
+#include <nt2/sdk/constant/common.hpp>
 
 namespace nt2 { namespace tag
 {
@@ -123,7 +123,7 @@ namespace nt2
   }
 }
 
-#include <nt2/toolbox/constant/function/scalar/real.hpp>
+#include <nt2/toolbox/constant/constants/scalar/real.hpp>
 #include NT2_CONSTANT_INCLUDE(real.hpp)
 
 #endif

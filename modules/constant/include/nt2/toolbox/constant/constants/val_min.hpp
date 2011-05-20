@@ -6,20 +6,28 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONSTANT_DSL_INFINITES_HPP_INCLUDED
-#define NT2_SDK_CONSTANT_DSL_INFINITES_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_VAL_MIN_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_FUNCTION_VAL_MIN_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Turn some digits consatnt into DSL terminals
+// Make some real based constants
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/proto/proto.hpp>
-#include <nt2/include/functions/infinites.hpp>
-#include <nt2/toolbox/constant/specific/category.hpp>
+#include <nt2/include/simd.hpp>
+#include <nt2/sdk/constant/constant.hpp>
+#include <nt2/toolbox/constant/include.hpp>
+#include <nt2/sdk/constant/common.hpp>
 
 namespace nt2
 {
-  boost::proto::terminal< constant_<tag::inf_ > >::type   inf_  = {{}};
-  boost::proto::terminal< constant_<tag::m_inf_> >::type  minf_ = {{}};
+  namespace tag
+  {
+    struct val_min_ {};
+  }
+  
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::val_min_, Valmin)
 }
+
+#include <nt2/toolbox/constant/constants/scalar/val_min.hpp>
+#include NT2_CONSTANT_INCLUDE(val_min.hpp)
 
 #endif

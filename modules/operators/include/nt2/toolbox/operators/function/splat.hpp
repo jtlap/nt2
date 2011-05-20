@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
-#ifndef NT2_TOOLBOX_CONSTANT_FUNCTION_SPLAT_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_FUNCTION_SPLAT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATORS_FUNCTION_SPLAT_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATORS_FUNCTION_SPLAT_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
-#include <nt2/toolbox/constant/specific/constant.hpp>
-#include <nt2/toolbox/constant/include.hpp>
+#include <nt2/toolbox/operators/include.hpp>
+#include <nt2/sdk/meta/as.hpp>
 
 namespace nt2
 {
@@ -28,7 +28,7 @@ namespace nt2
   }
 }
 
-#include <nt2/toolbox/constant/function/scalar/splat.hpp>
-#include NT2_CONSTANT_INCLUDE(splat.hpp)
+#include <nt2/toolbox/operators/function/scalar/splat.hpp>
+#include NT2_OPERATORS_INCLUDE(splat.hpp)
 
 #endif

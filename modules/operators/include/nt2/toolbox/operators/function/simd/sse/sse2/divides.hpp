@@ -15,7 +15,7 @@
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration

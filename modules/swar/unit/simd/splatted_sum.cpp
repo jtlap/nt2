@@ -21,8 +21,8 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/swar/include/splatted_sum.hpp>
 // specific includes for arity 1 tests

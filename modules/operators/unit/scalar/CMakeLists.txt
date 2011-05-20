@@ -33,6 +33,7 @@ SET(SOURCES
     is_greater.cpp
     is_less_equal.cpp
     is_greater_equal.cpp
+    splat.cpp
     )
 
 ################################################################################

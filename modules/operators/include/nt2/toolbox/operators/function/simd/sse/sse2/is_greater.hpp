@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
-#include <nt2/include/functions/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
