@@ -9,6 +9,6 @@
 
 ADD_SUBDIRECTORY(meta)
 
-nt2_module_use_modules(unit operators)
+nt2_module_use_modules(unit operator)
 ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(simd)

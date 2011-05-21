@@ -13,7 +13,7 @@
 // Setup SIMD extension specific boolean operations
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/toolbox/operators/specific/compare_tags.hpp>
+#include <nt2/toolbox/operator/specific/compare_tags.hpp>
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                  \
 template<class T,class X> inline                                    \
