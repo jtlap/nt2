@@ -9,11 +9,11 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/properties.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/select.hpp>

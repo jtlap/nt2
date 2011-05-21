@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_FAST_SINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_FAST_SINPI_HPP_INCLUDED
 #include <nt2/sdk/details/ignore_unused.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
 //  MIGRATION WARNING you have to provide the file for the previous include from

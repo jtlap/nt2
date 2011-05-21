@@ -10,7 +10,7 @@
 
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
-#include <nt2/sdk/memory/store.hpp>
+#include <nt2/include/functions/store.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 

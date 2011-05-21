@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 #include <nt2/sdk/simd/meta/is_native.hpp>
+#include <nt2/include/functions/splat.hpp>
 
 namespace nt2 { namespace simd
 {

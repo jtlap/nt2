@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_DIVROUND_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_DIVROUND_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/rdivide.hpp>
 #include <nt2/include/functions/iround.hpp>

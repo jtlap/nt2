@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_BITOFSIGN_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_BITOFSIGN_HPP_INCLUDED
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/properties.hpp>
+#include <nt2/include/constants/real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

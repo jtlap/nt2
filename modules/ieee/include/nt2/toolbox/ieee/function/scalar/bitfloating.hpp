@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_BITFLOATING_HPP_INCLUDED
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

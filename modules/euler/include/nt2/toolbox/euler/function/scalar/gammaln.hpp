@@ -14,9 +14,9 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/functions/signnz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -54,6 +54,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is float_
 /////////////////////////////////////////////////////////////////////////////
+#ifdef NT2_TOOLBOX_EULER_HAS_LGAMMAF
 NT2_REGISTER_DISPATCH(tag::gammaln_, tag::cpu_,
                          (A0),
                          (float_<A0>)
@@ -71,17 +72,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if ((a0 == Inf<A0>()) | is_eqz(a0) ) return Inf<A0>(); 
-      if ((a0 < Zero<A0>()) | is_invalid(a0)) return Nan<A0>();
-    #ifdef NT2_TOOLBOX_EULER_HAS_LGAMMAF
       return ::lgammaf(a0);
-    #else
-      return boost::math::lgamma(a0);
-    #endif
     }
 
   };
 } }
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is integer_

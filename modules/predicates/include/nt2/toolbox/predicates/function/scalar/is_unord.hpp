@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_UNORD_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_UNORD_HPP_INCLUDED
-#include <nt2/sdk/constant/boolean.hpp>
+#include <nt2/include/functions/boolean.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 

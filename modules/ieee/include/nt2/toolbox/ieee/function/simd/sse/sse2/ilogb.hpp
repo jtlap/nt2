@@ -11,7 +11,7 @@
 
 #include <nt2/toolbox/ieee/function/simd/common/ilogb.hpp>
 
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/seladd.hpp>

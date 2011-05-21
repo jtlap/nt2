@@ -19,9 +19,9 @@
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
 namespace nt2
 {

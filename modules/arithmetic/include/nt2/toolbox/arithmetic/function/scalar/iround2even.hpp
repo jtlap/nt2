@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_IROUND2EVEN_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_IROUND2EVEN_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/is_inf.hpp>

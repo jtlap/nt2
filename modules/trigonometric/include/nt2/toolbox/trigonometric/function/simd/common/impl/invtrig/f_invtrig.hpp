@@ -15,7 +15,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {

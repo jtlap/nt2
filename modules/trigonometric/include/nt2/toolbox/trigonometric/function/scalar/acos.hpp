@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOS_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/invtrig.hpp>
 #include <nt2/include/functions/tofloat.hpp>

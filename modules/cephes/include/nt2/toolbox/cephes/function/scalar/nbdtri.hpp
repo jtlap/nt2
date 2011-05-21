@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
 extern "C" { extern double cephes_nbdtri(int,int,double); }
 

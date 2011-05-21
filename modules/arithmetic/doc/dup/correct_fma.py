@@ -1,6 +1,6 @@
 { 'arity': 3,
   'dptch': ['fundamental_'],
-  'incld': ["#include <nt2/sdk/constant/eps_related.hpp>"],
+  'incld': ["#include <nt2/include/functions/eps_related.hpp>"],
   'notes': [''],
   'rnges': { 'default': [ ['nt2::Valmin<T>()', 'nt2::Valmax<T>()'],
                           ['nt2::Valmin<T>()', 'nt2::Valmax<T>()'],

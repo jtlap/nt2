@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_RANDOM_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_RANDOM_HPP_INCLUDED
-#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 #include <nt2/sdk/unit/details/ulpdist.hpp>
 namespace nt2
 {

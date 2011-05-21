@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EXPONENT_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 
 #include <nt2/include/functions/shri.hpp>

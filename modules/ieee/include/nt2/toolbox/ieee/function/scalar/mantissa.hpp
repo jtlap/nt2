@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MANTISSA_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_MANTISSA_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_invalid.hpp>

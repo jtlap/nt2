@@ -33,13 +33,13 @@ set(NT2_VERSION "${NT2_VERSION_NUMBER}")
 ################################################################################
 # Add super-targets
 ################################################################################
+ENABLE_TESTING()
 ADD_CUSTOM_TARGET( bench
                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bench
                  )
 ADD_CUSTOM_TARGET( examples
                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/examples
                  )
-ENABLE_TESTING()
 ADD_CUSTOM_TARGET( unit
                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/unit
                  )

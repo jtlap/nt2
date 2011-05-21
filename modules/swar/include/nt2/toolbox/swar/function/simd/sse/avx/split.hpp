@@ -11,7 +11,7 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 

@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_GEZ_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_GEZ_HPP_INCLUDED
-#include <nt2/sdk/constant/boolean.hpp>
+#include <nt2/include/functions/boolean.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 
 

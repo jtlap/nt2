@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/exponential/function/simd/common/impl/expo.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

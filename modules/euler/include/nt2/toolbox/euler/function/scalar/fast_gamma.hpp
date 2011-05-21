@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_FAST_GAMMA_HPP_INCLUDED
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/polevl.hpp>

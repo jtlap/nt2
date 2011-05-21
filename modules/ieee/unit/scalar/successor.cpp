@@ -18,16 +18,16 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/ieee/include/successor.hpp>
 // specific includes for arity 1 tests
 #include <nt2/include/functions/next.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 // specific includes for arity 2 tests
 #include <nt2/include/functions/next.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 
 NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
 {

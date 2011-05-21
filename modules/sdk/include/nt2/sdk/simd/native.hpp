@@ -12,10 +12,9 @@
 #include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <nt2/sdk/constant/digits.hpp>
 #include <nt2/sdk/memory/overload.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
-#include <nt2/sdk/functor/details/tags.hpp>
+//#include <nt2/sdk/functor/details/tags.hpp>
 #include <nt2/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/sdk/simd/details/native/iterator.hpp>
 
@@ -129,19 +128,19 @@ namespace nt2 { namespace simd
     this_type const& operator+() const { return *this; }
     this_type operator!() const
     {
-      functor<tag::logical_not_> callee;
+      functor<boost::proto::tag::logical_not> callee;
       return callee(*this);
     }
 
     this_type operator-() const
     {
-      functor<tag::unary_minus_> callee;
+      functor<boost::proto::tag::negate> callee;
       return callee(*this);
     }
 
     this_type operator~()  const
     {
-      functor<tag::complement_> callee;
+      functor<boost::proto::tag::complement> callee;
       return callee(*this);
     }
 
@@ -205,9 +204,9 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Pre/Post Increment/Decrement
     ////////////////////////////////////////////////////////////////////////////
-    this_type& operator++() { *this += One<this_type>();  return *this; }
-    this_type& operator--() { *this -= One<this_type>();  return *this; }
-
+    inline this_type& operator++();
+    inline this_type& operator--();
+    
     this_type  operator++ (int)
     {
       this_type that = *this;
@@ -229,9 +228,21 @@ namespace nt2 { namespace simd
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/details/native/meta.hpp>
 #include <nt2/sdk/simd/details/native/fusion.hpp>
-#include <nt2/sdk/simd/details/native/constants.hpp>
-#include <nt2/sdk/simd/details/native/functions.hpp>
+//#include <nt2/sdk/simd/details/native/constants.hpp>
+//#include <nt2/sdk/simd/details/native/functions.hpp>
 #include <nt2/sdk/simd/details/native/operators.hpp>
 #include <nt2/sdk/simd/details/native/comparisons.hpp>
+
+#if 0
+#include <nt2/include/constants/digits.hpp>
+namespace nt2 { namespace simd
+{
+  template<class T, class X>
+  inline native<T, X>& native<T, X>::operator++() { *this += One< native<T, X> >();  return *this; }
+  
+  template<class T, class X>
+  inline native<T, X>& native<T, X>::operator--() { *this -= One< native<T, X> >();  return *this; }
+}
+#endif
 
 #endif

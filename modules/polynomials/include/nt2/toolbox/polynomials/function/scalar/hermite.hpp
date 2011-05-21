@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_HERMITE_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SCALAR_HERMITE_HPP_INCLUDED
 //#include <boost/math/special_functions.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
 

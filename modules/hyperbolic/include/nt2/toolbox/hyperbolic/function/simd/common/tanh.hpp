@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SIMD_COMMON_TANH_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/is_nez.hpp>

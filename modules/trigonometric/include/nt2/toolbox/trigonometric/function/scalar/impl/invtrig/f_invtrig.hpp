@@ -23,7 +23,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 
 namespace nt2
 {

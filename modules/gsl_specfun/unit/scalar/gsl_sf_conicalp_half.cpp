@@ -18,8 +18,8 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_conicalp_half.hpp>
 
 NT2_TEST_CASE_TPL ( gsl_sf_conicalp_half_real__2_0,  NT2_REAL_TYPES)

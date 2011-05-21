@@ -99,7 +99,7 @@ namespace nt2
   //////////////////////////////////////////////////////////////////////////////
   template<typename T> inline std::string type_id(const T& expr = *((T*)0))
   {
-    ignore_unused(expr);
+    nt2::ignore_unused(expr);
     return details::demangle(typeid(T).name());
   }
   

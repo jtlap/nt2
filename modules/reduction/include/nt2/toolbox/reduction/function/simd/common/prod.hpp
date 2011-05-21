@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_PROD_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_PROD_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <nt2/sdk/meta/strip.hpp>

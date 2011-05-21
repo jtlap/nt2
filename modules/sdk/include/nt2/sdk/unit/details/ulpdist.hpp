@@ -8,8 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_ULPDIST_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_ULPDIST_HPP_INCLUDED
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {

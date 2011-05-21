@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_COSH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_COSH_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/rec.hpp>

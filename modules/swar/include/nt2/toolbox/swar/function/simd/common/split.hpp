@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SPLIT_HPP_INCLUDED
 
 #include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/memory/load.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
 

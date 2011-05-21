@@ -19,7 +19,6 @@
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
-#include <nt2/sdk/memory/details/times.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,9 +62,8 @@ namespace nt2 { namespace ext
 
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( false_case
-      , nt2::mul( slice<arg2::value+1>(s,p)
-                , boost::fusion::at_c<arg2::value-1>(s)
-                )
+      ,   slice<arg2::value+1>(s,p)
+        * boost::fusion::at_c<arg2::value-1>(s)
       );
 
       typedef typename boost::mpl::eval_if< same_size<arg0,arg2>
@@ -91,9 +89,8 @@ namespace nt2 { namespace ext
     typename boost::lazy_disable_if< same_size<A0,A2>, NT2_RETURN_TYPE(3)>::type
     operator()( A0 const& a0, A1 const& a1, A2 const& ) const
     {
-      return nt2::mul ( slice<A2::value+1>(a0,a1)
-                      , boost::fusion::at_c<A2::value-1>(a0)
-                      );
+      return   slice<A2::value+1>(a0,a1)
+             * boost::fusion::at_c<A2::value-1>(a0);
     }
   };
 } }

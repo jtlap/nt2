@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_PREDECESSOR_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_PREDECESSOR_HPP_INCLUDED
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
 #include <nt2/include/functions/bitfloating.hpp>
 #include <nt2/include/functions/bitinteger.hpp>

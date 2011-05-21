@@ -59,21 +59,28 @@ namespace nt2 { namespace meta
 // User level macro to define a new hierarchy element taking advantage of the
 // type hierarchy lattice system.
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_REGISTER_HIERARCHY(Name)                                \
-namespace nt2                                                       \
-{                                                                   \
-  namespace tag { template<class T> struct Name {}; }               \
-  namespace meta                                                    \
-  {                                                                 \
-    template<class T> struct Name : Name< typename T::parent >      \
-    {                                                               \
-      typedef Name< typename T::parent > parent;                    \
-      typedef tag::Name<typename T::type> type;                     \
-    };                                                              \
-                                                                    \
-    template<class T> struct Name< unknown_<T> > : unknown_<T> {};  \
-  }                                                                 \
-}                                                                   \
+#define NT2_REGISTER_HIERARCHY_PARENT(Name, Base)                              \
+namespace nt2                                                                  \
+{                                                                              \
+  namespace tag { template<class T> struct Name {}; }                          \
+  namespace meta                                                               \
+  {                                                                            \
+    template<class T> struct Name : Name< typename T::parent >                 \
+    {                                                                          \
+      typedef Name< typename T::parent > parent;                               \
+      typedef tag::Name<typename T::type> type;                                \
+    };                                                                         \
+                                                                               \
+    template<class T> struct Name< unknown_<T> > : NT2_PP_REMOVE_TYPENAME(Base)\
+    {                                                                          \
+      typedef Base parent;                                                     \
+    };                                                                         \
+  }                                                                            \
+}                                                                              \
+/**/
+
+#define NT2_REGISTER_HIERARCHY(Name)                                           \
+NT2_REGISTER_HIERARCHY_PARENT(Name, unknown_<T>)                               \
 /**/
 
 #endif
