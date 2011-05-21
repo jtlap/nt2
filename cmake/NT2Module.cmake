@@ -24,29 +24,17 @@ endmacro()
 
 macro(nt2_module_install_setup)
   if(NOT UNIX)
-    set( NT2_INSTALL_SHARE_DIR
-         ${CMAKE_INSTALL_PREFIX}
+    set( NT2_INSTALL_SHARE_DIR .
          CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
          FORCE
        )
   else()
-    set( NT2_INSTALL_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/nt2
+    set( NT2_INSTALL_SHARE_DIR share/nt2
          CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
          FORCE
        )
   endif()
 
-  set( NT2_INSTALL_INCLUDE_DIR
-       ${CMAKE_INSTALL_PREFIX}/include
-       CACHE PATH "The directory where we install the header files"
-       FORCE
-     )
-   
-  set( NT2_INSTALL_LIBRARY_DIR
-       ${CMAKE_INSTALL_PREFIX}/lib
-       CACHE PATH "The directory where we install the libraries"
-       FORCE
-     )
 endmacro()
 
 macro(nt2_module_source_setup module)
@@ -123,17 +111,17 @@ macro(nt2_module_main module)
   
   # install headers, cmake modules and manifest
   install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-           DESTINATION ${NT2_INSTALL_INCLUDE_DIR}
+           DESTINATION include
            COMPONENT ${NT2_CURRENT_MODULE}
            FILES_MATCHING PATTERN "*.hpp"
          )
   install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
-           DESTINATION ${NT2_INSTALL_INCLUDE_DIR}
+           DESTINATION include
            COMPONENT ${NT2_CURRENT_MODULE}
            FILES_MATCHING PATTERN "*.hpp"
          )
-  file(WRITE ${PROJECT_BINARY_DIR}/modules/sdk.manifest)
-  install( FILES ${PROJECT_BINARY_DIR}/modules/sdk.manifest
+  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
            DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
            COMPONENT ${NT2_CURRENT_MODULE}
          )
@@ -150,7 +138,8 @@ macro(nt2_module_main module)
   endif()
 
   if(NT2_WITH_TESTS)
-	ENABLE_TESTING()
+    ENABLE_TESTING()
+    
     if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bench)
       add_custom_target(${module}.bench)
       add_subdirectory(bench)
@@ -199,8 +188,8 @@ macro(nt2_module_add_library libname)
   
   
   install( TARGETS ${libname}
-           LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
-           ARCHIVE DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
+           LIBRARY DESTINATION lib
+           ARCHIVE DESTINATION lib
            COMPONENT ${NT2_CURRENT_MODULE}
          )
   
