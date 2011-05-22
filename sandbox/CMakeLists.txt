@@ -42,7 +42,3 @@ FOREACH( EXAMPLE ${SOURCES})
   ENDIF()
   ADD_DEPENDENCIES(sandbox ${EXECUTABLE})
 ENDFOREACH()
-
-include(nt2.template.profiler)
-template_profile(test42 transform_pass.cpp)
-
