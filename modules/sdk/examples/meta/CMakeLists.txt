@@ -26,6 +26,7 @@ SET(SOURCES
     as_unsigned.cpp
     sign_of.cpp
     is_signed.cpp
+    primitive_of.cpp
     downgrade.cpp
     upgrade.cpp
     is_fundamental.cpp
