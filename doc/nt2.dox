@@ -21,7 +21,7 @@ OUTPUT_DIRECTORY       = reference
 CREATE_SUBDIRS         = YES
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = NO
-REPEAT_BRIEF           = NO
+REPEAT_BRIEF           = YES
 ABBREVIATE_BRIEF       =
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = YES
@@ -44,8 +44,13 @@ TAB_SIZE               = 2
 # will result in a user-defined paragraph with heading "Side Effects:".
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES += "metafunction=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
-ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
+ALIASES += "metafunction=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
+ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
+ALIASES += "metasequence=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/forward-sequence.html\">MPL Sequence</a>"
+ALIASES += "true_=\c boost::mpl::true_"
+ALIASES += "false_=\c boost::mpl::false_"
+ALIASES += "readableiterator=<a href=\"http://www.boost.org/doc/libs/release/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators\">ReadableIterator</a>"
+ALIASES += "singlepassrange=<a href=\"http://www.boost.org/doc/libs/release/libs/range/doc/html/range/concepts/single_pass_range.html\">SinglePassRange</a>"
 
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO

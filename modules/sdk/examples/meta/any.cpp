@@ -1,4 +1,4 @@
-#include <cstdio>
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/vector.hpp>
 #include <nt2/sdk/meta/any.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -8,11 +8,8 @@ using namespace boost::mpl;
 
 int main()
 {
-  typedef vector<int,bool,float> seq_t;
-
-  typedef nt2::meta::any<is_same<_,bool>,seq_t> any_seq;
-  typedef nt2::meta::any<is_same<_,bool>,int,bool,float> any_types;
-
-  printf("is any type bool in vector<int,bool,float> : %d\n", any_seq::value);
-  printf("is any type bool in (int,bool,float) : %d\n", any_types::value);
+  BOOST_MPL_ASSERT    (( nt2::meta::any<is_same<_,bool>, vector<float,bool> > ));
+  BOOST_MPL_ASSERT    (( nt2::meta::any<is_same<_,bool>, int,bool           > ));
+  BOOST_MPL_ASSERT_NOT(( nt2::meta::any<is_same<_,bool>, vector<int,char>   > ));
+  BOOST_MPL_ASSERT_NOT(( nt2::meta::any<is_same<_,bool>, double,float       > ));
 }

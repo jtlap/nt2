@@ -1,13 +1,18 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_META_ARITHMETIC_HPP_INCLUDED
 #define NT2_SDK_META_ARITHMETIC_HPP_INCLUDED
+
+/*!
+ * \file
+ * \brief Defines and implements the meta::arithmetic \metafunction
+ */
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/typeof/typeof.hpp>
@@ -18,6 +23,31 @@
 
 namespace nt2  { namespace meta
 {
+  //============================================================================
+  /*!
+   * \ingroup metafunctions
+   * For a list of types \c T0,...,Tn, computes the types able to store a value
+   * of type decltype(declval<T0>() + ... + declval<Tn>()).
+   *
+   * \par Semantic:
+   *
+   * For types \c T0,...,Tn,
+   *
+   * \code
+   * typedef result_of<arithmetic(T0,...,Tn)>::type type
+   * \endcode
+   *
+   * is equivalent to:
+   *
+   * \code
+   * typedef decltype(declval<T0>()+...+declval<Tn>()) type;
+   * \endcode
+   *
+   * \par Example Usage:
+   *
+   * \include arithmetic.cpp
+   */
+  //============================================================================
   struct arithmetic
   {
     template<class Sig> struct result;
@@ -43,7 +73,9 @@ namespace nt2  { namespace meta
     #undef M1
     #undef M0
 
+    //==========================================================================
     // Force integral promotion by computing arithmetic(A0,A0)
+    //==========================================================================
     template<class This,class A0>
     struct result<This(A0)> : result<This(A0,A0)> {};
   };
