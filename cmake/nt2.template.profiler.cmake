@@ -8,8 +8,17 @@
 ################################################################################
 
 ################################################################################
-# Find and detect Boost libraries
+# Load the Template Profiler if Perl and Boost.Regex are found
 ################################################################################
-SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1" "1.47")
-FIND_PACKAGE( Boost 1.46.0 )
 
+find_package(Perl QUIET)
+
+include(nt2.boost)
+find_package(Boost 1.46.0 COMPONENTS regex QUIET)
+
+if(PERL_FOUND AND Boost_FOUND)
+  message( STATUS "[nt2] Template profiling available." )
+  include(profiler/profiler)
+else()
+  message( STATUS "[nt2] Template profiling unavailable." )
+endif()
