@@ -1,4 +1,3 @@
-#include <template_profiler.hpp>
 // template_profiler.hpp
 //
 // Copyright (c) 2008
@@ -15,14 +14,14 @@ namespace template_profiler {
     struct incomplete_enter;
     struct incomplete_exit;
     template<int N>
-    struct int_ { TEMPLATE_PROFILE_ENTER()
+    struct int_ {
         enum { value = N };
         typedef int type;
-     TEMPLATE_PROFILE_EXIT() };
+    };
     template<class T>
-    struct make_zero { TEMPLATE_PROFILE_ENTER()
+    struct make_zero {
         enum { value = 0 };
-     TEMPLATE_PROFILE_EXIT() };
+    };
     extern int enter_value;
     extern int exit_value;
 }

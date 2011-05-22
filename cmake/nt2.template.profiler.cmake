@@ -8,14 +8,17 @@
 ################################################################################
 
 ################################################################################
-# Load the Template Profiler if Perl is here
+# Load the Template Profiler if Perl and Boost.Regex are found
 ################################################################################
 
-INCLUDE(FindPerl)
+find_package(Perl QUIET)
 
-IF(PERL_FOUND)
-MESSAGE( STATUS "[nt2] Perl found - Template profiling available." )
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/cmake/profiler)
-ELSE(PERL_FOUND)
-MESSAGE( STATUS "[nt2] Perl not found - Template profiling unavailable." )
-ENDIF(PERL_FOUND)
+include(nt2.boost)
+find_package(Boost 1.46.0 COMPONENTS regex QUIET)
+
+if(PERL_FOUND AND Boost_FOUND)
+  message( STATUS "[nt2] Template profiling available." )
+  include(profiler/profiler)
+else()
+  message( STATUS "[nt2] Template profiling unavailable." )
+endif()
