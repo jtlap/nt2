@@ -8,6 +8,27 @@
 ################################################################################
 
 nt2_module_source_setup(euler)
-
-include(nt2.euler.math)
 nt2_module_configure_toolbox(euler 1)
+
+################################################################################
+# Find out which C99/TR1 math functions are available
+################################################################################
+
+include(CheckFunctionExists)
+
+if(UNIX)
+  set(CMAKE_REQUIRED_LIBRARIES m)
+endif()
+
+check_function_exists(tgamma NT2_TOOLBOX_EULER_HAS_TGAMMA)
+check_function_exists(tgammaf NT2_TOOLBOX_EULER_HAS_TGAMMAF)
+
+check_function_exists(lgamma NT2_TOOLBOX_EULER_HAS_LGAMMA)
+check_function_exists(lgammaf NT2_TOOLBOX_EULER_HAS_LGAMMAF)
+
+################################################################################
+# Generate math.hpp
+################################################################################
+configure_file( math.hpp.cmake
+                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/euler/details/math.hpp
+              )
