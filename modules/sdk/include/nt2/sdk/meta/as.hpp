@@ -14,7 +14,9 @@
  * Defines and implement the as_ generic type wrapper
  */
 
+#include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace nt2 { namespace meta
@@ -49,6 +51,18 @@ namespace nt2 { namespace meta
     typedef T                                         type;
     typedef target_<typename hierarchy_of<T>::type >  nt2_hierarchy_tag;
   };
+
+  //============================================================================
+  // Requirements for HasPrimitive
+  //============================================================================
+  template<class T>
+  struct primitive_of< as_<T> > : primitive_of<T> {};
+
+  //============================================================================
+  // Requirements for HasFactory
+  //============================================================================
+  template<class T>
+  struct factory_of< as_<T> > { typedef as_<boost::mpl::_1> type; };
 } }
 
 #endif
