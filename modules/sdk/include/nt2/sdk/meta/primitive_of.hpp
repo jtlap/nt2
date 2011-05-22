@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
    * For a given \ref Hierarchizable type T, returns the undelying type used to
    * define T
    *
-   * \tparam Hierarchizable
+   * \tparam Hierarchizable Type to extract a primitive from.
    *
    * \par Models:
    * \metafunction
