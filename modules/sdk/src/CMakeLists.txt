@@ -26,3 +26,26 @@ file( GLOB_RECURSE source_files
     )
     
 nt2_module_add_library(nt2 ${source_files})
+
+macro(preprocess_file target)
+  find_file(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)
+  get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
+  set(INCLUDE_DIRECTORIES -S/usr/lib/gcc/i686-linux-gnu/4.5/include -S/usr/include/c++/4.5 -S/usr/include/c++/4.5/i686-linux-gnu -S/usr/include)
+  foreach(INCLUDE ${INCLUDES})
+    list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
+  endforeach()
+  add_custom_target(${target})
+  set(n 0)
+  foreach(src ${ARGN})
+    add_custom_target(${target}.${n}
+                      COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE} -DNT2_DONT_USE_PREPROCESSED_FILES -DNT2_CREATE_PREPROCESSED_FILES --c++0x ${INCLUDE_DIRECTORIES} -o - ${src}
+                      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/include
+                     )
+    add_dependencies(${target} ${target}.${n})
+    math(EXPR n "${n} + 1")
+  endforeach()
+endmacro()
+
+preprocess_file(sdk.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
+                               ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/call.hpp
+               )

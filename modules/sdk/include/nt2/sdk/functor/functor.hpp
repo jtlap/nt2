@@ -21,19 +21,21 @@
  * and specialize polymorphic functors.
  */
 
+#if !defined(__WAVE__)
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
-#include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
+#include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
-#include <nt2/sdk/functor/details/dispatch.hpp>
+#endif
 #include <nt2/sdk/functor/meta/enable_call.hpp>
+#include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/functor/meta/make_functor.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL)
+#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -69,7 +71,7 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    #if defined(BOOST_HAS_VARIADIC_TMPL) || defined(DOXYGEN_ONLY)
+    #if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
@@ -91,6 +93,13 @@ namespace nt2
       return callee( args... );
     }
     #else
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/functor/preprocessed/functor.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor.hpp")
+#endif
 
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
@@ -115,8 +124,13 @@ namespace nt2
     }                                                                         \
     /**/
 
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)    
     #undef M0
+    
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
     #endif
     };

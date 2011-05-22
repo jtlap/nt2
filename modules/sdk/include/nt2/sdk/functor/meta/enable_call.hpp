@@ -14,13 +14,17 @@
  * Implements functor conformance checkign meta-function
  */
 
+#if !defined(__WAVE__)
 #include <boost/config.hpp>
 #include <boost/tr1/functional.hpp>
 #include <boost/utility/result_of.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
 #include <boost/function_types/result_type.hpp>
+#include <nt2/sdk/functor/forward.hpp>
+#endif
+#include <nt2/sdk/functor/details/dispatch.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL)
+#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -72,7 +76,7 @@ namespace nt2 { namespace meta
   struct enable_call
   {};
 
-  #if defined(BOOST_HAS_VARIADIC_TMPL)
+  #if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
   template<class F, class Site, class... Args>
   struct enable_call< F(Args...), Site
                     , typename
@@ -88,6 +92,13 @@ namespace nt2 { namespace meta
     : std::tr1::result_of<functor<F,Site>(Args...)>
   {};
   #else
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/functor/meta/preprocessed/enable_call.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/enable_call.hpp")
+#endif
 
   #define M0(z,n,t)                                                                   \
   template<class F, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                      \
@@ -109,6 +120,11 @@ namespace nt2 { namespace meta
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
   #undef M0
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
   #endif
 } }
