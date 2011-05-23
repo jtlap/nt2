@@ -26,23 +26,31 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // Return the starting index on the Nth dimension
     ////////////////////////////////////////////////////////////////////////////
-    template<std::size_t N>
-    typename boost::enable_if_c < (N<=boost::mpl::size<Bases>::value)
-                                , typename boost::fusion::result_of
-                                                ::at_c<Bases const,N-1>::type
-                                >::type
-    lower() const
+    template<std::size_t N, class Enable = void>
+    struct lower_impl
     {
-      return boost::fusion::at_c<N-1>(mBase);
-    }
+        typedef int type;
+        type operator()(Bases const&) const
+        {
+            return 1;
+        }
+    };
 
     template<std::size_t N>
-    typename boost::disable_if_c< (N<=boost::mpl::size<Bases>::value)
-                                , int
-                                >::type
+    struct lower_impl<N, typename boost::enable_if_c<(N <= boost::mpl::size<Bases>::value)>::type>
+    {
+        typedef typename boost::fusion::result_of::at_c<Bases const, N-1>::type type;
+        type operator()(Bases const& mBase) const
+        {
+            return boost::fusion::at_c<N-1>(mBase);
+        }
+    };
+
+    template<std::size_t N>
+    typename lower_impl<N>::type
     lower() const
     {
-      return 1;
+      return lower_impl<N>()(mBase);
     }
 
     Bases mBase;
