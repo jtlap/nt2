@@ -18,14 +18,14 @@ template<class T> void bench(std::size_t sz)
     static volatile T r,vr;
 
     nt2::memory::buffer<T, nt2::memory::allocator<T> > b(0,sz);
-    for(int i=0;i<sz;++i) b[i] = 1;
+    for(std::size_t i=0;i<sz;++i) b[i] = 1;
 
     nt2::ctic();
-    for(int i=0;i<100000;++i) r = std::accumulate(b.begin(),b.end(),T(0));
+    for(std::size_t i=0;i<100000;++i) r = std::accumulate(b.begin(),b.end(),T(0));
     double d = nt2::ctoc(false);
 
     nt2::ctic();
-    for(int i=0;i<100000;++i)
+    for(std::size_t i=0;i<100000;++i)
     {
       nt2::simd::pack<T> zz,itr;
       itr = std::accumulate( nt2::simd::begin(b),nt2::simd::end(b),zz);
