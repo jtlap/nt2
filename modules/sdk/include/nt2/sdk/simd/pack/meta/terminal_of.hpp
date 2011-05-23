@@ -9,7 +9,8 @@
 #ifndef NT2_SDK_SIMD_PACK_META_TERMINAL_OF_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_META_TERMINAL_OF_HPP_INCLUDED
 
-#include <boost/mpl/always.hpp>
+#include <nt2/sdk/simd/pack/domain.hpp>
+#include <nt2/sdk/simd/pack/pack.hpp>
 #include <nt2/sdk/dsl/terminal_of.hpp>
 
 namespace nt2 { namespace ext
@@ -18,9 +19,10 @@ namespace nt2 { namespace ext
   // For simd domain, we return the proper pack
   //////////////////////////////////////////////////////////////////////////////
   template< class Expression,class Type,class Cardinal>
-  struct  terminal_of_impl< Expression, simd::domain<Type,Cardinal> >
-        : boost::mpl::always< simd::pack<Type,Cardinal::value> >
-  {};
+  struct terminal_of_impl< Expression, simd::domain<Type,Cardinal> >
+  {
+    typedef simd::pack<Type,Cardinal::value> type;
+  };
 } }
 
 #endif
