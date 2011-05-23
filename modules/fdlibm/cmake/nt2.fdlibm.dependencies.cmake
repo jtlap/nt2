@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(NT2 COMPONENTS sdk)
+FIND_PACKAGE(NT2 COMPONENTS operator)
 SET(NT2_FDLIBM_DEPENDENCIES_FOUND ${NT2_FOUND})
 
 # fdlibm only works on 32-bit systems

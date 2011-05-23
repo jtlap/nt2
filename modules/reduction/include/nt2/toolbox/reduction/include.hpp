@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_REDUCTION_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
+#include <nt2/toolbox/operator.hpp>
+#include <nt2/toolbox/constant/include/true_false.hpp>
 
 #define NT2_REDUCTION_BASE() nt2/toolbox/reduction/function/scalar/
 #define NT2_REDUCTION_RELATIVE() nt2/toolbox/reduction/function/
