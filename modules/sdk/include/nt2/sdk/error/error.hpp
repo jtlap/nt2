@@ -48,10 +48,10 @@
  * \ingroup error
  * Throws an exception and its associated information carriers.
  *
- * \param EXPR Exception to throw.
+ * \param EXCEPTION Exception to throw.
  */
 //==============================================================================
-#define NT2_THROW(EXP)
+#define NT2_THROW(EXCEPTION)
 
 #endif
 
