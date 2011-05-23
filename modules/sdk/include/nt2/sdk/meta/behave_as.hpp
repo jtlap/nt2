@@ -24,6 +24,7 @@ namespace nt2 { namespace meta
 {
   //============================================================================
   /*!
+   * \ingroup metafunctions
    * Forward the application of a given \metalambda \c Lambda onto the primitive
    * type of a given Hierarchizable.
    *
