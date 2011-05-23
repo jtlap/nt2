@@ -24,7 +24,7 @@ namespace nt2 { namespace config
   //////////////////////////////////////////////////////////////////////////////
   inline void compiler()
   {
-    puts(" Compiler                : " NT2_COMPILER_STRING);
+    puts(" Compiler                : " NT2_COMPILER);
     puts(" Rvalue references       : "
     #if   defined(BOOST_NO_RVALUE_REFERENCES)
           "unsupported"

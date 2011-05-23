@@ -9,8 +9,12 @@
 #ifndef NT2_SDK_CONFIG_OS_NONE_HPP_INCLUDED
 #define NT2_SDK_CONFIG_OS_NONE_HPP_INCLUDED
 
-#if !defined(NT2_OS_DETECTED)
-#error NT2 Configuration Error: Unknown platform.
+#include <nt2/sdk/error/warning.hpp>
+
+#if !defined(NT2_OS)
+  NT2_WARNING(Unknown target operating system)
+  #define NT2_OS_UNKNOWN
+  #define NT2_OS "unknown"
 #endif
 
 #endif

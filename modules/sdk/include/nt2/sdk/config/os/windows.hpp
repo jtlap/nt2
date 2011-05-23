@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_CONFIG_OS_WINDOWS_HPP_INCLUDED
 #define NT2_SDK_CONFIG_OS_WINDOWS_HPP_INCLUDED
 
-#if !defined(NT2_OS_DETECTED)
+#if !defined(NT2_OS)
   #if     defined(_WIN32) || defined(__WIN32__)     \
       ||  defined(WIN32)  || defined(DOXYGEN_ONLY)  \
 
@@ -21,9 +21,8 @@
     #define WIN32_LEAN_AND_MEAN
     #endif
 
-    #define NT2_OS_DETECTED
     #define NT2_OS_WINDOWS
-    #define NT2_OS_STRING BOOST_PLATFORM
+    #define NT2_OS BOOST_PLATFORM
 
   #endif
 #endif
