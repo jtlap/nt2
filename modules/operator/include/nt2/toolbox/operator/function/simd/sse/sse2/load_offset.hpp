@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     template<class Type, class Offset>
     struct  is_periodic
           : boost::mpl
-            ::bool_<  ( Offset::value
+            ::bool_<  ( std::size_t(Offset::value)
                       % meta::cardinal_of<typename Type::type>::value
                       ) == 0 >
     {};
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     {
       BOOST_STATIC_CONSTANT
       ( std::size_t
-      , offset = A3::value/ meta::cardinal_of<typename A2::type>::value
+      , offset = std::size_t(A3::value) / meta::cardinal_of<typename A2::type>::value
       );
 
       typedef typename NT2_RETURN_TYPE(4)::type type;
@@ -87,8 +87,8 @@ namespace nt2 { namespace ext
       typedef typename NT2_RETURN_TYPE(4)::type type;
 
       BOOST_STATIC_CONSTANT( std::size_t, card    = meta::cardinal_of<type>::value);
-      BOOST_STATIC_CONSTANT( std::size_t, offset  = A3::value/card                );
-      BOOST_STATIC_CONSTANT( std::size_t, bytes   = 16/card                       );
+      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(A3::value)/card   );
+      BOOST_STATIC_CONSTANT( std::size_t, bytes   = 16u/card                      );
       BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(A3::value%card)        );
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-A3::value%card)   );
 
@@ -116,11 +116,11 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(4)::type type;
 
-      BOOST_STATIC_CONSTANT( std::size_t, card    = meta::cardinal_of<type>::value);
-      BOOST_STATIC_CONSTANT( std::size_t, offset  = (-A3::value)/card             );
-      BOOST_STATIC_CONSTANT( std::size_t, bytes   = 16/card                       );
-      BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*((-A3::value)%card)     );
-      BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-(-A3::value)%card));
+      BOOST_STATIC_CONSTANT( std::size_t, card    = meta::cardinal_of<type>::value           );
+      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(-A3::value)/card             );
+      BOOST_STATIC_CONSTANT( std::size_t, bytes   = 16/card                                  );
+      BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(std::size_t(-A3::value)%card)     );
+      BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-std::size_t(-A3::value)%card));
 
       typedef typename meta::as_simd< typename meta::scalar_of<type>::type
                                     , tag::sse_
