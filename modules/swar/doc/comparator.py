@@ -55,7 +55,7 @@
                  'default' : ['nt2::comparator(a0,a1,a2)'],
                 },
              'property_value' : {
-                 'default' : [['nt2::min(a0,a1)', 'nt2::max(a0,a1)', 'a0>a1']],
+                 'default' : [['nt2::max(a0,a1)', 'nt2::min(a0,a1)', 'a0<=a1']],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],
