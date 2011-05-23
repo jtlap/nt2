@@ -37,6 +37,7 @@ NT2_WARNING(XOP SIMD extension detected)
 #define NT2_SIMD_CARDINALS          (2)(4)(8)(16)(32)
 #define NT2_SIMD_TAG_SEQ            (::nt2::tag::xop_)(::nt2::tag::sse_)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::xop_
+#define NT2_SIMD_DEFAULT_SITE       ::nt2::tag::xop_
 
 extern "C"
 {
