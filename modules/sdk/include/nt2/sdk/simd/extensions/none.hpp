@@ -36,41 +36,49 @@ NT2_WARNING(No SIMD extensions detected)
 #include <boost/mpl/times.hpp>
 #include <boost/mpl/sizeof.hpp>
 
-namespace nt2
+namespace nt2 { namespace tag
 {
-  namespace tag
+  template<class N> struct none_ : cpu_
   {
-    template<class N>
-    struct none_ : cpu_
-    {
-      typedef cpu_ parent;
-      typedef none_ type;
-    };
-  }
-}
+    typedef cpu_ parent;
+    typedef none_ type;
+  };
+} }
 
-namespace nt2
+namespace nt2 { namespace detail
 {
-  namespace meta
+  //============================================================================
+  // Work around for xlC
+  //============================================================================
+  template <class T, class N> struct make_array
   {
-    template<class N, class T>
-    struct as_simd<T, tag::none_<N> >
-    {
-      typedef boost::array<T, N::value / sizeof(T)> type;
-    };
-    
-    template<class T, class N>
-    struct is_simd_specific<boost::array<T, N::value>, tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > > : boost::mpl::true_
-    {
-    };
-    
-    template<class T, class N, class X>
-    struct extension_of<boost::array<T, N::value>, X> 
-    {
-      typedef tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
-    };
-  }
-}
+    typedef boost::array<T, N::value> type;
+  };
+} }
+
+namespace nt2 { namespace meta
+{
+  template<class N, class T>
+  struct as_simd<T, tag::none_<N> >
+  {
+    typedef boost::array<T, N::value / sizeof(T)> type;
+  };
+
+  template<class T, class N>
+  struct is_simd_specific < typename detail::make_array<T,N>::type
+                          , tag::none_<boost::mpl::times< N
+                                                        , boost::mpl::sizeof_<T>
+                                                        >
+                                      >
+                          > : boost::mpl::true_
+  {};
+
+  template<class T, class N, class X>
+  struct extension_of<typename detail::make_array<T,N>::type, X>
+  {
+    typedef tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
+  };
+} }
 
 #endif
 
