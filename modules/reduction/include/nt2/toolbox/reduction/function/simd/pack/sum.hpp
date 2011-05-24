@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_PACK_SUM_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/simd/pack/domain.hpp>
+#include <nt2/sdk/simd/pack.hpp>
 #include <nt2/sdk/dsl/terminal_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
