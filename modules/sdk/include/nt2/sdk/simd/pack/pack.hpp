@@ -21,8 +21,16 @@ namespace nt2 { namespace simd
   // pack, implemented in terms of simd::expr via non-inheritance to preserve
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
-  template<class Type,std::size_t Cardinal,class BP>
+  template<class Type,std::size_t Cardinal>
   struct  pack
+        : boost::proto::extends < typename boost::proto::
+                                  terminal< data< Type
+                                                , boost::mpl::size_t<Cardinal>
+                                                >
+                                          >::type
+                                , pack<Type,Cardinal>
+                                , domain<Type,boost::mpl::size_t<Cardinal> >
+                                >
   {
     ////////////////////////////////////////////////////////////////////////////
     // Pack must be sized with a power of 2
@@ -36,15 +44,11 @@ namespace nt2 { namespace simd
     // Data holder of pack terminals
     ////////////////////////////////////////////////////////////////////////////
     typedef data<Type,boost::mpl::size_t<Cardinal> >            data_type;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Make pack a POD proto expression
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_PROTO_BASIC_EXTENDS_TPL
-    ( typename boost::proto::terminal<data_type>::type
-    , (pack<Type,Cardinal>)
-    , (simd::domain<Type, boost::mpl::size_t<Cardinal> >)
-    )
+    typedef boost::proto::extends < typename boost::proto::
+                                    terminal<data_type>::type
+                                  , pack<Type,Cardinal>
+                                  , domain<Type,boost::mpl::size_t<Cardinal> >
+                                  >                             parent;
 
     ////////////////////////////////////////////////////////////////////////////
     // Semantic of terminal is the actual data type
@@ -76,12 +80,12 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Default Constructor
     ////////////////////////////////////////////////////////////////////////////
-    pack() {}
+    pack() : parent() {}
 
     ////////////////////////////////////////////////////////////////////////////
     // Copy Constructor
     ////////////////////////////////////////////////////////////////////////////
-    pack(pack const& src)
+    pack(pack const& src) : parent()
     {
       boost::proto::value(*this) = boost::proto::value(src);
     }
@@ -89,7 +93,7 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Constructor from native udnerlying type
     ////////////////////////////////////////////////////////////////////////////
-    pack(base_type const& a0)
+    pack(base_type const& a0) : parent()
     {
       boost::proto::value(*this) = a0;
     }
@@ -100,7 +104,7 @@ namespace nt2 { namespace simd
     template<class Iterator>
     pack( Iterator it, std::ptrdiff_t offset
         , typename boost::enable_if< meta::is_iterator<Iterator> >::type* = 0
-        )
+        ) : parent()
     {
       boost::proto::value(*this) = load<base_type>(it,offset);
     }
@@ -116,7 +120,7 @@ namespace nt2 { namespace simd
           boost::enable_if_c<   meta::is_iterator<Iterator>::value
                             &&  details::is_mpl_integral<Suboffset>::value
                             >::type* = 0
-        )
+        ) : parent()
     {
       boost::proto::value(*this) = load<base_type,Suboffset::value>(it,offset);
     }
@@ -130,7 +134,7 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
 
     // to be removed
-    explicit pack(Type const& a0)
+    explicit pack(Type const& a0) : parent()
     {
       boost::proto::value(*this).fill(a0);
     }

@@ -21,21 +21,19 @@ namespace nt2
         
         template< class Type
                 , std::size_t Cardinal
-                , class Dummy 
                 >
-        struct upgrade< nt2::simd::pack<Type, Cardinal, Dummy>, Type >
+        struct upgrade< nt2::simd::pack<Type, Cardinal>, Type >
         {
-            typedef nt2::simd::pack<Type, Cardinal, Dummy> type;
+            typedef nt2::simd::pack<Type, Cardinal> type;
         };
         
         template< class Type
                 , std::size_t Cardinal
-                , class Dummy 
                 , class UpType
                 >
-        struct upgrade< nt2::simd::pack<Type, Cardinal, Dummy>, UpType >
+        struct upgrade< nt2::simd::pack<Type, Cardinal>, UpType >
         {
-            typedef nt2::simd::pack<UpType, Cardinal/2, Dummy> type;
+            typedef nt2::simd::pack<UpType, Cardinal/2> type;
         };
     } }
     
@@ -43,12 +41,11 @@ namespace nt2
     {
         template< class Type
                 , std::size_t Cardinal
-                , class Dummy 
                 >
-        struct upgrade< simd::pack<Type, Cardinal, Dummy> >
+        struct upgrade< simd::pack<Type, Cardinal> >
         {
             typedef typename nt2::details::simd::upgrade<
-                simd::pack<Type, Cardinal, Dummy>
+                simd::pack<Type, Cardinal>
               , typename upgrade<Type>::type
             >::type type;
         };
