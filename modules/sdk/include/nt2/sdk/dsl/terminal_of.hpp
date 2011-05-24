@@ -10,15 +10,15 @@
 #define NT2_SDK_DSL_TERMINAL_OF_HPP_INCLUDED
 
 #include <boost/proto/traits.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <boost/mpl/placeholders.hpp>
-
 
 namespace nt2 { namespace ext
 {
   //////////////////////////////////////////////////////////////////////////////
   // By default we just return the type itself
   //////////////////////////////////////////////////////////////////////////////
-  template< class Expression, class Domain >
+  template< class Expr, class Domain >
   struct terminal_of_impl : boost::mpl::_1
   {};
 } }
@@ -29,12 +29,11 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  template< class Expression >
+  template< class Expr >
   struct  terminal_of
-        : ext::terminal_of_impl < Expression
-                                , typename  boost::proto::
-                                            domain_of<Expression>::type
-                                >::type
+        : ext::terminal_of_impl < Expr
+                                , typename boost::proto::domain_of<Expr>::type
+                                >
   {};
 } }
 

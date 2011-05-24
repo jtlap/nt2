@@ -11,7 +11,6 @@
 #include <boost/mpl/apply.hpp>
 #include <nt2/sdk/simd/pack.hpp>
 #include <nt2/toolbox/operator.hpp>
-#include <nt2/sdk/dsl/terminal_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -45,3 +44,4 @@ NT2_TEST_CASE_TPL(terminal_of_pack, NT2_SIMD_TYPES)
   //NT2_TEST( (is_same<typename terminal_of< native16_t>::type, native16_t >::value) );
 
 }
+
