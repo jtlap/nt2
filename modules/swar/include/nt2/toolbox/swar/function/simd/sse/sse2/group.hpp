@@ -181,7 +181,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
       rtype r = simd::native_cast<rtype > (_mm_set_epi16(a1[3], a1[2], a1[1], a1[0], a0[3], a0[2], a0[1], a0[0]));  
-      //	{{ a0[0], a0[1], a0[2], a0[3], a1[0], a1[1], a1[2], a1[3]}};
+      //	make<rtype>( a0[0], a0[1], a0[2], a0[3], a1[0], a1[1], a1[2], a1[3] );
       return r; 
       //      return simd::native_cast<rtype>(_mm_packus_epi32(a0, a1)); //_mm_packus_epi32 pas existe avant sse4.1
     }

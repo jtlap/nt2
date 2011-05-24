@@ -16,6 +16,7 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/include/functions/make.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatches over splat_
@@ -181,14 +182,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = {
-          _mm_setr_epi32( (a0 & 0x00000000FFFFFFFFULL)
-                        , (a0 & 0xFFFFFFFF00000000ULL) >> 32
-                        , (a0 & 0x00000000FFFFFFFFULL)
-                        , (a0 & 0xFFFFFFFF00000000ULL) >> 32 )
-      };
-      return that;
+      return make<typename A1::type>(a0, a0);
     }
   };
 } }

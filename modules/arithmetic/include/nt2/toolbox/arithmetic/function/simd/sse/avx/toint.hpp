@@ -11,7 +11,9 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
-#include <nt2/include/functions/details/simd/sse/sse4_1/toint.hpp>
+#include <nt2/include/functions/make.hpp>
+
+#include <nt2/toolbox/arithmetic/function/simd/sse/sse4_1/toint.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +27,7 @@ NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::toint_(tag::simd_<tag::arithmetic_, tag::avx_)),
+  struct call<tag::toint_(tag::simd_<tag::arithmetic_, tag::avx_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -51,7 +53,7 @@ NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::toint_(tag::simd_<tag::double_, tag::avx_)),
+  struct call<tag::toint_(tag::simd_<tag::double_, tag::avx_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -62,8 +64,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      const type v = {{a0[0],a0[1], a0[2],a0[3]}}; //TODO with _mm_cvttpd_epi32
-      return v;
+      return make<type>(a0[0],a0[1], a0[2],a0[3]); //TODO with _mm_cvttpd_epi32
     }
   };
 } }
@@ -79,7 +80,7 @@ NT2_REGISTER_DISPATCH(tag::toint_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::toint_(tag::simd_<tag::float_, tag::avx_)),
+  struct call<tag::toint_(tag::simd_<tag::float_, tag::avx_>),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

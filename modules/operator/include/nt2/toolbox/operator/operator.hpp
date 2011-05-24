@@ -22,7 +22,7 @@
 #include <nt2/toolbox/operator/include/logical_and.hpp>
 #include <nt2/toolbox/operator/include/unary_minus.hpp>
 #include <nt2/toolbox/operator/include/is_greater.hpp>
-//#include <nt2/toolbox/operator/include/make.hpp>
+#include <nt2/toolbox/operator/include/make.hpp>
 #include <nt2/toolbox/operator/include/minus.hpp>
 #include <nt2/toolbox/operator/include/store.hpp>
 #include <nt2/toolbox/operator/include/map.hpp>

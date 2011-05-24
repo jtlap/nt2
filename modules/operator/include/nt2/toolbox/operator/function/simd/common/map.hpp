@@ -12,6 +12,8 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/toolbox/operator/specific/details/maybe_genmask.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
 
 #define M0(z,n,t) ((simd_< unspecified_<A0>, X >))
 #define M1(z,n,t) tag::simd_<tag::unspecified_, X>                                  
