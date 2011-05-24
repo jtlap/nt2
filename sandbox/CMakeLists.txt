@@ -10,16 +10,16 @@
 ################################################################################
 # Some global random test
 ################################################################################
-FIND_PACKAGE(NT2 COMPONENTS arithmetic core)
+FIND_PACKAGE(NT2 COMPONENTS arithmetic core reduction)
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include ${NT2_INCLUDE_DIR})
 LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
 LINK_LIBRARIES(${NT2_LIBRARIES})
 SET(SOURCES
-rec_block.cpp
+#rec_block.cpp
 pack.cpp
 #    foo.cpp
-table_dim.cpp
-transform_pass.cpp
+#table_dim.cpp
+#transform_pass.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)
