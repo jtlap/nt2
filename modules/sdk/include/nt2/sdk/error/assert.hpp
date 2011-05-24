@@ -68,7 +68,10 @@ namespace nt2
   };
 }
 
+#ifndef BOOST_ENABLE_ASSERT_HANDLER
 #define BOOST_ENABLE_ASSERT_HANDLER
+#endif
+
 #endif
 
 //==============================================================================
@@ -76,7 +79,9 @@ namespace nt2
 //==============================================================================
 #if defined(NT2_DEBUG) && !defined(NT2_ASSERTS_AS_EXCEPTIONS)
 #include <nt2/sdk/error/trap.hpp>
+#ifndef BOOST_ENABLE_ASSERT_HANDLER
 #define BOOST_ENABLE_ASSERT_HANDLER
+#endif
 #endif
 
 //==============================================================================
