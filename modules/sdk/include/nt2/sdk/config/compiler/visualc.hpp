@@ -21,7 +21,7 @@
   #pragma warning( disable : 4996 ) // unsafe iostream call
 
   #define NT2_COMPILER_MSVC
-  #define NT2_COMPILER BOOST_COMPILER
+  #define NT2_COMPILER BOOST_COMPILER
 
   #endif
 #endif
