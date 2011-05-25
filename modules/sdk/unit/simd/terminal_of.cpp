@@ -26,8 +26,8 @@ NT2_TEST_CASE_TPL(terminal_of_pack, NT2_SIMD_TYPES)
   using boost::is_same;
 
   NT2_DECLTYPE(pack<T>() + pack<T>()+3, expr);
-//   NT2_TEST( (is_same<typename boost::mpl::apply<terminal_of< pack<T> >, void >::type, pack<T> >::value) );
-//   NT2_TEST( (is_same<typename boost::mpl::apply<terminal_of< expr    >, void >::type, pack<T> >::value) );
+  NT2_TEST( (is_same<typename boost::mpl::apply<terminal_of< pack<T> >, void >::type, pack<T> >::value) );
+  NT2_TEST( (is_same<typename boost::mpl::apply<terminal_of< expr    >, void >::type, pack<T> >::value) );
   typedef pack<T,1>   native1_t;
   typedef pack<T,2>   native2_t;
   typedef pack<T,4>   native4_t;
