@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/dsl/litteral.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register terminal handlers for SIMD expression - native case
@@ -59,49 +59,6 @@ namespace nt2 { namespace ext
       return v.value();
     }
   };
-
-  template<class Dummy,class X>
-  struct call<tag::terminal_( tag::arithmetic_
-                            , tag::target_< tag::simd_<tag::arithmetic_,X> >
-                            , tag::integer_
-                            ),tag::cpu_,Dummy>
-  : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This, class Value, class State, class Data>
-    struct result<This(Value,State,Data)> :  meta::strip<State>::type {};
-
-    template<class Value, class State, class Data> inline
-    typename result<call(Value,State,Data)>::type
-    operator()( Value& v, State& , Data&  ) const
-    {
-      typedef typename result<call(Value,State,Data)>::type type;
-      return splat<type>(v);
-    }
-  };
-
-  template<class Dummy,class ID, class X>
-  struct call<tag::terminal_( tag::constant_<ID>
-                            , tag::target_< tag::simd_<tag::arithmetic_,X> >
-                            , tag::integer_
-                            ),tag::cpu_,Dummy>
-  : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This, class Value, class State, class Data>
-    struct result<This(Value,State,Data)> :  meta::strip<State>::type {};
-
-    template<class Value, class State, class Data> inline
-    typename result<call(Value,State,Data)>::type
-    operator()( Value& , State& , Data&  ) const
-    {
-      functor<ID> callee;
-      typedef typename result<call(Value,State,Data)>::type type;
-      return callee( meta::as_<type>() );
-    }
-  };
 } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -110,20 +67,6 @@ namespace nt2 { namespace ext
 NT2_REGISTER_DISPATCH_TPL (  tag::terminal_,tag::cpu_
                           , (class A0)(class A1)(class A2)(std::size_t N)
                           , ((array_<arithmetic_<A0>,N>))
-                            ((target_<array_<arithmetic_<A1>,N> >))
-                            (integer_<A2>)
-                          )
-
-NT2_REGISTER_DISPATCH_TPL (  tag::terminal_,tag::cpu_
-                          , (class A0)(class A1)(class A2)(std::size_t N)
-                          , (arithmetic_<A0>)
-                            ((target_<array_<arithmetic_<A1>,N> >))
-                            (integer_<A2>)
-                          )
-
-NT2_REGISTER_DISPATCH_TPL (  tag::terminal_,tag::cpu_
-                          , (class A0)(class A1)(class A2)(std::size_t N)
-                          , (constant_<A0>)
                             ((target_<array_<arithmetic_<A1>,N> >))
                             (integer_<A2>)
                           )
@@ -153,54 +96,6 @@ namespace nt2 { namespace ext
       return v[pos];
     }
   };
-
-  template<class Dummy,std::size_t N>
-  struct call<tag::terminal_( tag::arithmetic_
-                            , tag::target_< tag::array_<tag::arithmetic_,N> >
-                            , tag::integer_
-                            ),tag::cpu_,Dummy>
-  : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This, class Value, class State, class Data>
-    struct result<This(Value,State,Data)>
-    {
-      typedef typename meta::strip<State>::type::type::value_type type;
-    };
-
-    template<class Value, class State, class Data> inline
-    typename result<call(Value,State,Data)>::type
-    operator()( Value& v, State& , Data&) const
-    {
-      return static_cast<typename result<call(Value,State,Data)>::type>(v);
-    }
-  };
-
-  template<class Dummy,class ID,std::size_t N>
-  struct call<tag::terminal_( tag::constant_<ID>
-                            , tag::target_< tag::array_<tag::arithmetic_,N> >
-                            , tag::integer_
-                            ),tag::cpu_,Dummy>
-  : callable
-  {
-    template<class Sig> struct result;
-
-    template<class This, class Value, class State, class Data>
-    struct result<This(Value,State,Data)>
-    {
-      typedef typename meta::strip<State>::type::type base;
-      typedef typename base::value_type               type;
-    };
-
-    template<class Value, class State, class Data> inline
-    typename result<call(Value,State,Data)>::type
-    operator()( Value& v, State& , Data&) const
-    {
-      functor<ID> callee;
-      typedef typename result<call(Value,State,Data)>::type type;
-      return callee( meta::as_<type>() );
-    }
-  };
 } }
+
 #endif

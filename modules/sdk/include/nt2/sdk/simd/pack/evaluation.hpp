@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_SIMD_PACK_EVALUATION_HPP_INCLUDED
 #define NT2_SDK_SIMD_PACK_EVALUATION_HPP_INCLUDED
 
+#include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/dsl/evaluation.hpp>
 
@@ -53,6 +54,7 @@ NT2_REGISTER_DISPATCH_TPL (  tag::evaluate_,tag::cpu_
                           , ((array_<arithmetic_<A0>,N>))
                             ((expr_<A1, domain_< simd::domain<T,C> >,Tag, Sema>))
                           )
+
 namespace nt2 { namespace ext
 {
   template<std::size_t N,class T, class C, class Tag, class Sema, class Dummy>
@@ -76,4 +78,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 #endif
