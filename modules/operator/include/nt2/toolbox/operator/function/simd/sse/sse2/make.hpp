@@ -182,7 +182,7 @@ namespace nt2 { namespace ext
                            , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
                            , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
                            , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::ints16_,tag::sse_> >
+                           , tag::target_<tag::simd_<tag::ints8_,tag::sse_> >
                            )
               , tag::cpu_
               , Dummy
