@@ -40,7 +40,7 @@ struct CalculatorGrammar
 // is not used, is mpl::void_.
 template<typename Expr>
 struct calculator_arity
-  : std::tr1::result_of<CalculatorGrammar(Expr, mpl::int_<0>, mpl::void_)>
+  : nt2::meta::result_of<CalculatorGrammar(Expr, mpl::int_<0>, mpl::void_)>
 {};
 
 // For expressions in the calculator domain, operator ()

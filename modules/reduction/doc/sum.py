@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename std::tr1::result_of<nt2::meta::arithmetic(sT,sT)>::type',
+             'default' : 'typename nt2::meta::result_of<nt2::meta::arithmetic(sT,sT)>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['reduction'],  

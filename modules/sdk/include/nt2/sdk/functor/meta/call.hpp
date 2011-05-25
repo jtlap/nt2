@@ -13,12 +13,9 @@
  * \file
  */
 
-#if !defined(__WAVE__)
 #include <boost/config.hpp>
-#include <boost/tr1/functional.hpp>
 #include <boost/function_types/result_type.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#endif
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
@@ -63,7 +60,7 @@ namespace nt2 { namespace meta
 #if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
   template<class Tag, class... Args, class Site>
   struct call<Tag(Args...),Site>
-        : std::tr1::result_of<functor<Tag,Site>(Args...)>
+        : meta::result_of<functor<Tag,Site>(Args...)>
   {};
 #else
 
@@ -77,7 +74,7 @@ namespace nt2 { namespace meta
 #define M0(z,n,t) \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site> \
 struct call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site> \
-: std::tr1::result_of<functor<Tag,Site>(BOOST_PP_ENUM_PARAMS(n,A))> \
+: meta::result_of<functor<Tag,Site>(BOOST_PP_ENUM_PARAMS(n,A))> \
 {}; \
 /**/
 

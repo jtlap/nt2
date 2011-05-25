@@ -21,7 +21,7 @@
 NT2_TEST_CASE( unary_arithmetic )
 {
   using nt2::meta::arithmetic;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
@@ -42,7 +42,7 @@ NT2_TEST_CASE( unary_arithmetic )
 NT2_TEST_CASE( binary_arithmetic )
 {
   using nt2::meta::arithmetic;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );

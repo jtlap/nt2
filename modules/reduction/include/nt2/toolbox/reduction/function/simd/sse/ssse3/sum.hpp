@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename std::tr1::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::result_of<meta::arithmetic(base)>::type  type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename std::tr1::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::result_of<meta::arithmetic(base)>::type  type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename std::tr1::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::result_of<meta::arithmetic(base)>::type  type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -125,7 +125,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename std::tr1::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::result_of<meta::arithmetic(base)>::type  type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -155,7 +155,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename std::tr1::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::result_of<meta::arithmetic(base)>::type  type;
     };
 
     NT2_FUNCTOR_CALL(1)
@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename std::tr1::result_of<meta::arithmetic(base)>::type  type;
+      typedef typename meta::result_of<meta::arithmetic(base)>::type  type;
     };
 
     NT2_FUNCTOR_CALL(1)

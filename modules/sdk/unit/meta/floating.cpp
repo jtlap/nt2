@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL (  unary_floating_t32
                   )
 {
   using nt2::meta::floating;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<float, typename result_of<floating(T)>::type >::value ) );
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL (  unary_floating_t64
                   )
 {
   using nt2::meta::floating;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, typename result_of<floating(T)>::type >::value ) );
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( binary_floating_t64
                   )
 {
   using nt2::meta::floating;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, typename result_of<floating(T,double)>::type >::value ) );
@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL ( binary_floating_t32
                   )
 {
   using nt2::meta::floating;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, typename result_of<floating(T,double)>::type >::value ) );

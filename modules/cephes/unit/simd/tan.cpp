@@ -33,7 +33,7 @@
 //  typedef native<T,ext_t>             n_t;
 //
 //  NT2_TEST( (boost::is_same<typename nt2::meta::call<cephes_(n_t)>::type,
-//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_n_t_type_list$)>::type
+//                            typename nt2::meta::result_of<nt2::meta::floating<($self.const_n_t_type_list$)>::type
 //                            >::value)
 //          );
 //  NT2_ALIGNED_TYPE(T) data[1*cardinal_of<n_t>::value];

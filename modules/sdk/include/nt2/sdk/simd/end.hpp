@@ -78,7 +78,7 @@ namespace nt2 { namespace simd
 namespace nt2 { namespace simd
 {
   template<std::size_t N, class ContiguousRange>
-  typename std::tr1::
+  typename meta::
   result_of<result::end(ContiguousRange,boost::mpl::int_<N>)>::type
   end( ContiguousRange const& rng )
   {
@@ -87,7 +87,7 @@ namespace nt2 { namespace simd
   }
 
   template<class ContiguousRange>
-  typename std::tr1::result_of<result::end(ContiguousRange)>::type
+  typename meta::result_of<result::end(ContiguousRange)>::type
   end( ContiguousRange const& rng )
   {
     result::end callee;

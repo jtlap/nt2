@@ -21,19 +21,17 @@
  * and specialize polymorphic functors.
  */
 
-#if !defined(__WAVE__)
 #include <boost/config.hpp>
-#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
-#endif
 #include <nt2/sdk/functor/meta/enable_call.hpp>
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/functor/meta/make_functor.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
@@ -76,7 +74,7 @@ namespace nt2
     struct  result<This(Args...)>
     {
       typedef typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
-      typedef typename std::tr1::result_of<callee(Args...)>::type   type;
+      typedef typename meta::result_of<callee(Args...)>::type   type;
     };
 
     //==========================================================================
@@ -109,7 +107,7 @@ namespace nt2
       meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
                                                                     callee;   \
       typedef typename                                                        \
-      std::tr1::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;     \
+      meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
     };                                                                        \
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                          \

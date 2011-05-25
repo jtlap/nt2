@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2, class A3>
     struct result<This(A0, A1, A2, A3)> :
-      std::tr1::result_of<meta::floating(A1, A2, A3)>{};
+      meta::result_of<meta::floating(A1, A2, A3)>{};
 
     NT2_FUNCTOR_CALL(4)
     {
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2, class A3>
     struct result<This(A0, A1, A2, A3)> :
-      std::tr1::result_of<meta::floating(A1, A2, A3)>{};
+      meta::result_of<meta::floating(A1, A2, A3)>{};
 
     NT2_FUNCTOR_CALL(4){ return boost::math::laguerre_next(a0, a1, a2, a3); }
   };

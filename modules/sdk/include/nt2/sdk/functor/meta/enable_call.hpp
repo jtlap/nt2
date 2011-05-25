@@ -14,15 +14,12 @@
  * Implements functor conformance checkign meta-function
  */
 
-#if !defined(__WAVE__)
 #include <boost/config.hpp>
-#include <boost/tr1/functional.hpp>
-#include <boost/utility/result_of.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
 #include <boost/function_types/result_type.hpp>
 #include <nt2/sdk/functor/forward.hpp>
-#endif
 #include <nt2/sdk/functor/details/dispatch.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
@@ -89,7 +86,7 @@ namespace nt2 { namespace meta
                                      >::type
                                     >::type
                     >
-    : std::tr1::result_of<functor<F,Site>(Args...)>
+    : meta::result_of<functor<F,Site>(Args...)>
   {};
   #else
 
@@ -114,7 +111,7 @@ namespace nt2 { namespace meta
                                         >::type                                       \
                                       >::type                                         \
                       >                                                               \
-        : std::tr1::result_of<functor<F,Site>(BOOST_PP_ENUM_PARAMS(n,A))>             \
+        : meta::result_of<functor<F,Site>(BOOST_PP_ENUM_PARAMS(n,A))>                 \
   {};                                                                                 \
   /**/
 

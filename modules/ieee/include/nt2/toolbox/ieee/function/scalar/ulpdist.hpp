@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::arithmetic(A0,A1)>{};
+      meta::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::arithmetic(A0,A1)>{};
+      meta::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -91,11 +91,11 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::arithmetic(A0,A1)>{};
+      meta::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename std::tr1::result_of<meta::arithmetic(A0, A1) >::type type;
+      typedef typename meta::result_of<meta::arithmetic(A0, A1) >::type type;
       typedef typename meta::as_integer<A0>::type itype;
       if (a0 == a1)               return Zero<type>();
       if (is_nan(a0)&&is_nan(a1)) return Zero<type>();

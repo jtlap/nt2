@@ -37,7 +37,7 @@ namespace nt2 { namespace details
     {};
 
     template <class This, class Option>
-    struct result<This(Option)> : std::tr1::result_of<option_pack(This, Option)>
+    struct result<This(Option)> : meta::result_of<option_pack(This, Option)>
     {};
 
     template <class This, class Option, class Default>

@@ -13,16 +13,15 @@
 // Various macro for boilerplating call<> code writing
 // Documentation: http://nt2.lri.fr/sdk/functor/macros/call.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/tr1/functional.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // operator() result type for call<Sig,Site>
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_RETURN_TYPE(N)                                                      \
-std::tr1                                                                        \
-::result_of<call(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))>  \
+#define NT2_RETURN_TYPE(N)                                                          \
+meta::result_of<call(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))>  \
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main functor entry point:

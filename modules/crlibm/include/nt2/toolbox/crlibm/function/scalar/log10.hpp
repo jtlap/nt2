@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
      template<class A0, class R> struct inner_log;
     NT2_CRLIBM_INNER_STRUCT(rn, log, rn)
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     template<class A0, class R> struct inner_log10;
     NT2_CRLIBM_INNER_STRUCT(rn, log10, rn)

@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> :
-      meta::as_integer<typename std::tr1::result_of<meta::floating(A0)>::type, signed>{};
+      meta::as_integer<typename meta::result_of<meta::floating(A0)>::type, signed>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
       struct result<This(A0)> :
-      meta::as_integer<typename std::tr1::result_of<meta::floating(A0)>::type, signed>{};
+      meta::as_integer<typename meta::result_of<meta::floating(A0)>::type, signed>{};
 
     NT2_FUNCTOR_CALL(1)
     {

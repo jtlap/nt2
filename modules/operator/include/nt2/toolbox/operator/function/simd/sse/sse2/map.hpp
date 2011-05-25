@@ -53,7 +53,7 @@ namespace nt2 { namespace ext                                               \
     template<class This,class Func,BOOST_PP_ENUM_PARAMS(n,class A)>         \
     struct result<This(Func, BOOST_PP_ENUM_PARAMS(n,A))>                    \
     {                                                                       \
-      typedef typename std::tr1::                                           \
+      typedef typename meta::                                               \
       result_of< typename meta::                                            \
                  strip<Func>::type const( BOOST_PP_ENUM(n,M6,~) )           \
                >::type                                                      \
