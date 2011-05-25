@@ -30,20 +30,35 @@ nt2_module_add_library(nt2 ${source_files})
 macro(preprocess_file target)
   find_file(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)
   get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
-  set(INCLUDE_DIRECTORIES -S/usr/lib/gcc/i686-linux-gnu/4.5/include -S/usr/include/c++/4.5 -S/usr/include/c++/4.5/i686-linux-gnu -S/usr/include)
+  
+  if(NT2_PROCESSOR STREQUAL x86)
+    set(INCLUDE_ARCH i686)
+  else()
+    set(INCLUDE_ARCH ${NT2_PROCESSOR})
+  endif()
+  set(INCLUDE_DIRECTORIES -S/usr/lib/gcc/${INCLUDE_ARCH}-linux-gnu/4.5/include
+                          -S/usr/include/c++/4.5
+                          -S/usr/include/c++/4.5/${INCLUDE_ARCH}-linux-gnu
+                          -S/usr/include
+     )
+
   foreach(INCLUDE ${INCLUDES})
     list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
   endforeach()
-  add_custom_target(${target})
-  set(n 0)
+  set(prev 0)
   foreach(src ${ARGN})
+    math(EXPR n "${prev} + 1")
     add_custom_target(${target}.${n}
-                      COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE} -DNT2_DONT_USE_PREPROCESSED_FILES -DNT2_CREATE_PREPROCESSED_FILES --c++0x ${INCLUDE_DIRECTORIES} -o - ${src}
+                      COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE} -DNT2_DONT_USE_PREPROCESSED_FILES -DNT2_CREATE_PREPROCESSED_FILES --c++0x --timer ${INCLUDE_DIRECTORIES} -o - ${src}
                       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/include
                      )
-    add_dependencies(${target} ${target}.${n})
-    math(EXPR n "${n} + 1")
+    if(prev)
+      add_dependencies(${target}.${n} ${target}.${prev}) # we force sequential execution
+    endif()
+    set(prev ${n})
   endforeach()
+  add_custom_target(${target})
+  add_dependencies(${target} ${target}.${prev})
 endmacro()
 
 preprocess_file(sdk.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
