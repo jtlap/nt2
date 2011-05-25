@@ -7,6 +7,7 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <nt2/include/functor.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

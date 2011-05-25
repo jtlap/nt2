@@ -19,11 +19,11 @@ SET( SOURCES
     is_simd_specific.cpp
     make_integer.cpp
     make_real.cpp
-#    native.cpp
     native_cast.cpp
-#    pack.cpp
+#   pack.cpp
     scalar_of.cpp
     sign_of.cpp
+    terminal_of.cpp
     upgrade.cpp
    )
 

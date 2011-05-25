@@ -9,12 +9,12 @@
 #ifndef NT2_SDK_CONFIG_COMPILER_GCC_HPP_INCLUDED
 #define NT2_SDK_CONFIG_COMPILER_GCC_HPP_INCLUDED
 
-#if !defined(NT2_COMPILER_DETECTED)
+#if !defined(NT2_COMPILER)
   #if defined(__GNUC__)
 
-    #define NT2_COMPILER_DETECTED
     #define NT2_COMPILER_GNU_C
-    #define NT2_COMPILER_STRING   BOOST_COMPILER
+    #define NT2_COMPILER BOOST_COMPILER
+    
 
   #endif
 #endif

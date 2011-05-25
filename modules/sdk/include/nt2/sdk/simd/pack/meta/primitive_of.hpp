@@ -16,9 +16,8 @@ namespace nt2 { namespace meta
 {
   template< class Type
           , std::size_t Cardinal
-          , class Dummy 
           >
-  struct primitive_of< simd::pack<Type, Cardinal, Dummy> >
+  struct primitive_of< simd::pack<Type, Cardinal> >
   {
     typedef Type type;
   };

@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(NT2 COMPONENTS sdk)
+FIND_PACKAGE(NT2 COMPONENTS operator)
 FIND_LIBRARY(CRLIBM_LIBRARY crlibm)
 
 IF(NOT NT2_FOUND OR CRLIBM_LIBRARY MATCHES "NOTFOUND")

@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
       untype aa1 = nt2::abs(a1);
       if (aa1 >= aa0)
 	{
-	  A0 z = Valmax<A0>()/aa1;
+	  untype z = Valmax<A0>()/aa1;
 	  if (z < aa0)
 	    {
 	      return sign ? Valmin<A0>():Valmax<A0>();

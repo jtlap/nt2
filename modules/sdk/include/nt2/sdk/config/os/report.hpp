@@ -23,7 +23,7 @@ namespace nt2 { namespace config
   //////////////////////////////////////////////////////////////////////////////
   inline void os()
   {
-    puts(" Operating System        : " NT2_OS_STRING );
+    puts(" Operating System        : " NT2_OS );
   }
 
   NT2_REGISTER_STATUS(os);

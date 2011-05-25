@@ -11,7 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/store.hpp>
+#include <nt2/include/functions/store.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <algorithm>

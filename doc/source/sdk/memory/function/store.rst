@@ -42,7 +42,7 @@ Header File
 
 .. code-block:: cpp
 
-  #include <nt2/sdk/memory/store.hpp>
+  #include <nt2/include/functions/store.hpp>
 
 Synopsis
 ^^^^^^^^
