@@ -9,6 +9,7 @@
 #include <nt2/toolbox/constant/constants/dsl/digits.hpp>
 #include <nt2/toolbox/reduction.hpp>
 #include <nt2/toolbox/operator.hpp>
+#include <nt2/toolbox/arithmetic/include/tofloat.hpp>
 
 using namespace std;
 
@@ -33,8 +34,10 @@ template<class T> void bench(std::size_t sz)
     std::cout << d/vd << "\t";
 }
 
+#include <nt2/sdk/details/type_id.hpp>
+
 int main()
-{
+{/*
   for(std::size_t i=2;i<=16384;i*=2)
   {
     std::cout << i << "\t";
@@ -42,4 +45,18 @@ int main()
     bench<float>(i);
     std::cout << "\n";
   }
+  */
+
+  nt2::simd::pack<float> u(4.64f), r;
+  nt2::simd::pack<int> v(3);
+
+  r = nt2::tofloat(v);
+  std::cout << r << "\n";
+
+  r = u + nt2::tofloat(v);
+  std::cout << r << "\n";
+
+  r = nt2::tofloat(v+2)*nt2::ten_;
+  std::cout << r << "\n";
+
 }
