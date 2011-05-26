@@ -21,20 +21,6 @@ NT2_REGISTER_DISPATCH(tag::terminal_,tag::cpu_
                       (integer_<A2>)
                      )
 
-NT2_REGISTER_DISPATCH(tag::terminal_,tag::cpu_
-                     ,(A0)(A1)(A2)(X)
-                     ,(arithmetic_<A0>)
-                      ((target_<simd_<arithmetic_<A1>,X> >))
-                      (integer_<A2>)
-                     )
-
-NT2_REGISTER_DISPATCH(tag::terminal_,tag::cpu_
-                    ,(A0)(A1)(A2)(X)
-                    ,(constant_<A0>)
-                     ((target_<simd_<arithmetic_<A1>,X> >))
-                     (integer_<A2>)
-                    )
-
 namespace nt2 { namespace ext
 {
   template<class Dummy,class X,class Y>

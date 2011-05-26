@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/dsl/category.hpp>
+#include <nt2/sdk/dsl/litteral.hpp>
 #include <nt2/sdk/dsl/evaluation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
