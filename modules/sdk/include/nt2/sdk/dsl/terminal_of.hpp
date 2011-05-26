@@ -31,7 +31,7 @@ namespace nt2 { namespace meta
 {
   template< class Expr >
   struct  terminal_of
-        : ext::terminal_of_impl < Expr
+        : ext::terminal_of_impl < typename strip<Expr>::type
                                 , typename boost::proto::domain_of<Expr>::type
                                 >
   {};
