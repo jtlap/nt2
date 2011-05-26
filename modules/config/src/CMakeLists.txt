@@ -8,16 +8,18 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(sdk)
+nt2_module_source_setup(config)
 
-nt2_module_configure_simd( nt2/sdk/simd/details/impl --no-simd-dir --no-default-baseline
-                                                     -Bcommon -Bsse/sse2
-                         )
+################################################################################
+# Generate bootstrap.hpp
+################################################################################
+CONFIGURE_FILE( ${NT2_CONFIG_ROOT}/src/bootstrap.hpp.cmake
+                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
+              )
 
-file( GLOB_RECURSE source_sdk_files
-      ${NT2_SDK_ROOT}/src/*
+file( GLOB_RECURSE source_config_files
+      ${NT2_CONFIG_ROOT}/src/*
     )
 
-SET(SOURCE_FILES ${source_sdk_files} ${SOURCE_FILES})
+SET(SOURCE_FILES ${source_config_files} CACHE INTERNAL "")
 
-nt2_module_add_library(nt2 ${SOURCE_FILES})
