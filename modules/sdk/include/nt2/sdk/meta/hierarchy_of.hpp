@@ -74,7 +74,7 @@ namespace nt2                                                                   
     template<class T> struct Name< unspecified_<T> > : unspecified_<T>          \
     {                                                                           \
       typedef unspecified_<T> parent;                                           \
-      typedef tag::unspecified_ type;                                           \
+      typedef tag::Name< tag::unspecified_ > type;                              \
     };                                                                          \
     template<class T> struct Name< unknown_<T> > : NT2_PP_REMOVE_TYPENAME(Base) \
     {                                                                           \
