@@ -40,34 +40,4 @@ namespace nt2 { namespace ext
   };
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is pack
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
-                      (A0)(T)(Card)(Sema),
-                      ((expr_ < A0
-                              , domain_< simd::domain<T,Card> >
-                              , tag::terminal_
-                              , Sema
-                              >
-                      ))
-                     );
-
-namespace nt2 { namespace ext
-{
-  template<class T, class Card, class Sema, class Dummy>
-  struct call<tag::sum_(tag::expr_<simd::domain<T,Card>,tag::terminal_, Sema>),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> { typedef T type; };
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::sum(a0.value().value());
-    }
-  };
-} }
-
 #endif
