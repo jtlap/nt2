@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_PACK_TOFLOAT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_PACK_TOFLOAT_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/simd/pack.hpp>
-#include <nt2/sdk/dsl/terminal_of.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/simd/pack/meta/retarget.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Allow tofloat_ to eat up w/e as a type as long as cardinal is correct
@@ -25,28 +25,11 @@ namespace nt2 { namespace simd
   {};
 } }
 
+////////////////////////////////////////////////////////////////////////////////
+// Say to compute that tofloat_ need to retarget its inner evaluation process
+////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  struct retarget : boost::proto::callable
-  {
-    template<class Sig> struct result;
-
-    template<class This, class Expr>
-    struct result<This(Expr)>
-    {
-      typedef meta::terminal_of<Expr> base_type;
-      typedef typename boost::mpl::apply<base_type,void>::type pack_type;
-      typedef as_< typename pack_type::data_type::parent > type;
-    };
-
-    template<class Expr> inline
-    typename result<retarget(Expr&)>::type
-    operator()(Expr& ) const
-    {
-      return typename result<retarget(Expr&)>::type();
-    }
-  };
-
   template<class Target>
   struct  compute<tag::tofloat_,Target>
         : boost::proto::
@@ -81,7 +64,7 @@ namespace nt2 { namespace ext
     struct result<This(A0)>
     {
       // tofloat MUST return something living in the domain<real,Card>
-        // so we compute the destination domain so proto is A-OK with it.
+      // so we compute the destination domain so proto is A-OK with it.
       typedef typename meta::as_real<T>::type real_type;
       typedef typename boost::proto::result_of::
       make_expr < tag::tofloat_
