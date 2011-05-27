@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/stirling.hpp>
-#include NT2_EULER_INCLUDE(stirling.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/stirling.hpp> 
 
  
 #endif

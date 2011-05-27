@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/cos.hpp>
-// #include NT2_FDLIBM_INCLUDE(cos.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/cos.hpp> 
 
  
 #endif

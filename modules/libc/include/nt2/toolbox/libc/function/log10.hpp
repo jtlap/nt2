@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/log10.hpp>
-// #include NT2_LIBC_INCLUDE(log10.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/log10.hpp> 
 
  
 #endif

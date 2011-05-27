@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/cospi_rz.hpp>
-// #include NT2_CRLIBM_INCLUDE(cospi_rz.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/cospi_rz.hpp> 
 
  
 #endif

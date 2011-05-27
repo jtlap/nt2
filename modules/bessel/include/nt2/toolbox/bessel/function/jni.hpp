@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bessel/function/scalar/jni.hpp>
-#include NT2_BESSEL_INCLUDE(jni.hpp) 
+#include <nt2/toolbox/bessel/function/simd/all/jni.hpp> 
 
  
 #endif

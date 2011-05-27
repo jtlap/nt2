@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/tanh.hpp>
-// #include NT2_CEPHES_INCLUDE(tanh.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/tanh.hpp> 
 
  
 #endif

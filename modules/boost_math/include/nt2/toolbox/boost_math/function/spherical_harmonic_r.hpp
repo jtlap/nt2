@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/spherical_harmonic_r.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(spherical_harmonic_r.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/spherical_harmonic_r.hpp> 
 
  
 #endif

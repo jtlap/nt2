@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/copysign.hpp>
-#include NT2_IEEE_INCLUDE(copysign.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/copysign.hpp> 
 
  
 #endif

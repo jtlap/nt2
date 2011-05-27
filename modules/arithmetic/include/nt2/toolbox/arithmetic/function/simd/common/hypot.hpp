@@ -107,7 +107,7 @@ namespace nt2 { namespace ext
       int_type eb  =  exponent(b);
       int_type te1 = gt(ea,cts::C1());
       int_type te2 = lt(eb,cts::MC1());
-      bool te3 = any(te1|te2);
+      bool te3 = nt2::any(te1|te2);
       int_type e = Zero<int_type>();
       if (te3)
       {

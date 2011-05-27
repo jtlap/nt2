@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/negif.hpp>
-#include NT2_BITWISE_INCLUDE(negif.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/negif.hpp> 
 
  
 #endif

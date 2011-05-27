@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/asinh.hpp>
-#include NT2_HYPERBOLIC_INCLUDE(asinh.hpp) 
+#include <nt2/toolbox/hyperbolic/function/simd/all/asinh.hpp> 
 
  
 #endif

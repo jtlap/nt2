@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/correct_fma.hpp>
-#include NT2_ARITHMETIC_INCLUDE(correct_fma.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/correct_fma.hpp> 
 
  
 #endif

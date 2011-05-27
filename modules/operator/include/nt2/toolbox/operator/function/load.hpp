@@ -55,6 +55,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/load.hpp>
-#include NT2_OPERATOR_INCLUDE(load.hpp)
+#include <nt2/toolbox/operator/function/simd/all/load.hpp>
 
 #endif

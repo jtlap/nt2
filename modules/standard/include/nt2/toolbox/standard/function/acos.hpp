@@ -20,7 +20,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
  
 #include <nt2/toolbox/standard/function/scalar/acos.hpp>
-// #include NT2_STANDARD_INCLUDE(acos.hpp) 
+// #include <nt2/toolbox/standard/function/simd/all/acos.hpp> 
 
  
 #endif

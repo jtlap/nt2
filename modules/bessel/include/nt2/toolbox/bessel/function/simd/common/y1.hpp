@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
       A0 a0lt2 = lt(a0, Two<A0>());
       A0 q = rec(a0);
       A0 p2;
-      if (any(a0lt2))
+      if (nt2::any(a0lt2))
       {
         A0 z = sqr(a0);
         p2 = (z-single_constant<A0, 0x40954ae7> ())*a0*

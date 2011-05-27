@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/atanh.hpp>
-#include NT2_HYPERBOLIC_INCLUDE(atanh.hpp) 
+#include <nt2/toolbox/hyperbolic/function/simd/all/atanh.hpp> 
 
  
 #endif

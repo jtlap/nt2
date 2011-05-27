@@ -22,6 +22,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/adds.hpp>
-#include NT2_ARITHMETIC_INCLUDE(adds.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/adds.hpp> 
 
 #endif

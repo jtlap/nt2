@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/exponential/function/scalar/powi.hpp>
-#include NT2_EXPONENTIAL_INCLUDE(powi.hpp) 
+#include <nt2/toolbox/exponential/function/simd/all/powi.hpp> 
 
  
 #endif

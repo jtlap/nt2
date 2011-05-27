@@ -90,7 +90,7 @@ namespace nt2 { namespace functors
       A0 y4 =  case_4<A0>(a0); // computation result in remaining cases
       r = sel(test3, r, y4);
 //       std::cout << "case_4 : r  " << r << std::endl;
-//       if(any(is_nez(r-ceil(a0))))
+//       if(nt2::any(is_nez(r-ceil(a0))))
 // 	{
 // 	  std::cout << "a0       " << a0 << std::endl;
 // 	  std::cout << "ceil(a0) " << ceil(a0) << std::endl;

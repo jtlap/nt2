@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/abs.hpp>
-#include NT2_ARITHMETIC_INCLUDE(abs.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/abs.hpp> 
 
  
 #endif

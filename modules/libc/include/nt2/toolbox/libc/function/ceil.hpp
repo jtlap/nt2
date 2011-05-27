@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/ceil.hpp>
-// #include NT2_LIBC_INCLUDE(ceil.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/ceil.hpp> 
 
  
 #endif

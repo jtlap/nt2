@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/polevl.hpp>
-#include NT2_POLYNOMIALS_INCLUDE(polevl.hpp) 
+#include <nt2/toolbox/polynomials/function/simd/all/polevl.hpp> 
 
  
 #endif

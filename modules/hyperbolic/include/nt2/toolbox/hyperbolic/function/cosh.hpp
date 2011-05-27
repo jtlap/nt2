@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/cosh.hpp>
-#include NT2_HYPERBOLIC_INCLUDE(cosh.hpp) 
+#include <nt2/toolbox/hyperbolic/function/simd/all/cosh.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/sign.hpp>
-#include NT2_IEEE_INCLUDE(sign.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/sign.hpp> 
 
  
 #endif

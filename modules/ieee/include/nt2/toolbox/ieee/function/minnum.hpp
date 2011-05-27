@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/minnum.hpp>
-#include NT2_IEEE_INCLUDE(minnum.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/minnum.hpp> 
 
  
 #endif

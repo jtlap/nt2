@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/fast_frexp.hpp>
-#include NT2_IEEE_INCLUDE(fast_frexp.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/fast_frexp.hpp> 
 
  
 #endif

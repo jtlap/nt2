@@ -20,7 +20,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
  
 #include <nt2/toolbox/standard/function/scalar/atan2.hpp>
-// #include NT2_STANDARD_INCLUDE(atan2.hpp) 
+// #include <nt2/toolbox/standard/function/simd/all/atan2.hpp> 
 
  
 #endif

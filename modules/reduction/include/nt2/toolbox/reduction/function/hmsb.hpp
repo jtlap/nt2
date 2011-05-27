@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/reduction/function/scalar/hmsb.hpp>
-#include NT2_REDUCTION_INCLUDE(hmsb.hpp) 
+#include <nt2/toolbox/reduction/function/simd/all/hmsb.hpp> 
 
  
 #endif

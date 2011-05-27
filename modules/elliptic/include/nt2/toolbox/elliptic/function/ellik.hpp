@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/elliptic/function/scalar/ellik.hpp>
-#include NT2_ELLIPTIC_INCLUDE(ellik.hpp) 
+#include <nt2/toolbox/elliptic/function/simd/all/ellik.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/acosh.hpp>
-#include NT2_HYPERBOLIC_INCLUDE(acosh.hpp) 
+#include <nt2/toolbox/hyperbolic/function/simd/all/acosh.hpp> 
 
  
 #endif

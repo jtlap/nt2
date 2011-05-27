@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/tofloat.hpp>
-#include NT2_ARITHMETIC_INCLUDE(tofloat.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/tofloat.hpp> 
 #include <nt2/toolbox/arithmetic/function/simd/pack/tofloat.hpp>
 
 #endif

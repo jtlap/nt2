@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/gamma_q_inva.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(gamma_q_inva.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/gamma_q_inva.hpp> 
 
  
 #endif

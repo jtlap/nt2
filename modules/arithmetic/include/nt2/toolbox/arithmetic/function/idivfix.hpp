@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/idivfix.hpp>
-#include NT2_ARITHMETIC_INCLUDE(idivfix.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/idivfix.hpp> 
 
  
 #endif

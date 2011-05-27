@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/inrad.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(inrad.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/inrad.hpp> 
 
  
 #endif

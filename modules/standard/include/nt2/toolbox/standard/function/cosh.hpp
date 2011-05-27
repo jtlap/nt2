@@ -20,7 +20,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
  
 #include <nt2/toolbox/standard/function/scalar/cosh.hpp>
-// #include NT2_STANDARD_INCLUDE(cosh.hpp) 
+// #include <nt2/toolbox/standard/function/simd/all/cosh.hpp> 
 
  
 #endif

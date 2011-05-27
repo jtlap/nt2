@@ -22,6 +22,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/compare_less.hpp>
-#include NT2_OPERATOR_INCLUDE(compare_less.hpp)
+#include <nt2/toolbox/operator/function/simd/all/compare_less.hpp>
 
 #endif

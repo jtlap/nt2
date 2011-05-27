@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/beta.hpp>
-#include NT2_EULER_INCLUDE(beta.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/beta.hpp> 
 
  
 #endif

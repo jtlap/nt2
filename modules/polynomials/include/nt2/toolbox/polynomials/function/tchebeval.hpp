@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/tchebeval.hpp>
-#include NT2_POLYNOMIALS_INCLUDE(tchebeval.hpp) 
+#include <nt2/toolbox/polynomials/function/simd/all/tchebeval.hpp> 
 
  
 #endif

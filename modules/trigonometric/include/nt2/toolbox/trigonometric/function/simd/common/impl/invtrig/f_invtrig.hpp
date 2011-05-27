@@ -59,7 +59,7 @@ namespace nt2
 	  A0 x = nt2::abs(a0);
 	  A0 z2 = asin(a0);
 	  A0 isgtxh = gt(x, Half<A0>());
-	  if (any(isgtxh))
+	  if (nt2::any(isgtxh))
 	    {
 	      A0 z1 = asin(sqrt(oneminus(x)*Half<A0>()))*Two<A0>();
 	      z2 = select(isgtxh, z1, z2);

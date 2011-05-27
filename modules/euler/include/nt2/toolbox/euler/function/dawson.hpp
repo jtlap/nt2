@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/dawson.hpp>
-#include NT2_EULER_INCLUDE(dawson.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/dawson.hpp> 
 
  
 #endif

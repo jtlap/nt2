@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/muls.hpp>
-#include NT2_ARITHMETIC_INCLUDE(muls.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/muls.hpp> 
 
 #endif

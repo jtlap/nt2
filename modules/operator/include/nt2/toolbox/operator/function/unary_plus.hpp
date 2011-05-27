@@ -28,6 +28,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/unary_plus.hpp>
-#include NT2_OPERATOR_INCLUDE(unary_plus.hpp)
+#include <nt2/toolbox/operator/function/simd/all/unary_plus.hpp>
 
 #endif

@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/group.hpp>
-#include NT2_SWAR_INCLUDE(group.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/group.hpp> 
 
 #endif
 

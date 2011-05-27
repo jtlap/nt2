@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/fuzzy/function/scalar/almost_greater_or_equal.hpp>
-#include NT2_FUZZY_INCLUDE(almost_greater_or_equal.hpp) 
+#include <nt2/toolbox/fuzzy/function/simd/all/almost_greater_or_equal.hpp> 
 
  
 #endif

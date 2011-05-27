@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/split.hpp>
-#include NT2_SWAR_INCLUDE(split.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/split.hpp> 
 
  
 #endif

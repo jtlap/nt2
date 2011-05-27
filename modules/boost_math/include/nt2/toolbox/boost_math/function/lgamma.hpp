@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/lgamma.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(lgamma.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/lgamma.hpp> 
 
  
 #endif

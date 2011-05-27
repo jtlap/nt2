@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     {
       A0 a = a0, b = a1;
       A0 t= is_nez(b);
-      while (any(t))
+      while (nt2::any(t))
       {
         A0 r = t&rem(a, b);
         a = sel(t, b, a);
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
       A0 a =  b_and(round2even(a0),ints); 
       A0 b =  b_and(round2even(a1),ints);
       A0 t= is_nez(b);
-      while (any(t))
+      while (nt2::any(t))
       {
         A0 r = b_and(t, rem(a, b));
         a = sel(t, b, a);

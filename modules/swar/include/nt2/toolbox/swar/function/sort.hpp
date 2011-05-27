@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/sort.hpp>
-#include NT2_SWAR_INCLUDE(sort.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/sort.hpp> 
 
  
 #endif

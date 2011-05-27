@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/fast_hypot.hpp>
-#include NT2_ARITHMETIC_INCLUDE(fast_hypot.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/fast_hypot.hpp> 
 
  
 #endif

@@ -28,6 +28,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/if_else.hpp>
-#include NT2_OPERATOR_INCLUDE(if_else.hpp)
+#include <nt2/toolbox/operator/function/simd/all/if_else.hpp>
 
 #endif

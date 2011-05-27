@@ -22,6 +22,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/elliptic/function/scalar/ellipke.hpp>
-#include NT2_ELLIPTIC_INCLUDE(ellipke.hpp) 
+#include <nt2/toolbox/elliptic/function/simd/all/ellipke.hpp> 
 
 #endif

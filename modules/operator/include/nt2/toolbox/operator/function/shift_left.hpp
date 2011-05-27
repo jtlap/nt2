@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/shift_left.hpp>
-#include NT2_OPERATOR_INCLUDE(shift_left.hpp)
+#include <nt2/toolbox/operator/function/simd/all/shift_left.hpp>
 
 #endif

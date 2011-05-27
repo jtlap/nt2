@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/modf.hpp>
-#include NT2_IEEE_INCLUDE(modf.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/modf.hpp> 
 
  
 #endif

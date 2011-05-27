@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/bdtrc.hpp>
-// #include NT2_CEPHES_INCLUDE(bdtrc.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/bdtrc.hpp> 
 
  
 #endif

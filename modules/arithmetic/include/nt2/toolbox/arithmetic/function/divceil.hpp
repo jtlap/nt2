@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/divceil.hpp>
-#include NT2_ARITHMETIC_INCLUDE(divceil.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/divceil.hpp> 
 
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/iround2even.hpp>
-#include NT2_ARITHMETIC_INCLUDE(iround2even.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/iround2even.hpp> 
 
  
 #endif

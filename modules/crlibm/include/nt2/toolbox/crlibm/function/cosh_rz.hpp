@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/cosh_rz.hpp>
-// #include NT2_CRLIBM_INCLUDE(cosh_rz.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/cosh_rz.hpp> 
 
  
 #endif

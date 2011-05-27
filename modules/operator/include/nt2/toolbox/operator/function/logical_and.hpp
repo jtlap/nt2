@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/logical_and.hpp>
-#include NT2_OPERATOR_INCLUDE(logical_and.hpp)
+#include <nt2/toolbox/operator/function/simd/all/logical_and.hpp>
 
 #endif

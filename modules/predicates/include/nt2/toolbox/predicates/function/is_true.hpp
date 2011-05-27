@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_true.hpp>
-#include NT2_PREDICATES_INCLUDE(is_true.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/is_true.hpp> 
 
  
 #endif

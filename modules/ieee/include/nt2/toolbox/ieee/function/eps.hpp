@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/eps.hpp>
-#include NT2_IEEE_INCLUDE(eps.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/eps.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/combinatorial/function/scalar/anp.hpp>
-#include NT2_COMBINATORIAL_INCLUDE(anp.hpp) 
+#include <nt2/toolbox/combinatorial/function/simd/all/anp.hpp> 
 
  
 #endif

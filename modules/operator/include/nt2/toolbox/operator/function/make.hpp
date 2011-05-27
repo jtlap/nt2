@@ -87,6 +87,6 @@ namespace nt2
   #undef NT2_LOCAL
 }
 
-#include NT2_SIMD_INCLUDE(make.hpp)
+#include <nt2/toolbox/operator/function/simd/all/make.hpp>
 
 #endif
