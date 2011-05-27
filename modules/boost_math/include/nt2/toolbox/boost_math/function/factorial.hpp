@@ -21,7 +21,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/factorial.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(factorial.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/factorial.hpp> 
 
  
 #endif

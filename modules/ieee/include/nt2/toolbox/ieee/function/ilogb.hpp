@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/ilogb.hpp>
-#include NT2_IEEE_INCLUDE(ilogb.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/ilogb.hpp> 
 
  
 #endif

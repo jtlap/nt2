@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/atan2.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(atan2.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/atan2.hpp> 
 
  
 #endif

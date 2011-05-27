@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
 //       A0 d = One<A0>();
 //       A0 t = tan(phi);
 //       A0 mod = ceil(phi/Pi<A0>());
-//       while( any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
+//       while( nt2::any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
 //       {
 //         A0 temp = b/a;
 //         phi = phi + atan(t*temp) + mod*Pi<A0>();

@@ -28,6 +28,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/complement.hpp>
-#include NT2_OPERATOR_INCLUDE(complement.hpp)
+#include <nt2/toolbox/operator/function/simd/all/complement.hpp>
 
 #endif

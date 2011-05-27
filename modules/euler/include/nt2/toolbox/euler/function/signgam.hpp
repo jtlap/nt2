@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/signgam.hpp>
-#include NT2_EULER_INCLUDE(signgam.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/signgam.hpp> 
 
  
 #endif

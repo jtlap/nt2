@@ -29,6 +29,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/splat.hpp>
-#include NT2_OPERATOR_INCLUDE(splat.hpp)
+#include <nt2/toolbox/operator/function/simd/all/splat.hpp>
 
 #endif

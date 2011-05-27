@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/average.hpp>
-#include NT2_ARITHMETIC_INCLUDE(average.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/average.hpp> 
 
  
 #endif

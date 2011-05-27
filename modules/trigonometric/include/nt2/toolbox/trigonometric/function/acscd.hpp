@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/acscd.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(acscd.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/acscd.hpp> 
 
  
 #endif

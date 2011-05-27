@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/exponent.hpp>
-#include NT2_IEEE_INCLUDE(exponent.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/exponent.hpp> 
 
  
 #endif

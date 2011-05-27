@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/cotd.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(cotd.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/cotd.hpp> 
 
  
 #endif

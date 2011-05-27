@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
 //       while(1)
 //         {
 //           A0 test = gt(abs(c),Eps<A0>()*abs(a));
-//           if (any(test))
+//           if (nt2::any(test))
 //             {
 //             A0 temp = b/a;
 //             lphi = lphi + atan(t*temp) + mod * Pi < A0>();

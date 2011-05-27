@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/hermite.hpp>
-#include NT2_POLYNOMIALS_INCLUDE(hermite.hpp) 
+#include <nt2/toolbox/polynomials/function/simd/all/hermite.hpp> 
 
  
 #endif

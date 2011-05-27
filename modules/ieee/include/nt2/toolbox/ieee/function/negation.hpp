@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/negation.hpp>
-#include NT2_IEEE_INCLUDE(negation.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/negation.hpp> 
 
  
 #endif

@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/bitwise_and.hpp>
-#include NT2_OPERATOR_INCLUDE(bitwise_and.hpp)
+#include <nt2/toolbox/operator/function/simd/all/bitwise_and.hpp>
 
 #endif

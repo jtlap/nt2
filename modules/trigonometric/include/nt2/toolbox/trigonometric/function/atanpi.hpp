@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/trigonometric/function/scalar/atanpi.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(atanpi.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/atanpi.hpp> 
 
 #endif

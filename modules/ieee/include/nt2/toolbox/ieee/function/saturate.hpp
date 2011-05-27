@@ -40,6 +40,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/ieee/function/scalar/saturate.hpp>
-#include NT2_IEEE_INCLUDE(saturate.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/saturate.hpp> 
 
 #endif

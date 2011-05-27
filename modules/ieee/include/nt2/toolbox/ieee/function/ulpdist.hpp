@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/ulpdist.hpp>
-#include NT2_IEEE_INCLUDE(ulpdist.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/ulpdist.hpp> 
 
  
 #endif

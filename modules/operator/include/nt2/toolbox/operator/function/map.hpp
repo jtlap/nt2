@@ -22,6 +22,6 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::map_,map,4)
 }
 
-#include NT2_OPERATOR_INCLUDE(map.hpp)
+#include <nt2/toolbox/operator/function/simd/all/map.hpp>
 
 #endif

@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/divfix.hpp>
-#include NT2_ARITHMETIC_INCLUDE(divfix.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/divfix.hpp> 
 
 #endif

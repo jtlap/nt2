@@ -20,7 +20,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
  
 #include <nt2/toolbox/standard/function/scalar/sinh.hpp>
-// #include NT2_STANDARD_INCLUDE(sinh.hpp) 
+// #include <nt2/toolbox/standard/function/simd/all/sinh.hpp> 
 
  
 #endif

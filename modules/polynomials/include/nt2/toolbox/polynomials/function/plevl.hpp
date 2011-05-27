@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/plevl.hpp>
-#include NT2_POLYNOMIALS_INCLUDE(plevl.hpp) 
+#include <nt2/toolbox/polynomials/function/simd/all/plevl.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/acos.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(acos.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/acos.hpp> 
 
  
 #endif

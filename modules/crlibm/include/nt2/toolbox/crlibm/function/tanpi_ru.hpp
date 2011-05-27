@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/tanpi_ru.hpp>
-// #include NT2_CRLIBM_INCLUDE(tanpi_ru.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/tanpi_ru.hpp> 
 
  
 #endif

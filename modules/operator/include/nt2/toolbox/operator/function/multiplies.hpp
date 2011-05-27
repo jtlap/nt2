@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/multiplies.hpp>
-#include NT2_OPERATOR_INCLUDE(multiplies.hpp)
+#include <nt2/toolbox/operator/function/simd/all/multiplies.hpp>
 
 #endif

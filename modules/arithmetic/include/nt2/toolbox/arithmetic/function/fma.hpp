@@ -34,7 +34,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/fma.hpp>
-#include NT2_ARITHMETIC_INCLUDE(fma.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/fma.hpp> 
 
 #include <nt2/toolbox/arithmetic/recognition/fma.hpp>
  

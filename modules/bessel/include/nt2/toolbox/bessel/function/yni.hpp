@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bessel/function/scalar/yni.hpp>
-#include NT2_BESSEL_INCLUDE(yni.hpp) 
+#include <nt2/toolbox/bessel/function/simd/all/yni.hpp> 
 
  
 #endif

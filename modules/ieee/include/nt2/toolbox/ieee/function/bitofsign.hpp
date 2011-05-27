@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/bitofsign.hpp>
-#include NT2_IEEE_INCLUDE(bitofsign.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/bitofsign.hpp> 
 
  
 #endif

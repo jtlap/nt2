@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/incbps.hpp>
-// #include NT2_CEPHES_INCLUDE(incbps.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/incbps.hpp> 
 
  
 #endif

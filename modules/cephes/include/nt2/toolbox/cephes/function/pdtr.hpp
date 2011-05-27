@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/pdtr.hpp>
-// #include NT2_CEPHES_INCLUDE(pdtr.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/pdtr.hpp> 
 
  
 #endif

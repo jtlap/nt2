@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/maxmag.hpp>
-#include NT2_IEEE_INCLUDE(maxmag.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/maxmag.hpp> 
 
  
 #endif

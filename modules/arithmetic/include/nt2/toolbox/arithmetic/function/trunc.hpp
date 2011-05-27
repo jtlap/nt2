@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/trunc.hpp>
-#include NT2_ARITHMETIC_INCLUDE(trunc.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/trunc.hpp> 
 
  
 #endif

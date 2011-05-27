@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_ngtz.hpp>
-#include NT2_PREDICATES_INCLUDE(is_ngtz.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/is_ngtz.hpp> 
 
  
 #endif

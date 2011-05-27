@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_ornot.hpp>
-#include NT2_BITWISE_INCLUDE(bitwise_ornot.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/bitwise_ornot.hpp> 
 
 #include <nt2/toolbox/bitwise/recognition/bitwise_ornot.hpp>
 

@@ -22,7 +22,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/double_factorial.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(double_factorial.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/double_factorial.hpp> 
 
  
 #endif

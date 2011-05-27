@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/minusone.hpp>
-#include NT2_ARITHMETIC_INCLUDE(minusone.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/minusone.hpp> 
 
  
 #endif
