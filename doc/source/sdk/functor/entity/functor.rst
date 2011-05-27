@@ -65,7 +65,7 @@ operator(Args const&... )
 
     template<class Args...> typename result<functor(Args...)>::type operator()(Args... const&) const;
 
-**Description:** Polymorph, variadic function call operators. This operator
+**Description:** Polymorph, variadic function call operator. This operator
 performs a tag-dispatched call to a given implementation of the ``Function``
 to be executed by matching its arguments list to a given category of types.
 

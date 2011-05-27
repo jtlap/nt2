@@ -8,13 +8,13 @@ Objectives
 |nt2| provides hundred of functions ranging from simple arithmetic operations to
 high level mathematical transformation. All those functions are bound to be called
 on a large spectrum of types. It is then critical to be able to both control which
-types a function can handle, emit graceful error messages in case of type mismatch
+types a function can handle, to emit graceful error messages in case of type mismatch
 and to allow developers to extends those functions by adding types support or
 creating entirely new functions. This section describes the technical choices made
 to handle those constraints in |nt2|.
 
 .. note::
-  An in-depth tutorial on how to define a custom function is available and cover
+  An in-depth tutorial on how to define a custom function is available and covers
   some implementation details that we omit here for clarity.
 
   See: :ref:`howto_custom_function`
@@ -30,11 +30,11 @@ internally to forward arguments to the proper implementation of said function.
 
 The main idea was to see if how much defining function overload with complex
 dispatching is similar to the **expression problem** [#]_ which refers to a
-fundamental dilemma of programming: To which degree can an application be structured
+fundamental dilemma of programming: to which degree can an application be structured
 in such a way that both the data model and the set of operations over it can be
 extended without the need to modify existing code, without the need for code
 repetition and without runtime type errors. From this analysis, we propose a system
-for defining function with a rich dispatching and specialization system relying on
+for defining functions with a rich dispatching and specialization system relying on
 meta-programming for categorizing, selecting and calling a given function
 implementation for any arbitrary aggregate of input parameters. This lead to define
 a function call process made of five steps: :ref:`functors_rationale_identify`,
@@ -89,7 +89,7 @@ Categorizing the function domain
 |nt2| functions are inherently polymorphic as they can be (except with specific
 validation clause) called with any types. To be able to discriminate parameters
 types and choose the proper implementation, we rely on a type categorization
-system which is able to discriminate scalar types SIMD types, container and container
+system which is able to discriminate scalar types, SIMD types, container and container
 expressions types for example. Every type handled by |nt2| has an associated so-called
 ``category`` tag which identify it by specifying which kind of type it belongs to.
 
@@ -109,10 +109,10 @@ Here is the synopsis of :ref:`functor_validate`:
   }
 
 By default, this is done by using :ref:`meta_dominant` meta-function which computes.
-The so-called **dominant** argument type is then used to compute the category
+the so-called **dominant** argument type. This type is then used to compute the category
 using the :ref:`meta_category_of` meta-function. This category will then be used
 by :ref:`functor_call` to select the proper implementation. Example of :ref:`functor_categorize`
-overload includes function requiring to purposely ignore the category of some
+overload includes functions requiring to purposely ignore the category of some
 non-numerical or unregistered types in its call like :ref:`load` which don't need
 to categorize its iterator argument nor its memory offset but use its target type as a category enabler.
 
@@ -135,7 +135,7 @@ Restricting the function domain
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Restricting function domain naturally relies on the :term:`SFINAE` principle which
-allow template function to be pulled out of potential overload set if their return
+allows template functions to be pulled out of potential overload set if their return
 type is ill-formed. To manage the potentially large number of types category to
 handle, this compile-time check is done by the :ref:`functor_validate` class which
 can be overloaded for any given tag and any given type category.
@@ -160,7 +160,8 @@ to be called on non-real scalar types. :ref:`functor_validate` has to be overloa
   template<class Dummy,class Category> struct validate< sqrt_, tag::scalar(Category), Dummy >
   {
     template<class Sig> struct result;
-    template<class This,class A0> struct result : boost::is_floating_points<typename meta::strip<A0>::type> {};
+    template<class This,class A0> struct result 
+      : boost::is_floating_points<typename meta::strip<A0>::type> {};
   };
 
 Advantages of this approach is that the fine tuning of which types or family of
@@ -199,8 +200,8 @@ few concrete type specialization. For example, we may have a specialization of
 ``sqrt`` for all integral types, one for ``double`` and one for ``float``.
 |nt2| provides a partially ordered set of :ref:`functor_hierarchy` to handle such
 use cases. Type hierarchies define a weak ordered relation between sets of atomic
-types so that discriminting a types over some of its properties (size in bytes,
-integral or real quality, etc ...).
+types to enable  discriminating a type over some of its properties (size in bytes,
+signedness, integral or real quality, etc.).
 
 In the same way that finding a types set category is non-trivial, computing the
 dispatching target of such a type set is done by an overloadable lambda meta-function
@@ -267,7 +268,7 @@ The :ref:`functor` system behaves by default so everything is intuitively valdia
 and dispatched to the proper :ref:`functor_call` specialization. Contributor work
 is mainly to provide :ref:`functor_call` specialization of a given function for
 a specific type set or architecture. As an example, one may want to use ``::sqrtf``
-on ``float`` instead of ``std::sqrt``. This is done trivially by definign such a
+on ``float`` instead of ``std::sqrt``. This is done trivially by defining such a
 :ref:`functor_call` overload.
 
 .. code-block:: cpp
@@ -284,8 +285,8 @@ on ``float`` instead of ``std::sqrt``. This is done trivially by definign such a
     };
 
 Now, calling ``sqrt`` on float will found out that dispatching on ``float`` is
-preferred to dispatchign on the broader ``fundamental_`` hierarchy and thus
-select the proper specialization. Any number of such specializations, beign narrow
+preferred to dispatching on the broader ``fundamental_`` hierarchy and thus
+select the proper specialization. Any number of such specializations, being narrow
 or broad, can be added through this system.
 
 ------------

@@ -7,7 +7,7 @@ Description
 ^^^^^^^^^^^
 
 The ``NT2_THROW`` macro reports misbehavior by throwing an exception containing
-potential diagnostic information. It is absed on Boost.Exception and support the
+potential diagnostic information. It is based on Boost.Exception and support the
 same semantic than ``BOOST_THROW``.
 
 Header File

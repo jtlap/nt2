@@ -51,7 +51,7 @@ Synopsis
 
   namespace nt2
   {
-    template<class Value, class Ptr,class Offset>  Value store(Value const& v, Ptr const& ptr, Offset const& o);
+    template<class Value, class Ptr, class Offset>  Value store(Value const& v, Ptr const& ptr, Offset const& o);
   }
 
 Expression Semantics
@@ -63,10 +63,10 @@ Expression Semantics
 
 **Return type:** type of ``value``
 
-**Semantics:** Return the instance of ``T`` that was stored at the address ``ptr+offset``.
+**Semantics:** Return the instance of ``Value`` that is also stored at the address ``ptr+offset``.
 
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/memory/store.cpp
+.. literalinclude:: ../../../../modules/operator/examples/memory/store.cpp
    :language: cpp

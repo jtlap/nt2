@@ -3,7 +3,7 @@ Meta-Algorithms
 
 .. rubric:: Description
 
-This module provide various meta-programmed algorithms to appyl on types or type
+This module provide various meta-programmed algorithms to apply on types or type
 sequences in a Boost.MPL compatible way.
 
 .. toctree::

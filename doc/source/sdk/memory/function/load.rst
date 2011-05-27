@@ -60,7 +60,7 @@ Expression Semantics
 
 **Return type:** ``T``
 
-**Semantics:** Return an instance of ``T`` containing the data laoded from the
+**Semantics:** Return an instance of ``T`` containing the data loaded from the
 address ``ptr+offset``.
 
 .. code-block:: cpp
@@ -76,5 +76,5 @@ specific address otherwise (see other load function specialization documentation
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/memory/load.cpp
+.. literalinclude:: ../../../../../modules/operator/examples/memory/load.cpp
    :language: cpp
