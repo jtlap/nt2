@@ -8,7 +8,6 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
-#include <nt2/sdk/details/type_id.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd integers
@@ -46,6 +45,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-#include <nt2/sdk/simd/details/impl/vmx/altivec/load_offset.hpp>
+#include <nt2/toolbox/operator/function/simd/vmx/altivec/load_offset.hpp>
 
 #endif

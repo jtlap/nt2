@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_IMPL_DIVIDES_FLOAT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_IMPL_DIVIDES_FLOAT_HPP_INCLUDED
 
+#include <nt2/include/constants/digits.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation
 ////////////////////////////////////////////////////////////////////////////////

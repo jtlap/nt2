@@ -11,6 +11,8 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/include/functions/complement.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration

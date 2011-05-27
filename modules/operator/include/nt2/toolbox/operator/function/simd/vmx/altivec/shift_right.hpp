@@ -15,6 +15,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
     { 
      typedef typename meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);
-     A0 that  = { vec_sr(a0(), shift()) }; 
+     A0 that = { vec_sr(a0(), shift()) }; 
      return that; 
     }
   };
@@ -81,7 +82,7 @@ namespace nt2 { namespace ext
      typedef typename meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);
      type value = simd::native_cast<type>(a0);
-     A0 that  = simd::native_cast<A0>( vec_sr(value(), shift()) ); 
+     A0 that = simd::native_cast<A0>( vec_sr(value(), shift()) ); 
      return that;  
    }
   };

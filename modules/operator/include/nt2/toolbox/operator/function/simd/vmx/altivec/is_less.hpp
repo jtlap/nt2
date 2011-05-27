@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/simd/native_cast.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration

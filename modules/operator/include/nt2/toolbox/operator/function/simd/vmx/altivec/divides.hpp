@@ -36,9 +36,9 @@ NT2_REGISTER_DISPATCH ( tag::divides_, tag::cpu_, (A0)
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec division algorithm are long-ass. Let's hide them for clarity purpose
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/simd/details/impl/vmx/altivec/impl/divides_float.hpp>
-#include <nt2/sdk/simd/details/impl/vmx/altivec/impl/divides_int32.hpp>
-#include <nt2/sdk/simd/details/impl/vmx/altivec/impl/divides_int16.hpp>
-#include <nt2/sdk/simd/details/impl/vmx/altivec/impl/divides_int8.hpp>
+#include <nt2/toolbox/operator/function/simd/vmx/altivec/impl/divides_float.hpp>
+#include <nt2/toolbox/operator/function/simd/vmx/altivec/impl/divides_int32.hpp>
+#include <nt2/toolbox/operator/function/simd/vmx/altivec/impl/divides_int16.hpp>
+#include <nt2/toolbox/operator/function/simd/vmx/altivec/impl/divides_int8.hpp>
 
 #endif
