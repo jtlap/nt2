@@ -16,17 +16,17 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type8_
+// Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
                      (A0),
-                     (type8_<A0>)
+                     (arithmetic_<A0>)
                     )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ffs_(tag::type8_),
+  struct call<tag::ffs_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -35,13 +35,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-    #ifdef BOOST_MSVC
-      unsigned long index = 0;
-      _BitScanForward(&index, uint32_t(uint8_t(a0)));
-      return index;
-    #else
-      return __builtin_ffs(uint32_t(uint8_t(a0)));
-    #endif
+      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      return nt2::ffs(uint32_t(t1.bits));
     }
   };
 } }
@@ -70,52 +65,23 @@ namespace nt2 { namespace ext
       if(!t1.bits) return 0; 
     #if defined BOOST_MSVC && defined _WIN64
       unsigned long index;
-      _BitScanForward64(&index, uint64_t(a0));
-      return index;
+      if(_BitScanForward64(&index, uint64_t(a0)))
+          return index+1;
+      return 0;
     #elif defined BOOST_MSVC
       unsigned long index;
       if (b_and(t1.bits, (uint64_t(-1) >> 32)))
       {
 	    _BitScanForward(&index, t1.bits);
-        return index;
+        return index+1;
       }
-      _BitScanForward(&index, t1.bits >> 32);
-      return 32+index;
+      if(_BitScanForward(&index, t1.bits >> 32))
+        return 32+index+1;
+      return 0;
     #else
       if (b_and(t1.bits, (uint64_t(-1) >> 32)))
 	    return __builtin_ffs(t1.bits);
       return 32+__builtin_ffs(t1.bits >> 32);
-    #endif
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type16_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
-                     (A0),
-                     (type16_<A0>)
-                    )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::ffs_(tag::type16_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-    #ifdef BOOST_MSVC
-      unsigned long index = 0;
-      _BitScanForward(&index, uint32_t(uint16_t(a0)));
-      return index;
-    #else
-      return __builtin_ffs(uint32_t(uint16_t(a0)));
     #endif
     }
   };
@@ -143,9 +109,10 @@ namespace nt2 { namespace ext
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
     #ifdef BOOST_MSVC
-      unsigned long index = 0;
-      _BitScanForward(&index, t1.bits);
-      return index;
+      unsigned long index;
+      if(_BitScanForward(&index, t1.bits))
+          return index+1;
+      return 0;
     #else
       return __builtin_ffs(t1.bits);
     #endif
