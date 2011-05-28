@@ -39,7 +39,7 @@ NT2_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
                       )                                                       \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PROTO_MAX_ARITY),M0,~)
 
 #undef M0
 #undef M1
@@ -145,7 +145,7 @@ namespace nt2 { namespace ext
   struct call<Func(tag::ast_),tag::formal_,Dummy> : callable
   {
     template<class Sig> struct result;
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PROTO_MAX_ARITY),M0,~)
   };
 } }
 
