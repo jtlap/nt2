@@ -22,6 +22,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/ieee/include/nextafter.hpp>
+#include <boost/math/special_functions/next.hpp>
 
 NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
 {
@@ -54,7 +55,7 @@ NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::nextafter(a0,a1),::nextafterf(a0,a1));
+        NT2_TEST_EQUAL( nt2::nextafter(a0,a1),boost::math::nextafter(a0,a1));
      }
      
    }
@@ -91,7 +92,7 @@ NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::nextafter(a0,a1),::nextafter(a0,a1));
+        NT2_TEST_EQUAL( nt2::nextafter(a0,a1),boost::math::nextafter(a0,a1));
      }
      
    }
