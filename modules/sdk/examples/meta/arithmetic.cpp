@@ -1,5 +1,5 @@
 #include <boost/mpl/assert.hpp>
-#include <boost/tr1/functional.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <boost/type_traits/is_same.hpp>
 

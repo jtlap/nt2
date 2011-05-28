@@ -8,7 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::arithmetic"
 
-#include <boost/tr1/functional.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <boost/type_traits/is_same.hpp>
