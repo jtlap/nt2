@@ -10,7 +10,10 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_NEGIF_HPP_INCLUDED
 #include <nt2/include/functions/is_true.hpp>
 
-
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4146) // unary minus applied to unsigned
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -38,6 +41,9 @@ namespace nt2 { namespace ext
   };
 } }
 
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
 
 #endif
 // modified by jt the 26/12/2010
