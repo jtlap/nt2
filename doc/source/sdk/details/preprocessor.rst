@@ -51,7 +51,7 @@ structures and always return the current repetition iteration index.
 
 **Example:**
 
-.. literalinclude:: ../../../../examples/sdk/details/pp_index.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/pp_index.cpp
    :language: cpp
 
 NT2_PP_TEXT
@@ -67,11 +67,11 @@ NT2_PP_TEXT
   #define NT2_PP_TEXT(z,n,t)
 
 **Description:** This macro is designed to be used with preprocessor repetition
-structures and always return the current repetition value.
+structures and always returns the current repetition value.
 
 **Example:**
 
-.. literalinclude:: ../../../../examples/sdk/details/pp_text.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/pp_text.cpp
    :language: cpp
 
 NT2_PP_ENUM_VALUE
@@ -91,7 +91,7 @@ integer equals to ``v``.
 
 **Example:**
 
-.. literalinclude:: ../../../../examples/sdk/details/pp_enum_value.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/pp_enum_value.cpp
    :language: cpp
 
 NT2_PP_ENUM_SHIFTED_VALUE
@@ -111,5 +111,5 @@ integer equals to ``v``.
 
 **Example:**
 
-.. literalinclude:: ../../../../examples/sdk/details/pp_enum_shifted_value.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/pp_enum_shifted_value.cpp
    :language: cpp

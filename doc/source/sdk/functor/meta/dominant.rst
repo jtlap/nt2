@@ -58,5 +58,5 @@ for which its category rank is greater than all other types within ``Args..``
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/functor/dominant.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/functor/dominant.cpp
    :language: cpp

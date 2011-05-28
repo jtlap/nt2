@@ -9,7 +9,7 @@ validate
 
 Description
 ^^^^^^^^^^^
-Returns a Returns a |mpl_int|_ indicating if a function call using a given ``Tag``
+Returns a |mpl_int|_ indicating if a function call using a given ``Tag``
 and a given list of argument types is valid within |nt2|.
 
 Template Parameters
@@ -60,5 +60,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/functor/validate.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/functor/validate.cpp
    :language: cpp
