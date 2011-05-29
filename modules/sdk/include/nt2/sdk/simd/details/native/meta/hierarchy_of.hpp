@@ -6,17 +6,20 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
-#define NT2_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_HIERARCHY_OF_HPP_INCLUDED
+#define NT2_SDK_SIMD_DETAILS_NATIVE_META_HIERARCHY_OF_HPP_INCLUDED
 
-#include <nt2/sdk/simd/details/native/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
-#include <nt2/sdk/simd/details/native/meta/factory_of.hpp>
-#include <nt2/sdk/simd/details/native/meta/primitive_of.hpp>
-
-#include <nt2/sdk/simd/details/native/meta/scalar_of.hpp>
-#include <nt2/sdk/simd/details/native/meta/cardinal_of.hpp>
-
-#include <nt2/sdk/simd/details/native/meta/is_scalar.hpp>
+namespace nt2 { namespace meta
+{
+  template<class Scalar,class Extension>
+  struct hierarchy_of< simd::native<Scalar,Extension> >
+  {
+    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
+                        , Extension
+                        >                                   type;
+  };
+} }
 
 #endif
