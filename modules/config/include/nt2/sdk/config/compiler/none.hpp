@@ -9,10 +9,7 @@
 #ifndef NT2_SDK_CONFIG_COMPILER_NONE_HPP_INCLUDED
 #define NT2_SDK_CONFIG_COMPILER_NONE_HPP_INCLUDED
 
-#include <nt2/sdk/error/warning.hpp>
-
 #if !defined(NT2_COMPILER)
-  NT2_WARNING(Unknown target compiler)
   #define NT2_COMPILER_UNKNOWN
   #define NT2_COMPILER "unknown"
 #endif
