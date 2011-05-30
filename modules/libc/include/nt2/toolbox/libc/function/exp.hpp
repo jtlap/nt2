@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/exp.hpp>
-// #include NT2_LIBC_INCLUDE(exp.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/exp.hpp> 
 
  
 #endif

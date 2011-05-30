@@ -45,9 +45,8 @@ namespace nt2 { namespace ext
 
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
       ( true_case
-      , nt2::mul( slice<2>(s,memory::no_padding())
-                , memory::align_on( boost::fusion::at_c<0>(s) )
-                )
+      ,   slice<2>(s,memory::no_padding())
+        * memory::align_on( boost::fusion::at_c<0>(s) )
       );
 
       BOOST_TYPEOF_NESTED_TYPEDEF_TPL
@@ -67,9 +66,8 @@ namespace nt2 { namespace ext
     typename boost::lazy_enable_if_c< (A2::value==1), NT2_RETURN_TYPE(3)>::type
     operator()( A0 const& a0, A1 const&, A2 const& ) const
     {
-      return nt2::mul ( slice<2>(a0,memory::no_padding())
-                      , memory::align_on( boost::fusion::at_c<0>(a0) )
-                      );
+      return   slice<2>(a0,memory::no_padding())
+             * memory::align_on( boost::fusion::at_c<0>(a0) );
     }
 
     ////////////////////////////////////////////////////////////////////////////

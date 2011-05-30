@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_even.hpp>
-#include NT2_PREDICATES_INCLUDE(is_even.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/is_even.hpp> 
 
  
 #endif

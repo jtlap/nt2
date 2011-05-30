@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/put_first.hpp>
-#include NT2_SWAR_INCLUDE(put_first.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/put_first.hpp> 
 
  
 #endif

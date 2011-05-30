@@ -15,8 +15,11 @@
 #include <nt2/sdk/meta/any.hpp>
 #include <boost/proto/proto.hpp>
 #include <nt2/sdk/dsl/category.hpp>
+#include <nt2/sdk/functor/functor.hpp>
 #include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate up to NT2_MAX_ARITY dispacth registration. If at least one parameter

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/logical_xor.hpp>
-#include NT2_ARITHMETIC_INCLUDE(logical_xor.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/logical_xor.hpp> 
 
  
 #endif

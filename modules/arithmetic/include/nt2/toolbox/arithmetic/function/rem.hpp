@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/rem.hpp>
-#include NT2_ARITHMETIC_INCLUDE(rem.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/rem.hpp> 
 
  
 #endif

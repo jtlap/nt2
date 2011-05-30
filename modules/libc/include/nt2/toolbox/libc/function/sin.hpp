@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/sin.hpp>
-// #include NT2_LIBC_INCLUDE(sin.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/sin.hpp> 
 
  
 #endif

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_SINHC_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_SINHC_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 

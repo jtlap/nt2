@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/sb2b.hpp>
-#include NT2_PREDICATES_INCLUDE(sb2b.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/sb2b.hpp> 
 
  
 #endif

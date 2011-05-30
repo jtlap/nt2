@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/bitinteger.hpp>
-#include NT2_IEEE_INCLUDE(bitinteger.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/bitinteger.hpp> 
 
  
 #endif

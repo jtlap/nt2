@@ -8,11 +8,11 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_FAST_HYPOT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_FAST_HYPOT_HPP_INCLUDED
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/sqr.hpp>

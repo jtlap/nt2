@@ -16,6 +16,7 @@
 #include <nt2/sdk/config/types.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_signed.hpp>
 
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
 
@@ -60,24 +61,25 @@ namespace nt2 { namespace meta
     template< class Type
             , std::size_t Sz = sizeof(Type)*CHAR_BIT
             , bool Integral = boost::is_integral<T>::value
+            , bool Signed = boost::is_signed<T>::value
             , class Dummy=void
             >
     struct entry { typedef na_ type; };
 
-    template<class Dummy>
-    struct entry<float, 32, false ,Dummy> { typedef __vector float  type;         };
+    template<bool Sign, class Dummy>
+    struct entry<float, 32, false, Sign, Dummy> { typedef __vector float  type;         };
     template<class Type, class Dummy>
-    struct entry<Type , 32, false ,Dummy> { typedef __vector unsigned int   type; };
+    struct entry<Type , 32, true, false, Dummy> { typedef __vector unsigned int   type; };
     template<class Type, class Dummy>
-    struct entry<Type , 16, false ,Dummy> { typedef __vector unsigned short type; };
+    struct entry<Type , 16, true, false, Dummy> { typedef __vector unsigned short type; };
     template<class Type, class Dummy>
-    struct entry<Type , 8 , false ,Dummy> { typedef __vector unsigned char  type; };
+    struct entry<Type ,  8, true, false, Dummy> { typedef __vector unsigned char  type; };
     template<class Type, class Dummy>
-    struct entry<Type , 32, true  ,Dummy> { typedef __vector signed int   type;   };
+    struct entry<Type , 32, true, true,  Dummy> { typedef __vector signed int   type;   };
     template<class Type, class Dummy>
-    struct entry<Type , 16, true  ,Dummy> { typedef __vector signed short type;   };
+    struct entry<Type , 16, true, true,  Dummy> { typedef __vector signed short type;   };
     template<class Type, class Dummy>
-    struct entry<Type , 8 , true  ,Dummy> { typedef __vector signed char  type;   };
+    struct entry<Type , 8 , true, true,  Dummy> { typedef __vector signed char  type;   };
 
     typedef typename entry<T>::type type;
   };

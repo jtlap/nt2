@@ -64,5 +64,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/is_fundamental.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/is_fundamental.cpp
    :language: cpp

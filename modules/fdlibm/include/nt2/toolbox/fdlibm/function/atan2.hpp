@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/atan2.hpp>
-// #include NT2_FDLIBM_INCLUDE(atan2.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/atan2.hpp> 
 
  
 #endif

@@ -61,6 +61,6 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/memory/is_power_of_2.cpp
+.. literalinclude::  ../../../../../modules/sdk/examples/memory/is_power_of_2.cpp
    :language: cpp
 

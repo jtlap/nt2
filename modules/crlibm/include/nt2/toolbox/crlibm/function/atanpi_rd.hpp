@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/atanpi_rd.hpp>
-// #include NT2_CRLIBM_INCLUDE(atanpi_rd.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/atanpi_rd.hpp> 
 
  
 #endif

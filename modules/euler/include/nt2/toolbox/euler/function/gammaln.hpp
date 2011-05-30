@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/gammaln.hpp>
-#include NT2_EULER_INCLUDE(gammaln.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/gammaln.hpp> 
 
  
 #endif

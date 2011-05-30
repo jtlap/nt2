@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/divfloor.hpp>
-#include NT2_ARITHMETIC_INCLUDE(divfloor.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/divfloor.hpp> 
 
 #endif

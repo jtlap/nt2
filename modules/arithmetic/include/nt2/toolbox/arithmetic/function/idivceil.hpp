@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/idivceil.hpp>
-#include NT2_ARITHMETIC_INCLUDE(idivceil.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/idivceil.hpp> 
 
  
 #endif

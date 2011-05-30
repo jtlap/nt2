@@ -11,7 +11,7 @@
 
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

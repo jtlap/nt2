@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/lookup.hpp>
-#include NT2_SWAR_INCLUDE(lookup.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/lookup.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/rdivide.hpp>
-#include NT2_ARITHMETIC_INCLUDE(rdivide.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/rdivide.hpp> 
 
  
 #endif

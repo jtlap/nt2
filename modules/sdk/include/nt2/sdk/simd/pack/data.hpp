@@ -10,10 +10,11 @@
 #define NT2_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/dsl/compute.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/simd/meta/vector_of.hpp>
 #include <nt2/sdk/simd/meta/is_native.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/simd/pack/evaluation.hpp>
 
 namespace nt2 { namespace simd
 {
@@ -83,7 +84,7 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     template<class X> void evaluate(X const& xpr )
     {
-      evaluate(xpr,typename meta::is_native<parent>::type());
+      nt2::evaluate(mData,xpr);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -107,29 +108,12 @@ namespace nt2 { namespace simd
       mData = splat<parent>(a0);
     }
 
-    template<class X>
-    void evaluate ( X const& xpr, boost::mpl::true_ const& )
-    {
-      meta::as_<parent> target;
-      mData = meta::compile < meta::compute<boost::mpl::_1,tag::cpu_>
-                            >()(xpr,target);
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // false_ => array
     ////////////////////////////////////////////////////////////////////////////
     void fill(Type const& a0, boost::mpl::false_ const&)
     {
       mData.fill(a0);
-    }
-
-    template<class X>
-    void evaluate ( X const& xpr, boost::mpl::false_ const& )
-    {
-      meta::as_<parent> target;
-      for(std::size_t i=0;i<Cardinal::value;++i)
-        mData[i] = meta::compile< meta::compute<boost::mpl::_1,tag::cpu_>
-                                >()(xpr,target,i);
     }
   };
 } }

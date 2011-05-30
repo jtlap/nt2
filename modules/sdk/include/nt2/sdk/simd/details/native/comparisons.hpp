@@ -13,7 +13,7 @@
 // Setup SIMD extension specific boolean operations
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/functor/operators.hpp>
+#include <nt2/toolbox/operator/specific/compare_tags.hpp>
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                  \
 template<class T,class X> inline                                    \
@@ -25,16 +25,6 @@ OP(native<T,X> const& a0, native<T,X> const& a1)                    \
 }                                                                   \
 /**/
 
-namespace nt2 { namespace tag
-{
-  struct compare_equal_         {};
-  struct compare_not_equal_     {};
-  struct compare_less_          {};
-  struct compare_greater_       {};
-  struct compare_less_equal_    {};
-  struct compare_greater_equal_ {};
-} }
-
 namespace nt2 { namespace simd
 {
   NT2_MAKE_NATIVE_OP( tag::compare_equal_        , operator== )
@@ -44,8 +34,6 @@ namespace nt2 { namespace simd
   NT2_MAKE_NATIVE_OP( tag::compare_less_equal_   , operator<= )
   NT2_MAKE_NATIVE_OP( tag::compare_greater_equal_, operator>= )
 } }
-
-#include <nt2/sdk/simd/details/impl/comparisons.hpp>
 
 #undef NT2_MAKE_NATIVE_OP
 

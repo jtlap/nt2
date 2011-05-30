@@ -31,8 +31,8 @@ namespace nt2 { namespace simd
       {
         typedef
         simd::iterator< typename boost
-                        ::iterator_value<typename Range::const_iterator>::type
-                      , Cardinal::value
+                        ::iterator_value<typename meta::strip<Range>::type::const_iterator>::type
+                      , meta::strip<Cardinal>::type::value
                       >                             type;
       };
 
@@ -57,7 +57,7 @@ namespace nt2 { namespace simd
       struct result<This(Range)>
       {
         typedef typename
-        boost::iterator_value<typename Range::const_iterator>::type value_type;
+        boost::iterator_value<typename meta::strip<Range>::type::const_iterator>::type value_type;
 
         typedef typename
         result<This(Range, meta::native_cardinal<value_type>)>::type type;

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/mantissa.hpp>
-#include NT2_IEEE_INCLUDE(mantissa.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/mantissa.hpp> 
 
  
 #endif

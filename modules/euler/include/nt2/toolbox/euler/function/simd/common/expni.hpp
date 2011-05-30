@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_EXPNI_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_EXPNI_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/log.hpp>
@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
  	  ans = seladd(is_nez(pk), ans, yk/pk);
  	  t = sel(is_nez(ans), nt2::abs(yk/ans), One<A1>());
  	}
-       while( any(gt(t, Halfeps<A1>())));
+       while( nt2::any(gt(t, Halfeps<A1>())));
        t = n;
        A1 r = n - One<A1>();
        return seladd(eqzx,(nt2::powi(z, sn-1) * psi / nt2::gamma(t)) - ans, Inf<A1>());
@@ -180,7 +180,7 @@ namespace nt2 { namespace ext
 	  qkm2 *= fac;
 	  qkm1 *= fac;
 	}
-      while( any(gt(t, Halfeps<A1>())) );
+      while( nt2::any(gt(t, Halfeps<A1>())) );
       return ans*nt2::exp(-x);
     }
   };

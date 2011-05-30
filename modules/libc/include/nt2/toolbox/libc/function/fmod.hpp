@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/fmod.hpp>
-// #include NT2_LIBC_INCLUDE(fmod.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/fmod.hpp> 
 
  
 #endif

@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(NT2 COMPONENTS bitwise ieee)
+FIND_PACKAGE(NT2 COMPONENTS bitwise ieee operator)
 SET(NT2_ARITHMETIC_DEPENDENCIES_FOUND ${NT2_FOUND})
 SET(NT2_ARITHMETIC_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})
 SET(NT2_ARITHMETIC_DEPENDENCIES_LIBRARIES ${NT2_LIBRARIES})

@@ -17,6 +17,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/include/functions/load.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd pack

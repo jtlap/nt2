@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_YNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_YNI_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sqr.hpp>

@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/selsub.hpp>
@@ -107,13 +107,13 @@ namespace nt2 { namespace ext
       }
       // If x > 2 reduce to the interval [1,2]:
       A0 cond;
-      while(any(cond = gt(x, Two<A0>())))
+      while(nt2::any(cond = gt(x, Two<A0>())))
       {
         x      -= b_and(One<A0>(), cond);
         result += b_and(rec(x), cond);
       }
       // If x < 1 use shift to > 1:
-      if(any(cond = lt(x, One<A0>())))
+      if(nt2::any(cond = lt(x, One<A0>())))
       {
         result = sel(cond, -rec(x), result);
         x      += b_and(One<A0>(), cond);

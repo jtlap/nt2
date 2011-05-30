@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/divround.hpp>
-#include NT2_ARITHMETIC_INCLUDE(divround.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/divround.hpp> 
 
 #endif

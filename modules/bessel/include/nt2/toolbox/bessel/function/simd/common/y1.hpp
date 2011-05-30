@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_Y1_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
       A0 a0lt2 = lt(a0, Two<A0>());
       A0 q = rec(a0);
       A0 p2;
-      if (any(a0lt2))
+      if (nt2::any(a0lt2))
       {
         A0 z = sqr(a0);
         p2 = (z-single_constant<A0, 0x40954ae7> ())*a0*

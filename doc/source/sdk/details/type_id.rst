@@ -65,5 +65,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../examples/sdk/details/type_id.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/type_id.cpp
    :language: cpp

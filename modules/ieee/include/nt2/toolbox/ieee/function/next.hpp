@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/next.hpp>
-#include NT2_IEEE_INCLUDE(next.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/next.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/reversebits.hpp>
-#include NT2_BITWISE_INCLUDE(reversebits.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/reversebits.hpp> 
 
  
 #endif

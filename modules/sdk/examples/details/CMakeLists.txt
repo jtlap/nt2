@@ -20,7 +20,7 @@ SET(SOURCES
     pp_strip.cpp
     
 # meta examples
-    decltype.cpp
+    #decltype.cpp # FIXME
     type_id.cpp
     display_type.cpp
     )

@@ -37,5 +37,5 @@ evaluating ``PATH()`` and concatenating the resulting path to ``FILE``.
 
 **Example:**
 
-.. literalinclude:: ../../../../examples/sdk/details/pp_include.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/pp_include.cpp
    :language: cpp

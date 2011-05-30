@@ -20,7 +20,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   } }
  
 #include <nt2/toolbox/gsl_specfun/function/scalar/gsl_sf_hyperg_1f1_int.hpp>
-// #include NT2_GSL_SPECFUN_INCLUDE(gsl_sf_hyperg_1F1_int.hpp) 
+// #include <nt2/toolbox/gsl_specfun/function/simd/all/gsl_sf_hyperg_1F1_int.hpp> 
 
  
 #endif

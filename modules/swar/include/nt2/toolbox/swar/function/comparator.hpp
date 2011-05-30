@@ -23,7 +23,7 @@ namespace nt2 {
 }
  
 #include <nt2/toolbox/swar/function/scalar/comparator.hpp>
-#include NT2_SWAR_INCLUDE(comparator.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/comparator.hpp> 
 
  
 #endif

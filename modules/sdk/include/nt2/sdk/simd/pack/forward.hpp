@@ -20,13 +20,11 @@ namespace nt2 { namespace simd
   template< class Expression
           , class Type
           , class Cardinal
-          , class Dummy = boost::proto::is_proto_expr
           >
   struct expression;
 
   template< class Type
           , std::size_t Cardinal  = meta::native_cardinal<Type>::value
-          , class Dummy           = boost::proto::is_proto_expr
           >
   struct pack;
 

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/shri.hpp>
-#include NT2_BITWISE_INCLUDE(shri.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/shri.hpp> 
 
  
 #endif

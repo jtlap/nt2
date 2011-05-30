@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/dsl/compile.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/functor/details/tags.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // compute evaluates a nt2 AST by passing its elements through a raw functor
@@ -33,7 +32,7 @@ namespace nt2 { namespace meta
   template<class Target>
   struct  compute<tag::terminal_,Target>
         : boost::proto::
-          call< functor < tag::terminal_
+          call< functor < boost::proto::tag::terminal
                         , Target
                         > ( boost::proto::_value
                           , boost::proto::_state

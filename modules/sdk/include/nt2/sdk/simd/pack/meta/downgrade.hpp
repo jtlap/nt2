@@ -21,21 +21,19 @@ namespace nt2
         
         template< class Type
                 , std::size_t Cardinal
-                , class Dummy 
                 >
-        struct downgrade< nt2::simd::pack<Type, Cardinal, Dummy>, Type >
+        struct downgrade< nt2::simd::pack<Type, Cardinal>, Type >
         {
-            typedef nt2::simd::pack<Type, Cardinal, Dummy> type;
+            typedef nt2::simd::pack<Type, Cardinal> type;
         };
         
         template< class Type
                 , std::size_t Cardinal
-                , class Dummy 
                 , class DownType
                 >
-        struct downgrade< nt2::simd::pack<Type, Cardinal, Dummy>, DownType >
+        struct downgrade< nt2::simd::pack<Type, Cardinal>, DownType >
         {
-            typedef nt2::simd::pack<DownType, Cardinal*2, Dummy> type;
+            typedef nt2::simd::pack<DownType, Cardinal*2> type;
         };
     } }
     
@@ -43,12 +41,11 @@ namespace nt2
     {
         template< class Type
                 , std::size_t Cardinal
-                , class Dummy 
                 >
-        struct downgrade< simd::pack<Type, Cardinal, Dummy> >
+        struct downgrade< simd::pack<Type, Cardinal> >
         {
             typedef typename nt2::details::simd::downgrade<
-                simd::pack<Type, Cardinal, Dummy>
+                simd::pack<Type, Cardinal>
               , typename downgrade<Type>::type
             >::type type;
         };

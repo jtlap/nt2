@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/ibetac_inv.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(ibetac_inv.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/ibetac_inv.hpp> 
 
  
 #endif

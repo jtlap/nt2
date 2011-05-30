@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_EXP2_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_EXP2_HPP_INCLUDED
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/toolbox/exponential/function/scalar/impl/expo.hpp>
 
 

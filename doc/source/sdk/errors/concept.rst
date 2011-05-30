@@ -28,7 +28,7 @@ points of |nt2| internal code, preventing some compile-time errors earlier.
 Concept checking is a powerful tool to assert correctness of template programs
 and other generative programming idioms. However, current implementation of
 Concept checking is rather demanding in term of compilation time. This macro
-allow developer to check for non-obvious template related errors at compile time
+allows developer to check for non-obvious template related errors at compile time
 and can be disabled if no such errors are found.
 
 .. _nt2_concept_assert:
@@ -46,7 +46,7 @@ NT2_CONCEPT_ASSERT
   #define NT2_CONCEPT_ASSERT(CONCEPT)
 
 **Description:** Check if the Concepts class passed as argument is actually
-full-filled in current class or function scope.
+fulfilled in current class or function scope.
 
 .. _nt2_concept_require:
 

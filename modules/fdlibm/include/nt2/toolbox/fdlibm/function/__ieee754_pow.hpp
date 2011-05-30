@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/__ieee754_pow.hpp>
-// #include NT2_FDLIBM_INCLUDE(__ieee754_pow.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/__ieee754_pow.hpp> 
 
  
 #endif

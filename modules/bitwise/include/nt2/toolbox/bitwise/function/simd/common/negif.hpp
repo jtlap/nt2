@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_NEGIF_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_NEGIF_HPP_INCLUDED
 #include <nt2/sdk/meta/size.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
 #include <nt2/include/functions/is_true.hpp>

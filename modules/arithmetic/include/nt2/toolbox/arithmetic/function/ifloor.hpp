@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/ifloor.hpp>
-#include NT2_ARITHMETIC_INCLUDE(ifloor.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/ifloor.hpp> 
 
  
 #endif

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_FRAC_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_FRAC_HPP_INCLUDED
 #include <nt2/sdk/details/ignore_unused.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 #include <nt2/include/functions/trunc.hpp>
 

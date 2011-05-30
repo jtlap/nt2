@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/abs.hpp>

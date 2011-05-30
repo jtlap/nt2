@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/expm1.hpp>
-// #include NT2_FDLIBM_INCLUDE(expm1.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/expm1.hpp> 
 
  
 #endif

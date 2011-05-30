@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A0 res =  adds(a0, -a1); 
-      if (any(eq(a1, Valmin<A0>())))
+      if (nt2::any(eq(a1, Valmin<A0>())))
 	return sel(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
       else
 	return res; 

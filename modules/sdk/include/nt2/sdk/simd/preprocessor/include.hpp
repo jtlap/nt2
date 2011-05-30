@@ -15,11 +15,9 @@
 #include <nt2/sdk/simd/preprocessor/vmx.hpp>
 
 #ifndef NT2_SIMD_DETECTED
-  #define NT2_SIMD_INCLUDE_BASE() nt2/sdk/simd/details/impl/none/
   #define NT2_SIMD_RELATIVE_INCLUDE_BASE(B,F) BOOST_PP_STRINGIZE(B()simd/none/F) 
 #endif
 
-#define NT2_SIMD_INCLUDE(F)             NT2_PP_INCLUDE(NT2_SIMD_INCLUDE_BASE,F)
 #define NT2_SIMD_RELATIVE_INCLUDE(B,F)  NT2_SIMD_RELATIVE_INCLUDE_BASE(B,F)
 
 #endif

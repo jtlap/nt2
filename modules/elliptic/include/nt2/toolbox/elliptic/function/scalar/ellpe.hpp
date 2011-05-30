@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLPE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLPE_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <nt2/toolbox/polynomials/function/scalar/impl/horner.hpp>
 #include <nt2/include/functions/is_ltz.hpp>

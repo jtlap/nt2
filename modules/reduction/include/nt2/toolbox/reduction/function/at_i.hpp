@@ -22,6 +22,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/reduction/function/scalar/at_i.hpp>
-#include NT2_REDUCTION_INCLUDE(at_i.hpp) 
+#include <nt2/toolbox/reduction/function/simd/all/at_i.hpp> 
 
 #endif

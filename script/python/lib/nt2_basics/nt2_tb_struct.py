@@ -129,23 +129,30 @@ def populate_actions() :
 
 class Nt2_tb_struct(Nt2_archis_struct) :
     """ subdirectory structure required by a toolbox """
-    Required_directories = ['','function', 'bench', 'unit', 'doc','src','include']
+    Required_directories = ['','function', 'bench', 'unit','cover','doc','src','include','cmake']
     Required_tree = {
         '.'       : [],
         'function': "archis",
         'bench'   : ['scalar','simd'],
         'unit'    : ['scalar','simd'],
+        'cover'   : ['scalar','simd'],
         'doc'     : ['source'],
 ##        'src'     : [],
 ##        'include' : []
         }
-    Required_unique_files = {
-        '.'         : ["$tb_name$.hpp", "include.hpp","py_data.py","CMakeLists.txt"],
-        '..'        : ["$tb_name$.hpp"],
-        'function'  : "archis",
+    Secundary = os.path.join('include','nt2','toolbox')
+    Required_primary_unique_files = {
+        '.'         : ["py_data.py","CMakeLists.txt"],
         'bench'     : ['CMakeLists.txt',os.path.join('simd','CMakeLists.txt'),os.path.join('scalar','CMakeLists.txt')],
         'unit'      : ['CMakeLists.txt',os.path.join('simd','CMakeLists.txt'),os.path.join('scalar','CMakeLists.txt')],
+        'cover'     : ['CMakeLists.txt',os.path.join('simd','CMakeLists.txt'),os.path.join('scalar','CMakeLists.txt')],
         }
+    Required_secundary_unique_files = {
+        '.'         : ["$tb_name$.hpp", "include.hpp"],
+        '..'        : ["$tb_name$.hpp"],
+        'function'  : "archis",
+        }
+    
     Required_fcts_files = {
         os.path.join('..','..','include','functions') : ['$fct_name$.hpp'],
         'function': "archis",
@@ -176,16 +183,21 @@ class Nt2_tb_struct(Nt2_archis_struct) :
     @classmethod
     def get_rel_tb_unique_files(cls,tb_name) :
         l = []
-        for d in cls.Required_unique_files.keys() :
+        for d in cls.Required_primary_unique_files.keys() :
+            for f in cls.Required_primary_unique_files[d] :
+                if '$' in f :
+                    f = re.sub('\$tb_name\$',tb_name,f)
+                df = os.path.join(d,f)
+                l.append(df)
+        for d in cls.Required_secundary_unique_files.keys() :
             if d == "function" :
                 pass
             else :
-                for f in cls.Required_unique_files[d] :
+                for f in cls.Required_secundary_unique_files[d] :
                     if '$' in f :
                         f = re.sub('\$tb_name\$',tb_name,f)
-                    df = os.path.join(d,f)
+                    df = os.path.normpath(os.path.join(cls.Secundary,tb_name,d,f))
                     l.append(df)
-##                    print("%s, %s -> %s" % (d,f,df))
         return l         
             
     @classmethod

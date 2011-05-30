@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_MODELS_FUNCTION_SIMD_COMMON_MODEL_FOUR_BRANCHES_HPP_INCLUDED
 #define NT2_TOOLBOX_MODELS_FUNCTION_SIMD_COMMON_MODEL_FOUR_BRANCHES_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_nan.hpp>
@@ -90,7 +90,7 @@ namespace nt2 { namespace functors
       A0 y4 =  case_4<A0>(a0); // computation result in remaining cases
       r = sel(test3, r, y4);
 //       std::cout << "case_4 : r  " << r << std::endl;
-//       if(any(is_nez(r-ceil(a0))))
+//       if(nt2::any(is_nez(r-ceil(a0))))
 // 	{
 // 	  std::cout << "a0       " << a0 << std::endl;
 // 	  std::cout << "ceil(a0) " << ceil(a0) << std::endl;

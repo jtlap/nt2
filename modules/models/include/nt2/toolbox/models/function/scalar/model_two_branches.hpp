@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_MODELS_FUNCTION_SCALAR_MODEL_TWO_BRANCHES_HPP_INCLUDED
 #define NT2_TOOLBOX_MODELS_FUNCTION_SCALAR_MODEL_TWO_BRANCHES_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/include/functions/is_nan.hpp>
 

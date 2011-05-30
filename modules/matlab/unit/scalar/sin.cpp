@@ -2,7 +2,7 @@
 
 #include <nt2/toolbox/matlab/function/sin.hpp>
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 

@@ -14,24 +14,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 // For a given proto expression class, retrieves its semantic info as a type
 // Expression semantic info is void by design while SemanticRichExpression
-// types expose a semantic_type that can be retrieved here.
+// types expose a nt2_semantic_type that can be retrieved here.
 // Such information are used into expression hierarchy.
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  template<class Expression, class Enable = void>
+  template<class Expr, class Enable = void>
   struct semantic_of
   {
     typedef void type;
   };
 
-  template< class Expression >
-  struct semantic_of< Expression
+  template< class Expr >
+  struct semantic_of< Expr
                     , typename
-                      enable_if_type<typename Expression::semantic_type>::type
+                      enable_if_type<typename Expr::nt2_semantic_type>::type
                     >
   {
-    typedef typename Expression::semantic_type type;
+    typedef typename Expr::nt2_semantic_type type;
   };
 } }
 

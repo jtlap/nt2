@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/trigonometric/function/scalar/asinpi.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(asinpi.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/asinpi.hpp> 
 
 #endif

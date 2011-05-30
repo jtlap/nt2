@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 
 namespace nt2
 {
@@ -38,7 +38,7 @@ namespace nt2
 	  A0 x;
 	  int_type k;
 	  boost::fusion::tie(x, k) = fast_frexp(a0);
-	  const int_type x_lt_sqrthf = simd::native_cast<int_type>(gt(Sqrt_2o_2<A0>(), x));
+	  const int_type x_lt_sqrthf = nt2::simd::native_cast<int_type>(gt(Sqrt_2o_2<A0>(), x));
 	  k = k+x_lt_sqrthf;
 	  f = minusone(x+b_and(x, x_lt_sqrthf));
 	  dk = tofloat(k);

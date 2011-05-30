@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/fuzzy/function/scalar/definitely_less.hpp>
-#include NT2_FUZZY_INCLUDE(definitely_less.hpp) 
+#include <nt2/toolbox/fuzzy/function/simd/all/definitely_less.hpp> 
 
  
 #endif

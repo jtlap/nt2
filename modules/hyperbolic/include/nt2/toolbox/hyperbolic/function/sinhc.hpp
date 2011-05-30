@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/hyperbolic/function/scalar/sinhc.hpp>
-#include NT2_HYPERBOLIC_INCLUDE(sinhc.hpp) 
+#include <nt2/toolbox/hyperbolic/function/simd/all/sinhc.hpp> 
 
  
 #endif

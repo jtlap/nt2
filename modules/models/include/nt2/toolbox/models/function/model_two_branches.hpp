@@ -20,7 +20,7 @@ namespace nt2 { namespace functors
 }
  
 #include <nt2/toolbox/models/function/scalar/model_two_branches.hpp>
-#include NT2_MODELS_INCLUDE(model_two_branches.hpp) 
+#include <nt2/toolbox/models/function/simd/all/model_two_branches.hpp> 
 
  
 #endif

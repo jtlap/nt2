@@ -5,7 +5,7 @@ Debug Traps
 
 Description
 ^^^^^^^^^^^
-The ``trap`` template function insert a platform specific debugging trap if a
+The ``trap`` template function inserts a platform specific debugging trap if a
 given meta-function evaluates to ``true``. Its main usage is to generate template
 based breakpoint in some instantiations of template classes.
 
@@ -32,4 +32,4 @@ Expression Semantic
 ^^^^^^^^^^^^^^^^^^^
 
 If ``Condition::value`` evaluates to ``true``, a code inducing a forced
-debugger breakpoint will be generated. Otherwise, no operations are generated.
+debugger breakpoint will be generated. Otherwise, no operation is generated.

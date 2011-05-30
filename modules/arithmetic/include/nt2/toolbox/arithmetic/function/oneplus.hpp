@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/oneplus.hpp>
-#include NT2_ARITHMETIC_INCLUDE(oneplus.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/oneplus.hpp> 
 
  
 #endif

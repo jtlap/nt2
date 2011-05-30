@@ -13,7 +13,7 @@
 #include <nt2/include/functions/toint.hpp>
 //#include <nt2/include/functions/rem_pio2.hpp>
 #include <nt2/include/functions/round2even.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 namespace nt2
 {
   namespace details

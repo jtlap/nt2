@@ -8,10 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EPS_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EPS_HPP_INCLUDED
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/constants/properties.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 #include <nt2/include/functions/is_not_finite.hpp>

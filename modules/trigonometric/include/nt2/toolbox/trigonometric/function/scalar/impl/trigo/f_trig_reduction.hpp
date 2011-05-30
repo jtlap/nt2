@@ -23,8 +23,8 @@
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/all.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 
 namespace nt2
 {

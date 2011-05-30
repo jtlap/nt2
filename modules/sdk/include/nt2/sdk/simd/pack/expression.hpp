@@ -18,17 +18,13 @@ namespace nt2 { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   // Here is the domain-specific expression wrapper
   ////////////////////////////////////////////////////////////////////////////
-  template<class Expr,class Type,class Cardinal, class Dummy>
-  struct expression
+  template<class Expr,class Type,class Cardinal>
+  struct  expression
+        : boost::proto::extends < Expr
+                                , expression<Expr,Type,Cardinal>
+                                , domain<Type,Cardinal>
+                                >
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Make this a proto expression
-    ////////////////////////////////////////////////////////////////////////////
-    typedef domain<Type,Cardinal>                 domain_type;
-    typedef expression<Expr,Type,Cardinal,Dummy>  self_type;
-
-    BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, self_type, domain_type)
-
     ////////////////////////////////////////////////////////////////////////////
     // expression hierarchy of simd:::expression
     ////////////////////////////////////////////////////////////////////////////
@@ -45,6 +41,10 @@ namespace nt2 { namespace simd
     typedef typename data_type::size_type           size_type;
     typedef typename data_type::iterator            iterator;
     typedef typename data_type::const_iterator      const_iterator;
+
+    typedef boost::proto::extends<Expr,expression,domain<Type,Cardinal> > parent;
+
+    expression( Expr const& xpr = Expr() ) : parent(xpr) {}
 
     ////////////////////////////////////////////////////////////////////////////
     // Array interface

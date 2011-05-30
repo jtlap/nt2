@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/functor/operators.hpp>
+#include <nt2/sdk/functor/preprocessor/function.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
 #endif

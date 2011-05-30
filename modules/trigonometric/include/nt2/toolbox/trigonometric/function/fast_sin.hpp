@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/fast_sin.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(fast_sin.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/fast_sin.hpp> 
 
  
 #endif
