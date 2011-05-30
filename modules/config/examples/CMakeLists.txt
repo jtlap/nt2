@@ -7,21 +7,23 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(NT2Module)
+nt2_module_source_setup(config)
+
 SET(SOURCES
     architecture.cpp
     compiler.cpp
     platform.cpp
-    status.cpp
+#    status.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.config.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.config.examples)
+#ADD_CUSTOM_TARGET(config.examples)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(sdk.config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 

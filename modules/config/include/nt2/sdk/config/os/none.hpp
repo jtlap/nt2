@@ -6,15 +6,12 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_CONFIG_COMPILER_NONE_HPP_INCLUDED
-#define NT2_SDK_CONFIG_COMPILER_NONE_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_OS_NONE_HPP_INCLUDED
+#define NT2_SDK_CONFIG_OS_NONE_HPP_INCLUDED
 
-#include <nt2/sdk/error/warning.hpp>
-
-#if !defined(NT2_COMPILER)
-  NT2_WARNING(Unknown target compiler)
-  #define NT2_COMPILER_UNKNOWN
-  #define NT2_COMPILER "unknown"
+#if !defined(NT2_OS)
+  #define NT2_OS_UNKNOWN
+  #define NT2_OS "unknown"
 #endif
 
 #endif
