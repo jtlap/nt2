@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implements functor conformance checkign meta-function
+ * \brief Defiens and implements functor conformance checking \metafunction
  */
 
 #include <boost/config.hpp>

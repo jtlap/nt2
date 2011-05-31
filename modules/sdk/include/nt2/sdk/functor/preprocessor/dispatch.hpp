@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros for registering a functor overload
+ * \brief Defines macros for registering a functor overload
  */
 
 #include <nt2/extension/parameters.hpp>
