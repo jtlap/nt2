@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines the nt2::meta::enable_if \metafunction
+ * \brief Defines the nt2::meta::enable_if_type \metafunction
  */
 
 namespace nt2 { namespace meta

@@ -11,14 +11,14 @@
 
 /*!
  * \file
- * Provides adaptation of some boost type traits for NT2 types
+ * \brief Provides adaptation of some boost type traits for NT2 types
  */
 
 
 /*!
  * \ingroup meta
  * \defgroup metafunctions Meta-Functions
- * This module gathers structs and classes acting like MPL \metafunction.
+ * This module gathers \metafunction requried by \nt2 internal.
  */
 
 #include <nt2/sdk/meta/strip.hpp>

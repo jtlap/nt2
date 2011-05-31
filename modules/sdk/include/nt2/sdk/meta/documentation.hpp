@@ -1,12 +1,19 @@
 #error "This file is for documentation purpose only."
 
 /*!
- * \defgroup extensions NT2 Extension points
+ * \ingroup functors
+ * \defgroup hierarchy Type Hierarchies
+ *
+ * This module defines all the tag class describing a type \ref Hierarchy.
+ */
+
+/*!
+ * \ingroup sdk
+ * \defgroup extensions Extension points
  *
  * This module gather \nt2 extension points, ie classes and functions designed
  * to help external extensions of internal functions and \metafunctions
  */
-
 
 namespace nt2
 {

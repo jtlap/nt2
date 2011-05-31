@@ -26,8 +26,8 @@ namespace nt2  { namespace meta
   //============================================================================
   /*!
    * \ingroup metafunctions
-   * For a list of types \c T0,...,Tn, computes the types able to store a value
-   * of type decltype(declval<T0>() + ... + declval<Tn>()).
+   * For a list of types \c T0,...,Tn, ref arithmetic computes the type able to
+   * store a value of type \c decltype(declval<T0>() + ... + declval<Tn>()).
    *
    * \par Semantic:
    *
