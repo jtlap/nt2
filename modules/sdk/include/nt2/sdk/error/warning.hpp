@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros to output custom warnign messages at compile time
+ * \brief Defines macros to output custom warning messages at compile time
  */
 
 #include <boost/config.hpp>

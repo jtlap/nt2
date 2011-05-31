@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implements NT2 exception handling system
+ * \brief Implements NT2 exception handling system
  */
 
 /*!
