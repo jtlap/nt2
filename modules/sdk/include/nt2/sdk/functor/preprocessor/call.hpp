@@ -9,26 +9,51 @@
 #ifndef NT2_SDK_FUNCTOR_PREPROCESSOR_CALL_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_PREPROCESSOR_CALL_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Various macro for boilerplating call<> code writing
-// Documentation: http://nt2.lri.fr/sdk/functor/macros/call.html
-////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+ * \brief Defines macros for building a \ref nt2::ext::call specialization
+ */
+
 #include <boost/tr1/functional.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// operator() result type for call<Sig,Site>
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+/*!
+ * Builds the call to result_of required to computes the return type of a
+ * \ref nt2::ext::call specialization of \c N arguments.
+ *
+ * \param N Number of parameters for the current \ref nt2::ext::call
+ *
+ * \usage
+ *
+ * \code
+ * typedef typename NT2_RETURN_TYPE(3)::type type;
+ * \endcode
+ */
+//==============================================================================
 #define NT2_RETURN_TYPE(N)                                                      \
 std::tr1                                                                        \
 ::result_of<call(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))>  \
 
-////////////////////////////////////////////////////////////////////////////////
-// Main functor entry point:
-// Takes care of retrieving the function result, making it const and prepare
-// the operator() prototype.
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+/*!
+ * Generates a \ref nt2::ext::call specialization \c operator() prototype.
+ * In this function, arguments are defined as \c a0,...,an-1.
+ *
+ * \param N Number of parameters for the current \ref nt2::ext::call
+ *
+ * \usage
+ *
+ * \code
+ * NT2_FUNCTOR_CALL(3)
+ * {
+ *   typedef typename NT2_RETURN_TYPE(3)::type type;
+ *   return type(a0) + a1/a2;
+ * }
+ * \endcode
+ */
+//==============================================================================
 #define NT2_FUNCTOR_CALL(N)                                     \
 template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                \
 typename NT2_RETURN_TYPE(N)::type                               \

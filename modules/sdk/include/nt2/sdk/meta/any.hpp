@@ -59,7 +59,7 @@ namespace nt2 { namespace meta
    * \endcode
    *
    * if \c T0 is a \metasequence. Otherwise, it evaluates to \true_
-   * if it exists a type \c T in \cT0,...,Tn for which \c apply1<Pred,T>::type
+   * if it exists a type \c T in \c T0,...,Tn for which \c apply1<Pred,T>::type
    * evaluates to \true_. Otherwise, it evaluates to \false_.
    *
    * \par Example Usage:

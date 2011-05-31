@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implements NT2 main functor handler
+ * \brief Implements NT2 main functor handler
  */
 
 /*!
@@ -51,14 +51,13 @@ namespace nt2
    * functions with multiple possible implementation with respect to types,
    * architectures and compilation phases are handled.
    *
-   * \param Tag Function tag to dispatch to.
-   * \param EvalContext Tag defining how to perform said function call with
+   * \tparam Tag Function tag to dispatch to.
+   * \tparam EvalContext Tag defining how to perform said function call with
    * respect to architecture or phase settings.
    *
    * \par Models:
    * \dco
    *
-   * \endcode
    * \see call
    * \see hierarchy
    * \see enable_call
@@ -82,6 +81,9 @@ namespace nt2
      * Polymorphic variadic function call operator. This catch-all operators
      * dispatches its arguments to the proper type and architecture based
      * implementation using the \ref hierarchy system.
+     *
+     * \params args Arguments of function \c Tag implementation
+     * \return The result of the calculation of function \c Tag
      */
     //==========================================================================
     template<class... Args> inline typename result<functor(Args...)>::type

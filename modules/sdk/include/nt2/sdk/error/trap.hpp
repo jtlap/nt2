@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implement a cross-platform system for conditionnal breakpoint trap triggers
+ * \brief Implement a cross-platform system for conditionnal breakpoint traps
  */
 
 #include <boost/utility/enable_if.hpp>

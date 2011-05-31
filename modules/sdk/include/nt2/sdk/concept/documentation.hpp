@@ -4,6 +4,6 @@
  * \ingroup sdk
  * \defgroup concepts Concepts
  *
- * This module contains all Cocnepts defined by \nt2 and their respective
+ * This module contains all Concepts defined by \nt2 and their respective
  * archetypes.
  */

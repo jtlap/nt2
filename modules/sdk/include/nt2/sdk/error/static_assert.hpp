@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros controlling the handling of compile-time assertions
+ * \brief Defines macros controlling the handling of compile-time assertions
  */
 
 #include <boost/mpl/bool.hpp>

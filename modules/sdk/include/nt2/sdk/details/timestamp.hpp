@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines the timestamp utility function
+ * \brief Defines the \ref nt2::timestamp utility function
  */
 
 #include <string>

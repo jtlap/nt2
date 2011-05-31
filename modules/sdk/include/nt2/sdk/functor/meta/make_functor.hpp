@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implements a delayed \ref functor type instanciation system
+ * \brief Implements a delayed \ref nt2::functor type instanciation system
  */
 
 namespace nt2
