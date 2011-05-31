@@ -18,7 +18,7 @@
 /*!
  * \ingroup meta
  * \defgroup metafunctions Meta-Functions
- * This module gathers \metafunction requried by \nt2 internal.
+ * This module gathers \metafunction required by \nt2 internal.
  */
 
 #include <nt2/sdk/meta/strip.hpp>
