@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines the nt2::meta::cardinal_of \metafunction
+ * \brief Defines and implements the \ref nt2::meta::cardinal_of \metafunction
  */
 
 #include <boost/mpl/size_t.hpp>
