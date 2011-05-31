@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Define the Hierarchizable Concept
+ * \brief Define the \ref nt2::Hierarchizable Concept
  */
 
 #include <nt2/sdk/error/concepts.hpp>

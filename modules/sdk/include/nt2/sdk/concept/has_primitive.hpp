@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Define the HasPrimitive Concept
+ * \brief Define the \ref nt2::HasPrimitive Concept
  */
 
 #include <nt2/sdk/error/concepts.hpp>
