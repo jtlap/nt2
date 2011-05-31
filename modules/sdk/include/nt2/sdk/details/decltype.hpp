@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines a platform agnostic \c decltype macro.
+ * \brief Defines a platform agnostic \c decltype macro.
  */
 
 /*!
