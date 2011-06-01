@@ -10,10 +10,13 @@
 #define NT2_SDK_META_FLOATING_HPP_INCLUDED
 
 #include <nt2/sdk/meta/make_real.hpp>
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#endif
 
 namespace nt2  { namespace meta
 {
@@ -30,6 +33,13 @@ namespace nt2  { namespace meta
                             );
       typedef typename meta::make_real<value>::type type;
     };
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/meta/preprocessed/floating.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/floating.hpp")
+#endif
 
     #define M1(z,n,t)                                               \
     BOOST_STATIC_CONSTANT ( std::size_t                             \
@@ -55,6 +65,12 @@ namespace nt2  { namespace meta
     BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M0,~)
     #undef M1
     #undef M0
+    
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
+    
   };
 } }
 

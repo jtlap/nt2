@@ -16,10 +16,13 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/typeof/typeof.hpp>
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#endif
 
 namespace nt2  { namespace meta
 {
@@ -52,6 +55,14 @@ namespace nt2  { namespace meta
   {
     template<class Sig> struct result;
 
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/meta/preprocessed/arithmetic.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/arithmetic.hpp")
+#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+#endif
+
     #define M0(z,n,t) static typename meta::strip<BOOST_PP_CAT(A,n)>::type& \
                       BOOST_PP_CAT(a,n);
                       /**/
@@ -69,9 +80,15 @@ namespace nt2  { namespace meta
      /**/
 
     BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M2,~)
+    
     #undef M2
     #undef M1
     #undef M0
+    
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
     //==========================================================================
     // Force integral promotion by computing arithmetic(A0,A0)

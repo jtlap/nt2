@@ -15,13 +15,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/toolbox/operator/function/map.hpp>
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/toolbox/operator/specific/preprocessed/common.hpp>
+#else
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-
-#include <nt2/toolbox/operator/function/map.hpp>
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/common.hpp")
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register all tag and extension agnostic call for common code sharing
@@ -67,5 +73,10 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
 
 #undef M1
 #undef M0
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
 #endif

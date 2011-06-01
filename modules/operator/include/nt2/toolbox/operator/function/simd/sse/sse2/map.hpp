@@ -10,11 +10,6 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MAP_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/extension/parameters.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <nt2/toolbox/operator/specific/details/maybe_genmask.hpp>
 #include <nt2/include/functions/make.hpp>
 
@@ -23,6 +18,18 @@
 // This is done by enumerating all cases of function calls over the different
 // vector cardinal and function arity.
 ////////////////////////////////////////////////////////////////////////////////
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/toolbox/operator/function/simd/sse/sse2/preprocessed/map.hpp>
+#else
+#include <nt2/extension/parameters.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
+#endif
 
 #define M6(z,n,t) typename meta::scalar_of<A##n>::type
 #define M5(z,n,t) (A##n)
@@ -96,5 +103,10 @@ NT2_SIMD_MAP_CALL(ints8_  , 16)
 #undef M2
 #undef M1
 #undef M0
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
 #endif

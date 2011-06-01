@@ -13,13 +13,14 @@
 #include <nt2/sdk/meta/hierarchy.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
-#include <nt2/sdk/details/decltype.hpp>
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
+#undef NT2_DECLTYPE
 #endif
 #include <nt2/extension/parameters.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
