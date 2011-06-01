@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gammaln_, tag::cpu_,
                          (A0),
-                         (float_<A0>)
+                         (integer_<A0>)
                         )
 
 namespace nt2 { namespace ext
