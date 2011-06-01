@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Define the hasPrimitive Concept
+ * \brief Define the \ref nt2::HasPrimitive Concept
  */
 
 #include <nt2/sdk/error/concepts.hpp>
@@ -24,16 +24,17 @@ namespace nt2
   //============================================================================
   /*!
    * \ingroup concepts
-   * A model of HasPrimitive is a type from which a primitive type, i.e. a
-   * type which hierarchy is \ref nt2::tag::fundamental_, can be extracted.
+   * A model of HasPrimitive is a type from which a Fundamental type, i.e. a
+   * type which Hierarchy is \ref nt2::tag::fundamental_, can be extracted.
    *
    * \par Notations:
    *
    *  - \c T Model of \ref HasPrimitive.
-   *  - \c Primitive A type veryfying:
-   *  \code nt2::meta::is_fundamental<Primitive>::value == true \endcode
    *
    *  \par Expressions Requirements:
+   *
+   *  - \c primitive_of<T>::type verifies
+   *  \c nt2::meta::is_fundamental<Primitive>::value \c == \c true
    *
    *  \par Models:
    *
@@ -45,8 +46,7 @@ namespace nt2
   //============================================================================
   template<class T> struct HasPrimitive {};
 }
-#endif
-
+#else
 namespace nt2
 {
   template< class T
@@ -68,10 +68,5 @@ namespace nt2
   };
 }
 
-/*
-    +-----------------------------+-------------------------------------------------+-------------+
-    | Expression                  | Return Type                                     | Semantics   |
-    +=============================+=================================================+=============+
-    |  ``primitive_of<T>::type``  | Primitive                                       | unspecified |
-    +-----------------------------+-------------------------------------------------+-------------+
- */
+#endif
+#endif

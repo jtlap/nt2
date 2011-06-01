@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros for registering a functor overload
+ * \brief Defines macros for registering a functor overload
  */
 
 #include <nt2/extension/parameters.hpp>
@@ -90,7 +90,7 @@ dispatching( NT2_PP_STRIP(Tag) const&, Site const&                              
  * \param Site Evaluation context to use in this overload
  * \param Types Preprocessor sequence of template types used in the hierarchy
  * \param Cond Compile-time predicates to verify
- * \param ret Implementation target to select if \c Cond is verified
+ * \param Ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
@@ -119,7 +119,7 @@ dispatching( Tag const&, Site const&                                        \
  * \param Site Evaluation context to use in this overload
  * \param Types Preprocessor sequence of template types used in the hierarchy
  * \param Cond Compile-time predicates to verify
- * \param ret Implementation target to select if \c Cond is verified
+ * \param Ret Implementation target to select if \c Cond is verified
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================

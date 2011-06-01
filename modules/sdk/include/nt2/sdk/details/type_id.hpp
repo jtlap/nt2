@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines types to string conversion utility functions
+ * \brief Defines types to string conversion utility functions
  *
  */
 

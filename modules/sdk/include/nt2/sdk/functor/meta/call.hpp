@@ -11,6 +11,7 @@
 
 /*!
  * \file
+ * \brief Defines and implements the \ref nt2::meta::call \metafunction
  */
 
 #include <boost/config.hpp>

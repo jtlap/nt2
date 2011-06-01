@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implements the ignore_unused utility function
+ * \brief Defined and implements the \ref nt2::ignore_unused utility function
  */
 
 namespace nt2

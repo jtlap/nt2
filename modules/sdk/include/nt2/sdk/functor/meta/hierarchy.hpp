@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines the basic evaluation context for \ref functor
+ * \brief Defines the basic evaluation context hierarchy for \ref nt2::functor
  */
 
 #include <nt2/sdk/meta/hierarchy.hpp>
@@ -21,6 +21,7 @@ namespace nt2 { namespace tag
 #if defined(DOXYGEN_ONLY)
   //============================================================================
   /*!
+   * \ingroup hierarchy
    * Defines the formal evaluation context for functors. This context is the
    * most abstract one and correspond to high-level code trasnformation function
    */
@@ -29,6 +30,7 @@ namespace nt2 { namespace tag
 
   //============================================================================
   /*!
+   * \ingroup hierarchy
    * Defines the CPU based evaluation context for functors. This context is used
    * when no specific architecture informations is available or required by a
    * \ref functor. Functors specialization under the \c cpu_ context is usually

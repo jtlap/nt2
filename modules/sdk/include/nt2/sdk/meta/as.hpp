@@ -11,17 +11,19 @@
 
 /*!
  * \file
- * Defines and implement the as_ generic type wrapper
+ * \brief Defines and implement the \ref nt2::meta::as_ generic type wrapper
  */
 
+#include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace nt2 { namespace meta
 {
   //============================================================================
   /*!
-   * \ingroup functors
+   * \ingroup hierarchy
    * Type wrapper hierarchy.
    *
    * \tparam T Wrapped type hierarchy
@@ -38,17 +40,35 @@ namespace nt2 { namespace meta
   //============================================================================
   /*!
    * \ingroup metafunctions
-   * No overhead type wrapper.Some implementation details of \nt2 require types
-   * to be wrapped into an empty structure so the type can be passed as a no
-   * overhead instance. \ref as_ performs such a wrapping and tag itself as
+   * Lightweight type wrapper. Some implementation details of \nt2 require types
+   * to be wrapped into an empty structure so the type can be passed as an
+   * "ghostly" instance. \ref as_ performs such a wrapping and tag itself as
    * belonging to the \ref target_ hierarchy.
+   *
+   * \par Models:
+   *
+   * - Hierarchizable
+   * - \metafunction
    */
   //============================================================================
   template<class T> struct as_
   {
-    typedef T                                         type;
+    //==========================================================================
+    // Required for Hierarchizable
+    //==========================================================================
     typedef target_<typename hierarchy_of<T>::type >  nt2_hierarchy_tag;
+
+    typedef T                                         type;
   };
+
+  //============================================================================
+  // Requirements for Buildable
+  //============================================================================
+  template<class T>
+  struct primitive_of< as_<T> > : primitive_of<T> {};
+
+  template<class T>
+  struct factory_of< as_<T> > { typedef as_<boost::mpl::_1> type; };
 } }
 
 #endif
