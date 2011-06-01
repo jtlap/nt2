@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELECT_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/size.hpp>
+#include <nt2/include/functions/bitwise_andnot.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -40,8 +41,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      //      return b_or(b_and(a1,a0),b_andnot(a2,a0));
-      return bitwise_xor(a2, b_and(b_xor(a2, a1),a0));
+      return b_or(b_and(a1,a0),b_andnot(a2,a0));
+      //      return bitwise_xor(a2, b_and(b_xor(a2, a1),a0));
     }
 
   };

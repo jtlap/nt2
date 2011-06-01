@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace meta
 {
-  template<class T,class Dummy=void>
+  template<class T,class Dummy=void, class Dummy1 = void>
   struct extension_of : na_ {};
 } }
 

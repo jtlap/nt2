@@ -73,8 +73,8 @@ namespace nt2 { namespace meta
                           > : boost::mpl::true_
   {};
 
-  template<class T, class N, class X>
-  struct extension_of<typename detail::make_array<T,N>::type, X>
+  template<class T, class N>
+  struct extension_of<typename detail::make_array<T,N>::type, T, N>
   {
     typedef tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
   };
