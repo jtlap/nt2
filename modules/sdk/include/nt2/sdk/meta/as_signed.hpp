@@ -14,23 +14,9 @@
  * \brief Defines and implements \ref nt2::meta::as_signed
  */
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/meta/is_fundamental.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/make_signed.hpp>
-
-namespace nt2 { namespace details
-{
-  //============================================================================
-  // Forward declaration
-  //============================================================================
-  template<class T, class Enable = void>
-  struct  as_signed;
-} }
+#include <nt2/sdk/meta/details/as_signed.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -66,10 +52,11 @@ namespace nt2 { namespace meta
    * \code
    *  typedef apply< meta::factory_of<T>::type
    *               , boost::make_signed< meta::primitive_of<T>::type >::type
-   *               >::type                                                type;
+   *               >::type                                              type;
    * \endcode
    *
-   * if \c primitive<T>::type is unsigned.
+   * if \c primitive<T>::type is unsigned. Note than for this \metafunction,
+   * real types like \c double or \c float are considered signed.
    *
    * \par Example usage:
    *
@@ -78,7 +65,7 @@ namespace nt2 { namespace meta
   //============================================================================
   template<class T>
   struct  as_signed
-        : details::as_signed < typename meta::strip<T>::type >
+        : details::as_signed_impl< typename meta::strip<T>::type >
   {
     NT2_STATIC_ASSERT
     ( (is_fundamental < typename
@@ -89,32 +76,6 @@ namespace nt2 { namespace meta
     , "A type with a non-fundamental primitive is used in nt2::meta::as_signed."
     );
   };
-} }
-
-namespace nt2 { namespace details
-{
-  template<class T, class Enable>
-  struct  as_signed
-        : boost::mpl::apply < typename meta::factory_of<T>::type
-                            , typename meta::
-                              as_signed< typename meta::primitive_of<T>::type
-                                       >::type
-                            >
-  {};
-
-  template<class T>
-  struct  as_signed < T
-                    , typename boost::enable_if < typename meta::
-                                                  is_fundamental<T>::type
-                                                >::type
-                    >
-       : boost::mpl::eval_if< boost::mpl::
-                              bool_ <   boost::is_integral<T>::value
-                                    &&  !boost::is_same<bool,T>::value
-                                    >
-                            , boost::make_signed<T>
-                            , boost::mpl::identity<T>
-                            > {};
 } }
 
 #endif

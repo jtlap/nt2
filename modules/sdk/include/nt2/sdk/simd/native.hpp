@@ -43,13 +43,6 @@ namespace nt2 { namespace simd
     typedef details::native_iterator<native>                const_iterator;
 
     ////////////////////////////////////////////////////////////////////////////
-    // hierarchy tag for native
-    ////////////////////////////////////////////////////////////////////////////
-    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
-                        , Extension
-                        >                                   nt2_hierarchy_tag;
-
-    ////////////////////////////////////////////////////////////////////////////
     // native cast to another type
     ////////////////////////////////////////////////////////////////////////////
     template<class U> struct cast { typedef native<U,extension_type> type; };

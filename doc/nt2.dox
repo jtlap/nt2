@@ -45,12 +45,17 @@ TAB_SIZE               = 2
 # You can put \n's in the value part of an alias to insert newlines.
 
 ALIASES += "metafunction=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
+ALIASES += "metalambda=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/mpl/doc/refmanual/lambda-expression.html\">Lambda Expression</a>"
 ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
 ALIASES += "metasequence=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/forward-sequence.html\">MPL Sequence</a>"
 ALIASES += "true_=\c boost::mpl::true_"
 ALIASES += "false_=\c boost::mpl::false_"
 ALIASES += "readableiterator=<a href=\"http://www.boost.org/doc/libs/release/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators\">ReadableIterator</a>"
 ALIASES += "singlepassrange=<a href=\"http://www.boost.org/doc/libs/release/libs/range/doc/html/range/concepts/single_pass_range.html\">SinglePassRange</a>"
+ALIASES += "usage=\par Example Usage:"
+ALIASES += "matlab=<span style=\"font-variant: small-caps;\">Matlab</span>"
+ALIASES += "nt2=<b>NT²</b>"
+ALIASES += "container=<a href=\"http://www.sgi.com/tech/stl/Container.html\">Container</a>"
 
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO

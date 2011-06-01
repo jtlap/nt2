@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros controlling the handling of Cocnepts checks
+ * \brief Defines macros controlling the handling of Concepts checks
  */
 
 #include <boost/concept_check.hpp>

@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Implements the bitwise_cast utility function
+ * \brief Defines and implements the \ref nt2::bitwise_cast utility function
  */
 
 #include <cstring>

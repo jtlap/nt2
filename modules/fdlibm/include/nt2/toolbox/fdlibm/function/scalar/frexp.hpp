@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_FREXP_HPP_INCLUDED
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 
   extern "C"{

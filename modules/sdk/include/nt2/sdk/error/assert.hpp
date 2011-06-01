@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros and functions controlling the handling of runtime assertions
+ * \brief Defines macros and functions controlling runtime assertions
  */
 #include <nt2/sdk/error/debug.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>

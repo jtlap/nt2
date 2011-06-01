@@ -10,8 +10,7 @@
 #define NT2_SDK_META_AS_BITS_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Take a value and provide access to its bits
-// See: http://nt2.metascale.org/sdk/meta/traits/as_bits.html
+// TODO: DEPRECATED FILE TO REMOVE
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>

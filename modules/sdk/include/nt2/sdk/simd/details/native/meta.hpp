@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
 
+#include <nt2/sdk/simd/details/native/meta/hierarchy_of.hpp>
+
 #include <nt2/sdk/simd/details/native/meta/factory_of.hpp>
 #include <nt2/sdk/simd/details/native/meta/primitive_of.hpp>
 

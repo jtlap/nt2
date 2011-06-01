@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Control the way build mode affect NT2 error handlign setting
+ * \brief Control the way build mode affect NT2 error handlign setting
  */
 
 #if defined(DOXYGEN_ONLY)

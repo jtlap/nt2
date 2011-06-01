@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines the nt2::exception class
+ * \brief Defines the \ref nt2::exception class
  */
 
 #include <iosfwd>

@@ -14,24 +14,9 @@
  * \brief Defines and implements \ref nt2::meta::as_unsigned
  */
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <nt2/sdk/meta/factory_of.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/meta/is_fundamental.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/make_unsigned.hpp>
-
-namespace nt2 { namespace details
-{
-  //============================================================================
-  // Forward declaration
-  //============================================================================
-  template<class T, class Enable = void>
-  struct  as_unsigned;
-} }
+#include <nt2/sdk/meta/details/as_unsigned.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -70,7 +55,8 @@ namespace nt2 { namespace meta
    *               >::type                                                type;
    * \endcode
    *
-   * if \c primitive<T>::type is signed.
+   * if \c primitive<T>::type is signed. Note that for this \metafunction, real
+   * types like \c double and \c float are considered signed.
    *
    * \par Example usage:
    *
@@ -79,7 +65,7 @@ namespace nt2 { namespace meta
   //============================================================================
   template<class T>
   struct  as_unsigned
-        : details::as_unsigned < typename meta::strip<T>::type >
+        : details::as_unsigned_impl< typename meta::strip<T>::type >
   {
     NT2_STATIC_ASSERT
     ( (is_fundamental < typename
@@ -92,29 +78,4 @@ namespace nt2 { namespace meta
   };
 } }
 
-namespace nt2 { namespace details
-{
-  template<class T, class Enable>
-  struct  as_unsigned
-        : boost::mpl::apply < typename meta::factory_of<T>::type
-                            , typename meta::
-                              as_unsigned < typename meta::primitive_of<T>::type
-                                          >::type
-                            >
-  {};
-
-  template<class T>
-  struct  as_unsigned < T
-                      , typename boost::enable_if < typename meta::
-                                                    is_fundamental<T>::type
-                                                  >::type
-                      >
-       : boost::mpl::eval_if< boost::mpl::
-                              bool_ <   boost::is_integral<T>::value
-                                    &&  !boost::is_same<bool,T>::value
-                                    >
-                            , boost::make_unsigned<T>
-                            , boost::mpl::identity<T>
-                            > {};
-} }
 #endif

@@ -10,18 +10,17 @@
 include(NT2Module)
 nt2_module_source_setup(sdk)
 
-################################################################################
-# Generate bootstrap.hpp
-################################################################################
-CONFIGURE_FILE( ${NT2_SDK_ROOT}/src/bootstrap.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
-              )
-              
-file( GLOB_RECURSE source_files
+nt2_module_configure_simd( nt2/sdk/simd/details/impl --no-simd-dir --no-default-baseline
+                                                     -Bcommon -Bsse/sse2
+                         )
+
+file( GLOB_RECURSE source_sdk_files
       ${NT2_SDK_ROOT}/src/*
     )
     
-nt2_module_add_library(nt2 ${source_files})
+SET(SOURCES ${source_sdk_files} ${NT2_CONFIG_ROOT}/src/version.cpp)
+
+nt2_module_add_library(nt2 ${SOURCES})
 
 macro(preprocess_file target)
   find_file(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)

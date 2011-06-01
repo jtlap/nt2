@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * Defines macros to output custom warnign messages at compile time
+ * \brief Defines macros to output custom warning messages at compile time
  */
 
 #include <boost/config.hpp>
@@ -43,9 +43,9 @@
  * Emits a custom warning message at compile by displaying \c X in a file/line
  * localized message.
  *
- * \param MESSAGE Custom warning message.
+ * \param MESSAGE Custom warning message
  *
- * \par Example Usage:
+ * \usage
  *
  * \include ../local.hpp
  */
