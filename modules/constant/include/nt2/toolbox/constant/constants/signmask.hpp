@@ -28,7 +28,7 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/signmask.hpp>
-#include NT2_CONSTANT_INCLUDE(signmask.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/signmask.hpp>
 
 #endif
 

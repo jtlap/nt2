@@ -24,6 +24,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/false.hpp>
-#include NT2_CONSTANT_INCLUDE(false.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/false.hpp>
 
 #endif

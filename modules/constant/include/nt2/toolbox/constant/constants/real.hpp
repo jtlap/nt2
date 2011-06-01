@@ -124,6 +124,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/real.hpp>
-#include NT2_CONSTANT_INCLUDE(real.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/real.hpp>
 
 #endif

@@ -41,6 +41,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/eps_related.hpp>
-#include NT2_CONSTANT_INCLUDE(eps_related.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/eps_related.hpp>
 
 #endif
