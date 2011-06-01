@@ -35,6 +35,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/ieee_spec.hpp>
-#include NT2_CONSTANT_INCLUDE(ieee_spec.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/ieee_spec.hpp>
 
 #endif

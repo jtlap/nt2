@@ -83,6 +83,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/digits.hpp>
-#include NT2_CONSTANT_INCLUDE(digits.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/digits.hpp>
 
 #endif

@@ -28,6 +28,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/val_min.hpp>
-#include NT2_CONSTANT_INCLUDE(val_min.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/val_min.hpp>
 
 #endif

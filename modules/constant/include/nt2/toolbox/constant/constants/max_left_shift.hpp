@@ -28,7 +28,7 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/max_left_shift.hpp>
-#include NT2_CONSTANT_INCLUDE(max_left_shift.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/max_left_shift.hpp>
 
 #endif
 

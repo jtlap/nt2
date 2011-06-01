@@ -28,6 +28,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/constant/constants/scalar/val_max.hpp>
-#include NT2_CONSTANT_INCLUDE(val_max.hpp)
+#include <nt2/toolbox/constant/constants/simd/all/val_max.hpp>
 
 #endif
