@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_notand.hpp>
-#include NT2_BITWISE_INCLUDE(bitwise_notand.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/bitwise_notand.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/remquo.hpp>
-#include NT2_ARITHMETIC_INCLUDE(remquo.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/remquo.hpp> 
 
  
 #endif

@@ -62,6 +62,6 @@ with ``V`` equal to the power of 2 greater or equal to ``N::value``.
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/memory/next_power_of_2_c.cpp
+.. literalinclude::  ../../../../../modules/sdk/examples/memory/next_power_of_2_c.cpp
    :language: cpp
 

@@ -17,10 +17,6 @@ CONFIGURE_FILE( ${NT2_SDK_ROOT}/src/bootstrap.hpp.cmake
                 ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
               )
               
-nt2_module_configure_simd( nt2/sdk/simd/details/impl --no-simd-dir --no-default-baseline
-                                                     -Bcommon -Bsse/sse2
-                         )
-
 file( GLOB_RECURSE source_files
       ${NT2_SDK_ROOT}/src/*
     )

@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/erf.hpp>
-// #include NT2_CEPHES_INCLUDE(erf.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/erf.hpp> 
 
  
 #endif

@@ -3,7 +3,7 @@ Meta-functions
 
 .. rubric:: Description
 
-THis sub-modules defines various meta-functions related to :term:`Tag Dispatching`
+This sub-module defines various meta-functions related to :term:`Tag Dispatching`
 support within |nt2| functors.
 
 .. rubric:: Content

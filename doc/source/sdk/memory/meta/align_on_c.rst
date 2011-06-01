@@ -67,6 +67,6 @@ violated, a ``INVALID_ALIGNMENT_VALUE`` static assertion is thrown at compile-ti
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/memory/meta_align_on_c.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/memory/meta_align_on_c.cpp
    :language: cpp
 

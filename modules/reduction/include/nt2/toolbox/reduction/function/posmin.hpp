@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/reduction/function/scalar/posmin.hpp>
-#include NT2_REDUCTION_INCLUDE(posmin.hpp) 
+#include <nt2/toolbox/reduction/function/simd/all/posmin.hpp> 
 
  
 #endif

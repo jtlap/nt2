@@ -10,7 +10,7 @@ downgrade
 Description
 ^^^^^^^^^^^
 Returns the input type rebound with an integral type that is twice as small as its primitive, with optional sign.
-If the primitive type is floating-point, use the floating-point type that is twice as small and discard the sign.
+If the primitive type is floating-point, use the floating-point type that is twice as small (the sign is ignored).
 
 For :ref:`simd_pack`, also makes cardinal twice as big.
 
@@ -77,5 +77,5 @@ otherwise.
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/downgrade.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/downgrade.cpp
    :language: cpp

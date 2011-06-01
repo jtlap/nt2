@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/minus.hpp>
-#include NT2_OPERATOR_INCLUDE(minus.hpp)
+#include <nt2/toolbox/operator/function/simd/all/minus.hpp>
 
 #endif

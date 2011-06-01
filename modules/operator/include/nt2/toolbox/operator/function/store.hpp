@@ -25,6 +25,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/store.hpp>
-#include NT2_OPERATOR_INCLUDE(store.hpp)
+#include <nt2/toolbox/operator/function/simd/all/store.hpp>
 
 #endif

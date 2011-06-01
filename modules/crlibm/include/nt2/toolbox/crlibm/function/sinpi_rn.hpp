@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/sinpi_rn.hpp>
-// #include NT2_CRLIBM_INCLUDE(sinpi_rn.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/sinpi_rn.hpp> 
 
  
 #endif

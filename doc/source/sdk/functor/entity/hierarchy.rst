@@ -48,7 +48,7 @@ Synopsis
 
 Description
 -----------
-The ``bool_`` set identify boolean types.
+The ``bool_`` set identifies boolean types.
 
 Integral Sets
 ^^^^^^^^^^^^^
@@ -68,7 +68,7 @@ Synopsis
 
 Description
 -----------
-Integral sets discriminates integral types with respect to their size.
+Integral sets discriminate integral types with respect to their size.
 
 Sized Sets
 ^^^^^^^^^^
@@ -88,7 +88,7 @@ Synopsis
 
 Description
 -----------
-Sized sets discriminates types with respect to their size.
+Sized sets discriminate types with respect to their size.
 
 Integral Signed Sets
 ^^^^^^^^^^^^^^^^^^^^
@@ -106,7 +106,7 @@ Synopsis
 
 Description
 -----------
-Integral Signed sets discriminates integral types with respect to their signedness.
+Integral Signed sets discriminate integral types with respect to their signedness.
 
 Signed Sets
 ^^^^^^^^^^^
@@ -124,7 +124,7 @@ Synopsis
 
 Description
 -----------
-Sized sets discriminates types with respect to their signedness.
+Signed sets discriminate types with respect to their signedness.
 
 Integral Set
 ^^^^^^^^^^^^
@@ -141,7 +141,7 @@ Synopsis
 
 Description
 -----------
-Discriminates any integral type.
+Discriminate any integral type.
 
 Real Set
 ^^^^^^^^
@@ -158,7 +158,7 @@ Synopsis
 
 Description
 -----------
-Discriminates any floating-point type.
+Discriminate any floating-point type.
 
 Arithmetic Set
 ^^^^^^^^^^^^^^
@@ -175,7 +175,7 @@ Synopsis
 
 Description
 -----------
-Discriminates any arithmetic type.
+Discriminate any arithmetic type.
 
 Fundamental Set
 ^^^^^^^^^^^^^^^
@@ -187,9 +187,9 @@ Synopsis
 
       namespace functors
       {
-        typedef set<uint8_t,uint16_t,uint32_t,uint64_t,int8_t,int16_t,int32_t,int64_t,float,double,bool> arithmetic_;
+        typedef set<uint8_t,uint16_t,uint32_t,uint64_t,int8_t,int16_t,int32_t,int64_t,float,double,bool> fundamental_;
       }
 
 Description
 -----------
-Discriminates any fundamental type.
+Discriminate any fundamental type.

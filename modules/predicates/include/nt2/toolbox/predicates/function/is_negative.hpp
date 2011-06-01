@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/is_negative.hpp>
-#include NT2_PREDICATES_INCLUDE(is_negative.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/is_negative.hpp> 
 
  
 #endif

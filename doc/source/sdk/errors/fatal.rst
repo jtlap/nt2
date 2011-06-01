@@ -32,6 +32,6 @@ NT2_ASSERT
 **Description:** If ``COND`` evaluates to ``false``, then a runtime assertion
 is emitted, halting the program either via an abort or, if :ref:`nt2_debug` is defined,
 by firing a debug trap. If assertions are disabled by :ref`nt2_disable_asserts`,
-nothign happens. If :ref:`nt2_asserts_as_exceptions` is defined, an
+nothing happens. If :ref:`nt2_asserts_as_exceptions` is defined, an
 :ref:`assertion_failure` exception is thrown instead.
 

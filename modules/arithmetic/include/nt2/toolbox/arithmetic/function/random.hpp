@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/random.hpp>
-#include NT2_ARITHMETIC_INCLUDE(random.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/random.hpp> 
 
  
 #endif

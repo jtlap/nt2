@@ -99,6 +99,7 @@ class SimdFile(object):
         
         self.path_prefix = path_split(context['PATH_PREFIX'])
         self.basefile = [context['FUNCTION_FILE']]
+        self.dir = dir
         self.extra_dir = [context['EXTRA_DIR']]
         
         self.file = self.path_prefix + self.extra_dir + dir + self.basefile
@@ -115,7 +116,7 @@ class SimdFile(object):
             os.remove(binary_path)
             return None
             
-        if(source_exists or binary_exists):
+        if(source_exists):
             return None
     
         for i in range(1, len(self.file_path_binary)):
@@ -148,14 +149,25 @@ class SimdFile(object):
         if(f == None):
             return
             
+        all_include = 0
+            
         self.write_header(f)
         if(len(parents) == 0):
             f.write("#include <nt2/sdk/error/warning.hpp>\n")
             f.write("NT2_WARNING(function has no SIMD implementation)\n")
         else:
+            if(self.dir == ['all']):
+              toolbox = self.path_prefix[-2]
+              f.write("#include NT2_" + toolbox.upper() + "_INCLUDE(" + str.join('/', self.basefile) + ")\n")
+            i = 0
             for parent in parents:
+                if(self.dir == ['all'] and i == all_include):
+                  f.write("#if 0\n")
                 parent_file = self.path_prefix + self.extra_dir + parent + self.basefile
                 f.write("#include <" + str.join('/', parent_file) + ">\n")
+                i = i + 1
+            if(self.dir == ['all'] and i >= all_include):
+                f.write("#endif\n")
         self.write_footer(f)
 
 def create_forward_file(context, value, parent):

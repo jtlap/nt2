@@ -9,7 +9,7 @@ as_real
 
 Description
 ^^^^^^^^^^^
-Returns the input type rebound with the floating-point type with the same size and sign as
+Returns the input type rebound with the floating-point type with the same size as
 its primitive type.
 
 Template Parameters

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/reduction/function/scalar/sum.hpp>
-#include NT2_REDUCTION_INCLUDE(sum.hpp) 
+#include <nt2/toolbox/reduction/function/simd/all/sum.hpp> 
 #include <nt2/toolbox/reduction/function/simd/pack/sum.hpp>
  
 #endif

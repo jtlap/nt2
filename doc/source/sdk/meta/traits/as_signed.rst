@@ -9,8 +9,8 @@ as_signed
 
 Description
 ^^^^^^^^^^^
-Returns the input type rebound with the equivalent signed type
-of its primitive type.
+Returns the input type rebound with the equivalent (same size) 
+signed type of its primitive type.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -62,5 +62,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/as_signed.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/as_signed.cpp
    :language: cpp

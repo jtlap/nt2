@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/combinatorial/function/scalar/lcm.hpp>
-#include NT2_COMBINATORIAL_INCLUDE(lcm.hpp) 
+#include <nt2/toolbox/combinatorial/function/simd/all/lcm.hpp> 
 
  
 #endif

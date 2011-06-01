@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/two_split.hpp>
-#include NT2_ARITHMETIC_INCLUDE(two_split.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/two_split.hpp> 
 
  
 #endif

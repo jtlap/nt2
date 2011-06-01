@@ -11,7 +11,7 @@ Description
 In some :term:`SFINAE` enabled code, some functions parameters may be declared but not
 used in a given implementation. Calling this function on such parameters prevent
 some compilers to generate unwanted warnings in those cases. ``ignore_unused``
-performs a no-op on its argument so compiler won't complain about it being unused.
+performs a no-op on its argument so compilers won't complain about it being unused.
 
 Parameters
 ^^^^^^^^^^
@@ -51,5 +51,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../examples/sdk/details/ignore_unused.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/ignore_unused.cpp
    :language: cpp

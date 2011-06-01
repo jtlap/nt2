@@ -28,6 +28,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/divides.hpp>
-#include NT2_OPERATOR_INCLUDE(divides.hpp)
+#include <nt2/toolbox/operator/function/simd/all/divides.hpp>
 
 #endif

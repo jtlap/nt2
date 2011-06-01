@@ -107,13 +107,13 @@ namespace nt2 { namespace ext
       }
       // If x > 2 reduce to the interval [1,2]:
       A0 cond;
-      while(any(cond = gt(x, Two<A0>())))
+      while(nt2::any(cond = gt(x, Two<A0>())))
       {
         x      -= b_and(One<A0>(), cond);
         result += b_and(rec(x), cond);
       }
       // If x < 1 use shift to > 1:
-      if(any(cond = lt(x, One<A0>())))
+      if(nt2::any(cond = lt(x, One<A0>())))
       {
         result = sel(cond, -rec(x), result);
         x      += b_and(One<A0>(), cond);

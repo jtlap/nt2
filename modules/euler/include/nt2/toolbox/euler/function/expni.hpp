@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/expni.hpp>
-#include NT2_EULER_INCLUDE(expni.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/expni.hpp> 
 
  
 #endif

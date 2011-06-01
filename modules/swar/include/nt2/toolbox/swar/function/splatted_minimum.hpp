@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/splatted_minimum.hpp>
-#include NT2_SWAR_INCLUDE(splatted_minimum.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/splatted_minimum.hpp> 
 
  
 #endif

@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/is_greater_equal.hpp>
-#include NT2_OPERATOR_INCLUDE(is_greater_equal.hpp)
+#include <nt2/toolbox/operator/function/simd/all/is_greater_equal.hpp>
 
 #endif

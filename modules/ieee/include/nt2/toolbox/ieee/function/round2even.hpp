@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/round2even.hpp>
-#include NT2_IEEE_INCLUDE(round2even.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/round2even.hpp> 
 
  
 #endif

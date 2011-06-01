@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/plus.hpp>
-#include NT2_OPERATOR_INCLUDE(plus.hpp)
+#include <nt2/toolbox/operator/function/simd/all/plus.hpp>
 
 #endif

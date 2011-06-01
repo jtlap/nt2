@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/firstbitunset.hpp>
-#include NT2_BITWISE_INCLUDE(firstbitunset.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/firstbitunset.hpp> 
 
  
 #endif

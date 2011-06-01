@@ -20,7 +20,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
  
 #include <nt2/toolbox/standard/function/scalar/floor.hpp>
-// #include NT2_STANDARD_INCLUDE(floor.hpp) 
+// #include <nt2/toolbox/standard/function/simd/all/floor.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/exponential/function/scalar/cbrt.hpp>
-#include NT2_EXPONENTIAL_INCLUDE(cbrt.hpp) 
+#include <nt2/toolbox/exponential/function/simd/all/cbrt.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/popcnt.hpp>
-#include NT2_BITWISE_INCLUDE(popcnt.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/popcnt.hpp> 
 
  
 #endif

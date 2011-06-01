@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/zeta.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(zeta.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/zeta.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/acos.hpp>
-// #include NT2_FDLIBM_INCLUDE(acos.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/acos.hpp> 
 
  
 #endif

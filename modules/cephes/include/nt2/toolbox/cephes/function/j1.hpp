@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/j1.hpp>
-// #include NT2_CEPHES_INCLUDE(j1.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/j1.hpp> 
 
  
 #endif

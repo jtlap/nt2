@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/tanh.hpp>
-// #include NT2_FDLIBM_INCLUDE(tanh.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/tanh.hpp> 
 
  
 #endif

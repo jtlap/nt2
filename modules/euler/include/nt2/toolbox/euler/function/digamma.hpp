@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/digamma.hpp>
-#include NT2_EULER_INCLUDE(digamma.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/digamma.hpp> 
 
  
 #endif

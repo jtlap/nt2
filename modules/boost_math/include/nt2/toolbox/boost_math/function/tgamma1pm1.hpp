@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/tgamma1pm1.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(tgamma1pm1.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/tgamma1pm1.hpp> 
 
  
 #endif

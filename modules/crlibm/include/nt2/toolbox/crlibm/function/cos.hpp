@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/cos.hpp>
-// #include NT2_CRLIBM_INCLUDE(cos.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/cos.hpp> 
 
  
 #endif

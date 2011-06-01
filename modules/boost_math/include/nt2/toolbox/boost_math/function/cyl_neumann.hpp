@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/cyl_neumann.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(cyl_neumann.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/cyl_neumann.hpp> 
 
  
 #endif

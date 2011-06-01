@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/cosh.hpp>
-// #include NT2_LIBC_INCLUDE(cosh.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/cosh.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/ldiv.hpp>
-#include NT2_ARITHMETIC_INCLUDE(ldiv.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/ldiv.hpp> 
 
  
 #endif

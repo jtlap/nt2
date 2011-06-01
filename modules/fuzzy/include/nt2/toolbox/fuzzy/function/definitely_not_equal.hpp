@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/fuzzy/function/scalar/definitely_not_equal.hpp>
-#include NT2_FUZZY_INCLUDE(definitely_not_equal.hpp) 
+#include <nt2/toolbox/fuzzy/function/simd/all/definitely_not_equal.hpp> 
 
  
 #endif

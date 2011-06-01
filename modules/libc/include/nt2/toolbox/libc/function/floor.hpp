@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/floor.hpp>
-// #include NT2_LIBC_INCLUDE(floor.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/floor.hpp> 
 
  
 #endif

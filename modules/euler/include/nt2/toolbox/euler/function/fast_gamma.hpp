@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/euler/function/scalar/fast_gamma.hpp>
-#include NT2_EULER_INCLUDE(fast_gamma.hpp) 
+#include <nt2/toolbox/euler/function/simd/all/fast_gamma.hpp> 
 
  
 #endif

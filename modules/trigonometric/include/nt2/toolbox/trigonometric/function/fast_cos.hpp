@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/fast_cos.hpp>
-#include NT2_TRIGONOMETRIC_INCLUDE(fast_cos.hpp) 
+#include <nt2/toolbox/trigonometric/function/simd/all/fast_cos.hpp> 
 
  
 #endif

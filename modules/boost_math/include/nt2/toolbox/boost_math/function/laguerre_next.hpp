@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/laguerre_next.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(laguerre_next.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/laguerre_next.hpp> 
 
  
 #endif

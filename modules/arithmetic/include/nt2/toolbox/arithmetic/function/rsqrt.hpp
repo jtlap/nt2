@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/rsqrt.hpp>
-#include NT2_ARITHMETIC_INCLUDE(rsqrt.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/rsqrt.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/majority.hpp>
-#include NT2_PREDICATES_INCLUDE(majority.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/majority.hpp> 
 
  
 #endif

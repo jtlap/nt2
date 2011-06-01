@@ -64,5 +64,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/make_integer.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/make_integer.cpp
    :language: cpp

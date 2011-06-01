@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/unary_minus.hpp>
-#include NT2_OPERATOR_INCLUDE(unary_minus.hpp)
+#include <nt2/toolbox/operator/function/simd/all/unary_minus.hpp>
 
 #endif

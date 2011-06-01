@@ -26,6 +26,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/modulo.hpp>
-#include NT2_OPERATOR_INCLUDE(modulo.hpp)
+#include <nt2/toolbox/operator/function/simd/all/modulo.hpp>
 
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/log10.hpp>
-// #include NT2_FDLIBM_INCLUDE(log10.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/log10.hpp> 
 
  
 #endif

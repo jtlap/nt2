@@ -27,6 +27,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/bitwise_xor.hpp>
-#include NT2_OPERATOR_INCLUDE(bitwise_xor.hpp)
+#include <nt2/toolbox/operator/function/simd/all/bitwise_xor.hpp>
 
 #endif

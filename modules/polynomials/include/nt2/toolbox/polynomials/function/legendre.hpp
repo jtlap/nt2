@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/polynomials/function/scalar/legendre.hpp>
-#include NT2_POLYNOMIALS_INCLUDE(legendre.hpp) 
+#include <nt2/toolbox/polynomials/function/simd/all/legendre.hpp> 
 
  
 #endif

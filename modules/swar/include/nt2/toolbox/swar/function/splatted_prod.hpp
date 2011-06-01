@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/splatted_prod.hpp>
-#include NT2_SWAR_INCLUDE(splatted_prod.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/splatted_prod.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/exponential/function/scalar/expx2.hpp>
-#include NT2_EXPONENTIAL_INCLUDE(expx2.hpp) 
+#include <nt2/toolbox/exponential/function/simd/all/expx2.hpp> 
 
  
 #endif

@@ -42,6 +42,6 @@ namespace nt2
 }
 
 #include <nt2/toolbox/operator/function/scalar/make.hpp>
-#include NT2_OPERATOR_INCLUDE(make.hpp)
+#include <nt2/toolbox/operator/function/simd/all/make.hpp>
 
 #endif

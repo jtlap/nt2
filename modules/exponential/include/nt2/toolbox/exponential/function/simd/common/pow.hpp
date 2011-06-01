@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
 
         r_type w = x;
         n = shri(n,1);
-        while( any(n) )
+        while( nt2::any(n) )
           {
             w =sqr( w);
             n_oddf = tofloat(-is_odd(n));

@@ -21,6 +21,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/fast_toint.hpp>
-#include NT2_ARITHMETIC_INCLUDE(fast_toint.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/fast_toint.hpp> 
 
 #endif

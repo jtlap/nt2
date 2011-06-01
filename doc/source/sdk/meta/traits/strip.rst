@@ -9,7 +9,7 @@ strip
 
 Description
 ^^^^^^^^^^^
-Removes all ``const`` and reference qualifier from any given types.
+Removes all ``const`` and reference qualifiers from any given types.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -59,5 +59,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/strip.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/strip.cpp
    :language: cpp

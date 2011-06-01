@@ -10,6 +10,7 @@
 #define NT2_SDK_DSL_LITTERAL_HPP_INCLUDED
 
 #include <nt2/sdk/dsl/category.hpp>
+#include <nt2/sdk/constant/category.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,8 +46,6 @@ NT2_REGISTER_DISPATCH_TPL (  tag::terminal_,tag::cpu_
 
 namespace nt2 { namespace ext
 {
-
-
   template<class Dummy>
   struct call<tag::terminal_( tag::arithmetic_
                             , tag::target_< tag::unspecified_ >
@@ -57,10 +56,9 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
 
     template<class This, class Value, class State, class Data>
-    struct result<This(Value,State,Data)>
-    {
-      typedef typename meta::strip<State>::type::type type;
-    };
+    struct  result<This(Value,State,Data)>
+          : meta::strip<State>::type
+    {};
 
     template<class Value, class State, class Data> inline
     typename result<call(Value,State,Data)>::type

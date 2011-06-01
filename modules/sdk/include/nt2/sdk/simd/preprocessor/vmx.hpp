@@ -10,7 +10,6 @@
 #define NT2_SDK_SIMD_PREPROCESSOR_VMX_HPP_INCLUDED
 
 #if defined(NT2_SIMD_ALTIVEC)
-  #define NT2_SIMD_INCLUDE_BASE() nt2/sdk/simd/details/impl/vmx/altivec/
   #define NT2_SIMD_RELATIVE_INCLUDE_BASE(B,F) BOOST_PP_STRINGIZE(B()simd/vmx/altivec/F) 
 #endif
 

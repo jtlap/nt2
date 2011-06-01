@@ -9,7 +9,8 @@ is_signed
 
 Description
 ^^^^^^^^^^^
-Returns true if the primitive of the input type is of hierarchy :ref:`tag_signed_` and false otherwise.
+Returns (meta) true if the primitive of the input type is of hierarchy :ref:`tag_signed_` and 
+(meta) false otherwise.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -55,5 +56,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/is_signed.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/is_signed.cpp
    :language: cpp

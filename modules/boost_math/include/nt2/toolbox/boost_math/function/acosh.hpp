@@ -19,7 +19,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/acosh.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(acosh.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/acosh.hpp> 
 
  
 #endif

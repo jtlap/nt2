@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/pow.hpp>
-// #include NT2_LIBC_INCLUDE(pow.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/pow.hpp> 
 
  
 #endif

@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/combinatorial/function/scalar/gcd.hpp>
-#include NT2_COMBINATORIAL_INCLUDE(gcd.hpp) 
+#include <nt2/toolbox/combinatorial/function/simd/all/gcd.hpp> 
 
  
 #endif

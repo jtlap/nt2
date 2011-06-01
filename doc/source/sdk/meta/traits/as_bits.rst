@@ -67,5 +67,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/as_bits.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/as_bits.cpp
    :language: cpp

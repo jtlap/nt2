@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/fdtri.hpp>
-// #include NT2_CEPHES_INCLUDE(fdtri.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/fdtri.hpp> 
 
  
 #endif
