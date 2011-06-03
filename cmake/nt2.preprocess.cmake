@@ -7,27 +7,29 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.info)
-
 macro(nt2_preprocess target)
   find_file(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)
-  if(NOT WAVE_EXECUTABLE MATCHES "NOTFOUND$")
+  if(NOT WAVE_EXECUTABLE MATCHES "NOTFOUND$" AND (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX))
     get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
   
-    if(NT2_PROCESSOR STREQUAL x86)
-      set(INCLUDE_ARCH i686)
-    else()
-      set(INCLUDE_ARCH ${NT2_PROCESSOR})
-    endif()
-    set(INCLUDE_DIRECTORIES -S/usr/lib/gcc/${INCLUDE_ARCH}-linux-gnu/4.5/include
-                            -S/usr/include/c++/4.5
-                            -S/usr/include/c++/4.5/${INCLUDE_ARCH}-linux-gnu
-                            -S/usr/include
-       )
-       
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/tmpfile "")
+    execute_process(COMMAND ${CMAKE_C_COMPILER} -v -x c++ ${CMAKE_CURRENT_BINARY_DIR}/tmpfile -fsyntax-only
+                    ERROR_VARIABLE COMPILER_VERSION_INFO
+                   )
+    file(REMOVE tmpfile)
+                    
+    string(REGEX REPLACE "^.*#include <...> search starts here:\n (.*)\nEnd of search list\\..*$" "\\1" INCLUDE_SYSTEM_DIRECTORIES ${COMPILER_VERSION_INFO} )
+    string(REPLACE "\n " ";" INCLUDE_SYSTEM_DIRECTORIES ${INCLUDE_SYSTEM_DIRECTORIES} )
+    
+    foreach(INCLUDE ${INCLUDE_SYSTEM_DIRECTORIES})
+      list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
+    endforeach()   
     foreach(INCLUDE ${INCLUDES})
       list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
     endforeach()
+    
+    message(STATUS "INCLUDE_DIRECTORIES = ${INCLUDE_DIRECTORIES}")
+    
     set(prev 0)
     foreach(src ${ARGN})
       math(EXPR n "${prev} + 1")
