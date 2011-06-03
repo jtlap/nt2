@@ -37,7 +37,13 @@
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
+#include <boost/preprocessor/seq/size.hpp>
 #endif
 
 namespace nt2
@@ -101,6 +107,29 @@ namespace nt2
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor.hpp")
 #endif
 
+    #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
+    BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) & BOOST_PP_CAT(a,i)
+               
+    #define c0
+    #define c1 const
+    #define bits(z, n, _) ((0)(1))
+    #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
+    
+    #define call_operator(r, constness)                                       \
+    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> inline          \
+    typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n_size(constness),A))\
+                              , EvalContext>::type                            \
+    operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \
+    {                                                                         \
+      typename                                                                \
+      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n_size(constness),A))      \
+                         ,EvalContext                                         \
+                         >::type                                              \
+      callee;                                                                 \
+      return callee( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );             \
+    }                                                                         \
+    /**/
+
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
@@ -112,20 +141,21 @@ namespace nt2
       meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
     };                                                                        \
                                                                               \
-    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                          \
-    typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                \
-                              , EvalContext>::type                            \
-    operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a)  ) const            \
-    {                                                                         \
-      typename                                                                \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
-      callee;                                                                 \
-      return callee( BOOST_PP_ENUM_PARAMS(n,a) );                             \
-    }                                                                         \
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                          \
+        z,                                                                    \
+        call_operator                                                         \
+      , BOOST_PP_REPEAT(n, bits, ~)                                           \
+    )                                                                         \
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)    
     #undef M0
+    #undef bits
+    #undef n_size
+    #undef c1
+    #undef c0
+    #undef param
+    #undef call_operator
     
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
