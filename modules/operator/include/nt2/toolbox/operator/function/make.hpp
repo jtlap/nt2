@@ -18,26 +18,56 @@ namespace nt2
   {
     struct make_ {};
   }
+  
+  #define NT2_PP_REPEAT_POWER_OF_2(m, data)                                                \
+  m( 1,  1, data)                                                                          \
+  m( 2,  2, data)                                                                          \
+  m( 4,  4, data)                                                                          \
+  m( 8,  8, data)                                                                          \
+  m(16, 16, data)                                                                          \
+  m(32, 32, data)                                                                          \
+  m(64, 64, data)
     
-    #define M0(n)                                                                          \
-    template<class T, BOOST_PP_ENUM_PARAMS(n, class A)> inline                             \
-    typename meta::enable_call<tag::make_(BOOST_PP_ENUM_PARAMS(n, A), meta::as_<T>)>::type \
-    make(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                                      \
+  /* We specialize functor directly due to arity limitations, and we only dispatch on the target.
+   * We also avoid having to dispatch return type deduction, and we cast all arguments to the scalar
+   * matching the target. */
+  template<class Site>
+  struct functor<tag::make_, Site>
+  {
+    template<class Sig>
+    struct result;
+    
+    #define M1(z,n,t) static_cast<typename meta::scalar_of<typename Target::type>::type>(a##n)
+    
+    #define M0(z,n,t)                                                                      \
+    template<class This, BOOST_PP_ENUM_PARAMS(n, class A), class Target>                   \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n, A), Target)>                                \
+      : meta::strip<Target>::type                                                          \
     {                                                                                      \
-      typename make_functor<tag::make_, T>::type callee;                                   \
-      return callee(BOOST_PP_ENUM_PARAMS(n, a), meta::as_<T>());                           \
+    };                                                                                     \
+                                                                                           \
+    template<BOOST_PP_ENUM_PARAMS(n, class A), class Target>                               \
+    typename Target::type                                                                  \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a), Target const&) const           \
+    {                                                                                      \
+      typename meta::dispatch_call<tag::make_(Target), Site>::type callee;                 \
+      return callee(BOOST_PP_ENUM(n, M1, ~));                                              \
     }
     
-  M0( 1)
-  M0( 2)
-  M0( 4)
-  M0( 8)
-  M0(16)
-  M0(32)
-#if NT2_MAX_ARITY >= 64
-  M0(64)
-#endif
+    NT2_PP_REPEAT_POWER_OF_2(M0, ~)
+    #undef M0
+    #undef M1
+  };
+    
+  #define M0(z,n,t)                                                                        \
+  template<class T, BOOST_PP_ENUM_PARAMS(n, class A)> inline                               \
+  T make(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                                      \
+  {                                                                                        \
+    typename make_functor<tag::make_, T>::type callee;                                     \
+    return callee(BOOST_PP_ENUM_PARAMS(n, a), meta::as_<T>());                             \
+  }
 
+  NT2_PP_REPEAT_POWER_OF_2(M0, ~)
   #undef M0
 }
 

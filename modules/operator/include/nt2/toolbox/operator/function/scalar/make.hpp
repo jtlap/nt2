@@ -18,14 +18,14 @@
 
 NT2_REGISTER_DISPATCH ( tag::make_
                       , tag::cpu_
-                      , (A0)(A1)
-                      , (fundamental_<A0>)(target_< fundamental_<A1> >)
+                      , (A0)
+                      , (target_< fundamental_<A0> >)
                       );
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::make_(tag::fundamental_,tag::target_<tag::fundamental_>)
+  struct  call< tag::make_(tag::target_<tag::fundamental_>)
               , tag::cpu_
               , Dummy
               >
@@ -33,15 +33,12 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
 
-    template<class This,class A0, class Target>
-    struct result<This(A0,Target)> : meta::strip<Target>::type {};
+    template<class This, class A0>
+    struct result<This(A0)> : meta::strip<A0> {};
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
-      ignore_unused(a1); 
-      result_type that = static_cast<result_type>(a0);
-      return that;
+      return a0;
     }
   };
 } }

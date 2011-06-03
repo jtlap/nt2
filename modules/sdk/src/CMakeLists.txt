@@ -10,16 +10,10 @@
 include(NT2Module)
 nt2_module_source_setup(sdk)
 
-nt2_module_configure_simd( nt2/sdk/simd/details/impl --no-simd-dir --no-default-baseline
-                                                     -Bcommon -Bsse/sse2
-                         )
-
 file( GLOB_RECURSE source_sdk_files
       ${NT2_SDK_ROOT}/src/*
     )
-    
 SET(SOURCES ${source_sdk_files} ${NT2_CONFIG_ROOT}/src/version.cpp)
-
 nt2_module_add_library(nt2 ${SOURCES})
 
 include(nt2.preprocess)

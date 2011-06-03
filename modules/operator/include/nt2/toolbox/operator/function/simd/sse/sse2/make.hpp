@@ -10,80 +10,76 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MAKE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// splat for SSE2 SIMD types
+// make for SSE2 SIMD types
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatches over splat_
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)(fundamental_<A0>)
-                        ((target_< simd_< double_<A1>, tag::sse_ > >))
+                      
+/////////////////////////////////////////////////////////////////////////////
+// Implementation for double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)
+                      , ((target_< simd_< double_<A0>, tag::sse_ > >))
                       )
                       
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)(fundamental_<A0>)
-                        ((target_< simd_< ints64_<A1>, tag::sse_ > >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        ((target_< simd_< float_<A1>, tag::sse_ > >))
-                      )
-                      
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        ((target_< simd_< ints32_<A1>, tag::sse_ > >))
-                      )
-                      
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        ((target_< simd_< ints16_<A1>, tag::sse_ > >))
-                      )
-                      
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        (fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)(fundamental_<A0>)
-                        ((target_< simd_< ints8_<A1>, tag::sse_ > >))
-                      )
-
-////////////////////////////////////////////////////////////////////////////////
-// Implements dispatches over splat_
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct  call< tag::make_ ( tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::double_,tag::sse_> >
+  struct call< tag::make_ ( tag::target_<tag::simd_<tag::double_,tag::sse_> >
                            )
               , tag::cpu_
               , Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A0,A1)> : meta::strip<A1>::type {};
-
-    NT2_FUNCTOR_CALL(3)
+    template<class A0>
+    simd::native<A0, tag::sse_> operator()(A0 const& a0, A0 const& a1) const
     {
-      ignore_unused(a2);
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that = { _mm_setr_pd(a0, a1)  };
+      simd::native<A0, tag::sse_> that = { _mm_setr_pd(a0, a1) };
       return that;
     }
   };
-  
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation for float
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)
+                      , ((target_< simd_< float_<A0>, tag::sse_ > >))
+                      )
+                      
+namespace nt2 { namespace ext
+{
   template<class Dummy>
-  struct  call< tag::make_ ( tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::ints64_,tag::sse_> >
+  struct call< tag::make_ ( tag::target_<tag::simd_<tag::float_,tag::sse_> >
+                           )
+              , tag::cpu_
+              , Dummy
+              >
+        : callable
+  {
+    template<class A0>
+    simd::native<A0, tag::sse_> operator()(BOOST_PP_ENUM_PARAMS(4, A0 const& a)) const
+    {
+      simd::native<A0, tag::sse_> that = { _mm_setr_ps(a0, a1, a2, a3) };
+      return that;
+    }
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation for 64-bit integers
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)
+                      , ((target_< simd_< ints64_<A0>, tag::sse_ > >))
+                      )
+                      
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call< tag::make_ ( tag::target_<tag::simd_<tag::ints64_,tag::sse_> >
                            )
               , tag::cpu_
               , Dummy
@@ -91,14 +87,16 @@ namespace nt2 { namespace ext
         : callable
   {
     template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A0,A1)> : meta::strip<A1>::type {};
-
-    NT2_FUNCTOR_CALL(3)
+    template<class This, class A0>
+    struct result<This(A0,A0)>
     {
-      ignore_unused(a2);
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that = {
+      typedef simd::native<typename meta::strip<A0>::type, tag::sse_> type;
+    };
+
+    template<class A0>
+    simd::native<A0, tag::sse_> operator()(A0 const& a0, A0 const& a1) const
+    {
+      simd::native<A0, tag::sse_> that = {
           _mm_setr_epi32(
                             (uint64_t(a0) & 0x00000000FFFFFFFFULL)
                           , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
@@ -109,102 +107,94 @@ namespace nt2 { namespace ext
       return that;
     }
   };
-
-  template<class Dummy>
-  struct  call< tag::make_ ( tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::float_,tag::sse_> >
-                           )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
-  {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A0,A0,A0,A1)> : meta::strip<A1>::type {};
-
-    NT2_FUNCTOR_CALL(5)
-    {
-      ignore_unused(a4);
-      typedef typename NT2_RETURN_TYPE(5)::type type;
-      type that = { _mm_setr_ps(a0, a1, a2, a3)  };
-      return that;
-    }
-  };
+} }
   
+/////////////////////////////////////////////////////////////////////////////
+// Implementation for 32-bit integers
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)
+                      , ((target_< simd_< ints32_<A0>, tag::sse_ > >))
+                      )
+  
+namespace nt2 { namespace ext
+{
  template<class Dummy>
-  struct  call< tag::make_ ( tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::ints32_,tag::sse_> >
+  struct call< tag::make_ ( tag::target_<tag::simd_<tag::ints32_,tag::sse_> >
                            )
               , tag::cpu_
               , Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A0,A0,A0,A1)> : meta::strip<A1>::type {};
-
-    NT2_FUNCTOR_CALL(5)
+    template<class A0>
+    simd::native<A0, tag::sse_> operator()(BOOST_PP_ENUM_PARAMS(4, A0 const& a)) const
     {
-      ignore_unused(a4);
-      typedef typename NT2_RETURN_TYPE(5)::type type;
-      type that = { _mm_setr_epi32(a0, a1, a2, a3)  };
+      simd::native<A0, tag::sse_> that = { _mm_setr_epi32(a0, a1, a2, a3) };
       return that;
     }
   };
+} }
   
+/////////////////////////////////////////////////////////////////////////////
+// Implementation for 16-bit integers
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)
+                      , ((target_< simd_< ints16_<A0>, tag::sse_ > >))
+                      )
+                      
+namespace nt2 { namespace ext
+{
   template<class Dummy>
-  struct  call< tag::make_ ( tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::ints16_,tag::sse_> >
+  struct call< tag::make_ ( tag::target_<tag::simd_<tag::ints16_,tag::sse_> >
                            )
               , tag::cpu_
               , Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A0,A0,A0,A0,A0,A0,A0,A1)> : meta::strip<A1>::type {};
-
-    NT2_FUNCTOR_CALL(9)
+    template<class A0>
+    simd::native<A0, tag::sse_> operator()(BOOST_PP_ENUM_PARAMS(8, A0 const& a)) const
     {
-      ignore_unused(a8);
-      typedef typename NT2_RETURN_TYPE(9)::type type;
-      type that = { _mm_setr_epi16(a0, a1, a2, a3, a4, a5, a6, a7)  };
+      simd::native<A0, tag::sse_> that = {
+          _mm_setr_epi16( a0, a1, a2, a3
+                        , a4, a5, a6, a7
+                        )
+      };
       return that;
     }
   };
+} }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation for 8-bit integers
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)
+                      , ((target_< simd_< ints8_<A0>, tag::sse_ > >))
+                      )
+
+namespace nt2 { namespace ext
+{
   template<class Dummy>
-  struct  call< tag::make_ ( tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::fundamental_, tag::fundamental_, tag::fundamental_, tag::fundamental_
-                           , tag::target_<tag::simd_<tag::ints8_,tag::sse_> >
+  struct call< tag::make_ ( tag::target_<tag::simd_<tag::ints8_,tag::sse_> >
                            )
               , tag::cpu_
               , Dummy
               >
         : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A0,A1)> : meta::strip<A1>::type {};
-
-    NT2_FUNCTOR_CALL(17)
+    template<class A0>
+    simd::native<A0, tag::sse_> operator()(BOOST_PP_ENUM_PARAMS(16, A0 const& a)) const
     {
-      ignore_unused(a16);
-      typedef typename NT2_RETURN_TYPE(17)::type type;
-      type that = { _mm_setr_epi8( a0, a1,  a2,  a3,  a4,  a5,  a6,  a7
-                                 , a8, a9, a10, a11, a12, a13, a14, a15
-                                 )
-                  };
+      simd::native<A0, tag::sse_> that = {
+          _mm_setr_epi8(  a0,  a1,  a2,  a3
+                       ,  a4,  a5,  a6,  a7
+                       ,  a8,  a9, a10, a11
+                       , a12, a13, a14, a15
+                       )
+      };
       return that;
     }
   };
-
 } }
 
 #endif

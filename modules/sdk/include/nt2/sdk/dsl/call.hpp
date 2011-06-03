@@ -91,7 +91,7 @@ namespace nt2 { namespace details
 
 } }
 
-#if 0// !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/dsl/preprocessed/call.hpp>
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
