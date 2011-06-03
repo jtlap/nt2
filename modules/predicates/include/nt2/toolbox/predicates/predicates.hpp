@@ -10,10 +10,6 @@
 #define NT2_TOOLBOX_PREDICATES_PREDICATES_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/predicates/include/is_nle.hpp>
-#include <nt2/toolbox/predicates/include/is_nge.hpp>
-#include <nt2/toolbox/predicates/include/is_nlt.hpp>
-#include <nt2/toolbox/predicates/include/is_ngt.hpp>
 #include <nt2/toolbox/predicates/include/is_not_infinite.hpp>
 #include <nt2/toolbox/predicates/include/majority.hpp>
 #include <nt2/toolbox/predicates/include/sb2b.hpp>

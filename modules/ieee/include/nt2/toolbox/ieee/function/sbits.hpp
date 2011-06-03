@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/sbits.hpp>
-#include NT2_IEEE_INCLUDE(sbits.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/sbits.hpp> 
 
  
 #endif

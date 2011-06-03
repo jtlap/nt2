@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/nextafter.hpp>
-#include NT2_IEEE_INCLUDE(nextafter.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/nextafter.hpp> 
 
  
 #endif

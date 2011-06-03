@@ -7,6 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 include(NT2Module)
 nt2_module_main(matlab)

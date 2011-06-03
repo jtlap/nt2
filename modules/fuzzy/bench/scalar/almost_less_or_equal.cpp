@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/fuzzy/include/almost_less_or_equal.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,52 @@ using nt2::tag::almost_less_or_equal_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,T(0),T(10))))
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,T(0),T(10))))
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n7 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n8 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n9 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
+}
+namespace n10 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(almost_less_or_equal_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
 }
 
 #undef RS

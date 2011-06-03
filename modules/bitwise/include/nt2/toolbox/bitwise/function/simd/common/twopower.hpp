@@ -9,11 +9,10 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/properties.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shli.hpp>
-#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 
@@ -23,13 +22,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::twopower_, tag::cpu_,
                            (A0)(X),
-                           ((simd_<arithmetic_<A0>,X>))
+                           ((simd_<integer_<A0>,X>))
                           );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::twopower_(tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::twopower_(tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

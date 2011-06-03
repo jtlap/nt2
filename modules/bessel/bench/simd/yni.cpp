@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bessel/include/yni.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -31,14 +32,14 @@ namespace n1 {
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<iT,ext_t> viT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(yni_,(RS(iT,iT(1),iT(10)))(RS(vT,T(0),T(10))))
+  NT2_TIMING(yni_,(RS(iT,1,10))(RS(vT,T(0),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<iT,ext_t> viT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(yni_,(RS(iT,iT(1),iT(10)))(RS(vT,T(0),T(10))))
+  NT2_TIMING(yni_,(RS(iT,1,10))(RS(vT,T(0),T(10))))
 }
 
 #undef RS

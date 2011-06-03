@@ -12,8 +12,8 @@
 // timing Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/ieee/include/bitfloating.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -32,6 +32,24 @@ namespace n1 {
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitfloating_,(RS(vT,0,100)))
+}
+namespace n2 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(bitfloating_,(RS(vT,0,100)))
+}
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(bitfloating_,(RS(vT,-100,100)))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(bitfloating_,(RS(vT,-100,100)))
 }
 
 #undef RS

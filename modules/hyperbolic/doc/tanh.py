@@ -33,6 +33,8 @@
                  'nt2::Minf<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::One<T>()'  : {'result' : 'T(7.615941559557649e-01)','ulp_thresh' : '0.5',},   
+                 'nt2::Mone<T>()'  : {'result' : 'T(-7.615941559557649e-01)','ulp_thresh' : '0.5',},   
                 },
              'signed_int_   ' : {
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},

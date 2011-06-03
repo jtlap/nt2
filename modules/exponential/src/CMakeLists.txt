@@ -8,6 +8,28 @@
 ################################################################################
 
 nt2_module_source_setup(exponential)
+nt2_module_configure_toolbox(exponential 1)
 
-include(nt2.exponential.math)
-nt2_module_configure_simd_toolbox(exponential)
+nt2_module_configure_include(nt2/toolbox/exponential/function/scalar/impl constants.hpp
+                             -o nt2/toolbox/exponential/include
+                            )
+
+################################################################################
+# Find out which C99/TR1 math functions are available
+################################################################################
+
+include(CheckFunctionExists)
+
+if(UNIX)
+  set(CMAKE_REQUIRED_LIBRARIES m)
+endif()
+
+check_function_exists(cbrt NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT)
+check_function_exists(cbrtf NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF)
+
+################################################################################
+# Generate math.hpp
+################################################################################
+configure_file( math.hpp.cmake
+                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/exponential/details/math.hpp
+              )

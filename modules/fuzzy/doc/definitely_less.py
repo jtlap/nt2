@@ -11,7 +11,6 @@
          'special' : ['fuzzy'],
          'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
-         'simd_types' : ['real_'],         
         },
      'info' : 'manually modified',
      'unit' : {
@@ -23,12 +22,17 @@
              'stamp' : 'modified by jt the 04/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['iT(-10)', 'iT(10)']],
             },
          'specific_values' : {
              'default' : {
-                 '0,0,1' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
-                 '0,1,1' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(0),iT(1)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(1),iT(1)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(2),iT(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                                },
+             'real_' : {
+                 'T(0),T(0),iT(1)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(1),iT(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

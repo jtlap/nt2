@@ -12,6 +12,7 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/adds.hpp>
 #include <nt2/include/functions/any.hpp>
+#ifdef NT2_SIMD_DETECTED
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
@@ -92,7 +93,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A0 res =  adds(a0, -a1); 
-      if (any(eq(a1, Valmin<A0>())))
+      if (nt2::any(eq(a1, Valmin<A0>())))
 	return sel(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
       else
 	return res; 
@@ -100,4 +101,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif

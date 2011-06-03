@@ -6,18 +6,38 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-//#include <nt2/toolbox/predicates/include/is_not_less_equal.hpp>
+#define NT2_BENCH_MODULE "nt2 predicates toolbox - is_not_less_equal/simd Mode"
+
+//////////////////////////////////////////////////////////////////////////////
+// timing Test behavior of predicates components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/predicates/include/is_not_less_equal.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
+#include <cmath>
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// Runtime benchmark for functor<is_not_less_equal_> from predicates
+// simd runtime benchmark for functor<is_not_less_equal_> from predicates
 //////////////////////////////////////////////////////////////////////////////
-//using nt2::tag::is_not_less_equal_;
+using nt2::tag::is_not_less_equal_;
 
 //////////////////////////////////////////////////////////////////////////////
-// bench/simd
-// E.G:
-// NT2_TIMING( is_not_less_equal_ , ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10))
-//                                  ((nt2::simd::native<float,nt2::tag::sse_>, -10, 10)) ) 
-//           )
+// range macro
 //////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, (V1) ,(V2))
+
+namespace n1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(is_not_less_equal_,(RS(vT,T(-10000),T(10000)))(RS(vT,T(-10000),T(10000))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(is_not_less_equal_,(RS(vT,T(-10000),T(10000)))(RS(vT,T(-10000),T(10000))))
+}
+
+#undef RS

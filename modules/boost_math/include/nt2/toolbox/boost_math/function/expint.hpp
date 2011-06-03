@@ -23,7 +23,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/expint.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(expint.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/expint.hpp> 
 
  
 #endif

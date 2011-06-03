@@ -9,11 +9,12 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_ACOT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_ACOT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/atan.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <iostream>
 
 
 
@@ -58,11 +59,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
+    struct result<This(A0)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      return (Pio_2<A0>()-nt2::atan(a0))+double_constant<A0,0x3c91a62633145c07ll >();
+      return b_or((Pio_2<A0>()-nt2::atan(nt2::abs(a0)))+double_constant<A0,0x3c91a62633145c07ll >(), bitofsign(a0));
     }
   };
 } }
@@ -83,11 +84,11 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
+    struct result<This(A0)> :  meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
-      return (Pio_2<A0>()-nt2::atan(a0));
+      return b_or((Pio_2<A0>()-nt2::atan(nt2::abs(a0))), bitofsign(a0));;
     }
   };
 } }

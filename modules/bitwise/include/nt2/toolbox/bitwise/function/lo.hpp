@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/lo.hpp>
-#include NT2_BITWISE_INCLUDE(lo.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/lo.hpp> 
 
  
 #endif

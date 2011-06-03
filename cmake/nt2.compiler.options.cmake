@@ -17,22 +17,11 @@ nt2_setup_variant()
 # Check for special options
 ################################################################################
 INCLUDE(options/nt2.extra.warnings)
+STRING(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_U)
+SET(CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE_U} "${CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE_U}} ${NT2_FLAGS}")
+SET(CMAKE_C_FLAGS_${CMAKE_BUILD_TYPE_U} "${CMAKE_C_FLAGS_${CMAKE_BUILD_TYPE_U}} ${NT2_FLAGS}")
 
 ################################################################################
 # Log current choice
 ################################################################################
-IF( ${CMAKE_BUILD_TYPE} STREQUAL Release )
-MESSAGE( STATUS "[nt2] build type: Release (${CMAKE_CXX_FLAGS_RELEASE})" )
-ENDIF()
-
-IF( ${CMAKE_BUILD_TYPE} STREQUAL Debug )
-MESSAGE( STATUS "[nt2] build type: Debug (${CMAKE_CXX_FLAGS_DEBUG})" )
-ENDIF()
-
-IF( ${CMAKE_BUILD_TYPE} STREQUAL RelWithDebInfo )
-MESSAGE( STATUS "[nt2] build type: RelWithDebInfo (${CMAKE_CXX_FLAGS_RELWITHDEBINFO})" )
-ENDIF()
-
-IF( ${CMAKE_BUILD_TYPE} STREQUAL MinSizeRel )
-MESSAGE( STATUS "[nt2] build type: MinSizeRel (${CMAKE_CXX_FLAGS_MINSIZEREL})" )
-ENDIF()
+MESSAGE( STATUS "[nt2] build type: ${CMAKE_BUILD_TYPE} (${CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE_U}})" )

@@ -13,8 +13,8 @@
 #include <iostream>
 #include <algorithm>
 #include <nt2/include/timing.hpp>
-#include <nt2/sdk/memory/load.hpp>
-#include <nt2/sdk/memory/store.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/store.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -44,7 +44,7 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T3>::type t_in3;
 
   // output value
-  typedef typename std::tr1::result_of<Func(r_in0,r_in1,r_in2,r_in3)>::type out_t;
+  typedef typename nt2::meta::result_of<Func(r_in0,r_in1,r_in2,r_in3)>::type out_t;
   static out_t                                                        out;
 
   // Input samples
@@ -59,7 +59,7 @@ void timing_test( Func callee, size_t size
     in0[i] = roll<t_in0>(min0,max0);
     in1[i] = roll<t_in1>(min1,max1);
     in2[i] = roll<t_in2>(min2,max2);
-    in3[i] = roll<t_in2>(min3,max3);
+    in3[i] = roll<t_in3>(min3,max3);
   }
 
   std::cout << name << "("

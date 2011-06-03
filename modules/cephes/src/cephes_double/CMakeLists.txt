@@ -26,13 +26,14 @@ SET( SOURCES
     )
 
 # const.c does not define constants in a strict C way in UNK mode,
-# so we force IEEE754 little-endian on Windows to avoid problems.
-IF(WIN32)
+# so we force IEEE754 little-endian on x86 to avoid problems.
+IF(NT2_X86_PROCESSOR)
   SET(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DIBMPC")
 ENDIF()
 
 nt2_module_add_library(nt2_cephesd ${SOURCES})
 
-IF(WIN32)
+# long double is same as double except on non-windows x86
+IF(NOT NT2_X86_PROCESSOR OR NT2_PLATFORM_WIN32)
   nt2_module_add_library(nt2_cephesl ${SOURCES} long_double.c)
 ENDIF()

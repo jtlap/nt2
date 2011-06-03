@@ -1,71 +1,86 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
 #define NT2_SDK_ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Exception interface with std::exception and boost::exception
-////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/details/timestamp.hpp>
+/*!
+ * \file
+ * \brief Defines the \ref nt2::exception class
+ */
 
-////////////////////////////////////////////////////////////////////////////////
-// If exceptions are enabled, we use standard stream to build up the exception
-// diagnostic and Boost.Exception for the exception handling
-////////////////////////////////////////////////////////////////////////////////
 #include <iosfwd>
-#include <sstream>
 #include <boost/exception/all.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Define a new NT2 exception informations diagnostic holder
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+/*!
+ * \ingroup error
+ * Define a new NT2 exception information carrier. Information carriers are
+ * used to feed informations from the throwing site to the exception instance
+ * in a safe way.
+ *
+ * \param NAME Name of the diagnostic carrier
+ * \param TYPE Type of the information gathered by the carrier
+ */
+//==============================================================================
 #define NT2_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
 namespace nt2
 {
-  struct exception;
-  inline std::ostream& operator<<( std::ostream& os, exception const& e );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Exception base class
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
+  /*!
+   * \ingroup error
+   * exception is the base abstract class for all NT2 exceptions. It implements
+   * the classical STD compliant interface, is compatible with boost::exception
+   * and can be directly streamed for easy display.
+   */
+  //============================================================================
   struct exception : virtual boost::exception, virtual std::exception
   {
-    virtual const char* what() const throw()
-    {
-      std::ostringstream msg;
-      msg << *this;
-      return msg.str().c_str();
-    }
+    virtual ~exception() throw() {}
 
-    virtual void display(std::ostream& os) const throw() =0;
+    //==========================================================================
+    /*!
+     * Returns an informative human readable string containing information
+     * about the current exception throwing context. Such informations contains,
+     * but are not limited to filename, line, function adn time of the throw.
+     *
+     * \return A constant C-style string containing the information about the
+     * exception throwing context.
+     */
+    //==========================================================================
+    virtual const char* what() const throw();
+
+    //==========================================================================
+    /*!
+     * Stream exception information context to an output stream. This abstract
+     * member function has to be overloaded when defining a new exception
+     * sub-class.
+     *
+     * \param os an output stream to send the exception context to.
+     */
+    //==========================================================================
+    virtual void display(std::ostream& os) const throw() = 0;
   };
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Exception stream insertion operator
-  // Displays basic infos then jump into the virtual display method.
-  //////////////////////////////////////////////////////////////////////////////
-  inline std::ostream& operator<<( std::ostream& os, exception const& e )
-  {
-    os
-    << "****************************** NT2 ERROR *******************************\n"
-    << "Raised: " << sys::timestamp().c_str()                         << "\n"
-    << "File  : " << *boost::get_error_info<boost::throw_file>(e)     << "\n"
-    << "Line  : " << *boost::get_error_info<boost::throw_line>(e)     << "\n"
-    << "In    : " << *boost::get_error_info<boost::throw_function>(e) << "\n"
-    << "************************************************************************\n";
-    e.display(os);
-    os
-    << "************************************************************************\n";
-    return os;
-  }
+  //============================================================================
+  /*!
+   * \ingroup error
+   * Stream an exception information to an output stream.
+   *
+   * \param os an output stream to send the exception context to.
+   * \param e  exception instance to stream out.
+   *
+   * \return The updated output stream
+   */
+  //============================================================================
+  std::ostream& operator<<( std::ostream& os, exception const& e );
 }
 
 #endif

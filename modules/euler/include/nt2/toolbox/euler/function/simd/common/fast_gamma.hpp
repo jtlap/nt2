@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/negif.hpp>
@@ -133,18 +133,18 @@ namespace nt2 { namespace ext
       A0 x =  sel(test, Five<A0>()/Two<A0>(), xx);
       A0 z = One<A0>();
       A0 test1;
-      while( any(test1 = ge(x,Three<A0>())) )
+      while( nt2::any(test1 = ge(x,Three<A0>())) )
 	{
 	  x = seladd(test1, x, Mone<A0>());
 	  z = sel(   test1, z*x, z);
 	}
       A0 test2;
-      while( any(test2 = is_ltz(x)) )
+      while( nt2::any(test2 = is_ltz(x)) )
 	{
 	  z = sel(   test2, z/x, z);
 	  x = seladd(test2, x, One<A0>());
 	}
-      while( any(test1 =lt(x,Two<A0>())) )
+      while( nt2::any(test1 =lt(x,Two<A0>())) )
 	{
 	  z = sel(   test1, z/x, z);
 	  x = seladd(test1, x, One<A0>());

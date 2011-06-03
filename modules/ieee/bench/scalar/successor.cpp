@@ -12,8 +12,8 @@
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/ieee/include/successor.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -36,6 +36,96 @@ namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(successor_,(RS(T,T(-10),T(10))))
+}
+namespace n3 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100)))
+}
+namespace n4 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100)))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100)))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100)))
+}
+namespace n7 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100)))
+}
+namespace n8 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100)))
+}
+namespace n9 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100)))
+}
+namespace n10 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100)))
+}
+namespace n11 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,T(-10),T(10)))(RS(iT,iT(2),iT(2))))
+}
+namespace n12 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,T(-10),T(10)))(RS(iT,iT(2),iT(2))))
+}
+namespace n13 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n14 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n15 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n16 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,0,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n17 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n18 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n19 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100))(RS(iT,iT(2),iT(2))))
+}
+namespace n20 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(successor_,(RS(T,-100,100))(RS(iT,iT(2),iT(2))))
 }
 
 #undef RS

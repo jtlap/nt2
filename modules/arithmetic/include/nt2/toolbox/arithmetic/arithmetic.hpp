@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_ARITHMETIC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
+#include <nt2/toolbox/arithmetic/include/fast_toint.hpp>
 #include <nt2/toolbox/arithmetic/include/negs.hpp>
 #include <nt2/toolbox/arithmetic/include/divround.hpp>
 #include <nt2/toolbox/arithmetic/include/divfloor.hpp>

@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_FAST_TRIG_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_FAST_TRIG_BASE_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2
@@ -112,7 +112,7 @@ namespace nt2
 	static inline A0 cota(const  A0& a0)
 	{
 	  A0 x =  scale(a0); 
-	  if(not_in_range(a0)||!(a0)) return Nan<A0>(); else return rec(eval_t::base_tan_eval(x));
+	  if(not_in_range(a0)) return Nan<A0>(); else return rec(eval_t::base_tan_eval(x));
 	}
 
 

@@ -16,9 +16,9 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -38,14 +38,14 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
       {
-	typedef typename std::tr1::result_of<meta::floating(A0)>::type etype;
+	typedef typename meta::result_of<meta::floating(A0)>::type etype;
 	typedef boost::fusion::tuple<etype, etype>                   type;
       };
 
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
+      typedef typename meta::result_of<meta::floating(A0)>::type type;
       return ellipke(type(a0), Eps<type>()); 
     }
   };
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
+      typedef typename meta::result_of<meta::floating(A0)>::type type;
       return ellipke(type(a0), type(a1)); 
     }
   };

@@ -55,7 +55,7 @@ namespace nt2 { namespace meta
   {};
 
   template<class Expr>
-  struct  is_comaprison_expression
+  struct  is_comparison_expression
         : boost::proto::matches < Expr
                                 , comparison_operators
                                 >

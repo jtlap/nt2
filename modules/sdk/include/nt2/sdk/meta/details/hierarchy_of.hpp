@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_META_DETAILS_HIERARCHY_OF_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_HIERARCHY_OF_HPP_INCLUDED
 
@@ -17,9 +17,9 @@
 
 namespace nt2 { namespace details
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // implementation details for hierarchy_of on integers
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<class T,std::size_t Size, bool Signed> struct hierarchy_of_ints;
 
   template<class T>
@@ -34,9 +34,9 @@ namespace nt2 { namespace details
                                       >
   {};
 
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Overload for non integral native types
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<class Enable>
   struct hierarchy_of<void, Enable>    { typedef meta::void_<void>     type; };
   template<class Enable>
@@ -44,9 +44,9 @@ namespace nt2 { namespace details
   template<class Enable>
   struct hierarchy_of<double, Enable>  { typedef meta::double_<double> type; };
 
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Overload for types with a nt2_hierarchy_tag
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<class T>
   struct  hierarchy_of< T
                       , typename
@@ -56,9 +56,9 @@ namespace nt2 { namespace details
     typedef typename T::nt2_hierarchy_tag type;
   };
 
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // implementation details for hierarchy_of - overload for bool
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<>
   struct hierarchy_of_ints<bool,sizeof(bool)*CHAR_BIT,false>
   {
@@ -66,9 +66,9 @@ namespace nt2 { namespace details
   };
 
 
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // implementation details for hierarchy_of - overload for integral sized type
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   template<class T>
   struct hierarchy_of_ints<T,8,true>   { typedef meta::int8_<T>    type; };
   template<class T>

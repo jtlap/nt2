@@ -9,8 +9,8 @@ as_unsigned
 
 Description
 ^^^^^^^^^^^
-Returns the input type rebound with the equivalent unsigned type
-of its primitive type.
+Returns the input type rebound with the equivalent (same size) 
+unsigned type of its primitive type.
 
 Template Parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -62,5 +62,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/as_unsigned.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/as_unsigned.cpp
    :language: cpp

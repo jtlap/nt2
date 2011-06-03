@@ -17,9 +17,9 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/amul.hpp>
-#include <nt2/include/functions/madd.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {
@@ -46,7 +46,7 @@ namespace nt2
 	  // 	std::cout << "x " << x << " e " << e << std::endl;
 	  // 	bf::tie(x, e) = frexp(a0);
 	  // 	std::cout << "x " << x << " e " << e << std::endl;
-	  int_type x_lt_sqrthf = simd::native_cast<int_type>(gt(single_constant<A0, 0x3f3504f3>(),x));
+	  int_type x_lt_sqrthf = nt2::simd::native_cast<int_type>(gt(single_constant<A0, 0x3f3504f3>(),x));
 	  e = e+x_lt_sqrthf;
 	  x = x+b_and(x, x_lt_sqrthf)+single_constant<A0, 0xbf800000>();
 	  x2 = sqr(x);

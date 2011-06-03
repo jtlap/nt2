@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_legendre_h3d_1.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 

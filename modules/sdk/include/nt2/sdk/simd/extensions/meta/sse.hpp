@@ -9,8 +9,6 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_META_SSE_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_META_SSE_HPP_INCLUDED
 
-#include <nt2/sdk/meta/set.hpp>
-#include <nt2/sdk/meta/has_key.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/details/bitwise_cast.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,12 +22,12 @@
 namespace nt2 { namespace tag
 {
   NT2_HIERARCHY_CLASS(sse_, cpu_);
-    NT2_HIERARCHY_CLASS(sse2_, sse_);
-      NT2_HIERARCHY_CLASS(sse3_, sse2_);
-        NT2_HIERARCHY_CLASS(ssse3_, sse3_);
-          NT2_HIERARCHY_CLASS(sse4a_, ssse3_);
-          NT2_HIERARCHY_CLASS(sse4_1_, ssse3_);
-            NT2_HIERARCHY_CLASS(sse4_2_, sse4_1_);
+  NT2_HIERARCHY_CLASS(sse2_, sse_);
+  NT2_HIERARCHY_CLASS(sse3_, sse2_);
+  NT2_HIERARCHY_CLASS(ssse3_, sse3_);
+  NT2_HIERARCHY_CLASS(sse4a_, ssse3_);
+  NT2_HIERARCHY_CLASS(sse4_1_, ssse3_);
+  NT2_HIERARCHY_CLASS(sse4_2_, sse4_1_);
 } }
 
 ////////////////////////////////////////////////////////////////////////////////

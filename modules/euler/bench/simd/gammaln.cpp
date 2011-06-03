@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/euler/include/gammaln.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 

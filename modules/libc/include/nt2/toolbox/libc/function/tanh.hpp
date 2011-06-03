@@ -20,7 +20,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
  
 #include <nt2/toolbox/libc/function/scalar/tanh.hpp>
-// #include NT2_LIBC_INCLUDE(tanh.hpp) 
+// #include <nt2/toolbox/libc/function/simd/all/tanh.hpp> 
 
  
 #endif

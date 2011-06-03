@@ -57,43 +57,37 @@ namespace nt2
 	static inline A0 cosa(const A0& a0)
 	{
 	  A0 x =  scale(a0);
-	  return b_or(not_in_range(a0), eval_t::cos_eval(sqr(x), x, Zero<A0>()));
+	  return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
 	}
 
 
 	static inline A0 sina(const A0& a0)
 	{
 	  A0 x =  scale(a0);
-	  return  b_or(not_in_range(a0), eval_t::sin_eval(sqr(x), x, Zero<A0>()));
+	  return  eval_t::sin_eval(sqr(x), x, Zero<A0>());
 	}
 
 	static inline A0 tana(const A0& a0)
 	{
-	  A0 x =  scale(a0);
-	  return  b_or(not_in_range(a0), eval_t::base_tancot_eval(x));
+	  return  eval_t::base_tancot_eval(scale(a0)); 
 	}
 	static inline A0 cota(const A0& a0)
 	{
-	  A0 x =  scale(a0);
-	  return  b_or(b_or(not_in_range(a0), is_eqz(a0)), rec(eval_t::base_tancot_eval(x)));
+	  return  rec(eval_t::base_tancot_eval(scale(a0))); 
 	}
 
 
 	static inline void sincosa(const A0& a0, A0& s, A0& c)
 	{
-	  A0 test = not_in_range(a0);
 	  A0 x =  scale(a0);
 	  A0 z =  sqr(x);
-	  c = b_or(test, eval_t::cos_eval(z, x, Zero<A0>()));
-	  s = b_or(test, eval_t::sin_eval(z, x, Zero<A0>()));
-	  //	  c = cosa(a0);
-	  //	  s = sina(a0);
+	  c = eval_t::cos_eval(z, x, Zero<A0>());
+	  s = eval_t::sin_eval(z, x, Zero<A0>());
 	}
       private:
-	typedef typename meta::logical<A0>::type                                                          logic;
-        static inline A0    not_in_range(const A0& a0){return gt(abs(a0),trig_ranges<A0,unit_tag>::max_range()); }
-        static inline A0    scale       (const A0& a0){return a0*trig_ranges<A0,unit_tag>::scale();            }
-	//        static inline A0    max_range   (const A0& a0){return trig_ranges<A0,unit_tag>::max_range();           }
+        static inline A0    scale(const A0& a0){
+	  return b_or(a0, gt(abs(a0),trig_ranges<A0,unit_tag>::max_range()))*trig_ranges<A0,unit_tag>::scale();
+	}
       };
     }
   }

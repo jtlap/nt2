@@ -16,16 +16,15 @@ namespace nt2 { namespace meta
 {
   template< class Type
           , std::size_t Cardinal
-          , class Dummy 
           >
-  struct factory_of< simd::pack<Type, Cardinal, Dummy> >
+  struct factory_of< simd::pack<Type, Cardinal> >
   {
-      typedef factory_of< simd::pack<Type, Cardinal, Dummy> > type;
+      typedef factory_of< simd::pack<Type, Cardinal> > type;
       
       template<typename T>
       struct apply
       {
-          typedef simd::pack<T, Cardinal, Dummy> type;
+          typedef simd::pack<T, Cardinal> type;
       };      
   };
 } }

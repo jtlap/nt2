@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_NEXTAFTER_HPP_INCLUDED
 
 #include <nt2/include/functions/sign.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 #include <nt2/toolbox/ieee/details/math.hpp>
 #include <boost/math/special_functions/next.hpp>

@@ -11,8 +11,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -21,7 +21,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/fast_toint.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<A0>::type int_type;
       typedef typename meta::scalar_of<A0>::type sA0;
       A0 k =  round2even(double_constant<A0, 0x3ff71547652b82fell>()*a0);
-      int_type ki =  toint(-k);
+      int_type ki =  fast_toint(-k);
       A0 hi = a0 - k* double_constant<A0, 0x3fe62e42fee00000ll>(); //ln2HI;
       A0 lo = k*double_constant<A0, 0x3dea39ef35793c76ll>(); //ln2LO;
       A0 x = hi-lo;
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
       A0 ct2= oneplus((x-(e+two2mk)));
 
       A0 y = select(lt(k, Twenty<A0>()),ct1,ct2);
-      y =  fast_ldexp(y, toint(k));
+      y =  fast_ldexp(y, fast_toint(k));
       return sel(eq(a0, Minf<A0>()),Mone<A0>(), sel(eq(a0, Inf<A0>()), a0, y));
       //return impl::expm1(a0);
     }

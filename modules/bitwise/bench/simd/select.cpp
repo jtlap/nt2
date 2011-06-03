@@ -12,8 +12,8 @@
 // timing Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/bitwise/include/select.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -40,6 +40,62 @@ namespace n2 {
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
   NT2_TIMING(select_,(RS(vT,nt2::Nan<T>(),nt2::Nan<T>()))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n7 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n8 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n9 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+}
+namespace n10 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(select_,(RS(vT,T(0),T(0)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(select_,(RS(vT,T(-1),T(-1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 
 #undef RS

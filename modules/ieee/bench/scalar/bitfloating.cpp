@@ -12,8 +12,8 @@
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/ieee/include/bitfloating.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -31,6 +31,21 @@ namespace n1 {
   typedef uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(bitfloating_,(RS(T,0,100)))
+}
+namespace n2 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,0,100)))
+}
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,-100,100)))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,-100,100)))
 }
 
 #undef RS

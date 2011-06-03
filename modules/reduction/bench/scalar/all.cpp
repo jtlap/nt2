@@ -37,5 +37,45 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n7 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n8 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n9 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n10 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(all_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
 
 #undef RS

@@ -8,6 +8,9 @@
 ################################################################################
 
 nt2_module_source_setup(cephes)
+nt2_module_configure_toolbox(cephes 0)
+
+include(nt2.info)
 
 set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DANSIC")
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
@@ -18,6 +21,8 @@ endif()
 
 ADD_SUBDIRECTORY(cephes_single)
 ADD_SUBDIRECTORY(cephes_double)
-IF(NOT WIN32)
+
+# 80-bit long double, x86 only, disabled on Windows
+if(NT2_X86_PROCESSOR AND NOT NT2_PLATFORM_WIN32)
   ADD_SUBDIRECTORY(cephes_ldouble)
 ENDIF()

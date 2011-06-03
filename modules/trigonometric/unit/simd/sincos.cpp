@@ -12,17 +12,17 @@
 // Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 23/03/2011
+/// modified by jt the 18/04/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/include/sincos.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -44,29 +44,61 @@ NT2_TEST_CASE_TPL ( sincos_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<sincos_(vT)>::type r_t;
   typedef typename nt2::meta::call<sincos_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+
+  // specific values tests
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
   {
-    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
-    NT2_CREATE_BUF(tab_a0,T, NR, -20*nt2::Pi<T>(), 20*nt2::Pi<T>());
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t r = nt2::sincos(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          sr_t sr =  nt2::sincos(tab_a0[k]);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i],
-                                    boost::fusion::get<0>(sr), 1.5);
-          ulp0 = nt2::max(ulpd,ulp0);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i],
-                                    boost::fusion::get<1>(sr), 1.5);
-          ulp0 = nt2::max(ulpd,ulp0);
-        }
-      }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
+    r_t res = sincos(-nt2::Pi<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Mone<r_t1>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(-nt2::Pi<vT>()/nt2::splat<vT>(2));
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Mone<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Zero<r_t1>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(-nt2::Pi<vT>()/nt2::splat<vT>(4));
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], -nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Inf<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Minf<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Nan<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Pi<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Mone<r_t1>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Pi<vT>()/nt2::splat<vT>(2));
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::One<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Pi<vT>()/nt2::splat<vT>(4));
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
+  }
+  {
+    r_t res = sincos(nt2::Zero<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::One<r_t0>()[0], 0.75);
   }
 } // end of test for real_

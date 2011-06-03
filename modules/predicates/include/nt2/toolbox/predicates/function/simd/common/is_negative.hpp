@@ -13,7 +13,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/shrai.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      details::ignore_unused(a0);
+      ignore_unused(a0);
       return False<A0>();
     }
   };

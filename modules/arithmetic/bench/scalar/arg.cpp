@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/arg.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -29,10 +30,50 @@ using nt2::tag::arg_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(arg_,(RS(T,-10.0f,10.0f)))
 }
 namespace n2 {
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,-10.0,10.0)))
+}
+namespace n3 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n4 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n7 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n8 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n9 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+}
+namespace n10 {
+  typedef int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(arg_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }

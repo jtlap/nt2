@@ -18,8 +18,8 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/ceil.hpp>
 // specific includes for arity 1 tests

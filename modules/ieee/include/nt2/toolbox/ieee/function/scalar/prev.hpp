@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_PREV_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_PREV_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/nextafter.hpp>

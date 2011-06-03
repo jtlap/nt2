@@ -8,12 +8,13 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULP_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULP_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/predecessor.hpp>
+#include <nt2/include/functions/successor.hpp>
 
 
 
@@ -38,7 +39,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      details::ignore_unused(a0);
+      ignore_unused(a0);
       return One<A0>();
     }
   };
@@ -60,15 +61,15 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
+    struct result<This(A0)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       const A0 x = nt2::abs(a0);
       //     return sel(iseq(x, Inf<A0>()), x,  successor(x)-x);
       A0 xp = predecessor(x);
-      return sel(is_equal(x, Inf<A0>()), xp-predecessor(xp), x - xp);
+      A0 xs = successor(x); 
+      return sel(is_equal(x, Inf<A0>()), x, nt2::min(x-xp, xs - x));
     }
   };
 } }

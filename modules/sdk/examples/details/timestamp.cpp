@@ -3,5 +3,5 @@
 
 int main()
 {
-  printf("Date: %s\n", nt2::sys::timestamp().c_str());
+  printf("Date: %s\n", nt2::timestamp().c_str());
 }

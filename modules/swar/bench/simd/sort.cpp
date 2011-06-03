@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/swar/include/sort.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -27,16 +28,40 @@ using nt2::tag::sort_;
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sort_,(RS(vT,0,100)))
+}
+namespace n2 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sort_,(RS(vT,0,100)))
+}
+namespace n3 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sort_,(RS(vT,0,100)))
+}
+namespace n4 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(sort_,(RS(vT,0,100)))
+}
+namespace n5 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(sort_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(sort_,(RS(vT,0,100)))
 }
-namespace n2 {
+namespace n6 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(sort_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(sort_,(RS(vT,0,100)))
 }
 
 #undef RS

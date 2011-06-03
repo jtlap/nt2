@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/acos_rn.hpp>
-// #include NT2_CRLIBM_INCLUDE(acos_rn.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/acos_rn.hpp> 
 
  
 #endif

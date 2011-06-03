@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/nextafter.hpp>
-// #include NT2_FDLIBM_INCLUDE(nextafter.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/nextafter.hpp> 
 
  
 #endif

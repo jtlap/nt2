@@ -8,12 +8,14 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_TANH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_TANH_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 #include <nt2/include/functions/expm1.hpp>
 
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sign.hpp>
+#include <iostream>
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -33,12 +35,12 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      return atanh(type(a0));
+      return tanh(type(a0));
     }
 
   };

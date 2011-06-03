@@ -10,9 +10,10 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
 
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/fast_toint.hpp>
 #include <nt2/include/functions/round2even.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/toolbox/arithmetic/include/toint.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {
@@ -40,7 +41,7 @@ namespace nt2
 	static inline int_type cephes_reduction(const A0& x, A0& xr, A0& xc)
 	{
 	  //	  A0 xi = round2even(x* Const<A0,invpio2>());
-	  int_type n = toint(x* single_constant<A0,0x3f22f984>()+Half<A0>());
+	  int_type n = fast_toint(x* single_constant<A0,0x3f22f984>()+Half<A0>());
 	  A0 xi =  tofloat(n);
 	  xr = x-xi*single_constant<A0,0x3fc90f80>();
 	  xr -= xi*single_constant<A0,0x37354400 >();
@@ -71,6 +72,13 @@ namespace nt2
 	{
 	  int_type i = Zero<int_type>();
 	  //	  bf::tie(xr, xc, i) = nt2::rem_pio2(t);
+	  return i;
+	}
+
+	static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& /*xc*/)
+	{
+	  int_type i = Zero<int_type>();
+	  xr =  Nan<A0>(); 
 	  return i;
 	}
       };

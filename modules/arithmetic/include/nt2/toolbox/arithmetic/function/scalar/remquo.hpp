@@ -69,14 +69,14 @@ namespace nt2 { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0,A1)>::type rem;
+      typedef typename meta::result_of<meta::floating(A0,A1)>::type rem;
       typedef typename meta::as_integer<rem,signed>::type            quo;
       typedef boost::fusion::tuple<rem,quo>                         type;
     };
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename std::tr1::result_of<meta::floating(A0,A1)>::type ftype;
+      typedef typename meta::result_of<meta::floating(A0,A1)>::type ftype;
       typedef typename NT2_RETURN_TYPE(2)::type rtype; 
       rtype res;
       boost::fusion::at_c<0>(res) = nt2::remainder(ftype(a0), ftype(a1));

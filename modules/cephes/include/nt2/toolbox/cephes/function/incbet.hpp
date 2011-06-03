@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/incbet.hpp>
-// #include NT2_CEPHES_INCLUDE(incbet.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/incbet.hpp> 
 
  
 #endif

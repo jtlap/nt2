@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  fast_toint.cpp
   divround.cpp
   divfloor.cpp
   divfix.cpp
@@ -43,7 +44,6 @@ SET( SOURCES
   minusone.cpp
   min.cpp
   max.cpp
-  madd.cpp
   ldivide.cpp
   ldiv.cpp
   idivround.cpp
@@ -52,14 +52,17 @@ SET( SOURCES
   idivceil.cpp
   hypot.cpp
   fma.cpp
-  fam.cpp
   dist.cpp
   correct_fma.cpp
   average.cpp
-  amul.cpp
   abs.cpp
   toint.cpp
   tofloat.cpp
+  muls.cpp
+  divs.cpp
+  adds.cpp
+  subs.cpp
+  abss.cpp
 # List of simd test files for toolbox arithmetic
    )
 

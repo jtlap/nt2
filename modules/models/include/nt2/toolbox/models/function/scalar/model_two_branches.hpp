@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_MODELS_FUNCTION_SCALAR_MODEL_TWO_BRANCHES_HPP_INCLUDED
 #define NT2_TOOLBOX_MODELS_FUNCTION_SCALAR_MODEL_TWO_BRANCHES_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/include/functions/is_nan.hpp>
 
@@ -27,7 +27,7 @@ namespace nt2 { namespace functors
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> : 
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL_DISPATCH(
       1,

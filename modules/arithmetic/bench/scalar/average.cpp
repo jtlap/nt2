@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/average.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -35,6 +36,46 @@ namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(average_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100))))
+}
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100))))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100))))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100))))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100))))
+}
+namespace n7 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
+}
+namespace n8 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
+}
+namespace n9 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
+}
+namespace n10 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(average_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
 }
 
 #undef RS

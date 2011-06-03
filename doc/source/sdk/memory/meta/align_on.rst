@@ -67,5 +67,5 @@ which is power of 2. If this pre-condition is violated, a ``INVALID_ALIGNMENT_VA
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/memory/meta_align_on.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/memory/meta_align_on.cpp
    :language: cpp

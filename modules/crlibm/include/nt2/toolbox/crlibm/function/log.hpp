@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/log.hpp>
-// #include NT2_CRLIBM_INCLUDE(log.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/log.hpp> 
 
  
 #endif

@@ -29,7 +29,7 @@ namespace nt2
   // slice computes the potential padded product of all dimensions in a given
   // dimension set from the Nth.
   //////////////////////////////////////////////////////////////////////////////
-  template<std::size_t N, class Seq,class Padding> inline
+  template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
                   , nt2::meta
@@ -50,7 +50,7 @@ namespace nt2
   // dimension set from the Nth. As N is larger than the dimension set size, we
   // naturally return 1.
   //////////////////////////////////////////////////////////////////////////////
-  template<std::size_t N, class Seq,class Padding> inline
+  template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< !(boost::fusion::result_of::size<Seq>::value >= N)
                   , boost::mpl::int_<1>

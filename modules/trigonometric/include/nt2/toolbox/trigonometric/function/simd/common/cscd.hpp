@@ -21,13 +21,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::cscd_, tag::cpu_,
                        (A0)(X),
-                       ((simd_<arithmetic_<A0>,X>))
+                       ((simd_<integer_<A0>,X>))
                       );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::cscd_(tag::simd_<tag::arithmetic_, X> ),
+  struct call<tag::cscd_(tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -38,6 +38,33 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       return cscpi(Oneo_180<type>()*tofloat(a0));
+    }
+
+  };
+} }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::cscd_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<real_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::cscd_(tag::simd_<tag::real_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename NT2_RETURN_TYPE(1)::type type;
+      return cscpi(Oneo_180<type>()*a0);
     }
 
   };

@@ -12,8 +12,8 @@
 // timing Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/elliptic/include/ellik.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 

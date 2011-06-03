@@ -30,12 +30,52 @@ using nt2::tag::nthroot_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(nthroot_,(RS(T,T(0),T(10)))(RS(iT,T(-10),T(10))))
+  NT2_TIMING(nthroot_,(RS(T,T(0),T(10)))(RS(iT,iT(-10),iT(10))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(nthroot_,(RS(T,T(0),T(10)))(RS(iT,T(-10),T(10))))
+  NT2_TIMING(nthroot_,(RS(T,T(0),T(10)))(RS(iT,iT(-10),iT(10))))
+}
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,-100,100))(RS(iT,-100,100)))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,-100,100))(RS(iT,-100,100)))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,-100,100))(RS(iT,-100,100)))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,-100,100))(RS(iT,-100,100)))
+}
+namespace n7 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,0,100))(RS(iT,0,100)))
+}
+namespace n8 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,0,100))(RS(iT,0,100)))
+}
+namespace n9 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,0,100))(RS(iT,0,100)))
+}
+namespace n10 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(nthroot_,(RS(T,0,100))(RS(iT,0,100)))
 }
 
 #undef RS

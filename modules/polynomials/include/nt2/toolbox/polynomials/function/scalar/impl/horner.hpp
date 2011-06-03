@@ -12,12 +12,12 @@
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/pop_back.hpp>
 #include <boost/mpl/at.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/to_seq.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 namespace nt2
 {
@@ -35,7 +35,7 @@ namespace nt2
       template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
       template<class T> inline
-      typename std::tr1::result_of<static_horner_(T)>::type
+      typename meta::result_of<static_horner_(T)>::type
       operator()(T const& x) const
       {
         static_horner_<N-1,typename boost::mpl::pop_back<Seq>::type> callee;
@@ -52,7 +52,7 @@ namespace nt2
       template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
       template<class T> inline
-      typename std::tr1::result_of<static_horner_(T)>::type
+      typename meta::result_of<static_horner_(T)>::type
       operator()(T const& ) const
       {
         return Const<T, boost::mpl::at_c<Seq,0>::type::value >();

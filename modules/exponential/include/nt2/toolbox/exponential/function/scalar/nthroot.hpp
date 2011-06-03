@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_NTHROOT_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
+      typedef typename meta::result_of<meta::floating(A0)>::type type;
       if (!a1) return One<type>();
       if (!a0) return Zero<type>();
       bool is_ltza0 = is_ltz(a0); 

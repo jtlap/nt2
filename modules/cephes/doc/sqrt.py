@@ -24,7 +24,23 @@
              'default' : [['T(0)', 'T(100)']],
             },
          'specific_values' : {
-            },
+             'default' : {
+                },
+             'real_' : {
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Four<T>()' : 'nt2::Two<r_t>()',   
+                },
+             'signed_int_' : {
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Four<T>()' : 'nt2::Two<r_t>()',   
+                },
+             'unsigned_int_' : {
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Four<T>()' : 'nt2::Two<r_t>()',   
+                },            },
          'verif_test' : {
              'property_call' : {
                  'default' : ['nt2::cephes::sqrt(a0)'],

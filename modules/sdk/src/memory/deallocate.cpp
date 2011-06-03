@@ -6,7 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#include <nt2/sdk/memory/deallocate.hpp>
+#include <cstdlib>
+#include <nt2/sdk/memory/forward.hpp>
 
 namespace nt2 { namespace memory
 {

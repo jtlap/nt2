@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_GEZ_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_GEZ_HPP_INCLUDED
 #include <nt2/sdk/meta/templatize.hpp>
-#include <nt2/sdk/constant/boolean.hpp>
+#include <nt2/include/functions/boolean.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      details::ignore_unused(a0);
+      ignore_unused(a0);
       return True<A0>();
     }
   };

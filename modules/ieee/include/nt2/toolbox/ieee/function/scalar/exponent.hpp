@@ -10,12 +10,13 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EXPONENT_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/exponentbits.hpp>
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 #include <nt2/toolbox/ieee/details/math.hpp>
 
@@ -68,8 +69,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_invalid(a0)) return Zero<A0>(); 
-      return a0 ? ::ilogbf(a0) : Zero<A0>();
+      if (is_invalid(a0) || is_eqz(a0)) return Zero<A0>(); 
+      return ilogbf(a0); 
     }
   };
 } }

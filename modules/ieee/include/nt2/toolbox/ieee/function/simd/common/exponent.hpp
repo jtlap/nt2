@@ -9,12 +9,14 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_EXPONENT_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_EXPONENT_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/exponentbits.hpp>
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/bitwise_andnot.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -42,7 +44,7 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<result_type>::type sint_type;
       const int nmb= Nbmantissabits<s_type>();
       const result_type x = shri(exponentbits(a0), nmb);
-      return x-b_and(Maxexponent<A0>(), is_nez(a0));
+      return b_andnot(x-b_and(Maxexponent<A0>(), is_nez(a0)), is_invalid(a0));
     }
 
   };

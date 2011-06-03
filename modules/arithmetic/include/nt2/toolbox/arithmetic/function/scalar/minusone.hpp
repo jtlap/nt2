@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MINUSONE_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MINUSONE_HPP_INCLUDED
 #include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 
 
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)> {
       typedef typename meta::strip<A0>::type sA0; 
-      typedef typename std::tr1::result_of<meta::arithmetic(sA0)>::type tmp;
+      typedef typename meta::result_of<meta::arithmetic(sA0)>::type tmp;
       typedef typename meta::as_signed<tmp>::type type;
     };
 

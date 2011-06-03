@@ -29,13 +29,13 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type etype;
+      typedef typename meta::result_of<meta::floating(A0)>::type etype;
       typedef boost::fusion::tuple<etype, etype>                   type;
     };
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type type;
+      typedef typename meta::result_of<meta::floating(A0)>::type type;
       return sincospi(type(a0));
     }
 
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type etype;
+      typedef typename meta::result_of<meta::floating(A0)>::type etype;
       impl::trig_base < A0,pi_tag
                       , trig_tag,tag::not_simd_type
                       >::sincosa( a0

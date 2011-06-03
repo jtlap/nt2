@@ -20,7 +20,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
  
 #include <nt2/toolbox/cephes/function/scalar/acos.hpp>
-// #include NT2_CEPHES_INCLUDE(acos.hpp) 
+// #include <nt2/toolbox/cephes/function/simd/all/acos.hpp> 
 
  
 #endif

@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::floating(A0,A1)>{};
+      meta::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::floating(A0,A1)>{};
+      meta::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -88,12 +88,12 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::floating(A0,A1)>{};
+      meta::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
       bool ltza0 = a0 < Zero<A0>(); 
-      if (a0 == a1 && a0 == Minf<A0>() ||
+      if ((a0 == a1 && a0 == Minf<A0>()) ||
 	  (ltza0 && !is_flint(a1))
 	  ) return Nan<A0>(); 
       A0 res =  ::powf(nt2::abs(a0), a1);

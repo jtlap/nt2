@@ -14,7 +14,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <iostream> 
+
 namespace nt2
 {
   namespace details
@@ -26,16 +26,16 @@ namespace nt2
 		 class style, 
 		 class base_A0 = typename meta::scalar_of<A0>::type >
       struct trig_evaluation{
-  	static inline A0 cos_eval(const A0&, const A0&, const A0&)
-	{
-	  std::cout << "icitte " << style::value << std::endl;
-	  exit(1); 
-	}       
-  	static inline A0 sin_eval(const A0&, const A0&, const A0&)
-	{
-	  std::cout << "icitte " << style::value << std::endl;
-	  exit(1); 
-	}       
+//   	static inline A0 cos_eval(const A0&, const A0&, const A0&)
+// 	{
+// 	  nt2::assert("you cannot be here"); //std::cout << "icitte " << style::value << std::endl;
+// 	  exit(1); 
+// 	}       
+//   	static inline A0 sin_eval(const A0&, const A0&, const A0&)
+// 	{
+// 	  nt2::assert("you cannot be here"); //std::cout << "icitte " << style::value << std::endl;
+// 	  exit(1); 
+// 	}       
       };
 
       // This class exposes the public static members:

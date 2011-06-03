@@ -48,7 +48,7 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
     def get_tb_style(self)    : return self.__tb_style
     def get_def_path(self)    : return os.path.join(self.get_tb_path(),'function')
     def get_bench_path(self)  : return os.path.join(self.get_md_path(),'bench')
-    def get_unit_path(self)   : return os.path.join(self.get_md_path(),'unit')
+    def get_unit_path(self,part)   : return os.path.join(self.get_md_path(),part)
     def get_doc_path(self)    : return os.path.join(self.get_md_path(),'doc')
     def get_include_path(self): return os.path.join(self.get_md_path(),'include')
 

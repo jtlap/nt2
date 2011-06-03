@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
                        (A0)(A1),
-                       (arithmetic_<A0>)(arithmetic_<A1>)
+                       (arithmetic_<A0>)(integer_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::arithmetic_,tag::arithmetic_),
+  struct call<tag::shrai_(tag::arithmetic_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -42,13 +42,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
                        (A0)(A1),
-                       (unsigned_<A0>)(arithmetic_<A1>)
+                       (unsigned_<A0>)(integer_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::unsigned_,tag::arithmetic_),
+  struct call<tag::shrai_(tag::unsigned_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -67,13 +67,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::shrai_, tag::cpu_,
                        (A0)(A1),
-                       (real_<A0>)(real_<A1>)
+                       (real_<A0>)(integer_<A1>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shrai_(tag::real_,tag::real_),
+  struct call<tag::shrai_(tag::real_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

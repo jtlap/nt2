@@ -33,6 +33,13 @@ namespace nt2
       typedef tag::simd_<typename T::type,X>  type;
     };
 
+    template<class T,class X>
+    struct simd_< unspecified_<T>,X > : unspecified_<T>
+    {
+      typedef unspecified_<T>   parent;
+      typedef tag::simd_<tag::unspecified_,X> type;
+    };
+
     template<class T,class X> struct simd_< unknown_<T>,X > : unknown_<T> {};
   }
 }

@@ -9,11 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_POWI_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_POWI_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
       struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::floating(A0,A1)>{};
+      meta::result_of<meta::floating(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {

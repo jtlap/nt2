@@ -15,7 +15,7 @@
 #include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp>  
+#include <nt2/include/functions/load.hpp>  
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <boost/type_traits/is_same.hpp> 
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -50,8 +50,8 @@ NT2_TEST_CASE_TPL(legendre, (float)(double)
       rn_t v  = nt2::legendre(ii, a0);
       for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
         { 
-        NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], legendre(ii, a0[j])), 1);
-	//        std::cout << a0[j] << "  " << v[j] << "  " << legendre(ii, a0[j]) << std::endl; 
+        NT2_TEST_LESSER_EQUAL( nt2::ulpdist(v[j], legendre(ii, a0[j])), 5);
+	std::cout << a0[j] << "  " << v[j] << "  " << legendre(ii, a0[j]) << std::endl; 
         } 
    } 
 } 

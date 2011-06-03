@@ -30,6 +30,11 @@ using nt2::crlibm::tag::exp_rd_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(exp_rd_,(RS(T,T(-80),T(80))))
+}
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(exp_rd_,(RS(T,T(-700),T(700))))
 }
 

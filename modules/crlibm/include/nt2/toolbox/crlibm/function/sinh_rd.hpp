@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/sinh_rd.hpp>
-// #include NT2_CRLIBM_INCLUDE(sinh_rd.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/sinh_rd.hpp> 
 
  
 #endif

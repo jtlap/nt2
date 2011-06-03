@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/hyperbolic/include/atanh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -33,6 +34,46 @@ namespace n1 {
 }
 namespace n2 {
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n3 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n4 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n7 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n8 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n9 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
+}
+namespace n10 {
+  typedef int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(atanh_,(RS(T,T(-1),T(1))))
 }

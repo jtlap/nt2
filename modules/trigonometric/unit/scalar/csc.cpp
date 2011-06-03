@@ -12,14 +12,14 @@
 // Test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 23/03/2011
+/// modified by jt the 18/04/2011
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/csc.hpp>
 // specific includes for arity 1 tests
@@ -45,31 +45,15 @@ NT2_TEST_CASE_TPL ( csc_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(csc(-nt2::Pi<T>()/2), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(csc(-nt2::Pi<T>()/4), -nt2::Sqrt_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(csc(-nt2::Pi<T>()/T(2)), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(csc(-nt2::Pi<T>()/T(4)), -nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(-nt2::Zero<T>()), nt2::Minf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(csc(nt2::Pi<T>()/2), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(csc(nt2::Pi<T>()/4), nt2::Sqrt_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(csc(nt2::Pi<T>()/T(2)), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(csc(nt2::Pi<T>()/T(4)), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, -20*nt2::Pi<T>(), 20*nt2::Pi<T>());
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::csc(a0),nt2::rec(::sin(a0)),1.0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( csc_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

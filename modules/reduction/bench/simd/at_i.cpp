@@ -28,60 +28,18 @@ using nt2::tag::at_i_;
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {
-  typedef int8_t T;
+  typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
+  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n2 {
-  typedef int16_t T;
+  typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
-}
-namespace n3 {
-  typedef int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
-}
-namespace n4 {
-  typedef int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
-}
-namespace n5 {
-  typedef uint8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
-}
-namespace n6 {
-  typedef uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
-}
-namespace n7 {
-  typedef uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
-}
-namespace n8 {
-  typedef uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(viT,0,0)))
+  NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(iT,0,0)))
 }
 
 #undef RS

@@ -9,25 +9,26 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_ROR_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_ROR_HPP_INCLUDED
 #include <nt2/sdk/meta/size.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <iostream>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ror_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                      ((simd_<arithmetic_<A0>,X>))
+NT2_REGISTER_DISPATCH_IF(tag::ror_, tag::cpu_,
+			 (A0)(A1)(X),
+			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+			 (tag::ror_(tag::simd_<tag::arithmetic_,X>, tag::simd_<tag::integer_,X>)), 
+			 ((simd_<arithmetic_<A0>,X>))
+			 ((simd_<integer_<A1>,X>))
                      );
 
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
   struct call<tag::ror_(tag::simd_<tag::arithmetic_, X> ,
-                        tag::simd_<tag::arithmetic_, X> ),
+                        tag::simd_<tag::integer_, X> ),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

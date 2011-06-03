@@ -18,8 +18,8 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/bitwise/include/ror.hpp>
 
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
-  ulpd=0.0;
+  ulpd=0.0; 
 
 
   // specific values tests

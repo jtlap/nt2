@@ -87,6 +87,7 @@ macro(nt2_str_remove_duplicates)
     endif()
     set(${str} ${str_new})
   endforeach()
+
 endmacro()
 
 macro(nt2_find_module_dependencies _COMPONENT)
@@ -254,6 +255,7 @@ macro(nt2_flag_found)
     nt2_copy_parent( NT2_${COMPONENT_U_}_FOUND
                      NT2_${COMPONENT_U_}_INCLUDE_DIR NT2_${COMPONENT_U_}_LIBRARY_DIR
                      NT2_${COMPONENT_U_}_LIBRARIES NT2_${COMPONENT_U_}_FLAGS
+                     CMAKE_MODULE_PATH
                    )
   endforeach()
   nt2_copy_parent(NT2_FOUND_COMPONENTS)
@@ -262,6 +264,7 @@ endmacro()
 macro(nt2_find_transfer_parent)
   if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     nt2_flag_found()
+    nt2_copy_parent(NT2_FOUND_COMPONENTS)
   endif()
 endmacro()
 
@@ -288,6 +291,7 @@ function(nt2_find)
   if(NOT NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
     nt2_find_log("found NT2 source root ${NT2_SOURCE_ROOT}")
     set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+    set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
   endif()
     
   # Search for install

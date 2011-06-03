@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_EVEN_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_EVEN_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/include/functions/is_flint.hpp>
 

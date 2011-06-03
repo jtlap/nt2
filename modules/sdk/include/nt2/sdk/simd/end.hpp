@@ -31,8 +31,8 @@ namespace nt2 { namespace simd
       {
         typedef
         simd::iterator< typename boost
-                        ::iterator_value<typename Range::const_iterator>::type
-                      , Cardinal::value
+                        ::iterator_value<typename meta::strip<Range>::type::const_iterator>::type
+                      , meta::strip<Cardinal>::type::value
                       >                             type;
       };
 
@@ -57,7 +57,7 @@ namespace nt2 { namespace simd
       struct result<This(Range)>
       {
         typedef typename
-        boost::iterator_value<typename Range::const_iterator>::type value_type;
+        boost::iterator_value<typename meta::strip<Range>::type::const_iterator>::type value_type;
 
         typedef typename
         result<This(Range, meta::native_cardinal<value_type>)>::type type;
@@ -78,7 +78,7 @@ namespace nt2 { namespace simd
 namespace nt2 { namespace simd
 {
   template<std::size_t N, class ContiguousRange>
-  typename std::tr1::
+  typename meta::
   result_of<result::end(ContiguousRange,boost::mpl::int_<N>)>::type
   end( ContiguousRange const& rng )
   {
@@ -87,7 +87,7 @@ namespace nt2 { namespace simd
   }
 
   template<class ContiguousRange>
-  typename std::tr1::result_of<result::end(ContiguousRange)>::type
+  typename meta::result_of<result::end(ContiguousRange)>::type
   end( ContiguousRange const& rng )
   {
     result::end callee;

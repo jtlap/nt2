@@ -61,7 +61,7 @@ Copyright 1999 by Stephen L. Moshier
 extern double polylog (int, double);
 extern double cephes_exp (double);
 extern double log1p (double); /* cephes_log(1+x) */
-extern double expm1 (double); /* cephes_exp(x) - 1 */
+extern double cephes_expm1 (double); /* cephes_exp(x) - 1 */
 double planckc(double, double);
 double plancki(double, double);
 #else

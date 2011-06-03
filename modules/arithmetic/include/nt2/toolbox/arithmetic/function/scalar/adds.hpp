@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ADDS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ADDS_HPP_INCLUDED
+#include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/include/functions/saturate.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/min.hpp>

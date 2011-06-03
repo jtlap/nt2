@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/negs.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -34,6 +35,30 @@ namespace n1 {
 }
 namespace n2 {
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
+}
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
+}
+namespace n6 {
+  typedef int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))

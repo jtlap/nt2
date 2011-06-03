@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(combinatorial)
-nt2_module_configure_simd_toolbox(combinatorial)
+nt2_module_configure_toolbox(combinatorial 1)

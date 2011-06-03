@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/arithmetic/function/scalar/two_prod.hpp>
-#include NT2_ARITHMETIC_INCLUDE(two_prod.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/two_prod.hpp> 
 
  
 #endif

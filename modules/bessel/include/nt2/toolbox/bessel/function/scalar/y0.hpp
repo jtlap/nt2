@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_Y0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_Y0_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {

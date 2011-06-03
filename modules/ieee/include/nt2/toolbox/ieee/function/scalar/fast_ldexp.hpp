@@ -8,10 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_FAST_LDEXP_HPP_INCLUDED
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

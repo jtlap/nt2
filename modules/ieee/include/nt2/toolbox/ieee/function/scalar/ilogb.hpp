@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/exponent.hpp>
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename   std::tr1::result_of<meta::floating(A0)>::type type;
+      typedef typename   meta::result_of<meta::floating(A0)>::type type;
       return nt2::ilogb(type(a0));
     }
   };

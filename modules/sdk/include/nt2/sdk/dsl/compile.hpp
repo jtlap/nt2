@@ -18,22 +18,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  template<class Phase,class Target>
+  template<class Phase>
   struct compile
-      : boost::proto::switch_< compile<Phase,Target> >
+      : boost::proto::switch_< compile<Phase> >
   {
     template <typename Tag, typename Dummy = void>
     struct  case_
           : boost::proto::
-            otherwise < typename boost::mpl::apply<Phase,Tag,Target>::type >
+            otherwise < typename boost::mpl::apply<Phase,Tag>::type >
     {};
   };
 } }
 
 namespace boost { namespace proto
 {
-  template<class Phase,class Target>
-  struct  is_callable<nt2::meta::compile<Phase,Target> >
+  template<class Phase>
+  struct  is_callable<nt2::meta::compile<Phase> >
         : boost::mpl::true_  {};
 } }
 

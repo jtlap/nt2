@@ -13,7 +13,6 @@ SET( SOURCES
     align_on.cpp
     is_aligned.cpp
     make_aligned.cpp
-    access.cpp
     allocate.cpp
     overload.cpp
     allocator.cpp

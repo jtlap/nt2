@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_CBRT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_gez.hpp>

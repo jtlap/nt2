@@ -152,7 +152,7 @@ extern double cephes_incbet ( double, double, double );
 extern double cephes_incbi ( double, double, double );
 extern double cephes_pow ( double, double );
 extern double log1p ( double );
-extern double expm1 ( double );
+extern double cephes_expm1 ( double );
 #else
 double cephes_incbet(), cephes_incbi(), cephes_pow(), log1p(), expm1();
 #endif
@@ -181,7 +181,7 @@ dn = n - k;
 if( k == 0 )
 	{
 	if( p < .01 )
-		dk = -expm1( dn * log1p(-p) );
+		dk = -cephes_expm1( dn * log1p(-p) );
 	else
 		dk = 1.0 - cephes_pow( 1.0-p, dn );
 	}
@@ -246,7 +246,7 @@ dn = n - k;
 if( k == 0 )
 	{
 	if( y > 0.8 )
-		p = -expm1( log1p(y-1.0) / dn );
+		p = -cephes_expm1( log1p(y-1.0) / dn );
 	else
 		p = 1.0 - cephes_pow( y, 1.0/dn );
 	}

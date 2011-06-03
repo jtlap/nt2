@@ -24,8 +24,10 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '1.0',},
-                 'nt2::One<T>()' : {'result' : 'r_t(1.266065877752008e+00)','ulp_thresh' : '1.0',},
+                 'nt2::Minf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '1.0',},
+                 'nt2::Nan<T>()'  : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '1.0',},
+                 'nt2::Inf<T>()'  : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '1.0',},
+                 'nt2::One<T>()'  : {'result' : 'r_t(1.266065877752008e+00)','ulp_thresh' : '1.0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '1.0',},
                 },
             },

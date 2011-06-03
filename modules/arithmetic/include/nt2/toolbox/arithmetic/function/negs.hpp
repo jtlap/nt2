@@ -22,6 +22,6 @@ namespace nt2 {
 }
 
 #include <nt2/toolbox/arithmetic/function/scalar/negs.hpp>
-#include NT2_ARITHMETIC_INCLUDE(negs.hpp) 
+#include <nt2/toolbox/arithmetic/function/simd/all/negs.hpp> 
 
 #endif

@@ -51,7 +51,11 @@ namespace nt2 { namespace ext
         : callable
   {
     typedef bool result_type;
-    NT2_FUNCTOR_CALL(2) { return !(a0 & (A1::value-1) ); }
+    NT2_FUNCTOR_CALL(2)
+    {
+      ignore_unused(a1);
+      return !(a0 & (A1::value-1) );
+    }
   };
 } }
 
@@ -95,7 +99,12 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    NT2_FUNCTOR_CALL(2) { return meta::is_aligned<A0,A1>::value; }
+    NT2_FUNCTOR_CALL(2)
+    {
+      ignore_unused(a0);
+      ignore_unused(a1);
+      return meta::is_aligned<A0,A1>::value;
+    }
   };
 } }
 

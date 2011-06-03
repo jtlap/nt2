@@ -12,8 +12,8 @@
 // timing Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/ieee/include/nextafter.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -29,6 +29,12 @@ using nt2::tag::nextafter_;
 
 namespace n1 {
   typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(nextafter_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(nextafter_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))

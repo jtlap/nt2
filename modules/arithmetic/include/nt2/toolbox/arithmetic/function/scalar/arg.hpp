@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ARG_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ARG_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {

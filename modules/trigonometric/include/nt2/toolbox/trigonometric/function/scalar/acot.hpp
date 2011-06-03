@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_ACOT_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/atan.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   {
       template<class Sig> struct result;
       template<class This,class A0>
-      struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
+      struct result<This(A0)> : meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
       {
@@ -58,14 +58,14 @@ namespace nt2 { namespace ext
   {
       template<class Sig> struct result;
       template<class This,class A0>
-      struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
+      struct result<This(A0)> : meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
       {
       if(!a0)  return b_or(Pio_2<A0>(), bitofsign(a0));;
       if(is_inf(a0)) return b_or(Zero<A0>(), bitofsign(a0));
         //                                 6.123233995736765886130E-17
-        return  b_or((Pio_2<A0>()-nt2::atan(abs(a0)))+double_constant<A0,0x3c91a62633145c07ll>(), bitofsign(a0));
+      return  b_or((Pio_2<A0>()-nt2::atan(nt2::abs(a0)))+double_constant<A0,0x3c91a62633145c07ll>(), bitofsign(a0));
       }
   };
 } }
@@ -86,13 +86,13 @@ namespace nt2 { namespace ext
   {
       template<class Sig> struct result;
       template<class This,class A0>
-      struct result<This(A0)> : std::tr1::result_of<meta::floating(A0)>{};
+      struct result<This(A0)> : meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
       {
       if(!a0)  return b_or(Pio_2<A0>(), bitofsign(a0));;
       if(is_inf(a0)) return b_or(Zero<A0>(), bitofsign(a0));
-      return b_or(Pio_2<A0>()-nt2::atan(abs(a0)), bitofsign(a0));
+      return b_or(Pio_2<A0>()-nt2::atan(nt2::abs(a0)), bitofsign(a0));
       }
   };
 } }

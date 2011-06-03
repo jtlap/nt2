@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_LEZ_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_LEZ_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return is_less(a0, Zero<A0>());
+      return le(a0, Zero<A0>());
     }
   };
 } }

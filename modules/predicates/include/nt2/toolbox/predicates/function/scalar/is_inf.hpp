@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_INF_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_INF_HPP_INCLUDED
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 #include <nt2/include/functions/abs.hpp>
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      details::ignore_unused(a0);
+      ignore_unused(a0);
       return false;
     }
   };

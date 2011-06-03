@@ -8,26 +8,30 @@
 ################################################################################
 
 SET(SOURCES
-    has_key.cpp
-    is_set.cpp
-    join.cpp
+    all.cpp
     any.cpp
-    enable_if_type.cpp
-    strip.cpp
-    make_real.cpp
-    make_integer.cpp
+    arithmetic.cpp
     as_bits.cpp
-    from_bits.cpp
     as_integer.cpp
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
-    sign_of.cpp
-    is_signed.cpp
+    behave_as.cpp
     downgrade.cpp
-    upgrade.cpp
+    enable_if_type.cpp
+    from_bits.cpp
+    has_key.cpp
     is_fundamental.cpp
+    is_set.cpp
+    is_signed.cpp
     is_unspecified.cpp
+    join.cpp
+    make_integer.cpp
+    make_real.cpp
+    primitive_of.cpp
+    sign_of.cpp
+    strip.cpp
+    upgrade.cpp
     )
 
 ADD_CUSTOM_TARGET(sdk.meta.examples)

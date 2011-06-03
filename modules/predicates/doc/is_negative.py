@@ -31,7 +31,8 @@
                  'nt2::Zero<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 '-nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
+                 '(-nt2::Zero<T>())' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
+                 'nt2::Mzero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Half<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Inf<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Minf<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},

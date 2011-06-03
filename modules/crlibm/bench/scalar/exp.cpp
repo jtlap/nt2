@@ -32,5 +32,10 @@ namespace n1 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-85),T(85))))
 }
+namespace n2 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-706),T(706))))
+}
 
 #undef RS

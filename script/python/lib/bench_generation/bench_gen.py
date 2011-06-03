@@ -76,6 +76,8 @@ class Bench_gen() :
             "",
             ]
         dl = self.bg.get_fct_dict_list()
+        k=1
+        r = []
         for d in dl :
             d1 = d.get('bench',False)
             if d1 :
@@ -84,6 +86,7 @@ class Bench_gen() :
                 d1 = { "arity"  : int(d["functor"]["arity"]), 
                        "ranges" : d["unit"]["ranges"],
                        "types"  : d["functor"]['types'],
+                       "simd_types"  : d["functor"].get('simd_types',d["functor"]['types']),
                        "type_defs": d["functor"]['type_defs'],
                        "call_types" :d["functor"]["call_types"],
                        }
@@ -109,40 +112,72 @@ class Bench_gen() :
                             'int32_'        : ["uint32_t","int32_t"],
                             'int16_'        : ["uint16_t","int16_t"],
                             'int8_'         : ["uint8_t","int8_t"],
+                            "groupable_"    : ["int16_t","uint16_t","int32_t","uint32_t","int64_t","uint64_t","double"],
+                            "splitable_"    : ["int8_t","uint8_t","int16_t","uint16_t","int32_t","uint32_t","float"],
+                            "gt_8_"         : ["int16_t","uint16_t","int32_t","uint32_t","int64_t","uint64_t","double","float"], 
+                            "lt_64_"        : ["int16_t","uint16_t","int32_t","uint32_t","int8_t","uint8_t","float"],
+                            "gt_16_"        : ["int32_t","uint32_t","int64_t","uint64_t","float","double"],
+                            "sintgt_16_"    : ["int32_t","int64_t"],
+                            "uintgt_16_"    : ["uint32_t","uint64_t"],
+                            "int_convert_"  : ["int32_t","int64_t"],
+                            "uint_convert_" : ["uint32_t","uint64_t"], 
                              }
-                r = []
-                k=1
-                for typ in d1["types"] :
+                typs = d1["simd_types"] if mode == 'simd' else d1["types"]
+##                print ("typs %s" % typs)
+                for typ in typs :
+##                    print("typ = %s, variety = %s"%(typ,variety[typ]))
                     for t in variety[typ] :
+                        def get_ranges(typ, variety) :
+##                            print ("in get_ranges")
+##                            print ("d1['ranges'] %s"% d1["ranges"])
+                            d = d1["ranges"]
+                            if t in d.keys() :
+                                rges = d[t]
+                            elif typ in d.keys() :
+                                rges = d[typ]
+                            elif "default" in d.keys() :
+                                rges = d["default"]
+                            else :
+                                rges = None
+                            return rges
+                        ##   rges = d1["ranges"].get(t,d1["ranges"].get("default",None))
+                        rges =  get_ranges(typ, variety)
+##                        print("rges %s"%rges)
                         r += ["namespace n%s {"%str(k) ]
                         k+=1;
                         r.append("  typedef %s T;"%t )
                         r.append("  typedef nt2::meta::as_integer<T>::type iT;")
 ##                        r += ["  "+td for td in d1["type_defs"]]
                         if mode == "simd" :
-                            r += ["  typedef nt2::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] ]
+                            r += ["  typedef nt2::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] if ct[0] != 's' ]
                         tpl = "(RS(%s,%s,%s))"
-                        rges = d1["ranges"].get(typ,d1["ranges"].get("default",None))
-                        print("rges  %s"%rges)
-                        if isinstance(rges[0][0],list) :
-                            print(rges)
+##                        print( 'd1["ranges"] %s'%d1["ranges"])
+##                        print("rges  %s"%rges)
+##                        if isinstance(rges[0][0],list) : print(rges)
                         if not isinstance(rges[0][0],list) : rges = [rges]
                         prefix = "v" if mode == 'simd' else ''
-                        calls = d1["call_types"]*d1["arity"] if len( d1["call_types"]) == 1 else d1["call_types"]
+                        scalar_ints = d['functor'].get('scalar_ints',False) == 'True'
+                        iprefix = "v" if (mode == 'simd' and (name[-1]!='i') and (not scalar_ints)) else ''    
+                        calls = d1["call_types"]*d1["arity"] if len( d1["call_types"]) == 1 else d1["call_types"][0:int(d1["arity"])]
                         if isinstance(calls,str) : calls = [calls]
-                        print("calls %s"%calls)
+                        print(calls)
                         for rgen in rges :
                             param=""
                             for j,rge in enumerate(rgen) :
-                                param += tpl%(prefix+calls[j],rge[0],rge[1])
+                                print("calls[%s] = %s"%(j,calls[j]))
+                                if calls[j][0]=='i' :
+                                    param += tpl%(iprefix+calls[j],rge[0],rge[1])
+                                elif   calls[j][0]=='s' :
+                                   param += tpl%(calls[j][1:],rge[0],rge[1])   
+                                else :
+                                    param += tpl%(prefix+calls[j],rge[0],rge[1])
                             r.append(call%param)    
                         r += ["}"]
-                    else :
-                        pass
-                    txt += r+txtf;
-                    h = Headers(os.path.join(self.bg.get_nt2_rel_tb_path(tb_name),'bench',mode),
-                                name,inner=txt,guard_begin=[],guard_end=[]).txt()
-                    return h.split('\n')
+
+        txt += r+txtf;
+        h = Headers(os.path.join(self.bg.get_nt2_rel_tb_path(tb_name),'bench',mode),
+                    name,inner=txt,guard_begin=[],guard_end=[]).txt()
+        return h.split('\n')
          
 if __name__ == "__main__" :
     print __doc__

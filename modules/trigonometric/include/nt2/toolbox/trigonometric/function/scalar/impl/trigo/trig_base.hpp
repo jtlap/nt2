@@ -102,7 +102,7 @@ namespace nt2
 	    }
 	  else
 	    {
-	      A0 xr = Zero<A0>(), xc;
+	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      int_type swap_bit = n&One<int_type>();
 	      int_type sign_bit = shli(b_xor(swap_bit, (n&2)>>1), de);
@@ -130,7 +130,7 @@ namespace nt2
 	    }
 	  else
 	    {
-	      A0 xr = Zero<A0>(), xc;
+	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      int_type swap_bit = n&One<int_type>();
 	      A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
@@ -149,7 +149,7 @@ namespace nt2
 
 	static inline A0 tana(const A0& a0)
 	{
-	  if (redu_t::tan_invalid(a0)) return Nan<A0>();
+	  if (is_invalid(a0)||redu_t::tan_invalid(a0)) return Nan<A0>();
 	  if (is_eqz(a0)) return a0;
 	  A0 x =  nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
@@ -158,7 +158,7 @@ namespace nt2
 	    }
 	  else
 	    {
-	      A0 xr = Zero<A0>(), xc, y;
+	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::tan_eval(xr, xc, 1-((n&1)<<1));
 	      // 1 -- n even
@@ -168,8 +168,8 @@ namespace nt2
 	}
 	static inline A0 cota(const A0& a0)
 	{
-	  if (redu_t::cot_invalid(a0)) return Nan<A0>();
-	  A0 x =  nt2::abs(a0);
+	  if (nt2::is_invalid(a0)||redu_t::cot_invalid(a0)) return Nan<A0>();
+	  A0 x = nt2::abs(a0);
 	  if (redu_t::replacement_needed(x))
 	    {
 	      return redu_t::cot_replacement(a0);
@@ -178,7 +178,7 @@ namespace nt2
 	    {
 	      const A0 bos =  bitofsign(a0);
 	      if (!a0) return b_or(Inf<A0>(), bos); 
-	      A0 xr, xc, y;
+	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::cot_eval(xr, xc, 1-((n&1)<<1));
 	      return b_xor(y, bos);

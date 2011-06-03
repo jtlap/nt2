@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ABS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ABS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/properties.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/properties.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/shri.hpp>

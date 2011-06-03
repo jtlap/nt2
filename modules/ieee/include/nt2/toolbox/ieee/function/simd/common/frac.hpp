@@ -8,9 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FRAC_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FRAC_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/select.hpp>
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      details::ignore_unused(a0);
+      ignore_unused(a0);
       return Zero<A0>();
     }
   };

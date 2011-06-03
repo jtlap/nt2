@@ -37,11 +37,36 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(sinh(tofloat(a0))), is_eqz(a0));
+      return rec(sinh(tofloat(a0)));
     }
 
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type  is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::csch_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<real_<A0>,X>))
+                      );
+
+namespace nt2 { namespace ext
+{
+  template<class X, class Dummy>
+  struct call<tag::csch_(tag::simd_<tag::real_, X> ),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> :  meta::strip<A0>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return rec(sinh(a0));
+    }
+
+  };
+} }
 #endif
 // modified by jt the 05/01/2011

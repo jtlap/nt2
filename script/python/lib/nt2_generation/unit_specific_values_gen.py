@@ -55,7 +55,7 @@ class Specific_values_test_gen(Base_gen) :
                This imply that we have to convert simd logical to bool in comparison.
                """
         if self.mode == 'simd' :
-            if extract(d,"",[""],"functor","special")[0]=='predicate' :
+            if extract(d,"",[""],"functor","special")[0] in ['predicate','fuzzy'] :
                 spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0]!=0, $call_param_res$%s);"
             else :
                 spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
@@ -72,8 +72,10 @@ class Specific_values_test_gen(Base_gen) :
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
         spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
         typ_values = extract(unit_specific,"default",None,typ)       
+        if (typ == 'real_convert_') : typ = 'real_'
         # typ_values is the dictionnary of types for which specific values calls will be generated
         for k in sorted(typ_values.keys()) :
+            print("typ = %s"%typ)
             # k is here the string representation of the list of parameters f the functor
             # with only one parameter (and no commas init) it will be repeated
             #   to reach correct arity
@@ -116,7 +118,7 @@ class Specific_values_test_gen(Base_gen) :
         if no_ulp :
             Call = "    NT2_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
         else :
-            Call = "    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$, $specific_thresh$);"
+            Call = "    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
             
         Results = "    r_t res = $fct_name$($call_param_vals$);"
         d = dl['unit']["specific_values"]
@@ -133,6 +135,12 @@ class Specific_values_test_gen(Base_gen) :
                 g = ', '.join([k]*int(dl["functor"]["arity"]))
             else :                 ## regular call parameters list
                 g = k
+            if self.mode == 'simd' :
+                g =re.sub("T","vT",g)
+                g =re.sub("vTwo","Two",g)
+                g =re.sub("vThree","Three",g)
+                g =re.sub("ivT\(","nt2::splat<ivT>(",g)
+                g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
             if type(dd[k]) is str :
                 rep = dd[k]
@@ -152,8 +160,11 @@ class Specific_values_test_gen(Base_gen) :
                 s1 =re.sub("\$i\$",str(i),Call)
                 s1 =re.sub("\$call_param_res\$",rep[i],s1)
                 s1 =re.sub("\$specific_thresh\$",thr[i],s1)
-                if self.mode == 'simd' :
-                    s1 =re.sub("T","vT",s1)
+                if self.mode == "simd" :
+                    s1 = re.sub("\$simd\$","[0]",s1)
+                else :
+                    s1 = re.sub("\$simd\$","",s1)
+                        
                 r.append(s1)
             r.append("  }")
         return r    

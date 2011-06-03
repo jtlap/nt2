@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SIMD_COMMON_TANH_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/is_nez.hpp>
@@ -69,7 +69,9 @@ namespace nt2 { namespace ext
       if (all(gt(x,splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
       const A0 tmp1=expm1(-(x+x));
       const A0 tmp2=-tmp1/(Two<A0>()+tmp1);
-      return b_xor(tmp2, bitofsign(a0));
+      std::cout << "tmp2 " << tmp2 << std::endl;
+      std::cout << "bs   " <<  bitofsign(a0)<< std::endl; 
+      return sel(is_eqz(a0), a0, b_xor(tmp2, bitofsign(a0)));
     }
   };
 } }

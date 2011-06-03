@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHLI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHLI_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
+#include <nt2/sdk/meta/as_unsigned.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -28,16 +28,21 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0, A1)> : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
-      return map(functor<tag::shli_>(), a0, splat(a1)); //TO BE CONFIRMED
+      typedef typename meta::as_unsigned<A0>::type ntype;
+      return simd::native_cast<A0>(
+        map( functor<tag::shift_left_>()
+           , simd::native_cast<ntype>(a0)
+           , splat<ntype>(a1)
+           )
+      );
     }
   };
 } }
 
 #endif
-// modified by jt the 04/01/2011
-// modified manually by jt the 05/01/2011    
+// modified by mg the 03/05/2011

@@ -9,7 +9,7 @@
 // #ifndef NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_DAWSON_HPP_INCLUDED
 // #define NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_DAWSON_HPP_INCLUDED
 // #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-// #include <nt2/sdk/constant/real.hpp>
+// #include <nt2/include/constants/real.hpp>
 // #include <nt2/sdk/meta/strip.hpp>
 // #include <nt2/include/functions/polevl.hpp>
 // #include <nt2/include/functions/plevl.hpp>

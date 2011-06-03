@@ -9,5 +9,6 @@
 
 include(NT2Module)
 nt2_module_source_setup(fdlibm)
+nt2_module_configure_toolbox(fdlibm 0)
 
 add_subdirectory(prefixed_fdlibm)

@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/dist.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -30,13 +31,13 @@ namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(dist_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(dist_,(RS(vT,-10.0f,10.0f))(RS(vT,-10.0f,10.0f)))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(dist_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  NT2_TIMING(dist_,(RS(vT,-10.0,10.0))(RS(vT,-10.0,10.0)))
 }
 
 #undef RS

@@ -29,7 +29,7 @@ namespace nt2
     BOOST_CONCEPT_USAGE(FusionBidirectionalSequence)
     {
       back_type b = back(s);
-      details::ignore_unused(b);
+      ignore_unused(b);
     }
 
     private:

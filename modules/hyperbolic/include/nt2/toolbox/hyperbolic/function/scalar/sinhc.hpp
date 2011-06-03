@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_SINHC_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_SINHC_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -58,12 +58,12 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return Nan<A0>();
-      if (is_inf(a0)) return Zero<A0>(); 
+      if (is_inf(a0)) return Inf<A0>(); 
       return A0(boost::math::sinhc_pi(a0));
     }
   };

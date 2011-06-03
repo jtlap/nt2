@@ -11,7 +11,7 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-
+#include <nt2/sdk/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is double_
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>struct result<This(A0)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>struct result<This(A0)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>struct result<This(A0)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };

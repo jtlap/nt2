@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTION_SCALAR_NBDTRI_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
 extern "C" { extern double cephes_nbdtri(int,int,double); }
 
@@ -30,7 +31,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A2)>{};
+    struct result<This(A0, A1, A2)> : meta::result_of<meta::floating(A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {

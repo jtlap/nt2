@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::arithmetic(A0,A1)>{};
+      meta::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      std::tr1::result_of<meta::arithmetic(A0,A1)>{};
+      meta::result_of<meta::arithmetic(A0,A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> :
-      meta::as_integer<typename std::tr1::result_of<meta::arithmetic(A0,A1)>::type >{};
+      meta::as_integer<typename meta::result_of<meta::arithmetic(A0,A1)>::type >{};
 
     NT2_FUNCTOR_CALL(2)
     {

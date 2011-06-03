@@ -11,15 +11,10 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
-
-
-
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+#ifdef NT2_SIMD_DETECTED
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -41,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      details::ignore_unused(a0);
+      ignore_unused(a0);
       return Zero<type>();
     }
   };
@@ -72,5 +67,6 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif
 // modified by jt the 05/01/2011

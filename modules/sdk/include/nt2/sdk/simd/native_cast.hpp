@@ -14,6 +14,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/simd/meta/is_native.hpp>
+#include <nt2/sdk/details/bitwise_cast.hpp>
 
 namespace nt2 { namespace simd
 {

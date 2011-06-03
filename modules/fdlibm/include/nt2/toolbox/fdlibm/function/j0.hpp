@@ -20,7 +20,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/j0.hpp>
-// #include NT2_FDLIBM_INCLUDE(j0.hpp) 
+// #include <nt2/toolbox/fdlibm/function/simd/all/j0.hpp> 
 
  
 #endif

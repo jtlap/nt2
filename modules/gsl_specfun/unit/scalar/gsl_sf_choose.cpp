@@ -28,7 +28,7 @@
 //  using nt2::functors::gsl_sf_choose_;
 //
 //  NT2_TEST( (boost::is_same<typename nt2::meta::call<gsl_specfun_(T, T)>::type,
-//                            typename std::tr1::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
+//                            typename nt2::meta::result_of<nt2::meta::floating<($self.const_T_type_list$)>::type
 //                            >::value)
 //          );
 //}

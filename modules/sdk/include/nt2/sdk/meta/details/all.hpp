@@ -1,17 +1,17 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_META_DETAILS_ALL_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_ALL_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 // Internals for meta::all_
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/not.hpp>
 #include <nt2/sdk/meta/na.hpp>
@@ -31,9 +31,9 @@
 
 namespace nt2 { namespace details
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Recursive variadic version
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   #if defined(BOOST_HAS_VARIADIC_TMPL)
   template< class Predicate, class... Args> struct all_impl;
 
@@ -56,9 +56,9 @@ namespace nt2 { namespace details
                                 >::type
   {};
   #else
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Macro based version
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   #define M1(z,n,t)                                           \
   && boost::mpl::apply1<Pred,BOOST_PP_CAT(A,n)>::type::value  \
   /**/
@@ -75,14 +75,16 @@ namespace nt2 { namespace details
 
   template< class Pred, class T>
   struct  all_impl<Pred, T>
-        : boost::mpl::eval_if_c < boost::mpl::is_sequence<T>::value
-                                ,  boost::is_same< typename boost::mpl::find_if<  T
-                                                                              ,  boost::mpl::not_<Pred>
-                                                                              >::type
-                                                , typename boost::mpl::end<T>::type
-                                                >
-                                , boost::mpl::apply1<Pred,T>
-                                >::type
+        : boost::mpl::
+          eval_if_c < boost::mpl::is_sequence<T>::value
+                    ,  boost::
+                        is_same < typename boost::mpl::find_if< T
+                                                              , boost::mpl::not_<Pred>
+                                                              >::type
+                                , typename boost::mpl::end<T>::type
+                                >
+                    , boost::mpl::apply1<Pred,T>
+                    >::type
   {};
 
   #define M0(z,n,t)                                         \

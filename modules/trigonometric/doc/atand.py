@@ -1,16 +1,16 @@
 [ ## this file was manually modified by jt
     {
-     'functor' : {
-         'arity' : '1',
-         'call_types' : [],
-         'ret_arity' : '0',
-         'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+      'functor' :   {
+        'arity' : '1',
+        'call_types' : [],
+        'ret_arity' : '0',
+        'rturn' : {
+            'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_convert_'],
-         'special' : ['trigonometric'],
-         'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+        'simd_types' : ['real_','int_convert_','uint_convert_'],
+        'special' : ['trigonometric'],
+        'type_defs' : [],
+        'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {

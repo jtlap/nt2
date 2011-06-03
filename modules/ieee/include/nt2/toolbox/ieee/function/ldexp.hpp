@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/ldexp.hpp>
-#include NT2_IEEE_INCLUDE(ldexp.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/ldexp.hpp> 
 
  
 #endif

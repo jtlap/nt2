@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename std::tr1::result_of<nt2::meta::arithmetic(sT,sT)>::type',
+             'default' : 'typename nt2::meta::result_of<nt2::meta::arithmetic(sT,sT)>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['reduction'],  
@@ -26,20 +26,20 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'cardinal_of<vT>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'nt2::Inf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
                  'nt2::Minf<T>()' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Mone<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'cardinal_of<vT>()','ulp_thresh' : '0',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'cardinal_of<vT>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'cardinal_of<vT>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'cardinal_of<vT>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
             },

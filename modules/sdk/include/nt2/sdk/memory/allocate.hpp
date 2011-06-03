@@ -10,8 +10,8 @@
 #define NT2_SDK_MEMORY_ALLOCATE_HPP_INCLUDED
 
 #include <cstddef>
-#include <nt2/sdk/error/error.hpp>
 #include <nt2/sdk/memory/config.hpp>
+#include <nt2/sdk/memory/parameters.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
 
 namespace nt2 { namespace memory

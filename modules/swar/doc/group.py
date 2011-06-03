@@ -5,13 +5,12 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'vT',
+             'default' : 'vT', 
             },
-         'simd_types' : ['real_'],
          'special' : ['swar'],   
          'type_defs' : [],
-         'types' : ['real_'],
-         'simd_types' : ['gt_8_'],
+         'types' : ['groupable_'],
+         'simd_types' : ['groupable_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -23,7 +22,7 @@
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['0', '100']],
+             'default' : [[['0', '100'],['0', '100']]],
             },
          'specific_values' : {
              'default' : {

@@ -15,16 +15,17 @@
 /// modified by jt the 20/03/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/load.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/swar/include/group.hpp>
+#include <nt2/sdk/simd/io.hpp>
 
 NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(uint32_t)(int64_t)(uint64_t)(double))
 {

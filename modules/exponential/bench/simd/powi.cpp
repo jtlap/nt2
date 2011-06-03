@@ -32,14 +32,14 @@ namespace n1 {
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(powi_,(RS(vT,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
+  NT2_TIMING(powi_,(RS(vT,T(-10),T(10)))(RS(iT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
-  NT2_TIMING(powi_,(RS(vT,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
+  NT2_TIMING(powi_,(RS(vT,T(-10),T(10)))(RS(iT,T(-10),T(10))))
 }
 
 #undef RS

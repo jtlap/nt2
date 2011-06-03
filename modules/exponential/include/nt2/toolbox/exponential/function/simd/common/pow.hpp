@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/seladd.hpp>
@@ -19,6 +19,7 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -111,7 +112,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename meta::as_integer<A0, signed>::type int_type;
+        typedef A1                                          int_type;
 	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
 	r_type a00 =  tofloat(a0); 
         r_type sign_x = bitofsign(a0);
@@ -127,7 +128,7 @@ namespace nt2 { namespace ext
 
         r_type w = x;
         n = shri(n,1);
-        while( any(n) )
+        while( nt2::any(n) )
           {
             w =sqr( w);
             n_oddf = tofloat(-is_odd(n));
@@ -140,7 +141,8 @@ namespace nt2 { namespace ext
 
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positiv, else 0
-        return madd(x,y,oneminus(x)*w);
+	r_type r = sel(is_even(a1), nt2::abs(a0), a0); 			
+        return b_or(is_nan(a0), sel(is_inf(a0), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
 
   };

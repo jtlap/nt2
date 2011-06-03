@@ -28,7 +28,7 @@
     if (!b)                \
       {                  \
   std::cout << "   because " << #A << " = " << r1 << " and " << #B << " = " << r2 <<  std::endl; \
-  std::cout << "   and ulp distance is " << nt2::nt2_ulpdist(A, B) << std::endl; \
+  std::cout << "   and ulp distance is " << nt2_ulpdist(A, B) << std::endl; \
       }                  \
 /**/
 #define NT2_SHOW_ARG1(ARG)        \

@@ -2,7 +2,7 @@
     {
      'functor' : {
          'arity' : '1',
-         'call_types' : [],
+         'call_types' : ['T'],
          'ret_arity' : '2',
          'rturn' : {
              'default' : 'rtype',
@@ -39,7 +39,7 @@
     {
      'functor' : {
          'arity' : '2',
-         'call_types' : [],
+         'call_types' : ['T','sT'],
          'ret_arity' : '2',
          'rturn' : {
              'default' : 'rtype',

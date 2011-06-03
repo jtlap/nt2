@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/bitwise/function/scalar/select.hpp>
-#include NT2_BITWISE_INCLUDE(select.hpp) 
+#include <nt2/toolbox/bitwise/function/simd/all/select.hpp> 
 
  
 #endif

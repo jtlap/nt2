@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::crlibm::sin<Rounding>(double(a0));
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     template<class A0, class R> struct inner_sin;
     NT2_CRLIBM_INNER_STRUCT(rn, sin, rn)

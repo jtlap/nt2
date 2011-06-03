@@ -103,15 +103,6 @@
   }                \
 /**/
 
-// #define NT2_CREATE_SIMD_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
-//   nt2::memory::buffer<TYPE,          \
-//           nt2::memory::allocator<TYPE> >    \
-//   tab_##NAME(0, SIZE);            \
-//   for(int k = 0; k < (int)SIZE; ++k){        \
-//     tab_##NAME[k] = nt2::details::random(MIN, MAX);      \
-//   }                \
-// /**/
-
 ////////////////////////////////////////////////////////////////////////////////
 // Verbose predicate based tests
 ////////////////////////////////////////////////////////////////////////////////

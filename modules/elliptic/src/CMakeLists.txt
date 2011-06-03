@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(elliptic)
-nt2_module_configure_simd_toolbox(elliptic)
+nt2_module_configure_toolbox(elliptic 1)

@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/subs.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -46,6 +47,30 @@ namespace n3 {
 }
 namespace n4 {
   typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(subs_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n5 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(subs_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n6 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(subs_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n7 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(subs_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+}
+namespace n8 {
+  typedef uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(subs_,(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(vT,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))

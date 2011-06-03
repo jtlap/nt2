@@ -11,8 +11,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/tofloat.hpp>
@@ -24,16 +24,13 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::nthroot_, tag::cpu_,
                           (A0)(A1)(X),
                           ((simd_<integer_<A0>,X>))
-                          ((simd_<integer_<A0>,X>))
+                          ((simd_<integer_<A1>,X>))
                          );
 
 namespace nt2 { namespace ext
@@ -80,7 +77,16 @@ namespace nt2 { namespace ext
       A0 x =  nt2::abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
-      y = seladd(is_nez(y), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a1, One<A1>()))));
+      A1 nul_a1 = is_eqz(a1);
+      A1 a11 = a1-nul_a1; 
+// 	std::cout << "icitte"<< std::endl;
+// 	std::cout << "y " << y << std::endl;
+// 	std::cout << "a1 " << a1<< std::endl;    
+// 	std::cout << "pow(y, a1) " << pow(y, a1) << std::endl;
+// 	std::cout << "sub(a1, One<A1>()) " << sub(a1, One<A1>()) << std::endl;
+// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a1, One<A1>())) << std::endl;
+// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a11, One<A1>())) << std::endl;
+      y = seladd(b_or(is_nez(y), nul_a1), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a11, One<A1>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       A0 invalid = b_and(is_ltz(a0), is_even(a1)); 

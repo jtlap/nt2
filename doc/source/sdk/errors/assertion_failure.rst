@@ -51,7 +51,7 @@ void display(ostream&)
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../examples/sdk/details/assertion_failed.cpp
+.. literalinclude:: ../../../../modules/sdk/examples/details/assertion_failed.cpp
    :language: cpp
 
 The expected output of this code, with respect to platform dependant details, is:

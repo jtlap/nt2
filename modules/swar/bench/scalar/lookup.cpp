@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/swar/include/lookup.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,12 @@ using nt2::tag::lookup_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(lookup_,(RS(T,T(-100),T(100)))(RS(iT,0,nt2::meta::cardinal_of<iT>::value-1)))
+  NT2_TIMING(lookup_,(RS(T,T(-100),T(100)))(RS(iT,0,nt2::meta::cardinal_of<T>::value-1)))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(lookup_,(RS(T,T(-100),T(100)))(RS(iT,0,nt2::meta::cardinal_of<iT>::value-1)))
+  NT2_TIMING(lookup_,(RS(T,T(-100),T(100)))(RS(iT,0,nt2::meta::cardinal_of<T>::value-1)))
 }
 
 #undef RS

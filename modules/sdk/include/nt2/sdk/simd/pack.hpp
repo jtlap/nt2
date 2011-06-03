@@ -24,5 +24,6 @@
 #include <nt2/sdk/simd/pack/splat.hpp>
 #include <nt2/sdk/simd/pack/io.hpp>
 #include <nt2/sdk/simd/pack/compare.hpp>
+#include <nt2/sdk/simd/pack/meta/terminal_of.hpp>
 
 #endif

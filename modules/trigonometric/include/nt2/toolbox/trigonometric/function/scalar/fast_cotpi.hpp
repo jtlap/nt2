@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_FAST_COTPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_FAST_COTPI_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
 #include <nt2/include/functions/is_flint.hpp>
@@ -30,12 +30,12 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      details::ignore_unused(a0); 
+      ignore_unused(a0); 
       return Nan<type>();
     }
 

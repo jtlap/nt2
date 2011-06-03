@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/exp_ru.hpp>
-// #include NT2_CRLIBM_INCLUDE(exp_ru.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/exp_ru.hpp> 
 
  
 #endif

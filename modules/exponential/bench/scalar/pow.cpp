@@ -37,5 +37,55 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
 }
+namespace n3 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n4 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n7 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n8 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n9 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n10 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
+}
+namespace n11 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
+}
+namespace n12 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
+}
 
 #undef RS

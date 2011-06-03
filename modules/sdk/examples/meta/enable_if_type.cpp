@@ -3,10 +3,16 @@
 #include <boost/type_traits/is_same.hpp>
 
 using boost::is_same;
-using nt2::meta::enable_if_type;
 
-template<class T, class Enable=void> struct test { typedef void type; };
-template<class T> struct test<T,typename enable_if_type<typename T::type>::type> : T {};
+template<class T, class Enable=void>
+struct test
+{
+  typedef void type;
+};
+
+template<class T>
+struct test<T,typename nt2::meta::enable_if_type<typename T::type>::type> : T
+{};
 
 struct foo { typedef float** type; };
 

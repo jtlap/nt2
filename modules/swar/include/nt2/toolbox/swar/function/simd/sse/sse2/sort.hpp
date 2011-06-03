@@ -13,6 +13,7 @@
 
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/include/functions/maximum.hpp>
+#include <nt2/include/functions/make.hpp>
 
 #define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 #define NT2_CAST(T, a)   simd::native_cast<T>(a)    
@@ -85,8 +86,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {{minimum(a0), maximum(a0)}};
-      return that;
+      return make<A0>(minimum(a0), maximum(a0));
     }
   };
 } }

@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -19,18 +19,18 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::twopower_, tag::cpu_,
                           (A0),
-                          (arithmetic_<A0>)
+                          (integer_<A0>)
                          )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::twopower_(tag::arithmetic_),
+  struct call<tag::twopower_(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> : std::tr1::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> : meta::result_of<meta::arithmetic(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0>
-    struct result<This(A0)> :std::tr1::result_of<meta::arithmetic(A0)>{};
+    struct result<This(A0)> :meta::result_of<meta::arithmetic(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {

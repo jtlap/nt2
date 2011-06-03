@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_XOP_ABS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_XOP_ABS_HPP_INCLUDED
 
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
 #include <nt2/include/functions/details/simd/sse/ssse3/abs.hpp>

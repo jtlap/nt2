@@ -1,52 +1,79 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_ERROR_ERROR_HPP_INCLUDED
 #define NT2_SDK_ERROR_ERROR_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Error Reporting System
-// Documentation: http://nt2.lri.fr/sdk/error/error.html
-// Documentation: http://nt2.lri.fr/sdk/error/config.html
-////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+ * \brief Implements NT2 exception handling system
+ */
+
+/*!
+ * \defgroup error Error handling
+ * \ingroup sdk
+ * This module gathers macros, classes and functions to perform error handling
+ * in NT2, beign at runtime or at compile-time.
+ */
+
+/*!
+ * \defgroup error_config Error handling configuration
+ * \ingroup error
+ * This module gathers macros controling the configuration of error handling
+ */
+
 #include <nt2/sdk/error/details/error.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
+#if defined(DOXYGEN_ONLY)
+//==============================================================================
+/*!
+ * \ingroup error_config
+ * If defined, all NT2 exceptions handling code is disabled. This macro can be
+ * defined manually and is triggered automatically if \c BOOST_NO_EXCEPTIONS is
+ * defined or if exceptions are disabled by the compiler options.
+ *
+ * \see NT2_DISABLE_ASSERTS
+ * \see NT2_ASSERTS_AS_EXCEPTIONS
+ */
+//==============================================================================
+#define NT2_DISABLE_ERROR
+
+//==============================================================================
+/*!
+ * \ingroup error
+ * Throws an exception and its associated information carriers.
+ *
+ * \param EXCEPTION Exception to throw.
+ */
+//==============================================================================
+#define NT2_THROW(EXCEPTION)
+
+#endif
+
+//==============================================================================
 // No exception means no error unless they got requalified
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #include <boost/config.hpp>
 #if defined(BOOST_NO_EXCEPTIONS)
-NT2_WARNING(Exceptions globally disabled)
 #define NT2_DISABLE_ERROR
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Verbose report
-////////////////////////////////////////////////////////////////////////////////
-#if defined( NT2_VERBOSE )
-  #if defined(NT2_CUSTOM_ERROR)
-  NT2_WARNING(Using user-defined exception handler)
-  #elif defined(NT2_DISABLE_ERROR)
-  NT2_WARNING(Exceptions disabled)
-  #endif
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 // Enabled errors
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #if !defined(NT2_DISABLE_ERROR)
 #include <nt2/sdk/error/details/exception.hpp>
 #define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
 
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 // Disabled errors
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #else
 #define NT2_THROW(EXP)
 #endif

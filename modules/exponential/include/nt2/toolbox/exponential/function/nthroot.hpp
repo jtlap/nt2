@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/exponential/function/scalar/nthroot.hpp>
-#include NT2_EXPONENTIAL_INCLUDE(nthroot.hpp) 
+#include <nt2/toolbox/exponential/function/simd/all/nthroot.hpp> 
 
  
 #endif

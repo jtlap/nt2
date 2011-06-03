@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/cyl_bessel_j.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(cyl_bessel_j.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/cyl_bessel_j.hpp> 
 
  
 #endif

@@ -60,8 +60,8 @@ class Nt2_fct_props(Nt2_tb_props) :
         m = ''
         for mm in modes : m = os.path.join(m,mm)
         return os.path.join(self.get_def_path(),m,self.get_fct_name()+'.hpp')
-    def get_fct_unit_path(self,mode)  :
-        return os.path.join(self.get_unit_path(),mode,self.get_fct_name()+'.cpp')
+    def get_fct_unit_path(self,mode,part)  :
+        return os.path.join(self.get_unit_path(part),mode,self.get_fct_name()+'.cpp')
     def get_fct_bench_path(self,mode)  :
         return os.path.join(self.get_bench_path(),mode,self.get_fct_name()+'.cpp')
 

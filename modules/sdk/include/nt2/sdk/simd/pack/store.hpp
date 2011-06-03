@@ -10,6 +10,7 @@
 #define NT2_SDK_SIMD_PACK_STORE_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/store.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Splat over terminal of simd domain using the pack::fill method

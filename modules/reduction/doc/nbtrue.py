@@ -28,20 +28,20 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' :  'cardinal_of<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Mone<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Inf<T>()' : {'result' :  'cardinal_of<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Minf<T>()' : {'result' : 'cardinal_of<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'cardinal_of<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Nan<T>()' : {'result' :  'cardinal_of<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' :  'cardinal_of<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'cardinal_of<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' :  {'result' : 'cardinal_of<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
             },

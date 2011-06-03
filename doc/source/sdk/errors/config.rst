@@ -58,7 +58,7 @@ NT2_CUSTOM_ERROR
 
 If ``NT2_CUSTOM_ERROR`` is defined and exceptions are disabled, a special
 exception handling function can be specified. The user-defined function that
-must be implemented in this case must follow the followign prototype:
+must be implemented in this case must follow the following prototype:
 
 .. code-block:: cpp
 

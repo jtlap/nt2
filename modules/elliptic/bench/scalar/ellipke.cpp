@@ -12,8 +12,8 @@
 // timing Test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/elliptic/include/ellipke.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
@@ -36,6 +36,16 @@ namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(ellipke_,(RS(T,T(0),T(1))))
+}
+namespace n3 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(ellipke_,(RS(T,T(0),T(1)))(RS(T,T(0),T(0.01))))
+}
+namespace n4 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(ellipke_,(RS(T,T(0),T(1)))(RS(T,T(0),T(0.01))))
 }
 
 #undef RS

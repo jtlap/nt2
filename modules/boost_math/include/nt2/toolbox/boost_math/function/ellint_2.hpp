@@ -21,7 +21,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/ellint_2.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(ellint_2.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/ellint_2.hpp> 
 
  
 #endif

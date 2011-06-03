@@ -8,12 +8,12 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_COTH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_COTH_HPP_INCLUDED
-#include <nt2/sdk/constant/real.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/properties.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -21,19 +21,19 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::coth_, tag::cpu_,
                       (A0),
-                      (arithmetic_<A0>)
+                      (integer_<A0>)
                      )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::coth_(tag::arithmetic_),
+  struct call<tag::coth_(tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {

@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/fuzzy/include/definitely_not_equal.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -36,6 +37,70 @@ namespace n1 {
 }
 namespace n2 {
   typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n3 {
+  typedef int8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n4 {
+  typedef int16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n5 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n6 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n7 {
+  typedef uint8_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n8 {
+  typedef uint16_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n9 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<iT,ext_t> viT;
+  NT2_TIMING(definitely_not_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+}
+namespace n10 {
+  typedef uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<T,ext_t> vT;

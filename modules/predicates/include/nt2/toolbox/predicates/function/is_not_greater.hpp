@@ -8,12 +8,21 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_GREATER_HPP_INCLUDED
+#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/toolbox/predicates/include.hpp>
 
-#include <nt2/toolbox/predicates/function/is_ngt.hpp>
-
-namespace nt2
-{
-    NT2_FUNCTION_IMPLEMENTATION(tag::is_ngt_, is_not_greater, 2)
+namespace nt2 { namespace tag
+  {         
+    struct is_not_greater_ {};
+  }
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_not_greater, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_ngt, 2)
 }
+ 
+#include <nt2/toolbox/predicates/function/scalar/is_not_greater.hpp>
+#include <nt2/toolbox/predicates/function/simd/all/is_not_greater.hpp> 
+
+#include <nt2/toolbox/predicates/recognition/is_not_greater.hpp>
 
 #endif

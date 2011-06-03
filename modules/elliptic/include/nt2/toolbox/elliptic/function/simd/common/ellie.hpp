@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTION_SIMD_COMMON_ELLIE_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/eps_related.hpp>
-#include <nt2/sdk/constant/real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
 //       while(1)
 //         {
 //           A0 test = gt(abs(c),Eps<A0>()*abs(a));
-//           if (any(test))
+//           if (nt2::any(test))
 //             {
 //             A0 temp = b/a;
 //             lphi = lphi + atan(t*temp) + mod * Pi < A0>();

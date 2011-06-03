@@ -22,8 +22,8 @@
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()'],['0','nt2::meta::cardinal_of<r_t>::value-1']],
-             'real_' : [['T(-100)', 'T(100)'],['0','nt2::meta::cardinal_of<r_t>::value-1']],
+             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()'],['0','nt2::meta::cardinal_of<T>::value-1']],
+             'real_' : [['T(-100)', 'T(100)'],['0','nt2::meta::cardinal_of<T>::value-1']],
             },
          'specific_values' : {
              'default' : {

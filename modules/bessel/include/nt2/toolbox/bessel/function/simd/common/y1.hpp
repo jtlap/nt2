@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_Y1_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -21,6 +21,7 @@
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 
 
@@ -100,7 +101,7 @@ namespace nt2 { namespace ext
       A0 a0lt2 = lt(a0, Two<A0>());
       A0 q = rec(a0);
       A0 p2;
-      if (any(a0lt2))
+      if (nt2::any(a0lt2))
       {
         A0 z = sqr(a0);
         p2 = (z-single_constant<A0, 0x40954ae7> ())*a0*
@@ -112,6 +113,7 @@ namespace nt2 { namespace ext
                               0x3d2c210b
                               ) ) > (z);
         p2 = p2+single_constant<A0, 0x3f22f983>()*(j1(a0)*log(a0)-q);
+	p2 = sel(is_eqz(a0), Minf<A0>(), p2);
         if (all(a0lt2)) return p2;
        }
      A0 w = sqrt(q);
@@ -139,7 +141,7 @@ namespace nt2 { namespace ext
                          0x3ebfffdd
                          ) ) > (w)-single_constant<A0,0x4016cbe4 > ();
      p3 = p3*sin(xn+a0);
-     return select (a0lt2, p2, p3);
+     return select(is_inf(a0),  Zero<A0>(), select (a0lt2, p2, p3));
     }
   };
 } }

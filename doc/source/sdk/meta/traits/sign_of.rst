@@ -56,5 +56,5 @@ Expression Semantics
 Example
 ^^^^^^^
 
-.. literalinclude:: ../../../../../examples/sdk/meta/sign_of.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/meta/sign_of.cpp
    :language: cpp

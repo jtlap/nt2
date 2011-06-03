@@ -37,5 +37,15 @@ namespace n2 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(expint_,(RS(T,T(-10),T(10))))
 }
+namespace n3 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(expint_,(RS(iT,iT(0),iT(10)))(RS(T,T(0),T(10))))
+}
+namespace n4 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(expint_,(RS(iT,iT(0),iT(10)))(RS(T,T(0),T(10))))
+}
 
 #undef RS

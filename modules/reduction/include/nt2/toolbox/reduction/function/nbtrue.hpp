@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/reduction/function/scalar/nbtrue.hpp>
-#include NT2_REDUCTION_INCLUDE(nbtrue.hpp) 
+#include <nt2/toolbox/reduction/function/simd/all/nbtrue.hpp> 
 
  
 #endif

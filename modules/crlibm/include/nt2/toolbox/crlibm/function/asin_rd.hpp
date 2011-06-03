@@ -20,7 +20,7 @@ namespace nt2 { namespace crlibm { namespace tag
   } }
  
 #include <nt2/toolbox/crlibm/function/scalar/asin_rd.hpp>
-// #include NT2_CRLIBM_INCLUDE(asin_rd.hpp) 
+// #include <nt2/toolbox/crlibm/function/simd/all/asin_rd.hpp> 
 
  
 #endif

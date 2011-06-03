@@ -166,7 +166,7 @@ Example
 
 The compilation of the following code sample:
 
-.. literalinclude:: ../../../../../examples/sdk/memory/buffer.cpp
+.. literalinclude:: ../../../../../modules/sdk/examples/memory/buffer.cpp
    :language: cpp
 
 leads to the following compiler output when compiled with g++ on a Linux machine:

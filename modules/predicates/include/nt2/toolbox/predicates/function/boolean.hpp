@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/predicates/function/scalar/boolean.hpp>
-#include NT2_PREDICATES_INCLUDE(boolean.hpp) 
+#include <nt2/toolbox/predicates/function/simd/all/boolean.hpp> 
 
  
 #endif

@@ -10,7 +10,7 @@
          'simd_types' : [],
          'special' : ['crlibm'],
          'type_defs' : [],
-         'types' : ['float','double'],
+         'types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {

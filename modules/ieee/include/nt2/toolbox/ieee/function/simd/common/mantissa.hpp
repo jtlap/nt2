@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/constant/properties.hpp>
+#include <nt2/include/constants/properties.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
       const sint_type n2 = (sizeof(sint_type)-2);
       const int_type  mask0 = (splat<int_type>((n1<<2)>>2));
       const int_type  mask1 = (splat<int_type>((~n1)|n2));
-      return sel(is_eqz(a0),a0,b_or(b_and(a0,mask1),mask0));
+      return sel(b_or(is_invalid(a0),is_eqz(a0)),a0,b_or(b_and(a0,mask1),mask0));
     }
 
   };

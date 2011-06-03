@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_J1_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_J1_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -145,7 +145,7 @@ namespace nt2 { namespace ext
 				0xbe27bad7,
 				0x3ebfffdd
 				) ) > (w)-single_constant<A0,0x4016cbe4 > ();
-      return p3*cos(xn+x);
+      return sel(eq(x, Inf<A0>()),  Zero<A0>(), p3*cos(xn+x));
     }
   };
 } }

@@ -8,8 +8,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
-#include <nt2/sdk/constant/infinites.hpp>
-#include <nt2/sdk/constant/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {

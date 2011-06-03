@@ -9,29 +9,17 @@
 
 macro(nt2_module_install_setup)
   if(NOT UNIX)
-    set( NT2_INSTALL_SHARE_DIR
-         ${CMAKE_INSTALL_PREFIX}
+    set( NT2_INSTALL_SHARE_DIR .
          CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
          FORCE
        )
   else()
-    set( NT2_INSTALL_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/nt2
+    set( NT2_INSTALL_SHARE_DIR share/nt2
          CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
          FORCE
        )
   endif()
 
-  set( NT2_INSTALL_INCLUDE_DIR
-       ${CMAKE_INSTALL_PREFIX}/include
-       CACHE PATH "The directory where we install the header files"
-       FORCE
-     )
-   
-  set( NT2_INSTALL_LIBRARY_DIR
-       ${CMAKE_INSTALL_PREFIX}/lib
-       CACHE PATH "The directory where we install the libraries"
-       FORCE
-     )
 endmacro()
 
 macro(nt2_module_source_setup module)
@@ -53,7 +41,7 @@ macro(nt2_setup_variant)
     set(CMAKE_BUILD_TYPE Release)
   elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DNT2_DEBUG")
-    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DNT2_DEBUG")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DNT2_DEBUG")
   endif()
 endmacro()
 
@@ -64,7 +52,6 @@ macro(nt2_module_main module)
   set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
   
   set(NT2_CURRENT_MODULE ${module})
-  
   if(NOT NT2_${module_U}_FOUND)
   
     # load dependencies
@@ -73,7 +60,9 @@ macro(nt2_module_main module)
     
     if(DEFINED NT2_${module_U}_DEPENDENCIES_FOUND AND NOT NT2_${module_U}_DEPENDENCIES_FOUND)
       message(STATUS "[nt2.${module}] warning: dependencies not met, skipping module")
-      nt2_find_transfer_parent()
+      if(NT2_FOUND_COMPONENTS)
+        nt2_find_transfer_parent()
+      endif()
       return()
     endif()
     
@@ -108,17 +97,17 @@ macro(nt2_module_main module)
   
   # install headers, cmake modules and manifest
   install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-           DESTINATION ${NT2_INSTALL_INCLUDE_DIR}
+           DESTINATION include
            COMPONENT ${NT2_CURRENT_MODULE}
            FILES_MATCHING PATTERN "*.hpp"
          )
   install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
-           DESTINATION ${NT2_INSTALL_INCLUDE_DIR}
+           DESTINATION include
            COMPONENT ${NT2_CURRENT_MODULE}
            FILES_MATCHING PATTERN "*.hpp"
          )
-  file(WRITE ${PROJECT_BINARY_DIR}/modules/sdk.manifest)
-  install( FILES ${PROJECT_BINARY_DIR}/modules/sdk.manifest
+  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
            DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
            COMPONENT ${NT2_CURRENT_MODULE}
          )
@@ -128,19 +117,29 @@ macro(nt2_module_main module)
            FILES_MATCHING PATTERN "*.cmake"
          )
 
-  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bench)
-    add_custom_target(${module}.bench)
-    add_subdirectory(bench)
+  if(CMAKE_GENERATOR MATCHES "Make" AND NOT DEFINED NT2_WITH_TESTS)
+	set(NT2_WITH_TESTS 1)
+  elseif(NOT DEFINED NT2_WITH_TESTS)
+	set(NT2_WITH_TESTS 0)
   endif()
+
+  if(NT2_WITH_TESTS)
+    ENABLE_TESTING()
+    
+    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bench)
+      add_custom_target(${module}.bench)
+      add_subdirectory(bench)
+    endif()
   
-  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
-    add_custom_target(${module}.examples)
-    add_subdirectory(examples)
-  endif()
+    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
+      add_custom_target(${module}.examples)
+      add_subdirectory(examples)
+    endif()
   
-  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit)
-    add_custom_target(${module}.unit)
-    add_subdirectory(unit)
+    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit)
+      add_custom_target(${module}.unit)
+      add_subdirectory(unit)
+    endif()
   endif()
   
   nt2_find_transfer_parent()
@@ -175,8 +174,8 @@ macro(nt2_module_add_library libname)
   
   
   install( TARGETS ${libname}
-           LIBRARY DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
-           ARCHIVE DESTINATION ${NT2_INSTALL_LIBRARY_DIR}
+           LIBRARY DESTINATION lib
+           ARCHIVE DESTINATION lib
            COMPONENT ${NT2_CURRENT_MODULE}
          )
   
@@ -217,7 +216,14 @@ macro(nt2_module_add_unit EXECUTABLE)
   string(REGEX REPLACE "\\.unit$" "-unit" TEST ${EXECUTABLE})
   
   add_dependencies(${suite} ${EXECUTABLE})
-  add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
+  if(NOT CMAKE_CROSSCOMPILING_HOST AND DEFINED ENV{CMAKE_CROSSCOMPILING_HOST})
+    set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})
+  endif()
+  if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
+    add_test(${TEST} /bin/sh -c "scp ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE} ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${EXECUTABLE} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${EXECUTABLE}")
+  else()
+    add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
+  endif()
 endmacro()
 
 macro(nt2_module_add_bench EXECUTABLE)
@@ -236,7 +242,7 @@ macro(nt2_module_add_example EXECUTABLE)
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()
 
-macro(nt2_module_configure_simd path)
+macro(nt2_module_configure_py pyfile)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
   if(NOT PYTHON_EXECUTABLE)
@@ -247,14 +253,27 @@ macro(nt2_module_configure_simd path)
     endif()
   endif()
 
-  find_file(SIMD_FWD_PY simd_fwd.py ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
+  find_file(_${pyfile}_PY ${pyfile} ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
   execute_process( COMMAND ${PYTHON_EXECUTABLE}
-                   ${SIMD_FWD_PY} ${ARGN}
+                   ${_${pyfile}_PY}
                    ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include
-                   ${path}
+                   ${ARGN}
                  )
 endmacro()
 
-macro(nt2_module_configure_simd_toolbox toolbox)
-  nt2_module_configure_simd(nt2/toolbox/${toolbox}/function)
+macro(nt2_module_configure_simd)
+  nt2_module_configure_py(simd_fwd.py ${ARGN})
+endmacro()
+
+macro(nt2_module_configure_include)
+  nt2_module_configure_py(include_fwd.py ${ARGN})
+endmacro()
+
+macro(nt2_module_configure_toolbox toolbox is_sys)
+  if(${is_sys})
+    nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include -o nt2/include/functions)
+    nt2_module_configure_simd(nt2/toolbox/${toolbox}/function)
+  else()
+    nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include)
+  endif()
 endmacro()

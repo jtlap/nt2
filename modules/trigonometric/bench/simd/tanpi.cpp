@@ -39,5 +39,29 @@ namespace n2 {
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
 }
+namespace n3 {
+  typedef int32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
+}
+namespace n4 {
+  typedef int64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
+}
+namespace n5 {
+  typedef uint32_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
+}
+namespace n6 {
+  typedef uint64_t T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(tanpi_,(RS(vT,T(-40),T(40))))
+}
 
 #undef RS

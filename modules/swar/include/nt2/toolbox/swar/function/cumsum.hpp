@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/swar/function/scalar/cumsum.hpp>
-#include NT2_SWAR_INCLUDE(cumsum.hpp) 
+#include <nt2/toolbox/swar/function/simd/all/cumsum.hpp> 
 
  
 #endif

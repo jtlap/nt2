@@ -8,4 +8,4 @@
 ################################################################################
 
 nt2_module_source_setup(predicates)
-nt2_module_configure_simd_toolbox(predicates)
+nt2_module_configure_toolbox(predicates 1)

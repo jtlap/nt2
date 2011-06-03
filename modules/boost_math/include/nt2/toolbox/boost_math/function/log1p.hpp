@@ -20,7 +20,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
  
 #include <nt2/toolbox/boost_math/function/scalar/log1p.hpp>
-// #include NT2_BOOST_MATH_INCLUDE(log1p.hpp) 
+// #include <nt2/toolbox/boost_math/function/simd/all/log1p.hpp> 
 
  
 #endif

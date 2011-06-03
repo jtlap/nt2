@@ -60,6 +60,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       return (a0+A1::value-1) & ~(A1::value-1);
     }
   };
@@ -113,7 +114,12 @@ namespace nt2 { namespace ext
                           >
     {};
 
-    NT2_FUNCTOR_CALL(2) { return typename NT2_RETURN_TYPE(2)::type(); }
+    NT2_FUNCTOR_CALL(2)
+    {
+      ignore_unused(a0);
+      ignore_unused(a1);
+      return typename NT2_RETURN_TYPE(2)::type();
+    }
   };
 } }
 
@@ -140,7 +146,11 @@ namespace nt2 { namespace ext
                           >
     {};
 
-    NT2_FUNCTOR_CALL(1) { return typename NT2_RETURN_TYPE(1)::type(); }
+    NT2_FUNCTOR_CALL(1)
+    {
+      ignore_unused(a0);
+      return typename NT2_RETURN_TYPE(1)::type();
+    }
   };
 } }
 

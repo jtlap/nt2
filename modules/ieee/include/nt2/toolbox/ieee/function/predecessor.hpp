@@ -21,7 +21,7 @@ namespace nt2 { namespace tag
 }
  
 #include <nt2/toolbox/ieee/function/scalar/predecessor.hpp>
-#include NT2_IEEE_INCLUDE(predecessor.hpp) 
+#include <nt2/toolbox/ieee/function/simd/all/predecessor.hpp> 
 
  
 #endif

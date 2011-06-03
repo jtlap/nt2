@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TOINT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TOINT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/constant/infinites.hpp>
+#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 
 

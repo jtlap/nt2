@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
     {
       const A0 a = select(is_nan(a0),a1,a0);
       const A0 b = select(is_nan(a1),a0,a1);
-      return sel(lt(abs(a), nt2::abs(b)), a0, a1);
+      return sel(lt(nt2::abs(a), nt2::abs(b)), a, b);
     }
   };
 } }

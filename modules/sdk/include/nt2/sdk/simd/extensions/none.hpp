@@ -17,24 +17,68 @@
 NT2_WARNING(No SIMD extensions detected)
 #define NT2_NO_SIMD
 
-////////////////////////////////////////////////////////////////////////////////
-// If no SIMD extension are set, we still need to align on 128 bits to allow
-// linking with SIMD enabled obejct files
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_SIMD_BYTES      16
-#define NT2_SIMD_BITS       128
+#define NT2_SIMD_BYTES      8
+#define NT2_SIMD_BITS       64
 #define NT2_SIMD_STRING     "none"
-#define NT2_SIMD_CARDINALS (1)
+#define NT2_SIMD_CARDINALS (1)(2)(4)(8)
+#define NT2_SIMD_DEFAULT_EXTENSION ::nt2::tag::none_<boost::mpl::size_t<8> >
 #define NT2_SIMD_DEFAULT_SITE ::nt2::tag::cpu_
 
-#if defined(NT2_SIMD_TYPES)
-#define NT2_SIMD_TYPES
-#define NT2_SIMD_REAL
-#define NT2_SIMD_UNSIGNED_TYPES
-#define NT2_SIMD_SIGNED_TYPES
-#define NT2_SIMD_INTEGRAL_SIGNED_TYPES
-#define NT2_SIMD_INTEGRAL_UNSIGNED_TYPES
+#if !defined(NT2_SIMD_TYPES)
+#include <nt2/sdk/simd/extensions/sse/types.hpp>
 #endif
+
+#include <nt2/sdk/functor/meta/hierarchy.hpp>
+#include <nt2/sdk/simd/meta/is_simd_specific.hpp>
+#include <nt2/sdk/simd/meta/as_simd.hpp>
+
+#include <boost/array.hpp>
+#include <boost/mpl/times.hpp>
+#include <boost/mpl/sizeof.hpp>
+
+namespace nt2 { namespace tag
+{
+  template<class N> struct none_ : cpu_
+  {
+    typedef cpu_ parent;
+    typedef none_ type;
+  };
+} }
+
+namespace nt2 { namespace detail
+{
+  //============================================================================
+  // Work around for xlC
+  //============================================================================
+  template <class T, class N> struct make_array
+  {
+    typedef boost::array<T, N::value> type;
+  };
+} }
+
+namespace nt2 { namespace meta
+{
+  template<class N, class T>
+  struct as_simd<T, tag::none_<N> >
+  {
+    typedef boost::array<T, N::value / sizeof(T)> type;
+  };
+
+  template<class T, class N>
+  struct is_simd_specific < typename detail::make_array<T,N>::type
+                          , tag::none_<boost::mpl::times< N
+                                                        , boost::mpl::sizeof_<T>
+                                                        >
+                                      >
+                          > : boost::mpl::true_
+  {};
+
+  template<class T, class N>
+  struct extension_of<typename detail::make_array<T,N>::type, T, N>
+  {
+    typedef tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
+  };
+} }
 
 #endif
 
