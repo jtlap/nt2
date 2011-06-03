@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1){ return boost::math::expint(a0, nt2_policy()); }
   };
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
     template<class Sig> struct result;
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> :
-      std::tr1::result_of<meta::floating(A1)>{};
+      meta::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {

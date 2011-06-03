@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1)> : meta::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1)> : meta::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2){ return cephes_jn(a0, a1); }
   };
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1)> : meta::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2){ return cephes_jnf(a0, a1); }
   };
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
-    struct result<This(A0, A1)> : std::tr1::result_of<meta::floating(A1)>{};
+    struct result<This(A0, A1)> : meta::result_of<meta::floating(A1)>{};
 
     NT2_FUNCTOR_CALL(2){ return cephes_jnl(a0, a1); }
   };

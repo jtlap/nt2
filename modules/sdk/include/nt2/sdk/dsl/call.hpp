@@ -22,30 +22,6 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Generate up to NT2_MAX_ARITY dispacth registration. If at least one parameter
-// is a proto expression, send the dispatch into call<F(ast_)>
-////////////////////////////////////////////////////////////////////////////////
-#define M2(z,n,t) (BOOST_PP_CAT(A,n))
-#define M1(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
-#define M0(z,n,t)                                                             \
-NT2_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
-                        , (Func)BOOST_PP_REPEAT(n,M2,~)                       \
-                        , (any< boost::proto::is_expr<boost::mpl::_>          \
-                              , BOOST_PP_ENUM_PARAMS(n,A)                     \
-                             >                                                \
-                          )                                                   \
-                      , (Func(tag::ast_))                                     \
-                      , BOOST_PP_REPEAT(n,M1,~)                               \
-                      )                                                       \
-/**/
-
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
-
-#undef M0
-#undef M1
-#undef M2
-
-////////////////////////////////////////////////////////////////////////////////
 // Defines the catch-all call for proto expression
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace details
@@ -115,7 +91,28 @@ namespace nt2 { namespace details
 
 } }
 
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/dsl/preprocessed/call.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/call.hpp")
+#endif
+
 #define M1(z,n,t) nt2::details::as_child(BOOST_PP_CAT(a,n))
+#define M2(z,n,t) (BOOST_PP_CAT(A,n))
+#define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
+
+#define M4(z,n,t)                                                             \
+NT2_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
+                        , (Func)BOOST_PP_REPEAT(n,M2,~)                       \
+                        , (any< boost::proto::is_expr<boost::mpl::_>          \
+                              , BOOST_PP_ENUM_PARAMS(n,A)                     \
+                             >                                                \
+                          )                                                   \
+                      , (Func(tag::ast_))                                     \
+                      , BOOST_PP_REPEAT(n,M3,~)                               \
+                      )                                                       \
+/**/
 
 #define M0(z,n,t)                                               \
 template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>            \
@@ -139,17 +136,27 @@ NT2_FUNCTOR_CALL(n)                                             \
 }                                                               \
 /**/
 
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PROTO_MAX_ARITY),M4,~)
 namespace nt2 { namespace ext
 {
   template<class Func,class Dummy>
   struct call<Func(tag::ast_),tag::formal_,Dummy> : callable
   {
     template<class Sig> struct result;
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PROTO_MAX_ARITY),M0,~)
   };
 } }
 
 #undef M0
 #undef M1
+#undef M2
+#undef M3
+#undef M4
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
 #endif
+

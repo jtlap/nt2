@@ -15,11 +15,10 @@
  */
 
 #include <boost/config.hpp>
-#include <boost/tr1/functional.hpp>
-#include <nt2/sdk/functor/functor.hpp>
 #include <boost/function_types/result_type.hpp>
+#include <nt2/sdk/functor/functor.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL)
+#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -59,21 +58,35 @@ namespace nt2 { namespace meta
                                             >::type
           > struct call {};
 
-#if defined(BOOST_HAS_VARIADIC_TMPL)
+#if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
   template<class Tag, class... Args, class Site>
   struct call<Tag(Args...),Site>
-        : std::tr1::result_of<functor<Tag,Site>(Args...)>
+        : meta::result_of<functor<Tag,Site>(Args...)>
   {};
 #else
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/functor/meta/preprocessed/call.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/call.hpp")
+#endif
+
 #define M0(z,n,t) \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site> \
 struct call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site> \
-: std::tr1::result_of<functor<Tag,Site>(BOOST_PP_ENUM_PARAMS(n,A))> \
+: meta::result_of<functor<Tag,Site>(BOOST_PP_ENUM_PARAMS(n,A))> \
 {}; \
 /**/
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
 #undef M0
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
+
 #endif
 } }
 

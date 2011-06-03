@@ -10,14 +10,16 @@
 include(NT2Module)
 nt2_module_source_setup(sdk)
 
-nt2_module_configure_simd( nt2/sdk/simd/details/impl --no-simd-dir --no-default-baseline
-                                                     -Bcommon -Bsse/sse2
-                         )
-
 file( GLOB_RECURSE source_sdk_files
       ${NT2_SDK_ROOT}/src/*
     )
+SET(SOURCES ${source_sdk_files} ${NT2_CONFIG_ROOT}/src/version.cpp)
+nt2_module_add_library(nt2 ${SOURCES})
 
-SET(SOURCE_FILES ${source_sdk_files} ${SOURCE_FILES})
-
-nt2_module_add_library(nt2 ${SOURCE_FILES})
+include(nt2.preprocess)
+nt2_preprocess(sdk.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
+                              ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/call.hpp
+                              ${NT2_SDK_ROOT}/include/nt2/sdk/dsl/call.hpp
+                              ${NT2_SDK_ROOT}/include/nt2/sdk/meta/arithmetic.hpp
+                              ${NT2_SDK_ROOT}/include/nt2/sdk/meta/floating.hpp
+              )

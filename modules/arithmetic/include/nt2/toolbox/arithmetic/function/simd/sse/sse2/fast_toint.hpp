@@ -12,8 +12,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
-#include <iostream>
-
+#include <nt2/include/functions/make.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -63,8 +62,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
       typedef typename meta::scalar_of<type>::type stype;
-      const type v = {{static_cast<stype>(a0[0]),static_cast<stype>(a0[1])}};
-      return v; 
+      return make<type>(static_cast<stype>(a0[0]),static_cast<stype>(a0[1]));
     }
   };
 } }

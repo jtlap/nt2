@@ -19,7 +19,7 @@
 #define NT2_ALIGN_ON(x)  __declspec(align(x))
 #elif (defined(__GNUC__)) || (defined(__xlC__))
 #define NT2_ALIGN_ON(x)  __attribute__(( __aligned__((x)) ))
-#else
+#elif !(defined(__WAVE__))
 #error nt2::aligned - No Supported alignment attribute
 #endif
 

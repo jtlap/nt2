@@ -158,7 +158,9 @@ class SimdFile(object):
         else:
             if(self.dir == ['all']):
               toolbox = self.path_prefix[-2]
+              f.write("#ifndef __WAVE__\n")
               f.write("#include NT2_" + toolbox.upper() + "_INCLUDE(" + str.join('/', self.basefile) + ")\n")
+              f.write("#endif\n")
             i = 0
             for parent in parents:
                 if(self.dir == ['all'] and i == all_include):

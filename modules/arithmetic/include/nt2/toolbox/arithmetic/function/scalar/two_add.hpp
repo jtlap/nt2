@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0, A1)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0, A1)>::type rtype;
+      typedef typename meta::result_of<meta::floating(A0, A1)>::type rtype;
       typedef typename boost::fusion::tuple<rtype,rtype>              type;
     };
 

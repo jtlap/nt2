@@ -14,6 +14,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
+#include <nt2/include/functions/make.hpp>
 
 #include <nt2/toolbox/bitwise/function/simd/common/shrai.hpp>
 
@@ -128,9 +129,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-
-      A0 that = {{shrai(a0[0], a1), shrai(a0[1], a1)}};
-      return that;
+      return make<A0>(shrai(a0[0], a1), shrai(a0[1], a1));
     }
   };
 } }

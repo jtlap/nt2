@@ -25,7 +25,7 @@ namespace nt2
       typedef typename
       meta::dispatch_call<tag::terminal_(Value,State,Data),Site>::type  callee;
       typedef typename
-      std::tr1::result_of<callee(Value, State, Data)>::type             type;
+      meta::result_of<callee(Value, State, Data)>::type             type;
     };
 
     template<class Value, class State, class Data> inline

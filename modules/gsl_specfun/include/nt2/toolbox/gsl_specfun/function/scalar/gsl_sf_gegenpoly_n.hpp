@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A2)>{};
+    struct result<This(A0, A1, A2)> : meta::result_of<meta::floating(A2)>{};
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A2)>{};
+    struct result<This(A0, A1, A2)> : meta::result_of<meta::floating(A2)>{};
 
     NT2_FUNCTOR_CALL(3){ return gsl_sf_gegenpoly_n(a0, a1, a2); }
   };
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1, class A2>
-    struct result<This(A0, A1, A2)> : std::tr1::result_of<meta::floating(A2)>{};
+    struct result<This(A0, A1, A2)> : meta::result_of<meta::floating(A2)>{};
 
     NT2_FUNCTOR_CALL(3){ return gsl_sf_gegenpoly_n(a0, a1, a2); }
   };

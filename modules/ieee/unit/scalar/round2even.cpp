@@ -22,6 +22,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/ieee/include/round2even.hpp>
+#include <boost/math/special_functions/round.hpp>
 
 NT2_TEST_CASE_TPL ( round2even_real__1_0,  NT2_REAL_TYPES)
 {
@@ -65,7 +66,7 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::round2even(a0),::round(a0));
+        NT2_TEST_EQUAL( nt2::round2even(a0),boost::math::round(a0));
      }
      
    }

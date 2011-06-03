@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_TYPES)
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename nt2::meta::result_of<nt2::meta::floating(T)>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename std::tr1::result_of<nt2::meta::floating(T)>::type ftype;
+    typedef typename nt2::meta::result_of<nt2::meta::floating(T)>::type ftype;
     NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-60), T(60));
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)

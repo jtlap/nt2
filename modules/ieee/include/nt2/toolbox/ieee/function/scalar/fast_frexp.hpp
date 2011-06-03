@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>
     {
-      typedef typename std::tr1::result_of<meta::floating(A0)>::type mantissa;
+      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             type;
     };

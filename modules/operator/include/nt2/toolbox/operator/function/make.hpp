@@ -8,85 +8,70 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_MAKE_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_MAKE_HPP_INCLUDED
+#include <nt2/include/simd.hpp>
+#include <nt2/toolbox/operator/include.hpp>
+#include <nt2/sdk/meta/as.hpp>
 
-#include <boost/array.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <nt2/sdk/simd/preprocessor/include.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-
-namespace nt2 { namespace functors
-{
-  template<class T> struct make_ {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // make perform type dispatching based on the category of its target type
-  // Hence, we need a specialized functor all together.
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Info>
-  struct functor< make_<T>, Info >
-  {
-    ////////////////////////////////////////////////////////////////////////////
-    // functor call is valid only if the amount of parameters equals the
-    // vector cardinal
-    ////////////////////////////////////////////////////////////////////////////
-    struct validate
-    {
-      template<class Sig> struct result;
-      template<class This,class A>
-      struct result<This(A)>
-        : boost::mpl::bool_ <   meta::cardinal_of<T>::value
-                            ==  meta::strip<A>::type::static_size
-                            >
-      {};
-    };
-
-    template<class Sig> struct result;
-    template<class This,class A> struct result<This(A)>
-    {
-      typedef typename meta::category_of<T>::type::tag      dominant;
-      typedef functors::call<make_<T>,dominant,Info>        callee;
-      typedef typename std::tr1::result_of<callee(A)>::type type;
-    };
-
-    template<class A> inline
-    typename meta::enable_call<make_<T>(A)>::type
-    operator()(A const& a) const
-    {
-      typedef typename meta::category_of<T>::type::tag  dominant;
-      functors::call<make_<T>,dominant,Info>            callee;
-      return callee(a);
-    }
-  };
-} }
-
-// TODO : Remove make_native
 namespace nt2
 {
-  #define NT2_LOCAL(z,d,n)                                                      				\
-  template<class T, class A> inline                                             				\
-  typename meta::enable_call<functors::make_<T>(boost::array<A,n>)>::type       				\
-  make( BOOST_PP_ENUM_PARAMS(n,A const& a) )                                    				\
-  {                                                                             				\
-    functors::functor< functors::make_<T> > callee;                             				\
-    boost::array<A,n> data = {BOOST_PP_ENUM_PARAMS(n,a)};                       				\
-    return callee(data);                                                        				\
-  }                                                                             				\
-	namespace simd																																				\
-	{																																											\
-		template<class T, class X> inline																										\
-		typename meta::enable_call<functors::make_< native<T,X> >(boost::array<T,n>)>::type	\
-		make_native( BOOST_PP_ENUM_PARAMS(n,T const& a) )																		\
-		{                                                                           				\
-			return nt2::make< native<T,X> >(BOOST_PP_ENUM_PARAMS(n,a));												\
-		}                                                                           				\
-	}																																											\
-  /**/
+  namespace tag
+  {
+    struct make_ {};
+  }
+  
+  #define NT2_PP_REPEAT_POWER_OF_2(m, data)                                                \
+  m( 1,  1, data)                                                                          \
+  m( 2,  2, data)                                                                          \
+  m( 4,  4, data)                                                                          \
+  m( 8,  8, data)                                                                          \
+  m(16, 16, data)                                                                          \
+  m(32, 32, data)                                                                          \
+  m(64, 64, data)
+    
+  /* We specialize functor directly due to arity limitations, and we only dispatch on the target.
+   * We also avoid having to dispatch return type deduction, and we cast all arguments to the scalar
+   * matching the target. */
+  template<class Site>
+  struct functor<tag::make_, Site>
+  {
+    template<class Sig>
+    struct result;
+    
+    #define M1(z,n,t) static_cast<typename meta::scalar_of<typename Target::type>::type>(a##n)
+    
+    #define M0(z,n,t)                                                                      \
+    template<class This, BOOST_PP_ENUM_PARAMS(n, class A), class Target>                   \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n, A), Target)>                                \
+      : meta::strip<Target>::type                                                          \
+    {                                                                                      \
+    };                                                                                     \
+                                                                                           \
+    template<BOOST_PP_ENUM_PARAMS(n, class A), class Target>                               \
+    typename Target::type                                                                  \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a), Target const&) const           \
+    {                                                                                      \
+      typename meta::dispatch_call<tag::make_(Target), Site>::type callee;                 \
+      return callee(BOOST_PP_ENUM(n, M1, ~));                                              \
+    }
+    
+    NT2_PP_REPEAT_POWER_OF_2(M0, ~)
+    #undef M0
+    #undef M1
+  };
+    
+  #define M0(z,n,t)                                                                        \
+  template<class T, BOOST_PP_ENUM_PARAMS(n, class A)> inline                               \
+  T make(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                                      \
+  {                                                                                        \
+    typename make_functor<tag::make_, T>::type callee;                                     \
+    return callee(BOOST_PP_ENUM_PARAMS(n, a), meta::as_<T>());                             \
+  }
 
-  BOOST_PP_SEQ_FOR_EACH(NT2_LOCAL, ~, NT2_SIMD_CARDINALS)
-  #undef NT2_LOCAL
+  NT2_PP_REPEAT_POWER_OF_2(M0, ~)
+  #undef M0
 }
 
+#include <nt2/toolbox/operator/function/scalar/make.hpp>
 #include <nt2/toolbox/operator/function/simd/all/make.hpp>
 
 #endif

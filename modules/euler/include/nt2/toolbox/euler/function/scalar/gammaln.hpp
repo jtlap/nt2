@@ -24,13 +24,13 @@
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gammaln_, tag::cpu_,
                          (A0),
-                         (double_<A0>)
+                         (real_<A0>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gammaln_(tag::double_),
+  struct call<tag::gammaln_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
@@ -86,19 +86,19 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gammaln_, tag::cpu_,
                          (A0),
-                         (integer_<A0>)
+                         (arithmetic_<A0>)
                         )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gammaln_(tag::integer_),
+  struct call<tag::gammaln_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {

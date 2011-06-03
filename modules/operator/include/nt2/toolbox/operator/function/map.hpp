@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_MAP_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_MAP_HPP_INCLUDED
 
-#include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/simd/preprocessor/include.hpp>
-#include <nt2/sdk/functor/preprocessor/function.hpp>
+#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/toolbox/operator/include.hpp>
 
 namespace nt2 { namespace tag { struct map_ {}; } }
 

@@ -10,8 +10,22 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_MAP_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/toolbox/operator/specific/details/maybe_genmask.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/toolbox/operator/function/simd/common/preprocessed/map.hpp>
+#else
+#include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
+#endif
 
 #define M0(z,n,t) ((simd_< unspecified_<A0>, X >))
 #define M1(z,n,t) tag::simd_<tag::unspecified_, X>                                  
@@ -37,7 +51,7 @@ namespace nt2 { namespace ext                                                \
     template<class This,class Func,BOOST_PP_ENUM_PARAMS(n,class A)>          \
     struct result<This(Func, BOOST_PP_ENUM_PARAMS(n,A))>                     \
     {                                                                        \
-      typedef typename std::tr1::                                            \
+      typedef typename meta::                                                \
       result_of< typename meta::                                             \
                  strip<Func>::type const( BOOST_PP_ENUM(n,M2,~) )            \
                >::type                                                       \
@@ -76,5 +90,10 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M4,~)
 #undef M2
 #undef M1
 #undef M0
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
 #endif

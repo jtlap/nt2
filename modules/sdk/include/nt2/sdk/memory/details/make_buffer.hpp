@@ -15,7 +15,6 @@
 #include <boost/mpl/at.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/mpl/push_back.hpp>
-#include <boost/tr1/functional.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <boost/fusion/include/mpl.hpp>

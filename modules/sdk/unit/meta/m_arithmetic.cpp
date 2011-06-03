@@ -8,7 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::arithmetic"
 
-#include <boost/tr1/functional.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -21,7 +21,7 @@
 NT2_TEST_CASE( unary_arithmetic )
 {
   using nt2::meta::arithmetic;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
@@ -42,7 +42,7 @@ NT2_TEST_CASE( unary_arithmetic )
 NT2_TEST_CASE( binary_arithmetic )
 {
   using nt2::meta::arithmetic;
-  using std::tr1::result_of;
+  using nt2::meta::result_of;
   using boost::is_same;
 
   NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );

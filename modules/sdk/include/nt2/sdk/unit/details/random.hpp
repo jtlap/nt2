@@ -38,7 +38,7 @@ namespace nt2
    
     template < class T1, class T2> T1  random(T1 a0, T2 a1)
     {
-      typedef typename std::tr1::result_of<meta::arithmetic(T1, T2)>::type type; 
+      typedef typename meta::result_of<meta::arithmetic(T1, T2)>::type type; 
       return nt2_random(type(a0), type(a1), typename details::classif<T1>::type()); 
     }
   }

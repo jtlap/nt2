@@ -10,13 +10,22 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/details/decltype.hpp>
 #include <nt2/sdk/meta/hierarchy.hpp>
-#include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/details/decltype.hpp>
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
+#undef NT2_DECLTYPE
+#endif
+#include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -51,6 +60,7 @@ namespace nt2 { namespace meta
   // overload or unregistered types.
   //============================================================================
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_DEFAULT_UNKNOWN_DISPATCH,~)
+
 } }
 
 #undef M0
@@ -87,13 +97,19 @@ namespace nt2 { namespace meta
   // dispatch_call finds the proper call overload for evaluating a given
   // functor over a set of types on a given site
   //==============================================================================
-  template<class Sig, class Site> struct dispatch_call;
+  template<class Sig, class Site> struct dispatch_call; 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),NT2_DISPATCH_CALL,~)
+
 } }
 
 #undef M0
 #undef NT2_DISPATCH_TYPES_TPL
 #undef NT2_DISPATCH_TYPES
 #undef NT2_DISPATCH_CALL
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
 
 #endif

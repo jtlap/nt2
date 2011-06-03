@@ -181,10 +181,10 @@ namespace nt2 { namespace ext
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
 //       std::cout << "nt2::type_id < A0 > ()  "<< nt2::type_id < A0 > () <<  std::endl; 
 //       std::cout << "nt2::type_id < rtype > ()  "<< nt2::type_id < rtype > () <<  std::endl;
-//       rtype r = {{ static_cast<stype>(a0[0]), static_cast<stype>(a0[1]),
+//       rtype r = make<rtype>( static_cast<stype>(a0[0]), static_cast<stype>(a0[1]),
 // 		   static_cast<stype>(a0[2]), static_cast<stype>(a0[3]),
 // 		   static_cast<stype>(a1[0]), static_cast<stype>(a1[1]),
-// 		   static_cast<stype>(a1[2]), static_cast<stype>(a1[3])}};
+// 		   static_cast<stype>(a1[2]), static_cast<stype>(a1[3]) );
 //       return r; 
       return simd::native_cast<rtype>(_mm_packus_epi32(a0, a1)); //_mm_packus_epi32 pas existe avant sse4.1
     }
@@ -252,7 +252,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type rtype;
-//       rtype r = {{a0[0], a0[1], a1[0], a1[1]}};
+//       rtype r = make<rtype>(a0[0], a0[1], a1[0], a1[1]);
 //       return r; 
       rtype b = {_mm_slli_si128(simd::native_cast<rtype>(a1),4)};// works only for int64 that are int32 representable
       b = b_or(b, a0);

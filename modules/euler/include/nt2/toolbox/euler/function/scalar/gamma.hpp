@@ -43,23 +43,18 @@ NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gamma_(tag::integer_),
+  struct call<tag::gamma_(tag::arithmetic_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0>
     struct result<This(A0)> :
-      std::tr1::result_of<meta::floating(A0)>{};
+      meta::result_of<meta::floating(A0)>{};
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (is_ltz(a0) ) return Nan<type>();
-    #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
-      return ::tgamma(type(a0));
-    #else
-      return boost::math::tgamma(type(a0));
-    #endif
+      return nt2::gamma(type(a0));
     }
 
   };
@@ -97,13 +92,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::gamma_, tag::cpu_,
                        (A0),
-                       (double_<A0>)
+                       (real_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::gamma_(tag::double_),
+  struct call<tag::gamma_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
