@@ -17,6 +17,10 @@ ADD_DEPENDENCIES(combinatorial.unit combinatorial.scalar.unit combinatorial.simd
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
-nt2_module_use_modules(unit ieee arithmetic euler)
+nt2_module_use_modules(unit arithmetic)
+
+message(STATUS "------------------ combinatorial unit tests ---------------------")
+message(STATUS "NT2_ARITHMETIC_INCLUDE_DIR = ${NT2_ARITHMETIC_INCLUDE_DIR}")
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

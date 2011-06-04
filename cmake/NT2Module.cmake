@@ -50,6 +50,7 @@ macro(nt2_module_main module)
   
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
   set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+  nt2_setup_variant()
   
   set(NT2_CURRENT_MODULE ${module})
   if(NOT NT2_${module_U}_FOUND)
@@ -66,32 +67,21 @@ macro(nt2_module_main module)
       return()
     endif()
     
-    if(NT2_${module_U}_DEPENDENCIES_EXTRA)
-        nt2_module_use_modules(extra ${NT2_${module_U}_DEPENDENCIES_EXTRA})
-    endif()
-    
-    # set FindNT2 variables
-    set(NT2_${module_U}_FOUND 1)
-    set(NT2_${module_U}_INCLUDE_DIR ${PROJECT_BINARY_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/include ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR})
-    set(NT2_${module_U}_LIBRARY_DIR ${PROJECT_BINARY_DIR}/lib ${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
-    set(NT2_${module_U}_LIBRARIES ${NT2_${module_U}_DEPENDENCIES_LIBRARIES} ${NT2_${module_U}_LIBRARIES})
-    set(NT2_${module_U}_FLAGS "${NT2_${module_U}_DEPENDENCIES_FLAGS} ${NT2_${module_U}_FLAGS}")
-    set(NT2_FOUND_COMPONENTS ${module} ${NT2_FOUND_COMPONENTS})
+    nt2_module_use_modules(extra ${NT2_${module_U}_DEPENDENCIES_EXTRA} ${module})
          
     if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
       add_subdirectory(src)
     endif()
     
+  else()
+  
+    # set include/link directories
+    include_directories(${NT2_${module_U}_INCLUDE_DIR})
+    link_directories(${NT2_${module_U}_LIBRARY_DIR})
+    link_libraries(${NT2_${module_U}_LIBRARIES})
+    set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
+  
   endif()
-  
-  nt2_setup_variant()
-  
-  # set include/link directories
-  include_directories(${NT2_${module_U}_INCLUDE_DIR})
-  link_directories(${NT2_${module_U}_LIBRARY_DIR})
-  link_libraries(${NT2_${module_U}_LIBRARIES})
-  
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
   
   nt2_module_install_setup()
   
@@ -118,9 +108,9 @@ macro(nt2_module_main module)
          )
 
   if(CMAKE_GENERATOR MATCHES "Make" AND NOT DEFINED NT2_WITH_TESTS)
-	set(NT2_WITH_TESTS 1)
+    set(NT2_WITH_TESTS 1)
   elseif(NOT DEFINED NT2_WITH_TESTS)
-	set(NT2_WITH_TESTS 0)
+    set(NT2_WITH_TESTS 0)
   endif()
 
   if(NT2_WITH_TESTS)

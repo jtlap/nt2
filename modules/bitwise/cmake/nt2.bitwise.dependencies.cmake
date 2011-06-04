@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BITWISE_DEPENDENCIES_EXTRA swar)
+SET(NT2_BITWISE_DEPENDENCIES_EXTRA swar predicates)

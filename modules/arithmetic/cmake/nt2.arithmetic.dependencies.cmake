@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_ARITHMETIC_DEPENDENCIES_EXTRA bitwise ieee)
+SET(NT2_ARITHMETIC_DEPENDENCIES_EXTRA bitwise ieee exponential predicates)

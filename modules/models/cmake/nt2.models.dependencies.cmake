@@ -7,8 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(NT2 COMPONENTS predicates arithmetic)
-SET(NT2_MODELS_DEPENDENCIES_FOUND ${NT2_FOUND})
-SET(NT2_MODELS_DEPENDENCIES_INCLUDE_DIR ${NT2_INCLUDE_DIR})
-SET(NT2_MODELS_DEPENDENCIES_LIBRARIES ${NT2_LIBRARIES})
-SET(NT2_MODELS_DEPENDENCIES_FLAGS ${NT2_FLAGS})
+SET(NT2_MODELS_DEPENDENCIES_EXTRA predicates arithmetic)

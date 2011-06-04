@@ -10,6 +10,7 @@
 nt2_module_source_setup(cephes)
 nt2_module_configure_toolbox(cephes 0)
 
+message(STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
 include(nt2.info)
 
 set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DANSIC")
