@@ -13,8 +13,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
-
-
+#include <math.h>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
