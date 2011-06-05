@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(bitwise.cover bitwise.scalar.cover bitwise.simd.cover)
 ##############################################################################
 # Toolbox bitwise cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(cover predicates arithmetic ieee)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

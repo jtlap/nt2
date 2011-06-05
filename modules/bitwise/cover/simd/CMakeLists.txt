@@ -9,6 +9,34 @@
 ################################################################################
 
 SET( SOURCES
+  twopower.cpp
+  shri.cpp
+  shrai.cpp
+  shli.cpp
+  selsub.cpp
+  select.cpp
+  seladd.cpp
+  rshr.cpp
+  rshl.cpp
+  rror.cpp
+  rrol.cpp
+  ror.cpp
+  rol.cpp
+  reversebits.cpp
+  popcnt.cpp
+  negif.cpp
+  lo.cpp
+  hi.cpp
+  genmask.cpp
+  firstbitunset.cpp
+  firstbitset.cpp
+  ffs.cpp
+  bitwise_select.cpp
+  bitwise_ornot.cpp
+  bitwise_notor.cpp
+  bitwise_notand.cpp
+  bitwise_andnot.cpp
+  bits.cpp
 # List of simd test files for toolbox bitwise
    )
 
