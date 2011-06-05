@@ -22,10 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/hyperbolic/include/atanh.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/exponential/include/constants.hpp>
-extern "C" { long double cephes_atanhl(long double); }
-#include <nt2/toolbox/boost_math/include/atanh.hpp>
 
 NT2_TEST_CASE_TPL ( atanh_real__1_0,  NT2_REAL_TYPES)
 {
