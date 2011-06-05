@@ -9,6 +9,10 @@
 ################################################################################
 
 SET( SOURCES
+  lcm.cpp
+  gcd.cpp
+  cnp.cpp
+  anp.cpp
 # List of scalar test files for toolbox combinatorial
    )
 
