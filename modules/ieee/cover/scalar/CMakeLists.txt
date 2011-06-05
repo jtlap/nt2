@@ -9,6 +9,42 @@
 ################################################################################
 
 SET( SOURCES
+  ulpdist.cpp
+  ulp.cpp
+  successor.cpp
+  signnz.cpp
+  sign.cpp
+  sbits.cpp
+  saturate.cpp
+  round2even.cpp
+  prev.cpp
+  predecessor.cpp
+  nextpow2.cpp
+  nextafter.cpp
+  next.cpp
+  negation.cpp
+  negate.cpp
+  modf.cpp
+  minnummag.cpp
+  minnum.cpp
+  minmag.cpp
+  maxnummag.cpp
+  maxnum.cpp
+  maxmag.cpp
+  mantissa.cpp
+  ldexp.cpp
+  ilogb.cpp
+  frexp.cpp
+  frac.cpp
+  fast_ldexp.cpp
+  fast_frexp.cpp
+  exponentbits.cpp
+  exponent.cpp
+  eps.cpp
+  copysign.cpp
+  bitofsign.cpp
+  bitinteger.cpp
+  bitfloating.cpp
 # List of scalar test files for toolbox ieee
    )
 
