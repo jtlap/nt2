@@ -20,7 +20,6 @@ SET( SOURCES
   iround.cpp
   arg.cpp
   iround2even.cpp
-  sqrt1pm1.cpp
   remainder.cpp
   rem.cpp
   mod.cpp

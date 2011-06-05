@@ -9,6 +9,61 @@
 ################################################################################
 
 SET( SOURCES
+  two_split.cpp
+  two_prod.cpp
+  two_add.cpp
+  trunc.cpp
+  toint.cpp
+  tofloat.cpp
+  subs.cpp
+  sqrt.cpp
+  sqr.cpp
+  rsqrt.cpp
+  round.cpp
+  remquo.cpp
+  remainder.cpp
+  rem.cpp
+  rec.cpp
+  rdivide.cpp
+  random.cpp
+  oneplus.cpp
+  oneminus.cpp
+  negs.cpp
+  muls.cpp
+  mod.cpp
+  minusone.cpp
+  minmod.cpp
+  min.cpp
+  max.cpp
+  logical_xor.cpp
+  ldivide.cpp
+  ldiv.cpp
+  iround2even.cpp
+  iround.cpp
+  ifloor.cpp
+  idivround.cpp
+  idivfloor.cpp
+  idivfix.cpp
+  idivceil.cpp
+  iceil.cpp
+  hypot.cpp
+  fma.cpp
+  fast_toint.cpp
+  fast_hypot.cpp
+  divs.cpp
+  divround.cpp
+  divfloor.cpp
+  divfix.cpp
+  divceil.cpp
+  dist.cpp
+  correct_fma.cpp
+  ceil.cpp
+  average.cpp
+  arg.cpp
+  adds.cpp
+  abss.cpp
+  abs.cpp
+  floor.cpp
 # List of simd test files for toolbox arithmetic
    )
 
