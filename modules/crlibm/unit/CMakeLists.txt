@@ -12,7 +12,7 @@
 ################################################################################
 ADD_CUSTOM_TARGET(crlibm.scalar.unit)
 ADD_CUSTOM_TARGET(crlibm.simd.unit)
-ADD_DEPENDENCIES(crlibm.unit crlibm.scalar.unit crlibm.simd.unit)
+ADD_DEPENDENCIES(crlibm.unit crlibm.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox crlibm unit tests

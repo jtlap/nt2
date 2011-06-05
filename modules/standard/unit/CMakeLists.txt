@@ -11,8 +11,7 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(standard.scalar.unit)
-ADD_CUSTOM_TARGET(standard.simd.unit)
-ADD_DEPENDENCIES(standard.unit standard.scalar.unit standard.simd.unit)
+ADD_DEPENDENCIES(standard.unit standard.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox standard unit tests

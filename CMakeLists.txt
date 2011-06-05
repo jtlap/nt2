@@ -73,6 +73,9 @@ ADD_CUSTOM_TARGET( examples
 ADD_CUSTOM_TARGET( unit
                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/unit
                  )
+ADD_CUSTOM_TARGET( cover
+                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/cover
+                 )
 
 ################################################################################
 # Module inclusion
@@ -83,6 +86,7 @@ macro(nt2_load_module module)
   add_dependencies(bench ${module}.bench)
   add_dependencies(examples ${module}.examples)
   add_dependencies(unit ${module}.unit)
+  add_dependencies(cover ${module}.cover)
 endmacro()
 
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})

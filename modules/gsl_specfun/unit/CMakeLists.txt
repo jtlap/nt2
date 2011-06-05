@@ -11,10 +11,10 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(gsl_specfun.scalar.unit)
-ADD_DEPENDENCIES(gsl_specfun.unit gsl_specfun.scalar.unit gsl_specfun.simd.unit)
+ADD_DEPENDENCIES(gsl_specfun.unit gsl_specfun.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox gsl_specfun unit tests
 ##****************************************************************************
-
+nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(scalar)
