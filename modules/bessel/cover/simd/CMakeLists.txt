@@ -9,6 +9,13 @@
 ################################################################################
 
 SET( SOURCES
+  yni.cpp
+  y1.cpp
+  y0.cpp
+  jni.cpp
+  j1.cpp
+  j0.cpp
+  i0.cpp
 # List of simd test files for toolbox bessel
    )
 
