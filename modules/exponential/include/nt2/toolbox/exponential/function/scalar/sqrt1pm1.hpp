@@ -6,8 +6,8 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_SQRT1PM1_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_SQRT1PM1_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_SQRT1PM1_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_SQRT1PM1_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/sign.hpp>

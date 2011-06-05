@@ -6,11 +6,11 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SQRT1PM1_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SQRT1PM1_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SQRT1PM1_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SQRT1PM1_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/arithmetic/include.hpp>
+#include <nt2/toolbox/exponential/include.hpp>
 
 namespace nt2 { namespace tag
   {         
@@ -19,8 +19,8 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sqrt1pm1_, sqrt1pm1, 1)
 }
  
-#include <nt2/toolbox/arithmetic/function/scalar/sqrt1pm1.hpp>
-#include <nt2/toolbox/arithmetic/function/simd/all/sqrt1pm1.hpp> 
+#include <nt2/toolbox/exponential/function/scalar/sqrt1pm1.hpp>
+#include <nt2/toolbox/exponential/function/simd/all/sqrt1pm1.hpp> 
 
  
 #endif
