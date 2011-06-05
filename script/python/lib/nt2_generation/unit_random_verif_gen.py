@@ -134,6 +134,7 @@ class Random_verif_test_gen(Base_gen) :
     def __prepare(self,s,typ,d,actual_range) :
 #        print("s %s"%s)
         df = d["functor"]
+        istpl = df.get("tpl","")
         arity = int(df["arity"])
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
         s=re.sub("\$plural\$", "s" if arity>1 else "",s)
@@ -272,16 +273,16 @@ class Random_verif_test_gen(Base_gen) :
                     ULP = "" if no_ulp  else "ULP_"
                     THRESH = "" if no_ulp else (", "+thresh)
                     if df.get("special",[""])[0] in ['reduction','swar'] :
-                        r = ["        r_t v = %s(%s);"%(name,g)]
+                        r = ["        r_t v = %s%s(%s);"%(name,istpl,g)]
 ##                        print(dur)
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
                     else :
                         r = [
-                            "        r_t v = %s(%s);"%(name,g),
+                            "        r_t v = %s%s(%s);"%(name,istpl,g),
                             "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
                             "        {",
                             "          int k = i+j*cardinal_of<n_t>::value;",
-                            "          NT2_TEST_%sEQUAL( v[i]%s,ssr_t(nt2::%s(%s))%s);"%(ULP,pred_test,name,h,THRESH),
+                            "          NT2_TEST_%sEQUAL( v[i]%s,ssr_t(nt2::%s%s (%s))%s);"%(ULP,pred_test,name,istpl,h,THRESH),
                             ]
                         if not no_ulp : r.append("          ulp0 = nt2::max(ulpd,ulp0);")
                         r.append("        }")
