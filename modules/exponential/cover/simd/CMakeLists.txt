@@ -9,6 +9,20 @@
 ################################################################################
 
 SET( SOURCES
+  sqrt1pm1.cpp
+  powi.cpp
+  pow.cpp
+  nthroot.cpp
+  log2.cpp
+  log1p.cpp
+  log10.cpp
+  log.cpp
+  expx2.cpp
+  expm1.cpp
+  exp2.cpp
+  exp10.cpp
+  exp.cpp
+  cbrt.cpp
 # List of simd test files for toolbox exponential
    )
 
