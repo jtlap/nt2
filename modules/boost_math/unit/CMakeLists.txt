@@ -11,7 +11,7 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(boost_math.scalar.unit)
-ADD_DEPENDENCIES(boost_math.unit boost_math.scalar.unit boost_math.simd.unit)
+ADD_DEPENDENCIES(boost_math.unit boost_math.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox boost_math unit tests

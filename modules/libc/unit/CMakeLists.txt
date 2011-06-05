@@ -11,8 +11,7 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(libc.scalar.unit)
-ADD_CUSTOM_TARGET(libc.simd.unit)
-ADD_DEPENDENCIES(libc.unit libc.scalar.unit libc.simd.unit)
+ADD_DEPENDENCIES(libc.unit libc.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox libc unit tests

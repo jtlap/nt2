@@ -20,8 +20,9 @@ MESSAGE ( STATUS "
      system
    - make doc to build the HTML documentation
    - make examples to build the documentation examples
-   - make bench to build the performance test
-   - make unit to build the unit test
+   - make bench to build the performance tests
+   - make unit to build the unit tests
+   - make cover to build the coverage tests
 
  * If you use Microsoft Visual C++ or XCode, you may open the IDE-specific 
    project and build those targets.

@@ -16,7 +16,7 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
              'included' : ['#include <nt2/include/functions/next.hpp>',
-                           '#include <nt2/include/functions/eps_related.hpp>'],
+                           '#include <nt2/include/constants/eps_related.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',
@@ -79,7 +79,7 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
              'included' : ['#include <nt2/include/functions/next.hpp>',
-                           '#include <nt2/include/functions/eps_related.hpp>'],
+                           '#include <nt2/include/constants/eps_related.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

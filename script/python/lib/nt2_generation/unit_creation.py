@@ -48,7 +48,7 @@ def create_one_unit(tb_name,
                     part) :
     print("%s with %s with %s"%(fct_name,mode,part))
     bg = Base_gen(tb_name,fct_name,mode)
-    ghg = Global_header_gen(bg)
+    ghg = Global_header_gen(bg,part)
     r = ghg.get_gen_result()
     if True:
         dl = bg.get_fct_dict_list()

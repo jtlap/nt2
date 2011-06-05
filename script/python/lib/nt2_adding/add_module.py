@@ -34,6 +34,7 @@ import shutil
 from display_utils                   import show
 from files_utils                     import write, exist, read, mkdir
 from nt2_base_infos                  import Nt2_base_infos
+from nt2_modules                     import Nt2_modules
 ##from nt2_tb_props                    import Nt2_tb_props
 ##from nt2_fct_props                   import Nt2_fct_props
 ##from pprint                          import PrettyPrinter
@@ -346,8 +347,10 @@ class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
         write(p,txt,True)
         
 if __name__ == "__main__" :
-    tb_name = "dd_reals"
-    ams = Add_module_skel(tb_name,'sys')
-    ams.create_dirs()
-    ams.create_dir_files()
+##    mds = Nt2_modules()
+##    for tb_name in mds.get_modules_list() :
+   tb_name = "arithmetic"
+   ams = Add_module_skel(tb_name,'sys')
+   ams.create_dirs()
+   ams.create_dir_files()
     
