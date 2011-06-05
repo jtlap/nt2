@@ -9,6 +9,38 @@
 ################################################################################
 
 SET( SOURCES
+  sb2b.cpp
+  majority.cpp
+  is_unord.cpp
+  is_true.cpp
+  is_positive.cpp
+  is_ord.cpp
+  is_odd.cpp
+  is_not_less_equal.cpp
+  is_not_less.cpp
+  is_not_infinite.cpp
+  is_not_greater_equal.cpp
+  is_not_greater.cpp
+  is_not_finite.cpp
+  is_nltz.cpp
+  is_nlez.cpp
+  is_ngtz.cpp
+  is_ngez.cpp
+  is_nez.cpp
+  is_negative.cpp
+  is_nan.cpp
+  is_ltz.cpp
+  is_lez.cpp
+  is_invalid.cpp
+  is_inf.cpp
+  is_gtz.cpp
+  is_gez.cpp
+  is_flint.cpp
+  is_finite.cpp
+  is_false.cpp
+  is_even.cpp
+  is_eqz.cpp
+  boolean.cpp
 # List of scalar test files for toolbox predicates
    )
 
