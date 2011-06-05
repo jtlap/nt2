@@ -43,7 +43,7 @@ class Global_header_gen() :
             '#define NT2_UNIT_MODULE "nt2 $tb_name$ toolbox - $fct_name$/$fct_mode$ Mode"',
             "",
             "//////////////////////////////////////////////////////////////////////////////",
-            "// Test behavior of $tb_name$ components in $fct_mode$ mode",
+            "// $testcat$ test behavior of $tb_name$ components in $fct_mode$ mode",
             "//////////////////////////////////////////////////////////////////////////////",
             ""
             "$first_stamp$",
@@ -54,8 +54,8 @@ class Global_header_gen() :
             "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
             "#include <nt2/sdk/unit/module.hpp>",
             "#include <nt2/sdk/memory/buffer.hpp>",
-            "#include <nt2/sdk/constant/real.hpp>",
-            "#include <nt2/sdk/constant/infinites.hpp>",
+            "#include <nt2/include/constants/real.hpp>",
+            "#include <nt2/include/constants/infinites.hpp>",
             "#include <nt2/include/functions/ulpdist.hpp>",
             "#include <nt2/toolbox/$tb_name$/include/$fct_name$.hpp>",
             ],
@@ -72,7 +72,7 @@ class Global_header_gen() :
             '#define NT2_UNIT_MODULE "nt2 $tb_name$ toolbox - $fct_name$/$fct_mode$ Mode"',
             "",
             "//////////////////////////////////////////////////////////////////////////////",
-            "// Test behavior of $tb_name$ components in $fct_mode$ mode",
+            "//  $testcat$ test behavior of $tb_name$ components in $fct_mode$ mode",
             "//////////////////////////////////////////////////////////////////////////////",
             ""
             "$first_stamp$",
@@ -80,23 +80,25 @@ class Global_header_gen() :
             "$notes$",
             "#include <nt2/sdk/memory/is_aligned.hpp>",
             "#include <nt2/sdk/memory/aligned_type.hpp>",
-            "#include <nt2/sdk/memory/load.hpp>",           
+            "#include <nt2/include/functions/load.hpp>",           
             "#include <nt2/sdk/memory/buffer.hpp>",
             "#include <boost/type_traits/is_same.hpp>",
             "#include <nt2/sdk/functor/meta/call.hpp>",
             "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
             "#include <nt2/sdk/unit/module.hpp>",
-            "#include <nt2/sdk/constant/real.hpp>",
-            "#include <nt2/sdk/constant/infinites.hpp>",
+            "#include <nt2/include/constants/real.hpp>",
+            "#include <nt2/include/constants/infinites.hpp>",
             "#include <nt2/include/functions/max.hpp>",
             "#include <nt2/toolbox/$tb_name$/include/$fct_name$.hpp>",
             ]
         }
-    def __init__(self, base_gen) :
+    def __init__(self, base_gen,part) :
+        self.part = part
         self.bg   = base_gen
         self.mode = self.bg.get_fct_mode()
         self.__gen_result = self.__create_unit_txt()
- 
+
+    def more_includes(self) : return self.part == "cover"
     def get_gen_result(self) : return  self.__gen_result
     
     def __create_unit_txt(self) :
@@ -109,7 +111,7 @@ class Global_header_gen() :
                 r.append('#include <boost/fusion/tuple.hpp>')
             d = dd['unit']['global_header']
             l = d.get(incl,[])
-            if len(l) :
+            if len(l) and self.more_includes() :
                 r.append("// specific includes for arity "+ str(dd['functor']['arity'])+" tests")
                 r += d[incl]           
         return r

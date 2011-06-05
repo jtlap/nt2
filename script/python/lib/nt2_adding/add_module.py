@@ -347,10 +347,10 @@ class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
         write(p,txt,True)
         
 if __name__ == "__main__" :
-    mds = Nt2_modules()
-    for tb_name in mds.get_modules_list() :
-##    tb_name = "arithmetic"
-       ams = Add_module_skel(tb_name,'sys')
-       ams.create_dirs()
-       ams.create_dir_files()
+##    mds = Nt2_modules()
+##    for tb_name in mds.get_modules_list() :
+   tb_name = "arithmetic"
+   ams = Add_module_skel(tb_name,'sys')
+   ams.create_dirs()
+   ams.create_dir_files()
     
