@@ -48,40 +48,10 @@ endmacro()
 macro(nt2_module_main module)
   string(TOUPPER ${module} module_U)
   
-  set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-  set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
   nt2_setup_variant()
   
   set(NT2_CURRENT_MODULE ${module})
-  if(NOT NT2_${module_U}_FOUND)
-  
-    # load dependencies
-    #message(STATUS "[nt2.${module}] checking dependencies...")
-    include(nt2.${module}.dependencies OPTIONAL)
-    
-    if(DEFINED NT2_${module_U}_DEPENDENCIES_FOUND AND NOT NT2_${module_U}_DEPENDENCIES_FOUND)
-      message(STATUS "[nt2.${module}] warning: dependencies not met, skipping module")
-      if(NT2_FOUND_COMPONENTS)
-        nt2_find_transfer_parent()
-      endif()
-      return()
-    endif()
-    
-    nt2_module_use_modules(extra ${NT2_${module_U}_DEPENDENCIES_EXTRA} ${module})
-         
-    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
-      add_subdirectory(src)
-    endif()
-    
-  else()
-  
-    # set include/link directories
-    include_directories(${NT2_${module_U}_INCLUDE_DIR})
-    link_directories(${NT2_${module_U}_LIBRARY_DIR})
-    link_libraries(${NT2_${module_U}_LIBRARIES})
-    set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
-  
-  endif()
+  nt2_module_use_modules(self ${module})
   
   nt2_module_install_setup()
   

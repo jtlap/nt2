@@ -28,8 +28,6 @@ macro(nt2_preprocess target)
       list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
     endforeach()
     
-    message(STATUS "INCLUDE_DIRECTORIES = ${INCLUDE_DIRECTORIES}")
-    
     set(prev 0)
     foreach(src ${ARGN})
       math(EXPR n "${prev} + 1")

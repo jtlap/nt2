@@ -76,6 +76,9 @@ endmacro()
 
 macro(nt2_str_remove_duplicates)
   foreach(str ${ARGV})
+    if(NOT ${str})
+      set(${str} " ")
+    endif()
     string(REPLACE "  " " " str_ws ${${str}})
     string(REPLACE " " ";" str_list ${str_ws})
     if(str_list)
@@ -105,12 +108,9 @@ macro(nt2_find_module_dependencies _COMPONENT)
     
   # Source found
   if(NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} OR NT2_${_COMPONENT_U}_ROOT)
-    if(NT2_CURRENT_MODULE STREQUAL ${_COMPONENT})
-      nt2_find_log("${_COMPONENT} being built")
-    else()
-      nt2_find_log("${_COMPONENT} source found, testing dependencies")
-      set(CMAKE_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${CMAKE_MODULE_PATH})
-    endif()
+  
+    nt2_find_log("${_COMPONENT} source found, testing dependencies")
+    set(CMAKE_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${CMAKE_MODULE_PATH})
     
     set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${PROJECT_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include)
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${PROJECT_BINARY_DIR}/lib)
@@ -133,9 +133,9 @@ macro(nt2_find_module_dependencies _COMPONENT)
     return()
   endif()
 
-  if(NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT})
+  #if(NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT})
     include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
-  endif()
+  #endif()
   
   if(NOT DEFINED NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND)
     set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
@@ -175,7 +175,6 @@ function(nt2_find_module COMPONENT)
       nt2_find_log("loading dependencies of ${EXTRA_COMPONENT}")
       nt2_find_module_dependencies(${EXTRA_COMPONENT})
     
-      message(STATUS "---------- NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FOUND = ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FOUND} -------")
       if(NOT NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FOUND)
         set(NT2_${COMPONENT_U}_DEPENDENCIES_FOUND 0)
       else()
@@ -184,7 +183,6 @@ function(nt2_find_module COMPONENT)
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_ROOT NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR)
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
         set(NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
-        nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_EXTRA NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_EXTRA)
         
       endif()
     endif()
@@ -230,7 +228,8 @@ function(nt2_find_module COMPONENT)
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
       
       # Configure and build if source
-      if(NOT NT2_CURRENT_MODULE STREQUAL ${EXTRA_COMPONENT} AND NT2_${EXTRA_COMPONENT_U}_ROOT)
+      # NOT NT2_CURRENT_MODULE STREQUAL ${EXTRA_COMPONENT} AND 
+      if(NT2_${EXTRA_COMPONENT_U}_ROOT)
         if(IS_DIRECTORY ${NT2_${EXTRA_COMPONENT_U}_ROOT}/src)
           add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
         endif()

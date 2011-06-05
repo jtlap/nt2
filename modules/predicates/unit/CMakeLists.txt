@@ -17,6 +17,5 @@ ADD_DEPENDENCIES(predicates.unit predicates.scalar.unit predicates.simd.unit)
 ##############################################################################
 # Toolbox predicates unit tests
 ##############################################################################
-nt2_module_use_modules(unit arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -17,6 +17,5 @@ ADD_DEPENDENCIES(reduction.unit reduction.scalar.unit reduction.simd.unit)
 ##############################################################################
 # Toolbox reduction unit tests
 ##############################################################################
-nt2_module_use_modules(unit arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

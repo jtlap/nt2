@@ -17,6 +17,5 @@ ADD_DEPENDENCIES(euler.unit euler.scalar.unit euler.simd.unit)
 ##############################################################################
 # Toolbox euler unit tests
 ##############################################################################
-nt2_module_use_modules(unit cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

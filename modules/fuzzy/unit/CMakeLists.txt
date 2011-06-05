@@ -17,6 +17,5 @@ ADD_DEPENDENCIES(fuzzy.unit fuzzy.scalar.unit fuzzy.simd.unit)
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
-nt2_module_use_modules(unit arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
