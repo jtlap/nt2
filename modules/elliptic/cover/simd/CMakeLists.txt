@@ -9,6 +9,13 @@
 ################################################################################
 
 SET( SOURCES
+  ellpk.cpp
+  ellpe.cpp
+  ellipke.cpp
+  ellint_2.cpp
+  ellint_1.cpp
+  ellik.cpp
+  ellie.cpp
 # List of simd test files for toolbox elliptic
    )
 
