@@ -28,11 +28,11 @@ macro(nt2_module_source_setup module)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
-  include(nt2.${module}.dependencies OPTIONAL) # FIXME: it would be nice if this wasn't needed
   
   include_directories(${NT2_${module_U}_INCLUDE_DIR})
   link_directories(${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
+  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
   
   # set up component
   cpack_add_component(${module}
@@ -142,7 +142,6 @@ macro(nt2_module_add_library libname)
            LIBRARY DESTINATION lib
            ARCHIVE DESTINATION lib
            COMPONENT ${NT2_CURRENT_MODULE}
-           CONFIGURATIONS Debug Release
          )
   
 endmacro()
