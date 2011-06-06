@@ -13,9 +13,9 @@ nt2_module_configure_toolbox(cephes 0)
 
 include(nt2.info)
 set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DANSIC")
-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+if(NT2_COMPILER_GNU_C)
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -fno-builtin")
-elseif(MSVC)
+elseif(NT2_COMPILER_MSVC)
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} /Oi-")
 endif()
 
@@ -23,6 +23,6 @@ ADD_SUBDIRECTORY(cephes_single)
 ADD_SUBDIRECTORY(cephes_double)
 
 # 80-bit long double, x86 only, disabled on Windows
-if(NT2_X86_PROCESSOR AND NOT NT2_PLATFORM_WIN32)
+if(NT2_ARCH_X86 AND NOT NT2_OS_WINDOWS)
   ADD_SUBDIRECTORY(cephes_ldouble)
 ENDIF()

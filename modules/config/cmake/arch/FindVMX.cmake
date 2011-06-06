@@ -10,46 +10,40 @@
 ################################################################################
 # Check for Altivec VMX availability
 ################################################################################
-IF( NOT NT2_HAS_VMX_SUPPORT)
+if(NOT DEFINED NT2_HAS_VMX_SUPPORT)
 
-################################################################################
-# On UNIX, we grep the /proc/cpuinfo entry
-################################################################################
-IF(NT2_PLATFORM_UNIX)
-FIND_FILE(ALTIVEC_SH arch/altivec.sh ${CMAKE_MODULE_PATH})
-EXECUTE_PROCESS( COMMAND ${ALTIVEC_SH}
-                 OUTPUT_VARIABLE TMP_VMX
-                )
-ENDIF()
+  # On UNIX, we grep the /proc/cpuinfo entry
+  if(NT2_OS_UNIX)
+    find_file(ALTIVEC_SH arch/altivec.sh ${CMAKE_MODULE_PATH})
+    execute_process( COMMAND ${ALTIVEC_SH}
+                     OUTPUT_VARIABLE NT2_HAS_VMX_SUPPORT
+                     OUTPUT_STRIP_TRAILING_WHITESPACE
+                   )
+  endif()
 
-################################################################################
-# On OS X, we use systcl
-################################################################################
-IF(NT2_PLATFORM_OSX)
-EXECUTE_PROCESS( COMMAND sysctl -n hw.optional.altivec
-                 OUTPUT_VARIABLE TMP_VMX
-                )
-ENDIF()
+  # On OS X, we use systcl
+  if(NT2_OS_MAC_OS)
+    execute_process( COMMAND sysctl -n hw.optional.altivec
+                     OUTPUT_VARIABLE NT2_HAS_VMX_SUPPORT
+                     OUTPUT_STRIP_TRAILING_WHITESPACE
+                   )
+  endif()
+  
+  set(NT2_HAS_VMX_SUPPORT ${NT2_HAS_VMX_SUPPORT} CACHE INTERNAL "Altivec Support" FORCE)
+  if(NT2_HAS_VMX_SUPPORT)
+    message(STATUS "PPC Altivec available")
+    
+    # Find the proper options to compile
+    check_cxx_compiler_flag("-maltivec" HAS_GCC_VMX)
 
-STRING(REGEX REPLACE "\n" "" VMX_FOUND ${TMP_VMX})
+    if(HAS_GCC_VMX)
+      set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -maltivec")
+    endif()
 
-IF( ${VMX_FOUND} )
-MESSAGE( STATUS "PPC Altivec available")
-################################################################################
-# Find the proper options to compile
-################################################################################
-check_cxx_compiler_flag("-maltivec" HAS_GCC_VMX)
+  else()
+    message(STATUS "PPC Altivec not available")
+  endif()
 
-IF(HAS_GCC_VMX)
-set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -maltivec")
-ENDIF()
-
-################################################################################
-
-ELSE()
-MESSAGE( STATUS "PPC Altivec not available")
-ENDIF()
-
-ENDIF()
+endif()
 
 

@@ -7,48 +7,23 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(nt2.info)
+
 ################################################################################
-# Find about SIMD
+# x86 Family
 ################################################################################
-include(arch/FindSIMD)
+if(NT2_ARCH_X86)
+  include(arch/Findx86)
+endif()
 
-IF(${MMX_FOUND})
-SET(NT2_HAS_MMX_SUPPORT 1 CACHE INTERNAL "MMX Support" FORCE)
-ENDIF()
+################################################################################
+# IBM/Motorola/Apple VMX Family
+################################################################################
+if(NT2_ARCH_POWERPC)
+  include(arch/FindVMX)
+endif()
 
-IF(SSE2_FOUND)
-SET(NT2_HAS_SSE2_SUPPORT 1 CACHE INTERNAL "SSE2 Support" FORCE)
-ENDIF()
-
-IF(SSE3_FOUND)
-SET(NT2_HAS_SSE3_SUPPORT 1 CACHE INTERNAL "SSE3 Support" FORCE)
-ENDIF()
-
-IF(SSSE3_FOUND)
-SET(NT2_HAS_SSSE3_SUPPORT 1 CACHE INTERNAL "SSSE3 Support" FORCE)
-ENDIF()
-
-IF(SSE41_FOUND)
-SET(NT2_HAS_SSE4_1_SUPPORT 1 CACHE INTERNAL "SSE4.1 Support" FORCE)
-ENDIF()
-
-IF(SSE42_FOUND)
-SET(NT2_HAS_SSE4_2_SUPPORT 1 CACHE INTERNAL "SSE4.2 Support" FORCE)
-ENDIF()
-
-IF(AVX_FOUND)
-SET(NT2_HAS_AVX_SUPPORT  1 CACHE INTERNAL "AVX Support" FORCE)
-ENDIF()
-
-IF(XOP_FOUND)
-SET(NT2_HAS_XOP_SUPPORT  1 CACHE INTERNAL "XOP Support" FORCE)
-ENDIF()
-
-IF(FMA4_FOUND)
-SET(NT2_HAS_FMA4_SUPPORT  1 CACHE INTERNAL "FMA4 Support" FORCE)
-ENDIF()
-
-IF(VMX_FOUND)
-SET(NT2_HAS_VMX_SUPPORT 1 CACHE INTERNAL "Altivec Support" FORCE)
-ENDIF()
-
+set( NT2_CXX_SIMD_FLAGS "${NT2_SIMD_FLAGS} ${NT2_CXX_PRECISION_FLAGS}"
+     CACHE STRING "SIMD extensions compiler flags"
+   )
+message(STATUS "SIMD flag: ${NT2_CXX_SIMD_FLAGS}")

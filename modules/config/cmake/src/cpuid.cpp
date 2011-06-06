@@ -82,7 +82,16 @@ int main(int argc, char** argv)
   else if(target == "avx"    ) m = options[7];
   else if(target == "xop"    ) m = options[8];
   else if(target == "fma4"   ) m = options[9];
+  else
+  {
+    std::cerr << "unknown extension " << target << std::endl;
+    std::cout << "0" << std::endl;
+    return 1;
+  }
 
   __cpuid(registers,m.function);
-  return has_bit_set(registers[m.reg],m.bit);
+  bool r = has_bit_set(registers[m.reg],m.bit);
+  
+  std::cout << r << std::endl;
+  return r ? 0 : 1;
 }
