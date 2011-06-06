@@ -9,6 +9,19 @@
 ################################################################################
 
 SET( SOURCES
+  knuth_equal.cpp
+  fuzzy_less_or_equal.cpp
+  fuzzy_greater_or_equal.cpp
+  fuzzy_equal.cpp
+  fuzzy_definitely_not_equal.cpp
+  fuzzy_definitely_less.cpp
+  fuzzy_definitely_greater.cpp
+  definitely_not_equal.cpp
+  definitely_less.cpp
+  definitely_greater.cpp
+  almost_less_or_equal.cpp
+  almost_greater_or_equal.cpp
+  almost_equal.cpp
 # List of scalar test files for toolbox fuzzy
    )
 
