@@ -62,7 +62,7 @@ function(nt2_find_log)
   endif()
 endfunction()
 
-function(nt2_find_warning)
+function(nt2_find_info)
   message(WARNING "[FindNT2]${NT2_FIND_RECURSIVE}${ARGV}")
 endfunction()
 
@@ -93,6 +93,7 @@ macro(nt2_str_remove_duplicates)
 
 endmacro()
 
+include(nt2.download)
 macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
@@ -104,6 +105,11 @@ macro(nt2_find_module_dependencies _COMPONENT)
                NO_DEFAULT_PATH
                ENV NT2_${_COMPONENT_U}_ROOT
              )
+  endif()
+  
+  # Try to download source if not available
+  if(NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} AND NOT NT2_${_COMPONENT_U}_ROOT)
+    nt2_download_module(${_COMPONENT})
   endif()
     
   # Source found
@@ -126,7 +132,7 @@ macro(nt2_find_module_dependencies _COMPONENT)
     
     set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_INCLUDE_ROOT})
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_LIBRARY_ROOT})
-    
+  
   # No source nor install
   else()
     nt2_find_log("can't find ${_COMPONENT} in source nor install")
@@ -349,7 +355,7 @@ function(nt2_find)
                   NO_DEFAULT_PATH
                 )
       if(NOT NT2_INCLUDE_ROOT)
-        nt2_find_warning("could find install but not include root, bad install?")
+        nt2_find_info("could find install but not include root, bad install?")
       else()
         nt2_find_log("found NT2 include root ${NT2_INCLUDE_ROOT}")
       endif()
@@ -363,7 +369,7 @@ function(nt2_find)
                   NO_DEFAULT_PATH
                 )
       if(NOT NT2_LIBRARY_ROOT)
-        nt2_find_warning("could find install but not library root, bad install?")
+        nt2_find_info("could find install but not library root, bad install?")
       else()
         nt2_find_log("found NT2 library root ${NT2_LIBRARY_ROOT}")
       endif()
