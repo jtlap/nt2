@@ -29,6 +29,6 @@ check_function_exists(lgammaf NT2_TOOLBOX_EULER_HAS_LGAMMAF)
 ################################################################################
 # Generate math.hpp
 ################################################################################
-configure_file( math.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/euler/details/math.hpp
-              )
+nt2_module_configure_file(math.hpp.cmake
+                          nt2/toolbox/euler/details/math.hpp
+                         )

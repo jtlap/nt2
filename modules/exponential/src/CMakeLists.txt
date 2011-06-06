@@ -30,6 +30,6 @@ check_function_exists(cbrtf NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF)
 ################################################################################
 # Generate math.hpp
 ################################################################################
-configure_file( math.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/exponential/details/math.hpp
-              )
+nt2_module_configure_file(math.hpp.cmake
+                          nt2/toolbox/exponential/details/math.hpp
+                         )

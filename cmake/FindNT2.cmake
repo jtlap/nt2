@@ -133,10 +133,8 @@ macro(nt2_find_module_dependencies _COMPONENT)
     return()
   endif()
 
-  #if(NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT})
-    include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
-  #endif()
-  
+  include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
+    
   if(NOT DEFINED NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND)
     set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
   endif()
@@ -206,7 +204,7 @@ function(nt2_find_module COMPONENT)
     return()
   endif()
   
-  nt2_find_log("${COMPONENT} dependencies met, extra modules = ${NT2_${COMPONENT_U}_EXTRA}")
+  nt2_find_log("${COMPONENT} dependencies met")
   
   foreach(EXTRA_COMPONENT ${NT2_${COMPONENT_U}_EXTRA})
     string(TOUPPER ${EXTRA_COMPONENT} EXTRA_COMPONENT_U)
@@ -228,10 +226,13 @@ function(nt2_find_module COMPONENT)
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
       
       # Configure and build if source
-      # NOT NT2_CURRENT_MODULE STREQUAL ${EXTRA_COMPONENT} AND 
       if(NT2_${EXTRA_COMPONENT_U}_ROOT)
         if(IS_DIRECTORY ${NT2_${EXTRA_COMPONENT_U}_ROOT}/src)
           add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
+        else()
+          file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
+          file(WRITE ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src/CMakeLists.txt "nt2_module_source_setup(${EXTRA_COMPONENT})")
+          add_subdirectory(${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
         endif()
       endif()
       

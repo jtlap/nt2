@@ -28,12 +28,34 @@ macro(nt2_module_source_setup module)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+  include(nt2.${module}.dependencies OPTIONAL) # FIXME: it would be nice if this wasn't needed
   
   include_directories(${NT2_${module_U}_INCLUDE_DIR})
   link_directories(${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
   
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_DEPENDENCIES_FLAGS}")
+  # set up component
+  cpack_add_component(${module}
+                      DEPENDS ${NT2_${module_U}_DEPENDENCIES_EXTRA}
+                     )
+  
+  # install headers, cmake modules and manifest
+  install( DIRECTORY ${NT2_${module_U}_ROOT}/include/
+           DESTINATION include
+           COMPONENT ${module}
+           FILES_MATCHING PATTERN "*.hpp"
+         )
+  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
+           DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
+           COMPONENT ${module}
+         )
+  install( DIRECTORY ${NT2_${module_U}_ROOT}/cmake
+           DESTINATION ${NT2_INSTALL_SHARE_DIR}
+           COMPONENT ${module}
+           FILES_MATCHING PATTERN "*.cmake"
+         )
+  
 endmacro()
 
 macro(nt2_setup_variant)
@@ -55,28 +77,6 @@ macro(nt2_module_main module)
   
   nt2_module_install_setup()
   
-  # install headers, cmake modules and manifest
-  install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-           DESTINATION include
-           COMPONENT ${NT2_CURRENT_MODULE}
-           FILES_MATCHING PATTERN "*.hpp"
-         )
-  install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
-           DESTINATION include
-           COMPONENT ${NT2_CURRENT_MODULE}
-           FILES_MATCHING PATTERN "*.hpp"
-         )
-  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
-  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
-           DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
-           COMPONENT ${NT2_CURRENT_MODULE}
-         )
-  install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake
-           DESTINATION ${NT2_INSTALL_SHARE_DIR}
-           COMPONENT ${NT2_CURRENT_MODULE}
-           FILES_MATCHING PATTERN "*.cmake"
-         )
-
   if(CMAKE_GENERATOR MATCHES "Make" AND NOT DEFINED NT2_WITH_TESTS)
     set(NT2_WITH_TESTS 1)
   elseif(NOT DEFINED NT2_WITH_TESTS)
@@ -142,6 +142,7 @@ macro(nt2_module_add_library libname)
            LIBRARY DESTINATION lib
            ARCHIVE DESTINATION lib
            COMPONENT ${NT2_CURRENT_MODULE}
+           CONFIGURATIONS Debug Release
          )
   
 endmacro()
@@ -224,6 +225,14 @@ macro(nt2_module_add_example EXECUTABLE)
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()
 
+macro(nt2_module_install_file header)
+  string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
+  install(FILES ${PROJECT_BINARY_DIR}/include/${header}
+          DESTINATION include/${${header}_path}
+          COMPONENT ${NT2_CURRENT_MODULE}
+         )
+endmacro()
+
 macro(nt2_module_configure_py pyfile)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
@@ -237,10 +246,17 @@ macro(nt2_module_configure_py pyfile)
 
   find_file(_${pyfile}_PY ${pyfile} ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
   execute_process( COMMAND ${PYTHON_EXECUTABLE}
-                   ${_${pyfile}_PY}
+                   ${_${pyfile}_PY} --display
                    ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include
                    ${ARGN}
+                   OUTPUT_VARIABLE ${pyfile}_result
+                   OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
+                 
+   string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
+   foreach(gen_file ${${pyfile}_files})
+     nt2_module_install_file(${gen_file})
+   endforeach()
 endmacro()
 
 macro(nt2_module_configure_simd)
@@ -258,4 +274,9 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   else()
     nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include)
   endif()
+endmacro()
+
+macro(nt2_module_configure_file cmake_file header)
+  configure_file(${cmake_file} ${PROJECT_BINARY_DIR}/include/${header})
+  nt2_module_install_file(${header})
 endmacro()
