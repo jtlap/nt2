@@ -129,7 +129,7 @@ class SimdFile(object):
 
         f = open(binary_path, 'w')
         if(display):
-            sys.stdout.write(os.path.join(*self.file) + "\n")
+            sys.stdout.write('/'.join(self.file) + "\n")
         return f
         
     def write_header(self, f):
