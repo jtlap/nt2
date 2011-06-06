@@ -9,6 +9,16 @@
 ################################################################################
 
 SET( SOURCES
+  stirling.cpp
+  spence.cpp
+  signgam.cpp
+  gammaln.cpp
+  gamma.cpp
+  fast_gamma.cpp
+  expni.cpp
+  digamma.cpp
+  dawson.cpp
+  beta.cpp
 # List of simd test files for toolbox euler
    )
 

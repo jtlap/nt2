@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(euler.cover euler.scalar.cover euler.simd.cover)
 ##############################################################################
 # Toolbox euler cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(cover predicates cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 
