@@ -14,6 +14,6 @@
 ADD_CUSTOM_TARGET(swar.scalar.bench)
 ADD_CUSTOM_TARGET(swar.simd.bench)
 ADD_DEPENDENCIES(swar.bench swar.scalar.bench swar.simd.bench)
-nt2_module_use_modules(unit arithmetic)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

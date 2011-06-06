@@ -22,8 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/iceil.hpp>
-// specific includes for arity 1 tests
-#include<nt2/toolbox/standard/include/ceil.hpp>
 
 NT2_TEST_CASE_TPL ( iceil_real__1_0,  NT2_REAL_TYPES)
 {

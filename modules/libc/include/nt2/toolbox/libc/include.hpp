@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_LIBC_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_LIBC_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/details/preprocessor.hpp>
+#include <math.h>
 
 #define NT2_LIBC_BASE() nt2/toolbox/libc/function/scalar/
 #define NT2_LIBC_RELATIVE() nt2/toolbox/libc/function/

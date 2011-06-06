@@ -22,10 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/atan2.hpp>
-// specific includes for arity 2 tests
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/libc/include/atan2.hpp>
-extern "C" {extern long double cephes_atanl(long double);}
 
 NT2_TEST_CASE_TPL ( atan2_real__2_0,  NT2_REAL_TYPES)
 {

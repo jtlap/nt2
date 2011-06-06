@@ -7,6 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(elliptic)
-nt2_module_configure_toolbox(elliptic 1)
+SET(NT2_CORE_DEPENDENCIES_EXTRA sdk)

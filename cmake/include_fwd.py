@@ -1,3 +1,5 @@
+display = False
+
 def path_split(str):
     l = str.replace('\\', '/').replace('//', '/').split('/')
     if(l[0] == ''):
@@ -7,6 +9,7 @@ def path_split(str):
     return l
 
 import os
+import sys
 class IncludeFile(object):
     
     def __init__(self, context):
@@ -28,7 +31,7 @@ class IncludeFile(object):
             os.remove(binary_path)
             return None
             
-        if(source_exists or binary_exists):
+        if(source_exists):
             return None
     
         for i in range(1, len(self.file_path_binary)):
@@ -37,6 +40,8 @@ class IncludeFile(object):
                 os.mkdir(path)
 
         f = open(binary_path, 'w')
+        if(display):
+            sys.stdout.write(os.path.join(*self.file) + "\n")
         return f
         
     def write_header(self, f):
@@ -80,16 +85,22 @@ def main_(source, binary, from_prefix, output, function):
         f = IncludeFile(context)
         f.create_forward(prev)
 
-import sys
 import optparse
 def main():
     parser = optparse.OptionParser()
+    parser.add_option('-d', '--display',
+                      default=False,
+                      action="store_true",
+                     )
     parser.add_option('-o', '--output',
                       default=[],
                       action="append",
                      ) 
     options, args = parser.parse_args()
     options = options.__dict__
+    
+    global display
+    display = options['display']
     
     if(len(args) >= 4):
         main_(args[0], args[1], args[2], options['output'], args[3])

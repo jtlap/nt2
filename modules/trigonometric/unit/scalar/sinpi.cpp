@@ -22,9 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/sinpi.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
-extern "C" {extern long double cephes_sinl(long double);}
 
 NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
 {

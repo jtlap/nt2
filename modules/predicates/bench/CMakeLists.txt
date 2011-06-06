@@ -14,7 +14,6 @@
 ADD_CUSTOM_TARGET(predicates.scalar.bench)
 ADD_CUSTOM_TARGET(predicates.simd.bench)
 ADD_DEPENDENCIES(predicates.bench predicates.scalar.bench predicates.simd.bench)
-nt2_module_use_modules(unit arithmetic)
 
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

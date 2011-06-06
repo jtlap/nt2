@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
-
+#include <math.h>
 
 /////////////////////////////////////////////////////////////////////////////
 // Compute fast_frexp(const A0& a0)

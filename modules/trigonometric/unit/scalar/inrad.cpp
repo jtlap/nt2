@@ -22,8 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/inrad.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
 
 NT2_TEST_CASE_TPL ( inrad_real__1_0,  NT2_REAL_TYPES)
 {

@@ -14,6 +14,6 @@
 ADD_CUSTOM_TARGET(reduction.scalar.bench)
 ADD_CUSTOM_TARGET(reduction.simd.bench)
 ADD_DEPENDENCIES(reduction.bench reduction.scalar.bench reduction.simd.bench)
-nt2_module_use_modules(unit arithmetic)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

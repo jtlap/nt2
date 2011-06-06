@@ -14,7 +14,6 @@
 ADD_CUSTOM_TARGET(arithmetic.scalar.bench)
 ADD_CUSTOM_TARGET(arithmetic.simd.bench)
 ADD_DEPENDENCIES(arithmetic.bench arithmetic.scalar.bench arithmetic.simd.bench)
-nt2_module_use_modules(unit predicates standard exponential)
 
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

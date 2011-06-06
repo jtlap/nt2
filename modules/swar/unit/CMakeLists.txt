@@ -17,6 +17,5 @@ ADD_DEPENDENCIES(swar.unit swar.scalar.unit swar.simd.unit)
 ##############################################################################
 # Toolbox swar unit tests
 ##############################################################################
-nt2_module_use_modules(unit arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

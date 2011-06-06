@@ -22,11 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/hyperbolic/include/csch.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/libc/include/sinh.hpp>
-#include <nt2/include/functions/rec.hpp>
-extern "C" { long double cephes_sinhl(long double); }
 
 NT2_TEST_CASE_TPL ( csch_real__1_0,  NT2_REAL_TYPES)
 {

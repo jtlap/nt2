@@ -22,8 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/iround2even.hpp>
-// specific includes for arity 1 tests
-#include<nt2/include/functions/round.hpp>
 
 NT2_TEST_CASE_TPL ( iround2even_real__1_0,  NT2_REAL_TYPES)
 {

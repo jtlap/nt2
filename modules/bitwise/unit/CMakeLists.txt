@@ -17,6 +17,5 @@ ADD_DEPENDENCIES(bitwise.unit bitwise.scalar.unit bitwise.simd.unit)
 ##############################################################################
 # Toolbox bitwise unit tests
 ##############################################################################
-nt2_module_use_modules(unit arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -13,13 +13,6 @@ nt2_module_source_setup(config)
 ################################################################################
 # Generate bootstrap.hpp
 ################################################################################
-CONFIGURE_FILE( ${NT2_CONFIG_ROOT}/src/bootstrap.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/sdk/config/bootstrap.hpp
-              )
-
-file( GLOB_RECURSE source_config_files
-      ${NT2_CONFIG_ROOT}/src/*
-    )
-
-SET(SOURCE_FILES ${source_config_files} CACHE INTERNAL "")
-
+nt2_module_configure_file(bootstrap.hpp.cmake
+                          nt2/sdk/config/bootstrap.hpp
+                         )

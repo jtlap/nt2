@@ -23,6 +23,7 @@
 # www.mip.informatik.uni-kiel.de
 # --------------------------------
 
+SET(GSL_FOUND 0)
 IF(WIN32)
 # JW tested with gsl-1.8, Windows XP, MSVS 7.1, MSVS 8.0
 SET(GSL_POSSIBLE_ROOT_DIRS

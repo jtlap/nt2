@@ -7,21 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-macro(nt2_str_remove_duplicates)
-  foreach(str ${ARGV})
-    string(REPLACE "  " " " str_ws ${${str}})
-    string(REPLACE " " ";" str_list ${str_ws})
-    if(str_list)
-      list(REMOVE_DUPLICATES str_list)
-    endif()
-    string(REPLACE ";" " " str_new "${str_list}")
-    if(NOT str_new)
-      set(str_new " ")
-    endif()
-    set(${str} ${str_new})
-  endforeach()
-endmacro()
-
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR .
@@ -47,9 +32,30 @@ macro(nt2_module_source_setup module)
   include_directories(${NT2_${module_U}_INCLUDE_DIR})
   link_directories(${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
+  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
   
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_DEPENDENCIES_FLAGS}")
-  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
+  # set up component
+  cpack_add_component(${module}
+                      DEPENDS ${NT2_${module_U}_DEPENDENCIES_EXTRA}
+                     )
+  
+  # install headers, cmake modules and manifest
+  install( DIRECTORY ${NT2_${module_U}_ROOT}/include/
+           DESTINATION include
+           COMPONENT ${module}
+           FILES_MATCHING PATTERN "*.hpp"
+         )
+  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
+           DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
+           COMPONENT ${module}
+         )
+  install( DIRECTORY ${NT2_${module_U}_ROOT}/cmake
+           DESTINATION ${NT2_INSTALL_SHARE_DIR}
+           COMPONENT ${module}
+           FILES_MATCHING PATTERN "*.cmake"
+         )
+  
 endmacro()
 
 macro(nt2_setup_variant)
@@ -64,77 +70,17 @@ endmacro()
 macro(nt2_module_main module)
   string(TOUPPER ${module} module_U)
   
-  set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-  set(NT2_${module_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
-  
   nt2_setup_variant()
-
-  if(NOT NT2_${module_U}_FOUND)
-  
-    # load dependencies
-    #message(STATUS "[nt2.${module}] checking dependencies...")
-    include(nt2.${module}.dependencies OPTIONAL)
-    
-    if(DEFINED NT2_${module_U}_DEPENDENCIES_FOUND AND NOT NT2_${module_U}_DEPENDENCIES_FOUND)
-      message(STATUS "[nt2.${module}] warning: dependencies not met, skipping module")
-      if(NT2_FOUND_COMPONENTS)
-        nt2_find_transfer_parent()
-      endif()
-      return()
-    endif()
-    
-    # set FindNT2 variables
-    set(NT2_${module_U}_FOUND 1)
-    set(NT2_${module_U}_INCLUDE_DIR ${PROJECT_BINARY_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/include ${NT2_${module_U}_DEPENDENCIES_INCLUDE_DIR})
-    set(NT2_${module_U}_LIBRARY_DIR ${PROJECT_BINARY_DIR}/lib ${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
-    set(NT2_${module_U}_LIBRARIES ${NT2_${module_U}_DEPENDENCIES_LIBRARIES} ${NT2_${module_U}_LIBRARIES})
-    set(NT2_${module_U}_FLAGS "${NT2_${module_U}_DEPENDENCIES_FLAGS} ${NT2_${module_U}_FLAGS}")
-    set(NT2_FOUND_COMPONENTS ${module} ${NT2_FOUND_COMPONENTS})
-         
-    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
-      add_subdirectory(src)
-    endif()
-    
-  endif()
   
   set(NT2_CURRENT_MODULE ${module})
-  
-  # set include/link directories
-  include_directories(${NT2_${module_U}_INCLUDE_DIR})
-  link_directories(${NT2_${module_U}_LIBRARY_DIR})
-  link_libraries(${NT2_${module_U}_LIBRARIES})
-  
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
-  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
+  nt2_module_use_modules(self ${module})
   
   nt2_module_install_setup()
   
-  # install headers, cmake modules and manifest
-  install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-           DESTINATION include
-           COMPONENT ${NT2_CURRENT_MODULE}
-           FILES_MATCHING PATTERN "*.hpp"
-         )
-  install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
-           DESTINATION include
-           COMPONENT ${NT2_CURRENT_MODULE}
-           FILES_MATCHING PATTERN "*.hpp"
-         )
-  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
-  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
-           DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
-           COMPONENT ${NT2_CURRENT_MODULE}
-         )
-  install( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake
-           DESTINATION ${NT2_INSTALL_SHARE_DIR}
-           COMPONENT ${NT2_CURRENT_MODULE}
-           FILES_MATCHING PATTERN "*.cmake"
-         )
-
   if(CMAKE_GENERATOR MATCHES "Make" AND NOT DEFINED NT2_WITH_TESTS)
-	set(NT2_WITH_TESTS 1)
+    set(NT2_WITH_TESTS 1)
   elseif(NOT DEFINED NT2_WITH_TESTS)
-	set(NT2_WITH_TESTS 0)
+    set(NT2_WITH_TESTS 0)
   endif()
 
   if(NT2_WITH_TESTS)
@@ -215,7 +161,6 @@ macro(nt2_module_use_modules component)
   link_libraries(${NT2_LIBRARIES})
   
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
-  nt2_str_remove_duplicates(NT2_CURRENT_FLAGS)
   
   nt2_find_transfer_parent()
 endmacro()
@@ -229,38 +174,29 @@ macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
   set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${DIRECTORY})
 endmacro()
 
-macro(nt2_module_add_unit EXECUTABLE)
-  nt2_module_add_exe(unit ${EXECUTABLE} ${ARGN})
+macro(nt2_module_add_test DIRECTORY EXECUTABLE)
+  nt2_module_add_exe(${DIRECTORY} ${EXECUTABLE} ${ARGN})
 
-  string(REGEX REPLACE "\\.([^.]+)\\.unit$" ".unit" suite ${EXECUTABLE})
-  string(REGEX REPLACE "\\.unit$" "-unit" TEST ${EXECUTABLE})
+  string(REGEX REPLACE "\\.([^.]+)\\.${DIRECTORY}$" ".${DIRECTORY}" suite ${EXECUTABLE})
+  string(REGEX REPLACE "\\.${DIRECTORY}$" "-${DIRECTORY}" TEST ${EXECUTABLE})
   
   add_dependencies(${suite} ${EXECUTABLE})
   if(NOT CMAKE_CROSSCOMPILING_HOST AND DEFINED ENV{CMAKE_CROSSCOMPILING_HOST})
     set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})
   endif()
   if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
-    add_test(${TEST} /bin/sh -c "scp ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE} ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${EXECUTABLE} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${EXECUTABLE}")
+    add_test(${TEST} /bin/sh -c "scp ${PROJECT_BINARY_DIR}/${DIRECTORY}/${EXECUTABLE} ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${EXECUTABLE} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${EXECUTABLE}")
   else()
-    add_test(${TEST} ${PROJECT_BINARY_DIR}/unit/${EXECUTABLE})
+    add_test(${TEST} ${PROJECT_BINARY_DIR}/${DIRECTORY}/${EXECUTABLE})
   endif()
 endmacro()
 
-macro(nt2_module_add_cover EXECUTABLE)
-  nt2_module_add_exe(cover ${EXECUTABLE} ${ARGN})
+macro(nt2_module_add_unit)
+  nt2_module_add_test(unit ${ARGN})
+endmacro()
 
-  string(REGEX REPLACE "\\.([^.]+)\\.cover$" ".cover" suite ${EXECUTABLE})
-  string(REGEX REPLACE "\\.cover$" "-cover" TEST ${EXECUTABLE})
-  
-  add_dependencies(${suite} ${EXECUTABLE})
-  if(NOT CMAKE_CROSSCOMPILING_HOST AND DEFINED ENV{CMAKE_CROSSCOMPILING_HOST})
-    set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})
-  endif()
-  if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
-    add_test(${TEST} /bin/sh -c "scp ${PROJECT_BINARY_DIR}/cover/${EXECUTABLE} ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${EXECUTABLE} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${EXECUTABLE}")
-  else()
-    add_test(${TEST} ${PROJECT_BINARY_DIR}/cover/${EXECUTABLE})
-  endif()
+macro(nt2_module_add_cover)
+  nt2_module_add_test(cover ${ARGN})
 endmacro()
 
 macro(nt2_module_add_bench EXECUTABLE)
@@ -279,6 +215,14 @@ macro(nt2_module_add_example EXECUTABLE)
   add_dependencies(${suite} ${EXECUTABLE})
 endmacro()
 
+macro(nt2_module_install_file header)
+  string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
+  install(FILES ${PROJECT_BINARY_DIR}/include/${header}
+          DESTINATION include/${${header}_path}
+          COMPONENT ${NT2_CURRENT_MODULE}
+         )
+endmacro()
+
 macro(nt2_module_configure_py pyfile)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
@@ -292,10 +236,17 @@ macro(nt2_module_configure_py pyfile)
 
   find_file(_${pyfile}_PY ${pyfile} ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
   execute_process( COMMAND ${PYTHON_EXECUTABLE}
-                   ${_${pyfile}_PY}
+                   ${_${pyfile}_PY} --display
                    ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include
                    ${ARGN}
+                   OUTPUT_VARIABLE ${pyfile}_result
+                   OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
+                 
+   string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
+   foreach(gen_file ${${pyfile}_files})
+     nt2_module_install_file(${gen_file})
+   endforeach()
 endmacro()
 
 macro(nt2_module_configure_simd)
@@ -313,4 +264,9 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   else()
     nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include)
   endif()
+endmacro()
+
+macro(nt2_module_configure_file cmake_file header)
+  configure_file(${cmake_file} ${PROJECT_BINARY_DIR}/include/${header})
+  nt2_module_install_file(${header})
 endmacro()

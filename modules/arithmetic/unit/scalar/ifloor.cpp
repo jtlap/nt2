@@ -22,8 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/ifloor.hpp>
-// specific includes for arity 1 tests
-#include<nt2/toolbox/standard/include/floor.hpp>
 
 NT2_TEST_CASE_TPL ( ifloor_real__1_0,  NT2_REAL_TYPES)
 {

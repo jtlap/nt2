@@ -14,6 +14,6 @@
 ADD_CUSTOM_TARGET(ieee.scalar.bench)
 ADD_CUSTOM_TARGET(ieee.simd.bench)
 ADD_DEPENDENCIES(ieee.bench ieee.scalar.bench ieee.simd.bench)
-nt2_module_use_modules(unit arithmetic)
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -7,6 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(NT2Module)
 nt2_module_source_setup(bessel)
 nt2_module_configure_toolbox(bessel 1)
 
@@ -38,6 +39,6 @@ check_function_exists(_ynf NT2_TOOLBOX_BESSEL_HAS__YNF)
 ################################################################################
 # Generate math.hpp
 ################################################################################
-configure_file( math.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/bessel/details/math.hpp
-              )
+nt2_module_configure_file(math.hpp.cmake
+                          nt2/toolbox/bessel/details/math.hpp
+                         )

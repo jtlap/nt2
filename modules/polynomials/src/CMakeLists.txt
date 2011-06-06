@@ -7,5 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(NT2Module)
 nt2_module_source_setup(polynomials)
 nt2_module_configure_toolbox(polynomials 1)

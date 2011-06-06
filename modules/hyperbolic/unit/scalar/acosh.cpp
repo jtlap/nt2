@@ -22,9 +22,6 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/hyperbolic/include/acosh.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/exponential/include/constants.hpp>
-extern "C" { long double cephes_acoshl(long double); }
 
 NT2_TEST_CASE_TPL ( acosh_real__1_0,  NT2_REAL_TYPES)
 {

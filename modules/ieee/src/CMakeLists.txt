@@ -7,6 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(NT2Module)
 nt2_module_source_setup(ieee)
 nt2_module_configure_toolbox(ieee 1)
 
@@ -36,6 +37,6 @@ check_function_exists(_nextafterf NT2_TOOLBOX_IEEE_HAS__NEXTAFTERF)
 ################################################################################
 # Generate math.hpp
 ################################################################################
-configure_file( math.hpp.cmake
-                ${PROJECT_BINARY_DIR}/include/nt2/toolbox/ieee/details/math.hpp
-              )
+nt2_module_configure_file(math.hpp.cmake
+                          nt2/toolbox/ieee/details/math.hpp
+                         )
