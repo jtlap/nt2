@@ -35,6 +35,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(3)
     {
       typedef typename NT2_RETURN_TYPE(3)::type type;
+      ignore_unused(a0);
+      ignore_unused(a1);
+      ignore_unused(a2);
       return 0; //nt2::cephes::incbps(float(a0), float(a1), float(a2));
     }
   };

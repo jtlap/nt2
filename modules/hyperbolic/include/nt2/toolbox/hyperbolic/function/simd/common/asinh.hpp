@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
       A0 lthalf = lt(x,Half<A0>());
       A0 x2 = nt2::sqr(x);
       A0 z;
-      int32_t nb;
+      uint32_t nb;
       if( ( nb = nbtrue(lthalf)) > 0)
         {
           z = madd(single_constant<A0,(0x3ca4d6e6) >(),  x2, single_constant<A0,(0xbd2ee581)>());

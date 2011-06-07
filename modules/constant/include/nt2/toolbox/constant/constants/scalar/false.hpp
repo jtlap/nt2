@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_FALSE_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 NT2_REGISTER_DISPATCH(tag::false_ ,tag::cpu_,(A0),(target_< fundamental_<A0> >))
@@ -29,6 +30,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       return splat<typename A0::type>(false);
     }
   };

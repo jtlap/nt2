@@ -41,6 +41,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+       ignore_unused(a0);
        return One<A0>();
     }
   };

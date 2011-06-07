@@ -31,7 +31,7 @@ namespace nt2
     template < class T > T nt2_random(T a0, T a1,  other_ )
     {
       if (a0 == a1) return a0; 
-      if (a1 < a0) { T c = a0;  a0 = a1;  a1 = a0; }
+      if (a1 < a0) { T c = a0;  a0 = a1;  a1 = c; }
       return T((a1-a0)*((double)rand()/RAND_MAX)+a0); //TO DO
     }
     

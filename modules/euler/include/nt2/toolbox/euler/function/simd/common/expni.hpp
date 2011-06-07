@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
       }
       A1 r =  Nan<A1>();
       A1 test1 = le(a1, One<A1>());
-      int32_t nb = 0;
+      uint32_t nb = 0;
       if ((nb = nbtrue(test1)) > 0)
       {
         A1 xx = sel(test1, x, One<A1>());
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
     }
     
     template < class A1 >
-    static inline A1 case_2(const A1 & x,  int32_t sn, const A1 & n)
+    static inline A1 case_2(const A1 & x,  int32_t /*sn*/, const A1 & n)
     {
      typedef typename meta::scalar_of<A1>::type sA1;
       int32_t sk = 1;
