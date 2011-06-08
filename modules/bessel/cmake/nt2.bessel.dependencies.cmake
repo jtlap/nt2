@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BESSEL_DEPENDENCIES_EXTRA predicates trigonometric)
+SET(NT2_BESSEL_DEPENDENCIES_EXTRA predicates arithmetic trigonometric exponential)

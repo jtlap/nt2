@@ -12,6 +12,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/include/functions/abs.hpp>
 
 
@@ -69,7 +70,7 @@ namespace nt2 { namespace ext
       A1 p1 = a1;
       uint32_t n = 1;
 
-      while(n < a0)
+      while(n < (typename meta::as_unsigned<A0>::type)a0)
       {
         std::swap(p0, p1);
         p1 = legendre_next(n, a1, p0, p1);

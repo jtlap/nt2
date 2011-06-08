@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, unsigned>::type utype; 
-      return rdivide( a0+ !((a1 + One<A0>()) | (utype)a0 + Valmin<A0>()), a1); 
+      return rdivide( a0+ !((a1 + One<A0>()) | ((utype)a0 + Valmin<A0>())), a1); 
     }
   };
 } }

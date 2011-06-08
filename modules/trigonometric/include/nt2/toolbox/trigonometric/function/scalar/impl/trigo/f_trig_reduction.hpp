@@ -115,12 +115,12 @@ namespace nt2
           return rec(std::tan(a0));
         }
 
-        static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
+        static inline void sincos_replacement(const A0& /*a0*/, A0&/*s*/, A0&/*c*/)
         {
           //::sincosf(a0, &s, &c);
         }
-        static inline logic cot_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
-        static inline logic tan_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
+        static inline logic cot_invalid(const A0& /*x*/) { return False<A0>()/*is_invalid(x)*/; }
+        static inline logic tan_invalid(const A0& /*x*/) { return False<A0>()/*is_invalid(x)*/; }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
@@ -179,7 +179,7 @@ namespace nt2
           return rec(std::tan(inrad(a0)));
         }
 
-        static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
+        static inline void sincos_replacement(const A0& /*a0*/, A0& /*s*/, A0& /*c*/)
         {
           //::sincosf(inrad(a0), &s, &c);
         }
@@ -220,9 +220,9 @@ namespace nt2
           return One<A0>()-(is_odd(a0)<<1); // TODO << 1 is maybe bad in SSEx
         }
 
-        static inline A0 sin_replacement(const A0& )  { return Zero<A0>(); }
-        static inline A0 tan_replacement(const A0& )  { return Zero<A0>(); }
-        static inline A0 cot_replacement(const A0& )  { return Nan<A0>();  }
+        static inline A0 sin_replacement(const A0& /*a0*/)  { return Zero<A0>(); }
+        static inline A0 tan_replacement(const A0& /*a0*/)  { return Zero<A0>(); }
+        static inline A0 cot_replacement(const A0& /*a0*/)  { return Nan<A0>();  }
 
         static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
         {

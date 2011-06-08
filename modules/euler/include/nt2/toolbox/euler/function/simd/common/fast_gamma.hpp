@@ -75,13 +75,13 @@ namespace nt2 { namespace ext
       A0 q =  nt2::abs(a0);
       A0 x = a0;
       A0 test0 = gt(q, Fastgammalargelim<A0>());
-      int32_t nb = 0;
+      uint32_t nb = 0;
       if ((nb = (nbtrue(test0) > 0)))
       {
         A0 negative = is_ltz(a0);
         A0 s =  stirling(q);
-        int32_t nb1 = 0;
-        A0 r1;
+        uint32_t nb1 = 0;
+        A0 r1 = {{}};
         if ((nb1 = (nbtrue(negative) > 0)))
           {
             A0 p = floor(q);
@@ -107,6 +107,7 @@ namespace nt2 { namespace ext
       return r|is_nan(a0);
 
     }
+    
   private :
     template < class A0 >  static inline A0 other(const A0& test, const A0& xx)
       {

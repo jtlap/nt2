@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 
@@ -75,7 +76,7 @@ namespace nt2 { namespace ext
       A1 p;
       A1 vc =  One<A1>();
       uint32_t c = 1;
-      while(c < a0)
+      while(c < (typename meta::as_unsigned<A0>::type)a0)
             {
               p = p0;
               p0 = p1;
