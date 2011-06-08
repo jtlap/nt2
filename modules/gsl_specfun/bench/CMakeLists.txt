@@ -8,7 +8,7 @@
 ##############################################################################
 
 ADD_CUSTOM_TARGET(gsl_specfun.scalar.bench)
-ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.scalar.bench gsl_specfun.simd.bench)
+ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.scalar.bench)
 
 ##****************************************************************************
 ##*     Toolbox gsl_specfun bench tests
