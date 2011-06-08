@@ -12,13 +12,14 @@
 # Add global cover driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(cephes.scalar.cover)
-ADD_CUSTOM_TARGET(cephes.simd.cover)
-ADD_DEPENDENCIES(cephes.cover cephes.scalar.cover cephes.simd.cover)
+ADD_DEPENDENCIES(cephes.cover cephes.scalar.cover)
 
 ##############################################################################
 # Toolbox cephes cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(cover arithmetic euler
+                            exponential trigonometric
+                            bessel hyperbolic
+                            elliptic)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
 

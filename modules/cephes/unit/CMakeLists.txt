@@ -11,8 +11,7 @@
 # Add global unit driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(cephes.scalar.unit)
-ADD_CUSTOM_TARGET(cephes.simd.unit)
-ADD_DEPENDENCIES(cephes.unit cephes.scalar.unit cephes.simd.unit)
+ADD_DEPENDENCIES(cephes.unit cephes.scalar.unit)
 
 ##****************************************************************************
 ##*     Toolbox cephes unit tests
@@ -24,4 +23,4 @@ nt2_module_use_modules(unit arithmetic euler
                             elliptic
                       )
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+
