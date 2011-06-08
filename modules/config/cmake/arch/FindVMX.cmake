@@ -31,7 +31,7 @@ if(NOT DEFINED NT2_HAS_VMX_SUPPORT)
   
   set(NT2_HAS_VMX_SUPPORT ${NT2_HAS_VMX_SUPPORT} CACHE INTERNAL "Altivec Support" FORCE)
   if(NT2_HAS_VMX_SUPPORT)
-    message(STATUS "PPC Altivec available")
+    message(STATUS "[nt2.config] PPC Altivec available")
     
     # Find the proper options to compile
     check_cxx_compiler_flag("-maltivec" HAS_GCC_VMX)
@@ -41,7 +41,7 @@ if(NOT DEFINED NT2_HAS_VMX_SUPPORT)
     endif()
 
   else()
-    message(STATUS "PPC Altivec not available")
+    message(STATUS "[nt2.config] PPC Altivec not available")
   endif()
 
 endif()

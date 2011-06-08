@@ -33,7 +33,7 @@ macro(nt2_simd_cpuid_check ext)
     endif()
 
     if(NT2_HAS_${ext}_SUPPORT)
-      message(STATUS "${ext} available")
+      message(STATUS "[nt2.config] ${ext} available")
 
       # Find the proper options
       if(NOT NT2_COMPILER_MSVC)
@@ -44,7 +44,7 @@ macro(nt2_simd_cpuid_check ext)
       endif()
 
     else()
-      message(STATUS "${ext} not available")
+      message(STATUS "[nt2.config] ${ext} not available")
     endif()
     
   endif()
@@ -70,7 +70,19 @@ endif()
 # Intel/AMD SSE Family fix-up to force arithmetic to be sse style everywhere
 ################################################################################
 if(NT2_COMPILER_GNU_C)
-  set(NT2_CXX_PRECISION_FLAGS "-mfpmath=sse")
-elseif(NT2_COMPILER_MSVC)
-  set(NT2_CXX_PRECISION_FLAGS "/arch:sse2")
+  if(NT2_HAS_AVX_SUPPORT)
+    set(NT2_CXX_PRECISION_FLAGS "-mfpmath=avx")
+  elseif(NT2_HAS_SSE_SUPPORT)
+    set(NT2_CXX_PRECISION_FLAGS "-mfpmath=sse")
+  endif()
+endif()
+
+if(NT2_COMPILER_MSVC)
+  if(NT2_HAS_AVX_SUPPORT)
+    set(NT2_CXX_PRECISION_FLAGS "/arch:AVX")
+  elseif(NT2_HAS_SSE2_SUPPORT)
+    set(NT2_CXX_PRECISION_FLAGS "/arch:SSE2")
+  elseif(NT2_HAS_SSE_SUPPORT)
+    set(NT2_CXX_PRECISION_FLAGS "/arch:SSE")
+  endif()
 endif()

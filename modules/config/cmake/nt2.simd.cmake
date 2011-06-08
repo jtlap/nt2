@@ -26,4 +26,4 @@ endif()
 set( NT2_CXX_SIMD_FLAGS "${NT2_SIMD_FLAGS} ${NT2_CXX_PRECISION_FLAGS}"
      CACHE STRING "SIMD extensions compiler flags"
    )
-message(STATUS "SIMD flag: ${NT2_CXX_SIMD_FLAGS}")
+message(STATUS "[nt2.config] SIMD flag: ${NT2_CXX_SIMD_FLAGS}")

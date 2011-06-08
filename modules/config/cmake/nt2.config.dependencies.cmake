@@ -15,8 +15,8 @@ ENDIF()
 
 include(nt2.simd)
 
-MESSAGE( STATUS "[nt2] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-MESSAGE( STATUS "[nt2] target processor: ${NT2_ARCH}" )
+MESSAGE( STATUS "[nt2.config] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
+MESSAGE( STATUS "[nt2.config] target processor: ${NT2_ARCH}" )
 
 SET(NT2_CONFIG_DEPENDENCIES_FOUND 1)
 SET(NT2_CONFIG_DEPENDENCIES_INCLUDE_DIR ${Boost_INCLUDE_DIRS})
