@@ -12,13 +12,11 @@
 # Add global cover driver rules
 ################################################################################
 ADD_CUSTOM_TARGET(crlibm.scalar.cover)
-ADD_CUSTOM_TARGET(crlibm.simd.cover)
-ADD_DEPENDENCIES(crlibm.cover crlibm.scalar.cover crlibm.simd.cover)
+ADD_DEPENDENCIES(crlibm.cover crlibm.scalar.cover)
 
 ##############################################################################
 # Toolbox crlibm cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(cover  arithmetic ieee trigonometric exponential hyperbolic predicates)
 ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
 
