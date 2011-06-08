@@ -60,34 +60,15 @@ include(CPack)
 #                  )
 
 ################################################################################
-# Add super-targets
+# Enable testing if using Makefile generator or instructed to do so
 ################################################################################
-ENABLE_TESTING()
-ADD_CUSTOM_TARGET( bench
-                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bench
-                 )
-ADD_CUSTOM_TARGET( examples
-                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/examples
-                 )
-ADD_CUSTOM_TARGET( unit
-                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/unit
-                 )
-ADD_CUSTOM_TARGET( cover
-                   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/cover
-                 )
+if(CMAKE_GENERATOR MATCHES "Make" OR NT2_WITH_TESTS)
+  ENABLE_TESTING()
+endif()
 
 ################################################################################
 # Module inclusion
 ################################################################################
-
-macro(nt2_load_module module)
-  add_subdirectory(${PROJECT_SOURCE_DIR}/modules/${module})
-  add_dependencies(bench ${module}.bench)
-  add_dependencies(examples ${module}.examples)
-  add_dependencies(unit ${module}.unit)
-  add_dependencies(cover ${module}.cover)
-endmacro()
-
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 
 if(NOT NT2_MODULES)
@@ -116,7 +97,7 @@ foreach(module ${NT2_MODULES})
       message(STATUS "[nt2] module ${module} not found")
     else()
       message(STATUS "[nt2] loading module ${module}")
-      nt2_load_module(${module})
+      add_subdirectory(modules/${module})
     endif()
     
   endif()
