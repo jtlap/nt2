@@ -8,7 +8,7 @@
              'default' : 'typename nt2::meta::logical<T>::type',
             },
          'special' : ['predicate'],
-         'type_defs' : [],
+         'type_defs' : ['#include <nt2/sdk/meta/logical.hpp>'],
          'types' : ['integer_','real_'],
         },
      'info' : 'manually modified',

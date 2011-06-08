@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'bool',
             },
+         'special' : ["reduction"],
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },
@@ -46,13 +47,23 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'integer_' : ['nt2::compare_equal(a0,a1)'],
+                 'default' : ['nt2::compare_equal(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['nt2::all(eq(a0,a1))'],
+                 'default' : ['nt2::all(nt2::eq(a0,a1))'],
                 },
              'simd' : {
                 },
+             'scalar_simul' :{
+                    'default' : [
+                        "        bool z = a0[0]==a1[0];",
+                        "        for(int i = 1; i< cardinal_of<n_t>::value; ++i)",
+                        "        {",
+                        "          z &= a0[i]==a1[i];",
+                        "        }",
+                        "        NT2_TEST_EQUAL( v,z);",
+                            ]
+               },
              'ulp_thresh' : {
                  'integer_' : ['0'],
                 },

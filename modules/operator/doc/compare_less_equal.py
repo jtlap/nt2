@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'bool',
             },
+         'special' : ["reduction"],
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },
@@ -49,10 +50,19 @@
                  'integer_' : ['nt2::compare_less_equal(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['nt2::all(le(a0,a1))'],
+                 'integer_' : ['nt2::all(nt2::le(a0,a1))'],
                 },
-             'simd' : {
-                },
+             'scalar_simul' :{
+                    'default' : [
+                        "        bool z = true;",
+                        "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
+                        "        {",
+                        "          if (a0[i]<=a1[i]) {z=true;break;}",
+                        "          else if (a0[i]>a1[i]){z=false; break;}",
+                        "        }",
+                        "        NT2_TEST_EQUAL( v,z);",
+                            ]
+               },
              'ulp_thresh' : {
                  'integer_' : ['0'],
                 },
