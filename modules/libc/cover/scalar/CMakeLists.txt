@@ -9,6 +9,27 @@
 ################################################################################
 
 SET( SOURCES
+  tanh.cpp
+  tan.cpp
+  sqrt.cpp
+  sinh.cpp
+  sin.cpp
+  pow.cpp
+  log10.cpp
+  log.cpp
+  frexp.cpp
+  fmod.cpp
+  floor.cpp
+  fabs.cpp
+  exp.cpp
+  cosh.cpp
+  cos.cpp
+  ceil.cpp
+  atan2.cpp
+  atan.cpp
+  asin.cpp
+  acos.cpp
+  abs.cpp
 # List of scalar test files for toolbox libc
    )
 

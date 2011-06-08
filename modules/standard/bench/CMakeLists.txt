@@ -12,6 +12,6 @@
 ##****************************************************************************
 
 ADD_CUSTOM_TARGET(standard.scalar.bench)
-ADD_DEPENDENCIES(standard.bench standard.scalar.bench standard.simd.bench)
+ADD_DEPENDENCIES(standard.bench standard.scalar.bench)
 
 ADD_SUBDIRECTORY(scalar)
