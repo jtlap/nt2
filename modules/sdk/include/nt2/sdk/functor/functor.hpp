@@ -33,7 +33,8 @@
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
+#if !defined(BOOST_HAS_VARIADIC_TMPL)
+//|| !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -92,11 +93,11 @@ namespace nt2
      * \return The result of the calculation of function \c Tag
      */
     //==========================================================================
-    template<class... Args> inline typename result<functor(Args...)>::type
-    operator()( Args const& ...args ) const
+    template<class... Args> inline typename result<functor(Args&&...)>::type
+    operator()( Args&& ...args ) const
     {
-      typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
-      return callee( args... );
+      typename meta::dispatch_call<Tag(Args&&...),EvalContext>::type callee;
+      return callee( std::forward<Args>(args)... );
     }
     #else
 
@@ -108,7 +109,10 @@ namespace nt2
 #endif
 
     #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
-    BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) & BOOST_PP_CAT(a,i)
+    BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) & BOOST_PP_CAT(a,i) \
+    /**/
+
+    #define arg_type(r,_,i,b) BOOST_PP_COMMA_IF(i) BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) &
                
     #define c0
     #define c1 const
@@ -117,12 +121,12 @@ namespace nt2
     
     #define call_operator(r, constness)                                       \
     template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> inline          \
-    typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n_size(constness),A))\
+    typename meta::enable_call< Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))\
                               , EvalContext>::type                            \
     operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \
     {                                                                         \
       typename                                                                \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n_size(constness),A))      \
+      meta::dispatch_call<Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))      \
                          ,EvalContext                                         \
                          >::type                                              \
       callee;                                                                 \
@@ -154,6 +158,7 @@ namespace nt2
     #undef n_size
     #undef c1
     #undef c0
+    #undef param2
     #undef param
     #undef call_operator
     

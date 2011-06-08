@@ -11,12 +11,10 @@
 
 #include <nt2/sdk/meta/make_real.hpp>
 
-#if !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#endif
 
 namespace nt2  { namespace meta
 {
