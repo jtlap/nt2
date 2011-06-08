@@ -12,6 +12,6 @@
 ##****************************************************************************
 
 ADD_CUSTOM_TARGET(boost_math.scalar.bench)
-ADD_DEPENDENCIES(boost_math.bench boost_math.scalar.bench boost_math.simd.bench)
+ADD_DEPENDENCIES(boost_math.bench boost_math.scalar.bench)
 
 ADD_SUBDIRECTORY(scalar)
