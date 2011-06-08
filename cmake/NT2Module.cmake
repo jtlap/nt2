@@ -101,7 +101,7 @@ macro(nt2_module_main module)
       add_subdirectory(unit)
     endif()
 
-    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cover)
+    if(NT2_WITH_TESTS_COVER AND IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cover)
       add_custom_target(${module}.cover)
       add_subdirectory(cover)
     endif()
