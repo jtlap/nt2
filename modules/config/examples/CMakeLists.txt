@@ -7,17 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(config)
-
 SET(SOURCES
     architecture.cpp
     compiler.cpp
     platform.cpp
 #    status.cpp
    )
-
-#ADD_CUSTOM_TARGET(config.examples)
 
 ################################################################################
 # For each filename

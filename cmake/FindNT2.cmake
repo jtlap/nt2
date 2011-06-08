@@ -27,7 +27,7 @@
 # - NT2_LIBRARIES                   list of libraries that are necessary to link all the requested components
 # - NT2_${COMPONENT_U}_FLAGS        flags that must be passed to the compiler to use the component
 # - NT2_FLAGS                       flags that must be passed to the compiler to use all the requested components
-# - NT2_FOUND_COMPONENTS            list of components that were found, including their dependencies.
+# - NT2_FOUND_COMPONENTS            list of all components that were ever found by FindNT2
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
 #
@@ -233,7 +233,7 @@ function(nt2_find_module COMPONENT)
   foreach(EXTRA_COMPONENT ${NT2_${COMPONENT_U}_EXTRA})
     string(TOUPPER ${EXTRA_COMPONENT} EXTRA_COMPONENT_U)
     if(NOT NT2_${EXTRA_COMPONENT_U}_FOUND)
-    
+
       # Set variables
       set(NT2_${EXTRA_COMPONENT_U}_FOUND 1)
       set(NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_INCLUDE_DIR})
@@ -283,19 +283,15 @@ macro(nt2_flag_found)
     nt2_copy_parent( NT2_${COMPONENT_U_}_FOUND
                      NT2_${COMPONENT_U_}_INCLUDE_DIR NT2_${COMPONENT_U_}_LIBRARY_DIR
                      NT2_${COMPONENT_U_}_LIBRARIES NT2_${COMPONENT_U_}_FLAGS
-                     NT2_${COMPONENT_U_}_DEPENDENCIES_INCLUDE_DIR NT2_${COMPONENT_U_}_DEPENDENCIES_LIBRARY_DIR
-                     NT2_${COMPONENT_U_}_DEPENDENCIES_LIBRARIES NT2_${COMPONENT_U_}_DEPENDENCIES_FLAGS
-                     NT2_${COMPONENT_U_}_DEPENDENCIES_EXTRA
                      CMAKE_MODULE_PATH
                    )
   endforeach()
-  nt2_copy_parent(NT2_FOUND_COMPONENTS)
+  nt2_copy_parent(NT2_FOUND_COMPONENTS NT2_SOURCE_ROOT_IN_MODULE_PATH NT2_ROOT_IN_MODULE_PATH)
 endmacro()
 
 macro(nt2_find_transfer_parent)
   if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     nt2_flag_found()
-    nt2_copy_parent(NT2_FOUND_COMPONENTS)
   endif()
 endmacro()
 
@@ -322,7 +318,6 @@ function(nt2_find)
   if(NOT NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
     nt2_find_log("found NT2 source root ${NT2_SOURCE_ROOT}")
     set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
-    set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
   endif()
     
   # Search for install
@@ -338,9 +333,11 @@ function(nt2_find)
       nt2_find_log("found NT2 root ${NT2_ROOT}")
     endif()
   endif()
+
+  # Search for include and library directories, which may be stored separately from
+  # NT2_ROOT on some platforms
   if(NT2_ROOT)
-    set(CMAKE_MODULE_PATH ${NT2_ROOT}/cmake ${CMAKE_MODULE_PATH})
-    
+
     if(NOT NT2_INCLUDE_ROOT)
       find_path ( NT2_INCLUDE_ROOT nt2
                   PATHS ${NT2_ROOT}/include
@@ -370,6 +367,18 @@ function(nt2_find)
     endif()
     
   endif()
+
+  # Add install and source cmake directories to module path if they're not
+  # already there, prefer source over install
+  if(NT2_ROOT AND NOT NT2_ROOT_IN_MODULE_PATH)
+    set(CMAKE_MODULE_PATH ${NT2_ROOT}/cmake ${CMAKE_MODULE_PATH})
+    set(NT2_ROOT_IN_MODULE_PATH 1)
+  endif()
+
+  if(NT2_SOURCE_ROOT AND NOT NT2_SOURCE_ROOT_IN_MODULE_PATH)
+    set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
+    set(NT2_SOURCE_ROOT_IN_MODULE_PATH 1)
+  endif()
   
   # if no component specified, we glob the source or install directories for modules
   if(ARGC EQUAL 0)
@@ -397,6 +406,7 @@ function(nt2_find)
     endif()
   endif()
 
+  # Search for all requested components
   foreach(COMPONENT ${ARGV})
     string(TOUPPER ${COMPONENT} COMPONENT_U)
     nt2_find_module(${COMPONENT})
