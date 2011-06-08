@@ -25,12 +25,16 @@ import os
 import re
 import argparse
 
-sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"nt2_generation"))
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"nt2_basics"))
+from nt2_modules        import Nt2_modules
+sys.path.pop(0)
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"bench_generation"))
+from bench_creation     import create_bench
+sys.path.pop(0)
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"utils"))
-from unit_creation     import create_unit
-from files_utils       import exist
+from files_utils        import exist
 sys.path.pop(0)
-sys.path.pop(0)
+
 
 def listify(data) :
     if data is None : return data
@@ -66,11 +70,13 @@ def showoptions(namespace):
              etc.""")
     
 if __name__ == "__main__" :
-    parser = argparse.ArgumentParser(description="create cpp unit test files from existing py files")
+    parser = argparse.ArgumentParser(description="create cpp bench test files from existing py files")
     parser.add_argument("md_name",
-                      help="""module name(s)
+                      help="""module name(s) for which benches are to be generated.
+                      if the argument is NT2_ALL (case matter), all files are generarted
+                      for all 'usr' modules (possibly moderated by the style option)
                       """)
-    parser.add_argument("-a", "--all",
+    parser.add_argument("-a", "--all_functors",
                       dest="all_functors",
                       action="store_true",
                       default=False,
@@ -78,13 +84,23 @@ if __name__ == "__main__" :
                       Incompatible with -f and with multiple modules.
                       This is not by default.
                       """)
-    parser.add_argument("-p", "--peculiar_values",
-                      dest="pe_values",
+    parser.add_argument("-am", "--all_modules",
+                      dest="all_modules",
                       action="store_true",
-                      default=True,
-                      help="""generates tests for peculiar values of the functors arguments
-                      the result of which is known and given in the <fct_name>.py file.
-                      This is the default.
+                      default=False,
+                      help="""generate test files for all functors of all modules
+                      of the nt2 system, with given style found in the -st option
+                      ('usr or 'sys' or both).
+                      if present, and no style is defined, 'usr' is assumed
+                      This is not by default.
+                      """)
+    parser.add_argument("-st", "--styles",
+                      dest="styles",
+                      default='usr',
+                      help="""only active in conjonction with -am.
+                      Define the style of the modules for which
+                      benches are generated ('usr or 'sys' or both)
+                      Default is 'usr'.
                       """)
     parser.add_argument("-np", "--no_peculiar_values",
                       dest="pe_values",
@@ -192,7 +208,7 @@ if __name__ == "__main__" :
                       if foo.cpp exist, foo.cpp is copied to foo.cpp.<i>.bak, then the new foo.cpp is written,
                       possibly overwriting the old one.
                       <i> is the first integer string for which the file foo.cpp.<i>.bak does not exist.
-                      This is the default. (Use kill_unit_backup or restore_unit_from_backup to clean backups
+                      This is the default. (Use kill_bench_backup or restore_bench_from_backup to clean backups
                       or retrieving backed tests)
                       """)
     parser.add_argument("-nb", "--no_backup_on_write",
@@ -200,6 +216,7 @@ if __name__ == "__main__" :
                       action="store_false",
                       default = True,
                       help="""if present, doesn't backup existing tests files.
+                      
                       This is not the default
                       """)
     parser.add_argument("-f", "--fct_list",
@@ -208,12 +225,12 @@ if __name__ == "__main__" :
                       help="""the list of functor names for which the tests files
                       are to be generated. If you want to generate for all functors
                       use -a (--all), but the two options are incompatible.
-                      Take care that all fu
+                      ----------------------------------------------------
                       For examples list of functors can be as:
-                         --fct_list=['abs','average','toint']
-                      or --fct_list='abs','average','toint'
-                      or --fct_list= abs,average,toint
-                      or --fct_list= \"['abs',  average ,\"toint\"]\"
+                         --fct_list=['abs','average','toint','tofloat']
+                         --fct_list='abs','average','toint','tofloat'
+                         --fct_list=   abs,average,toint,tofloat,adds,muls
+                         --fct_list= \"['abs',  average ,\"toint\",\"tofloat\"]\"
                       if you have spaces in your text list
                       """)
     parser.add_argument("-m", "--modes",
@@ -223,9 +240,10 @@ if __name__ == "__main__" :
                               as 'scalar' and/or 'simd' or both
                       """)
     namespace = parser.parse_args()
-    all_functors = namespace.all_functors
+    all_functors = namespace.all_functors or (namespace.md_name == 'NT2_ALL')
     fct_list     = listify(namespace.fct_list)
     md_name      = listify(namespace.md_name)
+    styles       = listify(namespace.styles)
     wr           = namespace.write
     sh           = namespace.show
     modes        = listify(namespace.modes)
@@ -250,7 +268,7 @@ if __name__ == "__main__" :
     elif len(md_name)!=1  and (not all_functors or ( all_functors and not(fct_list is None))):
         print("""
                  ERROR
-                 unit are generated for multiple modules, only for all functors
+                 benches are generated for multiple modules, only for all functors
                  in each module: you must in this case add -a option and
                  suppress any -f option"""
               )
@@ -260,16 +278,17 @@ if __name__ == "__main__" :
             print("""
             ERROR
                  you must choose between -a and -f options:
-                 if you do not want to generate all functors unit for this module
+                 if you do not want to generate all functors bench for this module
                  please suppress -f option else suppress -a option"""
               )
             showoptions(namespace)
         else :
+            if len(md_name)==1 and md_name[0]=='NT2_ALL' :
+                md_name = Nt2_modules().get_modules_list(styles)
             for md_n in md_name :
-                create_unit(md_n,
+                create_bench(md_n,
                         fct_list=fct_list,
                         modes=modes,
-                        parts=parts,
                         show=sh,
                         write_files=wr,
                         check_on_write=check,
