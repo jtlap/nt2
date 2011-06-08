@@ -10,7 +10,7 @@
          'simd_types' : [],
          'special' : ['crlibm'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['double','float'],
          'tpl' : '<nt2::rn>'   
         },
      'info' : 'manually modified',
@@ -23,6 +23,7 @@
             },
          'ranges' : {
              'double' : [['T(-706)', 'T(706)']],
+             'default' : [['T(-85)', 'T(85)']],
              'float'   : [['T(-85)', 'T(85)']],   
             },
          'specific_values' : {
