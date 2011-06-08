@@ -235,6 +235,7 @@ if __name__ == "__main__" :
                       help="""generate files for modes that can be chosen
                               as 'scalar' and/or 'simd' or both
                       """)
+    namespace = parser.parse_args()
     all_functors = namespace.all_functors or (namespace.md_name == 'NT2_ALL')
     fct_list     = listify(namespace.fct_list)
     md_name      = listify(namespace.md_name)
