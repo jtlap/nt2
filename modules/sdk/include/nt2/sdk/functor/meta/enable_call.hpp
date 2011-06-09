@@ -21,7 +21,7 @@
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -73,7 +73,7 @@ namespace nt2 { namespace meta
   struct enable_call
   {};
 
-  #if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
+  #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
   template<class F, class Site, class... Args>
   struct enable_call< F(Args...), Site
                     , typename

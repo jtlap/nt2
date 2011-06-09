@@ -18,7 +18,7 @@
 #include <boost/function_types/result_type.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -58,7 +58,7 @@ namespace nt2 { namespace meta
                                             >::type
           > struct call {};
 
-#if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
+#if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
   template<class Tag, class... Args, class Site>
   struct call<Tag(Args...),Site>
         : meta::result_of<functor<Tag,Site>(Args...)>

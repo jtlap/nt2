@@ -4,11 +4,15 @@
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/config.hpp>
 #include <vector>
 #include <numeric>
 #include <cstring>
 #include <functional>
 
+#if !defined(BOOST_NO_CHAR16_T) && !defined(__STDC_UTF_16__)
+#define __STDC_UTF_16__
+#endif
 #include <mat.h>
 
 namespace nt2 { namespace matlab

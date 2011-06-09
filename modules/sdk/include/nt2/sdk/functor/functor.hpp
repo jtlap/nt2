@@ -33,8 +33,8 @@
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL)
-//|| !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES) \
+ || defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -75,7 +75,7 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    #if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
+    #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
@@ -96,7 +96,7 @@ namespace nt2
     template<class... Args> inline typename result<functor(Args&&...)>::type
     operator()( Args&& ...args ) const
     {
-      typename meta::dispatch_call<Tag(Args&&...),EvalContext>::type callee;
+      typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
       return callee( std::forward<Args>(args)... );
     }
     #else

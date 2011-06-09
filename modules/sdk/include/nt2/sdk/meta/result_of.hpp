@@ -18,7 +18,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 
-#if !defined(BOOST_HAS_VARIADIC_TMPL) || !defined(NT2_DONT_USE_PREPROCESSED_FILES) || (defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES))
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -41,14 +41,27 @@ namespace nt2
   }
 }
     
-#if (defined(BOOST_HAS_VARIADIC_TMPL) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
-#include <functional>
+#if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
 namespace nt2 { namespace meta
 {
-  template<class Sig, class Enable>
-  struct result_of : std::result_of<Sig>
+  template<class F, class... Args>
+  struct result_of<F(Args...), typename boost::enable_if< is_function<F> >::type>
+    : boost::function_types::result_type<typename boost::remove_pointer<typename meta::strip<F>::type>::type>
   {
   };
+  
+  template<class F, class... Args>
+  struct result_of<F(Args...), typename boost::enable_if< has_result_type<F> >::type>
+  {
+    typedef typename F::result_type type;
+  };
+  
+  template<class F, class... Args>
+  struct result_of<F(Args...), typename boost::disable_if< boost::mpl::or_< is_function<F>, has_result_type<F> > >::type>
+  {
+    typedef typename F::template result<F(Args...)>::type type;
+  };
+  
 } }
 #else
 namespace nt2 { namespace meta
