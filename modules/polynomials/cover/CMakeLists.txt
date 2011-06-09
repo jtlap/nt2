@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(polynomials.cover polynomials.scalar.cover polynomials.simd.cov
 ##############################################################################
 # Toolbox polynomials cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(cover predicates boost_math cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

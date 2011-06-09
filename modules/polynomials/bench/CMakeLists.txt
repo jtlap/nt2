@@ -11,9 +11,9 @@
 ###     Toolbox polynomials bench tests
 ##############################################################################
 
-##ADD_CUSTOM_TARGET(polynomials.scalar.bench)
-##ADD_CUSTOM_TARGET(polynomials.simd.bench)
-##ADD_DEPENDENCIES(polynomials.bench polynomials.scalar.bench polynomials.simd.bench)
+ADD_CUSTOM_TARGET(polynomials.scalar.bench)
+ADD_CUSTOM_TARGET(polynomials.simd.bench)
+ADD_DEPENDENCIES(polynomials.bench polynomials.scalar.bench polynomials.simd.bench)
 
-##ADD_SUBDIRECTORY(scalar)
-##ADD_SUBDIRECTORY(simd)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

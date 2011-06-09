@@ -9,6 +9,12 @@
 ################################################################################
 
 SET( SOURCES
+  tchebeval.cpp
+  polevl.cpp
+  plevl.cpp
+  legendre.cpp
+  laguerre.cpp
+  hermite.cpp
 # List of simd test files for toolbox polynomials
    )
 
