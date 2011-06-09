@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ati_, tag::cpu_,
+NT2_REGISTER_DISPATCH(tag::at_i_, tag::cpu_,
                     (A0)(A1),
                     (fundamental_<A0>)(integer_<A1>)
                    )
@@ -23,7 +23,7 @@ NT2_REGISTER_DISPATCH(tag::ati_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<tag::ati_(tag::fundamental_,tag::integer_),
+  struct call<tag::at_i_(tag::fundamental_,tag::integer_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

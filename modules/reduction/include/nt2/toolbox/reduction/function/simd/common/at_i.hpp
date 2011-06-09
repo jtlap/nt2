@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ati_, tag::cpu_,
+NT2_REGISTER_DISPATCH(tag::at_i_, tag::cpu_,
                      (A0)(A1)(X),
                      ((simd_<arithmetic_<A0>,X>))
                      (integer_<A1>)
@@ -23,7 +23,7 @@ NT2_REGISTER_DISPATCH(tag::ati_, tag::cpu_,
 namespace nt2 { namespace ext
 {
   template<class X, class Dummy>
-  struct call<tag::ati_(tag::simd_<tag::arithmetic_, X> ,
+  struct call<tag::at_i_(tag::simd_<tag::arithmetic_, X> ,
                        tag::integer_),
               tag::cpu_, Dummy> : callable
   {

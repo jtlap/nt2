@@ -9,6 +9,20 @@
 ################################################################################
 
 SET( SOURCES
+  sum.cpp
+  second.cpp
+  prod.cpp
+  posmin.cpp
+  posmax.cpp
+  nbtrue.cpp
+  minimum.cpp
+  maximum.cpp
+  hmsb.cpp
+  first.cpp
+  dot.cpp
+  at_i.cpp
+  any.cpp
+  all.cpp
 # List of simd test files for toolbox reduction
    )
 

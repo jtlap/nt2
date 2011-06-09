@@ -11,14 +11,12 @@
 ################################################################################
 # Add global cover driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(reduction.scalar.cover)
 ADD_CUSTOM_TARGET(reduction.simd.cover)
-ADD_DEPENDENCIES(reduction.cover reduction.scalar.cover reduction.simd.cover)
+ADD_DEPENDENCIES(reduction.cover reduction.simd.cover)
 
 ##############################################################################
 # Toolbox reduction cover tests
 ##############################################################################
 nt2_module_use_modules(cover predicates)
-ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

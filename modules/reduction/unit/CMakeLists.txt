@@ -10,12 +10,10 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(reduction.scalar.unit)
 ADD_CUSTOM_TARGET(reduction.simd.unit)
-ADD_DEPENDENCIES(reduction.unit reduction.scalar.unit reduction.simd.unit)
+ADD_DEPENDENCIES(reduction.unit reduction.simd.unit)
 
 ##############################################################################
 # Toolbox reduction unit tests
 ##############################################################################
-ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
