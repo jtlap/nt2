@@ -117,8 +117,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      uint32_t that = t1.bits;
-      return nt2::ffs(that);
+      return nt2::ffs(uint32_t(t1.bits));
     }
   };
 } }
