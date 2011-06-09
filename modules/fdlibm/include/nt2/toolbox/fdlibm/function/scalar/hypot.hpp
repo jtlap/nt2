@@ -34,8 +34,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::fdlibm::hypot(double(a0), double(a1));
+      typedef typename NT2_RETURN_TYPE(2)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::fdlibm::hypot(type(a0), type(a1));
     }
   };
 } }
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : meta::result_of<meta::floating(A0)>{};
 
-    NT2_FUNCTOR_CALL(2){ return fd_hypot(a0, a1); }
+    NT2_FUNCTOR_CALL(2){ return ::fd_hypot(a0, a1); }
   };
 } }
 

@@ -35,7 +35,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::fdlibm::__ieee754_pow(double(a0), double(a1));
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::fdlibm::__ieee754_pow(type(a0), type(a1));
     }
   };
 } }
@@ -58,7 +60,7 @@ namespace nt2 { namespace ext
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(2){ return fd___ieee754_pow(a0, a1); }
+    NT2_FUNCTOR_CALL(2){ return ::fd___ieee754_pow(a0, a1); }
   };
 } }
 

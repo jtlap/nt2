@@ -34,8 +34,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::fdlibm::scalbn(double(a0), a1);
+      typedef typename NT2_RETURN_TYPE(2)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::fdlibm::scalbn(type(a0), a1);
     }
   };
 } }
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     template<class This,class A0, class A1>
     struct result<This(A0, A1)> : meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(2){ return fd_scalbn(a0, a1); }
+    NT2_FUNCTOR_CALL(2){ return ::fd_scalbn(a0, a1); }
   };
 } }
 

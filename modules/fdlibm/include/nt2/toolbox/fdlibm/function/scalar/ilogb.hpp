@@ -34,7 +34,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::fdlibm::ilogb(double(a0));
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::fdlibm::ilogb(type(a0));
     }
   };
 } }
@@ -57,7 +59,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0)>  { typedef int type; };
 
-    NT2_FUNCTOR_CALL(1){ int z = fd_ilogb(a0); return z; }
+    NT2_FUNCTOR_CALL(1){ return ::fd_ilogb(a0); }
   };
 } }
 

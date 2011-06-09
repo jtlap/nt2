@@ -34,8 +34,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::fdlibm::__ieee754_hypot(double(a0), double(a1));
+      typedef typename NT2_RETURN_TYPE(2)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::fdlibm::__ieee754_hypot(type(a0), type(a1));
     }
   };
 } }

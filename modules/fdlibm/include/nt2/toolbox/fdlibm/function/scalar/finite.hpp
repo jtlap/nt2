@@ -32,8 +32,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::fdlibm::finite(double(a0));
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::fdlibm::finite(type(a0));
     }
   };
 } }
@@ -54,7 +55,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    NT2_FUNCTOR_CALL(1){ return fd_finite(a0); }
+    NT2_FUNCTOR_CALL(1){ return ::fd_finite(a0); }
   };
 } }
 
