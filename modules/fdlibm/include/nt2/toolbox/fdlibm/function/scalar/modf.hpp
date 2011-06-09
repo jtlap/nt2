@@ -40,7 +40,9 @@ namespace nt2 { namespace ext
     };
 
     NT2_FUNCTOR_CALL(1)
-    {
+    {      
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      base res;
       boost::fusion::at_c<0>(res) = ::fd_modf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }
