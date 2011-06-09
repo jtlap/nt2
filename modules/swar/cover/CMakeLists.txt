@@ -11,14 +11,12 @@
 ################################################################################
 # Add global cover driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(swar.scalar.cover)
 ADD_CUSTOM_TARGET(swar.simd.cover)
-ADD_DEPENDENCIES(swar.cover swar.scalar.cover swar.simd.cover)
+ADD_DEPENDENCIES(swar.cover swar.simd.cover)
 
 ##############################################################################
 # Toolbox swar cover tests
 ##############################################################################
 nt2_module_use_modules(cover predicates)
-ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

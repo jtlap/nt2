@@ -9,20 +9,7 @@
 ################################################################################
 
 SET( SOURCES
-  split.cpp
-  splatted_sum.cpp
-  splatted_second.cpp
-  splatted_prod.cpp
-  splatted_minimum.cpp
-  splatted_maximum.cpp
-  splatted_first.cpp
-  sort.cpp
-  put_first.cpp
-  lookup.cpp
-  group.cpp
-  cumsum.cpp
-  comparator.cpp
-# List of simd test files for toolbox swar
+# List of simd test files for toolbox operator
    )
 
 ##############################################################################
@@ -30,6 +17,6 @@ SET( SOURCES
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(swar.simd.${EXAMPLE}.cover ${EXAMPLE}.cpp)
+  nt2_module_add_bench(operator.simd.${EXAMPLE}.bench ${EXAMPLE}.cpp)
 ENDFOREACH()
 
