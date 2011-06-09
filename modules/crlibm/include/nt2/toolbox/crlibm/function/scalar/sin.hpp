@@ -37,7 +37,9 @@ namespace nt2 { namespace ext
       meta::result_of<meta::floating(A0)>{};
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::crlibm::sin<Rounding>(double(a0));
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::crlibm::sin<Rounding>(type(a0));
     }
   };
 } }

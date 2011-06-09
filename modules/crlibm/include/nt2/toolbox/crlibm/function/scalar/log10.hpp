@@ -43,7 +43,9 @@ namespace nt2 { namespace ext
     NT2_CRLIBM_INNER_STRUCT(rz, log, rd)
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::crlibm::log10<Rounding>(double(a0));
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::crlibm::log10<Rounding>(type(a0));
     }
   };
 } }

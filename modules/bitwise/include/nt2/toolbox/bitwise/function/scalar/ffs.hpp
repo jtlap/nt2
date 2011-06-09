@@ -16,32 +16,6 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
-                     (A0),
-                     (arithmetic_<A0>)
-                    )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::ffs_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      return nt2::ffs(uint32_t(t1.bits));
-    }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
@@ -63,6 +37,7 @@ namespace nt2 { namespace ext
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
       if(!t1.bits) return 0; 
+
     #if defined BOOST_MSVC && defined _WIN64
       unsigned long index;
       if(_BitScanForward64(&index, uint64_t(a0)))
@@ -116,6 +91,34 @@ namespace nt2 { namespace ext
     #else
       return __builtin_ffs(t1.bits);
     #endif
+    }
+  };
+} }
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
+                     (A0),
+                     (arithmetic_<A0>)
+                    )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<tag::ffs_(tag::arithmetic_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      uint32_t that = t1.bits;
+      return nt2::ffs(that);
     }
   };
 } }

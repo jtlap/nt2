@@ -13,6 +13,27 @@
     extern double exp_rn ( double );
   }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is double
+/////////////////////////////////////////////////////////////////////////////
+NT2_REGISTER_DISPATCH(crlibm::tag::exp_rn_, tag::cpu_,
+                        (A0),
+                        (double_<A0>)
+                       )
+
+namespace nt2 { namespace ext
+{
+  template<class Dummy>
+  struct call<crlibm::tag::exp_rn_(tag::double_),
+              tag::cpu_, Dummy> : callable
+  {
+    template<class Sig> struct result;
+    template<class This,class A0>
+    struct result<This(A0)> : meta::result_of<meta::floating(A0)>{};
+
+    NT2_FUNCTOR_CALL(1){ return ::exp_rn(a0); }
+  };
+} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -34,31 +55,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::crlibm::exp_rn(double(a0));
+      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef typename meta::upgrade<base>::type  type;
+      return nt2::crlibm::exp_rn(type(a0));
     }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(crlibm::tag::exp_rn_, tag::cpu_,
-                        (A0),
-                        (double_<A0>)
-                       )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<crlibm::tag::exp_rn_(tag::double_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::result_of<meta::floating(A0)>{};
-
-    NT2_FUNCTOR_CALL(1){ return exp_rn(a0); }
   };
 } }
 
