@@ -47,7 +47,6 @@ class Global_header_gen() :
             "$first_stamp$",
             "$stamp$",
             "$notes$",
-            "#include <nt2/toolbox/$tb_name$/include/$fct_name$.hpp>",
             ]
     Default_template =  [
             "#include <boost/type_traits/is_same.hpp>",
@@ -78,6 +77,8 @@ class Global_header_gen() :
     def add_header(self,dl) :
         r = self.bg.create_unit_txt_part( Global_header_gen.Header_template,
                                           self.__prepare,d=dl[0]['unit']['global_header'])
+        if os.path.exists(self.bg.get_fct_def_path()) :
+            r.append("#include <nt2/toolbox/"+self.bg.get_tb_name()+"/include/"+self.bg.get_fct_name()+".hpp>")
         for d in dl :
              no_ulp = d['functor'].get('no_ulp',False)
              if not no_ulp :
