@@ -34,14 +34,12 @@ namespace nt2 { namespace details
     template<typename Expr>
     struct is_terminal< Expr
                       , typename boost::
-                        enable_if< boost::is_same< typename boost::proto::tag_of<Expr>::type
-                                                 , boost::proto::tag::terminal
-                                                 >
-                                 >::type
+                        enable_if< boost::proto::is_expr<Expr> >::type
                       >
-      : boost::mpl::true_
-    {
-    };
+    : boost::is_same  < typename boost::proto::tag_of<Expr>::type
+                      , boost::proto::tag::terminal
+                      >::type
+    {};
 
     
     namespace result_of
