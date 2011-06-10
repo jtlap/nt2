@@ -29,6 +29,17 @@ from nt2_fct_props import Nt2_fct_props
 from unit_base_gen import Base_gen
 
 class Type_header_test_gen() :
+    Default_df = {
+         'arity' : '1',
+         'call_types' : [],
+         'ret_arity' : '0',
+         'rturn' : {
+             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+            },
+         'simd_types' : ['real_'],
+         'type_defs' : [],
+         'types' : ['real_'],
+        }
     Type_Header  = {
         "scalar" :
         [
@@ -130,10 +141,11 @@ class Type_header_test_gen() :
         return r    
 
     def __get_call_types(self,d) :
-        dd = d["functor"].get("call_types",None)
+        df = d.get("functor", self.Default_df)
+        dd = df.get("call_types",None)
         t = "T" if self.mode == 'scalar' else "vT"
         if dd is None or len(dd)==0:
-            r = ','.join([t]*int(d["functor"].get("arity","1")))
+            r = ','.join([t]*int(df.get("arity","1")))
         elif self.mode == 'simd' :
             r = re.sub("T","vT",','.join(dd))
         else :
@@ -143,27 +155,33 @@ class Type_header_test_gen() :
         return r    
 
     def __get_scall_types(self,d) :
-        dd = d["functor"].get("call_types",None)
+        df = d.get("functor", self.Default_df)
+        dd = df.get("call_types",None)
         t = "T"
         if dd is None or len(dd)==0:
-            r = ','.join([t]*int(d["functor"].get("arity","1")))
+            r = ','.join([t]*int(df.get("arity","1")))
         else :
             r = ','.join(dd)
         return r
     
     def __get_special(self,d) :
-        special = d["functor"].get("special",[""])
+        df = d.get("functor", self.Default_df)
+        if not df : return ""
+        special = df.get("special",[""])
         return "using nt2::rn;" if special[0] == "crlibm" else ""
 
     def __get_tpl(self,d) :
-        special = d["functor"].get("special",[""])
+        df = d.get("functor", self.Default_df)
+        if not df : return ""
+        special = df.get("special",[""])
         name = self.bg.get_fct_name()
         if special[0] == "crlibm" and not( name[-3:] in ['_rd','_rn','_ru','_rz']) :
             return "<rn>"
         else :
-            return d["functor"].get("tpl","") 
+            return df.get("tpl","") 
 
     def __prepare(self,s,typ,d,i=None) :
+        df = d.get("functor", self.Default_df)
         style = self.bg.get_tb_style()
         tb_style_base = "" if style =="sys" else self.bg.get_tb_name()+'::'
         s=re.sub("\$special\$",self.__get_special(d),s)
@@ -174,16 +192,16 @@ class Type_header_test_gen() :
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
         s=re.sub("\$macro_types\$",self.__macro(typ),s)
         s=re.sub("\$type\$"    ,typ,s)
-        s=re.sub("\$arity\$"   ,str(d["functor"]["arity"]),s)
+        s=re.sub("\$arity\$"   ,str(df.get("arity","1")),s)
         s=re.sub("\$rank\$"   ,str(self.__rank),s)
         s=re.sub("\$call_type\$", self.__get_call_types(d),s)
         s=re.sub("\$scall_type\$", self.__get_scall_types(d),s)     
-        s=re.sub("\$rturn\$", d["functor"]["rturn"].get(typ,d["functor"]["rturn"]["default"]),s)
+        s=re.sub("\$rturn\$", df.get("rturn").get(typ,df["rturn"]["default"]),s)
         m = re.match("( *)\$type_defs\$.*",s)
         if m :
             r = []
             beg = m.groups()[0]
-            tpdefs = d["functor"].get("type_defs",None)
+            tpdefs = df.get("type_defs",None)
             if tpdefs is not None :
                 for l in tpdefs :
                     r.append( beg+l)
@@ -194,7 +212,7 @@ class Type_header_test_gen() :
         if m :
             r = []
             beg = m.groups()[0]
-            tpdefs = d["functor"].get("type_defs_aft",None)
+            tpdefs = df.get("type_defs_aft",None)
             if tpdefs is not None :
                 for l in tpdefs :
                     r.append( beg+l)

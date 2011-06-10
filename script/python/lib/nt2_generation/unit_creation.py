@@ -47,6 +47,17 @@ def create_one_unit(tb_name,
                     mode,
                     part,
                     verbose=False) :
+    default_df = {
+         'arity' : '1',
+         'call_types' : [],
+         'ret_arity' : '0',
+         'rturn' : {
+             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+            },
+         'simd_types' : ['real_'],
+         'type_defs' : [],
+         'types' : ['real_'],
+        }
     if verbose : print("%s with %s with %s"%(fct_name,mode,part))
     bg = Base_gen(tb_name,fct_name,mode)
     ghg = Global_header_gen(bg,part)
@@ -55,10 +66,12 @@ def create_one_unit(tb_name,
         dl = bg.get_fct_dict_list()
         for rank,d in enumerate(dl) :
             origin ="types" if mode == 'scalar' else 'simd_types'
-            if d["functor"].get('no_simd_tests',False) : return []
-            types = bg.recover(origin,d["functor"],["real_"])
-            ret_arity = int(d["functor"]["ret_arity"])
-            d_unit = d["unit"]
+            df = d.get('functor',False)
+            if not df : df = default_df
+            if df.get('no_simd_tests',False) : return []
+            types = bg.recover(origin,df,["real_"])
+            ret_arity = int(df["ret_arity"])
+            d_unit = d.get("unit",{})
             for typ in types :
                 thg = Type_header_test_gen(bg,d,typ,rank)
                 r+=thg.get_gen_beg()

@@ -64,6 +64,12 @@ class Global_header_gen() :
             "#include <nt2/include/functions/load.hpp>",           
             ]
 
+    Default_dug = {
+        'first_stamp' : 'modified by ??? the ???',
+        'no_default_includes' : False,  
+        'notes' : ["this is a default generation"],
+        }
+    
     def __init__(self,base_gen,part,stampit=False) :
         self.stampit = stampit
         self.part = part
@@ -75,17 +81,24 @@ class Global_header_gen() :
         return  self.__gen_result
 
     def add_header(self,dl) :
-        r = self.bg.create_unit_txt_part( Global_header_gen.Header_template,
-                                          self.__prepare,d=dl[0]['unit']['global_header'])
-        if os.path.exists(self.bg.get_fct_def_path()) :
-            r.append("#include <nt2/toolbox/"+self.bg.get_tb_name()+"/include/"+self.bg.get_fct_name()+".hpp>")
-        for d in dl :
-             no_ulp = d['functor'].get('no_ulp',False)
-             if not no_ulp :
-                 r.append("#include <nt2/include/functions/ulpdist.hpp>")
-                 if self.part == "cover" :
-                     r.append("#include <nt2/include/functions/max.hpp>")
-                 return r
+        du = dl[0].get('unit',False)
+        if isinstance(du, dict ) :
+            dug =  du.get('global_header',Global_header_gen.Default_dug)
+        else :
+            dug = Global_header_gen.Default_dug
+        if dug :
+            r = self.bg.create_unit_txt_part( Global_header_gen.Header_template,
+                                              self.__prepare,d=dug)
+            if os.path.exists(self.bg.get_fct_def_path()) :
+                r.append("#include <nt2/toolbox/"+self.bg.get_tb_name()+"/include/"+self.bg.get_fct_name()+".hpp>")
+            for d in dl :
+                df =  d.get('functor',False)
+                no_ulp =  df.get('no_ulp',False) if df else True
+                if not no_ulp :
+                    r.append("#include <nt2/include/functions/ulpdist.hpp>")
+                    if self.part == "cover" :
+                        r.append("#include <nt2/include/functions/max.hpp>")
+                    return r
         return r
     
     def add_includes(self,r,dl) :
@@ -126,8 +139,10 @@ class Global_header_gen() :
         
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
+##        if isinstance(d,dict ) :
+##            dl = [dl]
         r = self.add_header(dl)
-        r = self.add_includes(r,dl)
+##        r = self.add_includes(r,dl)
         return r
 
     def __prepare(self,s,typ,d,i=None) :
