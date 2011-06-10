@@ -45,8 +45,9 @@ from pprint                          import PrettyPrinter
 def create_one_unit(tb_name,
                     fct_name,
                     mode,
-                    part) :
-    print("%s with %s with %s"%(fct_name,mode,part))
+                    part,
+                    verbose=False) :
+    if verbose : print("%s with %s with %s"%(fct_name,mode,part))
     bg = Base_gen(tb_name,fct_name,mode)
     ghg = Global_header_gen(bg,part)
     r = ghg.get_gen_result()
@@ -61,7 +62,7 @@ def create_one_unit(tb_name,
             for typ in types :
                 thg = Type_header_test_gen(bg,d,typ,rank)
                 r+=thg.get_gen_beg()
-                print("part = %s"%part)
+                if verbose : print("part = %s"%part)
                 if ("unit"==part) and d_unit.get("specific_values",None) :
                     svt = Specific_values_test_gen(bg,d,typ,ret_arity,mode)
                     r += svt.get_gen_result()
@@ -72,60 +73,22 @@ def create_one_unit(tb_name,
         return r
 
 
-##def insert_after(token, txt, line2add) :
-##    """ insertion of a line after a line
-##    containing a token in a list of lines
-##    """
-##    pattern = re.compile(line2add)
-##    def find_index(p) :
-##        for i,l in enumerate(txt) :
-##            if p.match(l) : return i+1
-##        return 0
-##    if find_index(pattern) :
-##        return (False,txt)
-##    else :
-##        #### match for token
-##        pattern = re.compile(token)
-##        i = find_index(pattern)
-##        if i != 0 : txt.insert(i,line2add)
-##        return (True,txt)
-
-##def update_cmakelist(p,fct_name) :
-##    txt_orig = read(p)
-##    txt = "  %s.cpp"%fct_name
-##    done, new_txt = insert_after("SET\( SOURCES",txt_orig,txt)
-##    print("----------------------------------------------------------")
-##    print("new_txt %s"%new_txt)
-##    print("----------------------------------------------------------")
-   
-##    if not done :
-##        print("Warning : line\n  %s\nis already in CMakelists.txt file"%txt ) 
-##    else :
-##        if exist(p) :
-##            print("file\n  %s\nwill be updated"%p)
-##            write(p,new_txt,False)
-##            print("file\n  %s\nis now updated"%p)
-##        else :
-##            print("file\n  %s\n does not exist"%p)         
-
-
-def write_unit(tb_name,fct_name,mode,part,s,check=False,backup=True) :
+def write_unit(tb_name,fct_name,mode,part,s,check=False,backup=True,verbose=False) :
     nfp = Nt2_fct_props(tb_name,fct_name,mode)
     p = nfp.get_fct_unit_path(mode,part)
-    print ('p = %s'%p)
+    if verbose : print ('path = %s'%p)
     if backup and exist(p) :
-        print("p=%s" %p)
+        if verbose : print("backing up %s" %fct_name)
         i = 1;
         while True :
             pi = p+'.'+str(i)+'.bak'
             if not(exist(pi)) : break
             i += 1
-        print("backing to %s"% pi)
+        if verbose : print("to %s"% pi)
         shutil.copy(p,pi)
-    print "writing to %s"%p
+    elif verbose : print "writing to %s"%p
     write(p,s,check)
     p1 = os.path.join(os.path.split(p)[0],'CMakeLists.txt')
-    print("p1= %s"%p1)
     addline=Add_line(p1,fct_name)
     addline.update_file("SET\( SOURCES")
  
@@ -135,7 +98,8 @@ def create_unit(tb_name, fct_list=None,
                 show=True,
                 write_files=False,
                 check_on_write=True,
-                backup_on_write=True) :
+                backup_on_write=True,
+                verbose=False) :
     if fct_list is None :
         fcts = Nt2_tb_props(tb_name).get_fcts_list()
     elif isinstance(fct_list,str ) :
@@ -146,10 +110,10 @@ def create_unit(tb_name, fct_list=None,
     if  isinstance(modes,str ) : modes = [modes]    
     for fct in fcts :
         for mode in modes :
-            print("fct=%s,mode=%s"%(fct,mode))
+            if verbose : print("fct=%s,mode=%s"%(fct,mode))
             for part in parts :
-                print("fct=%s,part=%s"%(fct,part))
-                r= create_one_unit(tb_name,fct,mode,part)
+                if verbose : print("fct=%s,part=%s"%(fct,part))
+                r= create_one_unit(tb_name,fct,mode,part,verbose)
                 if r is None :
                     print('error for %s' % fct)
                 elif len(r)==0 :

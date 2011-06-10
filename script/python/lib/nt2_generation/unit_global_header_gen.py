@@ -45,6 +45,7 @@ class Global_header_gen() :
             "//////////////////////////////////////////////////////////////////////////////",
             ""
             "$first_stamp$",
+            "$stamp$",
             "$notes$",
             "#include <nt2/toolbox/$tb_name$/include/$fct_name$.hpp>",
             ]
@@ -58,20 +59,14 @@ class Global_header_gen() :
             "#include <nt2/include/constants/infinites.hpp>",
             ]
     
-    Template = {
-        "scalar" :
-        [
-            ],
-        "simd" :
-        [
+    Simd_template =    [
             "#include <nt2/sdk/memory/is_aligned.hpp>",
             "#include <nt2/sdk/memory/aligned_type.hpp>",
             "#include <nt2/include/functions/load.hpp>",           
-            "//#include <nt2/include/functions/max.hpp>",
-            "#include <nt2/toolbox/$tb_name$/include/$fct_name$.hpp>",
             ]
-        }
-    def __init__(self, base_gen,part) :
+
+    def __init__(self,base_gen,part,stampit=False) :
+        self.stampit = stampit
         self.part = part
         self.bg   = base_gen
         self.mode = self.bg.get_fct_mode()
@@ -87,6 +82,8 @@ class Global_header_gen() :
              no_ulp = d['functor'].get('no_ulp',False)
              if not no_ulp :
                  r.append("#include <nt2/include/functions/ulpdist.hpp>")
+                 if self.part == "cover" :
+                     r.append("#include <nt2/include/functions/max.hpp>")
                  return r
         return r
     
@@ -121,6 +118,7 @@ class Global_header_gen() :
             if default_includes : #uses default once
                 r1 = self.bg.create_unit_txt_part( Global_header_gen.Default_template,self.__prepare,d=d)
                 r.extend(r1)
+                if self.mode == "simd" : r.extend(Global_header_gen.Simd_template)
             r.append('')
         return r    
 
@@ -136,9 +134,12 @@ class Global_header_gen() :
         s=re.sub("\$fct_mode\$",self.bg.get_fct_mode(),s)
         s=re.sub("\$tb_name\$",self.bg.get_tb_name(),s)
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
-##        st = d.get("stamp","")
-##        st = re.sub("\d+/\d+/\d+",datetime.datetime.now().strftime("%d/%m/%Y"),st)
-##        s=re.sub("\$stamp\$", '/// '+st,s)
+        if self.stampit :
+            st = d.get("stamp","")
+            st = re.sub("\d+/\d+/\d+",datetime.datetime.now().strftime("%d/%m/%Y"),st)
+            s=re.sub("\$stamp\$", '/// '+st,s)
+        else :
+            s=re.sub("\$stamp\$", '/// ',s)
         fs = d.get("first_stamp","")
         fs = re.sub("modified","created",fs)
         s=re.sub("\$first_stamp\$", '/// '+fs,s)

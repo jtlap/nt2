@@ -75,7 +75,7 @@ class Specific_values_test_gen(Base_gen) :
         if (typ == 'real_convert_') : typ = 'real_'
         # typ_values is the dictionnary of types for which specific values calls will be generated
         for k in sorted(typ_values.keys()) :
-            print("typ = %s"%typ)
+##            print("typ = %s"%typ)
             # k is here the string representation of the list of parameters f the functor
             # with only one parameter (and no commas init) it will be repeated
             #   to reach correct arity
