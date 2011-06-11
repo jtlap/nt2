@@ -7,6 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(CPack)
+
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR .
