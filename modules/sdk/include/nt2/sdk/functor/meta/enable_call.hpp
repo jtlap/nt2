@@ -21,7 +21,7 @@
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
-#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

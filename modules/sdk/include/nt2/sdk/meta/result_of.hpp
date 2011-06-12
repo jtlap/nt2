@@ -18,7 +18,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 
-#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -41,7 +41,7 @@ namespace nt2
   }
 }
     
-#if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(__WAVE__)) || defined(DOXYGEN_ONLY)
+#if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
 namespace nt2 { namespace meta
 {
   template<class F, class... Args>

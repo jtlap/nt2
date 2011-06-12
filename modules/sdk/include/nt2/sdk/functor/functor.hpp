@@ -33,8 +33,8 @@
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
-#if defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES) \
- || defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if (defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
+ && defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -75,7 +75,8 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
+    #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) \
+     || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct  result<This(Args...)>
     {
@@ -93,12 +94,58 @@ namespace nt2
      * \return The result of the calculation of function \c Tag
      */
     //==========================================================================
-    template<class... Args> inline typename result<functor(Args&&...)>::type
+    template<class... Args> inline
+    typename meta::enable_call<Tag(Args...), EvalContext>::type
     operator()( Args&& ...args ) const
     {
       typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
       return callee( std::forward<Args>(args)... );
     }
+    #elif !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES_NO_0X)
+    
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#include <nt2/sdk/functor/preprocessed/functor0x.hpp>
+#else
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor0x.hpp")
+#endif
+
+    #define M1(z,n,t) std::forward<A##n>(a##n)
+
+    #define M0(z,n,t)                                                         \
+    template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
+    {                                                                         \
+      typedef typename                                                        \
+      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
+                                                                    callee;   \
+      typedef typename                                                        \
+      meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
+    };                                                                        \
+                                                                              \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                          \
+    typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                \
+                              , EvalContext>::type                            \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
+    {                                                                         \
+      typename                                                                \
+      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A))                      \
+                         ,EvalContext                                         \
+                         >::type                                              \
+      callee;                                                                 \
+      return callee( BOOST_PP_ENUM(n, M1, ~) );                               \
+    }                                                                         \
+    /**/
+
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
+    #undef M0
+    #undef M1
+
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
+    
     #else
 
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)

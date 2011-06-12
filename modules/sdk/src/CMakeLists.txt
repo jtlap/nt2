@@ -17,9 +17,14 @@ SET(SOURCES ${source_sdk_files} ${NT2_CONFIG_ROOT}/src/version.cpp)
 nt2_module_add_library(nt2 ${SOURCES})
 
 include(nt2.preprocess)
-nt2_preprocess(sdk.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
+nt2_preprocess(sdk0x.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
                               ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/call.hpp
                               ${NT2_SDK_ROOT}/include/nt2/sdk/dsl/call.hpp
                               ${NT2_SDK_ROOT}/include/nt2/sdk/meta/arithmetic.hpp
                               ${NT2_SDK_ROOT}/include/nt2/sdk/meta/floating.hpp
+              )
+              
+nt2_preprocess(sdk.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
+               OPTIONS -DNT2_CREATE_PREPROCESSED_FILES_NO_0X
+               DEPENDS sdk0x.preprocess
               )
