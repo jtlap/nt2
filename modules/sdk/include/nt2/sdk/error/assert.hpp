@@ -45,10 +45,11 @@
 //==============================================================================
 // Make assertion into exceptions
 //==============================================================================
-#if  !defined(NT2_DISABLE_ERROR) || defined(DOXYGEN_ONLY)
-
 #include <iosfwd>
 #include <nt2/sdk/error/error.hpp>
+
+#if  !defined(NT2_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
+
 
 namespace nt2 { namespace details { NT2_ERROR_INFO(assert_info, char const*); } }
 
@@ -122,7 +123,7 @@ namespace boost
   void inline
   assertion_failed(char const* expr,char const* fn,char const* f,int l)
   {
-    #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_DISABLE_ERROR)
+    #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     ::boost::exception_detail
     ::throw_exception_(   ::nt2::assert_exception()
                       <<  ::nt2::details::assert_info(expr)

@@ -8,7 +8,8 @@
 //==============================================================================
 
 #include <nt2/sdk/error/error.hpp>
-#if !defined(NT2_DISABLE_ERROR)
+
+#if !defined(NT2_NO_EXCEPTIONS)
 #include <sstream>
 #include <iostream>
 #include <nt2/sdk/details/timestamp.hpp>

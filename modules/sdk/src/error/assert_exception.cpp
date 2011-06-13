@@ -10,7 +10,7 @@
 #include <iostream>
 #include <nt2/sdk/error/assert.hpp>
 
-#if !defined(NT2_DISABLE_ERROR)
+#if !defined(NT2_NO_EXCEPTIONS)
 
 namespace nt2
 {

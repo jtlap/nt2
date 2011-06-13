@@ -59,14 +59,15 @@
 // No exception means no error unless they got requalified
 //==============================================================================
 #include <boost/config.hpp>
-#if defined(BOOST_NO_EXCEPTIONS)
-#define NT2_DISABLE_ERROR
+
+#if defined(NT2_DISABLE_ERROR) || defined(BOOST_NO_EXCEPTIONS)
+#define NT2_NO_EXCEPTIONS
 #endif
 
 //==============================================================================
 // Enabled errors
 //==============================================================================
-#if !defined(NT2_DISABLE_ERROR)
+#if !defined(NT2_NO_EXCEPTIONS)
 #include <nt2/sdk/error/details/exception.hpp>
 #define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
