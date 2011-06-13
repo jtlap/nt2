@@ -68,6 +68,10 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
 NT2_REGISTER_DISPATCH(tag::divfloor_, tag::cpu_,
                            (A0)(A1),
                            (real_<A0>)(real_<A1>)
@@ -90,5 +94,8 @@ namespace nt2 { namespace ext
     }
   };
 } }
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
 
 #endif
