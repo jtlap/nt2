@@ -18,6 +18,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Checks if an expression throws a given exception at evaluation and raise the
  * failure count if not.
  * \param X Expression to check
@@ -38,6 +39,7 @@ do {                                                                        \
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Checks if an expression evaluates without throwing any exception and raise
  * the failure count if not.
  * \param X Expression to check

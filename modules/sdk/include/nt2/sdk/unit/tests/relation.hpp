@@ -19,6 +19,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Test if two expression evaluates to the same value and raise the failure
  * count if not.
  */
@@ -29,6 +30,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Test if two expression evaluates to different values and raise the failure
  * count if not.
  */
@@ -39,6 +41,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Test if an expression evaluates to a smaller value than the second one and
  * raise the failure count if not.
  */
@@ -49,6 +52,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Test if an expression evaluates to a greater value than the second one and
  * raise the failure count if not.
  */
@@ -59,6 +63,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Test if an expression evaluates to a smaller or equal value than the second
  * one and raise the failure count if not.
  */
@@ -69,6 +74,7 @@
 
 //==============================================================================
 /*!
+ * \ingroup units
  * Test if an expression evaluates to a greater or equal value than the second
  * one and raise the failure count if not.
  */
