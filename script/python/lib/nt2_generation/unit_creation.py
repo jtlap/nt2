@@ -101,11 +101,15 @@ class Create_tests(Nt2_tb_props) :
                 r+=thg.get_gen_beg()
                 if self.verbose : print("part = %s"%part)
                 if ("unit"==part) and d_unit.get("specific_values",None) :
-                    svt = Specific_values_test_gen(bg,d,typ,ret_arity,mode)
-                    r += svt.get_gen_result()
+                    svt = Specific_values_test_gen(bg,d,typ,ret_arity)
+                    s = svt.get_gen_result()
+                    if not s : return False
+                    r += s    
                 if ("cover" == part) and d_unit.get("verif_test",None) :
-                    vtg = Random_verif_test_gen(bg,d,typ,mode)
-                    r += vtg.get_gen_result()
+                    vtg = Random_verif_test_gen(bg,d,typ)
+                    s = vtg.get_gen_result()
+                    if not s : return False
+                    r += s    
                 r+=thg.get_gen_end()
         return r
 
@@ -118,7 +122,7 @@ class Create_tests(Nt2_tb_props) :
                     r= self.create_one_unit(fct,mode,part)
                     if r is None :
                         print('error for %s' % fct)
-                    elif len(r)==0 :
+                    elif len(r)==0 or not r:
                         print('no regeneration possible for %s %s-tests, please do it manually' % (fct,mode))
                     else :
                         just = "just" if show and not self.write_files else ""
@@ -127,11 +131,9 @@ class Create_tests(Nt2_tb_props) :
                             print("<"+"="*40)
                             PrettyPrinter().pprint(r)            
                             print("="*40+">")
-                        if write_files :
+                        if self.write_files :
                             print("writing text of %s.cpp for %s-test"% (fct,mode))
-                            write_unit(self.tb_name,fct,mode,part,r,
-                                   check=self.check_on_write,
-                                   backup=self.backup_on_write)
+                            write_unit(self.tb_name,fct,mode,part,r)
 
 
     def write_unit(self,
@@ -164,10 +166,10 @@ if __name__ == "__main__" :
     fcts = Nt2_tb_props(tb_name).get_fcts_list()
     parts = ["unit","cover"]
     fcts = ["selsub","bitwise_notor"]
-    ct = Create_test(tb_name,
+    ct = Create_tests(tb_name,
                      fcts,
                      modes=['scalar','simd'],
-                     parts= ["unit","cover"],
+                     parts= ["unit"],
                      show=True,
                      write_files=False,
                      check_on_write=True,

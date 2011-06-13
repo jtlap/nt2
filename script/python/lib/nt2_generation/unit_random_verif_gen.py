@@ -60,9 +60,9 @@ class Random_verif_test_gen(Base_gen) :
             "  }",
             ],
         }
-    def __init__(self, base_gen,d,typ,mode="scalar") :
+    def __init__(self, base_gen,d,typ) :
         self.bg   = base_gen
-        self.mode = mode
+        self.mode = self.bg.get_fct_mode()
         self.__gen_result = self.__create_unit_txt(d,typ)
 
     def get_gen_result(self) : return  self.__gen_result
@@ -133,13 +133,13 @@ class Random_verif_test_gen(Base_gen) :
   
     def __prepare(self,s,typ,d,actual_range) :
 #        print("s %s"%s)
-        df = d["functor"]
+        df = d.get("functor",self.Default_df)
         istpl = df.get("tpl","")
-        arity = int(df["arity"])
+        arity = int(df.get("arity","1"))
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
         s=re.sub("\$plural\$", "s" if arity>1 else "",s)
         du = d["unit"]
-        ret_arity = int(d["functor"].get("ret_arity","0"))
+        ret_arity = int(df.get("ret_arity","0"))
         dur= du["verif_test"]
         no_ulp =du["global_header"].get("no_ulp",False)
         no_ulp = False if no_ulp == 'False' else no_ulp
