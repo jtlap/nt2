@@ -30,7 +30,7 @@ namespace nt2
       double m1, m2;
       m1 = ::frexp(a0, &e1);
       m2 = ::frexp(a1, &e2);
-      itype expo = -(e1 > e2)?e1:e2;
+      itype expo = -std::max(e1, e2);
       type e = (e1 == e2) ?
         std::abs(m1-m2) :
         std::abs(::ldexp(a0, expo) - ::ldexp(a1, expo));
@@ -47,7 +47,7 @@ namespace nt2
       float m1, m2;
       m1 = ::frexpf(a0, &e1);
       m2 = ::frexpf(a1, &e2);
-      itype expo = -(e1 > e2)?e1:e2;
+      itype expo = -std::max(e1, e2);
       type e = (e1 == e2) ?
 	    std::abs(m1-m2) :
 	    std::abs(::ldexpf(a0, expo) - ::ldexpf(a1, expo));
