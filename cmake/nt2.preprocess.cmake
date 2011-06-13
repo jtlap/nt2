@@ -7,11 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(CMakeParseArguments)
+# only available since 2.8.3
+include(CMakeParseArguments OPTIONAL RESULT_VARIABLE CMakeParseArguments_FOUND)
 
 macro(nt2_preprocess target)
   find_file(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)
-  if(NOT WAVE_EXECUTABLE MATCHES "NOTFOUND$" AND (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX))
+  if(NOT WAVE_EXECUTABLE MATCHES "NOTFOUND$" AND (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX) AND CMakeParseArguments_FOUND)
     get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
   
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/tmpfile "")
