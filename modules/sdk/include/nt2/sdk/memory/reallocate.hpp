@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_MEMORY_REALLOCATE_HPP_INCLUDED
 #define NT2_SDK_MEMORY_REALLOCATE_HPP_INCLUDED
 
+#include <cstring>
 #include <cstddef>
 #include <nt2/sdk/error/error.hpp>
 #include <nt2/sdk/memory/config.hpp>
