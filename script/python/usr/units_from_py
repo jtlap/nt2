@@ -31,7 +31,7 @@ sys.path.pop(0)
 
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"nt2_generation"))
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"utils"))
-from unit_creation     import create_unit
+from unit_creation     import Create_tests
 from files_utils       import exist
 sys.path.pop(0)
 sys.path.pop(0)
@@ -282,7 +282,7 @@ if __name__ == "__main__" :
             if len(md_name)==1 and md_name[0]=='NT2_ALL' :
                 md_name = Nt2_modules().get_modules_list(styles)
             for md_n in md_name :
-                create_unit(md_n,
+                ct = Create_tests(md_n,
                         fct_list=fct_list,
                         modes=modes,
                         parts=parts,
@@ -290,4 +290,5 @@ if __name__ == "__main__" :
                         write_files=wr,
                         check_on_write=check,
                         backup_on_write=backup)
+                ct.create_units()
             if (options) : showoptions(namespace)
