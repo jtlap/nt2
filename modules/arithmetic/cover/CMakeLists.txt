@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(arithmetic.cover arithmetic.scalar.cover arithmetic.simd.cover)
 ##############################################################################
 # Toolbox arithmetic cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates standard)
+nt2_module_use_modules(unit predicates standard)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

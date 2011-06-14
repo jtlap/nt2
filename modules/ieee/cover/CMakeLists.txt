@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(ieee.cover ieee.scalar.cover ieee.simd.cover)
 ##############################################################################
 # Toolbox ieee cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates arithmetic)
+nt2_module_use_modules(unit predicates arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(crlibm.cover crlibm.scalar.cover)
 ##############################################################################
 # Toolbox crlibm cover tests
 ##############################################################################
-nt2_module_use_modules(cover  arithmetic ieee trigonometric exponential hyperbolic predicates)
+nt2_module_use_modules(unit  arithmetic ieee trigonometric exponential hyperbolic predicates)
 ADD_SUBDIRECTORY(scalar)
 

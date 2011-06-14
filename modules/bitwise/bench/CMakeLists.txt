@@ -15,5 +15,6 @@ ADD_CUSTOM_TARGET(bitwise.scalar.bench)
 ADD_CUSTOM_TARGET(bitwise.simd.bench)
 ADD_DEPENDENCIES(bitwise.bench bitwise.scalar.bench bitwise.simd.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

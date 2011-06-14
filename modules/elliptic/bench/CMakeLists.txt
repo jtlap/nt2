@@ -15,5 +15,6 @@ ADD_CUSTOM_TARGET(elliptic.scalar.bench)
 ADD_CUSTOM_TARGET(elliptic.simd.bench)
 ADD_DEPENDENCIES(elliptic.bench elliptic.scalar.bench elliptic.simd.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

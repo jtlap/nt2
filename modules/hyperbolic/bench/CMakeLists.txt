@@ -15,5 +15,6 @@ ADD_CUSTOM_TARGET(hyperbolic.scalar.bench)
 ADD_CUSTOM_TARGET(hyperbolic.simd.bench)
 ADD_DEPENDENCIES(hyperbolic.bench hyperbolic.scalar.bench hyperbolic.simd.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

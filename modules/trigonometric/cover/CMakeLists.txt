@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(trigonometric.cover trigonometric.scalar.cover trigonometric.si
 ##############################################################################
 # Toolbox trigonometric cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates arithmetic cephes libc)
+nt2_module_use_modules(unit predicates arithmetic cephes libc)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

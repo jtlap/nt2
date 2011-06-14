@@ -17,7 +17,7 @@ ADD_DEPENDENCIES(gsl_specfun.cover gsl_specfun.scalar.cover)
 ##############################################################################
 # Toolbox gsl_specfun cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(scalar)
 
 

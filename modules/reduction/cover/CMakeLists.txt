@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(reduction.cover reduction.simd.cover)
 ##############################################################################
 # Toolbox reduction cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(simd)
 

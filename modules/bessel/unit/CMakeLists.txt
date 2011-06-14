@@ -17,5 +17,6 @@ ADD_DEPENDENCIES(bessel.unit bessel.scalar.unit bessel.simd.unit)
 ##############################################################################
 # Toolbox bessel unit tests
 ##############################################################################
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -87,7 +87,7 @@ macro(nt2_module_main module)
   nt2_setup_variant()
   
   set(NT2_CURRENT_MODULE ${module})
-  nt2_module_use_modules(self ${module})
+  nt2_module_use_modules(${module})
   
   nt2_module_install_setup()
   
@@ -148,12 +148,18 @@ macro(nt2_module_add_library libname)
   
 endmacro()
 
-macro(nt2_module_use_modules component)
-  #message(STATUS "[nt2.${NT2_CURRENT_MODULE}] ${component}: checking dependencies...")
+macro(nt2_module_use_modules)
+
+  string(REGEX REPLACE "^.*/(.*)$" "\\1" component "${CMAKE_CURRENT_SOURCE_DIR}")
+  if(NOT component STREQUAL ${NT2_CURRENT_MODULE})
+    set(component_ " ${component}:")
+  endif()
+
+  #message(STATUS "[nt2.${NT2_CURRENT_MODULE}]${component_} checking dependencies...")
   
   find_package(NT2 COMPONENTS ${ARGN})
   if(NOT NT2_FOUND)
-    message(STATUS "[nt2.${NT2_CURRENT_MODULE}] warning: ${component}: dependencies not met, skipping")
+    message(STATUS "[nt2.${NT2_CURRENT_MODULE}] warning:${component_} dependencies not met, skipping")
     nt2_find_transfer_parent()
     return()
   endif()

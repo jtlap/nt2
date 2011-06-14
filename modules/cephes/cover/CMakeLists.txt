@@ -17,7 +17,7 @@ ADD_DEPENDENCIES(cephes.cover cephes.scalar.cover)
 ##############################################################################
 # Toolbox cephes cover tests
 ##############################################################################
-nt2_module_use_modules(cover arithmetic euler
+nt2_module_use_modules(unit arithmetic euler
                             exponential trigonometric
                             bessel hyperbolic
                             elliptic)
