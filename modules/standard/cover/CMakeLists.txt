@@ -17,7 +17,7 @@ ADD_DEPENDENCIES(standard.cover standard.scalar.cover)
 ##############################################################################
 # Toolbox standard cover tests
 ##############################################################################
-nt2_module_use_modules(cover arithmetic trigonometric hyperbolic exponential)
+nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
 ADD_SUBDIRECTORY(scalar)
 
 

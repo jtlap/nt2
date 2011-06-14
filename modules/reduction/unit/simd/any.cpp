@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_REAL_TYPES)
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        T v = any(a0);
+        T v = nt2::any(a0);
         bool z = false;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {

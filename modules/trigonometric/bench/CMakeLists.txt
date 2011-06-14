@@ -15,5 +15,6 @@ ADD_CUSTOM_TARGET(trigonometric.scalar.bench)
 ADD_CUSTOM_TARGET(trigonometric.simd.bench)
 ADD_DEPENDENCIES(trigonometric.bench trigonometric.scalar.bench trigonometric.simd.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

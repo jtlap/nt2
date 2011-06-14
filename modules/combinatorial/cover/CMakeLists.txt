@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(combinatorial.cover combinatorial.scalar.cover combinatorial.si
 ##############################################################################
 # Toolbox combinatorial cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates arithmetic reduction euler)
+nt2_module_use_modules(unit predicates arithmetic reduction euler)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

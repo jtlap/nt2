@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(operator.cover operator.scalar.cover operator.simd.cover)
 ##############################################################################
 # Toolbox operator cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

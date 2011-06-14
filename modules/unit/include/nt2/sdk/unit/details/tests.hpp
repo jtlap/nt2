@@ -8,10 +8,10 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
-//#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/details/ulpdist.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -37,10 +37,10 @@ namespace nt2 { namespace details
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
     typedef typename boost::common_type<TT, UU>::type R;
-    if( nt2::details::ulpdist(tt, uu ) <= (R)vv)
+    if( nt2::ulpdist(tt, uu ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
-		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **passed**."					
 		  << " (" << line << ")"				
 		  << std::endl;
@@ -49,11 +49,11 @@ namespace nt2 { namespace details
     else								
       {									
 	std::cout << " * Test `"					
-		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **failed** in function "			
 		  << fn << " (" << line << ")"				
-		  << "details::ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
-		  <<  nt2::details::ulpdist(tt, uu )				
+		  << "ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
+		  <<  nt2::ulpdist(tt, uu )				
 		  << std::endl;						
 	++error_count();
 	return false; 
@@ -77,12 +77,12 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    bool r =   nt2::details::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
-    r &= nt2::details::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
+    bool r =   nt2::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
+    r &= nt2::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
     if(r)					
       {									
 	std::cout << " * Test `"					
-		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 		  << "` **passed**."					
 		  << " (" << line << ")"				
 		  << std::endl;
@@ -91,11 +91,11 @@ namespace nt2 { namespace details
     else								
       {									
 // 	std::cout << " * Test `"					
-// 		  << "details::ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
+// 		  << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
 // 		  << "` **failed** in function "			
 // 		  << fn << " (" << line << ")"				
-// 		  << "details::ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
-// 		  <<  nt2::details::ulpdist(tt, uu )				
+// 		  << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
+// 		  <<  nt2::ulpdist(tt, uu )				
 // 		  << std::endl;						
 	++error_count();
 	return false; 

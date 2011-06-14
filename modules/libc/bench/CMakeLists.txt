@@ -14,4 +14,5 @@
 ADD_CUSTOM_TARGET(libc.scalar.bench)
 ADD_DEPENDENCIES(libc.bench libc.scalar.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

@@ -17,4 +17,5 @@ ADD_DEPENDENCIES(operator.bench operator.scalar.bench operator.simd.bench)
 ################################################################################
 # Add all bench directories for sdk/
 ################################################################################
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

@@ -15,5 +15,6 @@ ADD_CUSTOM_TARGET(combinatorial.scalar.bench)
 ADD_CUSTOM_TARGET(combinatorial.simd.bench)
 ADD_DEPENDENCIES(combinatorial.bench combinatorial.scalar.bench combinatorial.simd.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

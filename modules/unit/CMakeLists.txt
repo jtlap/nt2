@@ -7,13 +7,20 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(operator.scalar.unit)
-ADD_CUSTOM_TARGET(operator.simd.unit)
-ADD_DEPENDENCIES(operator.unit operator.scalar.unit operator.simd.unit)
+cmake_minimum_required(VERSION 2.6)
 
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
+  set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+endif()
+if(NOT DEFINED NT2_ROOT AND DEFINED ENV{NT2_ROOT})
+  set(NT2_ROOT $ENV{NT2_ROOT})
+endif()
+if(DEFINED NT2_SOURCE_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+endif()
+if(DEFINED NT2_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
+endif()
+
+include(NT2Module)
+nt2_module_main(unit)

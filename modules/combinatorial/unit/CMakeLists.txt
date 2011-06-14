@@ -17,5 +17,6 @@ ADD_DEPENDENCIES(combinatorial.unit combinatorial.scalar.unit combinatorial.simd
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

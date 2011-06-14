@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(elliptic.cover elliptic.scalar.cover elliptic.simd.cover)
 ##############################################################################
 # Toolbox elliptic cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates arithmetic cephes)
+nt2_module_use_modules(unit predicates arithmetic cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

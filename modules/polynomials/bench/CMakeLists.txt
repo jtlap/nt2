@@ -15,5 +15,6 @@ ADD_CUSTOM_TARGET(polynomials.scalar.bench)
 ADD_CUSTOM_TARGET(polynomials.simd.bench)
 ADD_DEPENDENCIES(polynomials.bench polynomials.scalar.bench polynomials.simd.bench)
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

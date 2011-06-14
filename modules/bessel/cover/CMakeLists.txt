@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(bessel.cover bessel.scalar.cover bessel.simd.cover)
 ##############################################################################
 # Toolbox bessel cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates arithmetic trigonometric exponential cephes)
+nt2_module_use_modules(unit predicates arithmetic trigonometric exponential cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

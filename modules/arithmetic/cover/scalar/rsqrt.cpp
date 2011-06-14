@@ -22,6 +22,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/arithmetic/include/rsqrt.hpp>
+#include <cmath>
 
 NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  NT2_REAL_TYPES)
 {
