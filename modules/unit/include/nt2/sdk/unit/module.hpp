@@ -60,7 +60,7 @@ int main(int,char const**)
 #define NT2_TEST_CASE(Name)                                                   \
 void BOOST_PP_CAT(test,Name)();                                               \
 nt2::details::test const                                                      \
-BOOST_PP_CAT(FUNC,test) = { BOOST_PP_CAT(test,Name)                           \
+BOOST_PP_CAT(Name,test) = { BOOST_PP_CAT(test,Name)                           \
                           , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
                           , nt2::details                                      \
                                ::main_suite.link(&BOOST_PP_CAT(Name,test)) }; \
