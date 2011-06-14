@@ -24,7 +24,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp") && __INCLUDE_LEVEL__ == 0
 #endif
 
 #define M0(z,n,t) ((simd_< unspecified_<A0>, X >))

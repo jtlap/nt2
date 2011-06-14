@@ -33,6 +33,8 @@ macro(nt2_preprocess target)
     
     cmake_parse_arguments(ARG "" "" "DEPENDS;OPTIONS" ${ARGN})
     
+    add_custom_target(${target})
+    
     set(prev 0)
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
       math(EXPR n "${prev} + 1")
@@ -42,15 +44,12 @@ macro(nt2_preprocess target)
                         ${INCLUDE_DIRECTORIES} -o - ${src}
                         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/include
                        )
-      if(prev)
-        add_dependencies(${target}.${n} ${target}.${prev}) # we force sequential execution
-      endif()
+      add_dependencies(${target} ${target}.${n})
       set(prev ${n})
     endforeach()
-    add_custom_target(${target})
-    add_dependencies(${target} ${target}.${prev})
+    
     if(ARG_DEPENDS AND ARG_UNPARSED_ARGUMENTS)
-      add_dependencies(${target}.1 ${ARG_DEPENDS})
+      add_dependencies(${target} ${ARG_DEPENDS})
     endif()
     
     # Create target "preprocess" if it doesn't already exist, and make it depend on target
