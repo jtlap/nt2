@@ -60,7 +60,7 @@ int main(int,char const**)
 #define NT2_TEST_CASE(Name)                                                   \
 void BOOST_PP_CAT(test,Name)();                                               \
 nt2::details::test const                                                      \
-BOOST_PP_CAT(FUNC,test) = { BOOST_PP_CAT(test,Name)                           \
+BOOST_PP_CAT(Name,test) = { BOOST_PP_CAT(test,Name)                           \
                           , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
                           , nt2::details                                      \
                                ::main_suite.link(&BOOST_PP_CAT(Name,test)) }; \
@@ -70,9 +70,9 @@ void BOOST_PP_CAT(test,Name)()                                                \
 //==============================================================================
 // Helper for template tets cases generation
 //==============================================================================
-#define NT2_PP_TPL_CASES(r,name,type)                                   \
-printf("With T =[%s]\n",nt2::type_id<NT2_PP_STRIP(type)>().c_str());  \
-BOOST_PP_CAT(tpl_test,name)<NT2_PP_STRIP(type)>();                      \
+#define NT2_PP_TPL_CASES(r,name,type)                                 \
+printf("With T = [%s]\n",nt2::type_id<NT2_PP_STRIP(type)>().c_str()); \
+BOOST_PP_CAT(tpl_test,name)<NT2_PP_STRIP(type)>();                    \
 /**/
 
 //==============================================================================
