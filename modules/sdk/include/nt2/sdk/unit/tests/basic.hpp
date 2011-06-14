@@ -18,7 +18,7 @@
 
 //==============================================================================
 /*!
- * \ingroup units
+ * \ingroup utests
  * Checks if an expression to true and then raise the failure count if not.
  * \param X Expression to check
  */
@@ -32,7 +32,7 @@
 
 //==============================================================================
 /*!
- * \ingroup units
+ * \ingroup utests
  * Emit a strong error message and raise the failure count
  * \param X Error message to display
  */
