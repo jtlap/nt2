@@ -35,12 +35,12 @@ namespace nt2 { namespace details
   {
     typedef typename boost::pointee<T>::type                        pointee_type;
     typedef meta::iterator_ < typename
-                              meta::hierarchy_of<pointee_type>::type > type;
+                              meta::hierarchy_of<pointee_type,T>::type > type;
   };
 
   template<> struct  hierarchy_of<void*>
   {
-    typedef meta::iterator_< meta::hierarchy_of<void>::type > type;
+    typedef meta::iterator_< meta::hierarchy_of<void,void*>::type > type;
   };
 } }
 
