@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<ellipke_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<ellipke_(vT,T)>::type r_t;
   typedef typename nt2::meta::call<ellipke_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
