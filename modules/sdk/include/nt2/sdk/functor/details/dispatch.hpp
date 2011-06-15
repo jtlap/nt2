@@ -15,7 +15,7 @@
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/details/decltype.hpp>
 
-#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
@@ -45,7 +45,13 @@ template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                
 nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M1,~))>  \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
-            );                                                                  \
+            )                                                                   \
+{                                                                               \
+  nt2::ext::call< Tag(tag::unknown_),Site                                       \
+                , tag::error_with(BOOST_PP_ENUM(n,M1,~))                        \
+                > that;                                                         \
+  return that;                                                                  \
+}                                                                               \
 /**/
 
 //==============================================================================
@@ -83,12 +89,23 @@ template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>        \
 struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>              \
 {                                                                       \
   BOOST_PP_REPEAT(n,NT2_DISPATCH_TYPES,~)                               \
-  NT2_DECLTYPE( dispatching ( Tag(), Site()                             \
-                            , BOOST_PP_ENUM(n,M0,~)                     \
-                            , adl_helper()                              \
-                            )                                           \
-              , type );                                                 \
-};                                                                      \
+  BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                       \
+  ( nested                                                              \
+  , dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )  \
+  );                                                                        \
+                                                                            \
+  typedef typename nested::type type;                                       \
+};                                                                          \
+                                                                            \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
+dispatch( Tag const&, Site const&                                           \
+        , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
+        )                                                                   \
+{                                                                           \
+  typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type  that; \
+  return that;                                                              \
+}                                                                           \
 /**/
 
 namespace nt2 { namespace meta

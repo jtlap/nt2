@@ -22,19 +22,19 @@
  */
 
 #include <boost/config.hpp>
+#include <nt2/sdk/meta/make_type.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
-#include <nt2/sdk/functor/meta/enable_call.hpp>
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/functor/meta/make_functor.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
 #if (defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
- && defined(NT2_DONT_USE_PREPROCESSED_FILES)
+ && !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -146,9 +146,9 @@ namespace nt2
 #endif
 #endif
     
-    #else
+#else
 
-#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/preprocessed/functor.hpp>
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
@@ -166,30 +166,37 @@ namespace nt2
     #define bits(z, n, _) ((0)(1))
     #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
     
-    #define call_operator(r, constness)                                       \
-    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> inline          \
-    typename meta::enable_call< Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))\
-                              , EvalContext>::type                            \
-    operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \
-    {                                                                         \
-      typename                                                                \
-      meta::dispatch_call<Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))      \
-                         ,EvalContext                                         \
-                         >::type                                              \
-      callee;                                                                 \
-      return callee( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );             \
-    }                                                                         \
+    #define call_operator(r, constness)                                     \
+    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> inline        \
+    typename result < functor                                               \
+                      (BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))   \
+                    >::type                                                 \
+    operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const        \
+    {                                                                       \
+      return meta::dispatch ( Tag(),EvalContext()                           \
+                            , BOOST_PP_ENUM_PARAMS(n_size(constness),a)     \
+                            )                                               \
+                            ( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );  \
+    }                                                                       \
+    /**/
+
+    #define M2(z,n,t) meta::make_type<BOOST_PP_CAT(t,n)>()
+
+    #define M1(z,n,t) typedef typename                                    \
+    boost::remove_reference<BOOST_PP_CAT(A,n)>::type BOOST_PP_CAT(arg,n); \
     /**/
 
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
     {                                                                         \
-      typedef typename                                                        \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
-                                                                    callee;   \
-      typedef typename                                                        \
-      meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
+      BOOST_PP_REPEAT(n,M1,~)                                                 \
+      BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                         \
+      ( nested                                                                \
+      , meta::dispatch( Tag(),EvalContext(), BOOST_PP_ENUM(n,M2,A) )          \
+        ( BOOST_PP_ENUM(n,M2,arg) )                                           \
+      );                                                                      \
+      typedef typename nested::type  type;                                    \
     };                                                                        \
                                                                               \
     BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                          \
@@ -200,6 +207,7 @@ namespace nt2
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)    
+    #undef M1
     #undef M0
     #undef bits
     #undef n_size
