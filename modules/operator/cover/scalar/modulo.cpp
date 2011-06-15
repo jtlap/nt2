@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - modulo/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of operator components in scalar mode
+// cover test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 07/06/2011
+/// 
+#include <nt2/toolbox/operator/include/modulo.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,61 +24,60 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/modulo.hpp>
 
-NT2_TEST_CASE_TPL ( modulo_real__2_0,  NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( modulo_real__2_0,  (int32_t))
 {
   
-//   using nt2::modulo;
-//   using nt2::tag::modulo_;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<modulo_(T,T)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
+  using nt2::modulo;
+  using nt2::tag::modulo_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<modulo_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
 
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
 
-// } // end of test for real_
+} // end of test for real_
 
-// NT2_TEST_CASE_TPL ( modulo_integer__2_0,  NT2_INTEGRAL_TYPES)
-// {
+NT2_TEST_CASE_TPL ( modulo_integer__2_0,  NT2_INTEGRAL_TYPES)
+{
   
-//   using nt2::modulo;
-//   using nt2::tag::modulo_;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<modulo_(T,T)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
+  using nt2::modulo;
+  using nt2::tag::modulo_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<modulo_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef r_t wished_r_t;
 
 
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
 
-//   // random verifications
-//   static const uint32_t NR = NT2_NB_RANDOM_TEST;
-//   {
-//     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-//     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-//     double ulp0, ulpd ; ulpd=ulp0=0.0;
-//     T a0;
-//     T a1;
-//     for (uint32_t j =0; j < NR; ++j )
-//       {
-//         std::cout << "for params "
-//                   << "  a0 = "<< u_t(a0 = tab_a0[j])
-//                   << ", a1 = "<< u_t(a1 = tab_a1[j])
-//                   << std::endl;
-//         NT2_TEST_EQUAL( nt2::modulo(a0,a1),a0%a1);
-//      }
+  // random verifications
+  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    T a1;
+    for (uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for params "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << ", a1 = "<< u_t(a1 = tab_a1[j])
+                  << std::endl;
+        if (a1) NT2_TEST_EQUAL( nt2::modulo(a0,a1),a0%a1);
+     }
      
-//    }
+   }
 } // end of test for integer_

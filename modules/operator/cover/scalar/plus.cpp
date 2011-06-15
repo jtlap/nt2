@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - plus/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of operator components in scalar mode
+// cover test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 07/06/2011
+/// 
+#include <nt2/toolbox/operator/include/plus.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/plus.hpp>
+
 
 NT2_TEST_CASE_TPL ( plus_real__2_0,  NT2_REAL_TYPES)
 {
@@ -31,7 +34,7 @@ NT2_TEST_CASE_TPL ( plus_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<plus_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef r_t wished_r_t;
 
 
   // return type conformity test 
@@ -50,7 +53,7 @@ NT2_TEST_CASE_TPL ( plus_integer__2_0,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<plus_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef r_t wished_r_t;
 
 
   // return type conformity test 

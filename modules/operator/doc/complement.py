@@ -46,7 +46,7 @@
                  'integer_' : ['nt2::complement(a0)'],
                 },
              'property_value' : {
-                 'integer_' : ['-a0'],
+                 'integer_' : ['~a0'],
                 },
              'simd' : {
                 },

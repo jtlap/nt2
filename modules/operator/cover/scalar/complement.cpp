@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - complement/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of operator components in scalar mode
+// cover test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 07/06/2011
+/// 
+#include <nt2/toolbox/operator/include/complement.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/complement.hpp>
+
 
 NT2_TEST_CASE_TPL ( complement_real__1_0,  NT2_REAL_TYPES)
 {
@@ -67,10 +70,12 @@ NT2_TEST_CASE_TPL ( complement_integer__1_0,  NT2_INTEGRAL_TYPES)
     T a0;
     for (uint32_t j =0; j < NR; ++j )
       {
-        std::cout << "for param "
+        std::cout << "for param " 
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
+	          << " ~a0 = " << u_t(~a0) <<  "  "
+	          << " nt2::complement(a0) =  " << u_t(nt2::complement(a0)) <<  "  "
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::complement(a0),-a0);
+        NT2_TEST_EQUAL( nt2::complement(a0),T(~a0));
      }
      
    }
