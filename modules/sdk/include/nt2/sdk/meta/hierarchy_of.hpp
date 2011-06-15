@@ -20,10 +20,10 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // implementation details for hierarchy_of on integers
   //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Enable = void>
+  template<class T, class Origin = T, class Enable = void>
   struct  hierarchy_of
   {
-    typedef meta::unspecified_<typename meta::strip<T>::type> type;
+    typedef meta::unspecified_<typename meta::strip<Origin>::type> type;
   };
 } }
 
@@ -33,16 +33,19 @@ namespace nt2 { namespace meta
   // hierarchy_of computes the entry point of a given type inside the type
   // hierarchy lattice.
   //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Enable = void>
+  template<class T, class Origin = T, class Enable = void>
   struct  hierarchy_of
-        : details::hierarchy_of<typename meta::strip<T>::type>
+        : details::hierarchy_of < typename meta::strip<T>::type
+                                , typename meta::strip<Origin>::type
+                                >
   {};
 
   //////////////////////////////////////////////////////////////////////////////
   // Overload for types with inner hierarchy tag
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
+  template<class T,class Origin>
   struct  hierarchy_of< T
+                      , Origin
                       , typename
                         enable_if_type<typename meta::strip<T>::type
                                                     ::nt2_hierarchy_tag
