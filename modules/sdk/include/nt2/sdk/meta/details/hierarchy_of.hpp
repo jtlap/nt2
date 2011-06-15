@@ -38,11 +38,22 @@ namespace nt2 { namespace details
   // Overload for non integral native types
   //============================================================================
   template<class Enable>
-  struct hierarchy_of<void, Enable>    { typedef meta::void_<void>     type; };
+  struct hierarchy_of<void, Enable>
+  {
+    typedef meta::generic_< meta::void_<void> > type;
+  };
+
   template<class Enable>
-  struct hierarchy_of<float, Enable>   { typedef meta::float_<float>   type; };
+  struct hierarchy_of<float, Enable>
+  {
+    typedef meta::scalar_< meta::float_<float> >  type;
+  };
+
   template<class Enable>
-  struct hierarchy_of<double, Enable>  { typedef meta::double_<double> type; };
+  struct hierarchy_of<double, Enable>
+  {
+    typedef meta::scalar_< meta::float_<double> >  type;
+  };
 
   //============================================================================
   // Overload for types with a nt2_hierarchy_tag
@@ -59,32 +70,53 @@ namespace nt2 { namespace details
   //============================================================================
   // implementation details for hierarchy_of - overload for bool
   //============================================================================
-  template<>
-  struct hierarchy_of_ints<bool,sizeof(bool)*CHAR_BIT,false>
+  template<> struct hierarchy_of_ints<bool,sizeof(bool)*CHAR_BIT,false>
   {
-    typedef meta::bool_<bool>    type;
+    typedef meta::scalar_< meta::bool_<bool> >  type;
   };
-
 
   //============================================================================
   // implementation details for hierarchy_of - overload for integral sized type
   //============================================================================
-  template<class T>
-  struct hierarchy_of_ints<T,8,true>   { typedef meta::int8_<T>    type; };
-  template<class T>
-  struct hierarchy_of_ints<T,8,false>  { typedef meta::uint8_<T>   type; };
-  template<class T>
-  struct hierarchy_of_ints<T,16,true>  { typedef meta::int16_<T>   type; };
-  template<class T>
-  struct hierarchy_of_ints<T,16,false> { typedef meta::uint16_<T>  type; };
-  template<class T>
-  struct hierarchy_of_ints<T,32,true>  { typedef meta::int32_<T>   type; };
-  template<class T>
-  struct hierarchy_of_ints<T,32,false> { typedef meta::uint32_<T>  type; };
-  template<class T>
-  struct hierarchy_of_ints<T,64,true>  { typedef meta::int64_<T>   type; };
-  template<class T>
-  struct hierarchy_of_ints<T,64,false> { typedef meta::uint64_<T>  type; };
+  template<class T> struct hierarchy_of_ints<T,8,true>
+  {
+    typedef meta::scalar_< meta::int8_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,16,true>
+  {
+    typedef meta::scalar_< meta::int16_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,32,true>
+  {
+    typedef meta::scalar_< meta::int32_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,64,true>
+  {
+    typedef meta::scalar_< meta::int64_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,8,false>
+  {
+    typedef meta::scalar_< meta::uint8_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,16,false>
+  {
+    typedef meta::scalar_< meta::uint16_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,32,false>
+  {
+    typedef meta::scalar_< meta::uint32_<T> >  type;
+  };
+
+  template<class T> struct hierarchy_of_ints<T,64,false>
+  {
+    typedef meta::scalar_< meta::uint64_<T> >  type;
+  };
 } }
 
 #endif

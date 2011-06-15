@@ -21,24 +21,24 @@
 #define NT2_HIERARCHY_CLASS(Name, Parent)     \
 struct Name : Parent                          \
 {                                             \
-  typedef Parent    parent;                   \
-  typedef tag::Name type;                     \
+  typedef Parent  parent;     \
+  typedef Name    origin;     \
 }                                             \
 /**/
 
 #define NT2_HIERARCHY_CLASS_TPL(Name, Parent) \
 template<class T> struct Name : Parent        \
 {                                             \
-  typedef Parent    parent;                   \
-  typedef tag::Name type;                     \
+  typedef Parent  parent;                   \
+  typedef Name    origin;                   \
 }                                             \
 /**/
 
 #define NT2_HIERARCHY_CLASS_TPL_META(Name, Parent)          \
 template<class T> struct Name : NT2_PP_STRIP(Parent)::type  \
 {                                                           \
-  typedef typename NT2_PP_STRIP(Parent)::type    parent;    \
-  typedef tag::Name type;                                   \
+  typedef typename NT2_PP_STRIP(Parent)::type parent;       \
+  typedef Name                                origin;       \
 }                                                           \
 /**/
 
@@ -58,8 +58,8 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct unknown_
   {
-    typedef unknown_      parent;
-    typedef tag::unknown_ type;
+    typedef unknown_  parent;
+    typedef unknown_  origin;
   };
 
   //////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,6 @@ namespace nt2 { namespace meta
   NT2_HIERARCHY_CLASS_TPL(fundamental_, unspecified_<T> );
   NT2_HIERARCHY_CLASS_TPL(arithmetic_ , fundamental_<T> );
   NT2_HIERARCHY_CLASS_TPL(integer_    , arithmetic_<T>  );
-
 
   NT2_HIERARCHY_CLASS_TPL_META (signed_, (boost::mpl::if_< boost::is_integral<T>
                                                          , integer_<T>

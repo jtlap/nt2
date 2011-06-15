@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_SDK_META_DETAILS_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_HIERARCHY_HPP_INCLUDED
-
+/*
 namespace nt2 { namespace tag
 {
   //============================================================================
@@ -80,5 +80,5 @@ namespace nt2 { namespace tag
   struct uint8_       {}; struct uint16_      {};
   struct uint32_      {}; struct uint64_      {};
 } }
-
+*/
 #endif

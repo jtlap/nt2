@@ -13,7 +13,7 @@
 
 #ifdef BOOST_NO_RVALUE_REFERENCES
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_taits/is_reference.hpp>
+#include <boost/type_traits/is_reference.hpp>
 #endif
 
 namespace nt2 { namespace meta

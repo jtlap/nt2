@@ -53,6 +53,8 @@ namespace nt2 { namespace meta
   };
 } }
 
+#include <nt2/sdk/meta/details/generic.hpp>
+#include <nt2/sdk/meta/details/scalar.hpp>
 #include <nt2/sdk/meta/details/hierarchy_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,23 +64,23 @@ namespace nt2 { namespace meta
 #define NT2_REGISTER_HIERARCHY_PARENT(Name, Base)                               \
 namespace nt2                                                                   \
 {                                                                               \
-  namespace tag { template<class T> struct Name {}; }                           \
   namespace meta                                                                \
   {                                                                             \
     template<class T> struct Name : Name< typename T::parent >                  \
     {                                                                           \
       typedef Name< typename T::parent > parent;                                \
-      typedef tag::Name<typename T::type> type;                                 \
+      typedef typename T::origin         origin;                                \
     };                                                                          \
                                                                                 \
     template<class T> struct Name< unspecified_<T> > : unspecified_<T>          \
     {                                                                           \
       typedef unspecified_<T> parent;                                           \
-      typedef tag::Name< tag::unspecified_ > type;                              \
+      typedef T               origin;                                           \
     };                                                                          \
     template<class T> struct Name< unknown_<T> > : NT2_PP_REMOVE_TYPENAME(Base) \
     {                                                                           \
       typedef Base parent;                                                      \
+      typedef T    origin;                                                      \
     };                                                                          \
   }                                                                             \
 }                                                                               \
