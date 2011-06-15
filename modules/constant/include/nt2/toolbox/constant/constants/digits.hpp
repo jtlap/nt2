@@ -77,7 +77,7 @@ namespace nt2
   typename boost::result_of<functor<tag::digit_<N> >(meta::as_<Target>)>::type
   integral_constant()
   {
-    nt2::make_functor< tag::digit_<N>, Target > callee;
+    typename nt2::make_functor< tag::digit_<N>, Target >::type callee;
     return callee( nt2::meta::as_<Target>() );
   }
 }
