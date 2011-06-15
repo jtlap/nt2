@@ -17,7 +17,7 @@ ADD_DEPENDENCIES(libc.cover libc.scalar.cover)
 ##############################################################################
 # Toolbox libc cover tests
 ##############################################################################
-nt2_module_use_modules(cover arithmetic trigonometric hyperbolic exponential)
+nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
 ADD_SUBDIRECTORY(scalar)
 
 

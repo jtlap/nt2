@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(fuzzy.cover fuzzy.scalar.cover fuzzy.simd.cover)
 ##############################################################################
 # Toolbox fuzzy cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

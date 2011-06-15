@@ -10,24 +10,31 @@
 include(NT2Module)
 nt2_module_source_setup(matlab)
 
-SET(NT2_MW_LIBRARY "libnt2_mw${CMAKE_SHARED_LIBRARY_SUFFIX}")
+set(NT2_MW_LIBRARY "${CMAKE_SHARED_LIBRARY_PREFIX}nt2_mw${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
-IF(NOT EXISTS ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/libnt2_mw.h
-OR NOT EXISTS ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY})
-  MESSAGE(STATUS "[nt2.matlab] generating libnt2_mw library...")
-  IF(NOT EXISTS ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
-    FILE(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
-  ENDIF()
-  IF(NOT EXISTS ${LIBRARY_OUTPUT_PATH})
-    FILE(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
-  ENDIF()
-  EXECUTE_PROCESS( COMMAND ${MATLAB_BIN_DIR}/mcc -B "csharedlib:libnt2_mw" feval
-                   WORKING_DIRECTORY ${LIBRARY_OUTPUT_PATH}
+if(NOT EXISTS ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
+  file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
+endif()
+if(NOT EXISTS ${LIBRARY_OUTPUT_PATH})
+  file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
+endif()
+
+add_custom_target(nt2_mw_lib
+                  COMMAND ${MATLAB_BIN_DIR}/mcc -B "csharedlib:libnt2_mw" -d ${CMAKE_CURRENT_BINARY_DIR} feval
                  )
-  FILE(RENAME ${LIBRARY_OUTPUT_PATH}/libnt2_mw.h ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/libnt2_mw.h)
-ENDIF()
+add_custom_target(nt2_mw_mv_header
+                  COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/libnt2_mw.h ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/libnt2_mw.h
+                  DEPENDS nt2_mw_lib
+                  )
+add_custom_target(nt2_mw_mv_lib
+                  COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/${NT2_MW_LIBRARY} ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY}
+                  DEPENDS nt2_mw_lib
+                  )
+add_custom_target(nt2_mw
+                  DEPENDS nt2_mw_mv_header nt2_mw_mv_lib
+                 )
 
-INSTALL( FILES ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY}
-         DESTINATION lib
-         COMPONENT ${NT2_CURRENT_MODULE}
+install(FILES ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY}
+        DESTINATION lib
+        COMPONENT ${NT2_CURRENT_MODULE}
        )

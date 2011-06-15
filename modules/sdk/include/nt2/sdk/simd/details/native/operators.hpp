@@ -10,9 +10,10 @@
 #define NT2_SDK_SIMD_DETAILS_NATIVE_OPERATORS_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/config/attributes.hpp>
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                    \
-template<class T1, class T2,class X> inline                           \
+template<class T1, class T2,class X> NT2_FORCE_INLINE                 \
 typename nt2::meta::enable_call<TAG(native<T1,X>,native<T2,X>)>::type \
 OP(native<T1,X> const& a0, native<T2,X> const& a1)                    \
 {                                                                     \

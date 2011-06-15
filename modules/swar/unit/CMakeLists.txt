@@ -16,4 +16,5 @@ ADD_DEPENDENCIES(swar.unit swar.simd.unit)
 ##############################################################################
 # Toolbox swar unit tests
 ##############################################################################
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(simd)

@@ -32,9 +32,10 @@
 #include <nt2/sdk/functor/meta/make_functor.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
+#include <nt2/sdk/config/attributes.hpp>
 
-#if (defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
- && defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if ((defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
+ && defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -94,7 +95,7 @@ namespace nt2
      * \return The result of the calculation of function \c Tag
      */
     //==========================================================================
-    template<class... Args> inline
+    template<class... Args> NT2_FORCE_INLINE
     typename meta::enable_call<Tag(Args...), EvalContext>::type
     operator()( Args&& ...args ) const
     {
@@ -106,8 +107,9 @@ namespace nt2
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/preprocessed/functor0x.hpp>
 #else
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor0x.hpp")
+#undef NT2_FORCE_INLINE
 #endif
 
     #define M1(z,n,t) std::forward<A##n>(a##n)
@@ -123,7 +125,7 @@ namespace nt2
       meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
     };                                                                        \
                                                                               \
-    template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                          \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> NT2_FORCE_INLINE                \
     typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                \
                               , EvalContext>::type                            \
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
@@ -151,8 +153,9 @@ namespace nt2
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/preprocessed/functor.hpp>
 #else
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor.hpp")
+#undef NT2_FORCE_INLINE
 #endif
 
     #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
@@ -167,7 +170,7 @@ namespace nt2
     #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
     
     #define call_operator(r, constness)                                       \
-    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> inline          \
+    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> NT2_FORCE_INLINE\
     typename meta::enable_call< Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))\
                               , EvalContext>::type                            \
     operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \

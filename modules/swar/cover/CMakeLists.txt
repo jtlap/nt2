@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(swar.cover swar.simd.cover)
 ##############################################################################
 # Toolbox swar cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates)
+nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(simd)
 

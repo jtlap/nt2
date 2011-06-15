@@ -14,5 +14,6 @@ ADD_DEPENDENCIES(gsl_specfun.bench gsl_specfun.scalar.bench)
 ##*     Toolbox gsl_specfun bench tests
 ##****************************************************************************
 
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
  

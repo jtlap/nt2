@@ -18,7 +18,7 @@ ADD_DEPENDENCIES(hyperbolic.cover hyperbolic.scalar.cover hyperbolic.simd.cover)
 ##############################################################################
 # Toolbox hyperbolic cover tests
 ##############################################################################
-nt2_module_use_modules(cover predicates arithmetic exponential cephes libc boost_math)
+nt2_module_use_modules(unit predicates arithmetic exponential cephes libc boost_math)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 
