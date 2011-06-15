@@ -31,16 +31,16 @@ namespace nt2
   template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
-                  , nt2::meta
-                    ::enable_call < tag::stride_( Seq const&
-                                                , Padding const&
-                                                , boost::mpl::size_t<N> const&
-                                                )
+                  , boost::result_of< functor<tag::stride_>
+                                      ( Seq const&
+                                      , Padding const&
+                                      , boost::mpl::size_t<N> const&
+                                      )
                                   >
                   >::type
   stride(Seq const& s, Padding const& p)
   {
-    functor<tag::stride_> callee;
+    typename make_functor<tag::stride_,Seq>::type callee;
     return callee(s,p,boost::mpl::size_t<N>() );
   }
 }

@@ -33,7 +33,8 @@ namespace nt2
     // is_aligned(a0,a1) check if a0 is aligned on a1
     ////////////////////////////////////////////////////////////////////////////
     template<class A0, class A1> inline
-    typename meta::enable_call<tag::is_aligned_(A0 const&, A1 const&)>::type
+    typename boost::
+    result_of<functor<tag::is_aligned_>(A0 const&, A1 const&)>::type
     is_aligned(A0 const& a0, A1 const& a1)
     {
       NT2_ASSERT(   is_power_of_2(a1)
@@ -48,8 +49,11 @@ namespace nt2
     // is_aligned<N>(a0) checks if a0 is aligned on N
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N,class A0> inline
-    typename
-    meta::enable_call<tag::is_aligned_(A0 const&, boost::mpl::int_<N> const&)>::type
+    typename boost::
+    result_of < functor<tag::is_aligned_> ( A0 const&
+                                          , boost::mpl::int_<N> const&
+                                          )
+              >::type
     is_aligned(A0 const& a0)
     {
       NT2_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
