@@ -20,7 +20,7 @@ namespace nt2
   }
   
   template<class T, class A0> inline
-  typename meta::enable_call<tag::splat_(A0, meta::as_<T>)>::type
+  typename boost::result_of<functor<tag::splat_>(A0, meta::as_<T>)>::type
   splat(A0 const& a0)
   {
     typename make_functor<tag::splat_, A0>::type callee;
