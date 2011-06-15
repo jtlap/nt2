@@ -35,7 +35,7 @@
 #include <nt2/sdk/config/attributes.hpp>
 
 #if ((defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
- && defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)
+ && !defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
