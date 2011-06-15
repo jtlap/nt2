@@ -34,14 +34,16 @@ namespace nt2 { namespace ext
               , tag::cpu_, Dummy
               > : callable
   {
-    typedef void result_type;
+    typedef int result_type;
 
-    template<class A0, class A1> inline void
+    template<class A0, class A1> inline result_type
     operator()( A0& a0, A1 const& a1) const
     {
       meta::as_<A0> target;
       meta::compile < meta::compute<boost::mpl::_1,tag::cpu_> > callee;
       a0 = callee(a1,target);
+      
+      return 0;
     }
   };
 } }
@@ -66,9 +68,9 @@ namespace nt2 { namespace ext
               , tag::cpu_, Dummy
               > : callable
   {
-    typedef void result_type;
+    typedef int result_type;
 
-    template<class A0, class A1> inline void
+    template<class A0, class A1> inline result_type
     operator()( A0& a0, A1 const& a1) const
     {
       meta::as_<A0> target;
@@ -76,6 +78,8 @@ namespace nt2 { namespace ext
 
       for(std::size_t i=0;i<C::value;++i)
           a0[i] = callee(a1,target,i);
+          
+      return 0;
     }
   };
 } }

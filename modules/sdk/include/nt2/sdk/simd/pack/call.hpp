@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
     template<class Value, class State, class Data> inline
     typename result<call(Value,State,Data)>::type
-    operator()( Value& v, State& , Data&  ) const
+    operator()( Value& v, State const& , Data const&  ) const
     {
       return v.value();
     }
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
 
     template<class Value, class State, class Data> inline
     typename result<call(Value,State,Data)>::type
-    operator()( Value& v, State& , Data& pos) const
+    operator()( Value& v, State const& , Data const& pos) const
     {
       return v[pos];
     }
