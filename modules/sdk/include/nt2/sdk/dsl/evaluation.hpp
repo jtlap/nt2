@@ -29,7 +29,7 @@ namespace nt2
     typedef void result_type;
 
     template<class A0, class A1> inline
-    typename meta::enable_call<tag::evaluate_(A0,A1), EC>::type
+    typename boost::result_of<functor<tag::evaluate_, EC>(A0,A1)>::type
     operator()( A0& a0, A1 const& a1) const
     {
       typename meta::dispatch_call<tag::evaluate_(A0,A1),EC>::type callee;
