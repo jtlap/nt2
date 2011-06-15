@@ -26,7 +26,7 @@
 #define NT2_DISPATCH_TYPE_TPL(z,n,t) NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define NT2_DISPATCH_TYPE(z,n,t) class NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define NT2_DISPATCH_ARG(z,n,t) nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const&
-#define NT2_DISPATCH_TAG(z,n,t) typename nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))::type
+#define NT2_DISPATCH_TAG(z,n,t) nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 
 //==============================================================================
 /*!

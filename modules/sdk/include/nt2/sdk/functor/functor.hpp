@@ -80,8 +80,11 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) \
-     || defined(DOXYGEN_ONLY)
+    #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)   \
+        &&  !defined(BOOST_NO_RVALUE_REFERENCES)    \
+        &&  !defined(NT2_CREATE_PREPROCESSED_FILES) \
+        )                                           \
+        || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct result<This(Args...)>
     {
@@ -215,6 +218,7 @@ namespace nt2
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)    
+
     #undef M0
     #undef M1
     #undef bits
