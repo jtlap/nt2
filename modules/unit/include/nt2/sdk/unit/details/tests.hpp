@@ -36,7 +36,7 @@ namespace nt2 { namespace details
     volatile V vv(v);
     typedef typename nt2::meta::upgrade<T>::type TT;
     typedef typename nt2::meta::upgrade<U>::type UU;
-    typedef typename boost::common_type<TT, UU>::type R;
+    typedef typename nt2::meta::call<nt2::tag::ulpdist_(T, U)>::type R;
     if( nt2::ulpdist(tt, uu ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
