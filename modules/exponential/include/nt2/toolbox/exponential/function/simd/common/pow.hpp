@@ -115,8 +115,8 @@ namespace nt2 { namespace ext
         typedef A1                                          int_type;
 	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
 	r_type a00 =  tofloat(a0); 
-        r_type sign_x = bitofsign(a0);
-        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
+        r_type sign_x = bitofsign(a00);
+        r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
         int_type n = nt2::abs(a1);
 
@@ -141,8 +141,8 @@ namespace nt2 { namespace ext
 
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positiv, else 0
-	r_type r = sel(is_even(a1), nt2::abs(a0), a0); 			
-        return b_or(is_nan(a0), sel(is_inf(a0), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
+	r_type r = sel(is_even(a1), nt2::abs(a00), a00); 			
+        return b_or(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
 
   };
