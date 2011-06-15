@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/hierarchy.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <nt2/sdk/details/decltype.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #if defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>

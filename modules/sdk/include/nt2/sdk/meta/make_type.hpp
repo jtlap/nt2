@@ -9,15 +9,35 @@
 #ifndef NT2_SDK_META_MAKE_TYPE_HPP_INCLUDED
 #define NT2_SDK_META_MAKE_TYPE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Meta-function that creates a standard real type from a size in bytes.
-// As all make_xxx, also provides an optional lambda to apply to the result.
-// See: http://nt2.metascale.org/sdk/meta/traits/make_real.html
-////////////////////////////////////////////////////////////////////////////////
+#include <boost/config.hpp>
+
+#ifdef BOOST_NO_RVALUE_REFERENCES
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_taits/is_reference.hpp>
+#endif
 
 namespace nt2 { namespace meta
 {
-  template<class T> T&  make_type();
+#ifdef BOOST_NO_RVALUE_REFERENCES
+
+  template<class T>
+  typename boost::disable_if< boost::is_reference<T>
+                            , T const&
+                            >::type
+  make_type();
+  
+  template<class T>
+  typename boost::enable_if< boost::is_reference<T>
+                           , T
+                           >::type
+  make_type();
+  
+#else
+
+  template<class T>
+  T&& make_type();
+
+#endif
 } }
 
 #endif
