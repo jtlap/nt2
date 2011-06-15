@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_CONSTANT_IMPLEMENTATION(TAG,NAME)                       \
 template<class Target> inline                                       \
-typename nt2::meta::enable_call<TAG(nt2::meta::as_<Target>)>::type  \
+typename boost::result_of<functor<TAG>(nt2::meta::as_<Target>)>::type  \
 NAME()                                                              \
 {                                                                   \
   typename nt2::make_functor<TAG, Target>::type callee;             \
