@@ -32,7 +32,7 @@ namespace nt2
   template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
-                  , boost::result_of< functor<tag::slice_>
+                  , meta::call<tag::slice_
                                       ( Seq const&
                                       , Padding const&
                                       , boost::mpl::size_t<N> const&

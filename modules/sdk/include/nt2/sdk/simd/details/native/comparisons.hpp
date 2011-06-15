@@ -17,7 +17,7 @@
 
 #define NT2_MAKE_NATIVE_OP(TAG,OP)                                      \
 template<class T,class X> inline                                        \
-typename boost::result_of<functor<TAG>(native<T,X>,native<T,X>)>::type  \
+typename meta::call<TAG(native<T,X>,native<T,X>)>::type  \
 OP(native<T,X> const& a0, native<T,X> const& a1)                        \
 {                                                                       \
   typename nt2::make_functor<TAG,T>::type callee;                       \

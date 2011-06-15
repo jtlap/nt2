@@ -81,7 +81,7 @@ namespace nt2
   // Generic real value splatter from a bit patterns
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, nt2::uint64_t D, nt2::uint32_t F> inline
-  typename boost::result_of<functor<tag::pattern<D,F> >(meta::as_<Target>)>::type
+  typename meta::call<tag::pattern<D,F >(meta::as_<Target>)>::type
   real_constant()
   {
     nt2::functor< tag::pattern<D,F> > callee;
@@ -92,7 +92,7 @@ namespace nt2
   // Generic real value splatter from a bit patterns of float
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, nt2::uint32_t F> inline
-  typename boost::result_of<functor<tag::pattern<0,F> >(meta::as_<Target>)>::type
+  typename meta::call<tag::pattern<0,F >(meta::as_<Target>)>::type
   single_constant()
   {
     nt2::functor< tag::pattern<0,F> > callee;
@@ -103,7 +103,7 @@ namespace nt2
   // Generic real value splatter from a bit patterns of double
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, nt2::uint64_t D> inline
-  typename boost::result_of<functor<tag::pattern<D,0> >(meta::as_<Target>)>::type
+  typename meta::call<tag::pattern<D,0 >(meta::as_<Target>)>::type
   double_constant()
   {
     nt2::functor< tag::pattern<D,0> > callee;
@@ -114,8 +114,7 @@ namespace nt2
   // Generic real value splatter from a bit patterns dependant on target type
   //////////////////////////////////////////////////////////////////////////////
   template<class T, uint64_t V> inline
-  typename boost::
-  result_of<functor<typename details::pattern<T,V>::type>(meta::as_<T>)>::type
+  typename meta::call<typename details::pattern<T,V>::type(meta::as_<T>)>::type
   Const()
   {
     nt2::functor< typename details::pattern<T,V>::type > callee;

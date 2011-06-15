@@ -74,7 +74,7 @@ namespace nt2
   // Local digit based constant generator
   ////////////////////////////////////////////////////////////////////////////////
   template<class Target, nt2::int64_t N> inline
-  typename boost::result_of<functor<tag::digit_<N> >(meta::as_<Target>)>::type
+  typename meta::call<tag::digit_<N >(meta::as_<Target>)>::type
   integral_constant()
   {
     typename nt2::make_functor< tag::digit_<N>, Target >::type callee;

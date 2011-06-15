@@ -27,7 +27,7 @@ namespace nt2
   // Load a data of type T from the memory zone given by (a0,a1)
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class A0,class A1> inline
-  typename boost::result_of<functor<tag::load_> ( A0 const&, A1 const&
+  typename meta::call<tag::load_ ( A0 const&, A1 const&
                                                 , meta::as_<T>
                                                 )
                             >::type
@@ -42,7 +42,7 @@ namespace nt2
   // level offset
   //////////////////////////////////////////////////////////////////////////////
   template<class T,int Offset, class A0,class A1> inline
-  typename boost::result_of<functor<tag::load_> ( A0 const&, A1 const&
+  typename meta::call<tag::load_ ( A0 const&, A1 const&
                                                 , meta::as_<T>
                                                 , boost::mpl::int_<Offset>
                                                 )
