@@ -16,6 +16,7 @@
 
 #include <cstring>
 #include <nt2/sdk/error/static_assert.hpp>
+#include <nt2/sdk/config/attributes.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 
 namespace nt2 { namespace details
@@ -26,7 +27,7 @@ namespace nt2 { namespace details
   struct memcpy_cast
   {
     template<typename To, typename From>
-    static To call(From const& from)
+    static NT2_FORCE_INLINE To call(From const& from)
     {
       To to;
       std::memcpy(&to, &from, sizeof(From));
@@ -40,7 +41,7 @@ namespace nt2 { namespace details
   struct union_cast
   {
     template<typename To, typename From>
-    static To call(From const& from)
+    static NT2_FORCE_INLINE To call(From const& from)
     {
       union
       {
@@ -57,7 +58,7 @@ namespace nt2 { namespace details
   struct convert_cast
   {
     template<typename To, typename From>
-    static To call(From const& from)
+    static NT2_FORCE_INLINE To call(From const& from)
     {
       return (To)from;
     }
@@ -101,7 +102,8 @@ namespace nt2
    * \c bf800000
    */
   //============================================================================
-  template<typename To, typename From> To bitwise_cast(From const& from)
+  template<typename To, typename From>
+  NT2_FORCE_INLINE To bitwise_cast(From const& from)
   {
     NT2_STATIC_ASSERT( sizeof(From) >= sizeof(To)
                      , NT2_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST

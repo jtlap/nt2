@@ -5,7 +5,7 @@
          'call_types' : ['T','iT'],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'r_t',
             },
          'type_defs' : [],
          'types' : ['integer_','real_'],

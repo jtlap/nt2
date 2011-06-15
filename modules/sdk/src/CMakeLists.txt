@@ -18,13 +18,17 @@ nt2_module_add_library(nt2 ${SOURCES})
 
 include(nt2.preprocess)
 nt2_preprocess(sdk0x.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
-                              ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/call.hpp
-                              ${NT2_SDK_ROOT}/include/nt2/sdk/dsl/call.hpp
-                              ${NT2_SDK_ROOT}/include/nt2/sdk/meta/arithmetic.hpp
-                              ${NT2_SDK_ROOT}/include/nt2/sdk/meta/floating.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/functor/details/dispatch.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/call.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/enable_call.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/dsl/call.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/meta/arithmetic.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/meta/floating.hpp
+                                ${NT2_SDK_ROOT}/include/nt2/sdk/meta/result_of.hpp
               )
               
-nt2_preprocess(sdk.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
+nt2_preprocess(sdk03.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
                OPTIONS -DNT2_CREATE_PREPROCESSED_FILES_NO_0X
-               DEPENDS sdk0x.preprocess
               )
+              
+add_custom_target(sdk.preprocess DEPENDS sdk0x.preprocess sdk03.preprocess)

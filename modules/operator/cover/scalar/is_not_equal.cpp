@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - is_not_equal/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of operator components in scalar mode
+// cover test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 07/06/2011
+/// 
+#include <nt2/toolbox/operator/include/is_not_equal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,9 +24,9 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/is_not_equal.hpp>
 #include <nt2/sdk/meta/logical.hpp>
+
+
 NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
   
@@ -43,6 +47,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
   // random verifications
   static const uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    #include <nt2/sdk/meta/logical.hpp>
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -65,6 +70,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_REAL_TYPES)
   
   using nt2::is_not_equal;
   using nt2::tag::is_not_equal_;
+  #include <nt2/sdk/meta/logical.hpp>
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_not_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;

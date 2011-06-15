@@ -7,7 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.6)
 
 if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
   set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})

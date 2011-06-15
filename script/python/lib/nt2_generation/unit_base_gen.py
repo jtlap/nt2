@@ -28,6 +28,17 @@ sys.path.pop(0)
 
 
 class Base_gen(Nt2_fct_props) :
+    Default_df = {
+         'arity' : '1',
+         'call_types' : [],
+         'ret_arity' : '0',
+         'rturn' : {
+             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+            },
+         'simd_types' : ['real_'],
+         'type_defs' : [],
+         'types' : ['real_'],
+        }
     def __init__(self, tb_name, fct_name, fct_mode) :
         Nt2_fct_props.__init__(self,tb_name,fct_name)
         self.dl = self.get_fct_dict_list()

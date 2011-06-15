@@ -8,10 +8,10 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
-
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-
+#include <nt2/include/functions/reversebits.hpp>
+#include <iostream> 
 ////////////////////////////////////////////////////////////////////////////////
 // Overload registration
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,12 +35,21 @@ NT2_REGISTER_DISPATCH ( tag::compare_less_, tag::cpu_, (A0)
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace details
 {
-  inline bool compare_less_helper(int mask_a_lt_b, int mask_a_gt_b)
+//   void bit_print(const char* txt, unsigned int a, int start)
+//   {
+//     std::cout << txt << a << std::endl; 
+//     for (int i = start; i ; --i)
+//       {
+// 	std::cout << ((a >> i-1) & 1);
+// 	a >>  1; 
+//       }
+//     std::cout << std::endl; 
+//   }
+  inline bool compare_less_helper(unsigned int mask_a_lt_b, unsigned int mask_a_gt_b)
   {
-  return    ( !mask_a_gt_b && mask_a_lt_b      )
-        ||  (    !(mask_a_gt_b && !mask_a_lt_b )
-              &&  (mask_a_lt_b <   mask_a_gt_b )
-            );
+    unsigned int mlt = nt2::reversebits(mask_a_lt_b);
+    unsigned int mgt = nt2::reversebits(mask_a_gt_b);   
+    return (mlt > mgt) && mlt; 
   }
 } }
 ////////////////////////////////////////////////////////////////////////////////

@@ -54,11 +54,11 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        bool z = false",
+                        "        bool z = false;",
                         "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
                         "          if (a0[i]>a1[i]) {z=true;break;}",
-                        "          else if (a0[i]<a1[i]){z=false; break;}",
+                        "          else if (a0[i]<=a1[i]){z=false; break;}",
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",
                             ]

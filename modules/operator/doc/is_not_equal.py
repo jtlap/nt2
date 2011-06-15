@@ -8,14 +8,14 @@
              'default' : 'typename nt2::meta::logical<T>::type',
             },
          'special' : ['predicate'],
-         'type_defs' : ['#include <nt2/sdk/meta/logical.hpp>'],
+         'type_defs' : [],
          'types' : ['integer_','real_'],
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : [],
+             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',

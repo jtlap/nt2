@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+                'default' : 'typename nt2::meta::logical<T>::type',
             },
          'type_defs' : [],
          'types' : ['integer_','real_'],

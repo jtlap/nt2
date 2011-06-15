@@ -8,7 +8,6 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_COMPARE_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_COMPARE_LESS_HPP_INCLUDED
-
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

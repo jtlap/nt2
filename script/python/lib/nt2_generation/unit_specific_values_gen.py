@@ -66,8 +66,8 @@ class Specific_values_test_gen(Base_gen) :
         r = ["", "  // specific values tests"]
         no_ulp = extract(dl,"","False","unit","global_header","no_ulp")
         no_ulp = False if no_ulp == 'False' else no_ulp      #does we do an ulp-equality test or merely an equality test    
-        if not isinstance(unit_specific, dict) or not unit_specific.get("manual",False) :
-            return False
+##        if not isinstance(unit_specific, dict) or not unit_specific.get("manual",False) :
+##            return False
 
         if isinstance(unit_specific, dict) :
            p = unit_specific.get("prolog",False) 

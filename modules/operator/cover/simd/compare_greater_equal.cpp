@@ -9,22 +9,25 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - compare_greater_equal/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-//  $testcat$ test behavior of operator components in simd mode
+// cover test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 07/06/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/operator/include/compare_greater_equal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/operator/include/compare_greater_equal.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  NT2_REAL_TYPES)
 {
@@ -62,6 +65,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  NT2_REAL_TYPES)
           if (a0[i]>=a1[i]) {z=true;break;}
           else if (a0[i]<a1[i]){z=false; break;}
         }
+	std::cout << a0 <<  "  " <<  a1 <<  std::endl; 
         NT2_TEST_EQUAL( v,z);
       }
     

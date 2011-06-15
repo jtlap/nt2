@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - splat/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of operator components in scalar mode
+// cover test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 07/06/2011
+/// 
+#include <nt2/toolbox/operator/include/splat.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/operator/include/splat.hpp>
+
 
 NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
@@ -55,10 +58,10 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
 //      }
      
 //    }
-} // end of test for integer_
+// } // end of test for integer_
 
-NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
-{
+// NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
+// {
   
 //   using nt2::splat;
 //   using nt2::tag::splat_;

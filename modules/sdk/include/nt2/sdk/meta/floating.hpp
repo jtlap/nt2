@@ -37,7 +37,7 @@ namespace nt2  { namespace meta
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/meta/preprocessed/floating.hpp>
 #else
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
+#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/floating.hpp")
 #endif
 
