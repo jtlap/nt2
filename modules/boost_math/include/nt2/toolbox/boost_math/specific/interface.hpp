@@ -24,7 +24,7 @@ namespace nt2
   
 #define NT2_BOOST_MATH_FUNCTION_IMPLEMENTATION_TPL(NAME,ARITY)		\
   template <class T, class A0>						\
-  inline typename nt2::meta::enable_call<boost_math::tag::NAME##_<T>(A0&)>::type \
+  inline typename nt2::meta::call<boost_math::tag::NAME##_<T>(A0&)>::type \
   NAME(A0 const& a0){NT2_FUNCTION_BODY(boost_math::tag::NAME##_<T>,ARITY)} \
     /**/
   

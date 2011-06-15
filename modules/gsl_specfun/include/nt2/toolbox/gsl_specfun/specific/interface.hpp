@@ -16,7 +16,7 @@ namespace nt2
   
 #define NT2_GSL_SPECFUN_FUNCTION_IMPLEMENTATION_TPL(NAME,ARITY)		\
   template <class T, class A0>						\
-  inline typename boost::result_of<nt2::functor<gsl_specfun::tag::NAME##_<T> >(A0&)>::type \
+  inline typename meta::call<gsl_specfun::tag::NAME##_<T>(A0&)>::type \
   NAME(A0 const& a0){NT2_FUNCTION_BODY(gsl_specfun::tag::NAME##_<T>,ARITY)} \
     /**/
   

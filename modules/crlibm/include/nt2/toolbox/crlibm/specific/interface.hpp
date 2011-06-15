@@ -14,7 +14,7 @@ namespace nt2
   
 #define NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(NAME,ARITY)		\
     template <class Rounding, class A0>					\
-    inline typename nt2::meta::enable_call<crlibm::tag::NAME##_<Rounding>(A0&)>::type \
+    inline typename nt2::meta::call<crlibm::tag::NAME##_<Rounding>(A0&)>::type \
        NAME(A0 const& a0){NT2_FUNCTION_BODY(crlibm::tag::NAME##_<Rounding>,ARITY)}	\
   /**/
   
