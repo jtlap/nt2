@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     {
       return b_and(
                is_ord(a0, a1),
-               (a0 >  successor(a1, nt2::abs(a2)))
+               gt(a0, successor(a1, nt2::abs(a2)))
                );
     }
   };
