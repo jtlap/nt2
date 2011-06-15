@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_REAL_TYPES)
 	bool zz = std::lexicographical_compare(a0.begin(), a0.end(), a1.begin(), a1.end());
 	std::cout << "std::lexicographical_compare(a0.begin(), a0.end(), a1.begin(), a1.end()) " << std::lexicographical_compare(a0.begin(), a0.end(), a1.begin(), a1.end())<<  std::endl;
 	std::cout <<"compare_less(a0,a1)" <<   compare_less(a0,a1) << std::endl; 
- 
+  
 //        bool z = false;
 //         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
 //         {
