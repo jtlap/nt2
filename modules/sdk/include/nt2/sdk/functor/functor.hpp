@@ -35,8 +35,12 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 
+#ifndef NT2_DONT_USE_PREPROCESSED_FILES
+#define NT2_DONT_USE_PREPROCESSED_FILES
+#endif
+
 #if ((defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
- && !defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)
+ && defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -115,10 +119,10 @@ namespace nt2
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor0x.hpp")
 #undef NT2_FORCE_INLINE
+#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
 #endif
 
     #define M2(z,n,t) std::forward<A##n>(a##n)
-
     #define M1(z,n,t) meta::make_type<A##n>()
 
     #define M0(z,n,t)                                                         \
@@ -155,12 +159,13 @@ namespace nt2
     
 #else
 
-#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/preprocessed/functor.hpp>
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor.hpp")
 #undef NT2_FORCE_INLINE
+#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
 #endif
 
     #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \

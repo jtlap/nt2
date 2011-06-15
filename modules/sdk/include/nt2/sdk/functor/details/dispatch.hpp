@@ -13,9 +13,14 @@
 #include <nt2/sdk/meta/hierarchy.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/config/attributes.hpp>
 #include <boost/typeof/typeof.hpp>
 
-#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#ifndef NT2_DONT_USE_PREPROCESSED_FILES
+#define NT2_DONT_USE_PREPROCESSED_FILES
+#endif
+
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
 #else
 #include <nt2/extension/parameters.hpp>
@@ -27,7 +32,8 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
-#undef NT2_DECLTYPE
+#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+#undef NT2_FORCE_INLINE
 #endif
 
 //==============================================================================
@@ -42,6 +48,7 @@
 
 #define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
+NT2_FORCE_INLINE                                                                \
 nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M1,~))>  \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
@@ -98,6 +105,7 @@ struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>              \
 };                                                                          \
                                                                             \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+NT2_FORCE_INLINE                                                            \
 typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
 dispatch( Tag const&, Site const&                                           \
         , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
