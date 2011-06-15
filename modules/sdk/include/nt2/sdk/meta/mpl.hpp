@@ -47,19 +47,35 @@ namespace nt2 { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for mpl integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_HIERARCHY_PARENT(mpl_integral_, typename hierarchy_of<T>::type)
+namespace nt2 { namespace meta
+{
+  template<class T> struct mpl_integral_ : mpl_integral_< typename T::parent >
+  {
+    typedef mpl_integral_< typename T::parent > parent;
+    typedef typename T::origin                  origin;
+  };
+
+  template<class T>
+  struct  mpl_integral_< unspecified_<T> >
+        : meta::hierarchy_of<typename T::value_type>::type
+  {
+    typedef typename meta::hierarchy_of<typename T::value_type>::type parent;
+    typedef T                                                         origin;
+  };
+} }
 
 namespace nt2 { namespace details
 {
-  template<class T>
-  struct  hierarchy_of<T
+  template<class T,class Origin>
+  struct  hierarchy_of< T
+                      , Origin
                       , typename boost
                         ::enable_if_c<details::is_mpl_integral<T>::value>::type
                       >
   {
     typedef typename T::value_type                                    value_type;
     typedef meta::mpl_integral_<typename
-                                meta::hierarchy_of<value_type>::type> type;
+                                meta::hierarchy_of<value_type,Origin>::type> type;
   };
 } }
 
