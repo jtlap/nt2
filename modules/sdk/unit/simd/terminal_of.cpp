@@ -12,6 +12,7 @@
 #include <nt2/sdk/simd/pack.hpp>
 #include <nt2/toolbox/operator.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
