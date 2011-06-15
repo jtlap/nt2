@@ -1,0 +1,80 @@
+test generation of 
+ -- unit  tests (test for (p)eculiar values)
+ -- cover tests (test for (r)andom values on some intervals)
+can be made through the use of the script:
+
+  units_from_py 
+
+situated in script/python/usr
+
+help using this script can be found by executing it with option --help
+
+For Example, if one wants to generate scalar cover for functor fuzzy_less_or_equal 
+in nt2 module fuzzy, he has to run
+
+./units_from_py fuzzy -f=fuzzy_less_or_equal -r  -m=scalar -ns -w
+
+replacing -s by -ns or omitting it allows to see the file on standard input
+replacing -w by -nw does not write anything o disk.
+
+If -w if active and the file already existed, a backup is created before replacing
+it by the new one.
+
+
+In fact this process  leads to an error in many cases(!) 
+1)  if module fuzzy does not exist
+2)  if module fuzzy does exist but the doc directory does not contain a file named
+    fuzzy_less_or_equal.py containing a list of python dictionnaries describing
+    what to generate. Such a file will be denoted as a "py_doc" file  in the sequel.
+ 
+
+Description of the "py_doc" file:
+
+  The file is a list of python dictionaries or a python dictionnary,
+  Each dictionary (situated in this list) corresponds to a set of tests.
+  Generally one suffices, but for instance a functor can have different arity calls
+  and then each element may match a different arity call.
+
+  All involved dictionnaries can be incomplete. If some fields are lacking,
+  defaults are taken.
+
+Description of an individual dictionary:
+
+  an individual dictionnary can have the items:
+
+     "functor": if omitted or not dictionnary it is ignored and the file 
+                generated is only the header part
+                
+     "unit":    if omitted the file generated is only the default header
+
+     "info"   : type is string, one of 'raw' or 'manually modified' (unused yet)
+
+     "version": type is string, value '0.1'(unused yet)
+
+Description of "functor" item:
+
+  the functor item is himself a dictionnary:
+     'arity': type: string containing a number 
+               
+               is the functor arity (number of parameters)
+               default is '1'
+
+     'call_types': type: string or list of strings
+
+                   generally tests will be generated based on a
+                   list of primary types, denoted by "T". 
+                   call_types can be a list or a string
+                     a string as "T" or an empty string will mean 
+                     all the types in the call are identical to "T"
+                     a list as ["T","iT"] will mean that the first type is "T"
+                             the others are "iT" (integer of same size as "T"
+                             and same signedness)
+                     if the list is shorter than arity the last type is repeated
+                     if the list is longer than arity the last types are ignored
+                     if the list is empty all types are "T" 
+                   Default is: all types in the call are "T"
+     'ret_arity': is a string containing a number:
+                     '0' '1' or '' is the ordinary case
+                     greater than 1 means the functor tested will return a 
+                     boost tuple  of the number of elements
+      'rturn'   : 

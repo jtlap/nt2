@@ -38,7 +38,7 @@ class Global_header_gen() :
             "///                 See accompanying file LICENSE.txt or copy at",
             "///                     http://www.boost.org/LICENSE_1_0.txt",
             "//////////////////////////////////////////////////////////////////////////////",
-            '#define NT2_$kind$_MODULE "nt2 $tb_name$ toolbox - $fct_name$/$fct_mode$ Mode"',
+            '#define NT2_UNIT_MODULE "nt2 $tb_name$ toolbox - $fct_name$/$fct_mode$ Mode"',
             "",
             "//////////////////////////////////////////////////////////////////////////////",
             "// $kind$ test behavior of $tb_name$ components in $fct_mode$ mode",
@@ -129,6 +129,7 @@ class Global_header_gen() :
                         if isinstance(includes,list ) :
                             r.extend(includes)
             r.append('')
+            print("default_includes %s "%default_includes )
             if default_includes : #uses default once
                 r1 = self.bg.create_unit_txt_part( Global_header_gen.Default_template,self.__prepare,d=d)
                 r.extend(r1)
@@ -139,14 +140,13 @@ class Global_header_gen() :
         
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
-##        if isinstance(d,dict ) :
-##            dl = [dl]
+        if isinstance(dl,dict ) : dl = [dl]
         r = self.add_header(dl)
-##        r = self.add_includes(r,dl)
+        r = self.add_includes(r,dl)
         return r
 
     def __prepare(self,s,typ,d,i=None) :
-        s=re.sub("\$kind\$",self.part.upper(),s)
+        s=re.sub("\$kind\$",self.part,s)
         s=re.sub("\$fct_mode\$",self.bg.get_fct_mode(),s)
         s=re.sub("\$tb_name\$",self.bg.get_tb_name(),s)
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)

@@ -83,7 +83,8 @@ class Create_tests(Nt2_tb_props) :
 
     def create_one_unit(self, fct_name, mode, part) :
 
-        if self.verbose : print("%s with %s with %s"%(fct_name,mode,part))
+   #     if self.verbose :
+        print("%s with %s with %s"%(fct_name,mode,part))
         bg = Base_gen(self.tb_name,fct_name,mode)
         ghg = Global_header_gen(bg,part)
         r = ghg.get_gen_result()
@@ -103,12 +104,16 @@ class Create_tests(Nt2_tb_props) :
                 if ("unit"==part) and d_unit.get("specific_values",None) :
                     svt = Specific_values_test_gen(bg,d,typ,ret_arity)
                     s = svt.get_gen_result()
-                    if not s : return False
+##                    print(s)
+##                    raise SystemExit
+##                    if not s : return False
                     r += s    
                 if ("cover" == part) and d_unit.get("verif_test",None) :
                     vtg = Random_verif_test_gen(bg,d,typ)
                     s = vtg.get_gen_result()
-                    if not s : return False
+##                    print(s)
+##                    raise SystemExit
+##                    if not s : return False
                     r += s    
                 r+=thg.get_gen_end()
         return r
@@ -122,7 +127,7 @@ class Create_tests(Nt2_tb_props) :
                     r= self.create_one_unit(fct,mode,part)
                     if r is None :
                         print('error for %s' % fct)
-                    elif len(r)==0 or not r:
+                    elif not r or len(r)==0 :
                         print('no regeneration possible for %s %s-tests, please do it manually' % (fct,mode))
                     else :
                         just = "just" if show and not self.write_files else ""
@@ -133,7 +138,7 @@ class Create_tests(Nt2_tb_props) :
                             print("="*40+">")
                         if self.write_files :
                             print("writing text of %s.cpp for %s-test"% (fct,mode))
-                            write_unit(self.tb_name,fct,mode,part,r)
+                            self.write_unit(fct,mode,part,r)
 
 
     def write_unit(self,
@@ -141,7 +146,7 @@ class Create_tests(Nt2_tb_props) :
                    mode,
                    part,
                    s) :
-        nfp = Nt2_fct_props(tb_name,fct_name,mode)
+        nfp = Nt2_fct_props(self.tb_name,fct_name,mode)
         p = nfp.get_fct_unit_path(mode,part)
         if self.verbose : print ('path = %s'%p)
         if self.backup_on_write and exist(p) :
