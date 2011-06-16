@@ -28,7 +28,7 @@
 NT2_TEST_CASE_TPL ( isnan_real__1_0,  (double))
 {
   
-  using nt2::fdlibm::isnan;
+  using nt2::fdlibm::is_nan;
   using nt2::fdlibm::tag::isnan_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<isnan_(T)>::type r_t;
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( isnan_real__1_0,  (double))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( isnan_real__1_0,  (double))
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fdlibm::isnan(a0),nt2::is_nan(a0),1);
+        NT2_TEST_ULP_EQUAL( nt2::fdlibm::is_nan(a0),nt2::is_nan(a0),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
