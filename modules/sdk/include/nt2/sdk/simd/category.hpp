@@ -18,30 +18,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // SIMD types tag
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2
+namespace nt2 { namespace meta
 {
-  namespace tag { template<class T,class X> struct simd_ {}; }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // simd types hierarchy
-  //////////////////////////////////////////////////////////////////////////////
-  namespace meta
+  template<class T,class X> struct simd_ : simd_< typename T::parent, X >
   {
-    template<class T,class X> struct simd_ : simd_<typename T::parent,X>
-    {
-      typedef simd_<typename T::parent,X>     parent;
-      typedef tag::simd_<typename T::type,X>  type;
-    };
+    typedef simd_< typename T::parent, X > parent;
+    typedef typename T::origin            origin;
+  };
 
-    template<class T,class X>
-    struct simd_< unspecified_<T>,X > : unspecified_<T>
-    {
-      typedef unspecified_<T>   parent;
-      typedef tag::simd_<tag::unspecified_,X> type;
-    };
-
-    template<class T,class X> struct simd_< unknown_<T>,X > : unknown_<T> {};
-  }
-}
+  template<class T,class X>
+  struct  simd_< unspecified_<T>, X >
+        : generic_< typename unspecified_<T>::origin >
+  {
+    typedef generic_< typename unspecified_<T>::origin >  parent;
+    typedef typename unspecified_<T>::origin              origin;
+  };
+} }
 
 #endif
