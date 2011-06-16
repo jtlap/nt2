@@ -12,11 +12,15 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
+#ifdef isnan
+#undef isnan
+#endif
+
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     struct isnan_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::isnan_, isnan, 1)
+  NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::isnan_, is_nan, 1)
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/isnan.hpp>
