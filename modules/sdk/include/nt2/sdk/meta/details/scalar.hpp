@@ -15,6 +15,7 @@ namespace nt2 { namespace meta
   {
     typedef scalar_< typename T::parent > parent;
     typedef typename T::origin            origin;
+    typedef T                             base;
   };
 
   template<class T>
@@ -23,6 +24,7 @@ namespace nt2 { namespace meta
   {
     typedef generic_< typename unspecified_<T>::origin >  parent;
     typedef typename unspecified_<T>::origin              origin;
+    typedef unspecified_<T>                               base;
   };
 } }
 
