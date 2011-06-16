@@ -40,25 +40,25 @@ namespace n2 {
   NT2_TIMING(tofloat_,(RS(vT,T(-10),T(10))))
 }
 namespace n3 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(tofloat_,(RS(vT,0,100)))
 }
 namespace n4 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(tofloat_,(RS(vT,0,100)))
 }
 namespace n5 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(tofloat_,(RS(vT,0,100)))
 }
 namespace n6 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(tofloat_,(RS(vT,0,100)))
