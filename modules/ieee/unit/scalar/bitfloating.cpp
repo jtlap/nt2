@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (nt2::uint32_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (nt2::uint32_t))
      }
      
    }
-} // end of test for uint32_t
+} // end of test for nt2::uint32_t
 
 NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (nt2::uint64_t))
 {
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (nt2::uint64_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (nt2::uint64_t))
      }
      
    }
-} // end of test for uint64_t
+} // end of test for nt2::uint64_t
 
 NT2_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (nt2::int32_t))
 {
@@ -111,7 +111,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (nt2::int32_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -125,7 +125,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (nt2::int32_t))
      }
      
    }
-} // end of test for int32_t
+} // end of test for nt2::int32_t
 
 NT2_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (nt2::int64_t))
 {
@@ -145,7 +145,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (nt2::int64_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -159,4 +159,4 @@ NT2_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (nt2::int64_t))
      }
      
    }
-} // end of test for int64_t
+} // end of test for nt2::int64_t

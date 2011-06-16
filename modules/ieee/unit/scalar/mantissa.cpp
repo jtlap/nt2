@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( mantissa_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(mantissa(nt2::One<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(mantissa(nt2::Zero<T>()), nt2::Zero<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;

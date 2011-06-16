@@ -28,22 +28,22 @@ using nt2::tag::bitfloating_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(bitfloating_,(RS(T,0,100)))
 }
 namespace n2 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(bitfloating_,(RS(T,0,100)))
 }
 namespace n3 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(bitfloating_,(RS(T,-100,100)))
 }
 namespace n4 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(bitfloating_,(RS(T,-100,100)))
 }
