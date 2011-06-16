@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     {
       typedef typename NT2_RETURN_TYPE(1)::type   base;
       typedef typename meta::upgrade<base>::type  type;
-      return nt2::fdlibm::isnan(type(a0));
+      return nt2::fdlibm::is_nan(type(a0));
     }
   };
 } }

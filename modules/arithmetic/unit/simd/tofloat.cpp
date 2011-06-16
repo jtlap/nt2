@@ -78,7 +78,7 @@ NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (uint32_t))
   // specific values tests
   NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for uint32_t
+} // end of test for nt2::uint32_t
 
 NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
 {
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
   // specific values tests
   NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for uint64_t
+} // end of test for nt2::uint64_t
 
 NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
 {
@@ -129,7 +129,7 @@ NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
   NT2_TEST_EQUAL(tofloat(nt2::Mone<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int32_t
+} // end of test for nt2::int32_t
 
 NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
 {
@@ -155,4 +155,4 @@ NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
   NT2_TEST_EQUAL(tofloat(nt2::Mone<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int64_t
+} // end of test for nt2::int64_t

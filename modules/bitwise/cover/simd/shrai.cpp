@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,iT, NR, T(0), sizeof(T)*8-1);
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL ( shrai_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,iT, NR, T(0), sizeof(T)*8-1);

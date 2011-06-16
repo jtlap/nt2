@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( jni_real__2_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,iT, NR, 1, 10);
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( jni_real__2_0,  NT2_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::jni (tab_a0[j],tab_a1[k])), 2.5);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::jni (tab_a0[j],tab_a1[k])), 500);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( pow_int32_t_2_0,  (nt2::int32_t))
 
 
   // specific values tests
-} // end of test for int32_t
+} // end of test for nt2::int32_t
 
 NT2_TEST_CASE_TPL ( pow_int64_t_2_0,  (nt2::int64_t))
 {
@@ -99,7 +99,7 @@ NT2_TEST_CASE_TPL ( pow_int64_t_2_0,  (nt2::int64_t))
 
 
   // specific values tests
-} // end of test for int64_t
+} // end of test for nt2::int64_t
 
 NT2_TEST_CASE_TPL ( pow_uint32_t_2_0,  (nt2::uint32_t))
 {
@@ -122,7 +122,7 @@ NT2_TEST_CASE_TPL ( pow_uint32_t_2_0,  (nt2::uint32_t))
 
 
   // specific values tests
-} // end of test for uint32_t
+} // end of test for nt2::uint32_t
 
 NT2_TEST_CASE_TPL ( pow_uint64_t_2_0,  (nt2::uint64_t))
 {
@@ -145,7 +145,7 @@ NT2_TEST_CASE_TPL ( pow_uint64_t_2_0,  (nt2::uint64_t))
 
 
   // specific values tests
-} // end of test for uint64_t
+} // end of test for nt2::uint64_t
 
 NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
 { 

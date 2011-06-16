@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(successor(nt2::Valmax<T>()), nt2::Inf<r_t>());
   NT2_TEST_EQUAL(successor(nt2::Zero<T>()), nt2::Mindenormal<T>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(successor(nt2::Valmax<T>()), nt2::Valmax<r_t>());
   NT2_TEST_EQUAL(successor(nt2::Zero<T>()), nt2::One<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -135,7 +135,7 @@ NT2_TEST_CASE_TPL ( successor_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(successor(nt2::Valmax<T>()), nt2::Valmax<r_t>());
   NT2_TEST_EQUAL(successor(nt2::Zero<T>()), nt2::One<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -170,7 +170,7 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
@@ -209,7 +209,7 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  NT2_UNSIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
@@ -248,7 +248,7 @@ NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  NT2_INTEGRAL_SIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);

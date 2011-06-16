@@ -28,37 +28,37 @@ using nt2::tag::split_;
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n2 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n3 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n4 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n5 {
-  typedef int8_t T;
+  typedef nt2::int8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n6 {
-  typedef uint8_t T;
+  typedef nt2::uint8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(split_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))

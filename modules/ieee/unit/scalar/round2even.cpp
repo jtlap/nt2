@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(round2even(nt2::One<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(round2even(nt2::Zero<T>()), nt2::Zero<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL ( round2even_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(round2even(nt2::One<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(round2even(nt2::Zero<T>()), nt2::Zero<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -133,7 +133,7 @@ NT2_TEST_CASE_TPL ( round2even_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(round2even(nt2::One<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(round2even(nt2::Zero<T>()), nt2::Zero<T>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;

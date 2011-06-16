@@ -40,25 +40,25 @@ namespace n2 {
   NT2_TIMING(atand_,(RS(vT,nt2::Mone<T>(),nt2::One<T>())))
 }
 namespace n3 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(atand_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
 }
 namespace n4 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(atand_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
 }
 namespace n5 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(atand_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))
 }
 namespace n6 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(atand_,(RS(vT,nt2::Zero<T>(),nt2::One<T>())))

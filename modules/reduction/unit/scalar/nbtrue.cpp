@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nbtrue(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(nbtrue(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::scalar_of<T>::type sT;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));

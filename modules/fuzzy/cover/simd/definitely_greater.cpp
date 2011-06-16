@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
@@ -88,7 +88,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYP
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
@@ -130,11 +130,11 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a2,iT, NR, iT(-10), iT(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a2,iT, NR, iT(0), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {

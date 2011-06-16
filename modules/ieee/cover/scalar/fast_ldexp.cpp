@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( fast_ldexp_real__2_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));

@@ -78,18 +78,22 @@ namespace nt2 { namespace ext
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
       A1 nul_a1 = is_eqz(a1);
-      A1 a11 = a1-nul_a1; 
-// 	std::cout << "icitte"<< std::endl;
-// 	std::cout << "y " << y << std::endl;
-// 	std::cout << "a1 " << a1<< std::endl;    
-// 	std::cout << "pow(y, a1) " << pow(y, a1) << std::endl;
-// 	std::cout << "sub(a1, One<A1>()) " << sub(a1, One<A1>()) << std::endl;
-// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a1, One<A1>())) << std::endl;
+      A0 a11 = tofloat(a1-nul_a1); 
+//       std::cout << "icitte " << std::endl;
+//       std::cout << "aa1 " << aa1 << std::endl;
+//       std::cout << "y " << y << std::endl;
+//       std::cout << "pow(y, aa1) " << nt2::pow(y, aa1) << std::endl;
+//       std::cout << "sub(a11, One<A1>()) " << sub(a11, One<A0>()) << std::endl;
+//       std::cout << "nul_a1 " << nul_a1 << std::endl;
+//       std::cout << "is_nez(y) " << is_nez(y) << std::endl;
+//       std::cout << "pow(y, sub(a11, One<A0>())) " << pow(y, sub(a11, One<A0>())) << std::endl;
 // 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a11, One<A1>())) << std::endl;
-      y = seladd(b_or(is_nez(y), nul_a1), y, - (pow(y, a1) - x)/(aa1* pow(y, sub(a11, One<A1>()))));
+      y = seladd(b_or(is_nez(y), nul_a1), y, - (pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>()))));
+//      std::cout << "ybis " << y << std::endl;
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       A0 invalid = b_and(is_ltz(a0), is_even(a1)); 
+//      std::cout << "invalid " << invalid << std::endl;
       return  b_and(is_nez(a0),
 		    b_or(invalid, 
 			 sel(is_eqz(aa1), One<A0>(),  

@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( posmin_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::scalar_of<T>::type sT;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( posmin_real__1_0,  NT2_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = posmin(a0);
         T z = a0[0];
-        uint32_t p = 0;
+        nt2::uint32_t p = 0;
         for(int i = 1; i< cardinal_of<n_t>::value; ++i)
         {
           if (a0[i]<z) {z=a0[i]; p=i;}

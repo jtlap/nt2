@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( hmsb_integer__1_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(hmsb(nt2::One<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(hmsb(nt2::Zero<T>()), nt2::Zero<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
