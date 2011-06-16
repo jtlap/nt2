@@ -38,42 +38,42 @@ namespace n2 {
   NT2_TIMING(fast_cosd_,(RS(T,T(-45),T(45))))
 }
 namespace n3 {
-  typedef uint8_t T;
+  typedef nt2::uint8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,0,T(45))))
 }
 namespace n4 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,0,T(45))))
 }
 namespace n5 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,0,T(45))))
 }
 namespace n6 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,0,T(45))))
 }
 namespace n7 {
-  typedef int8_t T;
+  typedef nt2::int8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,T(-45),T(45))))
 }
 namespace n8 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,T(-45),T(45))))
 }
 namespace n9 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,T(-45),T(45))))
 }
 namespace n10 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_cosd_,(RS(T,T(-45),T(45))))
 }
