@@ -12,10 +12,6 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/fdlibm/include.hpp>
 
-#ifdef isnan
-#undef isnan
-#endif
-
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     struct isnan_ {};
