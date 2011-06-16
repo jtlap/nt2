@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( legendre_real__2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(legendre(1,nt2::One<T>()), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(legendre(1,nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, iT(-1), T(1));
