@@ -42,28 +42,28 @@ namespace n2 {
   NT2_TIMING(nthroot_,(RS(vT,T(0),T(10)))(RS(viT,iT(-10),iT(10))))
 }
 namespace n3 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
   NT2_TIMING(nthroot_,(RS(vT,-100,100))(RS(viT,-100,100)))
 }
 namespace n4 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
   NT2_TIMING(nthroot_,(RS(vT,-100,100))(RS(viT,-100,100)))
 }
 namespace n5 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
   NT2_TIMING(nthroot_,(RS(vT,0,100))(RS(viT,0,100)))
 }
 namespace n6 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   typedef nt2::simd::native<iT,ext_t> viT;
