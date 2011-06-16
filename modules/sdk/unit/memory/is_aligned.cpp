@@ -16,9 +16,54 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test the is_aligned version on integer
+// Test the defautlt is_aligned version on integer
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(is_aligned_int_default)
+{
+  using nt2::memory::is_aligned;
+
+  NT2_TEST( is_aligned(0x00)                    );
+  NT2_TEST( !is_aligned(NT2_CONFIG_ALIGNMENT-1) );
+  NT2_TEST( is_aligned(NT2_CONFIG_ALIGNMENT*4)  );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test the is_aligned version on integer/integer
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_aligned_int)
+{
+  using nt2::memory::is_aligned;
+
+  NT2_TEST( is_aligned(0x00,0x01) );
+  NT2_TEST( is_aligned(0x00,0x02) );
+  NT2_TEST( is_aligned(0x00,0x04) );
+  NT2_TEST( is_aligned(0x00,0x08) );
+  NT2_TEST( is_aligned(0x00,0x10) );
+  NT2_TEST( is_aligned(0x00,0x20) );
+  NT2_TEST( is_aligned(0x00,0x40) );
+  NT2_TEST( is_aligned(0x00,0x80) );
+
+  NT2_TEST( !is_aligned(0x01,0x02) );
+  NT2_TEST( !is_aligned(0x03,0x04) );
+  NT2_TEST( !is_aligned(0x07,0x08) );
+  NT2_TEST( !is_aligned(0x0F,0x10) );
+  NT2_TEST( !is_aligned(0x1F,0x20) );
+  NT2_TEST( !is_aligned(0x3F,0x40) );
+  NT2_TEST( !is_aligned(0x7F,0x80) );
+
+  NT2_TEST( is_aligned(0x02,0x02) );
+  NT2_TEST( is_aligned(0x04,0x04) );
+  NT2_TEST( is_aligned(0x08,0x08) );
+  NT2_TEST( is_aligned(0x10,0x10) );
+  NT2_TEST( is_aligned(0x20,0x20) );
+  NT2_TEST( is_aligned(0x40,0x40) );
+  NT2_TEST( is_aligned(0x80,0x80) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test the is_aligned version on integer/meta
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(is_aligned_int_meta_int)
 {
   using nt2::memory::is_aligned;
 
@@ -59,6 +104,43 @@ NT2_TEST_CASE(is_aligned_ptr)
   void* exact_ = reinterpret_cast<void*>(0xABCD8000);
   void* under_ = reinterpret_cast<void*>(0xABCD7FFF);
 
+  NT2_TEST( is_aligned(null_,0x01) );
+  NT2_TEST( is_aligned(null_,0x02) );
+  NT2_TEST( is_aligned(null_,0x04) );
+  NT2_TEST( is_aligned(null_,0x08) );
+  NT2_TEST( is_aligned(null_,0x10) );
+  NT2_TEST( is_aligned(null_,0x20) );
+  NT2_TEST( is_aligned(null_,0x40) );
+  NT2_TEST( is_aligned(null_,0x80) );
+
+  NT2_TEST( !is_aligned(under_,0x02) );
+  NT2_TEST( !is_aligned(under_,0x04) );
+  NT2_TEST( !is_aligned(under_,0x08) );
+  NT2_TEST( !is_aligned(under_,0x10) );
+  NT2_TEST( !is_aligned(under_,0x20) );
+  NT2_TEST( !is_aligned(under_,0x40) );
+  NT2_TEST( !is_aligned(under_,0x80) );
+
+  NT2_TEST( is_aligned(exact_,0x02) );
+  NT2_TEST( is_aligned(exact_,0x04) );
+  NT2_TEST( is_aligned(exact_,0x08) );
+  NT2_TEST( is_aligned(exact_,0x10) );
+  NT2_TEST( is_aligned(exact_,0x20) );
+  NT2_TEST( is_aligned(exact_,0x40) );
+  NT2_TEST( is_aligned(exact_,0x80) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test the is_aligned version on pointer/meta int
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(is_aligned_ptr_meta)
+{
+  using nt2::memory::is_aligned;
+
+  void* null_  = reinterpret_cast<void*>(0);
+  void* exact_ = reinterpret_cast<void*>(0xABCD8000);
+  void* under_ = reinterpret_cast<void*>(0xABCD7FFF);
+
   NT2_TEST( is_aligned<0x01>(null_) );
   NT2_TEST( is_aligned<0x02>(null_) );
   NT2_TEST( is_aligned<0x04>(null_) );
@@ -83,6 +165,22 @@ NT2_TEST_CASE(is_aligned_ptr)
   NT2_TEST( is_aligned<0x20>(exact_) );
   NT2_TEST( is_aligned<0x40>(exact_) );
   NT2_TEST( is_aligned<0x80>(exact_) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test the is_aligned default version on pointer
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(is_aligned_ptr_default)
+{
+  using nt2::memory::is_aligned;
+
+  void* null_  = reinterpret_cast<void*>(0);
+  void* exact_ = reinterpret_cast<void*>(0xABCD * NT2_CONFIG_ALIGNMENT);
+  void* under_ = reinterpret_cast<void*>(0xABCD7FFF);
+
+  NT2_TEST( is_aligned(null_) );
+  NT2_TEST( !is_aligned(under_) );
+  NT2_TEST( is_aligned(exact_) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
