@@ -25,43 +25,43 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct  call< tag::slice_ ( tag::fusion_sequence_
-                            , tag::padding_<memory::global_padding>
-                            , tag::mpl_integral_<tag::integer_>
-                            )
+  template<class A0, class A2, class Dummy>
+  struct  call< tag::slice_
+                ( meta::fusion_sequence_<A0>
+                , meta::padding_<memory::global_padding>
+                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
+                )
               , tag::cpu_, Dummy  >
         : callable
   {
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    template<class Sig> struct result;
+    static  typename meta::strip<A0>::type const& s;
+    typedef typename meta::strip<A2>::type        arg2;
 
-    template<class This,class A0, class A1, class A2>
-    struct  result<This(A0,A1,A2)>
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );
+
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( false_case , slice<arg2::value>(s,memory::no_padding()) );
+
+    typedef typename boost::mpl::eval_if_c< (arg2::value == 1)
+                                          , true_case
+                                          , false_case
+                                          >::type             result_type;
+
+
+    inline result_type
+    operator()(A0 const& a0, memory::global_padding const&, A2 const& ) const
     {
-      static  typename meta::strip<A0>::type const& s;
-      typedef typename meta::strip<A2>::type        arg2;
-
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );
-
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( false_case , slice<arg2::value>(s,memory::no_padding()) );
-
-      typedef typename boost::mpl::eval_if_c< (arg2::value == 1)
-                                            , true_case
-                                            , false_case
-                                            >::type type;
-    };
+      return eval(a0, boost::mpl::bool_<A2::value==1>() );
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when size<A0> == A2
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0, class A1, class A2> inline
-    typename boost::lazy_enable_if_c< (A2::value==1), NT2_RETURN_TYPE(3)>::type
-    operator()( A0 const& a0, A1 const&, A2 const& ) const
+    inline result_type eval( A0 const& a0, boost::mpl::true_ const&) const
     {
       return memory::align_on( slice<1>(a0,memory::no_padding()) );
     }
@@ -69,32 +69,12 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when size<A0> != A2
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0, class A1, class A2> inline
-    typename boost::lazy_enable_if_c< (A2::value!=1), NT2_RETURN_TYPE(3)>::type
-    operator()( A0 const& a0, A1 const&, A2 const& ) const
+    inline result_type eval( A0 const& a0, boost::mpl::false_ const&) const
     {
       return slice<A2::value>(a0,memory::no_padding());
     }
   };
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// stride Functor implementation - global padding reuse no_padding stride
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct  call< tag::stride_( tag::fusion_sequence_
-                            , tag::padding_<memory::global_padding>
-                            , tag::mpl_integral_<tag::integer_>
-                            )
-              , tag::cpu_, Dummy  >
-        : call< tag::stride_( tag::fusion_sequence_
-                            , tag::padding_<memory::no_padding>
-                            , tag::mpl_integral_<tag::integer_>
-                            )
-              , tag::cpu_, Dummy  >
-  {};
-} }
 
 #endif

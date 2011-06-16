@@ -14,18 +14,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/hierarchy.hpp>
 
-namespace nt2
+namespace nt2{ namespace meta
 {
-  namespace tag { template<class T> struct padding_ {}; }
-
-  namespace meta
+  template<class T> struct padding_ : unspecified_<T>
   {
-    template<class T> struct padding_ : unspecified_<T>
-    {
-      typedef unspecified_<T>   parent;
-      typedef tag::padding_<T>  type;
-    };
-  }
-}
+    typedef unspecified_<T>   parent;
+    typedef T                 origin;
+  };
+} }
 
 #endif

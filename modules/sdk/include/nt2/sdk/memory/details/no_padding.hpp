@@ -26,11 +26,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct  call< tag::slice_ ( tag::fusion_sequence_
-                            , tag::padding_<memory::no_padding>
-                            , tag::mpl_integral_<tag::integer_>
-                            )
+  template<class A0, class A2, class Dummy>
+  struct  call< tag::slice_
+                ( meta::fusion_sequence_<A0>
+                , meta::padding_<memory::no_padding>
+                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
+                )
               , tag::cpu_, Dummy  >
         : callable
   {
@@ -47,37 +48,34 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    template<class Sig> struct result;
+    typedef typename meta::strip<A0>::type  arg0;
+    typedef memory::no_padding              arg1;
+    typedef typename meta::strip<A2>::type  arg2;
 
-    template<class This,class A0, class A1, class A2>
-    struct  result<This(A0,A1,A2)>
+    typedef boost::fusion::result_of::at_c<arg0 const,arg2::value-1>  true_case;
+
+    static arg0 const& s; static arg1 const&  p;
+
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( false_case
+    ,   slice<arg2::value+1>(s,p)
+      * boost::fusion::at_c<arg2::value-1>(s)
+    );
+
+    typedef typename boost::mpl::eval_if< same_size<arg0,arg2>
+                                        , true_case
+                                        , false_case
+                                        >::type                   result_type;
+
+    inline result_type
+    operator()( A0 const& a0, memory::no_padding const&, A2 const& ) const
     {
-      typedef typename meta::strip<A0>::type arg0;
-      typedef typename meta::strip<A1>::type arg1;
-      typedef typename meta::strip<A2>::type arg2;
-
-      typedef boost::fusion::result_of::at_c<arg0 const,arg2::value-1>  true_case;
-
-      static arg0 const& s; static arg1 const&  p;
-
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( false_case
-      ,   slice<arg2::value+1>(s,p)
-        * boost::fusion::at_c<arg2::value-1>(s)
-      );
-
-      typedef typename boost::mpl::eval_if< same_size<arg0,arg2>
-                                          , true_case
-                                          , false_case
-                                          >::type type;
-    };
-
+      return eval(a0, typename same_size<A0,A2>::type() );
+    }
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when size<A0> == A2
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0, class A1, class A2> inline
-    typename boost::lazy_enable_if< same_size<A0,A2>, NT2_RETURN_TYPE(3)>::type
-    operator()( A0 const& a0, A1 const&, A2 const& ) const
+    inline result_type eval( A0 const& a0, boost::mpl::true_ const& ) const
     {
       return boost::fusion::at_c<A2::value-1>(a0);
     }
@@ -85,11 +83,9 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when size<A0> != A2
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0, class A1, class A2> inline
-    typename boost::lazy_disable_if< same_size<A0,A2>, NT2_RETURN_TYPE(3)>::type
-    operator()( A0 const& a0, A1 const& a1, A2 const& ) const
+    inline result_type eval( A0 const& a0, boost::mpl::false_ const& ) const
     {
-      return   slice<A2::value+1>(a0,a1)
+      return   slice<A2::value+1> (a0, memory::no_padding() )
              * boost::fusion::at_c<A2::value-1>(a0);
     }
   };
@@ -100,27 +96,23 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct  call< tag::stride_( tag::fusion_sequence_
-                            , tag::padding_<memory::no_padding>
-                            , tag::mpl_integral_<tag::integer_>
-                            )
+  template<class A0, class A1, class A2, class Dummy>
+  struct  call< tag::stride_
+                ( meta::fusion_sequence_<A0>
+                , meta::padding_<A1>
+                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
+                )
               , tag::cpu_, Dummy  >
         : callable
   {
-    template<class Sig> struct result;
+    typedef typename  boost::fusion::result_of::
+                      at_c< typename meta::strip<A0>::type const
+                          , meta::strip<A2>::type::value-1
+                          >::type                                 result_type;
 
-    template<class This,class A0, class A1, class A2>
-    struct  result<This(A0,A1,A2)>
-          : boost::fusion::result_of::at_c< typename meta::strip<A0>::type const
-                                          , meta::strip<A2>::type::value-1
-                                          >
-    {};
-
-    NT2_FUNCTOR_CALL(3)
+    inline result_type
+    operator()( A0 const& a0, A1 const&, A2 const& ) const
     {
-      ignore_unused(a1);
-      ignore_unused(a2);
       return boost::fusion::at_c<A2::value-1>(a0);
     }
   };
