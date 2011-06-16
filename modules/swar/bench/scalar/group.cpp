@@ -28,32 +28,32 @@ using nt2::tag::group_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n2 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n3 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n4 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n5 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n6 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }

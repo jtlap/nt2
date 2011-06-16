@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( put_first_real__2,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(put_first(nt2::One<T>(),0), nt2::One<r_t>());
   NT2_TEST_EQUAL(put_first(nt2::Zero<T>(),0), nt2::Zero<r_t>());
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
     NT2_CREATE_BUF(tab_a1,iT, NR, T(-100), T(100));

@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  (int32_t)(uint32_t)(int64_t)(uint64_t)(flo
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
