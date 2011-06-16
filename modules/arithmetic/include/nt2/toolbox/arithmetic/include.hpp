@@ -9,12 +9,13 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
-#include <nt2/toolbox/operator.hpp>
-#include <nt2/toolbox/constant/include/true_false.hpp>
 
 #define NT2_ARITHMETIC_BASE() nt2/toolbox/arithmetic/function/scalar/
 #define NT2_ARITHMETIC_RELATIVE() nt2/toolbox/arithmetic/function/
 
 #define NT2_ARITHMETIC_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_ARITHMETIC_RELATIVE, F)
+
+#include <nt2/toolbox/operator.hpp>
+#include <nt2/toolbox/constant/include/true_false.hpp>
 
 #endif

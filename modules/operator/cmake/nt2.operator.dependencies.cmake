@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_OPERATOR_DEPENDENCIES_EXTRA constant)
+SET(NT2_OPERATOR_DEPENDENCIES_EXTRA constant bitwise)
