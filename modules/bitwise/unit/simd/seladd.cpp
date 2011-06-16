@@ -13,8 +13,6 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/seladd.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -26,6 +24,8 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/bitwise/include/seladd.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 
 
 NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_REAL_TYPES)

@@ -38,32 +38,32 @@ namespace n2 {
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n3 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n4 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n5 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n6 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n7 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n8 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
