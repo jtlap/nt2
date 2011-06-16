@@ -9,28 +9,24 @@
 #ifndef NT2_SDK_META_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_META_HIERARCHY_HPP_INCLUDED
 
-// Hierarchy of built-in types
-// See: http://nt2.metascale.org/sdk/meta/tags.html
-
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_signed.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/sdk/meta/details/hierarchy.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 #define NT2_HIERARCHY_CLASS(Name, Parent)     \
 struct Name : Parent                          \
 {                                             \
-  typedef Parent  parent;     \
-  typedef Name    origin;     \
+  typedef Parent  parent;                     \
+  typedef Name    origin;                     \
 }                                             \
 /**/
 
 #define NT2_HIERARCHY_CLASS_TPL(Name, Parent) \
 template<class T> struct Name : Parent        \
 {                                             \
-  typedef Parent  parent;                   \
-  typedef Name    origin;                   \
+  typedef Parent  parent;                     \
+  typedef Name    origin;                     \
 }                                             \
 /**/
 
