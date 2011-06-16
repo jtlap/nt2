@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( gsl_sf_fermi_dirac_inc_0_real__2_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
