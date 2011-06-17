@@ -19,6 +19,8 @@ SET(SOURCES
     behave_as.cpp
     downgrade.cpp
     enable_if_type.cpp
+    factory_of.cpp
+    floating.cpp
     from_bits.cpp
     has_key.cpp
     is_fundamental.cpp
