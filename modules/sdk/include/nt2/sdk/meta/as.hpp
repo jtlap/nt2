@@ -57,7 +57,6 @@ namespace nt2 { namespace meta
     // Required for Hierarchizable
     //==========================================================================
     typedef target_<typename hierarchy_of<T>::type >  nt2_hierarchy_tag;
-
     typedef T                                         type;
   };
 
