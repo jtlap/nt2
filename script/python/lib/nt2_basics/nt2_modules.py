@@ -67,7 +67,7 @@ class Nt2_modules(Nt2_base_infos) :##(Nt2_base_infos,Nt2_tb_struct) :
                 if (styles is None) or (self.get_module_style(name) in styles) :
                     h = name
                     l.append(h)
-        l.remove("models")        
+        if "models" in l : l.remove("models")        
         return l
 
 
