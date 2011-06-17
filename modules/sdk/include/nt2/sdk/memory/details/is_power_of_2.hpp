@@ -16,46 +16,30 @@
 //==============================================================================
 // is_power_of_2 on integers
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_power_of_2_, tag::cpu_
-                      , (A0), (scalar_< integer_<A0> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::is_power_of_2_(meta::scalar_< meta::integer_<A0> >)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
+                            , (A0), (scalar_< integer_<A0> >)
+                            )
   {
     typedef bool result_type;
-    result_type operator()(A0 const& a0) const
-    {
-      return (!(a0 & (a0 - 1)) && a0);
-    }
+    NT2_FUNCTOR_CALL(1) { return (!(a0 & (a0 - 1)) && a0); }
   };
-
 } }
 
 //==============================================================================
 // is_power_of_2 on mpl integral
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_power_of_2_, tag::cpu_
-                      , (A0), (mpl_integral_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::is_power_of_2_(meta::mpl_integral_<A0>)
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
+                            , (A0), (mpl_integral_<A0>)
+                            )
   {
     typedef bool result_type;
-    result_type operator()(A0 const&) const
+    NT2_FUNCTOR_CALL(1)
     {
+      ignore_unused(a0);
       return meta::is_power_of_2<A0>::value;
     }
   };

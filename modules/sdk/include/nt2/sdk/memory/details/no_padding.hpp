@@ -24,16 +24,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for no_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
   template<class A0, class A2, class Dummy>
-  struct  call< tag::slice_
-                ( meta::fusion_sequence_<A0>
-                , meta::padding_<memory::no_padding>
-                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
-                )
-              , tag::cpu_, Dummy  >
-        : callable
+  struct implement< tag::slice_
+                  ( fusion_sequence_<A0>, padding_<memory::no_padding>
+                  , mpl_integral_<scalar_<integer_<A2> > >
+                  )
+                , tag::cpu_, Dummy
+                >
   {
     ////////////////////////////////////////////////////////////////////////////
     // Small internal to see if the index is the same as the sequence size
@@ -48,9 +47,9 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::strip<A0>::type  arg0;
-    typedef memory::no_padding              arg1;
-    typedef typename meta::strip<A2>::type  arg2;
+    typedef typename strip<A0>::type  arg0;
+    typedef memory::no_padding        arg1;
+    typedef typename strip<A2>::type  arg2;
 
     typedef boost::fusion::result_of::at_c<arg0 const,arg2::value-1>  true_case;
 
@@ -89,25 +88,21 @@ namespace nt2 { namespace ext
              * boost::fusion::at_c<A2::value-1>(a0);
     }
   };
-} }
 
-////////////////////////////////////////////////////////////////////////////////
-// stride Functor implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
+  //////////////////////////////////////////////////////////////////////////////
+  // stride Functor implementation
+  //////////////////////////////////////////////////////////////////////////////
   template<class A0, class A1, class A2, class Dummy>
-  struct  call< tag::stride_
-                ( meta::fusion_sequence_<A0>
-                , meta::padding_<A1>
-                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
-                )
-              , tag::cpu_, Dummy  >
-        : callable
+  struct implement< tag::stride_
+                    ( fusion_sequence_<A0> , padding_<A1>
+                    , mpl_integral_<scalar_<integer_<A2> > >
+                    )
+                  , tag::cpu_, Dummy
+                  >
   {
     typedef typename  boost::fusion::result_of::
-                      at_c< typename meta::strip<A0>::type const
-                          , meta::strip<A2>::type::value-1
+                      at_c< typename strip<A0>::type const
+                          , strip<A2>::type::value-1
                           >::type                                 result_type;
 
     inline result_type

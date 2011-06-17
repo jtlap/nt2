@@ -20,24 +20,23 @@
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
   template<class A0, class A2, class Dummy>
-  struct  call< tag::slice_
-                ( meta::fusion_sequence_<A0>
-                , meta::padding_<memory::lead_padding>
-                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
-                )
-              , tag::cpu_, Dummy  >
-        : callable
+  struct implement< tag::slice_
+                    ( fusion_sequence_<A0>, padding_<memory::lead_padding>
+                    , mpl_integral_<scalar_<integer_<A2> > >
+                    )
+                  , tag::cpu_, Dummy
+                  >
   {
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::strip<A2>::type        arg0;
-    typedef typename meta::strip<A2>::type        arg2;
+    typedef typename strip<A2>::type        arg0;
+    typedef typename strip<A2>::type        arg2;
     typedef boost::fusion::result_of::size<arg0>  size_;
-    static  typename meta::strip<A0>::type const& s;
+    static  typename strip<A0>::type const& s;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case
@@ -77,33 +76,28 @@ namespace nt2 { namespace ext
       return slice<A2::value>(a0,memory::no_padding());
     }
   };
-} }
 
-////////////////////////////////////////////////////////////////////////////////
-// stride Functor implementation - Do nothing except on inner dimension
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
+  //////////////////////////////////////////////////////////////////////////////
+  // stride Functor implementation - Do nothing except on inner dimension
+  //////////////////////////////////////////////////////////////////////////////
   template<class A0, class A2, class Dummy>
-  struct  call< tag::stride_
-                ( meta::fusion_sequence_<A0>
-                , meta::padding_<memory::lead_padding>
-                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
-                )
-              , tag::cpu_, Dummy  >
-        : callable
+  struct implement< tag::stride_
+                    ( fusion_sequence_<A0>, padding_<memory::lead_padding>
+                    , mpl_integral_< scalar_< integer_<A2> > >
+                    )
+                  , tag::cpu_, Dummy
+                  >
+
   {
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::strip<A2>::type        arg0;
-    typedef typename meta::strip<A2>::type        arg2;
-    static  typename meta::strip<A0>::type const& s;
+    typedef typename strip<A2>::type        arg0;
+    typedef typename strip<A2>::type        arg2;
+    static  typename strip<A0>::type const& s;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-    ( true_case
-    , memory::align_on( boost::fusion::at_c<0>(s) )
-    );
+    ( true_case , memory::align_on( boost::fusion::at_c<0>(s) ) );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( false_case, boost::fusion::at_c<arg2::value-1>(s) );

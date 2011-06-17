@@ -18,23 +18,16 @@
 //==============================================================================
 // Check alignment of integer on integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0)(A1)
-                      , (scalar_< integer_<A0> >)
-                        (scalar_< integer_<A1> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::is_aligned_( meta::scalar_< meta::integer_<A0> >
-                                , meta::scalar_< meta::integer_<A1> >
-                                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)
+                              (scalar_< integer_<A1> >)
+                            )
   {
     typedef bool result_type;
+
     NT2_FUNCTOR_CALL(2) { return !(a0 & (a1-1) ); }
   };
 } }
@@ -42,26 +35,19 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Check alignment of integer on mpl integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0)(A1)
-                      , (scalar_< integer_<A0> >)
-                        (mpl_integral_< scalar_< integer_<A1> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::is_aligned_
-                ( meta::scalar_< meta::integer_<A0> >
-                , meta::mpl_integral_< meta::scalar_< meta::integer_<A1> > >
-                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)
+                              (mpl_integral_< scalar_< integer_<A1> > >)
+                            )
   {
     typedef bool result_type;
-    inline result_type operator()(A0 const& a0, A1 const&) const
+
+    NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       return !(a0 & (A1::value-1) );
     }
   };
@@ -70,18 +56,12 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Check alignment of integer on default alignment
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0)
-                      , (scalar_< integer_<A0> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::is_aligned_( meta::scalar_< meta::integer_<A0> >)
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
   {
     typedef bool result_type;
 
@@ -95,26 +75,18 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Check alignment of mpl integer on mpl integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0)(A1)
-                      , (mpl_integral_< scalar_< integer_<A0> > >)
-                        (mpl_integral_< scalar_< integer_<A1> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::is_aligned_
-                ( meta::mpl_integral_< meta::scalar_< meta::integer_<A0> > >
-                , meta::mpl_integral_< meta::scalar_< meta::integer_<A1> > >
-                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+                            , (A0)(A1)
+                            , (mpl_integral_< scalar_< integer_<A0> > >)
+                              (mpl_integral_< scalar_< integer_<A1> > >)
+                            )
   {
     typedef bool result_type;
-    inline result_type operator()(A0 const&, A1 const&) const
+    NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused((a0,a1));
       return meta::is_aligned<A0,A1>::value;
     }
   };
@@ -123,18 +95,12 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Check alignment of mpl integer on default alignment
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0), (mpl_integral_< scalar_< integer_<A0> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::is_aligned_
-                ( meta::mpl_integral_< meta::scalar_< meta::integer_<A0> > >  )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+                            , (A0)
+                            , (mpl_integral_< scalar_< integer_<A0> > >)
+                            )
   {
     typedef bool result_type;
 
@@ -148,21 +114,13 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Check alignment of iterator on integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_, tag::cpu_
-                      , (A0)(A1)
-                      , (iterator_<unspecified_<A0> >)
-                        (scalar_< integer_<A1> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::is_aligned_( meta::iterator_<meta::unspecified_<A0> >
-                                , meta::scalar_< meta::integer_<A1> >
-                                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+                            , (A0)(A1)
+                            , (iterator_<unspecified_<A0> >)
+                              (scalar_< integer_<A1> >)
+                            )
   {
     typedef bool result_type;
 
@@ -176,17 +134,12 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Check alignment of iterator on default alignment
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::is_aligned_,tag::cpu_
-                      , (A0), (iterator_<unspecified_<A0> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::is_aligned_(meta::iterator_<meta::unspecified_<A0> >)
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_aligned_,tag::cpu_
+                            , (A0)
+                            , (iterator_<unspecified_<A0> >)
+                            )
   {
     typedef bool result_type;
 

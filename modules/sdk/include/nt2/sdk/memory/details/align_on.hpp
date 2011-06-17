@@ -18,24 +18,16 @@
 //==============================================================================
 // Align integer on integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0)(A1)
-                      , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::align_on_( meta::scalar_< meta::integer_<A0> >
-                              , meta::scalar_< meta::integer_<A1> >
-                              )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            )
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    NT2_FUNCTOR_CALL(2)
     {
       return (a0+a1-1) & ~(a1-1);
     }
@@ -45,27 +37,19 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Align integer on mpl integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0)(A1)
-                      , (scalar_< integer_<A0> >)
-                        (mpl_integral_< scalar_< integer_<A1> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::align_on_
-                ( meta::scalar_< meta::integer_<A0> >
-                , meta::mpl_integral_< meta::scalar_< meta::integer_<A1> > >
-                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)
+                              (mpl_integral_< scalar_< integer_<A1> > >)
+                            )
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    result_type operator()(A0 const& a0, A1 const& ) const
+    NT2_FUNCTOR_CALL(2)
     {
+      ignore_unused(a1);
       return (a0+A1::value-1) & ~(A1::value-1);
     }
   };
@@ -74,21 +58,15 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Align integer on default alignment
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0), (scalar_< integer_<A0> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::align_on_( meta::scalar_< meta::integer_<A0> > )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0), (scalar_< integer_<A0> >)
+                            )
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    result_type operator()(A0 const& a0 ) const
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::memory::align_on<NT2_CONFIG_ALIGNMENT>(a0);
     }
@@ -98,22 +76,13 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Align mpl integer on mpl integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0)(A1)
-                      , (mpl_integral_< scalar_< integer_<A0> > >)
-                        (mpl_integral_< scalar_< integer_<A1> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::align_on_
-                ( meta::mpl_integral_<meta::scalar_< meta::integer_<A0> > >
-                , meta::mpl_integral_<meta::scalar_< meta::integer_<A1> > >
-                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0)(A1)
+                            , (mpl_integral_< scalar_< integer_<A0> > >)
+                              (mpl_integral_< scalar_< integer_<A1> > >)
+                            )
   {
     typedef typename meta::align_on < typename meta::strip<A0>::type
                                     , typename meta::strip<A1>::type
@@ -126,18 +95,11 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Align mpl integer on default alignment
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0), (mpl_integral_<scalar_< integer_<A0> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::align_on_
-                (meta::mpl_integral_<meta::scalar_< meta::integer_<A0> > >)
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0), (mpl_integral_<scalar_< integer_<A0> > >)
+                            )
   {
     typedef typename meta::align_on < typename meta::strip<A0>::type
                                     , boost::mpl::int_<NT2_CONFIG_ALIGNMENT>
@@ -150,26 +112,17 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Align iterator on integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0)(A1)
-                      , (iterator_< generic_< fundamental_<A0> > >)
-                        (scalar_< integer_<A1> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::align_on_
-                ( meta::iterator_< meta::generic_< meta::fundamental_<A0> > >
-                , meta::scalar_< meta::integer_<A1> >
-                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0)(A1)
+                            , (iterator_< generic_< fundamental_<A0> > >)
+                              (scalar_< integer_<A1> >)
+                            )
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    NT2_FUNCTOR_CALL(2)
     {
       std::size_t ptr = reinterpret_cast<std::size_t>(a0);
       return reinterpret_cast<result_type>(nt2::memory::align_on(ptr,a1));
@@ -180,26 +133,17 @@ namespace nt2 { namespace ext
 //==============================================================================
 // Align iterator on mpl integer
 //==============================================================================
-NT2_REGISTER_DISPATCH ( tag::align_on_, tag::cpu_
-                      , (A0)(A1)
-                      , (iterator_< generic_< fundamental_<A0> > >)
-                        (mpl_integral_<scalar_< integer_<A1> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class A1, class Dummy>
-  struct  call< tag::align_on_
-                ( meta::iterator_< meta::generic_< meta::fundamental_<A0> > >
-                , meta::mpl_integral_<meta::scalar_< meta::integer_<A1> > >
-                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_, tag::cpu_
+                            , (A0)(A1)
+                            , (iterator_< generic_< fundamental_<A0> > >)
+                              (mpl_integral_<scalar_< integer_<A1> > >)
+                            )
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    NT2_FUNCTOR_CALL(2)
     {
       std::size_t ptr = reinterpret_cast<std::size_t>(a0);
       return reinterpret_cast<result_type>(nt2::memory::align_on(ptr,a1));
@@ -210,22 +154,15 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Align iterator on default alignment
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::align_on_,tag::cpu_
-                      , (A0), (iterator_< generic_< fundamental_<A0> > >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class A0, class Dummy>
-  struct  call< tag::align_on_
-                (meta::iterator_< meta::generic_< meta::fundamental_<A0> > >)
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::align_on_,tag::cpu_
+                            , (A0), (iterator_< generic_< fundamental_<A0> > >)
+                            )
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    result_type operator()(A0 const& a0) const
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::memory::align_on<NT2_CONFIG_ALIGNMENT>(a0);
     }

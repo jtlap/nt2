@@ -23,22 +23,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for global_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
   template<class A0, class A2, class Dummy>
-  struct  call< tag::slice_
-                ( meta::fusion_sequence_<A0>
-                , meta::padding_<memory::global_padding>
-                , meta::mpl_integral_<meta::scalar_<meta::integer_<A2> > >
-                )
-              , tag::cpu_, Dummy  >
-        : callable
+  struct implement< tag::slice_
+                    ( fusion_sequence_<A0>, padding_<memory::global_padding>
+                    , mpl_integral_<scalar_<integer_<A2> > >
+                    )
+                  , tag::cpu_, Dummy
+                  >
   {
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    static  typename meta::strip<A0>::type const& s;
-    typedef typename meta::strip<A2>::type        arg2;
+    static  typename strip<A0>::type const& s;
+    typedef typename strip<A2>::type        arg2;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );
@@ -50,7 +49,6 @@ namespace nt2 { namespace ext
                                           , true_case
                                           , false_case
                                           >::type             result_type;
-
 
     inline result_type
     operator()(A0 const& a0, memory::global_padding const&, A2 const& ) const
@@ -75,6 +73,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
