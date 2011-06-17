@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines the nt2::meta::behave_as \metafunction
+ * \brief Defines the \ref nt2::meta::behave_as \metafunction
  */
 
 #include <boost/mpl/apply.hpp>
