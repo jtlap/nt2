@@ -32,7 +32,7 @@ import re
 class Random_tuple_test_gen(Base_gen) :
     Random_test_body = [
         "  // random comparison with other impl or formula for tuples",
-        "  static const uint32_t NR = $nb_rand$;",
+        "  static const nt2::uint32_t NR = $nb_rand$;",
         "  {",
         "    $buffers_creation$ ",
         "    for (int j =0; j < NR; ++j )",

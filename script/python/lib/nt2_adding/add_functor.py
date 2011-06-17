@@ -262,8 +262,8 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         if True :
             call =  "  NT2_TIMING(nt2::tag::%s_,%s)" % (name,"%s")
             variety = { 'real_'         : ["float","double"],
-                        'signed_int_'   : ["int8_t","int16_t","int32_t","int64_t"],
-                        'unsigned_int_' : ["uint8_t","uint16_t","uint32_t","uint64_t"],
+                        'signed_int_'   : ["nt2::uint8_t","nt2::uint16_t","nt2::uint32_t","nt2::uint64_t"],
+                        'unsigned_int_' : ["nt2::uint8_t","nt2::uint16_t","nt2::uint32_t","nt2::uint64_t"],
                         'float'         : ["float"],
                         'double'        : ["double"],
                         'float_'         : ["float"],
