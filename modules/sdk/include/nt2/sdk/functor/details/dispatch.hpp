@@ -50,12 +50,12 @@
 #define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
 NT2_FORCE_INLINE                                                                \
-nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
+nt2::meta::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
-  nt2::ext::call< Tag(tag::unknown_),Site                                       \
+  nt2::meta::implement< Tag(tag::unknown_),Site                                       \
                 , tag::error_with(BOOST_PP_ENUM(n,M2,~))                        \
                 > that;                                                         \
   return that;                                                                  \
@@ -79,6 +79,7 @@ namespace nt2 { namespace meta
 
 #undef M0
 #undef M1
+#undef M2
 #undef NT2_DEFAULT_UNKNOWN_DISPATCH
 
 //==============================================================================
