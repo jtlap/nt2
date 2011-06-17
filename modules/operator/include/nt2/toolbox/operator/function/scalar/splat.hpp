@@ -16,29 +16,17 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
-NT2_REGISTER_DISPATCH ( tag::splat_
-                      , tag::cpu_
-                      , (A0)(A1)
-                      , (fundamental_<A0>)(target_< fundamental_<A1> >)
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::splat_(tag::fundamental_,tag::target_<tag::fundamental_>)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_ , tag::cpu_ , (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              (target_< scalar_< fundamental_<A1> > >)
+                            )
   {
-    template<class Sig> struct result;
-
-    template<class This,class A0, class Target>
-    struct result<This(A0,Target)> : meta::strip<Target>::type {};
+    typedef typename strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
       ignore_unused(a1); 
       result_type that = static_cast<result_type>(a0);
       return that;

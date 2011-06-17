@@ -17,31 +17,17 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_
+// Register dispatch over store_
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::store_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)
-                      , (fundamental_<A0>)
-                        (iterator_< fundamental_<A1> >)
-                        (integer_<A2>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::store_ ( tag::fundamental_
-                            , tag::iterator_<tag::fundamental_>
-                            , tag::integer_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
+                            , (scalar_< fundamental_<A0> >)
+                              (iterator_< scalar_< fundamental_<A1> > >)
+                              (scalar_< integer_<A2> >)
                             )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
+    typedef typename strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
