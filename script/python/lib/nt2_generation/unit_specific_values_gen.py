@@ -128,7 +128,7 @@ class Specific_values_test_gen(Base_gen) :
             r.append(s)
         return r    
 
-    def __create_tuple_values_test(self,dl,typ,no_ulp) :
+    def __create_tuple_values_test(self,dl,typ,no_ulp,r) :
         d = extract(dl,"","",'unit',"specific_values")
         if no_ulp :
             Call = "    NT2_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
