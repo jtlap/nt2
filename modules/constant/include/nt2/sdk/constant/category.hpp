@@ -19,18 +19,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // constant_ wraps a constant type into a EDSL element and has its own hierarchy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2
+namespace nt2 { namespace meta
 {
-  namespace tag { template<class ID> struct constant_ { typedef ID type; }; }
-  namespace meta
+  template<class T> struct constant_ : unspecified_<T>
   {
-    template<class T> struct constant_ : unspecified_<T>
-    {
-      typedef unspecified_<T>   parent;
-      typedef tag::constant_<T> type;
-    };
-  }
-}
+    typedef unspecified_<T> parent;
+    typedef T               origin;
+  };
+} }
 
 namespace nt2
 {
