@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -32,7 +32,7 @@ namespace nt2  { namespace meta
    * For a list of types \c T0,...,Tn, ref arithmetic computes the type able to
    * store a value of type \c decltype(declval<T0>() + ... + declval<Tn>()).
    *
-   * \par Semantic:
+   * \semantic
    *
    * For types \c T0,...,Tn,
    *

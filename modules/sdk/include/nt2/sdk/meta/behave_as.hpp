@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -31,7 +31,7 @@ namespace nt2 { namespace meta
    * \tparam Lambda \metalambda to apply.
    * \tparam Hierarchizable Type to introspect.
    *
-   * \par Semantic:
+   * \semantic
    *
    * For any Hierarchizable type \c T and any Lambda \c L:
    *
@@ -47,7 +47,7 @@ namespace nt2 { namespace meta
    *                >::type     r;
    * \endcode
    *
-   * For any other types, the \c NT2_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
+   * For any other types, a \c NT2_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
    * static assertion is raised.
    *
    * \usage

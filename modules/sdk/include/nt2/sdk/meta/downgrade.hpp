@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -38,7 +38,7 @@ namespace nt2 { namespace meta
    *
    * \metafunction
    *
-   * \par Semantic:
+   * \semantic
    *
    * \code
    * typedef nt2::meta::downgrade<T, Sign>::type r;
@@ -83,7 +83,7 @@ namespace nt2 { namespace meta
   {
     NT2_STATIC_ASSERT
     ( ( is_fundamental
-        < typename meta::primitive_of<typename meta::strip<T>::type>::type
+        < typename meta::primitive_of<typename meta::strip<Type>::type>::type
         >::value
       )
     , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_DOWNGRADE
