@@ -15,7 +15,7 @@
 
 #define NT2_SWAR_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_SWAR_RELATIVE, F)
 
-#include <nt2/toolbox/operator.hpp>
+
 #include <nt2/toolbox/constant/include/true_false.hpp>
 
 #endif

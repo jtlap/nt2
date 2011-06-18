@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::splatted_maximum_, splatted_maximum, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/swar/function/scalar/splatted_maximum.hpp>
 #include <nt2/toolbox/swar/function/simd/all/splatted_maximum.hpp> 
 

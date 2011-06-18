@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sqrt_, sqrt, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/sqrt.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/sqrt.hpp> 
 

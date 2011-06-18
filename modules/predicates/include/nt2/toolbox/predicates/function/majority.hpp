@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::majority_, majority, 3)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/majority.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/majority.hpp> 
 

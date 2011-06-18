@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/toint.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/toint.hpp> 
 

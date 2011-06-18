@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/trunc.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/trunc.hpp> 
 

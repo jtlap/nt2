@@ -39,6 +39,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION_TPL(saturate, 1)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/saturate.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/saturate.hpp> 
 

@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/reduction/function/scalar/maximum.hpp>
 #include <nt2/toolbox/reduction/function/simd/all/maximum.hpp> 
 

@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::bits_, bits, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/bits.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/bits.hpp> 
 

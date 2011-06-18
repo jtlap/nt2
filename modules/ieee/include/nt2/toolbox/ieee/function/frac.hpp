@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::frac_, frac, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/frac.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/frac.hpp> 
 

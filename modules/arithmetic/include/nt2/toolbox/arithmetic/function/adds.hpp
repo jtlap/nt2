@@ -21,6 +21,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::adds_, saturated_add, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/adds.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/adds.hpp> 
 

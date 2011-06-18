@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/swar/function/scalar/group.hpp>
 #include <nt2/toolbox/swar/function/simd/all/group.hpp> 
 

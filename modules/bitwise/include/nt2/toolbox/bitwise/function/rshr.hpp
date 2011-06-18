@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::rshr_, rshr, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/rshr.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/rshr.hpp> 
 

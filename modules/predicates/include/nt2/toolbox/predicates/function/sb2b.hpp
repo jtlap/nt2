@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sb2b_, sb2b, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/sb2b.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/sb2b.hpp> 
 

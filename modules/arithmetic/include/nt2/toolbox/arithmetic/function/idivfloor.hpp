@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::idivfloor_, idivfloor, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/idivfloor.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/idivfloor.hpp> 
 

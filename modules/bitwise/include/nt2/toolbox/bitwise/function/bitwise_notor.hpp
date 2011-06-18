@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_notor_, b_notor, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_notor.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/bitwise_notor.hpp> 
 

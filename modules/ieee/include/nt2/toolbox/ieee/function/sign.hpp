@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sign_, sign, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/sign.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/sign.hpp> 
 

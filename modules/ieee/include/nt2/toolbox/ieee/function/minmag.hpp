@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::minmag_, minmag, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/minmag.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/minmag.hpp> 
 

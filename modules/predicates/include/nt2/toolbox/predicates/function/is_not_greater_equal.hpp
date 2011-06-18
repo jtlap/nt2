@@ -22,6 +22,7 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::is_not_greater_equal_, is_nge, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/is_not_greater_equal.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/is_not_greater_equal.hpp> 
 

@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_frexp_, fast_frexp, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/fast_frexp.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/fast_frexp.hpp> 
 

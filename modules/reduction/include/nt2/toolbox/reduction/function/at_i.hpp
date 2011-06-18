@@ -21,6 +21,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::at_i_, at, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/reduction/function/scalar/at_i.hpp>
 #include <nt2/toolbox/reduction/function/simd/all/at_i.hpp> 
 

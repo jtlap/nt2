@@ -21,6 +21,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::subs_, satrated_sub, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/subs.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/subs.hpp> 
 

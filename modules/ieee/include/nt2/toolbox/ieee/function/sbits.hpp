@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sbits_, sbits, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/sbits.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/sbits.hpp> 
 
