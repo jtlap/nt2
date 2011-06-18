@@ -123,9 +123,9 @@ scripts from the ``CMakeList.txt`` file. To do so, you can:
 
   .. code-block:: bash
 
-    cmake -G "Unix Makefile"
+    cmake -G "Unix Makefiles"
 
-  Additionnal informations about generator are `available on the KitWare wiki <http://www.cmake.org/Wiki/CMake_Generator_Specific_Information>`_
+  Additional informations about generator are `available on the KitWare wiki <http://www.cmake.org/Wiki/CMake_Generator_Specific_Information>`_
 
 * Use the CMake GUI Wizard of your system to configure and generate the build system.
   For Windows users, this is usually easier than to play with the command line ``cmake``.
