@@ -21,6 +21,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::abss_, sturated_abs, 1)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/abss.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/abss.hpp> 
 

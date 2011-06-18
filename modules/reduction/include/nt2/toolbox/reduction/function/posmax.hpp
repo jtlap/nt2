@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::posmax_, posmax, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/reduction/function/scalar/posmax.hpp>
 #include <nt2/toolbox/reduction/function/simd/all/posmax.hpp> 
 

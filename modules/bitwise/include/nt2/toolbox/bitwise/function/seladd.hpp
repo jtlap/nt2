@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::seladd_, seladd, 3)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/seladd.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/seladd.hpp> 
 

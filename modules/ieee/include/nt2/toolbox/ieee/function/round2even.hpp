@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::round2even_, round2even, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/round2even.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/round2even.hpp> 
 

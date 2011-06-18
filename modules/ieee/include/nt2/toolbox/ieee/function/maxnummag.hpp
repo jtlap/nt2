@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::maxnummag_, maxnummag, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/maxnummag.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/maxnummag.hpp> 
 

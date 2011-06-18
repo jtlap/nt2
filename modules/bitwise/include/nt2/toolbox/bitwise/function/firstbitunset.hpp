@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::firstbitunset_, firstbitunset, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/firstbitunset.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/firstbitunset.hpp> 
 

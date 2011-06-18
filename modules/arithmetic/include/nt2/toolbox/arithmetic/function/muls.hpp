@@ -20,6 +20,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::muls_, muls, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/muls.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/muls.hpp> 
 

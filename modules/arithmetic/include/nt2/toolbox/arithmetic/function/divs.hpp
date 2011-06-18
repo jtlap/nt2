@@ -21,6 +21,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::divs_, saturated_div, 2) 
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/divs.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/divs.hpp> 
 

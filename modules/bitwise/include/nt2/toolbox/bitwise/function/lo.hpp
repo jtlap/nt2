@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::lo_, lo, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/lo.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/lo.hpp> 
 

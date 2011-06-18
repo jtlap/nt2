@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::bitfloating_, bitfloating, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/bitfloating.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/bitfloating.hpp> 
 

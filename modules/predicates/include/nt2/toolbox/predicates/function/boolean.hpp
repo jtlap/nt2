@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::boolean_, boolean, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/boolean.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/boolean.hpp> 
 

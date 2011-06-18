@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/reduction/function/scalar/sum.hpp>
 #include <nt2/toolbox/reduction/function/simd/all/sum.hpp> 
 #include <nt2/toolbox/reduction/function/simd/pack/sum.hpp>

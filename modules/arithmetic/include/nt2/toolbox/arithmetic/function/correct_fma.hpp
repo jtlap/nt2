@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::correct_fma_, correct_fma, 3)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/correct_fma.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/correct_fma.hpp> 
 

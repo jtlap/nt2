@@ -20,6 +20,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_toint_, fast_toint, 1)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/fast_toint.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/fast_toint.hpp> 
 

@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::reversebits_, reversebits, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/reversebits.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/reversebits.hpp> 
 

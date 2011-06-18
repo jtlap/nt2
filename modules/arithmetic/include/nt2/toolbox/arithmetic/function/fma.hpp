@@ -33,6 +33,7 @@ namespace nt2 { namespace tag
   
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/fma.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/fma.hpp> 
 

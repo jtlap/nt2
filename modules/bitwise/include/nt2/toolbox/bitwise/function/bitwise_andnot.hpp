@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/bitwise_andnot.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/bitwise_andnot.hpp> 
 

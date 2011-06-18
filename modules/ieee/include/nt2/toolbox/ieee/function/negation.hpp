@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::negation_, negation, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/negation.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/negation.hpp> 
 

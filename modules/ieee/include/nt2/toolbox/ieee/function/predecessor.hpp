@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::predecessor_, predecessor, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/predecessor.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/predecessor.hpp> 
 

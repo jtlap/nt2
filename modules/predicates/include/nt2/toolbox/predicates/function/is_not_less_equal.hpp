@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::is_not_less_equal_, is_nle, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/is_not_less_equal.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/is_not_less_equal.hpp> 
 
