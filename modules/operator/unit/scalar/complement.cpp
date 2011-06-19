@@ -1,72 +1,74 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::unary_plus"
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#define NT2_UNIT_MODULE "nt2 operator toolbox - complement/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/include/functions/complement.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// unit test behavior of operator components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 18/02/2011
+/// 
+#include <nt2/toolbox/operator/include/complement.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/shli.hpp>
+
 #include <boost/type_traits/is_same.hpp>
-
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test behavior for complement
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( complement, NT2_INTEGRAL_TYPES )
+
+NT2_TEST_CASE_TPL ( complement_real__1_0,  NT2_REAL_TYPES)
 {
-  using boost::is_same;
+  
+  using nt2::complement;
   using nt2::tag::complement_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<complement_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<complement_(T)>::type
-                            , T
-                            >::value
-            )
-          );
 
-  T value  = 0;
-  NT2_TEST_EQUAL( nt2::complement(value) , T(~value) );
-  NT2_TEST_EQUAL( nt2::bitwise_not(value), T(~value) );
-  NT2_TEST_EQUAL( nt2::b_not(value), T(~value) );
-}
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
 
-NT2_TEST_CASE ( complement_float )
+
+  // specific values tests
+  NT2_TEST_EQUAL(complement(nt2::Nan<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(complement(nt2::Zero<T>()), nt2::Nan<r_t>());
+} // end of test for real_
+
+NT2_TEST_CASE_TPL ( complement_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
-  using boost::is_same;
+  
+  using nt2::complement;
   using nt2::tag::complement_;
-
-  NT2_TEST( (boost::is_same < nt2::meta::call<complement_(float)>::type
-                            , float
-                            >::value
-            )
-          );
-
-  NT2_TEST_EQUAL( nt2::complement(1.f) , -3.9999998f );
-  NT2_TEST_EQUAL( nt2::bitwise_not(1.f), -3.9999998f );
-  NT2_TEST_EQUAL( nt2::b_not(1.f)      , -3.9999998f );
-}
-
-NT2_TEST_CASE ( complement_double )
-{
-  using boost::is_same;
-  using nt2::tag::complement_;
-
-  NT2_TEST( (boost::is_same < nt2::meta::call<complement_(double)>::type
-                            , double
-                            >::value
-            )
-          );
-
-  NT2_TEST_EQUAL( nt2::complement(1.) , -3.9999999999999996 );
-  NT2_TEST_EQUAL( nt2::bitwise_not(1.), -3.9999999999999996 );
-  NT2_TEST_EQUAL( nt2::b_not(1.)      , -3.9999999999999996 );
-}
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<complement_(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
 
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
 
+
+  // specific values tests
+  NT2_TEST_EQUAL(complement(nt2::One<T>()), nt2::shli(nt2::Mone<r_t>(),1));
+  NT2_TEST_EQUAL(complement(nt2::Three<T>()), nt2::shli(nt2::Mone<r_t>(),2));
+  NT2_TEST_EQUAL(complement(nt2::Zero<T>()), nt2::Mone<r_t>());
+} // end of test for integer_

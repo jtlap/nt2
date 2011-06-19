@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - multiplies/simd Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - compare_greater_equal/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/multiplies.hpp>
+#include <nt2/toolbox/operator/include/compare_greater_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -28,10 +28,10 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( multiplies_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  NT2_REAL_TYPES)
 {
-  using nt2::multiplies;
-  using nt2::tag::multiplies_;
+  using nt2::compare_greater_equal;
+  using nt2::tag::compare_greater_equal_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
@@ -41,17 +41,17 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0,  NT2_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<multiplies_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<multiplies_(T,T)>::type sr_t;
+  typedef typename nt2::meta::call<compare_greater_equal_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<compare_greater_equal_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(multiplies(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(multiplies(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(multiplies(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(multiplies(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(multiplies(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Inf<vT>(), nt2::Inf<vT>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Minf<vT>(), nt2::Minf<vT>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Nan<vT>(), nt2::Nan<vT>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<vT>(),nt2::Zero<vT>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), true);
 } // end of test for real_

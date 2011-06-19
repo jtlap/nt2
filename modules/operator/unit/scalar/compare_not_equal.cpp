@@ -6,16 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - is_less_equal/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - compare_not_equal/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/is_less_equal.hpp>
+#include <nt2/toolbox/operator/include/compare_not_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/include/functions/any.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -26,15 +26,15 @@
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_less_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( compare_not_equal_real__2_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::is_less_equal;
-  using nt2::tag::is_less_equal_;
+  using nt2::compare_not_equal;
+  using nt2::tag::compare_not_equal_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<is_less_equal_(T,T)>::type r_t;
+  typedef typename nt2::meta::call<compare_not_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef bool wished_r_t;
 
 
   // return type conformity test 
@@ -45,33 +45,33 @@ NT2_TEST_CASE_TPL ( is_less_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_less_equal(nt2::One<T>(), nt2::One<T>()), true);
-  NT2_TEST_EQUAL(is_less_equal(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(is_less_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
-} // end of test for integer_
-
-NT2_TEST_CASE_TPL ( is_less_equal_real__2_0,  NT2_REAL_TYPES)
-{
-  
-  using nt2::is_less_equal;
-  using nt2::tag::is_less_equal_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<is_less_equal_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(is_less_equal(nt2::Inf<T>(), nt2::Inf<T>()), true);
-  NT2_TEST_EQUAL(is_less_equal(nt2::Minf<T>(), nt2::Minf<T>()), true);
-  NT2_TEST_EQUAL(is_less_equal(nt2::Nan<T>(), nt2::Nan<T>()), false);
-  NT2_TEST_EQUAL(is_less_equal(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(is_less_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Inf<T>(), nt2::Inf<T>()), false);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Minf<T>(), nt2::Minf<T>()), false);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Nan<T>(), nt2::Nan<T>()), true);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::One<T>(),nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Zero<T>(), nt2::Zero<T>()), false);
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( compare_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
+{
+  
+  using nt2::compare_not_equal;
+  using nt2::tag::compare_not_equal_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<compare_not_equal_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef bool wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(compare_not_equal(nt2::One<T>(), nt2::One<T>()), false);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::One<T>(),nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Zero<T>(), nt2::Zero<T>()), false);
+} // end of test for integer_
