@@ -26,13 +26,18 @@ qi::rule<file_iterator, space_type, std::string()> comment
     |   (   *qi::lexeme[qi::lit("/*") >> *(qi::char_ - qi::char_("*/")) >> qi::lit("*/")]   )
 ;
 
-struct prologue : qi::grammar<file_iterator, space_type, std::vector<std::string>()>
+BOOST_FUSION_DEFINE_STRUCT(, file_info_t,
+    (std::string, include_guard)
+    (std::vector<std::string>, includes)
+);
+
+struct prologue : qi::grammar<file_iterator, space_type, file_info_t()>
 {
     prologue(bool debug_) : base_type(root), debug(debug_)
     {
         root
             =   qi::omit[comment]
-                >> qi::lit("#ifndef") >> qi::omit[qi::lexeme[+(qi::char_ - qi::eol)]]
+                >> qi::lit("#ifndef") >> qi::lexeme[+(qi::char_ - qi::eol)]
                 >> qi::lit("#define") >> qi::omit[qi::lexeme[+(qi::char_ - qi::eol)]]
                 >> *include
         ;
@@ -46,7 +51,7 @@ struct prologue : qi::grammar<file_iterator, space_type, std::vector<std::string
         DEBUG_NODE(include)
     }
     
-    qi::rule<file_iterator, space_type, std::vector<std::string>()> root;
+    qi::rule<file_iterator, space_type, file_info_t()> root;
     qi::rule<file_iterator, space_type, std::string()> include;
     
     bool debug;
@@ -93,7 +98,6 @@ BOOST_FUSION_DEFINE_STRUCT(, call_t,
     (dispatch_t, dispatch)
     (std::string, result)
     (std::string, code)
-   // (std::string, extra_code)
 );
 
 std::ostream& operator<<(std::ostream& os, call_t const& call)
@@ -122,7 +126,6 @@ struct specialization : qi::grammar<file_iterator, space_type, call_t()>
                     >>  qi::lit('}')
                 >>  qi::lit('}')
                 ) [ _val = phoenix::construct<call_t>(_1, _2, phoenix::at_c<0>(_3), phoenix::at_c<1>(_3)) ]
-            |   (   qi::omit[qi::no_skip[code]] >> root   )
         ;
         
         register_dispatch
@@ -151,9 +154,8 @@ struct specialization : qi::grammar<file_iterator, space_type, call_t()>
                 ]
                 >>  qi::lit(':') >> qi::lit("callable")
                 >>  qi::lit('{')
-                    >> (result | (qi::no_skip[code] >> result)         )//[ _val = _2, _a += _1 ])
-                    >> (operator_ | (qi::no_skip[code] >> operator_)   )//[ _val = _2, _a += _1 ])
-                    >> -qi::no_skip[code]
+                    >> result
+                    >> operator_
                 >>  qi::lit('}') >> qi::lit(';')
         ;
         
@@ -231,7 +233,7 @@ struct specialization : qi::grammar<file_iterator, space_type, call_t()>
     
     qi::rule<file_iterator, space_type, call_t()> root;
     qi::rule<file_iterator, space_type, dispatch_t()> register_dispatch;
-    qi::rule<file_iterator, space_type, boost::fusion::vector2<std::string, std::string>(), qi::locals<std::string> > call;
+    qi::rule<file_iterator, space_type, boost::fusion::vector2<std::string, std::string>()> call;
     qi::rule<file_iterator, space_type, std::string()> result;
     qi::rule<file_iterator, space_type, std::string()> operator_;
     
@@ -276,16 +278,17 @@ int main(int argc, char* argv[])
     
     std::string::iterator it = buf.begin();
     
-    std::vector<std::string> includes;
-    bool b = qi::phrase_parse(it, buf.end(), prologue(debug), spirit::ascii::space, includes);
+    file_info_t file_info;
+    bool b = qi::phrase_parse(it, buf.end(), prologue(debug), spirit::ascii::space, file_info);
     if(!b)
     {
         std::cerr << "Could not parse prologue in " << argv[pos] << std::endl;
         return 1;
     }
     
+    std::cout << "include guard: " << file_info.include_guard << "\n";
     std::cout << "includes: ";
-    BOOST_FOREACH(std::string include, includes)
+    BOOST_FOREACH(std::string& include, file_info.includes)
         std::cout << include << "\n          ";
     std::cout << std::endl;
     
