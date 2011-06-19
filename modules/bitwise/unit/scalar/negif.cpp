@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - negif/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in scalar mode
+// unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// 
+#include <nt2/toolbox/bitwise/include/negif.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/negif.hpp>
+
 
 NT2_TEST_CASE_TPL ( negif_real__2_0,  NT2_REAL_TYPES)
 {
@@ -42,12 +44,12 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(negif(0,1), 1);
-  NT2_TEST_EQUAL(negif(1,1), -1);
-  NT2_TEST_EQUAL(negif(nt2::Inf<T>(),1), -1);
-  NT2_TEST_EQUAL(negif(nt2::Minf<T>(),1), -1);
-  NT2_TEST_EQUAL(negif(nt2::Nan<T>(),1), -1);
-  NT2_TEST_EQUAL(negif(nt2::Zero<T>(),1), 1);
+  NT2_TEST_EQUAL(negif(T(0),T(1)), 1);
+  NT2_TEST_EQUAL(negif(T(1),T(1)), -1);
+  NT2_TEST_EQUAL(negif(nt2::Inf<T>(),T(1)), -1);
+  NT2_TEST_EQUAL(negif(nt2::Minf<T>(),T(1)), -1);
+  NT2_TEST_EQUAL(negif(nt2::Nan<T>(),T(1)), -1);
+  NT2_TEST_EQUAL(negif(nt2::Zero<T>(),T(1)), 1);
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( negif_integer__2_0,  NT2_INTEGRAL_TYPES)
@@ -69,7 +71,7 @@ NT2_TEST_CASE_TPL ( negif_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(negif(0,1), 1);
-  NT2_TEST_EQUAL(negif(1,1), -1);
+  NT2_TEST_EQUAL(negif(T(0),T(1)), 1);
+  NT2_TEST_EQUAL(negif(T(1),T(1)), -1);
   NT2_TEST_EQUAL(negif(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_

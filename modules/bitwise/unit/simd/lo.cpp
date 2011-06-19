@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - lo/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in simd mode
+// unit test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/bitwise/include/lo.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/bitwise/include/lo.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( lo_real__1_0,  NT2_REAL_TYPES)
 {
@@ -53,7 +55,7 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(lo(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( lo_int64__1_0,  (int64_t)(uint64_t))
+NT2_TEST_CASE_TPL ( lo_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
 {
   using nt2::lo;
   using nt2::tag::lo_;
@@ -79,7 +81,7 @@ NT2_TEST_CASE_TPL ( lo_int64__1_0,  (int64_t)(uint64_t))
   NT2_TEST_EQUAL(lo(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for int64_
 
-NT2_TEST_CASE_TPL ( lo_int32__1_0,  (int32_t)(uint32_t))
+NT2_TEST_CASE_TPL ( lo_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
 {
   using nt2::lo;
   using nt2::tag::lo_;
@@ -105,7 +107,7 @@ NT2_TEST_CASE_TPL ( lo_int32__1_0,  (int32_t)(uint32_t))
   NT2_TEST_EQUAL(lo(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for int32_
 
-NT2_TEST_CASE_TPL ( lo_int16__1_0,  (int16_t)(uint16_t))
+NT2_TEST_CASE_TPL ( lo_int16__1_0,  (nt2::int16_t)(nt2::uint16_t))
 {
   using nt2::lo;
   using nt2::tag::lo_;
