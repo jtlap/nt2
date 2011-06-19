@@ -53,8 +53,11 @@ class Specific_values_test_gen(Base_gen) :
                This implies that we have to convert simd logical to bool in comparison.
                """
         if self.mode == 'simd' :
-            if extract(d,"",[""],"functor","special")[0] in ['predicate','fuzzy'] :
+            special = extract(d,"",[""],"functor","special")[0]
+            if special in ['predicate','fuzzy'] :
                 spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+            elif special in ['reduction']:
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
             else :
                 spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
         else :
