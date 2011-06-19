@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - ror/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in scalar mode
+// unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 08/04/2011
+/// 
+#include <nt2/toolbox/bitwise/include/ror.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/ror.hpp>
+
 
 NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
@@ -38,13 +40,13 @@ NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
-  ulpd=0.0; 
+  ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ror(T(2),T(2)), r_t(nt2::One<T>()<<(sizeof(r_t)*8-1)));
-  NT2_TEST_EQUAL(ror(nt2::Mone<T>(),T(1)), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(ror(nt2::Mone<T>(),T(5)), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(ror(nt2::One<T>(),T(1)), r_t(nt2::One<T>()<<(sizeof(r_t)*8-1)));
-  NT2_TEST_EQUAL(ror(nt2::Zero<T>(),T(1)), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(ror(T(2),T(2)), r_t(nt2::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(nt2::Mone<T>(),T(1)), nt2::Mone<T>());
+  NT2_TEST_EQUAL(ror(nt2::Mone<T>(),T(5)), nt2::Mone<T>());
+  NT2_TEST_EQUAL(ror(nt2::One<T>(),T(1)), r_t(nt2::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(nt2::Zero<T>(),T(1)), nt2::Zero<T>());
 } // end of test for integer_

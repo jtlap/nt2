@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - seladd/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in scalar mode
+// unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// 
+#include <nt2/toolbox/bitwise/include/seladd.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/predicates/include/is_nez.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/seladd.hpp>
+
 
 NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_REAL_TYPES)
 {
@@ -43,11 +46,11 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(seladd(T(0),T(1),T(2)), T(1));
-  NT2_TEST_EQUAL(seladd(T(25),T(1),T(2)), T(3));
-  NT2_TEST_EQUAL(seladd(nt2::Inf<T>(), nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(seladd(nt2::Minf<T>(), nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>());
-  NT2_TEST_EQUAL(seladd(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>());
-  NT2_TEST_EQUAL(seladd(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(seladd(nt2::Nan<T>(),T(1),T(2)), T(3));
+  NT2_TEST_EQUAL(seladd(nt2::Nan<T>(),nt2::Inf<T>(),nt2::Inf<T>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(seladd(nt2::Nan<T>(),nt2::Minf<T>(),nt2::Minf<T>()), nt2::Minf<r_t>());
+  NT2_TEST_EQUAL(seladd(nt2::Nan<T>(),nt2::Nan<T>(),nt2::Nan<T>()), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(seladd(nt2::Nan<T>(),nt2::Zero<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( seladd_integer__3_0,  NT2_INTEGRAL_TYPES)
@@ -69,7 +72,7 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(seladd(T(-1),T(1),T(2)), T(3));
   NT2_TEST_EQUAL(seladd(T(0),T(1),T(2)), T(1));
-  NT2_TEST_EQUAL(seladd(T(25),T(1),T(2)), T(3));
-  NT2_TEST_EQUAL(seladd(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(seladd(nt2::Zero<T>(),nt2::Zero<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_
