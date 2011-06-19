@@ -1,55 +1,54 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::complement on SIMD types"
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#define NT2_UNIT_MODULE "nt2 operator toolbox - complement/simd Mode"
 
-#include <nt2/sdk/simd/io.hpp>
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/complement.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// unit test behavior of operator components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 18/02/2011
+/// 
+#include <nt2/toolbox/operator/include/complement.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test behavior for complement
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( complement, NT2_SIMD_TYPES )
+
+NT2_TEST_CASE_TPL ( complement_real__1_0,  NT2_REAL_TYPES)
 {
-  using boost::is_same;
+  using nt2::complement;
   using nt2::tag::complement_;
+  using nt2::load; 
   using nt2::simd::native;
-  using nt2::meta::cardinal_of; 
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<complement_(vT)>::type r_t;
+  typedef typename nt2::meta::call<complement_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
-  typedef native<T,ext_t>                 n_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<complement_(n_t)>::type
-                            , n_t
-                            >::value
-            )
-          );
-
-  NT2_ALIGNED_TYPE(T) data[cardinal_of<n_t>::value];
-  for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
-
-  n_t v = nt2::load<n_t>(&data[0],0);
-  for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-  {
-    NT2_TEST_EQUAL( (~v)[j]                 , nt2::b_not(v[j]) );
-    NT2_TEST_EQUAL( (nt2::complement(v))[j] , nt2::b_not(v[j]) );
-    NT2_TEST_EQUAL( (nt2::bitwise_not(v))[j], nt2::b_not(v[j]) );
-    NT2_TEST_EQUAL( (nt2::b_not(v))[j]      , nt2::b_not(v[j]) );
-  }
-}
+  // specific values tests
+  NT2_TEST_EQUAL(complement(nt2::Nan<vT>())[0], nt2::Zero<sr_t>());
+  NT2_TEST_EQUAL(complement(nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
+} // end of test for real_

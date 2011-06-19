@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - splat/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - load/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/splat.hpp>
+#include <nt2/toolbox/operator/include/load.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -25,13 +25,13 @@
 #include <nt2/include/constants/infinites.hpp>
 
 //COMMENTED
-NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( load_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
   
-//   using nt2::splat;
-//   using nt2::tag::splat_;
+//   using nt2::load;
+//   using nt2::tag::load_;
 //   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<splat_(T)>::type r_t;
+//   typedef typename nt2::meta::call<load_(T,T)>::type r_t;
 //   typedef typename nt2::meta::upgrade<T>::type u_t;
 //   typedef T wished_r_t;
 
@@ -44,18 +44,18 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
 
 
 //   // specific values tests
-//   NT2_TEST_EQUAL(splat(nt2::One<T>()), nt2::One<r_t>());
-//   NT2_TEST_EQUAL(splat(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
-//   NT2_TEST_EQUAL(splat(nt2::Zero<T>()), nt2::Zero<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 // } // end of test for integer_
 
-// NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
+// NT2_TEST_CASE_TPL ( load_real__2_0,  NT2_REAL_TYPES)
 // {
   
-//   using nt2::splat;
-//   using nt2::tag::splat_;
+//   using nt2::load;
+//   using nt2::tag::load_;
 //   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<splat_(T)>::type r_t;
+//   typedef typename nt2::meta::call<load_(T,T)>::type r_t;
 //   typedef typename nt2::meta::upgrade<T>::type u_t;
 //   typedef T wished_r_t;
 
@@ -68,9 +68,9 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
 
 
 //   // specific values tests
-//   NT2_TEST_EQUAL(splat(nt2::Inf<T>()), nt2::Inf<r_t>());
-//   NT2_TEST_EQUAL(splat(nt2::Minf<T>()), nt2::Minf<r_t>());
-//   NT2_TEST_EQUAL(splat(nt2::Nan<T>()), nt2::Nan<r_t>());
-//   NT2_TEST_EQUAL(splat(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
-//   NT2_TEST_EQUAL(splat(nt2::Zero<T>()), nt2::Zero<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Minf<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
+//   NT2_TEST_EQUAL(load(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
