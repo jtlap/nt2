@@ -8,6 +8,7 @@
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
          'simd_types' : ['real_'],
+         'scalar_ints' : True,  
          'special' : ["polynomials"],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],

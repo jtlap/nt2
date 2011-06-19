@@ -7,9 +7,10 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
+         'scalar_ints' : True,  
          'simd_types' : ['real_'],
          'special' : ["polynomials"],
-         'type_defs' : [],
+         'type_defs' : ["  typedef typename nt2::meta::as_integer<T>::type iscalar;"],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',

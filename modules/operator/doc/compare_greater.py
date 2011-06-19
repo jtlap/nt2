@@ -41,7 +41,7 @@
                  'nt2::Inf<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'nt2::Minf<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'nt2::Nan<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'true','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
             },

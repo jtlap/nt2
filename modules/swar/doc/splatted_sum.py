@@ -42,7 +42,7 @@
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : '-cardinal_of<n_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : '-int(cardinal_of<n_t>())','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'cardinal_of<n_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },

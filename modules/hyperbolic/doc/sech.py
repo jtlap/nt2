@@ -16,8 +16,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 20/02/2011',
              'included' : ['#include <nt2/toolbox/exponential/include/constants.hpp>',
-                           'extern "C" { long double cephes_coshl(long double); }',
-                           '#include <nt2/toolbox/libc/include/cosh.hpp>'],
+                           'extern "C" { long double cephes_coshl(long double); }'],
              'notes' : [],
              'stamp' : 'modified by jt the 20/02/2011',
             },

@@ -3,7 +3,7 @@
      'functor' : {
          'arity' : '1',
          'call_types' : [],
-         'ret_arity' : '1',
+         'ret_arity' : '2',
          'rturn' : {
              'default' : 'T',
             },
