@@ -55,7 +55,7 @@ namespace nt2 { namespace details
   template<class Origin, class Enable>
   struct hierarchy_of<double, Origin, Enable>
   {
-    typedef meta::scalar_< meta::float_<Origin> >  type;
+    typedef meta::scalar_< meta::double_<Origin> >  type;
   };
 
   //============================================================================
