@@ -16,61 +16,6 @@ typedef std::string::iterator file_iterator;
 
 using spirit::ascii::space_type;
 
-#define DEBUG_NODE(r)                                              \
-r.name(#r);                                                        \
-if(debug)                                                          \
-    qi::debug(r);                                                  \
-
-qi::rule<file_iterator, space_type, std::string()> comment
-    =   (   *qi::lexeme[qi::lit("//") >> *(qi::char_ - qi::eol)]                            )
-    |   (   *qi::lexeme[qi::lit("/*") >> *(qi::char_ - qi::char_("*/")) >> qi::lit("*/")]   )
-;
-
-BOOST_FUSION_DEFINE_STRUCT(, file_info_t,
-    (std::string, include_guard)
-    (std::vector<std::string>, includes)
-);
-
-struct prologue : qi::grammar<file_iterator, space_type, file_info_t()>
-{
-    prologue(bool debug_) : base_type(root), debug(debug_)
-    {
-        root
-            =   qi::omit[comment]
-                >> qi::lit("#ifndef") >> qi::lexeme[+(qi::char_ - qi::eol)]
-                >> qi::lit("#define") >> qi::omit[qi::lexeme[+(qi::char_ - qi::eol)]]
-                >> *include
-        ;
-        
-        include
-            =   qi::lit("#include") >> qi::lexeme[qi::lit('<') >> +(qi::char_ - qi::char_('>')) >> qi::lit('>')]
-        ;
-        
-        DEBUG_NODE(root)
-        DEBUG_NODE(comment)
-        DEBUG_NODE(include)
-    }
-    
-    qi::rule<file_iterator, space_type, file_info_t()> root;
-    qi::rule<file_iterator, space_type, std::string()> include;
-    
-    bool debug;
-};
-
-struct epilogue : qi::grammar<file_iterator, space_type>
-{
-    epilogue(bool debug_) : base_type(root), debug(debug_)
-    {
-        root
-            =   qi::lit("#endif")
-        ;
-    }
-    
-    qi::rule<file_iterator, space_type> root;
-    
-    bool debug;
-};
-
 BOOST_FUSION_DEFINE_STRUCT(, dispatch_t,
     (std::string, tag)
     (std::string, site)
@@ -109,13 +54,33 @@ std::ostream& operator<<(std::ostream& os, call_t const& call)
     return os;
 }
 
-struct specialization : qi::grammar<file_iterator, space_type, call_t()>
+BOOST_FUSION_DEFINE_STRUCT(, file_t,
+    (std::string, include_guard)
+    (std::vector<std::string>, includes)
+    (std::vector<call_t>, specializations)
+);
+
+std::ostream& operator<<(std::ostream& os, file_t const& file)
 {
-    specialization(bool debug_) : base_type(root), debug(debug_)
+    os << "include guard: " << file.include_guard << "\n";
+    os << "includes: ";
+    BOOST_FOREACH(const std::string& include, file.includes)
+        os << include << "\n          ";
+    os << std::endl;
+    
+    BOOST_FOREACH(const call_t& call, file.specializations)
+        os << call << std::endl;
+    
+    return os;
+}
+
+struct call_file : qi::grammar<file_iterator, space_type, file_t()>
+{
+    call_file(bool debug_) : base_type(root), debug(debug_)
     {
         using namespace qi::labels;
         
-        root
+        specialization
             =   (   comment
                 >>  register_dispatch
                 >>  qi::lit("namespace") >> qi::lit("nt2")
@@ -217,8 +182,35 @@ struct specialization : qi::grammar<file_iterator, space_type, call_t()>
             =   (   qi::lit('{') >> code >> qi::lit('}')        )
             |   (   +(qi::char_ - qi::char_("{}"))  >> -code    )
         ;
-            
+        
+        root
+            =   qi::omit[comment]
+                >> qi::lit("#ifndef") >> qi::lexeme[+(qi::char_ - qi::eol)]
+                >> qi::lit("#define") >> qi::omit[qi::lexeme[+(qi::char_ - qi::eol)]]
+                >> *include
+                >> *specialization
+                >> qi::lit("#endif")
+        ;
+        
+        include
+            =   qi::lit("#include") >> qi::lexeme[qi::lit('<') >> +(qi::char_ - qi::char_('>')) >> qi::lit('>')]
+        ;
+
+        comment
+            =   (   *qi::lexeme[qi::lit("//") >> *(qi::char_ - qi::eol)]                            )
+            |   (   *qi::lexeme[qi::lit("/*") >> *(qi::char_ - qi::char_("*/")) >> qi::lit("*/")]   )
+        ;
+        
+        #define DEBUG_NODE(r)                                              \
+        r.name(#r);                                                        \
+        if(debug)                                                          \
+            qi::debug(r);                                                  \
+        
         DEBUG_NODE(root)
+        DEBUG_NODE(comment)
+        DEBUG_NODE(include)
+            
+        DEBUG_NODE(specialization)
         DEBUG_NODE(register_dispatch)
         DEBUG_NODE(call)
         DEBUG_NODE(result)
@@ -231,7 +223,11 @@ struct specialization : qi::grammar<file_iterator, space_type, call_t()>
     }
 
     
-    qi::rule<file_iterator, space_type, call_t()> root;
+    qi::rule<file_iterator, space_type, file_t()> root;
+    qi::rule<file_iterator, space_type, std::string()> comment;
+    qi::rule<file_iterator, space_type, std::string()> include;
+    
+    qi::rule<file_iterator, space_type, call_t()> specialization;
     qi::rule<file_iterator, space_type, dispatch_t()> register_dispatch;
     qi::rule<file_iterator, space_type, boost::fusion::vector2<std::string, std::string>()> call;
     qi::rule<file_iterator, space_type, std::string()> result;
@@ -278,37 +274,14 @@ int main(int argc, char* argv[])
     
     std::string::iterator it = buf.begin();
     
-    file_info_t file_info;
-    bool b = qi::phrase_parse(it, buf.end(), prologue(debug), spirit::ascii::space, file_info);
-    if(!b)
-    {
-        std::cerr << "Could not parse prologue in " << argv[pos] << std::endl;
-        return 1;
-    }
-    
-    std::cout << "include guard: " << file_info.include_guard << "\n";
-    std::cout << "includes: ";
-    BOOST_FOREACH(std::string& include, file_info.includes)
-        std::cout << include << "\n          ";
-    std::cout << std::endl;
-    
-    for(;;)
-    {
-        call_t call;
-        bool b = qi::phrase_parse(it, buf.end(), specialization(debug), spirit::ascii::space, call);
-        if(!b)
-            break;
-            
-        std::cout << "--- match ---\n";
-        std::cout << call << std::endl;
-    }
-    
-    b = qi::phrase_parse(it, buf.end(), epilogue(debug), spirit::ascii::space);
+    file_t file;
+    bool b = qi::phrase_parse(it, buf.end(), call_file(debug), spirit::ascii::space, file);
     
     if(!b)
     {
-        std::cerr << "Parsing of file " << argv[pos] << " incomplete" << std::endl;
+        std::cerr << argv[pos] << ": failed to parse" << std::endl;
         return 1;
     }
+    std::cout << file;
     return 0;
 }
