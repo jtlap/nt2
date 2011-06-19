@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  negs.cpp
   fast_toint.cpp
   abss.cpp
   adds.cpp
