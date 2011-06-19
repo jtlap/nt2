@@ -129,12 +129,24 @@ class Global_header_gen() :
                         if isinstance(includes,list ) :
                             r.extend(includes)
             r.append('')
-            print("default_includes %s "%default_includes )
             if default_includes : #uses default once
+                default_includes = False
                 r1 = self.bg.create_unit_txt_part( Global_header_gen.Default_template,self.__prepare,d=d)
                 r.extend(r1)
                 if self.mode == "simd" : r.extend(Global_header_gen.Simd_template)
             r.append('')
+        def is_include(st) :
+            st =st.lstrip()
+            return len(st)>5 and( (st[0:6] =="#inclu") or (st[0:6] =="extern"))
+        def uniquer(seq):
+            seen = {}
+            result = []
+            for item in seq:
+                if (item in seen) and is_include(item): continue
+                seen[item] = 1
+                result.append(item)
+            return result
+        if len(dl)>1 : r=uniquer(r)    
         return r    
 
         

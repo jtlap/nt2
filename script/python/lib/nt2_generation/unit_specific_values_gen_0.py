@@ -123,7 +123,7 @@ class Specific_values_test_gen(Base_gen) :
                 thr = dd[k][1]
             r.append("  {")
             r.append(s)
-            print("rep %s"%rep)
+##            print("rep %s"%rep)
             for i in range(0,ret_arity) :
                 s1 =re.sub("\$i\$",str(i),Call)
                 s1 =re.sub("\$call_param_res\$",rep[i],s1)
