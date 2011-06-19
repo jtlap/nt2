@@ -14,7 +14,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : [],
+             'included' : ["#include <nt2/include/functions/shli.hpp>"],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',
@@ -26,15 +26,15 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'r_t(-1)','ulp_thresh' : '0',},
-                 'nt2::Two<T>()' : {'result' : 'r_t(-2)','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),1)','ulp_thresh' : '0',},
+                 'nt2::Three<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),2)','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                 },
              'integer_   ' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Two<T>()' : {'result' : '-nt2::Two<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),1)','ulp_thresh' : '0',},
+                 'nt2::Three<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),2)','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'nt2::Nan<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},

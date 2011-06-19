@@ -7,6 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
+         'scalar_ints' : True,  
          'simd_types' : ['real_'],
          'special' : ["polynomials"],
          'type_defs' : [],
