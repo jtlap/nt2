@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SUCCESSOR_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SUCCESSOR_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
@@ -31,22 +31,18 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
-                           (A0),
-                           (arithmetic_<A0>)
-                          )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::successor_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
+
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       if (a0 != Valmax<A0>())
 	return  oneplus(a0);
       else
@@ -55,23 +51,20 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
-                           (A0),
-                           (real_<A0>)
-                          )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::successor_(tag::real_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
+                            , (A0)
+                            , (scalar_< real_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
+
     NT2_FUNCTOR_CALL(1)
     {
       return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
@@ -79,53 +72,45 @@ namespace nt2 { namespace ext
   };
 } }
 
-NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
-                           (A0)(A1),
-                           (arithmetic_<A0>)(integer_<A1>)
-                          )
 
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::successor_(tag::arithmetic_, tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
+
     NT2_FUNCTOR_CALL(2)
-      {
+    {
       if (Valmax<A0>()-nt2::abs(a1) <  a0) return Valmax<A0>(); 
       return a0+nt2::abs(a1);
       }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::successor_, tag::cpu_,
-		      (A0)(A1),
-		      (real_<A0>)(integer_<A1>)
-                          )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::successor_(tag::real_, tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-      struct result<This(A0, A1)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
+
     NT2_FUNCTOR_CALL(2)
     {
        return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+nt2::abs(a1));
     }
-
   };
 } }
 
+
 #endif
-// modified by jt the 26/12/2010
-// modified manually by jt the 02/01/2011 
