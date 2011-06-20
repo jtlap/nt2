@@ -2,6 +2,7 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/fusion/adapted/struct/define_struct.hpp>
+#include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/foreach.hpp>
 
 #include <fstream>
@@ -9,26 +10,54 @@
 #include <iostream>
 #include <vector>
 
+namespace fusion  = boost::fusion;
 namespace phoenix = boost::phoenix;
 namespace spirit  = boost::spirit;
 namespace qi      = spirit::qi;
 
 typedef std::string::iterator file_iterator;
 
-using spirit::ascii::space_type;
+using spirit::standard::space;
+using spirit::standard::space_type;
 
 std::string add_scalar(const std::string& arg)
 {
+    using namespace qi::labels;
+    
+    qi::rule<std::string::const_iterator, space_type, std::string()> full_name
+        =   (   qi::lit('(') >> full_name >> qi::lit(')')   )
+        |   (   qi::lexeme[+(qi::char_ - qi::char_("()"))]  )
+    ;
+    
     std::string::const_iterator it = arg.begin();
     std::string arg2;
-    if(qi::phrase_parse(it, arg.end(), *qi::lit('(') >> "simd_", spirit::ascii::space))
+    qi::phrase_parse(it, arg.end(), full_name, space, arg2);
+    
+    qi::symbols<char> symbols;
+    symbols.add
+        ("fundamental_")
+        ("arithmetic_")
+        ("signed_")
+        ("unsigned_")
+        ("real_")
+        ("float_")
+        ("double_")
+        ("integer_")
+        ("int_")
+        ("uint_")
+        ("ints8_")("int8_")("uint8_")
+        ("ints16_")("int16_")("uint16_")
+        ("ints32_")("int32_")("uint32_")
+        ("ints64_")("int64_")("uint64_")
+        ("type8_")("type16_")("type32_")("type64_")
+    ;
+    
+    it = arg2.begin();
+    if(!qi::phrase_parse(it, const_cast<const std::string&>(arg2).end(), symbols, space))
         return arg;
-        
-    return "scalar_< " + arg + " >";
+
+    return "scalar_< " + arg2 + " >";
 }
-
-
-
 
 BOOST_FUSION_DEFINE_STRUCT(, dispatch_t,
     (std::string, tag)
@@ -84,8 +113,8 @@ BOOST_FUSION_DEFINE_STRUCT(, file_t,
 std::ostream& operator<<(std::ostream& os, file_t const& file)
 {
     os << "//==============================================================================\n";
-    os << "//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II       \n";
-    os << "//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n";
+    os << "//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         \n";
+    os << "//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         \n";
     os << "//                                                                              \n";
     os << "//          Distributed under the Boost Software License, Version 1.0.          \n";
     os << "//                 See accompanying file LICENSE.txt or copy at                 \n";
@@ -107,7 +136,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
         using namespace qi::labels;
         
         specialization
-            =   (   qi::no_skip[!spirit::ascii::space] >> comment
+            =   (   qi::no_skip[!space] >> comment
                 >>  register_dispatch
                 >>  qi::lit("namespace") >> qi::lit("nt2")
                 >>  qi::lit('{')
@@ -229,12 +258,17 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
             |   ( qi::no_skip[qi::char_] >> epilogue )
         ;
 
+        c_comment
+            =   qi::lit("*/")
+            |   qi::char_ >> c_comment
+        ;
+
         comment
-            =   qi::raw
+            =   qi::raw[*qi::lexeme
                 [
-                    (   *qi::lexeme[qi::lit("//") >> *(qi::char_ - qi::eol)]                            )
-                |   (   *qi::lexeme[qi::lit("/*") >> *(qi::char_ - qi::char_("*/")) >> qi::lit("*/")]   )
-                ]
+                    (   qi::lit("//") >> *(qi::char_ - qi::eol) )
+                |   (   qi::lit("/*") >> c_comment              )
+                ] ]
         ;
         
         #define DEBUG_NODE(r)                                              \
@@ -243,6 +277,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
             qi::debug(r);                                                  \
         
         DEBUG_NODE(root)
+        DEBUG_NODE(c_comment)
         DEBUG_NODE(comment)
         DEBUG_NODE(epilogue)
             
@@ -261,6 +296,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
     
     qi::rule<file_iterator, space_type, file_t()> root;
     qi::rule<file_iterator, space_type, std::string()> epilogue;
+    qi::rule<file_iterator, std::string()> c_comment;
     qi::rule<file_iterator, space_type, std::string()> comment;
     
     qi::rule<file_iterator, space_type, call_t()> specialization;
@@ -279,6 +315,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
 
 int main(int argc, char* argv[])
 {
+    bool display = false;
     bool debug = false;
     int pos = 1;
     for(int i=1; i!=argc; ++i)
@@ -286,6 +323,12 @@ int main(int argc, char* argv[])
         if(argv[i] == std::string("--debug"))
         {
             debug = true;
+            if(i <= pos)
+                ++pos;
+        }
+        else if(argv[i] == std::string("--display"))
+        {
+            display = true;
             if(i <= pos)
                 ++pos;
         }
@@ -304,6 +347,9 @@ int main(int argc, char* argv[])
         return 1;
     }
     
+    if(display)
+        std::cout << argv[pos] << ": parsing..." << std::endl;
+    
     std::stringstream ss;
     ss << f.rdbuf();
     std::string buf = ss.str();
@@ -311,7 +357,7 @@ int main(int argc, char* argv[])
     std::string::iterator it = buf.begin();
     
     file_t file;
-    bool b = qi::phrase_parse(it, buf.end(), call_file(debug), spirit::ascii::space, file);
+    bool b = qi::phrase_parse(it, buf.end(), call_file(debug), space, file);
     
     if(!b)
     {
@@ -325,6 +371,10 @@ int main(int argc, char* argv[])
         std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
         return 1;
     }
+    
+    if(display)
+        std::cout << argv[pos] << ": parse successful" << std::endl;
+    
     f << file;
     return 0;
 }
