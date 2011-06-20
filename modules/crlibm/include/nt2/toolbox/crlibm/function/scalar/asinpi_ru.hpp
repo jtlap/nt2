@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTION_SCALAR_ASINPI_RU_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_FUNCTION_SCALAR_ASINPI_RU_HPP_INCLUDED
+#include <nt2/sdk/meta/upgrade.hpp>
 
   extern "C"{
     extern double asinpi_ru ( double );
