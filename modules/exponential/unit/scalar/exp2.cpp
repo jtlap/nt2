@@ -9,10 +9,17 @@
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - exp2/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of exponential components in scalar mode
+// unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 07/04/2011
+/// 
+#include <nt2/toolbox/exponential/include/exp2.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/exp2.hpp>
+#include <nt2/include/functions/log2.hpp>
+#include <nt2/include/functions/abs.hpp>
+extern "C" { long double cephes_exp2l(long double); }
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,13 +27,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/exp2.hpp>
-// specific includes for arity 1 tests
-#include <nt2/include/functions/exp2.hpp>
-#include <nt2/include/functions/log2.hpp>
-#include <nt2/include/functions/abs.hpp>
-extern "C" { long double cephes_exp2l(long double); }
+
 
 NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
 {
