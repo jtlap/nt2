@@ -10,11 +10,10 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/hierarchy.hpp>
-#include <nt2/sdk/functor/details/call.hpp>
+#include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/config/attributes.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/functor/details/call.hpp>
 
 #ifndef NT2_DONT_USE_PREPROCESSED_FILES
 #define NT2_DONT_USE_PREPROCESSED_FILES
