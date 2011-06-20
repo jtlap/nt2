@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_MODF_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_MODF_HPP_INCLUDED
+#include <nt2/sdk/meta/upgrade.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <nt2/sdk/meta/strip.hpp>
