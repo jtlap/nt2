@@ -231,7 +231,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
             =   qi::raw[
                     (   qi::lit('(') >> (full_name % qi::char_(',')) >> qi::lit(')')   )
                     |   (   +(qi::char_("a-zA-Z0-9_:"))
-                            >> -(   (   qi::char_('<') >> (full_name % qi::char_(',')) >> qi::char_('>')   )
+                            >> -(   (   qi::char_('<') >> (full_name % qi::char_(',')) >> qi::char_('>') >> -(qi::string("::") >> full_name)   )
                                 |   (   qi::char_('(') >> (full_name % qi::char_(',')) >> qi::char_(')')   )
                                 )
                         )
