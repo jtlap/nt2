@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 cephes toolbox - incbet/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of cephes components in scalar mode
+// unit test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
-/// modified by jt the 23/03/2011
+/// 
+#include <nt2/toolbox/cephes/include/incbet.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/cephes/include/incbet.hpp>
+
 
 NT2_TEST_CASE_TPL ( incbet_real__3_0,  NT2_REAL_TYPES)
 {
@@ -40,26 +42,4 @@ NT2_TEST_CASE_TPL ( incbet_real__3_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a2,T, NR, T(-100), T(100));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    T a2;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << ", a2 = "<< u_t(a2 = tab_a2[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cephes::incbet(a0,a1,a2),nt2::cephes::incbet(a0,a1,a2),0.5);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
