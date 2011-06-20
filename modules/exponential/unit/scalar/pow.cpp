@@ -9,10 +9,16 @@
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - pow/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of exponential components in scalar mode
+// unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 07/04/2011
+/// 
+#include <nt2/toolbox/exponential/include/pow.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+extern "C" { long double cephes_powl(long double,long double); }
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,14 +26,10 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/pow.hpp>
-// specific includes for arity 2 tests
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-extern "C" { long double cephes_powl(long double,long double); }
-// specific includes for arity 2 tests
+
 extern "C" { long double cephes_powil(long double,int); }
+
+
 
 NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
 {
