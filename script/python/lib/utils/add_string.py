@@ -63,12 +63,12 @@ class Add_str(object) :
                 if self.verbose : print("file\n  %s\n does not exist"%self.path_to)         
 
 if __name__ == "__main__" :
-    rep='/home/jt/DevC++/pipo/nt2/modules/crlibm/include/nt2/toolbox/crlibm/function/scalar/'
+    rep='/home/jt/DevC++/pipo/nt2/modules/fdlibm/include/nt2/toolbox/fdlibm/function/scalar/'
     
     files = [f for f in os.listdir(rep) if re.match(r'.*\.hpp$', f)]
     for f in files :
         print(f)
-        al = Add_str('/home/jt/DevC++/pipo/nt2/modules/crlibm/include/nt2/toolbox/crlibm/function/scalar/'+f)
+        al = Add_str('/home/jt/DevC++/pipo/nt2/modules/fdlibm/include/nt2/toolbox/fdlibm/function/scalar/'+f)
         al.update_file("#define","#include <nt2/sdk/meta/upgrade.hpp>")
 
     
