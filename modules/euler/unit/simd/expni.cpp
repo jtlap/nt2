@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 euler toolbox - expni/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of euler components in simd mode
+// unit test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 08/04/2011
-#include <nt2/sdk/memory/is_aligned.hpp> 
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/euler/include/expni.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/euler/include/expni.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
 {
@@ -45,7 +47,7 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
- 
+
   // specific values tests
   NT2_TEST_ULP_EQUAL(expni(1,nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(expni(1,nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0);
