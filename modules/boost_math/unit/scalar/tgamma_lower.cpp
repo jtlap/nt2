@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 boost_math toolbox - tgamma_lower/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of boost_math components in scalar mode
+// unit test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 23/03/2011
+/// 
+#include <nt2/toolbox/boost_math/include/tgamma_lower.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/boost_math/include/tgamma_lower.hpp>
+
 
 NT2_TEST_CASE_TPL ( tgamma_lower_real__2_0,  NT2_REAL_TYPES)
 {
@@ -40,23 +42,4 @@ NT2_TEST_CASE_TPL ( tgamma_lower_real__2_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::boost_math::tgamma_lower(a0,a1),nt2::boost_math::tgamma_lower(a0,a1),1);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
