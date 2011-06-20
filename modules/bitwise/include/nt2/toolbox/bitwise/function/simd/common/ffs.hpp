@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_FFS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_FFS_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
@@ -22,20 +22,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is types8_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<type8_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_<tag::type8_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<type8_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -50,23 +45,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<type64_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_<tag::type64_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<type64_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -76,23 +67,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<type16_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_<tag::type16_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<type16_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -108,23 +95,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ffs_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<type32_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::ffs_(tag::simd_<tag::type32_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<type32_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_integer<A0, unsigned>{};
+
+    typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -141,5 +124,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 #endif
-// modified by jt the 04/01/2011
