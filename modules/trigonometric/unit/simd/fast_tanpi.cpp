@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - fast_tanpi/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of trigonometric components in simd mode
+// unit test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 18/04/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/trigonometric/include/fast_tanpi.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/trigonometric/include/fast_tanpi.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( fast_tanpi_real__1_0,  NT2_REAL_TYPES)
 {
@@ -58,7 +60,7 @@ NT2_TEST_CASE_TPL ( fast_tanpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_tanpi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( fast_tanpi_int_convert__1_0,  (int32_t)(int64_t))
+NT2_TEST_CASE_TPL ( fast_tanpi_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
 {
   using nt2::fast_tanpi;
   using nt2::tag::fast_tanpi_;
@@ -82,7 +84,7 @@ NT2_TEST_CASE_TPL ( fast_tanpi_int_convert__1_0,  (int32_t)(int64_t))
   NT2_TEST_ULP_EQUAL(fast_tanpi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( fast_tanpi_uint_convert__1_0,  (uint32_t)(uint64_t))
+NT2_TEST_CASE_TPL ( fast_tanpi_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
 {
   using nt2::fast_tanpi;
   using nt2::tag::fast_tanpi_;
