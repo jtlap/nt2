@@ -14,30 +14,20 @@
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/dsl/evaluation.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Native pack
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::evaluate_, tag::cpu_,
-                      (A0)(X)
-                      (A1)(T)(C)(Tag)(Sema),
-                      ((simd_<arithmetic_<A0>,X>))
-                      ((expr_<A1, domain_< simd::domain<T,C> >,Tag, Sema>))
-                     );
-
-namespace nt2 { namespace ext
+//==============================================================================
+// Evaluation of simd native pack
+//==============================================================================
+namespace nt2 { namespace meta
 {
-  template<class X,class T, class C, class Tag, class Sema, class Dummy>
-  struct call < tag::evaluate_
-                ( tag::simd_<tag::arithmetic_,X>
-                , tag::expr_<simd::domain<T,C>, Tag, Sema>
-                )
-              , tag::cpu_, Dummy
-              > : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::evaluate_, tag::cpu_
+                            , (A0)(X)(A1)(T)(C)(Tag)(S)
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((expr_<A1,domain_< simd::domain<T,C> >,Tag, S>))
+                            )
   {
     typedef int result_type;
 
-    template<class A0, class A1> inline result_type
-    operator()( A0& a0, A1 const& a1) const
+    inline result_type operator()( A0& a0, A1 const& a1) const
     {
       meta::as_<A0> target;
       meta::compile < meta::compute<boost::mpl::_1,tag::cpu_> > callee;
@@ -48,30 +38,22 @@ namespace nt2 { namespace ext
   };
 } }
 
-////////////////////////////////////////////////////////////////////////////////
-// Non-native pack
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH_TPL (  tag::evaluate_,tag::cpu_
-                          , (class A0)(std::size_t N)
-                            (class A1)(class T)(class C)(class Tag)(class Sema)
-                          , ((array_<arithmetic_<A0>,N>))
-                            ((expr_<A1, domain_< simd::domain<T,C> >,Tag, Sema>))
-                          )
-
-namespace nt2 { namespace ext
+//==============================================================================
+// Evaluation of non-simd pack
+//==============================================================================
+namespace nt2 { namespace meta
 {
-  template<std::size_t N,class T, class C, class Tag, class Sema, class Dummy>
-  struct call < tag::evaluate_
-                ( tag::array_<tag::arithmetic_,N>
-                , tag::expr_<simd::domain<T,C>, Tag, Sema>
-                )
-              , tag::cpu_, Dummy
-              > : callable
+  NT2_FUNCTOR_IMPLEMENTATION_TPL(  tag::evaluate_,tag::cpu_
+                                , (class A0)(std::size_t N)
+                                  (class A1)(class T)(class C)
+                                  (class Tag)(class S)
+                                , ((array_<arithmetic_<A0>,N>))
+                                  ((expr_<A1,domain_<simd::domain<T,C> >,Tag,S>))
+                                )
   {
     typedef int result_type;
 
-    template<class A0, class A1> inline result_type
-    operator()( A0& a0, A1 const& a1) const
+    inline result_type operator()( A0& a0, A1 const& a1) const
     {
       meta::as_<A0> target;
       meta::compile< meta::compute<boost::mpl::_1,tag::cpu_> > callee;
