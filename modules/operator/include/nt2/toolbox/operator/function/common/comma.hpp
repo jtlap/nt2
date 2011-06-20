@@ -16,25 +16,17 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-NT2_REGISTER_DISPATCH ( tag::comma_,tag::cpu_
-                      , (A0)(A1)
-                      , (unspecified_<A0>)(unspecified_<A1>)
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Comma basically evaluates its arguments and returns the second one
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Dummy>
-  struct  call< tag::comma_(tag::unspecified_,tag::unspecified_)
-              , tag::cpu_, Dummy
-              >
-        : callable
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( tag::comma_,tag::cpu_
+                            , (A0)(A1)
+                            , (unspecified_<A0>)(unspecified_<A1>)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1> {};
+    typedef typename meta::strip<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2) { ignore_unused(a0); return a1; }
   };
