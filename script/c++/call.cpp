@@ -1,3 +1,4 @@
+#define BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/fusion/adapted/struct/define_struct.hpp>
@@ -16,6 +17,19 @@ typedef std::string::iterator file_iterator;
 
 using spirit::ascii::space_type;
 
+std::string add_scalar(const std::string& arg)
+{
+    std::string::const_iterator it = arg.begin();
+    std::string arg2;
+    if(qi::phrase_parse(it, arg.end(), *qi::lit('(') >> "simd_", spirit::ascii::space))
+        return arg;
+        
+    return "scalar_< " + arg + " >";
+}
+
+
+
+
 BOOST_FUSION_DEFINE_STRUCT(, dispatch_t,
     (std::string, tag)
     (std::string, site)
@@ -25,20 +39,20 @@ BOOST_FUSION_DEFINE_STRUCT(, dispatch_t,
 
 std::ostream& operator<<(std::ostream& os, dispatch_t const& dispatch)
 {
-    os << "  tag: " << dispatch.tag << "\n";
-    os << "  site: " << dispatch.site << "\n";
-    os << "  template_args: { " << dispatch.template_args[0];
-    for(std::size_t i=1; i!=dispatch.template_args.size(); ++i)
-        os << ", " << dispatch.template_args[i];
-    os << " }\n";
-    os << "  args: { " << dispatch.args[0];
-    for(std::size_t i=1; i!=dispatch.args.size(); ++i)
-        os << ", " << dispatch.args[i];
-    os << " }\n";
+    os << "  NT2_FUNCTOR_IMPLEMENTATION( ";
+    os << dispatch.tag << ", " << dispatch.site << "\n";
+    os << "                            , ";
+    BOOST_FOREACH(const std::string& arg, dispatch.template_args)
+      os << '(' << arg << ')';
+    os << "\n                            , ";
+    BOOST_FOREACH(const std::string& arg, dispatch.args)
+      os << '(' << add_scalar(arg) << ')';
+    os << "\n                            )\n";
     return os;
 }
 
 BOOST_FUSION_DEFINE_STRUCT(, call_t,
+    (std::string, prefix)
     (std::string, comment)
     (dispatch_t, dispatch)
     (std::string, result)
@@ -47,30 +61,42 @@ BOOST_FUSION_DEFINE_STRUCT(, call_t,
 
 std::ostream& operator<<(std::ostream& os, call_t const& call)
 {
-    os << "comment: " << call.comment << "\n";
-    os << "dispatch:\n" << call.dispatch;
-    os << "result: " << call.result << "\n";
-    os << "code: " << call.code << "\n";
+    os << call.prefix;
+    os << call.comment;
+    os << "namespace nt2 { namespace meta\n";
+    os << "{\n";
+    os << call.dispatch;
+    os << "  {\n\n";
+    os << "    typedef " << call.result << " result_type;\n\n";
+    os << "    NT2_FUNCTOR_CALL(" << call.dispatch.args.size() << ")\n";
+    os << "    {";
+    os << call.code << "}\n";
+    os << "  };\n";
+    os << "} }\n";
     return os;
 }
 
 BOOST_FUSION_DEFINE_STRUCT(, file_t,
-    (std::string, include_guard)
-    (std::vector<std::string>, includes)
     (std::vector<call_t>, specializations)
+    (std::string, epilogue)
 );
 
 std::ostream& operator<<(std::ostream& os, file_t const& file)
 {
-    os << "include guard: " << file.include_guard << "\n";
-    os << "includes: ";
-    BOOST_FOREACH(const std::string& include, file.includes)
-        os << include << "\n          ";
-    os << std::endl;
+    os << "//==============================================================================\n";
+    os << "//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II       \n";
+    os << "//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n";
+    os << "//                                                                              \n";
+    os << "//          Distributed under the Boost Software License, Version 1.0.          \n";
+    os << "//                 See accompanying file LICENSE.txt or copy at                 \n";
+    os << "//                     http://www.boost.org/LICENSE_1_0.txt                     \n";
+    os << "//==============================================================================\n";
     
     BOOST_FOREACH(const call_t& call, file.specializations)
-        os << call << std::endl;
-    
+        os << call;
+        
+    os << file.epilogue;
+    os << "#endif\n";
     return os;
 }
 
@@ -81,7 +107,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
         using namespace qi::labels;
         
         specialization
-            =   (   comment
+            =   (   qi::no_skip[!spirit::ascii::space] >> comment
                 >>  register_dispatch
                 >>  qi::lit("namespace") >> qi::lit("nt2")
                 >>  qi::lit('{')
@@ -90,7 +116,15 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                         >>  call
                     >>  qi::lit('}')
                 >>  qi::lit('}')
-                ) [ _val = phoenix::construct<call_t>(_1, _2, phoenix::at_c<0>(_3), phoenix::at_c<1>(_3)) ]
+                )[
+                    _val = phoenix::construct<call_t>("", _1, _2, phoenix::at_c<0>(_3), phoenix::at_c<1>(_3))
+                ]
+            |   (   qi::no_skip[qi::char_] >> specialization    )
+                [
+                    // prepend character to first member of call_t
+                    phoenix::insert(phoenix::at_c<0>(_2), phoenix::begin(phoenix::at_c<0>(_2)), _1),
+                    _val = _2
+                ]
         ;
         
         register_dispatch
@@ -101,6 +135,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                     >> *(qi::lit('(') >> name >> qi::lit(')')) >> qi::lit(',') // template args
                     >> *(qi::lit('(') >> full_name >> qi::lit(')')) // args
                 >>  qi::lit(')')
+                >>  -qi::lit(';')
         ;
         
         call
@@ -185,20 +220,21 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
         
         root
             =   qi::omit[comment]
-                >> qi::lit("#ifndef") >> qi::lexeme[+(qi::char_ - qi::eol)]
-                >> qi::lit("#define") >> qi::omit[qi::lexeme[+(qi::char_ - qi::eol)]]
-                >> *include
-                >> *specialization
-                >> qi::lit("#endif")
+                >>  *specialization
+                >>  epilogue
         ;
         
-        include
-            =   qi::lit("#include") >> qi::lexeme[qi::lit('<') >> +(qi::char_ - qi::char_('>')) >> qi::lit('>')]
+        epilogue
+            =   ( qi::no_skip["#endif"] >> qi::omit[comment >> qi::eoi]  )
+            |   ( qi::no_skip[qi::char_] >> epilogue )
         ;
 
         comment
-            =   (   *qi::lexeme[qi::lit("//") >> *(qi::char_ - qi::eol)]                            )
-            |   (   *qi::lexeme[qi::lit("/*") >> *(qi::char_ - qi::char_("*/")) >> qi::lit("*/")]   )
+            =   qi::raw
+                [
+                    (   *qi::lexeme[qi::lit("//") >> *(qi::char_ - qi::eol)]                            )
+                |   (   *qi::lexeme[qi::lit("/*") >> *(qi::char_ - qi::char_("*/")) >> qi::lit("*/")]   )
+                ]
         ;
         
         #define DEBUG_NODE(r)                                              \
@@ -208,7 +244,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
         
         DEBUG_NODE(root)
         DEBUG_NODE(comment)
-        DEBUG_NODE(include)
+        DEBUG_NODE(epilogue)
             
         DEBUG_NODE(specialization)
         DEBUG_NODE(register_dispatch)
@@ -224,8 +260,8 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
 
     
     qi::rule<file_iterator, space_type, file_t()> root;
+    qi::rule<file_iterator, space_type, std::string()> epilogue;
     qi::rule<file_iterator, space_type, std::string()> comment;
-    qi::rule<file_iterator, space_type, std::string()> include;
     
     qi::rule<file_iterator, space_type, call_t()> specialization;
     qi::rule<file_iterator, space_type, dispatch_t()> register_dispatch;
@@ -264,7 +300,7 @@ int main(int argc, char* argv[])
     std::fstream f(argv[pos]);
     if(!f)
     {
-        std::cerr << "File " << argv[1] << " could not be opened" << std::endl;
+        std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
         return 1;
     }
     
@@ -282,6 +318,13 @@ int main(int argc, char* argv[])
         std::cerr << argv[pos] << ": failed to parse" << std::endl;
         return 1;
     }
-    std::cout << file;
+    f.close();
+    f.open(argv[pos], std::fstream::out | std::fstream::trunc);
+    if(!f)
+    {
+        std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
+        return 1;
+    }
+    f << file;
     return 0;
 }
