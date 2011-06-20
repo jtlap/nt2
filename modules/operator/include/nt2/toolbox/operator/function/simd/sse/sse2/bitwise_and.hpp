@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_BITWISE_AND_HPP_INCLUDED
 
@@ -15,24 +15,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Generic overload implementation
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
-                      , ((simd_<arithmetic_<A0>,tag::sse_>))
-                        ((simd_<arithmetic_<A1>,tag::sse_>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::bitwise_and_ ( tag::simd_<tag::arithmetic_,tag::sse_>
-                                  , tag::simd_<tag::arithmetic_,tag::sse_>
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_and_, tag::cpu_
+                            , (A0)(A1)
+                            , ((simd_<arithmetic_<A0>,tag::sse_>))((simd_<arithmetic_<A1>,tag::sse_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -45,27 +36,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 //////////////////////////////////////////////////////////////////////////////
 // double/double use the seemingly faster and_pd
 //////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
-                      , ((simd_<double_<A0>,tag::sse_>))
-                        ((simd_<double_<A1>,tag::sse_>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::bitwise_and_ ( tag::simd_<tag::double_,tag::sse_>
-                                  , tag::simd_<tag::double_,tag::sse_>
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_and_, tag::cpu_
+                            , (A0)(A1)
+                            , ((simd_<double_<A0>,tag::sse_>))((simd_<double_<A1>,tag::sse_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -75,27 +58,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 //////////////////////////////////////////////////////////////////////////////
 // float/float use the seemingly faster and_ps
 //////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
-                      , ((simd_<float_<A0>,tag::sse_>))
-                        ((simd_<float_<A1>,tag::sse_>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::bitwise_and_ ( tag::simd_<tag::float_,tag::sse_>
-                                  , tag::simd_<tag::float_,tag::sse_>
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_and_, tag::cpu_
+                            , (A0)(A1)
+                            , ((simd_<float_<A0>,tag::sse_>))((simd_<float_<A1>,tag::sse_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -104,5 +79,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

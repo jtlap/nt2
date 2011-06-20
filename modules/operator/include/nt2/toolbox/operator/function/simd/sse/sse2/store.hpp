@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_STORE_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_STORE_HPP_INCLUDED
 
@@ -20,29 +20,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over store for double SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::store_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)
-                      , ((simd_< double_<A0>, tag::sse_ >))
-                        (iterator_< double_<A1> >)
-                        (integer_<A2>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_<tag::double_,tag::sse_>
-                            , tag::iterator_<tag::double_>
-                            , tag::integer_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_
+                      , tag::cpu_
+                      
+                            , (A0)(A1)(A2)
+                            , ((simd_< double_<A0>, tag::sse_ >))(iterator_< double_<A1> >)(scalar_< integer_<A2> >)
                             )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -52,32 +40,21 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over store for float SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::store_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)
-                      , ((simd_< float_<A0>, tag::sse_ >))
-                        (iterator_< float_<A1> >)
-                        (integer_<A2>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_<tag::float_,tag::sse_>
-                            , tag::iterator_<tag::float_>
-                            , tag::integer_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_
+                      , tag::cpu_
+                      
+                            , (A0)(A1)(A2)
+                            , ((simd_< float_<A0>, tag::sse_ >))(iterator_< float_<A1> >)(scalar_< integer_<A2> >)
                             )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -87,32 +64,21 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over store for integral SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::store_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)
-                      , ((simd_< integer_<A0>, tag::sse_ >))
-                        (iterator_< integer_<A1> >)
-                        (integer_<A2>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::store_ ( tag::simd_<tag::integer_,tag::sse_>
-                            , tag::iterator_<tag::integer_>
-                            , tag::integer_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_
+                      , tag::cpu_
+                      
+                            , (A0)(A1)(A2)
+                            , ((simd_< integer_<A0>, tag::sse_ >))(iterator_< integer_<A1> >)(scalar_< integer_<A2> >)
                             )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -121,5 +87,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif
