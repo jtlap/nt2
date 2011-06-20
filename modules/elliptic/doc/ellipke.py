@@ -28,9 +28,8 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::One<T>()' : {'result' : ['nt2::One<r_t1>()','nt2::Inf<r_t0>()'],'ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : ['T(1.350643881047675)', 'T(1.854074677301372)'],'ulp_thresh' : '1.0',},
                 },
             },
          'verif_test' : {
@@ -67,9 +66,8 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::One<r_t1>()','nt2::Inf<r_t0>()'],'ulp_thresh' : '0.5',},
+                 'nt2::One<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0.5',},
                  'nt2::Zero<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>(),nt2::Eps<scalar>()' : {'result' : ['T(1.350643881047675)', 'T(1.854074677301372)'],'ulp_thresh' : '1.0',},
                 },
             },
          'verif_test' : {

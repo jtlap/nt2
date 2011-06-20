@@ -146,10 +146,18 @@ class Create_tests(Nt2_tb_props) :
                    mode,
                    part,
                    s) :
+        def test_immutable(p) :
+            s= '\n'.join(read(p))
+            return s.find('//COMMENTED') != -1
+            
         nfp = Nt2_fct_props(self.tb_name,fct_name,mode)
         p = nfp.get_fct_unit_path(mode,part)
         if exist(os.path.split(p)[0]) :
             if self.verbose : print ('path = %s'%p)
+            print("---%s"%exist(p))
+            if exist(p) and test_immutable(p) :
+                print("%s has been marked as immutable"%p )
+                return
             if self.backup_on_write and exist(p) :
                 if self.verbose : print("backing up %s" %fct_name)
                 i = 1;
@@ -171,10 +179,9 @@ class Create_tests(Nt2_tb_props) :
 
         
 if __name__ == "__main__" :
-    tb_name = "bitwise"
+    tb_name = "operator"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()
-    parts = ["unit","cover"]
-    fcts = ["selsub","bitwise_notor"]
+    fcts = ["splat"]
     ct = Create_tests(tb_name,
                      fcts,
                      modes=['scalar','simd'],
