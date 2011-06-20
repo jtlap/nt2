@@ -16,7 +16,7 @@ namespace nt2 { namespace meta
   template<class Scalar,class Extension>
   struct hierarchy_of< simd::native<Scalar,Extension> >
   {
-    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
+    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type::base
                         , Extension
                         >                                   type;
   };

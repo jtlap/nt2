@@ -6,37 +6,36 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
-#define NT2_SDK_FUNCTOR_META_HIERARCHY_HPP_INCLUDED
+#ifndef NT2_SDK_META_DETAILS_HIERARCHY_BASE_HPP_INCLUDED
+#define NT2_SDK_META_DETAILS_HIERARCHY_BASE_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines the basic evaluation context hierarchy for \ref nt2::functor
  */
 
-#include <nt2/sdk/meta/details/hierarchy_base.hpp>
+#include <nt2/sdk/meta/details/hierarchy_pp.hpp>
 
-namespace nt2 { namespace tag
+namespace nt2 { namespace meta
 {
   //============================================================================
   /*!
-   * \ingroup hierarchy
-   * Defines the formal evaluation context for functors. This context is the
-   * most abstract one and correspond to high-level code trasnformation function
+   * The unknown_ hierarchy is the upper bound in the hierarchy lattice.
+   * When a dispatch resovles on unknown_, it means no suitable overload has
+   * been found.
    */
   //============================================================================
-  struct formal_ : meta::unspecified_<formal_> {};
+  template<class T> struct unknown_
+  {
+    typedef unknown_  parent;
+    typedef unknown_  origin;
+  };
 
   //============================================================================
-  /*!
-   * \ingroup hierarchy
-   * Defines the CPU based evaluation context for functors. This context is used
-   * when no specific architecture informations is available or required by a
-   * \ref functor. Functors specialization under the \c cpu_ context is usually
-   * used as common, architecture independant implementation.
+  /*! The unspecified_ hierarchy is used for non-categorized type that can
+   *  be caught silently
    */
   //============================================================================
-  struct cpu_ : formal_ {};
+  NT2_HIERARCHY_CLASS_TPL(unspecified_, unknown_<T> );
 } }
 
 #endif

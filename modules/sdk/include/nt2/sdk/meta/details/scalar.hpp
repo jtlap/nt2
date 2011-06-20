@@ -9,12 +9,15 @@
 #ifndef NT2_SDK_META_DETAILS_SCALAR_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_SCALAR_HPP_INCLUDED
 
+#include <nt2/sdk/meta/details/generic.hpp>
+
 namespace nt2 { namespace meta
 {
   template<class T> struct scalar_ : scalar_< typename T::parent >
   {
     typedef scalar_< typename T::parent > parent;
     typedef typename T::origin            origin;
+    typedef T                             base;
   };
 
   template<class T>
@@ -23,6 +26,7 @@ namespace nt2 { namespace meta
   {
     typedef generic_< typename unspecified_<T>::origin >  parent;
     typedef typename unspecified_<T>::origin              origin;
+    typedef unspecified_<T>                               base;
   };
 } }
 

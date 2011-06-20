@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_META_DETAILS_GENERIC_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_GENERIC_HPP_INCLUDED
 
+#include <nt2/sdk/meta/details/hierarchy_base.hpp>
+
 namespace nt2 { namespace meta
 {
   template<class T> struct generic_ : generic_< typename T::parent >

@@ -29,53 +29,53 @@ NT2_TEST_CASE(simd_category)
 
   #if defined(NT2_SIMD_SSE_FAMILY)
   NT2_TEST((is_same<  hierarchy_of<native<double,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::double_<double> >,ext_t>
+                    , meta::simd_< meta::double_<double> ,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::uint64_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::uint64_<nt2::uint64_t> >,ext_t>
+                    , meta::simd_< meta::uint64_<nt2::uint64_t> ,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::int64_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::int64_<nt2::int64_t> >,ext_t>
+                    , meta::simd_< meta::int64_<nt2::int64_t> ,ext_t>
                     >::value
           ));
   #endif
 
   NT2_TEST((is_same<  hierarchy_of<native<float,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::float_<float> >,ext_t>
+                    , meta::simd_< meta::float_<float>,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::uint32_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::uint32_<nt2::uint32_t> >,ext_t>
+                    , meta::simd_< meta::uint32_<nt2::uint32_t>,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::int32_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::int32_<nt2::int32_t> >,ext_t>
+                    , meta::simd_< meta::int32_<nt2::int32_t> ,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::uint16_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::uint16_<nt2::uint16_t> >,ext_t>
+                    , meta::simd_< meta::uint16_<nt2::uint16_t> ,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::int16_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::int16_<nt2::int16_t> >,ext_t>
+                    , meta::simd_< meta::int16_<nt2::int16_t> ,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::uint8_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::uint8_<nt2::uint8_t> >,ext_t>
+                    , meta::simd_< meta::uint8_<nt2::uint8_t> ,ext_t>
                     >::value
           ));
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::int8_t,ext_t> >::type
-                    , meta::simd_<meta::scalar_< meta::int8_<nt2::int8_t> >,ext_t>
+                    , meta::simd_< meta::int8_<nt2::int8_t> ,ext_t>
                     >::value
           ));
 }

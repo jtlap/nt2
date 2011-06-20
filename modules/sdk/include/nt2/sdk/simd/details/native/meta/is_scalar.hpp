@@ -9,12 +9,12 @@
 #ifndef NT2_SDK_SIMD_DETAILS_NATIVE_META_IS_SCALAR_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_NATIVE_META_IS_SCALAR_HPP_INCLUDED
 
-#include <nt2/sdk/meta/is_scalar.hpp>
-
-namespace nt2 { namespace details
-{
-  template<class T,class X>
-  struct is_scalar< meta::simd_<T,X> >  : boost::mpl::false_ {};
-} }
+//#include <nt2/sdk/meta/is_scalar.hpp>
+//
+//namespace nt2 { namespace details
+//{
+//  template<class T,class X>
+//  struct is_scalar< meta::simd_<T,X> >  : boost::mpl::false_ {};
+//} }
 
 #endif
