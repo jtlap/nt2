@@ -9,19 +9,88 @@
 #define NT2_UNIT_MODULE "nt2 polynomials toolbox - polevl/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of polynomials components in scalar mode
+// unit test behavior of polynomials components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// modified by jt the 06/03/2011
+/// 
+#include <nt2/toolbox/polynomials/include/polevl.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+//#include <nt2/toolbox/cephes/include/polevl.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/no_ulp_tests.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/polynomials/include/polevl.hpp>
-// specific includes for arity 2 tests
+
+//COMMENTED
+NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
+{
+  
+//   using nt2::polevl;
+//   using nt2::tag::polevl_;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef typename nt2::meta::call<polevl_(T,T)>::type r_t;
+//   typedef typename nt2::meta::upgrade<T>::type u_t;
+//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
 
+//   // return type conformity test 
+//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+//   std::cout << std::endl; 
+//   double ulpd;
+//   ulpd=0.0;
+
+
+//   // specific values tests
+//   NT2_TEST_ULP_EQUAL(polevl(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0.5);
+//   NT2_TEST_ULP_EQUAL(polevl(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Zero<r_t>(), 0.5);
+//   NT2_TEST_ULP_EQUAL(polevl(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+//   NT2_TEST_ULP_EQUAL(polevl(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+// } // end of test for real_
+
+// NT2_TEST_CASE_TPL ( polevl_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+// {
+  
+//   using nt2::polevl;
+//   using nt2::tag::polevl_;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef typename nt2::meta::call<polevl_(T,T)>::type r_t;
+//   typedef typename nt2::meta::upgrade<T>::type u_t;
+//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+
+//   // return type conformity test 
+//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+//   std::cout << std::endl; 
+//   double ulpd;
+//   ulpd=0.0;
+
+
+//   // specific values tests
+//   NT2_TEST_ULP_EQUAL(polevl(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+// } // end of test for unsigned_int_
+
+// NT2_TEST_CASE_TPL ( polevl_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+// {
+  
+//   using nt2::polevl;
+//   using nt2::tag::polevl_;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef typename nt2::meta::call<polevl_(T,T)>::type r_t;
+//   typedef typename nt2::meta::upgrade<T>::type u_t;
+//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+
+
+//   // return type conformity test 
+//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+//   std::cout << std::endl; 
+//   double ulpd;
+//   ulpd=0.0;
+
+
+//   // specific values tests
+//   NT2_TEST_ULP_EQUAL(polevl(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for signed_int_

@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(polynomials.unit polynomials.scalar.unit polynomials.simd.unit)
 ##############################################################################
 # Toolbox polynomials unit tests
 ##############################################################################
-nt2_module_use_modules(unit boost_math)
+nt2_module_use_modules(unit boost_math cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
