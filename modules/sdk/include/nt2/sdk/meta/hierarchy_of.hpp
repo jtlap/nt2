@@ -25,8 +25,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
-#include <nt2/sdk/meta/details/scalar.hpp>
-#include <nt2/sdk/meta/details/properties.hpp>
+#include <nt2/sdk/meta/details/hierarchy_base.hpp>
 
 namespace nt2 { namespace details
 {
@@ -66,6 +65,8 @@ namespace nt2 { namespace meta
   };
 } }
 
+#include <nt2/sdk/meta/details/properties.hpp>
 #include <nt2/sdk/meta/details/hierarchy_of.hpp>
+#include <nt2/sdk/meta/details/scalar.hpp>
 
 #endif

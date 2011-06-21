@@ -18,14 +18,6 @@
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/details/is_scalar.hpp>
 
-namespace nt2 { namespace details
-{
-  template<class Hierarchy> struct is_scalar : boost::mpl::false_ {};
-
-  template<class T>
-  struct is_scalar< meta::scalar_<T> >  : boost::mpl::true_ {};
-} }
-
 namespace nt2 { namespace meta
 {
   //============================================================================

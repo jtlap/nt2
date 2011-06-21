@@ -24,6 +24,7 @@ namespace nt2 { namespace meta
     typedef unspecified_<T> parent;
     typedef T               origin;
   };
+
   template<class T> struct generic_< unknown_<T> > : unknown_<T>
   {
     typedef unknown_<T> parent;

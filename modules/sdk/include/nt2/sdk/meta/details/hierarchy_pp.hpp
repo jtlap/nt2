@@ -29,7 +29,7 @@ struct Name : Parent                          \
 template<class T> struct Name : Parent        \
 {                                             \
   typedef Parent  parent;                     \
-  typedef Name    origin;                     \
+  typedef T origin;                        \
 }                                             \
 /**/
 
@@ -40,7 +40,7 @@ template<class T> struct Name : Parent        \
 template<class T> struct Name : NT2_PP_STRIP(Parent)::type  \
 {                                                           \
   typedef typename NT2_PP_STRIP(Parent)::type parent;       \
-  typedef Name                                origin;       \
+  typedef T                                origin;       \
 }                                                           \
 /**/
 

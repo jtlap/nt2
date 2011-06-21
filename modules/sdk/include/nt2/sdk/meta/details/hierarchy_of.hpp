@@ -13,23 +13,30 @@
 #include <nt2/sdk/meta/enable_if_type.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
+namespace nt2 { namespace meta
+{
+  template<class T> struct scalar_;
+} }
 namespace nt2 { namespace details
 {
   //============================================================================
-  // implementation details for hierarchy_of on integers
+  // implementation details for property_of on integers
   //============================================================================
   template<class T,class Origin,std::size_t Size, bool Signed>
-  struct hierarchy_of_ints;
+  struct property_of_ints;
+
+  template<class T,class Origin = T, class Enable = void> struct  property_of;
 
   template<class T,class Origin>
-  struct  hierarchy_of< T
+  struct  property_of< T
                       , Origin
                       , typename boost::
                         enable_if_c < boost::is_integral<T>::value>::type
                       >
-          : details::hierarchy_of_ints< T
+          : details::property_of_ints < T
                                       , Origin
                                       , sizeof(T)*CHAR_BIT
                                       , boost::
@@ -41,85 +48,86 @@ namespace nt2 { namespace details
   // Overload for non integral native types
   //============================================================================
   template<class Origin, class Enable>
-  struct hierarchy_of<void, Origin, Enable>
+  struct property_of<void, Origin, Enable>
   {
-    typedef meta::generic_< meta::void_<Origin> > type;
+    typedef meta::void_<Origin> type;
   };
 
   template<class Origin, class Enable>
-  struct hierarchy_of<float, Origin, Enable>
+  struct property_of<float, Origin, Enable>
   {
-    typedef meta::scalar_< meta::float_<Origin> >  type;
+    typedef meta::float_<Origin>  type;
   };
 
   template<class Origin, class Enable>
-  struct hierarchy_of<double, Origin, Enable>
+  struct property_of<double, Origin, Enable>
   {
-    typedef meta::scalar_< meta::double_<Origin> >  type;
+    typedef meta::double_<Origin> type;
   };
 
   //============================================================================
-  // Overload for types with a nt2_hierarchy_tag
+  // Overload for fundamental types
   //============================================================================
-  template<class T>
+  template<class T,class Origin>
   struct  hierarchy_of< T
+                      , Origin
                       , typename
-                        meta::enable_if_type<typename T::nt2_hierarchy_tag>::type
+                        boost::enable_if< boost::is_fundamental<T> >::type
                       >
   {
-    typedef typename T::nt2_hierarchy_tag type;
+    typedef meta::scalar_< typename property_of<T,Origin>::type > type;
   };
 
   //============================================================================
-  // implementation details for hierarchy_of - overload for bool
+  // implementation details for property_of - overload for bool
   //============================================================================
   template<class Origin>
-  struct hierarchy_of_ints<bool,Origin,sizeof(bool)*CHAR_BIT,false>
+  struct property_of_ints<bool,Origin,sizeof(bool)*CHAR_BIT,false>
   {
-    typedef meta::scalar_< meta::bool_<Origin> >  type;
+    typedef meta::bool_<Origin>  type;
   };
 
   //============================================================================
-  // implementation details for hierarchy_of - overload for integral sized type
+  // implementation details for property_of - overload for integral sized type
   //============================================================================
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,8,true>
+  template<class T,class Origin> struct property_of_ints<T,Origin,8,true>
   {
-    typedef meta::scalar_< meta::int8_<Origin> >  type;
+    typedef meta::int8_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,16,true>
+  template<class T,class Origin> struct property_of_ints<T,Origin,16,true>
   {
-    typedef meta::scalar_< meta::int16_<Origin> >  type;
+    typedef meta::int16_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,32,true>
+  template<class T,class Origin> struct property_of_ints<T,Origin,32,true>
   {
-    typedef meta::scalar_< meta::int32_<Origin> >  type;
+    typedef meta::int32_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,64,true>
+  template<class T,class Origin> struct property_of_ints<T,Origin,64,true>
   {
-    typedef meta::scalar_< meta::int64_<Origin> >  type;
+    typedef meta::int64_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,8,false>
+  template<class T,class Origin> struct property_of_ints<T,Origin,8,false>
   {
-    typedef meta::scalar_< meta::uint8_<Origin> >  type;
+    typedef meta::uint8_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,16,false>
+  template<class T,class Origin> struct property_of_ints<T,Origin,16,false>
   {
-    typedef meta::scalar_< meta::uint16_<Origin> >  type;
+    typedef meta::uint16_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,32,false>
+  template<class T,class Origin> struct property_of_ints<T,Origin,32,false>
   {
-    typedef meta::scalar_< meta::uint32_<Origin> >  type;
+    typedef meta::uint32_<Origin> type;
   };
 
-  template<class T,class Origin> struct hierarchy_of_ints<T,Origin,64,false>
+  template<class T,class Origin> struct property_of_ints<T,Origin,64,false>
   {
-    typedef meta::scalar_< meta::uint64_<Origin> >  type;
+    typedef meta::uint64_<Origin> type;
   };
 } }
 

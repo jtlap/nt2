@@ -22,11 +22,11 @@ namespace nt2 { namespace meta
 
   template<class T>
   struct  scalar_< unspecified_<T> >
-        : generic_< typename unspecified_<T>::origin >
+        : generic_< typename details::property_of<T>::type >
   {
-    typedef generic_< typename unspecified_<T>::origin >  parent;
-    typedef typename unspecified_<T>::origin              origin;
-    typedef unspecified_<T>                               base;
+    typedef generic_< typename details::property_of<T>::type >  parent;
+    typedef T                                                   origin;
+    typedef unspecified_<T>                                     base;
   };
 } }
 

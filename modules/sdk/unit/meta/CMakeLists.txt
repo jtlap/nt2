@@ -20,6 +20,7 @@ SET( SOURCES
     downgrade.cpp
     floating.cpp
     from_bits.cpp
+    hierarchy.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp

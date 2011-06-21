@@ -26,8 +26,8 @@ namespace nt2 { namespace meta
   //============================================================================
   template<class T> struct fundamental_ : unspecified_<T>
   {
-    typedef unspecified_<T>  parent;
-    typedef fundamental_    origin;
+    typedef unspecified_<T> parent;
+    typedef T               origin;
   };
 
   //============================================================================
@@ -38,7 +38,7 @@ namespace nt2 { namespace meta
   template<class T> struct bool_ : fundamental_<T>
   {
     typedef fundamental_<T> parent;
-    typedef bool_           origin;
+    typedef T               origin;
   };
 
   //============================================================================
@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
   template<class T> struct void_ : fundamental_<T>
   {
     typedef fundamental_<T> parent;
-    typedef void_           origin;
+    typedef T               origin;
   };
 
   //============================================================================
@@ -60,7 +60,7 @@ namespace nt2 { namespace meta
   template<class T> struct arithmetic_ : fundamental_<T>
   {
     typedef fundamental_<T>  parent;
-    typedef arithmetic_    origin;
+    typedef T               origin;
   };
 
   //============================================================================
@@ -71,7 +71,7 @@ namespace nt2 { namespace meta
   template<class T> struct integer_ : arithmetic_<T>
   {
     typedef arithmetic_<T>  parent;
-    typedef integer_        origin;
+    typedef T               origin;
   };
 
   //============================================================================
@@ -81,8 +81,8 @@ namespace nt2 { namespace meta
   //============================================================================
   template<class T> struct unsigned_ : integer_<T>
   {
-    typedef integer_<T>  parent;
-    typedef unsigned_    origin;
+    typedef integer_<T> parent;
+    typedef T           origin;
   };
 
   //============================================================================
@@ -101,7 +101,7 @@ namespace nt2 { namespace meta
                                     , integer_<T>
                                     , arithmetic_<T>
                                     >::type                 parent;
-    typedef signed_                                         origin;
+    typedef T                                               origin;
   };
 
   //============================================================================
@@ -112,7 +112,7 @@ namespace nt2 { namespace meta
   template<class T> struct real_ : signed_<T>
   {
     typedef signed_<T>  parent;
-    typedef real_       origin;
+    typedef T           origin;
   };
 
   //////////////////////////////////////////////////////////////////////////////

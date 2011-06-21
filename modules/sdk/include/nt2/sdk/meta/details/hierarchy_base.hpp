@@ -35,7 +35,11 @@ namespace nt2 { namespace meta
    *  be caught silently
    */
   //============================================================================
-  NT2_HIERARCHY_CLASS_TPL(unspecified_, unknown_<T> );
+  template<class T> struct unspecified_ : unknown_<T>
+  {
+    typedef unknown_<T>  parent;
+    typedef T  origin;
+  };
 } }
 
 #endif
