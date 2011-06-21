@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/polynomials/include/hermite.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/boost_math/include/hermite.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

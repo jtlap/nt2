@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 06/03/2011',
-             'included' : ['#include <nt2/toolbox/boost_math/include/hermite.hpp>'],
+             'cover_included' : ['#include <nt2/toolbox/boost_math/include/hermite.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 06/03/2011',
             },

@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 06/03/2011',
-             'included' : ['#include <vector>'],
+             'cover_included' : ['#include <vector>'],
              'notes' : [],
              'stamp' : 'modified by jt the 06/03/2011',
             },
