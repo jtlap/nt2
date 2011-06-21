@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(tag::negs_, tag::cpu_,
                       (A0),
-                      (signed_<A0>)
+                      (real_<A0>)
                      )
 
 namespace nt2 { namespace ext
