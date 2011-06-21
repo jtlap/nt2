@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
   {
     r_t res = ellipke(nt2::One<T>());
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t0>(), 0.5);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 0.5);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t1>(), 0.5);
   }
   {
     r_t res = ellipke(nt2::Zero<T>());
@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
   {
     r_t res = ellipke(nt2::One<T>(),nt2::Eps<scalar>());
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t0>(), 0.5);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 0.5);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t1>(), 0.5);
   }
   {
     r_t res = ellipke(nt2::Zero<T>(),nt2::Eps<scalar>());
