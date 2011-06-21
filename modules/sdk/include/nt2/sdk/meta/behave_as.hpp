@@ -18,7 +18,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
-#include <nt2/sdk/meta/is_fundamental.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -63,18 +62,7 @@ namespace nt2 { namespace meta
                                           strip<Hierarchizable>::type
                                         >::type
                 >::type
-  {
-    NT2_STATIC_ASSERT
-    ( (is_fundamental < typename meta::
-                        primitive_of< typename  meta::
-                                                strip<Hierarchizable>::type
-                                    >::type
-                      >::value
-      )
-    , NT2_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
-    , "A type with a non-fundamental primitive is used in nt2::meta::behave_as."
-    );
-  };
+  {};
 } }
 
 #endif
