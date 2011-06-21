@@ -19,72 +19,73 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd double
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+// load vector of double
+//==============================================================================
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
-                            , (A0)(A1)(T)
-                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< double_<T>, tag::sse_ > >))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< double_<A2>, X > >))
                             )
   {
-
     typedef typename meta::strip<A2>::type::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that = { _mm_load_pd(a0+a1*meta::cardinal_of<type>::value) };
+      result_type
+      that = { _mm_load_pd(a0+a1*meta::cardinal_of<result_type>::value) };
       return that;
     }
   };
 } }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd float
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+// load vector of float
+//==============================================================================
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
-                            , (A0)(A1)(T)
-                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< float_<T>, tag::sse_ > >))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< float_<A2>, X > >))
                             )
   {
-
     typedef typename meta::strip<A2>::type::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that = { _mm_load_ps(a0+a1*meta::cardinal_of<type>::value) };
+      result_type
+      that = { _mm_load_ps(a0+a1*meta::cardinal_of<result_type>::value) };
       return that;
     }
   };
 } }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd integers
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+// load vector of integer
+//==============================================================================
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
-                            , (A0)(A1)(T)
-                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< integer_<T>, tag::sse_ > >))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< integer_<A2>,X > >))
                             )
   {
-
     typedef typename meta::strip<A2>::type::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
+      result_type
+      that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
       return that;
     }
   };

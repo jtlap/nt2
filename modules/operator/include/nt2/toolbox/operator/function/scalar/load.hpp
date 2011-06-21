@@ -24,7 +24,6 @@ namespace nt2 { namespace meta
                               (scalar_< fundamental_<A1> >)
                               (target_< scalar_< fundamental_<A2> > >)
                             )
-
   {
     typedef typename meta::strip<A2>::type::type result_type;
 
