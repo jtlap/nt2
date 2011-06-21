@@ -57,8 +57,14 @@ namespace nt2 { namespace meta
     // Required for Hierarchizable
     //==========================================================================
     typedef target_< typename hierarchy_of<T, as_>::type >  nt2_hierarchy_tag;
-    typedef T                                          type;
+    typedef T                                               type;
   };
+
+  //============================================================================
+  // Same property than T
+  //============================================================================
+  template<class T>
+  struct  property_of< as_<T> > : property_of< T, as_<T> > {};
 
   //============================================================================
   // Requirements for Buildable
