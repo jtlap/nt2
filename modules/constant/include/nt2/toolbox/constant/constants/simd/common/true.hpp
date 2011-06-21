@@ -14,53 +14,37 @@
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::true_, tag::cpu_
-                      , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::true_, tag::cpu_
-                      , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct  call< tag::true_( tag::target_<tag::simd_<tag::real_,X> >)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::true_, tag::cpu_
+                            , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)> : meta::strip<A0>::type {};
+    typedef typename meta::strip<A0>::type::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
+      // TODO : replace by bitwise_cast
       ignore_unused(a0);
-      typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type type;
-      typedef typename meta::as_integer<type>::type    int_type;
+      typedef typename meta::as_integer<type>::type       int_type;
       typename meta::from_bits<type>::type that = { ~int_type(0) };
       return splat<result_type>(that.value);
     }
   };
+} }
 
-  template<class X, class Dummy>
-  struct  call< tag::true_(tag::target_<tag::simd_<tag::integer_,X> >)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::true_, tag::cpu_
+                            , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)> : meta::strip<A0>::type {};
+    typedef typename meta::strip<A0>::type::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type type;
       return splat<result_type>(~type(0));
     }

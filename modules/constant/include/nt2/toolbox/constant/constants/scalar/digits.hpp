@@ -14,35 +14,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over digits<N>
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH_TPL ( tag::digit_<N>
-                          , tag::cpu_
-                          , (nt2::int64_t N)(class A0)
-                          , (target_< fundamental_<A0> >)
-                          )
-
-////////////////////////////////////////////////////////////////////////////////
-// call to digits<N> : reuse splat so the code stay generic anc can be reused
-// in non-scalar cases later (see SIMD for example)
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template< nt2::int64_t N, class Dummy >
-  struct  call< tag::digit_<N>(tag::target_<tag::fundamental_> )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( tag::digit_<N> , tag::cpu_
+                                , (nt2::int64_t N)(class A0)
+                                , (target_< scalar_< fundamental_<A0> > >)
+                                )
   {
-    template<class Sig> struct result;
-    template<class This, class Target>
-    struct result<This(Target)> : meta::strip<Target>::type {};
+    typedef typename meta::strip<A0>::type::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typedef typename NT2_RETURN_TYPE(1)::type result_type;
-      result_type that = splat<result_type>(N);
-      return that;
+      return  splat<result_type>(N);;
     }
   };
 } }

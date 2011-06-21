@@ -17,32 +17,21 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-NT2_REGISTER_DISPATCH ( tag::max_left_shift_
-                      , tag::cpu_,(A0)
-                      , (target_< arithmetic_<A0> > )
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::max_left_shift_(tag::target_<tag::arithmetic_>)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::max_left_shift_, tag::cpu_,(A0)
+                            , (target_< scalar_< arithmetic_<A0> > >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This, class Target>
-    struct result<This(Target)>
-        : meta::as_integer<typename meta::strip<Target>::type::type,signed> {};
+    typedef typename
+            as_integer<typename strip<A0>::type::type,signed>::type  result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typedef typename  NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type base_t;
+      typedef typename meta::scalar_of<result_type>::type base_t;
       BOOST_STATIC_CONSTANT(std::size_t, value = sizeof(base_t)*CHAR_BIT-1 );
-      return splat<type>(value);
+      return splat<result_type>(value);
     }
   };
 } }
