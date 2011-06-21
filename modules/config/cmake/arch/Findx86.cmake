@@ -69,20 +69,33 @@ endif()
 ################################################################################
 # Intel/AMD SSE Family fix-up to force arithmetic to be sse style everywhere
 ################################################################################
+
 if(NT2_COMPILER_GNU_C)
-  if(NT2_HAS_AVX_SUPPORT)
-    set(NT2_CXX_PRECISION_FLAGS "-mfpmath=avx")
-  elseif(NT2_HAS_SSE_SUPPORT)
-    set(NT2_CXX_PRECISION_FLAGS "-mfpmath=sse")
-  endif()
+  foreach(ext avx sse)
+    string(TOUPPER ${ext} ext_u)
+    
+    if(NT2_HAS_${ext_u}_SUPPORT)
+      check_cxx_compiler_flag("-mfpmath=${ext}" HAS_GCC_MFPMATH_${ext_u})
+      if(HAS_GCC_MFPMATH_${ext_u})
+        set(NT2_CXX_PRECISION_FLAGS "-mfpmath=${ext}")
+        break()
+      endif()
+    endif()
+    
+  endforeach()
 endif()
 
 if(NT2_COMPILER_MSVC)
-  if(NT2_HAS_AVX_SUPPORT)
-    set(NT2_CXX_PRECISION_FLAGS "/arch:AVX")
-  elseif(NT2_HAS_SSE2_SUPPORT)
-    set(NT2_CXX_PRECISION_FLAGS "/arch:SSE2")
-  elseif(NT2_HAS_SSE_SUPPORT)
-    set(NT2_CXX_PRECISION_FLAGS "/arch:SSE")
-  endif()
+  foreach(ext avx sse2 sse)
+    string(TOUPPER ${ext} ext_u)
+    
+    if(NT2_HAS_${ext_u}_SUPPORT)
+      check_cxx_compiler_flag("/arch:${ext_u}" HAS_MSVC_ARCH_${ext_u})
+      if(HAS_MSVC_ARCH_${ext_u})
+        set(NT2_CXX_PRECISION_FLAGS "/arch:${ext_u}")
+        break()
+      endif()
+    endif()
+    
+  endforeach()
 endif()
