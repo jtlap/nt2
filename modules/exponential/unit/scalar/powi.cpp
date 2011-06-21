@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/exponential/include/powi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-extern "C" { long double cephes_powil(long double,int); }
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

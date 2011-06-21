@@ -15,9 +15,6 @@
 /// 
 #include <nt2/toolbox/exponential/include/pow.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-extern "C" { long double cephes_powl(long double,long double); }
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -27,7 +24,6 @@ extern "C" { long double cephes_powl(long double,long double); }
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 
-extern "C" { long double cephes_powil(long double,int); }
 
 
 

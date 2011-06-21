@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : ['#include <nt2/include/functions/sqr.hpp>',
+             'cover_included' : ['#include <nt2/include/functions/sqr.hpp>',
                            '#include <nt2/include/functions/sqrt.hpp>',
                            'extern "C" { long double cephes_powl(long double,long double); }'],
              'notes' : [],
@@ -84,7 +84,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : ['extern "C" { long double cephes_powil(long double,int); }'],
+             'cover_included' : ['extern "C" { long double cephes_powil(long double,int); }'],
              'notes' : [],
              'stamp' : 'modified by jt the 14/12/2010',
             },

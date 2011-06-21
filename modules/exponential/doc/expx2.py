@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : ' created by jt the 08/12/2010',
-             'included' : ['#include <nt2/include/functions/log.hpp>',
+             'cover_included' : ['#include <nt2/include/functions/log.hpp>',
                            '#include <nt2/include/functions/sqrt.hpp>',
                            'extern "C" { long double cephes_expx2l(long double); }'],
              'notes' : [],
