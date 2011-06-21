@@ -16,8 +16,6 @@
 #include <nt2/toolbox/trigonometric/include/atan2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/toolbox/libc/include/atan2.hpp>
-extern "C" {extern long double cephes_atanl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
