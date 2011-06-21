@@ -15,27 +15,22 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sb2b_, tag::cpu_,
-                      (A0),
-                      (fundamental_<A0>)
-                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::sb2b_(tag::fundamental_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::sb2b_, tag::cpu_
+                            , (A0)
+                            , (scalar_< fundamental_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> {typedef bool type; };
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       return a0!= Zero<A0>();
     }
-
   };
 } }
+
 
 #endif

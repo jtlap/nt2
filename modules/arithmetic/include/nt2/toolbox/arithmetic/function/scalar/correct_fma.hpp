@@ -62,18 +62,15 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::correct_fma_, tag::cpu_,
-                             (A0)(A1)(A2),
-                             (float_<A0>)(float_<A1>)(float_<A2>)
-                            )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::correct_fma_(tag::float_,tag::float_,tag::float_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::correct_fma_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)(scalar_< float_<A2> >)
+                            )
   {
-    typedef float result_type; 
+
+    typedef float result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -81,5 +78,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

@@ -19,20 +19,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::any_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::any_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::any_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  { typedef bool type; };
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -41,23 +36,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::any_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<uint8_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::any_(tag::simd_<tag::uint8_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::any_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<uint8_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  { typedef bool type; };
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -70,24 +61,20 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::any_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<int8_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::any_(tag::simd_<tag::int8_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::any_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int8_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  { typedef bool type; };
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -100,5 +87,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

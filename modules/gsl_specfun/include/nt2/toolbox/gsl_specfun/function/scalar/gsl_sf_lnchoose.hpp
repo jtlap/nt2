@@ -17,21 +17,20 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is int
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_lnchoose_, tag::cpu_,
-                                 (A0)(A1),
-                                 (integer_<A0>)(integer_<A1>)
-                                )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_lnchoose_(tag::integer_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_lnchoose_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            )
   {
-    typedef double result_type; 
 
-    NT2_FUNCTOR_CALL(2){ return ::gsl_sf_lnchoose(a0, a1); }
+    typedef double result_type;
+
+    NT2_FUNCTOR_CALL(2)
+    { return ::gsl_sf_lnchoose(a0, a1); }
   };
 } }
+
 
 #endif

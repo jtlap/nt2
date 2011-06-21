@@ -9,23 +9,22 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_IS_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_IS_GREATER_HPP_INCLUDED
 
-NT2_REGISTER_DISPATCH( tag::is_greater_, tag::cpu_
-                     , (A0)(A1)
-                     , (fundamental_<A0>)(fundamental_<A1>)
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call<tag::is_greater_(tag::fundamental_,tag::fundamental_), tag::cpu_, Dummy>
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+                            )
   {
+
     typedef bool result_type;
+
     NT2_FUNCTOR_CALL(2)
     {
       return a0 > a1;
     }
   };
-} } 
+} }
+ 
 
 #endif

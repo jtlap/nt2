@@ -16,18 +16,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_less_or_equal_, tag::cpu_,
-                                      (A0)(A1)(A2),
-                                      (arithmetic_<A0>)(arithmetic_<A1>)(integer_<A2>)
-                                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::almost_less_or_equal_(tag::arithmetic_,tag::arithmetic_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_less_or_equal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    typedef bool result_type; 
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -36,21 +33,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_less_or_equal_, tag::cpu_,
-                                      (A0)(A1)(A2),
-                                      (real_<A0>)(real_<A1>)(integer_<A2>)
-                                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::almost_less_or_equal_(tag::real_,tag::real_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_less_or_equal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    typedef bool result_type; 
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -70,5 +65,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

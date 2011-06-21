@@ -22,29 +22,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd double
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::load_
-                      , tag::cpu_
-                      , (A0)(A1)(T)
-                      , (iterator_<fundamental_<A0> >)
-                        (fundamental_<A1>)
-                        ((target_< simd_< double_<T>, tag::sse_ > >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
-                          , tag::fundamental_
-                          , tag::target_< tag::simd_<tag::double_,tag::sse_> >
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< double_<T>, tag::sse_ > >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A2>::type {};
+
+    typedef typename meta::strip<A2>::type::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -56,32 +42,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd float
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::load_
-                      , tag::cpu_
-                      , (A0)(A1)(T)
-                      , (iterator_<fundamental_<A0> >)
-                        (fundamental_<A1>)
-                        ((target_< simd_< float_<T>, tag::sse_ > >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
-                          , tag::fundamental_
-                          , tag::target_< tag::simd_<tag::float_,tag::sse_> >
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< float_<T>, tag::sse_ > >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A2>::type {};
+
+    typedef typename meta::strip<A2>::type::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -93,32 +66,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd integers
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::load_
-                      , tag::cpu_
-                      , (A0)(A1)(T)
-                      , (iterator_<fundamental_<A0> >)
-                        (fundamental_<A1>)
-                        ((target_< simd_< integer_<T>, tag::sse_ > >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
-                          , tag::fundamental_
-                          , tag::target_<tag::simd_<tag::integer_,tag::sse_> >
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
+                            , (A0)(A1)(T)
+                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< integer_<T>, tag::sse_ > >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A2>::type {};
+
+    typedef typename meta::strip<A2>::type::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -129,6 +89,7 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #include <nt2/toolbox/operator/function/simd/sse/sse2/load_offset.hpp>
 

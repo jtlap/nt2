@@ -17,20 +17,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::ilogb_, tag::cpu_,
-                       (A0),
-                       (arithmetic_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::ilogb_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::ilogb_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  { typedef int type; };
+
+    typedef int result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -41,26 +36,24 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::ilogb_, tag::cpu_,
-                       (A0),
-                       (double_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::ilogb_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::ilogb_, tag::cpu_
+                            , (A0)
+                            , (scalar_< double_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  { typedef int type; };
 
-    NT2_FUNCTOR_CALL(1){ return ::fd_ilogb(a0); }
+    typedef int result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    { return ::fd_ilogb(a0); }
   };
 } }
+
 
 #endif

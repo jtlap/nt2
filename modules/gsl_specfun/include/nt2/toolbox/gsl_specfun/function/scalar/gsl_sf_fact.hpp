@@ -17,18 +17,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(gsl_specfun::tag::gsl_sf_fact_, tag::cpu_,
-		      (A0),
-		      (integer_<A0>)
-		      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<gsl_specfun::tag::gsl_sf_fact_(tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_fact_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
   {
-    typedef double result_type; 
+
+    typedef double result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -37,5 +34,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

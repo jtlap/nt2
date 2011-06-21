@@ -17,18 +17,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::isnan_, tag::cpu_,
-                       (A0),
-                       (arithmetic_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::isnan_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::isnan_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    typedef bool result_type; 
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -39,24 +36,24 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::isnan_, tag::cpu_,
-                       (A0),
-                       (double_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::isnan_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::isnan_, tag::cpu_
+                            , (A0)
+                            , (scalar_< double_<A0> >)
+                            )
   {
-    typedef bool result_type; 
 
-    NT2_FUNCTOR_CALL(1){ return ::fd_isnan(a0); }
+    typedef bool result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    { return ::fd_isnan(a0); }
   };
 } }
+
 
 #endif

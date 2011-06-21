@@ -14,17 +14,14 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::nbtrue_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<arithmetic_<A0>,X>))
-                        );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::nbtrue_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
+
     typedef int32_t result_type;
 
     NT2_FUNCTOR_CALL(1)
@@ -38,5 +35,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

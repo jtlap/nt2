@@ -17,17 +17,14 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_odd_, tag::cpu_,
-                        (A0),
-                        (arithmetic_<A0>)
-                       )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::is_odd_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_odd_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
+
     typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
@@ -37,20 +34,18 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_odd_, tag::cpu_,
-                        (A0),
-                        (real_<A0>)
-                       )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::is_odd_(tag::real_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_odd_, tag::cpu_
+                            , (A0)
+                            , (scalar_< real_<A0> >)
+                            )
   {
+
     typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
@@ -59,5 +54,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

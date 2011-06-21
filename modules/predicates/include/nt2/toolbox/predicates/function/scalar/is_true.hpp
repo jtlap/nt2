@@ -15,25 +15,22 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_true_, tag::cpu_,
-                         (A0),
-                         (fundamental_<A0>)
-                        )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::is_true_(tag::fundamental_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_true_, tag::cpu_
+                            , (A0)
+                            , (scalar_< fundamental_<A0> >)
+                            )
   {
+
     typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       return is_nez(a0);
     }
-
   };
 } }
+
 
 #endif

@@ -16,20 +16,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::definitely_greater_, tag::cpu_,
-                                    (A0)(A1)(A2),
-                                    (integer_<A0>)(integer_<A1>)(integer_<A2>)
-                                   )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::definitely_greater_(tag::integer_,tag::integer_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::definitely_greater_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> {typedef bool type; };
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -38,23 +33,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::definitely_greater_, tag::cpu_,
-                                    (A0)(A1)(A2),
-                                    (real_<A0>)(real_<A1>)(integer_<A2>)
-                                   )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::definitely_greater_(tag::real_,tag::real_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::definitely_greater_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> {typedef bool type; };
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -65,5 +56,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif
