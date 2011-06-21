@@ -45,4 +45,22 @@ namespace nt2 { namespace details
   };
 } }
 
+namespace nt2 { namespace meta
+{
+  //============================================================================
+  // Same property than T
+  //============================================================================
+  template<class T, class Origin>
+  struct  property_of < T
+                      , Origin
+                      , typename boost::
+                        enable_if< is_iterator<T> >::type
+                      >
+        : property_of<typename boost::pointee<T>::type, Origin>
+  {};
+
+  template<class Origin>
+  struct  property_of<void*, Origin> : property_of<void, Origin>
+  {};
+} }
 #endif
