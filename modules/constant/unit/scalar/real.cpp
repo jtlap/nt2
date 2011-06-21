@@ -8,8 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::constants real"
 
-#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,15 +39,6 @@ NT2_TEST_CASE(type_dependant_real)
   NT2_TEST_EQUAL( nt2::Two2nmb<float>()     , 8388608.f         );
   NT2_TEST_EQUAL( nt2::Splitfactor<float>() , 8192.f            );
 }
-
-/*
-////////////////////////////////////////////////////////////////////////////////
-// Test value of NaN
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  nan_value, (double)(float) )
-{
-}
-*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test real_constant for every base types

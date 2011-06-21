@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
                               (target_< scalar_< fundamental_<A1> > >)
                             )
   {
-    typedef typename strip<A0>::type result_type;
+    typedef typename strip<A1>::type::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
