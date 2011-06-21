@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::hierarchy_of"
+#define NT2_UNIT_MODULE "nt2::meta::hierarchy_of for as_<T>"
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
@@ -16,9 +16,6 @@
 
 #define M0(z,n,t) ::parent
 #define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
-
-#include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that hierarchy_of is correct for basic types

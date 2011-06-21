@@ -15,7 +15,9 @@
  */
 
 #include <boost/array.hpp>
+#include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 
 namespace nt2 { namespace meta
@@ -26,7 +28,6 @@ namespace nt2 { namespace meta
   template<class T> struct fusion_sequence_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
-    typedef T               origin;
   };
 
   //==========================================================================
@@ -36,15 +37,30 @@ namespace nt2 { namespace meta
   struct array_ : array_<typename T::parent, N>
   {
     typedef array_<typename T::parent, N> parent;
-    typedef typename T::origin            origin;
   };
  
   template<class T, std::size_t N>
   struct array_<unspecified_<T>, N> : fusion_sequence_<T>
   {
     typedef fusion_sequence_<T> parent;
-    typedef T                   origin;
   };
+
+  //============================================================================
+  // Same property than T
+  //============================================================================
+  template<class T, std::size_t N>
+  struct  property_of< boost::array<T,N> >
+        : property_of< T, boost::array<T,N> >
+  {};
+
+  //============================================================================
+  // Requirements for Buildable
+  //============================================================================
+  template<class T, std::size_t N>
+  struct primitive_of< boost::array<T,N> > : primitive_of<T> {};
+
+  template<class T, std::size_t N>
+  struct factory_of< boost::array<T,N> > { typedef boost::array<boost::mpl::_1,N> type; };
 } }
 
 namespace nt2 { namespace details
@@ -61,6 +77,7 @@ namespace nt2 { namespace details
     typedef meta::fusion_sequence_<T> type;
   };
 } }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for boost::array
