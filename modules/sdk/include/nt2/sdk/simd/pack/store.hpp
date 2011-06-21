@@ -15,37 +15,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Splat over terminal of simd domain using the pack::fill method
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::store_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)(T)(C)(Sema)
-                      , (( expr_< A0
-                                , domain_< simd::domain<T,C> >
-                                , tag::terminal_
-                                , Sema
-                                >
-                        ))
-                        (iterator_< fundamental_<A1> >)
-                        (integer_<A2>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class T, class C, class Sema, class Dummy>
-  struct  call< tag::store_ ( tag::expr_< simd::domain<T,C>
-                                        , tag::terminal_
-                                        , Sema
-                                        >
-                            , tag::iterator_<tag::fundamental_>
-                            , tag::integer_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+                            , (A0)(A1)(A2)(T)(C)(Sema)
+                            , (( expr_< A0
+                                      , domain_< simd::domain<T,C> >
+                                      , tag::terminal_
+                                      , Sema
+                                      >
+                              ))
+                              (iterator_< scalar_< fundamental_<A1> > >)
+                              (scalar_< integer_<A2> >)
                             )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A0> {};
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
