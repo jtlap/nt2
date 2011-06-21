@@ -186,24 +186,25 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
         ;
         
         result
-            =   (   qi::lit("typedef") >> full_name >> qi::lit("result_type")   )
-            |   (   template_declare
-                    >>  qi::lit("struct") >> qi::lit("result") >> qi::lit(';')
-                    >>  template_declare >> qi::lit("struct") >> qi::lit("result")
-                    >>  qi::omit
-                    [
-                        qi::lit('<')
-                            >> full_name
-                        >> qi::lit('>')
-                    ]
-                    >>  (   (   qi::lit(':')
-                                >> full_name >> qi::lit('{') >> qi::lit('}')
-                            )   [ _val = "typename " + _1 + "::type"    ]
-                        |   (   qi::lit('{')
-                                >>  qi::lit("typedef") >> full_name >> qi::lit("type") >> qi::lit(';')
-                                >>  qi::lit('}')
+            %=  (   (   qi::lit("typedef") >> full_name >> qi::lit("result_type")   )
+                |   (   template_declare
+                        >>  qi::lit("struct") >> qi::lit("result") >> qi::lit(';')
+                        >>  template_declare >> qi::lit("struct") >> qi::lit("result")
+                        >>  qi::omit
+                        [
+                            qi::lit('<')
+                                >> full_name
+                            >> qi::lit('>')
+                        ]
+                        >>  (   (   qi::lit(':')
+                                    >> full_name >> qi::lit('{') >> qi::lit('}')
+                                )   [ _val = "typename " + _1 + "::type"    ]
+                            |   (   qi::lit('{')
+                                    >>  qi::lit("typedef") >> full_name >> qi::lit("type") >> qi::lit(';')
+                                    >>  qi::lit('}')
+                                )
                             )
-                        )
+                    )
                 )
                 >> qi::lit(';')
         ;
@@ -230,9 +231,10 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
         full_name
             =   qi::raw[
                     (   qi::lit('(') >> (full_name % qi::char_(',')) >> qi::lit(')')   )
-                    |   (   +(qi::char_("a-zA-Z0-9_:"))
+                    |   (   qi::lexeme[+(qi::char_("a-zA-Z0-9_"))]
                             >> -(   (   qi::char_('<') >> (full_name % qi::char_(',')) >> qi::char_('>') >> -(qi::string("::") >> full_name)   )
                                 |   (   qi::char_('(') >> (full_name % qi::char_(',')) >> qi::char_(')')   )
+                                |   (   qi::string("::") >> full_name   )
                                 )
                         )
                 ]
