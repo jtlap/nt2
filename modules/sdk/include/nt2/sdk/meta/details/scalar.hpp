@@ -16,17 +16,15 @@ namespace nt2 { namespace meta
   template<class T> struct scalar_ : scalar_< typename T::parent >
   {
     typedef scalar_< typename T::parent > parent;
-    typedef typename T::origin            origin;
     typedef T                             base;
   };
 
   template<class T>
   struct  scalar_< unspecified_<T> >
-        : generic_< typename details::property_of<T>::type >
+        : generic_< typename property_of<T>::type >
   {
-    typedef generic_< typename details::property_of<T>::type >  parent;
-    typedef T                                                   origin;
-    typedef unspecified_<T>                                     base;
+    typedef generic_< typename property_of<T>::type > parent;
+    typedef unspecified_<T>                           base;
   };
 } }
 

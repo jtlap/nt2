@@ -23,18 +23,8 @@
 
 #include <climits>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
-#include <nt2/sdk/meta/details/hierarchy_base.hpp>
-
-namespace nt2 { namespace details
-{
-  template<class T, class Origin = T, class Enable = void>
-  struct  hierarchy_of
-  {
-    typedef meta::unspecified_<typename meta::strip<Origin>::type> type;
-  };
-} }
+#include <nt2/sdk/meta/details/hierarchy_of.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -64,9 +54,5 @@ namespace nt2 { namespace meta
     typedef typename meta::strip<T>::type::nt2_hierarchy_tag type;
   };
 } }
-
-#include <nt2/sdk/meta/details/properties.hpp>
-#include <nt2/sdk/meta/details/hierarchy_of.hpp>
-#include <nt2/sdk/meta/details/scalar.hpp>
 
 #endif

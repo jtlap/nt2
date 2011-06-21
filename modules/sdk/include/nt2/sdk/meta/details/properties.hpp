@@ -15,7 +15,8 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_signed.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/sdk/meta/details/hierarchy_base.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -27,7 +28,6 @@ namespace nt2 { namespace meta
   template<class T> struct fundamental_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
-    typedef T               origin;
   };
 
   //============================================================================
@@ -38,7 +38,6 @@ namespace nt2 { namespace meta
   template<class T> struct bool_ : fundamental_<T>
   {
     typedef fundamental_<T> parent;
-    typedef T               origin;
   };
 
   //============================================================================
@@ -49,7 +48,6 @@ namespace nt2 { namespace meta
   template<class T> struct void_ : fundamental_<T>
   {
     typedef fundamental_<T> parent;
-    typedef T               origin;
   };
 
   //============================================================================
@@ -60,7 +58,6 @@ namespace nt2 { namespace meta
   template<class T> struct arithmetic_ : fundamental_<T>
   {
     typedef fundamental_<T>  parent;
-    typedef T               origin;
   };
 
   //============================================================================
@@ -71,7 +68,6 @@ namespace nt2 { namespace meta
   template<class T> struct integer_ : arithmetic_<T>
   {
     typedef arithmetic_<T>  parent;
-    typedef T               origin;
   };
 
   //============================================================================
@@ -82,7 +78,6 @@ namespace nt2 { namespace meta
   template<class T> struct unsigned_ : integer_<T>
   {
     typedef integer_<T> parent;
-    typedef T           origin;
   };
 
   //============================================================================
@@ -92,16 +87,15 @@ namespace nt2 { namespace meta
    */
   //============================================================================
   template<class T>
-  struct  signed_ : boost::mpl::if_ < boost::is_integral<T>
+  struct  signed_ : boost::mpl::if_ < meta::is_integral<T>
                                   , integer_<T>
                                   , arithmetic_<T>
                                   >::type
   {
-    typedef typename boost::mpl::if_< boost::is_integral<T>
+    typedef typename boost::mpl::if_< meta::is_integral<T>
                                     , integer_<T>
                                     , arithmetic_<T>
                                     >::type                 parent;
-    typedef T                                               origin;
   };
 
   //============================================================================
@@ -112,7 +106,6 @@ namespace nt2 { namespace meta
   template<class T> struct real_ : signed_<T>
   {
     typedef signed_<T>  parent;
-    typedef T           origin;
   };
 
   //////////////////////////////////////////////////////////////////////////////
@@ -124,14 +117,14 @@ namespace nt2 { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy - gather type which sizeof is equal to a given value
   //////////////////////////////////////////////////////////////////////////////
-  NT2_HIERARCHY_CLASS_TPL_META (type8_, (boost::mpl::if_< boost::is_signed<T>
+  NT2_HIERARCHY_CLASS_TPL_META (type8_, (boost::mpl::if_< behave_as<boost::is_signed<boost::mpl::_1>,T>
                                                         , int_<T>
                                                         , uint_<T>
                                                         >
                                     )
                           );
 
-  NT2_HIERARCHY_CLASS_TPL_META (type16_, (boost::mpl::if_< boost::is_signed<T>
+  NT2_HIERARCHY_CLASS_TPL_META (type16_, (boost::mpl::if_< behave_as<boost::is_signed<boost::mpl::_1>,T>
                                                          , int_<T>
                                                          , uint_<T>
                                                          >
@@ -139,10 +132,11 @@ namespace nt2 { namespace meta
                           );
 
   NT2_HIERARCHY_CLASS_TPL_META (type32_
-                          , (boost::mpl::if_<boost::is_floating_point<T>
+                          , (boost::mpl::if_<meta::is_floating_point<T>
                                             , real_<T>
                                             , typename
-                                              boost::mpl::if_ < boost::is_signed<T>
+                                              boost::mpl::if_
+                                              < behave_as<boost::is_signed<boost::mpl::_1>,T>
                                                               , int_<T>
                                                               , uint_<T>
                                                               >::type
@@ -151,10 +145,10 @@ namespace nt2 { namespace meta
                           );
 
   NT2_HIERARCHY_CLASS_TPL_META (type64_
-                          , (boost::mpl::if_<boost::is_floating_point<T>
+                          , (boost::mpl::if_< meta::is_floating_point<T>
                                             , real_<T>
                                             , typename
-                                              boost::mpl::if_ < boost::is_signed<T>
+                                              boost::mpl::if_ < behave_as<boost::is_signed<boost::mpl::_1>,T>
                                                               , int_<T>
                                                               , uint_<T>
                                                               >::type

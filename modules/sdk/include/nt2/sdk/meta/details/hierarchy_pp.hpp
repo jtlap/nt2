@@ -18,7 +18,6 @@
 struct Name : Parent                          \
 {                                             \
   typedef Parent  parent;                     \
-  typedef Name    origin;                     \
 }                                             \
 /**/
 
@@ -29,7 +28,6 @@ struct Name : Parent                          \
 template<class T> struct Name : Parent        \
 {                                             \
   typedef Parent  parent;                     \
-  typedef T origin;                        \
 }                                             \
 /**/
 
@@ -40,7 +38,6 @@ template<class T> struct Name : Parent        \
 template<class T> struct Name : NT2_PP_STRIP(Parent)::type  \
 {                                                           \
   typedef typename NT2_PP_STRIP(Parent)::type parent;       \
-  typedef T                                origin;       \
 }                                                           \
 /**/
 
@@ -56,18 +53,15 @@ namespace nt2                                                                   
     template<class T> struct Name : Name< typename T::parent >                  \
     {                                                                           \
       typedef Name< typename T::parent > parent;                                \
-      typedef typename T::origin         origin;                                \
     };                                                                          \
                                                                                 \
     template<class T> struct Name< unspecified_<T> > : unspecified_<T>          \
     {                                                                           \
       typedef unspecified_<T> parent;                                           \
-      typedef T               origin;                                           \
     };                                                                          \
     template<class T> struct Name< unknown_<T> > : NT2_PP_REMOVE_TYPENAME(Base) \
     {                                                                           \
       typedef Base parent;                                                      \
-      typedef T    origin;                                                      \
     };                                                                          \
   }                                                                             \
 }                                                                               \

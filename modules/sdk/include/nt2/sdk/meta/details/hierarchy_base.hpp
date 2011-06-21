@@ -27,7 +27,6 @@ namespace nt2 { namespace meta
   template<class T> struct unknown_
   {
     typedef unknown_  parent;
-    typedef unknown_  origin;
   };
 
   //============================================================================
@@ -38,7 +37,6 @@ namespace nt2 { namespace meta
   template<class T> struct unspecified_ : unknown_<T>
   {
     typedef unknown_<T>  parent;
-    typedef T  origin;
   };
 } }
 
