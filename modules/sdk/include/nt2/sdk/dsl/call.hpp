@@ -20,7 +20,7 @@
 #include <nt2/sdk/dsl/proto/as_child.hpp>
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
 
-#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/selection/min.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -32,7 +32,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Defines the catch-all call for proto expression
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
+#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/dsl/preprocessed/call.hpp>
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
