@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_COMMON_COMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_COMMON_COMMA_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// comma operator implementation
-////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/bool.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -26,8 +23,7 @@ namespace nt2 { namespace meta
                             , (unspecified_<A0>)(unspecified_<A1>)
                             )
   {
-    typedef typename meta::strip<A1>::type result_type;
-
+    typedef A1 result_type;
     NT2_FUNCTOR_CALL(2) { ignore_unused(a0); return a1; }
   };
 } }
