@@ -1,58 +1,60 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Base class for generating an EPS related constant
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define LOCAL_CALL_INT(TAG, SEL, VAL)                       \
-template<class A0, class Dummy>                             \
-struct implement< TAG( target_< SEL > ), tag::cpu_, Dummy>  \
-{                                                           \
-  typedef typename meta::strip<A0>::type::type result_type; \
-  NT2_FUNCTOR_CALL(1)                                       \
-  {                                                         \
-    ignore_unused(a0);                                      \
-    return splat<result_type>(VAL);                         \
-  }                                                         \
-}                                                           \
+#define LOCAL_CONST(TAG, D, F, I)                                     \
+NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+                          , (target_< scalar_< arithmetic_<A0> > > )  \
+                          )                                           \
+{                                                                     \
+  typedef typename A0::type result_type;                              \
+  NT2_FUNCTOR_CALL(1)                                                 \
+  {                                                                   \
+    ignore_unused(a0);                                                \
+    return splat<result_type>(I);                                     \
+  }                                                                   \
+};                                                                    \
+                                                                      \
+NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+                          , (target_< scalar_< double_<A0> > > )      \
+                          )                                           \
+{                                                                     \
+  typedef typename A0::type result_type;                              \
+  NT2_FUNCTOR_CALL(1)                                                 \
+  {                                                                   \
+    typename meta::from_bits<result_type>::type const that = {D};     \
+    return splat<result_type>(that.value);                            \
+  }                                                                   \
+};                                                                    \
+                                                                      \
+NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+                          , (target_< scalar_< float_<A0> > > )       \
+                          )                                           \
+{                                                                     \
+  typedef typename A0::type result_type;                              \
+  NT2_FUNCTOR_CALL(1)                                                 \
+  {                                                                   \
+    typename meta::from_bits<result_type>::type const that = {F};     \
+    return splat<result_type>(that.value);                            \
+  }                                                                   \
+};                                                                    \
 /**/
 
-#define LOCAL_CALL(TAG, SEL, VAL)                                   \
-template<class A0, class Dummy>                                     \
-struct implement< TAG( target_< SEL >), tag::cpu_, Dummy>           \
-{                                                                   \
-  typedef typename meta::strip<A0>::type::type result_type;         \
-  NT2_FUNCTOR_CALL(1)                                               \
-  {                                                                 \
-    ignore_unused(a0);                                              \
-    typename meta::from_bits<result_type>::type const that = {VAL}; \
-    return splat<typename A0::type>(that.value);                    \
-  }                                                                 \
-}                                                                   \
-/**/
-
-#define LOCAL_CONST(TAG, VD, VF,VI)                                                   \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_< scalar_< double_<A0> > >      ))  \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_< scalar_< float_<A0> > >       ))  \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_< scalar_< arithmetic_<A0> > >  ))  \
-LOCAL_CALL(TAG, scalar_< double_<A0> >        , VD);                                  \
-LOCAL_CALL(TAG, scalar_< float_<A0> >         , VF);                                  \
-LOCAL_CALL_INT(TAG, scalar_< arithmetic_<A0> >, VI);                                  \
-/**/
-
+//==============================================================================
+// Overloads for EPS related constants
+//==============================================================================
 namespace nt2 { namespace meta
 {
   LOCAL_CONST(tag::eps__            ,0x3cb0000000000000LL,0X34000000,1);
@@ -66,8 +68,6 @@ namespace nt2 { namespace meta
   LOCAL_CONST(tag::smallest_pos_val_,0x0010000000000000LL,0x00800000,1);
 } }
 
-#undef LOCAL_CALL_INT
 #undef LOCAL_CONST
-#undef LOCAL_CALL
 
 #endif

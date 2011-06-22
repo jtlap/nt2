@@ -1,42 +1,47 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_IEEE_SPEC_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_IEEE_SPEC_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Base class for generating an integral constant
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define LOCAL_CALL(TAG, SEL, VAL)                                     \
-template<class A0, class Dummy>                                       \
-struct implement< TAG( target_< SEL >), tag::cpu_, Dummy>             \
+#define LOCAL_CONST(TAG, D, F)                                        \
+NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+                          , (target_< scalar_< double_<A0> > > )      \
+                          )                                           \
 {                                                                     \
-  typedef typename as_integer < typename strip<A0>::type::type        \
+  typedef typename as_integer < typename A0::type                     \
                               , signed                                \
                               >::type result_type;                    \
   NT2_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
     ignore_unused(a0);                                                \
-    return splat<result_type>(VAL);                                   \
+    return splat<result_type>(D);                                     \
   }                                                                   \
-}                                                                     \
-/**/
-
-#define LOCAL_CONST(TAG, VD, VF)                                              \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_<scalar_< double_<A0> > >)) \
-NT2_REGISTER_DISPATCH(TAG,tag::cpu_,(A0), (target_<scalar_< float_<A0> > >))  \
-LOCAL_CALL(TAG, scalar_< double_<A0> >, VD);                                  \
-LOCAL_CALL(TAG, scalar_< float_<A0> >, VF);                                   \
+};                                                                    \
+                                                                      \
+NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+                          , (target_< scalar_< float_<A0> > > )       \
+                          )                                           \
+{                                                                     \
+  typedef typename as_integer < typename A0::type                     \
+                              , signed                                \
+                              >::type result_type;                    \
+  NT2_FUNCTOR_CALL(1)                                                 \
+  {                                                                   \
+    ignore_unused(a0);                                                \
+    return splat<result_type>(F);                                     \
+  }                                                                   \
+};                                                                    \
 /**/
 
 namespace nt2 { namespace meta
@@ -50,6 +55,5 @@ namespace nt2 { namespace meta
 } }
 
 #undef LOCAL_CONST
-#undef LOCAL_CALL
 
 #endif
