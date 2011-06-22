@@ -88,12 +88,12 @@ struct  implement                                                             \
         >                                                                     \
 /**/
 
-#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Ret,Seq)  \
-NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)               \
-template< BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Seq), class A)     \
-        , class Dummy                                               \
-        >                                                           \
-struct  implement<NT2_PP_STRIP(Ret),Site,Dummy>                     \
+#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Ret,Seq)        \
+NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)                     \
+template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types) \
+        , class Dummy                                                     \
+        >                                                                 \
+struct  implement<NT2_PP_STRIP(Ret),Site,Dummy>                           \
 /**/
 
 #endif
