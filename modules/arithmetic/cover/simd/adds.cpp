@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - adds/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-//  $testcat$ test behavior of arithmetic components in simd mode
+// cover test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 05/06/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/arithmetic/include/adds.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/arithmetic/include/adds.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
@@ -51,7 +53,7 @@ NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
     NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -59,7 +61,7 @@ NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::adds(tab_a0[k],tab_a1[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::adds (tab_a0[k],tab_a1[k])));
         }
       }
     
@@ -91,7 +93,7 @@ NT2_TEST_CASE_TPL ( adds_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
     NT2_CREATE_BUF(tab_a1,T, NR, 3*(nt2::Valmin<T>()/4), 3*(nt2::Valmax<T>()/4));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -99,7 +101,7 @@ NT2_TEST_CASE_TPL ( adds_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::adds(tab_a0[k],tab_a1[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::adds (tab_a0[k],tab_a1[k])));
         }
       }
     

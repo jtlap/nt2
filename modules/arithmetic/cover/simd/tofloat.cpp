@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - tofloat/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-//  $testcat$ test behavior of arithmetic components in simd mode
+// cover test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// modified by jt the 05/06/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/arithmetic/include/tofloat.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/arithmetic/include/tofloat.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_REAL_TYPES)
 {
@@ -50,14 +52,14 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat(tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
@@ -88,19 +90,19 @@ NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat(tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
   }
-} // end of test for nt2::uint32_t
+} // end of test for uint32_t
 
 NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
 {
@@ -126,19 +128,19 @@ NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat(tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
   }
-} // end of test for nt2::uint64_t
+} // end of test for uint64_t
 
 NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
 {
@@ -164,19 +166,19 @@ NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat(tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
   }
-} // end of test for nt2::int32_t
+} // end of test for int32_t
 
 NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
 {
@@ -202,16 +204,16 @@ NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat(tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
   }
-} // end of test for nt2::int64_t
+} // end of test for int64_t
