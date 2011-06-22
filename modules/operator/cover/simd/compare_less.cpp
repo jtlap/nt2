@@ -16,6 +16,7 @@
 #include <nt2/toolbox/operator/include/compare_less.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/all.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -51,29 +52,21 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-//     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-//     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a0,T, NR, -T(10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, -T(10), T(10)); 
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = compare_less(a0,a1);
-	std::cout << a0 << "   " << a1 <<  std::endl; 
-	bool zz = std::lexicographical_compare(a0.begin(), a0.end(), a1.begin(), a1.end());
-	std::cout << "std::lexicographical_compare(a0.begin(), a0.end(), a1.begin(), a1.end()) " << std::lexicographical_compare(a0.begin(), a0.end(), a1.begin(), a1.end())<<  std::endl;
-	std::cout <<"compare_less(a0,a1)" <<   compare_less(a0,a1) << std::endl; 
-  
-//        bool z = false;
-//         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
-//         {
-//           if (a0[i]<a1[i]) {z=true;break;}
-//           else if (a0[i]> a1[i]){z=false; break;}
-//         }
-//         NT2_TEST_EQUAL( v,z);
-        NT2_TEST_EQUAL( v,zz);
+        bool z = false;
+        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        {
+          if (a0[i]<a1[i]) {z=true;break;}
+          else if (a0[i]>a1[i]){z=false; break;}
+        }
+        NT2_TEST_EQUAL( v,z);
       }
     
   }

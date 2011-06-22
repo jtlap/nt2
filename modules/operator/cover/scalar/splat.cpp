@@ -25,11 +25,12 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 
+//COMMENTED
 
 NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
   
-//   using nt2::splat;
+ //  using nt2::splat;
 //   using nt2::tag::splat_;
 //   typedef typename nt2::meta::as_integer<T>::type iT;
 //   typedef typename nt2::meta::call<splat_(T)>::type r_t;
@@ -49,7 +50,7 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  NT2_INTEGRAL_TYPES)
 //     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
 //     double ulp0, ulpd ; ulpd=ulp0=0.0;
 //     T a0;
-//     for (uint32_t j =0; j < NR; ++j )
+//     for(nt2::uint32_t j =0; j < NR; ++j )
 //       {
 //         std::cout << "for param "
 //                   << "  a0 = "<< u_t(a0 = tab_a0[j])

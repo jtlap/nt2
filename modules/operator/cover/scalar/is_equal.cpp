@@ -16,6 +16,7 @@
 #include <nt2/toolbox/operator/include/is_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -24,7 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+
 
 NT2_TEST_CASE_TPL ( is_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
@@ -51,7 +52,7 @@ NT2_TEST_CASE_TPL ( is_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
