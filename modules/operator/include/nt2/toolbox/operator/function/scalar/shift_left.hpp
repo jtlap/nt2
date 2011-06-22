@@ -15,14 +15,11 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::shift_left_, tag::cpu_
-                     
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
       typename meta::as_bits<A0>::type t0 = {a0};
@@ -32,27 +29,16 @@ namespace nt2 { namespace meta
   };
 } }
 
-
-NT2_REGISTER_DISPATCH( tag::shift_left_ , tag::cpu_
-                     , (A0)(A1)
-                     , (integer_<A0>)(integer_<A1>)
-                     );
-                     
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call<tag::shift_left_(tag::integer_,tag::integer_), tag::cpu_, Dummy>
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shift_left_ , tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0,A1)>
-    {
-      static A0 a0; static A1 a1;
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 << a1)
-      typedef typename nested::type type;
-    };
-
+    static A0& a0; static A1& a1;
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 << a1)
+    typedef typename nested::type result_type;
     NT2_FUNCTOR_CALL(2) { return a0 << a1; }
   };
 } }

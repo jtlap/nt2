@@ -9,26 +9,15 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_UNARY_PLUS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_UNARY_PLUS_HPP_INCLUDED
 
-NT2_REGISTER_DISPATCH ( tag::unary_plus_ , tag::cpu_, (A0)
-                      , (fundamental_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  // Unary plus
-  //============================================================================
-  template<class Dummy>
-  struct call<tag::unary_plus_(tag::fundamental_), tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::unary_plus_, tag::cpu_, (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>  struct
-    result<This(A0)>
-    {
-      static A0 a0;
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,+a0)
-      typedef typename nested::type type;
-    };
+    static A0& a0;
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,+a0)
+    typedef typename nested::type result_type;
 
     NT2_FUNCTOR_CALL(1) { return +a0; }
   };

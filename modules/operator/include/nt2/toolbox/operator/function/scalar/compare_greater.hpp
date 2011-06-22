@@ -13,16 +13,12 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::compare_greater_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< fundamental_<A1> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return a0 > a1;
-    }
+    NT2_FUNCTOR_CALL(2) { return a0 > a1; }
   };
 } }
  

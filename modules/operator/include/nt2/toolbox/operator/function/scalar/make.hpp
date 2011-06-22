@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MAKE_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MAKE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// make for scalar types
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
@@ -21,7 +18,7 @@ namespace nt2 { namespace meta
                             , (target_< scalar_< fundamental_<A0> > >)
                             )
   {
-    typedef typename strip<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1) { return a0; }
   };
 } }

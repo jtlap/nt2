@@ -9,16 +9,10 @@
 #ifndef NT2_SDK_MEMORY_DETAILS_STORE_HPP_INCLUDED
 #define NT2_SDK_MEMORY_DETAILS_STORE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// store for scalar types
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/mpl.hpp>
 #include <nt2/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over store_
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
@@ -27,7 +21,7 @@ namespace nt2 { namespace meta
                               (scalar_< integer_<A2> >)
                             )
   {
-    typedef typename strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(3)
     {

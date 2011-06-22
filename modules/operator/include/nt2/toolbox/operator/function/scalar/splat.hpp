@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SPLAT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SPLAT_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// splat for scalar types
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
@@ -23,7 +20,7 @@ namespace nt2 { namespace meta
                               (target_< scalar_< fundamental_<A1> > >)
                             )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
