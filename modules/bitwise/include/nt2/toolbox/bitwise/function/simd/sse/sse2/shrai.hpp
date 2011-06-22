@@ -18,18 +18,15 @@
 
 #include <nt2/toolbox/bitwise/function/simd/common/shrai.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int32_t
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int32_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<int32_<A0>,tag::sse_>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -38,21 +35,14 @@ namespace nt2 { namespace meta
       return simd::native_cast<A0>(that);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int16_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<int16_<A0>,tag::sse_>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -61,46 +51,31 @@ namespace nt2 { namespace meta
       return simd::native_cast<A0>(that);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int8_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<int8_<A0>,tag::sse_>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
       typedef simd::native<typename meta::int16_t_<A0>::type,tag::sse_> gen_type;
       gen_type a0h, a0l;
       boost::fusion::tie(a0l, a0h) = split(a0);
       return simd::native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int64_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<int64_<A0>,tag::sse_>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -108,6 +83,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

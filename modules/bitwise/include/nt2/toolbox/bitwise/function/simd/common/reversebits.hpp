@@ -24,12 +24,10 @@ namespace nt2 { namespace meta
                             , ((simd_<int8_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
@@ -57,12 +55,10 @@ namespace nt2 { namespace meta
                             , ((simd_<int64_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555555555555555ull>(); //binary: 0101...
@@ -84,17 +80,6 @@ namespace nt2 { namespace meta
       // swap ints ...
       v = (shri(v, 32) & m32) | shli((v & m32), 32);
       return simd::native_cast<A0>(v);
- //   typedef typename NT2_RETURN_TYPE(1)::type    result_type;
-//    typedef typename meta::as_integer<A0, unsigned>::type   utype;
-//    typedef typename meta::scalar_of<utype>::type          sutype;
-//    typedef typename meta::downgrade<sutype>::type         hutype;
-//    typedef simd::native<hutype,tag::sse_>                 dutype;
-//    //    typedef typename meta::downgrade<utype>::type          dutype;
-//    dutype v = simd::native_cast<dutype>(a0);
-// #define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
-//    dutype vv = {_mm_shuffle_epi32(reversebits(v), NT2_SH(0, 1, 2, 3))};
-//    return simd::native_cast<A0 > (v);
-// #undef   NT2_SH
       }
   };
 } }
@@ -110,12 +95,10 @@ namespace nt2 { namespace meta
                             , ((simd_<int16_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
@@ -146,12 +129,10 @@ namespace nt2 { namespace meta
                             , ((simd_<int32_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
@@ -173,6 +154,5 @@ namespace nt2 { namespace meta
       }
   };
 } }
-
 
 #endif

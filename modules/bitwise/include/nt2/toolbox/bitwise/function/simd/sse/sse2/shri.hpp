@@ -8,29 +8,25 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/templatize.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/is_scalar.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types8_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/is_scalar.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/templatize.hpp>
+#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/include/constants/digits.hpp>
+
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type8_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<type8_<A0>,tag::sse_>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
       typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> gen_type;
       result_type const Mask1 =  simd::native_cast<result_type>(integral_constant<gen_type, 0x00ff00ff>());
       result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00>());
@@ -39,71 +35,49 @@ namespace nt2 { namespace meta
       tmp1 = b_and(tmp1, Mask1);
       tmp = b_and(a0, Mask2);
       result_type tmp3 = {_mm_srli_epi16(tmp, a1)};
-      result_type tmp2 = b_and(tmp3, Mask2);
-      return tmp1 | tmp2;
+      return tmp1 | b_and(tmp3, Mask2);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types32_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(tag::shri_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type32_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<type32_<A0>,tag::sse_>))
+                              ((integer_<A1>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename meta::as_integer<A0>::type sint;
-        sint const that = { _mm_srli_epi32(simd::native_cast<sint>(a0), a1)};
-        return simd::native_cast<A0>(that);
+      typedef typename meta::as_integer<A0>::type sint;
+      sint const that = { _mm_srli_epi32(simd::native_cast<sint>(a0), a1)};
+      return simd::native_cast<A0>(that);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types64_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type64_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<type64_<A0>,tag::sse_>))
+                              ((integer_<A1>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename meta::as_integer<A0>::type sint;
-        sint const that ={ _mm_srli_epi64(simd::native_cast<sint>(a0),a1)};
-        return simd::native_cast<A0>(that);
+      typedef typename meta::as_integer<A0>::type sint;
+      sint const that ={ _mm_srli_epi64(simd::native_cast<sint>(a0),a1)};
+      return simd::native_cast<result_type>(that);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types16_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type16_<A0>,tag::sse_>))(scalar_< integer_<A1> >)
+                            , ((simd_<type16_<A0>,tag::sse_>))
+                              ((integer_<A1>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -112,6 +86,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif
