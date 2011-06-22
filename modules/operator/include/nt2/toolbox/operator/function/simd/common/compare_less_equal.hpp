@@ -11,29 +11,15 @@
 
 #include <nt2/include/functions/compare_less.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::compare_less_equal_, tag::cpu_, (X)(A0)
-                      , ((simd_<arithmetic_<A0>,X>))
-                        ((simd_<arithmetic_<A0>,X>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct  call< tag::compare_less_equal_ ( tag::simd_<tag::arithmetic_,X> 
-                                         , tag::simd_<tag::arithmetic_,X> 
-                                         )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::compare_less_equal_, tag::cpu_, (X)(A0)
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
+                            )
   {
     typedef bool result_type;
-    NT2_FUNCTOR_CALL(2) { return !(a1<a0); }
+    NT2_FUNCTOR_CALL_REPEAT(2) { return !(a1<a0); }
   };
 } }
 

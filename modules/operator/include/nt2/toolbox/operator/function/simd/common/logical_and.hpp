@@ -18,11 +18,11 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A1>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

@@ -16,14 +16,14 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::logical_not_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL(1)
     {
       return nt2::eq(a0,nt2::Zero<A0>());
     }

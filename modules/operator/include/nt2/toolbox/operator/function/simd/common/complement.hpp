@@ -13,29 +13,15 @@
 #include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/constants/true.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::complement_, tag::cpu_, (A0)(X)
-                      , ((simd_<arithmetic_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Implement ~ using xor
-  //////////////////////////////////////////////////////////////////////////////
-  template<class X, class Dummy>
-  struct  call< tag::complement_( tag::simd_<tag::arithmetic_,X>  )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::complement_, tag::cpu_, (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0> {};
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(1)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return b_xor(True<A0>(), a0);
     }

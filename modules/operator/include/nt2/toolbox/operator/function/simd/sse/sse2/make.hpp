@@ -23,9 +23,10 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< double_<A0>, tag::sse_ > >))
                             )
   {
-    typedef simd::native<A0, tag::sse_> result_type;
+    typedef typename A0::type result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    template<class I0, class I1>
+    inline result_type operator()(I0 const& a0, I1 const& a1) const
     {
       result_type that = { _mm_setr_pd(a0, a1) };
       return that;
@@ -42,9 +43,10 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< ints64_<A0>, tag::sse_ > >))
                             )
   {
-    typedef simd::native<A0, tag::sse_> result_type;
+    typedef typename A0::type result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    template<class I0, class I1>
+    inline result_type operator()(I0 const& a0, I1 const& a1) const
     {
       result_type
       that =  { _mm_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
@@ -67,7 +69,7 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< float_<A0>, tag::sse_ > >))
                             )
   {
-    typedef simd::native<A0, tag::sse_> result_type;
+    typedef typename A0::type result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(4)
     {
@@ -86,9 +88,10 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< ints32_<A0>, tag::sse_ > >))
                             )
   {
-    typedef simd::native<A0, tag::sse_> result_type;
+    typedef typename A0::type result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(4)
+    template<class I0, class I1,class I2,class I3> inline result_type
+    operator()(I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3) const
     {
       result_type that = { _mm_setr_epi32(a0, a1, a2, a3) };
       return that;
@@ -105,9 +108,14 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< ints16_<A0>, tag::sse_ > >))
                             )
   {
-    typedef simd::native<A0, tag::sse_> result_type;
+    typedef typename A0::type result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(8)
+    template< class I0, class I1,class I2,class I3
+            , class I4, class I5,class I6,class I7
+            >  inline result_type
+    operator()( I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3
+              , I4 const& a4, I5 const& a5, I6 const& a6, I7 const& a7
+              ) const
     {
       result_type that = { _mm_setr_epi16(a0, a1, a2, a3 , a4, a5, a6, a7 ) };
       return that;
@@ -124,9 +132,18 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< ints8_<A0>, tag::sse_ > >))
                             )
   {
-    typedef simd::native<A0, tag::sse_> result_type;
+    typedef typename A0::type result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(16)
+    template< class I0, class I1,class I2,class I3
+            , class I4, class I5,class I6,class I7
+            , class I8, class I9,class IA,class IB
+            , class IC, class ID,class IE,class IF
+            >  inline result_type
+    operator()( I0 const& a0  , I1 const& a1  , I2 const& a2  , I3 const& a3
+              , I4 const& a4  , I5 const& a5  , I6 const& a6  , I7 const& a7
+              , I8 const& a8  , I9 const& a9  , IA const& a10 , IB const& a11
+              , IC const& a12 , ID const& a13 , IE const& a14 , IF const& a15
+              ) const
     {
       result_type
       that =  { _mm_setr_epi8 ( a0, a1 , a2, a3  , a4 , a5 , a6 , a7

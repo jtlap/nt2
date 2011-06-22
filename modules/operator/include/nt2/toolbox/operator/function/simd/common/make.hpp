@@ -18,28 +18,18 @@
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
-NT2_REGISTER_DISPATCH ( tag::make_, tag::cpu_, (A0)(X)
-                      , ((target_< simd_< arithmetic_<A0>, X > >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call< tag::make_ ( tag::target_<tag::simd_<tag::arithmetic_, X> >
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)(X)
+                            , ((target_< simd_< arithmetic_<A0>, X > >))
+                            )
   {
-    #define M0(z,n,t)                                                                      \
-    template<class A0>                                                                     \
-    simd::native<A0, X> operator()(BOOST_PP_ENUM_PARAMS(n, A0 const& a)) const             \
-    {                                                                                      \
-      NT2_ALIGNED_TYPE(A0) tmp[n] = {                                                      \
-        BOOST_PP_ENUM_PARAMS(n, a)                                                         \
-      };                                                                                   \
-      return load<simd::native<A0, X> >(&tmp[0], 0);                                       \
+    typedef simd::native<A0, X> result_type;
+    #define M0(z,n,t)                                                 \
+    NT2_FUNCTTOR_CALL_REPEAT(n)                                       \
+    {                                                                 \
+      NT2_ALIGNED_TYPE(A0) tmp[n] = {  BOOST_PP_ENUM_PARAMS(n, a)  }; \
+      return load<simd::native<A0, X> >(&tmp[0], 0);                  \
     }
     
     NT2_PP_REPEAT_POWER_OF_2(M0, ~)

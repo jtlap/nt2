@@ -19,52 +19,48 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <cstring>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd types
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
-                            , (A0)(A1)(T)(X)
-                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< fundamental_<T>, X > >))
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_<scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< fundamental_<A2>, X > >))
                             )
   {
-
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that;
-      std::memcpy(&that, reinterpret_cast<type const*>(a0) + a1, sizeof that);
+      result_type that;
+      std::memcpy ( &that
+                  , reinterpret_cast<result_type const*>(a0) + a1
+                  , sizeof that
+                  );
       return that;
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd types with an offset
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
-                            , (A0)(A1)(T)(Offset)(X)
-                            , (iterator_<fundamental_<A0> >)(scalar_< fundamental_<A1> >)((target_< simd_< fundamental_<T>, X > >))(mpl_integral_< integer_<Offset> >)
+                            , (A0)(A1)(A2)(A3)(X)
+                            , (iterator_<scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< fundamental_<A2>, X > >))
+                              (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
     NT2_FUNCTOR_CALL(4)
     {
-      typedef typename NT2_RETURN_TYPE(4)::type type;
-      type that;
-      std::memcpy(&that, reinterpret_cast<type const*>(a0 + A3::value) + a1, sizeof that);
+      result_type that;
+      std::memcpy ( &that
+                  , reinterpret_cast<result_type const*>(a0 + A3::value) + a1
+                  , sizeof that
+                  );
       return that;
     }
   };
 } }
-
 
 #endif
