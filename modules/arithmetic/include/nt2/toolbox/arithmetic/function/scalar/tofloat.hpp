@@ -10,49 +10,23 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TOFLOAT_HPP_INCLUDED
 #include <nt2/sdk/meta/templatize.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return type(a0);
-    }
+    NT2_FUNCTOR_CALL(1) { return result_type(a0); }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return a0; }
   };
 } }
-
 
 #endif

@@ -30,8 +30,6 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer< A0 >::type int_type;
-      int_type t1 = ;
-      int_type t0 = simd::native_cast<int_type>( a0 );
       A0     that = { simd::native_cast<A0>
                       ( _mm_andnot_si128( simd::native_cast<int_type>(a1)
                                         , simd::native_cast<int_type>(a0)
@@ -49,7 +47,7 @@ namespace nt2 { namespace meta
   {
     typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm_andnot_pd(a1, a0)};
       return that;
@@ -63,7 +61,7 @@ namespace nt2 { namespace meta
   {
     typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm_andnot_ps(a1, a0)};
       return that;

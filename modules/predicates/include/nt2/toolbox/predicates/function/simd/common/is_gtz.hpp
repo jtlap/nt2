@@ -12,56 +12,22 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<signed_<A0>,X>))
-                        );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::is_gtz_(tag::simd_<tag::signed_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)(X)
+                            , ((simd_<signed_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return gt(a0, Zero<A0>());
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return gt(a0, Zero<A0>()); }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<unsigned_<A0>,X>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::is_gtz_(tag::simd_<tag::unsigned_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)(X)
+                            , ((simd_<unsigned_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return is_nez(a0);
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return is_nez(a0); }
   };
 } }
 

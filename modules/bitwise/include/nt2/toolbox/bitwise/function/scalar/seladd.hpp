@@ -9,28 +9,23 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELADD_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELADD_HPP_INCLUDED
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::seladd_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)(scalar_< fundamental_<A2> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::seladd_, tag::cpu_, (A0)(A1)(A2)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< fundamental_<A1> >)
+                              (scalar_< fundamental_<A2> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A1,A2)>::type result_type;
-
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      if (a0) return type(a1)+ type(a2); else return type(a1);
+      if(a0)
+        return result_type(a1) + result_type(a2);
+      else
+        return result_type(a1);
     }
   };
 } }
-
 
 #endif

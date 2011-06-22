@@ -16,49 +16,26 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_
-                            , (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_, (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-        return (a1>0)?(a0<<a1):(a0>>a1);
-    }
+    NT2_FUNCTOR_CALL(2) { return (a1>0)?(a0<<a1):(a0>>a1); }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_
-                            , (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       // No denormal provision
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
-      typedef typename meta::as_integer<result_type, unsigned>::type          int_type;
-
-      //  static int_type const nmb = Nbmantissabits<result_type>();
-      //      static int_type const n1  = ((2*(Maxexponent<result_type>()-1)+3) << nmb);
+      typedef typename meta::as_integer<result_type, unsigned>::type  int_type;
 
       // clear exponent in x
       result_type const x(b_andnot(a0, Ldexpmask<result_type>()));
@@ -71,6 +48,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

@@ -13,18 +13,14 @@
 #include <nt2/sdk/dsl/recognition.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/toolbox/bitwise/function/bitwise_andnot.hpp>
-
-NT2_REGISTER_DISPATCH ( tag::bitwise_and_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
-                      , (unspecified_<A0>)((expr_<A1,Dom,tag::complement_,Sema>))
-                      )
-
-namespace nt2 { namespace ext
+/*
+namespace nt2 { namespace meta
 {
-  template<class Domain,class Semantic,class Dummy>
-  struct call < tag::bitwise_and_(tag::unspecified_, tag::expr_<Domain,tag::complement_,Semantic>)
-              , tag::recognition_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_and_, tag::recognition_
+                            , (A0)(A1)(Dom)(Sema)
+                            , (unspecified_<A0>)
+                              ((expr_<A1,Dom,tag::complement_,Sema>))
+                            )
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -34,7 +30,6 @@ namespace nt2 { namespace ext
           typename boost::proto::result_of::child_c<A1, 0>::type
         ) >
     {};
-
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -71,5 +66,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+*/
 
 #endif

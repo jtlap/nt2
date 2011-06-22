@@ -11,32 +11,14 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/is_unord.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_nan_, tag::cpu_,
-                         (A0)(X),
-                         ((simd_<arithmetic_<A0>,X>))
-                        );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::is_nan_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_nan_, tag::cpu_, (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-       return is_unord(a0,a0);
-    }
-
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return is_unord(a0,a0); }
   };
 } }
 

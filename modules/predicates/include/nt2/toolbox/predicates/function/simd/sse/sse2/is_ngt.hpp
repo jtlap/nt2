@@ -11,54 +11,27 @@
 
 #include <nt2/toolbox/predicates/function/simd/common/is_ngt.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_ngt_, tag::cpu_,
-                         (A0),
-                         ((simd_<double_<A0>,tag::sse_>))
-                         ((simd_<double_<A0>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::is_ngt_(tag::simd_<tag::double_, tag::sse_> ,
-                           tag::simd_<tag::double_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_ngt_, tag::cpu_, (A0)
+                            , ((simd_<double_<A0>,tag::sse_>))
+                              ((simd_<double_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  { _mm_cmpngt_pd(a0,a1)}; return that;
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_ngt_, tag::cpu_,
-                         (A0),
-                         ((simd_<float_<A0>,tag::sse_>))
-                         ((simd_<float_<A0>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::is_ngt_(tag::simd_<tag::float_, tag::sse_> ,
-                           tag::simd_<tag::float_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_ngt_, tag::cpu_, (A0)
+                            , ((simd_<float_<A0>,tag::sse_>))
+                              ((simd_<float_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  { _mm_cmpngt_ps(a0,a1)}; return that;
     }

@@ -12,110 +12,67 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/seladd.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_
-                            , (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))((simd_<arithmetic_<A0>,tag::sse_>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+                              ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
        return seladd( lt(a0,a1),a0,a1-a0);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_
-                            , (A0)
-                            , ((simd_<double_<A0>,tag::sse_>))((simd_<double_<A0>,tag::sse_>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_, (A0)
+                            , ((simd_<double_<A0>,tag::sse_>))
+                              ((simd_<double_<A0>,tag::sse_>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  {_mm_max_pd(a0,a1)}; return that;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_
-                            , (A0)
-                            , ((simd_<float_<A0>,tag::sse_>))((simd_<float_<A0>,tag::sse_>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_, (A0)
+                            , ((simd_<float_<A0>,tag::sse_>))
+                              ((simd_<float_<A0>,tag::sse_>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  {_mm_max_ps(a0,a1)}; return that;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_
-                            , (A0)
-                            , ((simd_<int16_<A0>,tag::sse_>))((simd_<int16_<A0>,tag::sse_>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_, (A0)
+                            , ((simd_<int16_<A0>,tag::sse_>))
+                              ((simd_<int16_<A0>,tag::sse_>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  { _mm_max_epi16(a0,a1)}; return that;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint8_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_
-                            , (A0)
-                            , ((simd_<uint8_<A0>,tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_, (A0)
+                            , ((simd_<uint8_<A0>,tag::sse_>))
+                              ((simd_<uint8_<A0>,tag::sse_>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
          A0 that =  {_mm_max_epu8(a0,a1)}; return that;
     }
   };
 } }
-
 
 #endif

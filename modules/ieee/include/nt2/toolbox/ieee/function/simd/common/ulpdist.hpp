@@ -58,42 +58,27 @@
 //     ulpdist(double(nt2::Pi<float>()), nt2::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return (max(a0, a1)-min(a0,a1));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                              ((simd_<real_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0>::type itype;
       itype e1, e2;
@@ -101,8 +86,11 @@ namespace nt2 { namespace meta
       boost::fusion::tie(m1, e1) = nt2::frexp(a0);
       boost::fusion::tie(m2, e2) = nt2::frexp(a1);
       itype expo = -nt2::max(e1, e2);
-      A0 e = sel(is_equal(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo)));
-      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1),  Zero<A0>(), e/Eps<A0>());
+      A0 e = sel( is_equal(e1, e2)
+                , nt2::abs(m1-m2)
+                , nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo))
+                );
+      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
     }
   };
 } }

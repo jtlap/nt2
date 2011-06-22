@@ -15,66 +15,29 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
-                         (A0),
-                         ((simd_<arithmetic_<A0>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::is_gtz_(tag::simd_<tag::arithmetic_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1){ return gt(a0,Zero<A0>()); }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return gt(a0,Zero<A0>()); }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
-                         (A0),
-                         ((simd_<unsigned_<A0>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::is_gtz_(tag::simd_<tag::unsigned_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
+                          , ((simd_<unsigned_<A0>,tag::sse_>))
+                          )
   {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1){ return is_nez(a0); }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_t
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::is_gtz_, tag::cpu_,
-                         (A0),
-                         ((simd_<int64_<A0>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::is_gtz_(tag::simd_<tag::int64_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
+                            , ((simd_<int64_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef simd::native<typename meta::int32_t_<A0>::type, tag::sse_> type;

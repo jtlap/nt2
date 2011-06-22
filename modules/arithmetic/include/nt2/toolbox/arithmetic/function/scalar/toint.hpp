@@ -13,53 +13,28 @@
 #include <nt2/include/functions/is_nan.hpp>
 
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename meta::as_integer<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return type(a0);
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return result_type(a0); }
   };
-} }
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
-
-    typedef typename meta::as_integer<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (is_nan(a0)) return Zero<type>();
-      if (a0 == Inf<A0>()) return Valmax<type>(); 
-      return type(a0);
+      if (is_nan(a0))       return Zero<result_type>();
+      if (a0 == Inf<A0>())  return Valmax<result_type>();
+      return result_type(a0);
     }
   };
 } }
-
 
 #endif

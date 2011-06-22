@@ -24,77 +24,48 @@
 
 #include <nt2/toolbox/arithmetic/function/simd/common/tofloat.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int32_t
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_, (A0)
                             , ((simd_<int32_<A0>,tag::sse_>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type that = { _mm_cvtepi32_ps(a0)};
+      result_type that = { _mm_cvtepi32_ps(a0)};
       return that;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint64_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_ , (A0)
                             , ((simd_<uint64_<A0>,tag::sse_>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type stype;
-      return make<type>( static_cast<stype>(a0[0])
-                       , static_cast<stype>(a0[1])
-                       );
+      typedef typename meta::scalar_of<result_type>::type stype;
+      return make<result_type>( static_cast<stype>(a0[0])
+                              , static_cast<stype>(a0[1])
+                              );
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint32_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_ , (A0)
                             , ((simd_<uint32_<A0>,tag::sse_>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type stype;
+      typedef typename meta::scalar_of<result_type>::type stype;
 
-      return make<type>( static_cast<stype>(a0[0])
-                       , static_cast<stype>(a0[1])
-                       , static_cast<stype>(a0[2])
-                       , static_cast<stype>(a0[3])
-                       );
+      return make<result_type>( static_cast<stype>(a0[0])
+                              , static_cast<stype>(a0[1])
+                              , static_cast<stype>(a0[2])
+                              , static_cast<stype>(a0[3])
+                              );
       //TO DO
  //      typedef typename meta::scalar_of<A0>::type stype;
 //       typedef typename meta::as_integer<A0,signed>::type sint_type;
@@ -107,40 +78,26 @@ namespace nt2 { namespace meta
 //       return sel(is_gez(a00),v1,v2);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_ , (A0)
                             , ((simd_<int64_<A0>,tag::sse_>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type sftype;
+      typedef typename meta::scalar_of<result_type>::type sftype;
       if (maximum(abs(a0)) > Valmax<int32_t>())
       {
-        return make<type>( static_cast<sftype>(a0[0])
-                         , static_cast<sftype>(a0[1])
-                         );
+        return make<result_type>( static_cast<sftype>(a0[0])
+                                , static_cast<sftype>(a0[1])
+                                );
       }
       typedef typename meta::int32_t_<A0>::type htype;
-      typedef simd::native<htype,tag::sse_> itype;
-      itype tmp = {_mm_shuffle_epi32(a0, _MM_SHUFFLE(3, 1, 2, 0))};
-      type v = { _mm_cvtepi32_pd(tmp)};
+      result_type v = { _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)))};
       return v;
     }
   };
 } }
-
 
 #endif

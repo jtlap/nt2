@@ -8,66 +8,29 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIST_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIST_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
+
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/abs.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::dist_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<arithmetic_<A0>,X>))
-                       ((simd_<arithmetic_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::dist_(tag::simd_<tag::arithmetic_, X> ,
-                         tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-        return nt2::abs(a0-a1);
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2) { return nt2::abs(a0-a1); }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::dist_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<unsigned_<A0>,X>))
-                       ((simd_<unsigned_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::dist_(tag::simd_<tag::unsigned_, X> ,
-                         tag::simd_<tag::unsigned_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
+                            , ((simd_<unsigned_<A0>,X>))
+                              ((simd_<unsigned_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return (nt2::max(a0, a1)-nt2::min(a1,a0));
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)  { return (nt2::max(a0, a1)-nt2::min(a1,a0)); }
   };
 } }
 

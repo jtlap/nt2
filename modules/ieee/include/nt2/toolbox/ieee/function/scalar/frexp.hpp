@@ -15,64 +15,37 @@
 #include <boost/fusion/include/at.hpp>
 #include <math.h>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
-                       (A0),
-                       (double_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::frexp_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)
+                            , (double_<A0>)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             type;
-    };
+    typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
+    typedef typename meta::as_integer<A0,signed>::type          exponent;
+    typedef boost::fusion::vector<mantissa,exponent>            result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       int r1t = 0;
       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
       return res;
     }
   };
-} }
 
-
-NT2_REGISTER_DISPATCH(tag::frexp_, tag::cpu_,
-                       (A0),
-                       (float_<A0>)
-                      )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::frexp_(tag::float_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)
+                            , (float_<A0>)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             type;
-    };
+    typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
+    typedef typename meta::as_integer<A0,signed>::type          exponent;
+    typedef boost::fusion::vector<mantissa,exponent>            result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }
