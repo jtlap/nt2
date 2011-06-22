@@ -9,29 +9,23 @@
 #ifndef NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
 #define NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Basic category registration
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// SIMD types tag
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   template<class T,class X> struct simd_ : simd_< typename T::parent, X >
   {
-    typedef simd_< typename T::parent, X > parent;
-    typedef typename T::origin            origin;
+    typedef simd_< typename T::parent, X >  parent;
+    typedef T                               base;
   };
 
   template<class T,class X>
   struct  simd_< unspecified_<T>, X >
-        : generic_< typename unspecified_<T>::origin >
+        : generic_< typename property_of<T>::type >
   {
-    typedef generic_< typename unspecified_<T>::origin >  parent;
-    typedef typename unspecified_<T>::origin              origin;
+    typedef generic_< typename property_of<T>::type > parent;
+    typedef unspecified_<T>                           base;
   };
 } }
 

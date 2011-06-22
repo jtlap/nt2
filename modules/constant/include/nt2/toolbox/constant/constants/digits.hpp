@@ -15,9 +15,9 @@
  */
 
 #include <nt2/include/simd.hpp>
+#include <nt2/sdk/constant/common.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
-#include <nt2/sdk/constant/common.hpp>
 
 namespace nt2 { namespace tag
 {

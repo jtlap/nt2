@@ -24,10 +24,10 @@ namespace nt2 { namespace meta
                             , ((target_< simd_< arithmetic_<A0>,X> >))
                             )
   {
-    typedef typename meta::strip<A0>::type::type                  target;
+    typedef typename A0::type                                     target;
     typedef typename meta::scalar_of<target>::type                base;
     typedef typename meta::call<Tag(nt2::meta::as_<base>)>::type  result;
-    typedef typename target::template cast<result>::type          result_type;
+    typedef simd::native<result,X>                                result_type;
 
     inline result_type operator()(A0 const&) const
     {
