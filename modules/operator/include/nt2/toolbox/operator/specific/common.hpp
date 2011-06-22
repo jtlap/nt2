@@ -40,7 +40,10 @@ NT2_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag)(X) \
                       )                               \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
+namespace nt2 { namespace meta
+{
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
+} }
 
 #undef M0
 #undef M1
@@ -48,25 +51,24 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
 ////////////////////////////////////////////////////////////////////////////////
 // Generate all the common map calls over Tag using nt2::map
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) tag::simd_<tag::unspecified_,X>
+#define M0(z,n,t) simd_<unspecified_<BOOST_PP_CAT(A,n)>,X>
 
-#define M1(z,n,t)                                                         \
-namespace nt2 { namespace ext                                             \
-{                                                                         \
-  template<class Tag, class X, class Dummy>                               \
-  struct call<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy> : callable  \
-  {                                                                       \
-    template<class Sig> struct result;                                    \
-    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                  \
-    struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                        \
-      : meta::call<tag::map_(functor<Tag>, BOOST_PP_ENUM_PARAMS(n,A))> {};\
-                                                                          \
-    NT2_FUNCTOR_CALL(n)                                                   \
-    {                                                                     \
-      return nt2::map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));        \
-    }                                                                     \
-  };                                                                      \
-} }                                                                       \
+#define M1(z,n,t)                                                           \
+namespace nt2 { namespace meta                                              \
+{                                                                           \
+  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class X, class Dummy> \
+  struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
+  {                                                                         \
+    typedef typename meta::call<tag::map_ ( functor<Tag>                    \
+                                          , BOOST_PP_ENUM_PARAMS(n,A)       \
+                                          )> result_type;                   \
+                                                                            \
+    NT2_FUNCTOR_CALL(n)                                                     \
+    {                                                                       \
+      return nt2::map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));          \
+    }                                                                       \
+  };                                                                        \
+} }                                                                         \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M1,~)
