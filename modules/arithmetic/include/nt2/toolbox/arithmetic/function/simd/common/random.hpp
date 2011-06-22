@@ -8,8 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_RANDOM_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_RANDOM_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -18,13 +16,13 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::random_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return a0; //map<random_>(a0, a1); //TO DO
     }
