@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< double_<A1>, tag::sse_ > >))
                       )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -46,7 +46,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< float_<A1>, tag::sse_ > >))
                       )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -67,7 +67,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< ints8_<A1>, tag::sse_ > >))
                       )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -88,7 +88,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< ints16_<A1>, tag::sse_ > >))
                       )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -109,7 +109,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< ints32_<A1>, tag::sse_ > >))
                       )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -130,7 +130,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< ints64_<A1>, tag::sse_ > >))
                       )
   {
-    typedef typename strip<A1>::type::type result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

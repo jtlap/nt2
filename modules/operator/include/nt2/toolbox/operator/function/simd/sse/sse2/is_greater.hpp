@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
@@ -19,155 +18,111 @@
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/bitwise_and.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for double
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<double_<A0>,tag::sse_>))((simd_<double_<A0>,tag::sse_>))
+                            , ((simd_<double_<A0>,tag::sse_>))
+                              ((simd_<double_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_pd(a0,a1) };
       return that;
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for float
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<float_<A0>,tag::sse_>))((simd_<float_<A0>,tag::sse_>))
+                            , ((simd_<float_<A0>,tag::sse_>))
+                              ((simd_<float_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_ps(a0,a1) };
       return that;
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for unsigned types
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<unsigned_<A0>,tag::sse_>))((simd_<unsigned_<A0>,tag::sse_>))
+                            , ((simd_<unsigned_<A0>,tag::sse_>))
+                              ((simd_<unsigned_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0, signed>::type stype;
-      stype tmp1 = simd::native_cast<stype>(a0) - Signmask<stype>();
-      stype tmp2 = simd::native_cast<stype>(a1) - Signmask<stype>();
-      stype tmp = nt2::gt(tmp1,tmp2);
-      return simd::native_cast<A0>(tmp);
+      return  simd::native_cast<A0>
+              ( nt2::gt ( simd::native_cast<stype>(a0) - Signmask<stype>()
+                        , simd::native_cast<stype>(a1) - Signmask<stype>()
+                        )
+              );
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for int8 types
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<int8_<A0>,tag::sse_>))((simd_<int8_<A0>,tag::sse_>))
+                            , ((simd_<int8_<A0>,tag::sse_>))
+                              ((simd_<int8_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi8(a0,a1)  };
       return that;
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for int16 types
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<int16_<A0>,tag::sse_>))((simd_<int16_<A0>,tag::sse_>))
+                            , ((simd_<int16_<A0>,tag::sse_>))
+                              ((simd_<int16_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi16(a0,a1)  };
       return that;
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for int32 types
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<int32_<A0>,tag::sse_>))((simd_<int32_<A0>,tag::sse_>))
+                            , ((simd_<int32_<A0>,tag::sse_>))
+                              ((simd_<int32_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi32(a0,a1)  };
       return that;
     }
   };
-} }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for int64 types
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
-                            , ((simd_<int64_<A0>,tag::sse_>))((simd_<int64_<A0>,tag::sse_>))
+                            , ((simd_<int64_<A0>,tag::sse_>))
+                              ((simd_<int64_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::downgrade<A0, signed>::type type;
       type sa0 = { a0 };
@@ -182,6 +137,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

@@ -11,63 +11,40 @@
 
 #include <nt2/include/functions/is_equal.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::compare_equal_, tag::cpu_, (A0)
-                      , ((simd_<double_<A0>,tag::sse_>))
-                        ((simd_<double_<A0>,tag::sse_>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::compare_equal_, tag::cpu_, (A0)
-                      , ((simd_<float_<A0>,tag::sse_>))
-                        ((simd_<float_<A0>,tag::sse_>))
-                      );
-
-NT2_REGISTER_DISPATCH ( tag::compare_equal_, tag::cpu_, (A0)
-                      , ((simd_<integer_<A0>,tag::sse_>))
-                        ((simd_<integer_<A0>,tag::sse_>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::compare_equal_ ( tag::simd_<tag::double_,tag::sse_>
-                                    , tag::simd_<tag::double_,tag::sse_>
-                                    )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::compare_equal_, tag::cpu_
+                            , (A0)
+                            , ((simd_<double_<A0>,tag::sse_>))
+                              ((simd_<double_<A0>,tag::sse_>))
+                            )
   {
     typedef bool result_type;
-    NT2_FUNCTOR_CALL(2) { return _mm_movemask_pd(eq(a0,a1)) == 0X03; }
+    NT2_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_pd(eq(a0,a1)) == 0X03; }
   };
 
-  template<class Dummy>
-  struct  call< tag::compare_equal_ ( tag::simd_<tag::float_,tag::sse_>
-                                    , tag::simd_<tag::float_,tag::sse_>
-                                    )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::compare_equal_, tag::cpu_
+                            , (A0)
+                            , ((simd_<float_<A0>,tag::sse_>))
+                              ((simd_<float_<A0>,tag::sse_>))
+                            )
   {
     typedef bool result_type;
-    NT2_FUNCTOR_CALL(2) { return _mm_movemask_ps(eq(a0,a1)) == 0X0F; }
+    NT2_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_ps(eq(a0,a1)) == 0X0F; }
   };
 
-  template<class Dummy>
-  struct  call< tag::compare_equal_ ( tag::simd_<tag::integer_,tag::sse_>
-                                    , tag::simd_<tag::integer_,tag::sse_>
-                                    )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::compare_equal_, tag::cpu_
+                            , (A0)
+                            , ((simd_<integer_<A0>,tag::sse_>))
+                              ((simd_<integer_<A0>,tag::sse_>))
+                            )
   {
-    typedef bool result_type;
-    NT2_FUNCTOR_CALL(2) { return _mm_movemask_epi8(eq(a0,a1)) == 0XFFFF; }
+    typedef A0 result_type;
+
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return _mm_movemask_epi8(eq(a0,a1)) == 0X0FFFF;
+    }
   };
 } }
 

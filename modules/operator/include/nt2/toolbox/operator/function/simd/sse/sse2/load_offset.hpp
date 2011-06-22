@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Some helpers for discriminating periodic and forward/backward offset

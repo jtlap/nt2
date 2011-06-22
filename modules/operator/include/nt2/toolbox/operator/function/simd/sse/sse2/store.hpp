@@ -9,28 +9,23 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_STORE_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_STORE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// store for SIMD types
+//==============================================================================
 // TODO : Documentation for simd store
 // TODO : Make them work properly with ContiguousRandomAccessIterator
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 #include <nt2/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over store for double SIMD types
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::store_
-                      , tag::cpu_
-                      
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((simd_< double_<A0>, tag::sse_ >))(iterator_< double_<A1> >)(scalar_< integer_<A2> >)
+                            , ((simd_< double_<A0>, tag::sse_ >))
+                              (iterator_< scalar_< double_<A1> > >)
+                              (scalar_< integer_<A2> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -40,21 +35,16 @@ namespace nt2 { namespace meta
   };
 } }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over store for float SIMD types
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::store_
-                      , tag::cpu_
-                      
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((simd_< float_<A0>, tag::sse_ >))(iterator_< float_<A1> >)(scalar_< integer_<A2> >)
+                            , ((simd_< float_<A0>, tag::sse_ >))
+                              (iterator_< scalar_< float_<A1> > >)
+                              (scalar_< integer_<A2> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -64,21 +54,16 @@ namespace nt2 { namespace meta
   };
 } }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over store for integral SIMD types
-////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::store_
-                      , tag::cpu_
-                      
+  NT2_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((simd_< integer_<A0>, tag::sse_ >))(iterator_< integer_<A1> >)(scalar_< integer_<A2> >)
+                            , ((simd_< integer_<A0>, tag::sse_ >))
+                              (iterator_< scalar_< integer_<A1> > >)
+                              (scalar_< integer_<A2> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -87,6 +72,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

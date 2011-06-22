@@ -11,8 +11,6 @@
 
 #include <nt2/toolbox/operator/function/simd/sse/sse4_1/is_greater.hpp>
 
-#include <nt2/sdk/meta/strip.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for int64 types
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,19 +18,18 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::sse4_2_
                             , (A0)
-                            , ((simd_<int64_<A0>,tag::sse_>))((simd_<int64_<A0>,tag::sse_>))
+                            , ((simd_<int64_<A0>,tag::sse_>))
+                              ((simd_<int64_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi64(a0,a1)  };
       return that;
     }
   };
 } }
-
 
 #endif

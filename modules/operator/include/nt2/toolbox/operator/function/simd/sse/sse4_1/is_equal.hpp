@@ -18,13 +18,13 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_equal_, tag::sse4_1_
                             , (A0)
-                            , ((simd_<ints64_<A0>,tag::sse_>))((simd_<ints64_<A0>,tag::sse_>))
+                            , ((simd_<ints64_<A0>,tag::sse_>))
+                              ((simd_<ints64_<A0>,tag::sse_>))
                             )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_epi64(a0,a1) };
       return that;

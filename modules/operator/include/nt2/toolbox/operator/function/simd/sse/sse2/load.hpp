@@ -31,7 +31,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< double_<A2>, X > >))
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -55,7 +55,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< float_<A2>, X > >))
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -79,7 +79,7 @@ namespace nt2 { namespace meta
                               ((target_< simd_< integer_<A2>,X > >))
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
