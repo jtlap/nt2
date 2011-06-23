@@ -42,14 +42,12 @@ namespace nt2 { namespace meta
                             , unspecified_<T>
                             , domain_<typename T::proto_super_domain>
                             >::type                 parent;
-    typedef T                                       origin;
   };
 
   template<class T>
   struct  domain_< unknown_<T> > : unknown_<T>
   {
     typedef unknown_<T> parent;
-    typedef T           origin;
   };
 
   //////////////////////////////////////////////////////////////////////////////
@@ -59,7 +57,6 @@ namespace nt2 { namespace meta
   template<class T> struct ast_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
-    typedef T               origin;
   };
   
   template<class T, class Domain, class Tag, class Semantic>
@@ -67,14 +64,12 @@ namespace nt2 { namespace meta
         : expr_<T, typename Domain::parent, Tag, Semantic>
   {
     typedef expr_<T, typename Domain::parent, Tag, Semantic>  parent;
-    typedef T                                                 origin;
   };
 
   template<class T, class Domain, class Tag, class Semantic>
   struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : ast_<T>
   {
     typedef unspecified_<T> parent;
-    typedef T               origin;
   };
 } }
 
@@ -83,7 +78,8 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Proto domain hierarchy specialization
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct hierarchy_of<T, typename T::proto_is_domain_>
+  template<class T,class Origin>
+  struct hierarchy_of<T, Origin,typename T::proto_is_domain_>
   {
     typedef meta::domain_<T> type;
   };

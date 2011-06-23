@@ -17,39 +17,33 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
-                            , (Value)(State)(Data)(X)(Y)
+                            , (Value)(State)(Data)(X)
                             , ((simd_<arithmetic_<Value>,X>))
-                              ((target_<simd_<arithmetic_<State>,Y> >))
-                              (integer_<Data>)
+                              ((target_<simd_<arithmetic_<State>,X> >))
+                              (scalar_< integer_<Data> >)
                             )
   {
-    typedef typename meta::strip<Value>::type::parent result_type;
+    typedef typename Value::parent result_type;
 
     inline result_type
-    operator()( Value& v, State const& , Data const&  ) const
+    operator()( Value const& v, State const& , Data const& ) const
     {
       return v.value();
     }
   };
-} }
 
-////////////////////////////////////////////////////////////////////////////////
-// Register terminal handlers for SIMD expression - emulated case
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION_TPL(  tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
-                                , ((array_<arithmetic_<Value>,N>))
-                                  ((target_<array_<arithmetic_<State>,N> >))
-                                  (integer_<Data>)
+                                , ((array_<scalar_< arithmetic_<Value > >,N>))
+                                  ((target_<array_<scalar_< arithmetic_<State> >,N> >))
+                                  (scalar_< integer_<Data> >)
                                 )
 {
-    typedef typename meta::strip<Value>::type::parent::value_type result_type;
+    typedef typename Value::parent::value_type result_type;
 
     inline result_type
-    operator()( Value& v, State const&, Data const& p ) const
+    operator()( Value const& v, State const&, Data const& p ) const
     {
       return v[p];
     }
