@@ -8,7 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::meta::category_of simd"
 
-#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/simd/pack.hpp>
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -78,6 +79,26 @@ NT2_TEST_CASE(simd_category)
 
   NT2_TEST((is_same<  hierarchy_of<native<nt2::int8_t,ext_t> >::type
                     , meta::simd_< meta::int8_<native<nt2::int8_t,ext_t> > ,ext_t>
+                    >::value
+          ));
+}
+
+NT2_TEST_CASE_TPL(simd_expr_category, (double))
+{
+  using nt2::simd::pack;
+  using nt2::meta::hierarchy_of;
+  using boost::is_same;
+  using namespace nt2;
+
+  pack<T> x,y;
+
+  typedef BOOST_TYPEOF_TPL(x+y) type_t;
+  typedef typename boost::proto::domain_of<type_t>::type domain_t;
+
+  NT2_TEST(( is_same< typename hierarchy_of<type_t>::type
+                    , nt2::meta::expr_< type_t , nt2::meta::domain_<domain_t>
+                                      , boost::proto::tag::plus , void
+                                      >
                     >::value
           ));
 }
