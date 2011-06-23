@@ -21,7 +21,7 @@
             },
          'ranges' : {
              'default' : [
-                [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
+                [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::One<T>()', 'nt2::Valmax<T>()/2']],
                 ],
             },
          'specific_values' : {

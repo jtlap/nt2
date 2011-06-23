@@ -15,8 +15,6 @@
 /// 
 #include <nt2/toolbox/exponential/include/nthroot.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/abs.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -16,6 +16,7 @@
 #include <nt2/toolbox/operator/include/complement.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/shli.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -68,12 +69,10 @@ NT2_TEST_CASE_TPL ( complement_integer__1_0,  NT2_INTEGRAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
-        std::cout << "for param " 
+        std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
-	          << " ~a0 = " << u_t(~a0) <<  "  "
-	          << " nt2::complement(a0) =  " << u_t(nt2::complement(a0)) <<  "  "
                   << std::endl;
         NT2_TEST_EQUAL( nt2::complement(a0),T(~a0));
      }

@@ -136,8 +136,8 @@ namespace nt2 { namespace ext
       };
       if (is_equal(m, One<A0>()))
 	{
-	  boost::fusion::at_c<0>(res) = One<A0>();
 	  boost::fusion::at_c<0>(res) = Inf<A0>();
+	  boost::fusion::at_c<1>(res) = One<A0>();
 	}
       else
 	{

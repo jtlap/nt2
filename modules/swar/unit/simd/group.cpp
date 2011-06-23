@@ -9,25 +9,26 @@
 #define NT2_UNIT_MODULE "nt2 swar toolbox - group/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of swar components in simd mode
+// unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 20/03/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/swar/include/group.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/swar/include/group.hpp>
-#include <nt2/sdk/simd/io.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
 
-NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(uint32_t)(int64_t)(uint64_t)(double))
+
+NT2_TEST_CASE_TPL ( group_groupable__2_0,  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(double))
 {
   using nt2::group;
   using nt2::tag::group_;
@@ -43,26 +44,11 @@ NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(ui
   typedef typename nt2::meta::call<group_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<group_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        r_t v = group(a0,a1);
-	std::cout << "a0     "<< a0 << " a1 " << a1 << std::endl;
-	std::cout << "v      "<< v                  << std::endl;
-        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
-         {
-            NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));
-            NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));
-         }
-      }
-    
-  }
-} // end of test for gt_8_
+
+  // specific values tests
+  NT2_TEST_EQUAL(group(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(group(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+} // end of test for groupable_

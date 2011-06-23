@@ -27,6 +27,7 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+//COMMENTED
 
 
 NT2_TEST_CASE_TPL ( load_real__2_0,  NT2_REAL_TYPES)
@@ -54,7 +55,7 @@ NT2_TEST_CASE_TPL ( load_real__2_0,  NT2_REAL_TYPES)
 //     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
 //     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
 //     double ulp0, ulpd ; ulpd=ulp0=0.0;
-//     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+//     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
 //       {
 //         vT a0 = load<vT>(&tab_a0[0],j);
 //         vT a1 = load<vT>(&tab_a1[0],j);

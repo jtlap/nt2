@@ -15,9 +15,9 @@
             },
         'global_header' : { ## header of machin.cpp
             'filename' : None, ## if header is defined in a file give a name
-            'included' : ["#include <nt2/include/functions/log.hpp>",
+            'cover_included' : ["#include <nt2/include/functions/log.hpp>",
                           "#include <nt2/include/functions/sqr.hpp>,"],   ## list of extra include directives
-            'notes'    : [],   ## list of strings that will be included in a
+            'notes'    : [],   ## list of strings that will be cover_included in a
                                ## global comment
             },
         'specific_values' : {
@@ -79,8 +79,8 @@
             },
         'global_header' : { ## header of machin.cpp
             'filename' : None, ## if header is defined in a file give a name
-            'included' : [],   ## list of extra include directives
-            'notes'    : [],   ## list of strings that will be included in a
+            'cover_included' : [],   ## list of extra include directives
+            'notes'    : [],   ## list of strings that will be cover_included in a
                                ## global comment
             },
         },

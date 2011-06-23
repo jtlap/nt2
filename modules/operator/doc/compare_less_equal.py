@@ -50,7 +50,7 @@
                  'integer_' : ['nt2::compare_less_equal(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['nt2::all(nt2::le(a0,a1))'],
+                 'integer_' : ['nt2::le(a0,a1)'],
                 },
              'scalar_simul' :{
                     'default' : [

@@ -23,7 +23,7 @@
          'ranges' : {
              'default' : [
                 [['T(0)', 'T(0)'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
-                [['T(1)', 'T(1)'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
+                [['T(-1)', 'T(-1)'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
                 ],
              'real_' : [
                 [['T(0)', 'T(0)'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
@@ -46,10 +46,11 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'integer_' : ['nt2::select(nt2::is_nez(a0),a1,a2)'],
+                 'simd_special' : 'nt2::select(nt2::is_nez(a0),a1,a2)', 
+                 'default' : ['nt2::select(nt2::is_nez(a0),a1,a2)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0?a1:a2)'],
+                 'default' : ['a0?a1:a2'],
                 },
              'simd' : {
                 },

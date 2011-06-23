@@ -9,28 +9,29 @@
 #define NT2_UNIT_MODULE "nt2 swar toolbox - comparator/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of swar components in simd mode
+// unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 20/03/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
+/// 
 #include <nt2/toolbox/swar/include/comparator.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-// specific includes for arity 3 tests
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
 
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
+//COMMENTED
 NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
 {
   using nt2::comparator;
@@ -47,25 +48,48 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<comparator_(vT,vT,iT)>::type r_t;
   typedef typename nt2::meta::call<comparator_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-100), T(100));
-    NT2_CREATE_BUF(tab_a2,iT, NR, iT(0), iT(1));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        vT a1 = load<vT>(&tab_a1[0],j);
-        iT a2 = tab_a2[j];
-        r_t v = comparator(a0,a1,a2);
-        vT ma = nt2::max(a0,a1);
-        vT mi = nt2::min(a0,a1);
-        NT2_TEST(nt2::all(nt2::eq(boost::fusion::get<0>(v),(a2)?ma:mi)));
-        NT2_TEST(nt2::all(nt2::eq(boost::fusion::get<1>(v),(a2)?mi:ma)));
-      }
-    
-  }
+
+//   // specific values tests
+//   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+//   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+//   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
+//   {
+//     r_t res = comparator(nt2::Inf<vT>(), nt2::Inf<vT>(), nt2::Inf<vT>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Inf<r_t1>());
+//     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+//   }
+//   {
+//     r_t res = comparator(nt2::Minf<vT>(), nt2::Minf<vT>(), nt2::Minf<vT>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Minf<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Minf<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+//   }
+//   {
+//     r_t res = comparator(nt2::Mone<vT>(), nt2::Mone<vT>(), nt2::Mone<vT>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Mone<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Mone<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+//   }
+//   {
+//     r_t res = comparator(nt2::Nan<vT>(), nt2::Nan<vT>(), nt2::Nan<vT>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+//   }
+//   {
+//     r_t res = comparator(nt2::One<vT>(), nt2::One<vT>(), nt2::One<vT>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::One<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+//   }
+//   {
+//     r_t res = comparator(nt2::Zero<vT>(), nt2::Zero<vT>(), nt2::Zero<vT>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t0>());
+//     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+//   }
 } // end of test for real_

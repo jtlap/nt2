@@ -16,9 +16,6 @@
 #include <nt2/toolbox/hyperbolic/include/acsch.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/boost_math/include/asinh.hpp>
-extern "C" { long double cephes_asinhl(long double); }
-#include <nt2/include/functions/rec.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

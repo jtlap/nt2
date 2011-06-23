@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 reduction toolbox - posmax/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of reduction components in simd mode
+// unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// modified by jt the 19/03/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/reduction/include/posmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/reduction/include/posmax.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_REAL_TYPES)
 {
@@ -43,25 +45,15 @@ NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<posmax_(vT)>::type r_t;
   typedef typename nt2::meta::call<posmax_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    typedef typename nt2::meta::scalar_of<T>::type sT;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        T v = posmax(a0);
-        T z = a0[0];
-        nt2::uint32_t p = 0;
-        for(int i = 1; i< cardinal_of<n_t>::value; ++i)
-        {
-          if (a0[i]>z) {z=a0[i]; p=i;}
-        }
-        NT2_TEST_EQUAL( v,p);
-      }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
-  }
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(posmax(nt2::Inf<vT>()), nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(posmax(nt2::Minf<vT>()), nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(posmax(nt2::Mone<vT>()), nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(posmax(nt2::Nan<vT>()), nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(posmax(nt2::One<vT>()), nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(posmax(nt2::Zero<vT>()), nt2::Zero<sr_t>(), 0);
 } // end of test for real_

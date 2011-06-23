@@ -16,6 +16,7 @@
 #include <nt2/toolbox/operator/include/logical_not.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -53,14 +54,14 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = logical_not(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::logical_not (tab_a0[k])));
+          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::logical_not (tab_a0[k])));
         }
       }
     

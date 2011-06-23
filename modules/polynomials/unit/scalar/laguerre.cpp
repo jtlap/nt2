@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 polynomials toolbox - laguerre/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of polynomials components in scalar mode
+// unit test behavior of polynomials components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// modified by jt the 12/03/2011
+/// 
+#include <nt2/toolbox/polynomials/include/laguerre.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,12 +23,9 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/polynomials/include/laguerre.hpp>
-// specific includes for arity 2 tests
-#include <nt2/toolbox/boost_math/include/laguerre.hpp>
 
-NT2_TEST_CASE_TPL ( laguerre_real__2,  NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( laguerre_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::laguerre;
@@ -40,6 +40,7 @@ NT2_TEST_CASE_TPL ( laguerre_real__2,  NT2_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -49,28 +50,9 @@ NT2_TEST_CASE_TPL ( laguerre_real__2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(laguerre(1,nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(laguerre(1,nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(laguerre(1,nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    double ulp0 = 0.0, ulpd = 0.0;
-    iT a0;
-    T a1;
-    for (int j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::laguerre(a0,a1),nt2::boost_math::laguerre(a0,a1),64);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( laguerre_unsigned_int__2,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( laguerre_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::laguerre;
@@ -85,6 +67,7 @@ NT2_TEST_CASE_TPL ( laguerre_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests
@@ -92,7 +75,7 @@ NT2_TEST_CASE_TPL ( laguerre_unsigned_int__2,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(laguerre(1,nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( laguerre_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( laguerre_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::laguerre;
@@ -107,6 +90,7 @@ NT2_TEST_CASE_TPL ( laguerre_signed_int__2,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
+  ulpd=0.0;
 
 
   // specific values tests

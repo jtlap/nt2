@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(exponential.unit exponential.scalar.unit exponential.simd.unit)
 ##############################################################################
 # Toolbox exponential unit tests
 ##############################################################################
-nt2_module_use_modules(unit cephes)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -47,6 +47,7 @@
             },
          'verif_test' : {
              'property_call' : {
+                 'simd_special' : 'nt2::seladd(nt2::is_nez(a0),a1,a2)',
                  'integer_' : ['nt2::seladd(nt2::is_nez(a0),a1,a2)'],
                 },
              'property_value' : {

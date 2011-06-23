@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_INTEGRAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

@@ -277,8 +277,13 @@ class Random_verif_test_gen(Base_gen) :
 ##                        print(dur)
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
                     else :
+                        z = durac.get("simd_special",False)
+                        if z :
+                            call = "        r_t v = "+z+";"
+                        else :
+                            call = "        r_t v = %s%s(%s);"%(name,istpl,g)
                         r = [
-                            "        r_t v = %s%s(%s);"%(name,istpl,g),
+                            call,
                             "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
                             "        {",
                             "          int k = i+j*cardinal_of<n_t>::value;",

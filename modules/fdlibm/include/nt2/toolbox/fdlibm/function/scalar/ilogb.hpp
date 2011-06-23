@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
+#include <nt2/sdk/meta/upgrade.hpp>
 
   extern "C"{
     extern int fd_ilogb ( double );
@@ -46,13 +47,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::ilogb_, tag::cpu_,
                        (A0),
-                       (double_<A0>)
+                       (real_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::ilogb_(tag::double_),
+  struct call<fdlibm::tag::ilogb_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;

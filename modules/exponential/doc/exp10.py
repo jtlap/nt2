@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : ['#include <nt2/include/functions/log10.hpp>',
+             'cover_included' : ['#include <nt2/include/functions/log10.hpp>',
                            'extern "C" { long double cephes_exp10l(long double); }'],
              'notes' : [],
              'stamp' : 'modified by jt the 14/12/2010',

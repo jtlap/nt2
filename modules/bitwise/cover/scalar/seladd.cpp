@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - seladd/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of bitwise components in scalar mode
+// cover test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/bitwise/include/seladd.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/predicates/include/is_nez.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/seladd.hpp>
+
 
 NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_REAL_TYPES)
 {
@@ -69,14 +73,14 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  NT2_INTEGRAL_TYPES)
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::seladd(a0,a1,a2),r_t(a0?a1+a2:a1));
+        NT2_TEST_EQUAL( nt2::seladd(nt2::is_nez(a0),a1,a2),r_t(a0?a1+a2:a1));
      }
      
    }
@@ -88,14 +92,14 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  NT2_INTEGRAL_TYPES)
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::seladd(a0,a1,a2),r_t(a0?a1+a2:a1));
+        NT2_TEST_EQUAL( nt2::seladd(nt2::is_nez(a0),a1,a2),r_t(a0?a1+a2:a1));
      }
      
    }

@@ -24,6 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
+//COMMENTED
 
 
 NT2_TEST_CASE_TPL ( load_integer__2_0,  NT2_INTEGRAL_TYPES)
@@ -51,7 +52,7 @@ NT2_TEST_CASE_TPL ( load_integer__2_0,  NT2_INTEGRAL_TYPES)
 //     double ulp0, ulpd ; ulpd=ulp0=0.0;
 //     T a0;
 //     T a1;
-//     for (uint32_t j =0; j < NR; ++j )
+//     for(nt2::uint32_t j =0; j < NR; ++j )
 //       {
 //         std::cout << "for params "
 //                   << "  a0 = "<< u_t(a0 = tab_a0[j])

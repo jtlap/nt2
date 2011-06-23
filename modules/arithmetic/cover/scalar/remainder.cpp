@@ -9,14 +9,19 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - remainder/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of arithmetic components in scalar mode
+// cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 05/06/2011
+/// 
 /// The remainder() function computes the remainder of dividing x by y.
 /// The return value is x-n*y, where n is the value x / y,
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
 /// n is chosen to be even. The drem() function does precisely the same thing.
+#include <nt2/toolbox/arithmetic/include/remainder.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include<nt2/include/functions/idivround.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -24,10 +29,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/arithmetic/include/remainder.hpp>
-// specific includes for arity 2 tests
-#include<nt2/include/functions/idivround.hpp>
+
 
 NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
 {
@@ -54,7 +56,7 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -92,7 +94,7 @@ NT2_TEST_CASE_TPL ( remainder_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -130,7 +132,7 @@ NT2_TEST_CASE_TPL ( remainder_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
