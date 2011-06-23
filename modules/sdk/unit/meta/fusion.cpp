@@ -20,8 +20,23 @@
 #define M0(z,n,t) ::parent
 #define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
 
-#include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// Test that hierarchy_of is correct for ref, value and const ref
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
+{
+  using boost::array;
+  using boost::is_same;
+  using namespace nt2::meta;
+
+  typedef array<T,7> base;
+  typedef typename hierarchy_of<base>::type        hvalue;
+  typedef typename hierarchy_of<base&>::type       rvalue;
+  typedef typename hierarchy_of<base const&>::type crvalue;
+
+  NT2_TEST( (is_same<hvalue, rvalue>::value) );
+  NT2_TEST( (is_same<hvalue, crvalue>::value) );
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that hierarchy_of is correct for array

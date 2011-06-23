@@ -18,6 +18,22 @@
 #define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
 
 ////////////////////////////////////////////////////////////////////////////////
+// Test that hierarchy_of is correct for ref, value and const ref
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
+{
+  using boost::is_same;
+  using namespace nt2::meta;
+
+  typedef typename hierarchy_of<T>::type        hvalue;
+  typedef typename hierarchy_of<T&>::type       rvalue;
+  typedef typename hierarchy_of<T const&>::type crvalue;
+
+  NT2_TEST( (is_same<hvalue, rvalue>::value) );
+  NT2_TEST( (is_same<hvalue, crvalue>::value) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Test that hierarchy_of is correct for basic types
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(hierarchy_of_bool)
