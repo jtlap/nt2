@@ -42,9 +42,8 @@
 // dispatching without having to order them BEFORE the actual dispatch_call
 // class definitions. Without it, the whole system brittles.
 //==============================================================================
-#define M0(z,n,t) meta::unknown_<BOOST_PP_CAT(A,n)> const&
-#define M1(z,n,t) BOOST_PP_CAT(A,n)
-#define M2(z,n,t) typename meta::hierarchy_of<BOOST_PP_CAT(A,n)>::type
+#define M0(z,n,t) meta::unknown_<A##n> const&
+#define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
 
 #define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
@@ -77,7 +76,6 @@ namespace nt2 { namespace meta
 } }
 
 #undef M0
-#undef M1
 #undef M2
 #undef NT2_DEFAULT_UNKNOWN_DISPATCH
 
