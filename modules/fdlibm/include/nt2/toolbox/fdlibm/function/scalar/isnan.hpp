@@ -45,13 +45,13 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 NT2_REGISTER_DISPATCH(fdlibm::tag::isnan_, tag::cpu_,
                        (A0),
-                       (double_<A0>)
+                       (real_<A0>)
                       )
 
 namespace nt2 { namespace ext
 {
   template<class Dummy>
-  struct call<fdlibm::tag::isnan_(tag::double_),
+  struct call<fdlibm::tag::isnan_(tag::real_),
               tag::cpu_, Dummy> : callable
   {
     typedef bool result_type; 
