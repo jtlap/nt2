@@ -9,10 +9,17 @@
 #define NT2_UNIT_MODULE "nt2 fdlibm toolbox - __ieee754_remainder/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of fdlibm components in scalar mode
+// cover test behavior of fdlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
-/// modified by jt the 08/06/2011
+/// 
+#include <nt2/toolbox/fdlibm/include/__ieee754_remainder.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/remainder.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/idivround.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +27,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/fdlibm/include/__ieee754_remainder.hpp>
-// specific includes for arity 2 tests
-#include <nt2/include/functions/remainder.hpp>
+
 
 NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
 {
@@ -50,13 +54,15 @@ NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fdlibm::__ieee754_remainder(a0,a1),nt2::remainder(a0,a1),1);
+        T v1 = nt2::abs(nt2::fdlibm::__ieee754_remainder(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
+        T v2 = nt2::abs(nt2::remainder(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
+        NT2_TEST_LESSER_EQUAL(v2, v1); 
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

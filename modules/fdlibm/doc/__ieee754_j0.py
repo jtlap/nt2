@@ -35,7 +35,7 @@
              'simd' : {
                 },
              'ulp_thresh' : {
-                 'default' : ['7'],
+                 'default' : ['35'],
                 },
             },
         },
