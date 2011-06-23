@@ -47,10 +47,13 @@ namespace nt2 { namespace meta
   template<class T>
   struct  sign_of : details::sign_of < typename meta::strip<T>::type >
   {
-    NT2_STATIC_ASSERT ( (is_fundamental<typename meta::primitive_of<typename meta::strip<T>::type>::type>::value)
-                      , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_SIGN_OF
-                      , "A type with a non-fundamental primitive is used in nt2::meta::sign_of."
-                      );
+    NT2_STATIC_ASSERT
+    ( (is_fundamental < typename meta::
+                        primitive_of< typename meta::strip<T>::type >::type
+                      >::value)
+    , NT2_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_SIGN_OF
+    , "A type with a non-fundamental primitive is used in nt2::meta::sign_of."
+    );
   };
 } }
 #endif

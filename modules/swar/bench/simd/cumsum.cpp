@@ -40,49 +40,49 @@ namespace n2 {
   NT2_TIMING(cumsum_,(RS(vT,T(-100),T(100))))
 }
 namespace n3 {
-  typedef int8_t T;
+  typedef nt2::int8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n4 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n5 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n6 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n7 {
-  typedef uint8_t T;
+  typedef nt2::uint8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n8 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n9 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n10 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cumsum_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))

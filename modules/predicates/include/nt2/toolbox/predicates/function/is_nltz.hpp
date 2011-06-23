@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::is_nltz_, is_nltz, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/is_nltz.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/is_nltz.hpp> 
 

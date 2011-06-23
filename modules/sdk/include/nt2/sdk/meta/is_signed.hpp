@@ -22,9 +22,13 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct  is_signed
-        : boost::is_base_of < meta::signed_<typename meta::primitive_of<T>::type>
-                            , typename
-                              meta::hierarchy_of<typename meta::primitive_of<T>::type>::type
+        : boost::
+          is_base_of< meta::
+                      scalar_ < meta::
+                                signed_<typename meta::primitive_of<T>::type>
+                              >
+                            , typename meta::
+                              hierarchy_of<typename meta::primitive_of<T>::type>::type
                             >
   {};
 

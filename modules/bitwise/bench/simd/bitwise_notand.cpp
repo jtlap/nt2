@@ -40,49 +40,49 @@ namespace n2 {
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n3 {
-  typedef int8_t T;
+  typedef nt2::int8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n4 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n5 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n6 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n7 {
-  typedef uint8_t T;
+  typedef nt2::uint8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n8 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n9 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n10 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(bitwise_notand_,(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))

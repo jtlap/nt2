@@ -9,26 +9,28 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - remainder/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components in simd mode
+// unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// modified by jt the 06/04/2011
+/// 
 /// The remainder() function computes the remainder of dividing x by y.
 /// The return value is x-n*y, where n is the value x / y,
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
 /// n is chosen to be even. The drem() function does precisely the same thing.
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/toolbox/arithmetic/include/remainder.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/arithmetic/include/remainder.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
 {

@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<sincos_(T)>::type sr_t;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::result_of<nt2::meta::floating(T)>::type ftype;
     NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-60), T(60));

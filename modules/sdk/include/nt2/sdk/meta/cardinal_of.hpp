@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines the nt2::meta::cardinal_of \metafunction
+ * \brief Defines and implements the \ref nt2::meta::cardinal_of \metafunction
  */
 
 #include <boost/mpl/size_t.hpp>
@@ -56,7 +56,7 @@ namespace nt2 { namespace meta
    *
    * \metafunction
    *
-   * \par Semantic:
+   * \semantic
    *
    * \usage
    *

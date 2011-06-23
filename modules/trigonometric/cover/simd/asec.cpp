@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( asec_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(1.01), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -102,7 +102,7 @@ NT2_TEST_CASE_TPL ( asec_int_convert__1_0,  (int32_t)(int64_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::One<T>(), nt2::Ten<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -141,7 +141,7 @@ NT2_TEST_CASE_TPL ( asec_uint_convert__1_0,  (uint32_t)(uint64_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::One<T>(), nt2::Ten<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;

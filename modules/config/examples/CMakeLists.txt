@@ -11,7 +11,7 @@ SET(SOURCES
     architecture.cpp
     compiler.cpp
     platform.cpp
-#    status.cpp
+    status.cpp
    )
 
 ################################################################################

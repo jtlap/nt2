@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::minnum_, minnum, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/minnum.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/minnum.hpp> 
 

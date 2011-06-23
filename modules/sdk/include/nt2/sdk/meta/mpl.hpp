@@ -12,7 +12,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Various memory hierarchy stuff
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/int.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <boost/mpl/integral_c_tag.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -47,19 +49,45 @@ namespace nt2 { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for mpl integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_HIERARCHY_PARENT(mpl_integral_, typename hierarchy_of<T>::type)
+namespace nt2 { namespace meta
+{
+  template<class T> struct mpl_integral_ : mpl_integral_< typename T::parent >
+  {
+    typedef mpl_integral_< typename T::parent > parent;
+  };
+
+  template<class T>
+  struct  mpl_integral_< unspecified_<T> >
+        : meta::hierarchy_of<typename T::value_type>::type
+  {
+    typedef typename meta::hierarchy_of<typename T::value_type>::type parent;
+  };
+
+  //============================================================================
+  // Same property than T
+  //============================================================================
+  template<class T, class Origin>
+  struct  property_of < T
+                      , Origin
+                      , typename boost::
+                        enable_if< details::is_mpl_integral<T> >::type
+                      >
+        : property_of<typename T::value_type, Origin>
+  {};
+} }
 
 namespace nt2 { namespace details
 {
-  template<class T>
-  struct  hierarchy_of<T
+  template<class T,class Origin>
+  struct  hierarchy_of< T
+                      , Origin
                       , typename boost
                         ::enable_if_c<details::is_mpl_integral<T>::value>::type
                       >
   {
     typedef typename T::value_type                                    value_type;
     typedef meta::mpl_integral_<typename
-                                meta::hierarchy_of<value_type>::type> type;
+                                meta::hierarchy_of<value_type,Origin>::type> type;
   };
 } }
 

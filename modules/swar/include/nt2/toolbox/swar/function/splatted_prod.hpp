@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::splatted_prod_, splatted_prod, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/swar/function/scalar/splatted_prod.hpp>
 #include <nt2/toolbox/swar/function/simd/all/splatted_prod.hpp> 
 

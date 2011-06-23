@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(ui
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( group_gt_8__2_0, (double))// (int16_t)(uint16_t)(int32_t)(ui
         r_t v = group(a0,a1);
 	std::cout << "a0     "<< a0 << " a1 " << a1 << std::endl;
 	std::cout << "v      "<< v                  << std::endl;
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));
             NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));

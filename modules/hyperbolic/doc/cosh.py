@@ -16,8 +16,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 20/02/2011',
              'included' : ['#include <nt2/toolbox/exponential/include/constants.hpp>',
-                           'extern "C" { long double cephes_coshl(long double); }',
-                           '#include <nt2/toolbox/libc/include/cosh.hpp>'],
+                           'extern "C" { long double cephes_coshl(long double); }'],
              'notes' : [],
              'stamp' : 'modified by jt the 20/02/2011',
             },
@@ -40,10 +39,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::cosh(a0)','nt2::cosh(a0)'],
+                 'real_' : ['nt2::cosh(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_coshl(a0)','nt2::libc::cosh(a0)'],
+                 'real_' : ['::cephes_coshl(a0)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['0.5','0.5'],

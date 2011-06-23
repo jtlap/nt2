@@ -48,10 +48,14 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 // slice dispatch on basic padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::stride_, tag::cpu_
+namespace nt2 { namespace meta
+{
+  NT2_REGISTER_DISPATCH ( tag::stride_, tag::cpu_
                       , (A0)(A1)(A2)
                       , (fusion_sequence_<A0>)
                         (padding_<A1>)
-                        (mpl_integral_< integer_<A2> >)
+                        (mpl_integral_< scalar_< integer_<A2> > >)
                       )
+} }
+
 #endif

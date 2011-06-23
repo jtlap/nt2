@@ -23,6 +23,7 @@
             },
          'ranges' : {
              'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)'], ['iT(0)', 'iT(10)']],
+             'unsigned_int_' : [['T(0)', 'T(10)'], ['T(0)', 'T(10)'], ['iT(0)', 'iT(10)']],
             },
          'specific_values' : {
              'default' : {

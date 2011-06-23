@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - twopower/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in scalar mode
+// unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// 
+#include <nt2/toolbox/bitwise/include/twopower.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/shli.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/twopower.hpp>
-// specific includes for arity 1 tests
-#include <nt2/include/functions/shli.hpp>
+
 
 NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

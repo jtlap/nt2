@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
@@ -24,90 +24,48 @@
 
 #include <nt2/toolbox/arithmetic/function/simd/common/tofloat.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int32_t
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
-                          (A0),
-                          ((simd_<int32_<A0>,tag::sse_>))
-                         );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_<tag::int32_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_, (A0)
+                            , ((simd_<int32_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::as_real<A0>{};
-
+    typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type that = { _mm_cvtepi32_ps(a0)};
+      result_type that = { _mm_cvtepi32_ps(a0)};
       return that;
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint64_t
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
-                          (A0),
-                          ((simd_<uint64_<A0>,tag::sse_>))
-                         );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_<tag::uint64_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_ , (A0)
+                            , ((simd_<uint64_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_real<A0>{};
-
+    typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type stype;
-      return make<type>( static_cast<stype>(a0[0])
-                       , static_cast<stype>(a0[1])
-                       );
+      typedef typename meta::scalar_of<result_type>::type stype;
+      return make<result_type>( static_cast<stype>(a0[0])
+                              , static_cast<stype>(a0[1])
+                              );
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint32_t
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
-                          (A0),
-                          ((simd_<uint32_<A0>,tag::sse_>))
-                         );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_<tag::uint32_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_ , (A0)
+                            , ((simd_<uint32_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_real<A0>{};
-
+    typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type stype;
+      typedef typename meta::scalar_of<result_type>::type stype;
 
-      return make<type>( static_cast<stype>(a0[0])
-                       , static_cast<stype>(a0[1])
-                       , static_cast<stype>(a0[2])
-                       , static_cast<stype>(a0[3])
-                       );
+      return make<result_type>( static_cast<stype>(a0[0])
+                              , static_cast<stype>(a0[1])
+                              , static_cast<stype>(a0[2])
+                              , static_cast<stype>(a0[3])
+                              );
       //TO DO
  //      typedef typename meta::scalar_of<A0>::type stype;
 //       typedef typename meta::as_integer<A0,signed>::type sint_type;
@@ -120,45 +78,26 @@ namespace nt2 { namespace ext
 //       return sel(is_gez(a00),v1,v2);
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_t
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::tofloat_, tag::cpu_,
-                          (A0),
-                          ((simd_<int64_<A0>,tag::sse_>))
-                         );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::tofloat_(tag::simd_<tag::int64_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_ , (A0)
+                            , ((simd_<int64_<A0>,tag::sse_>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::as_real<A0>{};
-
+    typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      typedef typename meta::scalar_of<type>::type sftype;
+      typedef typename meta::scalar_of<result_type>::type sftype;
       if (maximum(abs(a0)) > Valmax<int32_t>())
       {
-        return make<type>( static_cast<sftype>(a0[0])
-                         , static_cast<sftype>(a0[1])
-                         );
+        return make<result_type>( static_cast<sftype>(a0[0])
+                                , static_cast<sftype>(a0[1])
+                                );
       }
       typedef typename meta::int32_t_<A0>::type htype;
-      typedef simd::native<htype,tag::sse_> itype;
-      itype tmp = {_mm_shuffle_epi32(a0, _MM_SHUFFLE(3, 1, 2, 0))};
-      type v = { _mm_cvtepi32_pd(tmp)};
+      result_type v = { _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)))};
       return v;
     }
   };
 } }
 
 #endif
-// modified by jt the 04/01/2011
-// modified manually by jt the 06/01/2011

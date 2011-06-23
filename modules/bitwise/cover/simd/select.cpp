@@ -9,22 +9,27 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - select/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-//  $testcat$ test behavior of bitwise components in simd mode
+// cover test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/06/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/bitwise/include/select.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+
 
 NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_REAL_TYPES)
 {
@@ -46,7 +51,7 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
@@ -107,7 +112,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_INTEGRAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
@@ -128,7 +133,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_INTEGRAL_TYPES)
     
   }
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(1), T(1));
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -137,7 +142,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_INTEGRAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = select(a0,a1,a2);
+        r_t v = select(nt2::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;

@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::exponentbits_, exponentbits, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/exponentbits.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/exponentbits.hpp> 
 

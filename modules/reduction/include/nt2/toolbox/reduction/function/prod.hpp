@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/reduction/function/scalar/prod.hpp>
 #include <nt2/toolbox/reduction/function/simd/all/prod.hpp> 
 

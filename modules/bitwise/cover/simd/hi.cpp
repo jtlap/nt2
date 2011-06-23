@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (int64_t)(uint64_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
@@ -127,7 +127,7 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  (int32_t)(uint32_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
@@ -167,7 +167,7 @@ NT2_TEST_CASE_TPL ( hi_int16__1_0,  (int16_t)(uint16_t))
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);

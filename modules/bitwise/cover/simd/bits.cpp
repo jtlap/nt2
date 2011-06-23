@@ -14,7 +14,7 @@
 /// created  by jt the 18/02/2011
 /// modified by jt the 05/06/2011
 #include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp> 
 #include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( bits_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( bits_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -122,7 +122,7 @@ NT2_TEST_CASE_TPL ( bits_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;

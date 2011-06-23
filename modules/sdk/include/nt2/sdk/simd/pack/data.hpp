@@ -30,7 +30,7 @@ namespace nt2 { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Hierarchizable interface
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::hierarchy_of<parent>::type nt2_hierarchy_tag;
+    typedef typename meta::hierarchy_of<parent,data>::type nt2_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
@@ -118,4 +118,10 @@ namespace nt2 { namespace simd
   };
 } }
 
+namespace nt2 { namespace meta
+{
+  template<class Type,class Cardinal, class Origin>
+  struct  property_of< simd::data<Type,Cardinal>, Origin >
+        : property_of< Type, simd::data<Type,Cardinal> > {};
+} }
 #endif

@@ -20,6 +20,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::divfix_, divfix, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/divfix.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/divfix.hpp> 
 

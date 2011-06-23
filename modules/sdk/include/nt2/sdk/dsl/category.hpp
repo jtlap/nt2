@@ -15,11 +15,6 @@
 namespace nt2 { namespace tag
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Expression category tag
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Domain, class Tag, class Semantic> struct expr_ {};
-
-  //////////////////////////////////////////////////////////////////////////////
   // Degenerate Expression category tag
   //////////////////////////////////////////////////////////////////////////////
   struct ast_ {};
@@ -47,40 +42,34 @@ namespace nt2 { namespace meta
                             , unspecified_<T>
                             , domain_<typename T::proto_super_domain>
                             >::type                 parent;
-    typedef T                                       type;
   };
 
   template<class T>
   struct  domain_< unknown_<T> > : unknown_<T>
   {
-    typedef unknown_<T>                 parent;
-    typedef typename unknown_<T>::type  type;
+    typedef unknown_<T> parent;
   };
 
   //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy depends of the EDSL nature. They however has
   // the same inheritance scheme based on domain
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct ast_ : unspecified_<T>
+  template<class T> struct ast_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
-    typedef tag::ast_ type;
   };
   
   template<class T, class Domain, class Tag, class Semantic>
   struct  expr_
         : expr_<T, typename Domain::parent, Tag, Semantic>
   {
-    typedef expr_<T, typename Domain::parent, Tag, Semantic>   parent;
-    typedef tag::expr_< typename Domain::type, Tag, Semantic> type;
+    typedef expr_<T, typename Domain::parent, Tag, Semantic>  parent;
   };
 
   template<class T, class Domain, class Tag, class Semantic>
   struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : ast_<T>
   {
-    typedef unspecified_<T>   parent;
-    typedef tag::expr_< typename unspecified_<Domain>::type, Tag, Semantic> type;
+    typedef unspecified_<T> parent;
   };
 } }
 
@@ -89,7 +78,8 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Proto domain hierarchy specialization
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct hierarchy_of<T, typename T::proto_is_domain_>
+  template<class T,class Origin>
+  struct hierarchy_of<T, Origin,typename T::proto_is_domain_>
   {
     typedef meta::domain_<T> type;
   };

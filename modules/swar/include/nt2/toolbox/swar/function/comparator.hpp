@@ -22,6 +22,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/swar/function/scalar/comparator.hpp>
 #include <nt2/toolbox/swar/function/simd/all/comparator.hpp> 
 

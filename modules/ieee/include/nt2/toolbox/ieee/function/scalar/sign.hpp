@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SIGN_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SIGN_HPP_INCLUDED
 
@@ -18,21 +18,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sign_, tag::cpu_,
-                      (A0),
-                      (signed_<A0>)
-                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::sign_(tag::signed_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::sign_, tag::cpu_
+                            , (A0)
+                            , (scalar_< signed_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::arithmetic(A0)>{};
+
+    typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -41,24 +35,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sign_, tag::cpu_,
-                      (A0),
-                      (unsigned_<A0>)
-                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::sign_(tag::unsigned_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::sign_, tag::cpu_
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::arithmetic(A0)>{};
+
+    typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -67,24 +56,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sign_, tag::cpu_,
-                      (A0),
-                      (real_<A0>)
-                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::sign_(tag::real_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::sign_, tag::cpu_
+                            , (A0)
+                            , (scalar_< real_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::arithmetic(A0)>{};
+
+    typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -93,5 +77,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 #endif
-// modified by jt the 26/12/2010

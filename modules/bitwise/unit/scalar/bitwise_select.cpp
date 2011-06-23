@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - bitwise_select/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in scalar mode
+// unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// 
+#include <nt2/toolbox/bitwise/include/bitwise_select.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/bitwise_select.hpp>
+
 
 NT2_TEST_CASE_TPL ( bitwise_select_real__3_0,  NT2_REAL_TYPES)
 {
@@ -67,7 +69,7 @@ NT2_TEST_CASE_TPL ( bitwise_select_integer__3_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_select(-1,1,2), 1);
-  NT2_TEST_EQUAL(bitwise_select(0,1,2), 2);
+  NT2_TEST_EQUAL(bitwise_select(T(-1),T(1),T(2)), 1);
+  NT2_TEST_EQUAL(bitwise_select(T(0),T(1),T(2)), 2);
   NT2_TEST_EQUAL(bitwise_select(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_

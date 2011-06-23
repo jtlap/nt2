@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cumsum_, cumsum, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/swar/function/scalar/cumsum.hpp>
 #include <nt2/toolbox/swar/function/simd/all/cumsum.hpp> 
 

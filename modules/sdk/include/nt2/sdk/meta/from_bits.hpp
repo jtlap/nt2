@@ -1,6 +1,6 @@
 /*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+ *         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
  *
  *          Distributed under the Boost Software License, Version 1.0.
  *                 See accompanying file LICENSE.txt or copy at
@@ -10,8 +10,7 @@
 #define NT2_SDK_META_FROM_BITS_HPP_INCLUDED
 
 //////////////////////////////////////////////////////////////////////////////
-// Take a bit pattern and turn it into a value
-// See: http://nt2.metascale.org/sdk/meta/traits/from_bits.html
+// TODO DEPRECATE THIS FILE USE BITWISE_CAST
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

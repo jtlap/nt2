@@ -8,9 +8,9 @@
 ################################################################################
 
 SET( SOURCES
-    any.cpp
     all.cpp
-    m_arithmetic.cpp
+    any.cpp
+    as.cpp
     as_integer.cpp
     as_bits.cpp
     as_real.cpp
@@ -20,9 +20,12 @@ SET( SOURCES
     downgrade.cpp
     floating.cpp
     from_bits.cpp
+    fusion.cpp
+    hierarchy.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp
+    m_arithmetic.cpp
     make_integer.cpp
     make_real.cpp
     scalar_of.cpp

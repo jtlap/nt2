@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::is_ord_, is_ord, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/is_ord.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/is_ord.hpp> 
 

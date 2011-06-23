@@ -28,20 +28,20 @@
          'specific_values' : {
              'default' : {
                  'nt2::One<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
                 },
              'integer_   ' : {
                  'nt2::Mone<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'nt2::Inf<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'nt2::Minf<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
                 },
             },

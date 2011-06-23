@@ -28,8 +28,8 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::One<T>()' : {'result' : ['nt2::Inf<r_t0>()', 'nt2::Zero<r_t1>()'],'ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
@@ -39,14 +39,15 @@
     {
      'functor' : {
          'arity' : '2',
-         'call_types' : ['T','sT'],
+         'call_types' : ['T','scalar'],
          'ret_arity' : '2',
          'rturn' : {
              'default' : 'rtype',
             },
          'simd_types' : ['real_'],
          'type_defs' : 
-            ['typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;',
+            [   'typedef T scalar;',
+                'typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;',
              'typedef boost::fusion::tuple<etype,etype> rtype;'],
          'types' : ['real_'],
         },
@@ -65,8 +66,8 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>(),0' : {'result' : ['nt2::Inf<r_t0>()', 'nt2::Zero<r_t1>()'],'ulp_thresh' : '0',},
-                 'nt2::Zero<T>(),0' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0.5',},
+                 'nt2::Zero<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {

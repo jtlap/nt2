@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 crlibm toolbox - atanpi_rn/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of crlibm components in scalar mode
+// unit test behavior of crlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 02/03/2011
-/// modified by jt the 16/03/2011
+/// 
+#include <nt2/toolbox/crlibm/include/atanpi_rn.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/atanpi.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,12 +24,9 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/crlibm/include/atanpi_rn.hpp>
-// specific includes for arity 1 tests
-#include <nt2/include/functions/atanpi.hpp>
 
-NT2_TEST_CASE_TPL ( atanpi_rn_real__1,  NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( atanpi_rn_real__1_0,  NT2_REAL_TYPES)
 {
   using nt2::rn;
   using nt2::crlibm::atanpi_rn;
@@ -42,20 +43,4 @@ NT2_TEST_CASE_TPL ( atanpi_rn_real__1,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for (uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::crlibm::atanpi_rn(a0),nt2::atanpi(a0),1);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_

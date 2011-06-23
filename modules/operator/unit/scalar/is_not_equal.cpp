@@ -1,40 +1,77 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::is_not_equal"
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#define NT2_UNIT_MODULE "nt2 operator toolbox - is_not_equal/scalar Mode"
 
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/include/functions/is_not_equal.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// unit test behavior of operator components in scalar mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 18/02/2011
+/// 
+#include <nt2/toolbox/operator/include/is_not_equal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/meta/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test behavior for complement
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( is_not_equal, NT2_TYPES )
+
+NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
-  using boost::is_same;
+  
+  using nt2::is_not_equal;
   using nt2::tag::is_not_equal_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<is_not_equal_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::logical<T>::type wished_r_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<is_not_equal_(T,T)>::type
-                            , bool
-                            >::value
-            )
-          );
 
-  NT2_TEST_EQUAL( nt2::is_not_equal(T(0),T(0)) , false  );
-  NT2_TEST_EQUAL( nt2::is_not_equal(T(0),T(1)) , true   );
-  NT2_TEST_EQUAL( nt2::is_not_equal(T(1),T(0)) , true   );
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
 
-  NT2_TEST_EQUAL( nt2::neq(T(0),T(0)) , false );
-  NT2_TEST_EQUAL( nt2::neq(T(0),T(1)) , true  );
-  NT2_TEST_EQUAL( nt2::neq(T(1),T(0)) , true  );
-}
 
+  // specific values tests
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<T>(), nt2::One<T>()), false);
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<T>(),nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<T>(), nt2::Zero<T>()), false);
+} // end of test for integer_
+
+NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_REAL_TYPES)
+{
+  
+  using nt2::is_not_equal;
+  using nt2::tag::is_not_equal_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<is_not_equal_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::logical<T>::type wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_not_equal(nt2::Inf<T>(), nt2::Inf<T>()), false);
+  NT2_TEST_EQUAL(is_not_equal(nt2::Minf<T>(), nt2::Minf<T>()), false);
+  NT2_TEST_EQUAL(is_not_equal(nt2::Nan<T>(), nt2::Nan<T>()), true);
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<T>(),nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<T>(), nt2::Zero<T>()), false);
+} // end of test for real_

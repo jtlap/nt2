@@ -1,58 +1,57 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::splat SIMD"
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
+#define NT2_UNIT_MODULE "nt2 operator toolbox - splat/simd Mode"
 
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+//////////////////////////////////////////////////////////////////////////////
+// unit test behavior of operator components in simd mode
+//////////////////////////////////////////////////////////////////////////////
+/// created  by jt the 18/02/2011
+/// 
+#include <nt2/toolbox/operator/include/splat.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/splat.hpp>
-
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test behavior for splat
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL ( splat, NT2_SIMD_TYPES )
+//COMMENTED
+NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
 {
-  using boost::is_same;
-  using nt2::tag::splat_;
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  using nt2::meta::scalar_of;
-  using nt2::meta::as_;
+//   using nt2::splat;
+//   using nt2::tag::splat_;
+//   using nt2::load; 
+//   using nt2::simd::native;
+//   using nt2::meta::cardinal_of;
+//   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+//   typedef typename nt2::meta::upgrade<T>::type   u_t;
+//   typedef native<T,ext_t>                        n_t;
+//   typedef n_t                                     vT;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef native<iT,ext_t>                       ivT;
+//   typedef typename nt2::meta::call<splat_(vT)>::type r_t;
+//   typedef typename nt2::meta::call<splat_(T)>::type sr_t;
+//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+//   double ulpd;
+//   ulpd=0.0;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION            ext_t;
-  typedef native<T,ext_t>                       n_t;
-  typedef typename scalar_of<n_t>::type         s_t;
 
-  NT2_TEST( (boost::is_same < typename nt2::meta::call<splat_(s_t, as_<n_t>)>::type
-                            , n_t
-                            >::value
-            )
-          );
-
-  nt2::uint64_t values[] =
-  {
-      0x00, 0x01, 0x7F, 0xFF,
-      0xFF00U, 0xFF01U, 0x7FFFU, 0xFFFFU,
-      0xFFFFFF00UL, 0xFFFFFF01UL, 0x7FFFFFFFUL, 0xFFFFFFFFUL,
-      0xFFFFFFFFFFFFFF00ULL, 0xFFFFFFFFFFFFFF01ULL, 0x7FFFFFFFFFFFFFFFULL, 0xFFFFFFFFFFFFFFFFULL
-  };
-  for(std::size_t j=0; j<sizeof values/sizeof values[0]; ++j)
-  {
-    n_t v = nt2::splat<n_t>(values[j]);
-    for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-         NT2_TEST_EQUAL(v[i], s_t(values[j]));
-  }
-}
-
+//   // specific values tests
+//   NT2_TEST_EQUAL(splat(nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
+//   NT2_TEST_EQUAL(splat(nt2::Minf<vT>())[0], nt2::Minf<sr_t>());
+//   NT2_TEST_EQUAL(splat(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
+//   NT2_TEST_EQUAL(splat(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+//   NT2_TEST_EQUAL(splat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+} // end of test for real_

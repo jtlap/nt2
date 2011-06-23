@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/ieee/function/scalar/modf.hpp>
 #include <nt2/toolbox/ieee/function/simd/all/modf.hpp> 
 

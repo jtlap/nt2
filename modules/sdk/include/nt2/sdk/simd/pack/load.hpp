@@ -16,52 +16,29 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd pack
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::load_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)(T)(C)(Sema)
-                      , (iterator_<fundamental_<A0> >)
-                        (fundamental_<A1>)
-                        ((target_< expr_< A2
-                                        , domain_< simd::domain<T,C> >
-                                        , tag::terminal_
-                                        , Sema
-                                        >
-                                 >
-                        ))
-                      )
-
-namespace nt2 { namespace ext
+//==============================================================================
+// load pack without offset
+//==============================================================================
+namespace nt2 { namespace meta
 {
-  template<class T, class C, class Sema, class Dummy>
-  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
-                          , tag::fundamental_
-                          , tag::target_<tag::expr_ < simd::domain<T,C>
-                                                    , tag::terminal_
-                                                    , Sema
-                                                    >
-                                        >
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+                            , (A0)(A1)(A2)(T)(C)(Sema)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< expr_< A2
+                                              , domain_< simd::domain<T,C> >
+                                              , tag::terminal_
+                                              , Sema
+                                              >
+                                       >
+                              ))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)> : meta::strip<A2>::type {};
-
-    NT2_FUNCTOR_CALL(3)
-    {
-      typedef typename NT2_RETURN_TYPE(3)::type type;
-      type that(a0,a1);
-      return that;
-    }
+    typedef typename meta::strip<A2>::type::type result_type;
+    NT2_FUNCTOR_CALL(3) { return result_type(a0,a1); }
   };
 } }
 
@@ -69,48 +46,25 @@ namespace nt2 { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd pack with suboffset
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::load_
-                      , tag::cpu_
-                      , (A0)(A1)(A2)(T)(C)(Sema)(N)
-                      , (iterator_<fundamental_<A0> >)
-                        (fundamental_<A1>)
-                        ((target_< expr_< A2
-                                        , domain_< simd::domain<T,C> >
-                                        , tag::terminal_
-                                        , Sema
-                                        >
-                                 >
-                        ))
-                        (mpl_integral_< integer_<N> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class T, class C, class Sema, class Dummy>
-  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
-                          , tag::fundamental_
-                          , tag::target_<tag::expr_ < simd::domain<T,C>
-                                                    , tag::terminal_
-                                                    , Sema
-                                                    >
-                                        >
-                          , tag::mpl_integral_<tag::integer_>
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+                            , (A0)(A1)(A2)(T)(C)(Sema)(A3)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< expr_< A2
+                                              , domain_< simd::domain<T,C> >
+                                              , tag::terminal_
+                                              , Sema
+                                              >
+                                       >
+                              ))
+                              (mpl_integral_< scalar_< integer_<A3> > >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2,class A3>
-    struct result<This(A0,A1,A2,A3)> : meta::strip<A2>::type {};
+    typedef typename meta::strip<A2>::type::type result_type;
 
-    NT2_FUNCTOR_CALL(4)
-    {
-      typedef typename NT2_RETURN_TYPE(4)::type type;
-      type that(a0,a1,a3);
-      return that;
-    }
+    NT2_FUNCTOR_CALL(4) { return result_type(a0,a1,a3); }
   };
 } }
 

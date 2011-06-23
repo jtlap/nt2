@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -57,14 +57,14 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
-          for( uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
+          for( nt2::uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
             z[k]+=a0[i];
           }
         }
         vT zz = load<vT>(&z[0],0);
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);
          }
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -102,14 +102,14 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
-          for( uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
+          for( nt2::uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
             z[k]+=a0[i];
           }
         }
         vT zz = load<vT>(&z[0],0);
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);
          }
@@ -138,7 +138,7 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -147,14 +147,14 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
-          for( uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
+          for( nt2::uint32_t k = i; k<cardinal_of<n_t>::value; k++) {
             z[k]+=a0[i];
           }
         }
         vT zz = load<vT>(&z[0],0);
-        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
+        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++)
          {
             NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);
          }

@@ -28,22 +28,22 @@ using nt2::tag::twopower_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef uint8_t T;
+  typedef nt2::uint8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 namespace n2 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 namespace n3 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 namespace n4 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }

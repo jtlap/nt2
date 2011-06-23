@@ -15,6 +15,12 @@
  * to help external extensions of internal functions and \metafunctions
  */
 
+/*!
+ * \ingroup meta
+ * \defgroup metafunctions Meta-Functions
+ * This module gathers \metafunction required by \nt2 internal.
+ */
+
 namespace nt2
 {
   /*!
@@ -24,4 +30,9 @@ namespace nt2
    * this purpose of extensibility
    */
   namespace ext {}
+
+  /*!
+   * Namespace containing all NT2 meta-functions and meta-function classes
+   */
+  namespace meta {}
 }

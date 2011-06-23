@@ -28,42 +28,42 @@ using nt2::gsl_specfun::tag::gsl_sf_doublefact_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef int8_t T;
+  typedef nt2::int8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n2 {
-  typedef int16_t T;
+  typedef nt2::int16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n3 {
-  typedef int32_t T;
+  typedef nt2::int32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n4 {
-  typedef int64_t T;
+  typedef nt2::int64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n5 {
-  typedef uint8_t T;
+  typedef nt2::uint8_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n6 {
-  typedef uint16_t T;
+  typedef nt2::uint16_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n7 {
-  typedef uint32_t T;
+  typedef nt2::uint32_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }
 namespace n8 {
-  typedef uint64_t T;
+  typedef nt2::uint64_t T;
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_doublefact_<double>,(RS(T,T(0),T(10))))
 }

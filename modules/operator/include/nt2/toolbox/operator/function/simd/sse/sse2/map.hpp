@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MAP_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MAP_HPP_INCLUDED
 
@@ -31,57 +31,42 @@
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
 #endif
 
-#define M6(z,n,t) typename meta::scalar_of<A##n>::type
-#define M5(z,n,t) (A##n)
+#define M6(z,n,t) typename meta::scalar_of<BOOST_PP_CAT(A,BOOST_PP_INC(n))>::type
+#define M5(z,n,t) (BOOST_PP_CAT(A,n))
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
 #define M3(z,n,t) details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(n))>,tag::sse_>))
+#define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(BOOST_PP_INC(n)))>,tag::sse_>))
 #define M1(z,n,t) ,tag::simd_<tag::arithmetic_,tag::sse_>
 
-#define M0(z,n,t)                                                           \
-NT2_REGISTER_DISPATCH ( tag::map_,tag::cpu_                                 \
-                      , (Func)BOOST_PP_REPEAT(n,M5,t)                       \
-                      , (unspecified_<Func>)                                \
-                        ((simd_<BOOST_PP_TUPLE_ELEM(2,0,t)<A0>,tag::sse_>)) \
-                         BOOST_PP_REPEAT(BOOST_PP_DEC(n),M2,t)              \
-                      )                                                     \
-namespace nt2 { namespace ext                                               \
-{                                                                           \
-  template<class Dummy>                                                     \
-  struct call < tag::map_ ( tag::unspecified_                               \
-                          , tag::simd_< tag::BOOST_PP_TUPLE_ELEM(2,0,t)     \
-                                      , tag::sse_                           \
-                                      >                                     \
-                            BOOST_PP_REPEAT(BOOST_PP_DEC(n),M1,t)           \
-                          )                                                 \
-              , tag::cpu_ , Dummy> : callable                               \
-  {                                                                         \
-    template<class Sig> struct result;                                      \
-    template<class This,class Func,BOOST_PP_ENUM_PARAMS(n,class A)>         \
-    struct result<This(Func, BOOST_PP_ENUM_PARAMS(n,A))>                    \
-    {                                                                       \
-      typedef typename meta::                                               \
-      result_of< typename meta::                                            \
-                 strip<Func>::type const( BOOST_PP_ENUM(n,M6,~) )           \
-               >::type                                                      \
-      rtype;                                                                \
-      typedef typename details::                                            \
-      as_native< Func                                                       \
-               , rtype                                                      \
-               , typename meta::scalar_of<A0>::type                         \
-               >::type                                                      \
-      stype;                                                                \
-      typedef simd::native<stype, tag::sse_> type;                          \
-    };                                                                      \
-                                                                            \
-    NT2_FUNCTOR_CALL(BOOST_PP_INC(n))                                       \
-    {                                                                       \
-      typedef typename result<call(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A))>::type ntype;\
-      typedef typename result<call(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A))>::stype stype;\
-      return make<ntype>(BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n));   \
-    }                                                                       \
-  };                                                                        \
-} }                                                                         \
+#define M0(z,n,t)                                                                   \
+namespace nt2 { namespace meta                                                      \
+{                                                                                   \
+  NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_                                   \
+                            , BOOST_PP_REPEAT(BOOST_PP_INC(n),M5,t)                 \
+                            , (unspecified_<A0>)                                    \
+                              ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t)<A1>,tag::sse_>))  \
+                              BOOST_PP_REPEAT(BOOST_PP_DEC(n),M2,t)                 \
+                            )                                                       \
+  {                                                                                 \
+    typedef typename meta::                                                         \
+      result_of< typename meta::                                                    \
+                 strip<A0>::type const( BOOST_PP_ENUM(n,M6,~) )                     \
+               >::type                                                              \
+      rtype;                                                                        \
+      typedef typename details::                                                    \
+      as_native< A0                                                                 \
+               , rtype                                                              \
+               , typename meta::scalar_of<A1>::type                                 \
+               >::type                                                              \
+      stype;                                                                        \
+      typedef simd::native<stype, tag::sse_> result_type;                           \
+                                                                                    \
+    NT2_FUNCTOR_CALL(BOOST_PP_INC(n))                                               \
+    {                                                                               \
+      return make<result_type>(BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n));     \
+    }                                                                               \
+  };                                                                                \
+} }                                                                                 \
 /**/
 
 #define NT2_SIMD_MAP_CALL(T,C)                          \

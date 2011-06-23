@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::rror_, rror, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/bitwise/function/scalar/rror.hpp>
 #include <nt2/toolbox/bitwise/function/simd/all/rror.hpp> 
 

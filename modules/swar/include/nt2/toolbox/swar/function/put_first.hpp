@@ -20,6 +20,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::put_first_, put_first, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/swar/function/scalar/put_first.hpp>
 #include <nt2/toolbox/swar/function/simd/all/put_first.hpp> 
 

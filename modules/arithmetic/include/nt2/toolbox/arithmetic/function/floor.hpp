@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::floor_, floor, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/floor.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/floor.hpp> 
 

@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::is_nan_, is_nan, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/is_nan.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/is_nan.hpp> 
 

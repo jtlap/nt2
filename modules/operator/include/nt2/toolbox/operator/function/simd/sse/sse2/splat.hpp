@@ -1,183 +1,136 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_SPLAT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_SPLAT_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// splat for SSE2 SIMD types
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/include/functions/make.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatches over splat_
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)
-                        ((target_< simd_< double_<A1>, tag::sse_ > >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)
-                        ((target_< simd_< float_<A1>, tag::sse_ > >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)
-                        ((target_< simd_< ints8_<A1>, tag::sse_ > >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)
-                        ((target_< simd_< ints16_<A1>, tag::sse_ > >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)
-                        ((target_< simd_< ints32_<A1>, tag::sse_ > >))
-                      )
-
-NT2_REGISTER_DISPATCH ( tag::splat_, tag::cpu_, (A0)(A1)
-                      , (fundamental_<A0>)
-                        ((target_< simd_< ints64_<A1>, tag::sse_ > >))
-                      )
-
-////////////////////////////////////////////////////////////////////////////////
-// Implements dispatches over splat_
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+//==============================================================================
+// Implementation when type A0 is double
+//==============================================================================
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_<tag::simd_<tag::double_,tag::sse_> >
-                            )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              ((target_< simd_< double_<A1>, tag::sse_ > >))
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { _mm_set1_pd(a0)  };
+      result_type that = { _mm_set1_pd(a0)  };
       return that;
     }
   };
+} }
 
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_<tag::simd_<tag::float_,tag::sse_> >
-                            )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+//==============================================================================
+// Implementation when type A0 is float
+//==============================================================================
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              ((target_< simd_< float_<A1>, tag::sse_ > >))
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { _mm_set1_ps(a0)  };
+      result_type that = { _mm_set1_ps(a0)  };
       return that;
     }
   };
+} }
 
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_<tag::simd_<tag::ints8_,tag::sse_> >
-                            )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+//==============================================================================
+// Implementation when type A0 is ints8
+//==============================================================================
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              ((target_< simd_< ints8_<A1>, tag::sse_ > >))
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { _mm_set1_epi8(a0)  };
+      result_type that = { _mm_set1_epi8(a0)  };
       return that;
     }
   };
+} }
 
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_<tag::simd_<tag::ints16_,tag::sse_> >
-                            )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+//==============================================================================
+// Implementation when type A0 is ints16
+//==============================================================================
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              ((target_< simd_< ints16_<A1>, tag::sse_ > >))
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { _mm_set1_epi16(a0)  };
+      result_type that = { _mm_set1_epi16(a0)  };
       return that;
     }
   };
+} }
 
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_<tag::simd_<tag::ints32_,tag::sse_> >
-                            )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+//==============================================================================
+// Implementation when type A0 is ints32
+//==============================================================================
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              ((target_< simd_< ints32_<A1>, tag::sse_ > >))
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type that = { _mm_set1_epi32(a0)  };
+      result_type that = { _mm_set1_epi32(a0)  };
       return that;
     }
   };
+} }
 
-  template<class Dummy>
-  struct  call< tag::splat_ ( tag::fundamental_
-                            , tag::target_<tag::simd_<tag::ints64_,tag::sse_> >
-                            )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+//==============================================================================
+// Implementation when type A0 is ints64
+//==============================================================================
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              ((target_< simd_< ints64_<A1>, tag::sse_ > >))
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A1>::type {};
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

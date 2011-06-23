@@ -37,7 +37,7 @@ class Random_verif_test_gen(Base_gen) :
         [
             "  {",
             "    $buffers_creation$ ",
-            "    for (uint32_t j =0; j < NR; ++j )",
+            "    for(nt2::uint32_t j =0; j < NR; ++j )",
             "      {",
             '        std::cout << "for param$plural$ "',
             "                  $show_params$",
@@ -51,7 +51,7 @@ class Random_verif_test_gen(Base_gen) :
         [
             "  {",
             "    $buffers_creation$ ",
-            "    for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)",
+            "    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)",
             "      {",
             "        $loads$",
             "        $calls$",
@@ -82,7 +82,7 @@ class Random_verif_test_gen(Base_gen) :
             if len(durac.get(ctyp,durac.get("default",[])))== 0 : return []
         r = [
         "  // random verifications",
-        "  static const uint32_t NR = %s;"%nb_rand,
+        "  static const nt2::uint32_t NR = %s;"%nb_rand,
         ]
 ##        print ("actual_ranges %s"%actual_ranges)
 ##        print ("typ %s"%typ)

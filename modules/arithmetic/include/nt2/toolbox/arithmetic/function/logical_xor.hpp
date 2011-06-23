@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::logical_xor_, logical_xor, 2)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/logical_xor.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/logical_xor.hpp> 
 

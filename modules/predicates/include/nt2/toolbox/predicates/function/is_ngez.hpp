@@ -19,6 +19,7 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::is_ngez_, is_ngez, 1)
 }
  
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/predicates/function/scalar/is_ngez.hpp>
 #include <nt2/toolbox/predicates/function/simd/all/is_ngez.hpp> 
 

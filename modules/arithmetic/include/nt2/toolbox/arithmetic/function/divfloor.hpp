@@ -20,6 +20,7 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
 }
 
+#include <nt2/toolbox/operator.hpp>
 #include <nt2/toolbox/arithmetic/function/scalar/divfloor.hpp>
 #include <nt2/toolbox/arithmetic/function/simd/all/divfloor.hpp> 
 

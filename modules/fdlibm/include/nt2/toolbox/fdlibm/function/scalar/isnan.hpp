@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ISNAN_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ISNAN_HPP_INCLUDED
 
@@ -17,47 +17,43 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::isnan_, tag::cpu_,
-                       (A0),
-                       (arithmetic_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::isnan_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::isnan_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    typedef bool result_type; 
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type   base;
       typedef typename meta::upgrade<base>::type  type;
-      return nt2::fdlibm::isnan(type(a0));
+      return nt2::fdlibm::is_nan(type(a0));
     }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::isnan_, tag::cpu_,
-                       (A0),
-                       (double_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::isnan_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::isnan_, tag::cpu_
+                            , (A0)
+                            , (scalar_< double_<A0> >)
+                            )
   {
-    typedef bool result_type; 
 
-    NT2_FUNCTOR_CALL(1){ return ::fd_isnan(a0); }
+    typedef bool result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    { return ::fd_isnan(a0); }
   };
 } }
 
+
 #endif
-// modified by jt the 29/12/2010

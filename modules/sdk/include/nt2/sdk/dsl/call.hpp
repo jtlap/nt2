@@ -17,82 +17,21 @@
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/dsl/proto/as_child.hpp>
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
 
 #if defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <boost/preprocessor/selection/min.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Defines the catch-all call for proto expression
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace details
-{
-    template<typename Expr, typename Enable = void>
-    struct is_terminal : boost::mpl::false_
-    {
-    };
-
-    template<typename Expr>
-    struct is_terminal< Expr
-                      , typename boost::
-                        enable_if< boost::proto::is_expr<Expr> >::type
-                      >
-    : boost::is_same  < typename boost::proto::tag_of<Expr>::type
-                      , boost::proto::tag::terminal
-                      >::type
-    {};
-
-    
-    namespace result_of
-    {
-        template<typename Expr, typename Enable = void>
-        struct as_child
-          : nt2::meta::strip<Expr>
-        {
-        };
-
-        template<typename Expr>
-        struct as_child<Expr, typename boost::enable_if< is_terminal<Expr> >::type>
-        {
-            typedef Expr& type;
-        };
-    }
-
-    template<typename Expr>
-    typename boost::disable_if<
-        is_terminal<Expr>,
-        Expr
-    >::type
-    as_child(Expr const& expr)
-    {
-        return expr;
-    }
-
-    template<typename Expr>
-    typename boost::enable_if<
-        is_terminal<Expr>,
-        boost::reference_wrapper<Expr>
-    >::type
-    as_child(Expr& expr)
-    {
-        return boost::ref(expr);
-    }
-
-    template<typename Expr>
-    typename boost::enable_if<
-        is_terminal<Expr>,
-        boost::reference_wrapper<Expr const>
-    >::type
-    as_child(Expr const& expr)
-    {
-        return boost::cref(expr);
-    }
-
-} }
-
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/dsl/preprocessed/call.hpp>
 #else
@@ -100,7 +39,7 @@ namespace nt2 { namespace details
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/call.hpp")
 #endif
 
-#define M1(z,n,t) nt2::details::as_child(BOOST_PP_CAT(a,n))
+#define M1(z,n,t) nt2::meta::as_child(BOOST_PP_CAT(a,n))
 #define M2(z,n,t) (BOOST_PP_CAT(A,n))
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 
@@ -116,36 +55,56 @@ NT2_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
                       )                                                       \
 /**/
 
-#define M0(z,n,t)                                               \
-template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>            \
-struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                  \
-{                                                               \
-  typedef typename boost::proto::result_of::                    \
-  make_expr < Func                                              \
-            , BOOST_PP_ENUM_BINARY_PARAMS                       \
-              ( n                                               \
-              , typename nt2::details::result_of                \
-                ::as_child< typename meta::strip< A             \
-              ,                                 >::type const&  \
-                          >::type BOOST_PP_INTERCEPT            \
-              )                                                 \
-            >::type type;                                       \
-};                                                              \
-NT2_FUNCTOR_CALL(n)                                             \
-{                                                               \
-  return boost::proto::                                         \
-  make_expr<Func>( BOOST_PP_ENUM(n,M1,~) );                     \
-}                                                               \
+#define M0(z,n,t)                                                 \
+template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>              \
+struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                    \
+{                                                                 \
+  typedef typename boost::proto::result_of::                      \
+  make_expr < Func                                                \
+            , BOOST_PP_ENUM_BINARY_PARAMS                         \
+              ( n                                                 \
+              , typename nt2::details::result_of                  \
+                ::as_child< typename meta::strip< A               \
+              ,                                 >::type const&    \
+                          >::type BOOST_PP_INTERCEPT              \
+              )                                                   \
+            >::type type;                                         \
+};                                                                \
+template<class This,BOOST_PP_ENUM_PARAMS(n,class A)> inline       \
+typename result<implement                                         \
+                (BOOST_PP_ENUM_BINARY_PARAMS( n,A                 \
+                                            , const&              \
+                                              BOOST_PP_INTERCEPT) \
+                )                                                 \
+               >::type                                            \
+operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a) ) const      \
+{                                                                 \
+  return boost::proto::                                           \
+  make_expr<Func>( BOOST_PP_ENUM(n,M1,~) );                       \
+}                                                                 \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_MIN(NT2_MAX_ARITY, BOOST_PROTO_MAX_ARITY)),M4,~)
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
+  BOOST_PP_REPEAT_FROM_TO ( 1
+                          , BOOST_PP_INC(BOOST_PP_MIN ( NT2_MAX_ARITY
+                                                      , BOOST_PROTO_MAX_ARITY
+                                                      )
+                                        )
+                         ,M4,~
+                         )
+
   template<class Func,class Dummy>
-  struct call<Func(tag::ast_),tag::formal_,Dummy> : callable
+  struct implement<Func(tag::ast_),tag::formal_,Dummy>
   {
     template<class Sig> struct result;
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_MIN(NT2_MAX_ARITY, BOOST_PROTO_MAX_ARITY)),M0,~)
+    BOOST_PP_REPEAT_FROM_TO ( 1
+                            , BOOST_PP_INC(BOOST_PP_MIN ( NT2_MAX_ARITY
+                                                        , BOOST_PROTO_MAX_ARITY
+                                                        )
+                                          )
+                           ,M0,~
+                           )
   };
 } }
 

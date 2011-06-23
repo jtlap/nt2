@@ -9,24 +9,26 @@
 #define NT2_UNIT_MODULE "nt2 combinatorial toolbox - cnp/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of combinatorial components in simd mode
+// unit test behavior of combinatorial components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// modified by jt the 06/04/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/combinatorial/include/cnp.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/combinatorial/include/cnp.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
 
-NT2_TEST_CASE_TPL ( cnp_real_convert__2_0,  NT2_REAL_CONVERTIBLE_TYPES)
+
+NT2_TEST_CASE_TPL ( cnp_real__2_0,  NT2_REAL_TYPES)
 {
   using nt2::cnp;
   using nt2::tag::cnp_;
@@ -47,6 +49,13 @@ NT2_TEST_CASE_TPL ( cnp_real_convert__2_0,  NT2_REAL_CONVERTIBLE_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(cnp(nt2::splat<vT>(10),nt2::splat<vT>(1))[0], T(10), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::splat<vT>(10),nt2::splat<vT>(2))[0], T(45), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::splat<vT>(10),nt2::splat<vT>(8))[0], T(45), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::splat<vT>(2),nt2::splat<vT>(1))[0], T(2), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::splat<vT>(2),nt2::splat<vT>(2))[0], T(1), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(cnp(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(cnp(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(cnp(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::One<T>(), 0);
-} // end of test for real_convert_
+} // end of test for real_

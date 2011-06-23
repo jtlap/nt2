@@ -22,8 +22,6 @@
  */
 
 #include <boost/config.hpp>
-#include <boost/typeof/typeof.hpp>
-#include <nt2/sdk/meta/make_type.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/functor/forward.hpp>
@@ -80,18 +78,20 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) \
-     || defined(DOXYGEN_ONLY)
+    #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)   \
+        &&  !defined(BOOST_NO_RVALUE_REFERENCES)    \
+        &&  !defined(NT2_CREATE_PREPROCESSED_FILES) \
+        )                                           \
+        || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct result<This(Args...)>
-    {
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( nested
-      , meta::dispatch( Tag(), EvalContext(), meta::make_type<Args>()...)
-        ( meta::make_type<Args>()... )
-      );
-      typedef typename nested::type type;
-    };
+      : meta::
+        result_of< typename meta::
+                   dispatch_call< Tag(Args...)
+                                , EvalContext
+                                >::type(Args...)
+                 >
+    {};
 
     //==========================================================================
     /*!
@@ -119,23 +119,18 @@ namespace nt2
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor0x.hpp")
 #undef NT2_FORCE_INLINE
-#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
 #endif
-
-    #define M2(z,n,t) std::forward<A##n>(a##n)
-    #define M1(z,n,t) meta::make_type<A##n>()
 
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-    {                                                                         \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                         \
-      ( nested                                                                \
-      , meta::dispatch( Tag(),EvalContext(), BOOST_PP_ENUM(n,M1,~) )          \
-        ( BOOST_PP_ENUM(n,M1,~) )                                             \
-      );                                                                      \
-      typedef typename nested::type  type;                                    \
-    };                                                                        \
+      : meta::                                                                \
+        result_of< typename meta::                                            \
+                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                                , EvalContext                                 \
+                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                 >                                                            \
+    {};                                                                       \
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> NT2_FORCE_INLINE                \
     typename result<functor(BOOST_PP_ENUM_PARAMS(n,A))>::type                 \
@@ -149,8 +144,6 @@ namespace nt2
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
     #undef M0
-    #undef M1
-    #undef M2
 
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
@@ -165,7 +158,6 @@ namespace nt2
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor.hpp")
 #undef NT2_FORCE_INLINE
-#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
 #endif
 
     #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
@@ -193,19 +185,16 @@ namespace nt2
     }                                                                         \
     /**/
 
-    #define M1(z,n,t) meta::make_type<A##n>()
-
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-    {                                                                         \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                         \
-      ( nested                                                                \
-      , meta::dispatch( Tag(), EvalContext(), BOOST_PP_ENUM(n,M1,~) )         \
-        ( BOOST_PP_ENUM(n,M1,~) )                                             \
-      );                                                                      \
-      typedef typename nested::type  type;                                    \
-    };                                                                        \
+      : meta::                                                                \
+        result_of< typename meta::                                            \
+                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                                , EvalContext                                 \
+                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                 >                                                            \
+    {};                                                                       \
                                                                               \
     BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                          \
         z,                                                                    \
@@ -215,8 +204,8 @@ namespace nt2
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)    
+
     #undef M0
-    #undef M1
     #undef bits
     #undef n_size
     #undef c1

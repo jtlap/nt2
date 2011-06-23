@@ -1,12 +1,13 @@
-#include <cstdio>
+#include <boost/mpl/assert.hpp>
 #include <nt2/sdk/meta/set.hpp>
 #include <nt2/sdk/meta/is_set.hpp>
 
+using nt2::meta::set;
+using nt2::meta::is_set;
+
 int main()
 {
-  typedef nt2::meta::set<int,float,double**>  s;
-  typedef nt2::meta::is_set<s>                is;
-  typedef nt2::meta::is_set<long**>           il;
-
-  printf("%d %d\n",is::value,il::value);
+  BOOST_MPL_ASSERT    (( is_set< set<int,float,double**> >  ));
+  BOOST_MPL_ASSERT_NOT(( is_set<float>                      ));
 }
+

@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,26 +14,12 @@
  * \brief Provides adaptation of some boost type traits for NT2 types
  */
 
-
-/*!
- * \ingroup meta
- * \defgroup metafunctions Meta-Functions
- * This module gathers \metafunction required by \nt2 internal.
- */
-
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/behave_as.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
-
-//==============================================================================
-/*!
- * \namespace nt2::meta
- * Namespace containing all NT2 meta-functions and meta-function classes
- */
-//==============================================================================
 namespace nt2 { namespace meta
 {
   //============================================================================
@@ -46,7 +32,7 @@ namespace nt2 { namespace meta
    * \par Models:
    * \metafunction
    *
-   * \par Semantic:
+   * \semantic
    * For any type \c T,
    *
    * \code

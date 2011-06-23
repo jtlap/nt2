@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 exponential toolbox - nthroot/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of exponential components in scalar mode
+// unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// modified by jt the 07/04/2011
+/// 
+#include <nt2/toolbox/exponential/include/nthroot.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/abs.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,11 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/nthroot.hpp>
-// specific includes for arity 2 tests
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/abs.hpp>
+
 
 NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_REAL_TYPES)
 {
@@ -45,20 +46,21 @@ NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nthroot(T(256),iT(4)), T(4), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), T(2), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Inf<T>(),iT(3)), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Inf<T>(),iT(4)), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<T>(),iT(3)), nt2::Minf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<T>(),iT(4)), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(3)), nt2::Mone<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(4)), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<T>(),iT(3)), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<T>(),iT(4)), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::One<T>(),iT(3)), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::One<T>(),iT(4)), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<T>(),iT(3)), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<T>(),iT(4)), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nthroot(T(-8),iT(3)), r_t(-2), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(T(256),iT(4)), r_t(4), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Inf<T>(),iT(3)), nt2::Inf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Inf<T>(),iT(4)), nt2::Inf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<T>(),iT(3)), nt2::Minf<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Minf<T>(),iT(4)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(3)), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Mone<T>(),iT(4)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<T>(),iT(3)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Nan<T>(),iT(4)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::One<T>(),iT(3)), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::One<T>(),iT(4)), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<T>(),iT(3)), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<T>(),iT(4)), nt2::Zero<r_t>(), 0.5);
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( nthroot_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -80,9 +82,9 @@ NT2_TEST_CASE_TPL ( nthroot_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nthroot(T(-8),iT(3)), r_t(-2), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(T(81),iT(4)), r_t(3), 0);
+  NT2_TEST_ULP_EQUAL(nthroot(T(-8),iT(3)), r_t(-2), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(T(81),iT(4)), r_t(3), 0.5);
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -104,6 +106,6 @@ NT2_TEST_CASE_TPL ( nthroot_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0);
-  NT2_TEST_ULP_EQUAL(nthroot(T(81),iT(4)), r_t(3), 0);
+  NT2_TEST_ULP_EQUAL(nthroot(T(8),iT(3)), r_t(2), 0.5);
+  NT2_TEST_ULP_EQUAL(nthroot(T(81),iT(4)), r_t(3), 0.5);
 } // end of test for unsigned_int_

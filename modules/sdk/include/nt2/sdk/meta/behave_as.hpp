@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,14 +11,13 @@
 
 /*!
  * \file
- * \brief Defines the nt2::meta::behave_as \metafunction
+ * \brief Defines the \ref nt2::meta::behave_as \metafunction
  */
 
 #include <boost/mpl/apply.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
-#include <nt2/sdk/meta/is_fundamental.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -31,7 +30,7 @@ namespace nt2 { namespace meta
    * \tparam Lambda \metalambda to apply.
    * \tparam Hierarchizable Type to introspect.
    *
-   * \par Semantic:
+   * \semantic
    *
    * For any Hierarchizable type \c T and any Lambda \c L:
    *
@@ -47,7 +46,7 @@ namespace nt2 { namespace meta
    *                >::type     r;
    * \endcode
    *
-   * For any other types, the \c NT2_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
+   * For any other types, a \c NT2_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
    * static assertion is raised.
    *
    * \usage
@@ -63,18 +62,7 @@ namespace nt2 { namespace meta
                                           strip<Hierarchizable>::type
                                         >::type
                 >::type
-  {
-    NT2_STATIC_ASSERT
-    ( (is_fundamental < typename meta::
-                        primitive_of< typename  meta::
-                                                strip<Hierarchizable>::type
-                                    >::type
-                      >::value
-      )
-    , NT2_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
-    , "A type with a non-fundamental primitive is used in nt2::meta::behave_as."
-    );
-  };
+  {};
 } }
 
 #endif

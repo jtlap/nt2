@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 fuzzy toolbox - definitely_less/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of fuzzy components in scalar mode
+// unit test behavior of fuzzy components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// modified by jt the 17/04/2011
+/// 
+#include <nt2/toolbox/fuzzy/include/definitely_less.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/meta/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/fuzzy/include/definitely_less.hpp>
-// specific includes for arity 3 tests
-#include <nt2/sdk/meta/logical.hpp>
+
 
 NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_REAL_TYPES)
 {

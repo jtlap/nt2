@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - shri/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in simd mode
+// unit test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/bitwise/include/shri.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/bitwise/include/shri.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
@@ -33,6 +35,7 @@ NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
+  typedef T r_type;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -48,8 +51,8 @@ NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(shri(nt2::splat<vT>(2),1)[0], nt2::One<T>());
-  NT2_TEST_EQUAL(shri(nt2::Mone<vT>(),(sizeof(ssr_t)*8-1))[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(shri(nt2::Mone<vT>(),(sizeof(ssr_t)*8-2))[0], nt2::Three<sr_t>());
+  NT2_TEST_EQUAL(shri(nt2::Mone<vT>(),(sizeof(r_type)*8-1))[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(shri(nt2::Mone<vT>(),(sizeof(r_type)*8-2))[0], nt2::Three<sr_t>());
   NT2_TEST_EQUAL(shri(nt2::One<vT>(),1)[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(shri(nt2::Zero<vT>(),1)[0], nt2::Zero<sr_t>());
 } // end of test for unsigned_int_

@@ -9,22 +9,24 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - tofloat/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of arithmetic components in simd mode
+// unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// modified by jt the 06/04/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+/// 
+#include <nt2/toolbox/arithmetic/include/tofloat.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/arithmetic/include/tofloat.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/memory/aligned_type.hpp>
+#include <nt2/include/functions/load.hpp>
+
 
 NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_REAL_TYPES)
 {
@@ -55,7 +57,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (uint32_t))
+NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
 {
   using nt2::tofloat;
   using nt2::tag::tofloat_;
@@ -124,7 +126,7 @@ NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
   double ulpd;
   ulpd=0.0;
 
- 
+
   // specific values tests
   NT2_TEST_EQUAL(tofloat(nt2::Mone<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());

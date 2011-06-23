@@ -14,11 +14,10 @@
  * \brief Defines the basic evaluation context hierarchy for \ref nt2::functor
  */
 
-#include <nt2/sdk/meta/hierarchy.hpp>
+#include <nt2/sdk/meta/details/hierarchy_base.hpp>
 
 namespace nt2 { namespace tag
 {
-#if defined(DOXYGEN_ONLY)
   //============================================================================
   /*!
    * \ingroup hierarchy
@@ -37,11 +36,7 @@ namespace nt2 { namespace tag
    * used as common, architecture independant implementation.
    */
   //============================================================================
-  struct cpu_.: formal_ {};
-#else
-  NT2_HIERARCHY_CLASS(formal_, meta::unspecified_<formal_>);
-  NT2_HIERARCHY_CLASS(cpu_, formal_);
-#endif
+  struct cpu_ : formal_ {};
 } }
 
 #endif

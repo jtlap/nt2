@@ -15,25 +15,9 @@
  */
 
 #include <nt2/sdk/meta/result_of.hpp>
+#include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-
-//==============================================================================
-/*!
- * Builds the call to result_of required to computes the return type of a
- * \ref nt2::ext::call specialization of \c N arguments.
- *
- * \param N Number of parameters for the current \ref nt2::ext::call
- *
- * \usage
- *
- * \code
- * typedef typename NT2_RETURN_TYPE(3)::type type;
- * \endcode
- */
-//==============================================================================
-#define NT2_RETURN_TYPE(N)                                                         \
-meta::result_of<call(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT))> \
 
 //==============================================================================
 /*!
@@ -47,16 +31,69 @@ meta::result_of<call(BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT)
  * \code
  * NT2_FUNCTOR_CALL(3)
  * {
- *   typedef typename NT2_RETURN_TYPE(3)::type type;
- *   return type(a0) + a1/a2;
+ *   return a0 + a1/a2;
  * }
  * \endcode
  */
 //==============================================================================
-#define NT2_FUNCTOR_CALL(N)                                     \
-template<BOOST_PP_ENUM_PARAMS(N,class A)> inline                \
-typename NT2_RETURN_TYPE(N)::type                               \
-operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) ) const  \
+#define NT2_FUNCTOR_CALL(N)                                                       \
+inline result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const  \
+/**/
+
+//==============================================================================
+/*!
+ * Generates a \ref nt2::ext::call specialization \c operator() prototype.
+ * In this function, arguments are defined as \c a0,...,an-1 of the same type
+ * \c A0.
+ *
+ * \param N Number of parameters for the current \ref nt2::ext::call
+ *
+ * \usage
+ *
+ * \code
+ * NT2_FUNCTOR_CALL_REPEAT(3)
+ * {
+ *   return a0 + a1/a2;
+ * }
+ * \endcode
+ */
+//==============================================================================
+#define NT2_FUNCTOR_CALL_REPEAT(N)                                          \
+inline result_type operator()( BOOST_PP_ENUM_PARAMS(N,A0 const& a) ) const  \
+/**/
+
+#define NT2_FUNCTOR_IMPLEMENTATION(Tag,Site,Types,Seq)                    \
+NT2_REGISTER_DISPATCH(Tag,Site,Types,Seq)                                 \
+template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types) \
+        , class Dummy                                                     \
+        >                                                                 \
+struct  implement                                                         \
+        < NT2_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)        \
+                                      , NT2_DISPATCH_TAG,Seq)             \
+                                      )                                   \
+        , Site, Dummy                                                     \
+        >                                                                 \
+/**/
+
+#define NT2_FUNCTOR_IMPLEMENTATION_TPL(Tag,Site,Types,Seq)                    \
+NT2_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                                 \
+template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types) \
+        , class Dummy                                                         \
+        >                                                                     \
+struct  implement                                                             \
+        < NT2_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)            \
+                                          , NT2_DISPATCH_TAG,Seq)             \
+                                          )                                   \
+        , Site, Dummy                                                         \
+        >                                                                     \
+/**/
+
+#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Ret,Seq)        \
+NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)                     \
+template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types) \
+        , class Dummy                                                     \
+        >                                                                 \
+struct  implement<NT2_PP_STRIP(Ret),Site,Dummy>                           \
 /**/
 
 #endif

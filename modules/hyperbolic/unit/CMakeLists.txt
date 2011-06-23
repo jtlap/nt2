@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(hyperbolic.unit hyperbolic.scalar.unit hyperbolic.simd.unit)
 ##############################################################################
 # Toolbox hyperbolic unit tests
 ##############################################################################
-nt2_module_use_modules(unit)
+nt2_module_use_modules(unit boost_math)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

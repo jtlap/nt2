@@ -14,35 +14,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::true_, tag::cpu_, (A0)
-                      , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::true_( tag::target_<tag::simd_	<	tag::arithmetic_
-																										,	tag::altivec_
-																										> 
-																				> 
-													)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::true_, tag::cpu_, (A0)
+                            , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)> : meta::strip<A0>::type {};
+    typedef typename meta::strip<A0>::type::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type that = { simd::native_cast<type>(vec_splat_u8(-1)) };
+      result_type that = { simd::native_cast<result_type>(vec_splat_u8(-1)) };
       return that;
     }
   };
 } }
 
 #endif
-

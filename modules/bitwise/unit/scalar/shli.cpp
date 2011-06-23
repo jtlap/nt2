@@ -9,10 +9,14 @@
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - shli/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components in scalar mode
+// unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// modified by jt the 05/04/2011
+/// 
+#include <nt2/toolbox/bitwise/include/shli.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/twopower.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bitwise/include/shli.hpp>
-// specific includes for arity 2 tests
-#include <nt2/include/functions/twopower.hpp>
+
 
 NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
@@ -44,9 +45,9 @@ NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(shli(T(2),2), nt2::Eight<r_t>());
   NT2_TEST_EQUAL(shli(nt2::Mone<T>(),1), r_t(-2));
   NT2_TEST_EQUAL(shli(nt2::Mone<T>(),2), r_t(-4));
   NT2_TEST_EQUAL(shli(nt2::One<T>(),1), nt2::Two<r_t>());
-  NT2_TEST_EQUAL(shli(nt2::Two<T>(),2), nt2::Eight<r_t>());
   NT2_TEST_EQUAL(shli(nt2::Zero<T>(),1), nt2::Zero<r_t>());
 } // end of test for integer_
