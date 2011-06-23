@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( comma_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( comma_real__2_0,  NT2_TYPES)
 {
   using nt2::comma;
   using nt2::tag::comma_;
@@ -45,13 +45,8 @@ NT2_TEST_CASE_TPL ( comma_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<comma_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
-  NT2_TEST_EQUAL(comma(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(comma(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Minf<sr_t>());
-  NT2_TEST_EQUAL(comma(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(comma(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(comma(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+  NT2_TEST_EQUAL(comma(nt2::Zero<vT>(), nt2::One<vT>())[0], nt2::One <sr_t>());
 } // end of test for real_

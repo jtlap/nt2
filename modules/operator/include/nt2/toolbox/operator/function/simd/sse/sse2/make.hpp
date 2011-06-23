@@ -71,7 +71,8 @@ namespace nt2 { namespace meta
   {
     typedef typename A0::type result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(4)
+    template<class I0, class I1,class I2,class I3> inline result_type
+    operator()(I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3) const
     {
       result_type that = { _mm_setr_ps(a0, a1, a2, a3) };
       return that;

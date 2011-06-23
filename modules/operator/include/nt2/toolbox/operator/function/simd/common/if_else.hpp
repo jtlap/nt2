@@ -6,18 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_LOGICAL_NOT_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_LOGICAL_NOT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
+
+#include <nt2/toolbox/bitwise/include/select.hpp>
+#include <nt2/toolbox/predicates/include/boolean.hpp>
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::logical_not_, tag::cpu_, (A0)
-                            , (scalar_< fundamental_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::if_else_, tag::cpu_, (A0)(X)
+                            , ((simd_< fundamental_<A0>, X >))
+                              ((simd_< fundamental_<A0>, X >))
+                              ((simd_< fundamental_<A0>, X >))
                             )
   {
-    typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(1) { return !a0; }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(3)
+    {
+      return nt2::select( nt2::boolean(a0), a2, a1 );
+    }
   };
 } }
 

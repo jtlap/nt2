@@ -32,10 +32,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register all tag and extension agnostic call for common code sharing
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) ((simd_< unspecified_<A0>, X >))
+#define M0(z,n,t) (generic_< unspecified_<A0> >)
 
 #define M1(z,n,t)                                     \
-NT2_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag)(X) \
+NT2_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag) \
                       , BOOST_PP_REPEAT(n,M0,~)       \
                       )                               \
 /**/
@@ -51,17 +51,17 @@ namespace nt2 { namespace meta
 ////////////////////////////////////////////////////////////////////////////////
 // Generate all the common map calls over Tag using nt2::map
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) simd_<unspecified_<BOOST_PP_CAT(A,n)>,X>
+#define M0(z,n,t) generic_< unspecified_<BOOST_PP_CAT(A,n)> >
 
 #define M1(z,n,t)                                                           \
 namespace nt2 { namespace meta                                              \
 {                                                                           \
-  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class X, class Dummy> \
+  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy> \
   struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
   {                                                                         \
     typedef typename meta::call<tag::map_ ( functor<Tag>                    \
                                           , BOOST_PP_ENUM_PARAMS(n,A)       \
-                                          )> result_type;                   \
+                                          )>::type result_type;             \
                                                                             \
     NT2_FUNCTOR_CALL(n)                                                     \
     {                                                                       \

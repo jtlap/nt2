@@ -20,11 +20,7 @@ namespace nt2 { namespace meta
                             )
   {
     typedef A0 result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return b_xor(True<A0>(), a0);
-    }
+    NT2_FUNCTOR_CALL(1) { return b_xor(True<A0>(), a0); }
   };
 } }
 
