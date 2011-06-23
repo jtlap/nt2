@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created by jt the 08/12/2010',
-             'included' : ['#include <nt2/include/functions/sqr.hpp>', '#include <nt2/include/functions/abs.hpp>'],
+             'cover_included' : ['#include <nt2/include/functions/sqr.hpp>', '#include <nt2/include/functions/abs.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 15/12/2010',
             },

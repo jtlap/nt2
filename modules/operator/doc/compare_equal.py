@@ -50,7 +50,7 @@
                  'default' : ['nt2::compare_equal(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::all(nt2::eq(a0,a1))'],
+                 'default' : ['nt2::eq(a0,a1)'],
                 },
              'simd' : {
                 },

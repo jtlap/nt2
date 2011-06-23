@@ -20,5 +20,4 @@ namespace nt2 { namespace details
   struct is_scalar< meta::scalar_<T> >  : boost::mpl::true_ {};
 } }
 
-
 #endif

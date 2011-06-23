@@ -28,7 +28,7 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::One<T>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0.5',},
+                 'nt2::One<T>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::One<r_t1>()'],'ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0.5',},
                 },
             },

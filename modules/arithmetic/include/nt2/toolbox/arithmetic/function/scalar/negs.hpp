@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_NEGS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_NEGS_HPP_INCLUDED
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::negs_, tag::cpu_
@@ -27,20 +24,12 @@ namespace nt2 { namespace meta
       return (a0 == Valmin<A0>()) ? Valmax<A0>() : -a0; 
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::negs_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
                             )
   {
-
     typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)

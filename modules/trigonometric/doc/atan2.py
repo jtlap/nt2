@@ -17,10 +17,11 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
-             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                           '#include <nt2/toolbox/libc/include/atan2.hpp>',
+             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>'],
+             'cover_included' :
+                          ['#include <nt2/toolbox/libc/include/atan2.hpp>',
                            'extern "C" {extern long double cephes_atanl(long double);}',
-                            ],
+                          ],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },

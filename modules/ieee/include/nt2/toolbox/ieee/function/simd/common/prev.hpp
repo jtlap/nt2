@@ -19,6 +19,7 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/next.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 
 
@@ -67,7 +68,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return -next(-a0);
+      return b_or(-next(-a0), is_nan(a0));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;
@@ -81,3 +82,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+// modified by jt the 04/01/2011

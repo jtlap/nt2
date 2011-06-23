@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : 
+             'cover_included' : 
                 ['#include <nt2/include/functions/exp2.hpp>',
                  '#include <nt2/include/functions/log2.hpp>',
                  '#include <nt2/include/functions/abs.hpp>',

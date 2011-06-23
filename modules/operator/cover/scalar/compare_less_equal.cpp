@@ -71,13 +71,13 @@ NT2_TEST_CASE_TPL ( compare_less_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::compare_less_equal(a0,a1),nt2::all(nt2::le(a0,a1)));
+        NT2_TEST_EQUAL( nt2::compare_less_equal(a0,a1),nt2::le(a0,a1));
      }
      
    }

@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 bessel toolbox - yni/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of bessel components in scalar mode
+// cover test behavior of bessel components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/bessel/include/yni.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+extern "C" {long double cephes_ynl(int,long double);}
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/bessel/include/yni.hpp>
-// specific includes for arity 2 tests
-extern "C" {long double cephes_ynl(int,long double);}
+
 
 NT2_TEST_CASE_TPL ( yni_real__2_0,  NT2_REAL_TYPES)
 {
@@ -50,7 +52,7 @@ NT2_TEST_CASE_TPL ( yni_real__2_0,  NT2_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     iT a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

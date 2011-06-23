@@ -15,9 +15,6 @@
 /// 
 #include <nt2/toolbox/exponential/include/exp.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/sqr.hpp>
-extern "C" { long double cephes_expl(long double); }
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

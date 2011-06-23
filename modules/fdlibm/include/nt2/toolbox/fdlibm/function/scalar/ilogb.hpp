@@ -8,15 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR_ILOGB_HPP_INCLUDED
+#include <nt2/sdk/meta/upgrade.hpp>
 
-  extern "C"{
-    extern int fd_ilogb ( double );
-  }
+extern "C"{ extern int fd_ilogb ( double ); }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::ilogb_, tag::cpu_
@@ -24,9 +19,7 @@ namespace nt2 { namespace meta
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef int result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename NT2_RETURN_TYPE(1)::type   base;
@@ -34,26 +27,15 @@ namespace nt2 { namespace meta
       return nt2::fdlibm::ilogb(type(a0));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::ilogb_, tag::cpu_
                             , (A0)
-                            , (scalar_< double_<A0> >)
+                            , (scalar_< real_<A0> >)
                             )
   {
-
     typedef int result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    { return ::fd_ilogb(a0); }
+    NT2_FUNCTOR_CALL(1) { return ::fd_ilogb(a0); }
   };
 } }
-
 
 #endif

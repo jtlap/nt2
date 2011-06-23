@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 boost_math toolbox - ellint_1/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of boost_math components in scalar mode
+// cover test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 08/06/2011
+/// 
+#include <nt2/toolbox/boost_math/include/ellint_1.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/ellint_1.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +25,8 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/boost_math/include/ellint_1.hpp>
-// specific includes for arity 1 tests
-#include <nt2/include/functions/ellint_1.hpp>
+
+
 
 NT2_TEST_CASE_TPL ( ellint_1_real__1_0,  NT2_REAL_TYPES)
 {
@@ -48,7 +51,7 @@ NT2_TEST_CASE_TPL ( ellint_1_real__1_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(1));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -85,7 +88,7 @@ NT2_TEST_CASE_TPL ( ellint_1_real__2_1,  NT2_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

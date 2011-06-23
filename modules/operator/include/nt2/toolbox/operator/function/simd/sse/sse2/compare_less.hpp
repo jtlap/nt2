@@ -13,6 +13,7 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/reversebits.hpp>
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Local shared helper
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,8 +39,8 @@ namespace nt2 { namespace meta
     typedef bool result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
-      int mask_a_gt_b =  _mm_movemask_pd(gt(a0,a1));
+      unsigned int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
+      unsigned int mask_a_gt_b =  _mm_movemask_pd(gt(a0,a1));
       return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
@@ -53,8 +54,8 @@ namespace nt2 { namespace meta
     typedef bool result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
-      int mask_a_gt_b =  _mm_movemask_ps(gt(a0,a1));
+      unsigned int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
+      unsigned int mask_a_gt_b =  _mm_movemask_ps(gt(a0,a1));
       return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
@@ -69,8 +70,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
-      int mask_a_gt_b =  _mm_movemask_epi8(gt(a0,a1));
+      unsigned int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
+      unsigned int mask_a_gt_b =  _mm_movemask_epi8(gt(a0,a1));
       return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };

@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : [],
+             'included' : ['extern "C" {double cephes_expn(int,double);'],
              'notes' : [],
              'stamp' : 'modified by jt the 14/12/2010',
             },
@@ -40,7 +40,7 @@
                 },
              'property_value' : {
                  'default' : [],
-                 'real_' : ['nt2::expni(a0,a1)'],
+                 'real_' : ['cephes_expn(a0,a1)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['10'],

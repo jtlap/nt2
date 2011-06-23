@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 boost_math toolbox - ellint_rj/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of boost_math components in scalar mode
+// cover test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// modified by jt the 08/06/2011
+/// 
+#include <nt2/toolbox/boost_math/include/ellint_rj.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/boost_math/include/ellint_rj.hpp>
+
 
 NT2_TEST_CASE_TPL ( ellint_rj_real__4_0,  NT2_REAL_TYPES)
 {
@@ -52,7 +54,7 @@ NT2_TEST_CASE_TPL ( ellint_rj_real__4_0,  NT2_REAL_TYPES)
     T a1;
     T a2;
     T a3;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

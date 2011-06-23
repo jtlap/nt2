@@ -9,10 +9,19 @@
 #define NT2_UNIT_MODULE "nt2 hyperbolic toolbox - acsch/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of hyperbolic components in scalar mode
+// cover test behavior of hyperbolic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/hyperbolic/include/acsch.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/boost_math/include/asinh.hpp>
+extern "C" { long double cephes_asinhl(long double); }
+#include <nt2/include/functions/rec.hpp>
+
+#include <nt2/toolbox/exponential/include/constants.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,13 +29,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/hyperbolic/include/acsch.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/boost_math/include/asinh.hpp>
-extern "C" { long double cephes_asinhl(long double); }
-#include <nt2/include/functions/rec.hpp>
+
 
 NT2_TEST_CASE_TPL ( acsch_real__1_0,  NT2_REAL_TYPES)
 {
@@ -51,13 +54,12 @@ NT2_TEST_CASE_TPL ( acsch_real__1_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(1), T(100));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::acsch(a0),nt2::boost_math::asinh(nt2::rec(a0)),1.5);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::acsch(a0),::cephes_asinhl(nt2::rec(a0)),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
@@ -67,13 +69,12 @@ NT2_TEST_CASE_TPL ( acsch_real__1_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(-1));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::acsch(a0),nt2::boost_math::asinh(nt2::rec(a0)),1.5);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::acsch(a0),::cephes_asinhl(nt2::rec(a0)),1.5);
         ulp0=nt2::max(ulpd,ulp0);
      }

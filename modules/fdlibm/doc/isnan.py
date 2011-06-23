@@ -2,6 +2,7 @@
     {
      'functor' : {
          'arity' : '1',
+         'name' : 'is_nan',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
@@ -27,7 +28,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::fdlibm::isnan(a0)'],
+                 'default' : ['nt2::fdlibm::is_nan(a0)'],
                 },
              'property_value' : {
                  'default' : ['nt2::is_nan(a0)'],

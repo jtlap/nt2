@@ -95,15 +95,27 @@ namespace nt2 { namespace meta
         A1 ans = ( n == 1 ) ? Zero<A1>() : rec(pk);
         do
           {
+	    //	    std::cout << "s ans " << ans << std::endl; 
             xk += One<A1>();
+	    //	    std::cout << "s xk " << xk << std::endl; 
             yk *= z/xk;
+	    //	    std::cout << "s yk " << yk << std::endl; 
             pk += One<A1>();
+	    //	    std::cout << "s pk " << pk << std::endl; 
             if(is_nez(pk)) ans += yk/pk;
+	    //	    std::cout << "s ans2 " << ans << std::endl; 
             t = is_nez(ans) ? nt2::abs(yk/ans) : One<A1>();
-          }
+	    //	    std::cout << "s t " << t << std::endl; 
+         }
         while( t > Halfeps<A1>() );
         t = n;
         A1 r = n - 1;
+// 	std::cout << "s after t      " << t << std::endl;
+// 	std::cout << "s after r      " << r << std::endl;
+// 	std::cout << "s after psi    " <<psi<< std::endl;
+// 	std::cout << "s after (t+1)! " <<  nt2::gamma(t)<< std::endl;
+//         std::cout << "s after z      " <<  z<< std::endl;
+// 	std::cout << "s after pow    " <<  nt2::pow(z, r)<< std::endl;
         return (pow(z, r) * psi / gamma(t)) - ans;
       }
       /*          continued fraction            */

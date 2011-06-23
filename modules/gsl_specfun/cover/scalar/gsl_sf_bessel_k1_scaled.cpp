@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 gsl_specfun toolbox - gsl_sf_bessel_k1_scaled/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of gsl_specfun components in scalar mode
+// cover test behavior of gsl_specfun components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 10/03/2011
-/// modified by jt the 08/06/2011
+/// 
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_k1_scaled.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_k1_scaled.hpp>
+
 
 NT2_TEST_CASE_TPL ( gsl_sf_bessel_k1_scaled_real__1_0,  NT2_REAL_TYPES)
 {
@@ -46,7 +48,7 @@ NT2_TEST_CASE_TPL ( gsl_sf_bessel_k1_scaled_real__1_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(1), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

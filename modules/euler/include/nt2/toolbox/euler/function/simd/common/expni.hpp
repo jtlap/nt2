@@ -124,20 +124,18 @@ namespace nt2 { namespace ext
       A1 xk = Zero<A1>();
       A1 yk = One<A1>();
       A1 pk = One<A1>() - n;
-      A1 ans = ( sn == 1 ) ? Zero<A1>() : rec(pk); 
+      A1 ans = ( sn == 1 ) ? Zero<A1>() : rec(pk);
       do
  	{
- 	  xk += One<A1>();
+	  xk += One<A1>();
  	  yk *= z/xk;
- 	  pk += One<A1>();
- 	  ans = seladd(is_nez(pk), ans, yk/pk);
- 	  t = sel(is_nez(ans), nt2::abs(yk/ans), One<A1>());
+	  pk += One<A1>();
+	  ans = seladd(is_nez(pk), ans, yk/pk); 
+	  t = select(is_nez(ans), nt2::abs(yk/ans), One<A1>());
  	}
-       while( nt2::any(gt(t, Halfeps<A1>())));
-       t = n;
-       A1 r = n - One<A1>();
-       return seladd(eqzx,(nt2::powi(z, sn-1) * psi / nt2::gamma(t)) - ans, Inf<A1>());
-       //TO DO pow->powi and gamma splatted from scalar or mere factorial call
+      while( nt2::any(gt(t, Halfeps<A1>())));
+      return seladd(eqzx,(nt2::powi(z, sn-1) * psi / nt2::gamma(n)) - ans, Inf<A1>());
+      //TO DO pow->powi and gamma splatted from scalar or mere factorial call
     }
     
     template < class A1 >

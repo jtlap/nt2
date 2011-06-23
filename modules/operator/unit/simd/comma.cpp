@@ -27,7 +27,6 @@
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
-
 NT2_TEST_CASE_TPL ( comma_real__2_0,  NT2_TYPES)
 {
   using nt2::comma;
@@ -44,9 +43,8 @@ NT2_TEST_CASE_TPL ( comma_real__2_0,  NT2_TYPES)
   typedef typename nt2::meta::call<comma_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<comma_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
 
   // specific values tests
   NT2_TEST_EQUAL(comma(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(comma(nt2::Zero<vT>(), nt2::One<vT>())[0], nt2::One <sr_t>());
-} // end of test for real_
+}

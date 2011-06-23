@@ -16,7 +16,6 @@
 #include <nt2/toolbox/hyperbolic/include/sinhc.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/boost_math/include/sinhc_pi.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

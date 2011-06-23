@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : ['#include <nt2/include/functions/expm1.hpp>',
+             'cover_included' : ['#include <nt2/include/functions/expm1.hpp>',
                            '#include <nt2/include/functions/sqrt1pm1.hpp>',
                            'extern "C" { long double cephes_log1pl(long double); }'],
              'notes' : [],

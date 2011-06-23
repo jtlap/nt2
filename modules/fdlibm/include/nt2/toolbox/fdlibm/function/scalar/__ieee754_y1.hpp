@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR__IEEE754_Y1_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTION_SCALAR__IEEE754_Y1_HPP_INCLUDED
+#include <nt2/sdk/meta/upgrade.hpp>
 
   extern "C"{
     extern double fd___ieee754_y1 ( double );

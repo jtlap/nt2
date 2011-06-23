@@ -135,9 +135,9 @@ namespace nt2 { namespace ext
 	  bb0 = bb1;
 	};
       type res;
-      A0 isneqm1 = eq(m, One<A0>());
-      boost::fusion::at_c<0>(res) = b_or(nan, sel(isneqm1,One<A0>(), nt2::Pio_2<A0>()/aa1));
-      boost::fusion::at_c<1>(res) = b_or(nan, sel(isneqm1,Inf<A0>(),
+      A0 iseqm1 = eq(m, One<A0>());
+      boost::fusion::at_c<0>(res) = b_or(nan, sel(iseqm1,Inf<A0>(), nt2::Pio_2<A0>()/aa1));
+      boost::fusion::at_c<1>(res) = b_or(nan, sel(iseqm1,One<A0>(),
 				    boost::fusion::at_c<0>(res)*(One<A0>()-s0*Half<A0>()))); 
       return res; 
     }

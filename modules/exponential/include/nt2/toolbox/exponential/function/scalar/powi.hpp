@@ -19,6 +19,7 @@
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/copysign.hpp>
 
@@ -57,12 +58,12 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename NT2_RETURN_TYPE(2)::type type;
-      bool isodda1 = is_odd(a1); 
       if (is_eqz(a1)) return One<type>(); 
-      if (is_eqz(a0)) return (is_gtz(a1)) ? a0 : isodda1 ? rec(a0) : Inf<type>();
-      if (is_inf(a0)) return (isodda1) ? a0 : -a0; 
-      const type one = One<type>();
+      bool isodda1 = is_odd(a1); 
       type x = nt2::abs(a0);
+      if (is_eqz(a0)) return (is_gtz(a1)) ? a0 : isodda1 ? rec(a0) : Inf<type>();
+      if (x == Inf<A0>()) return (isodda1&&is_ltz(a0)) ? -x : x; 
+      const type one = One<type>();
       A1 sign_n = signnz(a1);
       A1 n = nt2::abs(a1);
 

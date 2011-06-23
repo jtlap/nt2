@@ -9,11 +9,16 @@
 #define NT2_UNIT_MODULE "nt2 arithmetic toolbox - correct_fma/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of arithmetic components in scalar mode
+// cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// modified by jt the 05/06/2011
 /// 
+/// 
+#include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/constants/eps_related.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -21,10 +26,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
-// specific includes for arity 3 tests
-#include <nt2/include/constants/eps_related.hpp>
+
 
 NT2_TEST_CASE_TPL ( correct_fma_real__3_0,  NT2_REAL_TYPES)
 {

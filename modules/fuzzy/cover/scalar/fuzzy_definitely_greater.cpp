@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 fuzzy toolbox - fuzzy_definitely_greater/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of fuzzy components in scalar mode
+// cover test behavior of fuzzy components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// modified by jt the 06/06/2011
+/// 
+#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_greater.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/sdk/meta/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_greater.hpp>
-// specific includes for arity 3 tests
-#include <nt2/sdk/meta/logical.hpp>
+
 
 NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_real__3_0,  NT2_REAL_TYPES)
 {
@@ -52,7 +54,7 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_real__3_0,  NT2_REAL_TYPES)
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -92,7 +94,7 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_signed_int__3_0,  NT2_INTEGRAL_SIGN
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -125,14 +127,14 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_unsigned_int__3_0,  NT2_UNSIGNED_TY
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a2,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a2,T, NR, iT(0), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

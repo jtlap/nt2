@@ -16,8 +16,12 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 03/03/2011',
-             'included' : ['#include <nt2/include/functions/rem.hpp>'],
+             'cover_included' : ['#include <nt2/include/functions/rem.hpp>',
+                                 '#include <nt2/include/functions/abs.hpp>',
+                                 '#include <nt2/include/functions/idivfix.hpp>',
+                                 ],
              'notes' : [],
+             'no_ulp' : 'True',
              'stamp' : 'modified by jt the 03/03/2011',
             },
          'ranges' : {
@@ -26,6 +30,11 @@
          'specific_values' : {
             },
          'verif_test' : {
+             'special_call' : [
+                    '        T v1 = nt2::abs(nt2::fdlibm::fmod(a0,a1)+a1*(nt2::idivfix(a0, a1))-a0);',
+                    '        T v2 = nt2::abs(nt2::rem(a0,a1)+a1*(nt2::idivfix(a0, a1))-a0);',
+                    '        NT2_TEST_LESSER_EQUAL(v2, v1); ',
+                    ],
              'property_call' : {
                  'default' : ['nt2::fdlibm::fmod(a0,a1)'],
                 },
@@ -35,7 +44,7 @@
              'simd' : {
                 },
              'ulp_thresh' : {
-                 'default' : ['1'],
+                 'default' : ['128'],
                 },
             },
         },
