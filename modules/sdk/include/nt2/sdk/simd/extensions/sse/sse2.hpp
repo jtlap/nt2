@@ -39,10 +39,7 @@ NT2_WARNING(SSE2 SIMD extension detected)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::sse_
 #define NT2_SIMD_DEFAULT_SITE       ::nt2::tag::sse2_
 
-extern "C"
-{
-  #include <emmintrin.h>
-}
+#include <emmintrin.h>
 
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 

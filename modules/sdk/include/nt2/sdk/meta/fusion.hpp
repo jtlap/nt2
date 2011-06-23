@@ -65,12 +65,19 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace details
 {
+  template<class T>
+  struct is_array : boost::mpl::false_ {};
+
+  template<class T, std::size_t N>
+  struct is_array< boost::array<T, N> > : boost::mpl::true_ {};
+
   template<class T,class Origin>
   struct  hierarchy_of< T
                       , Origin
                       , typename boost
                         ::enable_if_c < boost::fusion
                                         ::traits::is_sequence<T>::value
+                                        && !is_array<T>::value
                                       >::type
                       >
   {
@@ -80,10 +87,6 @@ namespace nt2 { namespace details
   template<class T, std::size_t N,class Origin>
   struct  hierarchy_of< boost::array<T,N>
                       , Origin
-                      , typename boost
-                        ::enable_if_c < boost::fusion
-                                        ::traits::is_sequence< boost::array<T,N> >::value
-                                      >::type
                       >
   {
     typedef meta::

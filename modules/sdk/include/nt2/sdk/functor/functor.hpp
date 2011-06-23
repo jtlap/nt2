@@ -121,6 +121,8 @@ namespace nt2
 #undef NT2_FORCE_INLINE
 #endif
 
+    #define M1(z,n,t) std::forward<A##n>(a##n)
+
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
@@ -137,13 +139,14 @@ namespace nt2
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
     {                                                                         \
       return meta::dispatch( Tag(), EvalContext()                             \
-                           , BOOST_PP_ENUM(n, M2, ~) )                        \
-                           ( BOOST_PP_ENUM(n, M2, ~) );                       \
+                           , BOOST_PP_ENUM(n, M1, ~) )                        \
+                           ( BOOST_PP_ENUM(n, M1, ~) );                       \
     }                                                                         \
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)
     #undef M0
+    #undef M1
 
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
