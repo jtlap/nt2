@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL(terminal_of_pack, NT2_SIMD_TYPES)
   typedef pack<T,8>   native8_t;
   typedef pack<T,16>  native16_t;
 
-  native2_t n,p,q;
-
+  native2_t n,p(2),q(4);
   n = p+q;
+
   //  NT2_TEST( (is_same<typename terminal_of< native1_t >::type, native1_t >::value)  );
   //NT2_TEST( (is_same<typename terminal_of< native2_t >::type, native2_t >::value)  );
   //NT2_TEST( (is_same<typename terminal_of< native4_t >::type, native4_t >::value)  );
