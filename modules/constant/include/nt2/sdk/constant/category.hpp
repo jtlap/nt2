@@ -27,7 +27,6 @@ namespace nt2 { namespace meta
   template<class T> struct constant_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
-    typedef T               origin;
   };
 } }
 
@@ -40,7 +39,11 @@ namespace nt2
    */
   //============================================================================
   template<class ID>
-  struct constant_ { typedef meta::constant_<ID> nt2_hierarchy_tag; };
+  struct constant_
+  {
+    typedef ID type;
+    typedef meta::constant_< constant_<ID> > nt2_hierarchy_tag;
+  };
 }
 
 #endif

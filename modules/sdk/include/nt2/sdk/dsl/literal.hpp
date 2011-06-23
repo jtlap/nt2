@@ -13,6 +13,9 @@
 #include <nt2/sdk/constant/category.hpp>
 #include <nt2/include/functions/splat.hpp>
 
+#include <iostream>
+#include <nt2/sdk/details/type_id.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Litteral as usually splatted w/e the target
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,9 +28,9 @@ namespace nt2 { namespace meta
                               (scalar_< integer_<Data> >)
                             )
   {
-    typedef typename strip<State>::type::type result_type;
+    typedef typename State::type result_type;
 
-    inline result_type operator()( Value& v, State&, Data& ) const
+    inline result_type operator()( Value const& v, State const&, Data const& ) const
     {
       return splat<result_type>(v);
     }
@@ -43,11 +46,11 @@ namespace nt2 { namespace meta
                               (scalar_< integer_<Data> >)
                             )
   {
-    typedef typename strip<State>::type::type result_type;
+    typedef typename State::type result_type;
 
-    inline result_type operator()( Id& v, State&, Data& ) const
+    inline result_type operator()( Id const& v, State const&, Data const& ) const
     {
-      typename make_functor<Id,Id>::type callee;
+      typename make_functor<typename Id::type,Id>::type callee;
       return callee( meta::as_<result_type>() );
     }
   };
@@ -64,9 +67,9 @@ namespace nt2 { namespace meta
                                   (scalar_< integer_<Data> >)
                                 )
 {
-  typedef typename meta::strip<State>::type::type::value_type result_type;
+  typedef typename State::type::value_type result_type;
 
-  inline result_type operator()( Value& v, State&, Data& ) const
+  inline result_type operator()( Value const& v, State const&, Data const& ) const
   {
     return static_cast<result_type>(v);
   }
@@ -83,11 +86,11 @@ namespace nt2 { namespace meta
                                   (scalar_< integer_<Data> >)
                                 )
 {
-  typedef typename meta::strip<State>::type::type::value_type result_type;
+  typedef typename State::type::value_type result_type;
 
-  inline result_type operator()( Id& v, State&, Data& ) const
+  inline result_type operator()( Id const& v, State const&, Data const& ) const
   {
-    typename make_functor<Id,Id>::type callee;
+    typename make_functor<typename Id::type,Id>::type callee;
     return callee( meta::as_<result_type>() );
   }
 };
