@@ -38,6 +38,8 @@
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::One<r_t>()',
+                 'T(-1),T(5)'     : 'T(-1)',
+                 'T(-1),T(6)'     : 'T(1)',   
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',

@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/exponential/include/powi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -50,9 +49,15 @@ NT2_TEST_CASE_TPL ( powi_real__2_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(powi(nt2::Inf<vT>(),3)[0], nt2::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(powi(nt2::Inf<vT>(),4)[0], nt2::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::Minf<vT>(),3)[0], nt2::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(powi(nt2::Minf<vT>(),4)[0], nt2::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::Mone<vT>(),3)[0], nt2::Mone<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(powi(nt2::Mone<vT>(),4)[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::Nan<vT>(),3)[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(powi(nt2::Nan<vT>(),4)[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::One<vT>(),3)[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(powi(nt2::One<vT>(),4)[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::Zero<vT>(),3)[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(powi(nt2::Zero<vT>(),4)[0], nt2::Zero<sr_t>(), 0);
 } // end of test for real_
