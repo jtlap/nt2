@@ -12,6 +12,7 @@ SET( SOURCES
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
+    as.cpp
     cardinal_of.cpp
     downgrade.cpp
     hierarchy_of.cpp

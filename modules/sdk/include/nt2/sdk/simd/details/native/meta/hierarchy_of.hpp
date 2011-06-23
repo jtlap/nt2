@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
 
   template<class Scalar,class Extension, class Origin>
   struct  property_of< simd::native<Scalar,Extension>, Origin >
-        : property_of< Scalar, simd::native<Scalar,Extension> > {};
+        : property_of< Scalar, Origin > {};
 } }
 
 #endif
