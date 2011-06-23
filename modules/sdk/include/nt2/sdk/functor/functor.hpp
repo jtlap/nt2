@@ -87,14 +87,13 @@ namespace nt2
         || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
     struct result<This(Args...)>
-    {
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-      ( nested
-      , meta::dispatch( Tag(), EvalContext(), meta::make_type<Args>()...)
-        ( meta::make_type<Args>()... )
-      );
-      typedef typename nested::type type;
-    };
+      : meta::
+        result_of< typename meta::
+                   dispatch_call< Tag(Args...)
+                                , EvalContext
+                                >::type(Args...)
+                 >
+    {};
 
     //==========================================================================
     /*!
@@ -131,14 +130,13 @@ namespace nt2
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-    {                                                                         \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                         \
-      ( nested                                                                \
-      , meta::dispatch( Tag(),EvalContext(), BOOST_PP_ENUM(n,M1,~) )          \
-        ( BOOST_PP_ENUM(n,M1,~) )                                             \
-      );                                                                      \
-      typedef typename nested::type  type;                                    \
-    };                                                                        \
+      : meta::                                                                \
+        result_of< typename meta::                                            \
+                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                                , EvalContext                                 \
+                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                 >                                                            \
+    {};                                                                       \
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> NT2_FORCE_INLINE                \
     typename result<functor(BOOST_PP_ENUM_PARAMS(n,A))>::type                 \
@@ -196,19 +194,16 @@ namespace nt2
     }                                                                         \
     /**/
 
-    #define M1(z,n,t) meta::make_type<A##n>()
-
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-    {                                                                         \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                         \
-      ( nested                                                                \
-      , meta::dispatch( Tag(), EvalContext(), BOOST_PP_ENUM(n,M1,~) )         \
-        ( BOOST_PP_ENUM(n,M1,~) )                                             \
-      );                                                                      \
-      typedef typename nested::type  type;                                    \
-    };                                                                        \
+      : meta::                                                                \
+        result_of< typename meta::                                            \
+                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                                , EvalContext                                 \
+                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                 >                                                            \
+    {};                                                                       \
                                                                               \
     BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                          \
         z,                                                                    \

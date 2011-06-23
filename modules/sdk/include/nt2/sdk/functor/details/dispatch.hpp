@@ -54,9 +54,9 @@ dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
-  nt2::meta::implement< Tag(tag::unknown_),Site                                       \
-                , tag::error_with(BOOST_PP_ENUM(n,M2,~))                        \
-                > that;                                                         \
+  nt2::meta::implement< Tag(tag::unknown_),Site                                 \
+                      , tag::error_with(BOOST_PP_ENUM(n,M2,~))                  \
+                      > that;                                                   \
   return that;                                                                  \
 }                                                                               \
 /**/
@@ -84,22 +84,16 @@ namespace nt2 { namespace meta
 //==============================================================================
 // Local macro to generate the dispatch selector
 //==============================================================================
-#define M0(z,n,t) BOOST_PP_CAT(elem,n)()
+#define M0(z,n,t) typename meta::hierarchy_of<A##n>::type()
 /**/
 
-#define NT2_DISPATCH_TYPES(z,n,t)                                               \
-typedef typename strip<BOOST_PP_CAT(A,n)>::type BOOST_PP_CAT(arg,n);            \
-typedef typename hierarchy_of<BOOST_PP_CAT(arg,n)>::type  BOOST_PP_CAT(elem,n); \
-/**/
-
-#define NT2_DISPATCH_CALL(z,n,t)                                        \
-template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>        \
-struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>              \
-{                                                                       \
-  BOOST_PP_REPEAT(n,NT2_DISPATCH_TYPES,~)                               \
-  BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                       \
-  ( nested                                                              \
-  , dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )  \
+#define NT2_DISPATCH_CALL(z,n,t)                                            \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
+{                                                                           \
+  BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                           \
+  ( nested                                                                  \
+  , dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )      \
   );                                                                        \
                                                                             \
   typedef typename nested::type type;                                       \

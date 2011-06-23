@@ -48,9 +48,9 @@ namespace nt2 { namespace meta
   //============================================================================
   // Same property than T
   //============================================================================
-  template<class T, std::size_t N>
-  struct  property_of< boost::array<T,N> >
-        : property_of< T, boost::array<T,N> >
+  template<class T, std::size_t N, class Origin>
+  struct  property_of< boost::array<T,N>, Origin >
+        : property_of< T, boost::array<T,N>, Origin >
   {};
 
   //============================================================================
@@ -76,20 +76,20 @@ namespace nt2 { namespace details
   {
     typedef meta::fusion_sequence_<T> type;
   };
-} }
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Specialize hierarchy for boost::array
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  template<class T, std::size_t N>
-  struct  hierarchy_of< boost::array<T,N> >
+  
+  template<class T, std::size_t N,class Origin>
+  struct  hierarchy_of< boost::array<T,N>
+                      , Origin
+                      , typename boost
+                        ::enable_if_c < boost::fusion
+                                        ::traits::is_sequence< boost::array<T,N> >::value
+                                      >::type
+                      >
   {
     typedef meta::
-            array_<typename hierarchy_of<T,boost::array<T,N> >::type,N> type;
+            array_<typename meta::hierarchy_of<T, Origin>::type, N> type;
   };
+  
 } }
 
 #endif
