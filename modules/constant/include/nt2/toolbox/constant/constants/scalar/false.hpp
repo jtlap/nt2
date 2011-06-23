@@ -15,11 +15,11 @@
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::false_ ,tag::cpu_
-                            , (A0),(target_< fundamental_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::false_ ,tag::cpu_, (A0)
+                            , (target_< scalar_<fundamental_<A0> > >)
                             )
   {
-    typedef typename strip<A0>::type::type result_type;
+    typedef typename A0::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

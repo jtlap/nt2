@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 
+#include <nt2/sdk/meta/from_bits.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +22,7 @@ namespace nt2 { namespace meta
                             , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
                             )
   {
-    typedef typename meta::strip<A0>::type::type result_type;
+    typedef typename A0::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -40,7 +42,7 @@ namespace nt2 { namespace meta
                             , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
                             )
   {
-    typedef typename meta::strip<A0>::type::type result_type;
+    typedef typename A0::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
