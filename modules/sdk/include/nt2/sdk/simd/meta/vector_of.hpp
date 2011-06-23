@@ -56,6 +56,8 @@ namespace nt2 { namespace meta
   BOOST_PP_SEQ_FOR_EACH(NT2_LOCAL,~,NT2_SIMD_TAG_SEQ)
 #endif
 
+#undef NT2_LOCAL
+
 } }
 
 #endif
