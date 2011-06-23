@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
-                            , (A0), (mpl_integral_<A0>)
+                            , (A0), (mpl_integral_< scalar_< arithmetic_<A0> > >)
                             )
   {
     typedef bool result_type;
