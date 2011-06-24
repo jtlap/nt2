@@ -72,7 +72,11 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return sel(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
+//       std::cout << "a0                                     " << a0 << std::endl;
+//        std::cout << "bitinteger(a0)                         " << bitinteger(a0)<< std::endl;
+//        std::cout << "oneplus(bitinteger(a0))                " << oneplus(bitinteger(a0))<< std::endl;
+//      std::cout << "bitfloating(oneplus(bitinteger(a0)))   " << bitfloating(oneplus(bitinteger(a0)))<< std::endl;
+       return sel(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
     }
   };
 } }

@@ -15,6 +15,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/prev.hpp>
+#include <nt2/include/functions/next.hpp>
 
 
 
@@ -66,10 +68,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const A0 x = nt2::abs(a0);
-      //     return sel(iseq(x, Inf<A0>()), x,  successor(x)-x);
-      A0 xp = predecessor(x);
-      A0 xs = successor(x); 
-      return sel(is_equal(x, Inf<A0>()), x, nt2::min(x-xp, xs - x));
+      A0 xp = prev(x); 
+      A0 xs = next(x); 
+      return sel(is_equal(x, Inf<A0>()), x, nt2::min(x-xp, xs-x));
     }
   };
 } }
