@@ -208,23 +208,27 @@ class Random_verif_test_gen(Base_gen) :
 ##                        l=re.sub("\$property_value\$" ,durav.get(typ,durav.get("default",None))[i][j],l)
 ##                        r.append(l)
                     return r    
-                else : 
+                else :
                     r = []
-                    length = len(durac.get(typ,durac.get("default",[])))
-                    for i in xrange(0, length) :
-                        if no_ulp :
-                            s = beg+"NT2_TEST_EQUAL( $property_call$,$property_value$);"
-                        else :
-                            s = beg+"NT2_TEST_ULP_EQUAL( $property_call$,$property_value$,$ulp_thresh$);"
-                        thresh = durat.get(typ,durat.get("default",["0"]))
-                        j = i if len(thresh)>i else 0
-                        s = re.sub('\$ulp_thresh\$',thresh[j],s)
-                        #                    s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
-                        dtmp = durac.get(typ,durac.get("default",[]))
-                        s=re.sub("\$property_call\$" ,durac.get(typ,durac.get("default",None))[i],s)
-                        s=re.sub("\$property_value\$" ,durav.get(typ,durav.get("default",None))[i],s)
-                        r.append(s)
-                        if not no_ulp : r.append(beg+"ulp0=nt2::max(ulpd,ulp0);")
+                    spcall = dur.get('special_call',False)
+                    if spcall :
+                        r.extend(spcall)
+                    else :
+                        length = len(durac.get(typ,durac.get("default",[])))
+                        for i in xrange(0, length) :
+                            if no_ulp :
+                                s = beg+"NT2_TEST_EQUAL( $property_call$,$property_value$);"
+                            else :
+                                s = beg+"NT2_TEST_ULP_EQUAL( $property_call$,$property_value$,$ulp_thresh$);"
+                            thresh = durat.get(typ,durat.get("default",["0"]))
+                            j = i if len(thresh)>i else 0
+                            s = re.sub('\$ulp_thresh\$',thresh[j],s)
+                            #                    s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
+                            dtmp = durac.get(typ,durac.get("default",[]))
+                            s=re.sub("\$property_call\$" ,durac.get(typ,durac.get("default",None))[i],s)
+                            s=re.sub("\$property_value\$" ,durav.get(typ,durav.get("default",None))[i],s)
+                            r.append(s)
+                    if not no_ulp : r.append(beg+"ulp0=nt2::max(ulpd,ulp0);")
                     return r
             else : ## simd
                 if ret_arity > 1 :
@@ -234,7 +238,9 @@ class Random_verif_test_gen(Base_gen) :
                     thresh = "0" if df.get("special",[""])[0] == "predicate" else durat.get("real","1.5")
                     if df.get("simd_ulp_thresh",False) : thresh = df.get("simd_ulp_thresh",False)
                     h = ','.join([ "tab_a%d[%s]" % (i,index[i]) for i in xrange(0, arity) ])
-                    name = self.bg.get_fct_name()
+                    name = df.get("name",False)
+                    if not name : name = self.bg.get_fct_name()
+                    
                     ULP = "" if no_ulp else "TUPLE_ULP_"
                     THR = "" if no_ulp else ", "+thresh
                     if not ( df.get("special",[""])[0] in ['swar']) :

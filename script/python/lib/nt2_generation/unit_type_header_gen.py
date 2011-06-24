@@ -47,7 +47,7 @@ class Type_header_test_gen() :
             "NT2_TEST_CASE_TPL ( $fct_name$_$type$_$arity$_$rank$,  $macro_types$)",
             "{",
             "  $special$",
-            "  using nt2::$tb_style_base$$fct_name$;",
+            "  using nt2::$tb_style_base$$fct_name_repl$;",
             "  using nt2::$tb_style_base$tag::$fct_name$_;",
             "  $type_defs$",
             "  typedef typename nt2::meta::as_integer<T>::type iT;",
@@ -68,7 +68,7 @@ class Type_header_test_gen() :
             "",
             "NT2_TEST_CASE_TPL ( $fct_name$_$type$_$arity$_$rank$,  $macro_types$)",
             "{",
-            "  using nt2::$tb_style_base$$fct_name$;",
+            "  using nt2::$tb_style_base$$fct_name_repl$;",
             "  using nt2::$tb_style_base$tag::$fct_name$_;",
             "  using nt2::load; ",
             "  using nt2::simd::native;", 
@@ -183,13 +183,17 @@ class Type_header_test_gen() :
     def __prepare(self,s,typ,d,i=None) :
         df = d.get("functor", self.Default_df)
         style = self.bg.get_tb_style()
+        n = self.bg.get_fct_name()
+        n_repl= df.get("name",False)
+        if not n_repl : n_repl = n
         tb_style_base = "" if style =="sys" else self.bg.get_tb_name()+'::'
         s=re.sub("\$special\$",self.__get_special(d),s)
         s=re.sub("\$tpl\$",self.__get_tpl(d),s)
         s=re.sub("\$tb_style_base\$",tb_style_base,s)
         s=re.sub("\$fct_mode\$",self.bg.get_fct_mode(),s)
         s=re.sub("\$tb_name\$",self.bg.get_tb_name(),s)
-        s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
+        s=re.sub("\$fct_name\$",n,s)
+        s=re.sub("\$fct_name_repl\$",n_repl,s)
         s=re.sub("\$macro_types\$",self.__macro(typ),s)
         s=re.sub("\$type\$"    ,typ,s)
         s=re.sub("\$arity\$"   ,str(df.get("arity","1")),s)
