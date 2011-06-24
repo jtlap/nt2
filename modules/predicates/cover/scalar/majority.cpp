@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 predicates toolbox - majority/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of predicates components in scalar mode
+// cover test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/predicates/include/majority.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/sdk/meta/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,10 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/predicates/include/majority.hpp>
-// specific includes for arity 3 tests
-#include <nt2/sdk/meta/logical.hpp>
+
 
 NT2_TEST_CASE_TPL ( majority_real__3_0,  NT2_REAL_TYPES)
 {
@@ -52,7 +54,7 @@ NT2_TEST_CASE_TPL ( majority_real__3_0,  NT2_REAL_TYPES)
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -92,7 +94,7 @@ NT2_TEST_CASE_TPL ( majority_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -132,7 +134,7 @@ NT2_TEST_CASE_TPL ( majority_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
     T a0;
     T a1;
     T a2;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
