@@ -9,10 +9,16 @@
 #define NT2_UNIT_MODULE "nt2 trigonometric toolbox - fast_sind/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of trigonometric components in scalar mode
+// cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/trigonometric/include/fast_sind.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/include/functions/sind.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,11 +26,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/trigonometric/include/fast_sind.hpp>
-// specific includes for arity 1 tests
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
-#include <nt2/include/functions/sind.hpp>
+
 
 NT2_TEST_CASE_TPL ( fast_sind_real__1_0,  NT2_REAL_TYPES)
 {
@@ -49,7 +51,7 @@ NT2_TEST_CASE_TPL ( fast_sind_real__1_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
