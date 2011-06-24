@@ -55,13 +55,13 @@ class Specific_values_test_gen(Base_gen) :
         if self.mode == 'simd' :
             special = extract(d,"",[""],"functor","special")[0]
             if special in ['predicate','fuzzy'] :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$)[0]!=0, $call_param_res$%s);"
             elif special in ['reduction']:
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$), $call_param_res$%s);"
             else :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$)[0], $call_param_res$%s);"
         else :
-            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
+            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$), $call_param_res$%s);"
         return spec_values_tpl
 
     def __create_v_test(self,dl,typ) :
@@ -100,7 +100,8 @@ class Specific_values_test_gen(Base_gen) :
             #   to reach correct arity
             # else it will be taken as it is  
             s = spec_values_tpl%  (ulp_str,thresh_str)
-            s =re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
+            n = extract(unit_specific,"",self.bg.get_fct_name(),"functor","name")  
+            s =re.sub("\$fct_name_repl\$",n,s)
             if k.count(',')==0 : ## one for all but no , !
                 g = ', '.join([k]*int(extract(dl,"","1","functor","arity")))
             else :                 ## regular call parameters list

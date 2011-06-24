@@ -13,6 +13,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/is_lez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
@@ -76,9 +77,8 @@ namespace nt2 { namespace ext
     {
       A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z);
-      z = sel(is_nez(a1), z, z*Half<A0>());
       z = z*signnz(a0);
-      return sel(is_eqz(a0), sel(is_ltz(a0), Pi<A0>(), Zero<A0>()), z);
+      return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
     }
   };
 } }
