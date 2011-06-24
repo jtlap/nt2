@@ -24,7 +24,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-//COMMENTED
+
 
 NT2_TEST_CASE_TPL ( isnan_real__1_0,  NT2_REAL_TYPES)
 {
