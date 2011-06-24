@@ -9,10 +9,13 @@
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - eps/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of ieee components in scalar mode
+// cover test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/ieee/include/eps.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,8 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/ieee/include/eps.hpp>
+
 
 NT2_TEST_CASE_TPL ( eps_real__1_0,  NT2_REAL_TYPES)
 {

@@ -9,10 +9,16 @@
 #define NT2_UNIT_MODULE "nt2 ieee toolbox - successor/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of ieee components in scalar mode
+// cover test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// modified by jt the 05/06/2011
+/// 
+#include <nt2/toolbox/ieee/include/successor.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/next.hpp>
+#include <nt2/include/constants/eps_related.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,14 +26,9 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/ieee/include/successor.hpp>
-// specific includes for arity 1 tests
-#include <nt2/include/functions/next.hpp>
-#include <nt2/include/constants/eps_related.hpp>
-// specific includes for arity 2 tests
-#include <nt2/include/functions/next.hpp>
-#include <nt2/include/constants/eps_related.hpp>
+
+
+
 
 NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
 {
@@ -52,7 +53,7 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -86,7 +87,7 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -120,7 +121,7 @@ NT2_TEST_CASE_TPL ( successor_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -158,7 +159,7 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     iT a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -197,7 +198,7 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  NT2_UNSIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     iT a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -236,7 +237,7 @@ NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  NT2_INTEGRAL_SIGNED_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     iT a1;
-    for (uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
