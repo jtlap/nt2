@@ -35,7 +35,7 @@ class Random_tuple_test_gen(Base_gen) :
         "  static const nt2::uint32_t NR = $nb_rand$;",
         "  {",
         "    $buffers_creation$ ",
-        "    for (int j =0; j < NR; ++j )",
+        "    for (nt2::uint32_t j =0; j < NR; ++j )",
         "      {",
         '        std::cout << "for param$plural$ "',
         "                  $show_params$",

@@ -134,6 +134,7 @@ class Random_verif_test_gen(Base_gen) :
     def __prepare(self,s,typ,d,actual_range) :
 #        print("s %s"%s)
         df = d.get("functor",self.Default_df)
+        scalar_ints = df.get("scalar_ints",False)
         istpl = df.get("tpl","")
         arity = int(df.get("arity","1"))
         s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
@@ -266,7 +267,7 @@ class Random_verif_test_gen(Base_gen) :
                 else:
                     length = len(durac.get(typ,durac.get("default",[])))
                     g = ','.join([ "a%d" % i for i in xrange(0, arity) ])
-                    index = [ ('j' if self.__simd_get_typ(i,df) == 'iT' else 'k') for i in xrange(0, arity) ]
+                    index = [ ('j' if self.__simd_get_typ(i,df,scalar_ints) == 'iT' else 'k') for i in xrange(0, arity) ]
                     thresh = "0" if df.get("special",[""])[0] == "predicate" else durat.get("real_","2.5")
                     if df.get("simd_ulp_thresh",False) : thresh = df.get("simd_ulp_thresh",False)
                     ##print('durat = %s'%durat)
@@ -311,7 +312,7 @@ class Random_verif_test_gen(Base_gen) :
         else :
             return dd[i]
 
-    def __simd_get_typ(self,i,d) :
+    def __simd_get_typ(self,i,d, scalar_ints=False) :
         dd = d.get("call_types",None)
         if dd is None or not len(dd) :
             r = "vT"
@@ -319,7 +320,7 @@ class Random_verif_test_gen(Base_gen) :
             r = re.sub('T','vT',dd)
         else :
             r = re.sub('T','vT',dd[i])
-        if self.bg.get_fct_name()[-1]=='i' :
+        if self.bg.get_fct_name()[-1]=='i' or scalar_ints :
             r = re.sub('ivT','iT',r)
         return r 
 

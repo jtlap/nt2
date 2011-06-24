@@ -9,10 +9,15 @@
 #define NT2_UNIT_MODULE "nt2 polynomials toolbox - tchebeval/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// $testcat$ test behavior of polynomials components in scalar mode
+// cover test behavior of polynomials components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// modified by jt the 09/06/2011
+/// 
+#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
+//#include <nt2/toolbox/cephes/include/tchebeval.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -20,11 +25,8 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-// specific includes for arity 2 tests
-//#include <nt2/toolbox/cephes/include/tchebeval.hpp>
 
+//COMMENTED
 NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 {
   
@@ -50,7 +52,7 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 //     double ulp0, ulpd ; ulpd=ulp0=0.0;
 //     T a0;
 //     T a1;
-//     for (uint32_t j =0; j < NR; ++j )
+//     for(nt2::uint32_t j =0; j < NR; ++j )
 //       {
 //         std::cout << "for params "
 //                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -61,7 +63,7 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 //      }
 //      std::cout << "max ulp found is: " << ulp0 << std::endl;
 //    }
- } // end of test for real_
+// } // end of test for real_
 
 // NT2_TEST_CASE_TPL ( tchebeval_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 // {
@@ -99,4 +101,4 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 //   double ulpd;
 //   ulpd=0.0;
 
-// } // end of test for signed_int_
+} // end of test for signed_int_
