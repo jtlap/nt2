@@ -11,6 +11,7 @@
 #include <nt2/include/functions/bitwise_andnot.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/adds.hpp>
+#include <nt2/include/functions/negs.hpp>   
 #include <nt2/include/functions/any.hpp>
 #ifdef NT2_SIMD_DETECTED
 
@@ -31,8 +32,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
       
     NT2_FUNCTOR_CALL(2)
     {
@@ -58,8 +59,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
       
     NT2_FUNCTOR_CALL(2)
     {
@@ -87,16 +88,18 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
-    {
-      A0 res =  adds(a0, -a1); 
-      if (nt2::any(eq(a1, Valmin<A0>())))
-	return sel(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
-      else
-	return res; 
+    { 
+//       A0 res =  adds(a0, -a1); 
+//       if (nt2::any(eq(a1, Valmin<A0>())))
+// 	return sel(neq(a1, Valmin<A0>()), res, adds(adds(a0, Valmax<A0>()),One<A0>()));
+//       else
+// 	return res;
+      const A0 res =  adds(a0, negs(a1));
+      return sel(neq(a1, Valmin<A0>()), res, adds(res,One<A0>())); 
     }
   };
 } }

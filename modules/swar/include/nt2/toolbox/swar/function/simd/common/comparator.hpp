@@ -36,8 +36,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A2>
-    struct result<This(A0,A0,A2)>
+    template<class This,class A0,class A1, class A2>
+    struct result<This(A0,A1,A2)>
     {
       typedef typename meta::strip<A0>::type                       nA0;
       typedef boost::fusion::vector<nA0,nA0,int>                   type;

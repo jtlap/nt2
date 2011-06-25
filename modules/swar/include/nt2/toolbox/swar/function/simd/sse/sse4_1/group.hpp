@@ -30,8 +30,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::scalar_of<A0>::type      stype; 
       typedef typename meta::downgrade<stype>::type  sftype; 
@@ -68,8 +68,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::scalar_of<A0>::type         stype;
       typedef typename meta::downgrade<stype>::type      utype;
@@ -135,8 +135,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
       typedef typename meta::downgrade<stype>::type                                   utype;
@@ -168,8 +168,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
       typedef typename meta::downgrade<stype>::type                                   utype;
@@ -208,8 +208,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::scalar_of<A0>::type                                      stype;
       typedef typename meta::downgrade<stype>::type                                   utype;
@@ -241,8 +241,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0, A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::scalar_of<A0>::type         stype;
       typedef typename meta::downgrade<stype>::type      utype;

@@ -121,7 +121,10 @@ namespace nt2
 	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::cot_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));           // 1 -- n even
-							                              //-1 -- n odd 
+							                              //-1 -- n odd
+// 	      std::cout << "a0   " << a0 << std::endl;
+// 	      std::cout << "y    " << y  << std::endl;
+// 	      std::cout << "res  " << b_xor(y, bitofsign(a0))<< std::endl;
 	      A0 testnan = redu_t::cot_invalid(a0); 
 	      return b_or(testnan, b_xor(y, bitofsign(a0)));	  	      
 	    }

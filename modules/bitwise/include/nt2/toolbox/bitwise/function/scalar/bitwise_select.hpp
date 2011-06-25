@@ -26,8 +26,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This, class A0, class A1>
-    struct result<This(A0,A1,A1)> : meta::strip<A1>{};//
+    template<class This, class A0, class A1, class A2>
+    struct result<This(A0,A1,A2)> : meta::strip<A1>{};//
 
     NT2_FUNCTOR_CALL(3)
     {

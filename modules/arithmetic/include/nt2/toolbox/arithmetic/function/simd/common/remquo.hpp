@@ -34,8 +34,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)> 
     {
       typedef typename meta::strip<A0>::type                 stA0;
       typedef typename meta::as_integer<A0>::type             iA0;             

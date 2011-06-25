@@ -68,8 +68,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const A0 x = nt2::abs(a0);
-      A0 xp = prev(x); 
-      A0 xs = next(x); 
+      const A0 xp = prev(x);  
+      const A0 xs = next(x);
+//      std::cout << std::setprecision(20) << "a0    " << a0 << std::endl;
+//       std::cout << "x     " << x  << std::endl;
+//       std::cout << "xp    " << xp << std::endl;
+//       std::cout << "xs    " << xs << std::endl;   
       return sel(is_equal(x, Inf<A0>()), x, nt2::min(x-xp, xs-x));
     }
   };

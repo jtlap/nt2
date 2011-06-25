@@ -13,6 +13,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/dist.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

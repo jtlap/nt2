@@ -36,8 +36,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2){ return iround(tofloat(a0)/tofloat(a1)); }
   };
@@ -60,8 +60,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2){ return rdivide(a0+a1/Two<A0>(), a1); }
   };
@@ -84,8 +84,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -118,8 +118,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::strip<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::strip<A0>{};
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -152,8 +152,8 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>  : meta::as_integer<A0>{};
+    template<class This,class A0,class A1>
+    struct result<This(A0,A1)>  : meta::as_integer<A0>{};
 
     NT2_FUNCTOR_CALL(2){ return iround2even(a0/a1); }
   };

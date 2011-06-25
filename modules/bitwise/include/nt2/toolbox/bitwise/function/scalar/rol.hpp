@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>  
-
+#include <iostream> 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -35,6 +35,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      // decommenting this make clang   unit/bitwise.scalar.rol.unit working for a0 = a1 = 0    
+      //       std::cout <<  "shli(a0, a1)                       "<<  shli(a0, a1) << std::endl;
+      //       std::cout <<  "shri(a0, (sizeof(A0)*CHAR_BIT-a1)) "<<  shri(a0, (sizeof(A0)*CHAR_BIT-a1)) << std::endl;     
       return shli(a0, a1) | shri(a0, (sizeof(A0)*CHAR_BIT-a1));
     }
   };
