@@ -73,18 +73,18 @@ namespace nt2 { namespace ext
               tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A0,A1)> : meta::strip<A0>{};
+    template<class This,class A0,class A1,class A2>
+    struct result<This(A0,A1,A2)>  : meta::strip<A0>{};
 
 
     NT2_FUNCTOR_CALL(3)
     {
-      std::cout << "a0     " << a0 << std::endl;
-      std::cout << "a1     " << a1 << std::endl;
-      std::cout << "a2    " << a2 << std::endl;
-      std::cout << "succa1a2 " << successor(a1, nt2::abs(a2)) << std::endl;
-      std::cout << "le(a0, succa1a2)  " << le(a0, successor(a1, nt2::abs(a2)))<< std::endl;
-      std::cout << "is_ord(a0, a1)    " << is_ord(a0, a1)<< std::endl;
+//       std::cout << "a0     " << a0 << std::endl;
+//       std::cout << "a1     " << a1 << std::endl;
+//       std::cout << "a2    " << a2 << std::endl;
+//       std::cout << "succa1a2 " << successor(a1, nt2::abs(a2)) << std::endl;
+//       std::cout << "le(a0, succa1a2)  " << le(a0, successor(a1, nt2::abs(a2)))<< std::endl;
+//       std::cout << "is_ord(a0, a1)    " << is_ord(a0, a1)<< std::endl;
       return b_and(
                is_ord(a0, a1),
                le(a0, successor(a1, nt2::abs(a2)))
