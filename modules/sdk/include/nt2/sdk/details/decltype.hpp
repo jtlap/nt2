@@ -6,8 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_DETAILS_DECLTYPE_HPP_INCLUDED
-#define NT2_SDK_DETAILS_DECLTYPE_HPP_INCLUDED
+#ifndef NT2_DECLTYPE
 
 /*!
  * \file
@@ -33,6 +32,10 @@
 
 #include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/detail/decltype.hpp>
+
+#if defined(BOOST_NO_DECLTYPE) && !defined(BOOST_TYPEOF_NATIVE)
+#error compiler supports neither decltype nor typeof
+#endif
 
 /*!
  * \ingroup meta
