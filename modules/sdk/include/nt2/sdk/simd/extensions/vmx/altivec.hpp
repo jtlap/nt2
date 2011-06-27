@@ -14,12 +14,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_VMX_SUPPORT)
+#if !defined(NT2_SIMD_DETECTED)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check for active Altivec extension
 ////////////////////////////////////////////////////////////////////////////////
-#if defined(__ALTIVEC__) || defined(__VEC__)
+#if defined(__ALTIVEC__) || defined(__VEC__)                                   \
+ || defined(NT2_HAS_VMX_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report discovery of Altivec support
@@ -30,14 +31,19 @@ NT2_WARNING(AltiVec SIMD extension detected)
 // Include the proper intrinsic include. Depending of the option used by the
 // compiler (-faltivec or -maltivec), we need to include altivec.h or not.
 ////////////////////////////////////////////////////////////////////////////////
-  #if defined( __GNUC__ )
-    #if (__APPLE_CC__ <= 1)
-      #include <altivec.h>
-      #undef bool
-      #undef pixel
-      #undef vector
-    #endif
-  #endif
+#if !defined(__APPLE_CC__) || __APPLE_CC__ <= 1 || __GNUC__ >= 4
+#include <altivec.h>
+#endif
+
+#ifdef bool
+#undef bool
+#endif
+#ifdef pixel
+#undef pixel
+#endif
+#ifdef vector
+#undef vector
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec PPC extensions flags
