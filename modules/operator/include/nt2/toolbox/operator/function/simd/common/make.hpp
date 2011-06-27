@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
   {
     typedef simd::native<A0, X> result_type;
     #define M0(z,n,t)                                                 \
-    NT2_FUNCTTOR_CALL_REPEAT(n)                                       \
+    NT2_FUNCTOR_CALL_REPEAT(n)                                        \
     {                                                                 \
       NT2_ALIGNED_TYPE(A0) tmp[n] = {  BOOST_PP_ENUM_PARAMS(n, a)  }; \
       return load<simd::native<A0, X> >(&tmp[0], 0);                  \

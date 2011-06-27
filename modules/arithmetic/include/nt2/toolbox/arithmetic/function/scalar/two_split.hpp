@@ -12,38 +12,27 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::two_split_, tag::cpu_,
-                           (A0),
-                           (fundamental_<A0>)
-                          )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::two_split_(tag::fundamental_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(tag::two_add_, tag::cpu_,
+                             (A0)(A1),
+                             (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename meta::strip<A0>::type           stA0;
-      typedef typename boost::fusion::tuple<stA0,stA0> type;
-    };
+    typedef typename meta::strip<A0>::type           stA0;
+    typedef typename boost::fusion::tuple<stA0,stA0> result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
-    private:
-    template<class A0,class R0,class R1> inline void
+  private:
+    template<class R0,class R1> inline void
     eval(A0 const& a,R0& r0, R1& r1)const
     {
       // TODO: make local constant ?

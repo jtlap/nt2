@@ -12,4 +12,8 @@
 ################################################################################
 SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1" "1.47")
 FIND_PACKAGE( Boost 1.46.0 QUIET )
-MESSAGE(STATUS "[nt2.config] Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+IF(Boost_FOUND)
+  MESSAGE(STATUS "[nt2.config] Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+ELSE()
+  MESSAGE(STATUS "[nt2.config] Boost NOT found")
+ENDIF()
