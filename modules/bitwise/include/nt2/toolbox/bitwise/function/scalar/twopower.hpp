@@ -8,52 +8,32 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
+
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< integer_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-       return (is_ltz(a0))?Zero<A0>():(One<A0>()<<a0);
+      return (is_ltz(a0))?Zero<A0>():(One<A0>()<<a0);
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-       return One<A0>()<<a0;
-    }
+    NT2_FUNCTOR_CALL(1) { return One<A0>()<<a0; }
   };
 } }
-
 
 #endif

@@ -8,23 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHRI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHRI_HPP_INCLUDED
+
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_, (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip <A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -32,21 +27,12 @@ namespace nt2 { namespace meta
       return type(a0) >> a1;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
-                            , (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip <A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -56,6 +42,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

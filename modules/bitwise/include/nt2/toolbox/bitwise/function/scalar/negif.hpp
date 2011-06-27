@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_NEGIF_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_NEGIF_HPP_INCLUDED
+
 #include <nt2/include/functions/is_true.hpp>
 
 #ifdef BOOST_MSVC
@@ -15,26 +16,17 @@
   #pragma warning(disable: 4146) // unary minus applied to unsigned
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::negif_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::negif_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< fundamental_<A1> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A1)>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return is_true(a0)?-a1:a1;
-    }
+    NT2_FUNCTOR_CALL(2) { return is_true(a0)?-a1:a1; }
   };
 } }
-
 
 #ifdef BOOST_MSVC
   #pragma warning(pop)

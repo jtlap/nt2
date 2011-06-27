@@ -16,15 +16,13 @@ namespace nt2 { namespace meta
                             , (scalar_< ints8_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; nt2::uint8_t b; } trick;
       trick z = {a0};
       z.b = ((z.b * 0x0802LU & 0x22110LU) | (z.b * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16;
-      //z.b = b_and(tmp, 0xFFULL);
       return z.a;
       }
   };
@@ -34,8 +32,7 @@ namespace nt2 { namespace meta
                             , (scalar_< ints64_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -53,8 +50,7 @@ namespace nt2 { namespace meta
                             , (scalar_< ints16_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -72,8 +68,7 @@ namespace nt2 { namespace meta
                             , (scalar_< ints32_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

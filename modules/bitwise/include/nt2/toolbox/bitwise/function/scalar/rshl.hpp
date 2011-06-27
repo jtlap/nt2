@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_RSHL_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_RSHL_HPP_INCLUDED
-#include <nt2/sdk/meta/as_bits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
+#include <nt2/sdk/meta/as_bits.hpp>
 
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::rshl_, tag::cpu_ , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;

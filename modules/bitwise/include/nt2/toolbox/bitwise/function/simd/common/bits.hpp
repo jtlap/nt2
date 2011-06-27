@@ -8,36 +8,21 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITS_HPP_INCLUDED
+
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::bits_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<arithmetic_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::bits_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bits_, tag::cpu_,(A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    { typedef typename meta::as_integer<A0, unsigned>::type  type;};
+    typedef typename meta::as_integer<A0, unsigned>::type  result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type  type;
-      return simd::native_cast<type>(a0);
+      return simd::native_cast<result_type>(a0);
     }
-
   };
 } }
 

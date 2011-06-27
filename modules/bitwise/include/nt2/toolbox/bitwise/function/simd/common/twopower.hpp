@@ -8,38 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/include/constants/properties.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+
 #include <nt2/include/functions/shli.hpp>
-#include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/include/constants/digits.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::twopower_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<integer_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::twopower_(tag::simd_<tag::integer_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_,(A0)(X)
+                            , ((simd_<integer_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>  : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return shift_left(One<A0>(), a0);
-    }
-
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return shift_left(One<A0>(), a0); }
   };
 } }
 

@@ -8,24 +8,20 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
-#include <nt2/sdk/meta/as_integer.hpp>
+
 #include <nt2/sdk/meta/as_bits.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 #ifdef BOOST_MSVC
-  #include <intrin.h>
+#include <intrin.h>
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type64_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_, (A0)
                             , (scalar_< type64_<A0> >)
                             )
   {
-
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
@@ -42,7 +38,7 @@ namespace nt2 { namespace meta
       unsigned long index;
       if (b_and(t1.bits, (uint64_t(-1) >> 32)))
       {
-	    _BitScanForward(&index, t1.bits);
+        _BitScanForward(&index, t1.bits);
         return index+1;
       }
       if(_BitScanForward(&index, t1.bits >> 32))
@@ -50,25 +46,17 @@ namespace nt2 { namespace meta
       return 0;
     #else
       if (b_and(t1.bits, (uint64_t(-1) >> 32)))
-	    return __builtin_ffs(t1.bits);
+      return __builtin_ffs(t1.bits);
       return 32+__builtin_ffs(t1.bits >> 32);
     #endif
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type32_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)
                             , (scalar_< type32_<A0> >)
                             )
   {
-
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
@@ -76,29 +64,18 @@ namespace nt2 { namespace meta
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
     #ifdef BOOST_MSVC
       unsigned long index;
-      if(_BitScanForward(&index, t1.bits))
-          return index+1;
+      if(_BitScanForward(&index, t1.bits)) return index+1;
       return 0;
     #else
       return __builtin_ffs(t1.bits);
     #endif
     }
   };
-} }
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_ , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
@@ -108,6 +85,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

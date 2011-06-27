@@ -8,22 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_ORNOT_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_ORNOT_HPP_INCLUDED
+
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_bits.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_ornot_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_ornot_, tag::cpu_ , (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< fundamental_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -34,6 +30,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

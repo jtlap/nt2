@@ -26,8 +26,8 @@ namespace nt2 { namespace meta
   {
     typedef typename A0::type                                     target;
     typedef typename meta::scalar_of<target>::type                base;
-    typedef typename meta::call<Tag(nt2::meta::as_<base>)>::type  result;
-    typedef simd::native<result,X>                                result_type;
+    typedef typename meta::call<Tag(nt2::meta::as_<base>)>::type  value;
+    typedef simd::native<value,X>                                 result_type;
 
     inline result_type operator()(A0 const&) const
     {

@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
   NT2_FUNCTOR_IMPLEMENTATION(tag::shri_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type32_<A0>,tag::sse_>))
-                              ((integer_<A1>))
+                              (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
@@ -58,7 +58,7 @@ namespace nt2 { namespace meta
   NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type64_<A0>,tag::sse_>))
-                              ((integer_<A1>))
+                              (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
@@ -74,7 +74,7 @@ namespace nt2 { namespace meta
   NT2_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type16_<A0>,tag::sse_>))
-                              ((integer_<A1>))
+                              (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;

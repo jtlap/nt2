@@ -11,26 +11,15 @@
 
 #include <nt2/include/functions/is_nez.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::is_true_, tag::cpu_
-                            , (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_true_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return is_nez(a0);
-    }
+    NT2_FUNCTOR_CALL(1) { return is_nez(a0); }
   };
 } }
-
 
 #endif

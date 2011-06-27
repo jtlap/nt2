@@ -9,13 +9,13 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELADD_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELADD_HPP_INCLUDED
 
-#include <nt2/sdk/meta/size.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF ( tag::seladd_, tag::cpu_, (A0)(A1)(X)
-                                , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
-                                                        , boost::mpl::sizeof_<A1>
+                                , (boost::mpl::equal_to < cardinal_of<A0>
+                                                        , cardinal_of<A1>
                                                         >
                                   )
                                 , (tag::seladd_
@@ -31,7 +31,8 @@ namespace nt2 { namespace meta
   {
     typedef A1 result_type;
 
-    inline result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
+    inline result_type
+    operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
       return a1+b_and(a2,a0);
     }

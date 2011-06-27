@@ -17,26 +17,28 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::select_, tag::cpu_,
-                                (A0)(A1)(X),
-                                (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
-                                (tag::select_(simd_<arithmetic_<A0>,X>
-                                             ,simd_<arithmetic_<A1>,X>
-					                         ,simd_<arithmetic_<A1>,X>)
-                                ), 
-                                ((simd_<arithmetic_<A0>,X>))
-                                ((simd_<arithmetic_<A1>,X>))
-                                ((simd_<arithmetic_<A1>,X>))
-			                  )
+  NT2_FUNCTOR_IMPLEMENTATION_IF ( tag::select_, tag::cpu_, (A0)(A1)(X)
+                                , (boost::mpl::equal_to < cardinal_of<A0>
+                                                        , cardinal_of<A1>
+                                                        >
+                                  )
+                                , (tag::select_ ( simd_<arithmetic_<A0>,X>
+                                                , simd_<arithmetic_<A1>,X>
+                                                , simd_<arithmetic_<A1>,X>
+                                                )
+                                  )
+                                , ((simd_<arithmetic_<A0>,X>))
+                                  ((simd_<arithmetic_<A1>,X>))
+                                  ((simd_<arithmetic_<A1>,X>))
+                                )
   {
     typedef A1 result_type;
 
-    inline result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
+    inline result_type
+    operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
       return b_or(b_and(a1,a0),b_andnot(a2,a0));
-      //      return bitwise_xor(a2, b_and(b_xor(a2, a1),a0));
     }
-
   };
 } }
 

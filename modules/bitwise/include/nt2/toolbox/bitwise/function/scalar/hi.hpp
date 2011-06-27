@@ -8,39 +8,29 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_HI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_HI_HPP_INCLUDED
-#include <nt2/sdk/meta/as_integer.hpp>
+
 #include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::hi_, tag::cpu_,
-                    (A0),
-                    (arithmetic_<A0>)
-                   )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::hi_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::hi_, tag::cpu_, (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
+
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::downgrade<typename meta::as_integer<A0,unsigned>::type >{};
+    typedef typename meta::
+            downgrade < typename meta::as_integer<A0,unsigned>::type
+                      >::type  result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type type;
-      BOOST_STATIC_CONSTANT(type, shift = sizeof(type)*4);
+      BOOST_STATIC_CONSTANT(type, shift   = sizeof(type)*4);
       BOOST_STATIC_CONSTANT(type, pattern = type(type(-1)<<shift));
 
       return b_and(pattern, a0) >> shift;
     }
-
   };
 } }
 

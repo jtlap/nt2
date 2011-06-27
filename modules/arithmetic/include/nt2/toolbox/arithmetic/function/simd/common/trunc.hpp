@@ -8,61 +8,27 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TRUNC_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TRUNC_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/floor.hpp>
+
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/floor.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::trunc_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<arithmetic_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::trunc_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::trunc_, tag::cpu_,(A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return a0; }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::trunc_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<real_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::trunc_(tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::trunc_, tag::cpu_,(A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return  b_xor(floor(abs(a0)), bitofsign(a0));
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return  b_xor(floor(abs(a0)), bitofsign(a0)); }
   };
 } }
 

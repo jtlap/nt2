@@ -8,42 +8,26 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHRAI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHRAI_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
+
 #include <nt2/include/functions/shri.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<unsigned_<A0>,X>))(scalar_< integer_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)(X)
+                            , ((simd_<unsigned_<A0>,X>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return shri(a0, a1);
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2) { return shri(a0, a1); }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<signed_<A0>,X>))(scalar_< integer_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)(X)
+                            , ((simd_<signed_<A0>,X>))
+                              (scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -51,6 +35,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

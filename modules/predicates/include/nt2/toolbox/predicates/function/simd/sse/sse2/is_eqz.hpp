@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
+
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace meta
 {

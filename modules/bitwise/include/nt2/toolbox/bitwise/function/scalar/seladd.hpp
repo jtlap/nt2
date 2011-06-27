@@ -20,10 +20,8 @@ namespace nt2 { namespace meta
     typedef typename meta::result_of<meta::arithmetic(A1,A2)>::type result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      if(a0)
-        return result_type(a1) + result_type(a2);
-      else
-        return result_type(a1);
+      if(a0) return result_type(a1) + result_type(a2);
+      else   return result_type(a1);
     }
   };
 } }

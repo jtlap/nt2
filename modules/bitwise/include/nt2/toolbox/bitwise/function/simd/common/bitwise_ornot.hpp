@@ -8,37 +8,25 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH_IF(tag::bitwise_ornot_, tag::cpu_,
-			 (A0)(A1)(X),
-			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
-			 (tag::bitwise_ornot_(tag::simd_<tag::arithmetic_,X>, tag::simd_<tag::arithmetic_,X>)), 
-			 ((simd_<arithmetic_<A0>,X>))
-			 ((simd_<arithmetic_<A1>,X>))
-			 );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::bitwise_ornot_(tag::simd_<tag::arithmetic_, X> ,
-                                  tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_ornot_, tag::cpu_, (A0)(A1)(X)
+                                , (boost::mpl::equal_to < cardinal_of<A0>
+                                                        , cardinal_of<A1>
+                                                        >
+                                  )
+                                , ( tag::bitwise_ornot_
+                                    ( simd_<arithmetic_<A0>,X>
+                                    , simd_<arithmetic_<A1>,X>
+                                    )
+                                  )
+                                , ((simd_<arithmetic_<A0>,X>))
+                                  ((simd_<arithmetic_<A1>,X>))
+                     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return b_or(a0,complement(a1));
-    }
-
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2) { return b_or(a0,complement(a1)); }
   };
 } }
 

@@ -16,7 +16,7 @@
 
 #include <boost/config.hpp>
 #include <boost/function_types/result_type.hpp>
-#include <nt2/sdk/functor/functor.hpp>
+#include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 
 #if (defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)

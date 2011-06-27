@@ -8,29 +8,21 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_HI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_HI_HPP_INCLUDED
-#include <nt2/include/constants/digits.hpp>
+
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shri.hpp>
+#include <nt2/include/constants/digits.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::hi_, tag::cpu_
-                            , (A0)(X)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::hi_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type;
       typedef typename meta::scalar_of<result_type>::type int_type;
 
       BOOST_STATIC_CONSTANT(int_type, shift = sizeof(int_type)*4);
@@ -41,6 +33,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
-
 
 #endif

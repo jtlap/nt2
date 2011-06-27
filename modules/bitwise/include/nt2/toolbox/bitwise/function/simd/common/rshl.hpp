@@ -8,8 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_RSHL_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_RSHL_HPP_INCLUDED
-#include <nt2/sdk/meta/size.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>  
 #include <nt2/include/functions/is_gtz.hpp>  
@@ -17,8 +16,8 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF ( tag::rshl_, tag::cpu_, (A0)(A1)(X)
-                                , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
-                                                        , boost::mpl::sizeof_<A1>
+                                , (boost::mpl::equal_to < cardinal_of<A0>
+                                                        , cardinal_of<A1>
                                                         >
                                   )
                                 , (tag::rshl_ ( simd_<arithmetic_<A0>,X>
