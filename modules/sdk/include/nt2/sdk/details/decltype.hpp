@@ -30,8 +30,7 @@
 #undef BOOST_NO_DECLTYPE
 #endif
 
-#include <boost/proto/proto_fwd.hpp>
-#include <boost/proto/detail/decltype.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #if defined(BOOST_NO_DECLTYPE) && !defined(BOOST_TYPEOF_NATIVE)
 #error compiler supports neither decltype nor typeof
@@ -47,6 +46,12 @@
  *
  * \include decltype.cpp
  */
-#define NT2_DECLTYPE(EXPR, TYPE) BOOST_PROTO_DECLTYPE_(EXPR, TYPE)
+#ifndef BOOST_NO_DECLTYPE
+#define NT2_DECLTYPE(EXPR, TYPE) typedef decltype(EXPR) TYPE;
+#else
+#define NT2_DECLTYPE(EXPR, TYPE)                                       \
+BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))   \
+typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;
+#endif
 
 #endif

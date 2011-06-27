@@ -10,7 +10,7 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
@@ -31,7 +31,7 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
-#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+#undef NT2_DECLTYPE
 #undef NT2_FORCE_INLINE
 #endif
 
@@ -89,12 +89,10 @@ namespace nt2 { namespace meta
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
 struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
 {                                                                           \
-  BOOST_TYPEOF_NESTED_TYPEDEF_TPL                                           \
-  ( nested                                                                  \
-  , dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )      \
+  NT2_DECLTYPE                                                              \
+  ( dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )      \
+  , type                                                                    \
   );                                                                        \
-                                                                            \
-  typedef typename nested::type type;                                       \
 };                                                                          \
                                                                             \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
