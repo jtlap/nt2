@@ -9,86 +9,58 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MULTIPLIES_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MULTIPLIES_HPP_INCLUDED
 
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
-                      , ((simd_<float_<A0>,tag::altivec_>))
-                        ((simd_<float_<A0>,tag::altivec_>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_<tag::float_,tag::altivec_>
-                                , tag::simd_<tag::float_,tag::altivec_>
-                                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
+                            , ((simd_<float_<A0>,tag::altivec_>))
+                              ((simd_<float_<A0>,tag::altivec_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0> {};
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { vec_madd(a0(),a1(),Zero<A0>()()) };
       return that;
     }
   };
-} }
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::multiplies_, tag::cpu_, (A0)
-                      , ((simd_<type16_<A0>,tag::altivec_>))
-                        ((simd_<type16_<A0>,tag::altivec_>))
-                      );
 
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct  call< tag::multiplies_( tag::simd_<tag::type16_,tag::altivec_>
-                                , tag::simd_<tag::type16_,tag::altivec_>
-                                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
+                            , ((simd_<type16_<A0>,tag::altivec_>))
+                              ((simd_<type16_<A0>,tag::altivec_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)> : meta::strip<A0> {};
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { vec_mladd(a0(),a1(),Zero<A0>()()) };
       return that;
     }
   };
-} }
 
-/*
-    NT2_FUNCTOR_CALL_EVAL_IF(2,type8_ )
+  NT2_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
+                            , ((simd_<type8_<A0>,tag::altivec_>))
+                              ((simd_<type8_<A0>,tag::altivec_>))
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 l = { vec_mule(a0,a1); }; // replace A0 by upgrade<A0>
-      A0 r = { vec_mulo(a0,a1); };
-      A0 that  = { vec_mergel(vec_pack(l,l),vec_pack(r,r)) };
+      typedef typename meta::upgrade<A0>::type uptype;
+      uptype l = { vec_mule(a0(),a1()); };
+      uptype r = { vec_mulo(a0(),a1()); };
+      A0 that  = { vec_mergel(vec_pack(l(),l()),vec_pack(r(),r())) };
       return that;
     }
+  };
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,int32_t )
+/*
+ * TODO : FINISH THIS
+    NT2_FUNCTOR_CALL_REPEAT(2,int32_t )
     {
       static inline type_t Multiply( const type_t& a, const type_t& b, const ttt::boxed<2>&, const true_t&  )
       {
@@ -98,7 +70,7 @@ namespace nt2 { namespace ext
       }
     }
 
-    NT2_FUNCTOR_CALL_EVAL_IF(2,uint32_t )
+    NT2_FUNCTOR_CALL_REPEAT(2,uint32_t )
     {
 
       static inline type_t Multiply( const type_t& a, const type_t& b, const ttt::boxed<2>&, const false_t&  )
@@ -111,5 +83,6 @@ namespace nt2 { namespace ext
       }
 
 */
+} }
 
 #endif

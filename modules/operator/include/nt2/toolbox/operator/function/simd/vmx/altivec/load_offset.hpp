@@ -8,36 +8,19 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_OFFSET_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_OFFSET_HPP_INCLUDED
+
 #include <nt2/sdk/simd/meta/as_simd.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over load_ on simd types with an offset
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::load_
-                      , tag::cpu_
-                      , (A0)(A1)(T)(N)
-                      , (iterator_<fundamental_<A0> >)
-                        (fundamental_<A1>)
-                        ((target_< simd_< fundamental_<T>, tag::altivec_ > >))
-                        (mpl_integral_< integer_<N> >)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::load_( tag::iterator_<tag::fundamental_>
-                          , tag::fundamental_
-                          , tag::target_<tag::simd_<tag::fundamental_,tag::altivec_> >
-                          , tag::mpl_integral_<tag::integer_>
-                          )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_, (A0)(A1)(A2)(A3)
+                            , (iterator_<fundamental_<A0> >)
+                              (fundamental_<A1>)
+                              ((target_<simd_<fundamental_<A2>,tag::altivec_> >))
+                              (mpl_integral_< integer_<A3> >)
+                      )
   {
-    template<class Sig> struct result;
-    template<class This, class A0,class A1,class A2,class A3>
-    struct result<This(A0,A1,A2,A3)> : meta::strip<A2>::type {};
+    typedef typename A2::type result_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Some helpers for discriminating periodic and forward/backward offset
@@ -54,69 +37,60 @@ namespace nt2 { namespace ext
     struct  is_forward : boost::mpl::bool_< (Offset::value > 0) >
     {};
 
+    NT2_FUNCTION_CALL(4)
+    {
+      return eval ( a0,a1
+                  , typename is_periodic<A2,A3>::type()
+                  , typename is_forward<A3>::type()
+                  );
+    }
     ////////////////////////////////////////////////////////////////////////////
     // Periodic case - Just add up to the runtime offset
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0,class A1,class A2,class A3>
-    typename boost::lazy_enable_if_c< is_periodic<A2,A3>::value
-                                    , NT2_RETURN_TYPE(4)
-                                    >::type
-    inline  operator()(A0 const& a0, A1 const& a1, A2 const&, A3 const&) const
+    template<class X> inline result_type
+    eval(A0 const& a0, A1 const& a1, boost::mpl::true_ const&, X const&) const
     {
       BOOST_STATIC_CONSTANT
-      ( std::size_t
-      , offset = A3::value/ meta::cardinal_of<typename A2::type>::value
-      );
+      ( std::size_t, o = A3::value/meta::cardinal_of<result_type>::value );
 
-      typedef typename NT2_RETURN_TYPE(4)::type type;
-      return nt2::load<type>(a0,a1+offset);
+      return nt2::load<result_type>(a0,a1+o);
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Forward, non-periodic case
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0,class A1,class A2,class A3>
-    typename boost::lazy_enable_if_c< (  !is_periodic<A2,A3>::value
-                                      &&  is_forward<A3>::value
-                                      )
-                                    , NT2_RETURN_TYPE(4)
-                                    >::type
-    inline  operator()(A0 const& a0, A1 const& a1, A2 const&, A3 const&) const
+    inline result_type eval ( A0 const& a0, A1 const& a1
+                            , boost::mpl::false_ const&
+                            , boost::mpl::true_  const&   ) const
     {
-      typedef typename NT2_RETURN_TYPE(4)::type    type;
-      typedef typename meta::scalar_of<type>::type scalar_type;
-      BOOST_STATIC_CONSTANT( std::size_t, card   = meta::cardinal_of<type>::value);
+      typedef typename meta::scalar_of<result_type>::type scalar_type;
+      BOOST_STATIC_CONSTANT( std::size_t, card   = meta::cardinal_of<result_type>::value);
       BOOST_STATIC_CONSTANT( std::size_t, offset = A3::value/card                );
       BOOST_STATIC_CONSTANT( std::size_t, bytes  = sizeof(scalar_type)           );
       BOOST_STATIC_CONSTANT( std::size_t, shift  = bytes*(A3::value%card)        );
 
-      type a      = load<type>(a0,a1+offset);
-      type b      = load<type>(a0,a1+offset+1);
-      type that   = { vec_sld(a(),b(),shift) }; 
+      result_type a      = load<result_type>(a0,a1+offset);
+      result_type b      = load<result_type>(a0,a1+offset+1);
+      result_type that   = { vec_sld(a(),b(),shift) };
       return that;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // backward, non-periodic case
     ////////////////////////////////////////////////////////////////////////////
-    template<class A0,class A1,class A2,class A3>
-    typename boost::lazy_enable_if_c< (  !is_periodic<A2,A3>::value
-                                      && !is_forward<A3>::value
-                                      )
-                                    , NT2_RETURN_TYPE(4)
-                                    >::type
-    inline  operator()(A0 const& a0, A1 const& a1, A2 const&, A3 const&) const
+    inline result_type eval ( A0 const& a0, A1 const& a1
+                            , boost::mpl::false_ const&
+                            , boost::mpl::false_  const&  ) const
     {
-      typedef typename NT2_RETURN_TYPE(4)::type    type;
-      typedef typename meta::scalar_of<type>::type scalar_type;
-      BOOST_STATIC_CONSTANT( std::size_t, card   = meta::cardinal_of<type>::value );
+      typedef typename meta::scalar_of<result_type>::type scalar_type;
+      BOOST_STATIC_CONSTANT( std::size_t, card   = meta::cardinal_of<result_type>::value );
       BOOST_STATIC_CONSTANT( std::size_t, offset = -A3::value/card                );
       BOOST_STATIC_CONSTANT( std::size_t, bytes  = sizeof(scalar_type)            );
       BOOST_STATIC_CONSTANT( std::size_t, shift  = bytes*(card-(-A3::value)%card) );
 
-      type a      = load<type>(a0,a1-offset);
-      type b      = load<type>(a0,a1-offset-1);
-      type that   = { vec_sld(b(),a(),shift) };
+      result_type a     = load<result_type>(a0,a1-offset);
+      result_type b     = load<result_type>(a0,a1-offset-1);
+      result_type that  = { vec_sld(b(),a(),shift) };
       return that;
     }
   };

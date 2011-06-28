@@ -17,66 +17,30 @@
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::shift_left_, tag::cpu_, (A0)(A1)
-                      , ((simd_<integer_<A0>,tag::altivec_>))
-                        ((simd_<integer_<A1>,tag::altivec_>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::shift_left_( tag::simd_<tag::integer_,tag::altivec_>
-                                , tag::simd_<tag::integer_,tag::altivec_>
-                                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shift_left_, tag::cpu_, (A0)(A1)
+                            , ((simd_<integer_<A0>,tag::altivec_>))
+                              ((simd_<integer_<A1>,tag::altivec_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>  
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)  
     { 
-     typedef typename meta::as_unsigned<A1>::type type;
-     type shift = simd::native_cast<type>(a1);
-     A0 that  = { vec_sl(a0(), shift()) }; 
-     return that; 
+      typedef typename meta::as_unsigned<A1>::type type;
+      type shift = simd::native_cast<type>(a1);
+      A0 that  = { vec_sl(a0(), shift()) };
+      return that;
     }
-
   };
-} }
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::shift_left_, tag::cpu_, (A0)(A1)
-                      , ((simd_<float_<A0>,tag::altivec_>))
-                        ((simd_<ints32_<A1>,tag::altivec_>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct  call< tag::shift_left_( tag::simd_<tag::float_,tag::altivec_>
-                                , tag::simd_<tag::ints32_,tag::altivec_>
-                                )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::shift_left_, tag::cpu_, (A0)(A1)
+                            , ((simd_<float_<A0>,tag::altivec_>))
+                              ((simd_<ints32_<A1>,tag::altivec_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>  
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2) 
    { 

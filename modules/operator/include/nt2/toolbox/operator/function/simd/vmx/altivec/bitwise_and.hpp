@@ -9,33 +9,16 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_BITWISE_AND_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_BITWISE_AND_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/simd/native_cast.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overload registration
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::bitwise_and_, tag::cpu_, (A0)(A1)
-                      , ((simd_<arithmetic_<A0>,tag::altivec_>))
-                        ((simd_<arithmetic_<A1>,tag::altivec_>))
-                      );
-
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::bitwise_and_ ( tag::simd_<tag::arithmetic_,tag::altivec_>
-                                  , tag::simd_<tag::arithmetic_,tag::altivec_>
-                                  )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::bitwise_and_, tag::cpu_, (A0)(A1)
+                            , ((simd_<arithmetic_<A0>,tag::altivec_>))
+                              ((simd_<arithmetic_<A1>,tag::altivec_>))
+                            )
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

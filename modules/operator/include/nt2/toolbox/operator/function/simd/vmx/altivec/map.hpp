@@ -23,30 +23,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
 #define M3(z,n,t) (typename A1::value_type)(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A0>,tag::altivec_>))
-#define M1(z,n,t) tag::simd_<tag::BOOST_PP_TUPLE_ELEM(2,0,t),tag::altivec_>
+#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A1>,tag::altivec_>))
 
-#define M0(z,n,t)                                                       \
-NT2_REGISTER_DISPATCH ( tag::map_,tag::cpu_                             \
-                      , (Func)(A0)                                      \
-                      , (unspecified_<Func>)BOOST_PP_REPEAT(n,M2,t)     \
-                      )                                                 \
-namespace nt2 { namespace ext                                           \
-{                                                                       \
-  template<class Dummy>                                                 \
-  struct call < tag::map_(tag::unspecified_,BOOST_PP_ENUM(n,M1,t))      \
-              , tag::cpu_ , Dummy> : callable                           \
-  {                                                                     \
-    template<class Sig> struct result;                                  \
-    template<class This,class F,class A>                                \
-    struct result<This(F,NT2_PP_ENUM_VALUE(n,A))> : meta::strip<A> {};  \
-    NT2_FUNCTOR_CALL(BOOST_PP_INC(n))                                   \
-    {                                                                   \
-      A1 that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};     \
-      return that;                                                      \
-    }                                                                   \
-  };                                                                    \
-} }                                                                     \
+#define M0(z,n,t)                                                             \
+NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_, (A0)(A1)                     \
+                          , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)         \
+                          )                                                   \
+  {                                                                           \
+    typedef A1 result_type;                                                   \
+    NT2_FUNCTOR_CALL_REPEAT(BOOST_PP_INC(n))                                  \
+    {                                                                         \
+      result_type that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};  \
+      return that;                                                            \
+    }                                                                         \
+  };                                                                          \
+} }                                                                           \
 /**/
 
 #define NT2_SIMD_MAP_CALL(T,C)                      \
