@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_NEZ_HPP_INCLUDED
 #include <nt2/sdk/meta/templatize.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -23,7 +22,7 @@ namespace nt2 { namespace meta
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
-                            , ((simd_<int64_<A0>,tag::sse_>))
+                            , ((simd_<type64_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -34,6 +33,7 @@ namespace nt2 { namespace meta
       typedef simd::native<htype,tag::sse_> type;
       type tmp1 = is_nez(simd::native_cast<type>(a0));
       const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
+
       return simd::native_cast<A0>(b_or(tmp1, tmp2));
     }
   };
