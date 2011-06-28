@@ -29,7 +29,8 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
 
@@ -50,7 +51,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
-                            , (bool_<A0>)(bool_<A1>)
+                            , (scalar_< bool_<A0> >)(scalar_< bool_<A1> >)
                             )
   {
 
