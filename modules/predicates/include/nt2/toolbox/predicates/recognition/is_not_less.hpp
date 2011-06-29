@@ -14,28 +14,17 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/toolbox/predicates/function/is_not_less.hpp>
 
-NT2_REGISTER_DISPATCH ( tag::logical_not_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
-                      , ((expr_<A1,Dom,tag::is_less_,Sema>))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Domain,class Semantic,class Dummy>
-  struct call < tag::logical_not_(tag::expr_<Domain,tag::is_less_,Semantic>)
-              , tag::recognition_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::logical_not_ , tag::recognition_, (A0)(Dom)(Sema)
+			      , ((expr_<A0,Dom,tag::is_less_,Sema>))
+			      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)>
-      : meta::call< tag::is_not_less_(
+    typedef typename  meta::call< tag::is_not_less_(
           typename boost::proto::result_of::child_c<A0, 0>::type
-        ) >
-    {};
+        ) >::type result_type;
 
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return is_not_less(boost::proto::child_c<0>(a0));
     }

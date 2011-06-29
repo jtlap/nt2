@@ -16,7 +16,7 @@
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/constants/digits.hpp>
-
+#include <iostream>
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_

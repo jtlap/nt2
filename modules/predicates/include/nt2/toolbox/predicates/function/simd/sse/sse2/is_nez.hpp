@@ -22,6 +22,13 @@ namespace nt2 { namespace meta
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
+                            , ((simd_<double_<A0>,tag::sse_>))
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
                             , ((simd_<type64_<A0>,tag::sse_>))
                             )
   {

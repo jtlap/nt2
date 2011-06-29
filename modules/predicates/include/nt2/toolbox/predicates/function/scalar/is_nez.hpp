@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-       return a0 != 0;
+      return a0 != Zero<A0>();
     }
   };
 } }

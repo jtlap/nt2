@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return b_not(ge(a0,a1));
     }
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     template<class This,class A0>
     struct result<This(A0, A0)> : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return lt(a0,a1);
     }
