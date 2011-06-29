@@ -16,7 +16,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::saturate_<T> , tag::cpu_,
                       (A0)(T),
-                      (integer_<A0>)
+                      (scalar_<integer_<A0> >)
                      )
   {
     typedef A0 result_type;

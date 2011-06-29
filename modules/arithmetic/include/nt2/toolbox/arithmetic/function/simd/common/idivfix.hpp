@@ -28,7 +28,7 @@ namespace nt2 { namespace meta
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_integer < A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2) { return nt2::toint(nt2::trunc(a0/a1)); }
   };
 } }

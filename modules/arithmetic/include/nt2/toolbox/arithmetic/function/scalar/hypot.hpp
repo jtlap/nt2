@@ -59,7 +59,7 @@ namespace nt2 { namespace meta
 
  NT2_FUNCTOR_IMPLEMENTATION(tag::hypot_, tag::cpu_,
                        (A0)(A1),
-                       (fundamental_<A0>)(fundamental_<A1>)
+                       (scalar_<fundamental_<A0> >)(scalar_<fundamental_<A1> >)
                       )
  {
    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
@@ -86,46 +86,46 @@ namespace nt2 { namespace meta
       // the straightforward preceding overload for floats
       // The float constants are provided in order to modify
       // the algorithm if a architecture gived different speed results
-      typedef typename meta::as_integer<A0, signed>::type  int_type;
-      A0 x =  nt2::abs(a0);
-      A0 y =  nt2::abs(a1);
-      if (nt2::is_inf(x+y)) return Inf<A0>();
-      if (nt2::is_nan(x+y)) return Nan<A0>();
-      A0 a =  nt2::max(x, y);
-      A0 b =  nt2::min(x, y);
+      typedef typename meta::as_integer<AA0, signed>::type  int_type;
+      AA0 x =  nt2::abs(a0);
+      AA0 y =  nt2::abs(a1);
+      if (nt2::is_inf(x+y)) return Inf<AA0>();
+      if (nt2::is_nan(x+y)) return Nan<AA0>();
+      AA0 a =  nt2::max(x, y);
+      AA0 b =  nt2::min(x, y);
       int_type ea =   nt2::exponent(a);
       int_type eb  =  nt2::exponent(b);
-      if (ea-eb > hypot_constants<A0>::C0()) return a+b;
+      if (ea-eb > hypot_constants<AA0>::C0()) return a+b;
       int_type e = Zero<int_type>();
-      if (ea > hypot_constants<A0>::C1())
+      if (ea > hypot_constants<AA0>::C1())
       {
-        e = hypot_constants<A0>::MC2();
+        e = hypot_constants<AA0>::MC2();
       }
-      if (eb < hypot_constants<A0>::MC1())
+      if (eb < hypot_constants<AA0>::MC1())
       {
 
-        e = hypot_constants<A0>::C1();
+        e = hypot_constants<AA0>::C1();
       }
       if (e)
       {
         a =  nt2::ldexp(a, e);
         b =  nt2::ldexp(b, e);
       }
-      A0 w = a-b;
+      AA0 w = a-b;
       if (w > b)
       {
-        A0 t1 = b_and(a, hypot_constants<A0>::M1());
-        A0 t2 = a-t1;
+        AA0 t1 = b_and(a, hypot_constants<AA0>::M1());
+        AA0 t2 = a-t1;
         w  = (t1*t1-(b*(-b)-t2*(a+t1)));
       }
       else
       {
-        A0 y1 = b_and(b, hypot_constants<A0>::M1());
-        A0 y2 = b - y1;
-        typedef typename meta::from_bits<A0, unsigned>::type type;
-        type that = {bits(a)+hypot_constants<A0>::C3()};
-        A0 t1 = that.value;
-        A0 t2 = (a+a) - t1;
+        AA0 y1 = b_and(b, hypot_constants<AA0>::M1());
+        AA0 y2 = b - y1;
+        typedef typename meta::from_bits<AA0, unsigned>::type type;
+        type that = {bits(a)+hypot_constants<AA0>::C3()};
+        AA0 t1 = that.value;
+        AA0 t2 = (a+a) - t1;
         w  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
       }
       w = nt2::sqrt(w);
