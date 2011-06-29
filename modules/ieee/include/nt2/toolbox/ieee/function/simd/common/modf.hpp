@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
-      typedef typename meta::strip<A0>::type        A00;
+      typedef typename meta::strip<A0>::type                A00;
       typedef boost::fusion::vector<A00, A00>       result_type;
     
     NT2_FUNCTOR_CALL_REPEAT(1)
@@ -34,8 +34,8 @@ namespace nt2 { namespace meta
       return res;
     }
   private:
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0, R0& r0, R1& r1)const
+    template<class AA0,class R0,class R1> inline void
+    eval(AA0 const& a0, R0& r0, R1& r1)const
     {
       r1 = nt2::trunc(a0);
       r0 = a0-r1;

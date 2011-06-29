@@ -54,8 +54,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
-      return is_gtz(a0)? ::ilogb(a0) : Zero<rtype>();
+      return is_gtz(a0)? ::ilogb(a0) : Zero<result_type>();
     }
   };
 } }
@@ -78,8 +77,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
-      return is_gtz(a0)? ::ilogbf(a0) : Zero<rtype>();
+      return is_gtz(a0)? ::ilogbf(a0) : Zero<result_type>();
     }
   };
 } }
@@ -101,8 +99,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
-      return is_gtz(a0)? nt2::exponent(a0) : Zero<rtype>();
+      return is_gtz(a0)? nt2::exponent(a0) : Zero<result_type>();
     }
   };
 } }

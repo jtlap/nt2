@@ -38,7 +38,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return seladd(is_not_equal(a0,a1),a0,seladd(gt(a1,a0),-One<A0>(),Two<A0>()));
     }
@@ -59,7 +59,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return sel(is_equal(a0,a1),a0,sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
     }
@@ -80,7 +80,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0, signed>::type itype;
       A0 m;

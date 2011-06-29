@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -52,16 +52,15 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type value_type;
       typedef std::numeric_limits<A0> lim;
       const A0 a = nt2::abs(a0);
       if (is_not_finite(a))
       {
-        return value_type(Nan<A0>());
+        return result_type(Nan<A0>());
       }
       else if (a < lim::min())
       {

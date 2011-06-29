@@ -79,12 +79,10 @@ namespace nt2 { namespace meta
                             , ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return seladd( gt(Valmax<A0>()-nt2::abs(a1), a0), a0, nt2::abs(a1));
+      return nt2::seladd( nt2::gt(Valmax<A0>()-nt2::abs(a1), a0), a0, nt2::abs(a1));
       }
   };
 } }
@@ -101,7 +99,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

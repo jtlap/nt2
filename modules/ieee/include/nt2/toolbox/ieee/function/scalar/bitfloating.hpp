@@ -18,7 +18,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::bitfloating_, tag::cpu_,
                              (A0),
-                             (arithmetic_<A0>)
+                             (scalar_<arithmetic_<A0> > )
                             )
   {
  typedef typename meta::as_real<A0>::type result_type; 
@@ -43,7 +43,7 @@ namespace nt2 { namespace meta
 
   NT2_FUNCTOR_IMPLEMENTATION(tag::bitfloating_, tag::cpu_,
                              (A0),
-                             (unsigned_<A0>)
+                             (scalar_<unsigned_<A0> > )
                             )
   {
  typedef typename meta::as_real<A0>::type result_type; 

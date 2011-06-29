@@ -18,7 +18,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
                       (A0),
-                      (fundamental_<A0>)
+                      (scalar_ < fundamental_<A0> > )
                      )
   {
       typedef typename meta::strip<A0>::type            etype;
@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       boost::fusion::at_c<1>(res) = trunc(a0);
       boost::fusion::at_c<0>(res)= a0 - boost::fusion::at_c<1>(res);
       return res;

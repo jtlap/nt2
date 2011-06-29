@@ -29,7 +29,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return sel(gt(abs(a0), nt2::abs(a1)), a0, a1);
     }

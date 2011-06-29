@@ -48,7 +48,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef result_type type;
       if (is_nan(a0)) return type(a1);
       else if (is_nan(a1)) return type(a0);
       else return (nt2::abs(a0) <  nt2::abs(a1)) ?type(a0):type(a1);

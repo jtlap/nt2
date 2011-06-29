@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
                             (A0),
-                            (double_<A0>)
+                            (scalar_ < double_<A0> > )
                            )
   {
       typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       int r1t;
       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
 
   NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
                             (A0),
-                            (float_<A0>)
+                            (scalar_ < float_<A0> > )
                            )
   {
       typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
@@ -51,7 +51,7 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }

@@ -28,11 +28,11 @@ namespace nt2 { namespace meta
   {
        typedef typename meta::strip<A0>::type                     A00;
        typedef typename meta::as_integer<A00, signed>::type  exponent;
-       typedef boost::fusion::vector<A00,exponent>                result_type;
+       typedef boost::fusion::vector<A00,exponent>        result_type;
      
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
@@ -40,18 +40,18 @@ namespace nt2 { namespace meta
       return res;
     }
   private:
-    template<class A0,class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1)const
+    template<class AA0,class R0,class R1> inline void
+    eval(AA0 const& a0,R0& r0, R1& r1)const
     {
-      typedef typename meta::as_integer<A0, signed>::type      int_type;
+      typedef typename meta::as_integer<AA0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
-      typedef typename meta::scalar_of<A0>::type                 s_type;
+      typedef typename meta::scalar_of<AA0>::type                 s_type;
       static const sint_type me = Maxexponent<s_type>()-1;
       static const sint_type nmb= Nbmantissabits<s_type>();
       static const int_type vn1 = nt2::splat<int_type>((2*me+3)<<nmb);
       static const sint_type n2 = me<<nmb;
       r1 = b_and(vn1, a0);                                 //extract exponent
-      A0 x = b_andnot(a0, vn1);                            //clear exponent in a0
+      AA0 x = b_andnot(a0, vn1);                            //clear exponent in a0
       r1 = shri(r1,nmb) - splat<int_type>(me);             //compute exponent
       r0 = b_or(x,splat<int_type>(n2));                    //insert expon+1 in x
     }
