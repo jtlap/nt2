@@ -27,7 +27,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::sub(a0, a1);
     }
@@ -48,7 +48,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0ma1 = a0-a1;
       return b_and(a0ma1, le(a0ma1, a0)); 
@@ -69,9 +69,9 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 res =  adds(a0, -a1); 
       if (nt2::any(eq(a1, Valmin<A0>())))

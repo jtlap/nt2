@@ -31,31 +31,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return One<type>()/nt2::tofloat(a0);
+      return One<result_type>()/nt2::tofloat(a0);
     }
-  };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::rec_(tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :  meta::as_real<A0>{};
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return One<type>()/a0;
-    }
-
   };
 } }
 

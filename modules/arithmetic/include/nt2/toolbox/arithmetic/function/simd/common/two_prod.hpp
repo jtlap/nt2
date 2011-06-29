@@ -14,51 +14,37 @@
 #include <nt2/include/functions/two_split.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/select.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::two_prod_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::two_prod_, tag::cpu_,
                            (A0)(X),
                            ((simd_<arithmetic_<A0>,X>))
                            ((simd_<arithmetic_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::two_prod_(tag::simd_<tag::arithmetic_, X> ,
-                             tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                          )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-    {
       typedef typename meta::strip<A0>::type                    str_t;
-      typedef typename boost::fusion::tuple<str_t, str_t>        type;
-    };
-
-    NT2_FUNCTOR_CALL(2)
+      typedef typename boost::fusion::tuple<str_t, str_t> result_type;
+    
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typename NT2_RETURN_TYPE(2)::type res;
+      result_type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
   private:
-    template<class A0,class A1,class R0,class R1> inline void
-    eval(A0 const& a, A1 const& b, R0& r0, R1& r1)const
+    template<class AA0,class AA1,class R0,class R1> inline void
+    eval(AA0 const& a, AA1 const& b, R0& r0, R1& r1)const
     {
       r0  = a*b;
-      A0 isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
-      A0 a1, a2, b1, b2;
+      AA0 isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
+      AA0 a1, a2, b1, b2;
       boost::fusion::tie(a1, a2) = two_split(a);
       boost::fusion::tie(b1, b2) = two_split(b);
       r1 = sel(isinf, Zero<R1>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
     }
   };
 } }
-
 #endif

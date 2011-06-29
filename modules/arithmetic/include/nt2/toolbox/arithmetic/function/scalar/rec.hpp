@@ -27,12 +27,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       return a0 ? One<type>()/a0 : Inf<type>();
     }
   };
-} }
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
@@ -41,8 +39,7 @@ namespace nt2 { namespace meta
   #pragma warning(push)
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
-namespace nt2 { namespace meta
-{
+
   NT2_FUNCTOR_IMPLEMENTATION( tag::rec_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
@@ -53,8 +50,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return One<type>()/a0;
+      return One<result_type>()/a0;
     }
   };
 } }

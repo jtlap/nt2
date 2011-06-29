@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
         return -idivceil(-a0,a1);
       else
       {
-        typedef typename NT2_RETURN_TYPE(2)::type type;
+        typedef result_type type;
         return (a0>0) ? Valmax<type>() : Valmin<type>();
       }
 
@@ -60,32 +60,20 @@ namespace nt2 { namespace meta
        return rdivide(a0,a1);
     }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::idivfloor_, tag::cpu_,
-                           (A0)(A1),
-                           (real_<A0>)(real_<A1>)
-                          )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::idivfloor_(tag::real_,tag::real_),
-              tag::cpu_, Dummy> : callable
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::idivfloor_, tag::cpu_,
+			     (A0)(A1),
+			     (real_<A0>)(real_<A1>)
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::as_integer<typename meta::result_of<meta::arithmetic(A0,A1)>::type >{};
-
+    typedef typename meta::as_integer < typename meta::result_of<meta::arithmetic(A0,A1)>::type >::type result_type;
     NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::ifloor(a0/a1);
-    }
+      {
+	return nt2::ifloor(a0/a1);
+      }
   };
 } }
 

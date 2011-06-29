@@ -16,28 +16,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::minusone_, tag::cpu_,
-                          (A0),
-                          (fundamental_<A0>)
-                         )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::minusone_(tag::fundamental_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(tag::minusone_, tag::cpu_,
+			     (A0),
+			     (scalar_ < fundamental_<A0> > )
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> {
-      typedef typename meta::strip<A0>::type sA0; 
-      typedef typename meta::result_of<meta::arithmetic(sA0)>::type tmp;
-      typedef typename meta::as_signed<tmp>::type type;
-    };
+    typedef typename meta::strip<A0>::type sA0; 
+    typedef typename meta::result_of<meta::arithmetic(sA0)>::type tmp;
+    typedef typename meta::as_signed<tmp>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::strip<A0>::type sA0; 
       return a0-One<sA0>();
     }
 

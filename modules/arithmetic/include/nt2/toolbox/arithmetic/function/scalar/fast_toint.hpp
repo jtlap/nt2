@@ -21,12 +21,11 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::as_integer<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return type(a0);
+      return a0;
     }
   };
 } }
@@ -48,8 +47,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return type(a0);
+      return result_type(a0);
     }
   };
 } }

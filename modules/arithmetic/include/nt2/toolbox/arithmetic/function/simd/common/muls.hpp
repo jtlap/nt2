@@ -8,13 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_MULS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_MULS_HPP_INCLUDED
-
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/rdivide.hpp>
-
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is int 32 8 64
 // /////////////////////////////////////////////////////////////////////////////
@@ -22,7 +20,6 @@
 //                        (A0)(X),
 //                        ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
 //                       );
-
 // namespace nt2 { namespace ext
 // {
 //   template<class X, class Dummy>
@@ -33,8 +30,7 @@
 //     template<class Sig> struct result;
 //     template<class This,class A0>
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
-
-//     NT2_FUNCTOR_CALL(2)
+//     NT2_FUNCTOR_CALL_REPEAT(2)
 //     {
 //       typedef typename meta::as_integer<A0, unsigned>::type untype; 
 //       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
@@ -62,7 +58,6 @@
 //     }
 //   };
 // } }
-
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is uint 32 8 64
 // /////////////////////////////////////////////////////////////////////////////
@@ -70,7 +65,6 @@
 //                        (A0)(X),
 //                        ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
 //                       );
-
 // namespace nt2 { namespace ext
 // {
 //   template<class X, class Dummy>
@@ -81,8 +75,7 @@
 //     template<class Sig> struct result;
 //     template<class This,class A0>
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
-
-//     NT2_FUNCTOR_CALL(2)
+//     NT2_FUNCTOR_CALL_REPEAT(2)
 //     {
 //       return sel( lt(rdivide(Valmax<A0>(), a0), a1),
 // 		  Valmax<A0>(),
@@ -91,5 +84,4 @@
 //     }
 //   };
 // } }
-
 #endif

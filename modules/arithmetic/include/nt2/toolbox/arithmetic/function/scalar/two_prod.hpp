@@ -18,12 +18,12 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::two_add_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(tag::two_prod_, tag::cpu_,
                              (A0)(A1),
                              (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0, A1)>::type rtype;
+    typedef typename meta::result_of<meta::floating(A0, A1)>::type       rtype;
     typedef typename boost::fusion::tuple<rtype,rtype>             result_type;
 
     NT2_FUNCTOR_CALL(2)
@@ -33,8 +33,8 @@ namespace nt2 { namespace meta
       return res;
     }
   private:
-    template<class R0,class R1> inline void
-    eval(A0 const& a, A1 const& b,R0& r0, R1& r1)const
+    template<class AA0, class AA1, class R0,class R1> inline void
+    eval(AA0 const& a, AA1 const& b,R0& r0, R1& r1)const
     {
       r0  = a*b;
       if (is_invalid(r0))
@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
         r1 = Zero<R1>();
         return;
       }
-      A0 a1, a2, b1, b2;
+      AA0 a1, a2, b1, b2;
       boost::fusion::tie(a1, a2) = two_split(a);
       boost::fusion::tie(b1, b2) = two_split(b);
       r1 = a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2);

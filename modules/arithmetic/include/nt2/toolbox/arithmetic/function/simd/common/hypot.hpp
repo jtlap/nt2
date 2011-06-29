@@ -36,59 +36,47 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::hypot(tofloat(a0), tofloat(a1));
     }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::hypot_, tag::cpu_,
-                        (A0)(X),
-                        ((simd_<real_<A0>,X>))
-                        ((simd_<real_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template < class T, class I = typename meta::as_integer<T, signed>::type>
-  struct hypot_ctnts;
-  template <class I, class CAT> struct hypot_ctnts<simd::native<float, CAT>, I>
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::hypot_, tag::cpu_,
+			     (A0)(X),
+			     ((simd_<real_<A0>,X>))
+			     ((simd_<real_<A0>,X>))
+			     )
   {
-    typedef I  int_type;
-    static inline int_type C1(){ return integral_constant<int_type, 50>();};
-    static inline int_type C2(){ return integral_constant<int_type, 60>();};
-    static inline int_type MC1(){ return integral_constant<int_type, -50>();};
-    static inline int_type MC2(){ return integral_constant<int_type, -60>();};
-    static inline int_type C3(){ return integral_constant<int_type, 0x00800000>();};
-    static inline int_type M1(){ return integral_constant<int_type, 0xfffff000>();};
-  };
-  template <class I, class CAT> struct hypot_ctnts<simd::native<double, CAT>, I>
-  {
-    typedef I  int_type;
-    static inline int_type C1(){ return integral_constant<int_type, 500>();};
-    static inline int_type C2(){ return integral_constant<int_type, 600>();};
-    static inline int_type MC1(){ return integral_constant<int_type, -500>();};
-    static inline int_type MC2(){ return integral_constant<int_type, -600>();};
-    static inline int_type C3(){ return integral_constant<int_type, 0x0010000000000000ll>();}
-    static inline int_type M1(){ return integral_constant<int_type, 0xffffffff00000000ll>();};
-  };
+    template < class T, class I = typename meta::as_integer<T, signed>::type>
+      struct hypot_ctnts;
+    template <class I, class CAT> struct hypot_ctnts<simd::native<float, CAT>, I>
+    {
+      typedef I  int_type;
+      static inline int_type C1(){ return integral_constant<int_type, 50>();};
+      static inline int_type C2(){ return integral_constant<int_type, 60>();};
+      static inline int_type MC1(){ return integral_constant<int_type, -50>();};
+      static inline int_type MC2(){ return integral_constant<int_type, -60>();};
+      static inline int_type C3(){ return integral_constant<int_type, 0x00800000>();};
+      static inline int_type M1(){ return integral_constant<int_type, 0xfffff000>();};
+    };
+    template <class I, class CAT> struct hypot_ctnts<simd::native<double, CAT>, I>
+    {
+      typedef I  int_type;
+      static inline int_type C1(){ return integral_constant<int_type, 500>();};
+      static inline int_type C2(){ return integral_constant<int_type, 600>();};
+      static inline int_type MC1(){ return integral_constant<int_type, -500>();};
+      static inline int_type MC2(){ return integral_constant<int_type, -600>();};
+      static inline int_type C3(){ return integral_constant<int_type, 0x0010000000000000ll>();}
+      static inline int_type M1(){ return integral_constant<int_type, 0xffffffff00000000ll>();};
+    };
 
-  template<class X, class Dummy>
-  struct call<tag::hypot_(tag::simd_<tag::real_, X> ,
-                          tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>  :  meta::as_real<A0>{};
+    typedef typename  meta::as_real<A0>::type result_type; 
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef hypot_ctnts<A0, int_type> cts;

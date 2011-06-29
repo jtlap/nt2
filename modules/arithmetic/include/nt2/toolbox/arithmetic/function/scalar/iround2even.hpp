@@ -50,7 +50,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
+      typedef result_type rtype; 
       if (is_inf(a0))
 	{
 	  if (is_ltz(a0))
@@ -58,7 +58,7 @@ namespace nt2 { namespace meta
 	  else
 	    return Valmax<rtype>();
 	}
-      if (is_nan(a0)) return Zero<rtype>(); 
+      if (nt2::is_nan(a0)) return Zero<rtype>(); 
       return round(a0);
     }
   };

@@ -30,8 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return One<type>()/nt2::sqrt(tofloat(a0));
+      return One<result_type>()/nt2::sqrt(tofloat(a0));
     }
   };
 } }

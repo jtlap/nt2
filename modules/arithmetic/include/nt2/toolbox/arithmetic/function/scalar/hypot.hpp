@@ -27,13 +27,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::hypot_, tag::cpu_,
-                       (A0)(A1),
-                       (fundamental_<A0>)(fundamental_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
+
   template < class T, class I = typename meta::as_integer<T, signed>::type>
   struct hypot_constants;
 
@@ -61,18 +57,16 @@ namespace nt2 { namespace ext
     static inline int_type M1() { return (0xffffffff00000000ll);};
   };
 
-  template<class Dummy>
-  struct call<tag::hypot_(tag::fundamental_,tag::fundamental_),
-              tag::cpu_, Dummy> : callable
-  {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::result_of<meta::floating(A0,A1)>{};
+ NT2_FUNCTOR_IMPLEMENTATION(tag::hypot_, tag::cpu_,
+                       (A0)(A1),
+                       (fundamental_<A0>)(fundamental_<A1>)
+                      )
+ {
+   typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type ftype;
+      typedef result_type ftype;
       return internal(ftype(a0), ftype(a1)); 
     }
   private:
@@ -84,8 +78,8 @@ namespace nt2 { namespace ext
 	return float(nt2::sqrt(nt2::sqr(double(a0))+nt2::sqr(double(a1))));	
       }
     
-    template < class A0>
-    static inline A0  internal(const A0& a0, const  A0& a1)
+    template < class AA0>
+    static inline AA0  internal(const AA0& a0, const  AA0& a1)
     {
       // in double ::hypot is very slow and is 4 times slower than internal
       // this routine in float (with float constants) is 30% slower than 

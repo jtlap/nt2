@@ -14,45 +14,32 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/remainder.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::remquo_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
                          (A0)(X),
                          ((simd_<arithmetic_<A0>,X>))
                          ((simd_<arithmetic_<A0>,X>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::remquo_(tag::simd_<tag::arithmetic_, X> ,
-                           tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-    {
       typedef typename meta::strip<A0>::type                 stA0;
       typedef typename meta::as_integer<A0>::type             iA0;             
-      typedef boost::fusion::tuple<stA0,iA0>                 type;
-    };
-
-    NT2_FUNCTOR_CALL(2)
+      typedef boost::fusion::tuple<stA0,iA0>          result_type;
+    
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typename NT2_RETURN_TYPE(2)::type res;
+      result_type res;
       eval( a0, a1
           , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
           );
       return res;
     }
   private:
-    template<class A0,class A1,class R0,class R1> inline void
-    eval(A0 const& a0,A1 const& a1,R0& r0, R1& r1) const
+    template<class AA0,class AA1,class R0,class R1> inline void
+    eval(AA0 const& a0,AA1 const& a1,R0& r0, R1& r1) const
     {
       r1 = idivround(a0, a1);
       r0 = remainder(a0, a1);
@@ -60,9 +47,6 @@ namespace nt2 { namespace ext
 //       R1 r2 =  b_not(b_xor(nt2::Seven<R1>(), r1));
 //       r1 = sel(is_gtz(b_and(a0, a1)), r1, r2); 
     }
-
-
   };
 } }
-
 #endif

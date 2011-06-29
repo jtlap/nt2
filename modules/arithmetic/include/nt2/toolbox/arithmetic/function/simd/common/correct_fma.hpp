@@ -28,7 +28,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(3)
+    NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return a0*a1+a2;
     }
@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(3)
+    NT2_FUNCTOR_CALL_REPEAT(3)
     {
       A0 p, rp, s, rs;
       boost::fusion::tie(p, rp) = two_prod(a0, a1);

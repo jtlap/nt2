@@ -22,80 +22,61 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_subs_epu16(a0, a1)); 
     }
   };
-} }
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_t
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::subs_, tag::cpu_,
-                          (A0),
-                          ((simd_<int16_<A0>,tag::sse_>))
-                          ((simd_<int16_<A0>,tag::sse_>))
-                         );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::subs_(tag::simd_<tag::int16_, tag::sse_>,
-                            tag::simd_<tag::int16_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int16_t
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::subs_, tag::cpu_,
+			     (A0),
+			     ((simd_<int16_<A0>,tag::sse_>))
+			     ((simd_<int16_<A0>,tag::sse_>))
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0,A0)>
-      : meta::strip<A0>{};//
 
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_subs_epi16(a0, a1)); 
     }
   };
-} }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint8_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is uint8_t
+  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
-                            , (A0)
-                            , ((simd_<uint8_<A0>,tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
-                            )
+			      , (A0)
+			      , ((simd_<uint8_<A0>,tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
+			      )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return simd::native_cast<A0>(_mm_subs_epu8(a0, a1)); 
-    }
+    typedef A0 result_type;
+    
+    NT2_FUNCTOR_CALL_REPEAT(2)
+      {
+	return simd::native_cast<A0>(_mm_subs_epu8(a0, a1)); 
+      }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_t
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
+  
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is int8_t
+  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
-                            , (A0)
-                            , ((simd_<int8_<A0>,tag::sse_>))((simd_<int8_<A0>,tag::sse_>))
-                            )
+			      , (A0)
+			      , ((simd_<int8_<A0>,tag::sse_>))((simd_<int8_<A0>,tag::sse_>))
+			      )
   {
+    typedef A0 result_type;
 
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_subs_epi8(a0, a1)); 
     }

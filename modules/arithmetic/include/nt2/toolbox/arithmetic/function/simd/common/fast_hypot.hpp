@@ -35,20 +35,15 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::fast_hypot(tofloat(a0), tofloat(a1));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
@@ -57,7 +52,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 x =  nt2::abs(a0);
       A0 y =  nt2::abs(a1);

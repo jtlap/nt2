@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return b_and(a0, a1)+(shrai(b_xor(a0, a1), 1));
     }
@@ -38,8 +38,8 @@ namespace nt2 { namespace meta
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::average_, tag::cpu_
-                            , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
+			      , (A0)(A1)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {
 
@@ -47,8 +47,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return (a0+a1)*Half<type>();
+      return (a0+a1)*Half<result_type>();
     }
   };
 } }

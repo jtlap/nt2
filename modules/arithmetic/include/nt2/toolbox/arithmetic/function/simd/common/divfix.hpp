@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0, a1); }
   };
 } }
@@ -45,7 +45,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     { return trunc(a0/a1); }
   };
 } }

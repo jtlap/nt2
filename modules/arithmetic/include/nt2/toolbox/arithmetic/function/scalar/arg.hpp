@@ -31,8 +31,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype;
-      return (is_ltz(a0))*Pi<rtype>();
+      return (is_ltz(a0))*Pi<result_type>();
     }
   };
 } }
@@ -53,9 +52,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
       ignore_unused(a0);
-      return Zero<rtype>();
+      return Zero<result_type>();
     }
   };
 } }

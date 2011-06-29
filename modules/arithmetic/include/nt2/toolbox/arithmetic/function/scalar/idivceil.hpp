@@ -31,53 +31,36 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type  type;
       return iceil(tofloat(a0)/tofloat(a1));
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is unsigned_
+  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
-                            )
+			      , (A0)(A1)
+			      , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+			      )
   {
-
+    
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-
+    
     NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_RETURN_TYPE(2)::type  type;
-      return rdivide((a0+(a1-One<type>())), a1);
-    }
+      {
+	return rdivide((a0+(a1-One<result_type>())), a1);
+      }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::idivceil_, tag::cpu_,
-                          (A0)(A1),
-                          (real_<A0>)(real_<A1>)
-                         )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::idivceil_(tag::real_,tag::real_),
-              tag::cpu_, Dummy> : callable
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::idivceil_, tag::cpu_,
+			     (A0)(A1),
+			     (real_<A0>)(real_<A1>)
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::as_integer < typename meta::result_of<meta::arithmetic(A0,A1)>::type > {};
+    typedef typename meta::as_integer < typename meta::result_of<meta::arithmetic(A0,A1)>::type >::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

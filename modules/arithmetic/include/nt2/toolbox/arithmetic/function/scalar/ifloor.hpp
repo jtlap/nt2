@@ -50,7 +50,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
+      typedef result_type rtype; 
       if (nt2::is_inf(a0))
 	{
 	  if (nt2::is_ltz(a0))

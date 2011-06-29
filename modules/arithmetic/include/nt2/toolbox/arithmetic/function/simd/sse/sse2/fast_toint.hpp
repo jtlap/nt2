@@ -17,34 +17,24 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::fast_toint_, tag::cpu_,
-                        (A0),
-                        ((simd_<arithmetic_<A0>,tag::sse_>))
-                       );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::fast_toint_(tag::simd_<tag::arithmetic_, tag::sse_>),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_toint_, tag::cpu_,
+			     (A0),
+			     ((simd_<arithmetic_<A0>,tag::sse_>))
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      { typedef typename meta::as_integer<A0>::type type; };
-
+    typedef A0 result_type;
+    
     NT2_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
+      {
+	return a0;
+      }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::fast_toint_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
@@ -55,19 +45,15 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      typedef typename meta::scalar_of<type>::type stype;
-      return make<type>(static_cast<stype>(a0[0]),static_cast<stype>(a0[1]));
+      typedef typename meta::scalar_of<result_type>::type stype;
+      return make<result_type>(static_cast<stype>(a0[0]),static_cast<stype>(a0[1]));
     }
   };
-} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
   NT2_FUNCTOR_IMPLEMENTATION( tag::fast_toint_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
@@ -75,13 +61,12 @@ namespace nt2 { namespace meta
   {
 
     typedef typename meta::as_integer<A0>::type result_type;
-
+    
     NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type that =  {_mm_cvttps_epi32(a0)};
-      return that;
-    }
+      {
+	result_type that =  {_mm_cvttps_epi32(a0)};
+	return that;
+      }
   };
 } }
 

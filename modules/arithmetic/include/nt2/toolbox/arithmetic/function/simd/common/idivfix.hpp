@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
                             )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2) { return rdivide(a0, a1); }
+    NT2_FUNCTOR_CALL_REPEAT(2) { return nt2::rdivide(a0, a1); }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(X)
@@ -29,7 +29,7 @@ namespace nt2 { namespace meta
                             )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2) { return toint(trunc(a0/a1)); }
+    NT2_FUNCTOR_CALL_REPEAT(2) { return nt2::toint(nt2::trunc(a0/a1)); }
   };
 } }
 

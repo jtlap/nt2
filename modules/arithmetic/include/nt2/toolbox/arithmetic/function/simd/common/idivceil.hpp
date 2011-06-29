@@ -29,7 +29,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     { return iceil(tofloat(a0)/tofloat(a1)); }
   };
 } }
@@ -48,7 +48,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0+a1-One<A0>(), a1); }
   };
 } }
@@ -67,7 +67,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename meta::upgrade<stype>::type          itype;
@@ -95,7 +95,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename meta::upgrade<stype>::type          itype;
@@ -123,7 +123,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_integer<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     { return iceil(a0/a1); }
   };
 } }

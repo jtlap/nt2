@@ -28,7 +28,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return b_and(nt2::min(a0, a1), is_gez(b_xor(a0, a1)));
     }
@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return  nt2::min(a0,a1);
     }
@@ -70,7 +70,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return b_or(b_or(is_nan(a0), is_nan(a1)),
 		   b_and(nt2::min(a0,a1), is_gez(a0*a1))

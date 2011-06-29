@@ -27,8 +27,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      if (a0) return a1/a0;  else return Zero<type>();
+      if (a0) return a1/a0;  else return Zero<result_type>();
     }
   };
 } }
