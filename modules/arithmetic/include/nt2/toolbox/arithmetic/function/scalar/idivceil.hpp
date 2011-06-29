@@ -57,10 +57,11 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(tag::idivceil_, tag::cpu_,
 			     (A0)(A1),
-			     (real_<A0>)(real_<A1>)
+			     (scalar_< real_<A0> >)(scalar_< real_<A1> > )
 			     )
   {
-    typedef typename meta::as_integer < typename meta::result_of<meta::arithmetic(A0,A1)>::type >::type result_type;
+    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type typ;
+    typedef typename meta::as_integer<typ>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

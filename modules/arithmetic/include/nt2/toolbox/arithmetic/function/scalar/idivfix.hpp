@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(A1)
-                            , (real_<A0>)(real_<A1>)
+                            , (scalar_< real_<A0> > )(scalar_< real_<A1> > )
                             )
 
   {

@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
                             , (scalar_< real_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_integer<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

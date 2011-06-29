@@ -30,19 +30,19 @@ namespace nt2 { namespace meta
                             , (scalar_< real_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_integer<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_inf(a0))
+      if (nt2::is_inf(a0))
       {
-        if (is_ltz(a0)) return Valmin<result_type>();
-        else            return  Valmax<result_type>();
+        if (nt2::is_ltz(a0)) return nt2::Valmin<result_type>();
+        else                 return  nt2::Valmax<result_type>();
       }
 
-      if (is_nan(a0)) return Zero<result_type>();
+      if (nt2::is_nan(a0)) return nt2::Zero<result_type>();
 
-      return result_type(ceil(a0));
+      return result_type(nt2::ceil(a0));
     }
   };
 } }

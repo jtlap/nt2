@@ -20,18 +20,18 @@ namespace nt2 { namespace meta
                             )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1) { return result_type(a0); }
+    NT2_FUNCTOR_CALL(1) { return a0; }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_integer<A0> ::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_nan(a0))       return Zero<result_type>();
-      if (a0 == Inf<A0>())  return Valmax<result_type>();
+      if (nt2::is_nan(a0))       return nt2::Zero<result_type>();
+      if (a0 == nt2::Inf<A0>())  return nt2::Valmax<result_type>();
       return result_type(a0);
     }
   };
