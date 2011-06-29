@@ -57,7 +57,7 @@ namespace nt2 { namespace meta
 
     typedef A0 result_type;
     
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    NT2_FUNCTOR_CALL(2)
       {
 	return rshl(a0, a1);
       }
@@ -81,7 +81,7 @@ namespace nt2 { namespace meta
   {
     typedef A0 result_type; 
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    NT2_FUNCTOR_CALL(2)
       {
 	// No denormal provision
 	typedef typename meta::scalar_of<result_type>::type             s_type;

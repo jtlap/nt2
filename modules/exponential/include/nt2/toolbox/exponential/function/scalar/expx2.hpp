@@ -34,8 +34,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return expx2(type(a0));
+      return expx2(result_type(a0));
     }
   };
 } }

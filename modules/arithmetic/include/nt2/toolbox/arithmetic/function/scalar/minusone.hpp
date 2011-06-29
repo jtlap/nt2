@@ -23,13 +23,13 @@ namespace nt2 { namespace meta
 			     (scalar_ < fundamental_<A0> > )
 			     )
   {
-    typedef typename meta::strip<A0>::type sA0; 
-    typedef typename meta::result_of<meta::arithmetic(sA0)>::type tmp;
-    typedef typename meta::as_signed<tmp>::type result_type;
+//     typedef typename meta::strip<A0>::type sA0; 
+//     typedef typename meta::result_of<meta::arithmetic(sA0)>::type tmp;
+    typedef typename meta::as_signed<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      return a0-One<sA0>();
+      return result_type(a0)-One<result_type>();
     }
 
   };

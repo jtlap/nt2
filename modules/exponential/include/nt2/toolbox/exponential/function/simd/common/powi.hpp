@@ -61,7 +61,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-	typedef typename NT2_RETURN_TYPE(2)::type r_type;
+	typedef result_type r_type;
         r_type sign_x = bitofsign(a0);
         r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
 	if (is_even(a1)) sign_x = Zero<r_type>(); 

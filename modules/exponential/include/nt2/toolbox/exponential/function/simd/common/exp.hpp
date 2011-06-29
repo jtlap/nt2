@@ -27,11 +27,11 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       return impl::exponential<type,natural_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
     }
   };

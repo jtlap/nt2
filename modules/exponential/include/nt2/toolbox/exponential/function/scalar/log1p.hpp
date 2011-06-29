@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::log(oneplus(type(a0)));
+      return nt2::log(oneplus(result_type(a0)));
     }
   };
 } }
@@ -55,11 +54,12 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       if (a0 < Mone<A0>())   return Nan<A0>();
       if (a0 == Inf<A0>())   return Inf<A0>();
       volatile type u = oneplus(a0);
-      volatile type t =(minusone(u)-a0);
+      type uu = u; 
+      volatile type t =(minusone(uu)-a0);
       type v = u; 
       type r =nt2::log(v);
       if (t)

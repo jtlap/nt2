@@ -34,9 +34,8 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::pow(tofloat(a0), tofloat(a1));
     }
   };
@@ -56,7 +55,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 isltza0 = is_ltz(a0);
       A0 allz = b_and(is_eqz(a0), is_eqz(a1)); 
@@ -94,7 +93,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
         typedef A1                                          int_type;
-	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
+	typedef result_type             r_type;
 	r_type a00 =  tofloat(a0); 
         r_type sign_x = bitofsign(a00);
         r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)

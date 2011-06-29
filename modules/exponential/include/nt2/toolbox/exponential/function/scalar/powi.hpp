@@ -38,8 +38,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type; 
-      return powi(type(a0), a1); 
+      return powi(result_type(a0), a1); 
     }
   };
 } }
@@ -57,7 +56,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef result_type type;
       if (is_eqz(a1)) return One<type>(); 
       bool isodda1 = is_odd(a1); 
       type x = nt2::abs(a0);

@@ -29,11 +29,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
 //       typedef int itype;
 //       if (itype(a0) > itype(Maxexponent<type>())) return Inf<type>();
 //       if (itype(a0) <= itype(Minexponent<type>())) return Zero<type>();
-      return ldexp(One<type>(), a0);
+      return ldexp(One<result_type>(), a0);
     }
   };
 } }

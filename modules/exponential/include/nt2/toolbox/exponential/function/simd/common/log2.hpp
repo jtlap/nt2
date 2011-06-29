@@ -29,8 +29,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return impl::logarithm<type, tag::simd_type>::log2(tofloat(a0));
+      return impl::logarithm<result_type, tag::simd_type>::log2(tofloat(a0));
     }
   };
 } }

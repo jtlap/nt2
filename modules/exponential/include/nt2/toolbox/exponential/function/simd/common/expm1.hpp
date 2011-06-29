@@ -44,8 +44,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::exp(tofloat(a0))-One<type>();
+      return nt2::exp(tofloat(a0))-One<result_type>();
     }
   };
 } }

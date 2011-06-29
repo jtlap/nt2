@@ -31,8 +31,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return impl::exponential<type,two_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
+      return impl::exponential<result_type,two_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
     }
   };
 } }
