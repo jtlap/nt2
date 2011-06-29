@@ -15,56 +15,39 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/trunc.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::frac_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::frac_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
       return Zero<A0>();
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::frac_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
                        (A0)(X),
                        ((simd_<real_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::frac_(tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)> : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return sel(is_invalid(a0), Nan<A0>(), a0-nt2::trunc(a0));
     }
   };
 } }
-
 #endif

@@ -83,7 +83,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type;
       const int nmb= Nbmantissabits<A0>();
       const result_type x = shri(exponentbits(a0), nmb);
       return x-b_and(Maxexponent<A0>(), A0(is_nez(a0)));

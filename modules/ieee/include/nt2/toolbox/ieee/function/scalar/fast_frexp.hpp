@@ -14,30 +14,20 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <math.h>
-
 /////////////////////////////////////////////////////////////////////////////
 // Compute fast_frexp(const A0& a0)
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::fast_frexp_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
                             (A0),
                             (double_<A0>)
                            )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::fast_frexp_(tag::double_),
-              tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             type;
-    };
-
+      typedef boost::fusion::vector<mantissa,exponent>             result_type;
+    
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
@@ -47,29 +37,18 @@ namespace nt2 { namespace ext
       return res;
     }
   };
-} }
 
 
-NT2_REGISTER_DISPATCH(tag::fast_frexp_, tag::cpu_,
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
                             (A0),
                             (float_<A0>)
                            )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::fast_frexp_(tag::float_),
-              tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
       typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             type;
-    };
-
+      typedef boost::fusion::vector<mantissa,exponent>             result_type;
+    
     NT2_FUNCTOR_CALL(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
@@ -78,5 +57,4 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 #endif

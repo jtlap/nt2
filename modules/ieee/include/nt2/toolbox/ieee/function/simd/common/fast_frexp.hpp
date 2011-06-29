@@ -16,32 +16,21 @@
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
 #include <boost/fusion/include/vector.hpp>
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::fast_frexp_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
                              (A0)(X),
                              ((simd_<arithmetic_<A0>,X>))
-                            );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::fast_frexp_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-     {
        typedef typename meta::strip<A0>::type                     A00;
        typedef typename meta::as_integer<A00, signed>::type  exponent;
-       typedef boost::fusion::vector<A00,exponent>                type;
-     };
-
-    NT2_FUNCTOR_CALL(1)
+       typedef boost::fusion::vector<A00,exponent>                result_type;
+     
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typename NT2_RETURN_TYPE(1)::type res;
       eval( a0
@@ -68,5 +57,4 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 #endif

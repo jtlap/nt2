@@ -29,7 +29,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef  typename NT2_RETURN_TYPE(1)::type int_type;
+      typedef  result_type int_type;
       static const int_type me = Maxexponent<A0>();
       static const int_type nmb= Nbmantissabits<A0>();
       static const int_type Mask = (2*me+1)<<nmb;
