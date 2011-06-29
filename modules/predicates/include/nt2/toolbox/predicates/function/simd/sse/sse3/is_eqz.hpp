@@ -30,8 +30,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::int32_t_<A0>::type itype;
-      typedef typename meta::float__<A0>::type  ftype;
+      typedef simd::native <typename  meta::int32_t_<A0>::type, tag::sse_ > itype;
+      typedef simd::native <typename  meta::float__<A0>::type , tag::sse_ > ftype;
       ftype tmp1
       = simd::native_cast<ftype>(eq(simd::native_cast<itype>(a0),Zero<itype>()));
       A0  l = simd::native_cast<A0>(_mm_moveldup_ps(tmp1));
