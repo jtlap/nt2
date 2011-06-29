@@ -8,32 +8,22 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_ANY_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_ANY_HPP_INCLUDED
-
 #include <nt2/include/functions/is_nez.hpp>
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::any_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::any_, tag::cpu_,
                      (A0),
                      (fundamental_<A0>)
                     )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::any_(tag::fundamental_),
-              tag::cpu_, Dummy> : callable
   {
     typedef bool result_type;
-
     NT2_FUNCTOR_CALL(1)
       {
-      return is_nez(a0);
+	return is_nez(a0);
       };
-
   };
 } }
-
 #endif

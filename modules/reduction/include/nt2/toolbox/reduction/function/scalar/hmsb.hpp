@@ -26,8 +26,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type r_t;
-      return b_and(a0, Signmask<r_t>()) != 0; }
+      return b_and(a0, Signmask<result_type>()) != 0; }
   };
 } }
 

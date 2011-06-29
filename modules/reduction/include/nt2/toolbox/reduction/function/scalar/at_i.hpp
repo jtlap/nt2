@@ -10,34 +10,22 @@
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SCALAR_AT_I_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::at_i_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::at_i_, tag::cpu_,
                     (A0)(A1),
                     (fundamental_<A0>)(integer_<A1>)
                    )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::at_i_(tag::fundamental_,tag::integer_),
-              tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>  {};
-
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
       return a0;
     };
-
   };
 } }
-
 #endif

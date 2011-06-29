@@ -9,39 +9,25 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_MAXIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_MAXIMUM_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::maximum_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::maximum_, tag::cpu_,
                           (A0)(X),
                           ((simd_<arithmetic_<A0>,X>))
-                         );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::maximum_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                         )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    { typedef typename meta::scalar_of<A0>::type type; };
-
-
-    NT2_FUNCTOR_CALL(1)
+ typedef typename meta::scalar_of<A0>::type result_type; 
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       type r = a0[0];
       for(size_t i=1; i < meta::cardinal_of<A0>::value; i++)
       r = (r < a0[i]) ? a0[i] : r;
       return r;
     }
-
   };
 } }
-
 #endif

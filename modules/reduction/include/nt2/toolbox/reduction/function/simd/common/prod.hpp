@@ -12,38 +12,24 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::prod_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::prod_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::prod_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::scalar_of<A0>::type                base;
-      typedef typename meta::result_of<meta::arithmetic(base)>::type type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
+      typedef typename meta::result_of<meta::arithmetic(base)>::type result_type;
+    
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type     type;
+      typedef result_type     type;
       return boost::fusion::fold(a0,One<type>(),functor<tag::multiplies_>());
     }
-
   };
 } }
-
 #endif
