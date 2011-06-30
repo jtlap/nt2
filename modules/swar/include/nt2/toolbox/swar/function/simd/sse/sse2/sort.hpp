@@ -10,35 +10,23 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/functions/make.hpp>
-
 #define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 #define NT2_CAST(T, a)   simd::native_cast<T>(a)    
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<type32_<A0>,tag::sse_>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::sort_(tag::simd_<tag::type32_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_real<A0>::type flt;
       A0 a =  {a0};
@@ -63,32 +51,22 @@ namespace nt2 { namespace ext
       a = c;
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<type64_<A0>,tag::sse_>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::sort_(tag::simd_<tag::type64_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return make<A0>(minimum(a0), maximum(a0));
     }
   };
 } }
-
 #endif
