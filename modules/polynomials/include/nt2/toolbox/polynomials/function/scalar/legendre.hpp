@@ -31,55 +31,42 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return legendre(a0, type(a1));
+      return legendre(a0, result_type(a1));
     }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A1 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::legendre_, tag::cpu_,
-                          (A0)(A1),
-                          (integer_<A0>)(real_<A1>)
-                         )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::legendre_(tag::integer_,tag::real_),
-              tag::cpu_, Dummy> : callable
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A1 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::legendre_, tag::cpu_,
+			     (A0)(A1),
+			     (scalar_<integer_<A0> >)(scalar_<real_<A1> >)
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)> :
-      meta::result_of<meta::floating(A1)>{};
-
+    typedef A1 result_type; 
     NT2_FUNCTOR_CALL(2)
-    {
-      if(nt2::abs(a1) > 1) return Nan<A1>();
-      A1 p0 = One<A1>();
-      if(a0 == 0)  return p0;
-      A1 p1 = a1;
-      uint32_t n = 1;
-
-      while(n < (typename meta::as_unsigned<A0>::type)a0)
       {
-        std::swap(p0, p1);
-        p1 = legendre_next(n, a1, p0, p1);
-        ++n;
+	if(nt2::abs(a1) > 1) return Nan<A1>();
+	A1 p0 = One<A1>();
+	if(a0 == 0)  return p0;
+	A1 p1 = a1;
+	uint32_t n = 1;
+	
+	while(n < (typename meta::as_unsigned<A0>::type)a0)
+	  {
+	    std::swap(p0, p1);
+	    p1 = legendre_next(n, a1, p0, p1);
+	    ++n;
+	  }
+	return p1;
       }
-      return p1;
-    }
   private :
     template <class T1, class T2, class T3 >
-    static inline T1
-    legendre_next(const uint32_t& l,const T1& x, const T2& Pl, const T3& Plm1)
-    {
-      return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
-    }
+      static inline T1
+      legendre_next(const uint32_t& l,const T1& x, const T2& Pl, const T3& Plm1)
+      {
+	return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
+      }
   };
 } }
 

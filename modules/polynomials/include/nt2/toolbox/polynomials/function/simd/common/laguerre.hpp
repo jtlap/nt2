@@ -27,7 +27,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::laguerre_, tag::cpu_
                             , (A0)(A1)(X)
-                            , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X>))
+			      , ((scalar_< integer_<A0> >))((simd_<arithmetic_<A1>,X>))
                             )
   {
 
@@ -35,7 +35,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::laguerre(a0, tofloat(a1));
     }
   };

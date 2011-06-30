@@ -34,7 +34,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return legendre(a0, tofloat(a1));
     }
   };

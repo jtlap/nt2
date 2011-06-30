@@ -28,8 +28,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return plevl(type(a0), a1);
+      return plevl(result_type(a0), a1);
     }
   };
 } }
