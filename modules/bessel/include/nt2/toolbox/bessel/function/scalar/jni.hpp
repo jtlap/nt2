@@ -32,8 +32,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::jni(a0, type(a1));
+      return nt2::jni(a0, result_type(a1));
     }
   };
 } }
@@ -50,7 +49,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
+    typedef A1 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -70,12 +69,9 @@ namespace nt2 { namespace meta
                             , (scalar_< integer_<A0> >)(scalar_< float_<A1> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
-
+    typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type result_type;
       result_type x = a1;
       const int32_t n1 = nt2::abs(a0);
       result_type sign = a0<0?cospi(n1):1;

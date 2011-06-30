@@ -42,8 +42,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::y1(type(a0));
+      return nt2::y1(result_type(a0));
     }
   };
 } }
@@ -60,7 +59,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -121,7 +120,7 @@ namespace nt2 { namespace meta
 	2.82619278517639096600E3,
 	3.36093607810698293419E2,
       }};
-      typedef typename NT2_RETURN_TYPE(1)::type rtype; 
+      typedef result_type rtype; 
       if (is_ltz(a0)||is_nan(a0)) return Nan<rtype>();
       if (is_inf(a0)) return Zero<rtype>(); 
       if (is_eqz(a0)) return Minf<rtype>(); 
@@ -162,11 +161,10 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type; 
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>(); 
       if (is_eqz(a0)) return Minf<result_type>(); 

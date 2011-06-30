@@ -36,8 +36,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::y0(type(a0));
+      return nt2::y0(result_type(a0));
     }
   };
 } }
@@ -54,11 +53,10 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type; 
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>(); 
       if (is_eqz(a0)) return Minf<result_type>(); 
@@ -85,11 +83,10 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type result_type; 
       typedef typename meta::scalar_of<A0>::type stype;
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>(); 

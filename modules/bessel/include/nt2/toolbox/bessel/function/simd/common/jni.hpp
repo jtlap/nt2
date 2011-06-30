@@ -39,7 +39,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::jni(a0, tofloat(a1));
     }
   };
@@ -56,8 +55,7 @@ namespace nt2 { namespace meta
                             , (scalar_< integer_<A0> >)((simd_<real_<A1>,X>))
                             )
   {
-
-    typedef typename meta::as_real<A1>::type result_type;
+    typedef A1 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

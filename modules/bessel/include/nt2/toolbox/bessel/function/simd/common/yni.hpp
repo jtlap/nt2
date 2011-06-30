@@ -33,12 +33,9 @@ namespace nt2 { namespace meta
                             , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X> ))
                             )
   {
-
     typedef typename meta::as_real<A1>::type result_type;
-
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::yni(a0, tofloat(a1));
     }
   };
@@ -56,11 +53,10 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A1>::type result_type;
+    typedef A1 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef A1 result_type;
       result_type x = a1;
       const int32_t n1 = nt2::abs(a0);
       result_type sign = splat<result_type>((a0<0)?cospi(n1):1);
