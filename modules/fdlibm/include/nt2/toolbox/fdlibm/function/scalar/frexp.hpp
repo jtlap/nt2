@@ -12,46 +12,32 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-
-
   extern "C"{
     extern double fd_frexp ( double,int* );
   }
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::frexp_, tag::cpu_,
-                       (A0),
-                       (double_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::frexp_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::frexp_, tag::cpu_,
+                       (A0),
+                       (scalar_ < double_<A0> > )
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0> struct result<This(A0)>
-    {
       typedef typename meta::strip<A0>::type         f_type;
       typedef typename meta::as_integer<A0>::type    i_type; 
-      typedef boost::fusion::vector<f_type, i_type>    type;
-    };
-
+      typedef boost::fusion::vector<f_type, i_type>    result_type;
+    
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype;
+      typedef result_type rtype;
       rtype res; 
       int r1t;
       boost::fusion::at_c<0>(res) = fd_frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
       return res;
     }
-
   };
 } }
-
 #endif

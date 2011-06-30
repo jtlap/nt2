@@ -48,7 +48,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type   base;
+      typedef result_type base;
       typedef typename meta::upgrade<base>::type  type;
       return nt2::fdlibm::jn(a0, type(a1));
     }

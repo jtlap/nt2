@@ -12,43 +12,29 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
   extern "C"{
     extern double fd_modf ( double,double* );
   }
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is double_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(fdlibm::tag::modf_, tag::cpu_,
-                      (A0),
-                      (double_<A0>)
-                     )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<fdlibm::tag::modf_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::modf_, tag::cpu_,
+                      (A0),
+                      (scalar_<double_<A0> > )
+                     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::strip<A0>::type            etype;
-      typedef boost::fusion::vector<etype, etype>        type;
-    };
-
+      typedef boost::fusion::vector<etype, etype>        result_type;
+    
     NT2_FUNCTOR_CALL(1)
     {      
-      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef result_type   base;
       base res;
       boost::fusion::at_c<0>(res) = ::fd_modf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }
-
   };
 } }
-
 #endif
