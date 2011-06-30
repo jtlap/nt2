@@ -13,33 +13,20 @@
 #include <nt2/include/functions/dist.hpp>
 #include <nt2/include/functions/exponent.hpp>
 #include <nt2/include/functions/ldexp.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::knuth_equal_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::knuth_equal_, tag::cpu_,
                               (A0)(X),
                               ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))
-                             );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::knuth_equal_(tag::simd_<tag::real_, X> ,
-                                tag::simd_<tag::real_, X> ,
-                                tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+                             )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A0,A1)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(3)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return b_or( eq(a0, a1)
                    , le( dist(a0, a1)
@@ -49,8 +36,6 @@ namespace nt2 { namespace ext
                      )
                    );
     }
-
   };
 } }
-
 #endif
