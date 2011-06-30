@@ -9,71 +9,49 @@
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTION_SCALAR_SIN_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_FUNCTION_SCALAR_SIN_HPP_INCLUDED
 #include <nt2/sdk/meta/upgrade.hpp>
-
   extern "C"{
     extern double sin_rn ( double );
     extern double sin_rd ( double );
     extern double sin_rz ( double );
     extern double sin_ru ( double );
   };
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(crlibm::tag::sin_<Rounding>, tag::cpu_,
-                     (A0)(Rounding),
-                     (arithmetic_<A0>)
-                    )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Rounding,class Dummy>
-  struct call<crlibm::tag::sin_<Rounding>(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(crlibm::tag::sin_<Rounding>, tag::cpu_,
+                     (A0)(Rounding),
+                     (scalar_<arithmetic_<A0> > )
+                    )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::floating(A0)>{};
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type   base;
+      typedef result_type   base;
       typedef typename meta::upgrade<base>::type  type;
       return nt2::crlibm::sin<Rounding>(type(a0));
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(crlibm::tag::sin_<Rounding>, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(crlibm::tag::sin_<Rounding>, tag::cpu_,
                      (A0)(Rounding),
-                     (double_<A0>)
+                     (scalar_ < double_<A0> > )
                     )
-
-namespace nt2 { namespace ext
-{
-  template<class Rounding,class Dummy>
-  struct call<crlibm::tag::sin_<Rounding>(tag::double_),
-              tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::floating(A0)>{};
-
-    template<class A0, class R> struct inner_sin;
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    template<class A, class R> struct inner_sin;
     NT2_CRLIBM_INNER_STRUCT(rn, sin, rn)
     NT2_CRLIBM_INNER_STRUCT(rd, sin, rd)
     NT2_CRLIBM_INNER_STRUCT(ru, sin, ru)
     NT2_CRLIBM_INNER_STRUCT(rz, sin, rd)
-
-
     NT2_FUNCTOR_CALL(1)
       {return inner_sin<A0,Rounding>::eval(a0, Rounding()); }
   };
 } }
-
 #endif

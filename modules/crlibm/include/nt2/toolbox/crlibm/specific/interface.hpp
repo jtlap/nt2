@@ -12,17 +12,17 @@
 namespace nt2
 {
   
-#define NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(NAME,ARITY)		\
-    template <class Rounding, class A0>					\
-    inline typename nt2::meta::call<crlibm::tag::NAME##_<Rounding>(A0&)>::type \
-       NAME(A0 const& a0){NT2_FUNCTION_BODY(crlibm::tag::NAME##_<Rounding>,ARITY)}	\
-  /**/
+#define NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(NAME,ARITY)	   	     \
+  template <class Rounding, class A0>				  	     \
+  inline typename nt2::meta::call<crlibm::tag::NAME##_<Rounding>(A0 const&)>::type  \
+  NAME(A0 const& a0){NT2_FUNCTION_BODY(crlibm::tag::NAME##_<Rounding>,ARITY)} \
+    /**/
   
 #define NT2_CRLIBM_INNER_STRUCT(ROUNDING, NAME, SUF)			\
-  template<class A0> struct inner_##NAME < A0, ROUNDING>		\
+  template<class A> struct inner_##NAME < A, ROUNDING>			\
   {									\
-    static inline typename NT2_RETURN_TYPE(1)::type		\
-      eval(A0 const& a0,ROUNDING const&){ return NAME##_##SUF(a0);}	\
+    static inline result_type						\
+      eval(A const& a0,ROUNDING const&){ return NAME##_##SUF(a0);}	\
   };									\
   /**/
   
