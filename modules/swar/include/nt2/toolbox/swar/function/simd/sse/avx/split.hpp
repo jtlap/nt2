@@ -14,40 +14,27 @@
 #include <nt2/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/details/simd/sse/sse4_1/split.hpp>
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::split_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::split_, tag::cpu_,
                         (A0),
                         ((simd_<arithmetic_<A0>,tag::avx_>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::split_(tag::simd_<tag::arithmetic_, tag::avx_)),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                  utype;
       typedef simd::native<utype,simd::avx_>                                ttype;
       typedef meta::is_floating_point<stype>                                 rtag;
       typedef simd::native<typename  meta::double_<A0>::type,simd::avx_>    dtype;
-
       typedef typename boost::mpl::if_c < rtag::value
                                         , dtype, ttype>::type              rtype;
-      typedef boost::fusion::tuple<rtype,rtype>                              type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
+      typedef boost::fusion::tuple<rtype,rtype>                              result_type;
+    
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef meta::is_floating_point<stype>                                 rtag;
@@ -57,7 +44,6 @@ namespace nt2 { namespace ext
                                         simd::native<double,simd::avx_>, ttype>::type rtype;
       typename NT2_RETURN_TYPE(1)::type                                  res;
       typedef rtype                                                           tag;
-
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
@@ -112,16 +98,12 @@ namespace nt2 { namespace ext
       r0 =  simd::native_cast<rtype>(_mm256_unpacklo_ps(a00, Zero<ftype>()));
 #undef CAT
     }
-
     template<class A0,class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  meta::double_<A0>::type,simd::avx_> &)const
     {
       r0 = _mm256_cvtps_pd(_mm256_extractf128_ps(a0, 0)) ;
       r1 = _mm256_cvtps_pd(_mm256_extractf128_ps(a0, 1)) ;
     }
-
-
   };
 } }
-
 #endif

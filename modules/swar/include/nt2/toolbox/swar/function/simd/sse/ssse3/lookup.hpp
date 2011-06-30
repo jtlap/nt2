@@ -11,58 +11,36 @@
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/shli.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
                          ((simd_<type8_<A0>,tag::sse_>))
                          ((simd_<ints8_<A1>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::lookup_(tag::simd_<tag::type8_, tag::sse_> ,
-                           tag::simd_<tag::ints8_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
       return simd::native_cast<A0>(_mm_shuffle_epi8(a0, a1));
       }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
                          ((simd_<type32_<A0>,tag::sse_>))
                          ((simd_<ints32_<A1>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::lookup_(tag::simd_<tag::type32_, tag::sse_> ,
-                           tag::simd_<tag::ints32_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
       typedef typename simd::native<int8_t, tag::sse_> type8;
@@ -73,29 +51,19 @@ namespace nt2 { namespace ext
         return simd::native_cast<A0>(r);
       }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
 		      (A0)(A1),
                          ((simd_<type64_<A0>,tag::sse_>))
                          ((simd_<ints64_<A1>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::lookup_(tag::simd_<tag::type64_, tag::sse_> ,
-                           tag::simd_<tag::ints64_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
       typedef typename simd::native<int8_t, tag::sse_> type8;
@@ -108,29 +76,19 @@ namespace nt2 { namespace ext
       return simd::native_cast<A0>(r);
       }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::lookup_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
                          ((simd_<type16_<A0>,tag::sse_>))
                          ((simd_<ints16_<A1>,tag::sse_>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::lookup_(tag::simd_<tag::type16_, tag::sse_> ,
-                           tag::simd_<tag::ints16_, tag::sse_> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>
-      : meta::strip<A0>{};//
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
       typedef typename simd::native<int8_t, tag::sse_> type8;
@@ -144,5 +102,4 @@ namespace nt2 { namespace ext
       }
   };
 } }
-
 #endif

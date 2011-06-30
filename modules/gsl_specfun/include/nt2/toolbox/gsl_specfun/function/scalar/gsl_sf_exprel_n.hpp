@@ -29,7 +29,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::gsl_specfun::gsl_sf_exprel_n(a0, type(a1));
     }
   };

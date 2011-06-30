@@ -10,33 +10,20 @@
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_SORT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-
 #include <nt2/include/functions/details/simd/sse/sse4_1/sort.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sort_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<arithmetic_<A0>,tag::avx_>))
-                      );
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::sort_(tag::simd_<tag::arithmetic_, tag::avx_)),
-              tag::cpu_, Dummy> : callable
+                      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    : meta::strip<A0>{};//  // TODO
-
-
+    typedef A0 result_type;
   };
 } }
-
 #endif
