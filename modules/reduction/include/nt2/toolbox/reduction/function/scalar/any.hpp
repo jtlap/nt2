@@ -16,7 +16,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::any_, tag::cpu_,
                      (A0),
-                     (fundamental_<A0>)
+                     (scalar_ < fundamental_<A0> > )
                     )
   {
     typedef bool result_type;

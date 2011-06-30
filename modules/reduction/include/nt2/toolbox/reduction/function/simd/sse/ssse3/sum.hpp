@@ -86,7 +86,7 @@ namespace nt2 { namespace meta
       typedef typename meta::scalar_of<A0>::type                 base;
       typedef typename meta::result_of<meta::arithmetic(base)>::type  result_type;
     
-    NT2_FUNCTOR_CALL_REPEAT(1)
+    NT2_FUNCTOR_CALL(1)
     {
       A0 tmp = {_mm_hadd_ps(a0, Zero<A0>())};
       return  first(simd::native_cast<A0>(_mm_hadd_ps(tmp, Zero<A0>())));

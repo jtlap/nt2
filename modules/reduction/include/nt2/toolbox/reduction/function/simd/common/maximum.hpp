@@ -19,11 +19,10 @@ namespace nt2 { namespace meta
                           ((simd_<arithmetic_<A0>,X>))
                          )
   {
- typedef typename meta::scalar_of<A0>::type result_type; 
-    NT2_FUNCTOR_CALL_REPEAT(1)
+    typedef typename meta::scalar_of<A0>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type type;
-      type r = a0[0];
+      result_type r = a0[0];
       for(size_t i=1; i < meta::cardinal_of<A0>::value; i++)
       r = (r < a0[i]) ? a0[i] : r;
       return r;

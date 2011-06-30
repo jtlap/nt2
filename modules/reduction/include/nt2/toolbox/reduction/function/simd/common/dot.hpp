@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
                       ((simd_<arithmetic_<A0>,X>))
                      )
   {
- typedef typename meta::scalar_of<A0>::type result_type; 
+    typedef typename meta::scalar_of<A0>::type result_type; 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return sum(a0*a1);

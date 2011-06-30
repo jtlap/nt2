@@ -17,11 +17,11 @@ namespace nt2 { namespace meta
   NT2_FUNCTOR_IMPLEMENTATION(tag::at_i_, tag::cpu_,
                      (A0)(A1)(X),
                      ((simd_<arithmetic_<A0>,X>))
-                     (integer_<A1>)
+                     ((scalar_<integer_<A1> >))
                     )
   {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2) { return a0[a1]; }
+    typedef typename meta::scalar_of<A0>::type result_type;
+    NT2_FUNCTOR_CALL(2) { return a0[a1]; }
   };
 } }
 #endif

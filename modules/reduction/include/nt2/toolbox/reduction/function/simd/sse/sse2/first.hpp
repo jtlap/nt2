@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
                         ((simd_<type8_<A0>,tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
                         ((simd_<double_<A0>,tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_cvtsd_f64(a0);
@@ -59,7 +59,7 @@ namespace nt2 { namespace meta
                         ((simd_<float_<A0>,tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
@@ -78,7 +78,7 @@ namespace nt2 { namespace meta
                         ((simd_<ints32_<A0>,tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
@@ -96,7 +96,7 @@ namespace nt2 { namespace meta
                         ((simd_<ints64_<A0>,tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
@@ -116,7 +116,7 @@ namespace nt2 { namespace meta
                         ((simd_<type16_<A0>,tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_extract_epi16(a0, 0);

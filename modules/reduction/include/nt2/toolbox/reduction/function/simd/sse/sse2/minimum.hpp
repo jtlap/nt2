@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
                           ((simd_<ints16_<A0>,tag::sse_>))
                          )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
@@ -47,7 +47,7 @@ namespace nt2 { namespace meta
                           ((simd_<double_<A0>,tag::sse_>))
                          )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       A0 that = {_mm_min_sd(a0, _mm_unpackhi_pd(a0,a0))};
@@ -65,7 +65,7 @@ namespace nt2 { namespace meta
                           ((simd_<ints64_<A0>,tag::sse_>))
                          )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return nt2::min(a0[0], a0[1]);
@@ -82,7 +82,7 @@ namespace nt2 { namespace meta
                           ((simd_<float_<A0>,tag::sse_>))
                          )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       A0 min  = {_mm_min_ps(a0, _mm_movehl_ps(a0,a0))};
@@ -101,7 +101,7 @@ namespace nt2 { namespace meta
                           ((simd_<ints8_<A0>,tag::sse_>))
                          )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef simd::native<typename meta::double__<A0>::type,tag::sse_> rtype;
@@ -124,7 +124,7 @@ namespace nt2 { namespace meta
                           ((simd_<ints32_<A0>,tag::sse_>))
                          )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
