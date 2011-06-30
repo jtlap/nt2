@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::ellint_2(type(a0));
+      return nt2::ellint_2(result_type(a0));
     }
   };
 } }
@@ -55,8 +54,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type x = nt2::abs(a0);
+      result_type x = nt2::abs(a0);
       if (x>One<A0>())    return Nan<A0>();
       if (x == One<A0>()) return x;
       return boost::math::ellint_2(a0);

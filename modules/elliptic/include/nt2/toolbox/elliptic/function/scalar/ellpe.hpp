@@ -34,8 +34,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::ellpe(type(a0));
+      return nt2::ellpe(result_type(a0));
     }
   };
 } }
@@ -56,7 +55,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       if (a0>One<A0>()||(is_ltz(a0))) return Nan<type>();
       if (is_eqz(a0))  return One<type>();
       if (a0 == One<A0>()) return Pio_2<type>();

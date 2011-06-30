@@ -36,8 +36,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return ellik(type(a0), type(a1));
+      return ellik(result_type(a0), result_type(a1));
     }
   };
 } }
@@ -58,7 +57,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef result_type type;
       if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return type(a0);
       return boost::math::ellint_1(nt2::sqrt(a1), a0);
@@ -82,7 +81,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef result_type type;
       if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return a0;
       type phi = nt2::abs(a0);

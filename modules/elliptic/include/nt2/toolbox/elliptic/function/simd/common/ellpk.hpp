@@ -14,29 +14,18 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellpk_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpk_, tag::cpu_,
                         (A0)(X),
                         ((simd_<double_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::ellpk_(tag::simd_<tag::double_, X> ),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       A0 z =      horner< NT2_HORNER_COEFF(double, 11,
                                (
@@ -66,33 +55,23 @@ namespace nt2 { namespace ext
                                     0x3fbfffffffffdba4ll,
                                     0x3fe0000000000000ll
                                     ) ) > (a0);
-
         return select(is_nez(a0), b_or(b_or(is_ltz(a0),
                    gt(a0, One<A0>())), z), Inf<A0>());
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellpk_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpk_, tag::cpu_,
                         (A0)(X),
                         ((simd_<float_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::ellpk_(tag::simd_<tag::float_, X> ),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
        A0 z =     horner< NT2_HORNER_COEFF(float, 11,
                                (0x3910af7e,
@@ -125,5 +104,4 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 #endif

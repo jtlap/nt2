@@ -15,82 +15,53 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellpe_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpe_, tag::cpu_,
                         (A0)(X),
                         ((simd_<arithmetic_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::ellpe_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       return nt2::ellpe(tofloat(a0));
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellpe_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpe_, tag::cpu_,
                         (A0)(X),
                         ((simd_<double_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::ellpe_(tag::simd_<tag::double_, X> ),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       return map(functor<tag::ellpe_>(), a0);
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellpe_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpe_, tag::cpu_,
                         (A0)(X),
                         ((simd_<float_<A0>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::ellpe_(tag::simd_<tag::float_, X> ),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-      : meta::strip<A0>{};//
-
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
       A0 temp = horner< NT2_HORNER_COEFF_T(sA0, 11,
@@ -121,5 +92,4 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 #endif

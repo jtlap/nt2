@@ -31,11 +31,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type x = a0;
-      if (x > One<A0>()) return Nan<type>();
-      if (x == One<A0>())  return Inf<type>();
-      if (is_eqz(x))      return Pio_2<type>();
+      result_type x = a0;
+      if (x > One<result_type>()) return Nan<result_type>();
+      if (x == One<result_type>())  return Inf<result_type>();
+      if (is_eqz(x))      return Pio_2<result_type>();
       return boost::math::ellint_1(x);
     }
   };

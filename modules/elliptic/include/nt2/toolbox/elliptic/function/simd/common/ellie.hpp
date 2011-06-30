@@ -40,9 +40,8 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::ellie(tofloat(a0), tofloat(a1));
     }
   };
@@ -62,7 +61,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return map(functor<tag::ellie_>(), a0, a1);
     }
@@ -83,7 +82,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return map(functor<tag::ellie_>(), a0, a1);
       // broken TO DO
