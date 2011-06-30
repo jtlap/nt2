@@ -31,8 +31,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (!a0) return Nan<type>();
+      if (!a0) return Nan<result_type>();
       return rec(tanh(a0));
     }
   };

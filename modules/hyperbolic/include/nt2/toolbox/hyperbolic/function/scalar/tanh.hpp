@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return tanh(type(a0));
+      return tanh(result_type(a0));
     }
   };
 } }
@@ -51,16 +50,15 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       if (is_eqz(a0)) return a0; 
-      type x = nt2::abs(a0);
-      if (x > 1.836840028483855e+01) return nt2::sign(a0);
-      type tmp1=nt2::expm1(-(x+x));
-      type tmp2=-tmp1/(Two<type>()+tmp1);
+      A0 x = nt2::abs(a0);
+      if (x > A0(1.836840028483855e+01)) return nt2::sign(a0);
+      A0 tmp1=nt2::expm1(-(x+x));
+      A0 tmp2=-tmp1/(Two<A0>()+tmp1);
       return b_or(tmp2, bitofsign(a0));
     }
   };

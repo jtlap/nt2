@@ -32,8 +32,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::acoth(type(a0));
+      return nt2::acoth(result_type(a0));
     }
   };
 } }
@@ -50,7 +49,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

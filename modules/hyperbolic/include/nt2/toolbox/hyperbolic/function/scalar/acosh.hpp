@@ -34,43 +34,29 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::acosh(type(a0));
+      return nt2::acosh(result_type(a0));
     }
   };
-} }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::acosh_, tag::cpu_,
-                       (A0),
-                       (real_<A0>)
-                      )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::acosh_(tag::real_),
-              tag::cpu_, Dummy> : callable
+  
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is real_
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::acosh_, tag::cpu_,
+			     (A0),
+			     (scalar_< real_<A0> > )
+			     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::floating(A0)>{};
-
+    typedef A0 result_type; 
+    
     NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (a0 < One<A0>()) return Nan<A0>();
-      if (a0 == Inf<A0>()) return a0;
-      type t = minusone(a0);
-      if (t < 16*Sqrteps<A0>()) return sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
-//    return sqrt(Two<A0>()*t)*(oneminus(t/12)); //A0 y =  nt2::sqrt(minusone(a0));
-//       }
-      return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
-    }
+      {
+	if (a0 < One<A0>()) return Nan<A0>();
+	if (a0 == Inf<A0>()) return a0;
+	A0 t = minusone(a0);
+	if (t < 16*Sqrteps<A0>()) return sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
+	return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
+      }
   };
 } }
 

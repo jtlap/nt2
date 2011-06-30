@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       if (is_eqz(a0)) return Inf<type>();
       if (a0 ==  One<A0>()) return Zero<type>();
       return Nan<type>(); 
@@ -50,12 +50,10 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       if (a0 > One<A0>() || a0 < Zero<A0>()) return Nan<A0>();
       if (a0 == Zero<A0>()) return Inf<A0>();
       return acosh(rec(a0)); 
@@ -80,12 +78,10 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       if (a0 > One<A0>() || a0 < Zero<A0>()) return Nan<A0>();
       if (a0 == Zero<A0>()) return Inf<A0>();
       A0 tmp =  oneminus(a0);

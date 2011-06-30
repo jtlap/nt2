@@ -53,9 +53,8 @@ namespace nt2 { namespace meta
  *    cosh(x) is |x| if x is +INF, -INF, or NaN.
  *    only cosh(0)=1 is exact for finite x.
  */
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      const type tmp=exp(tofloat(a0));
-      return (tmp+rec(tmp))*Half<type>();
+      const result_type tmp=exp(tofloat(a0));
+      return (tmp+rec(tmp))*Half<result_type>();
     }
   };
 } }

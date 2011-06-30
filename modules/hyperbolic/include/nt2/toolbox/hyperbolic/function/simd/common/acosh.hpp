@@ -30,8 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      const type t = minusone(tofloat(a0));
+      const result_type t = minusone(tofloat(a0));
       return log1p(t+sqrt((t+t)+sqr(t)));
     }
   };

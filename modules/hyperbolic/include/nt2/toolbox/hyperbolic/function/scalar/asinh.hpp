@@ -56,7 +56,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       A0 x = nt2::abs(a0);
       if (x < Sqrteps<A0>() ) return a0;
       if (x*Sqrteps<A0>() >=  One<A0>()) return sign(a0)*(log1p(x)+Log_2<A0>());
@@ -88,7 +87,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       A0 x = nt2::abs(a0);
       if (x < Sqrteps<A0>() )
       return a0;
@@ -105,7 +103,7 @@ namespace nt2 { namespace meta
                                            )) > (z);
           return n/d;
         }
-      return negate(nt2::log(x+nt2::sqrt(sqr(x)+One<type>())), a0); //TODO better eval
+      return negate(nt2::log(x+nt2::sqrt(sqr(x)+One<A0>())), a0); //TODO better eval
     }
   };
 } }

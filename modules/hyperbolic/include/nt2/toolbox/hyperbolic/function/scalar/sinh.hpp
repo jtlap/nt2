@@ -31,7 +31,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       if (is_eqz(a0)) return Zero<type>();
       type tmp = nt2::exp(a0);
       return (tmp-rec(tmp))*Half<type>();
@@ -55,8 +55,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type tmp = nt2::exp(a0);
+      A0 tmp = nt2::exp(a0);
       if ( nt2::abs(a0) > 0.6)
       {
         return (tmp-rec(tmp))*Half<A0>();
