@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return b_or(oneminus(nt2::sign(tofloat(a0)))*Ninety<type>(), gt(abs(a0), One<A0>()));
+      return b_or(oneminus(nt2::sign(tofloat(a0)))*Ninety<result_type>(), gt(abs(a0), One<A0>()));
     }
   };
 } }
@@ -51,7 +50,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

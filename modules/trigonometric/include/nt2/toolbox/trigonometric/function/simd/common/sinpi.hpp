@@ -33,9 +33,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       ignore_unused(a0);
-      return Zero<type>();
+      return Zero<result_type>();
     }
   };
 } }
@@ -56,8 +55,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return impl::trig_base<type,pi_tag, trig_tag, tag::simd_type>::sina(tofloat(a0));
+      return impl::trig_base<result_type,pi_tag, trig_tag, tag::simd_type>::sina(tofloat(a0));
     }
   };
 } }

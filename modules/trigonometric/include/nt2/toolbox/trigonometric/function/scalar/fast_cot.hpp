@@ -26,9 +26,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      if (!a0) return Nan<type>(); 
-      return nt2::fast_cot(type(a0));
+      if (!a0) return Nan<result_type>(); 
+      return nt2::fast_cot(result_type(a0));
     }
   };
 } }

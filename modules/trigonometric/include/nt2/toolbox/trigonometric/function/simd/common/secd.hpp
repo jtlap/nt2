@@ -30,8 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return secpi(Oneo_180<type>()*tofloat(a0));
+      return secpi(Oneo_180<result_type>()*tofloat(a0));
     }
   };
 } }

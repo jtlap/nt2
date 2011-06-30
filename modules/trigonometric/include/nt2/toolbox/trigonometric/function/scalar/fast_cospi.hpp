@@ -30,8 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::fast_cospi(type(a0));
+      return nt2::fast_cospi(result_type(a0));
     }
   };
 } }

@@ -10,63 +10,41 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_SINCOSPI_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sincospi_, tag::cpu_,
-                          (A0),
-                          (arithmetic_<A0>)
-                         )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::sincospi_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION(tag::sincospi_, tag::cpu_,
+                          (A0),
+                          (scalar_ < arithmetic_<A0> > )
+                         )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::result_of<meta::floating(A0)>::type etype;
-      typedef boost::fusion::tuple<etype, etype>                   type;
-    };
-
+      typedef boost::fusion::tuple<etype, etype>           result_type;
+    
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::result_of<meta::floating(A0)>::type type;
-      return sincospi(type(a0));
+      return sincospi(etype(a0));
     }
-
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sincospi_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::sincospi_, tag::cpu_,
                           (A0),
-                          (real_<A0>)
+                          (scalar_ < real_<A0> > )
                          )
-
-namespace nt2 { namespace ext
-{
-  template<class Dummy>
-  struct call<tag::sincospi_(tag::real_),
-              tag::cpu_, Dummy> : callable
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
-      typedef typename meta::strip<A0>::type          etype;
-      typedef boost::fusion::tuple<etype, etype>       type;
-    };
-
+      typedef typename meta::strip<A0>::type           etype;
+      typedef boost::fusion::tuple<etype, etype> result_type;
+    
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type res;
+      result_type res;
       typedef typename meta::result_of<meta::floating(A0)>::type etype;
       impl::trig_base < A0,pi_tag
                       , trig_tag,tag::not_simd_type
@@ -76,8 +54,6 @@ namespace nt2 { namespace ext
                                 );
       return res;
     }
-
   };
 } }
-
 #endif

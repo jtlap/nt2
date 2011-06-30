@@ -28,10 +28,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      //      return rec(nt2::cosd(a0));
-      return secpi(a0/type(180));
-
+      return secpi(a0/result_type(180));
     }
   };
 } }

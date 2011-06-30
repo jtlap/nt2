@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return is_nez(simd::native_cast<type>(a0));
+      return is_nez(simd::native_cast<result_type>(a0));
     }
   };
 } }

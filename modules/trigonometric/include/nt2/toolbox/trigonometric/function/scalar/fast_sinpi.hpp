@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return Zero<type>();
+      return Zero<result_type>();
     }
   };
 } }

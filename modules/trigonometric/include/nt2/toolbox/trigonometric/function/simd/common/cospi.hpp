@@ -32,12 +32,30 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       return tofloat(One<A0>()+Two<A0>()*is_odd(a0));
     }
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is uint_
+/////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::cospi_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<uint_<A0>,X>))
+                            )
+  {
+
+    typedef typename meta::as_real<A0>::type result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      return selsub(is_odd(a0), One<result_type>(), Two<result_type>());
+    }
+  };
+} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
@@ -50,7 +68,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

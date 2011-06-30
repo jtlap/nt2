@@ -32,9 +32,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      if(gt(abs(a0), One<A0>())) return Nan<type>();
-      return oneminus(nt2::sign(a0))*Pio_2<type>();
+      if(gt(abs(a0), One<A0>())) return Nan<result_type>();
+      return oneminus(nt2::sign(a0))*Pio_2<result_type>();
     }
   };
 } }

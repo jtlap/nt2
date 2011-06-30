@@ -37,9 +37,8 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::atan2(tofloat(a0), tofloat(a1));
     }
   };
@@ -57,9 +56,9 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z);

@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -50,9 +50,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-	typedef typename NT2_RETURN_TYPE(1)::type type; 
-	if(!a0)  return Zero<A0>();
-	return nt2::acotd(type(a0));
+	if(!a0)  return Zero<result_type>();
+	return nt2::acotd(result_type(a0));
       }
   };
 } }

@@ -30,8 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return Deginrad<type>()*tofloat(a0);
+      return Deginrad<result_type>()*tofloat(a0);
     }
   };
 } }

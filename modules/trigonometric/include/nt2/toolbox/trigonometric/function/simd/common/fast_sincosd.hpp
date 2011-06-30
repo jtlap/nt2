@@ -16,34 +16,22 @@
 //  MIGRATION WARNING you have to provide the file for the previous include from
 //  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
 //  of the old nt2
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::fast_sincosd_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincosd_, tag::cpu_,
                                (A0)(X),
                                ((simd_<arithmetic_<A0>,X>))
-                              );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::fast_sincosd_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                              )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {
       typedef typename meta::as_real<A0>::type  rtype;
-      typedef boost::fusion::tuple<rtype, rtype> type;
-    };
-
-    NT2_FUNCTOR_CALL(1)
+      typedef boost::fusion::tuple<rtype, rtype> result_type;
+    
+    NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type rtype;
+      typedef result_type rtype;
       rtype res;
       typedef typename  boost::fusion::result_of::value_at_c<rtype,0>::type type;
       impl::trig_base < type,degree_tag
@@ -54,8 +42,6 @@ namespace nt2 { namespace ext
                 );
       return res;
     }
-
   };
 } }
-
 #endif

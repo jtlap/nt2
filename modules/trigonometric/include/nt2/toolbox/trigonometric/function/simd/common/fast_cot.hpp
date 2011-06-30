@@ -33,8 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return b_or(nt2::copysign(Inf<type>(), simd::native_cast<type>(a0)), is_nez(a0));
+      return b_or(nt2::copysign(Inf<result_type>(), simd::native_cast<result_type>(a0)), is_nez(a0));
     }
   };
 } }
@@ -55,8 +54,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return b_or(Inf<type>(), is_nez(a0));
+      return b_or(Inf<result_type>(), is_nez(a0));
     }
   };
 } }

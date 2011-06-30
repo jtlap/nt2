@@ -28,9 +28,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-        typedef typename NT2_RETURN_TYPE(2)::type rtype;
-	if (is_invalid(a0) && is_invalid(a1)) return Nan<rtype>(); 
-        return std::atan2(rtype(a0),rtype(a1));
+      if (is_invalid(a0) && is_invalid(a1)) return Nan<result_type>(); 
+      return std::atan2(result_type(a0),result_type(a1));
     }
   };
 } }

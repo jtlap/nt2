@@ -30,8 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return impl::trig_base<type,radian_tag, fast_tag, tag::not_simd_type>::tana(type(a0));
+      return impl::trig_base<result_type,radian_tag, fast_tag, tag::not_simd_type>::tana(result_type(a0));
     }
   };
 } }
