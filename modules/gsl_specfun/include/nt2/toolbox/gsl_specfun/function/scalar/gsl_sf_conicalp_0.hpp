@@ -20,17 +20,15 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_conicalp_0_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
-                            )
+			      , (A0)(A1)
+			      , ((scalar_< arithmetic_<A0> >))((scalar_< arithmetic_<A1> >))
+			      )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::gsl_specfun::gsl_sf_conicalp_0(type(a0), type(a1));
+      return nt2::gsl_specfun::gsl_sf_conicalp_0(result_type(a0), result_type(a1));
     }
   };
 } }

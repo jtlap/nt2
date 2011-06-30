@@ -20,18 +20,17 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_legendre_q0_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+			      , (A0)
+			      , ((scalar_< arithmetic_<A0> >))
+			      )
   {
-
+    
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    
     NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::gsl_specfun::gsl_sf_legendre_q0(type(a0));
-    }
+      {
+	return nt2::gsl_specfun::gsl_sf_legendre_q0(result_type(a0));
+      }
   };
 } }
 
@@ -43,14 +42,13 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_legendre_q0_, tag::cpu_
                             , (A0)
-                            , (scalar_< double_<A0> >)
+                            , ((scalar_< double_<A0> >))
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(1)
-    { return gsl_sf_legendre_Q0(a0); }
+    NT2_FUNCTOR_CALL(1) { return gsl_sf_legendre_Q0(a0); }
   };
 } }
 
@@ -62,14 +60,13 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_legendre_q0_, tag::cpu_
                             , (A0)
-                            , (scalar_< float_<A0> >)
+                            , ((scalar_< float_<A0> >))
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(1)
-    { return gsl_sf_legendre_Q0(a0); }
+    NT2_FUNCTOR_CALL(1) { return gsl_sf_legendre_Q0(a0); }
   };
 } }
 

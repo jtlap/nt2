@@ -29,8 +29,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::gsl_specfun::gsl_sf_bessel_y0(type(a0));
+      return nt2::gsl_specfun::gsl_sf_bessel_y0(result_type(a0));
     }
   };
 } }
