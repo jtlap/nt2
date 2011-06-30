@@ -18,7 +18,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincosd_, tag::cpu_,
                                (A0),
-                               (real_<A0>)
+                               (scalar_ < real_<A0> > )
                               )
   {
       typedef typename meta::strip<A0>::type                      etype;
@@ -44,7 +44,7 @@ namespace nt2 { namespace meta
 
   NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincosd_, tag::cpu_,
                                (A0),
-                               (arithmetic_<A0>)
+                               (scalar_<arithmetic_<A0> > )
                               )
   {
       typedef typename meta::result_of<meta::floating(A0)>::type etype;

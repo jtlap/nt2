@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::fast_sincospi(result_type(a0)); 
+      return nt2::fast_sincospi(tofloat(a0)); 
     }
   };
 } }
