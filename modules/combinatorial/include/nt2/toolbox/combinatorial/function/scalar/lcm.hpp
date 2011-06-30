@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type; 
+      typedef result_type type; 
       if (is_invalid(a0+a1)) return Nan<type>(); 
       return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
     }

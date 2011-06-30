@@ -34,7 +34,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::result_of<meta::floating(A0, A1)>::type type;
-      typedef typename NT2_RETURN_TYPE(2)::type rtype;
+      typedef result_type rtype;
       if (is_inf(a1)) return (rtype)Nan<type>(); 
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (a0 < a1) return (rtype) Zero<type>();

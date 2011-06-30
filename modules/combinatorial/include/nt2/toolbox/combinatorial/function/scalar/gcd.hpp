@@ -30,11 +30,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type a(a0);
-      type b(a1);
+      result_type a(a0);
+      result_type b(a1);
       while (is_nez(b)) {
-	const type  r = a % b;
+	const result_type  r = a % b;
 	a = b;
 	b = r;
       }
@@ -59,13 +58,12 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      type a(a0);
-      type b(a1);
+      result_type a(a0);
+      result_type b(a1);
       if (!b) return a;
-      if (!is_flint(a)||!is_flint(b)) return Nan <type>();
+      if (!is_flint(a)||!is_flint(b)) return Nan<result_type>();
       while (b) {
-      type  r  = rem(a, b);
+      result_type  r  = rem(a, b);
       a = b;
       b = r;
       }

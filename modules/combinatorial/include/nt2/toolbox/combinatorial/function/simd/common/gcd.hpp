@@ -34,7 +34,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a = a0, b = a1;
       A0 t= is_nez(b);
@@ -64,7 +64,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 ints = b_and(is_flint(a1), is_flint(a0)); 
       A0 a =  b_and(round2even(a0),ints); 
