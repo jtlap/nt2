@@ -32,7 +32,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_RETURN_TYPE(3)::type type;
       return nt2::cephes::nbdtr((a0), (a1), type(a2));
     }
   };

@@ -29,7 +29,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_RETURN_TYPE(3)::type type;
+      //TO DO remove the functor
+      typedef result_type type;
       ignore_unused(a0);
       ignore_unused(a1);
       ignore_unused(a2);
