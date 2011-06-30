@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
+      typedef result_type type;
       bool isinfa0 =  is_inf<A0>(a0); 
       if (is_lez(a0))
 	{

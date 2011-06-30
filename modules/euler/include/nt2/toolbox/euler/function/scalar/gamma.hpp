@@ -47,8 +47,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return nt2::gamma(type(a0));
+      return nt2::gamma(result_type(a0));
     }
   };
 } }
@@ -92,7 +91,6 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       if (a0 == Inf<A0>()) return a0;
       if(is_eqz(a0)) return rec(a0); 
       if (is_invalid(a0) || (is_ltz(a0) && is_flint(a0))) return Nan<A0>();

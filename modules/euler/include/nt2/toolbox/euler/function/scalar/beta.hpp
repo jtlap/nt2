@@ -27,8 +27,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return boost::math::beta(type(a0), type(a1));
+      return boost::math::beta(result_type(a0), result_type(a1));
     }
   };
 } }

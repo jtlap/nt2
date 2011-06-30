@@ -31,7 +31,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::beta(tofloat(a0), tofloat(a1));
     }
@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       const A0 y = a0+a1;
       const A0 sign = signgam(a0)*signgam(a1)*signgam(y);
