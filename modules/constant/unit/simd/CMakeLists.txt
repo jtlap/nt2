@@ -9,10 +9,11 @@
 
 SET(SOURCES
     digits.cpp
-#     eps.cpp
-#     infinites.cpp
-#     properties.cpp
-#     real.cpp
+    eps.cpp
+    infinites.cpp
+    properties.cpp
+    real.cpp
+    true_false.cpp
     )
 
 ################################################################################

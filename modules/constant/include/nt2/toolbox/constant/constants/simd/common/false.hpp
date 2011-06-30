@@ -22,7 +22,7 @@ namespace nt2 { namespace meta
                             )
   {
     typedef typename meta::strip<A0>::type::type result_type;
-    NT2_FUNCTOR_CALL(1) { return Zero<A0>(); }
+    NT2_FUNCTOR_CALL(1) { return Zero<result_type>(); }
   };
 } }
 
