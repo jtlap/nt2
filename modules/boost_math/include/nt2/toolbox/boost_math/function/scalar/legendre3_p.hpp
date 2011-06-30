@@ -26,8 +26,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(3)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return legendre3_p(a0, a1, type(a2));
+      return legendre3_p(a0, a1, result_type(a2));
     }
   };
 } }

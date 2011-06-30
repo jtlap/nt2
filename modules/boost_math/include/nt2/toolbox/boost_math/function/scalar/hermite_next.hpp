@@ -26,8 +26,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(4)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      return hermite_next(a0, type(a1), type(a2), type(a3));
+      return hermite_next(a0, result_type(a1), result_type(a2), result_type(a3));
     }
   };
 } }
