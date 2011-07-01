@@ -51,8 +51,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::upgrade<A0>::type uptype;
-      uptype l = { vec_mule(a0(),a1()); };
-      uptype r = { vec_mulo(a0(),a1()); };
+      uptype l = { vec_mule(a0(),a1()) };
+      uptype r = { vec_mulo(a0(),a1()) };
       A0 that  = { vec_mergel(vec_pack(l(),l()),vec_pack(r(),r())) };
       return that;
     }

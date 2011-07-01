@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       result_type erb   = { vec_re(a1()) };
-      result_type rec_b = { vec_madd( vec_nmsub(erb(), a1(), One<type>()())
+      result_type rec_b = { vec_madd( vec_nmsub(erb(), a1(), One<result_type>()())
                                     , erb()
                                     , erb()
                                     )

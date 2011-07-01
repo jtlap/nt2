@@ -19,7 +19,7 @@ namespace nt2 { namespace meta
                               ((simd_<arithmetic_<A0>,tag::altivec_>))
                             )
   {
-    typedef A0 resutl_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL_REEPAT(2)
     {

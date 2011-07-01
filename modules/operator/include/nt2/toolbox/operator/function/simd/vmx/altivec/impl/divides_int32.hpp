@@ -12,26 +12,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
   // a/b use a bit preserving algorithm from vecLib by Apple
   //////////////////////////////////////////////////////////////////////////////
-  template<class Dummy>
-  struct  call< tag::divides_( tag::simd_<tag::ints32_,tag::altivec_>
-                             , tag::simd_<tag::ints32_,tag::altivec_>
-                             )
-              , tag::cpu_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_, (A0)(A1)
+                            , ((simd_<ints32_<A0>,tag::altivec_>))
+                              ((simd_<ints32_<A1>,tag::altivec_>))
   {
-    template<class Sig>           struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::strip<A0> {};
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;    
     }
   };
 } }
