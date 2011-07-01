@@ -26,9 +26,11 @@
 #define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A1>,tag::altivec_>))
 
 #define M0(z,n,t)                                                             \
-NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_, (A0)(A1)                     \
-                          , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)         \
-                          )                                                   \
+namespace nt2 { namespace meta                                                \
+{                                                                             \
+  NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_, (A0)(A1)                   \
+                            , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
+                            )                                                 \
   {                                                                           \
     typedef A1 result_type;                                                   \
     NT2_FUNCTOR_CALL_REPEAT(BOOST_PP_INC(n))                                  \
@@ -50,8 +52,6 @@ NT2_SIMD_MAP_CALL(ints16_ ,  8 )
 NT2_SIMD_MAP_CALL(ints8_  , 16 )
 
 #undef NT2_SIMD_MAP_CALL
-#undef MN64
-#undef M64
 #undef M4
 #undef M3
 #undef M2

@@ -26,7 +26,7 @@ namespace nt2 { namespace meta
     {
       typename result_type::extraction_type v;
       v.s[0] = a0;
-      type that = {vec_splat(v.v, 0)};
+      result_type that = {vec_splat(v.v, 0)};
       return that;
     }
   };

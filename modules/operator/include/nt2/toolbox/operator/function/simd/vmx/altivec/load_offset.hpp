@@ -37,7 +37,7 @@ namespace nt2 { namespace meta
     struct  is_forward : boost::mpl::bool_< (Offset::value > 0) >
     {};
 
-    NT2_FUNCTION_CALL(4)
+    NT2_FUNCTOR_CALL(4)
     {
       return eval ( a0,a1
                   , typename is_periodic<A2,A3>::type()
