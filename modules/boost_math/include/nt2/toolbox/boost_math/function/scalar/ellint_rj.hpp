@@ -35,7 +35,7 @@ namespace nt2 { namespace meta
 
   NT2_FUNCTOR_IMPLEMENTATION(boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
-                           (real_<A0>)(real_<A1>)(real_<A2>)(real_<A3>)
+                           (scalar_<real_<A0> > )(scalar_<real_<A1> >)(scalar_<real_<A2> >)(scalar_<real_<A3> >)
                           )
   {
     typedef typename meta::result_of<meta::floating(A0, A1, A2/*, A3*/)>::type result_type;
