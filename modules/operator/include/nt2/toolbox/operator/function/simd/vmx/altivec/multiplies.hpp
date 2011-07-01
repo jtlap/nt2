@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MULTIPLIES_HPP_INCLUDED
 
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/include/constants/digits.hpp>
 
 namespace nt2 { namespace meta
@@ -51,8 +52,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::upgrade<A0>::type uptype;
-      uptype l = { vec_mule(a0(),a1()); };
-      uptype r = { vec_mulo(a0(),a1()); };
+      uptype l = { vec_mule(a0(),a1()) };
+      uptype r = { vec_mulo(a0(),a1()) };
       A0 that  = { vec_mergel(vec_pack(l(),l()),vec_pack(r(),r())) };
       return that;
     }
