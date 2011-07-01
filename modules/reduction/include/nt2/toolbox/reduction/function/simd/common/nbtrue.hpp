@@ -22,11 +22,11 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef int32_t result_type;
+    typedef nt2::int32_t result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typename NT2_RETURN_TYPE(1)::type z = a0[0] != 0;
+      result_type z = a0[0] != 0;
       for(int i = 1; i< meta::cardinal_of<A0>::value; ++i)
       {
           z += a0[i] != 0;

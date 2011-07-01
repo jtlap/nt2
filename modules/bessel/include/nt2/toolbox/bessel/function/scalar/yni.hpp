@@ -52,9 +52,7 @@ namespace nt2 { namespace meta
                             , (scalar_< integer_<A0> >)(scalar_< double_<A1> >)
                             )
   {
-
     typedef A1 result_type;
-
     NT2_FUNCTOR_CALL(2)
     {
     #ifdef NT2_TOOLBOX_BESSEL_HAS_YN

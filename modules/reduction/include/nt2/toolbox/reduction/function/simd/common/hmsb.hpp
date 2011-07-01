@@ -21,10 +21,10 @@ namespace nt2 { namespace meta
                       )
   {
       
-    
+    typedef nt2::int32_t result_type; 
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typename NT2_RETURN_TYPE(1)::type z = nt2::bits(a0[0])&1;
+      result_type z = nt2::bits(a0[0])&1;
       for(int i = 0; i< meta::cardinal_of<A0>::value; ++i)
       {
         z |= nt2::bits(a0[i])&1<<i;

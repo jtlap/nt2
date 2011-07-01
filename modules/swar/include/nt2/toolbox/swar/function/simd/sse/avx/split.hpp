@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
       typedef simd::native<utype,simd::avx_>                                ttype;
       typedef typename boost::mpl::if_c<rtag::value,
                                         simd::native<double,simd::avx_>, ttype>::type rtype;
-      typename NT2_RETURN_TYPE(1)::type                                  res;
+      typename result_type                                                    res;
       typedef rtype                                                           tag;
       eval( a0
           , boost::fusion::at_c<0>(res)
