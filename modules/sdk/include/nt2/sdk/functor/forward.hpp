@@ -31,10 +31,9 @@ namespace nt2
   struct functor;
 }
 
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template< class Signature , class Site, class Dummy = void> struct call;
-  template< class Signature , class Site, class Dummy = void> struct validate;
+  template< class Signature , class Site, class Dummy = void> struct implement;
 } }
 
 namespace nt2

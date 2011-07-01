@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Hoisted class for base index related block member functions
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 #include <nt2/core/container/details/block_size.hpp>
 #include <nt2/core/container/details/block_base.hpp>
 
@@ -29,9 +29,7 @@ namespace nt2 { namespace details
     {
       typename boost::fusion::result_of::value_at_c<Bases const,0>::type& base_;
       typename boost::fusion::result_of::value_at_c<Sizes const,0>::type& size_;
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL( nested, base_ + size_ -1 )
-  
-      typedef typename nested::type type;
+      NT2_DECLTYPE( base_ + size_ -1, type );
     };
     
     typedef typename type_::type difference_type;

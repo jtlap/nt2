@@ -10,10 +10,10 @@
 #define NT2_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/hierarchy.hpp>
-#include <nt2/sdk/functor/details/call.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/details/decltype.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/config/attributes.hpp>
+#include <nt2/sdk/functor/details/call.hpp>
 
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
@@ -28,6 +28,7 @@
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
 #undef NT2_DECLTYPE
+#undef NT2_FORCE_INLINE
 #endif
 
 //==============================================================================
@@ -37,15 +38,22 @@
 // dispatching without having to order them BEFORE the actual dispatch_call
 // class definitions. Without it, the whole system brittles.
 //==============================================================================
-#define M0(z,n,t) meta::unknown_<BOOST_PP_CAT(A,n)> const&
-#define M1(z,n,t) BOOST_PP_CAT(A,n)
+#define M0(z,n,t) meta::unknown_<A##n> const&
+#define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
 
 #define NT2_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
-nt2::ext::call<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M1,~))>  \
+NT2_FORCE_INLINE                                                                \
+nt2::meta::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
-            );                                                                  \
+            )                                                                   \
+{                                                                               \
+  nt2::meta::implement< Tag(tag::unknown_),Site                                 \
+                      , tag::error_with(BOOST_PP_ENUM(n,M2,~))                  \
+                      > that;                                                   \
+  return that;                                                                  \
+}                                                                               \
 /**/
 
 //==============================================================================
@@ -64,31 +72,35 @@ namespace nt2 { namespace meta
 } }
 
 #undef M0
-#undef M1
+#undef M2
 #undef NT2_DEFAULT_UNKNOWN_DISPATCH
 
 //==============================================================================
 // Local macro to generate the dispatch selector
 //==============================================================================
-#define M0(z,n,t) BOOST_PP_CAT(elem,n)()
+#define M0(z,n,t) typename meta::hierarchy_of<typename meta::strip<A##n>::type>::type()
 /**/
 
-#define NT2_DISPATCH_TYPES(z,n,t)                                               \
-typedef typename strip<BOOST_PP_CAT(A,n)>::type BOOST_PP_CAT(arg,n);            \
-typedef typename hierarchy_of<BOOST_PP_CAT(arg,n)>::type  BOOST_PP_CAT(elem,n); \
-/**/
-
-#define NT2_DISPATCH_CALL(z,n,t)                                        \
-template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>        \
-struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>              \
-{                                                                       \
-  BOOST_PP_REPEAT(n,NT2_DISPATCH_TYPES,~)                               \
-  NT2_DECLTYPE( dispatching ( Tag(), Site()                             \
-                            , BOOST_PP_ENUM(n,M0,~)                     \
-                            , adl_helper()                              \
-                            )                                           \
-              , type );                                                 \
-};                                                                      \
+#define NT2_DISPATCH_CALL(z,n,t)                                            \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
+{                                                                           \
+  NT2_DECLTYPE                                                              \
+  ( dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )      \
+  , type                                                                    \
+  );                                                                        \
+};                                                                          \
+                                                                            \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+NT2_FORCE_INLINE                                                            \
+typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
+dispatch( Tag const&, Site const&                                           \
+        , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
+        )                                                                   \
+{                                                                           \
+  typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type  that; \
+  return that;                                                              \
+}                                                                           \
 /**/
 
 namespace nt2 { namespace meta

@@ -13,7 +13,6 @@
  * \brief Defines the nt2::meta::primitive_of \metafunction
  */
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace meta
@@ -50,14 +49,6 @@ namespace nt2 { namespace meta
   template<class Hierarchizable>
   struct primitive_of
   {
-    NT2_STATIC_ASSERT ( ( !boost::is_same < typename
-                                            hierarchy_of<Hierarchizable>::type
-                                          , unspecified_<Hierarchizable>
-                                          >::value
-                        )
-                      , NT2_PRIMITIVE_OF_CALLED_ON_NON_HIERARCHIZABLE_TYPE
-                      , "The primitive of a non-Hierarchizable type is undefined."
-                      );
     typedef Hierarchizable type;
   };
 } }

@@ -39,10 +39,7 @@ NT2_WARNING(XOP SIMD extension detected)
 #define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::xop_
 #define NT2_SIMD_DEFAULT_SITE       ::nt2::tag::xop_
 
-extern "C"
-{
-  #include <immintrin.h>
-}
+#include <immintrin.h>
 
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 #include <nt2/sdk/simd/extensions/meta/xop.hpp>

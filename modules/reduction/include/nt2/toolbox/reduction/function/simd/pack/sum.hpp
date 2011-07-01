@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_PACK_SUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_PACK_SUM_HPP_INCLUDED
 
@@ -16,20 +16,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is expression of pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::sum_, tag::cpu_,
-                      (A0)(T)(Card)(Tag)(Sema),
-                      ((expr_<A0, domain_< simd::domain<T,Card> >, Tag, Sema>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class T, class Card, class Tag, class Sema, class Dummy>
-  struct call<tag::sum_(tag::expr_<simd::domain<T,Card>, Tag, Sema> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::sum_, tag::cpu_
+                            , (A0)(T)(Card)(Tag)(Sema)
+                            , ((expr_<A0, domain_< simd::domain<T,Card> >, Tag, Sema>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> { typedef T type; };
+
+    typedef T result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -39,5 +34,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

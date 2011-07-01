@@ -18,23 +18,4 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION_SELF(tag::evaluate_, evaluate, 2)
 }
 
-/*
- * TODO : This is a temporary hack. With preprocessed perfect-forwarding
- * functor version, this should be removed entirely. Bear with me atm.
- */
-namespace nt2
-{
-  template<class EC> struct functor<tag::evaluate_,EC>
-  {
-    typedef void result_type;
-
-    template<class A0, class A1> inline
-    typename meta::enable_call<tag::evaluate_(A0,A1), EC>::type
-    operator()( A0& a0, A1 const& a1) const
-    {
-      typename meta::dispatch_call<tag::evaluate_(A0,A1),EC>::type callee;
-      callee( a0, a1 );
-    }
-  };
-}
 #endif

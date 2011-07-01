@@ -12,14 +12,14 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 
-#define NT2_MAKE_NATIVE_OP(TAG,OP)                                    \
-template<class T1, class T2,class X> NT2_FORCE_INLINE                 \
-typename nt2::meta::enable_call<TAG(native<T1,X>,native<T2,X>)>::type \
-OP(native<T1,X> const& a0, native<T2,X> const& a1)                    \
-{                                                                     \
-  nt2::functor<TAG> callee;                                           \
-  return callee(a0,a1);                                               \
-}                                                                     \
+#define NT2_MAKE_NATIVE_OP(TAG,OP)                                        \
+template<class T1, class T2,class X> NT2_FORCE_INLINE                     \
+typename meta::call<TAG(native<T1,X>,native<T2,X>)>::type  \
+OP(native<T1,X> const& a0, native<T2,X> const& a1)                        \
+{                                                                         \
+  typename nt2::make_functor<TAG,T1>::type callee;                        \
+  return callee(a0,a1);                                                   \
+}                                                                         \
 /**/
 
 namespace nt2 { namespace simd

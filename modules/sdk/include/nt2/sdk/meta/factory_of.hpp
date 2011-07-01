@@ -15,9 +15,6 @@
  */
 
 #include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <nt2/sdk/meta/is_unspecified.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace meta
@@ -53,10 +50,6 @@ namespace nt2 { namespace meta
   //============================================================================
   template<class Hierarchizable> struct factory_of
   {
-    NT2_STATIC_ASSERT ( ( !is_unspecified< Hierarchizable >::value )
-                      , NT2_UNDEFINED_PRIMITIVE_TYPE
-                      , "Factory of a non Hierarchizable type is undefined."
-                      );
     typedef boost::mpl::_ type;
   };
 } }

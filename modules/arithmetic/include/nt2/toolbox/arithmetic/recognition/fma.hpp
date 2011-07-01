@@ -14,58 +14,33 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/toolbox/arithmetic/function/fma.hpp>
 
-NT2_REGISTER_DISPATCH ( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
-                      , ((expr_<A0,Dom,tag::multiplies_,Sema>))(unspecified_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Domain,class Semantic,class Dummy>
-  struct call < tag::plus_(tag::expr_<Domain,tag::multiplies_,Semantic>, tag::unspecified_)
-              , tag::recognition_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
+			      , ((expr_<A0,Dom,tag::multiplies_,Sema>))(unspecified_<A1>)
+			      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)>
-      : meta::call< tag::fma_(
-          typename boost::proto::result_of::child_c<A0, 0>::type,
-          typename boost::proto::result_of::child_c<A0, 1>::type,
-          A1
-        ) >
-    {};
-
-
+    typedef typename meta::call< tag::fma_(
+					   typename boost::proto::result_of::child_c<A0, 0>::type,
+					   typename boost::proto::result_of::child_c<A0, 1>::type,
+					   A1
+					   ) >::type result_type; 
+  
     NT2_FUNCTOR_CALL(2)
     {
       return fma(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), a1);
     }
   };
-} }
 
-NT2_REGISTER_DISPATCH ( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
-                      , (unspecified_<A0>)((expr_<A1,Dom,tag::multiplies_,Sema>))
-                      )
-
-namespace nt2 { namespace ext
-{
-  template<class Domain,class Semantic,class Dummy>
-  struct call < tag::plus_(tag::unspecified_, tag::expr_<Domain,tag::multiplies_,Semantic>)
-              , tag::recognition_, Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
+			      , (unspecified_<A0>)((expr_<A1,Dom,tag::multiplies_,Sema>))
+			      )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0, A1)>
-      : meta::call< tag::fma_(
+    typedef typename meta::call< tag::fma_(
           typename boost::proto::result_of::child_c<A1, 0>::type,
           typename boost::proto::result_of::child_c<A1, 1>::type,
           A0
-        ) >
-    {};
-
+        ) >::type result_type; 
 
     NT2_FUNCTOR_CALL(2)
     {

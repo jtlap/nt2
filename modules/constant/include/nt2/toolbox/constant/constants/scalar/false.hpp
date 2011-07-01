@@ -13,25 +13,18 @@
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/include/functions/splat.hpp>
 
-NT2_REGISTER_DISPATCH(tag::false_ ,tag::cpu_,(A0),(target_< fundamental_<A0> >))
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::false_(tag::target_<tag::fundamental_>)
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::false_ ,tag::cpu_, (A0)
+                            , (target_< scalar_<fundamental_<A0> > >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)> : meta::strip<A0>::type {};
+    typedef typename A0::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<typename A0::type>(false);
+      return splat<result_type>(false);
     }
   };
 } }

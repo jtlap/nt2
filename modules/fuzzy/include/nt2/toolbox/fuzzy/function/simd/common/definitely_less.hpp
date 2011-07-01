@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
@@ -13,68 +13,47 @@
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/subs.hpp>
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH_IF(tag::definitely_less_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::definitely_less_, tag::cpu_,
 			 (A0)(A1)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
-			 (tag::definitely_less_(tag::simd_<tag::integer_,X>,
-					     tag::simd_<tag::integer_,X>, 
-			  		     tag::simd_<tag::integer_,X>)), 
+			 (tag::definitely_less_(simd_<integer_<A0>,X>,
+					     simd_<integer_<A0>,X>, 
+			  		     simd_<integer_<A1>,X>)), 
 			 ((simd_<integer_<A0>,X>))
 			 ((simd_<integer_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::definitely_less_(tag::simd_<tag::integer_, X> ,
-                                    tag::simd_<tag::integer_, X> ,
-                                    tag::simd_<tag::integer_, X> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(3)
+    typedef A0 result_type;
+    inline result_type operator()( A0 const& a0, A0 const& a1, A1 const& a2) const
     {
       return lt(a0, nt2::subs(a1, abs(a2)));
     }
   };
-} }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH_IF(tag::definitely_less_, tag::cpu_,
+
+
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::definitely_less_, tag::cpu_,
 			 (A0)(A1)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
-			 (tag::definitely_less_(tag::simd_<tag::real_,X>,
-					     tag::simd_<tag::real_,X>, 
-			  		     tag::simd_<tag::integer_,X>)), 
+			 (tag::definitely_less_(simd_<real_<A0>,X>,
+					     simd_<real_<A0>,X>, 
+			  		     simd_<integer_<A1>,X>)), 
 			 ((simd_<real_<A0>,X>))
 			 ((simd_<real_<A0>,X>))
 			 ((simd_<integer_<A1>,X>))
-                       );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::definitely_less_(tag::simd_<tag::real_, X> ,
-                                    tag::simd_<tag::real_, X> ,
-                                    tag::simd_<tag::integer_, X> ),
-              tag::cpu_, Dummy> : callable
+                       )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1,class A2>
-    struct result<This(A0,A1,A2)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(3)
+    typedef A0 result_type;
+    inline result_type operator()( A0 const& a0, A0 const& a1, A1 const& a2) const
     {
       return b_and(
                is_ord(a0, a1),
@@ -83,6 +62,4 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 #endif
-// modified by jt the 05/01/2011

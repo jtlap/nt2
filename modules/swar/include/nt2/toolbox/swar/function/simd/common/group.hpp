@@ -1,22 +1,22 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_GROUP_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_GROUP_HPP_INCLUDED
-
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is downgradable
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH_IF( tag::group_, tag::cpu_,
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename meta::downgrade<A0>::type> >),
                           (tag::group_(tag::simd_<tag::arithmetic_,X>
@@ -24,24 +24,12 @@ NT2_REGISTER_DISPATCH_IF( tag::group_, tag::cpu_,
                                       )
                           ), 
                           ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                        );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::group_(tag::simd_<tag::arithmetic_, X> ,
-                          tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+                        )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>  : meta::downgrade<A0>
+    
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-    };
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef typename NT2_RETURN_TYPE(2)::type rtype;
+      typedef result_type rtype;
       
       static const int size = meta::cardinal_of<A0>::value;
       NT2_ALIGNED_TYPE(typename meta::scalar_of<rtype>::type) tmp[size*2];
@@ -55,5 +43,4 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 #endif

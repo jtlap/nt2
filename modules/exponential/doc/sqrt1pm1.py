@@ -49,6 +49,12 @@
              'property_call' : {
                  'default' : ['nt2::sqrt1pm1(a0)'],
                 },
+             'property_value' : {
+                 'real_' : ['nt2::sqrt1pm1(a0)'],
+                },
+             'ulp_thresh' : {
+                 'real_' : ['2'],
+                },
             },
         },
      'version' : '0.1',

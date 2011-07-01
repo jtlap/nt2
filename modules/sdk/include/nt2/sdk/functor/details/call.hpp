@@ -22,18 +22,13 @@
 namespace nt2 { namespace tag { struct unknown_;    } }
 namespace nt2 { namespace tag { struct error_with;  } }
 
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Flag call instanciation as callable
-  //////////////////////////////////////////////////////////////////////////////
-  struct callable { typedef void callable_type; };
-
   //////////////////////////////////////////////////////////////////////////////
   // Call to non-categorizable types ends up in error
   //////////////////////////////////////////////////////////////////////////////
   template<class Function,class Site,class Dummy>
-  struct call<Function(tag::unknown_),Site,Dummy>
+  struct implement<Function(tag::unknown_),Site,Dummy>
   {
     typedef int result_type;
     NT2_STATIC_ASSERT ( (boost::is_same<Function,void>::value)

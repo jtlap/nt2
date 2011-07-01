@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EPS_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_EPS_HPP_INCLUDED
 #include <nt2/include/constants/properties.hpp>
@@ -22,20 +22,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::eps_, tag::cpu_,
-                     (A0),
-                     (arithmetic_<A0>)
-                    )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::eps_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::eps_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -45,32 +40,27 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::eps_, tag::cpu_,
-                     (A0),
-                     (real_<A0>)
-                    )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::eps_(tag::real_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::eps_, tag::cpu_
+                            , (A0)
+                            , (scalar_< real_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type value_type;
       typedef std::numeric_limits<A0> lim;
       const A0 a = nt2::abs(a0);
       if (is_not_finite(a))
       {
-        return value_type(Nan<A0>());
+        return result_type(Nan<A0>());
       }
       else if (a < lim::min())
       {
@@ -84,6 +74,5 @@ namespace nt2 { namespace ext
   };
 } }
 
-#endif
-// modified by jt the 26/12/2010
 
+#endif

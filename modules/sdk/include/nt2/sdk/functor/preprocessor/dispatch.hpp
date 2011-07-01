@@ -15,9 +15,10 @@
  */
 
 #include <nt2/extension/parameters.hpp>
+#include <nt2/sdk/details/preprocessor.hpp>
+#include <nt2/sdk/config/attributes.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -25,7 +26,7 @@
 #define NT2_DISPATCH_TYPE_TPL(z,n,t) NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define NT2_DISPATCH_TYPE(z,n,t) class NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define NT2_DISPATCH_ARG(z,n,t) nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const&
-#define NT2_DISPATCH_TAG(z,n,t) typename nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))::type
+#define NT2_DISPATCH_TAG(z,n,t) nt2::meta::NT2_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 
 //==============================================================================
 /*!
@@ -39,19 +40,26 @@
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define NT2_REGISTER_DISPATCH(Tag,Site,Types,Seq)                           \
-namespace nt2 { namespace meta {                                            \
-template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types)>   \
-nt2::ext::                                                                  \
-call< NT2_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)              \
-                                      , NT2_DISPATCH_TAG,Seq))              \
-    , Site                                                                  \
-    >                                                                       \
-dispatching( Tag const&, Site const&                                        \
-        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)        \
-        , adl_helper = adl_helper()                                         \
-        );                                                                  \
-} }                                                                         \
+#define NT2_REGISTER_DISPATCH(Tag,Site,Types,Seq)                         \
+template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types)> \
+NT2_FORCE_INLINE nt2::meta::                                              \
+implement< NT2_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)       \
+                                      , NT2_DISPATCH_TAG,Seq))            \
+    , Site                                                                \
+    >                                                                     \
+dispatching( Tag const&, Site const&                                      \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)      \
+        , adl_helper = adl_helper()                                       \
+        )                                                                 \
+{                                                                         \
+  nt2::meta::                                                             \
+  implement< NT2_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)     \
+                                        , NT2_DISPATCH_TAG,Seq)           \
+                                        )                                 \
+    , Site                                                                \
+    > that;                                                               \
+  return that;                                                            \
+}                                                                         \
 /**/
 
 //==============================================================================
@@ -68,15 +76,25 @@ dispatching( Tag const&, Site const&                                        \
  */
 //==============================================================================
 #define NT2_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                         \
-namespace nt2 { namespace meta {                                              \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types)> \
-nt2::ext::                                                                    \
-call<NT2_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_TAG,Seq)),Site>    \
-dispatching( NT2_PP_STRIP(Tag) const&, Site const&                                          \
+NT2_FORCE_INLINE                                                              \
+nt2::meta::                                                                   \
+implement < NT2_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)            \
+          , NT2_DISPATCH_TAG,Seq))                                            \
+          , Site                                                              \
+          >                                                                   \
+dispatching( NT2_PP_STRIP(Tag) const&, Site const&                            \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)          \
         , adl_helper = adl_helper()                                           \
-        );                                                                    \
-} }                                                                           \
+        )                                                                     \
+{                                                                             \
+  nt2::meta::                                                                 \
+  implement < NT2_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)          \
+            , NT2_DISPATCH_TAG,Seq))                                          \
+            , Site                                                            \
+            >  that;                                                          \
+  return that;                                                                \
+}                                                                             \
 /**/
 
 //==============================================================================
@@ -95,16 +113,19 @@ dispatching( NT2_PP_STRIP(Tag) const&, Site const&                              
  */
 //==============================================================================
 #define NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)               \
-namespace nt2 { namespace meta {                                            \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE,Types)>   \
+NT2_FORCE_INLINE                                                            \
 typename boost::enable_if < NT2_PP_STRIP(Cond)                              \
-                          , nt2::ext::call<NT2_PP_STRIP(Ret),Site>          \
+                          , nt2::meta::implement<NT2_PP_STRIP(Ret),Site>    \
                           >::type                                           \
 dispatching( Tag const&, Site const&                                        \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)        \
         , adl_helper = adl_helper()                                         \
-        );                                                                  \
-} }                                                                         \
+        )                                                                   \
+{                                                                           \
+  nt2::meta::implement<NT2_PP_STRIP(Ret),Site>  that;                       \
+  return that;                                                              \
+}                                                                           \
 /**/
 
 //==============================================================================
@@ -126,13 +147,18 @@ dispatching( Tag const&, Site const&                                        \
 #define NT2_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
 namespace nt2 { namespace meta {                                              \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),NT2_DISPATCH_TYPE_TPL,Types)> \
+NT2_FORCE_INLINE                                                              \
 typename boost::enable_if < NT2_PP_STRIP(Cond)                                \
-                          , nt2::ext::call<NT2_PP_STRIP(Ret),Site>            \
+                          , nt2::meta::implement<NT2_PP_STRIP(Ret),Site>      \
                           >::type                                             \
 dispatching ( Tag const&, Site const&                                         \
             , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),NT2_DISPATCH_ARG,Seq)      \
             , adl_helper = adl_helper()                                       \
-            );                                                                \
+            )                                                                 \
+{                                                                             \
+  nt2::meta::implement<NT2_PP_STRIP(Ret),Site>  that;                         \
+  return that;                                                                \
+}                                                                             \
 } }                                                                           \
 /**/
 

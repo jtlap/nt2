@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLIE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTION_SCALAR_ELLIE_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
@@ -31,52 +31,40 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellie_, tag::cpu_,
-                       (A0)(A1),
-                       (arithmetic_<A0>)(arithmetic_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::ellie_(tag::arithmetic_,tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ellie_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::result_of<meta::floating(A0,A1)>{};
+
+    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return nt2::ellie(type(a0), type(a1));
+      return nt2::ellie(result_type(a0), result_type(a1));
     }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellie_, tag::cpu_,
-                       (A0)(A1),
-                       (double_<A0>)(double_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::ellie_(tag::double_,tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ellie_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< double_<A0> >)(scalar_< double_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::result_of<meta::floating(A0,A1)>{};
+
+    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef result_type type;
       if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return type(a0);
       return boost::math::ellint_2(nt2::sqrt(type(a1)), type(a0));
@@ -84,28 +72,23 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ellie_, tag::cpu_,
-                       (A0)(A1),
-                       (float_<A0>)(float_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::ellie_(tag::float_,tag::float_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ellie_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::result_of<meta::floating(A0,A1)>{};
+
+    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
+      typedef result_type type;
       if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
       else if (is_eqz(a1))
       return a0;
@@ -147,5 +130,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 #endif
-// modified by jt the 26/12/2010

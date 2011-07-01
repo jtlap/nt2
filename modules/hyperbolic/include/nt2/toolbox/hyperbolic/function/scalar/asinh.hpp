@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_ASINH_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
@@ -23,21 +23,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::asinh_, tag::cpu_,
-                       (A0),
-                       (arithmetic_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::asinh_(tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::asinh_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::floating(A0)>{};
+
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -46,28 +40,22 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::asinh_, tag::cpu_,
-                       (A0),
-                       (double_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::asinh_(tag::double_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::asinh_, tag::cpu_
+                            , (A0)
+                            , (scalar_< double_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::floating(A0)>{};
+
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       A0 x = nt2::abs(a0);
       if (x < Sqrteps<A0>() ) return a0;
       if (x*Sqrteps<A0>() >=  One<A0>()) return sign(a0)*(log1p(x)+Log_2<A0>());
@@ -83,28 +71,22 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::asinh_, tag::cpu_,
-                       (A0),
-                       (float_<A0>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::asinh_(tag::float_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::asinh_, tag::cpu_
+                            , (A0)
+                            , (scalar_< float_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> :
-      meta::result_of<meta::floating(A0)>{};
+
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
       A0 x = nt2::abs(a0);
       if (x < Sqrteps<A0>() )
       return a0;
@@ -121,10 +103,10 @@ namespace nt2 { namespace ext
                                            )) > (z);
           return n/d;
         }
-      return negate(nt2::log(x+nt2::sqrt(sqr(x)+One<type>())), a0); //TODO better eval
+      return negate(nt2::log(x+nt2::sqrt(sqr(x)+One<A0>())), a0); //TODO better eval
     }
   };
 } }
 
+
 #endif
-// modified by jt the 26/12/2010

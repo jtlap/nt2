@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
@@ -17,25 +17,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
-                              (A0)(X),
-                              ((simd_<int8_<A0>,X>))
-                             );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::reversebits_(tag::simd_<tag::int8_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int8_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+    {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
@@ -52,28 +44,21 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int64_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
-                              (A0)(X),
-                              ((simd_<int64_<A0>,X>))
-                             );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::reversebits_(tag::simd_<tag::int64_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int64_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+    {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555555555555555ull>(); //binary: 0101...
@@ -95,43 +80,25 @@ namespace nt2 { namespace ext
       // swap ints ...
       v = (shri(v, 32) & m32) | shli((v & m32), 32);
       return simd::native_cast<A0>(v);
- //   typedef typename NT2_RETURN_TYPE(1)::type    result_type;
-//    typedef typename meta::as_integer<A0, unsigned>::type   utype;
-//    typedef typename meta::scalar_of<utype>::type          sutype;
-//    typedef typename meta::downgrade<sutype>::type         hutype;
-//    typedef simd::native<hutype,tag::sse_>                 dutype;
-//    //    typedef typename meta::downgrade<utype>::type          dutype;
-//    dutype v = simd::native_cast<dutype>(a0);
-// #define NT2_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
-//    dutype vv = {_mm_shuffle_epi32(reversebits(v), NT2_SH(0, 1, 2, 3))};
-//    return simd::native_cast<A0 > (v);
-// #undef   NT2_SH
       }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
-                              (A0)(X),
-                              ((simd_<int16_<A0>,X>))
-                             );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::reversebits_(tag::simd_<tag::int16_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int16_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+    {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
@@ -151,28 +118,21 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::reversebits_, tag::cpu_,
-                              (A0)(X),
-                              ((simd_<int32_<A0>,X>))
-                             );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::reversebits_(tag::simd_<tag::int32_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<int32_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-      struct result<This(A0)> : meta::strip<A0>{};
-
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
-      typedef typename NT2_RETURN_TYPE(1)::type    result_type;
+    {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
@@ -196,4 +156,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-// modified by jt the 04/01/2011

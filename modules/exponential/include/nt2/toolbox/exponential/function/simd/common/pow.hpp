@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
@@ -24,52 +24,38 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pow_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                      ((simd_<arithmetic_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::pow_(tag::simd_<tag::arithmetic_, X> ,
-                        tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>  :  meta::as_real<A0>{};
 
-    NT2_FUNCTOR_CALL(2)
+    typedef typename meta::as_real<A0>::type result_type;
+
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return nt2::pow(tofloat(a0), tofloat(a1));
     }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pow_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<real_<A0>,X>))
-                      ((simd_<real_<A0>,X>))
-                     );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::pow_(tag::simd_<tag::real_, X> ,
-                        tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>  :  meta::strip<A0>{};
 
-    NT2_FUNCTOR_CALL(2)
+    typedef typename meta::strip<A0>::type result_type;
+
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 isltza0 = is_ltz(a0);
       A0 allz = b_and(is_eqz(a0), is_eqz(a1)); 
@@ -90,33 +76,27 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is integer_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pow_, tag::cpu_,
-                       (A0)(A1)(X),
-                       ((simd_<arithmetic_<A0>,X>))
-                       ((simd_<integer_<A1>,X>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::pow_(tag::simd_<tag::arithmetic_, X> ,
-                         tag::simd_<tag::integer_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<arithmetic_<A0>,X>))((simd_<integer_<A1>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::as_real<A0>{};
+
+    typedef typename meta::as_real<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
         typedef A1                                          int_type;
-	typedef typename NT2_RETURN_TYPE(2)::type             r_type;
+	typedef result_type             r_type;
 	r_type a00 =  tofloat(a0); 
-        r_type sign_x = bitofsign(a0);
-        r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
+        r_type sign_x = bitofsign(a00);
+        r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
         int_type n = nt2::abs(a1);
 
@@ -141,39 +121,31 @@ namespace nt2 { namespace ext
 
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positiv, else 0
-	r_type r = sel(is_even(a1), nt2::abs(a0), a0); 			
-        return b_or(is_nan(a0), sel(is_inf(a0), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
+	r_type r = sel(is_even(a1), nt2::abs(a00), a00); 			
+        return b_or(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
-
   };
 } }
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is scalar integer_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::pow_, tag::cpu_,
-		      (A0)(A1)(X),
-		      ((simd_<arithmetic_<A0>,X>))
-		      ((integer_<A1>))
-                      );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::pow_(tag::simd_<tag::arithmetic_, X> ,
-                         tag::integer_ ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> : meta::as_real<A0>{};
+
+    typedef typename meta::as_real<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
       return powi(a0, a1);
     }
-
   };
 } }
 
+
 #endif
-// modified by jt the 05/01/2011

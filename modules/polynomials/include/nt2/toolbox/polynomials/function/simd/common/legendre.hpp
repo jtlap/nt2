@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SIMD_COMMON_LEGENDRE_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTION_SIMD_COMMON_LEGENDRE_HPP_INCLUDED
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
@@ -22,50 +22,36 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::legendre_, tag::cpu_,
-                          (A0)(A1)(X),
-                          ((integer_<A0>))
-                           ((simd_<arithmetic_<A1>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::legendre_(tag::integer_,
-                             tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::legendre_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::as_real<A1>{};
+
+    typedef typename meta::as_real<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
       return legendre(a0, tofloat(a1));
     }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::legendre_, tag::cpu_,
-                          (A0)(A1)(X),
-                          ((integer_<A0>))
-                           ((simd_<real_<A1>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::legendre_(tag::integer_,
-                             tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::legendre_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , (scalar_< integer_<A0> >)((simd_<real_<A1>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :  meta::strip<A1>{};
+
+    typedef typename meta::strip<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -89,5 +75,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 #endif
-// modified by jt the 05/01/2011

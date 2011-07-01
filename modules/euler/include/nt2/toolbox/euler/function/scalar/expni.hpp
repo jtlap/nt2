@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SCALAR_EXPNI_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SCALAR_EXPNI_HPP_INCLUDED
 #include <nt2/include/constants/infinites.hpp>
@@ -30,48 +30,36 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
-                       (A0)(A1),
-                       (integer_<A0>)(arithmetic_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::expni_(tag::integer_,tag::arithmetic_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::expni_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::result_of<meta::floating(A0,A1)>{};
+
+    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename NT2_RETURN_TYPE(2)::type type;
-      return expni(a0, type(a1));
+      return expni(a0, result_type(a1));
     }
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::expni_, tag::cpu_,
-                       (A0)(A1),
-                       (integer_<A0>)(real_<A1>)
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::expni_(tag::integer_,tag::real_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::expni_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< integer_<A0> >)(scalar_< real_<A1> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)> :
-      meta::result_of<meta::floating(A0,A1)>{};
+
+    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -173,7 +161,5 @@ namespace nt2 { namespace ext
   };
 } }
 
-#endif
-// modified by jt the 26/12/2010
-// modified manually by jt the 02/01/2010
 
+#endif

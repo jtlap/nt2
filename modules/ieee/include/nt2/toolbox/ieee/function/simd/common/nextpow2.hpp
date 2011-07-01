@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_NEXTPOW2_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_NEXTPOW2_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
@@ -24,23 +24,18 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<arithmetic_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::nextpow2_(tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       return simd::native_cast<A0>(nextpow2(simd::native_cast<utype >(abs(a0))));
       //    return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
@@ -48,26 +43,22 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<unsigned_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::nextpow2_(tag::simd_<tag::unsigned_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<unsigned_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_integer<A0, signed>::type itype;
       rtype m;
@@ -79,26 +70,22 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint16_t
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<uint16_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::nextpow2_(tag::simd_<tag::uint16_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<uint16_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       typedef typename meta::scalar_of<A0>::type  stype;
       typedef typename meta::upgrade<stype>::type itype;
       typedef simd::native<itype,X>              ivtype;
@@ -110,26 +97,22 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<uint8_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::nextpow2_(tag::simd_<tag::uint8_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<uint8_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       typedef typename meta::scalar_of<A0>::type  stype;
       typedef typename meta::upgrade<stype>::type itype;
       typedef simd::native<itype, X>             ivtype;
@@ -141,26 +124,22 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::nextpow2_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<real_<A0>,X>))
-                          );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::nextpow2_(tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)> : meta::strip<A0>{};
+
+    typedef typename meta::strip<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       typedef typename meta::as_integer<A0>::type int_type;
       A0 m;
       int_type p;
@@ -170,5 +149,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 #endif
-// modified by jt the 04/01/2011

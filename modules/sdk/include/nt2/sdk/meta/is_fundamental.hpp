@@ -46,7 +46,7 @@ namespace nt2 { namespace meta
   //==============================================================================
   template<class T>
   struct  is_fundamental
-        : boost::is_base_of < meta::fundamental_<T>
+        : boost::is_base_of < meta::scalar_< meta::fundamental_<T> >
                             , typename meta::hierarchy_of<T>::type
                             >
   {};

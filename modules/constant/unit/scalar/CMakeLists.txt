@@ -13,6 +13,7 @@ SET(SOURCES
     infinites.cpp
     properties.cpp
     real.cpp
+    true_false.cpp
     )
 
 ################################################################################

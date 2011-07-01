@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MAP_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MAP_HPP_INCLUDED
 
@@ -23,30 +23,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
 #define M3(z,n,t) (typename A1::value_type)(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A0>,tag::altivec_>))
-#define M1(z,n,t) tag::simd_<tag::BOOST_PP_TUPLE_ELEM(2,0,t),tag::altivec_>
+#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A1>,tag::altivec_>))
 
-#define M0(z,n,t)                                                       \
-NT2_REGISTER_DISPATCH ( tag::map_,tag::cpu_                             \
-                      , (Func)(A0)                                      \
-                      , (unspecified_<Func>)BOOST_PP_REPEAT(n,M2,t)     \
-                      )                                                 \
-namespace nt2 { namespace ext                                           \
-{                                                                       \
-  template<class Dummy>                                                 \
-  struct call < tag::map_(tag::unspecified_,BOOST_PP_ENUM(n,M1,t))      \
-              , tag::cpu_ , Dummy> : callable                           \
-  {                                                                     \
-    template<class Sig> struct result;                                  \
-    template<class This,class F,class A>                                \
-    struct result<This(F,NT2_PP_ENUM_VALUE(n,A))> : meta::strip<A> {};  \
-    NT2_FUNCTOR_CALL(BOOST_PP_INC(n))                                   \
-    {                                                                   \
-      A1 that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};     \
-      return that;                                                      \
-    }                                                                   \
-  };                                                                    \
-} }                                                                     \
+#define M0(z,n,t)                                                             \
+namespace nt2 { namespace meta                                                \
+{                                                                             \
+  NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_, (A0)(A1)                   \
+                            , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
+                            )                                                 \
+  {                                                                           \
+    typedef A1 result_type;                                                   \
+    NT2_FUNCTOR_CALL_REPEAT(BOOST_PP_INC(n))                                  \
+    {                                                                         \
+      result_type that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};  \
+      return that;                                                            \
+    }                                                                         \
+  };                                                                          \
+} }                                                                           \
 /**/
 
 #define NT2_SIMD_MAP_CALL(T,C)                      \
@@ -59,8 +52,6 @@ NT2_SIMD_MAP_CALL(ints16_ ,  8 )
 NT2_SIMD_MAP_CALL(ints8_  , 16 )
 
 #undef NT2_SIMD_MAP_CALL
-#undef MN64
-#undef M64
 #undef M4
 #undef M3
 #undef M2

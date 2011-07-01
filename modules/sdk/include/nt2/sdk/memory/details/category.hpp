@@ -27,21 +27,40 @@ NT2_REGISTER_HIERARCHY(iterator_)
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace details
 {
-  template<class T>
+  template<class T, class Origin>
   struct  hierarchy_of< T
+                      , Origin
                       , typename
                         boost::enable_if_c< meta::is_iterator<T>::value>::type
                       >
   {
     typedef typename boost::pointee<T>::type                        pointee_type;
     typedef meta::iterator_ < typename
-                              meta::hierarchy_of<pointee_type>::type > type;
+                              meta::hierarchy_of<pointee_type,Origin>::type > type;
   };
 
   template<> struct  hierarchy_of<void*>
   {
-    typedef meta::iterator_< meta::hierarchy_of<void>::type > type;
+    typedef meta::iterator_< meta::hierarchy_of<void,void*>::type > type;
   };
 } }
 
+namespace nt2 { namespace meta
+{
+  //============================================================================
+  // Same property than T
+  //============================================================================
+  template<class T, class Origin>
+  struct  property_of < T
+                      , Origin
+                      , typename boost::
+                        enable_if< is_iterator<T> >::type
+                      >
+        : property_of<typename boost::pointee<T>::type, Origin>
+  {};
+
+  template<class Origin>
+  struct  property_of<void*, Origin> : property_of<void, Origin>
+  {};
+} }
 #endif

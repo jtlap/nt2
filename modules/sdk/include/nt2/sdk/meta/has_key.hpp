@@ -14,7 +14,7 @@
  * \brief Defines and implements the nt2::meta::has_key meta-function
  */
 
-#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -48,8 +48,7 @@ namespace nt2 { namespace meta
   template<class Set,class Key> struct has_key
   {
     static Key* keyptr;
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, Set::key(keyptr) )
-    typedef typename nested::type type;
+    NT2_DECLTYPE(Set::key(keyptr), type);
     BOOST_STATIC_CONSTANT( bool, value = type::value );
   };
 } }

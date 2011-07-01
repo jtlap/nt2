@@ -12,15 +12,15 @@ SET( SOURCES
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
+    as.cpp
     cardinal_of.cpp
-    category_of.cpp
     downgrade.cpp
+    hierarchy_of.cpp
     is_signed.cpp
     is_simd_specific.cpp
     make_integer.cpp
     make_real.cpp
     native_cast.cpp
-#   pack.cpp
     scalar_of.cpp
     sign_of.cpp
     terminal_of.cpp

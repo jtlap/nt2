@@ -104,10 +104,14 @@ NT2_TEST_CASE_TPL ( atan2_int_convert__2_0,  (nt2::int32_t)(nt2::int64_t))
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = atan2(a0,a1);
+	std::cout << "a0 " << a0 << std::endl; 
+	std::cout << "a1 " << a1 << std::endl; 
+	std::cout << "atan2 " << v << std::endl; 
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::atan2 (tab_a0[k],tab_a1[k])), 1);
+	  std::cout << "atan2 " << i <<  "  " << nt2::atan2(tab_a0[k],tab_a1[k]) << std::endl; 
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -145,10 +149,15 @@ NT2_TEST_CASE_TPL ( atan2_uint_convert__2_0,  (nt2::uint32_t)(nt2::uint64_t))
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = atan2(a0,a1);
+	std::cout << "a0 " << a0 << std::endl; 
+	std::cout << "a1 " << a1 << std::endl; 
+	std::cout << "atan2 " << v << std::endl; 
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::atan2 (tab_a0[k],tab_a1[k])), 1);
+	  std::cout << "atan2 " << i <<  "  " << nt2::atan2(tab_a0[k],tab_a1[k]) << std::endl; 
+
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

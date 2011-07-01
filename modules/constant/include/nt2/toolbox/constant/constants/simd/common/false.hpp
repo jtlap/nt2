@@ -12,24 +12,18 @@
 #include <nt2/include/constants/digits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// in SIMD, False is simply 0 adn forward to its actual optimized version
+// in SIMD, False is simply 0 and forward to its actual optimized version
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::false_, tag::cpu_
-                      , (A0)(X), ((target_< simd_< arithmetic_<A0> ,X> >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct  call< tag::false_( tag::target_<tag::simd_<tag::arithmetic_,X> >)
-              , tag::cpu_
-              , Dummy
-              >
-        : call< tag::digit_<0>( tag::target_<tag::simd_<tag::arithmetic_,X> >)
-              , tag::cpu_
-              , Dummy
-              >
-  {};
+  NT2_FUNCTOR_IMPLEMENTATION( tag::false_, tag::cpu_
+                            , (A0)(X)
+                            , ((target_< simd_< arithmetic_<A0> ,X> >))
+                            )
+  {
+    typedef typename meta::strip<A0>::type::type result_type;
+    NT2_FUNCTOR_CALL(1) { return Zero<result_type>(); }
+  };
 } }
 
 #endif

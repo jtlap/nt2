@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULPDIST_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULPDIST_HPP_INCLUDED
 #include <nt2/include/constants/eps_related.hpp>
@@ -58,55 +58,27 @@
 //     ulpdist(double(nt2::Pi<float>()), nt2::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ulpdist_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
-                         );
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class X, class Dummy>
-  struct call<tag::ulpdist_(tag::simd_<tag::arithmetic_, X> ,
-                            tag::simd_<tag::arithmetic_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return (max(a0, a1)-min(a0,a1));
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::ulpdist_, tag::cpu_,
-                          (A0)(X),
-                          ((simd_<real_<A0>,X>))
-                          ((simd_<real_<A0>,X>))
-                         );
-
-namespace nt2 { namespace ext
-{
-  template<class X, class Dummy>
-  struct call<tag::ulpdist_(tag::simd_<tag::real_, X> ,
-                            tag::simd_<tag::real_, X> ),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                              ((simd_<real_<A0>,X>))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0,class A1>
-    struct result<This(A0,A1)>  : meta::strip<A0>{};
-
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0>::type itype;
       itype e1, e2;
@@ -114,11 +86,14 @@ namespace nt2 { namespace ext
       boost::fusion::tie(m1, e1) = nt2::frexp(a0);
       boost::fusion::tie(m2, e2) = nt2::frexp(a1);
       itype expo = -nt2::max(e1, e2);
-      A0 e = sel(is_equal(e1, e2), nt2::abs(m1-m2), nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo)));
-      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1),  Zero<A0>(), e/Eps<A0>());
+      A0 e = sel( is_equal(e1, e2)
+                , nt2::abs(m1-m2)
+                , nt2::abs(nt2::ldexp(a0, expo)-nt2::ldexp(a1, expo))
+                );
+      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
     }
   };
 } }
 
+
 #endif
-// modified by jt the 04/01/2011

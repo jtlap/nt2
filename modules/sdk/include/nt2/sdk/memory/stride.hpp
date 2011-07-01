@@ -31,16 +31,16 @@ namespace nt2
   template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
-                  , nt2::meta
-                    ::enable_call < tag::stride_( Seq const&
-                                                , Padding const&
-                                                , boost::mpl::size_t<N> const&
-                                                )
+                  , meta::call<tag::stride_
+                                      ( Seq const&
+                                      , Padding const&
+                                      , boost::mpl::size_t<N> const&
+                                      )
                                   >
                   >::type
   stride(Seq const& s, Padding const& p)
   {
-    functor<tag::stride_> callee;
+    typename make_functor<tag::stride_,Seq>::type callee;
     return callee(s,p,boost::mpl::size_t<N>() );
   }
 }
@@ -48,10 +48,14 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 // slice dispatch on basic padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::stride_, tag::cpu_
+namespace nt2 { namespace meta
+{
+  NT2_REGISTER_DISPATCH ( tag::stride_, tag::cpu_
                       , (A0)(A1)(A2)
                       , (fusion_sequence_<A0>)
                         (padding_<A1>)
-                        (mpl_integral_< integer_<A2> >)
+                        (mpl_integral_< scalar_< integer_<A2> > >)
                       )
+} }
+
 #endif

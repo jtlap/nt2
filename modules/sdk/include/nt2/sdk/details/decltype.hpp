@@ -6,8 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_DETAILS_DECLTYPE_HPP_INCLUDED
-#define NT2_SDK_DETAILS_DECLTYPE_HPP_INCLUDED
+#ifndef NT2_DECLTYPE
 
 /*!
  * \file
@@ -31,8 +30,11 @@
 #undef BOOST_NO_DECLTYPE
 #endif
 
-#include <boost/proto/proto_fwd.hpp>
-#include <boost/proto/detail/decltype.hpp>
+#include <boost/typeof/typeof.hpp>
+
+#if defined(BOOST_NO_DECLTYPE) && !defined(BOOST_TYPEOF_NATIVE)
+#error compiler supports neither decltype nor typeof
+#endif
 
 /*!
  * \ingroup meta
@@ -44,6 +46,12 @@
  *
  * \include decltype.cpp
  */
-#define NT2_DECLTYPE(EXPR, TYPE) BOOST_PROTO_DECLTYPE_(EXPR, TYPE)
+#ifndef BOOST_NO_DECLTYPE
+#define NT2_DECLTYPE(EXPR, TYPE) typedef decltype(EXPR) TYPE;
+#else
+#define NT2_DECLTYPE(EXPR, TYPE)                                       \
+BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))   \
+typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;
+#endif
 
 #endif

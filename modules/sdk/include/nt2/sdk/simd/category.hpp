@@ -9,39 +9,24 @@
 #ifndef NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
 #define NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// Basic category registration
-////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// SIMD types tag
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2
+namespace nt2 { namespace meta
 {
-  namespace tag { template<class T,class X> struct simd_ {}; }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // simd types hierarchy
-  //////////////////////////////////////////////////////////////////////////////
-  namespace meta
+  template<class T,class X> struct simd_ : simd_< typename T::parent, X >
   {
-    template<class T,class X> struct simd_ : simd_<typename T::parent,X>
-    {
-      typedef simd_<typename T::parent,X>     parent;
-      typedef tag::simd_<typename T::type,X>  type;
-    };
+    typedef simd_< typename T::parent, X >  parent;
+    typedef T                               base;
+  };
 
-    template<class T,class X>
-    struct simd_< unspecified_<T>,X > : unspecified_<T>
-    {
-      typedef unspecified_<T>   parent;
-      typedef tag::simd_<tag::unspecified_,X> type;
-    };
-
-    template<class T,class X> struct simd_< unknown_<T>,X > : unknown_<T> {};
-  }
-}
+  template<class T,class X>
+  struct  simd_< unspecified_<T>, X >
+        : generic_< typename property_of<T>::type >
+  {
+    typedef generic_< typename property_of<T>::type > parent;
+    typedef unspecified_<T>                           base;
+  };
+} }
 
 #endif

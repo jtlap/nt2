@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/functions/predecessor.hpp>
@@ -16,41 +16,36 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_greater_or_equal_, tag::cpu_,
-                                         (A0)(A1)(A2),
-                                         (arithmetic_<A0>)(arithmetic_<A1>)(integer_<A2>)
-                                        )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::almost_greater_or_equal_(tag::arithmetic_,tag::arithmetic_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_greater_or_equal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    typedef bool result_type; 
-    
+
+    typedef bool result_type;
+
     NT2_FUNCTOR_CALL(3)
     {
       return a0 >= a1-a2;
     }
   };
 } }
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_greater_or_equal_, tag::cpu_,
-                                         (A0)(A1)(A2),
-                                         (unsigned_<A0>)(unsigned_<A1>)(integer_<A2>)
-                                        )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::almost_greater_or_equal_(tag::unsigned_,tag::unsigned_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_greater_or_equal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    typedef bool result_type; 
-    
+
+    typedef bool result_type;
+
     NT2_FUNCTOR_CALL(3)
     {
       return a0 >= subs(a1, a2);
@@ -58,21 +53,19 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH(tag::almost_greater_or_equal_, tag::cpu_,
-                                         (A0)(A1)(A2),
-                                         (real_<A0>)(real_<A1>)(integer_<A2>)
-                                        )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct call<tag::almost_greater_or_equal_(tag::real_,tag::real_,tag::integer_),
-              tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_greater_or_equal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
+                            )
   {
-    typedef bool result_type; 
+
+    typedef bool result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -88,5 +81,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+
 #endif
-// modified by jt the 26/12/2010

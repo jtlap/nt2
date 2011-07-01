@@ -27,11 +27,10 @@
 #include <nt2/sdk/functor/forward.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
-#include <nt2/sdk/functor/meta/enable_call.hpp>
 #include <nt2/sdk/functor/details/dispatch.hpp>
 #include <nt2/sdk/functor/meta/make_functor.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
-#include <nt2/sdk/meta/result_of.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 
 #if ((defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
@@ -68,7 +67,6 @@ namespace nt2
    *
    * \see call
    * \see hierarchy
-   * \see enable_call
    * \see make_functor
    */
   //============================================================================
@@ -76,14 +74,20 @@ namespace nt2
   {
     template<class Sig> struct result;
 
-    #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) \
-     || defined(DOXYGEN_ONLY)
+    #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)   \
+        &&  !defined(BOOST_NO_RVALUE_REFERENCES)    \
+        &&  !defined(NT2_CREATE_PREPROCESSED_FILES) \
+        )                                           \
+        || defined(DOXYGEN_ONLY)
     template<class This, class... Args>
-    struct  result<This(Args...)>
-    {
-      typedef typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
-      typedef typename meta::result_of<callee(Args...)>::type   type;
-    };
+    struct result<This(Args...)>
+      : meta::
+        result_of< typename meta::
+                   dispatch_call< Tag(Args...)
+                                , EvalContext
+                                >::type(Args...)
+                 >
+    {};
 
     //==========================================================================
     /*!
@@ -96,11 +100,12 @@ namespace nt2
      */
     //==========================================================================
     template<class... Args> NT2_FORCE_INLINE
-    typename meta::enable_call<Tag(Args...), EvalContext>::type
+    typename result<functor(Args...)>::type
     operator()( Args&& ...args ) const
     {
-      typename meta::dispatch_call<Tag(Args...),EvalContext>::type callee;
-      return callee( std::forward<Args>(args)... );
+      return meta::dispatch( Tag(), EvalContext()
+                           , std::forward<Args>(args)... )
+                           ( std::forward<Args>(args)... );
     }
     #elif !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(NT2_CREATE_PREPROCESSED_FILES_NO_0X)
     
@@ -117,25 +122,21 @@ namespace nt2
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-    {                                                                         \
-      typedef typename                                                        \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
-                                                                    callee;   \
-      typedef typename                                                        \
-      meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
-    };                                                                        \
+      : meta::                                                                \
+        result_of< typename meta::                                            \
+                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                                , EvalContext                                 \
+                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                 >                                                            \
+    {};                                                                       \
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> NT2_FORCE_INLINE                \
-    typename meta::enable_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                \
-                              , EvalContext>::type                            \
+    typename result<functor(BOOST_PP_ENUM_PARAMS(n,A))>::type                 \
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
     {                                                                         \
-      typename                                                                \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A))                      \
-                         ,EvalContext                                         \
-                         >::type                                              \
-      callee;                                                                 \
-      return callee( BOOST_PP_ENUM(n, M1, ~) );                               \
+      return meta::dispatch( Tag(), EvalContext()                             \
+                           , BOOST_PP_ENUM(n, M1, ~) )                        \
+                           ( BOOST_PP_ENUM(n, M1, ~) );                       \
     }                                                                         \
     /**/
 
@@ -148,7 +149,7 @@ namespace nt2
 #endif
 #endif
     
-    #else
+#else
 
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/preprocessed/functor.hpp>
@@ -159,7 +160,7 @@ namespace nt2
 #endif
 
     #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
-    BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) & BOOST_PP_CAT(a,i) \
+    BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) & BOOST_PP_CAT(a,i)                   \
     /**/
 
     #define arg_type(r,_,i,b) BOOST_PP_COMMA_IF(i) BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) &
@@ -171,29 +172,28 @@ namespace nt2
     
     #define call_operator(r, constness)                                       \
     template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> NT2_FORCE_INLINE\
-    typename meta::enable_call< Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))\
-                              , EvalContext>::type                            \
+    typename result < functor                                                 \
+                      (BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))     \
+                    >::type                                                   \
     operator()(BOOST_PP_SEQ_FOR_EACH_I_R(r,param,~,constness)) const          \
     {                                                                         \
-      typename                                                                \
-      meta::dispatch_call<Tag(BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))      \
-                         ,EvalContext                                         \
-                         >::type                                              \
-      callee;                                                                 \
-      return callee( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );             \
+      return meta::dispatch ( Tag(),EvalContext()                             \
+                            , BOOST_PP_ENUM_PARAMS(n_size(constness),a)       \
+                            )                                                 \
+                            ( BOOST_PP_ENUM_PARAMS(n_size(constness),a) );    \
     }                                                                         \
     /**/
 
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
-    {                                                                         \
-      typedef typename                                                        \
-      meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),EvalContext>::type   \
-                                                                    callee;   \
-      typedef typename                                                        \
-      meta::result_of<callee(BOOST_PP_ENUM_PARAMS(n,A))>::type  type;         \
-    };                                                                        \
+      : meta::                                                                \
+        result_of< typename meta::                                            \
+                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                                , EvalContext                                 \
+                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                 >                                                            \
+    {};                                                                       \
                                                                               \
     BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(                                          \
         z,                                                                    \
@@ -203,6 +203,7 @@ namespace nt2
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_ARITY),M0,~)    
+
     #undef M0
     #undef bits
     #undef n_size

@@ -14,6 +14,7 @@
  * \brief Defines and implements the nt2::meta::is_scalar \metafunction
  */
 
+#include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/details/is_scalar.hpp>
 

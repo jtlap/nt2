@@ -13,31 +13,19 @@ namespace nt2
     }
 }
 
-NT2_REGISTER_DISPATCH(
-    matlab::sin_, tag::cpu_,
-    (A0),
-    (real_<A0>)
-)
-
-namespace nt2
+namespace nt2 { namespace meta
 {
-    namespace ext
-    {
-        template<typename Dummy>
-        struct call<matlab::sin_(tag::real_), tag::cpu_, Dummy> : callable
-        {
-            template<typename Sig>
-            struct result;
-    
-            template<typename This, typename A0>
-            struct result<This(A0)> { typedef typename meta::strip<A0>::type type; };
-        
-            NT2_FUNCTOR_CALL(1)
-            {
-                return matlab::feval<typename NT2_RETURN_TYPE(1)::type>("sin", a0);
-            }
-        };
-    }
-}
+  NT2_FUNCTOR_IMPLEMENTATION( matlab::sin_, tag::cpu_,
+			     (A0),
+			     (scalar<real_<A0> >)
+			      )
+  {
+    typedef A0 result_type; 
+    NT2_FUNCTOR_CALL(1)
+      {
+	return matlab::feval<typename NT2_RETURN_TYPE(1)::type>("sin", a0);
+      }
+  };
+} }
 
 #endif

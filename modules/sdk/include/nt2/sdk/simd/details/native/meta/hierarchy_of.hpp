@@ -13,13 +13,20 @@
 
 namespace nt2 { namespace meta
 {
-  template<class Scalar,class Extension>
-  struct hierarchy_of< simd::native<Scalar,Extension> >
+  template<class Scalar,class Extension, class Origin>
+  struct hierarchy_of< simd::native<Scalar,Extension>, Origin >
   {
-    typedef meta::simd_ < typename meta::hierarchy_of<Scalar>::type
+    typedef meta::simd_ < typename meta::
+                          hierarchy_of< Scalar
+                                      , Origin
+                                      >::type::base
                         , Extension
                         >                                   type;
   };
+
+  template<class Scalar,class Extension, class Origin>
+  struct  property_of< simd::native<Scalar,Extension>, Origin >
+        : property_of< Scalar, Origin > {};
 } }
 
 #endif

@@ -15,7 +15,7 @@
  */
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <nt2/sdk/details/decltype.hpp>
 
 #if defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/extension/parameters.hpp>
@@ -60,7 +60,7 @@ namespace nt2  { namespace meta
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/arithmetic.hpp")
-#undef BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+#undef NT2_DECLTYPE
 #endif
 
     #define M0(z,n,t) static typename meta::strip<BOOST_PP_CAT(A,n)>::type& \
@@ -73,9 +73,9 @@ namespace nt2  { namespace meta
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
     {                                                                           \
       BOOST_PP_REPEAT(n,M0,~)                                                   \
-      BOOST_TYPEOF_NESTED_TYPEDEF_TPL (  nested                                 \
-                                      ,  a0 BOOST_PP_REPEAT_FROM_TO(1,n,M1,~))  \
-       typedef typename nested::type   type;                                    \
+      NT2_DECLTYPE( a0 BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)                        \
+                  , type                                                        \
+                  );                                                            \
      };                                                                         \
      /**/
 

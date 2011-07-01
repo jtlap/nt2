@@ -9,38 +9,20 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_ZERO_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_ZERO_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::digit_<0>, tag::cpu_, (A0)
-                      , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
-                      )
-
-namespace nt2 { namespace ext
+namespace nt2 { namespace meta
 {
-  template<class Dummy>
-  struct  call< tag::digit_<0>( tag::target_<tag::simd_ < tag::arithmetic_
-                                                        , tag::altivec_
-                                                        >
-                                            > 
-                              )
-              , tag::cpu_
-              , Dummy
-              >
-        : callable
+  NT2_FUNCTOR_IMPLEMENTATION( tag::digit_<0>, tag::cpu_, (A0)
+                            , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)> : meta::strip<A0>::type {};
+    typedef typename meta::strip<A0>::type::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename NT2_RETURN_TYPE(1)::type type;
-      type that = { simd::native_cast<type>(vec_splat_u8(0)) };
+      result_type that = { simd::native_cast<result_type>(vec_splat_u8(0)) };
       return that;
     }
   };
 } }
 
 #endif
-

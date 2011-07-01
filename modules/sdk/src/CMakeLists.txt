@@ -20,7 +20,6 @@ include(nt2.preprocess)
 nt2_preprocess(sdk0x.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
                                 ${NT2_SDK_ROOT}/include/nt2/sdk/functor/details/dispatch.hpp
                                 ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/call.hpp
-                                ${NT2_SDK_ROOT}/include/nt2/sdk/functor/meta/enable_call.hpp
                                 ${NT2_SDK_ROOT}/include/nt2/sdk/dsl/call.hpp
                                 ${NT2_SDK_ROOT}/include/nt2/sdk/meta/arithmetic.hpp
                                 ${NT2_SDK_ROOT}/include/nt2/sdk/meta/floating.hpp
