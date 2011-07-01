@@ -44,9 +44,29 @@ namespace nt2 { namespace meta
   };
 } }
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::atan2_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
+                            )
+  {
+
+    typedef typename meta::as_real<A0>::type result_type;
+
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      result_type z = atan(tofloat(a0)/tofloat(a1));  
+      return sel(is_eqz(a0), Zero<result_type>(), z);
+    }
+  };
+} }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is uint_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
@@ -62,9 +82,9 @@ namespace nt2 { namespace meta
     {
       A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z);
-      z = sel(is_nez(a1), z, z*Half<A0>());
+      //      z = sel(is_nez(a1), z, z*Half<A0>());
       z = z*signnz(a0);
-      return sel(is_eqz(a0), sel(is_ltz(a0), Pi<A0>(), Zero<A0>()), z);
+      return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
     }
   };
 } }
