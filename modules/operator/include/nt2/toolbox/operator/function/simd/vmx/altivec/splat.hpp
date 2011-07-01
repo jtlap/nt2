@@ -16,11 +16,11 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
-                            , (fundamental_<A0>)
+                            , (scalar_< fundamental_<A0> >)
                               ((target_<simd_<arithmetic_<A1>,tag::altivec_> >))
                             )
   {
-    typedef A1 result_type;
+    typedef typename A1::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
   {
     typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL_REEPAT(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { vec_add(a0(),a1()) };
       return that;

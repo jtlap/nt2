@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MULTIPLIES_HPP_INCLUDED
 
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/include/constants/digits.hpp>
 
 namespace nt2 { namespace meta
