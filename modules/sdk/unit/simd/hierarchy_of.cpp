@@ -92,7 +92,8 @@ NT2_TEST_CASE_TPL(simd_expr_category, (double))
 
   pack<T> x,y;
 
-  NT2_DECLTYPE(x+y, type_t);
+  NT2_DECLTYPE(x+y, type_t_);
+  typedef typename nt2::meta::strip<type_t_>::type type_t;
   typedef typename boost::proto::domain_of<type_t>::type domain_t;
 
   NT2_TEST(( is_same< typename hierarchy_of<type_t>::type
