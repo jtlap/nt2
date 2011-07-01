@@ -20,12 +20,11 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(tag::minusone_, tag::cpu_,
 			     (A0),
-			     (scalar_ < fundamental_<A0> > )
+			     (scalar_ < arithmetic_<A0> > )
 			     )
   {
-//     typedef typename meta::strip<A0>::type sA0; 
-//     typedef typename meta::result_of<meta::arithmetic(sA0)>::type tmp;
-    typedef typename meta::as_signed<A0>::type result_type;
+    typedef typename meta::result_of<meta::arithmetic(A0)>::type tmp;
+    typedef typename meta::as_signed<tmp>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
