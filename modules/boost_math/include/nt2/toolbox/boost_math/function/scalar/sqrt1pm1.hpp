@@ -43,7 +43,7 @@ namespace nt2 { namespace meta
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     { return boost::math::sqrt1pm1(a0, nt2_policy()); }

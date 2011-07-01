@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::boost_math::sqrt1pm1(a0),nt2::sqrt1pm1(a0),1);
+        NT2_TEST_ULP_EQUAL( nt2::boost_math::sqrt1pm1(a0),nt2::sqrt1pm1(a0),2);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

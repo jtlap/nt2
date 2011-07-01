@@ -47,4 +47,22 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = sqrt1pm1(a0);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sqrt1pm1 (tab_a0[k])), 2);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl;
+  }
 } // end of test for real_
