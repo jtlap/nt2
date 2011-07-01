@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
 
   NT2_FUNCTOR_IMPLEMENTATION(crlibm::tag::asinpi_<Rounding>, tag::cpu_,
                         (A0)(Rounding),
-                        (double_<A0>)
+                        (scalar_ < double_<A0> > )
                        )
   {
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
