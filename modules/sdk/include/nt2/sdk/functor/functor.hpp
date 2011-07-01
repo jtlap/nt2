@@ -20,9 +20,6 @@
  * This module gathers macros, classes and functions to define, implement
  * and specialize polymorphic functors.
  */
-#ifndef NT2_DONT_USE_PREPROCESSED_FILES
-#define NT2_DONT_USE_PREPROCESSED_FILES
-#endif
 
 #include <boost/config.hpp>
 #include <nt2/sdk/meta/arithmetic.hpp>

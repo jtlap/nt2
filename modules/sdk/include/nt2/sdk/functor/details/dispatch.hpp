@@ -15,10 +15,6 @@
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
 
-#ifndef NT2_DONT_USE_PREPROCESSED_FILES
-#define NT2_DONT_USE_PREPROCESSED_FILES
-#endif
-
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
 #else
