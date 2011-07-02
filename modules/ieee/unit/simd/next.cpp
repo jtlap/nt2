@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/ieee/include/next.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::next;
   using nt2::tag::next_;
@@ -56,5 +55,4 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(next(nt2::One<vT>())[0], nt2::One<sr_t>()+nt2::Eps<sr_t>());
   NT2_TEST_EQUAL(next(nt2::Valmax<vT>())[0], nt2::Inf<sr_t>());
   NT2_TEST_EQUAL(next(nt2::Zero<vT>())[0], nt2::Zero<sr_t>()+nt2::Mindenormal<T>());
-  NT2_TEST_EQUAL(next(nt2::Mzero<vT>())[0], nt2::Zero<sr_t>()+nt2::Mindenormal<T>());
 } // end of test for real_

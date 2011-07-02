@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/ieee/include/saturate.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::saturate;
   using nt2::tag::saturate_;
