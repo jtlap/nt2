@@ -16,7 +16,6 @@
 #include <nt2/toolbox/elliptic/include/ellipke.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -30,8 +29,7 @@
 
 
 
-
-NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
@@ -68,7 +66,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
