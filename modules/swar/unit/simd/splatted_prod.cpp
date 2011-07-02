@@ -29,7 +29,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( splatted_prod_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splatted_prod_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::splatted_prod;
   using nt2::tag::splatted_prod_;
