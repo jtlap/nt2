@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/exponential/include/pow.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +22,6 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-
 
 
 
@@ -46,14 +44,14 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(pow(T(-1),T(5)), T(-1), 0);
+  NT2_TEST_ULP_EQUAL(pow(T(-1),T(6)), T(1), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(), nt2::Zero<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(T(-1), T(6)),   T(1), 0);
-  NT2_TEST_ULP_EQUAL(pow(T(-1), T(5)),   T(-1), 0);
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( pow_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)

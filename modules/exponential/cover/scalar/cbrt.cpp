@@ -57,7 +57,6 @@ NT2_TEST_CASE_TPL ( cbrt_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::cbrt(a0),r_t(::cephes_cbrtl(a0)),2);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::sqr(nt2::cbrt(a0))*nt2::cbrt(a0),r_t(a0),3);
         ulp0=nt2::max(ulpd,ulp0);
      }
@@ -94,7 +93,6 @@ NT2_TEST_CASE_TPL ( cbrt_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::cbrt(a0),r_t(::cephes_cbrtl(a0)),2);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::sqr(nt2::cbrt(a0))*nt2::cbrt(a0),r_t(a0),3);
         ulp0=nt2::max(ulpd,ulp0);
      }
@@ -131,7 +129,6 @@ NT2_TEST_CASE_TPL ( cbrt_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::cbrt(a0),r_t(::cephes_cbrtl(a0)),2);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::sqr(nt2::cbrt(a0))*nt2::cbrt(a0),r_t(a0),3);
         ulp0=nt2::max(ulpd,ulp0);
      }

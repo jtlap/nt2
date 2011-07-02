@@ -32,7 +32,7 @@ extern "C" { long double cephes_log10l(long double); }
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( log10_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( log10_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::log10;
   using nt2::tag::log10_;
