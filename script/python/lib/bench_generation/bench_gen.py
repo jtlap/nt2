@@ -115,10 +115,10 @@ class Bench_gen() :
                             "groupable_"    : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double"],
                             "splitable_"    : ["nt2::int8_t","nt2::uint8_t","nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","float"],
                             "gt_8_"         : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double","float"], 
-                            "lt_64_"        : ["nt2::int16_t",nt2::uint16_t","nt2::int32_t",nt2::uint32_t","nt2::int8_t",nt2::uint8_t","float"],
-                            "gt_16_"        : ["nt2::int32_t",nt2::uint32_t","nt2::int64_t",nt2::uint64_t","float","double"],
+                            "lt_64_"        : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int8_t","nt2::uint8_t","float"],
+                            "gt_16_"        : ["nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","float","double"],
                             "sintgt_16_"    : ["nt2::int32_t","nt2::int64_t"],
-                            nt2::uintgt_16_"    : [nt2::uint32_t",nt2::uint64_t"],
+                            "uintgt_16_"    : ["nt2::uint32_t","nt2::uint64_t"],
                             "int_convert_"  : ["nt2::int32_t","nt2::int64_t"],
                             "uint_convert_" : ["nt2::uint32_t","nt2::uint64_t"], 
                              }
