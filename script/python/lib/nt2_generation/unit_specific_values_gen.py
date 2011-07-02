@@ -33,7 +33,8 @@ import re
 def extract(d,key_substitute,default_value,*fromkeys) :
     d1 =d
     for k in fromkeys :
-        d1 = d1.get(k,d1.get(key_substitute,default_value))
+        if isinstance(d1,dict) :
+            d1 = d1.get(k,d1.get(key_substitute,default_value))
     return d1    
 
 class Specific_values_test_gen(Base_gen) :

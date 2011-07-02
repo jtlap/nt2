@@ -130,14 +130,16 @@ class Type_header_test_gen() :
     def __create_end_txt(self,d,typ) :
         return self.bg.create_unit_txt_part(Type_header_test_gen.Type_Footer,self.__prepare,d=d,typ=typ)
 
-    def __macro(self,typ) :
+    def __macro(self,typ,mode='scalar') :
         if typ in Type_header_test_gen.Macros_dict.keys() :
             r = Type_header_test_gen.Macros_dict[typ]
         elif typ[-2:] =="_t" :
             r = "(nt2::"+typ+")"
         else :
             r = "("+typ+")"
-##            print("r = %s"%r)
+        if mode == "simd" :
+            r = re.sub("REAL","SIMD_REAL",r)
+        print("r = %s"%r)
         return r    
 
     def __get_call_types(self,d) :
@@ -194,7 +196,7 @@ class Type_header_test_gen() :
         s=re.sub("\$tb_name\$",self.bg.get_tb_name(),s)
         s=re.sub("\$fct_name\$",n,s)
         s=re.sub("\$fct_name_repl\$",n_repl,s)
-        s=re.sub("\$macro_types\$",self.__macro(typ),s)
+        s=re.sub("\$macro_types\$",self.__macro(typ,self.bg.get_fct_mode()),s)
         s=re.sub("\$type\$"    ,typ,s)
         s=re.sub("\$arity\$"   ,str(df.get("arity","1")),s)
         s=re.sub("\$rank\$"   ,str(self.__rank),s)
