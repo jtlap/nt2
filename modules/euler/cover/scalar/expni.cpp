@@ -16,6 +16,8 @@
 #include <nt2/toolbox/euler/include/expni.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+extern "C" double cephes_expn(int,double);
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -23,7 +25,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-extern "C" { long double cephes_expn(int i,  double x); }
+
 
 NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
 {
@@ -45,8 +47,8 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(1));
+    NT2_CREATE_BUF(tab_a0,iT, NR, iT(-10), iT(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     iT a0;
     T a1;

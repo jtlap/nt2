@@ -16,6 +16,8 @@
 #include <nt2/toolbox/euler/include/expni.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+extern "C" double cephes_expn(int,double);
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +30,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::expni;
   using nt2::tag::expni_;
@@ -51,13 +53,12 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,iT, NR, iT(-10), iT(10));
-    NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         iT a0 = tab_a0[j];
         vT a1 = load<vT>(&tab_a1[0],j);
-	std::cout << "a0 " << a0 << " a1 " << a1 << std::endl; 
         r_t v = expni(a0,a1);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {

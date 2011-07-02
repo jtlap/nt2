@@ -15,6 +15,7 @@
 /// 
 #include <nt2/toolbox/euler/include/expni.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+extern "C" double cephes_expn(int,double);
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
