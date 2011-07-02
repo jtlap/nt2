@@ -31,7 +31,7 @@ extern "C" {extern long double cephes_atanl(long double);}
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( atanpi_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( atanpi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::atanpi;
   using nt2::tag::atanpi_;

@@ -25,7 +25,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/toolbox/trigonometric/include/sincos.hpp>
 
-NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
 {
   using nt2::sincos;
   using nt2::tag::sincos_;
