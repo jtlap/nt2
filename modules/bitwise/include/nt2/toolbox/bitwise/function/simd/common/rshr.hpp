@@ -28,21 +28,23 @@ namespace nt2 { namespace meta
                                 , ((simd_<arithmetic_<A0>,X>))
                                   ((simd_<integer_<A1>,X>))
                        )
-/*  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(2) { return map(functor<tag::rshr_>(), a0, a1); }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( tag::rshr_, tag::cpu_, (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<integer_<A1>,X>))
-                            )*/
   {
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      return sel(is_gtz(a1),shri(a0, a1),shli(a0, -a1));
+      return sel(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( tag::rshr_, tag::cpu_, (A0)(A1)(X)
+                            , ((simd_<arithmetic_<A0>,X>))((integer_<A1>))
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      if(is_gtz(a1)) return shri(a0, a1);  else return shli(a0, -a1);
     }
   };
 } }
