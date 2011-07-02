@@ -30,7 +30,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::seladd;
   using nt2::tag::seladd_;
@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( seladd_integer__3_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( seladd_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::seladd;
   using nt2::tag::seladd_;

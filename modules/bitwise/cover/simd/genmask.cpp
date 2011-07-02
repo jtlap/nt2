@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( genmask_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( genmask_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::genmask;
   using nt2::tag::genmask_;
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( genmask_integer__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( genmask_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::genmask;
   using nt2::tag::genmask_;

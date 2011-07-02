@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( ror_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::ror;
   using nt2::tag::ror_;

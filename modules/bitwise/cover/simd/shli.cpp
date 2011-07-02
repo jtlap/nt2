@@ -30,7 +30,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::shli;
   using nt2::tag::shli_;

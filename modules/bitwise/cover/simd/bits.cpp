@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( bits_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bits_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::bits;
   using nt2::tag::bits_;
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( bits_real__1_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( bits_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( bits_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::bits;
   using nt2::tag::bits_;
@@ -104,7 +104,7 @@ NT2_TEST_CASE_TPL ( bits_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( bits_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( bits_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::bits;
   using nt2::tag::bits_;

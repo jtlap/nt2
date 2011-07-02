@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/bitwise/include/popcnt.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( popcnt_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( popcnt_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::popcnt;
   using nt2::tag::popcnt_;
@@ -53,7 +52,7 @@ NT2_TEST_CASE_TPL ( popcnt_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(popcnt(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( popcnt_integer__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( popcnt_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::popcnt;
   using nt2::tag::popcnt_;
