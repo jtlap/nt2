@@ -15,8 +15,6 @@
 /// 
 #include <nt2/toolbox/fdlibm/include/__ieee754_fmod.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/rem.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>

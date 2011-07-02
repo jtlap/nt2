@@ -16,6 +16,8 @@
 #include <nt2/toolbox/fdlibm/include/__ieee754_remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/remainder.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/idivround.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

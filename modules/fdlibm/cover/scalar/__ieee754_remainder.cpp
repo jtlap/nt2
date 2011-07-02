@@ -16,6 +16,9 @@
 #include <nt2/toolbox/fdlibm/include/__ieee754_remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/rem.hpp>
+#include <nt2/toolbox/fdlibm/include/fmod.hpp>
+
 #include <nt2/include/functions/remainder.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/idivround.hpp>
@@ -60,8 +63,8 @@ NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        T v1 = nt2::abs(nt2::fdlibm::__ieee754_remainder(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
-        T v2 = nt2::abs(nt2::remainder(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
+        T v1 = nt2::abs(nt2::fdlibm::fmod(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
+        T v2 = nt2::abs(nt2::rem(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
         NT2_TEST_LESSER_EQUAL(v2, v1); 
         ulp0=nt2::max(ulpd,ulp0);
      }
