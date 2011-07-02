@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::toint;
   using nt2::tag::toint_;

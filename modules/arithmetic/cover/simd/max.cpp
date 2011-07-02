@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( max_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( max_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::max;
   using nt2::tag::max_;

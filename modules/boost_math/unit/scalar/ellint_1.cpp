@@ -27,7 +27,6 @@
 
 
 
-
 NT2_TEST_CASE_TPL ( ellint_1_real__1_0,  NT2_REAL_TYPES)
 {
   

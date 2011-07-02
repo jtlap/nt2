@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( reversebits_integer__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( reversebits_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::reversebits;
   using nt2::tag::reversebits_;

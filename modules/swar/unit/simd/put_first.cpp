@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/swar/include/put_first.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( put_first_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( put_first_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::put_first;
   using nt2::tag::put_first_;
@@ -57,7 +56,7 @@ NT2_TEST_CASE_TPL ( put_first_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(put_first(nt2::Zero<vT>(),0)[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::put_first;
   using nt2::tag::put_first_;
@@ -83,7 +82,7 @@ NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(put_first(nt2::Zero<vT>(),0)[0], nt2::Zero<sr_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::put_first;
   using nt2::tag::put_first_;

@@ -66,7 +66,7 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::Zero<r_t1>()'],'ulp_thresh' : '0.5',},
+                 'nt2::One<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Inf<r_t0>()','nt2::One<r_t1>()'],'ulp_thresh' : '0.5',},
                  'nt2::Zero<T>(),nt2::Eps<scalar>()' : {'result' : ['nt2::Pio_2<r_t0>()', 'nt2::Pio_2<r_t1>()'],'ulp_thresh' : '0.5',},
                 },
             },

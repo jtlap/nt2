@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/adds.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::adds;
   using nt2::tag::adds_;
@@ -56,7 +55,7 @@ NT2_TEST_CASE_TPL ( adds_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(adds(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( adds_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( adds_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::adds;
   using nt2::tag::adds_;

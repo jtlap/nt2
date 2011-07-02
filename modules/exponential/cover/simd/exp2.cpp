@@ -33,7 +33,7 @@ extern "C" { long double cephes_exp2l(long double); }
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::exp2;
   using nt2::tag::exp2_;

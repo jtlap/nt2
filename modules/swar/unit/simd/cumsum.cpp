@@ -29,7 +29,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::cumsum;
   using nt2::tag::cumsum_;
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(cumsum(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::cumsum;
   using nt2::tag::cumsum_;
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(cumsum(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::cumsum;
   using nt2::tag::cumsum_;

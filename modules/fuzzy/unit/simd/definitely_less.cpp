@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/fuzzy/include/definitely_less.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::definitely_less;
   using nt2::tag::definitely_less_;
@@ -53,7 +52,7 @@ NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::definitely_less;
   using nt2::tag::definitely_less_;
@@ -79,7 +78,7 @@ NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(2),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( definitely_less_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( definitely_less_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::definitely_less;
   using nt2::tag::definitely_less_;

@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/ldiv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( ldiv_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ldiv_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ldiv;
   using nt2::tag::ldiv_;

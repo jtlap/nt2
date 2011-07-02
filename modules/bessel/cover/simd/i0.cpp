@@ -30,7 +30,7 @@ extern "C" {double cephes_i0( double);}
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( i0_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( i0_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::i0;
   using nt2::tag::i0_;

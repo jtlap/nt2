@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 08/12/2010',
-             'included' : ['extern "C" {double cephes_expn(int,double);'],
+             'included' : ['extern "C" double cephes_expn(int,double);'],
              'notes' : [],
              'stamp' : 'modified by jt the 14/12/2010',
             },

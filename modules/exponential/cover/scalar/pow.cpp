@@ -64,9 +64,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,a1),::cephes_powl(a0,a1),11);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Two<T>()),nt2::sqr(a0),1);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::pow(a0,nt2::Half<T>()),nt2::sqrt(a0),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
@@ -144,9 +142,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::powi(a0,a1),cephes_powil(a0,a1),2);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Two<iT>()),nt2::sqr(a0),2);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::powi(a0,nt2::Three<iT>()),a0*nt2::sqr(a0),2);
         ulp0=nt2::max(ulpd,ulp0);
      }

@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/bitwise/include/bitwise_select.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitwise_select_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_select_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::bitwise_select;
   using nt2::tag::bitwise_select_;
@@ -55,7 +54,7 @@ NT2_TEST_CASE_TPL ( bitwise_select_real__3_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_select(nt2::Zero<vT>(), nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( bitwise_select_integer__3_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::bitwise_select;
   using nt2::tag::bitwise_select_;

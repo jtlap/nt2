@@ -104,7 +104,7 @@ NT2_TEST_CASE_TPL ( ffs_double_1_0,  (double))
   }
 } // end of test for double
 
-NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::ffs;
   using nt2::tag::ffs_;
@@ -142,7 +142,7 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( ffs_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ffs_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::ffs;
   using nt2::tag::ffs_;

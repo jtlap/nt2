@@ -30,7 +30,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( definitely_not_equal_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( definitely_not_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::definitely_not_equal;
   using nt2::tag::definitely_not_equal_;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL ( definitely_not_equal_real__3_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( definitely_not_equal_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( definitely_not_equal_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::definitely_not_equal;
   using nt2::tag::definitely_not_equal_;
@@ -114,7 +114,7 @@ NT2_TEST_CASE_TPL ( definitely_not_equal_signed_int__3_0,  NT2_INTEGRAL_SIGNED_T
   }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( definitely_not_equal_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( definitely_not_equal_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::definitely_not_equal;
   using nt2::tag::definitely_not_equal_;

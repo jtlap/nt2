@@ -30,7 +30,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::compare_less;
   using nt2::tag::compare_less_;

@@ -33,7 +33,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;

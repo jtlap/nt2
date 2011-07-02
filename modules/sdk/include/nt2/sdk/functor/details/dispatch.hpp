@@ -78,7 +78,7 @@ namespace nt2 { namespace meta
 //==============================================================================
 // Local macro to generate the dispatch selector
 //==============================================================================
-#define M0(z,n,t) typename meta::hierarchy_of<typename meta::strip<A##n>::type>::type()
+#define M0(z,n,t) typename meta::hierarchy_of<A##n>::type()
 /**/
 
 #define NT2_DISPATCH_CALL(z,n,t)                                            \

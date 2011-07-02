@@ -35,7 +35,7 @@ extern "C" { long double cephes_powil(long double,int); }
 
 
 
-NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow;
   using nt2::tag::pow_;
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow;
   using nt2::tag::pow_;

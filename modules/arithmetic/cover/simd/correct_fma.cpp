@@ -31,7 +31,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( correct_fma_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( correct_fma_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::correct_fma;
   using nt2::tag::correct_fma_;

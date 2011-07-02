@@ -36,8 +36,6 @@ NT2_TEST_CASE_TPL ( idivceil_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::arithmetic(T,T)>::type>::type wished_r_t;
 
-  std::cout << "       r_t" << nt2::type_id < r_t > () << std::endl; 
-  std::cout << "wished_r_t" << nt2::type_id < wished_r_t > () << std::endl; 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

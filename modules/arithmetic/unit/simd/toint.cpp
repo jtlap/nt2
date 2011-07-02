@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::toint;
   using nt2::tag::toint_;
@@ -47,7 +46,7 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  std::cout << nt2::type_id < sr_t > () << std::endl; 
+
   // specific values tests
   NT2_TEST_EQUAL(toint(nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
   NT2_TEST_EQUAL(toint(nt2::Minf<vT>())[0], nt2::Minf<sr_t>());
@@ -55,6 +54,4 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(toint(nt2::Nan<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(toint(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(toint(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(toint(nt2::Half<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(toint(nt2::One<vT>()+nt2::Third<vT>())[0], nt2::One<sr_t>());
 } // end of test for real_

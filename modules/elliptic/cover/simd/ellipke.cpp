@@ -34,7 +34,7 @@ extern "C" {long double cephes_ellikl(long double,long double);}
 
 
 
-NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
 
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ellipke;
   using nt2::tag::ellipke_;

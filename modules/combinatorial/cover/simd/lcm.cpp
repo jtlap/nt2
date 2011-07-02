@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_REAL_TYPES)
 
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;

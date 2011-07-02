@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/combinatorial/include/lcm.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;
@@ -62,7 +61,7 @@ NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(lcm(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Nan<T>(), 0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;
@@ -87,7 +86,7 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(lcm(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>(), 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;

@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/trigonometric/include/sind.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( sind_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sind_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::sind;
   using nt2::tag::sind_;

@@ -58,9 +58,7 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::expm1(a0),::cephes_expm1l(a0),1.0);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::expm1(a0)),r_t(a0),1.5);
-        ulp0=nt2::max(ulpd,ulp0);
         NT2_TEST_ULP_EQUAL( nt2::log1p(nt2::sqrt1pm1(a0)),nt2::Half<r_t>()*nt2::log1p(a0),2.);
         ulp0=nt2::max(ulpd,ulp0);
      }

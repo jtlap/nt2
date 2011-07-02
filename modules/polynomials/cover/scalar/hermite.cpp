@@ -32,6 +32,7 @@ NT2_TEST_CASE_TPL ( hermite_real__2_0,  NT2_REAL_TYPES)
   
   using nt2::hermite;
   using nt2::tag::hermite_;
+    typedef typename nt2::meta::as_integer<T>::type iscalar;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hermite_(iT,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -47,6 +48,7 @@ NT2_TEST_CASE_TPL ( hermite_real__2_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+      typedef typename nt2::meta::as_integer<T>::type iscalar;
     NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -70,6 +72,7 @@ NT2_TEST_CASE_TPL ( hermite_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   
   using nt2::hermite;
   using nt2::tag::hermite_;
+    typedef typename nt2::meta::as_integer<T>::type iscalar;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hermite_(iT,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -89,6 +92,7 @@ NT2_TEST_CASE_TPL ( hermite_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   
   using nt2::hermite;
   using nt2::tag::hermite_;
+    typedef typename nt2::meta::as_integer<T>::type iscalar;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hermite_(iT,T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;

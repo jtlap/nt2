@@ -93,7 +93,7 @@ class Type_header_test_gen() :
        "fundamental_" : "NT2_TYPES(bool)",
        "arithmetic_"  : "NT2_TYPES",
        "real_"        : "NT2_REAL_TYPES",
-       "real_convert_": "NT2_REAL_TYPES",
+       "real_convert_": "NT2_REAL_CONVERTIBLE_TYPES",
        "int_convert_" : "(nt2::int32_t)(nt2::int64_t)",
        "uint_convert_": "(nt2::uint32_t)(nt2::uint64_t)",   
        "unsigned_"    : "NT2_UNSIGNED_TYPES",
@@ -138,7 +138,8 @@ class Type_header_test_gen() :
         else :
             r = "("+typ+")"
         if mode == "simd" :
-            r = re.sub("REAL","SIMD_REAL",r)
+            r = re.sub("NT2_(.*?)TYPES","NT2_SIMD_\\1TYPES",r)
+            r = re.sub("(bool)","",r)
         print("r = %s"%r)
         return r    
 
