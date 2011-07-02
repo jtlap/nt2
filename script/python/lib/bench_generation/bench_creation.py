@@ -46,18 +46,19 @@ from bench_gen                       import Bench_gen
 
 def create_one_bench(tb_name,
                      fct_name,
-                     mode) :
-    print("tb %s fct %s with %s mode"%(tb_name,fct_name,mode))
+                     mode,
+                     simd_type) :
+    print("tb %s -> fct -> %s with %s mode -> simd_type %s"%(tb_name,fct_name,mode,simd_type))
     bg = Base_gen(tb_name,fct_name,mode)
-    print(bg.get_module_style(tb_name))
-    bbg =  Bench_gen(bg)
+##    print(bg.get_module_style(tb_name))
+    bbg =  Bench_gen(bg,simd_type)
     return bbg.get_gen_result()
 
 def write_bench(tb_name,fct_name,mode,s,check=False,backup=True) :
     nfp = Nt2_fct_props(tb_name,fct_name,mode)
     print("mode %s"%mode)
     p = nfp.get_fct_bench_path(mode)
-    print ('p = %s'%p)
+##    print ('p = %s'%p)
     if backup and exist(p) :
 ##        print("p=%s" %p)
         i = 1;
@@ -75,9 +76,10 @@ def create_bench(tb_name, fct_list=None,
                 show=True,
                 write_files=False,
                 check_on_write=True,
-                backup_on_write=True) :
+                backup_on_write=True,
+                simd_type='sse') :
     bg = Nt2_modules()
-    print(bg.get_module_style(tb_name))
+##    print(bg.get_module_style(tb_name))
     if bg.get_module_style(tb_name) == 'usr' : modes = ['scalar']
     if fct_list is None :
         fcts = Nt2_tb_props(tb_name).get_fcts_list()
@@ -89,7 +91,7 @@ def create_bench(tb_name, fct_list=None,
     for fct in fcts :
         for mode in modes :
 ##            print("fct=%s,mode=%s"%(fct,mode))
-            r= create_one_bench(tb_name,fct,mode)
+            r= create_one_bench(tb_name,fct,mode,simd_type)
             if r is None :
                 print('error for %s' % fct)
             elif len(r)==0 :
