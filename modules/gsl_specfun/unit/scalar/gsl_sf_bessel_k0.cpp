@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_k0.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
