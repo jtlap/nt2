@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::rshl_, tag::cpu_, (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((integer_<A1>))
+                            , ((simd_<arithmetic_<A0>,X>))((scalar_ < integer_<A1> >))
                             )
   {
     typedef A0 result_type;
