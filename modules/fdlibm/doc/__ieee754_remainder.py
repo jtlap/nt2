@@ -16,9 +16,13 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 03/03/2011',
-             'included' : ['#include <nt2/include/functions/remainder.hpp>',
-                                 '#include <nt2/include/functions/abs.hpp>',
-                                 '#include <nt2/include/functions/idivround.hpp>'],
+             'included' : [ '#include <nt2/include/functions/remainder.hpp>',
+                            '#include <nt2/include/functions/abs.hpp>',
+                            '#include <nt2/include/functions/idivround.hpp>'
+                          ],
+              'cover_included': [ '#include <nt2/include/functions/rem.hpp>',
+                                  '#include <nt2/toolbox/fdlibm/include/fmod.hpp>'
+                                ],
              'notes' : [],
              'stamp' : 'modified by jt the 03/03/2011',
             },
