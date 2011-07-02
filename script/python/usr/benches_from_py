@@ -64,6 +64,7 @@ def showoptions(namespace):
     random values            (-r)  = <%(rd_values)s>
     peculiar values          (-p)  = <%(pe_values)s>
     options display          (-o)  = <%(options)s>
+    simd types               (-t)  = <%(simd_types)s>    
     """% d)
     print("""triggers -s -w -b -c -e -r -p and -o have a corresponding negation:
              -s -> -ns : --show -> --no_show
@@ -75,6 +76,12 @@ if __name__ == "__main__" :
                       help="""module name(s) for which benches are to be generated.
                       if the argument is NT2_ALL (case matter), all files are generarted
                       for all 'usr' modules (possibly moderated by the style option)
+                      """)
+    parser.add_argument("-t","--types",
+                      default="sse",
+                      dest="simd_types",
+                      help="""simd types selection: altivec or sse
+                      default is sse
                       """)
     parser.add_argument("-a", "--all_functors",
                       dest="all_functors",
@@ -251,6 +258,8 @@ if __name__ == "__main__" :
     backup       = namespace.backup
     parts        = get_parts(namespace)
     options      = namespace.options
+    simd_type    = namespace.simd_types
+    
 
     if fct_list is None and not all_functors:
         print("""ERROR
@@ -292,5 +301,6 @@ if __name__ == "__main__" :
                         show=sh,
                         write_files=wr,
                         check_on_write=check,
-                        backup_on_write=backup)
+                        backup_on_write=backup,
+                        simd_type=simd_type)
             if (options) : showoptions(namespace)
