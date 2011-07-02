@@ -30,7 +30,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::abs;
   using nt2::tag::abs_;
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::abs;
   using nt2::tag::abs_;
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   }
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( abs_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::abs;
   using nt2::tag::abs_;

@@ -15,7 +15,6 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/abss.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::abss;
   using nt2::tag::abss_;
@@ -60,7 +59,7 @@ NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(abss(nt2::Zero<vT>())[0], nt2::Zero<T>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::abss;
   using nt2::tag::abss_;
@@ -87,7 +86,7 @@ NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(abss(nt2::Zero<vT>())[0], nt2::Zero<T>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( abss_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( abss_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::abss;
   using nt2::tag::abss_;

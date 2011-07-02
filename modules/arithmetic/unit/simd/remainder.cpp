@@ -19,7 +19,6 @@
 /// n is chosen to be even. The drem() function does precisely the same thing.
 #include <nt2/toolbox/arithmetic/include/remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -32,7 +31,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::remainder;
   using nt2::tag::remainder_;

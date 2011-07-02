@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( sqrt_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sqrt_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::sqrt;
   using nt2::tag::sqrt_;
