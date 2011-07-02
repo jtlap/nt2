@@ -28,7 +28,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitwise_or_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_or_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::bitwise_or;
   using nt2::tag::bitwise_or_;
