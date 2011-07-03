@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_','uint32_t','uint64_t','int32_t','int64_t'],
+         'simd_types' : ['real_','int_convert_','uint_convert_'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
@@ -23,6 +23,8 @@
          'ranges' : {
              'real_' : [['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100']],
+             'int_convert_' : [['-100', '100']],   
+             'uint_convert_' : [['0', '100']],
              'default' : [['0', '100']],
             },
          'specific_values' : {
