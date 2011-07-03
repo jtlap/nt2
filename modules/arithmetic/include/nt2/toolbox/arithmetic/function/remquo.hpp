@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct remquo_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::remquo_, remquo, 2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::remquo_, remquo,(A0 const&)(A1 const&)(A2&)(A3&),4)
 }
  
 #include <nt2/toolbox/operator.hpp>
