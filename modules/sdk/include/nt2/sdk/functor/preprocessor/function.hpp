@@ -43,6 +43,22 @@ return callee(BOOST_PP_ENUM_PARAMS(N,a));         \
 NT2_FUNCTION_INTERFACE(TAG,NAME,N) { NT2_FUNCTION_BODY(TAG,N); }  \
 /**/
 
+#define NT2_FN_TYPES(z,n,t) BOOST_PP_SEQ_ELEM(n,t)
+#define NT2_FN_ARGS(z,n,t)  BOOST_PP_SEQ_ELEM(n,t) BOOST_PP_CAT(a,n)
+
+////////////////////////////////////////////////////////////////////////////////
+// Generate a complete function implementation with a specific prototype
+////////////////////////////////////////////////////////////////////////////////
+#define NT2_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME,ARGS,N)                  \
+template<BOOST_PP_ENUM_PARAMS(N, class A)> NT2_FORCE_INLINE               \
+typename meta::                                                           \
+call<TAG(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),NT2_FN_TYPES,ARGS))>::type \
+NAME( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),NT2_FN_ARGS,ARGS) )           \
+{                                                                         \
+  NT2_FUNCTION_BODY(TAG, BOOST_PP_SEQ_SIZE(ARGS) )                        \
+}                                                                         \
+/**/
+
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation for self modifying operator
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,8 +74,10 @@ typename meta::call<TAG(A0&,A1 const&)>::type  \
 NAME( A0& a0, A1 const& a1 )  { NT2_FUNCTION_BODY(TAG,2) }    \
 /**/
 
+#define NT2_FN_REF(z,n,t) (BOOST_PP_CAT(A,BOOST_PP_INC(n)) const&)
 #define NT2_FUNCTION_IMPLEMENTATION_SELF(TAG,NAME,N)        \
-BOOST_PP_CAT(NT2_FUNCTION_IMPLEMENTATION_SELF_,N)(NAME,TAG) \
+NT2_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME, \
+    (A0&)BOOST_PP_REPEAT(BOOST_PP_DEC(N),NT2_FN_REF,~),N) \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
