@@ -22,7 +22,7 @@
          'ranges' : {
              'real_' : [['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100']],
-             'default' : [['0', '100']],
+             'unsigned_int_' : [['0', '100']],
             },
          'specific_values' : {
              'default' : {
@@ -50,10 +50,10 @@
                  'default' : ['nt2::sqrt1pm1(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['nt2::sqrt1pm1(a0)'],
+                 'default' : ['nt2::sqrt1pm1(a0)'],
                 },
              'ulp_thresh' : {
-                 'real_' : ['2'],
+                 'default' : ['2'],
                 },
             },
         },

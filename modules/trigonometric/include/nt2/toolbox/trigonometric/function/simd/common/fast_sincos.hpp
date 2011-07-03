@@ -13,14 +13,36 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
  #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
+// reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::fast_sincos_, tag::cpu_,(A0)(A1),
+                             (boost::mpl::equal_to<boost::mpl::sizeof_<A0>, 
+  			                           boost::mpl::sizeof_<A1> >), 
+                             ( tag::fast_sincos_
+                                          ( simd_<arithmetic_<A0>,X> 
+					  , simd_<real_<A1>,X>
+				          , simd_<real_<A1>,X>
+                                          )
+                             ), 
+			     (simd_ < arithmetic_<A0> > )
+			     (simd_ < real_<A1> > )
+			     (simd_ < real_<A1> > )
+			     )
+  {
+    typedef void result_type;    
+    inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
+    {
+      impl::trig_base <A1,radian_tag,fast_tag,
+	               tag::simd_type>::sincosa(tofloat(a0),a1,a2); 
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type  is arithmetic_
+  /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincos_, tag::cpu_,
                               (A0)(X),
                               ((simd_<arithmetic_<A0>,X>))

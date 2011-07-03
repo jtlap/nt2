@@ -7,9 +7,9 @@
          'rturn' : {
              'default' : 'typename nt2::meta::as_real<T>::type',
             },
-         'simd_types' : ['uint32_t', 'uint64_t', 'int32_t', 'int64_t'],
+         'simd_types' : ["int_convert_","uint_convert_"],
          'type_defs' : [],
-         'types' : ['uint32_t', 'uint64_t', 'int32_t', 'int64_t'],
+         'types' : ["int_convert_","uint_convert_"],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -25,6 +25,8 @@
              'int64_t' : [['-100', '100']],
              'uint32_t' : [['0', '100']],
              'uint64_t' : [['0', '100']],
+             'int_convert_' :  [['-100', '100']],   
+             'uint_convert_' :  [['0', '100']],   
             },
          'specific_values' : {
             },

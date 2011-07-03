@@ -17,7 +17,9 @@ namespace nt2 { namespace tag
     struct sincospi_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sincospi_, sincospi, 1)
-}
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincospi_, sincospi,(A0 const&)(A1&)(A2&),3)
+
+ }
  
 #include <nt2/toolbox/trigonometric/function/scalar/sincospi.hpp>
 #include <nt2/toolbox/trigonometric/function/simd/all/sincospi.hpp> 
