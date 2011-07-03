@@ -20,7 +20,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
                             , ((simd_< arithmetic_<A0>, tag::altivec_ >))
-                              (iterator_< arithmetic_<A1> >)
+                              (iterator_< scalar_< arithmetic_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )
   {

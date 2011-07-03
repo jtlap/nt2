@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MAP_HPP_INCLUDED
 
 #include <nt2/sdk/simd/category.hpp>
+#include <nt2/toolbox/operator/specific/details/maybe_genmask.hpp>
 #include <nt2/extension/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -21,19 +22,35 @@
 // This is done by enumerating all cases of function calls over the different
 // vector cardinal and function arity.
 ////////////////////////////////////////////////////////////////////////////////
+
+#define M6(z,n,t) typename meta::scalar_of<BOOST_PP_CAT(A,BOOST_PP_INC(n))>::type
+#define M5(z,n,t) (A##n)
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) (typename A1::value_type)(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <A1>,tag::altivec_>))
+#define M3(z,n,t) details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
+#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <BOOST_PP_CAT(A, BOOST_PP_INC(n))>, tag::altivec_>))
 
 #define M0(z,n,t)                                                             \
 namespace nt2 { namespace meta                                                \
 {                                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_, (A0)(A1)                   \
+  NT2_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_                             \
+                            , BOOST_PP_REPEAT(BOOST_PP_INC(n), M5,t)          \
                             , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
                             )                                                 \
   {                                                                           \
-    typedef A1 result_type;                                                   \
-    NT2_FUNCTOR_CALL_REPEAT(BOOST_PP_INC(n))                                  \
+    typedef typename meta::                                                   \
+    result_of< typename meta::                                                \
+               strip<A0>::type const( BOOST_PP_ENUM(n,M6,~) )                 \
+             >::type                                                          \
+    rtype;                                                                    \
+    typedef typename details::                                                \
+    as_native< A0                                                             \
+             , rtype                                                          \
+             , typename meta::scalar_of<A1>::type                             \
+             >::type                                                          \
+    stype;                                                                    \
+    typedef simd::native<stype, tag::altivec_> result_type;                   \
+                                                                              \
+    NT2_FUNCTOR_CALL(BOOST_PP_INC(n))                                         \
     {                                                                         \
       result_type that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};  \
       return that;                                                            \
@@ -52,6 +69,8 @@ NT2_SIMD_MAP_CALL(ints16_ ,  8 )
 NT2_SIMD_MAP_CALL(ints8_  , 16 )
 
 #undef NT2_SIMD_MAP_CALL
+#undef M6
+#undef M5
 #undef M4
 #undef M3
 #undef M2
