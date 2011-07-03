@@ -19,6 +19,8 @@ namespace nt2 {
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::ellipke_, ellipke, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::ellipke_, ellipke, 2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::ellipke_, ellipke,(A0 const&)(A1&)(A2&),3)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::ellipke_, ellipke,(A0 const&)(A1 const&)(A2&)(A3&),4)
 }
 
 #include <nt2/toolbox/elliptic/function/scalar/ellipke.hpp>
