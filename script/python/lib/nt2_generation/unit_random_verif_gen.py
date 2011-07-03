@@ -68,8 +68,8 @@ class Random_verif_test_gen(Base_gen) :
     def get_gen_result(self) : return  self.__gen_result
 
     def __create_unit_txt(self,dl,typ) :
-        ctyp = typ if self.mode == "scalar" else self.convert(typ,dl)  
-        ##print("%s --> %s"%(typ,ctyp))
+        ctyp = typ if self.mode == "scalar" else self.convert(typ,dl)
+        print("%s --> %s"%(typ,ctyp))
         nb_rand = str(dl['unit'].get("nb_rand","NT2_NB_RANDOM_TEST"))
         du =dl['unit']
         d = du["verif_test"]
@@ -226,6 +226,8 @@ class Random_verif_test_gen(Base_gen) :
                             s = re.sub('\$ulp_thresh\$',thresh[j],s)
                             #                    s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
                             dtmp = durac.get(typ,durac.get("default",[]))
+                            print("=== i %s"%i)
+                            print("=== i %s"%durav)
                             s=re.sub("\$property_call\$" ,durac.get(typ,durac.get("default",None))[i],s)
                             s=re.sub("\$property_value\$" ,durav.get(typ,durav.get("default",None))[i],s)
                             r.append(s)

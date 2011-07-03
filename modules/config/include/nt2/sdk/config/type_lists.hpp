@@ -68,6 +68,58 @@
 /**/
 #endif
 
+#define NT2__INT_CONVERT_TYPES  (nt2::int32_t)(nt2::int64_t) \
+/**/
+
+#define NT2__UINT_CONVERT_TYPES  (nt2::uint32_t)(nt2::uint64_t) \
+/**/
+
+#define NT2_SIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
+/**/
+
+#define NT2_UNSIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
+/**/
+
+#define NT2_INT_64_TYPES (nt2::int64_t)(nt2::uint64_t) \
+/**/
+
+#define NT2_INT_32_TYPES  (nt2::int32_t)(nt2::uint32_t) \
+/**/
+
+#define NT2_INT_16_TYPES  (nt2::int16_t)(nt2::uint16_t) \
+/**/
+
+#define NT2_INT_8_TYPES  (nt2::int8_t)(nt2::uint8_t) \
+/**/
+
+#define NT2_GROUPABLE_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(double)\
+/**/
+
+#define NT2_SPLITABLE_TYPES  (nt2::int8_t)(nt2::uint8_t)(nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(float) \
+/**/
+
+#define NT2_INT_GT8_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)\
+/**/
+
+#define NT2_SIGNED_INT_GT_8_TYPES  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
+/**/
+
+#define NT2_UNSIGNED_INT_GT_8_TYPES  (nt2::uint16_t)(nt2::uint32_t)(nt2::uint64_t) \
+/**/
+
+#define NT2_LT64_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int8_t)(nt2::uint8_t)(float) \
+/**/
+
+#define NT2_GT16_TYPES  (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(float)(double) \
+/**/
+
+#define NT2_SIGNED_INT_GT_16_TYPES  (nt2::int32_t)(nt2::int64_t) \
+/**/
+
+#define NT2_UNSIGNED_INT_GT_16_TYPES  (nt2::uint32_t)(nt2::uint64_t) \
+/**/
+
+
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////

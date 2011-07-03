@@ -36,6 +36,70 @@
 /**/
 
 #define NT2_SIMD_REAL_CONVERTIBLE_TYPES  (nt2::int32_t)(nt2::uint32_t)(float) \
+					 /**/
+
+#define NT2_SIMD_INT_CONVERT_TYPES  (nt2::int32_t) \
+/**/
+
+#define NT2_SIMD_UINT_CONVERT_TYPES  (nt2::uint32_t) \
+/**/
+
+#define NT2_SIMD_SIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t) \
+/**/
+
+#define NT2_SIMD_UNSIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t) \
+/**/
+
+
+#define NT2_SIMD__INT_CONVERT_TYPES  (nt2::int32_t) \
+/**/
+
+#define NT2_SIMD__UINT_CONVERT_TYPES  (nt2::uint32_t) \
+/**/
+
+#define NT2_SIMD_SIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t) \
+/**/
+
+#define NT2_SIMD_UNSIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t) \
+/**/
+
+#define NT2_SIMD_INT_64_TYPES  \
+/**/
+
+#define NT2_SIMD_INT_32_TYPES  (nt2::int32_t)(nt2::uint32_t) \
+/**/
+
+#define NT2_SIMD_INT_16_TYPES  (nt2::int16_t)(nt2::uint16_t) \
+/**/
+
+#define NT2_SIMD_INT_8_TYPES  (nt2::int8_t)(nt2::uint8_t) \
+/**/
+
+#define NT2_SIMD_GROUPABLE_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)\
+/**/
+
+#define NT2_SIMD_SPLITABLE_TYPES  (nt2::int8_t)(nt2::uint8_t)(nt2::int16_t)(nt2::uint16_t) \
+/**/
+
+#define NT2_SIMD_INT_GT8_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)\
+/**/
+
+#define NT2_SIMD_SIGNED_INT_GT_8_TYPES  (nt2::int16_t)(nt2::int32_t) \
+/**/
+
+#define NT2_SIMD_UNSIGNED_INT_GT_8_TYPES  (nt2::uint16_t)(nt2::uint32_t) \
+/**/
+
+#define NT2_SIMD_LT64_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int8_t)(nt2::uint8_t)(float) \
+/**/
+
+#define NT2_SIMD_GT16_TYPES  (nt2::int32_t)(nt2::uint32_t)(float) \
+/**/
+
+#define NT2_SIMD_SIGNED_INT_GT_16_TYPES  (nt2::int32_t) \
+/**/
+
+#define NT2_SIMD_UNSIGNED_INT_GT_16_TYPES  (nt2::uint32_t) \
 /**/
 
 #endif
