@@ -14,10 +14,10 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_, (A0)(A1)(A2)(A3)
-                            , (iterator_<fundamental_<A0> >)
-                              (fundamental_<A1>)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
                               ((target_<simd_<fundamental_<A2>,tag::altivec_> >))
-                              (mpl_integral_< integer_<A3> >)
+                              (mpl_integral_< scalar_< integer_<A3> > >)
                       )
   {
     typedef typename A2::type result_type;

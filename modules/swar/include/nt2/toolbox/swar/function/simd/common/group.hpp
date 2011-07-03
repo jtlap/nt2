@@ -19,27 +19,27 @@ namespace nt2 { namespace meta
   NT2_FUNCTOR_IMPLEMENTATION_IF( tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename meta::downgrade<A0>::type> >),
-                          (tag::group_(tag::simd_<tag::arithmetic_,X>
-                                      ,tag::simd_<tag::arithmetic_,X>
+                          (tag::group_(simd_<arithmetic_<A0>,X>
+                                      ,simd_<arithmetic_<A0>,X>
                                       )
                           ), 
                           ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                         )
   {
+
+    typedef typename meta::downgrade<A0>::type result_type;
     
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef result_type rtype;
-      
       static const int size = meta::cardinal_of<A0>::value;
-      NT2_ALIGNED_TYPE(typename meta::scalar_of<rtype>::type) tmp[size*2];
+      NT2_ALIGNED_TYPE(typename meta::scalar_of<result_type>::type) tmp[size*2];
       
       for(int i = 0; i != size; ++i)
         tmp[i] = a0[i];
       for(int i = 0; i != size; ++i)
         tmp[i+size] = a1[i];
         
-      return load<rtype>(&tmp[0], 0);
+      return load<result_type>(&tmp[0], 0);
     }
   };
 } }

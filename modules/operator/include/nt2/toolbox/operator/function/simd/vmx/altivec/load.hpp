@@ -13,7 +13,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (iterator_<fundamental_<A0> >)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_<simd_<arithmetic_<A2>,tag::altivec_> >))
                             )
