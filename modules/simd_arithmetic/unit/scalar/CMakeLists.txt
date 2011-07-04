@@ -71,5 +71,5 @@ SET( SOURCES
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(arithmetic.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+  nt2_module_add_unit(simd_arithmetic.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

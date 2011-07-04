@@ -11,14 +11,14 @@
 ################################################################################
 # Add global cover driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(bitwise.scalar.cover)
-ADD_CUSTOM_TARGET(bitwise.simd.cover)
-ADD_DEPENDENCIES(bitwise.cover bitwise.scalar.cover bitwise.simd.cover)
+#ADD_CUSTOM_TARGET(bitwise.scalar.cover)
+#ADD_CUSTOM_TARGET(bitwise.simd.cover)
+#ADD_DEPENDENCIES(bitwise.cover bitwise.scalar.cover bitwise.simd.cover)
 
 ##############################################################################
 # Toolbox bitwise cover tests
 ##############################################################################
-nt2_module_use_modules(unit predicates arithmetic ieee)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit predicates arithmetic ieee)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)
 

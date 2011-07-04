@@ -11,14 +11,14 @@
 ################################################################################
 # Add global cover driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(operator.scalar.cover)
-ADD_CUSTOM_TARGET(operator.simd.cover)
-ADD_DEPENDENCIES(operator.cover operator.scalar.cover operator.simd.cover)
+#ADD_CUSTOM_TARGET(operator.scalar.cover)
+#ADD_CUSTOM_TARGET(operator.simd.cover)
+#ADD_DEPENDENCIES(operator.cover operator.scalar.cover operator.simd.cover)
 
 ##############################################################################
 # Toolbox operator cover tests
 ##############################################################################
-nt2_module_use_modules(unit predicates)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit predicates)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)
 

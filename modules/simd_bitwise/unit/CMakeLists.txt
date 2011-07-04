@@ -10,13 +10,13 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(bitwise.scalar.unit)
-ADD_CUSTOM_TARGET(bitwise.simd.unit)
-ADD_DEPENDENCIES(bitwise.unit bitwise.scalar.unit bitwise.simd.unit)
+#ADD_CUSTOM_TARGET(bitwise.scalar.unit)
+#ADD_CUSTOM_TARGET(bitwise.simd.unit)
+#ADD_DEPENDENCIES(bitwise.unit bitwise.scalar.unit bitwise.simd.unit)
 
 ##############################################################################
 # Toolbox bitwise unit tests
 ##############################################################################
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)

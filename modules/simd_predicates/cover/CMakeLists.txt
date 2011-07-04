@@ -11,14 +11,14 @@
 ################################################################################
 # Add global cover driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(predicates.scalar.cover)
-ADD_CUSTOM_TARGET(predicates.simd.cover)
-ADD_DEPENDENCIES(predicates.cover predicates.scalar.cover predicates.simd.cover)
+#ADD_CUSTOM_TARGET(predicates.scalar.cover)
+#ADD_CUSTOM_TARGET(predicates.simd.cover)
+#ADD_DEPENDENCIES(predicates.cover predicates.scalar.cover predicates.simd.cover)
 
 ##############################################################################
 # Toolbox predicates cover tests
 ##############################################################################
-nt2_module_use_modules(unit predicates arithmetic)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit predicates arithmetic)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)
 

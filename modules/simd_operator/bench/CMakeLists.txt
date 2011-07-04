@@ -10,12 +10,12 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(operator.scalar.bench)
-ADD_CUSTOM_TARGET(operator.simd.bench)
-ADD_DEPENDENCIES(operator.bench operator.scalar.bench operator.simd.bench)
+#ADD_CUSTOM_TARGET(operator.scalar.bench)
+#ADD_CUSTOM_TARGET(operator.simd.bench)
+#ADD_DEPENDENCIES(operator.bench operator.scalar.bench operator.simd.bench)
 
 ################################################################################
 # Add all bench directories for sdk/
 ################################################################################
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(scalar)
+#nt2_module_use_modules(unit)
+#ADD_SUBDIRECTORY(scalar)

@@ -10,13 +10,13 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(arithmetic.scalar.unit)
-ADD_CUSTOM_TARGET(arithmetic.simd.unit)
-ADD_DEPENDENCIES(arithmetic.unit arithmetic.scalar.unit arithmetic.simd.unit)
+#ADD_CUSTOM_TARGET(simd_arithmetic.scalar.unit)
+#ADD_CUSTOM_TARGET(simd_arithmetic.simd.unit)
+#ADD_DEPENDENCIES(simd_arithmetic.unit simd_arithmetic.scalar.unit simd_arithmetic.simd.unit)
 
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
-nt2_module_use_modules(unit standard libc)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(simd_unit standard libc)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)

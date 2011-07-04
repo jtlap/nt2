@@ -19,6 +19,6 @@ SET(SOURCES
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(simd_config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 

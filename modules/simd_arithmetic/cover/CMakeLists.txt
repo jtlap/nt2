@@ -11,14 +11,14 @@
 ################################################################################
 # Add global cover driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(arithmetic.scalar.cover)
-ADD_CUSTOM_TARGET(arithmetic.simd.cover)
-ADD_DEPENDENCIES(arithmetic.cover arithmetic.scalar.cover arithmetic.simd.cover)
+#ADD_CUSTOM_TARGET(arithmetic.scalar.cover)
+#ADD_CUSTOM_TARGET(arithmetic.simd.cover)
+#ADD_DEPENDENCIES(arithmetic.cover arithmetic.scalar.cover arithmetic.simd.cover)
 
 ##############################################################################
 # Toolbox arithmetic cover tests
 ##############################################################################
-nt2_module_use_modules(unit predicates standard)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit predicates standard)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)
 

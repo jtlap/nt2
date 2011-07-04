@@ -11,8 +11,8 @@
 ###     Toolbox reduction bench tests
 ##############################################################################
 
-ADD_CUSTOM_TARGET(reduction.simd.bench)
-ADD_DEPENDENCIES(reduction.bench reduction.simd.bench)
+#ADD_CUSTOM_TARGET(reduction.simd.bench)
+#ADD_DEPENDENCIES(reduction.bench reduction.simd.bench)
 
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit)
+#ADD_SUBDIRECTORY(simd)

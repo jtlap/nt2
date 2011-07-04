@@ -10,13 +10,13 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-ADD_CUSTOM_TARGET(predicates.scalar.unit)
-ADD_CUSTOM_TARGET(predicates.simd.unit)
-ADD_DEPENDENCIES(predicates.unit predicates.scalar.unit predicates.simd.unit)
+#ADD_CUSTOM_TARGET(predicates.scalar.unit)
+#ADD_CUSTOM_TARGET(predicates.simd.unit)
+#ADD_DEPENDENCIES(predicates.unit predicates.scalar.unit predicates.simd.unit)
 
 ##############################################################################
 # Toolbox predicates unit tests
 ##############################################################################
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+#nt2_module_use_modules(unit)
+#ADD_SUBDIRECTORY(scalar)
+#ADD_SUBDIRECTORY(simd)
