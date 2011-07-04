@@ -51,9 +51,9 @@
 #if  !defined(BOOST_SIMD_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
 
 
-namespace boost { namespace details { namespace simd {  BOOST_SIMD_ERROR_INFO(assert_info, char const*); } } }
+namespace boost { namespace simd { namespace details {  BOOST_SIMD_ERROR_INFO(assert_info, char const*); } } }
 
-namespace boost
+namespace boost { namespace simd
 {
   //============================================================================
   /*!
@@ -67,7 +67,7 @@ namespace boost
     virtual ~assert_exception() throw() {}
     virtual void display(std::ostream& os) const throw();
   };
-}
+} }
 
 #ifndef BOOST_ENABLE_ASSERT_HANDLER
 #define BOOST_ENABLE_ASSERT_HANDLER
