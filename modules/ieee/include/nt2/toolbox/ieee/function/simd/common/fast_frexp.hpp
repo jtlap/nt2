@@ -21,53 +21,52 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)(X)
-				  ,( boost::mpl::and_ <
-				     boost::is_same<A0,A1>, 
-				     boost::is_same<typename meta::as_integer<A0>::type, A2>
-				     >
+  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+				  ,( 
+				     boost::is_same<typename meta::as_integer<A0>::type, A1>
 				  )
                                 , ( tag::fast_frexp_
 				    ( simd_<real_<A0>,X> 
-				      , simd_<real_<A1>,X>
-				      , simd_<integer_<A2>,X>  
-				      )
+				    , simd_<real_<A0>,X>
+				    , simd_<integer_<A1>,X>  
 				    )
+				  )
 			    , ((simd_< real_<A0>, X>))
-			      ((simd_< real_<A1>, X>))    
-			      ((simd_< integer_<A2>, X>))
+			      ((simd_< real_<A0>, X>))    
+			      ((simd_< integer_<A1>, X>))
                             )
   {
-    typedef void result_type;
-    inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
+    typedef int result_type;
+    inline int operator()(A0 const& a0,A0 & r0,A1 & r1) const
     {
-      typedef typename meta::as_integer<AA0, signed>::type      int_type;
+      typedef typename meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
-      typedef typename meta::scalar_of<AA0>::type                 s_type;
+      typedef typename meta::scalar_of<A0>::type                 s_type;
       static const sint_type me = Maxexponent<s_type>()-1;
       static const sint_type nmb= Nbmantissabits<s_type>();
       static const int_type vn1 = nt2::splat<int_type>((2*me+3)<<nmb);
       static const sint_type n2 = me<<nmb;
       r1 = b_and(vn1, a0);                                 //extract exponent
-      AA0 x = b_andnot(a0, vn1);                            //clear exponent in a0
+      A0 x = b_andnot(a0, vn1);                            //clear exponent in a0
       r1 = shri(r1,nmb) - splat<int_type>(me);             //compute exponent
       r0 = b_or(x,splat<int_type>(n2));                    //insert expon+1 in x
+      return 0;
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A2)(X)
-				 , ( boost::is_same<typename meta::as_integer<A0>::type, A2>)
+  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+				 , ( boost::is_same<typename meta::as_integer<A0>::type, A1>)
                                  , ( tag::fast_frexp_
-				    ( simd_<real_<A0>,X> 
-				    , simd_<integer_<A2>,X>  
-				      )
-				    )
+				     ( simd_<real_<A0>,X> 
+				     , simd_<integer_<A1>,X>  
+				     )
+				   )
 				 , ((simd_< real_<A0>, X>))
-			   	   ((simd_< integer_<A2>, X>))
+			   	   ((simd_< integer_<A1>, X>))
                             )
   {
     typedef A0 result_type;    
-    inline void operator()(A0 const& a0,A2 & a2) const
+    inline A0 operator()(A0 const& a0,A1 & a2) const
     {
       A0 a1; 
       nt2::fast_frexp(a0, a1, a2);
@@ -80,9 +79,8 @@ namespace nt2 { namespace meta
                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
-       typedef typename meta::strip<A0>::type                     A00;
-       typedef typename meta::as_integer<A00, signed>::type  exponent;
-       typedef boost::fusion::vector<A00,exponent>        result_type;
+    typedef typename meta::as_integer<A0, signed>::type  exponent;
+    typedef boost::fusion::vector<A0,exponent>        result_type;
      
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
