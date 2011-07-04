@@ -21,27 +21,25 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
-                             (A0)(X),
-                             ((simd_<arithmetic_<A0>,X>))
+  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)(X)
+				  ,( boost::mpl::and_ <
+				     boost::is_same<A0,A1>, 
+				     boost::is_same<typename meta::as_integer<A0>::type, A2>
+				     >
+				  )
+                                , ( tag::fast_frexp_
+				    ( simd_<real_<A0>,X> 
+				      , simd_<real_<A1>,X>
+				      , simd_<integer_<A2>,X>  
+				      )
+				    )
+			    , ((simd_< real_<A0>, X>))
+			      ((simd_< real_<A1>, X>))    
+			      ((simd_< integer_<A2>, X>))
                             )
   {
-       typedef typename meta::strip<A0>::type                     A00;
-       typedef typename meta::as_integer<A00, signed>::type  exponent;
-       typedef boost::fusion::vector<A00,exponent>        result_type;
-     
-    NT2_FUNCTOR_CALL_REPEAT(1)
-    {
-      result_type res;
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-          );
-      return res;
-    }
-  private:
-    template<class AA0,class R0,class R1> inline void
-    eval(AA0 const& a0,R0& r0, R1& r1)const
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
     {
       typedef typename meta::as_integer<AA0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
@@ -54,6 +52,46 @@ namespace nt2 { namespace meta
       AA0 x = b_andnot(a0, vn1);                            //clear exponent in a0
       r1 = shri(r1,nmb) - splat<int_type>(me);             //compute exponent
       r0 = b_or(x,splat<int_type>(n2));                    //insert expon+1 in x
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A2)(X)
+				 , ( boost::is_same<typename meta::as_integer<A0>::type, A2>)
+                                 , ( tag::fast_frexp_
+				    ( simd_<real_<A0>,X> 
+				    , simd_<integer_<A2>,X>  
+				      )
+				    )
+				 , ((simd_< real_<A0>, X>))
+			   	   ((simd_< integer_<A2>, X>))
+                            )
+  {
+    typedef A0 result_type;    
+    inline void operator()(A0 const& a0,A2 & a2) const
+    {
+      A0 a1; 
+      nt2::fast_frexp(a0, a1, a2);
+      return a1; 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
+                             (A0)(X),
+                             ((simd_<arithmetic_<A0>,X>))
+                            )
+  {
+       typedef typename meta::strip<A0>::type                     A00;
+       typedef typename meta::as_integer<A00, signed>::type  exponent;
+       typedef boost::fusion::vector<A00,exponent>        result_type;
+     
+    NT2_FUNCTOR_CALL_REPEAT(1)
+    {
+      result_type res;
+      nt2::fast_frexp( a0
+          , boost::fusion::at_c<0>(res)
+          , boost::fusion::at_c<1>(res)
+          );
+      return res;
     }
   };
 } }

@@ -60,6 +60,9 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t r = nt2::frexp(a0);
+	vT aa0;
+	ivT aa1;
+	nt2::frexp(a0, aa0, aa1);  
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
@@ -68,6 +71,11 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_SIMD_REAL_TYPES)
                                     boost::fusion::get<0>(sr));
           ulp0 = nt2::max(ulpd,ulp0);
           NT2_TEST_EQUAL( boost::fusion::get<1>(r)[i],
+                                    boost::fusion::get<1>(sr));
+          NT2_TEST_EQUAL( aa0[i],
+                                    boost::fusion::get<0>(sr));
+          ulp0 = nt2::max(ulpd,ulp0);
+          NT2_TEST_EQUAL(aa1[i],
                                     boost::fusion::get<1>(sr));
           ulp0 = nt2::max(ulpd,ulp0);
         }
