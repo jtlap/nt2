@@ -1,0 +1,43 @@
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
+#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_LOOKUP_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_LOOKUP_HPP_INCLUDED
+#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/simd/sdk/meta/size.hpp>
+#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+namespace boost { namespace simd { namespace meta
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::lookup_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<arithmetic_<A0>,X>))((simd_<integer_<A1>,X>))
+                            )
+  {
+
+    typedef typename meta::strip<A0>::type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::scalar_of<A0>::type sA0;
+      BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
+      BOOST_SIMD_ALIGNED_TYPE(sA0) tmp1[meta::cardinal_of<A0>::value];
+      boost::simd::store<A0>(a0, &tmp[0], 0);
+
+      for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
+      return boost::simd::load<A0>(&tmp1[0], 0);
+    }
+  };
+} } }
+
+
+#endif
