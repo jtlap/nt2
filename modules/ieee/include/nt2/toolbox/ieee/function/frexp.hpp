@@ -17,6 +17,8 @@ namespace nt2 { namespace tag
     struct frexp_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::frexp_, frexp, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&),2) 
 }
  
 #include <nt2/toolbox/operator.hpp>

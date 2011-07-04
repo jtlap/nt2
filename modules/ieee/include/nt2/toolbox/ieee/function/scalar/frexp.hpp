@@ -17,6 +17,59 @@
 
 namespace nt2 { namespace meta
 {
+  NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(A1)(A2)
+                            , (scalar_< double_<A0> >)
+                              (scalar_< double_<A1> >)
+			      (scalar_< int32_<A2> >)
+                            )
+  {
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
+    {
+      a1 = ::frexp(a0, &a2);
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(A2)
+                            , (scalar_< double_<A0> >)
+			      (scalar_< int32_<A2> >)
+                            )
+  {
+    typedef A0 result_type;    
+    inline void operator()(A0 const& a0,A2 & a2) const
+    {
+      typedef typename meta::as_integer<A0, signed>::type      int_type;
+      A0 a1; 
+      nt2::frexp(a0, a1, a2);
+      return a1; 
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(A1)(A2)
+                            , (scalar_< float_<A0> >)
+                              (scalar_< float_<A1> >)
+			      (scalar_< int32_<A2> >)
+                            )
+  {
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
+    {
+      a1 = ::frexpf(a0, &a2);
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(A2)
+                            , (scalar_< float_<A0> >)
+			      (scalar_< int32_<A2> >)
+                            )
+  {
+    typedef A0 result_type;    
+    inline void operator()(A0 const& a0,A2 & a2) const
+    {
+      return ::frexpf(a0, &a2);
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)
                             , (scalar_< double_<A0> >)
                             )
