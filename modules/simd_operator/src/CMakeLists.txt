@@ -11,7 +11,7 @@ include(NT2Module)
 nt2_module_source_setup(simd_operator)
 #nt2_module_configure_toolbox(operator 1)
 
-nt2_module_configure_include(boost/simd/operator/function -o boost/simd/toolbox/operator/include -o boost/simd/include/functions)
+nt2_module_configure_include(boost/simd/toolbox/operator/function -o boost/simd/toolbox/operator/include -o boost/simd/include/functions)
 nt2_module_configure_simd(boost/simd/toolbox/operator/function)
 
 include(nt2.preprocess)

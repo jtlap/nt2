@@ -11,7 +11,7 @@ include(NT2Module)
 nt2_module_source_setup(simd_ieee)
 #nt2_module_configure_toolbox(ieee 1)
 
-nt2_module_configure_include(boost/simd/ieee/function -o boost/simd/toolbox/ieee/include -o boost/simd/include/functions)
+nt2_module_configure_include(boost/simd/toolbox/ieee/function -o boost/simd/toolbox/ieee/include -o boost/simd/include/functions)
 nt2_module_configure_simd(boost/simd/toolbox/ieee/function)
 
 ################################################################################

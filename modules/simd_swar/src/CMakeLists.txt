@@ -11,5 +11,5 @@ include(NT2Module)
 nt2_module_source_setup(simd_swar)
 #nt2_module_configure_toolbox(swar 1)
 
-nt2_module_configure_include(boost/simd/swar/function -o boost/simd/toolbox/swar/include -o boost/simd/include/functions)
+nt2_module_configure_include(boost/simd/toolbox/swar/function -o boost/simd/toolbox/swar/include -o boost/simd/include/functions)
 nt2_module_configure_simd(boost/simd/toolbox/swar/function)
