@@ -12,31 +12,33 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::fast_sincos_, tag::cpu_,(A0)(A1),
-                             (boost::mpl::equal_to<boost::mpl::sizeof_<A0>, 
-  			                           boost::mpl::sizeof_<A1> >), 
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::fast_sincos_, tag::cpu_,(A0)(A1)(X),
+                             (boost::mpl::equal_to<cardinal_of<A0>, 
+  			                           cardinal_of<A1> >), 
                              ( tag::fast_sincos_
                                           ( simd_<arithmetic_<A0>,X> 
 					  , simd_<real_<A1>,X>
 				          , simd_<real_<A1>,X>
                                           )
                              ), 
-			     (simd_ < arithmetic_<A0> > )
-			     (simd_ < real_<A1> > )
-			     (simd_ < real_<A1> > )
+			     ((simd_ < arithmetic_<A0>, X > ))
+			     ((simd_ < real_<A1>, X > ))
+			     ((simd_ < real_<A1>, X > ))
 			     )
   {
-    typedef void result_type;    
+    typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       impl::trig_base <A1,radian_tag,fast_tag,
 	               tag::simd_type>::sincosa(tofloat(a0),a1,a2); 
+      return 0;
     }
   };
 
@@ -66,4 +68,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
+
 #endif
