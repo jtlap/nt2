@@ -1,0 +1,134 @@
+/*******************************************************************************
+ *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+ *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
+#ifndef BOOST_SIMD_SDK_MEMORY_DETAILS_LEAD_PADDING_HPP_INCLUDED
+#define BOOST_SIMD_SDK_MEMORY_DETAILS_LEAD_PADDING_HPP_INCLUDED
+
+////////////////////////////////////////////////////////////////////////////////
+// Implementation of the no_padding strategy for memory allocation
+////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/meta/fusion.hpp>
+#include <boost/typeof/typeof.hpp>
+#include <boost/simd/sdk/memory/slice.hpp>
+#include <boost/simd/sdk/memory/stride.hpp>
+#include <boost/simd/sdk/memory/align_on.hpp>
+#include <boost/simd/sdk/memory/no_padding.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+
+namespace boost { namespace simd {  namespace meta
+{
+  template<class A0, class A2, class Dummy>
+  struct implement< tag::slice_
+                    ( fusion_sequence_<A0>, padding_<memory::lead_padding>
+                    , mpl_integral_<scalar_<integer_<A2> > >
+                    )
+                  , tag::cpu_, Dummy
+                  >
+  {
+    ////////////////////////////////////////////////////////////////////////////
+    // Computes the actual result type depending on A0 size and A2 value
+    ////////////////////////////////////////////////////////////////////////////
+    typedef typename strip<A2>::type        arg0;
+    typedef typename strip<A2>::type        arg2;
+    typedef boost::fusion::result_of::size<arg0>  size_;
+    static  typename strip<A0>::type const& s;
+
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( true_case
+    ,   slice<2>(s,memory::no_padding())
+      * memory::align_on( boost::fusion::at_c<0>(s) )
+    );
+
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( false_case, slice<arg2::value>(s,memory::no_padding())
+    );
+
+    typedef typename boost::mpl::eval_if_c< (arg2::value == 1)
+                                          , true_case
+                                          , false_case
+                                          >::type             result_type;
+
+    inline result_type
+    operator()( A0 const& a0, memory::lead_padding const&, A2 const& ) const
+    {
+      return eval(a0, boost::mpl::bool_<(A2::value==1)>() );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Implementation when A2 == 1
+    ////////////////////////////////////////////////////////////////////////////
+    inline result_type eval( A0 const& a0, boost::mpl::true_ const& ) const
+    {
+      return   slice<2>(a0,memory::no_padding())
+             * memory::align_on( boost::fusion::at_c<0>(a0) );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Implementation when A2 >= 1
+    ////////////////////////////////////////////////////////////////////////////
+    inline result_type eval( A0 const& a0, boost::mpl::false_ const& ) const
+    {
+      return slice<A2::value>(a0,memory::no_padding());
+    }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // stride Functor implementation - Do nothing except on inner dimension
+  //////////////////////////////////////////////////////////////////////////////
+  template<class A0, class A2, class Dummy>
+  struct implement< tag::stride_
+                    ( fusion_sequence_<A0>, padding_<memory::lead_padding>
+                    , mpl_integral_< scalar_< integer_<A2> > >
+                    )
+                  , tag::cpu_, Dummy
+                  >
+
+  {
+    ////////////////////////////////////////////////////////////////////////////
+    // Computes the actual result type depending on A0 size and A2 value
+    ////////////////////////////////////////////////////////////////////////////
+    typedef typename strip<A2>::type        arg0;
+    typedef typename strip<A2>::type        arg2;
+    static  typename strip<A0>::type const& s;
+
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( true_case , memory::align_on( boost::fusion::at_c<0>(s) ) );
+
+    BOOST_TYPEOF_NESTED_TYPEDEF_TPL
+    ( false_case, boost::fusion::at_c<arg2::value-1>(s) );
+
+    typedef typename boost::mpl::eval_if_c< (arg2::value == 1)
+                                          , true_case
+                                          , false_case
+                                          >::type               result_type;
+
+    inline result_type
+    operator()( A0 const& a0, memory::lead_padding const&, A2 const& ) const
+    {
+      return eval(a0, boost::mpl::bool_<(A2::value==1)>() );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Implementation when A2 == 1
+    ////////////////////////////////////////////////////////////////////////////
+    inline result_type eval( A0 const& a0, boost::mpl::true_ const& ) const
+    {
+      return memory::align_on( boost::fusion::at_c<0>(a0) );
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Implementation when A2 >= 1
+    ////////////////////////////////////////////////////////////////////////////
+    inline result_type eval( A0 const& a0, boost::mpl::false_ const& ) const
+    {
+      return boost::fusion::at_c<A2::value-1>(a0);
+    }
+  };
+} } }
+
+#endif

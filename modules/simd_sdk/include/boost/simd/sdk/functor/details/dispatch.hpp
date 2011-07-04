@@ -1,0 +1,127 @@
+//==============================================================================
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef BOOST_SIMD_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
+#define BOOST_SIMD_SDK_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
+
+#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/simd/sdk/details/decltype.hpp>
+#include <boost/simd/sdk/meta/hierarchy_of.hpp>
+#include <boost/simd/sdk/config/attributes.hpp>
+#include <boost/simd/sdk/functor/details/call.hpp>
+
+#if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
+#include <boost/simd/sdk/functor/details/preprocessed/dispatch.hpp>
+#else
+#include <boost/simd/extension/parameters.hpp>
+#include <boost/simd/sdk/details/preprocessor.hpp>
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
+#undef BOOST_SIMD_DECLTYPE
+#undef BOOST_SIMD_FORCE_INLINE
+#endif
+
+//==============================================================================
+// Local macro to generate the fall-through dispatch overload
+// What the fuck with adl_helper ? Well, as pointed out by Johannes Schaub
+// it is mandated by the standard so ADL kicks in on resolving calls to
+// dispatching without having to order them BEFORE the actual dispatch_call
+// class definitions. Without it, the whole system brittles.
+//==============================================================================
+#define M0(z,n,t) meta::unknown_<A##n> const&
+#define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
+
+#define BOOST_SIMD_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
+template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
+BOOST_SIMD_FORCE_INLINE                                                                \
+boost::simd::meta::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
+dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
+            , adl_helper = adl_helper()                                         \
+            )                                                                   \
+{                                                                               \
+  boost::simd::meta::implement< Tag(tag::unknown_),Site                                 \
+                      , tag::error_with(BOOST_PP_ENUM(n,M2,~))                  \
+                      > that;                                                   \
+  return that;                                                                  \
+}                                                                               \
+/**/
+
+//==============================================================================
+// Actual dispatching mechanism implementation
+//==============================================================================
+namespace boost { namespace simd {  namespace meta
+{
+  struct adl_helper {};
+
+  //============================================================================
+  // Default dispatch overload set for catching calls to unsupported functor
+  // overload or unregistered types.
+  //============================================================================
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),BOOST_SIMD_DEFAULT_UNKNOWN_DISPATCH,~)
+
+} } }
+
+#undef M0
+#undef M2
+#undef BOOST_SIMD_DEFAULT_UNKNOWN_DISPATCH
+
+//==============================================================================
+// Local macro to generate the dispatch selector
+//==============================================================================
+#define M0(z,n,t) typename meta::hierarchy_of<A##n>::type()
+/**/
+
+#define BOOST_SIMD_DISPATCH_CALL(z,n,t)                                            \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
+{                                                                           \
+  BOOST_SIMD_DECLTYPE                                                              \
+  ( dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )      \
+  , type                                                                    \
+  );                                                                        \
+};                                                                          \
+                                                                            \
+template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
+BOOST_SIMD_FORCE_INLINE                                                            \
+typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
+dispatch( Tag const&, Site const&                                           \
+        , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
+        )                                                                   \
+{                                                                           \
+  typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type  that; \
+  return that;                                                              \
+}                                                                           \
+/**/
+
+namespace boost { namespace simd {  namespace meta
+{
+  //==============================================================================
+  // dispatch_call finds the proper call overload for evaluating a given
+  // functor over a set of types on a given site
+  //==============================================================================
+  template<class Sig, class Site> struct dispatch_call; 
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),BOOST_SIMD_DISPATCH_CALL,~)
+
+} } }
+
+#undef M0
+#undef BOOST_SIMD_DISPATCH_TYPES_TPL
+#undef BOOST_SIMD_DISPATCH_TYPES
+#undef BOOST_SIMD_DISPATCH_CALL
+
+#if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+#endif
+
+#endif
