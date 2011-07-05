@@ -29,5 +29,5 @@ SET( SOURCES
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(swar.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+  nt2_module_add_unit(simd_swar.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

@@ -6,30 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::scalar_of.cpp"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::scalar_of.cpp"
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on scalar is idempotent
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(scalar_of_scalar)
+BOOST_SIMD_TEST_CASE(scalar_of_scalar)
 {
-  using nt2::meta::scalar_of;
+  using boost::simd::meta::scalar_of;
   using boost::is_same;
 
-  NT2_TEST( (is_same<scalar_of<double>::type        , double        >::value) );
-  NT2_TEST( (is_same<scalar_of<float>::type         , float         >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::uint64_t>::type , nt2::uint64_t >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::uint32_t>::type , nt2::uint32_t >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::uint16_t>::type , nt2::uint16_t >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::uint8_t>::type  , nt2::uint8_t  >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::int64_t>::type  , nt2::int64_t  >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::int32_t>::type  , nt2::int32_t  >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::int16_t>::type  , nt2::int16_t  >::value) );
-  NT2_TEST( (is_same<scalar_of<nt2::int8_t>::type   , nt2::int8_t   >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<double>::type        , double        >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<float>::type         , float         >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::uint64_t>::type , boost::simd::uint64_t >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::uint32_t>::type , boost::simd::uint32_t >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::uint16_t>::type , boost::simd::uint16_t >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::uint8_t>::type  , boost::simd::uint8_t  >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::int64_t>::type  , boost::simd::int64_t  >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::int32_t>::type  , boost::simd::int32_t  >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::int16_t>::type  , boost::simd::int16_t  >::value) );
+  BOOST_SIMD_TEST( (is_same<scalar_of<boost::simd::int8_t>::type   , boost::simd::int8_t   >::value) );
 }

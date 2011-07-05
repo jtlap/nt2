@@ -6,13 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/simd Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - unit/simd Mode"
 
-#include <nt2/toolbox/bitwise/include/shift_right.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/toolbox/bitwise/include/shift_right.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// Test behavior of bitwise components using NT2_TEST_CASE
+// Test behavior of bitwise components using BOOST_SIMD_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
 

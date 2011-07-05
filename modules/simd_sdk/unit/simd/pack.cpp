@@ -6,11 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::simd::pack"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::pack"
 
 #include <iostream>
-#include <nt2/sdk/simd/pack.hpp>
-#include <nt2/include/functions/cosd.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/include/functions/cosd.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack computations
@@ -18,8 +18,8 @@
 
 int main()
 {
-  nt2::simd::pack<float> x(4);
+  boost::simd::pack<float> x(4);
 
-  std::cout << nt2::cosd(x+x*x+x)*x << "\n";
+  std::cout << boost::simd::cosd(x+x*x+x)*x << "\n";
 }
 

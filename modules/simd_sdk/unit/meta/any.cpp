@@ -6,59 +6,59 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::any"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::any"
 
-#include <nt2/sdk/meta/any.hpp>
+#include <boost/simd/sdk/meta/any.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with 1 sequence argument
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(unary_sequence)
+BOOST_SIMD_TEST_CASE(unary_sequence)
 {
-  using nt2::meta::any;
+  using boost::simd::meta::any;
   using boost::is_same;
   using boost::mpl::_1;
   using boost::mpl::vector;
 
-  NT2_TEST(  (any< is_same<_1,bool  >, vector<int,float,bool> >::value) );
-  NT2_TEST( !(any< is_same<_1,double>, vector<int,float,bool> >::value) );
+  BOOST_SIMD_TEST(  (any< is_same<_1,bool  >, vector<int,float,bool> >::value) );
+  BOOST_SIMD_TEST( !(any< is_same<_1,double>, vector<int,float,bool> >::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with 1 non-sequence argument
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(unary_non_sequence)
+BOOST_SIMD_TEST_CASE(unary_non_sequence)
 {
-  using nt2::meta::any;
+  using boost::simd::meta::any;
   using boost::is_same;
   using boost::mpl::_1;
 
-  NT2_TEST(  (any< is_same<_1,bool  >, bool >::value) );
-  NT2_TEST( !(any< is_same<_1,double>, bool >::value) );
+  BOOST_SIMD_TEST(  (any< is_same<_1,bool  >, bool >::value) );
+  BOOST_SIMD_TEST( !(any< is_same<_1,double>, bool >::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with non-sequence arguments
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(non_sequences)
+BOOST_SIMD_TEST_CASE(non_sequences)
 {
-  using nt2::meta::any;
+  using boost::simd::meta::any;
   using boost::is_same;
   using boost::mpl::_1;
 
   // Work
-  NT2_TEST((any< is_same<_1,bool>, float, bool              >::value) );
-  NT2_TEST((any< is_same<_1,bool>, float, bool, float       >::value) );
-  NT2_TEST((any< is_same<_1,bool>, float, bool, float, float>::value) );
+  BOOST_SIMD_TEST((any< is_same<_1,bool>, float, bool              >::value) );
+  BOOST_SIMD_TEST((any< is_same<_1,bool>, float, bool, float       >::value) );
+  BOOST_SIMD_TEST((any< is_same<_1,bool>, float, bool, float, float>::value) );
 
   // Don't work
-  NT2_TEST( !(any< is_same<_1,bool>, float, double              >::value) );
-  NT2_TEST( !(any< is_same<_1,bool>, float, double, float       >::value) );
-  NT2_TEST( !(any< is_same<_1,bool>, float, double, float, float>::value) );
+  BOOST_SIMD_TEST( !(any< is_same<_1,bool>, float, double              >::value) );
+  BOOST_SIMD_TEST( !(any< is_same<_1,bool>, float, double, float       >::value) );
+  BOOST_SIMD_TEST( !(any< is_same<_1,bool>, float, double, float, float>::value) );
 }

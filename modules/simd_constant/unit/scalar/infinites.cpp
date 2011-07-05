@@ -6,29 +6,29 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::constants infinites"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::constants infinites"
 
 #include <limits>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/properties.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/properties.hpp>
 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( real_inf, NT2_REAL )
+BOOST_SIMD_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
 {
-  NT2_TEST_EQUAL( nt2::Inf<T>() , std::numeric_limits<T>::infinity()  );
-  NT2_TEST_EQUAL( nt2::Minf<T>(), -std::numeric_limits<T>::infinity() );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Inf<T>() , std::numeric_limits<T>::infinity()  );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Minf<T>(), -std::numeric_limits<T>::infinity() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( int_inf, NT2_INTEGRAL_TYPES )
+BOOST_SIMD_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES )
 {
-  NT2_TEST_EQUAL( nt2::Inf<T>() , nt2::Valmax<T>()  );
-  NT2_TEST_EQUAL( nt2::Minf<T>(), nt2::Valmin<T>()  );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Inf<T>() , boost::simd::Valmax<T>()  );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Minf<T>(), boost::simd::Valmin<T>()  );
 }

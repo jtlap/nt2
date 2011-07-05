@@ -6,77 +6,77 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - negs/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 arithmetic toolbox - negs/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/negs.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <boost/simd/toolbox/arithmetic/include/negs.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( negs_real__1_0,  NT2_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( negs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::negs;
-  using nt2::tag::negs_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<negs_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::negs;
+  using boost::simd::tag::negs_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<negs_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(negs(T(100)), T(-100));
-  NT2_TEST_EQUAL(negs(nt2::Inf<T>()), nt2::Minf<T>());
-  NT2_TEST_EQUAL(negs(nt2::Minf<T>()), nt2::Inf<T>());
-  NT2_TEST_EQUAL(negs(nt2::Mone<T>()), nt2::One<T>());
-  NT2_TEST_EQUAL(negs(nt2::Nan<T>()), nt2::Nan<T>());
-  NT2_TEST_EQUAL(negs(nt2::One<T>()), nt2::Mone<T>());
-  NT2_TEST_EQUAL(negs(nt2::Valmax<T>()), nt2::Valmin<T>());
-  NT2_TEST_EQUAL(negs(nt2::Valmin<T>()), nt2::Valmax<T>());
-  NT2_TEST_EQUAL(negs(nt2::Zero<T>()), nt2::Zero<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(T(100)), T(-100));
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Inf<T>()), boost::simd::Minf<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Minf<T>()), boost::simd::Inf<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Mone<T>()), boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Nan<T>()), boost::simd::Nan<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::One<T>()), boost::simd::Mone<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Valmax<T>()), boost::simd::Valmin<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Valmin<T>()), boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Zero<T>()), boost::simd::Zero<T>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( negs_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( negs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::negs;
-  using nt2::tag::negs_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<negs_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::negs;
+  using boost::simd::tag::negs_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<negs_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(negs(T(100)), T(-100));
-  NT2_TEST_EQUAL(negs(nt2::Mone<T>()), nt2::One<T>());
-  NT2_TEST_EQUAL(negs(nt2::One<T>()), nt2::Mone<T>());
-  NT2_TEST_EQUAL(negs(nt2::Valmax<T>()), -nt2::Valmax<T>());
-  NT2_TEST_EQUAL(negs(nt2::Valmin<T>()), nt2::Valmax<T>());
-  NT2_TEST_EQUAL(negs(nt2::Zero<T>()), nt2::Zero<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(T(100)), T(-100));
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Mone<T>()), boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::One<T>()), boost::simd::Mone<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Valmax<T>()), -boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Valmin<T>()), boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(negs(boost::simd::Zero<T>()), boost::simd::Zero<T>());
 } // end of test for signed_int_

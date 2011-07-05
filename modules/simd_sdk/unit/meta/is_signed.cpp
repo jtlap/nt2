@@ -6,48 +6,48 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::is_signed"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::is_signed"
 
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/is_signed.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/meta/is_signed.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that is_signed is correct
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(is_signed)
+BOOST_SIMD_TEST_CASE(is_signed)
 {
-  using nt2::meta::is_signed;
-  using namespace nt2;
+  using boost::simd::meta::is_signed;
+  using namespace boost;
 
-  NT2_TEST( is_signed<double>::value        );
-  NT2_TEST( is_signed<float>::value         );
-  NT2_TEST( !is_signed<nt2::uint64_t>::value);
-  NT2_TEST( !is_signed<nt2::uint32_t>::value);
-  NT2_TEST( !is_signed<nt2::uint16_t>::value);
-  NT2_TEST( !is_signed<nt2::uint8_t>::value );
-  NT2_TEST( is_signed<nt2::int64_t>::value  );
-  NT2_TEST( is_signed<nt2::int32_t>::value  );
-  NT2_TEST( is_signed<nt2::int16_t>::value  );
-  NT2_TEST( is_signed<nt2::int8_t>::value   );
-  NT2_TEST( !is_signed<bool>::value         );
+  BOOST_SIMD_TEST( is_signed<double>::value        );
+  BOOST_SIMD_TEST( is_signed<float>::value         );
+  BOOST_SIMD_TEST( !is_signed<boost::simd::uint64_t>::value);
+  BOOST_SIMD_TEST( !is_signed<boost::simd::uint32_t>::value);
+  BOOST_SIMD_TEST( !is_signed<boost::simd::uint16_t>::value);
+  BOOST_SIMD_TEST( !is_signed<boost::simd::uint8_t>::value );
+  BOOST_SIMD_TEST( is_signed<boost::simd::int64_t>::value  );
+  BOOST_SIMD_TEST( is_signed<boost::simd::int32_t>::value  );
+  BOOST_SIMD_TEST( is_signed<boost::simd::int16_t>::value  );
+  BOOST_SIMD_TEST( is_signed<boost::simd::int8_t>::value   );
+  BOOST_SIMD_TEST( !is_signed<bool>::value         );
 }
 
-NT2_TEST_CASE(is_unsigned)
+BOOST_SIMD_TEST_CASE(is_unsigned)
 {
-  using nt2::meta::is_unsigned;
-  using namespace nt2;
+  using boost::simd::meta::is_unsigned;
+  using namespace boost;
 
-  NT2_TEST( !is_unsigned<double>::value        );
-  NT2_TEST( !is_unsigned<float>::value         );
-  NT2_TEST(  is_unsigned<nt2::uint64_t>::value );
-  NT2_TEST(  is_unsigned<nt2::uint32_t>::value );
-  NT2_TEST(  is_unsigned<nt2::uint16_t>::value );
-  NT2_TEST(  is_unsigned<nt2::uint8_t>::value  );
-  NT2_TEST( !is_unsigned<nt2::int64_t>::value  );
-  NT2_TEST( !is_unsigned<nt2::int32_t>::value  );
-  NT2_TEST( !is_unsigned<nt2::int16_t>::value  );
-  NT2_TEST( !is_unsigned<nt2::int8_t>::value   );
-  NT2_TEST(  is_unsigned<bool>::value          );
+  BOOST_SIMD_TEST( !is_unsigned<double>::value        );
+  BOOST_SIMD_TEST( !is_unsigned<float>::value         );
+  BOOST_SIMD_TEST(  is_unsigned<boost::simd::uint64_t>::value );
+  BOOST_SIMD_TEST(  is_unsigned<boost::simd::uint32_t>::value );
+  BOOST_SIMD_TEST(  is_unsigned<boost::simd::uint16_t>::value );
+  BOOST_SIMD_TEST(  is_unsigned<boost::simd::uint8_t>::value  );
+  BOOST_SIMD_TEST( !is_unsigned<boost::simd::int64_t>::value  );
+  BOOST_SIMD_TEST( !is_unsigned<boost::simd::int32_t>::value  );
+  BOOST_SIMD_TEST( !is_unsigned<boost::simd::int16_t>::value  );
+  BOOST_SIMD_TEST( !is_unsigned<boost::simd::int8_t>::value   );
+  BOOST_SIMD_TEST(  is_unsigned<bool>::value          );
 }

@@ -10,11 +10,11 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-#ADD_CUSTOM_TARGET(swar.simd.unit)
-#ADD_DEPENDENCIES(swar.unit swar.simd.unit)
+ADD_CUSTOM_TARGET(simd_swar.simd.unit)
+ADD_DEPENDENCIES(simd_swar.unit simd_swar.simd.unit)
 
 ##############################################################################
 # Toolbox swar unit tests
 ##############################################################################
-#nt2_module_use_modules(unit)
-#ADD_SUBDIRECTORY(simd)
+nt2_module_use_modules(simd_unit)
+ADD_SUBDIRECTORY(simd)

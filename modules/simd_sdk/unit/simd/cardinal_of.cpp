@@ -6,25 +6,25 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::cardinal_of SIMD"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::cardinal_of SIMD"
 
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/relation.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that cardinal_of on SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(cardinal_of, NT2_SIMD_TYPES )
+BOOST_SIMD_TEST_CASE_TPL(cardinal_of, BOOST_SIMD_TYPES )
 {
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
   using boost::is_same;
 
-  typedef NT2_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 native_t;
-  NT2_TEST_EQUAL( (cardinal_of<native_t>::value), NT2_SIMD_BYTES/sizeof(T) );
+  BOOST_SIMD_TEST_EQUAL( (cardinal_of<native_t>::value), BOOST_SIMD_BYTES/sizeof(T) );
 }

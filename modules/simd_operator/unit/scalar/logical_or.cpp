@@ -6,72 +6,72 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - logical_or/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 operator toolbox - logical_or/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/logical_or.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <boost/simd/toolbox/operator/include/logical_or.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  NT2_INTEGRAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   
-  using nt2::logical_or;
-  using nt2::tag::logical_or_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<logical_or_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  using boost::simd::logical_or;
+  using boost::simd::tag::logical_or_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<logical_or_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_or(nt2::One<T>(), nt2::One<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(nt2::One<T>(),nt2::Zero<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::True<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::True<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
 } // end of test for integer_
 
-NT2_TEST_CASE_TPL ( logical_or_real__2_0,  NT2_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::logical_or;
-  using nt2::tag::logical_or_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<logical_or_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  using boost::simd::logical_or;
+  using boost::simd::tag::logical_or_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<logical_or_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_or(nt2::Inf<T>(), nt2::Inf<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(nt2::Minf<T>(), nt2::Minf<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(nt2::Nan<T>(), nt2::Nan<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(nt2::One<T>(),nt2::Zero<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::True<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::True<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::True<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::True<r_t>());
+  BOOST_SIMD_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
 } // end of test for real_

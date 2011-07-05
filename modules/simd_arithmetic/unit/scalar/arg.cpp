@@ -6,94 +6,94 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - arg/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 arithmetic toolbox - arg/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/arg.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <boost/simd/toolbox/arithmetic/include/arg.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( arg_real__1_0,  NT2_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( arg_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::arg;
-  using nt2::tag::arg_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<arg_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  using boost::simd::arg;
+  using boost::simd::tag::arg_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<arg_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(nt2::Inf<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Minf<T>()), nt2::Pi<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Mone<T>()), nt2::Pi<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Inf<T>()), boost::simd::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Minf<T>()), boost::simd::Pi<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Mone<T>()), boost::simd::Pi<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Nan<T>()), boost::simd::Nan<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( arg_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( arg_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::arg;
-  using nt2::tag::arg_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<arg_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  using boost::simd::arg;
+  using boost::simd::tag::arg_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<arg_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( arg_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( arg_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::arg;
-  using nt2::tag::arg_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<arg_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  using boost::simd::arg;
+  using boost::simd::tag::arg_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<arg_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(nt2::Mone<T>()), nt2::Pi<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Mone<T>()), boost::simd::Pi<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for signed_int_

@@ -6,23 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::strip"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::strip"
 
-#include <nt2/sdk/meta/strip.hpp>
+#include <boost/simd/sdk/meta/strip.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that strip is correct
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(strip)
+BOOST_SIMD_TEST_CASE(strip)
 {
   using boost::is_same;
-  using nt2::meta::strip;
+  using boost::simd::meta::strip;
 
-  NT2_TEST( (is_same<double , strip<double>::type >::value)       );
-  NT2_TEST( (is_same<double , strip<double&>::type >::value)      );
-  NT2_TEST( (is_same<double , strip<double const>::type >::value) );
-  NT2_TEST( (is_same<double , strip<double const&>::type >::value));
+  BOOST_SIMD_TEST( (is_same<double , strip<double>::type >::value)       );
+  BOOST_SIMD_TEST( (is_same<double , strip<double&>::type >::value)      );
+  BOOST_SIMD_TEST( (is_same<double , strip<double const>::type >::value) );
+  BOOST_SIMD_TEST( (is_same<double , strip<double const&>::type >::value));
 }

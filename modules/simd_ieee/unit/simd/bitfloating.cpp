@@ -6,106 +6,106 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - bitfloating/simd Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 ieee toolbox - bitfloating/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/bitfloating.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <boost/simd/toolbox/ieee/include/bitfloating.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (nt2::uint32_t))
+BOOST_SIMD_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (boost::simd::uint32_t))
 {
-  using nt2::bitfloating;
-  using nt2::tag::bitfloating_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::bitfloating;
+  using boost::simd::tag::bitfloating_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<bitfloating_(vT)>::type r_t;
-  typedef typename nt2::meta::call<bitfloating_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<bitfloating_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<bitfloating_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 } // end of test for uint32_t
 
-NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (nt2::uint64_t))
+BOOST_SIMD_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (boost::simd::uint64_t))
 {
-  using nt2::bitfloating;
-  using nt2::tag::bitfloating_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::bitfloating;
+  using boost::simd::tag::bitfloating_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<bitfloating_(vT)>::type r_t;
-  typedef typename nt2::meta::call<bitfloating_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<bitfloating_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<bitfloating_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 } // end of test for uint64_t
 
-NT2_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (nt2::int32_t))
+BOOST_SIMD_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (boost::simd::int32_t))
 {
-  using nt2::bitfloating;
-  using nt2::tag::bitfloating_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::bitfloating;
+  using boost::simd::tag::bitfloating_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<bitfloating_(vT)>::type r_t;
-  typedef typename nt2::meta::call<bitfloating_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<bitfloating_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<bitfloating_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 } // end of test for int32_t
 
-NT2_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (nt2::int64_t))
+BOOST_SIMD_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (boost::simd::int64_t))
 {
-  using nt2::bitfloating;
-  using nt2::tag::bitfloating_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::bitfloating;
+  using boost::simd::tag::bitfloating_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<bitfloating_(vT)>::type r_t;
-  typedef typename nt2::meta::call<bitfloating_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<bitfloating_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<bitfloating_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 

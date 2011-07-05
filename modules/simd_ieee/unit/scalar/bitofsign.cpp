@@ -6,94 +6,94 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - bitofsign/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 ieee toolbox - bitofsign/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/bitofsign.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/is_negative.hpp>
+#include <boost/simd/toolbox/ieee/include/bitofsign.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/is_negative.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitofsign_real__1_0,  NT2_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( bitofsign_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::bitofsign;
-  using nt2::tag::bitofsign_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitofsign_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::bitofsign;
+  using boost::simd::tag::bitofsign_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<bitofsign_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitofsign(-nt2::Zero<T>()), -nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(bitofsign(nt2::Inf<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(bitofsign(nt2::Minf<T>()), -nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(bitofsign(nt2::One<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(bitofsign(nt2::Zero<T>()), nt2::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(-boost::simd::Zero<T>()), -boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::Inf<T>()), boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::Minf<T>()), -boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::One<T>()), boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( bitofsign_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( bitofsign_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::bitofsign;
-  using nt2::tag::bitofsign_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitofsign_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::bitofsign;
+  using boost::simd::tag::bitofsign_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<bitofsign_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitofsign(nt2::One<T>()), nt2::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::One<T>()), boost::simd::Zero<r_t>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( bitofsign_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( bitofsign_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::bitofsign;
-  using nt2::tag::bitofsign_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitofsign_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::bitofsign;
+  using boost::simd::tag::bitofsign_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<bitofsign_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitofsign(nt2::Mone<T>()), T(1ull << (sizeof(T)*8-1)));
-  NT2_TEST_EQUAL(bitofsign(nt2::One<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(bitofsign(nt2::Zero<T>()), nt2::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::Mone<T>()), T(1ull << (sizeof(T)*8-1)));
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::One<T>()), boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(bitofsign(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for signed_int_

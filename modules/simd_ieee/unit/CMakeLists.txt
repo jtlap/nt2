@@ -10,13 +10,13 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-#ADD_CUSTOM_TARGET(ieee.scalar.unit)
-#ADD_CUSTOM_TARGET(ieee.simd.unit)
-#ADD_DEPENDENCIES(ieee.unit ieee.scalar.unit ieee.simd.unit)
+ADD_CUSTOM_TARGET(simd_ieee.scalar.unit)
+ADD_CUSTOM_TARGET(simd_ieee.simd.unit)
+ADD_DEPENDENCIES(simd_ieee.unit simd_ieee.scalar.unit simd_ieee.simd.unit)
 
 ##############################################################################
 # Toolbox ieee unit tests
 ##############################################################################
-#nt2_module_use_modules(unit)
-#ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd)
+nt2_module_use_modules(simd_unit)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

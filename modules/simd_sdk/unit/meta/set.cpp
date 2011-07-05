@@ -6,78 +6,78 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::set"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::set"
 
-#include <nt2/sdk/meta/set.hpp>
-#include <nt2/sdk/meta/join.hpp>
-#include <nt2/sdk/meta/is_set.hpp>
-#include <nt2/sdk/meta/has_key.hpp>
+#include <boost/simd/sdk/meta/set.hpp>
+#include <boost/simd/sdk/meta/join.hpp>
+#include <boost/simd/sdk/meta/is_set.hpp>
+#include <boost/simd/sdk/meta/has_key.hpp>
 
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/int.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test empty set 'emptyness'
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(empty_set)
+BOOST_SIMD_TEST_CASE(empty_set)
 {
-  using nt2::meta::set;
-  using nt2::meta::is_set;
-  using nt2::meta::has_key;
+  using boost::simd::meta::set;
+  using boost::simd::meta::is_set;
+  using boost::simd::meta::has_key;
 
-  NT2_TEST( is_set< set<> >::value            );
-  NT2_TEST( !(has_key< set<> ,void>::value )  );
-  NT2_TEST( !(has_key< set<> ,int>::value  )  );
-  NT2_TEST( !(has_key< set<> ,float>::value)  );
+  BOOST_SIMD_TEST( is_set< set<> >::value            );
+  BOOST_SIMD_TEST( !(has_key< set<> ,void>::value )  );
+  BOOST_SIMD_TEST( !(has_key< set<> ,int>::value  )  );
+  BOOST_SIMD_TEST( !(has_key< set<> ,float>::value)  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test set access
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(normal_set)
+BOOST_SIMD_TEST_CASE(normal_set)
 {
-  using nt2::meta::set;
-  using nt2::meta::is_set;
-  using nt2::meta::has_key;
+  using boost::simd::meta::set;
+  using boost::simd::meta::is_set;
+  using boost::simd::meta::has_key;
 
   // Is it detected as a set
-  NT2_TEST( (is_set < set<int,float,void> >::value) );
+  BOOST_SIMD_TEST( (is_set < set<int,float,void> >::value) );
 
   // Check for element inside the set
-  NT2_TEST(  (has_key< set<int,float,void>, void  >::value) );
-  NT2_TEST(  (has_key< set<int,float,void>, int   >::value) );
-  NT2_TEST(  (has_key< set<int,float,void>, float >::value) );
-  NT2_TEST( !(has_key< set<int,float,void>, double>::value) );
-  NT2_TEST( !(has_key< set<int,float,void>, int** >::value) );
+  BOOST_SIMD_TEST(  (has_key< set<int,float,void>, void  >::value) );
+  BOOST_SIMD_TEST(  (has_key< set<int,float,void>, int   >::value) );
+  BOOST_SIMD_TEST(  (has_key< set<int,float,void>, float >::value) );
+  BOOST_SIMD_TEST( !(has_key< set<int,float,void>, double>::value) );
+  BOOST_SIMD_TEST( !(has_key< set<int,float,void>, int** >::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test set join
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(join_set)
+BOOST_SIMD_TEST_CASE(join_set)
 {
-  using nt2::meta::set;
-  using nt2::meta::is_set;
-  using nt2::meta::has_key;
-  using nt2::meta::join;
+  using boost::simd::meta::set;
+  using boost::simd::meta::is_set;
+  using boost::simd::meta::has_key;
+  using boost::simd::meta::join;
 
-  NT2_TEST( (is_set< join< set<float>,set<int> > >::value)        );
-  NT2_TEST( (has_key< join< set<float>,set<int> >, float >::value));
-  NT2_TEST( (has_key< join< set<float>,set<int> >, int >::value)  );
+  BOOST_SIMD_TEST( (is_set< join< set<float>,set<int> > >::value)        );
+  BOOST_SIMD_TEST( (has_key< join< set<float>,set<int> >, float >::value));
+  BOOST_SIMD_TEST( (has_key< join< set<float>,set<int> >, int >::value)  );
 
-  NT2_TEST(  (is_set< join< set<int>,set<> > >::value)        );
-  NT2_TEST( !(has_key< join< set<int>,set<> >, float >::value));
-  NT2_TEST(  (has_key< join< set<int>,set<> >, int >::value)  );
+  BOOST_SIMD_TEST(  (is_set< join< set<int>,set<> > >::value)        );
+  BOOST_SIMD_TEST( !(has_key< join< set<int>,set<> >, float >::value));
+  BOOST_SIMD_TEST(  (has_key< join< set<int>,set<> >, int >::value)  );
 
-  NT2_TEST(  (is_set< join< set<>,set<int> > >::value)        );
-  NT2_TEST( !(has_key< join< set<>,set<int> >, float >::value));
-  NT2_TEST(  (has_key< join< set<>,set<int> >, int >::value)  );
+  BOOST_SIMD_TEST(  (is_set< join< set<>,set<int> > >::value)        );
+  BOOST_SIMD_TEST( !(has_key< join< set<>,set<int> >, float >::value));
+  BOOST_SIMD_TEST(  (has_key< join< set<>,set<int> >, int >::value)  );
 
-  NT2_TEST( (is_set< join< set<>,set<> > >::value)          );
-  NT2_TEST( !(has_key< join< set<>,set<> >, float >::value) );
-  NT2_TEST( !(has_key< join< set<>,set<> >, int >::value)   );
+  BOOST_SIMD_TEST( (is_set< join< set<>,set<> > >::value)          );
+  BOOST_SIMD_TEST( !(has_key< join< set<>,set<> >, float >::value) );
+  BOOST_SIMD_TEST( !(has_key< join< set<>,set<> >, int >::value)   );
 }

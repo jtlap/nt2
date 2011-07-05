@@ -6,110 +6,110 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - abs/simd Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 arithmetic toolbox - abs/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/abs.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <boost/simd/toolbox/arithmetic/include/abs.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_SIMD_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  using nt2::abs;
-  using nt2::tag::abs_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::abs;
+  using boost::simd::tag::abs_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<abs_(vT)>::type r_t;
-  typedef typename nt2::meta::call<abs_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<abs_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<abs_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(abs(nt2::splat<vT>(1))[0], T(1));
-  NT2_TEST_EQUAL(abs(nt2::Inf<vT>())[0], nt2::Inf<T>());
-  NT2_TEST_EQUAL(abs(nt2::Minf<vT>())[0], nt2::Inf<T>());
-  NT2_TEST_EQUAL(abs(nt2::Mone<vT>())[0], nt2::One<T>());
-  NT2_TEST_EQUAL(abs(nt2::Nan<vT>())[0], nt2::Nan<T>());
-  NT2_TEST_EQUAL(abs(nt2::One<vT>())[0], nt2::One<T>());
-  NT2_TEST_EQUAL(abs(nt2::Valmax<vT>())[0], nt2::Valmax<T>());
-  NT2_TEST_EQUAL(abs(nt2::Valmin<vT>())[0], nt2::Valmax<T>());
-  NT2_TEST_EQUAL(abs(nt2::Zero<vT>())[0], nt2::Zero<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::splat<vT>(1))[0], T(1));
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Inf<vT>())[0], boost::simd::Inf<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Minf<vT>())[0], boost::simd::Inf<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Mone<vT>())[0], boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Nan<vT>())[0], boost::simd::Nan<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::One<vT>())[0], boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Valmax<vT>())[0], boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Valmin<vT>())[0], boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( abs_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  using nt2::abs;
-  using nt2::tag::abs_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::abs;
+  using boost::simd::tag::abs_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<abs_(vT)>::type r_t;
-  typedef typename nt2::meta::call<abs_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<abs_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<abs_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(abs(nt2::One<vT>())[0], nt2::One<T>());
-  NT2_TEST_EQUAL(abs(nt2::Valmax<vT>())[0], nt2::Valmax<T>());
-  NT2_TEST_EQUAL(abs(nt2::Valmin<vT>())[0], nt2::Valmin<T>());
-  NT2_TEST_EQUAL(abs(nt2::Zero<vT>())[0], nt2::Zero<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::One<vT>())[0], boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Valmax<vT>())[0], boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Valmin<vT>())[0], boost::simd::Valmin<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( abs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( abs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  using nt2::abs;
-  using nt2::tag::abs_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::abs;
+  using boost::simd::tag::abs_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<abs_(vT)>::type r_t;
-  typedef typename nt2::meta::call<abs_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::call<abs_(vT)>::type r_t;
+  typedef typename boost::simd::meta::call<abs_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(abs(nt2::Mone<vT>())[0], nt2::One<T>());
-  NT2_TEST_EQUAL(abs(nt2::One<vT>())[0], nt2::One<T>());
-  NT2_TEST_EQUAL(abs(nt2::Valmax<vT>())[0], nt2::Valmax<T>());
-  NT2_TEST_EQUAL(abs(nt2::Valmin<vT>())[0], nt2::Valmin<T>());
-  NT2_TEST_EQUAL(abs(nt2::Zero<vT>())[0], nt2::Zero<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Mone<vT>())[0], boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::One<vT>())[0], boost::simd::One<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Valmax<vT>())[0], boost::simd::Valmax<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Valmin<vT>())[0], boost::simd::Valmin<T>());
+  BOOST_SIMD_TEST_EQUAL(abs(boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
 } // end of test for signed_int_

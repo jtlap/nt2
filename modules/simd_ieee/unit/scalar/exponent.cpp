@@ -6,48 +6,48 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - exponent/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 ieee toolbox - exponent/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/exponent.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/ilogb.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <boost/simd/toolbox/ieee/include/exponent.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/ilogb.hpp>
+#include <boost/simd/include/functions/abs.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( exponent_real__1_0,  NT2_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( exponent_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::exponent;
-  using nt2::tag::exponent_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<exponent_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
+  using boost::simd::exponent;
+  using boost::simd::tag::exponent_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<exponent_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::simd::meta::as_integer<T, signed>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(exponent(nt2::Minf<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(exponent(nt2::Mone<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(exponent(nt2::One<T>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(exponent(nt2::Zero<T>()), nt2::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::One<T>()), boost::simd::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for real_

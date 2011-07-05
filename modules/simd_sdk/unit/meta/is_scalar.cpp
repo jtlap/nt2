@@ -6,31 +6,31 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::is_scalar"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::is_scalar"
 
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/is_scalar.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/meta/is_scalar.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar are scalar (dur)
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(is_scalar_scalar)
+BOOST_SIMD_TEST_CASE(is_scalar_scalar)
 {
-  using nt2::meta::is_scalar;
+  using boost::simd::meta::is_scalar;
 
-  NT2_TEST( is_scalar<double>::value        );
-  NT2_TEST( is_scalar<float>::value         );
-  NT2_TEST( is_scalar<nt2::uint64_t>::value );
-  NT2_TEST( is_scalar<nt2::uint32_t>::value );
-  NT2_TEST( is_scalar<nt2::uint16_t>::value );
-  NT2_TEST( is_scalar<nt2::uint8_t>::value  );
-  NT2_TEST( is_scalar<nt2::int64_t>::value  );
-  NT2_TEST( is_scalar<nt2::int32_t>::value  );
-  NT2_TEST( is_scalar<nt2::int16_t>::value  );
-  NT2_TEST( is_scalar<nt2::int8_t>::value   );
-  NT2_TEST( is_scalar<bool>::value          );
+  BOOST_SIMD_TEST( is_scalar<double>::value        );
+  BOOST_SIMD_TEST( is_scalar<float>::value         );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::uint64_t>::value );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::uint32_t>::value );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::uint16_t>::value );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::uint8_t>::value  );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::int64_t>::value  );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::int32_t>::value  );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::int16_t>::value  );
+  BOOST_SIMD_TEST( is_scalar<boost::simd::int8_t>::value   );
+  BOOST_SIMD_TEST( is_scalar<bool>::value          );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,8 +38,8 @@ NT2_TEST_CASE(is_scalar_scalar)
 ////////////////////////////////////////////////////////////////////////////////
 struct foo {};  // type of unknown hierarchy
 
-NT2_TEST_CASE(is_nonscalar)
+BOOST_SIMD_TEST_CASE(is_nonscalar)
 {
-  using nt2::meta::is_scalar;
-  NT2_TEST( !is_scalar<foo>::value );
+  using boost::simd::meta::is_scalar;
+  BOOST_SIMD_TEST( !is_scalar<foo>::value );
 }

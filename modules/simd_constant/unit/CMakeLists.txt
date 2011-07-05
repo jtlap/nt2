@@ -10,10 +10,10 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-#ADD_CUSTOM_TARGET(constant.scalar.unit)
-#ADD_CUSTOM_TARGET(constant.simd.unit)
-#ADD_DEPENDENCIES(constant.unit constant.scalar.unit constant.simd.unit)
+ADD_CUSTOM_TARGET(simd_constant.scalar.unit)
+ADD_CUSTOM_TARGET(simd_constant.simd.unit)
+ADD_DEPENDENCIES(simd_constant.unit simd_constant.scalar.unit simd_constant.simd.unit)
 
-#nt2_module_use_modules(unit operator)
-#ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd)
+nt2_module_use_modules(simd_unit simd_operator)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

@@ -6,98 +6,98 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - sqrt/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 arithmetic toolbox - sqrt/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/sqrt.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <boost/simd/toolbox/arithmetic/include/sqrt.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( sqrt_real__1_0,  NT2_REAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::sqrt;
-  using nt2::tag::sqrt_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sqrt_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  using boost::simd::sqrt;
+  using boost::simd::tag::sqrt_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<sqrt_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Four<T>()), nt2::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Two<T>()), nt2::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Inf<T>()), boost::simd::Inf<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Minf<T>()), boost::simd::Nan<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Mone<T>()), boost::simd::Nan<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Nan<T>()), boost::simd::Nan<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Two<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( sqrt_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( sqrt_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::sqrt;
-  using nt2::tag::sqrt_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sqrt_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  using boost::simd::sqrt;
+  using boost::simd::tag::sqrt_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<sqrt_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Four<T>()), nt2::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( sqrt_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( sqrt_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::sqrt;
-  using nt2::tag::sqrt_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sqrt_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  using boost::simd::sqrt;
+  using boost::simd::tag::sqrt_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<sqrt_(T)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Four<T>()), nt2::Two<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sqrt(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Four<T>()), boost::simd::Two<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Mone<T>()), boost::simd::Nan<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  BOOST_SIMD_TEST_ULP_EQUAL(sqrt(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for signed_int_

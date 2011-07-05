@@ -6,86 +6,86 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::arithmetic"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::arithmetic"
 
-#include <nt2/sdk/meta/result_of.hpp>
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/simd/sdk/meta/result_of.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/meta/arithmetic.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with 1 types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( unary_arithmetic )
+BOOST_SIMD_TEST_CASE( unary_arithmetic )
 {
-  using nt2::meta::arithmetic;
-  using nt2::meta::result_of;
+  using boost::simd::meta::arithmetic;
+  using boost::simd::meta::result_of;
   using boost::is_same;
 
-  NT2_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
-  NT2_TEST( (is_same<float, result_of<arithmetic(float )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::uint64_t, result_of<arithmetic(nt2::uint64_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::uint32_t, result_of<arithmetic(nt2::uint32_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint16_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::uint8_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::int64_t, result_of<arithmetic(nt2::int64_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int32_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int16_t )>::type >::value ) );
-  NT2_TEST( (is_same<nt2::int32_t, result_of<arithmetic(nt2::int8_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double)>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float, result_of<arithmetic(float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::uint64_t, result_of<arithmetic(boost::simd::uint64_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::uint32_t, result_of<arithmetic(boost::simd::uint32_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::int32_t, result_of<arithmetic(boost::simd::uint16_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::int32_t, result_of<arithmetic(boost::simd::uint8_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::int64_t, result_of<arithmetic(boost::simd::int64_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::int32_t, result_of<arithmetic(boost::simd::int32_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::int32_t, result_of<arithmetic(boost::simd::int16_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<boost::simd::int32_t, result_of<arithmetic(boost::simd::int8_t )>::type >::value ) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test any with 2 types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( binary_arithmetic )
+BOOST_SIMD_TEST_CASE( binary_arithmetic )
 {
-  using nt2::meta::arithmetic;
-  using nt2::meta::result_of;
+  using boost::simd::meta::arithmetic;
+  using boost::simd::meta::result_of;
   using boost::is_same;
 
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,float )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint64_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint32_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint16_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::uint8_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int64_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int32_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int16_t )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,nt2::int8_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::uint64_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::uint32_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::uint16_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::uint8_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::int64_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::int32_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::int16_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,boost::simd::int8_t )>::type >::value ) );
 
-  NT2_TEST( (is_same<double, result_of<arithmetic(float,double)>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint64_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint32_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint16_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::uint8_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int64_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int32_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int16_t )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float,nt2::int8_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(float,double)>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::uint64_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::uint32_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::uint16_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::uint8_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::int64_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::int32_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::int16_t )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float,boost::simd::int8_t )>::type >::value ) );
 
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(float,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint64_t,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint32_t,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint16_t,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::uint8_t ,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int64_t ,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int32_t ,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int16_t ,double )>::type >::value ) );
-  NT2_TEST( (is_same<double, result_of<arithmetic(nt2::int8_t  ,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,double)>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(float,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::uint64_t,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::uint32_t,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::uint16_t,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::uint8_t ,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::int64_t ,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::int32_t ,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::int16_t ,double )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(boost::simd::int8_t  ,double )>::type >::value ) );
 
-  NT2_TEST( (is_same<double, result_of<arithmetic(double,float)>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(float ,float)>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint64_t,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint32_t,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint16_t,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::uint8_t ,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int64_t ,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int32_t ,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int16_t ,float )>::type >::value ) );
-  NT2_TEST( (is_same<float , result_of<arithmetic(nt2::int8_t  ,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<double, result_of<arithmetic(double,float)>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(float ,float)>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::uint64_t,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::uint32_t,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::uint16_t,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::uint8_t ,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::int64_t ,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::int32_t ,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::int16_t ,float )>::type >::value ) );
+  BOOST_SIMD_TEST( (is_same<float , result_of<arithmetic(boost::simd::int8_t  ,float )>::type >::value ) );
 }

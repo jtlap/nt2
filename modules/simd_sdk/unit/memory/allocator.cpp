@@ -6,25 +6,25 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::memory::allocator"
+#define BOOST_SIMD_UNIT_MODULE "boost::simd::memory::allocator"
 
-#include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
 
 #include <vector>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/unit/tests/relation.hpp>
+#include <boost/simd/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test allocator with std::vector
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(vector, NT2_TYPES)
+BOOST_SIMD_TEST_CASE_TPL(vector, BOOST_SIMD_TYPES)
 {
-  using nt2::memory::is_aligned;
-  std::vector<T, nt2::memory::allocator<T> > p(5);
+  using boost::simd::memory::is_aligned;
+  std::vector<T, boost::simd::memory::allocator<T> > p(5);
 
-  NT2_TEST( is_aligned( &p[0] ) );
+  BOOST_SIMD_TEST( is_aligned( &p[0] ) );
   for(int i=0;i<5;++i) p[i] = T(10)*i;
-  for(int i=0;i<5;++i) NT2_TEST_EQUAL(p[i],T(10)*i);
+  for(int i=0;i<5;++i) BOOST_SIMD_TEST_EQUAL(p[i],T(10)*i);
 }

@@ -23,13 +23,13 @@ SET( SOURCES
     #block1D.cpp
   )
 
-ADD_CUSTOM_TARGET(sdk.memory.unit)
-ADD_DEPENDENCIES(sdk.unit sdk.memory.unit)
+ADD_CUSTOM_TARGET(simd_sdk.memory.unit)
+ADD_DEPENDENCIES(simd_sdk.unit simd_sdk.memory.unit)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(sdk.memory.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+  nt2_module_add_unit(simd_sdk.memory.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()

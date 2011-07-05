@@ -6,45 +6,45 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - rol/scalar Mode"
+#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - rol/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/rol.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <boost/simd/toolbox/bitwise/include/rol.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/simd/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/unit/module.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( rol_integer__2_0,  NT2_INTEGRAL_TYPES)
+BOOST_SIMD_TEST_CASE_TPL ( rol_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   
-  using nt2::rol;
-  using nt2::tag::rol_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<rol_(T,iT)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::rol;
+  using boost::simd::tag::rol_;
+  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::simd::meta::call<rol_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(rol(nt2::Mone<T>(),T(1)), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(rol(nt2::Mone<T>(),T(5)), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(rol(nt2::One<T>(), nt2::One<T>()), nt2::Two<r_t>());
-  NT2_TEST_EQUAL(rol(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
+  BOOST_SIMD_TEST_EQUAL(rol(boost::simd::Mone<T>(),T(1)), boost::simd::Mone<r_t>());
+  BOOST_SIMD_TEST_EQUAL(rol(boost::simd::Mone<T>(),T(5)), boost::simd::Mone<r_t>());
+  BOOST_SIMD_TEST_EQUAL(rol(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Two<r_t>());
+  BOOST_SIMD_TEST_EQUAL(rol(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_
