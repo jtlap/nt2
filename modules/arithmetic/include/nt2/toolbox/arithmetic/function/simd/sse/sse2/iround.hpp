@@ -48,7 +48,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      result_type that = {_mm_cvttps_epi32(a0)}; 
+      result_type that = {_mm_cvtps_epi32(a0)}; 
       return that;
     }
   };

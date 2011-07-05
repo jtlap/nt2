@@ -50,7 +50,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {_mm_cvttps_epi32(a0)}; 
+      typedef typename meta::as_integer<A0>::type iA0; 
+      iA0 that = {_mm_cvttps_epi32(a0)}; 
       return tofloat(that);
     }
   };
