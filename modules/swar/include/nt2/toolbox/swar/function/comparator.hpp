@@ -20,6 +20,7 @@ namespace nt2 {
     struct comparator_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
 }
  
 #include <nt2/toolbox/operator.hpp>

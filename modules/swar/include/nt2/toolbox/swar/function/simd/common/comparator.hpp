@@ -14,37 +14,52 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/is_not_equal_with_equal_nans.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  //TODO A0 == A1
   NT2_FUNCTOR_IMPLEMENTATION(tag::comparator_, tag::cpu_,
-                             (A0)(A1)(A2)(X),
+                             (A0)(A1)(X),
                              ((simd_<arithmetic_<A0>,X>))
-                             ((simd_<arithmetic_<A1>,X>))
-                             ((scalar_<integer_<A2> >))
+                             ((simd_<arithmetic_<A0>,X>))
+                             ((scalar_<integer_<A1> >))
+                             ((simd_<arithmetic_<A0>,X>))
+                             ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::strip<A0>::type                       nA0;
-    typedef boost::fusion::vector<nA0,nA0,int>           result_type;
-    
-    NT2_FUNCTOR_CALL(3)
+    typedef bool result_type;
+    inline result_type operator()(A0 const& a0,A0 const& a1,const A1 & a2, A0 & r0, A0 & r1) const
     {
       typedef result_type r_t;
       r_t res;
       if (a2)
 	{
-	  boost::fusion::at_c<1>(res) =  nt2::min(a0, a1);
-	  boost::fusion::at_c<0>(res) =  nt2::max(a0, a1);
+	  r1 =  nt2::min(a0, a1);
+	  r0 =  nt2::max(a0, a1);
 	}
       else
 	{
-	  boost::fusion::at_c<0>(res) =  nt2::min(a0, a1);
-	  boost::fusion::at_c<1>(res) =  nt2::max(a0, a1);
+	  r0 =  nt2::min(a0, a1);
+	  r1 =  nt2::max(a0, a1);
 	}
-      boost::fusion::at_c<2>(res) = nt2::any(a0-boost::fusion::at_c<0>(res)); 
+      return nt2::any(is_not_equal_with_equal_nans(a0, r0)); 
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(tag::comparator_, tag::cpu_,
+                             (A0)(A1)(X),
+                             ((simd_<arithmetic_<A0>,X>))
+                             ((simd_<arithmetic_<A0>,X>))
+                             ((scalar_<integer_<A1> >))
+                            )
+  {
+    typedef boost::fusion::vector<A0,A0,bool>           result_type;
+    inline result_type operator()(A0 const& a0,A0 const & a1,const A1 & a2) const
+    {
+      result_type res;
+      boost::fusion::at_c<2>(res) = nt2::comparator(a0, a1, a2, boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)); 
       return res; 
     }
   };
