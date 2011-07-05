@@ -81,7 +81,7 @@ if(NOT NT2_MODULES)
 endif()
 if(NT2_MODULES_EXTRA)
   list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
-  list(REMOVE_DUPLICATES ${NT2_MODULES})
+  list(REMOVE_DUPLICATES "NT2_MODULES")
 endif()
 
 include(nt2.download)
