@@ -30,6 +30,38 @@ sys.path.pop(0)
 sys.path.pop(0)
 import re
 
+
+##E_dict = {
+##    'scalar' :{}, 
+##    'sse' :{
+##       "fundamental_" : "NT2_TYPES(bool)",
+##       "arithmetic_"  : "NT2_TYPES",
+##       "real_"        : "NT2_REAL_TYPES",
+##       "real_convert_": "NT2_REAL_CONVERTIBLE_TYPES",
+##       "int_convert_" : "NT2_INT_CONVERT_TYPES", 
+##       "uint_convert_": "NT2_UINT_CONVERT_TYPES",  
+##       "unsigned_"    : "NT2_UNSIGNED_TYPES",
+##       "unsigned_int_": "NT2_UNSIGNED_TYPES", 
+##       "signed_int_"  : "NT2_INTEGRAL_SIGNED_TYPES",  
+##       "integer_"     : "NT2_INTEGRAL_TYPES",  
+##       "signed_"      : "NT2_SIGNED_TYPES",
+##       "int64_"       : "NT2_INT_64_TYPES",
+##       "int32_"       : "NT2_INT_32_TYPES",
+##       "int16_"       : "NT2_INT_16_TYPES", 
+##       "int8_"        : "NT2_INT_8_TYPES",
+##       "groupable_"   : "NT2_GROUPABLE_TYPES",
+##       "splitable_"   : "NT2_SPLITABLE_TYPES",
+##       "gt_8_"        : "NT2_INT_GT8_TYPES",
+##       "sintgt_8_"    : "NT2_SIGNED_INT_GT_8_TYPES",
+##       "uintgt_8_"    : "NT2_UNSIGNED_INT_GT_8_TYPES",
+##       "lt_64_"       : "NT2_LT64_TYPES",
+##       "gt_16_"       : "NT2_GT16_TYPES",
+##       "sintgt_16_"   : "NT2_SIGNED_INT_GT_16_TYPES",
+##       "uintgt_16_"   : "NT2_UNSIGNED_INT_GT_16_TYPES",
+##        },
+##    'altivec' : {}, 
+##        }
+
 def extract(d,key_substitute,default_value,*fromkeys) :
     d1 =d
     for k in fromkeys :
@@ -37,13 +69,14 @@ def extract(d,key_substitute,default_value,*fromkeys) :
             d1 = d1.get(k,d1.get(key_substitute,default_value))
     return d1    
 
-class Specific_values_test_gen(Base_gen) :
-    def __init__(self, base_gen,d,typ,ret_arity) :
+class Specific_values_test_gen(object) :
+    def __init__(self, base_gen,d,typ,ret_arity,platform) :
         self.bg = base_gen
         self.mode = self.bg.get_fct_mode()
         self.ret_arity = ret_arity
-        self.__gen_result = self.__create_v_test(d,typ)
-
+        self.platform = platform
+        self.__gen_result = self.__create_v_tests(d,typ)
+        
     def get_gen_result(self) : return  self.__gen_result
     def get_spec_value_call_tpl(self,d) :
         """ this is the call template to the test of the value
@@ -65,7 +98,18 @@ class Specific_values_test_gen(Base_gen) :
             spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$), $call_param_res$%s);"
         return spec_values_tpl
 
-    def __create_v_test(self,dl,typ) :
+    def expand_to_list(self,typ) :
+        print("typ ->>> %s"%typ)
+        return self.bg.Expansion_dict[self.platform][typ]
+    
+    def __create_v_tests(self,dl,typ) :
+        typs = self.expand_to_list(typ)
+        print (typs)
+        r = []
+        for t in typs : r+=self.__create_v_test(dl,t,typ)
+        return r
+    
+    def __create_v_test(self,dl,typ,orig_type) :
         unit_specific = extract(dl,"","",'unit',"specific_values")
         r = ["", "  // specific values tests"]
         no_ulp = extract(dl,"","False","unit","global_header","no_ulp")
@@ -77,21 +121,26 @@ class Specific_values_test_gen(Base_gen) :
            p = unit_specific.get("prolog",False) 
            if p : r = self.__add(p,r)
         if self.ret_arity <= 1 :
-            r = self.__create_values_test(dl,typ,no_ulp,r)
+            r = self.__create_values_test(dl,typ,orig_type,no_ulp,r)
         else :
-            r = self.__create_tuple_values_test(dl,typ,no_ulp,r)            
+            r = self.__create_tuple_values_test(dl,typ,orig_type,no_ulp,r)            
         if isinstance(unit_specific, dict) :
             e = unit_specific.get("epilog",False) 
             if e : r = self.__add(e,r)
         return r
 
-    def __create_values_test(self,dl,typ,no_ulp,r) :
+    def __create_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         unit_specific = extract(dl,"","",'unit',"specific_values")
         ulp_str = "" if no_ulp else "ULP_"                   #string to modify the macro name accordingly
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
         spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
-        typ_values = extract(unit_specific,"default",None,typ)       
-        if (typ == 'real_convert_') : typ = 'real_'
+        print("typ   %s"%typ)
+        print("otype %s"%orig_typ)
+        print("unit_specific %s"%unit_specific)
+        typ_values = extract(unit_specific,"default",None,typ)
+        if typ_values is None:  typ_values = extract(unit_specific,"default",None,orig_typ)
+##        print("typ_values %s"%typ_values)
+##        if (typ == 'real_convert_') : typ = 'real_'
         # typ_values is the dictionnary of types for which specific values calls will be generated
         #        print("typ_values = %s"%typ_values)
         for k in sorted(typ_values.keys()) :
@@ -133,7 +182,7 @@ class Specific_values_test_gen(Base_gen) :
             r.append(s)
         return r    
 
-    def __create_tuple_values_test(self,dl,typ,no_ulp,r) :
+    def __create_tuple_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         d = extract(dl,"","",'unit',"specific_values")
         if no_ulp :
             Call = "    NT2_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
@@ -142,6 +191,7 @@ class Specific_values_test_gen(Base_gen) :
             
         Results = "    r_t res = $fct_name$($call_param_vals$);"
         dd = d.get(typ,d.get("default",None))
+        if dd is None : dd = d.get(orig_typ,d.get("default",None))
         r = ["",
              "  // specific values tests",]
         for i in range(self.ret_arity) :

@@ -12,7 +12,8 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
@@ -39,6 +40,7 @@ namespace nt2 { namespace meta
     {
       impl::trig_base <A1,radian_tag,fast_tag,
 	               tag::simd_type>::sincosa(tofloat(a0),a1,a2); 
+      return 0;
     }
   };
 
@@ -68,4 +70,5 @@ namespace nt2 { namespace meta
     }
   };
 } }
+
 #endif

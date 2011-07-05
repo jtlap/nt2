@@ -60,14 +60,23 @@ class Random_verif_test_gen(Base_gen) :
             "  }",
             ],
         }
-    def __init__(self, base_gen,d,typ) :
+    def __init__(self, base_gen,d,typ,platform) :
         self.bg   = base_gen
         self.mode = self.bg.get_fct_mode()
-        self.__gen_result = self.__create_unit_txt(d,typ)
+        self.platform = platform
+        self.__gen_result = self.__create_unit_txts(d,typ)
 
     def get_gen_result(self) : return  self.__gen_result
 
-    def __create_unit_txt(self,dl,typ) :
+    def __create_unit_txts(self,dl,typ) :
+        r = []
+        ####        ctyp = typ if self.mode == "scalar" else self.convert(typ,dl)
+        typs = self.expand_to_list(typ)
+        if len(typs) :  r = self.__create_unit_txt(dl,typs[0],typ)
+ ##       for t in typs : r += self.__create_unit_txt(dl,t,typ)
+        return r
+    
+    def __create_unit_txt(self,dl,typ,orig_typ) :
         ctyp = typ if self.mode == "scalar" else self.convert(typ,dl)
         print("%s --> %s"%(typ,ctyp))
         nb_rand = str(dl['unit'].get("nb_rand","NT2_NB_RANDOM_TEST"))
@@ -75,6 +84,7 @@ class Random_verif_test_gen(Base_gen) :
         d = du["verif_test"]
         ##print("du[ranges] = %s"%du["ranges"])
         actual_ranges = du["ranges"].get(typ,du["ranges"].get("default",None))
+        if actual_ranges is None : actual_ranges = du["ranges"].get(orig_typ,du["ranges"].get("default",None))
         if isinstance(d.get("property_value",[]), list) : return []
         if self.mode == "scalar" :
             durac = d.get("property_call",{})
@@ -90,9 +100,15 @@ class Random_verif_test_gen(Base_gen) :
         ##print("actual_ranges = %s"%actual_ranges)
         for r1 in actual_ranges :
             ##print("r1 %s" % r1)
+            print("ctyp %s"%ctyp)
+            self.bg.orig_typ=orig_typ
             r +=self.bg.create_unit_txt_part( Random_verif_test_gen.Random_test_body[self.mode],self.__prepare,dl,ctyp,r1)
         return r
 
+    def expand_to_list(self,typ) :
+        print("typ ->>> %s"%typ)
+        return self.bg.Expansion_dict[self.platform][typ]
+    
     def loads(self, beg, df, arity) :
         s = []
         for i in xrange(0, arity) :
@@ -228,8 +244,12 @@ class Random_verif_test_gen(Base_gen) :
                             dtmp = durac.get(typ,durac.get("default",[]))
                             print("=== i %s"%i)
                             print("=== i %s"%durav)
-                            s=re.sub("\$property_call\$" ,durac.get(typ,durac.get("default",None))[i],s)
-                            s=re.sub("\$property_value\$" ,durav.get(typ,durav.get("default",None))[i],s)
+                            call = durac.get(typ,durac.get("default",None))
+                            if call is None : call = durac.get(self.bg.orig_typ,durac.get("default",None))
+                            s=re.sub("\$property_call\$" ,call[i],s)
+                            value = durav.get(typ,durav.get("default",None))
+                            if value is None : value =durav.get(self.bg.orig_typ,durav.get("default",None))
+                            s=re.sub("\$property_value\$" ,value[i],s)
                             r.append(s)
                     if not no_ulp : r.append(beg+"ulp0=nt2::max(ulpd,ulp0);")
                     return r

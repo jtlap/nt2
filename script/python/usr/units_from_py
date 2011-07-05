@@ -53,6 +53,7 @@ def showoptions(namespace):
     d = namespace.__dict__
     print("""units_from_py was invoked with:
     modules name(s)                = <%(md_name)s>
+    simd types               (-t)  = <%(simd_types)s>   
     functor list             (-f)  = <%(fct_list)s>
     modes                    (-m)  = <%(modes)s>
     all functors             (-a)  = <%(all_functors)s>
@@ -73,6 +74,12 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description="create cpp unit test files from existing py files")
     parser.add_argument("md_name",
                       help="""module name(s)
+                      """)
+    parser.add_argument("-t","--types",
+                      default="sse",
+                      dest="simd_types",
+                      help="""simd types selection: altivec or sse
+                      default is sse
                       """)
     parser.add_argument("-a", "--all",
                       dest="all_functors",
@@ -233,10 +240,22 @@ if __name__ == "__main__" :
                       dest="modes",
                       default = 'scalar,simd',
                       help="""generate files for modes that can be chosen
+
                               as 'scalar' and/or 'simd' or both
                       """)
+##    namespace = parser.parse_args( "NT2_ALL -o -nw -np -r -b -s -t=vmx".split())
+##    namespace = parser.parse_args( "bitwise -f=ffs -np -r -s -nw".split())
+##    namespace = parser.parse_args( "cephes -a -pr -s -m=scalar -w".split())
+##    namespace = parser.parse_args( "arithmetic -f=essai -o -p  -m=scalar -s -nw".split())
+##    namespace = parser.parse_args( "polynomials -f=legendre -o -np -r -m=simd -ns -w".split())
+##    namespace = parser.parse_args( "streflop -f=cos -o -p  -s -w".split())
+##    namespace = parser.parse_args( "dd_reals       -f=splat -s -w".split())
+##    namespace = parser.parse_args( "arithmetic -a -o -np -r -s -w".split())
+##    namespace = parser.parse_args( "swar -f=split -o -p -nr -s -w -m=simd".split())
+##    namespace = parser.parse_args( "elliptic -f=ellpk -o -p -nr -s -w -m=scalar".split())  
     namespace = parser.parse_args()
     all_functors = namespace.all_functors or (namespace.md_name == 'NT2_ALL')
+    simd_types   = namespace.simd_types
     fct_list     = listify(namespace.fct_list)
     md_name      = listify(namespace.md_name)
     styles       = listify(namespace.styles)
@@ -286,6 +305,7 @@ if __name__ == "__main__" :
                         fct_list=fct_list,
                         modes=modes,
                         parts=parts,
+                        platform=simd_types,
                         show=sh,
                         write_files=wr,
                         check_on_write=check,
