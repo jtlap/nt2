@@ -33,7 +33,7 @@ namespace boost { namespace proto
     #define BOOST_PROTO_CHILD_N(_, N, __)   proto::_child_c<N>
     #define BOOST_PROTO_CHILD_E_N(_, N, __) E(proto::_child_c<N>)
 
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PROTO_MAX_ARITY, "nt2/sdk/dsl/proto/unpack.hpp"))
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PROTO_MAX_ARITY, "boost/simd/sdk/dsl/proto/unpack.hpp"))
     #include BOOST_PP_ITERATE()
 
     #undef BOOST_PROTO_CHILD_N

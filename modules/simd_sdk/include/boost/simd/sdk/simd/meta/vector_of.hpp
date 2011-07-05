@@ -16,10 +16,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Forward declaration for native
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace simd
+namespace boost { namespace simd
 {
   template<class Scalar,class Extension> struct native;
-} } }
+} }
 
 /* We use boost::mpl::sizeof_ rather than sizeof because MSVC has trouble
  * with sizeof of dependent names in SFINAE contexts */

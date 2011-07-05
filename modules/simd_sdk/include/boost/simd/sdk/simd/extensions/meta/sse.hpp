@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace meta
   template<class X> struct extension_of<__m128 ,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128d,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
-} }}
+} } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Conversion between vector types
@@ -88,6 +88,6 @@ namespace boost { namespace simd { namespace details
     template<> struct bitwise_cast<__m128i, __m128d> : BOOST_SIMD_SSE_CONVERT {};
 
     #undef BOOST_SIMD_SSE_CONVERT
-} }}
+} } }
 
 #endif

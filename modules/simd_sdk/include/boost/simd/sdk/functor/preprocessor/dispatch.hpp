@@ -145,7 +145,7 @@ dispatching( Tag const&, Site const&                                        \
  */
 //==============================================================================
 #define BOOST_SIMD_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
-namespace boost { namespace meta {                                              \
+namespace boost { namespace simd { namespace meta {                                  \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_SIMD_DISPATCH_TYPE_TPL,Types)> \
 BOOST_SIMD_FORCE_INLINE                                                              \
 typename boost::enable_if < BOOST_SIMD_PP_STRIP(Cond)                                \
@@ -156,10 +156,10 @@ dispatching ( Tag const&, Site const&                                         \
             , adl_helper = adl_helper()                                       \
             )                                                                 \
 {                                                                             \
-  boost::simd::meta::implement<BOOST_SIMD_PP_STRIP(Ret),Site>  that;                         \
+  boost::simd::meta::implement<BOOST_SIMD_PP_STRIP(Ret),Site>  that;          \
   return that;                                                                \
 }                                                                             \
-} }                                                                           \
+} } }                                                                         \
 /**/
 
 #endif
