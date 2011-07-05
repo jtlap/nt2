@@ -9,6 +9,8 @@
 ################################################################################
 
 SET( SOURCES
+  is_not_equal_with_equal_nans.cpp
+  is_equal_with_equal_nans.cpp
   sb2b.cpp
   majority.cpp
   is_unord.cpp

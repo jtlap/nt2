@@ -6,24 +6,22 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_TOINT_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_TOINT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTION_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTION_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/arithmetic/include.hpp>
+#include <nt2/toolbox/predicates/include.hpp>
 
 namespace nt2 { namespace tag
   {         
-    struct toint_ {};
+    struct is_equal_with_equal_nans_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::toint_, ifix, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::toint_, itrunc, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_equal_with_equal_nans_, is_equal_with_equal_nans, 2)
 }
  
 #include <nt2/toolbox/operator.hpp>
-#include <nt2/toolbox/arithmetic/function/scalar/toint.hpp>
-#include <nt2/toolbox/arithmetic/function/simd/all/toint.hpp> 
+#include <nt2/toolbox/predicates/function/scalar/is_equal_with_equal_nans.hpp>
+#include <nt2/toolbox/predicates/function/simd/all/is_equal_with_equal_nans.hpp> 
 
  
 #endif
