@@ -51,7 +51,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       A0 that = {_mm_cvttps_epi32(a0)}; 
-      return that;
+      return tofloat(that);
     }
   };
   
