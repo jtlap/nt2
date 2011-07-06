@@ -23,16 +23,27 @@ namespace nt2 { namespace meta
   NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::modf_, tag::cpu_,
                       (A0),
                       (scalar_<double_<A0> > )
+	              (scalar_<double_<A0> > )		     
                      )
   {
-      typedef typename meta::strip<A0>::type            etype;
-      typedef boost::fusion::vector<etype, etype>        result_type;
+    typedef A0       result_type;
     
+    inline result_type operator()(A0 const& a0,A0 & a1) const
+    {      
+      return ::fd_modf(a0, &a1);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::modf_, tag::cpu_,
+                      (A0),
+                      (scalar_<double_<A0> > )
+                     )
+  {
+    typedef boost::fusion::vector<A0, A0>        result_type;
     NT2_FUNCTOR_CALL(1)
     {      
-      typedef result_type   base;
-      base res;
-      boost::fusion::at_c<0>(res) = ::fd_modf(a0, &boost::fusion::at_c<1>(res));
+      result_type res;
+      boost::fusion::at_c<0>(res) = fdlibm::modf(a0, boost::fusion::at_c<1>(res));
       return res;
     }
   };
