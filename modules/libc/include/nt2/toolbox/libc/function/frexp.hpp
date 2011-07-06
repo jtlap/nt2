@@ -17,6 +17,7 @@ namespace nt2 { namespace libc { namespace tag
     struct frexp_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::frexp_, frexp, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(libc::tag::frexp_, frexp, (A0 const&)(A1&), 2)
   } }
  
 #include <nt2/toolbox/libc/function/scalar/frexp.hpp>
