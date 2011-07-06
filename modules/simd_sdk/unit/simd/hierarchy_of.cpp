@@ -26,7 +26,7 @@ BOOST_SIMD_TEST_CASE(simd_category)
   using boost::simd::native;
   using boost::simd::meta::hierarchy_of;
   using boost::is_same;
-  using namespace boost;
+  using namespace boost::simd;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
 

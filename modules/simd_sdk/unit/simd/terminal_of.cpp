@@ -36,7 +36,7 @@ BOOST_SIMD_TEST_CASE_TPL(terminal_of_pack, BOOST_SIMD_TYPES)
   typedef pack<T,16>  native16_t;
 
   native2_t n,p(2),q(4);
-  n = p+q;
+  //n = p+q;
 
   //  BOOST_SIMD_TEST( (is_same<typename terminal_of< native1_t >::type, native1_t >::value)  );
   //BOOST_SIMD_TEST( (is_same<typename terminal_of< native2_t >::type, native2_t >::value)  );

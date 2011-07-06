@@ -23,7 +23,7 @@
 BOOST_SIMD_TEST_CASE_TPL(hierarchy_of_ref_cref, BOOST_SIMD_TYPES)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef typename hierarchy_of<T>::type        hvalue;
   typedef typename hierarchy_of<T&>::type       rvalue;
@@ -39,7 +39,7 @@ BOOST_SIMD_TEST_CASE_TPL(hierarchy_of_ref_cref, BOOST_SIMD_TYPES)
 BOOST_SIMD_TEST_CASE(hierarchy_of_bool)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<bool>::type base;
 
@@ -55,7 +55,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_bool)
 BOOST_SIMD_TEST_CASE(hierarchy_of_void)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<void>::type base;
 
@@ -70,7 +70,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_void)
 BOOST_SIMD_TEST_CASE(hierarchy_of_ints64)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::int64_t>::type base;
 
@@ -99,7 +99,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_ints64)
 BOOST_SIMD_TEST_CASE(hierarchy_of_uints64)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::uint64_t>::type base;
 
@@ -128,7 +128,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_uints64)
 BOOST_SIMD_TEST_CASE(hierarchy_of_ints32)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::int32_t>::type base;
 
@@ -157,7 +157,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_ints32)
 BOOST_SIMD_TEST_CASE(hierarchy_of_uints32)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::uint32_t>::type base;
 
@@ -186,7 +186,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_uints32)
 BOOST_SIMD_TEST_CASE(hierarchy_of_ints16)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::int16_t>::type base;
 
@@ -215,7 +215,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_ints16)
 BOOST_SIMD_TEST_CASE(hierarchy_of_uints16)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::uint16_t>::type base;
 
@@ -244,7 +244,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_uints16)
 BOOST_SIMD_TEST_CASE(hierarchy_of_ints8)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::int8_t>::type base;
 
@@ -273,7 +273,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_ints8)
 BOOST_SIMD_TEST_CASE(hierarchy_of_uints8)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<boost::simd::uint8_t>::type base;
 
@@ -302,7 +302,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_uints8)
 BOOST_SIMD_TEST_CASE(hierarchy_of_double)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<double>::type base;
 
@@ -327,7 +327,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_double)
 BOOST_SIMD_TEST_CASE(hierarchy_of_float)
 {
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of<float>::type base;
 

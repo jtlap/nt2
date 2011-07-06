@@ -27,7 +27,7 @@ BOOST_SIMD_TEST_CASE_TPL(hierarchy_of_ref_cref, BOOST_SIMD_TYPES)
 {
   using boost::array;
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef array<T,7> base;
   typedef typename hierarchy_of<base>::type        hvalue;
@@ -45,7 +45,7 @@ BOOST_SIMD_TEST_CASE(hierarchy_of_array)
 {
   using boost::array;
   using boost::is_same;
-  using namespace boost::meta;
+  using namespace boost::simd::meta;
 
   typedef hierarchy_of< array<double,7> >::type base;
 

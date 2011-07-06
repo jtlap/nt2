@@ -24,7 +24,7 @@ BOOST_SIMD_WARNING(No SIMD extensions detected)
 #define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::none_<boost::mpl::size_t<8> >
 #define BOOST_SIMD_DEFAULT_SITE ::boost::simd::tag::cpu_
 
-#if !defined(BOOST_SIMD_TYPES)
+#if !defined(BOOST_SIMD_SIMD_TYPES)
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
 #endif
 
