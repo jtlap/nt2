@@ -84,7 +84,7 @@ namespace nt2 { namespace meta
 			     )
   {
     typedef void result_type;    
-    inline void operator()(A0 const& a0,A1 & a1,A2 & a2,A3 & a3) const
+    inline void operator()(A0 const& a0,A1 const& a1,A2 & a2,A3 & a3) const
     {
       a2 = nt2::remainder(A2(a0), A2(a1));
       a3 = nt2::idivround(A2(a0), A2(a1));
