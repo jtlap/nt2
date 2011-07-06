@@ -28,7 +28,7 @@ extern "C" {extern long double cephes_cosl(long double);}
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( cos_real__1_0,  (float))//NT2_REAL_TYPES)
 {
   
   using nt2::cos;
@@ -48,7 +48,35 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, -20*nt2::Pi<T>(), 20*nt2::Pi<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, -100000*nt2::Pi<T>(), 100000*nt2::Pi<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    for(nt2::uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),::cephes_cosl(a0),0.5);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, -100*nt2::Pi<T>(), 100*nt2::Pi<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    for(nt2::uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),::cephes_cosl(a0),0.5);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, -1000*nt2::Pi<T>(), 1000*nt2::Pi<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
@@ -63,40 +91,3 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::cos;
-  using nt2::tag::cos_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cos_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( cos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using nt2::cos;
-  using nt2::tag::cos_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cos_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_

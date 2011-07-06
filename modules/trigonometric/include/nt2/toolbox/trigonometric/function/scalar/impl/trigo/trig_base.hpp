@@ -97,11 +97,11 @@ namespace nt2
 	  static const sint_type de = sizeof(sint_type)*8-1;   // size in bits of the scalar types minus one
 	  if (is_invalid(a0)) return Nan<A0>(); //Nan or Inf input
 	  A0 x =  nt2::abs(a0);
-	  if (redu_t::replacement_needed(x))
-	    {
-	      return redu_t::cos_replacement(a0);
-	    }
-	  else
+// 	  if (redu_t::replacement_needed(x))
+// 	    {
+// 	      return redu_t::cos_replacement(a0);
+// 	    }
+// 	  else
 	    {
 	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
@@ -125,11 +125,11 @@ namespace nt2
 	  static const sint_type de = sizeof(sint_type)*8-1;
 	  if (is_invalid(a0)) return Nan<A0>();
 	  A0 x =  nt2::abs(a0);
-	  if (redu_t::replacement_needed(x))
-	    {
-	      return redu_t::sin_replacement(a0);
-	    }
-	  else
+// 	  if (redu_t::replacement_needed(x))
+// 	    {
+// 	      return redu_t::sin_replacement(a0);
+// 	    }
+// 	  else
 	    {
 	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
@@ -153,11 +153,11 @@ namespace nt2
 	  if (is_invalid(a0)||redu_t::tan_invalid(a0)) return Nan<A0>();
 	  if (is_eqz(a0)) return a0;
 	  A0 x =  nt2::abs(a0);
-	  if (redu_t::replacement_needed(x))
-	    {
-	      return redu_t::tan_replacement(a0);
-	    }
-	  else
+// 	  if (redu_t::replacement_needed(x))
+// 	    {
+// 	      return redu_t::tan_replacement(a0);
+// 	    }
+// 	  else
 	    {
 	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
@@ -171,11 +171,11 @@ namespace nt2
 	{
 	  if (nt2::is_invalid(a0)||redu_t::cot_invalid(a0)) return Nan<A0>();
 	  A0 x = nt2::abs(a0);
-	  if (redu_t::replacement_needed(x))
-	    {
-	      return redu_t::cot_replacement(a0);
-	    }
-	  else
+// 	  if (redu_t::replacement_needed(x))
+// 	    {
+// 	      return redu_t::cot_replacement(a0);
+// 	    }
+// 	  else
 	    {
 	      const A0 bos =  bitofsign(a0);
 	      if (!a0) return b_or(Inf<A0>(), bos);
@@ -190,12 +190,12 @@ namespace nt2
 	static inline void sincosa(const A0& a0, A0& s, A0& c)
 	{
 	  if (is_invalid(a0)) { s = c = Nan<A0>(); return; }
-	  A0 x =  nt2::abs(a0);
-	  if (redu_t::replacement_needed(x))
-	    {
-	      redu_t::sincos_replacement(a0, s, c);
-	    }
-	  else
+ 	  A0 x =  nt2::abs(a0);
+// 	  if (redu_t::replacement_needed(x))
+// 	    {
+// 	      redu_t::sincos_replacement(a0, s, c);
+// 	    }
+// 	  else
 	    {
 	      static const sint_type de = sizeof(sint_type)*8-1;
 	      A0 xr, xc;

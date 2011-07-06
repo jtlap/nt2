@@ -23,8 +23,11 @@
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/split.hpp>
+#include <nt2/include/functions/group.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/d_pio2_reducing.hpp>
 
 namespace nt2
 {
@@ -85,6 +88,7 @@ namespace nt2
         static inline logic replacement_available()       { return True<A0>(); }
         static inline logic isalreadyreduced(const A0&a0) { return is_ngt(a0, Pio_4<A0>()); }
 
+	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
         static inline logic islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
@@ -135,9 +139,22 @@ namespace nt2
 	    {
 	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
+          else if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+	    {
+	      typedef typename meta::upgrade<A0>::type uA0;
+	      typedef typename meta::upgrade<int_type>::type uint_type; 
+	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::simd_type, double> aux_reduction; 
+	      uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
+	      nt2::split(x, ux1, ux2);
+	      uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
+	      uint_type n2 = aux_reduction::reduce(ux2, uxr2, uxc2);
+	      xr = nt2::group(uxr1, uxr2);
+	      nt2::split(xr, ux1, ux2);
+	      xc = nt2::group((uxr1-ux1)+uxc1, (uxr2-ux2)+uxc2);
+	      return nt2::group(n1, n2); 
+	    }
           else  // all of x are in [0, inf],  standard big way
 	    {
-	      // This is never taken
 	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
 	    }
         }
@@ -187,12 +204,7 @@ namespace nt2
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
-          A0 x2 = x - xi * Ninety<A0>();//90.0f          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-          {
-	    //      return pio2_reducing<A0>::cephes_reduction(x, xr, xc);
-	    return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
-          }
-
+          A0 x2 = x - xi * Ninety<A0>();//90.0f    
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);

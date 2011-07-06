@@ -9,6 +9,7 @@
 ################################################################################
 
 SET( SOURCES
+  rem_pio2.cpp
   two_split.cpp
   two_prod.cpp
   two_add.cpp

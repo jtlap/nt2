@@ -13,7 +13,8 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/rem_pio2.hpp>
+//#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/rem_pio2.hpp>
+#include <nt2/include/functions/rem_pio2.hpp>
 
 namespace nt2
 {
@@ -84,9 +85,10 @@ namespace nt2
 
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
-	  int_type i;
-          rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
-          return i;
+	  return nt2::rem_pio2(t, xr, xc);
+// 	  int_type i;
+//           rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
+//           return i;
         }
 	
 	static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& xc)

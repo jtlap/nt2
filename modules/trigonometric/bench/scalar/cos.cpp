@@ -77,5 +77,25 @@ namespace n10 {
   typedef nt2::meta::as_integer<T>::type iT;
   NT2_TIMING(cos_,(RS(T,T(-40),T(40))))
 }
+namespace n11 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cos_,(RS(T,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
+}
+namespace n21 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cos_,(RS(T,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
+}
+namespace n111 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cos_,(RS(T,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
+}
+namespace n211 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  NT2_TIMING(cos_,(RS(T,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
+}
 
 #undef RS

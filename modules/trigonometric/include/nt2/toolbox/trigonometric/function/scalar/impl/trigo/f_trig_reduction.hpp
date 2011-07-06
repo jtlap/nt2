@@ -25,7 +25,6 @@
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-
 namespace nt2
 {
   namespace details
@@ -39,6 +38,24 @@ namespace nt2
               , class base_A0 = typename meta::scalar_of<A0>::type
               >
       struct trig_reduction;
+    }
+  }
+}
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
+
+namespace nt2
+{
+  namespace details
+  {
+    namespace internal
+    {
+//       template< class A0
+//               , class unit_tag
+//               , class precision_tag
+//               , class style
+//               , class base_A0 = typename meta::scalar_of<A0>::type
+//               >
+//       struct trig_reduction;
 
       // This class exposes the public static members:
       // replacement_needed:    to provide a condition to go back standard (for example libc) computations is needed
@@ -84,7 +101,6 @@ namespace nt2
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type               logic;
-
         static inline logic replacement_needed(const A0& a0)
         {
           return gt(a0,single_constant<A0,0x43490fdb>());
@@ -95,6 +111,7 @@ namespace nt2
 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
+	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } //8.2355e+05); }
         static inline logic islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
 
         static inline A0 cos_replacement(const A0& a0)
@@ -142,6 +159,16 @@ namespace nt2
           else if (ismedium(x)) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	    {
 	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_medium_reduction(x, xr, xc);
+	    }
+          else if (isnotsobig(x)) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+	    {
+	      typedef typename meta::upgrade < A0 > ::type uA0; 
+	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::not_simd_type, double> aux_reduction; 
+	      uA0 ux = x, uxr, uxc; 
+	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
+	      xr = uxr;
+	      xc = (uxr-xr)+uxc;
+	      return n; 
 	    }
           else  // all of x are in [0, inf],  standard big way
 	    {

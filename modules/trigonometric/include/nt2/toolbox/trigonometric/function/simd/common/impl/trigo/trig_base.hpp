@@ -50,11 +50,11 @@ namespace nt2
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x = nt2::abs(a0);
-	  if (nt2::any(redu_t::replacement_needed(x)))
-	    {
-	      return map(&sredu_t::cos_replacement, a0);
-	    }
-	  else
+// 	  if (nt2::any(redu_t::replacement_needed(x)))
+// 	    {
+// 	      return map(&sredu_t::cos_replacement, a0);
+// 	    }
+// 	  else
 	    {
 	      A0 xr = Nan<A0>(), xc;
 	      int_type n =  redu_t::reduce(x, xr, xc); 
@@ -73,11 +73,11 @@ namespace nt2
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x = nt2::abs(a0);
-	  if (nt2::any(redu_t::replacement_needed(x)))
-	    {
-	      return map(&sredu_t::sin_replacement, a0);
-	    }
-	  else
+// 	  if (nt2::any(redu_t::replacement_needed(x)))
+// 	    {
+// 	      return map(&sredu_t::sin_replacement, a0);
+// 	    }
+// 	  else
 	    {
 	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
@@ -94,11 +94,11 @@ namespace nt2
 	static inline A0 tana(const A0& a0)
 	{
 	  A0 x =  nt2::abs(a0); 
-	  if (nt2::any(redu_t::replacement_needed(x)))
-	    {
-	      return map(&sredu_t::tan_replacement, a0);
-	    }
-	  else
+// 	  if (nt2::any(redu_t::replacement_needed(x)))
+// 	    {
+// 	      return map(&sredu_t::tan_replacement, a0);
+// 	    }
+// 	  else
 	    {	  
 	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
@@ -112,11 +112,11 @@ namespace nt2
 	static inline A0 cota(const A0& a0)
 	{
 	  A0 x =  nt2::abs(a0); 
-	  if (nt2::any(redu_t::replacement_needed(x)))
-	    {
-	      return map(&sredu_t::cot_replacement, a0);
-	    }
-	  else
+// 	  if (nt2::any(redu_t::replacement_needed(x)))
+// 	    {
+// 	      return map(&sredu_t::cot_replacement, a0);
+// 	    }
+// 	  else
 	    {	   
 	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
@@ -131,11 +131,11 @@ namespace nt2
 	{
 	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
 	  A0 x =  nt2::abs(a0);
-	  if (false && nt2::any(redu_t::replacement_needed(x)))
-	    {
-	      // map(&sredu_t::sincos_replacement, a0, s, c);
-	    }
-	  else
+// 	  if (false && nt2::any(redu_t::replacement_needed(x)))
+// 	    {
+// 	      // map(&sredu_t::sincos_replacement, a0, s, c);
+// 	    }
+// 	  else
 	    {
 	      A0 xr = Nan<A0>(), xc;
 	      int_type n = redu_t::reduce(x, xr, xc);
