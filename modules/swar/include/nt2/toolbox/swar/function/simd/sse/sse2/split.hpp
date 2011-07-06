@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
+#include <nt2/sdk/memory/aligned_type.hpp>
 
 #include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
@@ -15,35 +16,39 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/constants/digits.hpp>
-
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::split_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
-                            )
+  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
+				 (A0)(A1)(X),
+				 (boost::mpl::and_ <
+				    boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >,
+				    boost::is_same<A1, typename meta::upgrade<A0>::type>
+				  > 
+                                 ), 
+                                 (tag::split_(simd_<arithmetic_<A0>,X>,
+					      simd_<arithmetic_<A1>,X>,
+					      simd_<arithmetic_<A1>,X>
+					      )
+				  ),
+                                 ((simd_<arithmetic_<A0>,X>))
+				 ((simd_<arithmetic_<A1>,X>))
+		                 ((simd_<arithmetic_<A1>,X>))
+                                )
   {
     typedef typename meta::scalar_of<A0>::type                            stype;
     typedef typename meta::upgrade<stype>::type                           utype;
     typedef simd::native<utype,tag::sse_>                                 ttype;
     typedef meta::is_floating_point<stype>                                 rtag;
     typedef simd::native<typename  meta::double__<A0>::type,tag::sse_>    dtype;
-
     typedef typename boost::mpl::if_c<rtag::value,dtype,ttype>::type      rtype;
-    typedef boost::fusion::tuple<rtype,rtype>                       result_type;
 
-    NT2_FUNCTOR_CALL(1)
-    {
-      result_type res;
-
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-          , rtype()
-          );
-      return res;
-    }
-
-    private:
+    typedef int result_type;    
+    inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
+      {
+	eval( a0, a1, a2, rtype());
+	return 0; 
+      }
+  private:
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  meta::int16_t_<A0>::type,tag::sse_>&)const
     {
@@ -94,6 +99,26 @@ namespace nt2 { namespace meta
       r1 = simd::native_cast<R1>(_mm_cvtps_pd(simd::native_cast<A0>(_mm_srli_si128( simd::native_cast<itype>(a0), 8))));
       r0 = simd::native_cast<R0>(_mm_cvtps_pd(a0));
     }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::split_, tag::cpu_,
+				(A0),
+				(boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >), 
+				(tag::split_(simd_<arithmetic_<A0>,tag::sse_>)),
+				((simd_<arithmetic_<A0>,tag::sse_>))
+		               )
+  {
+    typedef typename meta::upgrade<A0>::type                              rtype;
+    typedef boost::fusion::tuple<rtype,rtype>                       result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      result_type res;
+      nt2::split(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
+      return res;
+    }
+
+
   };
 } }
 

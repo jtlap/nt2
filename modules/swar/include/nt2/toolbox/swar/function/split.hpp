@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct split_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::split_, split, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::split_, split, (A0 const &)(A1&)(A1&), 2)
 }
  
 #include <nt2/toolbox/operator.hpp>

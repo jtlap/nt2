@@ -23,10 +23,11 @@ namespace nt2 { namespace meta
 			      (scalar_< int32_<A2> >)
                             )
   {
-    typedef void result_type;
+    typedef int result_type;
     inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
     {
       a1 = ::frexp(a0, &a2);
+      return 0; 
     }
   };
   
@@ -38,10 +39,7 @@ namespace nt2 { namespace meta
     typedef A0 result_type;    
     inline void operator()(A0 const& a0,A2 & a2) const
     {
-      typedef typename meta::as_integer<A0, signed>::type      int_type;
-      A0 a1; 
-      nt2::frexp(a0, a1, a2);
-      return a1; 
+      return ::frexp(a0, a2);
     }
   };
   
