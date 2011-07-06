@@ -17,6 +17,7 @@ namespace nt2 { namespace standard { namespace tag
     struct frexp_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::frexp_, frexp, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(standard::tag::frexp_, frexp, (A0 const&)(A1&), 2)
   } }
  
 #include <nt2/toolbox/standard/function/scalar/frexp.hpp>
