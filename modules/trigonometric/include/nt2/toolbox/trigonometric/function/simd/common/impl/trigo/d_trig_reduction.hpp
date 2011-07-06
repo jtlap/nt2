@@ -6,11 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_COMMON_SIMD_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_COMMON_SIMD_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/d_pio2_reducing.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_even.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
@@ -28,7 +28,7 @@ namespace nt2
       // trigonometric reduction strategies in the [-pi/4, pi/4] range.
       // these reductions are used in the accurate and fast
       // trigonometric functions with different policies
-      template < class A0, class precision_tag> struct trig_reduction < A0, radian_tag, precision_tag, tag::not_simd_type, double>
+      template < class A0, class precision_tag> struct trig_reduction < A0, radian_tag, precision_tag, tag::simd_type, double>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type   sint_type;
@@ -50,29 +50,29 @@ namespace nt2
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           // x is always positive here
-          if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
+          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
-              return pio2_reducing<A0, tag::not_simd_type>::noreduction(x, xr, xc);
+              return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
             }
-           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+           else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
  	    {
- 	      return pio2_reducing<A0, tag::not_simd_type>::straight_reduction(x, xr, xc);
- 	    }
-          else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+ 	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
+	    }
+          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             {
-              return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
+              return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
 	    }
-          else if (ismedium(x)) // all of x are is in [0, 2^18*pi],  fdlibm medium way
+          else if (all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium way
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_medium_reduction(x, xr, xc);
+	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
-       	  else  // all of x are in [0, inf],  standard big way
-      	    {
-      	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_big_reduction(x, xr, xc);
-      	    }
+	  else  // all of x are in [0, inf],  standard big way
+       	    {
+       	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
+       	    }
         }
       };
-     template < class A0 > struct trig_reduction < A0, radian_tag, fast_tag, tag::not_simd_type, double>
+     template < class A0 > struct trig_reduction < A0, radian_tag, fast_tag, tag::simd_type, double>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<int_type>::type   sint_type;
@@ -96,12 +96,12 @@ namespace nt2
 	  // In all case we apply the cephes reduction scheme
 	  // This impies good reduction in [0 64*pi]
 	  // and degradation near pi/2 multiples on greater values
-	  return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
+	  return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
  	}
      };
 
       template < class A0, class precision_tag>
-      struct trig_reduction < A0, degree_tag, precision_tag, tag::not_simd_type, double >
+      struct trig_reduction < A0, degree_tag, precision_tag, tag::simd_type, double >
       {
 	typedef typename meta::as_integer<A0, signed>::type  int_type;
 	typedef typename meta::scalar_of<int_type>::type    sint_type;
@@ -126,7 +126,7 @@ namespace nt2
 	}
       };
       template < class A0, class precision_tag >
-      struct trig_reduction < A0, pi_tag, precision_tag, tag::not_simd_type, double>
+      struct trig_reduction < A0, pi_tag, precision_tag, tag::simd_type, double>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<int_type>::type    sint_type;

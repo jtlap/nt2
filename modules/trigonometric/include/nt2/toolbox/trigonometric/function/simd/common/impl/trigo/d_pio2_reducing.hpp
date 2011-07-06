@@ -6,15 +6,14 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_D_PIO2_REDUCING_HPP_INCLUDED
 
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_rem_pio2.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_rem_pio2.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/rem_pio2.hpp>
 
 namespace nt2
 {
@@ -23,10 +22,10 @@ namespace nt2
     namespace internal
     {
       // trigonometric double reduction algorithms in the [-pi/4, pi/4] range for double.
-      // this reductions are used in the accurate and fast
+      // this reductions are used in the accurate and fast/common
       // trigonometric functions with different policies
 
-      template<class A0> struct pio2_reducing < A0, tag::not_simd_type, double>
+      template<class A0> struct pio2_reducing < A0, tag::simd_type, double>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
 
@@ -41,12 +40,13 @@ namespace nt2
 	{
 	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
+	  xc = Zero<A0>();
           xr = x-double_constant<A0,0x3FF921FB54400000ll>();
                     // 6.07710050630396597660e-11
           xr -= double_constant<A0,0x3DD0B4611A600000ll>();
                     // 2.02226624871116645580e-21
           xr -= double_constant<A0,0x3BA3198A2E000000ll>();
-	  xc = Zero<A0>();
+          xc = Zero<A0>();
 	  return One<int_type>();
 	}
 
@@ -84,8 +84,8 @@ namespace nt2
 
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
-          int_type i;
-          rpio2<A0, tag::not_simd_type>::rem_pio2(t, i, xr, xc);
+	  int_type i;
+          rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
           return i;
         }
 	

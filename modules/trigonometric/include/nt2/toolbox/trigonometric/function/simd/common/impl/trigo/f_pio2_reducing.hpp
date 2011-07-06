@@ -6,15 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_PIO2_REDUCING_HPP_INCLUDED
 
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/fast_toint.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_rem_pio2.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/rem_pio2.hpp>
 
 namespace nt2
 {
@@ -25,12 +25,9 @@ namespace nt2
       // trigonometric float reduction algoritms in the [-pi/4, pi/4] range.
       // this reductions are used in the accurate and fast
       // trigonometric functions with different policies
-      template < class A0,
-		 class mode, 
-		 class base_A0 = typename meta::scalar_of<A0>::type
-      >  struct pio2_reducing{};
+      //      template < class A0, class base_A0 = typename meta::scalar_of<A0>::type >  struct pio2_reducing{};
 
-      template < class A0>  struct pio2_reducing < A0, tag::not_simd_type, float>
+      template < class A0>  struct pio2_reducing < A0, tag::simd_type, float>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<int_type>::type   sint_type;
@@ -51,6 +48,7 @@ namespace nt2
 	  xr = x-single_constant<A0,0x3fc90f80>();
 	  xr -= single_constant<A0,0x37354400 >();
 	  xr -= single_constant<A0,0x2e85a300>();
+	  xc = Zero<A0>();
 	  return One<int_type>();
 	}
 
@@ -88,8 +86,8 @@ namespace nt2
 	static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
 	{
 	  int_type i;
-	  rpio2<A0, tag::not_simd_type>::rem_pio2(t, i, xr, xc);
-	  return i;
+          rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
+          return i;
 	}
 
 	static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& /*xc*/)

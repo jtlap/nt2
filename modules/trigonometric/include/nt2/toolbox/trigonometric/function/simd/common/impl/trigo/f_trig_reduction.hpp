@@ -6,11 +6,11 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
@@ -32,14 +32,6 @@ namespace nt2
   {
     namespace internal
     {
-      template< class A0
-              , class unit_tag
-              , class precision_tag
-              , class style
-              , class base_A0 = typename meta::scalar_of<A0>::type
-              >
-      struct trig_reduction;
-
       // This class exposes the public static members:
       // replacement_needed:    to provide a condition to go back standard (for example libc) computations is needed
       // replacement_available: true if such a replacement exists
@@ -80,7 +72,7 @@ namespace nt2
       // trigonometric functions with different policies
 
       template<class A0>
-      struct trig_reduction < A0, radian_tag, trig_tag, tag::not_simd_type, float>
+      struct trig_reduction < A0, radian_tag, trig_tag, tag::simd_type, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type               logic;
@@ -91,7 +83,7 @@ namespace nt2
         }
 
         static inline logic replacement_available()       { return True<A0>(); }
-        static inline logic isalreadyreduced(const A0&a0) { return le(a0, Pio_4<A0>()); }
+        static inline logic isalreadyreduced(const A0&a0) { return is_ngt(a0, Pio_4<A0>()); }
 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
@@ -127,32 +119,33 @@ namespace nt2
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           // x is always positive here
-          if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
+          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::noreduction(x, xr, xc);
+	      return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
 	    }
-          else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::straight_reduction(x, xr, xc);
+	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
 	    }
           else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
+	      return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
 	    }
-          else if (ismedium(x)) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
+          else if (all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_medium_reduction(x, xr, xc);
+	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
           else  // all of x are in [0, inf],  standard big way
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_big_reduction(x, xr, xc);
+	      // This is never taken
+	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
 	    }
         }
       };
 
 
       template<class A0>
-      struct trig_reduction<A0,degree_tag,trig_tag, tag::not_simd_type,float>
+      struct trig_reduction<A0,degree_tag,trig_tag, tag::simd_type,float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;
@@ -194,14 +187,19 @@ namespace nt2
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
-          A0 x2 = x - xi * Ninety<A0>();//90.0f  
+          A0 x2 = x - xi * Ninety<A0>();//90.0f          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+          {
+	    //      return pio2_reducing<A0>::cephes_reduction(x, xr, xc);
+	    return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
+          }
+
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);
         }
       };
 
-       template < class A0> struct trig_reduction < A0, pi_tag, trig_tag, tag::not_simd_type, float>
+       template < class A0> struct trig_reduction < A0, pi_tag, trig_tag, tag::simd_type, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;

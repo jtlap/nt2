@@ -1,15 +1,16 @@
-//==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
-//==============================================================================
+/*******************************************************************************
+ *         Copyright 2003-2010 LASMEA UMR 6602 CNRS/U.B.P
+ *         Copyright 2009-2010 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 
-//#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_trig_reduction.hpp>
+#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_trig_reduction.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -77,7 +78,7 @@ namespace nt2
 		 class unit_tag >
       struct trig_base<A0,unit_tag,trig_tag,tag::not_simd_type>
       {
-	typedef trig_reduction<A0,unit_tag,trig_tag>                       redu_t;
+	typedef trig_reduction<A0,unit_tag,trig_tag,tag::not_simd_type>    redu_t;
 	typedef trig_evaluation<A0,trig_tag,tag::not_simd_type>            eval_t;
 	typedef typename meta:: scalar_of<A0>::type                           sA0; // scalar version of A0
 	typedef typename meta::as_integer<A0, signed>::type              int_type; // signed integer type associated to A0
@@ -177,7 +178,7 @@ namespace nt2
 	  else
 	    {
 	      const A0 bos =  bitofsign(a0);
-	      if (!a0) return b_or(Inf<A0>(), bos); 
+	      if (!a0) return b_or(Inf<A0>(), bos);
 	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::cot_eval(xr, xc, 1-((n&1)<<1));
@@ -225,3 +226,7 @@ namespace nt2
 
 
 #endif
+
+// /////////////////////////////////////////////////////////////////////////////
+// End of trig_base.hpp
+// /////////////////////////////////////////////////////////////////////////////

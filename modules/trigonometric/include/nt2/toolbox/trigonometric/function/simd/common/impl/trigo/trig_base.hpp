@@ -1,11 +1,11 @@
-//==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
-//==============================================================================
+/*******************************************************************************
+ *         Copyright 2003-2010 LASMEA UMR 6602 CNRS/U.B.P
+ *         Copyright 2009-2010 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_TRIG_BASE_HPP_INCLUDED
 
@@ -30,10 +30,10 @@ namespace nt2
       template < class A0, class unit_tag> 
       struct trig_base < A0, unit_tag, trig_tag, tag::simd_type >
       {
-	typedef trig_reduction<A0,unit_tag,trig_tag>                       redu_t;
+	typedef trig_reduction<A0,unit_tag,trig_tag, tag::simd_type>       redu_t;
 	typedef trig_evaluation<A0,trig_tag,tag::simd_type>                eval_t;
 	typedef typename meta::scalar_of<A0>::type                            sA0; // scalar version of A0
-	typedef trig_reduction<sA0,unit_tag,trig_tag>                     sredu_t;
+	typedef trig_reduction<sA0,unit_tag,trig_tag, tag::simd_type>     sredu_t;
 	typedef typename meta::as_integer<A0, signed>::type              int_type; // signed integer type associated to A0
 	typedef typename meta::scalar_of<int_type>::type                sint_type; // scalar version of the associated type   
 
@@ -121,10 +121,7 @@ namespace nt2
 	      A0 xr = Nan<A0>(), xc, y;
 	      int_type n = redu_t::reduce(x, xr, xc);
 	      y = eval_t::cot_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));           // 1 -- n even
-							                              //-1 -- n odd
-// 	      std::cout << "a0   " << a0 << std::endl;
-// 	      std::cout << "y    " << y  << std::endl;
-// 	      std::cout << "res  " << b_xor(y, bitofsign(a0))<< std::endl;
+							                              //-1 -- n odd 
 	      A0 testnan = redu_t::cot_invalid(a0); 
 	      return b_or(testnan, b_xor(y, bitofsign(a0)));	  	      
 	    }
@@ -165,3 +162,7 @@ namespace nt2
 
 
 #endif
+
+// /////////////////////////////////////////////////////////////////////////////
+// End of trig_base.hpp
+// /////////////////////////////////////////////////////////////////////////////
