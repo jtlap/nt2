@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( frexp_double_1_0,  (double))
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<frexp_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
+  typedef boost::fusion::vector<T,int32_t> wished_r_t;
 
 
   // return type conformity test 

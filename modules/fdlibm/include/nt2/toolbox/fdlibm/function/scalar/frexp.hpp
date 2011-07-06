@@ -21,22 +21,31 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::frexp_, tag::cpu_,
-                       (A0),
-                       (scalar_ < double_<A0> > )
+			     (A0)(A1),
+                       (scalar_<double_<A0> > )
+		       (scalar_<int32_<A1> > )
                       )
   {
-      typedef typename meta::strip<A0>::type         f_type;
-      typedef typename meta::as_integer<A0>::type    i_type; 
-      typedef boost::fusion::vector<f_type, i_type>    result_type;
+    typedef A0 result_type;
+    
+    inline result_type operator()(A0 const& a0,A1 & a1) const
+    {
+      return fd_frexp(a0, &a1);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::frexp_, tag::cpu_,
+                       (A0),
+                       (scalar_<double_<A0> > )
+                      )
+  {
+    typedef boost::fusion::vector<A0, nt2::int32_t>    result_type;
     
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type rtype;
-      rtype res; 
-      int r1t;
-      boost::fusion::at_c<0>(res) = fd_frexp(a0, &r1t);
-      boost::fusion::at_c<1>(res) = r1t;
-      return res;
+      result_type res; 
+      boost::fusion::at_c<0>(res) = fdlibm::frexp(a0, boost::fusion::at_c<1>(res));
+      return res; 
     }
   };
 } }
