@@ -17,21 +17,33 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
+/////////////////////////////////////////////////////////////////////////////
+// reference Implementation 
+/////////////////////////////////////////////////////////////////////////////
+NT2_FUNCTOR_IMPLEMENTATION(standard::tag::frexp_, tag::cpu_,
+			   (A0)(A1),
+			   (scalar_<real_<A0> >)
+			   (scalar_<int32_<A1> >)	     
+			   )
+  {
+    typedef A0 result_type;
+    inline result_type operator()(A0 const& a0,A1 & a1) const
+    {
+      return std::frexp(a0, &a1);
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION(standard::tag::frexp_, tag::cpu_,
                        (A0),
                        (scalar_<real_<A0> >)
                       )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             result_type;
+    typedef boost::fusion::vector<A0,nt2::int32_t>             result_type;
     
     NT2_FUNCTOR_CALL(1)
     {
       result_type res;
-      int r1t; 
-      boost::fusion::at_c<0>(res) = std::frexp(a0, &r1t);
-      boost::fusion::at_c<1>(res) =  r1t; 
+      boost::fusion::at_c<0>(res) = standard::frexp(a0, boost::fusion::at_c<1>(res)); 
       return res;
     }
   };

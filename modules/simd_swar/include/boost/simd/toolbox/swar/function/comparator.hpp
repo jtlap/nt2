@@ -20,6 +20,7 @@ namespace boost { namespace simd {
     struct comparator_ {};
   }
   BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
+  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

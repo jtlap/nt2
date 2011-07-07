@@ -17,6 +17,7 @@ namespace boost { namespace simd { namespace tag
     struct split_ {};
   }
   BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::split_, split, 1)
+  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::split_, split, (A0 const &)(A1&)(A1&), 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -20,6 +20,12 @@
 #include <boost/simd/sdk/meta/primitive_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 
+namespace boost { namespace simd
+{
+  template<class T, class X>
+  struct native;
+} }
+
 namespace boost { namespace simd {  namespace meta
 {
   //==========================================================================
@@ -71,6 +77,12 @@ namespace boost { namespace simd {  namespace details
   template<class T, std::size_t N>
   struct is_array< boost::array<T, N> > : boost::mpl::true_ {};
 
+  template<class T>
+  struct is_native : boost::mpl::false_ {};
+
+  template<class T, class X>
+  struct is_native<simd::native<T, X> > : boost::mpl::true_ {};
+
   template<class T,class Origin>
   struct  hierarchy_of< T
                       , Origin
@@ -78,6 +90,7 @@ namespace boost { namespace simd {  namespace details
                         ::enable_if_c < boost::fusion
                                         ::traits::is_sequence<T>::value
                                         && !is_array<T>::value
+                                        && !is_native<T>::value
                                       >::type
                       >
   {

@@ -32,11 +32,6 @@ namespace boost { namespace simd { namespace meta
     {
       typedef result_type type;
       type a00 = simd::native_cast<type>(a0);
-//       std::cout <<  "a0         " << a0                  << std::endl;
-//       std::cout <<  "is_positive(a0) " << is_positive(a0)                  << std::endl;
-//       std::cout << std::hex << "a00        " << a00                  << std::endl;
-//       std::cout << "Signmask   " <<  Signmask<type>()    << std::endl;
-//       std::cout << "S-a00      " << Signmask<type>()-a00 << std::endl;
       return simd::native_cast<type>(sel( is_positive(a0)
               , a00
               , Signmask<type>()-a00

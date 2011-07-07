@@ -18,6 +18,51 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace meta
 {
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
+				  ,( boost::mpl::and_ <
+				     boost::is_same<A0,A1>, 
+				     boost::is_same<A0,A2>
+				     >
+				  )
+                                , ( tag::modf_
+				    ( simd_<arithmetic_<A0>,X> 
+				      , simd_<arithmetic_<A1>,X>
+				      , simd_<arithmetic_<A2>,X>  
+				      )
+				    )
+			    , ((simd_< arithmetic_<A0>, X>))
+			      ((simd_< arithmetic_<A1>, X>))    
+			      ((simd_< arithmetic_<A2>, X>))
+                            )
+  {
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
+      {
+	r1 = boost::simd::trunc(a0);
+	r0 = a0-r1;    
+      }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(X)
+				  ,(boost::is_same<A0,A1>)
+                                , ( tag::modf_
+				    ( simd_<arithmetic_<A0>,X> 
+				      , simd_<arithmetic_<A1>,X>
+				      )
+				    )
+			    , ((simd_< arithmetic_<A0>, X>))
+			      ((simd_< arithmetic_<A1>, X>))    
+                            )
+  {
+    typedef A0 result_type;
+    inline void operator()(A0 const& a0,A1 & r1) const
+      {
+	r1 = boost::simd::trunc(a0);
+	return a0-r1;    
+      }
+  };
+
+    
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
@@ -28,17 +73,9 @@ namespace boost { namespace simd { namespace meta
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef result_type type;
-      type res;
-      eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
+      result_type res;
+      boost::simd::modf(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
-    }
-  private:
-    template<class AA0,class R0,class R1> inline void
-    eval(AA0 const& a0, R0& r0, R1& r1)const
-    {
-      r1 = boost::simd::trunc(a0);
-      r0 = a0-r1;
     }
   };
 } } }

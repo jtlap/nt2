@@ -17,6 +17,8 @@ namespace boost { namespace simd { namespace tag
     struct toint_ {};
   }
   BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
+  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::toint_, ifix, 1)
+  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::toint_, itrunc, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

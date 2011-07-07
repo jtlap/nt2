@@ -19,30 +19,29 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/fusion/include/vector.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
+				  ,( boost::mpl::and_ <
+				     boost::is_same<A0,A1>, 
+				     boost::is_same<typename meta::as_integer<A0>::type, A2>
+				     >
+				  )
+                                , ( tag::frexp_
+				    ( simd_<real_<A0>,X> 
+				      , simd_<real_<A1>,X>
+				      , simd_<integer_<A2>,X>  
+				      )
+				    )
+			    , ((simd_< real_<A0>, X>))
+			      ((simd_< real_<A1>, X>))    
+			      ((simd_< integer_<A2>, X>))
                             )
   {
-    typedef typename meta::as_integer<A0, signed>::type  exponent;
-    typedef boost::fusion::vector<A0,exponent>           result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      result_type res;
-      eval( a0
-          , boost::fusion::at_c<0>(res)
-          , boost::fusion::at_c<1>(res)
-          );
-      return res;
-    }
-
-    private:
-
-    template<class R0,class R1> inline void
-    eval(A0 const& a0,R0& r0, R1& r1)const
+    typedef void result_type;
+    inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
     {
       typedef typename meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
@@ -61,6 +60,44 @@ namespace boost { namespace simd { namespace meta
       int_type test1 = gt(r1,vme);
       r1 = b_and(r1, b_notand(test1, test0));
       r0 = b_and(seladd(test1,r0,a0), test0);
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::frexp_, tag::cpu_, (A0)(A2)(X)
+				 , ( boost::is_same<typename meta::as_integer<A0>::type, A2>)
+                                 , ( tag::frexp_
+				    ( simd_<real_<A0>,X> 
+				    , simd_<integer_<A2>,X>  
+				      )
+				    )
+				 , ((simd_< real_<A0>, X>))
+			   	   ((simd_< integer_<A2>, X>))
+                            )
+  {
+    typedef A0 result_type;    
+    inline void operator()(A0 const& a0,A2 & a2) const
+    {
+      A0 a1; 
+      boost::simd::frexp(a0, a1, a2);
+      return a1; 
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                            )
+  {
+    typedef typename meta::as_integer<A0, signed>::type  exponent;
+    typedef boost::fusion::vector<A0,exponent>           result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      result_type res;
+      boost::simd::frexp( a0
+          , boost::fusion::at_c<0>(res)
+          , boost::fusion::at_c<1>(res)
+          );
+      return res;
     }
   };
 } } }

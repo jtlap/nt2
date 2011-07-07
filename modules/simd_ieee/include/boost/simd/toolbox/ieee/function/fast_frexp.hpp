@@ -17,6 +17,8 @@ namespace boost { namespace simd { namespace tag
     struct fast_frexp_ {};
   }
   BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::fast_frexp_, fast_frexp, 1)
+  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&)(A2&),3)
+  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&),2) 
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

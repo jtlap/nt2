@@ -12,37 +12,62 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is upgradeable
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace meta
 {
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is upgradeable
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
-                          (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >),
-                          (tag::split_(simd_<arithmetic_<A0>,X>)),
-                          ((simd_<arithmetic_<A0>,X>))
-                        )
+				 (A0)(A1)(X),
+				 (boost::mpl::and_ <
+				    boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >,
+				    boost::is_same<A1, typename meta::upgrade<A0>::type>
+				  > 
+                                 ), 
+                                 (tag::split_(simd_<arithmetic_<A0>,X>,
+					      simd_<arithmetic_<A1>,X>,
+					      simd_<arithmetic_<A1>,X>
+					      )
+				  ),
+                                 ((simd_<arithmetic_<A0>,X>))
+				 ((simd_<arithmetic_<A1>,X>))
+		                 ((simd_<arithmetic_<A1>,X>))
+                                )
+  {
+    typedef int result_type;    
+    inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
+      {
+	static const int size_2 = meta::cardinal_of<A0>::value/2;
+	typedef typename meta::scalar_of<A1>::type sA1; 
+	BOOST_SIMD_ALIGNED_TYPE(sA1) tmp1[size_2];
+	BOOST_SIMD_ALIGNED_TYPE(sA1) tmp2[size_2];
+	for(int i = 0; i != size_2; ++i){
+	  tmp1[i] = a0[i];
+	  tmp2[i] = a0[i+size_2];
+	}
+	a1 = load<A1>(&tmp1[0], 0); 
+	a2 = load<A1>(&tmp2[0], 0); 
+	return 0; 
+      }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
+				 (A0)(X),
+				 (boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >),
+				 (tag::split_(simd_<arithmetic_<A0>,X>)),
+				 ((simd_<arithmetic_<A0>,X>))
+				 )
   {
     typedef typename meta::upgrade<A0>::type rtype;
     typedef boost::fusion::tuple<rtype, rtype> result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      static const int size = meta::cardinal_of<A0>::value;
-      BOOST_SIMD_ALIGNED_TYPE(typename meta::scalar_of<rtype>::type) tmp1[size/2];
-      BOOST_SIMD_ALIGNED_TYPE(typename meta::scalar_of<rtype>::type) tmp2[size/2];
-      
-      for(int i = 0; i != size/2; ++i)
-        tmp1[i] = a0[i];
-      for(int i = 0; i != size/2; ++i)
-        tmp2[i] = a0[i+size/2];
-        
-      return boost::fusion::make_tuple(
-        load<rtype>(&tmp1[0], 0),
-        load<rtype>(&tmp2[0], 0)
-      );
+      result_type res;
+      boost::simd::split(a0,  boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res));
+      return res; 
     }
   };
 } } }
+
 #endif

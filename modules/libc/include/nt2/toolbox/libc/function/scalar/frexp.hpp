@@ -12,76 +12,59 @@
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is double_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
-                       (A0),
-                       (scalar_<double_<A0> > )
-                      )
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type is float_
+/////////////////////////////////////////////////////////////////////////////
+NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
+			   (A0)(A1),
+			   (scalar_<float_<A0> >)
+			   (scalar_<int32_<A1> >)	     
+			   )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             result_type;
-    
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    inline result_type operator()(A0 const& a0,A1 & a1) const
     {
-      result_type res;
-      int r1t;
-      boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
-      boost::fusion::at_c<1>(res) = r1t;
-      return res;
+      return ::frexpf(a0, &a1);
     }
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is float_
+// Implementation when type is double_
 /////////////////////////////////////////////////////////////////////////////
-
-
   NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
-                       (A0),
-                       (scalar_<float_<A0> >)
-                      )
+			     (A0)(A1),
+			     (scalar_<double_<A0> >)
+			     (scalar_<int32_<A1> >)	     
+			     )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             result_type;
-    
-    NT2_FUNCTOR_CALL(1)
+    typedef A0 result_type;
+    inline result_type operator()(A0 const& a0,A1 & a1) const
     {
-      result_type res;
-      int r1t;
-      boost::fusion::at_c<0>(res) = ::frexpf(a0, &r1t);
-      boost::fusion::at_c<1>(res) = r1t;
-      return res;
+      return ::frexp(a0, &a1);
     }
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is long_double_
+// Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
 
 
   NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
                        (A0),
-                       (scalar_<long_double_<A0> >)
+                       (scalar_<real_<A0> >)
                       )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type  mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>         result_type;
+      typedef boost::fusion::vector<A0,int32_t>             result_type;
     
     NT2_FUNCTOR_CALL(1)
     {
       result_type res;
-      int r1t;
-      boost::fusion::at_c<0>(res) = ::frexpl(a0, &r1t);
-      boost::fusion::at_c<1>(res) = r1t;
+      boost::fusion::at_c<0>(res) = libc::frexp(a0, boost::fusion::at_c<1>(res)); 
       return res;
     }
   };
+ 
 } }
 #endif

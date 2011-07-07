@@ -7,8 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(CPack)
-
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR .
@@ -75,8 +73,8 @@ macro(nt2_module_dir dir)
       if(${dir}_exists MATCHES "NOTFOUND$")
         add_custom_target(${dir})
       endif()
-      add_custom_target(${module}.${dir})
-      add_dependencies(${dir} ${module}.${dir})
+      add_custom_target(${NT2_CURRENT_MODULE}.${dir})
+      add_dependencies(${dir} ${NT2_CURRENT_MODULE}.${dir})
       add_subdirectory(${dir})
     endif()
 endmacro()
@@ -84,6 +82,11 @@ endmacro()
 macro(nt2_module_main module)
   string(TOUPPER ${module} module_U)
   
+
+  if(CMAKE_CURRENT_SOURCE_DIR STREQUAL ${PROJECT_SOURCE_DIR})
+    include(CPack)
+  endif()
+
   nt2_setup_variant()
   
   set(NT2_CURRENT_MODULE ${module})

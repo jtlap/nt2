@@ -17,6 +17,7 @@ namespace nt2 { namespace fdlibm { namespace tag
     struct modf_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::modf_, modf, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(fdlibm::tag::modf_, modf,  (A0 const&)(A0&), 1)
   } }
  
 #include <nt2/toolbox/fdlibm/function/scalar/modf.hpp>

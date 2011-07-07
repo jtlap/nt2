@@ -9,7 +9,7 @@
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
-         'types' : ['float', 'double', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {

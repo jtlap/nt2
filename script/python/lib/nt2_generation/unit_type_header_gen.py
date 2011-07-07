@@ -142,7 +142,7 @@ class Type_header_test_gen() :
         if mode == "simd" :
             r = re.sub("NT2_(.*?)TYPES","NT2_SIMD_\\1TYPES",r)
             r = re.sub("(bool)","",r)
-        print("r = %s"%r)
+##        print("r = %s"%r)
         return r    
 
     def __get_call_types(self,d) :

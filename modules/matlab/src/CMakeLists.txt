@@ -30,7 +30,7 @@ add_custom_target(nt2_mw_mv_lib
                   COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/${NT2_MW_LIBRARY} ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY}
                   DEPENDS nt2_mw_lib
                   )
-add_custom_target(nt2_mw
+add_custom_target(nt2_mw ALL
                   DEPENDS nt2_mw_mv_header nt2_mw_mv_lib
                  )
 

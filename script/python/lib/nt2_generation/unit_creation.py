@@ -58,6 +58,7 @@ class Create_tests(Nt2_tb_props) :
                  fct_list=None,
                  modes=['scalar','simd'],
                  parts=["unit","cover"],
+                 platform='sse',
                  show=True,
                  write_files=False,
                  check_on_write=True,
@@ -74,14 +75,15 @@ class Create_tests(Nt2_tb_props) :
         self.parts = parts
         if  isinstance(self.parts,str ) : self.parts = [self.parts]
         self.modes = modes
-        if  isinstance(self.modes,str ) : self.modes = [self.modes]    
+        if  isinstance(self.modes,str ) : self.modes = [self.modes]
+        self.platform=platform
         self.show = show
         self.write_files =write_files
         self.check_on_write = check_on_write
         self.backup_on_write = backup_on_write
         self.verbose=verbose
 
-    def create_one_unit(self, fct_name, mode, part) :
+    def create_one_unit(self, fct_name, mode, part,platform) :
 
    #     if self.verbose :
         print("%s with %s with %s"%(fct_name,mode,part))
@@ -102,14 +104,14 @@ class Create_tests(Nt2_tb_props) :
                 r+=thg.get_gen_beg()
                 if self.verbose : print("part = %s"%part)
                 if ("unit"==part) and d_unit.get("specific_values",None) :
-                    svt = Specific_values_test_gen(bg,d,typ,ret_arity)
+                    svt = Specific_values_test_gen(bg,d,typ,ret_arity,platform)
                     s = svt.get_gen_result()
 ##                    print(s)
 ##                    raise SystemExit
 ##                    if not s : return False
                     r += s    
                 if ("cover" == part) and d_unit.get("verif_test",None) :
-                    vtg = Random_verif_test_gen(bg,d,typ)
+                    vtg = Random_verif_test_gen(bg,d,typ,platform)
                     s = vtg.get_gen_result()
 ##                    print(s)
 ##                    raise SystemExit
@@ -124,7 +126,7 @@ class Create_tests(Nt2_tb_props) :
                 if self.verbose : print("fct=%s,mode=%s"%(fct,mode))
                 for part in self.parts :
                     if self.verbose : print("fct=%s,part=%s"%(fct,part))
-                    r= self.create_one_unit(fct,mode,part)
+                    r= self.create_one_unit(fct,mode,part,self.platform)
                     if r is None :
                         print('error for %s' % fct)
                     elif not r or len(r)==0 :

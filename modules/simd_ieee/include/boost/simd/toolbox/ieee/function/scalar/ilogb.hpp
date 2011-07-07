@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ilogb_, tag::cpu_
                             , (A0)
@@ -102,7 +102,7 @@ namespace boost { namespace meta
       return is_gtz(a0)? boost::simd::exponent(a0) : Zero<result_type>();
     }
   };
-} }
+} } }
 
 
 #endif

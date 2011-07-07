@@ -45,51 +45,52 @@ BOOST_SIMD_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename boost::simd::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::simd::meta::call<comparator_(vT,vT,iT)>::type r_t;
-  typedef typename boost::simd::meta::call<comparator_(T,T,iT)>::type sr_t;
+  typedef typename boost::simd::meta::call<comparator_(vT,vT,int)>::type r_t;
+  typedef typename boost::simd::meta::call<comparator_(T,T,int)>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
-  ulpd=0.0;
+  ulpd=0.0; 
 
 
 //   // specific values tests
-//   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-//   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-//   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
-//   {
-//     r_t res = comparator(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Inf<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Inf<r_t1>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
-//   }
-//   {
-//     r_t res = comparator(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Minf<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Minf<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
-//   }
-//   {
-//     r_t res = comparator(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), boost::simd::Mone<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Mone<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Mone<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
-//   }
-//   {
-//     r_t res = comparator(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Nan<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Nan<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
-//   }
-//   {
-//     r_t res = comparator(boost::simd::One<vT>(), boost::simd::One<vT>(), boost::simd::One<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
-//   }
-//   {
-//     r_t res = comparator(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t0>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
-//   }
+  typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
+  {
+    r_t res = comparator(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), 0);
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Inf<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Inf<r_t1>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+  }
+  {
+    r_t res = comparator(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), 0);
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Minf<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Minf<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+  }
+  {
+    r_t res = comparator(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), 0);
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Mone<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Mone<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+  }
+  {
+    r_t res = comparator(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), 0);
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Nan<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Nan<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+  }
+  {
+    r_t res = comparator(boost::simd::One<vT>(), boost::simd::One<vT>(), 0);
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+  }
+  {
+    r_t res = comparator(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), 0);
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t0>());
+    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+  }
 } // end of test for real_
+ 

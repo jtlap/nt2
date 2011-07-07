@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace meta
 			     )
   {
     typedef void result_type;    
-    inline void operator()(A0 const& a0,A1 & a1,A2 & a2,A3 & a3) const
+    inline void operator()(A0 const& a0,A1 const& a1,A2 & a2,A3 & a3) const
     {
       a2 = boost::simd::remainder(A2(a0), A2(a1));
       a3 = boost::simd::idivround(A2(a0), A2(a1));

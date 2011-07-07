@@ -17,8 +17,37 @@
 namespace boost { namespace simd { namespace meta
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
+                      (A0)(A1)(A2),
+                      (scalar_ < arithmetic_<A0> > )
+                      (scalar_ < arithmetic_<A1> > )
+                      (scalar_ < arithmetic_<A2> > )
+                     )
+  {  
+    typedef void result_type;    
+    inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
+    {
+      a1 = trunc(a0);
+      a2 = a0 - a1;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
+                      (A0)(A1),
+                      (scalar_ < arithmetic_<A0> > )
+                      (scalar_ < arithmetic_<A1> > )
+                     )
+  {  
+    typedef A0 result_type;    
+    inline void operator()(A0 const& a0,A1 & a1) const
+    {
+      a1 = trunc(a0);
+      return a0 - a1;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
                       (A0),
-                      (scalar_ < fundamental_<A0> > )
+                      (scalar_ < arithmetic_<A0> > )
                      )
   {
       typedef typename meta::strip<A0>::type            etype;
@@ -27,8 +56,7 @@ namespace boost { namespace simd { namespace meta
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
-      boost::fusion::at_c<1>(res) = trunc(a0);
-      boost::fusion::at_c<0>(res)= a0 - boost::fusion::at_c<1>(res);
+      boost::simd::modf(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
       return res;
     }
   };

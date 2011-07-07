@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/meta/hierarchy_of.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace simd { namespace details
 {
   template<class Scalar,class Extension, class Origin>
   struct hierarchy_of< simd::native<Scalar,Extension>, Origin >
