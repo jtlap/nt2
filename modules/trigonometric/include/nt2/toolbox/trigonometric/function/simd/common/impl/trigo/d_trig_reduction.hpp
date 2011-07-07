@@ -10,7 +10,11 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_COMMON_SIMD_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/d_pio2_reducing.hpp>
+#include <nt2/include/functions/rem_pio2_medium.hpp>
+#include <nt2/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/rem_pio2_straight.hpp>
+#include <nt2/include/functions/rem_pio2.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_even.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
@@ -52,23 +56,30 @@ namespace nt2
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
-              return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
+	      xr = x;
+	      xc = Zero<A0>();
+	      return Zero<int_type>(); 
+	      //              return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
             }
            else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
  	    {
- 	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
+	      return rem_pio2_straight(x, xr, xc);
+	      // 	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
 	    }
           else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             {
-              return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
+	      return rem_pio2_cephes(x, xr, xc);
+	      //              return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
 	    }
           else if (all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium way
 	    {
-	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
+	      return rem_pio2_medium(x, xr, xc);
+	      //	      	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
 	  else  // all of x are in [0, inf],  standard big way
        	    {
-       	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
+	      return rem_pio2(x, xr, xc);
+	      //      	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
        	    }
         }
       };

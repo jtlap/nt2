@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
+#include <nt2/include/functions/rem_pio2_medium.hpp>
+#include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
@@ -25,6 +27,9 @@
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/type_traits/is_same.hpp>
+
 namespace nt2
 {
   namespace details
@@ -111,9 +116,12 @@ namespace nt2
 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
-	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } //8.2355e+05); }
+	//	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } //8.2355e+05); }
         static inline logic islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
-
+        static inline logic conversion_allowed(){
+	  typedef typename meta::upgrade<A0>::type uA0;
+	  return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
+	}
         static inline A0 cos_replacement(const A0& a0)
         {
           return fallback<FALLBACK_TAG>::cos(a0);
@@ -146,23 +154,29 @@ namespace nt2
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::noreduction(x, xr, xc);
+	      xr = x;
+	      xc = Zero<A0>();
+	      return Zero<int_type>(); 
+	      //	      return pio2_reducing<A0, tag::not_simd_type>::noreduction(x, xr, xc);
 	    }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::straight_reduction(x, xr, xc);
+	      return rem_pio2_straight(x, xr, xc);
+	      //	      return pio2_reducing<A0, tag::not_simd_type>::straight_reduction(x, xr, xc);
 	    }
           else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
+	      return rem_pio2_cephes(x, xr, xc);
+	      //	      return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
 	    }
           else if (ismedium(x)) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_medium_reduction(x, xr, xc);
+	      return rem_pio2_medium(x, xr, xc);
+	      //	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
-          else if (isnotsobig(x)) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+          else if (conversion_allowed()) //isnotsobig(x)) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
 	    {
-	      typedef typename meta::upgrade < A0 > ::type uA0; 
+	      typedef typename meta::upgrade<A0>::type uA0; 
 	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::not_simd_type, double> aux_reduction; 
 	      uA0 ux = x, uxr, uxc; 
 	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
@@ -170,10 +184,10 @@ namespace nt2
 	      xc = (uxr-xr)+uxc;
 	      return n; 
 	    }
-          else  // all of x are in [0, inf],  standard big way
-	    {
-	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_big_reduction(x, xr, xc);
-	    }
+//           else  // all of x are in [0, inf],  standard big way // too long
+// 	    {
+// 	      return pio2_reducing<A0, tag::not_simd_type>::fdlibm_big_reduction(x, xr, xc);
+//	    }
         }
       };
 

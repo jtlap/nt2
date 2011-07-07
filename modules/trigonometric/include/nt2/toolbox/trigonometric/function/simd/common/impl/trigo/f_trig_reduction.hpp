@@ -10,6 +10,9 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
+#include <nt2/include/functions/rem_pio2_medium.hpp>
+#include <nt2/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/rem_pio2_straight.hpp>
 #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
@@ -88,10 +91,14 @@ namespace nt2
         static inline logic replacement_available()       { return True<A0>(); }
         static inline logic isalreadyreduced(const A0&a0) { return is_ngt(a0, Pio_4<A0>()); }
 
-	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } 
+	//	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
         static inline logic islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
+        static inline bool conversion_allowed(){
+	  typedef typename meta::upgrade<A0>::type uA0;
+	  return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
+	}
 
         static inline A0 cos_replacement(const A0& a0)
         {
@@ -125,21 +132,27 @@ namespace nt2
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
 	    {
-	      return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
+	      xr = x;
+	      xc = Zero<A0>();
+	      return Zero<int_type>(); 
+	      //	      return pio2_reducing<A0, tag::simd_type>::noreduction(x, xr, xc);
 	    }
           else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
 	    {
-	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
+	      return rem_pio2_straight(x, xr, xc);
+	      //	      return pio2_reducing<A0, tag::simd_type>::straight_reduction(x, xr, xc);
 	    }
           else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	    {
-	      return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
+	      return rem_pio2_cephes(x, xr, xc);
+	      //	      return pio2_reducing<A0, tag::simd_type>::cephes_reduction(x, xr, xc);
 	    }
           else if (all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	    {
-	      return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
+	      return rem_pio2_medium(x, xr, xc);
+	      //return pio2_reducing<A0, tag::simd_type>::fdlibm_medium_reduction(x, xr, xc);
 	    }
-          else if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+          else if (conversion_allowed())//if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
 	    {
 	      typedef typename meta::upgrade<A0>::type uA0;
 	      typedef typename meta::upgrade<int_type>::type uint_type; 
@@ -153,10 +166,10 @@ namespace nt2
 	      xc = nt2::group((uxr1-ux1)+uxc1, (uxr2-ux2)+uxc2);
 	      return nt2::group(n1, n2); 
 	    }
-          else  // all of x are in [0, inf],  standard big way
-	    {
-	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
-	    }
+	  else  // all of x are in [0, inf],  standard big way
+ 	    {
+ 	      return pio2_reducing<A0, tag::simd_type>::fdlibm_big_reduction(x, xr, xc);
+ 	    }
         }
       };
 

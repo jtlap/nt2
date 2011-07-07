@@ -381,7 +381,7 @@ namespace nt2 { namespace meta
 #undef SET_A0_WORD
 
   /////////////////////////////////////////////////////////////////////////////
-  // reference based Implementation when float
+  // reference based Implementation when double
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_, tag::cpu_,
 			     (A0),
