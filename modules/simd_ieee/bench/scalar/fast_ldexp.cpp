@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 ieee toolbox - fast_ldexp/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - fast_ldexp/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/fast_ldexp.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/ieee/include/fast_ldexp.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<fast_ldexp_> from ieee
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::fast_ldexp_;
+using boost::simd::tag::fast_ldexp_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,13 +29,13 @@ using nt2::tag::fast_ldexp_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_ldexp_,(RS(T,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(fast_ldexp_,(RS(T,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(fast_ldexp_,(RS(T,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(fast_ldexp_,(RS(T,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
 }
 
 #undef RS

@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 arithmetic toolbox - muls/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 arithmetic toolbox - muls/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/arithmetic/include/muls.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/arithmetic/include/muls.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<muls_> from arithmetic
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::muls_;
+using boost::simd::tag::muls_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -28,44 +28,44 @@ using nt2::tag::muls_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef nt2::int8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::int8_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n2 {
-  typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::int16_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n3 {
-  typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::int32_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n4 {
-  typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::int64_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n5 {
-  typedef nt2::uint8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::uint8_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n6 {
-  typedef nt2::uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::uint16_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n7 {
-  typedef nt2::uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::uint32_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 namespace n8 {
-  typedef nt2::uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(muls_,(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4)))(RS(T,3*(nt2::Valmin<T>()/4),3*(nt2::Valmax<T>()/4))))
+  typedef boost::simd::uint64_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(muls_,(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4)))(RS(T,3*(boost::simd::Valmin<T>()/4),3*(boost::simd::Valmax<T>()/4))))
 }
 
 #undef RS

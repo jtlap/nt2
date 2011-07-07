@@ -11,8 +11,8 @@
 ###     Toolbox swar bench tests
 ##############################################################################
 
-#ADD_CUSTOM_TARGET(swar.simd.bench)
-#ADD_DEPENDENCIES(swar.bench swar.simd.bench)
+ADD_CUSTOM_TARGET(simd_swar.simd.bench)
+ADD_DEPENDENCIES(simd_swar.bench simd_swar.simd.bench)
 
-#nt2_module_use_modules(unit)
-#ADD_SUBDIRECTORY(simd)
+nt2_module_use_modules(simd_unit)
+ADD_SUBDIRECTORY(simd)

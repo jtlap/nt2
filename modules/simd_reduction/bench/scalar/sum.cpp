@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 reduction toolbox - sum/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - sum/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/reduction/include/sum.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/reduction/include/sum.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<sum_> from reduction
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::sum_;
+using boost::simd::tag::sum_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,13 +29,13 @@ using nt2::tag::sum_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sum_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(sum_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(sum_,(RS(T,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(sum_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 
 #undef RS

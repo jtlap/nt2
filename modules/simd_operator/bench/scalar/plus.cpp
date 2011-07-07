@@ -6,15 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#include <nt2/include/functor.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#include <boost/simd/include/functor.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<plus_>
 ////////////////////////////////////////////////////////////////////////////////
-using nt2::tag::plus_;
-using namespace nt2;
+using boost::simd::tag::plus_;
+using namespace boost;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Symmetric range
@@ -24,14 +24,14 @@ using namespace nt2;
 ////////////////////////////////////////////////////////////////////////////////
 // Scalar benchmark
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TIMING( plus_ , RS(double,10000.))
-NT2_TIMING( plus_ , RS(float,10000.f))
-NT2_TIMING( plus_ , RS(nt2::int64_t,2000000))
-NT2_TIMING( plus_ , RS(nt2::int32_t,2000000))
-NT2_TIMING( plus_ , RS(nt2::int16_t,32768))
-NT2_TIMING( plus_ , RS(nt2::int8_t,127))
-NT2_TIMING( plus_ , ((nt2::uint64_t, 0, ~0ULL))((nt2::uint64_t, 0,  ~0ULL)) )
-NT2_TIMING( plus_ , ((nt2::uint32_t, 0, ~0U))((nt2::uint32_t, 0,  ~0U)) )
-NT2_TIMING( plus_ , ((nt2::uint16_t, 0, 65535))((nt2::uint16_t, 0, 65535)) )
-NT2_TIMING( plus_ , ((nt2::uint8_t , 0, 255))((nt2::uint8_t, 0, 255)) )
+BOOST_SIMD_TIMING( plus_ , RS(double,10000.))
+BOOST_SIMD_TIMING( plus_ , RS(float,10000.f))
+BOOST_SIMD_TIMING( plus_ , RS(boost::simd::int64_t,2000000))
+BOOST_SIMD_TIMING( plus_ , RS(boost::simd::int32_t,2000000))
+BOOST_SIMD_TIMING( plus_ , RS(boost::simd::int16_t,32768))
+BOOST_SIMD_TIMING( plus_ , RS(boost::simd::int8_t,127))
+BOOST_SIMD_TIMING( plus_ , ((boost::simd::uint64_t, 0, ~0ULL))((boost::simd::uint64_t, 0,  ~0ULL)) )
+BOOST_SIMD_TIMING( plus_ , ((boost::simd::uint32_t, 0, ~0U))((boost::simd::uint32_t, 0,  ~0U)) )
+BOOST_SIMD_TIMING( plus_ , ((boost::simd::uint16_t, 0, 65535))((boost::simd::uint16_t, 0, 65535)) )
+BOOST_SIMD_TIMING( plus_ , ((boost::simd::uint8_t , 0, 255))((boost::simd::uint8_t, 0, 255)) )
 

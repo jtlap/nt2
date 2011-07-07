@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 reduction toolbox - dot/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - dot/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/reduction/include/dot.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/reduction/include/dot.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<dot_> from reduction
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::dot_;
+using boost::simd::tag::dot_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,13 +29,13 @@ using nt2::tag::dot_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(dot_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(dot_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(dot_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(dot_,(RS(T,T(0),T(100)))(RS(T,T(0),T(100))))
 }
 
 #undef RS

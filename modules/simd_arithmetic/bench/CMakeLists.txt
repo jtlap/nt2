@@ -11,10 +11,10 @@
 ###     Toolbox arithmetic bench tests
 ##############################################################################
 
-#ADD_CUSTOM_TARGET(arithmetic.scalar.bench)
-#ADD_CUSTOM_TARGET(arithmetic.simd.bench)
-#ADD_DEPENDENCIES(arithmetic.bench arithmetic.scalar.bench arithmetic.simd.bench)
+ADD_CUSTOM_TARGET(simd_arithmetic.scalar.bench)
+ADD_CUSTOM_TARGET(simd_arithmetic.simd.bench)
+ADD_DEPENDENCIES(simd_arithmetic.bench simd_arithmetic.scalar.bench simd_arithmetic.simd.bench)
 
-#nt2_module_use_modules(unit)
-#ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd)
+nt2_module_use_modules(simd_unit)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

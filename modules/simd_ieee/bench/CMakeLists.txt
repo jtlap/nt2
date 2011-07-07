@@ -11,10 +11,10 @@
 ###     Toolbox ieee bench tests
 ##############################################################################
 
-#ADD_CUSTOM_TARGET(ieee.scalar.bench)
-#ADD_CUSTOM_TARGET(ieee.simd.bench)
-#ADD_DEPENDENCIES(ieee.bench ieee.scalar.bench ieee.simd.bench)
+ADD_CUSTOM_TARGET(simd_ieee.scalar.bench)
+ADD_CUSTOM_TARGET(simd_ieee.simd.bench)
+ADD_DEPENDENCIES(simd_ieee.bench simd_ieee.scalar.bench simd_ieee.simd.bench)
 
-#nt2_module_use_modules(unit)
-#ADD_SUBDIRECTORY(scalar)
-#ADD_SUBDIRECTORY(simd)
+nt2_module_use_modules(simd_unit)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(simd)

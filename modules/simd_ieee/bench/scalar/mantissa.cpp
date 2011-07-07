@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 ieee toolbox - mantissa/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - mantissa/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/mantissa.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/ieee/include/mantissa.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<mantissa_> from ieee
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::mantissa_;
+using boost::simd::tag::mantissa_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,13 +29,13 @@ using nt2::tag::mantissa_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(mantissa_,(RS(T,T(-10),T(10))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(mantissa_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(mantissa_,(RS(T,T(-10),T(10))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(mantissa_,(RS(T,T(-10),T(10))))
 }
 
 #undef RS

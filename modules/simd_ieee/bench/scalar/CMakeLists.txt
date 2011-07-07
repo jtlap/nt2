@@ -51,5 +51,5 @@ SET( SOURCES
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(ieee.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
+  nt2_module_add_bench(simd_ieee.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
 ENDFOREACH()

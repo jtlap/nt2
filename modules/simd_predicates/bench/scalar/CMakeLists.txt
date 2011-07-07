@@ -50,5 +50,5 @@ SET( SOURCES
 ##############################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(predicates.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
+  nt2_module_add_bench(simd_predicates.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
 ENDFOREACH()

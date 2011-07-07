@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 reduction toolbox - hmsb/simd Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - hmsb/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/reduction/include/hmsb.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/reduction/include/hmsb.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<hmsb_> from reduction
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::hmsb_;
+using boost::simd::tag::hmsb_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,15 +29,15 @@ using nt2::tag::hmsb_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(hmsb_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(hmsb_,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(hmsb_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(hmsb_,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 
 #undef RS

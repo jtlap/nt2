@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 ieee toolbox - saturate/simd Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - saturate/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/saturate.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/ieee/include/saturate.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<saturate_> from ieee
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::saturate_;
+using boost::simd::tag::saturate_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -28,28 +28,28 @@ using nt2::tag::saturate_;
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {
-  typedef nt2::uint8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(saturate_<uint16_t>,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::uint8_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n2 {
-  typedef nt2::uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(saturate_<uint16_t>,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::uint16_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n3 {
-  typedef nt2::uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(saturate_<uint16_t>,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::uint32_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n4 {
-  typedef nt2::uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(saturate_<uint16_t>,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
+  typedef boost::simd::uint64_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(saturate_<uint16_t>,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 
 #undef RS

@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 ieee toolbox - bitinteger/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - bitinteger/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/bitinteger.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/ieee/include/bitinteger.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<bitinteger_> from ieee
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::bitinteger_;
+using boost::simd::tag::bitinteger_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,13 +29,13 @@ using nt2::tag::bitinteger_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(bitinteger_,(RS(T,T(-10),T(10))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(bitinteger_,(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(bitinteger_,(RS(T,T(-10),T(10))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(bitinteger_,(RS(T,T(-10),T(10))))
 }
 
 #undef RS

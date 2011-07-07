@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 swar toolbox - put_first/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 swar toolbox - put_first/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/swar/include/put_first.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/swar/include/put_first.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<put_first_> from swar
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::put_first_;
+using boost::simd::tag::put_first_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,13 +29,13 @@ using nt2::tag::put_first_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(put_first_,(RS(T,T(-100),T(100)))(RS(iT,0,nt2::meta::cardinal_of<T>::value-1)))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(put_first_,(RS(T,T(-100),T(100)))(RS(iT,0,boost::simd::meta::cardinal_of<T>::value-1)))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(put_first_,(RS(T,T(-100),T(100)))(RS(iT,0,nt2::meta::cardinal_of<T>::value-1)))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(put_first_,(RS(T,T(-100),T(100)))(RS(iT,0,boost::simd::meta::cardinal_of<T>::value-1)))
 }
 
 #undef RS

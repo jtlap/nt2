@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 predicates toolbox - is_eqz/scalar Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 predicates toolbox - is_eqz/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/predicates/include/is_eqz.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/predicates/include/is_eqz.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
 // scalar runtime benchmark for functor<is_eqz_> from predicates
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::is_eqz_;
+using boost::simd::tag::is_eqz_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,53 +29,53 @@ using nt2::tag::is_eqz_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n3 {
-  typedef nt2::int8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::int8_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n4 {
-  typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::int16_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n5 {
-  typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::int32_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n6 {
-  typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::int64_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n7 {
-  typedef nt2::uint8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::uint8_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n8 {
-  typedef nt2::uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::uint16_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n9 {
-  typedef nt2::uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::uint32_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 namespace n10 {
-  typedef nt2::uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
+  typedef boost::simd::uint64_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  BOOST_SIMD_TIMING(is_eqz_,(RS(T,T(-10000),T(10000))))
 }
 
 #undef RS

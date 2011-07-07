@@ -6,21 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 bitwise toolbox - negif/simd Mode"
+#define BOOST_SIMD_BENCH_MODULE "nt2 bitwise toolbox - negif/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bitwise/include/negif.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/simd/toolbox/bitwise/include/negif.hpp>
+#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <boost/simd/sdk/unit/bench_includes.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<negif_> from bitwise
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::negif_;
+using boost::simd::tag::negif_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -29,39 +29,39 @@ using nt2::tag::negif_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n3 {
-  typedef nt2::int8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  typedef boost::simd::int8_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n4 {
-  typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  typedef boost::simd::int16_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n5 {
-  typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  typedef boost::simd::int32_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 namespace n6 {
-  typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  NT2_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  typedef boost::simd::int64_t T;
+  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  BOOST_SIMD_TIMING(negif_,(RS(vT,T(0),T(1)))(RS(vT,boost::simd::Valmin<T>()/2,boost::simd::Valmax<T>()/2)))
 }
 
 #undef RS
