@@ -22,10 +22,26 @@ namespace nt2 { namespace meta
 			     (scalar_ < real_<A1> > )
 			     )
   {
-    typedef void result_type;    
-    inline void operator()(A0 const& a0,A1 & a1,A1 & a2) const
+    typedef int result_type;    
+    inline int operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      impl::trig_base <A1,radian_tag,fast_tag,tag::not_simd_type>::sincosa(A1(a0),a1,a2); 
+      impl::trig_base <A1,radian_tag,fast_tag,tag::not_simd_type>::sincosa(A1(a0),a1,a2);
+      return 0; 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincos_, tag::cpu_,
+			     (A0)(A1),
+			     (scalar_ < arithmetic_<A0> > )
+			     (scalar_ < real_<A1> > )
+			     )
+  {
+    typedef A1 result_type;    
+    inline A1 operator()(A0 const& a0,A1 & a2) const
+    {
+      A1 a1; 
+      impl::trig_base <A1,radian_tag,fast_tag,tag::not_simd_type>::sincosa(A1(a0),a1,a2);
+      return a1; 
     }
   };
 

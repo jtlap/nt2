@@ -116,13 +116,13 @@ namespace nt2
 	}
 
 
-	static inline void sincosa(const A0& a0, A0& s, A0& c)
+	static inline void sincosa(const A0& a0, A0& c)
 	{
-	  if(not_in_range(a0)){c = s = Nan<A0>(); return; }
+	  if(not_in_range(a0)){c = Nan<A0>(); return c; }
 	  A0 x =  scale(a0);
 	  A0 z =  sqr(x); 
 	  c = eval_t::cos_eval(z, x, Zero<A0>());
-	  s = eval_t::sin_eval(z, x, Zero<A0>());  
+	  return eval_t::sin_eval(z, x, Zero<A0>());  
 	}
       private:
 	typedef typename meta::logical<A0>::type                                                          logic; 

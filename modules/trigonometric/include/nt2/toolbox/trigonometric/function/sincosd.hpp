@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct sincosd_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sincosd_, sincosd, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincosd_, sincosd,(A0 const&)(A1&),2)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincosd_, sincosd,(A0 const&)(A1&)(A2&),3)
 }
  

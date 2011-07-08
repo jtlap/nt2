@@ -56,14 +56,14 @@ namespace nt2
 
 	static inline A0 cosa(const A0& a0)
 	{
-	  A0 x =  scale(a0);
+	  const A0 x =  scale(a0);
 	  return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
 	}
 
 
 	static inline A0 sina(const A0& a0)
 	{
-	  A0 x =  scale(a0);
+	  const A0 x =  scale(a0);
 	  return  eval_t::sin_eval(sqr(x), x, Zero<A0>());
 	}
 
@@ -77,12 +77,12 @@ namespace nt2
 	}
 
 
-	static inline void sincosa(const A0& a0, A0& s, A0& c)
+	static inline A0 sincosa(const A0& a0, A0& c)
 	{
-	  A0 x =  scale(a0);
-	  A0 z =  sqr(x);
+	  const A0 x =  scale(a0);
+	  const A0 z =  sqr(x);
 	  c = eval_t::cos_eval(z, x, Zero<A0>());
-	  s = eval_t::sin_eval(z, x, Zero<A0>());
+	  return eval_t::sin_eval(z, x, Zero<A0>());
 	}
       private:
         static inline A0    scale(const A0& a0){

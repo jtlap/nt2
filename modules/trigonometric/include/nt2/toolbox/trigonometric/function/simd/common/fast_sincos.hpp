@@ -38,9 +38,31 @@ namespace nt2 { namespace meta
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      impl::trig_base <A1,radian_tag,fast_tag,
-	               tag::simd_type>::sincosa(tofloat(a0),a1,a2); 
+      a1 = impl::trig_base <A1,radian_tag,fast_tag,
+	               tag::simd_type>::sincosa(tofloat(a0),a2); 
       return 0;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::fast_sincos_, tag::cpu_,(A0)(A1)(X),
+				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
+			                	 meta::cardinal_of<A1>
+				        >
+				), 
+                                ( tag::fast_sincos_
+				  ( simd_<arithmetic_<A0>,X> 
+				    , simd_<real_<A1>,X>
+				    )
+				  ), 
+				((simd_ < arithmetic_<A0>,X > ))
+				((simd_ < real_<A1>,X > ))
+			     )
+  {
+    typedef A1 result_type;    
+    inline result_type operator()(A0 const& a0,A1 & a2) const
+    {
+      return impl::trig_base <A1,radian_tag,fast_tag,
+	               tag::simd_type>::sincosa(tofloat(a0),a2); 
     }
   };
 
@@ -57,15 +79,13 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef result_type rtype;
-      rtype res;
-      typedef typename  boost::fusion::result_of::value_at_c<rtype,0>::type type;
-      impl::trig_base < type,radian_tag
-                      , fast_tag, tag::simd_type
-      >::sincosa( tofloat(a0)
-                , boost::fusion::at_c<0>(res)
-                , boost::fusion::at_c<1>(res)
-                );
+      result_type res;
+      typedef typename  boost::fusion::result_of::value_at_c<result_type,0>::type type;
+      boost::fusion::at_c<0>(res) = impl::trig_base < type,radian_tag
+	, fast_tag, tag::simd_type
+	>::sincosa( tofloat(a0)
+		    , boost::fusion::at_c<1>(res)
+		    );
       return res;
     }
   };
