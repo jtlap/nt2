@@ -82,7 +82,6 @@ endmacro()
 macro(nt2_module_main module)
   string(TOUPPER ${module} module_U)
   
-
   if(CMAKE_CURRENT_SOURCE_DIR STREQUAL ${PROJECT_SOURCE_DIR})
     include(CPack)
   endif()
@@ -254,10 +253,12 @@ macro(nt2_module_configure_py pyfile)
                    OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
                  
-   string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
-   foreach(gen_file ${${pyfile}_files})
-     nt2_module_install_file(${gen_file})
-   endforeach()
+  if(${pyfile}_result)              
+    string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
+    foreach(gen_file ${${pyfile}_files})
+      nt2_module_install_file(${gen_file})
+    endforeach()
+  endif()
 endmacro()
 
 macro(nt2_module_configure_simd)
@@ -280,4 +281,56 @@ endmacro()
 macro(nt2_module_configure_file cmake_file header)
   configure_file(${cmake_file} ${PROJECT_BINARY_DIR}/include/${header})
   nt2_module_install_file(${header})
+endmacro()
+
+macro(nt2_module_simd_toolbox name)
+  string(TOUPPER ${name} name_U)
+  get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
+  foreach(dir ${INCLUDE_DIRECTORIES})
+    file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/function ${dir}/boost/simd/toolbox/${name}/function/*.hpp)
+    foreach(file ${function_files})
+      string(REGEX REPLACE ".hpp" "" file ${file})
+      string(TOUPPER ${file} file_U)
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#include <boost/simd/toolbox/${name}/function/${file}.hpp>\n"
+                "namespace nt2\n"
+                "{\n"
+                "  namespace tag\n"
+                "  {\n"
+                "    using boost::simd::tag::${file}_;\n"
+                "  }\n"
+                "  using boost::simd::${file};\n"
+                "}\n"
+                "#endif\n"
+          )
+    endforeach()
+    
+    file(GLOB constant_files RELATIVE ${dir}/boost/simd/toolbox/${name}/constants ${dir}/boost/simd/toolbox/${name}/constants/*.hpp)
+    foreach(file ${constant_files})
+      string(REGEX REPLACE ".hpp" "" file ${file})
+      string(TOUPPER ${file} file_U)
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#include <nt2/toolbox/${name}/${name}.hpp>\n" # Workaround
+                "#endif\n"
+          )
+    endforeach()
+    
+    file(GLOB include_files RELATIVE ${dir}/boost/simd/toolbox/${name}/include ${dir}/boost/simd/toolbox/${name}/include/*.hpp)
+    foreach(file ${include_files})
+      file(READ ${dir}/boost/simd/toolbox/${name}/include/${file} file_content)
+      string(REPLACE "boost::simd" "nt2" file_content ${file_content})
+      string(REPLACE "BOOST_SIMD_" "NT2_" file_content ${file_content})
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file} ${file_content})
+    endforeach()
+  endforeach()
+    
+  if(${name} STREQUAL constant)
+    nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/constants)
+  else()
+    nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/functions)
+  endif()
 endmacro()
