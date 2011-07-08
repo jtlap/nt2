@@ -21,7 +21,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Include custom specific architectures from extensions folders
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/extension/sdk/config/arch.hpp>
 #include <boost/simd/sdk/config/arch/powerpc.hpp>
 #include <boost/simd/sdk/config/arch/x86.hpp>
 #include <boost/simd/sdk/config/arch/ia64.hpp>

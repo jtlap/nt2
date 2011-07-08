@@ -20,12 +20,12 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * If \c BOOST_SIMD_USE_CONCEPTS is used, Concepts conformance will be checked at
+ * If \c BOOST_SIMD_SDK_USE_CONCEPTS is used, Concepts conformance will be checked at
  * compile time to enforce structer typing rules. As Concepts checking increases
  * compile time, it has to be used conservatively.
  */
 //==============================================================================
-#define BOOST_SIMD_USE_CONCEPTS
+#define BOOST_SIMD_SDK_USE_CONCEPTS
 
 //==============================================================================
 /*!
@@ -36,7 +36,7 @@
  * \param CONCEPT Cocnept checking template to assert.
  */
 //==============================================================================
-#define BOOST_SIMD_CONCEPT_ASSERT(CONCEPT)
+#define BOOST_SIMD_SDK_CONCEPT_ASSERT(CONCEPT)
 
 //==============================================================================
 /*!
@@ -51,16 +51,16 @@
  * \param TYPE
  */
 //==============================================================================
-#define BOOST_SIMD_CONCEPT_REQUIRE(CONCEPTS,TYPE)
+#define BOOST_SIMD_SDK_CONCEPT_REQUIRE(CONCEPTS,TYPE)
 #endif
 
-#if defined(BOOST_SIMD_USE_CONCEPTS) && !defined(DOXYGEN_ONLY)
-#define BOOST_SIMD_CONCEPT_ASSERT(CONCEPT) BOOST_CONCEPT_ASSERT(CONCEPT)
-#define BOOST_SIMD_CONCEPT_REQUIRE(CONCEPTS,TYPE)  BOOST_CONCEPT_REQUIRE(CONCEPT,TYPE)
+#if defined(BOOST_SIMD_SDK_USE_CONCEPTS) && !defined(DOXYGEN_ONLY)
+#define BOOST_SIMD_SDK_CONCEPT_ASSERT(CONCEPT) BOOST_CONCEPT_ASSERT(CONCEPT)
+#define BOOST_SIMD_SDK_CONCEPT_REQUIRE(CONCEPTS,TYPE)  BOOST_CONCEPT_REQUIRE(CONCEPT,TYPE)
 
 #elif !defined(DOXYGEN_ONLY)
-#define BOOST_SIMD_CONCEPT_ASSERT(CONCEPT)
-#define BOOST_SIMD_CONCEPT_REQUIRE(CONCEPTS,TYPE)
+#define BOOST_SIMD_SDK_CONCEPT_ASSERT(CONCEPT)
+#define BOOST_SIMD_SDK_CONCEPT_REQUIRE(CONCEPTS,TYPE)
 #endif
 
 #endif

@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/toolbox/operator/specific/details/maybe_genmask.hpp>
-#include <boost/simd/extension/parameters.hpp>
+#include <boost/dispatch/extension/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

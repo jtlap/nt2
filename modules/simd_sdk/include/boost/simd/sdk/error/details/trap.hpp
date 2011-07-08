@@ -20,13 +20,13 @@
     ||  defined(_M_IA64) || defined(__ia64__)   \
     )                                           \
     &&  defined(__GNUC__)
-#define BOOST_SIMD_DEBUG_TRAP()  __asm("int3")
+#define BOOST_SIMD_SDK_DEBUG_TRAP()  __asm("int3")
 #elif defined(_MSC_VER)
-#define BOOST_SIMD_DEBUG_TRAP()  __debugbreak()
+#define BOOST_SIMD_SDK_DEBUG_TRAP()  __debugbreak()
 #elif defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
-#define BOOST_SIMD_DEBUG_TRAP() ::raise(SIGTRAP)
+#define BOOST_SIMD_SDK_DEBUG_TRAP() ::raise(SIGTRAP)
 #else
-#define BOOST_SIMD_DEBUG_TRAP()
+#define BOOST_SIMD_SDK_DEBUG_TRAP()
 #endif
 
 #endif

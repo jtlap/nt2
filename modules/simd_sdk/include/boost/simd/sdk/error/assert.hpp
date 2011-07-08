@@ -20,26 +20,26 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * If BOOST_SIMD_ASSERTS_AS_EXCEPTIONS is defined, all runtime assertion will throw
+ * If BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS is defined, all runtime assertion will throw
  * an instance of assert_exception instead of triggering a runtime assertion.
  *
- * \see BOOST_SIMD_DISABLE_ERROR
- * \see BOOST_SIMD_DISABLE_ASSERTS
+ * \see BOOST_SIMD_SDK_DISABLE_ERROR
+ * \see BOOST_SIMD_SDK_DISABLE_ASSERTS
  */
 //==============================================================================
-#define BOOST_SIMD_ASSERTS_AS_EXCEPTIONS
+#define BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS
 
 //==============================================================================
 /*!
  * \ingroup error_config
- * If \c BOOST_SIMD_DISABLE_ASSERTS is defined, all runtime assertion are disabled.
+ * If \c BOOST_SIMD_SDK_DISABLE_ASSERTS is defined, all runtime assertion are disabled.
  * Note than defining \c BOOST_DISABLE_ASSERTS triggers this definition.
  *
- * \see BOOST_SIMD_DISABLE_ERROR
- * \see BOOST_SIMD_ASSERTS_AS_EXCEPTIONS
+ * \see BOOST_SIMD_SDK_DISABLE_ERROR
+ * \see BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS
  */
 //==============================================================================
-#define BOOST_SIMD_DISABLE_ASSERTS
+#define BOOST_SIMD_SDK_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
@@ -48,21 +48,21 @@
 #include <iosfwd>
 #include <boost/simd/sdk/error/error.hpp>
 
-#if  !defined(BOOST_SIMD_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
+#if  !defined(BOOST_SIMD_SDK_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
 
 
-namespace boost { namespace simd { namespace details {  BOOST_SIMD_ERROR_INFO(assert_info, char const*); } } }
+namespace boost { namespace dispatch { namespace details { BOOST_SIMD_SDK_ERROR_INFO(assert_info, char const*); } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   //============================================================================
   /*!
    * \ingroup error
    * assert_exception is the exception thrown when a runtime assertion fails and
-   * BOOST_SIMD_ASSERTS_AS_EXCEPTIONS is defined.
+   * BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS is defined.
    */
   //============================================================================
-  struct assert_exception : virtual boost::simd::exception
+  struct assert_exception : virtual boost::dispatch::exception
   {
     virtual ~assert_exception() throw() {}
     virtual void display(std::ostream& os) const throw();
@@ -78,7 +78,7 @@ namespace boost { namespace simd
 //==============================================================================
 // Debug mode has SIGTRAP to the assertion
 //==============================================================================
-#if defined(BOOST_SIMD_DEBUG) && !defined(BOOST_SIMD_ASSERTS_AS_EXCEPTIONS)
+#if defined(BOOST_SIMD_SDK_DEBUG) && !defined(BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS)
 #include <boost/simd/sdk/error/trap.hpp>
 #ifndef BOOST_ENABLE_ASSERT_HANDLER
 #define BOOST_ENABLE_ASSERT_HANDLER
@@ -93,53 +93,53 @@ namespace boost { namespace simd
 //==============================================================================
 /*!
  * \ingroup error
- * If BOOST_SIMD_DISABLE_ASSERTS is not defined, evaluates \c XPR and, if \c XPR
+ * If BOOST_SIMD_SDK_DISABLE_ASSERTS is not defined, evaluates \c XPR and, if \c XPR
  * evaluates to \c false, trigger a runtime assertion failure. If not, no
  * operationsa re performed.
  *
  * \param XPR Expression to assert.
  */
 //==============================================================================
-#define BOOST_SIMD_ASSERT(XPR) BOOST_ASSERT(XPR)
+#define BOOST_SIMD_SDK_ASSERT(XPR) BOOST_ASSERT(XPR)
 
 //==============================================================================
 /*!
  * \ingroup error
  * Evaluates \c XPR and, if \c XPR evaluates to \c false, trigger a runtime
- * assertion failure if and only if BOOST_SIMD_DISABLE_ASSERTS is not defined
+ * assertion failure if and only if BOOST_SIMD_SDK_DISABLE_ASSERTS is not defined
  *
  * \param XPR Expression to verify.
  */
 //==============================================================================
-#define BOOST_SIMD_VERIFY(XPR) BOOST_VERIFY(XPR)
+#define BOOST_SIMD_SDK_VERIFY(XPR) BOOST_VERIFY(XPR)
 
 #if defined(BOOST_ENABLE_ASSERT_HANDLER)
-#if defined(BOOST_SIMD_DEBUG)
+#if defined(BOOST_SIMD_SDK_DEBUG)
 #include <cstdio>
 #endif
 
-namespace boost { namespace simd
+namespace boost
 {
   void inline
   assertion_failed(char const* expr,char const* fn,char const* f,int l)
   {
-    #if defined(BOOST_SIMD_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_SIMD_NO_EXCEPTIONS)
+    #if defined(BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_SIMD_SDK_NO_EXCEPTIONS)
     ::boost::exception_detail
-    ::throw_exception_(   ::boost::simd::assert_exception()
-                      <<  ::boost::simd::details::assert_info(expr)
+    ::throw_exception_(   ::boost::dispatch::assert_exception()
+                      <<  ::boost::dispatch::details::assert_info(expr)
                         , fn,f,l
                       );
-    #elif defined(BOOST_SIMD_DEBUG)
+    #elif defined(BOOST_SIMD_SDK_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
-    ::boost::simd::trap();
+    ::boost::dispatch::trap();
     #else
-    boost::simd::ignore_unused(expr);
-    boost::simd::ignore_unused(fn);
-    boost::simd::ignore_unused(f);
-    boost::simd::ignore_unused(l);
+    boost::dispatch::ignore_unused(expr);
+    boost::dispatch::ignore_unused(fn);
+    boost::dispatch::ignore_unused(f);
+    boost::dispatch::ignore_unused(l);
     #endif
   }
-} }
+}
 
 #undef BOOST_ENABLE_ASSERT_HANDLER
 #endif

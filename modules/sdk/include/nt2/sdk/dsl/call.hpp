@@ -21,7 +21,7 @@
 #include <nt2/sdk/functor/meta/hierarchy.hpp>
 
 #if defined(NT2_DONT_USE_PREPROCESSED_FILES)
-#include <nt2/extension/parameters.hpp>
+#include <boost/dispatch/extension/parameters.hpp>
 #include <boost/preprocessor/selection/min.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>

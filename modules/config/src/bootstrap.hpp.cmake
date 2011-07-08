@@ -9,13 +9,6 @@
 #ifndef NT2_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 #define NT2_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 
-#if defined(NT2_CUSTOM_BOOTSTRAP)
-#include <boost/preprocessor/stringize.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
-
-#define NT2_CONFIG_BASE()	nt2/extension/config/
-#include NT2_PP_INCLUDE(NT2_CONFIG_BASE,NT2_CUSTOM_BOOTSTRAP)
-#else
 ////////////////////////////////////////////////////////////////////////////////
 // SIMD Capabilities
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,8 +22,6 @@
 #cmakedefine NT2_HAS_XOP_SUPPORT
 #cmakedefine NT2_HAS_FMA4_SUPPORT
 #cmakedefine NT2_HAS_VMX_SUPPORT
-
-#endif
 
 #endif
 

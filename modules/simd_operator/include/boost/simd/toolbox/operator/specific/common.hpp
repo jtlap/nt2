@@ -20,7 +20,7 @@
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/specific/preprocessed/common.hpp>
 #else
-#include <boost/simd/extension/parameters.hpp>
+#include <boost/dispatch/extension/parameters.hpp>
 #include <boost/simd/sdk/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

@@ -15,16 +15,16 @@
 // When exception are disabled via -fno-exceptions, one can specify how to
 // handle exception all together
 //==============================================================================
-#if defined(BOOST_SIMD_NO_EXCEPTIONS)
-namespace boost { namespace simd
+#if defined(BOOST_SIMD_SDK_NO_EXCEPTIONS)
+namespace boost
 {
   inline void throw_exception( std::exception const & e )
   {
-    #if defined(BOOST_SIMD_CUSTOM_ERROR)
-    boost::simd::ext::throw_exception(e);
+    #if defined(BOOST_SIMD_SDK_CUSTOM_ERROR)
+    boost::dispatch::ext::throw_exception(e);
     #endif
   }
-} }
+}
 #endif
 
 #endif

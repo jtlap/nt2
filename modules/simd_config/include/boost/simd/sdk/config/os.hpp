@@ -19,7 +19,6 @@
 #include <boost/version.hpp>
 #include <boost/simd/sdk/config/bootstrap.hpp>
 
-#include <boost/simd/extension/sdk/config/os.hpp>
 #include <boost/simd/sdk/config/os/nix.hpp>
 #include <boost/simd/sdk/config/os/windows.hpp>
 #include <boost/simd/sdk/config/os/macos.hpp>

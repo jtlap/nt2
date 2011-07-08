@@ -1,4 +1,0 @@
-                      /**/
-    template<class This,class A0 , class A1> struct result<This(A0 , A1)> { static typename meta::strip<A0>::type& a0; static typename meta::strip<A1>::type& a1; NT2_DECLTYPE( a0 + a1 , type ); }; template<class This,class A0 , class A1 , class A2> struct result<This(A0 , A1 , A2)> { static typename meta::strip<A0>::type& a0; static typename meta::strip<A1>::type& a1; static typename meta::strip<A2>::type& a2; NT2_DECLTYPE( a0 + a1 + a2 , type ); }; template<class This,class A0 , class A1 , class A2 , class A3> struct result<This(A0 , A1 , A2 , A3)> { static typename meta::strip<A0>::type& a0; static typename meta::strip<A1>::type& a1; static typename meta::strip<A2>::type& a2; static typename meta::strip<A3>::type& a3; NT2_DECLTYPE( a0 + a1 + a2 + a3 , type ); };
-    
-    

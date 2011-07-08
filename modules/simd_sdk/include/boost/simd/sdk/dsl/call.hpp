@@ -21,7 +21,7 @@
 #include <boost/simd/sdk/functor/meta/hierarchy.hpp>
 
 #if defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
-#include <boost/simd/extension/parameters.hpp>
+#include <boost/dispatch/extension/parameters.hpp>
 #include <boost/preprocessor/selection/min.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>

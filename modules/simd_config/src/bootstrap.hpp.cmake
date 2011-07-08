@@ -9,13 +9,6 @@
 #ifndef BOOST_SIMD_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 #define BOOST_SIMD_SDK_CONFIG_BOOTSTRAP_HPP_INCLUDED
 
-#if defined(BOOST_SIMD_CUSTOM_BOOTSTRAP)
-#include <boost/preprocessor/stringize.hpp>
-#include <boost/simd/sdk/details/preprocessor.hpp>
-
-#define BOOST_SIMD_CONFIG_BASE()	boost/simd/extension/config/
-#include BOOST_SIMD_PP_INCLUDE(BOOST_SIMD_CONFIG_BASE,BOOST_SIMD_CUSTOM_BOOTSTRAP)
-#else
 ////////////////////////////////////////////////////////////////////////////////
 // SIMD Capabilities
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,8 +22,6 @@
 #cmakedefine BOOST_SIMD_HAS_XOP_SUPPORT
 #cmakedefine BOOST_SIMD_HAS_FMA4_SUPPORT
 #cmakedefine BOOST_SIMD_HAS_VMX_SUPPORT
-
-#endif
 
 #endif
 

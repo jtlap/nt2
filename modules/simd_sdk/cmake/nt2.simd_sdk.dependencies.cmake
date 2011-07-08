@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_SIMD_SDK_DEPENDENCIES_EXTRA simd_config)
+SET(NT2_SIMD_SDK_DEPENDENCIES_EXTRA simd_config dispatch)
 
 SET(NT2_SIMD_SDK_LIBRARIES boost_simd)

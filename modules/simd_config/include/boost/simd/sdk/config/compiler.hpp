@@ -19,7 +19,6 @@
 #include <boost/simd/sdk/config/bootstrap.hpp>
 
 #include <boost/simd/sdk/config/compiler/gcc_xml.hpp>
-#include <boost/simd/extension/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/config/compiler/gcc.hpp>
 #include <boost/simd/sdk/config/compiler/visualc.hpp>
 #include <boost/simd/sdk/config/compiler/none.hpp>

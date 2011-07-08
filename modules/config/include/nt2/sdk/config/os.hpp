@@ -19,7 +19,6 @@
 #include <boost/version.hpp>
 #include <nt2/sdk/config/bootstrap.hpp>
 
-#include <nt2/extension/sdk/config/os.hpp>
 #include <nt2/sdk/config/os/nix.hpp>
 #include <nt2/sdk/config/os/windows.hpp>
 #include <nt2/sdk/config/os/macos.hpp>

@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines the \ref boost::simd::exception class
+ * \brief Defines the \ref boost::dispatch::exception class
  */
 
 #include <iosfwd>
@@ -20,7 +20,7 @@
 //==============================================================================
 /*!
  * \ingroup error
- * Define a new NT2 exception information carrier. Information carriers are
+ * Define a new Boost.Dispatch exception information carrier. Information carriers are
  * used to feed informations from the throwing site to the exception instance
  * in a safe way.
  *
@@ -28,15 +28,15 @@
  * \param TYPE Type of the information gathered by the carrier
  */
 //==============================================================================
-#define BOOST_SIMD_ERROR_INFO(NAME,TYPE)                                     \
+#define BOOST_SIMD_SDK_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   //============================================================================
   /*!
    * \ingroup error
-   * exception is the base abstract class for all NT2 exceptions. It implements
+   * exception is the base abstract class for all Boost.Dispatch exceptions. It implements
    * the classical STD compliant interface, is compatible with boost::exception
    * and can be directly streamed for easy display.
    */

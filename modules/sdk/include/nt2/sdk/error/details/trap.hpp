@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_ERROR_DETAILS_TRAP_HPP_INCLUDED
-#define NT2_SDK_ERROR_DETAILS_TRAP_HPP_INCLUDED
+#ifndef NT2_SDK_/ERROR_DETAILS_TRAP_HPP_INCLUDED
+#define NT2_SDK_/ERROR_DETAILS_TRAP_HPP_INCLUDED
 
 //==============================================================================
 // Detects and define how to emit a TRAP signal
@@ -20,13 +20,13 @@
     ||  defined(_M_IA64) || defined(__ia64__)   \
     )                                           \
     &&  defined(__GNUC__)
-#define NT2_DEBUG_TRAP()  __asm("int3")
+#define NT2_SDK_/DEBUG_TRAP()  __asm("int3")
 #elif defined(_MSC_VER)
-#define NT2_DEBUG_TRAP()  __debugbreak()
+#define NT2_SDK_/DEBUG_TRAP()  __debugbreak()
 #elif defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
-#define NT2_DEBUG_TRAP() ::raise(SIGTRAP)
+#define NT2_SDK_/DEBUG_TRAP() ::raise(SIGTRAP)
 #else
-#define NT2_DEBUG_TRAP()
+#define NT2_SDK_/DEBUG_TRAP()
 #endif
 
 #endif

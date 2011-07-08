@@ -11,14 +11,14 @@
 
 /*!
  * \file
- * \brief Implements NT2 exception handling system
+ * \brief Implements Boost.Dispatch exception handling system
  */
 
 /*!
  * \defgroup error Error handling
  * \ingroup sdk
  * This module gathers macros, classes and functions to perform error handling
- * in NT2, beign at runtime or at compile-time.
+ * in Boost.Dispatch, beign at runtime or at compile-time.
  */
 
 /*!
@@ -33,15 +33,15 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * If defined, all NT2 exceptions handling code is disabled. This macro can be
+ * If defined, all Boost.Dispatch exceptions handling code is disabled. This macro can be
  * defined manually and is triggered automatically if \c BOOST_NO_EXCEPTIONS is
  * defined or if exceptions are disabled by the compiler options.
  *
- * \see BOOST_SIMD_DISABLE_ASSERTS
- * \see BOOST_SIMD_ASSERTS_AS_EXCEPTIONS
+ * \see BOOST_SIMD_SDK_DISABLE_ASSERTS
+ * \see BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS
  */
 //==============================================================================
-#define BOOST_SIMD_DISABLE_ERROR
+#define BOOST_SIMD_SDK_DISABLE_ERROR
 
 //==============================================================================
 /*!
@@ -51,7 +51,7 @@
  * \param EXCEPTION Exception to throw.
  */
 //==============================================================================
-#define BOOST_SIMD_THROW(EXCEPTION)
+#define BOOST_SIMD_SDK_THROW(EXCEPTION)
 
 #endif
 
@@ -60,23 +60,23 @@
 //==============================================================================
 #include <boost/config.hpp>
 
-#if defined(BOOST_SIMD_DISABLE_ERROR) || defined(BOOST_NO_EXCEPTIONS)
-#define BOOST_SIMD_NO_EXCEPTIONS
+#if defined(BOOST_SIMD_SDK_DISABLE_ERROR) || defined(BOOST_NO_EXCEPTIONS)
+#define BOOST_SIMD_SDK_NO_EXCEPTIONS
 #endif
 
 //==============================================================================
 // Enabled errors
 //==============================================================================
-#if !defined(BOOST_SIMD_NO_EXCEPTIONS)
+#if !defined(BOOST_SIMD_SDK_NO_EXCEPTIONS)
 #include <boost/simd/sdk/error/details/exception.hpp>
-#define BOOST_SIMD_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
+#define BOOST_SIMD_SDK_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
 
 //==============================================================================
 // Disabled errors
 //==============================================================================
 #else
-#define BOOST_SIMD_THROW(EXP)
+#define BOOST_SIMD_SDK_THROW(EXP)
 #endif
 
 #endif

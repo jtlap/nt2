@@ -15,27 +15,27 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/error/debug.hpp>
 
-namespace boost { namespace simd {  namespace config
+namespace boost { namespace dispatch { namespace config
 {
   static void errors()
   {
-    #if defined(BOOST_SIMD_RELEASE)
+    #if defined(BOOST_SIMD_SDK_RELEASE)
     puts(" Compilation mode        : release");
-    #elif defined(BOOST_SIMD_DEBUG)
+    #elif defined(BOOST_SIMD_SDK_DEBUG)
     puts(" Compilation mode        : debug");
     #else
     puts(" Compilation mode        : normal");
     #endif
 
-    #if defined(BOOST_SIMD_DISABLE_ASSERTS)
+    #if defined(BOOST_SIMD_SDK_DISABLE_ASSERTS)
     puts(" Assertion Failures      : disabled");
-    #elif defined(BOOST_SIMD_ASSERTS_AS_EXCEPTIONS)
+    #elif defined(BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS)
     puts(" Assertion Failures      : as exceptions");
     #else
     puts(" Assertion Failures      : enabled");
     #endif
 
-    #if defined(BOOST_SIMD_USE_CONCEPTS)
+    #if defined(BOOST_SIMD_SDK_USE_CONCEPTS)
     puts(" Concepts checks         : enabled");
     #else
     puts(" Concepts checks         : disabled");
@@ -43,7 +43,7 @@ namespace boost { namespace simd {  namespace config
     puts("");
   }
 
-  BOOST_SIMD_REGISTER_STATUS(errors);
+  BOOST_SIMD_SDK_REGISTER_STATUS(errors);
 } } }
 
 #endif
