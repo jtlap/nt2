@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_DEBUG_HPP_INCLUDED
-#define NT2_SDK_/ERROR_DEBUG_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_DEBUG_HPP_INCLUDED
+#define NT2_SDK_ERROR_DEBUG_HPP_INCLUDED
 
 /*!
  * \file
@@ -22,10 +22,10 @@
  * mode. In this mode, most error checking systems are off to ensure a high
  * level of performance. Use only when debuggign is done.
  *
- * Note that defining the classical \c NDEBUG symbol triggers \c NT2_SDK_/RELEASE.
+ * Note that defining the classical \c NDEBUG symbol triggers \c NT2_RELEASE.
  */
 //==============================================================================
-#define NT2_SDK_/RELEASE
+#define NT2_RELEASE
 
 //==============================================================================
 /*!
@@ -35,36 +35,36 @@
  * quality of debugging facilities. Performance are not guaranteed in Debug mode.
  */
 //==============================================================================
-#define NT2_SDK_/DEBUG
+#define NT2_DEBUG
 #endif
 
 //==============================================================================
-// NT2_SDK_/RELEASE is triggerable by NDEBUG
+// NT2_RELEASE is triggerable by NDEBUG
 //==============================================================================
 #if defined(NDEBUG)
-#define NT2_SDK_/RELEASE
-#define NT2_SDK_/DISABLE_ASSERTS
+#define NT2_RELEASE
+#define NT2_DISABLE_ASSERTS
 #define BOOST_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
 // Ensure consistencies between assertion settings
 //==============================================================================
-#if defined(BOOST_DISABLE_ASSERTS) && !defined(NT2_SDK_/DISABLE_ASSERTS)
-#define NT2_SDK_/DISABLE_ASSERTS
+#if defined(BOOST_DISABLE_ASSERTS) && !defined(NT2_DISABLE_ASSERTS)
+#define NT2_DISABLE_ASSERTS
 #endif
 
-#if !defined(BOOST_DISABLE_ASSERTS) && defined(NT2_SDK_/DISABLE_ASSERTS)
+#if !defined(BOOST_DISABLE_ASSERTS) && defined(NT2_DISABLE_ASSERTS)
 #define BOOST_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
-// NT2_SDK_/DEBUG removes all NDEBUG influence
-// Note that defining NT2_SDK_/DEBUG overrride any Release mode settings
+// NT2_DEBUG removes all NDEBUG influence
+// Note that defining NT2_DEBUG overrride any Release mode settings
 //==============================================================================
-#if defined(NT2_SDK_/DEBUG)
+#if defined(NT2_DEBUG)
 #undef NDEBUG
-#undef NT2_SDK_/DISABLE_ASSERTS
+#undef NT2_DISABLE_ASSERTS
 #undef BOOST_DISABLE_ASSERTS
 #endif
 

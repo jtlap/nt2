@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_REPORT_HPP_INCLUDED
-#define NT2_SDK_/ERROR_REPORT_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_REPORT_HPP_INCLUDED
+#define NT2_SDK_ERROR_REPORT_HPP_INCLUDED
 
 //==============================================================================
 // Configuration report for error handling settings
@@ -19,23 +19,23 @@ namespace boost { namespace dispatch { namespace config
 {
   static void errors()
   {
-    #if defined(NT2_SDK_/RELEASE)
+    #if defined(NT2_RELEASE)
     puts(" Compilation mode        : release");
-    #elif defined(NT2_SDK_/DEBUG)
+    #elif defined(NT2_DEBUG)
     puts(" Compilation mode        : debug");
     #else
     puts(" Compilation mode        : normal");
     #endif
 
-    #if defined(NT2_SDK_/DISABLE_ASSERTS)
+    #if defined(NT2_DISABLE_ASSERTS)
     puts(" Assertion Failures      : disabled");
-    #elif defined(NT2_SDK_/ASSERTS_AS_EXCEPTIONS)
+    #elif defined(NT2_ASSERTS_AS_EXCEPTIONS)
     puts(" Assertion Failures      : as exceptions");
     #else
     puts(" Assertion Failures      : enabled");
     #endif
 
-    #if defined(NT2_SDK_/USE_CONCEPTS)
+    #if defined(NT2_USE_CONCEPTS)
     puts(" Concepts checks         : enabled");
     #else
     puts(" Concepts checks         : disabled");
@@ -43,7 +43,7 @@ namespace boost { namespace dispatch { namespace config
     puts("");
   }
 
-  NT2_SDK_/REGISTER_STATUS(errors);
+  NT2_REGISTER_STATUS(errors);
 } } }
 
 #endif

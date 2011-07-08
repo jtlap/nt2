@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_TRAP_HPP_INCLUDED
-#define NT2_SDK_/ERROR_TRAP_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_TRAP_HPP_INCLUDED
+#define NT2_SDK_ERROR_TRAP_HPP_INCLUDED
 
 /*!
  * \file
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch
    * \param cond Runtime boolean value
    */
   //==============================================================================
-  NT2_SDK_/FORCE_INLINE void trap(bool cond) { if(!cond) NT2_SDK_/DEBUG_TRAP(); }
+  NT2_FORCE_INLINE void trap(bool cond) { if(!cond) NT2_DEBUG_TRAP(); }
 
   //==============================================================================
   /*!
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch
    * Triggers a breakpoint trap unconditionnaly
    */
   //==============================================================================
-   NT2_SDK_/FORCE_INLINE void trap()          { NT2_SDK_/DEBUG_TRAP();           }
+   NT2_FORCE_INLINE void trap()          { NT2_DEBUG_TRAP();           }
 
    //==============================================================================
    /*!
@@ -47,13 +47,13 @@ namespace boost { namespace dispatch
     * \tparam Condition Compile-time boolean integral constant
     */
    //==============================================================================
-  template<class Condition> NT2_SDK_/FORCE_INLINE
+  template<class Condition> NT2_FORCE_INLINE
   void trap( typename boost::enable_if_c<Condition::value>::type* = 0 )
   {
-    NT2_SDK_/DEBUG_TRAP();
+    NT2_DEBUG_TRAP();
   }
 
-  template<class Condition> NT2_SDK_/FORCE_INLINE
+  template<class Condition> NT2_FORCE_INLINE
   void trap( typename boost::disable_if_c<Condition::value>::type* = 0) {}
 } }
 

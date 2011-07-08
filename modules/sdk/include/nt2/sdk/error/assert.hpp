@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_ASSERT_HPP_INCLUDED
-#define NT2_SDK_/ERROR_ASSERT_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_ASSERT_HPP_INCLUDED
+#define NT2_SDK_ERROR_ASSERT_HPP_INCLUDED
 
 /*!
  * \file
@@ -20,26 +20,26 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * If NT2_SDK_/ASSERTS_AS_EXCEPTIONS is defined, all runtime assertion will throw
+ * If NT2_ASSERTS_AS_EXCEPTIONS is defined, all runtime assertion will throw
  * an instance of assert_exception instead of triggering a runtime assertion.
  *
- * \see NT2_SDK_/DISABLE_ERROR
- * \see NT2_SDK_/DISABLE_ASSERTS
+ * \see NT2_DISABLE_ERROR
+ * \see NT2_DISABLE_ASSERTS
  */
 //==============================================================================
-#define NT2_SDK_/ASSERTS_AS_EXCEPTIONS
+#define NT2_ASSERTS_AS_EXCEPTIONS
 
 //==============================================================================
 /*!
  * \ingroup error_config
- * If \c NT2_SDK_/DISABLE_ASSERTS is defined, all runtime assertion are disabled.
+ * If \c NT2_DISABLE_ASSERTS is defined, all runtime assertion are disabled.
  * Note than defining \c BOOST_DISABLE_ASSERTS triggers this definition.
  *
- * \see NT2_SDK_/DISABLE_ERROR
- * \see NT2_SDK_/ASSERTS_AS_EXCEPTIONS
+ * \see NT2_DISABLE_ERROR
+ * \see NT2_ASSERTS_AS_EXCEPTIONS
  */
 //==============================================================================
-#define NT2_SDK_/DISABLE_ASSERTS
+#define NT2_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
@@ -48,10 +48,10 @@
 #include <iosfwd>
 #include <nt2/sdk/error/error.hpp>
 
-#if  !defined(NT2_SDK_/NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
+#if  !defined(NT2_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
 
 
-namespace boost { namespace dispatch { namespace details { NT2_SDK_/ERROR_INFO(assert_info, char const*); } } }
+namespace boost { namespace dispatch { namespace details { NT2_ERROR_INFO(assert_info, char const*); } } }
 
 namespace boost { namespace dispatch
 {
@@ -59,7 +59,7 @@ namespace boost { namespace dispatch
   /*!
    * \ingroup error
    * assert_exception is the exception thrown when a runtime assertion fails and
-   * NT2_SDK_/ASSERTS_AS_EXCEPTIONS is defined.
+   * NT2_ASSERTS_AS_EXCEPTIONS is defined.
    */
   //============================================================================
   struct assert_exception : virtual boost::dispatch::exception
@@ -78,7 +78,7 @@ namespace boost { namespace dispatch
 //==============================================================================
 // Debug mode has SIGTRAP to the assertion
 //==============================================================================
-#if defined(NT2_SDK_/DEBUG) && !defined(NT2_SDK_/ASSERTS_AS_EXCEPTIONS)
+#if defined(NT2_DEBUG) && !defined(NT2_ASSERTS_AS_EXCEPTIONS)
 #include <nt2/sdk/error/trap.hpp>
 #ifndef BOOST_ENABLE_ASSERT_HANDLER
 #define BOOST_ENABLE_ASSERT_HANDLER
@@ -93,28 +93,28 @@ namespace boost { namespace dispatch
 //==============================================================================
 /*!
  * \ingroup error
- * If NT2_SDK_/DISABLE_ASSERTS is not defined, evaluates \c XPR and, if \c XPR
+ * If NT2_DISABLE_ASSERTS is not defined, evaluates \c XPR and, if \c XPR
  * evaluates to \c false, trigger a runtime assertion failure. If not, no
  * operationsa re performed.
  *
  * \param XPR Expression to assert.
  */
 //==============================================================================
-#define NT2_SDK_/ASSERT(XPR) BOOST_ASSERT(XPR)
+#define NT2_ASSERT(XPR) BOOST_ASSERT(XPR)
 
 //==============================================================================
 /*!
  * \ingroup error
  * Evaluates \c XPR and, if \c XPR evaluates to \c false, trigger a runtime
- * assertion failure if and only if NT2_SDK_/DISABLE_ASSERTS is not defined
+ * assertion failure if and only if NT2_DISABLE_ASSERTS is not defined
  *
  * \param XPR Expression to verify.
  */
 //==============================================================================
-#define NT2_SDK_/VERIFY(XPR) BOOST_VERIFY(XPR)
+#define NT2_VERIFY(XPR) BOOST_VERIFY(XPR)
 
 #if defined(BOOST_ENABLE_ASSERT_HANDLER)
-#if defined(NT2_SDK_/DEBUG)
+#if defined(NT2_DEBUG)
 #include <cstdio>
 #endif
 
@@ -123,13 +123,13 @@ namespace boost
   void inline
   assertion_failed(char const* expr,char const* fn,char const* f,int l)
   {
-    #if defined(NT2_SDK_/ASSERTS_AS_EXCEPTIONS) && !defined(NT2_SDK_/NO_EXCEPTIONS)
+    #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     ::boost::exception_detail
     ::throw_exception_(   ::boost::dispatch::assert_exception()
                       <<  ::boost::dispatch::details::assert_info(expr)
                         , fn,f,l
                       );
-    #elif defined(NT2_SDK_/DEBUG)
+    #elif defined(NT2_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
     ::boost::dispatch::trap();
     #else

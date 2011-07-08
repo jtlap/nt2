@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
-#define NT2_SDK_/ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
+#define NT2_SDK_ERROR_DETAILS_EXCEPTION_HPP_INCLUDED
 
 /*!
  * \file
@@ -28,7 +28,7 @@
  * \param TYPE Type of the information gathered by the carrier
  */
 //==============================================================================
-#define NT2_SDK_/ERROR_INFO(NAME,TYPE)                                     \
+#define NT2_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
 namespace boost { namespace dispatch

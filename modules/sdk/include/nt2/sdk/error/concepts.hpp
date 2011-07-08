@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_CONCEPTS_HPP_INCLUDED
-#define NT2_SDK_/ERROR_CONCEPTS_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_CONCEPTS_HPP_INCLUDED
+#define NT2_SDK_ERROR_CONCEPTS_HPP_INCLUDED
 
 /*!
  * \file
@@ -20,12 +20,12 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * If \c NT2_SDK_/USE_CONCEPTS is used, Concepts conformance will be checked at
+ * If \c NT2_USE_CONCEPTS is used, Concepts conformance will be checked at
  * compile time to enforce structer typing rules. As Concepts checking increases
  * compile time, it has to be used conservatively.
  */
 //==============================================================================
-#define NT2_SDK_/USE_CONCEPTS
+#define NT2_USE_CONCEPTS
 
 //==============================================================================
 /*!
@@ -36,7 +36,7 @@
  * \param CONCEPT Cocnept checking template to assert.
  */
 //==============================================================================
-#define NT2_SDK_/CONCEPT_ASSERT(CONCEPT)
+#define NT2_CONCEPT_ASSERT(CONCEPT)
 
 //==============================================================================
 /*!
@@ -51,16 +51,16 @@
  * \param TYPE
  */
 //==============================================================================
-#define NT2_SDK_/CONCEPT_REQUIRE(CONCEPTS,TYPE)
+#define NT2_CONCEPT_REQUIRE(CONCEPTS,TYPE)
 #endif
 
-#if defined(NT2_SDK_/USE_CONCEPTS) && !defined(DOXYGEN_ONLY)
-#define NT2_SDK_/CONCEPT_ASSERT(CONCEPT) BOOST_CONCEPT_ASSERT(CONCEPT)
-#define NT2_SDK_/CONCEPT_REQUIRE(CONCEPTS,TYPE)  BOOST_CONCEPT_REQUIRE(CONCEPT,TYPE)
+#if defined(NT2_USE_CONCEPTS) && !defined(DOXYGEN_ONLY)
+#define NT2_CONCEPT_ASSERT(CONCEPT) BOOST_CONCEPT_ASSERT(CONCEPT)
+#define NT2_CONCEPT_REQUIRE(CONCEPTS,TYPE)  BOOST_CONCEPT_REQUIRE(CONCEPT,TYPE)
 
 #elif !defined(DOXYGEN_ONLY)
-#define NT2_SDK_/CONCEPT_ASSERT(CONCEPT)
-#define NT2_SDK_/CONCEPT_REQUIRE(CONCEPTS,TYPE)
+#define NT2_CONCEPT_ASSERT(CONCEPT)
+#define NT2_CONCEPT_REQUIRE(CONCEPTS,TYPE)
 #endif
 
 #endif

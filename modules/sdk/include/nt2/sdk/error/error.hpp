@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_ERROR_HPP_INCLUDED
-#define NT2_SDK_/ERROR_ERROR_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_ERROR_HPP_INCLUDED
+#define NT2_SDK_ERROR_ERROR_HPP_INCLUDED
 
 /*!
  * \file
@@ -37,11 +37,11 @@
  * defined manually and is triggered automatically if \c BOOST_NO_EXCEPTIONS is
  * defined or if exceptions are disabled by the compiler options.
  *
- * \see NT2_SDK_/DISABLE_ASSERTS
- * \see NT2_SDK_/ASSERTS_AS_EXCEPTIONS
+ * \see NT2_DISABLE_ASSERTS
+ * \see NT2_ASSERTS_AS_EXCEPTIONS
  */
 //==============================================================================
-#define NT2_SDK_/DISABLE_ERROR
+#define NT2_DISABLE_ERROR
 
 //==============================================================================
 /*!
@@ -51,7 +51,7 @@
  * \param EXCEPTION Exception to throw.
  */
 //==============================================================================
-#define NT2_SDK_/THROW(EXCEPTION)
+#define NT2_THROW(EXCEPTION)
 
 #endif
 
@@ -60,23 +60,23 @@
 //==============================================================================
 #include <boost/config.hpp>
 
-#if defined(NT2_SDK_/DISABLE_ERROR) || defined(BOOST_NO_EXCEPTIONS)
-#define NT2_SDK_/NO_EXCEPTIONS
+#if defined(NT2_DISABLE_ERROR) || defined(BOOST_NO_EXCEPTIONS)
+#define NT2_NO_EXCEPTIONS
 #endif
 
 //==============================================================================
 // Enabled errors
 //==============================================================================
-#if !defined(NT2_SDK_/NO_EXCEPTIONS)
+#if !defined(NT2_NO_EXCEPTIONS)
 #include <nt2/sdk/error/details/exception.hpp>
-#define NT2_SDK_/THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
+#define NT2_THROW(EXP) BOOST_THROW_EXCEPTION( (EXP) ) \
 /**/
 
 //==============================================================================
 // Disabled errors
 //==============================================================================
 #else
-#define NT2_SDK_/THROW(EXP)
+#define NT2_THROW(EXP)
 #endif
 
 #endif

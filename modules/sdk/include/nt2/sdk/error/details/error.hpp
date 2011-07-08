@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_/ERROR_DETAILS_ERROR_HPP_INCLUDED
-#define NT2_SDK_/ERROR_DETAILS_ERROR_HPP_INCLUDED
+#ifndef NT2_SDK_ERROR_DETAILS_ERROR_HPP_INCLUDED
+#define NT2_SDK_ERROR_DETAILS_ERROR_HPP_INCLUDED
 
 #include <exception>
 
@@ -15,12 +15,12 @@
 // When exception are disabled via -fno-exceptions, one can specify how to
 // handle exception all together
 //==============================================================================
-#if defined(NT2_SDK_/NO_EXCEPTIONS)
+#if defined(NT2_NO_EXCEPTIONS)
 namespace boost
 {
   inline void throw_exception( std::exception const & e )
   {
-    #if defined(NT2_SDK_/CUSTOM_ERROR)
+    #if defined(NT2_CUSTOM_ERROR)
     boost::dispatch::ext::throw_exception(e);
     #endif
   }
