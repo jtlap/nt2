@@ -15,7 +15,7 @@ nt2_module_configure_include(boost/simd/toolbox/operator/function -o boost/simd/
 nt2_module_configure_simd(boost/simd/toolbox/operator/function)
 
 include(nt2.preprocess)
-nt2_preprocess(simd_operator.preprocess ${NT2_OPERATOR_ROOT}/include/nt2/toolbox/operator/specific/common.hpp
-                                   ${NT2_OPERATOR_ROOT}/include/nt2/toolbox/operator/function/simd/common/map.hpp
-                                   ${NT2_OPERATOR_ROOT}/include/nt2/toolbox/operator/function/simd/sse/sse2/map.hpp
+nt2_preprocess(simd_operator.preprocess ${NT2_SIMD_OPERATOR_ROOT}/include/boost/simd/toolbox/operator/specific/common.hpp
+                                        ${NT2_SIMD_OPERATOR_ROOT}/include/boost/simd/toolbox/operator/function/simd/common/map.hpp
+                                        ${NT2_SIMD_OPERATOR_ROOT}/include/boost/simd/toolbox/operator/function/simd/sse/sse2/map.hpp
               )
