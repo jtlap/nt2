@@ -70,6 +70,7 @@ namespace nt2  { namespace meta
 #else
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/floating.hpp")
+#undef BOOST_STATIC_CONSTANT
 #endif
 
     #define M1(z,n,t)                                               \

@@ -70,6 +70,7 @@ namespace boost  { namespace simd {  namespace meta
 #else
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/floating.hpp")
+#undef BOOST_STATIC_CONSTANT
 #endif
 
     #define M1(z,n,t)                                               \
