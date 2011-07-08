@@ -39,14 +39,14 @@ SET(SOURCES
     upgrade.cpp
     )
 
-ADD_CUSTOM_TARGET(sdk.meta.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.meta.examples)
+ADD_CUSTOM_TARGET(simd_sdk.meta.examples)
+ADD_DEPENDENCIES(simd_sdk.examples simd_sdk.meta.examples)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(sdk.meta.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(simd_sdk.meta.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 

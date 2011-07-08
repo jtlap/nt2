@@ -14,13 +14,13 @@ SET(SOURCES
     is_aligned.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.memory.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.memory.examples)
+ADD_CUSTOM_TARGET(simd_sdk.memory.examples)
+ADD_DEPENDENCIES(simd_sdk.examples simd_sdk.memory.examples)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(sdk.memory.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(simd_sdk.memory.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()

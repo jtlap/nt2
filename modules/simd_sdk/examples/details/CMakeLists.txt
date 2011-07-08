@@ -25,15 +25,15 @@ SET(SOURCES
     display_type.cpp
     )
 
-ADD_CUSTOM_TARGET(sdk.details.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.details.examples)
+ADD_CUSTOM_TARGET(simd_sdk.details.examples)
+ADD_DEPENDENCIES(simd_sdk.examples simd_sdk.details.examples)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(sdk.details.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(simd_sdk.details.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 
 

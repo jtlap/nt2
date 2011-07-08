@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(predicates)
+nt2_module_use_modules(simd_predicates)
 
 #ADD_SUBDIRECTORY(config)
 ADD_SUBDIRECTORY(details)

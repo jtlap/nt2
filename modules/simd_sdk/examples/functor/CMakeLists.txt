@@ -12,14 +12,14 @@ SET(SOURCES
  #   dominant.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.functor.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.functor.examples)
+ADD_CUSTOM_TARGET(simd_sdk.functor.examples)
+ADD_DEPENDENCIES(simd_sdk.examples simd_sdk.functor.examples)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(sdk.functor.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(simd_sdk.functor.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 

@@ -12,14 +12,14 @@ SET(SOURCES
     second_timer.cpp    
    )
 
-ADD_CUSTOM_TARGET(sdk.timing.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.timing.examples)
+ADD_CUSTOM_TARGET(simd_sdk.timing.examples)
+ADD_DEPENDENCIES(simd_sdk.examples simd_sdk.timing.examples)
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(sdk.timing.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(simd_sdk.timing.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 
