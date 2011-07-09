@@ -78,7 +78,7 @@ namespace nt2 { namespace meta
       result_type res;
       typedef typename meta::result_of<meta::floating(A0)>::type etype;
        boost::fusion::at_c<0>(res) = impl::trig_base < A0,pi_tag
-                      , trig_tag,tag::not_simd_type
+                      , trig_tag,tag::not_simd_type, big
                       >::sincosa( a0
                                 , boost::fusion::at_c<1>(res)
                                 );

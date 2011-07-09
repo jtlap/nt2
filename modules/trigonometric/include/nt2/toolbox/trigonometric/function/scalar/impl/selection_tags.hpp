@@ -19,6 +19,9 @@ namespace nt2
 
   struct trig_tag{};        // nt2 implementation speed choice for trigo
 
+  struct small{}; //cephes
+  struct medium{};//fdlibm medium
+  struct big{};   //big complete reduction
 
 }
 

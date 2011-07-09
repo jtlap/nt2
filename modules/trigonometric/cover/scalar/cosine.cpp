@@ -6,15 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - cos/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - cosine/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of trigonometric components in scalar mode
+// cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// 
-#include <nt2/toolbox/trigonometric/include/cos.hpp>
+#include <nt2/toolbox/trigonometric/include/cosine.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 extern "C" {extern long double cephes_cosl(long double);}
 
@@ -27,13 +28,13 @@ extern "C" {extern long double cephes_cosl(long double);}
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( cosine_real__1_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::cos;
-  using nt2::tag::cos_;
+  using nt2::cosine;
+  using nt2::tag::cosine_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cos_(T)>::type r_t;
+  typedef typename nt2::meta::call<cosine_<nt2::small>(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
@@ -44,27 +45,15 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()),               nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()/T(2)),          nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()/T(4)),          nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Inf<T>()),               nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Minf<T>()),              nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Nan<T>()),               nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()),                nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/T(2)),           nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/T(4)),           nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()),              nt2::One<r_t>(), 0.5);        
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( cosine_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
-  using nt2::cos;
-  using nt2::tag::cos_;
+  using nt2::cosine;
+  using nt2::tag::cosine_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cos_(T)>::type r_t;
+  typedef typename nt2::meta::call<cosine_<nt2::small>(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
@@ -75,18 +64,15 @@ NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( cos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( cosine_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::cos;
-  using nt2::tag::cos_;
+  using nt2::cosine;
+  using nt2::tag::cosine_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cos_(T)>::type r_t;
+  typedef typename nt2::meta::call<cosine_<nt2::small>(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
 
@@ -97,7 +83,4 @@ NT2_TEST_CASE_TPL ( cos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for signed_int_

@@ -26,9 +26,10 @@ extern "C" {extern long double cephes_cosl(long double);}
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-
-
-NT2_TEST_CASE_TPL ( cos_real__1_0,  (float))//NT2_REAL_TYPES)
+#include <nt2/toolbox/libc/include/cos.hpp>
+#include <nt2/toolbox/crlibm/include/cos_rn.hpp>
+#include <cmath>
+NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::cos;
@@ -56,7 +57,21 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  (float))//NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cos(a0),::cephes_cosl(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),nt2::crlibm::cos_rn(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, -200*T(1), 200*T(1));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    for(nt2::uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),nt2::crlibm::cos_rn(a0),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -70,7 +85,7 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  (float))//NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cos(a0),::cephes_cosl(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),nt2::crlibm::cos_rn(a0),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -84,10 +99,28 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  (float))//NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::cos(a0),::cephes_cosl(a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),nt2::crlibm::cos_rn(a0),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, -T(1.0e35), T(1.0e35));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    for(nt2::uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+	          << "  nt2::cos(a0)  "<<nt2::cos(a0)
+	          << "  nt2::crlibm::cos_rn(a0) "<<nt2::crlibm::cos_rn(a0)
+                  << std::endl;
+        NT2_TEST_ULP_EQUAL( nt2::cos(a0),nt2::crlibm::cos_rn(a0),1);
+        ulp0=nt2::max(ulpd,ulp0);
+     }
+     std::cout << "max ulp found is: " << ulp0 << std::endl;
+   }
+
+  
 } // end of test for real_
 

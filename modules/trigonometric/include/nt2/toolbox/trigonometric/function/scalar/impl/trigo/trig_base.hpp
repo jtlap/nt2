@@ -71,14 +71,16 @@ namespace nt2
       template < class A0,
 		 class unit_tag,
 		 class precision_tag, 
-		 class style > 
+		 class style,
+		 class mode =  big> 
       struct trig_base{};
 
       template < class A0,
-		 class unit_tag >
-      struct trig_base<A0,unit_tag,trig_tag,tag::not_simd_type>
+		 class unit_tag,
+		 class mode>
+      struct trig_base<A0,unit_tag,trig_tag,tag::not_simd_type,mode>
       {
-	typedef trig_reduction<A0,unit_tag,trig_tag,tag::not_simd_type>    redu_t;
+	typedef trig_reduction<A0,unit_tag,trig_tag,tag::not_simd_type, mode>    redu_t;
 	typedef trig_evaluation<A0,trig_tag,tag::not_simd_type>            eval_t;
 	typedef typename meta:: scalar_of<A0>::type                           sA0; // scalar version of A0
 	typedef typename meta::as_integer<A0, signed>::type              int_type; // signed integer type associated to A0

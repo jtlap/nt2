@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  cosine.cpp
   atanpi.cpp
   asinpi.cpp
   acospi.cpp

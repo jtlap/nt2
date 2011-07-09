@@ -116,7 +116,7 @@ namespace nt2
 	}
 
 
-	static inline void sincosa(const A0& a0, A0& c)
+	static inline A0 sincosa(const A0& a0, A0& c)
 	{
 	  if(not_in_range(a0)){c = Nan<A0>(); return c; }
 	  A0 x =  scale(a0);

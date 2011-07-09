@@ -6,23 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_TAND_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_TAND_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_COSINE_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_COSINE_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/function/scalar/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/scalar/impl/trigo.hpp
-//  of the old nt2
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tand_, tag::cpu_
-                            , (A0)
-                            , (scalar_< fundamental_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::cosine_<mode>, tag::cpu_
+			      , (A0)(mode)
+                            , (scalar_< arithmetic_<A0> >)
                             )
   {
 
@@ -30,7 +27,26 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<result_type,degree_tag, trig_tag, tag::not_simd_type, big>::tana(result_type(a0));
+     return nt2::cosine<mode>(result_type(a0));
+    }
+  };
+} }
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is real_
+/////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::cosine_<mode> , tag::cpu_
+			      , (A0)(mode)
+			      , (scalar_< real_<A0> >)
+			      )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return impl::trig_base<A0,radian_tag,trig_tag,tag::not_simd_type,mode>::cosa(a0);
     }
   };
 } }

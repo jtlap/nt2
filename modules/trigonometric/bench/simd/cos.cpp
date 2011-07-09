@@ -27,7 +27,18 @@ using nt2::tag::cos_;
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
-namespace n1 {
+namespace n01 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cos_,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace n02 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cos_,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
@@ -62,6 +73,30 @@ namespace n211 {
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(cos_,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
+}
+namespace n111 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cos_,(RS(vT,T(-1.0e38),T(1.0e38))))
+}
+namespace n211 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cos_,(RS(vT,T(-1.0e38),T(1.0e38))))
+}
+namespace n111 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cos_,(RS(vT,nt2::Nan < T>(),T(1.0e38))))
+}
+namespace n211 {
+  typedef double T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cos_,(RS(vT,nt2::Nan < T>(),T(1.0e38))))
 }
 
 #undef RS

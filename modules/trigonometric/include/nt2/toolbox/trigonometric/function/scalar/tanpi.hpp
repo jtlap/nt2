@@ -50,7 +50,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       if(is_odd(Two<A0>()*a0)) return Nan<A0>(); 
-      return impl::trig_base<A0,pi_tag,trig_tag,tag::not_simd_type>::tana(a0);
+      return impl::trig_base<A0,pi_tag,trig_tag,tag::not_simd_type, big>::tana(a0);
     }
   };
 } }
