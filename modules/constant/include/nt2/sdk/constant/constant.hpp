@@ -15,6 +15,11 @@
  */
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/functor/functor.hpp>
+#define STRUCT(NAME)						\
+  template < class T1 > struct _##NAME{				\
+    const T1 operator()()const {return nt2::NAME<T1>(); }	\
+  };								\
+  /**/
 
 //==============================================================================
 /*!
@@ -32,7 +37,8 @@ NAME()                                                  \
 {                                                       \
   typename nt2::make_functor<TAG, Target>::type callee; \
   return callee( nt2::meta::as_<Target>() );            \
-}                                                       \
+}							\
+  STRUCT(NAME)						\
 /**/
 
 #endif
