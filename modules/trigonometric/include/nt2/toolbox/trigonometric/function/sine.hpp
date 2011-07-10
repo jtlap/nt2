@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_COSINE_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_COSINE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SINE_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SINE_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/trigonometric/include.hpp>
 //////////////////////////////////////////////////////////////////////////////
 /*
-  cosine if a templated version of cos
+  sine if a templated version of sin
   the template parameter "mode" allows some control on the computation
   accuracy
   In fact the control is on the reduction routine of the angle to the
@@ -55,7 +55,7 @@
     to other methods for [0 pi/4] (no reduction) and [pi/4, pi/2]
     (straight reduction) that are not considered in direct small
 
-    Note for float the big case if both early an hyper costly and
+    Note for float the big case if both early an hyper sintly and
     shall be avoided whenever possible. To partially achieve this aim
     when double are available on the platform, this part of reduction
     is delegated to the double precision routines.
@@ -64,11 +64,11 @@
 
     If there is no restrictions ever on your angles and you care for precision
     use
-		                  nt2::cosine<big>
-    which is equivalent to nt2::cos
+		                  nt2::sine<big>
+    which is equivalent to nt2::sin
 
     if you d'ont care for precision you can use
-                nt2::cosine<medium> or cosine::nt2<small>
+                nt2::sine<medium> or sine::nt2<small>
 
     they will be accurate for their proper range and degrade (or not)
     with greater values (even can return nan)
@@ -97,27 +97,33 @@
        if angles are equidistributed  on [0 2^16*pi],  the p(0, 20*pi) will be
        less than 2^11 and thus in sse2 there will be 1 quadruple over
        1.759218604441600e+13 falling in the small case...
-       Even sorting will do no good because the sort cost will be against 
+       Even sorting will do no good because the sort sint will be against 
        s1 over 2048 successful quadruplets
        
        Contrarily if your angles have a gaussian distribution with 0 mean and
        10*pi standard deviation,  80% of the intervals will be in the small
        case (95% of the values).
 		  
-    
+    Finally for those that are sure of their angles taking place in a fixed
+    range and want speed,  they can use three other template tags
+
+                 clipped_pio4,  clipped_small and clipped_medium
+
+    that use the fastest adapted reduction and return Nan for any outsider.
+    sine<clipped_pio4> have a perhaps faster equivalent fast_sin. 
 */
 //////////////////////////////////////////////////////////////////////////////
 
 namespace nt2 { namespace tag
   {         
-    template <class T> struct cosine_ {};
+    template <class T> struct sine_ {};
   }
 
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cosine_<A0> , cosine, (A1 const&), 2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sine_<A0> , sine, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cosine.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cosine.hpp> 
+#include <nt2/toolbox/trigonometric/function/scalar/sine.hpp>
+#include <nt2/toolbox/trigonometric/function/simd/all/sine.hpp> 
 
  
 #endif

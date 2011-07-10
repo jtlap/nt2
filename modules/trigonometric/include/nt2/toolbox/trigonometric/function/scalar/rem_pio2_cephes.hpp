@@ -27,13 +27,14 @@ namespace nt2 { namespace meta
       {
 	//	  static int i = 0;
 	//	  std::cout << "cephes_reduction " << i++ << std::endl; 
-	result_type n = fast_toint(x*Twoopi<A0>()+Half<A0>());
-	A0 xi =  tofloat(n);
+        A0 xi =  round2even(x*Twoopi<A0>()); 
+	//	result_type n = fast_toint(x*Twoopi<A0>()+Half<A0>());
+	//	A0 xi =  tofloat(n);
 	xr = x-xi*Pio2_1<A0>();
 	xr -= xi*Pio2_2<A0>();
 	xr -= xi*Pio2_3<A0>();
 	xc = Zero<A0>();
-	return n;
+	return fast_toint(xi);
       }
   }; 
 } }

@@ -57,7 +57,7 @@ namespace nt2
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type               logic;
         static inline logic isalreadyreduced(const A0&a0) { return is_ngt(a0, Pio_4<A0>()); }
-
+	  
 	//	static inline logic isnotsobig(const A0&a0) { return le(a0,single_constant<A0,0x49490fe0>()); } 
         static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
@@ -144,7 +144,38 @@ namespace nt2
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
         {
-	  return rem_pio2_big(x, xr, xc);
+	  if (conversion_allowed())
+	    {
+	      typedef typename meta::upgrade<A0>::type uA0;
+	      typedef typename meta::upgrade<int_type>::type uint_type; 
+	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::simd_type, mode, double> aux_reduction; 
+	      uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
+	      nt2::split(x, ux1, ux2);
+	      uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
+	      uint_type n2 = aux_reduction::reduce(ux2, uxr2, uxc2);
+	      xr = nt2::group(uxr1, uxr2);
+	      nt2::split(xr, ux1, ux2);
+	      xc = nt2::group((uxr1-ux1)+uxc1, (uxr2-ux2)+uxc2);
+	      return nt2::group(n1, n2); 
+	    }
+	  else
+	    return rem_pio2_big(x, xr, xc);
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        {
+	  xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
+	  xc = Zero<A0>();
+	  return Zero<int_type>(); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        {
+	  xr = sel(issmall(nt2::abs(x)), x, Nan<A0>());
+	  return inner_reduce(xr, xr, xc, small()); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        {
+	  xr = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
+	  return inner_reduce(xr, xr, xc, medium()); 
         }
 
       };

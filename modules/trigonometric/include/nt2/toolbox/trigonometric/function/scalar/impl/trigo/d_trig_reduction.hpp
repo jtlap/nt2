@@ -19,6 +19,7 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/select.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
@@ -108,35 +109,24 @@ namespace nt2
         {
 	  return rem_pio2_big(x, xr, xc);
         }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        {
+	  xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
+	  xc = Zero<A0>();
+	  return Zero<int_type>(); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        {
+	  xr = sel(issmall(nt2::abs(x)), x, Nan<A0>());
+	  return inner_reduce(xr, xr, xc, small()); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        {
+	  xr = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
+	  return inner_reduce(xr, xr, xc, medium()); 
+        }
       };
 
-//     template < class A0 > struct trig_reduction < A0, radian_tag, fast_tag, tag::not_simd_type, double>
-//       {
-// 	typedef typename meta::as_integer<A0, signed>::type int_type;
-// 	typedef typename meta::scalar_of<int_type>::type   sint_type;
-// 	typedef typename meta::logical<A0>::type               logic;
-
-// 	//static const sint_type Med  = 0x412921fb54442d18ll; //2^18*pi   8.235496645826427e+05
-// 	static inline logic replacement_needed(const A0& a0) {return False<A0>();ignore_unused(a0); }//return a0 > double_constant<A0, Med>();}//
-// 	static inline logic replacement_available(){return True<A0>(); }
-// 	static inline logic isalreadyreduced(const A0&a0){return lt(a0,Pio_4<A0>()); }
-// 	static inline logic issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
-// 	static inline A0 cos_replacement(const A0& a0){ return std::cos(a0); }
-// 	static inline A0 sin_replacement(const A0& a0){ return std::sin(a0); }
-// 	static inline A0 tan_replacement(const A0& a0){ return std::tan(a0); }
-// 	static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(a0)); }
-//         static inline logic cot_invalid(const A0& x) { return False<A0>(); /*is_eqz(x)|is_invalid(x);*/ }
-//         static inline logic tan_invalid(const A0& x) { return False<A0>(); /*is_invalid(x);*/ }
-// 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ }//::sincosf(a0, &s, &c); }
-// 	static inline int_type reduce(const A0& x, A0& xr, A0& xc)
-// 	{
-// 	  // x is always positive here
-// 	  // In all case we apply the cephes reduction scheme
-// 	  // This impies good reduction in [0 64*pi]
-// 	  // and degradation near pi/2 multiples on greater values
-// 	  return pio2_reducing<A0, tag::not_simd_type>::cephes_reduction(x, xr, xc);
-//  	}
-//      };
 
       template < class A0>
       struct trig_reduction < A0, degree_tag, trig_tag, tag::not_simd_type, big, double >

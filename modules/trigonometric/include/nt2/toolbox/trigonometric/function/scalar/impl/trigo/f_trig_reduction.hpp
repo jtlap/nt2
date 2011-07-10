@@ -191,7 +191,34 @@ namespace nt2
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
         {
-	  return rem_pio2_big(x, xr, xc);
+	  if (conversion_allowed()) // conversion to double is used to reduce time, if available
+	    {
+	      typedef typename meta::upgrade<A0>::type uA0; 
+	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::not_simd_type, mode, double> aux_reduction; 
+	      uA0 ux = x, uxr, uxc; 
+	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
+	      xr = uxr;
+	      xc = (uxr-xr)+uxc;
+	      return n; 
+	    }
+          else
+	    return rem_pio2_big(x, xr, xc);
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        {
+	  xr = sel(isalreadyreduced(x), x, Nan<A0>());
+	  xc = Zero<A0>();
+	  return Zero<int_type>(); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        {
+	  xr = sel(issmall(x), x, Nan<A0>());
+	  return inner_reduce(xr, xr, xc, small()); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        {
+	  xr = sel(ismedium(x), x, Nan<A0>());
+	  return inner_reduce(xr, xr, xc, medium()); 
         }
       };
 
@@ -212,6 +239,22 @@ namespace nt2
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        {
+	  xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
+	  xc = Zero<A0>();
+	  return Zero<int_type>(); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        {
+	  x = sel(issmall(nt2::abs(x)), x, Nan<A0>());
+	  return inner_reduce(x, xr, xc, small()); 
+        }
+	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        {
+	  x = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
+	  return inner_reduce(x, xr, xc, medium()); 
         }
       };
 

@@ -17,14 +17,17 @@ namespace nt2
   struct degree_tag{};
   struct pi_tag{};
 
-  struct trig_tag{};        // nt2 implementation speed choice for trigo
+  struct trig_tag{};        // nt2 implementation speed choice for trigo obsolete ?
 
-  struct small{}; //cephes
-  struct medium{};//fdlibm medium
-  struct big{};   //big complete reduction
+  struct small{};          //cephes
+  struct medium{};         //fdlibm medium
+  struct big{};            //big complete reduction
   struct direct_cephes{};
   struct direct_medium{};   
   struct direct_big{};   
+  struct clipped_pio4{};
+  struct clipped_small{};   
+  struct clipped_medium{};   
 }
 
 

@@ -103,7 +103,7 @@ namespace nt2
 	  const int_type swap_bit = n&One<int_type>();
 	  const int_type sign_bit = shli(b_xor(swap_bit, (n&2)>>1), de);
 	  A0 z = sqr(xr);
-	  if (is_nez(swap_bit))
+	  if (swap_bit)
 	    {
 	      z = eval_t::sin_eval(z, xr, xc);
 	    }
@@ -124,13 +124,13 @@ namespace nt2
 	  const int_type swap_bit = n&One<int_type>();
 	  const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
 	  A0 z = sqr(xr);
-	  if (is_eqz(swap_bit))
+	  if (swap_bit)
 	    {
-	      z = eval_t::sin_eval(z, xr, xc);
+	      z = eval_t::cos_eval(z, xr, xc);
 	    }
 	  else
 	    {
-	      z = eval_t::cos_eval(z, xr, xc);
+	      z = eval_t::sin_eval(z, xr, xc);
 	    }
 	  return b_xor(z,sign_bit);
 	}

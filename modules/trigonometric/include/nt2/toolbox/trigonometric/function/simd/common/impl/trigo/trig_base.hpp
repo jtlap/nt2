@@ -49,9 +49,11 @@ namespace nt2
 	  const int_type n =  redu_t::reduce(x, xr, xc); 
 	  const int_type swap_bit = n&One<int_type>();
 	  const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), de); 
-	  A0 z = sqr(xr);
-	  z = select(is_nez(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)); 
-	  return b_xor(z,sign_bit);
+	  const A0 z = sqr(xr);
+	  return  b_xor(sel(is_nez(swap_bit),
+			    eval_t::sin_eval(z, xr, xc),
+			    eval_t::cos_eval(z, xr, xc)),
+			sign_bit); 
 	}
 
 	static inline A0 sina(const A0& a0)
@@ -63,7 +65,10 @@ namespace nt2
 	  const int_type swap_bit = n&One<int_type>();
 	  const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
 	  const A0 z = sqr(xr);
-	  return b_xor(select(is_eqz(swap_bit),eval_t::sin_eval(z, xr, xc),eval_t::cos_eval(z, xr, xc)),sign_bit); 
+	  return b_xor(sel(is_eqz(swap_bit),
+			   eval_t::sin_eval(z, xr, xc),
+			   eval_t::cos_eval(z, xr, xc)),
+		       sign_bit); 
 	}
 
 
@@ -107,11 +112,7 @@ namespace nt2
 	  return b_xor(sel(test, t2, t1),sin_sign_bit); 
 	}
 
-        static inline A0 scale (const A0& a0)
-	{
-	  return a0*trig_ranges<A0,unit_tag>::scale();
-	}
-	
+
       }; 
     }
   }
