@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_REM_PIO2_CEPHES_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
+#include <nt2/include/functions/fast_toint.hpp>
+
 namespace nt2 { namespace meta
 {
   /////////////////////////////////////////////////////////////////////////////
@@ -25,9 +27,9 @@ namespace nt2 { namespace meta
     inline result_type operator()(A0 const& x, A0 & xr, A0& xc) const
       {
 	//	  static int i = 0;
-	//	  std::cout << "fdlibm_cephes_reduction " << i++ << std::endl; 
+	//	  std::cout << "fdlibm_cephes_reduction " << i++ << std::endl;
 	result_type n = fast_toint(x*Twoopi<A0>()+Half<A0>());
-	A0 xi =  tofloat(n);
+	A0 xi = tofloat(n); //b_or(is_invalid(x), tofloat(n));
 	xr = x-xi*Pio2_1<A0>();
 	xr -= xi*Pio2_2<A0>();
 	xr -= xi*Pio2_3<A0>();

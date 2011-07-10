@@ -44,8 +44,8 @@ NT2_TEST_CASE_TPL ( cosine_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<cosine_<nt2::small>(vT)>::type r_t;
-  typedef typename nt2::meta::call<cosine_<nt2::small>(T)>::type sr_t;
+  typedef typename nt2::meta::call<cosine_<nt2::medium>(vT)>::type r_t;
+  typedef typename nt2::meta::call<cosine_<nt2::medium>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( cosine_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-60), T(60));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-60)*nt2::Pi<T>(), T(60)*nt2::Pi<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( cosine_real__1_0,  NT2_SIMD_REAL_TYPES)
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cosine<nt2::small> (tab_a0[k])), 0.5);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::cosine<nt2::medium> (tab_a0[k])), 0.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

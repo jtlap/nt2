@@ -39,6 +39,8 @@ namespace nt2 { namespace meta
 	w  = fn*fn*Pio2_3t<A0>()-((t2-r)-w);
 	xr = r-w;
 	xc = (r-xr)-w;
+	//	std::cout << "medium fn " << fn << std::endl; 
+	//	std::cout << "xc  " << xc << std::endl; 
 	return  toint(fn);    
     }
   }; 

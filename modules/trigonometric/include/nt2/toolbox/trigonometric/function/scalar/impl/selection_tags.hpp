@@ -22,7 +22,9 @@ namespace nt2
   struct small{}; //cephes
   struct medium{};//fdlibm medium
   struct big{};   //big complete reduction
-
+  struct direct_cephes{};
+  struct direct_medium{};   
+  struct direct_big{};   
 }
 
 

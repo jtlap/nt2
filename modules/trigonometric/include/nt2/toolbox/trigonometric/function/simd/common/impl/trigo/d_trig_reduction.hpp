@@ -14,7 +14,7 @@
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>
 #include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/f_pio2_reducing.hpp>
+//#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_even.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
@@ -88,19 +88,35 @@ namespace nt2
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
+	      //	      std::cout << "1111111111111" << std::endl; 
 	      xr = x;
 	      xc = Zero<A0>();
 	      return Zero<int_type>(); 
             }
 	  else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-	    return rem_pio2_straight(x, xr, xc);
+	    {
+	      //	      std::cout << "2222222222222" << std::endl; 
+	      return rem_pio2_straight(x, xr, xc);
+	    }
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	    {
-	      int_type n =  rem_pio2_cephes(x, xr, xc);
-	      xr |= is_invalid(xr);
-	      return n; 
+	      //	      std::cout << "333333333333" << std::endl;
+	      //	      A0 x1 = b_or(x, is_invalid(x));
+	      return rem_pio2_cephes(x, xr, xc);
 	    }
 	}
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_cephes&)
+        {
+	  return rem_pio2_cephes(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium&)
+        {
+	  return rem_pio2_medium(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
+        {
+	  return rem_pio2_big(x, xr, xc);
+        }
       };
       
 

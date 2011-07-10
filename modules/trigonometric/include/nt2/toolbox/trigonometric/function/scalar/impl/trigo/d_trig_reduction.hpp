@@ -14,7 +14,6 @@
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>
 #include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_even.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
@@ -96,6 +95,18 @@ namespace nt2
 	    return rem_pio2_straight(x, xr, xc);
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	    return rem_pio2_cephes(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_cephes&)
+        {
+	  return rem_pio2_cephes(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium&)
+        {
+	  return rem_pio2_medium(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
+        {
+	  return rem_pio2_big(x, xr, xc);
         }
       };
 

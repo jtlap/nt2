@@ -13,7 +13,7 @@
 #include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
+//#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
@@ -48,7 +48,7 @@ namespace nt2
     }
   }
 }
-#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
+//#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
 
 namespace nt2
 {
@@ -154,11 +154,17 @@ namespace nt2
 	      return Zero<int_type>(); 
 	    }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-	    return rem_pio2_straight(x, xr, xc);
+	    {
+	      return rem_pio2_straight(x, xr, xc);
+	    }
           else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-	    return rem_pio2_cephes(x, xr, xc);
+	    {
+	      return rem_pio2_cephes(x, xr, xc);
+	    }
           else  // correct only if all of x are in [0, 2^7*pi/2],  fdlibm medium way
-	    return rem_pio2_medium(x, xr, xc);
+	    {
+	      return rem_pio2_medium(x, xr, xc);
+	    }
         }
 	
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const small&)
@@ -175,6 +181,18 @@ namespace nt2
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	    return rem_pio2_cephes(x, xr, xc);
         }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_cephes&)
+        {
+	  return rem_pio2_cephes(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium&)
+        {
+	  return rem_pio2_medium(x, xr, xc);
+        }
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
+        {
+	  return rem_pio2_big(x, xr, xc);
+        }
       };
 
       template<class A0>
@@ -183,44 +201,14 @@ namespace nt2
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;
 
- //        static inline logic replacement_needed(const A0& a0)
-//         {
-//           return is_nlt(a0,single_constant<A0,0x4b7fffff>()); //16777215.0f
-//         }
-
-//         static inline logic replacement_available() { return True<A0>(); }
-
-//         static inline A0 cos_replacement(const A0& a0)
-//         {
-//           return std::cos(inrad(a0));
-//         }
-
-//         static inline A0 sin_replacement(const A0& a0)
-//         {
-//           return std::sin(inrad(a0));
-//         }
-
-//         static inline A0 tan_replacement(const A0& a0)
-//         {
-//           return std::tan(inrad(a0));
-//         }
-
-//         static inline A0 cot_replacement(const A0& a0)
-//         {
-//           return rec(std::tan(inrad(a0)));
-//         }
-
-//         static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
-//         {
-//           //::sincosf(inrad(a0), &s, &c);
-//         }
         static inline logic cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x/C_180<A0>())); }
         static inline logic tan_invalid(const A0& x) { return is_flint((x-Ninety<A0>())/C_180<A0>()); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
-          A0 x2 = x - xi * Ninety<A0>();//90.0f  
+          A0 x2 = x - xi * Ninety<A0>();//90.0f
+	  
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);
