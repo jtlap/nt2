@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(trigonometric.unit trigonometric.scalar.unit trigonometric.simd
 ##############################################################################
 # Toolbox trigonometric unit tests
 ##############################################################################
-nt2_module_use_modules(unit)
+nt2_module_use_modules(unit crlibm)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
