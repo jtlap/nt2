@@ -134,7 +134,7 @@ namespace nt2
           else //  correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	      return rem_pio2_cephes(x, xr, xc);
          }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_cephes&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_small&)
         {
 	  return rem_pio2_cephes(x, xr, xc);
         }

@@ -101,9 +101,16 @@
        s1 over 2048 successful quadruplets
        
        Contrarily if your angles have a gaussian distribution with 0 mean and
-       10*pi standard deviation,  80% of the intervals will be in the small
+       10*pi standard deviation,  80% of the intervals will be in the "small"
        case (95% of the values).
-		  
+
+    Finally for those that are sure of their angles taking place in a fixed
+    range and want speed,  they can use three other template tags
+
+                 clipped_pio4,  clipped_small and clipped_medium
+
+    that use the fastest adapted reduction and return Nan for any outsider.
+    cose<clipped_pio4> have a perhaps faster equivalent fast_cos. 		  
     
 */
 //////////////////////////////////////////////////////////////////////////////
