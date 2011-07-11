@@ -12,6 +12,8 @@
 
 namespace nt2
 {
+  struct fast{};
+  struct regular{}; 
   // tags allowing to choose angle unit in trigonometric functions
   struct radian_tag{};
   struct degree_tag{};
@@ -19,15 +21,15 @@ namespace nt2
 
   struct trig_tag{};        // nt2 implementation speed choice for trigo obsolete ?
 
-  struct small{};          //cephes
-  struct medium{};         //fdlibm medium
-  struct big{};            //big complete reduction
-  struct direct_small{};
-  struct direct_medium{};   
-  struct direct_big{};   
-  struct clipped_pio4{};
-  struct clipped_small{};   
-  struct clipped_medium{};   
+  struct small         { typedef regular type; };          //cephes
+  struct medium        { typedef regular type; };         //fdlibm medium
+  struct big           { typedef regular type; };            //big complete reduction
+  struct direct_small  { typedef regular type; };
+  struct direct_medium { typedef regular type; };   
+  struct direct_big    { typedef regular type; };   
+  struct clipped_pio4  { typedef fast    type; };
+  struct clipped_small { typedef regular type; };   
+  struct clipped_medium{ typedef regular type; };   
 }
 
 

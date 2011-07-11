@@ -79,7 +79,7 @@ namespace nt2 { namespace meta
       result_type res;
       typedef typename  boost::fusion::result_of::value_at_c<result_type,0>::type type;
       boost::fusion::at_c<0>(res) = impl::trig_base < type,degree_tag
-	, fast_tag, tag::simd_type
+	, trig_tag, tag::simd_type, clipped_pio4
 	>::sincosa( tofloat(a0)
 		    , boost::fusion::at_c<1>(res)
 		    );

@@ -54,7 +54,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,pi_tag, fast_tag, tag::simd_type>::sina(a0);
+      return impl::trig_base<A0,pi_tag, trig_tag, tag::simd_type, clipped_pio4>::sina(a0);
     }
   };
 } }

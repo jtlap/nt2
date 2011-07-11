@@ -36,6 +36,14 @@ namespace nnn1 {
   typedef float T;
   NT2_TIMING(fast_cos_,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
+namespace nnn01 {
+  typedef float T;
+  NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace nnn1 {
+  typedef float T;
+  NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+}
 namespace nn01 {
   typedef float T;
   NT2_TIMING(cosine_<nt2::clipped_small>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))

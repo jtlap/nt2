@@ -34,16 +34,31 @@ namespace nt2
 	typedef typename meta::scalar_of<A0>::type                            sA0; // scalar version of A0
 	typedef typename meta::as_integer<A0, signed>::type              int_type; // signed integer type associated to A0
 	typedef typename meta::scalar_of<int_type>::type                sint_type; // scalar version of the associated type   
-
+	typedef typename mode::type                                         style;
+	
 	// for all functions the scalar algorithm is:
 	// * range reduction
 	// * computation of sign and evaluation selections flags
 	// * evaluations of the two branches and selection using flags
 	// * return with flag based corrections and inf and nan or specific invalid cases inputs considerations
 
-	static inline A0 cosa(const A0& a0)
+	static inline A0 cosa(const A0& a0){ return cosa(a0, style()); }
+	static inline A0 sina(const A0& a0){ return sina(a0, style()); }
+	static inline A0 tana(const A0& a0){ return tana(a0, style()); }
+	static inline A0 cota(const A0& a0){ return cota(a0, style()); }
+	static inline A0 sincosa(const A0& a0, A0& c){ return sincosa(a0,c,style()); }
+	
+      private:
+	static inline A0 cosa(const A0& a0, const fast&)
 	{
-	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
+	  const A0 x =  scale(a0);
+	  return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
+	}
+
+	static inline A0 cosa(const A0& a0, const regular&)
+	{
+	  static const sint_type de = sizeof(sint_type)*8-1;
+	  // de is the size in bits of the scalar types minus one
 	  const A0 x = nt2::abs(a0);
 	  A0 xr = Nan<A0>(), xc;
 	  const int_type n =  redu_t::reduce(x, xr, xc); 
@@ -56,9 +71,16 @@ namespace nt2
 			sign_bit); 
 	}
 
-	static inline A0 sina(const A0& a0)
+	static inline A0 sina(const A0& a0, const fast&)
 	{
-	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
+	  const A0 x =  scale(a0);
+	  return  eval_t::sin_eval(sqr(x), x, Zero<A0>());
+	}
+
+	static inline A0 sina(const A0& a0, const regular&)
+	{
+	  static const sint_type de = sizeof(sint_type)*8-1;
+	  // size in bits of the scalar types minus one
 	  const A0 x = nt2::abs(a0);
 	  A0 xr = Nan<A0>(), xc;
 	  const int_type n = redu_t::reduce(x, xr, xc);
@@ -71,33 +93,51 @@ namespace nt2
 		       sign_bit); 
 	}
 
+	static inline A0 tana(const A0& a0, const fast&)
+	{
+	  return  eval_t::base_tancot_eval(scale(a0)); 
+	}
 
-	static inline A0 tana(const A0& a0)
+	static inline A0 tana(const A0& a0, const regular&)
 	{
 	  const A0 x =  nt2::abs(a0); 
 	  A0 xr = Nan<A0>(), xc;
 	  const int_type n = redu_t::reduce(x, xr, xc);
-	  const A0 y = eval_t::tan_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));           // 1 -- n even
-	                                                                                  //-1 -- n odd 
+	  const A0 y = eval_t::tan_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));
+          // 1 -- n even  -1 -- n odd 
 	  const A0 testnan = redu_t::tan_invalid(a0);
 	  return b_or(testnan, b_xor(y, bitofsign(a0)));	  	      
 	}
 
-	static inline A0 cota(const A0& a0)
+	static inline A0 cota(const A0& a0, const fast&)
+	{
+	  return  rec(eval_t::base_tancot_eval(scale(a0))); 
+	}
+
+	static inline A0 cota(const A0& a0, const regular&)
 	{
 	  const A0 x =  nt2::abs(a0); 
 	  A0 xr = Nan<A0>(), xc;
 	  const int_type n = redu_t::reduce(x, xr, xc);
-	  const A0 y = eval_t::cot_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));       // 1 -- n even
-							                              //-1 -- n odd 
+	  const A0 y = eval_t::cot_eval(xr, xc, oneminus(shli((n&One<int_type>()), 1)));
+	  // 1 -- n even -1 -- n odd 
 	  const A0 testnan = redu_t::cot_invalid(a0); 
 	  return b_or(testnan, b_xor(y, bitofsign(a0)));	  	      
 	}
 
 	// simultaneous cosa and sina function
-	static inline A0 sincosa(const A0& a0, A0& c)
+	static inline A0 sincosa(const A0& a0, A0& c, const fast&)
 	{
-	  static const sint_type de = sizeof(sint_type)*8-1;            // size in bits of the scalar types minus one
+	  const A0 x =  scale(a0);
+	  const A0 z =  sqr(x);
+	  c = eval_t::cos_eval(z, x, Zero<A0>());
+	  return eval_t::sin_eval(z, x, Zero<A0>());
+	}
+	
+	static inline A0 sincosa(const A0& a0, A0& c, const regular&)
+	{
+	  static const sint_type de = sizeof(sint_type)*8-1;
+	  // size in bits of the scalar types minus one
 	  const A0 x =  nt2::abs(a0);
 	  A0 xr = Nan<A0>(), xc;
 	  const int_type n = redu_t::reduce(x, xr, xc);
@@ -112,6 +152,12 @@ namespace nt2
 	  return b_xor(sel(test, t2, t1),sin_sign_bit); 
 	}
 
+        static inline A0 scale(const A0& a0)
+	{
+	  return b_or(a0, gt(nt2::abs(a0),
+			     trig_ranges<A0,unit_tag>::max_range()))
+	    *trig_ranges<A0,unit_tag>::scale();
+	}
 
       }; 
     }

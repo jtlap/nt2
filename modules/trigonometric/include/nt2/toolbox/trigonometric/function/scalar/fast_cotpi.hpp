@@ -51,7 +51,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
-      return impl::trig_base<A0,pi_tag, fast_tag, tag::not_simd_type>::cota(a0);
+      return impl::trig_base<A0,pi_tag, trig_tag, tag::not_simd_type, clipped_pio4>::cota(a0);
     }
   };
 } }

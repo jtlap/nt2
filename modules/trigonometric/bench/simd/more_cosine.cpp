@@ -28,17 +28,29 @@ using nt2::tag::fast_cos_;
 // range macro
 //////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
-namespace nnn01 {
+namespace nnnn01 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_cos_,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
-namespace nnn1 {
+namespace nnnn1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
   typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_cos_,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+}
+namespace nnn01 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+}
+namespace nnn1 {
+  typedef float T;
+  typedef nt2::meta::as_integer<T>::type iT;
+  typedef nt2::simd::native<T,ext_t> vT;
+  NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn01 {
   typedef float T;
