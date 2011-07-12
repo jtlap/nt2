@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/functor/details/call.hpp>
+#include <boost/mpl/identity.hpp>
 
 #if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
 #include <nt2/sdk/functor/details/preprocessed/dispatch.hpp>
@@ -93,7 +94,12 @@ struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
                                                                             \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
 NT2_FORCE_INLINE                                                            \
-typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
+typename boost::mpl::                                                       \
+identity< typename                                                          \
+          dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                     \
+                       , Site                                               \
+                       >::type                                              \
+        >::type                                                             \
 dispatch( Tag const&, Site const&                                           \
         , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
         )                                                                   \
