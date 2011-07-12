@@ -32,8 +32,8 @@ namespace nt2
       // trigonometric reduction strategies in the [-pi/4, pi/4] range.
       // these reductions are used in the accurate and fast
       // trigonometric functions with different policies
-      template < class A0, class precision_tag, class mode>
-      struct trig_reduction < A0, radian_tag, precision_tag, tag::simd_type, mode, double>
+      template < class A0, class mode>
+      struct trig_reduction < A0, radian_tag, tag::simd_type, mode, double>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type   sint_type;
@@ -136,7 +136,7 @@ namespace nt2
       };
 
       template < class A0>
-      struct trig_reduction < A0, degree_tag, trig_tag, tag::simd_type, big, double >
+      struct trig_reduction < A0, degree_tag,  tag::simd_type, big, double >
       {
 	typedef typename meta::as_integer<A0, signed>::type  int_type;
 	typedef typename meta::scalar_of<int_type>::type    sint_type;
@@ -162,7 +162,7 @@ namespace nt2
       };
       
       template < class A0>
-      struct trig_reduction < A0, pi_tag, trig_tag, tag::simd_type, big, double>
+      struct trig_reduction < A0, pi_tag,  tag::simd_type, big, double>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<int_type>::type    sint_type;

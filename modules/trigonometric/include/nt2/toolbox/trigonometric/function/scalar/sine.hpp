@@ -46,7 +46,7 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,radian_tag,trig_tag,tag::not_simd_type,mode>::sina(a0);
+      return impl::trig_base<A0,radian_tag,tag::not_simd_type,mode>::sina(a0);
     }
   };
 } }

@@ -27,10 +27,10 @@ namespace nt2
     namespace internal
     {
       template < class A0, class unit_tag, class mode> 
-      struct trig_base < A0, unit_tag, trig_tag, tag::simd_type, mode>
+      struct trig_base < A0, unit_tag,  tag::simd_type, mode>
       {
-	typedef trig_reduction<A0,unit_tag,trig_tag, tag::simd_type, mode> redu_t;
-	typedef trig_evaluation<A0,trig_tag,tag::simd_type>                eval_t;
+	typedef trig_reduction<A0,unit_tag, tag::simd_type, mode> redu_t;
+	typedef trig_evaluation<A0,tag::simd_type>                eval_t;
 	typedef typename meta::scalar_of<A0>::type                            sA0; // scalar version of A0
 	typedef typename meta::as_integer<A0, signed>::type              int_type; // signed integer type associated to A0
 	typedef typename meta::scalar_of<int_type>::type                sint_type; // scalar version of the associated type   

@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REM_PIO2_CEPHES_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REM_PIO2_CEPHES_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
+#include <nt2/include/functions/round2even.hpp>
+#include <nt2/include/functions/fast_toint.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -27,14 +29,14 @@ namespace nt2 { namespace meta
       {
 	//	  static int i = 0;
 	//	  std::cout << "cephes_reduction " << i++ << std::endl; 
-        A0 xi =  round2even(x*Twoopi<A0>()); 
+        A0 xi =  nt2::round2even(x*Twoopi<A0>()); 
 	//	result_type n = fast_toint(x*Twoopi<A0>()+Half<A0>());
 	//	A0 xi =  tofloat(n);
 	xr = x-xi*Pio2_1<A0>();
 	xr -= xi*Pio2_2<A0>();
 	xr -= xi*Pio2_3<A0>();
 	xc = Zero<A0>();
-	return fast_toint(xi);
+	return nt2::fast_toint(xi);
       }
   }; 
 } }

@@ -22,7 +22,6 @@ namespace nt2
     namespace internal
     {
       template < class A0,
-		 class precision_tag,
 		 class style, 
 		 class base_A0 = typename meta::scalar_of<A0>::type >
       struct trig_evaluation{
@@ -46,7 +45,7 @@ namespace nt2
       // functions in the range [pi/4, -pi/4]
       
 
-      template < class A0> struct trig_evaluation < A0, trig_tag, tag::not_simd_type, float>
+      template < class A0> struct trig_evaluation < A0,  tag::not_simd_type, float>
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	static inline A0 cos_eval(const A0& z, const A0&, const A0&)

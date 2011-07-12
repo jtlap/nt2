@@ -33,14 +33,13 @@ namespace nt2
     {
       template < class A0,
 		 class unit_tag,
-		 class precision_tag, 
 		 class style,
 		 class base_A0 = typename meta::scalar_of<A0>::type
 		 > 
        struct invtrig_base{};
 
       template < class A0 > 
-      struct invtrig_base<A0,radian_tag,trig_tag,tag::not_simd_type, float>
+      struct invtrig_base<A0,radian_tag,tag::not_simd_type, float>
       {
 	static inline A0 asin(const  A0& a0)
 	{

@@ -114,6 +114,56 @@
     
 */
 //////////////////////////////////////////////////////////////////////////////
+/*
+  for float values exhaustive test have been taken. All the values has been
+  compared to the call to crlibm with the rounded to nearest cosine function
+  provided by the library for double entries. I.E. nt2::cos(a0) is compared
+  to float(nt2;::crlibm::cos_rn(double(a0))). The results are the following :
+  
+  **********************************************************************
+  * range      *  nb of values *   0 ulp    *  0.5 ulp  * 1 ulp * 27ulp*
+  **********************************************************************
+  * [0, pi/4]  *  1061752796   * 1060453284 *  1299512  *   0   *   0  * 
+  **********************************************************************
+  * [0, 20*pi] *  1115378643   * 1103886629 * 11491888  *  1260 *   0  *
+  **********************************************************************
+  * [0, 64*pi] *  1128861660   * 1114841922 * 14018389  *  1330 *  19  *
+  **********************************************************************
+1128861660
+for a0 = 64.40264893 error if of 1.5 ulps
+for a0 = 83.2522049 error if of 3 ulps
+for a0 = 86.39379883 error if of 1.5 ulps
+for a0 = 98.96016693 error if of 1.5 ulps
+for a0 = 102.1017609 error if of 4.5 ulps
+for a0 = 105.2433548 error if of 2.5 ulps
+for a0 = 117.8097229 error if of 1.5 ulps
+for a0 = 120.9513168 error if of 6 ulps
+for a0 = 124.0929108 error if of 3.5 ulps
+for a0 = 139.8008728 error if of 8.5 ulps
+for a0 = 146.0840607 error if of 1.5 ulps
+for a0 = 155.5088348 error if of 2.5 ulps
+for a0 = 161.7920227 error if of 3 ulps
+for a0 = 168.0752106 error if of 1.5 ulps
+for a0 = 171.2167969 error if of 1.5 ulps
+for a0 = 177.4999847 error if of 27 ulps
+for a0 = 183.7831726 error if of 2 ulps
+for a0 = 193.2079468 error if of 4 ulps
+for a0 = 199.4911346 error if of 4 ulps
+
+1114841922 values with error less than 0 ulp(s)
+14018389 values with error less than 0.5 ulp(s)
+1330 values with error less than 1 ulp(s)
+7 values with error less than 1.5 ulp(s)
+1 values with error less than 2 ulp(s)
+2 values with error less than 2.5 ulp(s)
+2 values with error less than 3 ulp(s)
+1 values with error less than 3.5 ulp(s)
+2 values with error less than 4 ulp(s)
+1 values with error less than 4.5 ulp(s)
+3 values with error bigger than 5 ulp(s)
+  
+  */ 
+//////////////////////////////////////////////////////////////////////////////
 
 namespace nt2 { namespace tag
   {         

@@ -9,6 +9,9 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_REM_PIO2_MEDIUM_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_REM_PIO2_MEDIUM_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
+#include <nt2/include/functions/round2even.hpp>
+#include <nt2/include/functions/fast_toint.hpp>
+
 namespace nt2 { namespace meta
 {
   /////////////////////////////////////////////////////////////////////////////
@@ -26,7 +29,7 @@ namespace nt2 { namespace meta
       {
 	//	  static int i = 0;
 	//	  std::cout << "fdlibm_medium_reduction " << i++ << std::endl; 
-	A0 fn = round2even(t*Invpio_2<A0>());
+	A0 fn = nt2::round2even(t*Invpio_2<A0>());
 	A0 r  = t-fn*Pio2_1<A0>(); 
 	A0 w  = fn*Pio2_1t<A0>(); 
 	A0 t2 = r;
@@ -41,7 +44,7 @@ namespace nt2 { namespace meta
 	xc = (r-xr)-w;
 	//	std::cout << "medium fn " << fn << std::endl; 
 	//	std::cout << "xc  " << xc << std::endl; 
-	return  toint(fn);    
+	return  fast_toint(fn);    
     }
   }; 
 } }

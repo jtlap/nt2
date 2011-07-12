@@ -59,7 +59,7 @@ namespace nt2 { namespace meta
     {
       result_type res;
       boost::fusion::at_c<0>(res) = impl::trig_base < A0,degree_tag
-                      , trig_tag, tag::not_simd_type, clipped_pio4
+                      ,  tag::not_simd_type, clipped_pio4
                       >::sincosa( etype(a0)
                                 , boost::fusion::at_c<1>(res)
                                 );

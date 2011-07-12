@@ -12,8 +12,8 @@
 #include <nt2/sdk/meta/logical.hpp>
 #include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/rem_pio2_straight.hpp>
 #include <nt2/include/functions/rem_pio2.hpp>
-//#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/f_pio2_reducing.hpp>
 #include <nt2/toolbox/arithmetic/include/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
@@ -39,7 +39,6 @@ namespace nt2
     {
       template< class A0
 		, class unit_tag
-		, class precision_tag
 		, class style
 		, class mode
 		, class base_A0 = typename meta::scalar_of<A0>::type
@@ -48,7 +47,6 @@ namespace nt2
     }
   }
 }
-//#include <nt2/toolbox/trigonometric/function/scalar/impl/trigo/d_pio2_reducing.hpp>
 
 namespace nt2
 {
@@ -95,7 +93,7 @@ namespace nt2
       // trigonometric functions with different policies
 
       template<class A0, class mode>
-      struct trig_reduction < A0, radian_tag, trig_tag, tag::not_simd_type, mode, float>
+      struct trig_reduction < A0, radian_tag,  tag::not_simd_type, mode, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type               logic;
@@ -133,7 +131,7 @@ namespace nt2
           else if (conversion_allowed())  // all of x are in [0, 2^18*pi],  conversion to double is used to reduce if available
 	    {
 	      typedef typename meta::upgrade<A0>::type uA0; 
-	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::not_simd_type, mode, double> aux_reduction; 
+	      typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
 	      uA0 ux = x, uxr, uxc; 
 	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
 	      xr = uxr;
@@ -194,7 +192,7 @@ namespace nt2
 	  if (conversion_allowed()) // conversion to double is used to reduce time, if available
 	    {
 	      typedef typename meta::upgrade<A0>::type uA0; 
-	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::not_simd_type, mode, double> aux_reduction; 
+	      typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
 	      uA0 ux = x, uxr, uxc; 
 	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
 	      xr = uxr;
@@ -223,7 +221,7 @@ namespace nt2
       };
 
       template<class A0>
-      struct trig_reduction<A0,degree_tag,trig_tag, tag::not_simd_type,big, float>
+      struct trig_reduction<A0,degree_tag, tag::not_simd_type,big, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;
@@ -259,7 +257,7 @@ namespace nt2
       };
 
        template < class A0>
-       struct trig_reduction < A0, pi_tag, trig_tag, tag::not_simd_type, big, float>
+       struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;

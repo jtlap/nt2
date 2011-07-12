@@ -89,7 +89,7 @@ namespace nt2
 	// note that the range is VERY SMALL
 	
 
-	typedef trig_evaluation<A0,trig_tag,tag::not_simd_type> eval_t;
+	typedef trig_evaluation<A0,tag::not_simd_type> eval_t;
 	
 	static inline A0 cosa(const A0& a0)
 	{

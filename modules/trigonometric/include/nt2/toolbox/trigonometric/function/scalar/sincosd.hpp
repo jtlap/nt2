@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
     typedef int result_type;    
     inline int operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      a1 = impl::trig_base <A1,degree_tag,trig_tag,
+      a1 = impl::trig_base <A1,degree_tag,
 	               tag::not_simd_type>::sincosa(A1(a0),a2);
       return 0; 
     }
@@ -40,7 +40,7 @@ namespace nt2 { namespace meta
     typedef A1 result_type;    
     inline A1 operator()(A0 const& a0,A1 & a2) const
     {
-      return impl::trig_base <A1,degree_tag,trig_tag,
+      return impl::trig_base <A1,degree_tag,
 	               tag::not_simd_type>::sincosa(A1(a0),a2);
     }
   };
@@ -78,7 +78,7 @@ namespace nt2 { namespace meta
     {
       result_type res; 
       boost::fusion::at_c<0>(res) = impl::trig_base < A0,degree_tag
-                      , trig_tag,tag::not_simd_type
+                      , tag::not_simd_type
                       >::sincosa( a0
                                 , boost::fusion::at_c<1>(res)
                                 );

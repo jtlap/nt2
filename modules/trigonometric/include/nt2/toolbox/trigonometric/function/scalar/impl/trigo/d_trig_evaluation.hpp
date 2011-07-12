@@ -21,7 +21,7 @@ namespace nt2
     namespace internal
     {
 
-      template < class A0> struct trig_evaluation < A0, trig_tag, tag::not_simd_type, double >
+      template < class A0> struct trig_evaluation < A0,  tag::not_simd_type, double >
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<A0>::type stype; 

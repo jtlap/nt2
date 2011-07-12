@@ -25,7 +25,7 @@ namespace nt2
     namespace internal
     {
       template < class A0 >
-      struct invtrig_base<A0,radian_tag,trig_tag,tag::simd_type, double>
+      struct invtrig_base<A0,radian_tag,tag::simd_type, double>
       {
 	static inline A0 asin(const A0& a0)
 	{

@@ -52,7 +52,7 @@ namespace nt2
       // trigonometric functions with different policies
 
       template<class A0, class mode>
-      struct trig_reduction < A0, radian_tag, trig_tag, tag::simd_type, mode, float>
+      struct trig_reduction < A0, radian_tag,  tag::simd_type, mode, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type               logic;
@@ -90,7 +90,7 @@ namespace nt2
 	    {
 	      typedef typename meta::upgrade<A0>::type uA0;
 	      typedef typename meta::upgrade<int_type>::type uint_type; 
-	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::simd_type, mode, double> aux_reduction; 
+	      typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction; 
 	      uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
 	      nt2::split(x, ux1, ux2);
 	      uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
@@ -148,7 +148,7 @@ namespace nt2
 	    {
 	      typedef typename meta::upgrade<A0>::type uA0;
 	      typedef typename meta::upgrade<int_type>::type uint_type; 
-	      typedef trig_reduction< uA0, radian_tag, trig_tag, tag::simd_type, mode, double> aux_reduction; 
+	      typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction; 
 	      uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
 	      nt2::split(x, ux1, ux2);
 	      uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
@@ -182,7 +182,7 @@ namespace nt2
 
 
       template<class A0>
-      struct trig_reduction<A0,degree_tag,trig_tag, tag::simd_type,big, float>
+      struct trig_reduction<A0,degree_tag, tag::simd_type,big, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;
@@ -201,7 +201,7 @@ namespace nt2
       };
 
        template < class A0>
-       struct trig_reduction < A0, pi_tag, trig_tag, tag::simd_type, big, float>
+       struct trig_reduction < A0, pi_tag,  tag::simd_type, big, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::logical<A0>::type            logic;
