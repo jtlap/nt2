@@ -24,37 +24,44 @@ endmacro()
 
 macro(nt2_module_source_setup module)
   nt2_module_install_setup()
-  string(TOUPPER ${module} module_U)
+  string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
   
-  include_directories(${NT2_${module_U}_INCLUDE_DIR})
-  link_directories(${NT2_${module_U}_DEPENDENCIES_LIBRARY_DIR})
-  link_libraries(${NT2_${module_U}_DEPENDENCIES_LIBRARIES})
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${module_U}_FLAGS}")
+  include_directories(${NT2_${NT2_CURRENT_MODULE_U}_INCLUDE_DIR})
+  link_directories(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARY_DIR})
+  link_libraries(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARIES})
+  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}")
   
-  # set up component
-  cpack_add_component(${module}
-                      DEPENDS ${NT2_${module_U}_DEPENDENCIES_EXTRA}
-                     )
+  # installation is only done when current project is NT2
+  # or same as current module
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+
+    # set up component
+    if(CPACK_GENERATOR)
+      cpack_add_component(${module}
+                          DEPENDS ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_EXTRA}
+                         )
+    endif()
   
-  # install headers, cmake modules and manifest
-  install( DIRECTORY ${NT2_${module_U}_ROOT}/include/
-           DESTINATION include
-           COMPONENT ${module}
-           FILES_MATCHING PATTERN "*.hpp"
-         )
-  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
-  install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
-           DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
-           COMPONENT ${module}
-         )
-  install( DIRECTORY ${NT2_${module_U}_ROOT}/cmake
-           DESTINATION ${NT2_INSTALL_SHARE_DIR}
-           COMPONENT ${module}
-           FILES_MATCHING PATTERN "*.cmake"
-         )
+    # install headers, cmake modules and manifest
+    install( DIRECTORY ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/
+             DESTINATION include
+             COMPONENT ${module}
+             FILES_MATCHING PATTERN "*.hpp"
+           )
+    file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+    install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
+             DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
+             COMPONENT ${module}
+           )
+    install( DIRECTORY ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/cmake
+             DESTINATION ${NT2_INSTALL_SHARE_DIR}
+             COMPONENT ${module}
+             FILES_MATCHING PATTERN "*.cmake"
+           )
+  endif()
   
 endmacro()
 
@@ -80,10 +87,10 @@ macro(nt2_module_dir dir)
 endmacro()
 
 macro(nt2_module_main module)
-  string(TOUPPER ${module} module_U)
-  
+  string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
     
   if(CMAKE_CURRENT_SOURCE_DIR STREQUAL ${PROJECT_SOURCE_DIR})
+    project(NT2_${NT2_CURRENT_MODULE_U})
     include(CPack)
   endif()
 
@@ -142,12 +149,13 @@ macro(nt2_module_add_library libname)
   endif()
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
   
-  
-  install( TARGETS ${libname}
-           LIBRARY DESTINATION lib
-           ARCHIVE DESTINATION lib
-           COMPONENT ${NT2_CURRENT_MODULE}
-         )
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+    install( TARGETS ${libname}
+             LIBRARY DESTINATION lib
+             ARCHIVE DESTINATION lib
+             COMPONENT ${NT2_CURRENT_MODULE}
+           )
+  endif()
   
 endmacro()
 
@@ -227,11 +235,15 @@ macro(nt2_module_add_example EXECUTABLE)
 endmacro()
 
 macro(nt2_module_install_file header)
-  string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
-  install(FILES ${PROJECT_BINARY_DIR}/include/${header}
-          DESTINATION include/${${header}_path}
-          COMPONENT ${NT2_CURRENT_MODULE}
-         )
+  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
+
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+    string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
+    install(FILES ${PROJECT_BINARY_DIR}/include/${header}
+            DESTINATION include/${${header}_path}
+            COMPONENT ${NT2_CURRENT_MODULE}
+           )
+  endif()
 endmacro()
 
 macro(nt2_module_configure_py pyfile)
@@ -253,11 +265,13 @@ macro(nt2_module_configure_py pyfile)
                    OUTPUT_VARIABLE ${pyfile}_result
                    OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
-                 
-   string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
-   foreach(gen_file ${${pyfile}_files})
-     nt2_module_install_file(${gen_file})
-   endforeach()
+   
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")              
+    string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
+    foreach(gen_file ${${pyfile}_files})
+      nt2_module_install_file(${gen_file})
+    endforeach()
+  endif()
 endmacro()
 
 macro(nt2_module_configure_simd)

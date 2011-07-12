@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 2.6)
 ################################################################################
 # Project nt2 - See toolbox/CMakeLists.txt for toolbox CMake scripts
 ################################################################################
-project(nt2)
+project(NT2)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 include(nt2.compiler.options)

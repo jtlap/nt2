@@ -29,5 +29,7 @@ nt2_preprocess(sdk0x.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.
 nt2_preprocess(sdk03.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.hpp
                OPTIONS -DNT2_CREATE_PREPROCESSED_FILES_NO_0X
               )
-              
-add_custom_target(sdk.preprocess DEPENDS sdk0x.preprocess sdk03.preprocess)
+
+if(NT2_PREPROCESS_ENABLED)              
+  add_custom_target(sdk.preprocess DEPENDS sdk0x.preprocess sdk03.preprocess)
+endif()
