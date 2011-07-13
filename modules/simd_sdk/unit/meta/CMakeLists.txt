@@ -32,7 +32,6 @@ SET( SOURCES
     sign_of.cpp
     strip.cpp
     upgrade.cpp
-    set.cpp
    )
 
 ADD_CUSTOM_TARGET(simd_sdk.meta.unit)

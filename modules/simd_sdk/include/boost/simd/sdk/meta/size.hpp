@@ -6,15 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_DISPATCH_META_SIZE_HPP_INCLUDED
-#define BOOST_DISPATCH_META_SIZE_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_SIZE_HPP_INCLUDED
+#define BOOST_SIMD_META_SIZE_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/comparison.hpp>
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace simd { namespace details
 {
   template<class T1,class T2, class Tr, class Op>
   struct  size_check
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace details
   {};
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
     template<class T1,class T2,class Transform = boost::mpl::_>
     struct  has_same_size

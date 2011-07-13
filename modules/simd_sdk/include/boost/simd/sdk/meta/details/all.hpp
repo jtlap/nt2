@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_DETAILS_ALL_HPP_INCLUDED
-#define BOOST_DISPATCH_META_DETAILS_ALL_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_DETAILS_ALL_HPP_INCLUDED
+#define BOOST_SIMD_META_DETAILS_ALL_HPP_INCLUDED
 
 //==============================================================================
 // Internals for meta::all_
@@ -29,7 +29,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace simd { namespace details
 {
   //============================================================================
   // Recursive variadic version

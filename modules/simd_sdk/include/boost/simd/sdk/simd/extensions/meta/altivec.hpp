@@ -11,8 +11,6 @@
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
 
 #include <climits>
-#include <boost/simd/sdk/meta/set.hpp>
-#include <boost/simd/sdk/meta/has_key.hpp>
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -36,22 +34,16 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  is_simd_specific<T,tag::altivec_>
-        : boost::simd::meta::has_key < boost::simd::meta::set < __vector float
-                                              , __vector unsigned int
-                                              , __vector unsigned short
-                                              , __vector unsigned char
-                                              , __vector signed   int
-                                              , __vector signed   short
-                                              , __vector signed   char
-                                              , __vector __bool int
-                                              , __vector __bool short
-                                              , __vector __bool char
-                                              >
-                              , T
-                              >
-  {};
+  template<> struct is_simd_specific<__vector          float, tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned int  , tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned short, tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned char , tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector signed   int  , tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector signed   short, tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector signed   char , tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   int  , tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   short, tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   char , tag::altivec_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type

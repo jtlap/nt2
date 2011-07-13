@@ -6,13 +6,13 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_DISPATCH_META_TEMPLATIZE_HPP_INCLUDED
-#define BOOST_DISPATCH_META_TEMPLATIZE_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_TEMPLATIZE_HPP_INCLUDED
+#define BOOST_SIMD_META_TEMPLATIZE_HPP_INCLUDED
 
 // These tautologies to avoid early compilation in some functors
 // definitions
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   template <class T> struct double__   { typedef double   type; };
   template <class T> struct float__    { typedef float    type; };

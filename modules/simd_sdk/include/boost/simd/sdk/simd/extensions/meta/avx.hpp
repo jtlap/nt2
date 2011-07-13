@@ -9,8 +9,6 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_AVX_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_AVX_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/set.hpp>
-#include <boost/simd/sdk/meta/has_key.hpp>
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -33,9 +31,9 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  is_simd_specific<T,tag::avx_>
-        : has_key < set <__m256d, __m256, __m256i>, T > {};
+  template<> struct is_simd_specific<__m256 , tag::avx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256d, tag::avx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256i, tag::avx_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type

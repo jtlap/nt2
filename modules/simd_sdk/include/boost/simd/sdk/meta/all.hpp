@@ -6,16 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_ALL_HPP_INCLUDED
-#define BOOST_DISPATCH_META_ALL_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_ALL_HPP_INCLUDED
+#define BOOST_SIMD_META_ALL_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements boost::dispatch::meta::all
+ * \brief Defines and implements boost::simd::meta::all
  */
 
 #include <boost/config.hpp>
-#include <boost/dispatch/meta/details/all.hpp>
+#include <boost/simd/sdk/meta/details/all.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
 #include <boost/preprocessor/facilities/intercept.hpp>
@@ -23,7 +23,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   //============================================================================
   // Recursive variadics

@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_DISPATCH_META_MUTABLE_ZIP_HPP_INCLUDED
-#define BOOST_DISPATCH_META_MUTABLE_ZIP_HPP_INCLUDED
+#ifndef NT2_META_MUTABLE_ZIP_HPP_INCLUDED
+#define NT2_META_MUTABLE_ZIP_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Various memory hierarchy stuff
@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Build a zip_view of mutable elements
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
   template<class S1,class S2>
   boost::fusion::zip_view< boost::fusion::vector<S1&,S2&> >
@@ -27,6 +27,6 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::fusion::vector<S1&,S2&> sequences;
     return boost::fusion::zip_view<sequences>( sequences ( s1,s2 ) );
   }
-} } }
+} }
 
 #endif

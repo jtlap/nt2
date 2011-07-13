@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_DISPATCH_META_MAKE_TYPE_HPP_INCLUDED
-#define BOOST_DISPATCH_META_MAKE_TYPE_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_MAKE_TYPE_HPP_INCLUDED
+#define BOOST_SIMD_META_MAKE_TYPE_HPP_INCLUDED
 
 #include <boost/config.hpp>
 
@@ -16,7 +16,7 @@
 #include <boost/type_traits/is_reference.hpp>
 #endif
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
 #ifdef BOOST_NO_RVALUE_REFERENCES
 

@@ -6,23 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_CARDINAL_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_CARDINAL_OF_HPP_INCLUDED
+#ifndef BOOST_SIMD_META_CARDINAL_OF_HPP_INCLUDED
+#define BOOST_SIMD_META_CARDINAL_OF_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the \ref boost::dispatch::meta::cardinal_of \metafunction
+ * \brief Defines and implements the \ref boost::simd::meta::cardinal_of \metafunction
  */
 
 #include <boost/mpl/size_t.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace boost { namespace dispatch { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   //============================================================================
   /*!
    * \ingroup extensions
-   * Extension point for \ref boost::dispatch::meta::cardinal specialized upon a \c Type
+   * Extension point for \ref boost::simd::meta::cardinal specialized upon a \c Type
    * and its \c Hierarchy.
    *
    * \tparam Type Hierarchizable type to specialize for.
@@ -34,7 +34,7 @@ namespace boost { namespace dispatch { namespace ext
    * specialized to provide a compile-time integral constant equals to this
    * type valuation.
    *
-   * \see boost::dispatch::simd::native
+   * \see boost::simd::native
    *
    */
   //============================================================================
@@ -42,7 +42,7 @@ namespace boost { namespace dispatch { namespace ext
   struct cardinal_of_impl : boost::mpl::size_t<1> {};
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   //============================================================================
   /*!
