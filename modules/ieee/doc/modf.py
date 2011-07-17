@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'boost::fusion::vector<T,T>',
+             'default' : 'typename nt2::meta::call<modf_(T)>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],

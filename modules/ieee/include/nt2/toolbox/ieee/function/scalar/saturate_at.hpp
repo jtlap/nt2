@@ -10,24 +10,27 @@
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/properties.hpp>
+#include <nt2/sdk/functor/forward.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::saturate_at_<T> , tag::cpu_,
-                      (A0)(T),
+  NT2_FUNCTOR_IMPLEMENTATION(tag::saturate_at_<Tag> , tag::cpu_,
+                      (A0)(Tag),
                       (scalar_<arithmetic_<A0> >)
                      )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (a0 > T()())
-	return T()();
-      else if (a0 <  -T()())
- 	return -T()();
+      typename nt2::make_functor<Tag, A0>::type callee; 
+      const A0 z = callee( nt2::meta::as_<A0>() );
+      if (a0 > z)
+	return z;
+      else if (a0 <  -z)
+ 	return -z;
       else
 	return a0; 
     }

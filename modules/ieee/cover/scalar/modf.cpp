@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<modf_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  typedef typename nt2::meta::call<modf_(T)>::type  wished_r_t;
 
 
   // return type conformity test 
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<modf_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  typedef typename nt2::meta::call<modf_(T)>::type  wished_r_t;
 
 
   // return type conformity test 
@@ -117,7 +117,7 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<modf_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  typedef typename nt2::meta::call<modf_(T)>::type  wished_r_t;
 
 
   // return type conformity test 

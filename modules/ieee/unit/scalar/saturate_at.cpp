@@ -28,25 +28,25 @@ NT2_TEST_CASE_TPL ( saturate_at_unsigned_int__1_0,  NT2_REAL_TYPES)
   
   using nt2::saturate_at;
   using nt2::tag::saturate_at_;
-//  typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<saturate_at_<nt2::Pi<T> >(T)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
-
-
-  // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
-  std::cout << nt2::type_id < T >() << std::endl; 
-  std::cout << nt2::type_id < nt2::tag::pi_ >() << std::endl;
-  //  std::cout << nt2::type_id < nt2::Pi>() << std::endl;
-//   typedef T (*func());
-//   std::cout << nt2::type_id <func>() << std::endl;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<saturate_at_<nt2::tag::pi_>(T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
   
-  std::cout << saturate_at<nt2::_Pi <T> > (nt2::One<T>()) << std::endl;
-//   std::cout << saturate_at<pi<T> >(T(5)) << std::endl;
-//  std::cout << saturate_at<pi<T> >(T(-5)) << std::endl;
-//   std::cout << saturate_at<nt2::Pi<T> >(nt2::Nan<T>())<< std::endl;
+  
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+  //   std::cout << nt2::type_id < T >() << std::endl; 
+  //   std::cout << nt2::type_id < nt2::tag::pi_ >() << std::endl;
+  //  std::cout << nt2::type_id < nt2::Pi>() << std::endl;
+  //  stypedef T (*func());
+  //  std::cout << nt2::type_id <func>() << std::endl;
+  
+  std::cout << saturate_at<nt2::tag::pi_> (nt2::One<T>()) << std::endl;
+  std::cout << saturate_at<nt2::tag::pi_>(T(5)) << std::endl;
+  std::cout << saturate_at<nt2::tag::pi_>(T(-5)) << std::endl;
+  std::cout << saturate_at<nt2::tag::pi_>(nt2::Nan<T>())<< std::endl;
 } // end of test for unsigned_int_

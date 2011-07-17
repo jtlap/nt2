@@ -15,15 +15,18 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::saturate_at_<T>, tag::cpu_,
-		      (A0)(T)(X),
+  NT2_FUNCTOR_IMPLEMENTATION(tag::saturate_at_<Tag>, tag::cpu_,
+		      (A0)(Tag)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return sel(gt(a0, T()), T(), sel(lt(a0, -T()), -T(), a0)); 
+      return sel(gt(a0, functor<Tag>()),
+		 functor<Tag>(),
+		 sel(lt(a0, -functor<Tag>()), -functor<Tag>(), a0)
+		 ); 
     }
   };
 } }

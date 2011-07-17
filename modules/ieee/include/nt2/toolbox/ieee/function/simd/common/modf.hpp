@@ -18,44 +18,28 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-    NT2_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
-				  ,( boost::mpl::and_ <
-				     boost::is_same<A0,A1>, 
-				     boost::is_same<A0,A2>
-				     >
-				  )
-                                , ( tag::modf_
-				    ( simd_<arithmetic_<A0>,X> 
-				      , simd_<arithmetic_<A1>,X>
-				      , simd_<arithmetic_<A2>,X>  
-				      )
-				    )
-			    , ((simd_< arithmetic_<A0>, X>))
-			      ((simd_< arithmetic_<A1>, X>))    
-			      ((simd_< arithmetic_<A2>, X>))
+    NT2_FUNCTOR_IMPLEMENTATION( tag::modf_, tag::cpu_, (A0)(X), 
+				((simd_< arithmetic_<A0>, X>))
+				((simd_< arithmetic_<A0>, X>))    
+				((simd_< arithmetic_<A0>, X>))
                             )
   {
-    typedef void result_type;
-    inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
+    typedef nt2::int32_t result_type;
+    inline result_type operator()(A0 const& a0,A0 & r1,A0 & r0) const
       {
 	r1 = nt2::trunc(a0);
-	r0 = a0-r1;    
+	r0 = a0-r1;
+	return 0; 
       }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(X)
-				  ,(boost::is_same<A0,A1>)
-                                , ( tag::modf_
-				    ( simd_<arithmetic_<A0>,X> 
-				      , simd_<arithmetic_<A1>,X>
-				      )
-				    )
-			    , ((simd_< arithmetic_<A0>, X>))
-			      ((simd_< arithmetic_<A1>, X>))    
+  NT2_FUNCTOR_IMPLEMENTATION( tag::modf_, tag::cpu_, (A0)(X), 
+			      ((simd_< arithmetic_<A0>, X>))
+			      ((simd_< arithmetic_<A0>, X>))    
                             )
   {
     typedef A0 result_type;
-    inline void operator()(A0 const& a0,A1 & r1) const
+    inline A0 operator()(A0 const& a0,A0 & r1) const
       {
 	r1 = nt2::trunc(a0);
 	return a0-r1;    
@@ -68,13 +52,11 @@ namespace nt2 { namespace meta
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
-      typedef typename meta::strip<A0>::type                A00;
-      typedef boost::fusion::vector<A00, A00>       result_type;
-    
+    typedef boost::fusion::vector<A0, A0> result_type;
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
-      nt2::modf(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
+      boost::fusion::at_c<0>(res) = nt2::modf(a0,boost::fusion::at_c<1>(res));
       return res;
     }
   };
