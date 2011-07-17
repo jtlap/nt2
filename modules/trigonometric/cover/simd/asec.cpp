@@ -54,23 +54,7 @@ NT2_TEST_CASE_TPL ( asec_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(1.01), T(10));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = asec(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::asec (tab_a0[k])), 5.0);
-          ulp0 = nt2::max(ulpd,ulp0);
-        }
-      }
-    std::cout << "max ulp found is: " << ulp0 << std::endl;
-  }
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(-1.01));
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::One<T>(), nt2::Ten<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
@@ -87,7 +71,7 @@ NT2_TEST_CASE_TPL ( asec_real__1_0,  NT2_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( asec_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( asec_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::asec;
   using nt2::tag::asec_;
@@ -126,7 +110,7 @@ NT2_TEST_CASE_TPL ( asec_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   }
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( asec_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( asec_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::asec;
   using nt2::tag::asec_;

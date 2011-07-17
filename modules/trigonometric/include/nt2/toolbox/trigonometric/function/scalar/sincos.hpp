@@ -56,7 +56,13 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL(1)
       {
-	return sincos(etype(a0));
+	result_type res;
+	boost::fusion::at_c<0>(res) = impl::trig_base <etype,radian_tag
+	  ,  tag::not_simd_type
+	  >::sincosa( tofloat(a0)
+		      , boost::fusion::at_c<1>(res)
+		      );
+	return res;
       }
   };
   

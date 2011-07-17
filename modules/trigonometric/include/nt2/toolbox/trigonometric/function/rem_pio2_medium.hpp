@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct rem_pio2_medium_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_medium_, rem_pio2_medium,(A0 const&)(A0&)(A0&),1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_medium_, rem_pio2_medium,(A0 const&),1)
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/rem_pio2_medium.hpp>

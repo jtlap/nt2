@@ -10,12 +10,14 @@
 #define NT2_TOOLBOX_TRIGONOMETRTIC_FUNCTION_REM_PIO2_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/toolbox/trigonometric/include.hpp>
 
 namespace nt2 { namespace tag
   {         
     struct rem_pio2_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&)(A0&),1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&),1)
 }
  
 #include <nt2/toolbox/trigonometric/function/scalar/rem_pio2.hpp>

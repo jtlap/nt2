@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - cosine/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - more_cosine/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of trigonometric components in scalar mode
@@ -49,30 +49,30 @@ NT2_TEST_CASE_TPL ( cosine_real__1_0, (float))
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(                  nt2::cos(nt2::Hundred<T>()),      nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5); 
-  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(nt2::Hundred<T>()),      nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(nt2::Hundred<T>()),      nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);	    
-  NT2_TEST_ULP_EQUAL(cosine<nt2::clipped_small>(nt2::Hundred<T>()),      nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);	    
-  NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(nt2::Hundred<T>()),      nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);	    
-  NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(nt2::Hundred<T>()),      nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);	    
+  NT2_TEST_ULP_EQUAL(                  nt2::cos(nt2::Hundred<T>()), nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5); 
+  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(nt2::Hundred<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(nt2::Hundred<T>()), nt2::Nan<r_t>(), 0.5);	    
+  NT2_TEST_ULP_EQUAL(cosine<nt2::clipped_small>(nt2::Hundred<T>()), nt2::Nan<r_t>(), 0.5); 
+  NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(nt2::Hundred<T>()), nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);	    
+  NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(nt2::Hundred<T>()), nt2::crlibm::cos_rn(nt2::Hundred<T>()), 0.5);	    
   
-  NT2_TEST_ULP_EQUAL(                  nt2::cos(41*nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(41*nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(41*nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
-  NT2_TEST_ULP_EQUAL(cosine<nt2::clipped_small>(41*nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
-  NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(41*nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
-  NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(41*nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
+  NT2_TEST_ULP_EQUAL(                  nt2::cos(41*nt2::Pi<T>()),   nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(41*nt2::Pi<T>()),   nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(41*nt2::Pi<T>()),   nt2::Nan<r_t>(), 0.5);	    
+  NT2_TEST_ULP_EQUAL(cosine<nt2::clipped_small>(41*nt2::Pi<T>()),   nt2::Nan<r_t>(), 0.5); 
+  NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(41*nt2::Pi<T>()),   nt2::Mone<r_t>(), 0.5);	    
+  NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(41*nt2::Pi<T>()),   nt2::Mone<r_t>(), 0.5);	    
   
   NT2_TEST_ULP_EQUAL(                  nt2::cos(nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
+  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(nt2::Pi<T>()),      nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(nt2::Pi<T>()),      nt2::Nan<r_t>(), 0.5);	    
   NT2_TEST_ULP_EQUAL(cosine<nt2::clipped_small>(nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
   NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
   NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(nt2::Pi<T>()),      nt2::Mone<r_t>(), 0.5);	    
   
   NT2_TEST_ULP_EQUAL(                  nt2::cos(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);	    
-  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);	    
+  NT2_TEST_ULP_EQUAL(             nt2::fast_cos(nt2::Pi<T>()/T(2)), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL( cosine<nt2::clipped_pio4>(nt2::Pi<T>()/T(2)), nt2::Nan<r_t>(), 0.5);	    
   NT2_TEST_ULP_EQUAL(cosine<nt2::clipped_small>(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);	    
   NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);	    
   NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);	    

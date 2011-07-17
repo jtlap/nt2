@@ -44,22 +44,6 @@ NT2_TEST_CASE_TPL ( inrad_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-2000), T(2000));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::inrad(a0),a0*nt2::Pi<T>()/nt2::_180<T>(),1.0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( inrad_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

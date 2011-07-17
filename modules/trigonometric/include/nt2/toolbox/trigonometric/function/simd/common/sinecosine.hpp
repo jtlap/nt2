@@ -18,20 +18,18 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(  tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X)
-				  , (boost::mpl::equal_to < meta::cardinal_of<A0> 
-			                                , meta::cardinal_of<A1>
-				                        >
-				) 
-                               , ( tag::sinecosine_
-                                          ( simd_<arithmetic_<A0>,X> 
-					  , simd_<real_<A1>,X>
-				          , simd_<real_<A1>,X>
-                                          )
-                                ) 
-                               , ((simd_<arithmetic_<A0>,X>))
-                                 ((simd_<real_<A1>,X>))
-                                 ((simd_<real_<A1>,X>))
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X), 
+				(boost::mpl::equal_to < meta::cardinal_of<A0>, 
+				 meta::cardinal_of<A1> > ), 
+                                ( tag::sinecosine_<mode>
+				  ( simd_<arithmetic_<A0>,X> 
+				    , simd_<real_<A1>,X>
+				    , simd_<real_<A1>,X>
+				    )
+                                ), 
+                                ((simd_<arithmetic_<A0>,X>))
+                                ((simd_<real_<A1>,X>))
+                                ((simd_<real_<A1>,X>))
 			     )
   {
     typedef int result_type;    
@@ -43,12 +41,12 @@ namespace nt2 { namespace meta
     }
   };
  
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sinecosine_, tag::cpu_,(A0)(A1)(mode)(X),
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X),
 				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
 			                	 meta::cardinal_of<A1>
 				        >
 				), 
-                                ( tag::sinecosine_
+                                ( tag::sinecosine_<mode>
 				  ( simd_<arithmetic_<A0>,X> 
 				    , simd_<real_<A1>,X>
 				    )
@@ -68,7 +66,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::sinecosine_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(tag::sinecosine_<mode>, tag::cpu_,
                          (A0)(mode)(X),
                          ((simd_<arithmetic_<A0>,X>))
                         )
@@ -81,9 +79,7 @@ namespace nt2 { namespace meta
       result_type res;
       boost::fusion::at_c<0>(res) = impl::trig_base <rtype,radian_tag
 	,  tag::simd_type, mode
-	>::sincosa( tofloat(a0)
-		    , boost::fusion::at_c<1>(res)
-		    );
+	>::sincosa( tofloat(a0), boost::fusion::at_c<1>(res));
       return res;
     }
   };

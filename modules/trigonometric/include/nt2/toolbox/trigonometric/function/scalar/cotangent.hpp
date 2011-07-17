@@ -37,10 +37,10 @@ namespace nt2 { namespace meta
 			      , (scalar_< real_<A0> >)
 			      )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-	if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
+	//	if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
 	return impl::trig_base<A0,radian_tag,tag::not_simd_type, mode>::cota(a0);
       }
   };

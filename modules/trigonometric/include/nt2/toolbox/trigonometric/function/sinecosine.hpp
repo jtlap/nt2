@@ -1,4 +1,4 @@
-!//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 ///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 ///
@@ -16,9 +16,9 @@ namespace nt2 { namespace tag
   {         
     template < class T > struct sinecosine_ {};
   }
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0> , sinecosine, (A1 const&), 2)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine,(A0 const&)(A1&),2)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine,(A0 const&)(A1&)(A2&),3)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine, (A1 const&), 2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine, (A0 const&)(A1&),2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine, (A0 const&)(A1&)(A2&),3)
 
    
 }

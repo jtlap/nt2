@@ -9,7 +9,7 @@
             },
          'simd_types' : ['real_'],
          'special' : ['trigonometric'],
-         'tpl'   : '<nt2::small>',   
+         'tpl'   : '<nt2::medium>',   
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
@@ -50,7 +50,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::cos(a0)'],
+                 'real_' : ['nt2::cosine<medium>(a0)'],
                 },
              'property_value' : {
                  'real_' : ['::cephes_cosl(a0)'],

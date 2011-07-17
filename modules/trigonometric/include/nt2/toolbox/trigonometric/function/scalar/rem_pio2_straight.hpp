@@ -6,12 +6,32 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
+#include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace meta
 {
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_straight_, tag::cpu_,
+			     (A0),
+			     (scalar_ < real_<A0> > )
+			     )
+  {
+    typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
+    inline result_type operator()(A0 const& a0) const
+      {
+	result_type res;
+	boost::fusion::at_c<2>(res) =
+	  nt2::rem_pio2_straight(a0,
+				 boost::fusion::at_c<0>(res),
+				 boost::fusion::at_c<1>(res)); 
+	return res; 
+      }
+  }; 
+
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation when real
   /////////////////////////////////////////////////////////////////////////////
@@ -30,8 +50,8 @@ namespace nt2 { namespace meta
 	xr = x-Pio2_1<A0>();
 	xr -= Pio2_2<A0>();
 	xr -= Pio2_3<A0>();
-	xc = Zero<A0>();
-	return  One<result_type>();
+	xc = nt2::Zero<A0>();
+	return  nt2::One<result_type>();
       }
   }; 
 } }

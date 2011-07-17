@@ -11,9 +11,28 @@
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/fast_toint.hpp>
+#include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace meta
 {
+  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_medium_, tag::cpu_,
+			     (A0),
+			     (scalar_ < real_<A0> > )
+			     )
+  {
+    typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
+    
+    inline result_type operator()(A0 const& a0) const
+      {
+	result_type res;
+	boost::fusion::at_c<2>(res) =
+	  nt2::rem_pio2_medium(a0,
+			       boost::fusion::at_c<0>(res),
+			       boost::fusion::at_c<1>(res)); 
+	return res; 
+      }
+  }; 
+
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation when real
   /////////////////////////////////////////////////////////////////////////////
@@ -42,7 +61,7 @@ namespace nt2 { namespace meta
 	w  = fn*fn*Pio2_3t<A0>()-((t2-r)-w);
 	xr = r-w;
 	xc = (r-xr)-w;
-	return  fast_toint(fn);    
+	return  fast_toint(fn)&3;    
       }
   }; 
 } }

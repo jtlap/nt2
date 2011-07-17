@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
+      //      if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
       return rec(sine<mode>(a0));
     }
   };

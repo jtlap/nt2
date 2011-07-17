@@ -8,13 +8,36 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRTIC_FUNCTION_SCALAR_REM_PIO2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRTIC_FUNCTION_SCALAR_REM_PIO2_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/floor.hpp>
+#include <boost/fusion/tuple.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation when float
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
+
+  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_, tag::cpu_,
+			     (A0),
+			     (scalar_ < real_<A0> > )
+			     )
+  {
+    typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
+    
+    NT2_FUNCTOR_CALL(1)
+      {
+	result_type res;
+	boost::fusion::at_c<2>(res) =
+	  nt2::rem_pio2(a0,
+			boost::fusion::at_c<0>(res),
+			boost::fusion::at_c<1>(res)
+			); 
+	return res; 
+      }
+  }; 
+  
   NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_, tag::cpu_,
 			     (A0),
 			     (scalar_ < float_<A0> > )
@@ -29,7 +52,7 @@ namespace nt2 { namespace meta
       int32_t n = __ieee754_rem_pio2f(a0, y);
       xr = y[0];
       xc = y[1];
-      return n; 
+      return n&3; 
     }
   private :
   /*
@@ -397,7 +420,7 @@ namespace nt2 { namespace meta
       int32_t n = __ieee754_rem_pio2(a0, y);
       xr = y[0];
       xc = y[1];
-      return n; 
+      return n&3; 
     }
   private :
   /*

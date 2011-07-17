@@ -46,16 +46,16 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()),               nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()/T(2)),          nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()/T(4)),          nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Inf<T>()),               nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Minf<T>()),              nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Nan<T>()),               nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()),                nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/T(2)),           nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/T(4)),           nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()),              nt2::One<r_t>(), 0.5);        
+  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()/T(4)), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Pi<T>()/T(4)), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

@@ -50,7 +50,7 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,radian_tag,  tag::simd_type, mode>::cosa(a0);
+      return impl::trig_base<A0,radian_tag,tag::simd_type,mode>::tana(a0);
     }
   };
 } }

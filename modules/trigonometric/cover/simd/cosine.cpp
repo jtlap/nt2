@@ -53,12 +53,12 @@ NT2_TEST_CASE_TPL ( cosine_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-60)*nt2::Pi<T>(), T(60)*nt2::Pi<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-60), T(60));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cosine<nt2::small>(a0);
+        r_t v = cosine<nt2::medium>(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
