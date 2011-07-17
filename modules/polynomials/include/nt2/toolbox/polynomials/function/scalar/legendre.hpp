@@ -14,7 +14,8 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/include/functions/abs.hpp>
-
+#include <iostream>
+#include <iomanip>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -44,15 +45,16 @@ namespace nt2 { namespace meta
 			     )
   {
     typedef A1 result_type; 
+    typedef typename  meta::as_unsigned<A0>::type utype;
     NT2_FUNCTOR_CALL(2)
       {
 	if(nt2::abs(a1) > 1) return Nan<A1>();
 	A1 p0 = One<A1>();
 	if(a0 == 0)  return p0;
 	A1 p1 = a1;
-	uint32_t n = 1;
-	
-	while(n < (typename meta::as_unsigned<A0>::type)a0)
+	utype n =  1; 
+	const utype l = utype(a0); 
+	while(n < l)
 	  {
 	    std::swap(p0, p1);
 	    p1 = legendre_next(n, a1, p0, p1);
@@ -63,9 +65,9 @@ namespace nt2 { namespace meta
   private :
     template <class T1, class T2, class T3 >
       static inline T1
-      legendre_next(const uint32_t& l,const T1& x, const T2& Pl, const T3& Plm1)
+      legendre_next(const utype& l,const T1& x, const T2& Pl, const T3& Plm1)
       {
-	return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
+	return ((2*l+1)*x*Pl-l*Plm1)/(l+1);
       }
   };
 } }

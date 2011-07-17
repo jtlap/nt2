@@ -28,6 +28,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::abs;
+  using nt2::modulus;
   using nt2::tag::abs_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<abs_(T)>::type r_t;
@@ -43,7 +44,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(abs(T(1)), T(1));
+  NT2_TEST_EQUAL(modulus(T(1)), T(1));
   NT2_TEST_EQUAL(abs(nt2::Inf<T>()), nt2::Inf<T>());
   NT2_TEST_EQUAL(abs(nt2::Minf<T>()), nt2::Inf<T>());
   NT2_TEST_EQUAL(abs(nt2::Mone<T>()), nt2::One<T>());
