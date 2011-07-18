@@ -161,7 +161,17 @@ for a0 = 199.4911346 error if of 4 ulps
 2 values with error less than 4 ulp(s)
 1 values with error less than 4.5 ulp(s)
 3 values with error bigger than 5 ulp(s)
-  
+
+Other test with cosine<direct_small> on all float values
+between 0 and 80.5*pi (that means 1132258802 values)
+we have
+           1106449463 values equal to crlibm value
+             25804651 values at 0.5 ulp
+                 4687 values at 1   ulp
+		    1 value  at 11  ulps for 80.5*pi
+
+
+
   */ 
 //////////////////////////////////////////////////////////////////////////////
 

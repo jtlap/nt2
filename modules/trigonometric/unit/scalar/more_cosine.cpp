@@ -56,7 +56,7 @@ int main()
   nt2::int32_t j = 0;
   nt2::int32_t di = 0; 
   float thresh = 0.0f; 
-  for(float a0 = nt2::Zero<float>(); a0 < 80.5*nt2::Pi<float>(); a0 = nt2::successor(a0, 1))
+  for(float a0 = nt2::Zero<float>(); a0 < 100*nt2::Pi<float>(); a0 = nt2::successor(a0, 1))
     {
       float s, c;
       nt2::sinecosine<nt2::direct_small>(a0, s, c);
@@ -64,10 +64,12 @@ int main()
       float ccrm =  nt2::crlibm::cos_rn(a0);
       double ds = nt2::ulpdist(s, scrm);
       maxds =  nt2::max(maxds, ds);
-      double dc = nt2::ulpdist(c, ccrm); 
-      maxdc =  nt2::max(maxdc, dc);
-      histo(nt2::max(dc, ds));
-      get_thresh(nt2::max(dc, ds), a0); 
+//       double dc = nt2::ulpdist(c, ccrm); 
+//       maxdc =  nt2::max(maxdc, dc);
+//       histo(nt2::max(dc, ds));
+//       get_thresh(nt2::max(dc, ds), a0); 
+      histo(ds);
+      get_thresh(ds, a0); 
       ++i; 
     }
   std::cout << "nb values " << i << std::endl; 
