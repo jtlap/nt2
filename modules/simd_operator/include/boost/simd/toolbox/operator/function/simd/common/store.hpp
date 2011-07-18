@@ -19,9 +19,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over store for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , ((simd_< fundamental_<A0>, X >))
                               (iterator_< scalar_< fundamental_<A1> > >)
@@ -30,13 +30,13 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);
       return a0;
     }
   };
-} } }
+} }
 
 
 #endif

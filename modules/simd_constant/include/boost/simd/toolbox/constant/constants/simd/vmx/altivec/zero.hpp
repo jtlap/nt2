@@ -9,20 +9,20 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_ZERO_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::digit_<0>, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::digit_<0>, tag::cpu_, (A0)
                             , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
                             )
   {
     typedef typename meta::strip<A0>::type::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       result_type that = { simd::native_cast<result_type>(vec_splat_u8(0)) };
       return that;
     }
   };
-} } }
+} }
 
 #endif

@@ -13,21 +13,21 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_eqz_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_eqz_, tag::cpu_,
                              (A0)(X),
                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return eq(a0,Zero<A0>());
     }
 
   };
-} } }
+} }
 
 #endif

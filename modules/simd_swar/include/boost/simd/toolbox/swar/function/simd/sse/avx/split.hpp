@@ -10,17 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_SPLIT_HPP_INCLUDED
 #include <boost/simd/sdk/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/split.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::split_, tag::cpu_,
                         (A0),
                         ((simd_<arithmetic_<A0>,tag::avx_>))
                        )
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace meta
                                         , dtype, ttype>::type              rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef meta::is_floating_point<stype>                                 rtag;
@@ -105,5 +105,5 @@ namespace boost { namespace simd { namespace meta
       r1 = _mm256_cvtps_pd(_mm256_extractf128_ps(a0, 1)) ;
     }
   };
-} } }
+} }
 #endif

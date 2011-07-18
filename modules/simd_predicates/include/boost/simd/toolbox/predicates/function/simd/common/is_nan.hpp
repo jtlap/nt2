@@ -8,18 +8,18 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_NAN_HPP_INCLUDED
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_unord.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_nan_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nan_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_unord(a0,a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_unord(a0,a0); }
   };
-} } }
+} }
 
 #endif

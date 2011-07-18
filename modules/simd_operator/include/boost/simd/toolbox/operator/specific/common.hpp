@@ -14,14 +14,14 @@
 // nothing is implemented for doing otherwise.
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/operator/function/map.hpp>
 
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/specific/preprocessed/common.hpp>
 #else
 #include <boost/dispatch/extension/parameters.hpp>
-#include <boost/simd/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -35,12 +35,12 @@
 #define M0(z,n,t) (generic_< unspecified_<A0> >)
 
 #define M1(z,n,t)                                     \
-BOOST_SIMD_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag) \
+BOOST_DISPATCH_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag) \
                       , BOOST_PP_REPEAT(n,M0,~)       \
                       )                               \
 /**/
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M1,~)
 } } }
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace meta
 #define M0(z,n,t) generic_< unspecified_<BOOST_PP_CAT(A,n)> >
 
 #define M1(z,n,t)                                                           \
-namespace boost { namespace simd { namespace meta                           \
+namespace boost { namespace dispatch {                                      \
 {                                                                           \
   template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>          \
   struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace meta                           \
       return boost::simd::map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));  \
     }                                                                       \
   };                                                                        \
-} } }                                                                       \
+} }                                                                         \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M1,~)

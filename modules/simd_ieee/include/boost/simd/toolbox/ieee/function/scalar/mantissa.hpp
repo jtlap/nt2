@@ -8,19 +8,19 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_MANTISSA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_MANTISSA_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::mantissa_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::mantissa_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       //TO DO incorrect
       if(!a0) return a0;
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace meta
       return b_or(b_and(a0, mask1),mask0);
     }
   };
-} } }
+} }
 
 
 #endif

@@ -8,23 +8,23 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_MAXNUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_MAXNUM_HPP_INCLUDED
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::maxnum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::maxnum_, tag::cpu_,
                          (A0)(X),
                          ((simd_<arithmetic_<A0>,X>))
                          ((simd_<arithmetic_<A0>,X>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::max(a0, a1);
     }
@@ -35,19 +35,19 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::maxnum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::maxnum_, tag::cpu_,
                          (A0)(X),
                          ((simd_<real_<A0>,X>))
                          ((simd_<real_<A0>,X>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       const A0 a = select(is_nan(a0),a1,a0);
       const A0 b = select(is_nan(a1),a0,a1);
       return boost::simd::max(a, b);
     }
   };
-} } }
+} }
 #endif

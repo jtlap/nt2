@@ -14,9 +14,9 @@
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::rshr_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::rshr_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
@@ -31,22 +31,22 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return sel(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rshr_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rshr_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))((scalar_ < integer_<A1> > ))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       if(is_gtz(a1)) return shri(a0, a1);  else return shli(a0, -a1);
     }
   };
-} } }
+} }
 
 #endif

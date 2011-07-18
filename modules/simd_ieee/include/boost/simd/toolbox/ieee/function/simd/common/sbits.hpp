@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_SBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_SBITS_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::sbits_, tag::cpu_,(A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sbits_, tag::cpu_,(A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef typename meta::as_integer<A0, signed>::type  result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return simd::native_cast<result_type>(a0);
     }
   };
-} } }
+} }
 
 #endif

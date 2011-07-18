@@ -11,22 +11,22 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
       return Zero<A0>();
@@ -38,16 +38,16 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
                        (A0)(X),
                        ((simd_<real_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       return sel(is_invalid(a0), Nan<A0>(), a0-boost::simd::trunc(a0));
     }
   };
-} } }
+} }
 #endif

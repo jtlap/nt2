@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULPDIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULPDIST_HPP_INCLUDED
 #include <boost/simd/include/constants/eps_related.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
@@ -58,27 +58,27 @@
 //     ulpdist(double(boost::simd::Pi<float>()), boost::simd::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return (max(a0, a1)-min(a0,a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0>::type itype;
       itype e1, e2;
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace meta
       return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
     }
   };
-} } }
+} }
 
 
 #endif

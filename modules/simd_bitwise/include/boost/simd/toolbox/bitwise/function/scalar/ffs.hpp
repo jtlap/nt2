@@ -10,21 +10,21 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/as_bits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 #ifdef BOOST_MSVC
 #include <intrin.h>
 #endif
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_, (A0)
                             , (scalar_< type64_<A0> >)
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
       if(!t1.bits) return 0; 
@@ -52,14 +52,14 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)
                             , (scalar_< type32_<A0> >)
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
     #ifdef BOOST_MSVC
@@ -72,18 +72,18 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_ , (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_ , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typename meta::as_bits<A0, unsigned>::type t1 = {a0};
       return boost::simd::ffs(uint32_t(t1.bits));
     }
   };
-} } }
+} }
 
 #endif

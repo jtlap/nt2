@@ -17,9 +17,9 @@
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <iostream>
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
@@ -27,14 +27,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpneq_pd(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
                               ((simd_<float_<A0>,tag::sse_>))
@@ -42,14 +42,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpneq_ps(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<integer_<A0>,tag::sse_>))
                               ((simd_<integer_<A0>,tag::sse_>))
@@ -57,14 +57,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = boost::simd::complement(boost::simd::eq(a0,a1));
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<ints64_<A0>,tag::sse_>))
                               ((simd_<ints64_<A0>,tag::sse_>))
@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
@@ -82,6 +82,6 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 #endif

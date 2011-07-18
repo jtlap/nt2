@@ -12,9 +12,9 @@
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
@@ -22,14 +22,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpge_pd(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
                               ((simd_<float_<A0>,tag::sse_>))
@@ -37,14 +37,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpge_ps(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_equal_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<integer_<A0>,tag::sse_>))
                               ((simd_<integer_<A0>,tag::sse_>))
@@ -52,12 +52,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { boost::simd::complement(boost::simd::lt(a0,a1)) };
       return that;
     }
   };
-} } }
+} }
 
 #endif

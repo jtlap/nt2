@@ -11,19 +11,19 @@
 
 #include <boost/simd/sdk/meta/from_bits.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::max_left_shift_, tag::cpu_,(A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::max_left_shift_, tag::cpu_,(A0)
                             , (target_< scalar_< arithmetic_<A0> > >)
                             )
   {
     typedef typename
             as_integer<typename strip<A0>::type::type,signed>::type  result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type base_t;
@@ -31,6 +31,6 @@ namespace boost { namespace simd { namespace meta
       return splat<result_type>(value);
     }
   };
-} } }
+} }
 
 #endif

@@ -8,22 +8,22 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_AVX_NBTRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_AVX_NBTRUE_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/nbtrue.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::nbtrue_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::nbtrue_, tag::cpu_,
                          (A0),
                          ((simd_<arithmetic_<A0>,tag::avx_>))
                         )
   {
     typedef int32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename simd::native<sctype, tag::sse_ >  svtype;
@@ -38,13 +38,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::nbtrue_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::nbtrue_, tag::cpu_,
                          (A0),
                          ((simd_<double_<A0>,tag::avx_>))
                         )
   {
     typedef int32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       int32_t  r = _mm256_movemask_pd(isnez(a0));
       return   (r&1)+(r>>1&1)+((r>>2)&1)+(r>>3);
@@ -56,13 +56,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::nbtrue_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::nbtrue_, tag::cpu_,
                          (A0),
                          ((simd_<float_<A0>,tag::avx_>))
                         )
   {
     typedef int32_t result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_real<A0>::type type;
       int32_t  r = _mm256_movemask_ps(isnez(a0));
@@ -70,5 +70,5 @@ namespace boost { namespace simd { namespace meta
       //      return __builtin_popcount(_mm_movemask_ps(isnez(cast<type>(a0))));
     }
   };
-} } }
+} }
 #endif

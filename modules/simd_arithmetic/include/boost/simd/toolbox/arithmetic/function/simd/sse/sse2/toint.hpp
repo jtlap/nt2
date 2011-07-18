@@ -8,28 +8,28 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/make.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::toint_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::toint_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef typename meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                             )
   {
     typedef typename meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
       A0 aa0 = b_andnot(a0, is_nan(a0)); 
@@ -40,18 +40,18 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
                             )
   {
     typedef typename meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       A0 aa0 = b_andnot(a0, is_nan(a0)); 
       result_type that = {_mm_cvttps_epi32(aa0)};
       return  sel(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
     }
   };
-} } }
+} }
 
 #endif

@@ -8,16 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TWO_ADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TWO_ADD_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::two_add_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::two_add_, tag::cpu_,
                              (A0)(A1),
                              (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::result_of<meta::floating(A0, A1)>::type rtype;
     typedef typename boost::fusion::tuple<rtype,rtype>             result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       result_type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
@@ -46,6 +46,6 @@ namespace boost { namespace simd { namespace meta
       r1 =  (a-(r0-z))+(b-z);
     }
   };
-} } }
+} }
 
 #endif

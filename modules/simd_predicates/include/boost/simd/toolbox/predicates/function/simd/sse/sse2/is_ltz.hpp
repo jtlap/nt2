@@ -13,41 +13,41 @@
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/simd/include/functions/is_ltz.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return lt(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return lt(a0,Zero<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_, (A0)
                             , ((simd_<unsigned_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return False<A0>();
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_, (A0)
                             , ((simd_<int64_<A0>,tag::sse_>))
                             )
   {
 
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef simd::native<typename meta::int32_t_<A0>::type,tag::sse_> type;
       const type tmp1 = is_ltz(simd::native_cast<type>(a0));
@@ -55,6 +55,6 @@ namespace boost { namespace simd { namespace meta
       return  simd::native_cast<A0>(tmp);
     }
   };
-} } }
+} }
 
 #endif

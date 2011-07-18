@@ -14,34 +14,34 @@
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/sdk/meta/adapted_traits.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rol_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rol_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return shli(a0, a1) | shri(a0, (sizeof(A0)*CHAR_BIT-a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rol_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rol_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typename meta::as_bits<A0>::type t0 = {a0};
       t0.bits = shli(t0.bits,a1) | shri(t0.bits, (sizeof(A0)*CHAR_BIT-a1));
       return t0.value;
     }
   };
-} } }
+} }
 
 #endif

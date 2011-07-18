@@ -13,25 +13,25 @@
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::abs(a0-a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return boost::simd::abs(a0-a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                               ((simd_<unsigned_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)  { return (boost::simd::max(a0, a1)-boost::simd::min(a1,a0)); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)  { return (boost::simd::max(a0, a1)-boost::simd::min(a1,a0)); }
   };
-} } }
+} }
 
 #endif

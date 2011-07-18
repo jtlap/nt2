@@ -10,21 +10,21 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_RDIVIDE_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       if(a1) return a0/a1; else return Zero<result_type>();
     }
   };
-} } }
+} }
 
 
 #ifdef BOOST_MSVC
@@ -32,16 +32,16 @@ namespace boost { namespace simd { namespace meta
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0/a1; }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0/a1; }
   };
-} } }
+} }
 
 #ifdef BOOST_MSVC
   #pragma warning(pop)

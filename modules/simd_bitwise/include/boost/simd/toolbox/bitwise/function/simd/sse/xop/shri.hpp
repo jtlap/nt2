@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_XOP_SHRI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_XOP_SHRI_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/shri.hpp>
 
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0>{};//
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename simd::native<sctype, tag::sse_ >  svtype;
@@ -46,6 +46,6 @@ namespace boost { namespace simd { namespace ext
      }
 
   };
-} } }
+} }
 
 #endif

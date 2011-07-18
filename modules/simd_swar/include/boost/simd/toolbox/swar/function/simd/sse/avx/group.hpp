@@ -10,13 +10,13 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_GROUP_HPP_INCLUDED
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/sdk/meta/downgrade.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<double_<A0>,tag::avx_>))
                         ((simd_<double_<A0>,tag::avx_>))
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace meta
                                         , type1
                                         >::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
       typedef simd::native<float,tag::sse_ >   htype;
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<int32_<A0>,tag::avx_>))
                         ((simd_<int32_<A0>,tag::avx_>))
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace meta
                                         , type1
                                         >::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -89,7 +89,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<int16_<A0>,tag::avx_>))
                         ((simd_<int16_<A0>,tag::avx_>))
@@ -104,7 +104,7 @@ namespace boost { namespace simd { namespace meta
                                         , type1
                                         >::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -128,7 +128,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<uint32_<A0>,tag::avx_>))
                         ((simd_<uint32_<A0>,tag::avx_>))
@@ -143,7 +143,7 @@ namespace boost { namespace simd { namespace meta
                                         , type1
                                         >::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -169,7 +169,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<int64_<A0>,tag::avx_>))
                         ((simd_<int64_<A0>,tag::avx_>))
@@ -191,7 +191,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<uint64_<A0>,tag::avx_>))
                         ((simd_<uint64_<A0>,tag::avx_>))
@@ -213,7 +213,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
                         ((simd_<uint16_<A0>,tag::avx_>))
                         ((simd_<uint16_<A0>,tag::avx_>))
@@ -228,7 +228,7 @@ namespace boost { namespace simd { namespace meta
                                         , type1
                                         >::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
       //     typedef typename meta::same<A0,tag::sse_>::type htype;
@@ -246,5 +246,5 @@ namespace boost { namespace simd { namespace meta
       return r;
     }
   };
-} } }
+} }
 #endif

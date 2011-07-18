@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
@@ -30,9 +30,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -40,20 +40,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
 	return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
       }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
@@ -61,20 +61,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
 	return prev(a0);
       }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ 
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<integer_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
@@ -82,20 +82,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return selsub( le(Valmin<A0>()+boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<real_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
@@ -103,7 +103,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
 	return sel(eq(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-boost::simd::abs(a1)));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
@@ -117,7 +117,7 @@ namespace boost { namespace simd { namespace meta
 //       return sel(is_equal(a0, Inf<A0>()), fac*Valmax<A0>(), a0-fac*diff);
       }
   };
-} } }
+} }
 
 
 #endif

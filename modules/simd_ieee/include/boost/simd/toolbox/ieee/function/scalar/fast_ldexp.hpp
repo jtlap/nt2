@@ -9,17 +9,17 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
@@ -27,20 +27,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
        return (a1>=0)?(a0<<a1):(a0>>a1);
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       // No denormal provision
       typedef typename meta::as_integer<A0, unsigned>::type int_type;
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace meta
       return b_or(x, e);
     }
   };
-} } }
+} }
 
 
 #endif

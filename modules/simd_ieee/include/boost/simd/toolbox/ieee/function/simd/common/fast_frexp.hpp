@@ -8,20 +8,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/fusion/include/vector.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
 				  ,( 
 				     boost::is_same<typename meta::as_integer<A0>::type, A1>
 				  )
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
 				 , ( boost::is_same<typename meta::as_integer<A0>::type, A1>)
                                  , ( tag::fast_frexp_
 				     ( simd_<real_<A0>,X> 
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
                              (A0)(X),
                              ((simd_<arithmetic_<A0>,X>))
                             )
@@ -82,7 +82,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::as_integer<A0, signed>::type  exponent;
     typedef boost::fusion::vector<A0,exponent>        result_type;
      
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
       boost::simd::fast_frexp( a0
@@ -92,5 +92,5 @@ namespace boost { namespace simd { namespace meta
       return res;
     }
   };
-} } }
+} }
 #endif

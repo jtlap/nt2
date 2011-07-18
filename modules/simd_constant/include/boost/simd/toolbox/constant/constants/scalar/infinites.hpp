@@ -16,15 +16,15 @@
 #include <boost/simd/include/constants/properties.hpp>
 
 #define BOOST_SIMD_LOCAL(NAME,DOUBLE,FLOAT,ARITH)                            \
-namespace boost { namespace simd { namespace meta                                        \
+namespace boost { namespace dispatch                                        \
 {                                                                     \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                      \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                      \
                             , (target_< scalar_<double_<A0> > >)      \
                             )                                         \
   {                                                                   \
     typedef typename strip<A0>::type::type result_type;               \
                                                                       \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                               \
+    BOOST_DISPATCH_FUNCTOR_CALL(1)                                               \
     {                                                                 \
       ignore_unused(a0);                                              \
       typename meta::from_bits<result_type>::type const               \
@@ -33,13 +33,13 @@ namespace boost { namespace simd { namespace meta                               
     }                                                                 \
   };                                                                  \
                                                                       \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                      \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                      \
                             , (target_< scalar_<float_<A0> > >)       \
                             )                                         \
   {                                                                   \
     typedef typename strip<A0>::type::type result_type;               \
                                                                       \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                               \
+    BOOST_DISPATCH_FUNCTOR_CALL(1)                                               \
     {                                                                 \
       ignore_unused(a0);                                              \
       typename meta::from_bits<result_type>::type const               \
@@ -48,19 +48,19 @@ namespace boost { namespace simd { namespace meta                               
     }                                                                 \
   };                                                                  \
                                                                       \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                      \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                      \
                             , (target_< scalar_< arithmetic_<A0> > >) \
                             )                                         \
   {                                                                   \
     typedef typename strip<A0>::type::type result_type;               \
                                                                       \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                               \
+    BOOST_DISPATCH_FUNCTOR_CALL(1)                                               \
     {                                                                 \
       ignore_unused(a0);                                              \
       return ARITH;                                                   \
     }                                                                 \
   };                                                                  \
-} } }                                                                   \
+} }                                                                   \
 /**/
 
 BOOST_SIMD_LOCAL(tag::inf_   , 0x7FF0000000000000LL, 0x7F800000, Valmax<result_type>())

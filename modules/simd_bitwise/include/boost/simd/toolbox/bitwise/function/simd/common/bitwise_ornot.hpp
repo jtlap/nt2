@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_ornot_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_ornot_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
@@ -26,8 +26,8 @@ namespace boost { namespace simd { namespace meta
                      )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return b_or(a0,complement(a1)); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return b_or(a0,complement(a1)); }
   };
-} } }
+} }
 
 #endif

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/iceil.hpp>
@@ -17,34 +17,34 @@
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return ceil(tofloat(a0)/tofloat(a1)); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return ceil(tofloat(a0)/tofloat(a1)); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                               ((simd_<unsigned_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return rdivide(a0+a1-One<A0>(), a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return rdivide(a0+a1-One<A0>(), a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                               ((simd_<int16_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename meta::upgrade<stype>::type          itype;
@@ -56,14 +56,14 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                               ((simd_<int8_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename meta::upgrade<stype>::type          itype;
@@ -75,14 +75,14 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return ceil(a0/a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return ceil(a0/a1); }
   };
-} } }
+} }
 
 #endif

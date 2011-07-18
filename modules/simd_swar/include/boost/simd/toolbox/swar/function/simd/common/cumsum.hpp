@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_CUMSUM_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -19,9 +19,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::cumsum_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::cumsum_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type stype;
       static const int size = meta::cardinal_of<A0>::value;
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace meta
       return load<A0>(&tmp[0], 0);
     }
   };
-} } }
+} }
 
 
 #endif

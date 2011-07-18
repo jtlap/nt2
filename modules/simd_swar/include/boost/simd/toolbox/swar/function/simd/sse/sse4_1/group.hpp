@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_,(A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_,(A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
                             )
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::downgrade<stype>::type sftype;
     typedef simd::native<sftype,tag::sse_>        result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<result_type>::type itype;
       result_type z  = {_mm_cvtpd_ps(a1)};
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION  (tag::group_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION  (tag::group_, tag::cpu_, (A0)
                             , ((simd_<ints32_<A0>,tag::sse_>))
                               ((simd_<ints32_<A0>,tag::sse_>))
                             )
@@ -44,13 +44,13 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::downgrade<stype>::type      utype;
     typedef simd::native<utype,tag::sse_>              result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<result_type>(_mm_packs_epi32(a0, a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
                             , ((simd_<int16_<A0>,tag::sse_>))
                               ((simd_<int16_<A0>,tag::sse_>))
                             )
@@ -59,14 +59,14 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::downgrade<stype>::type utype;
     typedef simd::native<utype,tag::sse_>         result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<result_type>(_mm_packs_epi16(a0, a1));
     }
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
                             , ((simd_<uint32_<A0>,tag::sse_>))
                               ((simd_<uint32_<A0>,tag::sse_>))
                             )
@@ -75,14 +75,14 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::downgrade<stype>::type utype;
     typedef simd::native<utype,tag::sse_>         result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       //_mm_packus_epi32 is sse4.1 specific
       return simd::native_cast<result_type>(_mm_packus_epi32(a0, a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
                             , ((simd_<uint16_<A0>,tag::sse_>))
                               ((simd_<uint16_<A0>,tag::sse_>))
                             )
@@ -91,13 +91,13 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::downgrade<stype>::type utype;
     typedef simd::native<utype,tag::sse_>         result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<result_type>(_mm_packus_epi16(a0, a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_, (A0)
                             , ((simd_<ints64_<A0>,tag::sse_>))
                               ((simd_<ints64_<A0>,tag::sse_>))
                             )
@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::downgrade<stype>::type utype;
     typedef simd::native<utype,tag::sse_>         result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       // works only for int64 that are int32 representable
       result_type b = {_mm_slli_si128(simd::native_cast<result_type>(a1),4)};
@@ -114,7 +114,7 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<result_type>(_mm_shuffle_epi32(b, BOOST_SIMD_SH(0, 2, 1, 3)));
     }
   };
-} } }
+} }
 
 #undef BOOST_SIMD_SH
 

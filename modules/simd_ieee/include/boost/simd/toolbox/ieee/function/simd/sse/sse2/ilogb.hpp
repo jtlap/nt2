@@ -21,9 +21,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
                         (A0),
                         ((simd_<signed_<A0>,tag::sse_>))
                        )
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace meta
 //    typedef typename meta::scalar_of<A0>::type sA0;
 //         typedef typename meta::is_signed<sA0>::type sgn;
       typedef typename meta::as_integer<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type vtype;
       static const A0 z = Zero<A0>();
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
                         (A0),
                         ((simd_<uint8_<A0>,tag::sse_>))
                        )
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace meta
 //    typedef typename meta::scalar_of<A0>::type sA0;
 //         typedef typename meta::is_signed<sA0>::type sgn;
       typedef typename meta::as_integer<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef A0 vtype8;
       static const vtype8& o = One<vtype8>();
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
                         (A0),
                         ((simd_<uint32_<A0>,tag::sse_>))
                        )
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace meta
 //    typedef typename meta::scalar_of<A0>::type sA0;
 //         typedef typename meta::is_signed<sA0>::type sgn;
       typedef typename meta::as_integer<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename A0::extension_type cat;
       typedef A0 vtype32;
@@ -141,7 +141,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
                         (A0),
                         ((simd_<uint64_<A0>,tag::sse_>))
                        )
@@ -149,7 +149,7 @@ namespace boost { namespace simd { namespace meta
 //    typedef typename meta::scalar_of<A0>::type sA0;
 //         typedef typename meta::is_signed<sA0>::type sgn;
       typedef typename meta::as_integer<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename A0::extension_type cat;
       typedef simd::native<uint64_t, cat> vtype64;
@@ -162,7 +162,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
                         (A0),
                         ((simd_<uint16_<A0>,tag::sse_>))
                        )
@@ -170,7 +170,7 @@ namespace boost { namespace simd { namespace meta
 //    typedef typename meta::scalar_of<A0>::type sA0;
 //         typedef typename meta::is_signed<sA0>::type sgn;
       typedef typename meta::as_integer<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef A0 vtype16;
       typedef typename A0::extension_type cat;
@@ -203,5 +203,5 @@ namespace boost { namespace simd { namespace meta
       return MKN(16)(is_nez(MKN(8)(xx))&(MKN(8)(xx)-o));
     }
   };
-} } }
+} }
 #endif

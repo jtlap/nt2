@@ -12,12 +12,12 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is upgradeable
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
 				 (A0)(A1)(X),
 				 (boost::mpl::and_ <
 				    boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >,
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace meta
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
 				 (A0)(X),
 				 (boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >),
 				 (tag::split_(simd_<arithmetic_<A0>,X>)),
@@ -61,13 +61,13 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::upgrade<A0>::type rtype;
     typedef boost::fusion::tuple<rtype, rtype> result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
       boost::simd::split(a0,  boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res));
       return res; 
     }
   };
-} } }
+} }
 
 #endif

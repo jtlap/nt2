@@ -19,9 +19,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::arg_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::arg_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
                             )
@@ -29,20 +29,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return (is_ltz(a0))*Pi<result_type>();
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::arg_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::arg_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
@@ -50,21 +50,21 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return Zero<result_type>();
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::arg_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::arg_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
@@ -72,14 +72,14 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;
       if (is_gez(a0)) return Zero<A0>();
       return Pi<A0>();
     }
   };
-} } }
+} }
 
 
 #endif

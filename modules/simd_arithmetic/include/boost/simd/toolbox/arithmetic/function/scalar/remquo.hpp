@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_REMQUO_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/simd/include/functions/remainder.hpp>
@@ -49,14 +48,14 @@
 //       return res; 
 //     }
 //   }; 
-// } } }
+// } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when A0 and A1 types are fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_ < fundamental_<A0> > )
 			     (scalar_ < fundamental_<A1> > )
@@ -66,7 +65,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::as_integer<ftype,signed>::type           quo;
     typedef boost::fusion::tuple<ftype,quo>                 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       result_type res;
       boost::simd::remquo(a0, a1, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
@@ -75,7 +74,7 @@ namespace boost { namespace simd { namespace meta
     
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
 			     (A0)(A1)(A2)(A3),
 			     (scalar_ < arithmetic_<A0> > )
 			     (scalar_ < arithmetic_<A1> > )
@@ -91,6 +90,6 @@ namespace boost { namespace simd { namespace meta
     }
     
   };  
-} } }
+} }
 
 #endif

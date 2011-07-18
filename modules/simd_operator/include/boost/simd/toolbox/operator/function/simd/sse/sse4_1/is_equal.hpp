@@ -14,9 +14,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints64
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_equal_, tag::sse4_1_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_equal_, tag::sse4_1_
                             , (A0)
                             , ((simd_<ints64_<A0>,tag::sse_>))
                               ((simd_<ints64_<A0>,tag::sse_>))
@@ -24,13 +24,13 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_epi64(a0,a1) };
       return that;
     }
   };
-} } }
+} }
 
 
 #endif

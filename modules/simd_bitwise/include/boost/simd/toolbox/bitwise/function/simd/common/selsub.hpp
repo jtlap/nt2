@@ -11,9 +11,9 @@
 
 #include <boost/simd/sdk/meta/size.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::selsub_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::selsub_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -36,6 +36,6 @@ namespace boost { namespace simd { namespace meta
      return a1 - b_and(a2,a0);
     }
   };
-} } }
+} }
 
 #endif

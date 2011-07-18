@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_MODF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_MODF_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-    BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
+    BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
 				  ,( boost::mpl::and_ <
 				     boost::is_same<A0,A1>, 
 				     boost::is_same<A0,A2>
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace meta
       }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(X)
 				  ,(boost::is_same<A0,A1>)
                                 , ( tag::modf_
 				    ( simd_<arithmetic_<A0>,X> 
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace meta
   };
 
     
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
@@ -71,12 +71,12 @@ namespace boost { namespace simd { namespace meta
       typedef typename meta::strip<A0>::type                A00;
       typedef boost::fusion::vector<A00, A00>       result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
       boost::simd::modf(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
   };
-} } }
+} }
 #endif

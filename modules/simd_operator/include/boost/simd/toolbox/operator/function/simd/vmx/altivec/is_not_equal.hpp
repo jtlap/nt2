@@ -12,21 +12,21 @@
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::altivec_>))
                               ((simd_<arithmetic_<A0>,tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = boost::simd::complement(boost::simd::eq(a0,a1));
       return that;
     }
   };
-} } }
+} }
 
 #endif

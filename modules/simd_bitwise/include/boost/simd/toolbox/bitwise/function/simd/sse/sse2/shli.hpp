@@ -10,12 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHLI_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type8_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_> gen_type;
       result_type const
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::shli_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type32_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0,signed>::type sint;
       sint const that = { _mm_slli_epi32(simd::native_cast<sint>(a0),a1)};
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type64_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0,signed>::type sint;
       sint const that ={ _mm_slli_epi64(simd::native_cast<sint>(a0), a1)};
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<type16_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -89,12 +89,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       A0 that = {_mm_slli_epi16(a0, a1)};
       return that;
     }
   };
-} } }
+} }
 
 #endif

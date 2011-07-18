@@ -14,9 +14,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
 			     (A0),
 			     ((simd_<uint16_<A0>,tag::sse_>))
 			     ((simd_<uint16_<A0>,tag::sse_>))
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type; 
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
       {
 	return simd::native_cast<A0>(_mm_adds_epu16(a0, a1)); 
       }
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int16_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
 			     (A0),
 			     ((simd_<int16_<A0>,tag::sse_>))
 			     ((simd_<int16_<A0>,tag::sse_>))
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type; 
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_adds_epi16(a0, a1)); 
     }
@@ -50,14 +50,14 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is uint8_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
 			      , (A0)
 			      , ((simd_<uint8_<A0>,tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
 			      )
   {
     typedef A0 result_type; 
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_adds_epu8(a0, a1)); 
     }
@@ -67,19 +67,19 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
 			      , (A0)
 			      , ((simd_<int8_<A0>,tag::sse_>))((simd_<int8_<A0>,tag::sse_>))
 			      )
   {
     typedef A0 result_type; 
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
       {
 	return simd::native_cast<A0>(_mm_adds_epi8(a0, a1)); 
       }
   };
-} } }
+} }
 
 
 #endif

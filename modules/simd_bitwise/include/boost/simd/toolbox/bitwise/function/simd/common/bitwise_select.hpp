@@ -11,9 +11,9 @@
 
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_select_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_select_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
@@ -37,6 +37,6 @@ namespace boost { namespace simd { namespace meta
       return bitwise_xor(a2, b_and(bitwise_xor(a2, a1),a0));
     }
   };
-} } }
+} }
 
 #endif

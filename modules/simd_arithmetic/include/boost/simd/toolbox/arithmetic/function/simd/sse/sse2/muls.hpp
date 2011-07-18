@@ -26,7 +26,7 @@
 //     template<class Sig> struct result;
 //     template<class This,class A0>
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
-//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     BOOST_DISPATCH_FUNCTOR_CALL(2)
 //     {
 //       A0 aa0 = boost::simd::abs(a0);
 //       A0 aa1 = boost::simd::abs(a1);
@@ -38,7 +38,7 @@
 //       return sel(is_eqz(mulhi), mullo, sel(sign, Valmin<A0>(), Valmax<A0>())); 
 //     }
 //   };
-// } } }
+// } }
   
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is uint16_
@@ -57,12 +57,12 @@
 //     template<class Sig> struct result;
 //     template<class This,class A0>
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
-//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     BOOST_DISPATCH_FUNCTOR_CALL(2)
 //     {
 //       A0 mulhi =  simd::native_cast<A0>(_mm_mulhi_epu16(a0, a1));
 //       A0 mullo =  simd::native_cast<A0>(_mm_mullo_epi16(a0, a1));
 //       return sel(is_eqz(mulhi), mullo, Valmax<A0>()); 
 //     }
 //   };
-// } } }
+// } }
 #endif

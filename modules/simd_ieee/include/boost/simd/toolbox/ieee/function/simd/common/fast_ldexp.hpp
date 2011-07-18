@@ -9,11 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FAST_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FAST_LDEXP_HPP_INCLUDED
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 //
@@ -23,9 +23,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
- BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::fast_ldexp_, tag::cpu_,(A0)(A1)(X)
+ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::fast_ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type; 
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
       {
 	return rshl(a0, a1);
       }
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_ and A1 scalar
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
 			      , (A0)(A1)(X)
 			      , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
 			      )
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef A0 result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
 	return rshl(a0, a1);
       }
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(tag::fast_ldexp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::fast_ldexp_, tag::cpu_,
 				(A0)(A1)(X),
 				(boost::mpl::equal_to<boost::mpl::sizeof_<A0>,
 			  	                      boost::mpl::sizeof_<A1>
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type; 
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
 	// No denormal provision
 	typedef typename meta::scalar_of<result_type>::type             s_type;
@@ -98,7 +98,7 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_ and A1 is scalar
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
 			      , (A0)(A1)(X)
 			      , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
 			      )
@@ -106,13 +106,13 @@ namespace boost { namespace simd { namespace meta
     
     typedef A0 result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
 	typedef typename meta::as_integer<A0>::type iA0; 
 	return fast_ldexp(a0, splat<iA0>(a1)); 
       }
   };
-} } }
+} }
 
 
 #endif

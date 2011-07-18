@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_IF_ELSE_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A1> >)
                               (scalar_< fundamental_<A2> >)
@@ -21,8 +21,8 @@ namespace boost { namespace simd { namespace meta
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 ? a1 : a2)
     typedef typename nested::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3) { return a0 ? a1 : a2; }
+    BOOST_DISPATCH_FUNCTOR_CALL(3) { return a0 ? a1 : a2; }
   };
-} } }
+} }
 
 #endif

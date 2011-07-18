@@ -8,17 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_LOOKUP_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::lookup_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::lookup_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))((simd_<integer_<A1>,tag::sse_>))
                             )
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace meta
       return boost::simd::load<A0>(&tmp1[0], 0);
     }
   };
-} } }
+} }
 
 
 

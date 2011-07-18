@@ -12,21 +12,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // operator binary shift right
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/as_unsigned.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_, (A0)(A1)
                             , ((simd_<integer_<A0>,tag::altivec_>))
                               ((simd_<integer_<A1>,tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)  
+    BOOST_DISPATCH_FUNCTOR_CALL(2)  
     { 
      typedef typename meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);
@@ -35,14 +35,14 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_, (A0)(A1)
                             , ((simd_<float_<A0>,tag::altivec_>))
                               ((simd_<ints32_<A1>,tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2) 
+    BOOST_DISPATCH_FUNCTOR_CALL(2) 
    { 
      typedef typename meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);
@@ -51,6 +51,6 @@ namespace boost { namespace simd { namespace meta
      return that;  
    }
   };
-} } }
+} }
 
 #endif

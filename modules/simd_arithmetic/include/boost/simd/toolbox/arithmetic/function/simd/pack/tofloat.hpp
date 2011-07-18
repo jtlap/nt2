@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_PACK_TOFLOAT_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/simd/pack/meta/retarget.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ namespace boost { namespace simd
 ////////////////////////////////////////////////////////////////////////////////
 // Say to compute that tofloat_ need to retarget its inner evaluation process
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
   template<class Target>
   struct  compute<tag::tofloat_,Target>
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace meta
               >
   {};
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
                             , ((expr_<A0, domain_< simd::domain<T,C> >,Tag,S>))
                             )
   {
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace meta
                               , typename meta::strip<A0>::type const&
               >::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<T>::type real_type;
       return boost::proto::make_expr< tag::tofloat_
@@ -65,6 +65,6 @@ namespace boost { namespace simd { namespace meta
                                     >( boost::cref(a0) );
     }
   };
-} } }
+} }
 
 #endif

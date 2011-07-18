@@ -16,16 +16,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
                           (A0)(X),
                           ((simd_<real_<A0>,X>))
                           ((simd_<real_<A0>,X>))
                          )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::add(a0, a1);
     }
@@ -36,14 +36,14 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
                           (A0)(X),
                           ((simd_<uint_<A0>,X>))
                           ((simd_<uint_<A0>,X>))
                          )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
       return b_or(a0pa1, lt(a0pa1, a0)); 
@@ -56,14 +56,14 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
                           (A0)(X),
                           ((simd_<int_<A0>,X>))
                           ((simd_<int_<A0>,X>))
                          )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 gtza0 = is_gtz(a0);
       A0 gtza1 = is_gtz(a1);
@@ -73,5 +73,5 @@ namespace boost { namespace simd { namespace meta
       return sel(test1,Valmax<A0>(),sel(test2,Valmin<A0>(),a0pa1)); 
     }
   };
-} } }
+} }
 #endif

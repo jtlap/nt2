@@ -13,27 +13,27 @@
 #include <boost/simd/sdk/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< integer_<A0> >)
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return (is_ltz(a0))?Zero<A0>():(One<A0>()<<a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return One<A0>()<<a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return One<A0>()<<a0; }
   };
-} } }
+} }
 
 #endif

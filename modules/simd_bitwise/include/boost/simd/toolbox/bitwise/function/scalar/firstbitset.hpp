@@ -10,33 +10,33 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_FIRSTBITSET_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/as_bits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/firstbitunset.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::firstbitset_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::firstbitset_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0 & (~a0+One<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0 & (~a0+One<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::firstbitset_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::firstbitset_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_bits<A0, signed>::type type;
       type that = {a0};
       return firstbitset(that.bits);
     }
   };
-} } }
+} }
 
 #endif

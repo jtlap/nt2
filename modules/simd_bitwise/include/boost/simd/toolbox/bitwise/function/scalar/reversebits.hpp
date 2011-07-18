@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_REVERSEBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_REVERSEBITS_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints8_<A0> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint8_t b; } trick;
       trick z = {a0};
@@ -27,14 +27,14 @@ namespace boost { namespace simd { namespace meta
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints64_<A0> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint32_t b[2]; } trick;
       trick z = {a0};
@@ -45,14 +45,14 @@ namespace boost { namespace simd { namespace meta
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints16_<A0> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint8_t b[2]; } trick;
       trick z = {a0};
@@ -63,14 +63,14 @@ namespace boost { namespace simd { namespace meta
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints32_<A0> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint16_t b[2]; } trick;
       trick z = {a0};
@@ -80,6 +80,6 @@ namespace boost { namespace simd { namespace meta
       return z.a;
       }
   };
-} } }
+} }
 
 #endif

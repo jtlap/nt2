@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSSE3_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSSE3_LOOKUP_HPP_INCLUDED
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
                          ((simd_<type8_<A0>,tag::sse_>))
                          ((simd_<ints8_<A1>,tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
       return simd::native_cast<A0>(_mm_shuffle_epi8(a0, a1));
       }
@@ -34,14 +34,14 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
                          ((simd_<type32_<A0>,tag::sse_>))
                          ((simd_<ints32_<A1>,tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
       typedef typename simd::native<int8_t, tag::sse_> type8;
         const type8 inc = {{0x302010003020100LL,0x302010003020100LL}};
@@ -57,14 +57,14 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
 		      (A0)(A1),
                          ((simd_<type64_<A0>,tag::sse_>))
                          ((simd_<ints64_<A1>,tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
       typedef typename simd::native<int8_t, tag::sse_> type8;
 //    const v128_int8_t inc(0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7 );
@@ -82,14 +82,14 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
                          ((simd_<type16_<A0>,tag::sse_>))
                          ((simd_<ints16_<A1>,tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
       typedef typename simd::native<int8_t, tag::sse_> type8;
 //    const type8 inc(0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1);
@@ -101,5 +101,5 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A0>(r);
       }
   };
-} } }
+} }
 #endif

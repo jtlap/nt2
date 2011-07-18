@@ -14,9 +14,9 @@
 #include <boost/simd/sdk/functor/meta/call.hpp>
 #include <boost/simd/toolbox/predicates/function/is_not_less.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::logical_not_ , tag::recognition_, (A0)(Dom)(Sema)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_not_ , tag::recognition_, (A0)(Dom)(Sema)
 			      , ((expr_<A0,Dom,tag::is_less_,Sema>))
 			      )
   {
@@ -24,11 +24,11 @@ namespace boost { namespace simd { namespace meta
           typename boost::proto::result_of::child_c<A0, 0>::type
         ) >::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return is_not_less(boost::proto::child_c<0>(a0));
     }
   };
-} } }
+} }
 
 #endif

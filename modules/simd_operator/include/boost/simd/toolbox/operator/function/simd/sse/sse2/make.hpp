@@ -17,9 +17,9 @@
 //==============================================================================
 // make for double
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , ((target_< simd_< double_<A0>, tag::sse_ > >))
                             )
   {
@@ -32,14 +32,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // make for 64bits integers
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , ((target_< simd_< ints64_<A0>, tag::sse_ > >))
                             )
   {
@@ -58,14 +58,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // make for float
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , ((target_< simd_< float_<A0>, tag::sse_ > >))
                             )
   {
@@ -78,14 +78,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // make for 32 bits integer
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , ((target_< simd_< ints32_<A0>, tag::sse_ > >))
                             )
   {
@@ -98,14 +98,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // make for 16 bits integer
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , ((target_< simd_< ints16_<A0>, tag::sse_ > >))
                             )
   {
@@ -122,14 +122,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // make for 8 bits integer
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , ((target_< simd_< ints8_<A0>, tag::sse_ > >))
                             )
   {
@@ -153,6 +153,6 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 #endif

@@ -14,9 +14,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is downgradable
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename meta::downgrade<A0>::type> >),
                           (tag::group_(simd_<arithmetic_<A0>,X>
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::downgrade<A0>::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       static const int size = meta::cardinal_of<A0>::value;
       BOOST_SIMD_ALIGNED_TYPE(typename meta::scalar_of<result_type>::type) tmp[size*2];
@@ -42,5 +42,5 @@ namespace boost { namespace simd { namespace meta
       return load<result_type>(&tmp[0], 0);
     }
   };
-} } }
+} }
 #endif

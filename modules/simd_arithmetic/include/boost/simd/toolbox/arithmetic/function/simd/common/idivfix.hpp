@@ -13,24 +13,24 @@
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::rdivide(a0, a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return boost::simd::rdivide(a0, a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
   {
     typedef typename meta::as_integer < A0 > ::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::toint(boost::simd::trunc(a0/a1)); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return boost::simd::toint(boost::simd::trunc(a0/a1)); }
   };
-} } }
+} }
 
 #endif

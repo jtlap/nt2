@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ltz_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -25,13 +25,13 @@ namespace boost { namespace simd { namespace meta
 
     typedef bool result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::strip<A0>::type stA0; 
       return a0 < Zero<stA0>();
     }
   };
-} } }
+} }
 
 
 #endif

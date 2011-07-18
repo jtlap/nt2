@@ -27,7 +27,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
 
   template < class T, class I = typename meta::as_integer<T, signed>::type>
@@ -57,14 +57,14 @@ namespace boost { namespace simd { namespace meta
     static inline int_type M1() { return (0xffffffff00000000ll);};
   };
 
- BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::hypot_, tag::cpu_,
+ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::hypot_, tag::cpu_,
                        (A0)(A1),
                        (scalar_<fundamental_<A0> >)(scalar_<fundamental_<A1> >)
                       )
  {
    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef result_type ftype;
       return internal(ftype(a0), ftype(a1)); 
@@ -134,6 +134,6 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-} } }
+} }
 
 #endif

@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rec_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rec_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef result_type type;
       return a0 ? One<type>()/a0 : Inf<type>();
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace meta
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rec_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rec_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
@@ -48,12 +48,12 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return One<result_type>()/a0;
     }
   };
-} } }
+} }
 
 #ifdef BOOST_MSVC
   #pragma warning(pop)

@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_COMPARE_NOT_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_COMPARE_NOT_EQUAL_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::compare_not_equal_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_not_equal_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::altivec_>))
                               ((simd_<arithmetic_<A0>,tag::altivec_>))
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return vec_any_ne(a0(),a1()); }
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return vec_any_ne(a0(),a1()); }
   };
-} } }
+} }
 
 #endif

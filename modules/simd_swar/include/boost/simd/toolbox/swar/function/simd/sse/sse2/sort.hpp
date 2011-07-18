@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/minimum.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
 #include <boost/simd/include/functions/make.hpp>
@@ -18,15 +18,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<type32_<A0>,tag::sse_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_real<A0>::type flt;
       A0 a =  {a0};
@@ -57,16 +57,16 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<type64_<A0>,tag::sse_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       return make<A0>(minimum(a0), maximum(a0));
     }
   };
-} } }
+} }
 #endif

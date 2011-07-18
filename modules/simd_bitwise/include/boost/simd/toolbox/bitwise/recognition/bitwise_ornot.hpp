@@ -11,12 +11,12 @@
 
 #include <boost/simd/sdk/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/bitwise/function/bitwise_ornot.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_ , tag::recognition_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_ , tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , (unspecified_<A0>)
                               ((expr_<A1,Dom,tag::complement_,Sema>))
@@ -29,13 +29,13 @@ namespace boost { namespace simd { namespace meta
                                             )
                       >::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return bitwise_ornot(a0, boost::proto::child_c<0>(a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::bitwise_or_ , tag::recognition_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::bitwise_or_ , tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , ((expr_<A0,Dom,tag::complement_,Sema>))
                               (unspecified_<A1>)
@@ -48,11 +48,11 @@ namespace boost { namespace simd { namespace meta
                                             )
                       >::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return bitwise_ornot(a1, boost::proto::child_c<0>(a0));
     }
   };
-} } }
+} }
 
 #endif

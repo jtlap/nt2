@@ -15,9 +15,9 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , (unspecified_<A0>)
                               ((target_< simd_< unspecified_<A1>, X > >))
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename A1::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<result_type>::type sA1;
       
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace meta
       return load<result_type>(&tmp[0], 0);
     }
   };
-} } }
+} }
 
 
 #endif

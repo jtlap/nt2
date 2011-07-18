@@ -11,9 +11,9 @@
 
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::rror_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::rror_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
@@ -27,8 +27,8 @@ namespace boost { namespace simd { namespace meta
                      )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return map(functor<tag::rror_>(), a0, a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return map(functor<tag::rror_>(), a0, a1); }
   };
-} } }
+} }
 
 #endif

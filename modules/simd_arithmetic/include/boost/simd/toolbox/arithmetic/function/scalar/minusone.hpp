@@ -16,9 +16,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::minusone_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::minusone_, tag::cpu_,
 			     (A0),
 			     (scalar_ < arithmetic_<A0> > )
 			     )
@@ -26,12 +26,12 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::result_of<meta::arithmetic(A0)>::type tmp;
     typedef typename meta::as_signed<tmp>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return result_type(a0)-One<result_type>();
     }
 
   };
-} } }
+} }
 
 #endif

@@ -10,16 +10,16 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_SHIFT_RIGHT_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native_cast.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 #include <boost/mpl/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::shift_right_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::shift_right_, tag::cpu_,
                                   (A0)(A1)(X),
                                   ( boost::mpl::and_<
                                     boost::mpl::not_< boost::is_same<A0, A1> >
@@ -38,13 +38,13 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0>::type int_type;
       return  simd::
               native_cast<A0>(shift_right(simd::native_cast<int_type>(a0), a1));
     }
   };
-} } }
+} }
 
 #endif

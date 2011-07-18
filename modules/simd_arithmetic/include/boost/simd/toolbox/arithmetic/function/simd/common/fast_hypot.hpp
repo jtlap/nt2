@@ -8,11 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/max.hpp>
@@ -25,9 +25,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fast_hypot_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::fast_hypot(tofloat(a0), tofloat(a1));
     }
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fast_hypot_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_real<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace meta
       return sel(ge(xx*Eps<A0>(), yy), xx, r);
    }
   };
-} } }
+} }
 
 
 #endif

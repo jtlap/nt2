@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_LOGICAL_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_LOGICAL_OR_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_not_equal.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::logical_or_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_or_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
                             )
@@ -24,12 +24,12 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return boost::simd::neq( (a0 | a1), boost::simd::Zero<A0>() );
     }
   };
-} } }
+} }
 
 
 #endif

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_COMPARATOR_HPP_INCLUDED
 #include <boost/mpl/vector.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/any.hpp>
@@ -18,9 +18,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::comparator_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::comparator_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<arithmetic_<A0>,X>))
                              ((simd_<arithmetic_<A0>,X>))
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::comparator_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::comparator_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_<arithmetic_<A0>,X>))
                              ((simd_<arithmetic_<A0>,X>))
@@ -63,5 +63,5 @@ namespace boost { namespace simd { namespace meta
       return res; 
     }
   };
-} } }
+} }
 #endif

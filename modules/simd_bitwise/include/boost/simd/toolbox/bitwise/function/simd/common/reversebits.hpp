@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
-#include <boost/simd/sdk/meta/strip.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/sdk/meta/downgrade.hpp>
@@ -17,16 +17,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
@@ -42,22 +42,22 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A0>(v);
       }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
@@ -82,22 +82,22 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A0>(v);
       }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
@@ -116,22 +116,22 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A0>(v);
       }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int32_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0, unsigned>::type utype;
       utype v = simd::native_cast<utype>(a0);
@@ -153,6 +153,6 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A0>(v);
       }
   };
-} } }
+} }
 
 #endif

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>
@@ -20,9 +20,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
                             , (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
@@ -30,20 +30,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef bool result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return hmsb(is_eqz(a0)) == 0;
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
                             , (A0)
                             , ((simd_<uint8_<A0>,tag::sse_>))
                             )
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef bool result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
@@ -61,15 +61,15 @@ namespace boost { namespace simd { namespace meta
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l))) == 0;
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
                             , (A0)
                             , ((simd_<int8_<A0>,tag::sse_>))
                             )
@@ -77,7 +77,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef bool result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace meta
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l)))== 0;
     }
   };
-} } }
+} }
 
 
 #endif

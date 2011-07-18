@@ -8,16 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SELECT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( tag::select_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::select_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
@@ -40,6 +40,6 @@ namespace boost { namespace simd { namespace meta
       return b_or(b_and(a1,a0),b_andnot(a2,a0));
     }
   };
-} } }
+} }
 
 #endif

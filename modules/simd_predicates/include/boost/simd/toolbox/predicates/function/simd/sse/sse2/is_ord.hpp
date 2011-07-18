@@ -10,45 +10,45 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_ORD_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_ord_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ord_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                               ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       ignore_unused((a0,a1)); return True<A0>();
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_, (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpord_pd(a0,a1)}; return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_, (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
                               ((simd_<float_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpord_ps(a0,a1)}; return that;
     }
   };
-} } }
+} }
 
 #endif

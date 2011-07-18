@@ -8,22 +8,22 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_SORT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_SORT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/sort.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<arithmetic_<A0>,tag::avx_>))
                       )
   {
     typedef A0 result_type;
   };
-} } }
+} }
 #endif

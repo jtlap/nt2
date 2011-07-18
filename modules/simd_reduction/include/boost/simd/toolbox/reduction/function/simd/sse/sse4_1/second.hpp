@@ -13,21 +13,21 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is ints64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::second_, tag::sse4_1_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::second_, tag::sse4_1_,
                          (A0),
                          ((simd_<ints64_<A0>,tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type type;
       type z = {_mm_extract_epi64(a0, 1)};
       return z;
     }
   };
-} } }
+} }
 #endif
 #endif

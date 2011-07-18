@@ -11,13 +11,13 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::two_split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::two_split_, tag::cpu_,
                             (A0)(X),
                             ((simd_<arithmetic_<A0>,X>))
                            )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace meta
       typedef typename meta::strip<A0>::type                    str_t;
       typedef typename boost::fusion::tuple<str_t, str_t>        result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       result_type res;
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
@@ -41,5 +41,5 @@ namespace boost { namespace simd { namespace meta
       r1 = a-r0;
     }
   };
-} } }
+} }
 #endif

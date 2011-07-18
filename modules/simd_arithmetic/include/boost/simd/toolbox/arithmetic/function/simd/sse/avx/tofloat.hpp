@@ -8,26 +8,26 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/tofloat.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<int32_<A0>,tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
       type that = { _mm256_cvtepi32_ps(a0)};
@@ -40,13 +40,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<uint64_<A0>,tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_real<A0>::type  result_type;
       result_type const v = {a0[0], a0[1], a0[2], a0[3]};
@@ -59,13 +59,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<real_<A0>,tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       return a0;
     }
@@ -76,13 +76,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<uint32_<A0>,tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_real<A0>::type  result_type;
       typedef typename meta::scalar_of<A0>::type stype;
@@ -102,18 +102,18 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<int64_<A0>,tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_real<A0>::type  type;
       type const v = {a0[0], a0[1], a0[2], a0[3]};
       return v;
     }
   };
-} } }
+} }
 #endif

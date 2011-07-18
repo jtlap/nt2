@@ -13,15 +13,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_equal_with_equal_nans_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_equal_with_equal_nans_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return b_or(eq(a0,a1), b_and(boost::simd::is_nan(a0), boost::simd::is_nan(a1)));
     }
@@ -30,18 +30,18 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is integer_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_equal_with_equal_nans_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_equal_with_equal_nans_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<integer_<A0>,X>))
 			     ((simd_<integer_<A0>,X>))
 			     )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return eq(a0,a1);
     }
   };
-} } }
+} }
 
 #endif

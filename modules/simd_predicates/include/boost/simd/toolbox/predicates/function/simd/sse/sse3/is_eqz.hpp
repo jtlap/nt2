@@ -12,23 +12,23 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
                             , ((simd_<int64_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef simd::native <typename  meta::int32_t_<A0>::type, tag::sse_ > itype;
       typedef simd::native <typename  meta::float__<A0>::type , tag::sse_ > ftype;
@@ -39,6 +39,6 @@ namespace boost { namespace simd { namespace meta
       return b_and(l,h);
     }
   };
-} } }
+} }
 
 #endif

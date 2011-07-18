@@ -26,18 +26,18 @@ namespace boost { namespace simd { namespace details
     unsigned int mgt = boost::simd::reversebits(mask_gt);
     return (mlt > mgt) && mlt; 
   }
-} } }
+} }
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_pd(gt(a0,a1));
@@ -45,14 +45,14 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
                               ((simd_<float_<A0>,tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_ps(gt(a0,a1));
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
                             , (A0)
                             , ((simd_<integer_<A0>,tag::sse_>))
                               ((simd_<integer_<A0>,tag::sse_>))
@@ -68,13 +68,13 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_epi8(gt(a0,a1));
       return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
-} } }
+} }
 
 #endif

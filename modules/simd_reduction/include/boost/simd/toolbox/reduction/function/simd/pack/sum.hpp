@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_PACK_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_PACK_SUM_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/dsl/terminal_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is expression of pack
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::sum_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sum_, tag::cpu_
                             , (A0)(T)(Card)(Tag)(Sema)
                             , ((expr_<A0, domain_< simd::domain<T,Card> >, Tag, Sema>))
                             )
@@ -26,14 +26,14 @@ namespace boost { namespace simd { namespace meta
 
     typedef T result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typename boost::mpl::apply< meta::terminal_of<A0>, T>::type  that;
       that = a0;
       return boost::simd::sum(that.value().value());
     }
   };
-} } }
+} }
 
 
 #endif

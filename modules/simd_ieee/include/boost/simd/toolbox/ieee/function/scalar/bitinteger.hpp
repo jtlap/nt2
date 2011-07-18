@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_BITINTEGER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_BITINTEGER_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
@@ -18,9 +18,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::bitinteger_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitinteger_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_bits<A0, signed>::type type;
       typedef typename meta::as_integer<A0, signed>::type itype;
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace meta
       return is_positive(a0) ? that.bits : Signmask<itype>()-that.bits;
     }
   };
-} } }
+} }
 
 
 #endif

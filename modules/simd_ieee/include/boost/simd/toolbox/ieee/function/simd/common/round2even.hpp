@@ -15,23 +15,23 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/select.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       const result_type v   = boost::simd::abs(a0);
       const result_type t2n = Two2nmb<A0>();
@@ -41,6 +41,6 @@ namespace boost { namespace simd { namespace meta
       return (d1^bitofsign(a0));
     }
   };
-} } }
+} }
 
 #endif

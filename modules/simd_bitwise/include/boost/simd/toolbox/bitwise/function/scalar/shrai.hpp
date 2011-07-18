@@ -10,35 +10,35 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHRAI_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/as_bits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 >> a1; }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 >> a1; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
                             , (scalar_< unsigned_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 >> a1; }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 >> a1; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_bits<A0, signed>::type type;
       type that = {a0};
@@ -46,6 +46,6 @@ namespace boost { namespace simd { namespace meta
       return that.value;
     }
   };
-} } }
+} }
 
 #endif

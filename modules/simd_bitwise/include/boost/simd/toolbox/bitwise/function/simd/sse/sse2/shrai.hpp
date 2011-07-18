@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRAI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRAI_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/group.hpp>
@@ -18,9 +18,9 @@
 
 #include <boost/simd/toolbox/bitwise/function/simd/common/shrai.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<int32_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0,signed>::type sint;
       sint const that = {_mm_srai_epi32(simd::native_cast<sint>(a0), a1)};
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<int16_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0,signed>::type sint;
       sint const that =  {_mm_srai_epi16(simd::native_cast<sint>(a0), a1)};
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<int8_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef simd::native<typename meta::int16_t_<A0>::type,tag::sse_> gen_type;
       gen_type a0h, a0l;
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<int64_<A0>,tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -77,11 +77,11 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return make<A0>(shrai(a0[0], a1), shrai(a0[1], a1));
     }
   };
-} } }
+} }
 
 #endif

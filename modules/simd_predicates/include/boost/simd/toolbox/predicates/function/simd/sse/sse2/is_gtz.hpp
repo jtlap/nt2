@@ -10,35 +10,35 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_GTZ_HPP_INCLUDED
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return gt(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return gt(a0,Zero<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
                           , ((simd_<unsigned_<A0>,tag::sse_>))
                           )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1){ return is_nez(a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1){ return is_nez(a0); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
                             , ((simd_<int64_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef simd::native<typename meta::int32_t_<A0>::type, tag::sse_> type;
       const type tmp1 = is_ltz(simd::native_cast<type>(a0));
@@ -46,6 +46,6 @@ namespace boost { namespace simd { namespace meta
       return b_not(simd::native_cast<A0>(tmp)); 
     }
   };
-} } }
+} }
 
 #endif

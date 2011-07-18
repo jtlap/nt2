@@ -11,67 +11,67 @@
 
 #include <boost/simd/include/functions/seladd.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                               ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
        return seladd(gt(a0,a1),a0,a1-a0);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_, (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  {_mm_min_pd(a0,a1)}; return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))((simd_<float_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  {_mm_min_ps(a0,a1)}; return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
                             , (A0)
                             , ((simd_<int16_<A0>,tag::sse_>))((simd_<int16_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  { _mm_min_epi16(a0,a1)}; return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
                             , (A0)
                             , ((simd_<uint8_<A0>,tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
          A0 that =  {_mm_min_epu8(a0,a1)}; return that;
     }
   };
-} } }
+} }
 
 #endif

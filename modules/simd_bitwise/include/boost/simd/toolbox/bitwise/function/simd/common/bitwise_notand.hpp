@@ -12,9 +12,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_ of same size
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_notand_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_notand_, tag::cpu_,
                                 (A0)(A1)(X),
                                 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>, boost::mpl::sizeof_<A1> >),
                                 (tag::bitwise_notand_( simd_<arithmetic_<A0>, X>
@@ -27,12 +27,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return bitwise_and(complement(a0), a1);
     }
 
   };
-} } }
+} }
 
 #endif

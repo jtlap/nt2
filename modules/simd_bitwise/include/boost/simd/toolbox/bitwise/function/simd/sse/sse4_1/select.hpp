@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE4_1_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE4_1_SELECT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A1>,X>))
@@ -32,12 +32,12 @@ namespace boost { namespace simd { namespace meta
                                   );
     }
   };
-} } }
+} }
 
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<float_<A1>,X>))
@@ -51,11 +51,11 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A1>(_mm_blendv_ps(a2, a1, simd::native_cast<A1>(a0))); 
     }
   };
-} } }
+} }
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<double_<A1>,X>))
@@ -69,6 +69,6 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A1>(_mm_blendv_pd(a2, a1, simd::native_cast<A1>(a0))); 
     }
   };
-} } }
+} }
 
 #endif

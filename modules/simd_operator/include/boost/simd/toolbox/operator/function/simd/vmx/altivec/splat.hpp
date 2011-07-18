@@ -13,16 +13,16 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_<simd_<arithmetic_<A1>,tag::altivec_> >))
                             )
   {
     typedef typename A1::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typename result_type::extraction_type v;
       v.s[0] = a0;
@@ -30,6 +30,6 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 #endif

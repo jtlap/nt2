@@ -10,11 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_LO_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/downgrade.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::lo_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::lo_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
 
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace meta
             downgrade < typename meta::as_integer<A0,unsigned>::type
                       >::type  result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type type;
       BOOST_STATIC_CONSTANT(type, shift = sizeof(type)*4);
@@ -31,6 +31,6 @@ namespace boost { namespace simd { namespace meta
       return b_and(pattern, a0);
     }
   };
-} } }
+} }
 
 #endif

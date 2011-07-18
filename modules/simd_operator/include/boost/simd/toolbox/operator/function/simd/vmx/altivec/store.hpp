@@ -16,9 +16,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/memory/details/category.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
                             , ((simd_< arithmetic_<A0>, tag::altivec_ >))
                               (iterator_< scalar_< arithmetic_<A1> > >)
                               (scalar_< integer_<A2> >)
@@ -26,12 +26,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       vec_st(a0.data_, a2*16, a1);
       return a0;
     }
   };
-} } }
+} }
 
 #endif

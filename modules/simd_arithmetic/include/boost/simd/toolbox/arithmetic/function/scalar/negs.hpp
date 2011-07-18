@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_NEGS_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::negs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::negs_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
                             )
@@ -19,21 +19,21 @@ namespace boost { namespace simd { namespace meta
 
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       return (a0 == Valmin<A0>()) ? Valmax<A0>() : -a0; 
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::negs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::negs_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return -a0;  }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return -a0;  }
   };
-} } }
+} }
 
 
 #endif

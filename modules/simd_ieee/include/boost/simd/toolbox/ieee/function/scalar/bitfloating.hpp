@@ -9,20 +9,20 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_BITFLOATING_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_BITFLOATING_HPP_INCLUDED
 #include <boost/simd/sdk/meta/from_bits.hpp>
-#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::bitfloating_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::bitfloating_, tag::cpu_,
                              (A0),
                              (scalar_<arithmetic_<A0> > )
                             )
   {
  typedef typename meta::as_real<A0>::type result_type; 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef result_type           rtype;
       typedef typename meta::from_bits<rtype>::type       type;
@@ -41,18 +41,18 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::bitfloating_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::bitfloating_, tag::cpu_,
                              (A0),
                              (scalar_<unsigned_<A0> > )
                             )
   {
  typedef typename meta::as_real<A0>::type result_type; 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef result_type rtype;
       typename meta::from_bits<rtype, signed>::type  that =  {a0};
       return that.value;
     }
   };
-} } }
+} }
 #endif

@@ -22,9 +22,9 @@
 //==============================================================================
 // load vector of double
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename A2::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
       result_type
@@ -41,14 +41,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // load vector of float
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename A2::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
       result_type
@@ -65,14 +65,14 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 //==============================================================================
 // load vector of integer
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename A2::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
       result_type
@@ -89,7 +89,7 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 
 #include <boost/simd/toolbox/operator/function/simd/sse/sse2/load_offset.hpp>

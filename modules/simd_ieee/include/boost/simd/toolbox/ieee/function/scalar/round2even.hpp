@@ -13,23 +13,23 @@
 #include <boost/simd/include/functions/bitofsign.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_ , (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_ , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_ , (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_ , (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       const result_type v = boost::simd::abs(a0);
       const result_type t2n = Two2nmb<result_type>();
@@ -39,6 +39,6 @@ namespace boost { namespace simd { namespace meta
       return a0 < 0? -d : d;
     }
   };
-} } }
+} }
 
 #endif

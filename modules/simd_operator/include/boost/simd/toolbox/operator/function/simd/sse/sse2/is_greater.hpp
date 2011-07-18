@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/downgrade.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
@@ -18,9 +18,9 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A0>,tag::sse_>))
@@ -28,14 +28,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_pd(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,tag::sse_>))
                               ((simd_<float_<A0>,tag::sse_>))
@@ -43,14 +43,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_ps(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<unsigned_<A0>,tag::sse_>))
                               ((simd_<unsigned_<A0>,tag::sse_>))
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_integer<A0, signed>::type stype;
       return  simd::native_cast<A0>
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<int8_<A0>,tag::sse_>))
                               ((simd_<int8_<A0>,tag::sse_>))
@@ -77,14 +77,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi8(a0,a1)  };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<int16_<A0>,tag::sse_>))
                               ((simd_<int16_<A0>,tag::sse_>))
@@ -92,14 +92,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi16(a0,a1)  };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<int32_<A0>,tag::sse_>))
                               ((simd_<int32_<A0>,tag::sse_>))
@@ -107,14 +107,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi32(a0,a1)  };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::cpu_
                             , (A0)
                             , ((simd_<int64_<A0>,tag::sse_>))
                               ((simd_<int64_<A0>,tag::sse_>))
@@ -122,7 +122,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::downgrade<A0, signed>::type type;
       type sa0 = { a0 };
@@ -136,6 +136,6 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 #endif

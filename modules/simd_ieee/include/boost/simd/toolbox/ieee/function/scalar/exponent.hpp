@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_EXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_EXPONENT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 
@@ -24,9 +24,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
                             )
@@ -34,13 +34,13 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       if (is_invalid(a0)) return Zero<A0>(); 
       return a0 ? ::ilogb(a0) : Zero<A0>();
     }
   };
-} } }
+} }
 
 #endif
 
@@ -48,9 +48,9 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
                             , (A0)
                             , (scalar_< float_<A0> >)
                             )
@@ -58,22 +58,22 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       if (is_invalid(a0) || is_eqz(a0)) return Zero<A0>(); 
       return ilogbf(a0); 
     }
   };
-} } }
+} }
 
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
@@ -81,14 +81,14 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       const int nmb= Nbmantissabits<A0>();
       const result_type x = shri(exponentbits(a0), nmb);
       return x-b_and(Maxexponent<A0>(), A0(is_nez(a0)));
     }
   };
-} } }
+} }
 
 
 #endif

@@ -17,9 +17,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fma_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fma_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< arithmetic_<A2> >)
                             )
@@ -27,20 +27,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::arithmetic(A0,A1,A2)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       return a0*a1+a2;
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fma_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fma_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< double_<A0> >)(scalar_< double_<A1> >)(scalar_< double_<A2> >)
                             )
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::arithmetic(A0,A1,A2)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
 //       A0 p, rp, s, rs;
 //       boost::fusion::tie(p, rp) = two_prod(a0, a1);
@@ -59,15 +59,15 @@ namespace boost { namespace simd { namespace meta
       //         return ::fma(a0, a1, a2);
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::fma_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fma_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< float_<A0> >)(scalar_< float_<A1> >)(scalar_< float_<A2> >)
                             )
@@ -75,7 +75,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::arithmetic(A0,A1,A2)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
 //       A0 p, rp, s, rs;
 //       boost::fusion::tie(p, rp) = two_prod(a0, a1);
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace meta
       //         return ::fma(a0, a1, a2);
     }
   };
-} } }
+} }
 
 
 #endif

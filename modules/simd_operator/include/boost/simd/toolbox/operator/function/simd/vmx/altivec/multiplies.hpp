@@ -13,16 +13,16 @@
 #include <boost/simd/sdk/meta/upgrade.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
                             , ((simd_<float_<A0>,tag::altivec_>))
                               ((simd_<float_<A0>,tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { vec_madd(a0(),a1(),Zero<A0>()()) };
       return that;
@@ -30,26 +30,26 @@ namespace boost { namespace simd { namespace meta
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
                             , ((simd_<type16_<A0>,tag::altivec_>))
                               ((simd_<type16_<A0>,tag::altivec_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { vec_mladd(a0(),a1(),Zero<A0>()()) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_, (A0)
                             , ((simd_<type8_<A0>,tag::altivec_>))
                               ((simd_<type8_<A0>,tag::altivec_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::upgrade<A0>::type uptype;
       uptype l = { vec_mule(a0(),a1()) };
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace meta
 
 /*
  * TODO : FINISH THIS
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2,int32_t )
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2,int32_t )
     {
       static inline type_t Multiply( const type_t& a, const type_t& b, const ttt::boxed<2>&, const true_t&  )
       {
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace meta
       }
     }
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2,uint32_t )
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2,uint32_t )
     {
 
       static inline type_t Multiply( const type_t& a, const type_t& b, const ttt::boxed<2>&, const false_t&  )
@@ -84,6 +84,6 @@ namespace boost { namespace simd { namespace meta
       }
 
 */
-} } }
+} }
 
 #endif

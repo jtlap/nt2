@@ -13,34 +13,34 @@
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ror_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ror_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return b_or(shri(a0, a1), shli(a0, (sizeof(A0)*CHAR_BIT-a1)));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ror_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ror_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typename meta::as_bits<A0>::type t0 = {a0};
       t0.bits = b_or(shri(t0.bits, a1),shli(t0.bits,(sizeof(A0)*CHAR_BIT-a1)));
       return t0.value;
     }
   };
-} } }
+} }
 
 #endif

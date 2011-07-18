@@ -13,28 +13,28 @@
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::floor_, tag::cpu_,(A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::floor_, tag::cpu_,(A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::floor_, tag::cpu_,(A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::floor_, tag::cpu_,(A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       const A0 d0 = round2even(a0);
       return selsub(gt(d0,a0),d0,One<A0>());
     }
   };
-} } }
+} }
 
 #endif

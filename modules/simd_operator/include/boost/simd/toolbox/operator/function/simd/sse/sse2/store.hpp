@@ -16,9 +16,9 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , ((simd_< double_<A0>, tag::sse_ >))
                               (iterator_< scalar_< double_<A1> > >)
@@ -27,17 +27,17 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       _mm_store_pd(a1+2*a2,a0);
       return a0;
     }
   };
-} } }
+} }
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , ((simd_< float_<A0>, tag::sse_ >))
                               (iterator_< scalar_< float_<A1> > >)
@@ -46,17 +46,17 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       _mm_store_ps(a1+4*a2,a0);
       return a0;
     }
   };
-} } }
+} }
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , ((simd_< integer_<A0>, tag::sse_ >))
                               (iterator_< scalar_< integer_<A1> > >)
@@ -65,12 +65,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       _mm_store_si128((__m128i*)(a1)+a2, a0);
       return a0;
     }
   };
-} } }
+} }
 
 #endif

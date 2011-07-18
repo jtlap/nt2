@@ -15,36 +15,36 @@
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 #define LOCAL_CONST(TAG, D, F, I)                                     \
-BOOST_SIMD_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
                           , (target_< scalar_< arithmetic_<A0> > > )  \
                           )                                           \
 {                                                                     \
   typedef typename A0::type result_type;                              \
-  BOOST_SIMD_FUNCTOR_CALL(1)                                                 \
+  BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
     ignore_unused(a0);                                                \
     return splat<result_type>(I);                                     \
   }                                                                   \
 };                                                                    \
                                                                       \
-BOOST_SIMD_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
                           , (target_< scalar_< double_<A0> > > )      \
                           )                                           \
 {                                                                     \
   typedef typename A0::type result_type;                              \
-  BOOST_SIMD_FUNCTOR_CALL(1)                                                 \
+  BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
     typename meta::from_bits<result_type>::type const that = {D};     \
     return splat<result_type>(that.value);                            \
   }                                                                   \
 };                                                                    \
                                                                       \
-BOOST_SIMD_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
                           , (target_< scalar_< float_<A0> > > )       \
                           )                                           \
 {                                                                     \
   typedef typename A0::type result_type;                              \
-  BOOST_SIMD_FUNCTOR_CALL(1)                                                 \
+  BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
     typename meta::from_bits<result_type>::type const that = {F};     \
     return splat<result_type>(that.value);                            \
@@ -55,7 +55,7 @@ BOOST_SIMD_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
 //==============================================================================
 // Overloads for EPS related constants
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
   LOCAL_CONST(tag::eps__            ,0x3cb0000000000000LL,0X34000000,1);
   LOCAL_CONST(tag::half_eps__       ,0x3ca0000000000000ll,0x33800000,1);
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace meta
   LOCAL_CONST(tag::mlog_eps_2_      ,0x403205966f2b4f13ll,0x40ff1402,0);
   LOCAL_CONST(tag::min_denormal_    ,0x1ll               ,0x1       ,1);
   LOCAL_CONST(tag::smallest_pos_val_,0x0010000000000000LL,0x00800000,1);
-} } }
+} }
 
 #undef LOCAL_CONST
 

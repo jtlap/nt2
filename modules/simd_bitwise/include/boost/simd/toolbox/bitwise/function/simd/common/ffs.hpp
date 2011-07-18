@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_FFS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_FFS_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
 #include <boost/simd/include/functions/select.hpp>
@@ -22,9 +22,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is types8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type8_<A0>,X>))
                             )
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
@@ -43,15 +43,15 @@ namespace boost { namespace simd { namespace meta
               ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>());
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type64_<A0>,X>))
                             )
@@ -59,21 +59,21 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       return  simd::native_cast<rtype>(map(functor<tag::ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type16_<A0>,X>))
                             )
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
@@ -93,15 +93,15 @@ namespace boost { namespace simd { namespace meta
                             ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>());
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type32_<A0>,X>))
                             )
@@ -109,7 +109,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
@@ -122,7 +122,7 @@ namespace boost { namespace simd { namespace meta
                ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4))+One<rtype>());
     }
   };
-} } }
+} }
 
 
 #endif

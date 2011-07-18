@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/predecessor.hpp>
 #include <boost/simd/include/functions/successor.hpp>
@@ -21,15 +21,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::ulp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ulp_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     )
   {
     typedef A0 result_type; 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
       {
 	ignore_unused(a0);
 	return boost::simd::One<A0>();
@@ -39,13 +39,13 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ulp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulp_, tag::cpu_
 			      , (A0)(X)
 			      , ((simd_<real_<A0>,X>))
 			      )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
       {
 	const A0 x = boost::simd::abs(a0);
 	A0 xp = boost::simd::predecessor(x);
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace meta
 	return boost::simd::sel(boost::simd::is_equal(x, boost::simd::Inf<A0>()), x, boost::simd::min(x-xp, xs - x));
       }
   };
-} } }
+} }
 
 
 #endif

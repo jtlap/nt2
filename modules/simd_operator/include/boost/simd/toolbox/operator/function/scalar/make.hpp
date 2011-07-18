@@ -12,15 +12,15 @@
 #include <boost/simd/sdk/meta/as.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , (target_< scalar_< fundamental_<A0> > >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
-} } }
+} }
 
 #endif

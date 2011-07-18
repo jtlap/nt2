@@ -13,12 +13,12 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/sdk/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
 				 (A0)(A1)(X),
 				 (boost::mpl::and_ <
 				    boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >,
@@ -101,7 +101,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(tag::split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::split_, tag::cpu_,
 				(A0),
 				(boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >), 
 				(tag::split_(simd_<arithmetic_<A0>,tag::sse_>)),
@@ -111,7 +111,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::upgrade<A0>::type                              rtype;
     typedef boost::fusion::tuple<rtype,rtype>                       result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       result_type res;
       boost::simd::split(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
@@ -120,6 +120,6 @@ namespace boost { namespace simd { namespace meta
 
 
   };
-} } }
+} }
 
 #endif

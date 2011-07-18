@@ -10,30 +10,30 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return True<A0>();
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                            )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0-a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_eqz(a0-a0); }
   };
-} } }
+} }
 
 #endif

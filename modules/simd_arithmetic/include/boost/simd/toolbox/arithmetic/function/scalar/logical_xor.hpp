@@ -14,9 +14,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::logical_xor_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_xor_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
                             )
@@ -24,12 +24,12 @@ namespace boost { namespace simd { namespace meta
 
     typedef bool result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return (is_nez(a0)^is_nez(a1));
     }
   };
-} } }
+} }
 
 
 #endif

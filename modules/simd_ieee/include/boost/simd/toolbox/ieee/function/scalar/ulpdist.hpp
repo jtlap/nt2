@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_ULPDIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_ULPDIST_HPP_INCLUDED
 #include <boost/simd/include/constants/eps_related.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 
@@ -25,9 +25,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
@@ -36,20 +36,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return dist(a0, a1);
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is bool_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< bool_<A0> >)(scalar_< bool_<A1> >)
                             )
@@ -57,20 +57,20 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return dist(a0, is_nez(a1));
     }
   };
-} } }
+} }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace meta
 
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::result_of<meta::arithmetic(A0, A1) >::type type;
       typedef typename meta::as_integer<A0>::type itype;
@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace meta
       return e/Eps<type>();
     }
   };
-} } }
+} }
 
 
 #endif

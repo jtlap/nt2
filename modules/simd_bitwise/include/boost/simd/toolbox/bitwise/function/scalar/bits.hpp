@@ -10,23 +10,23 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITS_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/as_bits.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::bits_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bits_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_bits<A0, unsigned>::type type;
       type that = {a0};
       return that.bits;
     }
   };
-} } }
+} }
 
 #endif

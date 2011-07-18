@@ -13,22 +13,22 @@
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::splat_ , tag::cpu_ , (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_ , tag::cpu_ , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               (target_< scalar_< fundamental_<A1> > >)
                             )
   {
     typedef typename A1::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       ignore_unused(a1); 
       result_type that = static_cast<result_type>(a0);
       return that;
     }
   };
-} } }
+} }
 
 #endif

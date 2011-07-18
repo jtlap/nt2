@@ -14,15 +14,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::saturate_<T> , tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::saturate_<T> , tag::cpu_,
                       (A0)(T),
                       (scalar_<integer_<A0> >)
                      )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       if (a0 > Valmax<T>())
 	return Valmax<T>();
@@ -33,5 +33,5 @@ namespace boost { namespace simd { namespace meta
     }
   };
   
-} } }
+} }
 #endif

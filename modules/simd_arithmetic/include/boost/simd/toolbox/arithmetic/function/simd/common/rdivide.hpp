@@ -11,7 +11,7 @@
 #include <boost/simd/sdk/meta/upgrade.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
@@ -19,30 +19,30 @@
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/select.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       const A0 iseqza1 = is_eqz(a1);
       return (a0-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                               ((simd_<int8_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type  stype;
       typedef typename meta::upgrade<stype>::type itype;
@@ -56,14 +56,14 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                               ((simd_<int16_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type    stype;
       typedef typename meta::upgrade<stype>::type   itype;
@@ -83,18 +83,18 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       return b_or(b_and(is_eqz(a0), is_eqz(a1)), a0/a1);
     }
   };
-} } }
+} }
 
 #endif

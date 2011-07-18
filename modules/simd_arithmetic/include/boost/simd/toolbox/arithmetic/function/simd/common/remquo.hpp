@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_REMQUO_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/toint.hpp>
@@ -20,9 +20,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     ((simd_<arithmetic_<A0>,X>))
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::as_integer<A0, signed>::type     iA0;             
     typedef boost::fusion::tuple<stA0,iA0>          result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
       {
 	result_type res;
 	boost::simd::remquo( tofloat(a0), tofloat(a1)
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
 				  ,( boost::mpl::and_ <
 				     boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A1> >, 
 				     boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A2> >,
@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  tag::remquo_, tag::cpu_,(A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  tag::remquo_, tag::cpu_,(A0)(A1)(X)
 				  ,( boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A1> >)
 				  , ( tag::remquo_
 				      ( simd_<real_<A0>,X> 
@@ -102,5 +102,5 @@ namespace boost { namespace simd { namespace meta
     }
   };
  
-} } }
+} }
 #endif

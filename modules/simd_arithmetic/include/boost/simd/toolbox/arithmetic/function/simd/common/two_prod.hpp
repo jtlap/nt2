@@ -10,16 +10,16 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
 #include <boost/simd/sdk/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/two_split.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/select.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::two_prod_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::two_prod_, tag::cpu_,
                            (A0)(X),
                            ((simd_<arithmetic_<A0>,X>))
                            ((simd_<arithmetic_<A0>,X>))
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace meta
       typedef typename meta::strip<A0>::type                    str_t;
       typedef typename boost::fusion::tuple<str_t, str_t> result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       result_type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
@@ -46,5 +46,5 @@ namespace boost { namespace simd { namespace meta
       r1 = sel(isinf, Zero<R1>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
     }
   };
-} } }
+} }
 #endif

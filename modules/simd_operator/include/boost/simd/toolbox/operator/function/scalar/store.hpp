@@ -13,9 +13,9 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< fundamental_<A0> >)
                               (iterator_< scalar_< fundamental_<A1> > >)
                               (scalar_< integer_<A2> >)
@@ -23,13 +23,13 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       A1 that = a1;
       std::advance(that,a2);
       return *that = a0;
     }
   };
-} } }
+} }
 
 #endif

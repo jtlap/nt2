@@ -10,10 +10,10 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_PREV_HPP_INCLUDED
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/fast_frexp.hpp>
@@ -23,15 +23,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::prev_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::prev_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       return a0-One<A0>();
     }
@@ -42,13 +42,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::prev_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::prev_, tag::cpu_,
                        (A0)(X),
                        ((simd_<real_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       return b_or(-next(-a0), is_nan(a0));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
@@ -61,6 +61,6 @@ namespace boost { namespace simd { namespace meta
 //       return a0+diff;
     }
   };
-} } }
+} }
 #endif
 // modified by jt the 04/01/2011

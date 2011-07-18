@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TWO_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TWO_SPLIT_HPP_INCLUDED
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::two_split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::two_split_, tag::cpu_,
                              (A0),
                              (scalar_< real_<A0> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace meta
     typedef typename meta::strip<A0>::type           stA0;
     typedef typename boost::fusion::tuple<stA0,stA0> result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       result_type res;
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
@@ -43,6 +43,6 @@ namespace boost { namespace simd { namespace meta
       r1 = a-r0;
     }
   };
-} } }
+} }
 
 #endif

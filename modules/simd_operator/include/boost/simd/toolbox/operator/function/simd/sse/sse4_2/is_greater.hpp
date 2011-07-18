@@ -14,9 +14,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for int64 types
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::sse4_2_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::sse4_2_
                             , (A0)
                             , ((simd_<int64_<A0>,tag::sse_>))
                               ((simd_<int64_<A0>,tag::sse_>))
@@ -24,12 +24,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpgt_epi64(a0,a1)  };
       return that;
     }
   };
-} } }
+} }
 
 #endif

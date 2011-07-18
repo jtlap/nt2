@@ -14,9 +14,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types with an offset
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace meta
     struct  is_forward : boost::mpl::bool_< (Offset::value > 0) >
     {};
 
-    BOOST_SIMD_FUNCTOR_CALL(4)
+    BOOST_DISPATCH_FUNCTOR_CALL(4)
     {
       return eval ( a0, a1
                   , typename is_periodic<A2,A3>::type()
@@ -114,6 +114,6 @@ namespace boost { namespace simd { namespace meta
       return that;
     }
   };
-} } }
+} }
 
 #endif

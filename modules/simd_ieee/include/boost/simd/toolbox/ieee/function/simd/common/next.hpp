@@ -10,12 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_NEXT_HPP_INCLUDED
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
@@ -28,15 +28,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::next_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::next_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       return a0+One<A0>();
     }
@@ -47,13 +47,13 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::next_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::next_, tag::cpu_,
                        (A0)(X),
                        ((simd_<real_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       //decommenting the following lines make clang works with the ieee.ulp.simd.unit      
       //       std::cout << "a0                                     " << a0 << std::endl;
@@ -63,5 +63,5 @@ namespace boost { namespace simd { namespace meta
        return sel(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
     }
   };
-} } }
+} }
 #endif

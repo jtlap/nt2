@@ -10,20 +10,20 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_XOP_IS_ORD_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
                          (A0),
                          ((simd_<arithmetic_<A0>,tag::xop_>))
                          ((simd_<arithmetic_<A0>,tag::xop_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       ignore_unused(a0);
       ignore_unused(a1);
@@ -36,14 +36,14 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
                          (A0),
                          ((simd_<double_<A0>,tag::xop_>))
                          ((simd_<double_<A0>,tag::xop_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm256_cmp_pd(a0,a1, _CMP_ORD_Q)};
       return that;
@@ -55,18 +55,18 @@ namespace boost { namespace simd { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
                          (A0),
                          ((simd_<float_<A0>,tag::xop_>))
                          ((simd_<float_<A0>,tag::xop_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm256_cmp_ps(a0,a1, _CMP_ORD_Q)};
       return that;
     }
   };
-} } }
+} }
 #endif

@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #include <boost/simd/toolbox/swar/function/simd/sse/ssse3/lookup.hpp>
-// #include <boost/simd/sdk/meta/as_real.hpp>
+// #include <boost/dispatch/meta/as_real.hpp>
 // #include <boost/simd/sdk/meta/size.hpp>
-// #include <boost/simd/sdk/meta/strip.hpp>
+// #include <boost/dispatch/meta/strip.hpp>
 // #include <boost/simd/sdk/memory/aligned_type.hpp>
 // // #include <boost/simd/include/functions/at.hpp>
 // // #include <boost/simd/include/functions/load.hpp>
@@ -56,7 +56,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     BOOST_DISPATCH_FUNCTOR_CALL(2)
 //     {
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -89,7 +89,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     BOOST_DISPATCH_FUNCTOR_CALL(2)
 //     {
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -124,7 +124,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     BOOST_DISPATCH_FUNCTOR_CALL(2)
 //     {
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -158,7 +158,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     BOOST_DISPATCH_FUNCTOR_CALL(2)
 //     {
 //       const int32_t N = meta::cardinal_of<A0>::value;
 //       int32_t mask = _mm_movemask_epi16(is_lt(a1, N));

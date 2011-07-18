@@ -9,12 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_BITWISE_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_BITWISE_OR_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                               ((simd_<arithmetic_<A1>,tag::sse_>))
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer< A0 >::type int_type;
       A0     that = { simd::native_cast<A0>
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<double_<A0>,tag::sse_>))
                               ((simd_<double_<A1>,tag::sse_>))
@@ -43,14 +43,14 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_or_pd(a0,a1) };
       return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<float_<A0>,tag::sse_>))
                               ((simd_<float_<A1>,tag::sse_>))
@@ -58,12 +58,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_or_ps(a0,a1) };
       return that;
     }
   };
-} } }
+} }
 
 #endif

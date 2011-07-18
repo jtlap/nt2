@@ -13,9 +13,9 @@
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_or_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_or_, tag::cpu_,
                                 (A0)(A1)(X),
                                 (boost::mpl::not_< boost::is_same<A0, A1> >),
                                 (tag::bitwise_or_ ( simd_<arithmetic_<A0>,X>
@@ -28,11 +28,11 @@ namespace boost { namespace simd { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return bitwise_or(a0, simd::native_cast<A0>(a1));
     }
   };
-} } }
+} }
 
 #endif

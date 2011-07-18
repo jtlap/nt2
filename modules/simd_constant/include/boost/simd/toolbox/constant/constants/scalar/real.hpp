@@ -9,23 +9,23 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_REAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_REAL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/from_bits.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // Custom local real functor
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( (tag::pattern<D,F>) , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( (tag::pattern<D,F>) , tag::cpu_
                                 , (boost::simd::uint64_t D)(boost::simd::uint32_t F)(class A0)
                                 , (target_< scalar_<double_<A0> > >)
                                 )
   {
     typedef typename strip<A0>::type::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       typename meta::from_bits<result_type>::type const that = {D};
@@ -33,35 +33,35 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( (tag::pattern<D,F>) , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( (tag::pattern<D,F>) , tag::cpu_
                                 , (boost::simd::uint64_t D)(boost::simd::uint32_t F)(class A0)
                                 , (target_< scalar_<float_<A0> > >)
                                 )
   {
     typedef typename strip<A0>::type::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       typename meta::from_bits<result_type>::type const that = {F};
       return splat<result_type>(that.value);
     }
   };
-} } }
+} }
 
 //==============================================================================
 // Fill up the call needed for a real constant call
 //==============================================================================
 #define BOOST_SIMD_CONSTANT_MAKE_REAL(NAME,DOUBLE,FLOAT)                 \
-namespace boost { namespace simd { namespace meta                                    \
+namespace boost { namespace dispatch                                    \
 {                                                                 \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                  \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                  \
                             , (target_< scalar_<double_<A0> > >)  \
                             )                                     \
   {                                                               \
     typedef typename strip<A0>::type::type result_type;           \
                                                                   \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                           \
+    BOOST_DISPATCH_FUNCTOR_CALL(1)                                           \
     {                                                             \
       ignore_unused(a0);                                          \
       typename meta::from_bits<result_type>::type const           \
@@ -70,13 +70,13 @@ namespace boost { namespace simd { namespace meta                               
     }                                                             \
   };                                                              \
                                                                   \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                  \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NAME,tag::cpu_,(A0)                  \
                             , (target_< scalar_<float_<A0> > >)   \
                             )                                     \
   {                                                               \
     typedef typename strip<A0>::type::type result_type;           \
                                                                   \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                           \
+    BOOST_DISPATCH_FUNCTOR_CALL(1)                                           \
     {                                                             \
       ignore_unused(a0);                                          \
       typename meta::from_bits<result_type>::type const           \
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace meta                               
       return splat<result_type>(that.value);                      \
     }                                                             \
   };                                                              \
-} } }                                                             \
+} }                                                             \
 /**/
 
 BOOST_SIMD_CONSTANT_MAKE_REAL(tag::m_half_      ,0xBFE0000000000000LL, 0xBF000000  )

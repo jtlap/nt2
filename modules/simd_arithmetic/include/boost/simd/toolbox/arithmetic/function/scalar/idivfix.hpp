@@ -13,18 +13,18 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return rdivide(a0, a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return rdivide(a0, a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> > )(scalar_< real_<A1> > )
                             )
 
@@ -33,13 +33,13 @@ namespace boost { namespace simd { namespace meta
             as_integer < typename meta::
                                   result_of<meta::arithmetic(A0,A1)>::type
                        >::type                                      result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type type;
       const type z = a0/a1; 
       return is_nan(z) ? Zero<result_type>() : result_type(trunc(z)); //TO DO itrunc
     }
   };
-} } }
+} }
 
 #endif

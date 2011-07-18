@@ -11,29 +11,29 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
                             , ((simd_<type64_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename meta::int32_t_<sctype >::type htype;
@@ -44,6 +44,6 @@ namespace boost { namespace simd { namespace meta
       return simd::native_cast<A0>(b_or(tmp1, tmp2));
     }
   };
-} } }
+} }
 
 #endif
