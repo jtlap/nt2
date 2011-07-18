@@ -60,7 +60,7 @@ namespace nt2 { namespace meta
 	t2 = r;	                        
 	w  = fn*Pio2_3<A0>(); 
 	r  = t2-w;
-	w  = fn*fn*Pio2_3t<A0>()-((t2-r)-w);
+	w  = fn*Pio2_3t<A0>()-((t2-r)-w);
 	xr = r-w;
 	xc = (r-xr)-w;
 	//	std::cout << "medium fn " << fn << std::endl; 

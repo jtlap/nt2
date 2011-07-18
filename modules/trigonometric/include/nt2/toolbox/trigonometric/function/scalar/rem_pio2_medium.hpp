@@ -48,7 +48,7 @@ namespace nt2 { namespace meta
       {
 	//	  static int i = 0;
 	//	  std::cout << "fdlibm_medium_reduction " << i++ << std::endl; 
-	A0 fn = nt2::round2even(t*Invpio_2<A0>());
+	const A0 fn = nt2::round2even(t*Invpio_2<A0>());
 	A0 r  = t-fn*Pio2_1<A0>(); 
 	A0 w  = fn*Pio2_1t<A0>(); 
 	A0 t2 = r;
@@ -58,7 +58,7 @@ namespace nt2 { namespace meta
 	t2 = r;	                        
 	w  = fn*Pio2_3<A0>(); 
 	r  = t2-w;
-	w  = fn*fn*Pio2_3t<A0>()-((t2-r)-w);
+	w  = fn*Pio2_3t<A0>()-((t2-r)-w);
 	xr = r-w;
 	xc = (r-xr)-w;
 	return  fast_toint(fn)&3;    

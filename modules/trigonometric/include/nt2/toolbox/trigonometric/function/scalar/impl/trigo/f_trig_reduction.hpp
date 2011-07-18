@@ -200,7 +200,7 @@ namespace nt2
 	      return n; 
 	    }
           else
-	    return rem_pio2_big(x, xr, xc);
+	    return nt2::rem_pio2(x, xr, xc);
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {

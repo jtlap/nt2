@@ -107,7 +107,7 @@ namespace nt2
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
         {
-	  return rem_pio2_big(x, xr, xc);
+	  return rem_pio2(x, xr, xc);
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {

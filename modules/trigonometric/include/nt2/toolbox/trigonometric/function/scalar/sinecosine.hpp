@@ -22,10 +22,10 @@ namespace nt2 { namespace meta
 			     (scalar_ < real_<A1> > )
 			     )
   {
-    typedef int result_type;    
-    inline int operator()(A0 const& a0,A1 & a1,A1 & a2) const
+    typedef nt2::int32_t result_type;    
+    inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      a1 = impl::trig_base <A1,radian_tag,tag::not_simd_type, mode>::sincosa(A1(a0),a1,a2);
+      a1 = impl::trig_base <A1,radian_tag,tag::not_simd_type, mode>::sincosa(A1(a0),a2);
       return 0; 
     }
   };
