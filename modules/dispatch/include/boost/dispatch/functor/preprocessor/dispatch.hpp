@@ -88,7 +88,7 @@ dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                   
         , adl_helper = adl_helper()                                           \
         )                                                                     \
 {                                                                             \
-  boost::dispatch::meta::                                                                 \
+  boost::dispatch::                                                                 \
   implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)          \
             , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                          \
             , Site                                                            \
