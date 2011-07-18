@@ -14,7 +14,7 @@
  * \brief Defines macros and functions controlling runtime assertions
  */
 #include <nt2/sdk/error/debug.hpp>
-#include <nt2/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
@@ -51,9 +51,9 @@
 #if  !defined(NT2_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
 
 
-namespace boost { namespace dispatch { namespace details { NT2_ERROR_INFO(assert_info, char const*); } } }
+namespace nt2 { namespace details { NT2_ERROR_INFO(assert_info, char const*); } }
 
-namespace boost { namespace dispatch
+namespace nt2
 {
   //============================================================================
   /*!
@@ -62,12 +62,12 @@ namespace boost { namespace dispatch
    * NT2_ASSERTS_AS_EXCEPTIONS is defined.
    */
   //============================================================================
-  struct assert_exception : virtual boost::dispatch::exception
+  struct assert_exception : virtual nt2::exception
   {
     virtual ~assert_exception() throw() {}
     virtual void display(std::ostream& os) const throw();
   };
-} }
+}
 
 #ifndef BOOST_ENABLE_ASSERT_HANDLER
 #define BOOST_ENABLE_ASSERT_HANDLER
@@ -125,13 +125,13 @@ namespace boost
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     ::boost::exception_detail
-    ::throw_exception_(   ::boost::dispatch::assert_exception()
-                      <<  ::boost::dispatch::details::assert_info(expr)
+    ::throw_exception_(   ::nt2::assert_exception()
+                      <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );
     #elif defined(NT2_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
-    ::boost::dispatch::trap();
+    ::nt2::trap();
     #else
     boost::dispatch::ignore_unused(expr);
     boost::dispatch::ignore_unused(fn);

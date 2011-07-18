@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/config/attributes.hpp>
 #include <boost/simd/sdk/error/details/trap.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
 
   //==============================================================================

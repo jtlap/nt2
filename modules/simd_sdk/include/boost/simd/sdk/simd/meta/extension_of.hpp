@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_META_EXTENSION_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_META_EXTENSION_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/na.hpp>
+#include <boost/dispatch/meta/na.hpp>
 
 namespace boost { namespace simd { namespace meta
 {

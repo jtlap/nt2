@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/error/debug.hpp>
 
-namespace boost { namespace dispatch { namespace config
+namespace boost { namespace simd { namespace config
 {
   static void errors()
   {

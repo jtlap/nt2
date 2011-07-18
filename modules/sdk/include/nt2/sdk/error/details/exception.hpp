@@ -31,7 +31,7 @@
 #define NT2_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
-namespace boost { namespace dispatch
+namespace nt2
 {
   //============================================================================
   /*!
@@ -81,6 +81,6 @@ namespace boost { namespace dispatch
    */
   //============================================================================
   std::ostream& operator<<( std::ostream& os, exception const& e );
-} }
+}
 
 #endif

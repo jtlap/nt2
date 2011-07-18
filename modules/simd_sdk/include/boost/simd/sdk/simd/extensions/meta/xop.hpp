@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 
-#include <boost/simd/sdk/functor/meta/hierarchy.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Tag hierarchy for XOP extensions

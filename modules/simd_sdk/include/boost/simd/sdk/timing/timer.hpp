@@ -30,7 +30,7 @@ namespace boost { namespace simd
 
       type toc( bool display ) const
       {
-        BOOST_SIMD_ASSERT(!empty() && "Unbalanced timing calls");
+        BOOST_SIMD_SDK_ASSERT(!empty() && "Unbalanced timing calls");
         type t = time()-times().top();
         times().pop();
         if(display) timer_type::Print(t);

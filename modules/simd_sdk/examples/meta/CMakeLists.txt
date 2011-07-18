@@ -22,15 +22,12 @@ SET(SOURCES
     factory_of.cpp
     floating.cpp
     from_bits.cpp
-    has_key.cpp
     is_fundamental.cpp
     is_iterator.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
-    is_set.cpp
     is_signed.cpp
     is_unspecified.cpp
-    join.cpp
     make_integer.cpp
     make_real.cpp
     primitive_of.cpp

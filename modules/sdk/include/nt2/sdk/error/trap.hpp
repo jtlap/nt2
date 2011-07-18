@@ -18,7 +18,7 @@
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/error/details/trap.hpp>
 
-namespace boost { namespace dispatch
+namespace nt2 {
 {
 
   //==============================================================================
@@ -55,6 +55,6 @@ namespace boost { namespace dispatch
 
   template<class Condition> NT2_FORCE_INLINE
   void trap( typename boost::disable_if_c<Condition::value>::type* = 0) {}
-} }
+}
 
 #endif

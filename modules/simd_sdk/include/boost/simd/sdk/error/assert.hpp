@@ -14,7 +14,7 @@
  * \brief Defines macros and functions controlling runtime assertions
  */
 #include <boost/simd/sdk/error/debug.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
@@ -51,9 +51,9 @@
 #if  !defined(BOOST_SIMD_SDK_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
 
 
-namespace boost { namespace dispatch { namespace details { BOOST_SIMD_SDK_ERROR_INFO(assert_info, char const*); } } }
+namespace boost { namespace simd { namespace details { BOOST_SIMD_SDK_ERROR_INFO(assert_info, char const*); } } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   //============================================================================
   /*!
@@ -62,7 +62,7 @@ namespace boost { namespace dispatch
    * BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS is defined.
    */
   //============================================================================
-  struct assert_exception : virtual boost::dispatch::exception
+  struct assert_exception : virtual boost::simd::exception
   {
     virtual ~assert_exception() throw() {}
     virtual void display(std::ostream& os) const throw();
@@ -125,13 +125,13 @@ namespace boost
   {
     #if defined(BOOST_SIMD_SDK_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_SIMD_SDK_NO_EXCEPTIONS)
     ::boost::exception_detail
-    ::throw_exception_(   ::boost::dispatch::assert_exception()
-                      <<  ::boost::dispatch::details::assert_info(expr)
+    ::throw_exception_(   ::boost::simd::assert_exception()
+                      <<  ::boost::simd::details::assert_info(expr)
                         , fn,f,l
                       );
     #elif defined(BOOST_SIMD_SDK_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
-    ::boost::dispatch::trap();
+    ::boost::simd::trap();
     #else
     boost::dispatch::ignore_unused(expr);
     boost::dispatch::ignore_unused(fn);

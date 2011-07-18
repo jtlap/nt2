@@ -31,7 +31,7 @@
 #define BOOST_SIMD_SDK_ERROR_INFO(NAME,TYPE)                                     \
 typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   //============================================================================
   /*!
