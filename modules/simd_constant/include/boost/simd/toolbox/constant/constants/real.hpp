@@ -17,7 +17,7 @@
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
   struct pi_          {};
   struct sqrt_2_o_2_  {}; struct sqrt_2_      {};
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace tag
   template<boost::simd::uint64_t D, boost::simd::uint32_t F> struct pattern {};
 } } }
 
-namespace boost { namespace simd { namespace details
+namespace boost { namespace dispatch { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // Small type to gather real value bit patterns depending on target type
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace details
   };
 } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch 
 {
   //////////////////////////////////////////////////////////////////////////////
   // Basic named constant
@@ -82,8 +82,8 @@ namespace boost { namespace simd
   typename meta::call<tag::pattern<D,F >(meta::as_<Target>)>::type
   real_constant()
   {
-    boost::simd::functor< tag::pattern<D,F> > callee;
-    return callee( boost::simd::meta::as_<Target>() );
+    boost::dispatch::functor< tag::pattern<D,F> > callee;
+    return callee( boost::dispatch::meta::as_<Target>() );
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -93,8 +93,8 @@ namespace boost { namespace simd
   typename meta::call<tag::pattern<0,F >(meta::as_<Target>)>::type
   single_constant()
   {
-    boost::simd::functor< tag::pattern<0,F> > callee;
-    return callee( boost::simd::meta::as_<Target>() );
+    boost::dispatch::functor< tag::pattern<0,F> > callee;
+    return callee( boost::dispatch::meta::as_<Target>() );
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -104,8 +104,8 @@ namespace boost { namespace simd
   typename meta::call<tag::pattern<D,0 >(meta::as_<Target>)>::type
   double_constant()
   {
-    boost::simd::functor< tag::pattern<D,0> > callee;
-    return callee( boost::simd::meta::as_<Target>() );
+    boost::dispatch::functor< tag::pattern<D,0> > callee;
+    return callee( boost::dispatch::meta::as_<Target>() );
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -115,8 +115,8 @@ namespace boost { namespace simd
   typename meta::call<typename details::pattern<T,V>::type(meta::as_<T>)>::type
   Const()
   {
-    boost::simd::functor< typename details::pattern<T,V>::type > callee;
-    return callee( boost::simd::meta::as_<T>() );
+    boost::dispatch::functor< typename details::pattern<T,V>::type > callee;
+    return callee( boost::dispatch::meta::as_<T>() );
   }
 } }
 

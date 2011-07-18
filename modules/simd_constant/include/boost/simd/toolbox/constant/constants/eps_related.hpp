@@ -14,7 +14,7 @@
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
   struct eps__            {};
   struct half_eps__       {};
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace tag
   struct smallest_pos_val_{};
 } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::eps__            , Eps           )
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::half_eps__       , Halfeps       )

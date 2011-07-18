@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as.hpp>
+#include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 //==============================================================================
 // Forward all constant call to the simd version of themselves that splat
@@ -26,13 +26,13 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename A0::type                                     target;
     typedef typename meta::scalar_of<target>::type                base;
-    typedef typename meta::call<Tag(boost::simd::meta::as_<base>)>::type  value;
+    typedef typename meta::call<Tag(boost::dispatch::meta::as_<base>)>::type  value;
     typedef simd::native<value,X>                                 result_type;
 
     inline result_type operator()(A0 const&) const
     {
       functor<Tag> callee;
-      return splat<result_type>( callee( boost::simd::meta::as_<base>()) );
+      return splat<result_type>( callee( boost::dispatch::meta::as_<base>()) );
     }
   };
 } } }

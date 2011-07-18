@@ -13,8 +13,8 @@
  * \file
  * \brief Defines the BOOST_SIMD_CONSTANT_IMPLEMENTATION macro
  */
-#include <boost/simd/sdk/meta/as.hpp>
-#include <boost/simd/sdk/functor/functor.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 
 //==============================================================================
 /*!
@@ -27,11 +27,11 @@
 //==============================================================================
 #define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)           \
 template<class Target> inline                           \
-typename meta::call<TAG(boost::simd::meta::as_<Target>)>::type  \
+typename meta::call<TAG(boost::dispatch::meta::as_<Target>)>::type  \
 NAME()                                                  \
 {                                                       \
-  typename boost::simd::make_functor<TAG, Target>::type callee; \
-  return callee( boost::simd::meta::as_<Target>() );            \
+  typename boost::dispatch::make_functor<TAG, Target>::type callee; \
+  return callee( boost::dispatch::meta::as_<Target>() );            \
 }                                                       \
 /**/
 

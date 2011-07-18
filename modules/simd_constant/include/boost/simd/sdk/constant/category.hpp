@@ -14,10 +14,10 @@
  * \brief Defines the constant_ hierarchy and EDSL generators
  */
 
-#include <boost/simd/sdk/meta/as.hpp>
-#include <boost/simd/sdk/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
   /*!
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace meta
   };
 } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   //============================================================================
   /*!

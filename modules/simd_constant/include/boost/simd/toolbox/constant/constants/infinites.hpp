@@ -17,12 +17,12 @@
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
   struct inf_   {}; struct m_inf_ {}; struct nan_  {};
 } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::inf_    , Inf   )
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::m_inf_  , Minf  )

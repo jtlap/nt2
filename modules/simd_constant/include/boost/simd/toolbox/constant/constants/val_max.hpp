@@ -17,7 +17,7 @@
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag { struct val_max_ {};}
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::val_max_, Valmax)

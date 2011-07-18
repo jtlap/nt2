@@ -19,7 +19,7 @@
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/simd/toolbox/constant/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
   //============================================================================
   /*!
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace tag
   template<boost::simd::int64_t N> struct digit_ {};
 } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch 
 {
   //============================================================================
   // Constant functions from -10 to 10 and 20
@@ -82,8 +82,8 @@ namespace boost { namespace simd
   typename meta::call<tag::digit_<N >(meta::as_<Target>)>::type
   integral_constant()
   {
-    typename boost::simd::make_functor< tag::digit_<N>, Target >::type callee;
-    return callee( boost::simd::meta::as_<Target>() );
+    typename boost::dispatch::make_functor< tag::digit_<N>, Target >::type callee;
+    return callee( boost::dispatch::meta::as_<Target>() );
   }
 } }
 
