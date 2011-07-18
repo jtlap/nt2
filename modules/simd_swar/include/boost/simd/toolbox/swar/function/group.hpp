@@ -8,16 +8,15 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_GROUP_HPP_INCLUDED
-
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct group_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::group_, group, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

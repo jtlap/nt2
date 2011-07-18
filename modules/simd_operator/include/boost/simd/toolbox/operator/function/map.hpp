@@ -10,16 +10,16 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_MAP_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 
-namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
+namespace boost { namespace dispatch { namespace tag { struct map_ {}; } } }
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::map_,map,2)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::map_,map,3)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::map_,map,4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,4)
 } }
 
 #include <boost/simd/toolbox/operator/function/simd/all/map.hpp>

@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_UNARY_MINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_UNARY_MINUS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 #include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #include <boost/proto/tags.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag
   {
     typedef boost::proto::tag::negate unary_minus_;
   }
   
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/unary_minus.hpp>

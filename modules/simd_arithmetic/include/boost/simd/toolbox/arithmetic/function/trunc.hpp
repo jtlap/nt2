@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_TRUNC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_TRUNC_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct trunc_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

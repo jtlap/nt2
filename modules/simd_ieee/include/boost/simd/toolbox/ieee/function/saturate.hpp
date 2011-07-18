@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SATURATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SATURATE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/ieee/include.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag
   {
@@ -20,7 +20,7 @@ namespace boost { namespace simd
     struct saturate_ {};
   }
 
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::saturate_<A0>, saturate, (A1 const&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::saturate_<A0>, saturate, (A1 const&), 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

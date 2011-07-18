@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_FREXP_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/ieee/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct frexp_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::frexp_, frexp, 1)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&),2) 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frexp_, frexp, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&),2) 
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

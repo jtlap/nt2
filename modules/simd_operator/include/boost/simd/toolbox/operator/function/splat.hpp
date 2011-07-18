@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SPLAT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
-#include <boost/simd/sdk/meta/as.hpp>
+#include <boost/dispatch/meta/as.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag
   {

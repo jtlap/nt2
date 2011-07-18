@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_BITINTEGER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_BITINTEGER_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/ieee/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct bitinteger_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::bitinteger_, bitinteger, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitinteger_, bitinteger, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

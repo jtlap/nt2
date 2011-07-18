@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_AT_I_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_AT_I_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/reduction/include.hpp>
 
-namespace boost { namespace simd {
+namespace boost { namespace dispatch {
   namespace tag
   {
     struct at_i_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::at_i_, at_i, 2)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::at_i_, at, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::at_i_, at_i, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::at_i_, at, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

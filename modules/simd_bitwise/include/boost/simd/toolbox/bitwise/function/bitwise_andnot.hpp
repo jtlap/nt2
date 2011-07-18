@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_BITWISE_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_BITWISE_ANDNOT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/bitwise/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct bitwise_andnot_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

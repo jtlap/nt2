@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_IS_NLTZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_IS_NLTZ_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/predicates/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct is_nltz_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::is_nltz_, is_nltz, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nltz_, is_nltz, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

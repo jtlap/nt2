@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_STORE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,10 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/functor/preprocessor/function.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag { struct store_ {}; }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/store.hpp>

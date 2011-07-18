@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SPLATTED_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SPLATTED_PROD_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct splatted_prod_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::splatted_prod_, splatted_prod, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_prod_, splatted_prod, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

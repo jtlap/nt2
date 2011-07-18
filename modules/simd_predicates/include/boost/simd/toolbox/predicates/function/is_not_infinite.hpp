@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_INFINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_IS_NOT_INFINITE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/predicates/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct is_not_infinite_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::is_not_infinite_, is_not_infinite, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_infinite_, is_not_infinite, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

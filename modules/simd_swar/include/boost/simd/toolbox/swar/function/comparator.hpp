@@ -9,18 +9,18 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_COMPARATOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_COMPARATOR_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/include.hpp>
 
-namespace boost { namespace simd {
+namespace boost { namespace dispatch {
   struct ascending_ {};
   struct descending_{};
   namespace tag
   {         
     struct comparator_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

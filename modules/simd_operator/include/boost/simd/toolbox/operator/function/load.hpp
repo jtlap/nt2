@@ -9,17 +9,17 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_LOAD_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load from memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/load.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/meta/as.hpp>
-#include <boost/simd/sdk/functor/preprocessor/function.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/functor/preprocessor/function.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag { struct load_ {}; }
 

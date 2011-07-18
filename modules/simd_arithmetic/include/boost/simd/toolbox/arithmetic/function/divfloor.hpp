@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_DIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_DIVFLOOR_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
 
-namespace boost { namespace simd {
+namespace boost { namespace dispatch {
   namespace tag
   {
     struct divfloor_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

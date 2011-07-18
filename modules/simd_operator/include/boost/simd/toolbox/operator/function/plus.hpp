@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_PLUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_PLUS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 #include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #include <boost/proto/tags.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag
   {
     typedef boost::proto::tag::plus plus_;
   }
   
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::plus_             , plus            , 2 )
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::plus_             , add             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , plus            , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , add             , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/plus.hpp>

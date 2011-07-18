@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SHIFT_RIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SHIFT_RIGHT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 #include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #include <boost/proto/tags.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag
   {
     typedef boost::proto::tag::shift_right shift_right_;
   }
   
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shr             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shr             , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/shift_right.hpp>

@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_NEGS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
 
-namespace boost { namespace simd {
+namespace boost { namespace dispatch {
   namespace tag
   {
     struct negs_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

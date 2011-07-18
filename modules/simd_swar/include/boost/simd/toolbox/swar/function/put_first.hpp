@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_PUT_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_PUT_FIRST_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/include.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct put_first_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::put_first_, put_first, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::put_first_, put_first, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

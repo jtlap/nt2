@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_ADDS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
 
-namespace boost { namespace simd {
+namespace boost { namespace dispatch {
   namespace tag
   {
     struct adds_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::adds_, adds, 2)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::adds_, saturated_add, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::adds_, adds, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::adds_, saturated_add, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

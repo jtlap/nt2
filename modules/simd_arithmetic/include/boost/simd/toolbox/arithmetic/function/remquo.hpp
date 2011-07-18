@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_REMQUO_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/include/functor.hpp>
+#include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
   {         
     struct remquo_ {};
   }
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::remquo_, remquo, 2)
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION_TPL(tag::remquo_, remquo,(A0 const&)(A1 const&)(A2&)(A3&),4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remquo_, remquo, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::remquo_, remquo,(A0 const&)(A1 const&)(A2&)(A3&),4)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
