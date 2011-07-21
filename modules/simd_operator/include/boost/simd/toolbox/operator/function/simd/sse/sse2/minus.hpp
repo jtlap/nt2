@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MINUS_HPP_INCLUDED
 
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch
 {

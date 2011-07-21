@@ -13,19 +13,19 @@
 // Various memory hierarchy stuff
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/pointee.hpp>
-#include <boost/simd/sdk/meta/is_iterator.hpp>
-#include <boost/simd/sdk/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/is_iterator.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Some hierarchies
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_HIERARCHY(iterator_)
+BOOST_DISPATCH_REGISTER_HIERARCHY(iterator_)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for all iterator types
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd {  namespace details
+namespace boost { namespace dispatch {  namespace details
 {
   template<class T, class Origin>
   struct  hierarchy_of< T
@@ -45,7 +45,7 @@ namespace boost { namespace simd {  namespace details
   };
 } } }
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
   //============================================================================
   // Same property than T

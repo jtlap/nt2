@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_DSL_COMPUTE_HPP_INCLUDED
 
 #include <boost/simd/sdk/dsl/compile.hpp>
-#include <boost/simd/sdk/functor/functor.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // compute evaluates a nt2 AST by passing its elements through a raw functor

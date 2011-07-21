@@ -12,12 +12,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // load for SSE2 SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/meta/mpl.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // load vector of double

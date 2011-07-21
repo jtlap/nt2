@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_HIERARCHY_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_HIERARCHY_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace boost { namespace simd { namespace details
+namespace boost { namespace dispatch { namespace details
 {
   template<class Scalar,class Extension, class Origin>
   struct hierarchy_of< simd::native<Scalar,Extension>, Origin >

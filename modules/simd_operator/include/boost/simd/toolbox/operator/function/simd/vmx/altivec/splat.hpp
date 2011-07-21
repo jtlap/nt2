@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_SPLAT_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch
 {

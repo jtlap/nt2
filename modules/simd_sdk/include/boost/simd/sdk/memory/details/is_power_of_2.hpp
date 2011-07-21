@@ -9,40 +9,40 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_DETAILS_IS_POWER_OF_2_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_DETAILS_IS_POWER_OF_2_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/mpl.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // is_power_of_2 on integers
 //==============================================================================
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
                             , (A0), (scalar_< integer_<A0> >)
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return (!(a0 & (a0 - 1)) && a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return (!(a0 & (a0 - 1)) && a0); }
   };
-} } }
+} }
 
 //==============================================================================
 // is_power_of_2 on mpl integral
 //==============================================================================
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
                             , (A0), (mpl_integral_< scalar_< arithmetic_<A0> > >)
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return meta::is_power_of_2<A0>::value;
     }
   };
-} } }
+} }
 
 #endif

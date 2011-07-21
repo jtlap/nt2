@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_META_DOWNGRADE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_META_DOWNGRADE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
     namespace details { namespace simd
     {

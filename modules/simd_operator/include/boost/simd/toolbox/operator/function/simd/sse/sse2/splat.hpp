@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_SPLAT_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as.hpp>
+#include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/include/functions/make.hpp>
 
 //==============================================================================

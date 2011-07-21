@@ -15,16 +15,16 @@
 #include <boost/simd/sdk/meta/any.hpp>
 #include <boost/proto/proto.hpp>
 #include <boost/simd/sdk/dsl/category.hpp>
-#include <boost/simd/sdk/functor/functor.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/functor.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/dsl/proto/as_child.hpp>
-#include <boost/simd/sdk/functor/meta/hierarchy.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
 
 #if defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/extension/parameters.hpp>
 #include <boost/preprocessor/selection/min.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif

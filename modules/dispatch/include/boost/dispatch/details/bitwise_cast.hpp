@@ -16,7 +16,7 @@
 
 #include <cstring>
 #include <boost/dispatch/error/static_assert.hpp>
-#include <boost/dispatch/config/attributes.hpp>
+#include <boost/simd/sdk/config/attributes.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 
 namespace boost { namespace dispatch { namespace details
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace details
   struct memcpy_cast
   {
     template<typename To, typename From>
-    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
+    static BOOST_SIMD_FORCE_INLINE To call(From const& from)
     {
       To to;
       std::memcpy(&to, &from, sizeof(From));
@@ -41,7 +41,7 @@ namespace boost { namespace dispatch { namespace details
   struct union_cast
   {
     template<typename To, typename From>
-    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
+    static BOOST_SIMD_FORCE_INLINE To call(From const& from)
     {
       union
       {
@@ -58,7 +58,7 @@ namespace boost { namespace dispatch { namespace details
   struct convert_cast
   {
     template<typename To, typename From>
-    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
+    static BOOST_SIMD_FORCE_INLINE To call(From const& from)
     {
       return (To)from;
     }
@@ -103,7 +103,7 @@ namespace boost { namespace dispatch
    */
   //============================================================================
   template<typename To, typename From>
-  BOOST_DISPATCH_FORCE_INLINE To bitwise_cast(From const& from)
+  BOOST_SIMD_FORCE_INLINE To bitwise_cast(From const& from)
   {
     BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) >= sizeof(To)
                      , BOOST_DISPATCH_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST

@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/details/type_id.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <iostream>
 
 namespace boost { namespace dispatch

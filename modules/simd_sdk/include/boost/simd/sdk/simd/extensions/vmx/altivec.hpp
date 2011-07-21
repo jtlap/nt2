@@ -60,9 +60,9 @@ BOOST_SIMD_WARNING(AltiVec SIMD extension detected)
 #define BOOST_SIMD_BYTES              16
 #define BOOST_SIMD_BITS               128
 #define BOOST_SIMD_CARDINALS          (4)(8)(16)
-#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::altivec_)
-#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::altivec_
-#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::altivec_
+#define BOOST_SIMD_TAG_SEQ            (::boost::dispatch::tag::altivec_)
+#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::dispatch::tag::altivec_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::dispatch::tag::altivec_
 
 #include <boost/simd/sdk/simd/extensions/meta/altivec.hpp>
 

@@ -10,9 +10,9 @@
 #define BOOST_SIMD_SDK_SIMD_CATEGORY_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/types.hpp>
-#include <boost/simd/sdk/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<class T,class X> struct simd_ : simd_< typename T::parent, X >
   {

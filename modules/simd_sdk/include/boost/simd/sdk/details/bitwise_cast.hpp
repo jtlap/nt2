@@ -15,7 +15,7 @@
  */
 
 #include <cstring>
-#include <boost/simd/sdk/error/static_assert.hpp>
+#include <boost/dispatch/error/static_assert.hpp>
 #include <boost/simd/sdk/config/attributes.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 
@@ -105,7 +105,7 @@ namespace boost { namespace simd
   template<typename To, typename From>
   BOOST_SIMD_FORCE_INLINE To bitwise_cast(From const& from)
   {
-    BOOST_SIMD_STATIC_ASSERT( sizeof(From) >= sizeof(To)
+    BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) >= sizeof(To)
                      , BOOST_SIMD_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST
                      , "Target is of a larger size than source in boost::simd::bitwise_cast"
                      );

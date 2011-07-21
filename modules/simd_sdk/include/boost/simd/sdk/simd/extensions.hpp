@@ -22,8 +22,8 @@
 #include <boost/simd/sdk/simd/extensions/altivec.hpp>
 #include <boost/simd/sdk/simd/extensions/none.hpp>
 
-#include <boost/simd/sdk/functor/forward.hpp>
-namespace boost { namespace simd
+#include <boost/dispatch/functor/forward.hpp>
+namespace boost { namespace dispatch 
 {
   template<class Tag>
   struct default_site<Tag>

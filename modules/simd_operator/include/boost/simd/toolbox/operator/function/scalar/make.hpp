@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MAKE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch
 {

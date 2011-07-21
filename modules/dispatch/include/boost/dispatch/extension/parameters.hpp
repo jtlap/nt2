@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_EXTENSION_PARAMETERS_HPP_INCLUDED
-#define NT2_EXTENSION_PARAMETERS_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_EXTENSION_PARAMETERS_HPP_INCLUDED
+#define BOOST_DISPATCH_EXTENSION_PARAMETERS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global parameters for nt2 code generator
@@ -17,29 +17,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Maximum arity for meta-function
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_MAX_META_ARITY
-#define NT2_MAX_META_ARITY 12
+#ifndef BOOST_DISPATCH_MAX_META_ARITY
+#define BOOST_DISPATCH_MAX_META_ARITY 12
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Maximum arity for function calls
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_MAX_ARITY
-#define NT2_MAX_ARITY 5
+#ifndef BOOST_DISPATCH_MAX_ARITY
+#define BOOST_DISPATCH_MAX_ARITY 5
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Maximum number of dimensions for all container
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_MAX_DIMENSIONS
-#define NT2_MAX_DIMENSIONS 4
+#ifndef BOOST_DISPATCH_MAX_DIMENSIONS
+#define BOOST_DISPATCH_MAX_DIMENSIONS 4
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Default base index for container
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_DEFAULT_INDEX
-#define NT2_DEFAULT_INDEX 1
+#ifndef BOOST_DISPATCH_DEFAULT_INDEX
+#define BOOST_DISPATCH_DEFAULT_INDEX 1
 #endif
 
 #endif

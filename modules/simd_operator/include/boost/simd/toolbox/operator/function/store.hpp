@@ -16,7 +16,7 @@
 // Store a value in memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/function/store.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/functor/preprocessor/function.hpp>
+#include <boost/dispatch/functor/preprocessor/function.hpp>
 
 namespace boost { namespace dispatch
 {

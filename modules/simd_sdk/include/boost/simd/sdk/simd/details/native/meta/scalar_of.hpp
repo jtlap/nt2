@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_SCALAR_OF_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace details
 {

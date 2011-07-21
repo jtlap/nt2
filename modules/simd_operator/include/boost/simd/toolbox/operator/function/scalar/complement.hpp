@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/as_bits.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch
 {

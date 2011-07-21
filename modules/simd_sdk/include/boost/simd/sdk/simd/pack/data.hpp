@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_DATA_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/fusion.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/simd/include/functions/splat.hpp>

@@ -13,7 +13,7 @@
 // operator binary plus
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 /////////
 namespace boost { namespace dispatch

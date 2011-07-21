@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_DSL_TERMINAL_OF_HPP_INCLUDED
 
 #include <boost/proto/traits.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/mpl/placeholders.hpp>
 
 namespace boost { namespace simd {  namespace ext

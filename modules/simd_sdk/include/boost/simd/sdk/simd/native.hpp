@@ -9,11 +9,11 @@
 #ifndef BOOST_SIMD_SDK_SIMD_NATIVE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_NATIVE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/fusion.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
-#include <boost/simd/sdk/error/static_assert.hpp>
+#include <boost/dispatch/error/static_assert.hpp>
 //#include <boost/simd/sdk/functor/details/tags.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/simd/sdk/simd/details/native/iterator.hpp>

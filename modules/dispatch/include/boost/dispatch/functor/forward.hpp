@@ -31,10 +31,10 @@ namespace boost { namespace dispatch
   struct functor;
 } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch
 {
   template< class Signature , class Site, class Dummy = void> struct implement;
-} } }
+} }
 
 namespace boost { namespace dispatch
 {

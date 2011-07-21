@@ -12,7 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/simd/sdk/dsl/call.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
-#include <boost/simd/sdk/meta/is_iterator.hpp>
+#include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 namespace boost { namespace simd

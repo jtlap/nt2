@@ -19,15 +19,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Tag hierarchy for SSE extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
-  BOOST_SIMD_HIERARCHY_CLASS(sse_, cpu_);
-  BOOST_SIMD_HIERARCHY_CLASS(sse2_, sse_);
-  BOOST_SIMD_HIERARCHY_CLASS(sse3_, sse2_);
-  BOOST_SIMD_HIERARCHY_CLASS(ssse3_, sse3_);
-  BOOST_SIMD_HIERARCHY_CLASS(sse4a_, ssse3_);
-  BOOST_SIMD_HIERARCHY_CLASS(sse4_1_, ssse3_);
-  BOOST_SIMD_HIERARCHY_CLASS(sse4_2_, sse4_1_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse_, cpu_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse2_, sse_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse3_, sse2_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse3_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse4a_, ssse3_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse4_1_, ssse3_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse4_2_, sse4_1_);
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,15 +38,15 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<> struct is_simd_specific<__m128 , tag::sse_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__m128d, tag::sse_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__m128i, tag::sse_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m128 , dispatch::tag::sse_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m128d, dispatch::tag::sse_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m128i, dispatch::tag::sse_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct  as_simd<T,tag::sse_>
+  struct  as_simd<T,dispatch::tag::sse_>
         : boost::mpl::if_ < boost::is_integral<T>
                           , __m128i
                           , typename  boost::mpl
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace meta
                                   , typename  boost::mpl
                                     ::if_ < boost::is_same<T,double>
                                         , __m128d
-                                        , na_
+                                        , dispatch::meta::na_
                                         >::type
                                   >::type
                           >
@@ -64,9 +64,9 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag
   //////////////////////////////////////////////////////////////////////////////
-  template<class X> struct extension_of<__m128 ,X>  { typedef tag::sse_ type; };
-  template<class X> struct extension_of<__m128d,X>  { typedef tag::sse_ type; };
-  template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
+  template<class X> struct extension_of<__m128 ,X>  { typedef dispatch::tag::sse_ type; };
+  template<class X> struct extension_of<__m128d,X>  { typedef dispatch::tag::sse_ type; };
+  template<class X> struct extension_of<__m128i,X>  { typedef dispatch::tag::sse_ type; };
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////

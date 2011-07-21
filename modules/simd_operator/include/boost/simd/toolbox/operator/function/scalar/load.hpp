@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_DETAILS_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_DETAILS_LOAD_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/mpl.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // load_ without offset

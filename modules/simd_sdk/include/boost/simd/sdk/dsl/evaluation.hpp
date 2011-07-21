@@ -9,13 +9,13 @@
 #ifndef BOOST_SIMD_SDK_DSL_EVALUATION_HPP_INCLUDED
 #define BOOST_SIMD_SDK_DSL_EVALUATION_HPP_INCLUDED
 
-#include <boost/simd/sdk/functor/functor.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag { struct evaluate_ {}; }
 
-  BOOST_SIMD_FUNCTION_IMPLEMENTATION_SELF(tag::evaluate_, evaluate, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::evaluate_, evaluate, 2)
 } }
 
 #endif

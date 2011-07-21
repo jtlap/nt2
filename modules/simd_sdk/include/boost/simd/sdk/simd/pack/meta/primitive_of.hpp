@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_META_PRIMITIVE_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_META_PRIMITIVE_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template< class Type
           , std::size_t Cardinal

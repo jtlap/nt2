@@ -9,20 +9,20 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_IS_POWER_OF_2_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_IS_POWER_OF_2_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/mpl.hpp>
-#include <boost/simd/sdk/functor/functor.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
-#include <boost/simd/sdk/functor/preprocessor/function.hpp>
+#include <boost/dispatch/functor/preprocessor/function.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check if a value is a power of 2
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag { struct is_power_of_2_ {}; }
   namespace memory
   {
-    BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::is_power_of_2_, is_power_of_2, 1);
+    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_power_of_2_, is_power_of_2, 1);
   }
 } }
 

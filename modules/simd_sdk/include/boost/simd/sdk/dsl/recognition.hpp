@@ -11,7 +11,7 @@
 
 #include <boost/proto/proto.hpp>
 #include <boost/simd/sdk/dsl/compile.hpp>
-#include <boost/simd/sdk/functor/forward.hpp>
+#include <boost/dispatch/functor/forward.hpp>
 
 namespace boost { namespace simd
 {

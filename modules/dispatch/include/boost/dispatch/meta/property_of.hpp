@@ -21,7 +21,7 @@
 
 #include <climits>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/config/types.hpp>
+#include <boost/simd/sdk/config/types.hpp>
 #include <boost/dispatch/meta/details/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta

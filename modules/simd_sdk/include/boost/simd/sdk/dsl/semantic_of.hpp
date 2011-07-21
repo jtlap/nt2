@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_DSL_SEMANTIC_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_DSL_SEMANTIC_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // For a given proto expression class, retrieves its semantic info as a type

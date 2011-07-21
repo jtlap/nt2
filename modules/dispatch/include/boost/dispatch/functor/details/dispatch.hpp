@@ -12,11 +12,11 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/details/decltype.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/config/attributes.hpp>
+#include <boost/simd/sdk/config/attributes.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
 
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
-#include <boost/dispatch/functor/details/preprocessed/dispatch/.hpp>
+#include <boost/dispatch/functor/details/preprocessed/dispatch.hpp>
 #else
 #include <boost/dispatch/extension/parameters.hpp>
 #include <boost/dispatch/details/preprocessor.hpp>
@@ -28,7 +28,7 @@
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
 #undef BOOST_DISPATCH_DECLTYPE
-#undef BOOST_DISPATCH_FORCE_INLINE
+#undef BOOST_SIMD_FORCE_INLINE
 #endif
 
 //==============================================================================
@@ -43,7 +43,7 @@
 
 #define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
-BOOST_DISPATCH_FORCE_INLINE                                                                \
+BOOST_SIMD_FORCE_INLINE                                                                \
 boost::dispatch::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
@@ -92,7 +92,7 @@ struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
 };                                                                          \
                                                                             \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
-BOOST_DISPATCH_FORCE_INLINE                                                            \
+BOOST_SIMD_FORCE_INLINE                                                            \
 typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
 dispatch( Tag const&, Site const&                                           \
         , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \

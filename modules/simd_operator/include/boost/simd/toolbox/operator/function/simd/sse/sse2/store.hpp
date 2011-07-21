@@ -14,7 +14,7 @@
 // TODO : Make them work properly with ContiguousRandomAccessIterator
 //==============================================================================
 #include <boost/simd/sdk/memory/details/category.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch
 {

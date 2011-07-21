@@ -10,9 +10,9 @@
 #define BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
 #include <boost/simd/sdk/error/assert.hpp>
-#include <boost/simd/sdk/functor/functor.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
-#include <boost/simd/sdk/functor/preprocessor/function.hpp>
+#include <boost/dispatch/functor/preprocessor/function.hpp>
 
 namespace boost { namespace simd
 {

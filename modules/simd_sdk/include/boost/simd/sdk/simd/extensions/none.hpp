@@ -21,8 +21,8 @@ BOOST_SIMD_WARNING(No SIMD extensions detected)
 #define BOOST_SIMD_BITS       64
 #define BOOST_SIMD_STRING     "none"
 #define BOOST_SIMD_CARDINALS (1)(2)(4)(8)
-#define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::none_<boost::mpl::size_t<8> >
-#define BOOST_SIMD_DEFAULT_SITE ::boost::simd::tag::cpu_
+#define BOOST_SIMD_DEFAULT_EXTENSION ::boost::dispatch::tag::none_<boost::mpl::size_t<8> >
+#define BOOST_SIMD_DEFAULT_SITE ::boost::dispatch::tag::cpu_
 
 #if !defined(BOOST_SIMD_SIMD_TYPES)
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
@@ -36,7 +36,7 @@ BOOST_SIMD_WARNING(No SIMD extensions detected)
 #include <boost/mpl/times.hpp>
 #include <boost/mpl/sizeof.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
   template<class N> struct none_ : cpu_
   {
@@ -59,14 +59,14 @@ namespace boost { namespace simd { namespace detail
 namespace boost { namespace simd { namespace meta
 {
   template<class N, class T>
-  struct as_simd<T, tag::none_<N> >
+  struct as_simd<T, dispatch::tag::none_<N> >
   {
     typedef boost::array<T, N::value / sizeof(T)> type;
   };
 
   template<class T, class N>
   struct is_simd_specific < typename detail::make_array<T,N>::type
-                          , tag::none_<boost::mpl::times< N
+                          , dispatch::tag::none_<boost::mpl::times< N
                                                         , boost::mpl::sizeof_<T>
                                                         >
                                       >
@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace meta
   template<class T, class N>
   struct extension_of<typename detail::make_array<T,N>::type, T, N>
   {
-    typedef tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
+    typedef dispatch::tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
   };
 } } }
 

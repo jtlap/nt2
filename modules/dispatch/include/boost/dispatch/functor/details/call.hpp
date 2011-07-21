@@ -22,7 +22,7 @@
 namespace boost { namespace dispatch { namespace tag { struct unknown_;    } } }
 namespace boost { namespace dispatch { namespace tag { struct error_with;  } } }
 
-namespace boost { namespace dispatch {
+namespace boost { namespace dispatch
 {
   //////////////////////////////////////////////////////////////////////////////
   // Call to non-categorizable types ends up in error

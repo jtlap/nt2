@@ -14,7 +14,7 @@
 namespace boost { namespace simd { namespace meta
 {
   template<class T,class Dummy=void, class Dummy1 = void>
-  struct extension_of : na_ {};
+  struct extension_of : dispatch::meta::na_ {};
 } } }
 
 

@@ -21,9 +21,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Tag hierarchy for Altivec PPC extensions
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
-  BOOST_SIMD_HIERARCHY_CLASS(altivec_, cpu_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(altivec_, cpu_);
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,16 +34,16 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<> struct is_simd_specific<__vector          float, tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector unsigned int  , tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector unsigned short, tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector unsigned char , tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector signed   int  , tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector signed   short, tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector signed   char , tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector __bool   int  , tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector __bool   short, tag::altivec_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__vector __bool   char , tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector          float, dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned int  , dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned short, dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector unsigned char , dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector signed   int  , dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector signed   short, dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector signed   char , dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   int  , dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   short, dispatch::tag::altivec_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__vector __bool   char , dispatch::tag::altivec_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace meta
             , bool Signed = boost::is_signed<T>::value
             , class Dummy=void
             >
-    struct entry { typedef na_ type; };
+    struct entry { typedef dispatch::meta::na_ type; };
 
     template<bool Sign, class Dummy>
     struct entry<float, 32, false, Sign, Dummy> { typedef __vector float  type;         };
@@ -80,25 +80,25 @@ namespace boost { namespace simd { namespace meta
   // For a given SIMD register type, return the associated SIMD extension tag
   //////////////////////////////////////////////////////////////////////////////
   template<class X>
-  struct extension_of<__vector float          ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector float          ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector unsigned int   ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector unsigned int   ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector unsigned short ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector unsigned short ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector unsigned char  ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector unsigned char  ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector signed int     ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector signed int     ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector signed short   ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector signed short   ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector signed char    ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector signed char    ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector __bool int     ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector __bool int     ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector __bool short   ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector __bool short   ,X> { typedef dispatch::tag::altivec_ type; };
   template<class X>
-  struct extension_of<__vector __bool char    ,X> { typedef tag::altivec_ type; };
+  struct extension_of<__vector __bool char    ,X> { typedef dispatch::tag::altivec_ type; };
 } } }
 
 #endif

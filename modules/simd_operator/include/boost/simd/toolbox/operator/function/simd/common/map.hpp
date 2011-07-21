@@ -18,7 +18,7 @@
 #include <boost/simd/toolbox/operator/function/simd/common/preprocessed/map.hpp>
 #else
 #include <boost/dispatch/extension/parameters.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
