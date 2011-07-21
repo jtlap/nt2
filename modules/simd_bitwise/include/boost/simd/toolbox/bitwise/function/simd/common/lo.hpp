@@ -12,7 +12,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::lo_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -30,6 +30,6 @@ namespace boost { namespace dispatch
       return b_and(integral_constant<result_type,pattern>(),a0);
     }
   };
-} }
+} } }
 
 #endif

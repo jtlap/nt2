@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)(X)
                             , ((target_< simd_< arithmetic_<A0>, X > >))
@@ -35,6 +35,6 @@ namespace boost { namespace dispatch
     BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
     #undef M0
   };
-} }
+} } }
 
 #endif

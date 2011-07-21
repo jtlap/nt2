@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minmod_, tag::cpu_
                             , (A0)(X)
@@ -33,13 +33,13 @@ namespace boost { namespace dispatch
       return b_and(boost::simd::min(a0, a1), is_gez(b_xor(a0, a1)));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minmod_, tag::cpu_
                             , (A0)(X)
@@ -54,13 +54,13 @@ namespace boost { namespace dispatch
       return  boost::simd::min(a0,a1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minmod_, tag::cpu_
                             , (A0)(X)
@@ -77,7 +77,7 @@ namespace boost { namespace dispatch
 		   );
     }
   };
-} }
+} } }
 
 
 #endif

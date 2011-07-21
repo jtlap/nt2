@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over store for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -36,7 +36,7 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
-} }
+} } }
 
 
 #endif

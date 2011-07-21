@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ldivide_, tag::cpu_
                             , (A0)(A1)
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch
       if (a0) return a1/a0;  else return Zero<result_type>();
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ namespace boost { namespace dispatch
   #pragma warning(push)
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ldivide_, tag::cpu_
                             , (A0)(A1)
@@ -55,7 +55,7 @@ namespace boost { namespace dispatch
        return a1/a0;
     }
   };
-} }
+} } }
 
 #ifdef BOOST_MSVC
   #pragma warning(pop)

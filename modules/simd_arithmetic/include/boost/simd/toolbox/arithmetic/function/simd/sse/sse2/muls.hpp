@@ -38,7 +38,7 @@
 //       return sel(is_eqz(mulhi), mullo, sel(sign, Valmin<A0>(), Valmax<A0>())); 
 //     }
 //   };
-// } }
+// } } }
   
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is uint16_
@@ -64,5 +64,5 @@
 //       return sel(is_eqz(mulhi), mullo, Valmax<A0>()); 
 //     }
 //   };
-// } }
+// } } }
 #endif

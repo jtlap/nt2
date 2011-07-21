@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sort_, tag::cpu_,
                        (A0),
@@ -68,5 +68,5 @@ namespace boost { namespace dispatch
       return make<A0>(minimum(a0), maximum(a0));
     }
   };
-} }
+} } }
 #endif

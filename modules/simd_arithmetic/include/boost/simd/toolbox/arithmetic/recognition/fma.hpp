@@ -11,12 +11,12 @@
 
 #include <boost/simd/sdk/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/arithmetic/function/fma.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
 			      , ((expr_<A0,Dom,tag::multiplies_,Sema>))(unspecified_<A1>)
 			      )
   {
@@ -26,13 +26,13 @@ namespace boost { namespace simd { namespace meta
 					   A1
 					   ) >::type result_type; 
   
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return fma(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), a1);
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
 			      , (unspecified_<A0>)((expr_<A1,Dom,tag::multiplies_,Sema>))
 			      )
   {
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace meta
           A0
         ) >::type result_type; 
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       return fma(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), a0);
     }

@@ -19,7 +19,7 @@
 #include <intrin.h>
 #endif
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::popcnt_, tag::cpu_, (A0)
                             , (scalar_< type32_<A0> >)
@@ -125,6 +125,6 @@ namespace boost { namespace dispatch
     #endif
     }
   };
-} }
+} } }
 
 #endif

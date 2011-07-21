@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
                             , (A0)(X)
@@ -32,13 +32,13 @@ namespace boost { namespace dispatch
       return boost::simd::sub(a0, a1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
                             , (A0)(X)
@@ -55,13 +55,13 @@ namespace boost { namespace dispatch
       //      return seladd(gt(a0, a1), Zero<A0>(), a0-a1); 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
                             , (A0)(X)
@@ -80,7 +80,7 @@ namespace boost { namespace dispatch
 	return res; 
     }
   };
-} }
+} } }
 
 
 #endif

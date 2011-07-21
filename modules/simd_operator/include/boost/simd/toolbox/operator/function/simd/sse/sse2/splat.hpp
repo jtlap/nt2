@@ -18,7 +18,7 @@
 //==============================================================================
 // Implementation when type A0 is double
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -34,12 +34,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Implementation when type A0 is float
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -55,12 +55,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Implementation when type A0 is ints8
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -76,12 +76,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Implementation when type A0 is ints16
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -97,12 +97,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Implementation when type A0 is ints32
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -118,12 +118,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Implementation when type A0 is ints64
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -138,6 +138,6 @@ namespace boost { namespace dispatch
       return make<typename A1::type>(a0, a0);
     }
   };
-} }
+} } }
 
 #endif

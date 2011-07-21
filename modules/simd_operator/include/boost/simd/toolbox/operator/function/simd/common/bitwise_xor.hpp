@@ -14,7 +14,7 @@
 #include <boost/mpl/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_xor_, tag::cpu_,
                                 (A0)(A1)(X),
@@ -34,6 +34,6 @@ namespace boost { namespace dispatch
       return bitwise_xor(a0, simd::native_cast<A0>(a1));
     }
   };
-} }
+} } }
 
 #endif

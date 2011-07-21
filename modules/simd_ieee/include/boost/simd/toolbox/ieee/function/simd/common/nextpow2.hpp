@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
                             , (A0)(X)
@@ -41,13 +41,13 @@ namespace boost { namespace dispatch
       //    return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
                             , (A0)(X)
@@ -68,13 +68,13 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(seladd(is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
                             , (A0)(X)
@@ -95,13 +95,13 @@ namespace boost { namespace dispatch
       //seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
                             , (A0)(X)
@@ -122,13 +122,13 @@ namespace boost { namespace dispatch
       //seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextpow2_, tag::cpu_
                             , (A0)(X)
@@ -147,7 +147,7 @@ namespace boost { namespace dispatch
       return tofloat(seladd(is_equal(m, Half<A0>()), p, Mone<int_type>()));
       }
   };
-} }
+} } }
 
 
 #endif

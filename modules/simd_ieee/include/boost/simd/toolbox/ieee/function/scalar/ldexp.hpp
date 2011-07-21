@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_, (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
@@ -47,6 +47,6 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
-} }
+} } }
 
 #endif

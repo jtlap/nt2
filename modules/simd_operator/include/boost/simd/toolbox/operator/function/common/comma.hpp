@@ -14,7 +14,7 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <iostream>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::comma_,tag::cpu_ , (A0)(A1)
                             , (generic_<fundamental_<A0> >)
@@ -24,6 +24,6 @@ namespace boost { namespace dispatch
     typedef A1 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { ignore_unused(a0); return a1;}
   };
-} }
+} } }
 
 #endif

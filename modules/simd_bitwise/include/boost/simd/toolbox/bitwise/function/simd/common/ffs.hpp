@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is types8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
@@ -43,13 +43,13 @@ namespace boost { namespace dispatch
               ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>());
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
@@ -65,13 +65,13 @@ namespace boost { namespace dispatch
       return  simd::native_cast<rtype>(map(functor<tag::ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
@@ -93,13 +93,13 @@ namespace boost { namespace dispatch
                             ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>());
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
                             , (A0)(X)
@@ -122,7 +122,7 @@ namespace boost { namespace dispatch
                ,  shli(-( is_nez(b_and(v, integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4))+One<rtype>());
     }
   };
-} }
+} } }
 
 
 #endif

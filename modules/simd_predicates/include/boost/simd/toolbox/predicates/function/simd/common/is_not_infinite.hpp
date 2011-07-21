@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_not_infinite_, tag::cpu_,
                                   (A0)(X),
@@ -47,5 +47,5 @@ namespace boost { namespace dispatch
       return is_not_equal(abs(a0),Inf<A0>());
     }
   };
-} }
+} } }
 #endif

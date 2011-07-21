@@ -28,7 +28,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::next_, tag::cpu_,
                        (A0)(X),
@@ -63,5 +63,5 @@ namespace boost { namespace dispatch
        return sel(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
     }
   };
-} }
+} } }
 #endif

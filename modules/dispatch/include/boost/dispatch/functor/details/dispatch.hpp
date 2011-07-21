@@ -44,12 +44,12 @@
 #define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
 BOOST_SIMD_FORCE_INLINE                                                                \
-boost::dispatch::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
+boost::dispatch::meta::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
-  boost::dispatch::implement< Tag(tag::unknown_),Site                           \
+  boost::dispatch::meta::implement< Tag(tag::unknown_),Site                           \
                       , tag::error_with(BOOST_PP_ENUM(n,M2,~))                  \
                       > that;                                                   \
   return that;                                                                  \

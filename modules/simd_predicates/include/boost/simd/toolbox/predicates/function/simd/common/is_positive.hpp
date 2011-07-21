@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_positive_, tag::cpu_,
                               (A0)(X),
@@ -49,5 +49,5 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(is_gez(simd::native_cast<type>(a0)));
     }
   };
-} }
+} } }
 #endif

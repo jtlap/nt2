@@ -14,7 +14,7 @@
 #include <boost/simd/sdk/functor/meta/call.hpp>
 #include <boost/simd/toolbox/predicates/function/is_not_greater.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_not_ , tag::recognition_, (A0)(Dom)(Sema)
 			      , ((expr_<A0,Dom,tag::is_greater_,Sema>))
@@ -30,6 +30,6 @@ namespace boost { namespace dispatch
       return is_not_greater(boost::proto::child_c<0>(a0));
     }
   };
-} }
+} } }
 
 #endif

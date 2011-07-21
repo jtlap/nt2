@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::negif_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
@@ -49,6 +49,6 @@ namespace boost { namespace dispatch
     typedef A1 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return b_xor(a1,b_and(is_true(a0),Signmask<A0>())); }
   };
-} }
+} } }
 
 #endif

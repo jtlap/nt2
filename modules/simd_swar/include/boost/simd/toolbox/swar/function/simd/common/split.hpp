@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is upgradeable
@@ -68,6 +68,6 @@ namespace boost { namespace dispatch
       return res; 
     }
   };
-} }
+} } }
 
 #endif

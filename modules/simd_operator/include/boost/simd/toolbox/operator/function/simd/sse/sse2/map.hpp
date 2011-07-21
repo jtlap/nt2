@@ -39,7 +39,7 @@
 #define M1(z,n,t) ,tag::simd_<tag::arithmetic_,tag::sse_>
 
 #define M0(z,n,t)                                                                   \
-namespace boost { namespace dispatch                                   \
+namespace boost { namespace dispatch { namespace meta                                   \
 {                                                                                   \
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_                            \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n),M5,t)                 \
@@ -66,7 +66,7 @@ namespace boost { namespace dispatch                                   \
       return make<result_type>(BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n));     \
     }                                                                               \
   };                                                                                \
-} }                                                                               \
+} } }                                                                               \
 /**/
 
 #define BOOST_SIMD_MAP_CALL(T,C)                          \

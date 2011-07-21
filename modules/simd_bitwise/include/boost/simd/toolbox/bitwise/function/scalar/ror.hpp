@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ror_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
@@ -41,6 +41,6 @@ namespace boost { namespace dispatch
       return t0.value;
     }
   };
-} }
+} } }
 
 #endif

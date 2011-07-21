@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_equal_with_equal_nans_, tag::cpu_
                             , (A0)(X)
@@ -42,6 +42,6 @@ namespace boost { namespace dispatch
       return eq(a0,a1);
     }
   };
-} }
+} } }
 
 #endif

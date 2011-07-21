@@ -16,7 +16,7 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
 /////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_, tag::cpu_
                             , (A0)
@@ -32,9 +32,9 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_, tag::cpu_
                             , (A0)
@@ -50,9 +50,9 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_, tag::cpu_
                             , (A0)
@@ -68,9 +68,9 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_, tag::cpu_
                             , (A0)
@@ -86,9 +86,9 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_, tag::cpu_
                             , (A0)
@@ -104,9 +104,9 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_, tag::cpu_
                             , (A0)
@@ -122,6 +122,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

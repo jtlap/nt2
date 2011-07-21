@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::majority_, tag::cpu_,
                            (A0)(X),
@@ -31,5 +31,5 @@ namespace boost { namespace dispatch
       return b_or(b_or(b_and(aa0, aa1),b_and(aa1, aa2)),b_and(aa2, aa0));
     }
   };
-} }
+} } }
 #endif

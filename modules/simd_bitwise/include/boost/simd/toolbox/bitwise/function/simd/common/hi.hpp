@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::hi_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -32,6 +32,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

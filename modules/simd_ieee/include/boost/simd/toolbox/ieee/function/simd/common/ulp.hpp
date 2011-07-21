@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ulp_, tag::cpu_,
 			     (A0)(X),
@@ -53,7 +53,7 @@ namespace boost { namespace dispatch
 	return boost::simd::sel(boost::simd::is_equal(x, boost::simd::Inf<A0>()), x, boost::simd::min(x-xp, xs - x));
       }
   };
-} }
+} } }
 
 
 #endif

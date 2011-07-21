@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/sdk/meta/as_bits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_notor_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -29,6 +29,6 @@ namespace boost { namespace dispatch
       return t0.value;
     }
   };
-} }
+} } }
 
 #endif

@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
 			     (A0),
@@ -79,7 +79,7 @@ namespace boost { namespace dispatch
 	return simd::native_cast<A0>(_mm_adds_epi8(a0, a1)); 
       }
   };
-} }
+} } }
 
 
 #endif

@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is ints64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::first_, tag::sse4_1_,
                         (A0),
@@ -28,6 +28,6 @@ namespace boost { namespace dispatch
       return z;
     }
   };
-} }
+} } }
 #endif
 #endif

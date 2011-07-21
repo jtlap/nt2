@@ -16,7 +16,7 @@
 //==============================================================================
 // is_power_of_2 on integers
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
                             , (A0), (scalar_< integer_<A0> >)
@@ -25,12 +25,12 @@ namespace boost { namespace dispatch
     typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return (!(a0 & (a0 - 1)) && a0); }
   };
-} }
+} } }
 
 //==============================================================================
 // is_power_of_2 on mpl integral
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_power_of_2_, tag::cpu_
                             , (A0), (mpl_integral_< scalar_< arithmetic_<A0> > >)
@@ -43,6 +43,6 @@ namespace boost { namespace dispatch
       return meta::is_power_of_2<A0>::value;
     }
   };
-} }
+} } }
 
 #endif

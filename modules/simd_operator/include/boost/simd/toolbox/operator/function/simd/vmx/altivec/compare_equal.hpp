@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_COMPARE_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_COMPARE_EQUAL_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_equal_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::altivec_>))
@@ -19,6 +19,6 @@ namespace boost { namespace dispatch
     typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return vec_all_eq(a0(),a1()); }
   };
-} }
+} } }
 
 #endif

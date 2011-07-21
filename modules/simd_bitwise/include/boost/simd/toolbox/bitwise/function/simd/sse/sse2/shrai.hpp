@@ -18,7 +18,7 @@
 
 #include <boost/simd/toolbox/bitwise/function/simd/common/shrai.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
                             , (A0)(A1)
@@ -82,6 +82,6 @@ namespace boost { namespace dispatch
       return make<A0>(shrai(a0[0], a1), shrai(a0[1], a1));
     }
   };
-} }
+} } }
 
 #endif

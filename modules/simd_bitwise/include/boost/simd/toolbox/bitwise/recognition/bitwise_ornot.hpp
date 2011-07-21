@@ -14,7 +14,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/bitwise/function/bitwise_ornot.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_ , tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
@@ -53,6 +53,6 @@ namespace boost { namespace dispatch
       return bitwise_ornot(a1, boost::proto::child_c<0>(a0));
     }
   };
-} }
+} } }
 
 #endif

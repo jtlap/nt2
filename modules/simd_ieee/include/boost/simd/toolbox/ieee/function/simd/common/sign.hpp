@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sign_, tag::cpu_,
                        (A0)(X),
@@ -66,5 +66,5 @@ namespace boost { namespace dispatch
       return seladd(is_nan(a0),boost::simd::negate(One<A0>(),a0),a0);
     }
   };
-} }
+} } }
 #endif

@@ -13,7 +13,7 @@
 #include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::complement_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
@@ -22,9 +22,9 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return ~a0; }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::complement_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
@@ -38,6 +38,6 @@ namespace boost { namespace dispatch
       return t0.value;
     }
   };
-} }
+} } }
 
 #endif

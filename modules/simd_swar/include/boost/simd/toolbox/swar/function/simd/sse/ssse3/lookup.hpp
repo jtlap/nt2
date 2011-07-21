@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::lookup_, tag::cpu_,
                          (A0)(A1),
@@ -101,5 +101,5 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(r);
       }
   };
-} }
+} } }
 #endif

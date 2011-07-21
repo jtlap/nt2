@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ord_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
@@ -49,6 +49,6 @@ namespace boost { namespace dispatch
       A0 that = { _mm_cmpord_ps(a0,a1)}; return that;
     }
   };
-} }
+} } }
 
 #endif

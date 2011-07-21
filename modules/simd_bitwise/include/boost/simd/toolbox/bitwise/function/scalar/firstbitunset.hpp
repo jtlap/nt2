@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::firstbitunset_, tag::cpu_
                             , (A0)
@@ -37,6 +37,6 @@ namespace boost { namespace dispatch
       return firstbitunset(that.bits);
     }
   };
-} }
+} } }
 
 #endif

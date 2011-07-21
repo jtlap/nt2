@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::select_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
@@ -40,6 +40,6 @@ namespace boost { namespace dispatch
       return b_or(b_and(a1,a0),b_andnot(a2,a0));
     }
   };
-} }
+} } }
 
 #endif

@@ -25,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
@@ -63,7 +63,7 @@ namespace boost { namespace dispatch
       return sel(ge(xx*Eps<A0>(), yy), xx, r);
    }
   };
-} }
+} } }
 
 
 #endif

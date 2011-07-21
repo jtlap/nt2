@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::max_, tag::cpu_,
                       (A0),
@@ -171,5 +171,5 @@ namespace boost { namespace dispatch
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_max_epu16); return that;
     }
   };
-} }
+} } }
 #endif

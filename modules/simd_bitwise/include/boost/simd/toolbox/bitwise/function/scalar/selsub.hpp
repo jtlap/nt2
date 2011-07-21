@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELSUB_HPP_INCLUDED
 
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::selsub_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< fundamental_<A0> >)
@@ -26,6 +26,6 @@ namespace boost { namespace dispatch
       else    return result_type(a1);
     }
   };
-} }
+} } }
 
 #endif

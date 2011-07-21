@@ -16,7 +16,7 @@
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::split_, tag::cpu_,
 				 (A0)(A1)(X),
@@ -120,6 +120,6 @@ namespace boost { namespace dispatch
 
 
   };
-} }
+} } }
 
 #endif

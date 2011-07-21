@@ -27,7 +27,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
 
   template < class T, class I = typename meta::as_integer<T, signed>::type>
@@ -134,6 +134,6 @@ namespace boost { namespace dispatch
     }
   };
 
-} }
+} } }
 
 #endif

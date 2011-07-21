@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/functions/is_nez.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_xor_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -21,6 +21,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return b_xor(is_nez(a0), is_nez(a1)); }
   };
-} }
+} } }
 
 #endif

@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(A1)
@@ -33,13 +33,13 @@ namespace boost { namespace dispatch
       return a0+sign(a1-a0);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(A1)
@@ -60,13 +60,13 @@ namespace boost { namespace dispatch
     #endif
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(A1)
@@ -87,13 +87,13 @@ namespace boost { namespace dispatch
     #endif
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(A1)
@@ -108,7 +108,7 @@ namespace boost { namespace dispatch
       return (a1 == a0) ? a0 : (a1 > a0) ? a0+One<A0>() : a0-One<A0>();
     }
   };
-} }
+} } }
 
 
 #endif

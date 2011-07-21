@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::mod_, tag::cpu_
                             , (A0)(X)
@@ -33,7 +33,7 @@ namespace boost { namespace dispatch
       return selsub(is_nez(a1), a0, divfloor(a0,a1)*a1);
     }
   };
-} }
+} } }
 
 
 #endif

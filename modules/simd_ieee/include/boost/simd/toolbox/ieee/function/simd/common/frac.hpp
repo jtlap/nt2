@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::frac_, tag::cpu_,
                        (A0)(X),
@@ -49,5 +49,5 @@ namespace boost { namespace dispatch
       return sel(is_invalid(a0), Nan<A0>(), a0-boost::simd::trunc(a0));
     }
   };
-} }
+} } }
 #endif

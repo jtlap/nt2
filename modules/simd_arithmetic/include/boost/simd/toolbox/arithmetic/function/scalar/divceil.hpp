@@ -19,7 +19,7 @@
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
@@ -55,7 +55,7 @@ namespace boost { namespace dispatch
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return ceil(a0/a1); }
   };
-} }
+} } }
 
 #ifdef BOOST_MSVC
   #pragma warning(pop)

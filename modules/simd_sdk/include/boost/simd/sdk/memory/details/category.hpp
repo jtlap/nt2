@@ -25,7 +25,7 @@ BOOST_DISPATCH_REGISTER_HIERARCHY(iterator_)
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for all iterator types
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch {  namespace details
+namespace boost { namespace dispatch { namespace details
 {
   template<class T, class Origin>
   struct  hierarchy_of< T
@@ -45,7 +45,7 @@ namespace boost { namespace dispatch {  namespace details
   };
 } } }
 
-namespace boost { namespace dispatch {  namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
   // Same property than T

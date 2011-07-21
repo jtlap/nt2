@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divs_, tag::cpu_
                             , (A0)(X)
@@ -30,12 +30,12 @@ namespace boost { namespace dispatch
       return boost::simd::rdivide(a0, a1); 
     }
   };
-} }
+} } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divs_, tag::cpu_
                             , (A0)(X)
@@ -52,7 +52,7 @@ namespace boost { namespace dispatch
       return rdivide( a0-c, a1); 
     }
   };
-} }
+} } }
 
 #endif
 #endif

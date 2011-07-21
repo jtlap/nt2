@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
                             , (A0)(A1)
@@ -95,6 +95,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

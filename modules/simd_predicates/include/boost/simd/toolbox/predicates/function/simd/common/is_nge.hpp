@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nge_, tag::cpu_
                             , (A0)(X)
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch
       return b_not(ge(a0,a1));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -56,6 +56,6 @@ namespace boost { namespace simd { namespace ext
       return lt(a0,a1);
     }
   };
-} }
+} } }
 
 #endif

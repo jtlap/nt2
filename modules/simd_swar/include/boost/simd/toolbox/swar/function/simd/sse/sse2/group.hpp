@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
                         (A0),
@@ -89,7 +89,7 @@ namespace boost { namespace dispatch
 //                                         >::type type;
 //     };
 //   };
-// } }
+// } } }
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_t
 /////////////////////////////////////////////////////////////////////////////
@@ -182,6 +182,6 @@ namespace boost { namespace dispatch
       return simd::native_cast<rtype>(_mm_shuffle_epi32(b, BOOST_SIMD_SH(0, 2, 1, 3)));
     }
   };
-} }
+} } }
 #undef BOOST_SIMD_SH
 #endif

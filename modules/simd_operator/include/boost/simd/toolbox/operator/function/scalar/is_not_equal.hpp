@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_IS_NOT_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_IS_NOT_EQUAL_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_equal_, tag::cpu_
                             , (A0)(A1)
@@ -20,7 +20,7 @@ namespace boost { namespace dispatch
     typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 != a1; }
   };
-} }
+} } }
  
 
 #endif

@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_or_, tag::cpu_
                             , (A0)(A1)(X)
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch
       return boost::simd::neq( (a0 | a1), boost::simd::Zero<A0>() );
     }
   };
-} }
+} } }
 
 
 #endif

@@ -12,7 +12,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minus_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::altivec_>))
@@ -27,6 +27,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

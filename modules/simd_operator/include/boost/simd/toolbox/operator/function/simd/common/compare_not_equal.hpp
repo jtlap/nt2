@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/functions/compare_equal.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_not_equal_, tag::cpu_, (X)(A0)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -21,6 +21,6 @@ namespace boost { namespace dispatch
     typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return !(a0==a1); }
   };
-} }
+} } }
 
 #endif

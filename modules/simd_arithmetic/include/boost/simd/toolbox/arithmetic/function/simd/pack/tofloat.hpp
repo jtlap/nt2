@@ -23,12 +23,12 @@ namespace boost { namespace simd
         : boost::proto::
           unary_expr< tag::tofloat_ , grammar<boost::proto::_, N> >
   {};
-} }
+} } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Say to compute that tofloat_ need to retarget its inner evaluation process
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   template<class Target>
   struct  compute<tag::tofloat_,Target>
@@ -65,6 +65,6 @@ namespace boost { namespace dispatch
                                     >( boost::cref(a0) );
     }
   };
-} }
+} } }
 
 #endif

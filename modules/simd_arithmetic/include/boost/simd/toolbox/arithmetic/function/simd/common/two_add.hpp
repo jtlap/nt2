@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::two_add_, tag::cpu_,
                           (A0)(X),
@@ -42,5 +42,5 @@ namespace boost { namespace dispatch
       r1 =  sel(is_inf(r0), Zero<R1>(), (a-(r0-z))+(b-z));
     }
   };
-} }
+} } }
 #endif

@@ -13,7 +13,7 @@
 #include <boost/simd/sdk/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< integer_<A0> >)
@@ -34,6 +34,6 @@ namespace boost { namespace dispatch
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return One<A0>()<<a0; }
   };
-} }
+} } }
 
 #endif

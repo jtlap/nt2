@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
@@ -42,13 +42,13 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(v);
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
@@ -82,13 +82,13 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(v);
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
@@ -116,13 +116,13 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(v);
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
                             , (A0)(X)
@@ -153,6 +153,6 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(v);
       }
   };
-} }
+} } }
 
 #endif

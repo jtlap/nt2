@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::put_first_, tag::cpu_
 			      , (A0)(A1)
@@ -129,7 +129,7 @@ namespace boost { namespace dispatch
 	return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 5));
       }
   };
-} }
+} } }
 
 
 #endif

@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/meta/as_unsigned.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -30,6 +30,6 @@ namespace boost { namespace dispatch
                                   );
     }
   };
-} }
+} } }
 
 #endif

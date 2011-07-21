@@ -25,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
@@ -41,13 +41,13 @@ namespace boost { namespace dispatch
       return dist(a0, a1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is bool_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
@@ -62,13 +62,13 @@ namespace boost { namespace dispatch
       return dist(a0, is_nez(a1));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
@@ -94,7 +94,7 @@ namespace boost { namespace dispatch
       return e/Eps<type>();
     }
   };
-} }
+} } }
 
 
 #endif

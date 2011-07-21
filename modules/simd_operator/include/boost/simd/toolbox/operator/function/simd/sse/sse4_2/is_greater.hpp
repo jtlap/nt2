@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for int64 types
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_greater_, tag::sse4_2_
                             , (A0)
@@ -30,6 +30,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

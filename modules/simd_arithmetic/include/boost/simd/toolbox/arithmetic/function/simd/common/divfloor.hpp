@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_DIVFLOOR_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divfloor_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -36,6 +36,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return floor(a0/a1); }
   };
-} }
+} } }
 
 #endif

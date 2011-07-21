@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch
       return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());
     }
   };
-} }
+} } }
 
 
 #endif

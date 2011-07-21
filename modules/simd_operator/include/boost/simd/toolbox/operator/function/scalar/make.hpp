@@ -12,7 +12,7 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
                             , (target_< scalar_< fundamental_<A0> > >)
@@ -21,6 +21,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
-} }
+} } }
 
 #endif

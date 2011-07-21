@@ -58,7 +58,7 @@
 //     ulpdist(double(boost::simd::Pi<float>()), boost::simd::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ulpdist_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -93,7 +93,7 @@ namespace boost { namespace dispatch
       return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
     }
   };
-} }
+} } }
 
 
 #endif

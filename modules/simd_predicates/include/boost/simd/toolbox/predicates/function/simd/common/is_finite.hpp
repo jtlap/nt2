@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -34,6 +34,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_eqz(a0-a0); }
   };
-} }
+} } }
 
 #endif

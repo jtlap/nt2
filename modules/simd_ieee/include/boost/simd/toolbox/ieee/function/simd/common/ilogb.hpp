@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ilogb_, tag::cpu_
                             , (A0)(X)
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch
       return exponent(a0);
     }
   };
-} }
+} } }
 
 
 #endif

@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
 				  ,( 
@@ -92,5 +92,5 @@ namespace boost { namespace dispatch
       return res;
     }
   };
-} }
+} } }
 #endif

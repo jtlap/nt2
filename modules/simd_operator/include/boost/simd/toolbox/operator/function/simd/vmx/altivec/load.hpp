@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #include <boost/simd/toolbox/operator/function/simd/vmx/altivec/load_offset.hpp>
 

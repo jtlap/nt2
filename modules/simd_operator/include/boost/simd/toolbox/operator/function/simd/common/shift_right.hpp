@@ -17,7 +17,7 @@
 #include <boost/mpl/sizeof.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::shift_right_, tag::cpu_,
                                   (A0)(A1)(X),
@@ -45,6 +45,6 @@ namespace boost { namespace dispatch
               native_cast<A0>(shift_right(simd::native_cast<int_type>(a0), a1));
     }
   };
-} }
+} } }
 
 #endif

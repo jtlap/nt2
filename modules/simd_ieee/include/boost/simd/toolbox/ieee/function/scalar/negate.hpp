@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::negate_, tag::cpu_
                             , (A0)(A1)
@@ -31,13 +31,13 @@ namespace boost { namespace dispatch
       return is_nez(a1)*(is_gez(a1)?a0:-a0);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::negate_, tag::cpu_
                             , (A0)(A1)
@@ -52,7 +52,7 @@ namespace boost { namespace dispatch
       return is_nez(a1)*a0;
     }
   };
-} }
+} } }
 
 
 #endif

@@ -13,7 +13,7 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/include/functions/max.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::maximum_, tag::cpu_, (A0)
                             , ((simd_<ints16_<A0>,tag::sse_>))
@@ -97,6 +97,6 @@ namespace boost { namespace dispatch
       return that[0];
     }
   };
-} }
+} } }
 
 #endif

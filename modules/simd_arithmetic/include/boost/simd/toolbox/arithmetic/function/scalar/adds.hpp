@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
                             , (A0)(A1)
@@ -33,13 +33,13 @@ namespace boost { namespace dispatch
       return boost::simd::saturate<A0>(utype(a0)+utype(a1)); 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
                             , (A0)(A1)
@@ -54,13 +54,13 @@ namespace boost { namespace dispatch
       return boost::simd::min(Valmax<A0>(), a0+a1); 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int64_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
                             , (A0)(A1)
@@ -89,13 +89,13 @@ namespace boost { namespace dispatch
 	}
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint64_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
                             , (A0)(A1)
@@ -118,13 +118,13 @@ namespace boost { namespace dispatch
 	}
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint32_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::adds_, tag::cpu_
                             , (A0)(A1)
@@ -147,7 +147,7 @@ namespace boost { namespace dispatch
 	}
     }
   };
-} }
+} } }
 
 
 #endif

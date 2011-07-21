@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::saturate_<T>, tag::cpu_,
 		      (A0)(T)(X),
@@ -29,5 +29,5 @@ namespace boost { namespace dispatch
       return sel(gt(a0, vma), vma, sel(lt(a0, vmi), vmi, a0)); 
     }
   };
-} }
+} } }
 #endif

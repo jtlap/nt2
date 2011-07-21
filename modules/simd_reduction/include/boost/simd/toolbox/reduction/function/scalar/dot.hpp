@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dot_, tag::cpu_
                             , (A0)(A1)
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch
       return a0*a1;
       }
   };
-} }
+} } }
 
 
 #endif

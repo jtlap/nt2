@@ -19,7 +19,7 @@
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/select.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -95,6 +95,6 @@ namespace boost { namespace dispatch
       return b_or(b_and(is_eqz(a0), is_eqz(a1)), a0/a1);
     }
   };
-} }
+} } }
 
 #endif

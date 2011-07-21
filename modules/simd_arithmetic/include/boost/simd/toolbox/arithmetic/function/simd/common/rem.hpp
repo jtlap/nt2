@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rem_, tag::cpu_
                             , (A0)(X)
@@ -42,6 +42,6 @@ namespace boost { namespace dispatch
       return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
     }
   };
-} }
+} } }
 
 #endif

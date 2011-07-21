@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::split_, tag::cpu_,
                         (A0),
@@ -105,5 +105,5 @@ namespace boost { namespace dispatch
       r1 = _mm256_cvtps_pd(_mm256_extractf128_ps(a0, 1)) ;
     }
   };
-} }
+} } }
 #endif

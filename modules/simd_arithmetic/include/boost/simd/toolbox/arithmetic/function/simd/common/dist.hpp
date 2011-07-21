@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -32,6 +32,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)  { return (boost::simd::max(a0, a1)-boost::simd::min(a1,a0)); }
   };
-} }
+} } }
 
 #endif

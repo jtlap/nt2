@@ -15,7 +15,7 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/select.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -41,6 +41,6 @@ namespace boost { namespace dispatch
       return (d1^bitofsign(a0));
     }
   };
-} }
+} } }
 
 #endif

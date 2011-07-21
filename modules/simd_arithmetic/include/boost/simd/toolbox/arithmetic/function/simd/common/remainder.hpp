@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::remainder_, tag::cpu_,
 			     (A0)(X),
@@ -54,7 +54,7 @@ namespace boost { namespace dispatch
 	return b_or(is_invalid(a0), b_or(is_eqz(a1), a0-tofloat(idivround(a0, a1))*a1)); 
       }
   };
-} }
+} } }
 
 
 #endif

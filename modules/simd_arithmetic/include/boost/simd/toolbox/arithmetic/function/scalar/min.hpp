@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MIN_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
                             , (A0)(A1)
@@ -23,7 +23,7 @@ namespace boost { namespace dispatch
       return (a0 < a1) ? a0 :  a1;
     }
   };
-} }
+} } }
 
 
 #endif

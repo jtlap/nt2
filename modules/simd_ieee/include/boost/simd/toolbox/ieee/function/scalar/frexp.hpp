@@ -15,7 +15,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <math.h>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< double_<A0> >)
@@ -101,6 +101,6 @@ namespace boost { namespace dispatch
       return res;
     }
   };
-} }
+} } }
 
 #endif

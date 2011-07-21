@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_
                             , (A0)(A1)
@@ -31,13 +31,13 @@ namespace boost { namespace dispatch
         return (a0>a1) ? a0-a1 : a1-a0;
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is bool_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_
                             , (A0)(A1)
@@ -52,13 +52,13 @@ namespace boost { namespace dispatch
       return logical_xor(a0, a1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::dist_, tag::cpu_
                             , (A0)(A1)
@@ -73,7 +73,7 @@ namespace boost { namespace dispatch
       return boost::simd::abs(a0-a1);
     }
   };
-} }
+} } }
 
 
 #endif

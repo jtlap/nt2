@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_
                             , (A0)(A1)(X)
@@ -36,7 +36,7 @@ namespace boost { namespace dispatch
       return load<result_type>(&tmp[0], 0);
     }
   };
-} }
+} } }
 
 
 #endif

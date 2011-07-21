@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
                             , (A0)(A1)
@@ -30,13 +30,13 @@ namespace boost { namespace dispatch
       return boost::simd::saturate<A0>(utype(a0)-utype(a1)); 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
                             , (A0)(A1)
@@ -54,13 +54,13 @@ namespace boost { namespace dispatch
 	return Zero<A0>(); 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::subs_, tag::cpu_
                             , (A0)(A1)
@@ -80,7 +80,7 @@ namespace boost { namespace dispatch
       return boost::simd::adds(a0, -a1);     
     }
   };
-} }
+} } }
 
 
 

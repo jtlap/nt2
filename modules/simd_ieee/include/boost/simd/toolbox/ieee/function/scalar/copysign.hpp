@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::copysign_, tag::cpu_
                             , (A0)(A1)
@@ -34,13 +34,13 @@ namespace boost { namespace dispatch
       return boost::simd::abs(a0)*signnz(a1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::copysign_, tag::cpu_
                             , (A0)(A1)
@@ -61,13 +61,13 @@ namespace boost { namespace dispatch
     #endif
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::copysign_, tag::cpu_
                             , (A0)(A1)
@@ -88,7 +88,7 @@ namespace boost { namespace dispatch
     #endif
     }
   };
-} }
+} } }
 
 
 #endif

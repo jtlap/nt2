@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::random_, tag::cpu_
                             , (A0)(A1)
@@ -30,13 +30,13 @@ namespace boost { namespace dispatch
       return iround((a1-a0)*((double)rand()/RAND_MAX)+a0); //TO DO
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::random_, tag::cpu_
                             , (A0)(A1)
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch
       return (a1-a0)*((double)rand()/RAND_MAX)+a0; //TO DO
     }
   };
-} }
+} } }
 
 
 #endif

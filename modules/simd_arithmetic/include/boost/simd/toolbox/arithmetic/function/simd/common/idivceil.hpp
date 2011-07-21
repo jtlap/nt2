@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
                             , (A0)(X)
@@ -32,13 +32,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     { return iceil(tofloat(a0)/tofloat(a1)); }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
                             , (A0)(X)
@@ -51,13 +51,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0+a1-One<A0>(), a1); }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
                             , (A0)(X)
@@ -79,13 +79,13 @@ namespace boost { namespace dispatch
 					 idivceil(a0h, a1h)));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
                             , (A0)(X)
@@ -107,13 +107,13 @@ namespace boost { namespace dispatch
                                idivceil(a0h, a1h) ));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
                             , (A0)(X)
@@ -126,7 +126,7 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     { return iceil(a0/a1); }
   };
-} }
+} } }
 
 
 #endif

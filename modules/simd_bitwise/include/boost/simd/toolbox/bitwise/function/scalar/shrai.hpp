@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
@@ -46,6 +46,6 @@ namespace boost { namespace dispatch
       return that.value;
     }
   };
-} }
+} } }
 
 #endif

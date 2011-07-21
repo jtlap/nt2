@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_BITWISE_NOTAND_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_notand_, tag::cpu_, (A0)(A1)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
@@ -67,7 +67,7 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 
 #endif

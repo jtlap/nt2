@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_not_greater_equal_, tag::cpu_
                             , (A0)(X)
@@ -44,6 +44,6 @@ namespace boost { namespace dispatch
 	return lt(a0,a1);
       }
   };
-} }
+} } }
 
 #endif

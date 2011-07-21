@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints64
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_equal_, tag::sse4_1_
                             , (A0)
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 
 #endif

@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gez_, tag::cpu_
                             , (A0)(X)
@@ -30,13 +30,13 @@ namespace boost { namespace dispatch
         return ge(a0, Zero<A0>());
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gez_, tag::cpu_
                             , (A0)(X)
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch
         return True<A0>();
     }
   };
-} }
+} } }
 
 
 #endif

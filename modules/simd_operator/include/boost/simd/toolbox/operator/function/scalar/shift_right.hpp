@@ -12,7 +12,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/as_bits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_
                             , (A0)(A1)
@@ -28,9 +28,9 @@ namespace boost { namespace dispatch
       return t0.value;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_right_ , tag::cpu_
                             , (A0)(A1)
@@ -43,6 +43,6 @@ namespace boost { namespace dispatch
     typedef typename nested::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 >> a1; }
   };
-} }
+} } }
 
 #endif

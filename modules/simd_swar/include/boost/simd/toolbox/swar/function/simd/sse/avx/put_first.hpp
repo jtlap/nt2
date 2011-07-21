@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::put_first_, tag::cpu_,
                             (A0),
@@ -27,5 +27,5 @@ namespace boost { namespace dispatch
 typedef A0 result_type; 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2){return a0; }
   };
-} }
+} } }
 #endif

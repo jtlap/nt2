@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::cumsum_, tag::cpu_
                             , (A0)
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     { return a0; }
   };
-} }
+} } }
 
 
 #endif

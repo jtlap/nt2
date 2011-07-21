@@ -15,7 +15,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/bitwise_notand.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int8_<A0>,X>))
@@ -110,6 +110,6 @@ namespace boost { namespace dispatch
       return popcnt(simd::native_cast<result_type>(a0));
     }
   };
-} }
+} } }
 
 #endif

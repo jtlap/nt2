@@ -22,7 +22,7 @@
 //==============================================================================
 // load vector of double
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -41,12 +41,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // load vector of float
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -65,12 +65,12 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // load vector of integer
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -89,7 +89,7 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 
 #include <boost/simd/toolbox/operator/function/simd/sse/sse2/load_offset.hpp>

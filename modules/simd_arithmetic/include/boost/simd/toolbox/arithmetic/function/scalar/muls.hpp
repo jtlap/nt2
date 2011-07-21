@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::muls_, tag::cpu_
                             , (A0)(A1)
@@ -34,13 +34,13 @@ namespace boost { namespace dispatch
       return A0(res) | genmask(A0(res >> sizeof(A0)*8)); 	
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::muls_, tag::cpu_
                             , (A0)(A1)
@@ -62,14 +62,14 @@ namespace boost { namespace dispatch
 	return res; 
     }
   };
-} }
+} } }
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint64_t_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::muls_, tag::cpu_
                             , (A0)(A1)
@@ -123,13 +123,13 @@ namespace boost { namespace dispatch
 //       return Zero<A0>(); 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::muls_, tag::cpu_
                             , (A0)(A1)
@@ -164,7 +164,7 @@ namespace boost { namespace dispatch
 	}
     }
   };
-} }
+} } }
 
 
 

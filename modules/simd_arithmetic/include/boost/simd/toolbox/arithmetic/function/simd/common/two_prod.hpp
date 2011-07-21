@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::two_prod_, tag::cpu_,
                            (A0)(X),
@@ -46,5 +46,5 @@ namespace boost { namespace dispatch
       r1 = sel(isinf, Zero<R1>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
     }
   };
-} }
+} } }
 #endif

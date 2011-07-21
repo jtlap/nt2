@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/functions/is_nez.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_true_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
@@ -20,6 +20,6 @@ namespace boost { namespace dispatch
     typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0); }
   };
-} }
+} } }
 
 #endif

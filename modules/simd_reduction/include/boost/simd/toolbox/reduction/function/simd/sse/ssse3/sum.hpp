@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
                       (A0),
@@ -131,5 +131,5 @@ namespace boost { namespace dispatch
       return  first(simd::native_cast<A0>(_mm_hadd_epi32(tmp, tmp)));
     }
   };
-} }
+} } }
 #endif

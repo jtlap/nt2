@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/make.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::toint_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
@@ -52,6 +52,6 @@ namespace boost { namespace dispatch
       return  sel(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
     }
   };
-} }
+} } }
 
 #endif

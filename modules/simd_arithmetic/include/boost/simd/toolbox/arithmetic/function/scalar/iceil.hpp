@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::iceil_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
@@ -45,6 +45,6 @@ namespace boost { namespace dispatch
       return result_type(boost::simd::ceil(a0));
     }
   };
-} }
+} } }
 
 #endif

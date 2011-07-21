@@ -42,7 +42,7 @@
 //==============================================================================
 #define BOOST_DISPATCH_REGISTER_DISPATCH(Tag,Site,Types,Seq)                         \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types)> \
-BOOST_SIMD_FORCE_INLINE boost::dispatch::                                              \
+BOOST_SIMD_FORCE_INLINE boost::dispatch::meta                                        \
 implement< BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)       \
                                       , BOOST_DISPATCH_DISPATCH_TAG,Seq))            \
     , Site                                                                \
@@ -52,7 +52,7 @@ dispatching( Tag const&, Site const&                                      \
         , adl_helper = adl_helper()                                       \
         )                                                                 \
 {                                                                         \
-  boost::dispatch::                                                             \
+  boost::dispatch::meta                                                              \
   implement< BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)     \
                                         , BOOST_DISPATCH_DISPATCH_TAG,Seq)           \
                                         )                                 \
@@ -77,8 +77,8 @@ dispatching( Tag const&, Site const&                                      \
 //==============================================================================
 #define BOOST_DISPATCH_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                         \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)> \
-BOOST_SIMD_FORCE_INLINE                                                              \
-boost::dispatch::                                                                   \
+BOOST_SIMD_FORCE_INLINE                                                                  \
+boost::dispatch::meta                                                                    \
 implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)            \
           , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                            \
           , Site                                                              \
@@ -88,7 +88,7 @@ dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                   
         , adl_helper = adl_helper()                                           \
         )                                                                     \
 {                                                                             \
-  boost::dispatch::                                                                 \
+  boost::dispatch::meta                                                                  \
   implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)          \
             , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                          \
             , Site                                                            \
@@ -116,14 +116,14 @@ dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                   
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types)>   \
 BOOST_SIMD_FORCE_INLINE                                                            \
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                              \
-                          , boost::dispatch::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>    \
+                          , boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>    \
                           >::type                                           \
 dispatching( Tag const&, Site const&                                        \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)        \
         , adl_helper = adl_helper()                                         \
         )                                                                   \
 {                                                                           \
-  boost::dispatch::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;                       \
+  boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;                       \
   return that;                                                              \
 }                                                                           \
 /**/
@@ -149,14 +149,14 @@ namespace boost { namespace dispatch { namespace meta {                         
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)> \
 BOOST_SIMD_FORCE_INLINE                                                              \
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                                \
-                          , boost::dispatch::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>      \
+                          , boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>      \
                           >::type                                             \
 dispatching ( Tag const&, Site const&                                         \
             , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)      \
             , adl_helper = adl_helper()                                       \
             )                                                                 \
 {                                                                             \
-  boost::dispatch::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;                         \
+  boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;                         \
   return that;                                                                \
 }                                                                             \
 } } }                                                                           \

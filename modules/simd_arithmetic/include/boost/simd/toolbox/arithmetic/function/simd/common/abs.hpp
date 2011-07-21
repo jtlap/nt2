@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)(X)
@@ -37,13 +37,13 @@ namespace boost { namespace dispatch
       return (a0-s)^(-s);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)(X)
@@ -58,13 +58,13 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)(X)
@@ -80,7 +80,7 @@ namespace boost { namespace dispatch
       //      return max(a0, Zero<A0>())-min(a0, Zero<A0>());
     }
   };
-} }
+} } }
 
 
 #endif

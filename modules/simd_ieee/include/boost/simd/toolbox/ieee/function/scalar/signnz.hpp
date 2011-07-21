@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::signnz_, tag::cpu_
                             , (A0)
@@ -36,13 +36,13 @@ namespace boost { namespace dispatch
       return is_gez(a0)-is_ltz(a0);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::signnz_, tag::cpu_
                             , (A0)
@@ -58,13 +58,13 @@ namespace boost { namespace dispatch
       return One<A0>();
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::signnz_, tag::cpu_
                             , (A0)
@@ -79,7 +79,7 @@ namespace boost { namespace dispatch
       return is_nan(a0)?a0:is_positive(a0)-is_negative(a0);
     }
   };
-} }
+} } }
 
 
 #endif

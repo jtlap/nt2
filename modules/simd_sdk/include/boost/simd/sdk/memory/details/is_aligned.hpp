@@ -18,7 +18,7 @@
 //==============================================================================
 // Check alignment of integer on integer
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
@@ -30,12 +30,12 @@ namespace boost { namespace dispatch
 
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return !(a0 & (a1-1) ); }
   };
-} }
+} } }
 
 //==============================================================================
 // Check alignment of integer on mpl integer
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
@@ -51,12 +51,12 @@ namespace boost { namespace dispatch
       return !(a0 & (A1::value-1) );
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Check alignment of integer on default alignment
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
                             , (A0)
@@ -70,12 +70,12 @@ namespace boost { namespace dispatch
       return boost::simd::memory::is_aligned<BOOST_SIMD_CONFIG_ALIGNMENT>(a0);
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Check alignment of mpl integer on mpl integer
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
@@ -90,12 +90,12 @@ namespace boost { namespace dispatch
       return meta::is_aligned<A0,A1>::value;
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Check alignment of mpl integer on default alignment
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
                             , (A0)
@@ -109,12 +109,12 @@ namespace boost { namespace dispatch
       return boost::simd::memory::is_aligned<BOOST_SIMD_CONFIG_ALIGNMENT>(a0);
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Check alignment of iterator on integer
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
@@ -129,12 +129,12 @@ namespace boost { namespace dispatch
       return boost::simd::memory::is_aligned( reinterpret_cast<std::size_t>(a0), a1 );
     }
   };
-} }
+} } }
 
 //==============================================================================
 // Check alignment of iterator on default alignment
 //==============================================================================
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_,tag::cpu_
                             , (A0)
@@ -148,6 +148,6 @@ namespace boost { namespace dispatch
       return boost::simd::memory::is_aligned<BOOST_SIMD_CONFIG_ALIGNMENT>(a0);
     }
   };
-} }
+} } }
 
 #endif

@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(A1)
@@ -36,10 +36,10 @@ namespace boost { namespace dispatch
       return a0-boost::simd::abs(a1);
     }
   };
-} }
+} } }
 
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)
@@ -57,14 +57,14 @@ namespace boost { namespace dispatch
 	return Valmin<A0>(); 
     }
   };
-} }
+} } }
 
 
 ////
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(A1)
@@ -80,10 +80,10 @@ namespace boost { namespace dispatch
       return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-boost::simd::abs(a1));
     }
   };
-} }
+} } }
 
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)
@@ -99,7 +99,7 @@ namespace boost { namespace dispatch
       return a0==Minf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
     }
   };
-} }
+} } }
 
 
 #endif

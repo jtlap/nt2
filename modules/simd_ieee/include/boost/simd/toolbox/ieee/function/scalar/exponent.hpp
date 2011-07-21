@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
                             , (A0)
@@ -40,7 +40,7 @@ namespace boost { namespace dispatch
       return a0 ? ::ilogb(a0) : Zero<A0>();
     }
   };
-} }
+} } }
 
 #endif
 
@@ -48,7 +48,7 @@ namespace boost { namespace dispatch
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
                             , (A0)
@@ -64,14 +64,14 @@ namespace boost { namespace dispatch
       return ilogbf(a0); 
     }
   };
-} }
+} } }
 
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::exponent_, tag::cpu_
                             , (A0)
@@ -88,7 +88,7 @@ namespace boost { namespace dispatch
       return x-b_and(Maxexponent<A0>(), A0(is_nez(a0)));
     }
   };
-} }
+} } }
 
 
 #endif

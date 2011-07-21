@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/bitwise_xor.hpp>
 #include <boost/simd/include/constants/true.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::complement_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -22,6 +22,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_xor(True<A0>(), a0); }
   };
-} }
+} } }
 
 #endif

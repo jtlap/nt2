@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
                             , (A0)(A1)(X)
@@ -32,10 +32,10 @@ namespace boost { namespace dispatch
                                   );
     }
   };
-} }
+} } }
 
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
                             , (A0)(A1)(X)
@@ -51,9 +51,9 @@ namespace boost { namespace dispatch
       return simd::native_cast<A1>(_mm_blendv_ps(a2, a1, simd::native_cast<A1>(a0))); 
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::select_, tag::cpu_
                             , (A0)(A1)(X)
@@ -69,6 +69,6 @@ namespace boost { namespace dispatch
       return simd::native_cast<A1>(_mm_blendv_pd(a2, a1, simd::native_cast<A1>(a0))); 
     }
   };
-} }
+} } }
 
 #endif

@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
@@ -46,6 +46,6 @@ namespace boost { namespace dispatch
       return b_not(simd::native_cast<A0>(tmp)); 
     }
   };
-} }
+} } }
 
 #endif

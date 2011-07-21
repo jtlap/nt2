@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/bitofsign.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::round2even_, tag::cpu_ , (A0)
                             , (scalar_< arithmetic_<A0> >)
@@ -39,6 +39,6 @@ namespace boost { namespace dispatch
       return a0 < 0? -d : d;
     }
   };
-} }
+} } }
 
 #endif

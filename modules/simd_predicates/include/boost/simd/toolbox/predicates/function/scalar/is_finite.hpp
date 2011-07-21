@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_
                             , (A0)
@@ -33,13 +33,13 @@ namespace boost { namespace dispatch
       return True<A0>();
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_finite_, tag::cpu_
                             , (A0)
@@ -54,7 +54,7 @@ namespace boost { namespace dispatch
       return is_eqz(a0-a0);
     }
   };
-} }
+} } }
 
 
 #endif

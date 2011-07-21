@@ -13,7 +13,7 @@
 
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::group_, tag::cpu_,(A0)
                             , ((simd_<double_<A0>,tag::sse_>))
@@ -114,7 +114,7 @@ namespace boost { namespace dispatch
       return simd::native_cast<result_type>(_mm_shuffle_epi32(b, BOOST_SIMD_SH(0, 2, 1, 3)));
     }
   };
-} }
+} } }
 
 #undef BOOST_SIMD_SH
 

@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
                         (A0),
@@ -203,5 +203,5 @@ namespace boost { namespace dispatch
       return MKN(16)(is_nez(MKN(8)(xx))&(MKN(8)(xx)-o));
     }
   };
-} }
+} } }
 #endif

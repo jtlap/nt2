@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_even_, tag::cpu_
                             , (A0)
@@ -33,13 +33,13 @@ namespace boost { namespace dispatch
       return !(a0 & One<A0>());
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_even_, tag::cpu_
                             , (A0)
@@ -54,7 +54,7 @@ namespace boost { namespace dispatch
       return is_flint(a0*Half<A0>());
     }
   };
-} }
+} } }
 
 
 #endif

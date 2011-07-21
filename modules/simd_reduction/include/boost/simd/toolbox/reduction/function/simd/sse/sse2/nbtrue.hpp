@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
                             , (A0)
@@ -35,13 +35,13 @@ namespace boost { namespace dispatch
       return boost::simd::popcnt(_mm_movemask_epi8(tmp))*meta::cardinal_of<A0>::value >> 4;
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
                             , (A0)
@@ -57,13 +57,13 @@ namespace boost { namespace dispatch
       return   (r&1)+(r>>1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
                             , (A0)
@@ -81,7 +81,7 @@ namespace boost { namespace dispatch
       //      return boost::simd::popcnt(_mm_movemask_ps(is_nez(cast<type>(a0))));
     }
   };
-} }
+} } }
 
 
 #endif

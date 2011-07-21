@@ -16,7 +16,7 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::multiplies_, tag::cpu_
                             , (A0)
@@ -116,7 +116,7 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 
 #endif

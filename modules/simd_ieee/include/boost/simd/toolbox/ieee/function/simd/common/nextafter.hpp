@@ -28,7 +28,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(X)
@@ -43,13 +43,13 @@ namespace boost { namespace dispatch
       return seladd(is_not_equal(a0,a1),a0,seladd(gt(a1,a0),-One<A0>(),Two<A0>()));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(X)
@@ -64,13 +64,13 @@ namespace boost { namespace dispatch
       return sel(is_equal(a0,a1),a0,sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nextafter_, tag::cpu_
                             , (A0)(X)
@@ -95,7 +95,7 @@ namespace boost { namespace dispatch
       //      return sel(islt(a0, a1), next(a0), sel(iseq(a0, a1),  a0, prev(a0)));
     }
   };
-} }
+} } }
 
 
 #endif

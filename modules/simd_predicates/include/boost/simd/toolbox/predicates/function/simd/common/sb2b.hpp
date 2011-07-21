@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sb2b_, tag::cpu_,
                        (A0)(X),
@@ -27,5 +27,5 @@ namespace boost { namespace dispatch
       return b_and(is_nez(a0), One<A0>());
     }
   };
-} }
+} } }
 #endif

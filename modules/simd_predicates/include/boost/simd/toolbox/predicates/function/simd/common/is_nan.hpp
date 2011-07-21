@@ -11,7 +11,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_unord.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nan_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -20,6 +20,6 @@ namespace boost { namespace dispatch
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_unord(a0,a0); }
   };
-} }
+} } }
 
 #endif

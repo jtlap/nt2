@@ -21,7 +21,7 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
 				  ,( boost::mpl::and_ <
@@ -100,6 +100,6 @@ namespace boost { namespace dispatch
       return res;
     }
   };
-} }
+} } }
 
 #endif

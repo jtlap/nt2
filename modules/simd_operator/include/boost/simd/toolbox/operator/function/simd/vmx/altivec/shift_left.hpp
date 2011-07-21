@@ -17,7 +17,7 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_left_, tag::cpu_, (A0)(A1)
                             , ((simd_<integer_<A0>,tag::altivec_>))
@@ -51,6 +51,6 @@ namespace boost { namespace dispatch
      return that;  
    }
   };
-} }
+} } }
 
 #endif

@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is downgradable
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::group_, tag::cpu_,
                           (A0)(X),
@@ -42,5 +42,5 @@ namespace boost { namespace dispatch
       return load<result_type>(&tmp[0], 0);
     }
   };
-} }
+} } }
 #endif

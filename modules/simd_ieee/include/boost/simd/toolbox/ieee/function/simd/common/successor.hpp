@@ -29,7 +29,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
                             , (A0)(X)
@@ -44,13 +44,13 @@ namespace boost { namespace dispatch
       return  seladd(neq(a0, Valmax<A0>()), a0, One<A0>());
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
                             , (A0)(X)
@@ -65,14 +65,14 @@ namespace boost { namespace dispatch
       return next(a0);
       }
   };
-} }
+} } }
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
                             , (A0)(X)
@@ -85,13 +85,13 @@ namespace boost { namespace dispatch
       return boost::simd::seladd( boost::simd::gt(Valmax<A0>()-boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::successor_, tag::cpu_
                             , (A0)(A1)(X)
@@ -115,7 +115,7 @@ namespace boost { namespace dispatch
 //       return sel(iseq(a0, Minf<A0>()), fac*Valmin<A0>(), a0+fac*diff);
     }
   };
-} }
+} } }
 
 
 #endif

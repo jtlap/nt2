@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minnummag_, tag::cpu_
                             , (A0)(A1)
@@ -30,13 +30,13 @@ namespace boost { namespace dispatch
       return (boost::simd::abs(a0) <  boost::simd::abs(a1)) ? a0 : a1;
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minnummag_, tag::cpu_
                             , (A0)(A1)
@@ -54,7 +54,7 @@ namespace boost { namespace dispatch
       else return (boost::simd::abs(a0) <  boost::simd::abs(a1)) ?type(a0):type(a1);
     }
   };
-} }
+} } }
 
 
 #endif

@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::seladd_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
@@ -37,6 +37,6 @@ namespace boost { namespace dispatch
       return a1+b_and(a2,a0);
     }
   };
-} }
+} } }
 
 #endif

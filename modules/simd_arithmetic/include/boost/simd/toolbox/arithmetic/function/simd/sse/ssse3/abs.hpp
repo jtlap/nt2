@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)
@@ -35,13 +35,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     { A0 that = {_mm_abs_epi32(a0) }; return that; }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)
@@ -54,13 +54,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     { A0 that = {_mm_abs_epi8(a0) }; return that; }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)
@@ -73,13 +73,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     { A0 that = {_mm_abs_epi16(a0) };return that; }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)
@@ -92,13 +92,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     { return b_notand(Mzero<A0>(),a0); }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int64_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)
@@ -117,13 +117,13 @@ namespace boost { namespace dispatch
        //      return select(is_lez(a0),-a0,a0);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::abs_, tag::cpu_
                             , (A0)
@@ -136,7 +136,7 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     { return a0; }
   };
-} }
+} } }
 
 
 #endif

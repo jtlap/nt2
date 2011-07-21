@@ -16,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is expression of pack
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sum_, tag::cpu_
                             , (A0)(T)(Card)(Tag)(Sema)
@@ -33,7 +33,7 @@ namespace boost { namespace dispatch
       return boost::simd::sum(that.value().value());
     }
   };
-} }
+} } }
 
 
 #endif

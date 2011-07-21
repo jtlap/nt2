@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::maxnummag_, tag::cpu_
                             , (A0)(A1)
@@ -32,13 +32,13 @@ namespace boost { namespace dispatch
       return boost::simd::abs(type(a0)) >  boost::simd::abs(type(a1)) ? type(a0) : type(a1);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::maxnummag_, tag::cpu_
                             , (A0)(A1)
@@ -59,7 +59,7 @@ namespace boost { namespace dispatch
       return boost::simd::abs(type(a0)) >  boost::simd::abs(type(a1)) ? type(a0) : type(a1);
     }
   };
-} }
+} } }
 
 
 #endif

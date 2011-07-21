@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
     BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
 				  ,( boost::mpl::and_ <
@@ -78,5 +78,5 @@ namespace boost { namespace dispatch
       return res;
     }
   };
-} }
+} } }
 #endif

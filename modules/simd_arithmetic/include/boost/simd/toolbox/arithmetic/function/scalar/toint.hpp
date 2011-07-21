@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
                             , (scalar_< arithmetic_<A0> >)
@@ -35,6 +35,6 @@ namespace boost { namespace dispatch
       return result_type(a0);
     }
   };
-} }
+} } }
 
 #endif

@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::prod_, tag::cpu_,
                        (A0)(X),
@@ -31,5 +31,5 @@ namespace boost { namespace dispatch
       return boost::fusion::fold(a0,One<type>(),functor<tag::multiplies_>());
     }
   };
-} }
+} } }
 #endif

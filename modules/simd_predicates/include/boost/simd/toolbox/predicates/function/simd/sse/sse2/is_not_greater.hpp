@@ -12,7 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_not_greater_, tag::cpu_,
                          (A0),
@@ -44,5 +44,5 @@ namespace boost { namespace dispatch
       A0 that =  { _mm_cmpngt_ps(a0,a1)}; return that;
     }
   };
-} }
+} } }
 #endif

@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::minmag_, tag::cpu_
                             , (A0)(X)
@@ -34,7 +34,7 @@ namespace boost { namespace dispatch
       return sel(lt(abs(a0), boost::simd::abs(a1)), a0, a1);
     }
   };
-} }
+} } }
 
 
 #endif

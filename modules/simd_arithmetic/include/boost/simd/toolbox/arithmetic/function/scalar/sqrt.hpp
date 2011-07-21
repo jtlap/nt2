@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sqrt_, tag::cpu_
                             , (A0)
@@ -30,13 +30,13 @@ namespace boost { namespace dispatch
       return boost::simd::sqrt(result_type(a0));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sqrt_, tag::cpu_
                             , (A0)
@@ -51,13 +51,13 @@ namespace boost { namespace dispatch
       return (is_ltz(a0)) ?  boost::simd::Nan<A0>() : ::sqrt(a0);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sqrt_, tag::cpu_
                             , (A0)
@@ -75,7 +75,7 @@ namespace boost { namespace dispatch
       return (is_ltz(a0)) ? boost::simd::Nan<A0>() : ::sqrtf(a0);
     }
   };
-} }
+} } }
 
 
 #endif

@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::lookup_, tag::cpu_
                             , (A0)(A1)(X)
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch
       return boost::simd::load<A0>(&tmp1[0], 0);
     }
   };
-} }
+} } }
 
 
 #endif

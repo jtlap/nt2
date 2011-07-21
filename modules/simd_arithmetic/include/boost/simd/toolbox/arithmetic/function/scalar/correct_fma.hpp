@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::correct_fma_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -31,13 +31,13 @@ namespace boost { namespace dispatch
        return a0*a1+a2;
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::correct_fma_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -56,13 +56,13 @@ namespace boost { namespace dispatch
 	//         return ::fma(a0, a1, a2);
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::correct_fma_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -77,7 +77,7 @@ namespace boost { namespace dispatch
       return float(double(a0)*a1+a2); 
     }
   };
-} }
+} } }
 
 
 #endif

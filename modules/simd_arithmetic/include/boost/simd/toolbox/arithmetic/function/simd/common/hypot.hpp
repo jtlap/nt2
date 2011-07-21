@@ -26,7 +26,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::hypot_, tag::cpu_
                             , (A0)(X)
@@ -114,6 +114,6 @@ namespace boost { namespace dispatch
       return sel(tinf, Inf<A0>(), w);
     }
   };
-} }
+} } }
 
 #endif

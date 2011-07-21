@@ -54,7 +54,7 @@ namespace boost { namespace dispatch { namespace meta
 #define M0(z,n,t) generic_< unspecified_<BOOST_PP_CAT(A,n)> >
 
 #define M1(z,n,t)                                                           \
-namespace boost { namespace dispatch {                                      \
+namespace boost { namespace dispatch { namespace meta                       \
 {                                                                           \
   template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>          \
   struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
@@ -68,7 +68,7 @@ namespace boost { namespace dispatch {                                      \
       return boost::simd::map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));  \
     }                                                                       \
   };                                                                        \
-} }                                                                         \
+} } }                                                                       \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M1,~)

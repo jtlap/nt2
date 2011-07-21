@@ -26,9 +26,9 @@ namespace boost { namespace simd { namespace details
     unsigned int mgt = boost::simd::reversebits(mask_gt);
     return (mlt > mgt) && mlt; 
   }
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_less_, tag::cpu_
                             , (A0)
@@ -75,6 +75,6 @@ namespace boost { namespace dispatch
       return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
-} }
+} } }
 
 #endif

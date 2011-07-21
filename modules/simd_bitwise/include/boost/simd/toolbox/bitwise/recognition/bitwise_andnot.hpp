@@ -15,7 +15,7 @@
 #include <boost/simd/toolbox/bitwise/function/bitwise_andnot.hpp>
 
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_and_ , tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
@@ -54,6 +54,6 @@ namespace boost { namespace dispatch
       return bitwise_andnot(a1, boost::proto::child_c<0>(a0));
     }
   };
-} }
+} } }
 
 #endif

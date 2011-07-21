@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::signnz_, tag::cpu_,
                          (A0)(X),
@@ -68,5 +68,5 @@ namespace boost { namespace dispatch
       return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
     }
   };
-} }
+} } }
 #endif

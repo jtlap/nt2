@@ -48,12 +48,12 @@
 //       return res; 
 //     }
 //   }; 
-// } }
+// } } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when A0 and A1 types are fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
 			     (A0)(A1),
@@ -90,6 +90,6 @@ namespace boost { namespace dispatch
     }
     
   };  
-} }
+} } }
 
 #endif

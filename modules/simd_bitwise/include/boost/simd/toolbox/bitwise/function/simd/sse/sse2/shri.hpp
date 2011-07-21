@@ -15,7 +15,7 @@
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shri_, tag::cpu_
                             , (A0)(A1)
@@ -85,6 +85,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

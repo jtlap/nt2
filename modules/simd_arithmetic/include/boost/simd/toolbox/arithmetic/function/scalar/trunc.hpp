@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::trunc_, tag::cpu_
                             , (A0)
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch
       if (a0 > 0) return boost::simd::floor(a0);  else return boost::simd::ceil(a0);
     }
   };
-} }
+} } }
 
 
 #endif

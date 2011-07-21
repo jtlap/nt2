@@ -34,9 +34,9 @@
 #define M4(z,n,t) (A##n)
 
 #define M5(z,n,t)                                                            \
-namespace boost { namespace  simd {  namespace meta                                               \
+namespace boost { namespace  dispatch {  namespace meta                      \
 {                                                                            \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::map_, tag::cpu_                           \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::map_, tag::cpu_                \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)(X)             \
                             , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)    \
                             )                                                \
@@ -65,7 +65,7 @@ namespace boost { namespace  simd {  namespace meta                             
       return load<result_type>(&tmp[0], 0);                                  \
     }                                                                        \
   };                                                                         \
-} }                                                                        \
+} } }                                                                        \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M5,~)

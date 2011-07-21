@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/bitwise/include/select.hpp>
 #include <boost/simd/toolbox/predicates/include/boolean.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::if_else_, tag::cpu_, (A0)(X)
                             , ((simd_< fundamental_<A0>, X >))
@@ -26,6 +26,6 @@ namespace boost { namespace dispatch
       return boost::simd::select( boost::simd::boolean(a0), a2, a1 );
     }
   };
-} }
+} } }
 
 #endif

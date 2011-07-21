@@ -14,7 +14,7 @@
 
 #include <boost/simd/include/functions/is_eqz.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_lez_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
@@ -47,6 +47,6 @@ namespace boost { namespace dispatch
 //       return  simd::native_cast<A0>(tmp);
     }
   };
-} }
+} } }
 
 #endif

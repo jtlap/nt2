@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::hmsb_, tag::cpu_
                             , (A0)
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch
     {
       return b_and(a0, Signmask<result_type>()) != 0; }
   };
-} }
+} } }
 
 
 #endif

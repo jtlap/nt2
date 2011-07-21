@@ -17,7 +17,7 @@
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_
                             , (A0)
@@ -66,6 +66,6 @@ namespace boost { namespace dispatch
                 );
     }
   };
-} }
+} } }
 
 #endif

@@ -21,7 +21,7 @@
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/rshl.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
@@ -94,6 +94,6 @@ namespace boost { namespace dispatch
       return ldexp(a0, splat<iA0>(a1)); 
     }
   };
-} }
+} } }
 
 #endif

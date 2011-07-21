@@ -30,7 +30,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(X)
@@ -45,13 +45,13 @@ namespace boost { namespace dispatch
 	return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(X)
@@ -66,13 +66,13 @@ namespace boost { namespace dispatch
 	return prev(a0);
       }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ 
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(A1)(X)
@@ -87,13 +87,13 @@ namespace boost { namespace dispatch
       return selsub( le(Valmin<A0>()+boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::predecessor_, tag::cpu_
                             , (A0)(A1)(X)
@@ -117,7 +117,7 @@ namespace boost { namespace dispatch
 //       return sel(is_equal(a0, Inf<A0>()), fac*Valmax<A0>(), a0-fac*diff);
       }
   };
-} }
+} } }
 
 
 #endif

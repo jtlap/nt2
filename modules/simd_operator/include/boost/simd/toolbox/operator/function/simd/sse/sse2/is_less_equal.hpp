@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_less_equal_, tag::cpu_
                             , (A0)
@@ -60,6 +60,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

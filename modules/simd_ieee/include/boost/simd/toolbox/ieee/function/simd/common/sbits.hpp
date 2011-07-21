@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sbits_, tag::cpu_,(A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
@@ -24,6 +24,6 @@ namespace boost { namespace dispatch
       return simd::native_cast<result_type>(a0);
     }
   };
-} }
+} } }
 
 #endif

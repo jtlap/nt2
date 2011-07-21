@@ -24,7 +24,7 @@
 
 #include <boost/simd/toolbox/arithmetic/function/simd/common/tofloat.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_, (A0)
                             , ((simd_<int32_<A0>,tag::sse_>))
@@ -98,6 +98,6 @@ namespace boost { namespace dispatch
       return v;
     }
   };
-} }
+} } }
 
 #endif

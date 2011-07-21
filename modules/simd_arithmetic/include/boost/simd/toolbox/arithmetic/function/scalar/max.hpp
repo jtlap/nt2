@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MAX_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::max_, tag::cpu_ , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
@@ -19,6 +19,6 @@ namespace boost { namespace dispatch
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return std::max(result_type(a0), result_type(a1)); }
   };
-} }
+} } }
 
 #endif

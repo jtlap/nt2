@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::adds_, tag::cpu_,
                           (A0)(X),
@@ -73,5 +73,5 @@ namespace boost { namespace dispatch
       return sel(test1,Valmax<A0>(),sel(test2,Valmin<A0>(),a0pa1)); 
     }
   };
-} }
+} } }
 #endif

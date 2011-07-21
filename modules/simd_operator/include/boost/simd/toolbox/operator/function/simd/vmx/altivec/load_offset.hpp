@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_, (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
@@ -94,6 +94,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

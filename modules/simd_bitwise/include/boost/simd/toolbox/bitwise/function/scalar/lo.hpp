@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::lo_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
@@ -31,6 +31,6 @@ namespace boost { namespace dispatch
       return b_and(pattern, a0);
     }
   };
-} }
+} } }
 
 #endif

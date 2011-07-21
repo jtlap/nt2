@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
                             , (A0)(X)
@@ -28,13 +28,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     { return -idivceil(-a0,a1); }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
                             , (A0)(X)
@@ -47,13 +47,13 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0,a1); }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
                             , (A0)(X)
@@ -66,7 +66,7 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     { return toint(floor(a0/a1)); }
   };
-} }
+} } }
 
 
 #endif

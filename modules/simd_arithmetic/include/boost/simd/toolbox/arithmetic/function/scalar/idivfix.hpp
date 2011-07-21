@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::idivfix_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
@@ -40,6 +40,6 @@ namespace boost { namespace dispatch
       return is_nan(z) ? Zero<result_type>() : result_type(trunc(z)); //TO DO itrunc
     }
   };
-} }
+} } }
 
 #endif

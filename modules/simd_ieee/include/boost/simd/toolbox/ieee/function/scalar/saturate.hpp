@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::saturate_<T> , tag::cpu_,
                       (A0)(T),
@@ -33,5 +33,5 @@ namespace boost { namespace dispatch
     }
   };
   
-} }
+} } }
 #endif

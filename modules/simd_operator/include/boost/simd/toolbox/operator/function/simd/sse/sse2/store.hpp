@@ -16,7 +16,7 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
@@ -33,9 +33,9 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
@@ -52,9 +52,9 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
@@ -71,6 +71,6 @@ namespace boost { namespace dispatch
       return a0;
     }
   };
-} }
+} } }
 
 #endif

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MODULO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MODULO_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::modulo_, tag::cpu_, (A0)(A1)
                             , (scalar_< integer_<A0> >)
@@ -22,6 +22,6 @@ namespace boost { namespace dispatch
 
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 % a1; }
   };
-} }
+} } }
 
 #endif

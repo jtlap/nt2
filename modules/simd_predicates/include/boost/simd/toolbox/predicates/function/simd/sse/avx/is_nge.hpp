@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
       return ~boost::simd::is_ge(a0, a1);
     }
   };
-} }
+} } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-} }
+} } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
@@ -97,6 +97,6 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-} }
+} } }
 
 #endif

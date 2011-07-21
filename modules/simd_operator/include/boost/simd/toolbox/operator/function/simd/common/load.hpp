@@ -19,7 +19,7 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <cstring>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -61,6 +61,6 @@ namespace boost { namespace dispatch
       return that;
     }
   };
-} }
+} } }
 
 #endif

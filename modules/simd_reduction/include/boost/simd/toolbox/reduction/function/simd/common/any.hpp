@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::any_, tag::cpu_
                             , (A0)(X)
@@ -34,13 +34,13 @@ namespace boost { namespace dispatch
       return hmsb(is_nez(a0)) != 0;
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::any_, tag::cpu_
                             , (A0)(X)
@@ -60,13 +60,13 @@ namespace boost { namespace dispatch
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::any_, tag::cpu_
                             , (A0)(X)
@@ -86,7 +86,7 @@ namespace boost { namespace dispatch
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));
     }
   };
-} }
+} } }
 
 
 #endif

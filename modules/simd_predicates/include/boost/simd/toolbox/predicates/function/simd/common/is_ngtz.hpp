@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ngtz_, tag::cpu_,
                           (A0)(X),
@@ -27,5 +27,5 @@ namespace boost { namespace dispatch
       return is_ngt(a0, Zero<A0>());
     }
   };
-} }
+} } }
 #endif

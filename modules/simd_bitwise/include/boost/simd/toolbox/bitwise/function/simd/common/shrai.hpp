@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/functions/shri.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<unsigned_<A0>,X>))
@@ -34,6 +34,6 @@ namespace boost { namespace dispatch
       return map(functor<tag::shift_right_>(), a0, splat<A0>(a1));
     }
   };
-} }
+} } }
 
 #endif

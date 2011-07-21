@@ -26,7 +26,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::remainder_, tag::cpu_
                             , (A0)(A1)
@@ -42,13 +42,13 @@ namespace boost { namespace dispatch
 	return a0-boost::simd::idivround(a0, a1)*a1; 
     }
   };
-} }
+} } }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::remainder_, tag::cpu_
                             , (A0)(A1)
@@ -63,7 +63,7 @@ namespace boost { namespace dispatch
       return a0-divround(a0, a1)*a1; 
     }
   };
-} }
+} } }
 
 
 #endif

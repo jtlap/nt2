@@ -11,7 +11,7 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_nez_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,tag::sse_>))
@@ -44,6 +44,6 @@ namespace boost { namespace dispatch
       return simd::native_cast<A0>(b_or(tmp1, tmp2));
     }
   };
-} }
+} } }
 
 #endif

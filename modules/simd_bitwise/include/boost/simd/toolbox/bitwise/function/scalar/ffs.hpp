@@ -16,7 +16,7 @@
 #include <intrin.h>
 #endif
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_, (A0)
                             , (scalar_< type64_<A0> >)
@@ -84,6 +84,6 @@ namespace boost { namespace dispatch
       return boost::simd::ffs(uint32_t(t1.bits));
     }
   };
-} }
+} } }
 
 #endif

@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::splatted_second_, tag::cpu_,
                                   (A0)(X),
@@ -26,5 +26,5 @@ namespace boost { namespace dispatch
       return splat<A0>(second(a0));
     }
   };
-} }
+} } }
 #endif

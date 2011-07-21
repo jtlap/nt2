@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/predicates/function/simd/common/is_ngt.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_ngt_, tag::cpu_, (A0)
                             , ((simd_<double_<A0>,tag::sse_>))
@@ -36,6 +36,6 @@ namespace boost { namespace dispatch
       A0 that =  { _mm_cmpngt_ps(a0,a1)}; return that;
     }
   };
-} }
+} } }
 
 #endif
