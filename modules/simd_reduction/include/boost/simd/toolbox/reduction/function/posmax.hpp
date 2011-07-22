@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct posmax_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::posmax_, posmax, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::posmax_, posmax, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

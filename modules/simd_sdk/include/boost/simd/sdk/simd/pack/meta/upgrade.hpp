@@ -44,7 +44,7 @@ namespace boost { namespace dispatch
                 >
         struct upgrade< boost::simd::pack<Type, Cardinal> >
         {
-            typedef typename boost::simd::details::simd::upgrade<
+            typedef typename details::simd::upgrade<
                 boost::simd::pack<Type, Cardinal>
               , typename upgrade<Type>::type
             >::type type;

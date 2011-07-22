@@ -15,10 +15,10 @@
 
 #include <boost/simd/toolbox/operator/specific/compare_tags.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd 
 {
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_not_equal_, compare_not_equal , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_not_equal_, compare_neq       , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::compare_not_equal_, compare_not_equal , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::compare_not_equal_, compare_neq       , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/compare_not_equal.hpp>

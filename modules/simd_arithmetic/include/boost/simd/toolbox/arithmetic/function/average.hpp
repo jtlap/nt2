@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct average_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::average_, average, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::average_, average, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -25,13 +25,16 @@ namespace boost { namespace dispatch
     struct nb_mantissa_bits_  {}; struct nb_exponent_bits_  {};
     struct max_exponent_      {}; struct min_exponent_      {};
   }
-  
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::ldexp_mask_       , Ldexpmask      )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nb_mantissa_bits_ , Nbmantissabits )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nb_exponent_bits_ , Nbexponentbits )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::max_exponent_     , Maxexponent    )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::min_exponent_     , Minexponent    )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nb_digits_        , Nbdigits       )
+} }
+
+namespace boost { namespace simd
+{  
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::ldexp_mask_       , Ldexpmask      )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::nb_mantissa_bits_ , Nbmantissabits )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::nb_exponent_bits_ , Nbexponentbits )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::max_exponent_     , Maxexponent    )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::min_exponent_     , Minexponent    )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::nb_digits_        , Nbdigits       )
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/ieee_spec.hpp>

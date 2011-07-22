@@ -17,8 +17,12 @@ namespace boost { namespace dispatch {
   {
     struct subs_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::subs_, subs, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::subs_, satrated_sub, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::subs_, subs, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::subs_, satrated_sub, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

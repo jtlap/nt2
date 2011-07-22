@@ -16,9 +16,13 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct frexp_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frexp_, frexp, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&),2) 
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::frexp_, frexp, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(boost::dispatch::tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(boost::dispatch::tag::frexp_, frexp,(A0 const&)(A1&),2) 
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct tofloat_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tofloat_, tofloat, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::tofloat_, tofloat, 1)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

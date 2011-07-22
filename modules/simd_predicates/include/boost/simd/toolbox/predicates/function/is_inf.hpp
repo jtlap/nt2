@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_inf_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_inf_, is_inf, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_inf_, is_inf, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

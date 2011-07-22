@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct firstbitunset_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::firstbitunset_, firstbitunset, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::firstbitunset_, firstbitunset, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -20,7 +20,11 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct val_max_ {};}
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::val_max_, Valmax)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::val_max_, Valmax)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/val_max.hpp>

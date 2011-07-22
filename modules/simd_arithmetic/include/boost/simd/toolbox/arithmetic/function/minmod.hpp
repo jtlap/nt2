@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct minmod_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minmod_, minmod, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::minmod_, minmod, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

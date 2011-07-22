@@ -16,8 +16,12 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct trunc_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::trunc_, trunc, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::trunc_, fix, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

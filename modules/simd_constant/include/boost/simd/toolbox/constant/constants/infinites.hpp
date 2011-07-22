@@ -22,11 +22,11 @@ namespace boost { namespace dispatch { namespace tag
   struct inf_   {}; struct m_inf_ {}; struct nan_  {};
 } } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::inf_    , Inf   )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::m_inf_  , Minf  )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nan_    , Nan   )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::inf_    , Inf   )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::m_inf_  , Minf  )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::nan_    , Nan   )
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/infinites.hpp>

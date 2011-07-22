@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct exponentbits_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::exponentbits_, exponentbits, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::exponentbits_, exponentbits, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

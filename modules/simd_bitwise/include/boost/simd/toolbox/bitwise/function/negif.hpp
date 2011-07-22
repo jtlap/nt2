@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct negif_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negif_, negif, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::negif_, negif, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

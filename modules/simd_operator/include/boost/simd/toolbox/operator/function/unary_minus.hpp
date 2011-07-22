@@ -21,9 +21,13 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::negate unary_minus_;
   }
+} }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::unary_minus_, unary_minus , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::unary_minus_, neg         , 1 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/unary_minus.hpp>

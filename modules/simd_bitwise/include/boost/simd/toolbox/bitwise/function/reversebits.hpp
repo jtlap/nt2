@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct reversebits_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::reversebits_, reversebits, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::reversebits_, reversebits, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

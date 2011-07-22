@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct splatted_maximum_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_maximum_, splatted_maximum, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::splatted_maximum_, splatted_maximum, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

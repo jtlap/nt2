@@ -16,7 +16,11 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct true_  {}; }
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::true_, True)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::true_, True)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/true.hpp>

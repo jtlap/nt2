@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct seladd_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::seladd_, seladd, 3)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::seladd_, seladd, 3)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

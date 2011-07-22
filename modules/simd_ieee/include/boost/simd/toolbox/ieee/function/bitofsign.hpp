@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct bitofsign_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitofsign_, bitofsign, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitofsign_, bitofsign, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

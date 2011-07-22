@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct nextafter_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::nextafter_, nextafter, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::nextafter_, nextafter, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

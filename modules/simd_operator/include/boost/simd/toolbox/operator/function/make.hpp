@@ -58,13 +58,16 @@ namespace boost { namespace dispatch
     #undef M0
     #undef M1
   };
-    
+} }
+
+namespace boost { namespace simd
+{    
   #define M0(z,n,t)                                                                        \
   template<class T, BOOST_PP_ENUM_PARAMS(n, class A)> inline                               \
   T make(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                                      \
   {                                                                                        \
-    typename make_functor<tag::make_, T>::type callee;                                     \
-    return callee(BOOST_PP_ENUM_PARAMS(n, a), meta::as_<T>());                             \
+    typename boost::dispatch::make_functor<boost::dispatch::tag::make_, T>::type callee;   \
+    return callee(BOOST_PP_ENUM_PARAMS(n, a), boost::dispatch::meta::as_<T>());            \
   }
 
   BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)

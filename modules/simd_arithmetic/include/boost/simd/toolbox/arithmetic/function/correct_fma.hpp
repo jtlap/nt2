@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct correct_fma_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::correct_fma_, correct_fma, 3)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::correct_fma_, correct_fma, 3)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

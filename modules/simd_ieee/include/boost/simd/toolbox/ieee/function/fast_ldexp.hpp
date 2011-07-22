@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct fast_ldexp_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_ldexp_, fast_ldexp, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::fast_ldexp_, fast_ldexp, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

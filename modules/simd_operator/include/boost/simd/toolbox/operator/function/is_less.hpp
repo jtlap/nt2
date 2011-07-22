@@ -21,9 +21,13 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::less is_less_;
   }
+} }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, is_less , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, lt      , 2 )
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_less_, is_less , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_less_, lt      , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/is_less.hpp>

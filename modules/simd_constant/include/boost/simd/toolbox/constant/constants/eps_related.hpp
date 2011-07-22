@@ -27,17 +27,17 @@ namespace boost { namespace dispatch { namespace tag
   struct smallest_pos_val_{};
 } } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::eps__            , Eps           )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::half_eps__       , Halfeps       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::_3_x_eps_        , Threeeps      )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::sqrt_eps_        , Sqrteps       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::forth_root_eps_  , Fourthrooteps  )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::third_root_eps_  , Thirdrooteps  )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::mlog_eps_2_      , Mlogeps2      )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::min_denormal_    , Mindenormal   )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::smallest_pos_val_, Smallestposval)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::eps__            , Eps           )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::half_eps__       , Halfeps       )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::_3_x_eps_        , Threeeps      )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::sqrt_eps_        , Sqrteps       )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::forth_root_eps_  , Fourthrooteps  )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::third_root_eps_  , Thirdrooteps  )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::mlog_eps_2_      , Mlogeps2      )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::min_denormal_    , Mindenormal   )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::smallest_pos_val_, Smallestposval)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/eps_related.hpp>

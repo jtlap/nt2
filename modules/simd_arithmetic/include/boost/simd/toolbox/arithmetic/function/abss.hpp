@@ -17,8 +17,12 @@ namespace boost { namespace dispatch {
   {
     struct abss_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abss_, abss, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abss_, sturated_abs, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::abss_, abss, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::abss_, sturated_abs, 1)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

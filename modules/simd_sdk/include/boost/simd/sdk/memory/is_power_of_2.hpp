@@ -20,9 +20,13 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct is_power_of_2_ {}; }
+} }
+
+namespace boost { namespace simd
+{
   namespace memory
   {
-    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_power_of_2_, is_power_of_2, 1);
+    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_power_of_2_, is_power_of_2, 1);
   }
 } }
 

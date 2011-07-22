@@ -44,7 +44,7 @@ namespace boost { namespace dispatch
                 >
         struct downgrade< boost::simd::pack<Type, Cardinal> >
         {
-            typedef typename boost::simd::details::simd::downgrade<
+            typedef typename details::simd::downgrade<
                 boost::simd::pack<Type, Cardinal>
               , typename downgrade<Type>::type
             >::type type;

@@ -21,9 +21,13 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::logical_not logical_not_;
   }
+} }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_not_ , logical_not  , 1 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_not_ , l_not        , 1 )
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::logical_not_ , logical_not  , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::logical_not_ , l_not        , 1 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/logical_not.hpp>

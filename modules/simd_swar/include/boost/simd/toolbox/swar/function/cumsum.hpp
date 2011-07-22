@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct cumsum_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumsum_, cumsum, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::cumsum_, cumsum, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

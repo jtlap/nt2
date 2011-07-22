@@ -14,8 +14,11 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct evaluate_ {}; }
+} }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::evaluate_, evaluate, 2)
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(boost::dispatch::tag::evaluate_, evaluate, 2)
 } }
 
 #endif

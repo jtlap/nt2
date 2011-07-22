@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct iround2even_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround2even_, iround2even, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::iround2even_, iround2even, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

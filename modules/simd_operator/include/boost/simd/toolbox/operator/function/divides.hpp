@@ -21,10 +21,14 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::divides divides_;
   }
+} }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , divides         , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , div             , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , rdiv            , 2 )
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::divides_             , divides         , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::divides_             , div             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::divides_             , rdiv            , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/divides.hpp>

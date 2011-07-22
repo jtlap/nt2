@@ -23,8 +23,12 @@ namespace boost { namespace dispatch
   {
     struct signmask_ {};
   }
+} }
+
+namespace boost { namespace simd
+{
   
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::signmask_, Signmask)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::signmask_, Signmask)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/signmask.hpp>

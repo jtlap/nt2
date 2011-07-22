@@ -21,9 +21,13 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::equal_to is_equal_;
   }
+} }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_equal_, is_equal , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_equal_, eq      , 2 )
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_equal_, is_equal , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_equal_, eq      , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/is_equal.hpp>

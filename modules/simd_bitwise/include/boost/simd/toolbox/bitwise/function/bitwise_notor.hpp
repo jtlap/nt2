@@ -16,8 +16,12 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct bitwise_notor_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_notor_, bitwise_notor, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_notor_, b_notor, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitwise_notor_, bitwise_notor, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitwise_notor_, b_notor, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

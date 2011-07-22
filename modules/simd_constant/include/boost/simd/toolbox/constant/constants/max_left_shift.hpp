@@ -23,8 +23,12 @@ namespace boost { namespace dispatch
   {
     struct max_left_shift_ {};
   }
+} }
+
+namespace boost { namespace simd
+{
   
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::max_left_shift_, Maxleftshift)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::max_left_shift_, Maxleftshift)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/max_left_shift.hpp>

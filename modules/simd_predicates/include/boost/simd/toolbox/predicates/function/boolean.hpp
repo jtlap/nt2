@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct boolean_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::boolean_, boolean, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::boolean_, boolean, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

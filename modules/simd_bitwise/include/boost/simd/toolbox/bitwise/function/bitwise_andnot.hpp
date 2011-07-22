@@ -16,8 +16,12 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct bitwise_andnot_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitwise_andnot_, bitwise_andnot, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitwise_andnot_, b_andnot, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

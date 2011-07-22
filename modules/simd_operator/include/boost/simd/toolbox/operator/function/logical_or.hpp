@@ -21,9 +21,13 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::logical_or logical_or_;
   }
+} }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_or_      , logical_or     , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_or_      , l_or           , 2 )
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::logical_or_      , logical_or     , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::logical_or_      , l_or           , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/logical_or.hpp>

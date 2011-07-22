@@ -19,8 +19,11 @@ namespace boost { namespace dispatch
     template <class T>
     struct saturate_ {};
   }
+} }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::saturate_<A0>, saturate, (A1 const&), 2)
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(boost::dispatch::tag::saturate_<A0>, saturate, (A1 const&), 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

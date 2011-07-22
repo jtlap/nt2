@@ -16,7 +16,11 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct iceil_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iceil_, iceil, 1)
+} }
+
+namespace boost { namespace simd
+{
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::iceil_, iceil, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
