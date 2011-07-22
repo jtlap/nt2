@@ -18,7 +18,7 @@ SET( SOURCES
   cotangent.cpp
   tangent.cpp
   sine.cpp
-  more_cosine.cpp
+#  more_cosine.cpp
   cosine.cpp
   atanpi.cpp
   asinpi.cpp
