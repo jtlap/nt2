@@ -28,7 +28,7 @@ namespace boost { namespace simd {  namespace meta
   template< class Expr >
   struct semantic_of< Expr
                     , typename
-                      enable_if_type<typename Expr::nt2_semantic_type>::type
+                      dispatch::meta::enable_if_type<typename Expr::nt2_semantic_type>::type
                     >
   {
     typedef typename Expr::nt2_semantic_type type;

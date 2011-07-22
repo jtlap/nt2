@@ -17,14 +17,14 @@ namespace boost { namespace dispatch { namespace meta
   template< class Type
           , std::size_t Cardinal
           >
-  struct factory_of< simd::pack<Type, Cardinal> >
+  struct factory_of< boost::simd::pack<Type, Cardinal> >
   {
-      typedef factory_of< simd::pack<Type, Cardinal> > type;
+      typedef factory_of< boost::simd::pack<Type, Cardinal> > type;
       
       template<typename T>
       struct apply
       {
-          typedef simd::pack<T, Cardinal> type;
+          typedef boost::simd::pack<T, Cardinal> type;
       };      
   };
 } } }

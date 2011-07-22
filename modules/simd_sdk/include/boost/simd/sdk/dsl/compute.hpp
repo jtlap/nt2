@@ -21,23 +21,23 @@ namespace boost { namespace simd {  namespace meta
   struct compute
       : boost::proto::
         unpack< boost::proto::
-                call< functor<Tag, Target> >(compile< compute < boost::mpl::_1
-                                                              , Target
-                                                              >
-                                                    >
-                                            )
-              >
+                call< boost::dispatch::functor<Tag, Target> >(compile< compute < boost::mpl::_1
+                                                                               , Target
+                                                                               >
+                                                                     >
+                                                             )
+             >
   {};
 
   template<class Target>
-  struct  compute<tag::terminal_,Target>
+  struct  compute<dispatch::tag::terminal_,Target>
         : boost::proto::
-          call< functor < boost::proto::tag::terminal
-                        , Target
-                        > ( boost::proto::_value
-                          , boost::proto::_state
-                          , boost::proto::_data
-                          )
+          call< boost::dispatch::functor < boost::proto::tag::terminal
+                                         , Target
+                                         > ( boost::proto::_value
+                                         , boost::proto::_state
+                                         , boost::proto::_data
+                                         )
               >
   {};
 } } }

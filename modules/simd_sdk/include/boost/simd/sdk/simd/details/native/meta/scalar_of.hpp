@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
-namespace boost { namespace simd { namespace details
+namespace boost { namespace dispatch { namespace details
 {
   ////////////////////////////////////////////////////////////////////////////
   // Overload for SIMD native types

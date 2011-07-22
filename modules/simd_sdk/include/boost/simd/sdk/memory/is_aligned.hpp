@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Check if a value is aligned on some power of 2 alignment boundary
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd
+namespace boost { namespace dispatch 
 {
   namespace tag { struct is_aligned_ {}; }
 
@@ -54,7 +54,7 @@ namespace boost { namespace simd
               >::type
     is_aligned(A0 const& a0)
     {
-      BOOST_SIMD_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
+      BOOST_DISPATCH_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
                         , INVALID_ALIGNMENT_BOUNDARY
                         , "Invalid alignment boundary. You tried to check if an "
                           "address or a value is aligned on a non-power of 2 boundary."

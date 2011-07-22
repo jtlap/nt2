@@ -11,13 +11,13 @@
 
 #include <boost/simd/include/functions/splat.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::splat_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_ , tag::cpu_
                             , (A0)(A1)(T)(C)(Sema)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< expr_< A1
-                                              , domain_< simd::domain<T,C> >
+                                              , domain_< boost::simd::domain<T,C> >
                                               , tag::terminal_
                                               , Sema
                                               >
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace meta
   {
    typedef typename strip<A1>::type::type result_type;
 
-   BOOST_SIMD_FUNCTOR_CALL(2)
+   BOOST_DISPATCH_FUNCTOR_CALL(2)
    {
      result_type that;
      that.fill(a0);

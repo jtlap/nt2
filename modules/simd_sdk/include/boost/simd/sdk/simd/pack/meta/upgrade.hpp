@@ -42,10 +42,10 @@ namespace boost { namespace dispatch
         template< class Type
                 , std::size_t Cardinal
                 >
-        struct upgrade< simd::pack<Type, Cardinal> >
+        struct upgrade< boost::simd::pack<Type, Cardinal> >
         {
             typedef typename boost::simd::details::simd::upgrade<
-                simd::pack<Type, Cardinal>
+                boost::simd::pack<Type, Cardinal>
               , typename upgrade<Type>::type
             >::type type;
         };

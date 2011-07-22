@@ -19,9 +19,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Litteral as usually splatted w/e the target
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
                             , (Value)(State)(Data)
                             , (scalar_< arithmetic_<Value> >)
                               ((target_<unspecified_<State> >))
@@ -37,9 +37,9 @@ namespace boost { namespace simd {  namespace meta
   };
 } } }
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
                             , (Id)(State)(Data)
                             , (constant_<Id>)
                               ((target_<unspecified_<State> >))
@@ -57,9 +57,9 @@ namespace boost { namespace simd {  namespace meta
 } } }
 
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
                                 , (scalar_< arithmetic_<Value> >)
@@ -76,9 +76,9 @@ namespace boost { namespace simd {  namespace meta
 };
 } } }
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Id)(class State)
                                   (class Data)(std::size_t N)
                                 , (constant_<Id>)

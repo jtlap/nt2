@@ -15,12 +15,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Splat over terminal of simd domain using the pack::fill method
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)(T)(C)(Sema)
                             , (( expr_< A0
-                                      , domain_< simd::domain<T,C> >
+                                      , domain_< boost::simd::domain<T,C> >
                                       , tag::terminal_
                                       , Sema
                                       >
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename meta::strip<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
     {
       A0 that = store(boost::proto::value(a0).value(),a1,a2);
       return that;

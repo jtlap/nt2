@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
   // Overload for SIMD native types
   ////////////////////////////////////////////////////////////////////////////
   template<class T, class H, class X>
-  struct  cardinal_of_impl<T , meta::simd_<H,X> >
+  struct  cardinal_of_impl<T , dispatch::meta::simd_<H,X> >
         : boost::mpl::size_t<T::static_size> {};
 } } }
 

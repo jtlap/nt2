@@ -65,8 +65,8 @@ namespace boost { namespace simd { namespace meta
   //============================================================================
   template<class T>
   struct  cardinal_of
-        : ext::cardinal_of_impl < typename meta::strip<T>::type
-                                , typename hierarchy_of<T>::type
+        : ext::cardinal_of_impl < typename boost::dispatch::meta::strip<T>::type
+                                , typename boost::dispatch::meta::hierarchy_of<T>::type
                                 > {};
 } } }
 

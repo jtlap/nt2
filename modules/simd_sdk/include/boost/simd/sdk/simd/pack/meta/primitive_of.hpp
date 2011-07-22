@@ -17,7 +17,7 @@ namespace boost { namespace dispatch { namespace meta
   template< class Type
           , std::size_t Cardinal
           >
-  struct primitive_of< simd::pack<Type, Cardinal> >
+  struct primitive_of< boost::simd::pack<Type, Cardinal> >
   {
     typedef Type type;
   };

@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace boost { namespace simd {  namespace tag
+namespace boost { namespace dispatch {  namespace tag
 {
   //////////////////////////////////////////////////////////////////////////////
   // Degenerate Expression category tag
@@ -20,7 +20,7 @@ namespace boost { namespace simd {  namespace tag
   struct ast_ {};
 } } }
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
   // Proto domain hierarchy is itself. parent domain is computed from
@@ -31,7 +31,7 @@ namespace boost { namespace simd {  namespace meta
         : boost::mpl::if_< boost::is_same < typename T::proto_super_domain
                                           , boost::proto::detail::not_a_domain
                                           >
-        , unspecified_<T>
+        , dispatch::meta::unspecified_<T>
         , domain_<typename T::proto_super_domain>
         >::type
   {
@@ -39,24 +39,24 @@ namespace boost { namespace simd {  namespace meta
     typename boost::mpl::if_< boost::is_same< typename T::proto_super_domain
                                             , boost::proto::detail::not_a_domain
                                             >
-                            , unspecified_<T>
+                            , dispatch::meta::unspecified_<T>
                             , domain_<typename T::proto_super_domain>
                             >::type                 parent;
   };
 
   template<class T>
-  struct  domain_< unknown_<T> > : unknown_<T>
+  struct  domain_< dispatch::meta::unknown_<T> > : dispatch::meta::unknown_<T>
   {
-    typedef unknown_<T> parent;
+    typedef dispatch::meta::unknown_<T> parent;
   };
 
   //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy depends of the EDSL nature. They however has
   // the same inheritance scheme based on domain
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct ast_ : unspecified_<T>
+  template<class T> struct ast_ : dispatch::meta::unspecified_<T>
   {
-    typedef unspecified_<T> parent;
+    typedef dispatch::meta::unspecified_<T> parent;
   };
   
   template<class T, class Domain, class Tag, class Semantic>
@@ -67,13 +67,13 @@ namespace boost { namespace simd {  namespace meta
   };
 
   template<class T, class Domain, class Tag, class Semantic>
-  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : ast_<T>
+  struct  expr_< T, dispatch::meta::unspecified_<Domain>, Tag, Semantic > : ast_<T>
   {
-    typedef unspecified_<T> parent;
+    typedef dispatch::meta::unspecified_<T> parent;
   };
 } } }
 
-namespace boost { namespace simd {  namespace details
+namespace boost { namespace dispatch {  namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // Proto domain hierarchy specialization
@@ -94,7 +94,7 @@ namespace boost { namespace simd {  namespace details
     typedef meta::expr_ < T
                         , typename meta::hierarchy_of<domain_type>::type
                         , tag_type
-                        , typename meta::semantic_of<T>::type
+                        , typename boost::simd::meta::semantic_of<T>::type
                         > type;
   };
 } } }

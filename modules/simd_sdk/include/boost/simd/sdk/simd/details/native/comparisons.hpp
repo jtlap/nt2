@@ -15,24 +15,24 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/toolbox/operator/specific/compare_tags.hpp>
 
-#define BOOST_SIMD_MAKE_NATIVE_OP(TAG,OP)                                      \
-template<class T,class X> inline                                        \
-typename meta::call<TAG(native<T,X>,native<T,X>)>::type  \
-OP(native<T,X> const& a0, native<T,X> const& a1)                        \
-{                                                                       \
-  typename boost::simd::make_functor<TAG,T>::type callee;                       \
-  return callee(a0,a1);                                                 \
-}                                                                       \
+#define BOOST_SIMD_MAKE_NATIVE_OP(TAG,OP)                                \
+template<class T,class X> inline                                         \
+typename boost::dispatch::meta::call<TAG(native<T,X>,native<T,X>)>::type \
+OP(native<T,X> const& a0, native<T,X> const& a1)                         \
+{                                                                        \
+  typename boost::dispatch::make_functor<TAG,T>::type callee;            \
+  return callee(a0,a1);                                                  \
+}                                                                        \
 /**/
 
 namespace boost { namespace simd
 {
-  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_equal_        , operator== )
-  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_not_equal_    , operator!= )
-  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_less_         , operator<  )
-  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_greater_      , operator>  )
-  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_less_equal_   , operator<= )
-  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_greater_equal_, operator>= )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_equal_        , operator== )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_not_equal_    , operator!= )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_less_         , operator<  )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_greater_      , operator>  )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_less_equal_   , operator<= )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_greater_equal_, operator>= )
 } }
 
 #undef BOOST_SIMD_MAKE_NATIVE_OP

@@ -14,7 +14,7 @@
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
-namespace boost { namespace simd
+namespace boost { namespace dispatch
 {
   namespace tag { struct align_on_ {}; }
 
@@ -48,7 +48,7 @@ namespace boost { namespace simd
     meta::call<tag::align_on_(A0 const&,boost::mpl::int_<N> const&)>::type
     align_on(A0 const& a0)
     {
-      BOOST_SIMD_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
+      BOOST_DISPATCH_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
                         , INVALID_ALIGNMENT_BOUNDARY
                         , "Invalid alignment boundary. You tried to align an "
                           "address or a value on a non-power of 2 boundary."

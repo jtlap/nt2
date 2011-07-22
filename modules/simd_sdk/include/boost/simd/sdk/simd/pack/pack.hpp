@@ -35,7 +35,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Pack must be sized with a power of 2
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_SIMD_STATIC_ASSERT ( (meta::is_power_of_2_c<Cardinal>::value)
+    BOOST_DISPATCH_STATIC_ASSERT ( (meta::is_power_of_2_c<Cardinal>::value)
                       , INVALID_SIMD_PACK_CARDINAL
                       , "SIMD pack instanciated with non-power of 2 Cardinal."
                       );
@@ -54,8 +54,8 @@ namespace boost { namespace simd
     // expression hierarchy of simd:::expression
     ////////////////////////////////////////////////////////////////////////////
     typedef typename
-    details::hierarchy_of_expr<pack>::type  nt2_hierarchy_tag;
-    typedef data_type                       nt2_semantic_type;
+    dispatch::details::hierarchy_of_expr<pack>::type  nt2_hierarchy_tag;
+    typedef data_type                                 nt2_semantic_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
@@ -99,7 +99,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     template<class Iterator>
     pack( Iterator it, std::ptrdiff_t offset
-        , typename boost::enable_if< meta::is_iterator<Iterator> >::type* = 0
+        , typename boost::enable_if< dispatch::meta::is_iterator<Iterator> >::type* = 0
         ) : parent()
     {
       boost::proto::value(*this) = load<base_type>(it,offset);
@@ -113,8 +113,8 @@ namespace boost { namespace simd
         , std::ptrdiff_t offset
         , Suboffset const&
         , typename
-          boost::enable_if_c<   meta::is_iterator<Iterator>::value
-                            &&  details::is_mpl_integral<Suboffset>::value
+          boost::enable_if_c< dispatch::meta::is_iterator<Iterator>::value
+                            &&  dispatch::details::is_mpl_integral<Suboffset>::value
                             >::type* = 0
         ) : parent()
     {

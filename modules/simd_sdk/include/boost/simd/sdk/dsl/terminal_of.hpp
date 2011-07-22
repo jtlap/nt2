@@ -31,7 +31,7 @@ namespace boost { namespace simd {  namespace meta
 {
   template< class Expr >
   struct  terminal_of
-        : ext::terminal_of_impl < typename strip<Expr>::type
+        : ext::terminal_of_impl < typename boost::dispatch::meta::strip<Expr>::type
                                 , typename boost::proto::domain_of<Expr>::type
                                 >
   {};

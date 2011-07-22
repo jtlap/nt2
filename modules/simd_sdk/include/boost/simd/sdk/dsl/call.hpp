@@ -44,9 +44,9 @@
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 
 #define M4(z,n,t)                                                             \
-BOOST_SIMD_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
+BOOST_DISPATCH_REGISTER_DISPATCH_IF( Func, tag::formal_                                  \
                         , (Func)BOOST_PP_REPEAT(n,M2,~)                       \
-                        , (any< boost::proto::is_expr<boost::mpl::_>          \
+                        , (boost::simd::meta::any< boost::proto::is_expr<boost::mpl::_>   \
                               , BOOST_PP_ENUM_PARAMS(n,A)                     \
                              >                                                \
                           )                                                   \
@@ -84,10 +84,10 @@ operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,A,const& a) ) const      \
 }                                                                 \
 /**/
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch {  namespace meta
 {
   BOOST_PP_REPEAT_FROM_TO ( 1
-                          , BOOST_PP_INC(BOOST_PP_MIN ( BOOST_SIMD_MAX_ARITY
+                          , BOOST_PP_INC(BOOST_PP_MIN ( BOOST_DISPATCH_MAX_ARITY
                                                       , BOOST_PROTO_MAX_ARITY
                                                       )
                                         )
@@ -99,7 +99,7 @@ namespace boost { namespace simd {  namespace meta
   {
     template<class Sig> struct result;
     BOOST_PP_REPEAT_FROM_TO ( 1
-                            , BOOST_PP_INC(BOOST_PP_MIN ( BOOST_SIMD_MAX_ARITY
+                            , BOOST_PP_INC(BOOST_PP_MIN ( BOOST_DISPATCH_MAX_ARITY
                                                         , BOOST_PROTO_MAX_ARITY
                                                         )
                                           )

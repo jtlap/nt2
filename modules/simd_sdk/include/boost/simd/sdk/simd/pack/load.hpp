@@ -22,14 +22,14 @@
 //==============================================================================
 // load pack without offset
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(T)(C)(Sema)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_< expr_< A2
-                                              , domain_< simd::domain<T,C> >
+                                              , domain_< boost::simd::domain<T,C> >
                                               , tag::terminal_
                                               , Sema
                                               >
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace meta
                             )
   {
     typedef typename meta::strip<A2>::type::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3) { return result_type(a0,a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL(3) { return result_type(a0,a1); }
   };
 } } }
 
@@ -46,14 +46,14 @@ namespace boost { namespace simd { namespace meta
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd pack with suboffset
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(T)(C)(Sema)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_< expr_< A2
-                                              , domain_< simd::domain<T,C> >
+                                              , domain_< boost::simd::domain<T,C> >
                                               , tag::terminal_
                                               , Sema
                                               >
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename meta::strip<A2>::type::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(4) { return result_type(a0,a1,a3); }
+    BOOST_DISPATCH_FUNCTOR_CALL(4) { return result_type(a0,a1,a3); }
   };
 } } }
 

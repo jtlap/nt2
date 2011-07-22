@@ -12,14 +12,14 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/config/attributes.hpp>
 
-#define BOOST_SIMD_MAKE_NATIVE_OP(TAG,OP)                                        \
-template<class T1, class T2,class X> BOOST_SIMD_FORCE_INLINE                     \
-typename meta::call<TAG(native<T1,X>,native<T2,X>)>::type  \
-OP(native<T1,X> const& a0, native<T2,X> const& a1)                        \
-{                                                                         \
-  typename boost::simd::make_functor<TAG,T1>::type callee;                        \
-  return callee(a0,a1);                                                   \
-}                                                                         \
+#define BOOST_SIMD_MAKE_NATIVE_OP(TAG,OP)                                  \
+template<class T1, class T2,class X> BOOST_SIMD_FORCE_INLINE               \
+typename boost::dispatch::meta::call<TAG(native<T1,X>,native<T2,X>)>::type \
+OP(native<T1,X> const& a0, native<T2,X> const& a1)                         \
+{                                                                          \
+  typename boost::dispatch::make_functor<TAG,T1>::type callee;             \
+  return callee(a0,a1);                                                    \
+}                                                                          \
 /**/
 
 namespace boost { namespace simd

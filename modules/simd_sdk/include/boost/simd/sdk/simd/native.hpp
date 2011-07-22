@@ -121,19 +121,19 @@ namespace boost { namespace simd
     this_type const& operator+() const { return *this; }
     this_type operator!() const
     {
-      functor<boost::proto::tag::logical_not> callee;
+      boost::dispatch::functor<boost::proto::tag::logical_not> callee;
       return callee(*this);
     }
 
     this_type operator-() const
     {
-      functor<boost::proto::tag::negate> callee;
+      boost::dispatch::functor<boost::proto::tag::negate> callee;
       return callee(*this);
     }
 
     this_type operator~()  const
     {
-      functor<boost::proto::tag::complement> callee;
+      boost::dispatch::functor<boost::proto::tag::complement> callee;
       return callee(*this);
     }
 

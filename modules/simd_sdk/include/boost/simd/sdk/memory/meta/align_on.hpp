@@ -28,7 +28,7 @@ namespace boost { namespace simd {  namespace meta
                                , (V+N-1) & ~(N-1)
                                >
   {
-    BOOST_SIMD_STATIC_ASSERT ( (meta::is_power_of_2_c<N>::value)
+    BOOST_DISPATCH_STATIC_ASSERT ( (meta::is_power_of_2_c<N>::value)
                       , INVALID_ALIGNMENT_VALUE
                       , "Alignment done on a non-power of two boundary."
                       );

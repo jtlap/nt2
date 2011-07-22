@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace details
   template< class Pred
           , BOOST_PP_ENUM_BINARY_PARAMS ( BOOST_DISPATCH_MAX_META_ARITY
                                         , class A
-                                        , = meta::na_ BOOST_PP_INTERCEPT
+                                        , = dispatch::meta::na_ BOOST_PP_INTERCEPT
                                         )
           >
   struct  any_impl
