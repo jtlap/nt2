@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
                             )
   {
     typedef int result_type;
-    inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
+    inline int operator()(A0 const& a0,A1 & a1,A2 & a2) const
     {
       a1 = ::frexp(a0, &a2);
       return 0; 
@@ -62,7 +62,7 @@ namespace nt2 { namespace meta
                             )
   {
     typedef A0 result_type;    
-    inline void operator()(A0 const& a0,A2 & a2) const
+    inline A0 operator()(A0 const& a0,A2 & a2) const
     {
       return ::frexpf(a0, &a2);
     }

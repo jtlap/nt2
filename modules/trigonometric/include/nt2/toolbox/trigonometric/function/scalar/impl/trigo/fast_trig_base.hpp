@@ -1,11 +1,11 @@
-//==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
-//==============================================================================
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_FAST_TRIG_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_FAST_TRIG_BASE_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
@@ -89,7 +89,7 @@ namespace nt2
 	// note that the range is VERY SMALL
 	
 
-	typedef trig_evaluation<A0,trig_tag,tag::not_simd_type> eval_t;
+	typedef trig_evaluation<A0,tag::not_simd_type> eval_t;
 	
 	static inline A0 cosa(const A0& a0)
 	{
@@ -116,13 +116,13 @@ namespace nt2
 	}
 
 
-	static inline void sincosa(const A0& a0, A0& s, A0& c)
+	static inline A0 sincosa(const A0& a0, A0& c)
 	{
-	  if(not_in_range(a0)){c = s = Nan<A0>(); return; }
+	  if(not_in_range(a0)){c = Nan<A0>(); return c; }
 	  A0 x =  scale(a0);
 	  A0 z =  sqr(x); 
 	  c = eval_t::cos_eval(z, x, Zero<A0>());
-	  s = eval_t::sin_eval(z, x, Zero<A0>());  
+	  return eval_t::sin_eval(z, x, Zero<A0>());  
 	}
       private:
 	typedef typename meta::logical<A0>::type                                                          logic; 
@@ -135,3 +135,7 @@ namespace nt2
 
 
 #endif
+
+// /////////////////////////////////////////////////////////////////////////////
+// End of fast_trig_base.hpp
+// /////////////////////////////////////////////////////////////////////////////

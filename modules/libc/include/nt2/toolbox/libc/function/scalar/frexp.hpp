@@ -56,7 +56,7 @@ NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
                        (scalar_<real_<A0> >)
                       )
   {
-      typedef boost::fusion::vector<A0,int32_t>             result_type;
+    typedef boost::fusion::vector<A0,nt2::int32_t>             result_type;
     
     NT2_FUNCTOR_CALL(1)
     {

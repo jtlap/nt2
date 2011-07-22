@@ -53,40 +53,14 @@ NT2_TEST_CASE_TPL ( fast_sincos_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
   {
-    r_t res = fast_sincos(-nt2::Pi<vT>()/nt2::splat<vT>(2));
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t1>()[0], 0.75);
+    r_t res = fast_sincos(nt2::Zero<vT>());
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
+    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::One<r_t0>()[0], 0.75);
   }
-  {
-    r_t res = fast_sincos(-nt2::Pi<vT>()/nt2::splat<vT>(4));
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], -nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = fast_sincos(nt2::Inf<vT>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = fast_sincos(nt2::Minf<vT>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = fast_sincos(nt2::Nan<vT>());
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = fast_sincos(nt2::Pi<vT>()/nt2::splat<vT>(2));
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Nan<r_t0>()[0], 0.75);
-  }
-  {
-    r_t res = fast_sincos(nt2::Pi<vT>()/nt2::splat<vT>(4));
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Sqrt_2o_2<r_t0>()[0], 0.75);
-  }
+
+  // specific values tests
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
   {
     r_t res = fast_sincos(nt2::Zero<vT>());
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);

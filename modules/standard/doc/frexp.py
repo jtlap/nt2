@@ -35,7 +35,7 @@
                  'default' : ['nt2::standard::frexp(a0)'],
                 },
              'property_value' : {
-                 'default' : [['nt2::mantissa(a0)/2', 'nt2::exponent(a0)+1']],
+                 'default' : ['nt2::mantissa(a0)/2', 'nt2::exponent(a0)+1'],
                 },
              'simd' : {
                 },

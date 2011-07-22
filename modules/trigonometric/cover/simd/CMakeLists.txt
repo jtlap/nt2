@@ -9,6 +9,17 @@
 ################################################################################
 
 SET( SOURCES
+  rem_pio2_straight.cpp
+  rem_pio2_medium.cpp
+  rem_pio2_cephes.cpp
+  rem_pio2.cpp
+  sinecosine.cpp
+  cosecant.cpp
+  secant.cpp
+  cotangent.cpp
+  tangent.cpp
+  sine.cpp
+  cosine.cpp
   tanpi.cpp
   tand.cpp
   tan.cpp

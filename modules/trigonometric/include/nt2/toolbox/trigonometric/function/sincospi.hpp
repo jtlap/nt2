@@ -17,6 +17,7 @@ namespace nt2 { namespace tag
     struct sincospi_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sincospi_, sincospi, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincospi_, sincospi,(A0 const&)(A1&),2)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincospi_, sincospi,(A0 const&)(A1&)(A2&),3)
 
  }

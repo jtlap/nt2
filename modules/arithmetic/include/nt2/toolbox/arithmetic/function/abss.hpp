@@ -11,6 +11,15 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
+/*!
+ * \file
+ * \brief Defines the saturated absolute value functor: abss
+ *
+ * alias saturated_abs
+ *
+ * This is generally equivalent to abs except for signed integer
+ * type for which abss(Valmin) is Valmax-1
+ */
 
 namespace nt2 {
   namespace tag
@@ -18,7 +27,7 @@ namespace nt2 {
     struct abss_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::abss_, abss, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::abss_, sturated_abs, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::abss_, saturated_abs, 1)
 }
 
 #include <nt2/toolbox/operator.hpp>

@@ -1,11 +1,11 @@
-//==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
-//==============================================================================
+//////////////////////////////////////////////////////////////////////////////
+///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///
+///          Distributed under the Boost Software License, Version 1.0
+///                 See accompanying file LICENSE.txt or copy at
+///                     http://www.boost.org/LICENSE_1_0.txt
+//////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #include <nt2/include/functions/sign.hpp>
@@ -25,7 +25,7 @@ namespace nt2
     namespace internal
     {
       template < class A0 >
-      struct invtrig_base<A0,radian_tag,trig_tag,tag::simd_type, double>
+      struct invtrig_base<A0,radian_tag,tag::simd_type, double>
       {
 	static inline A0 asin(const A0& a0)
 	{
@@ -135,3 +135,7 @@ namespace nt2
 }
 
 #endif
+
+// /////////////////////////////////////////////////////////////////////////////
+// End of d_invtrig.hpp
+// /////////////////////////////////////////////////////////////////////////////

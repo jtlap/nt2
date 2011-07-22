@@ -12,10 +12,7 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/invtrig.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/invtrig.hpp
-//  of the old nt2
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/invtrig.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 
 
@@ -56,7 +53,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-       return impl::invtrig_base<A0,radian_tag,trig_tag, tag::simd_type>::asin(a0);
+       return impl::invtrig_base<A0,radian_tag, tag::simd_type>::asin(a0);
     }
   };
 } }

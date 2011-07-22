@@ -89,24 +89,28 @@ class Specific_values_test_gen(object) :
         if self.mode == 'simd' :
             special = extract(d,"",[""],"functor","special")[0]
             if special in ['predicate','fuzzy'] :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0]!=0, $call_param_res$%s);"
             elif special in ['reduction']:
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$), $call_param_res$%s);"
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
             else :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$)[0], $call_param_res$%s);"
+                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0], $call_param_res$%s);"
         else :
-            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$($call_param_vals$), $call_param_res$%s);"
+            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
         return spec_values_tpl
 
     def expand_to_list(self,typ) :
-        print("typ ->>> %s"%typ)
+##        print("typ ->>> %s"%typ)
         return self.bg.Expansion_dict[self.platform][typ]
     
     def __create_v_tests(self,dl,typ) :
         typs = self.expand_to_list(typ)
-        print (typs)
+##        print ("=>>> %s"%typs)
+##        print ("=>>> %s"%typ)
+        self.__grouping_used = False
         r = []
-        for t in typs : r+=self.__create_v_test(dl,t,typ)
+        for t in typs :
+            r+=self.__create_v_test(dl,t,typ)
+            if self.__grouping_used : break;
         return r
     
     def __create_v_test(self,dl,typ,orig_type) :
@@ -122,6 +126,9 @@ class Specific_values_test_gen(object) :
            if p : r = self.__add(p,r)
         if self.ret_arity <= 1 :
             r = self.__create_values_test(dl,typ,orig_type,no_ulp,r)
+##            print("ooo=========  r")
+##            for rr in r : print(rr)
+##            raise SystemExit
         else :
             r = self.__create_tuple_values_test(dl,typ,orig_type,no_ulp,r)            
         if isinstance(unit_specific, dict) :
@@ -129,18 +136,18 @@ class Specific_values_test_gen(object) :
             if e : r = self.__add(e,r)
         return r
 
+
     def __create_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         unit_specific = extract(dl,"","",'unit',"specific_values")
         ulp_str = "" if no_ulp else "ULP_"                   #string to modify the macro name accordingly
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
         spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
-        print("typ   %s"%typ)
-        print("otype %s"%orig_typ)
-        print("unit_specific %s"%unit_specific)
-        typ_values = extract(unit_specific,"default",None,typ)
-        if typ_values is None:  typ_values = extract(unit_specific,"default",None,orig_typ)
-##        print("typ_values %s"%typ_values)
-##        if (typ == 'real_convert_') : typ = 'real_'
+##        print("typ   %s"%typ)
+##        print("otype %s"%orig_typ)
+        typ_values = unit_specific.get(typ,None)
+        if typ_values is None:
+            typ_values = extract(unit_specific,"default",None,orig_typ)
+            self.__grouping_used = True
         # typ_values is the dictionnary of types for which specific values calls will be generated
         #        print("typ_values = %s"%typ_values)
         for k in sorted(typ_values.keys()) :
@@ -163,6 +170,9 @@ class Specific_values_test_gen(object) :
                 g =re.sub("ivT\(","nt2::splat<ivT>(",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
+            g = dl["functor"].get("tpl","")
+
+            s =re.sub("\$tpl_parm\$",g,s)
             def get_rep_thr(dd) :
                 if isinstance(dd[k], str ) :
                     rep = dd[k]
@@ -189,7 +199,7 @@ class Specific_values_test_gen(object) :
         else :
             Call = "    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
             
-        Results = "    r_t res = $fct_name$($call_param_vals$);"
+        Results = "    r_t res = $fct_name$$tpl_parm$($call_param_vals$);"
         dd = d.get(typ,d.get("default",None))
         if dd is None : dd = d.get(orig_typ,d.get("default",None))
         r = ["",
@@ -211,6 +221,9 @@ class Specific_values_test_gen(object) :
                 g =re.sub("ivT\(","nt2::splat<ivT>(",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)
             s =re.sub("\$call_param_vals\$",g,s)
+            g = dl["functor"].get("tpl","")
+
+            s =re.sub("\$tpl_parm\$",g,s)
             if  isinstance(dd[k], str ) :
                 rep = dd[k]
                 thr = '0'

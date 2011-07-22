@@ -17,7 +17,7 @@ namespace nt2 { namespace tag
     struct modf_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A2&),3)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A1&),2)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&),2) 
 
 }

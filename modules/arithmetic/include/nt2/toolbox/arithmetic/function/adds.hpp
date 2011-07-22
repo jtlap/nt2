@@ -11,6 +11,15 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/arithmetic/include.hpp>
+/*!
+ * \file
+ * \brief Defines the saturated addition functor: adds
+ *
+ * alias saturated_add
+ *
+ * This is generally equivalent to add except that in overflow cases
+ * Valmin or Valmax for the input type is returned
+ */
 
 namespace nt2 {
   namespace tag
