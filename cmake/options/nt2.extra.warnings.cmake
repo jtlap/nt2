@@ -15,31 +15,50 @@ include(CheckCXXCompilerFlag)
 ################################################################################
 # Add Extra warning level
 ################################################################################
-OPTION(NT2_EXTRA_WARNINGS "Enable/Disable extra warnings" OFF)
+option(NT2_EXTRA_WARNINGS "Enable/disable extra warnings" OFF)
 
-IF(NT2_EXTRA_WARNINGS)
-################################################################################
-# Check for gcc style
-################################################################################
-check_cxx_compiler_flag("-Wextra" HAS_GCC_WEXTRA)
-IF(HAS_GCC_WEXTRA)
-set(NT2_FLAGS "${NT2_FLAGS} -Wall -Wextra")
-set(NT2_EXTRA_WARNINGS_SET 1)
-ENDIF()
+if(NT2_EXTRA_WARNINGS)
+  message(STATUS "[nt2] extra warnings enabled")
 
-################################################################################
-# Check for MSVC style
-################################################################################
-check_cxx_compiler_flag("/W4" HAS_MSVC_WEXTRA)
-IF(HAS_MSVC_WEXTRA)
-set(NT2_FLAGS "${NT2_FLAGS} /W4")
-set(NT2_EXTRA_WARNINGS_SET 1)
-ENDIF()
+  if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+    set(HAS_GCC_WALL 1)
+    set(HAS_MSVC_W4 0)
+  elseif(MSVC)
+    set(HAS_GCC_WALL 0)
+    set(HAS_GCC_WEXTRA 0)
+    set(HAS_MSVC_W4 1)
+  endif()
 
-IF(NT2_EXTRA_WARNINGS_SET)
-MESSAGE(STATUS "Enabling extra warnings")
-ENDIF()
-ENDIF()
-################################################################################
-# Add Extra warning level done
-################################################################################
+  ################################################################################
+  # Check for GCC style
+  ################################################################################
+  if(NOT DEFINED HAS_GCC_WEXTRA)
+    check_cxx_compiler_flag("-Wextra" HAS_GCC_WEXTRA)
+  endif()
+  if(HAS_GCC_WEXTRA)
+    set(HAS_GCC_WALL 1)
+  endif()
+  
+  if(NOT DEFINED HAS_GCC_WALL)
+    check_cxx_compiler_flag("-Wall" HAS_GCC_WALL)
+  endif()
+    
+  if(HAS_GCC_WALL)
+    set(NT2_FLAGS "${NT2_FLAGS} -Wall")
+  endif()
+  if(HAS_GCC_WEXTRA)
+    set(NT2_FLAGS "${NT2_FLAGS} -Wextra")
+  endif()
+
+  ################################################################################
+  # Check for MSVC style
+  ################################################################################
+  if(NOT DEFINED HAS_MSVC_W4)
+    check_cxx_compiler_flag("/W4" HAS_MSVC_W4)
+  endif()
+  
+  if(HAS_MSVC_W4)
+    set(NT2_FLAGS "${NT2_FLAGS} /W4")
+  endif()
+
+endif()
