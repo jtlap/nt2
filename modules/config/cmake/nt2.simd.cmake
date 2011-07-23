@@ -9,6 +9,11 @@
 
 include(nt2.info)
 
+if(DEFINED NT2_SIMD_FLAGS)
+  message(STATUS "[nt2.config] SIMD flag: ${NT2_SIMD_FLAGS}")
+  return()
+endif()
+
 ################################################################################
 # x86 Family
 ################################################################################
@@ -23,7 +28,7 @@ if(NT2_ARCH_POWERPC)
   include(arch/FindVMX)
 endif()
 
-set( NT2_CXX_SIMD_FLAGS "${NT2_SIMD_FLAGS} ${NT2_CXX_PRECISION_FLAGS}"
+set( NT2_SIMD_FLAGS ${NT2_SIMD_FLAGS}
      CACHE STRING "SIMD extensions compiler flags"
    )
-message(STATUS "[nt2.config] SIMD flag: ${NT2_CXX_SIMD_FLAGS}")
+message(STATUS "[nt2.config] SIMD flag: ${NT2_SIMD_FLAGS}")

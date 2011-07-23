@@ -10,20 +10,17 @@
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR .
-         CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
-         FORCE
+         CACHE PATH "Directory where to install extra files"
        )
   else()
     set( NT2_INSTALL_SHARE_DIR share/nt2
-         CACHE PATH "The directory where we install the extra files that are not headers nor libraries"
-         FORCE
+         CACHE PATH "Directory where to install extra files"
        )
   endif()
 
 endmacro()
 
 macro(nt2_module_source_setup module)
-  nt2_module_install_setup()
   string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
   
   set(NT2_CURRENT_MODULE ${module})
@@ -37,6 +34,8 @@ macro(nt2_module_source_setup module)
   # installation is only done when current project is NT2
   # or same as current module
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+
+    nt2_module_install_setup()
 
     # set up component
     if(CPACK_GENERATOR)
@@ -99,12 +98,16 @@ macro(nt2_module_main module)
   set(NT2_CURRENT_MODULE ${module})
   nt2_module_use_modules(${module})
   
-  nt2_module_install_setup()
+  if(CMAKE_GENERATOR MATCHES "Make")
+    set(NT2_WITH_TESTS_ 1)
+  else()
+    set(NT2_WITH_TESTS_ 0)
+  endif()
+  option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
+  option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
   
-  if(CMAKE_GENERATOR MATCHES "Make" AND NOT DEFINED NT2_WITH_TESTS)
-    set(NT2_WITH_TESTS 1)
-  elseif(NOT DEFINED NT2_WITH_TESTS)
-    set(NT2_WITH_TESTS 0)
+  if(NT2_WITH_TESTS_COVER AND NOT NT2_WITH_TESTS)
+    set(NT2_WITH_TESTS 1 CACHE BOOL "Enable benchmarks and unit tests" FORCE)
   endif()
 
   if(NT2_WITH_TESTS)
@@ -258,6 +261,7 @@ macro(nt2_module_configure_py pyfile)
   endif()
 
   find_file(_${pyfile}_PY ${pyfile} ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
+  set(_${pyfile}_PY ${_${pyfile}_PY} CACHE INTERNAL "" FORCE)
   execute_process( COMMAND ${PYTHON_EXECUTABLE}
                    ${_${pyfile}_PY} --display
                    ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include

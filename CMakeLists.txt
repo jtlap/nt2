@@ -9,8 +9,10 @@
 cmake_minimum_required(VERSION 2.6)
 
 ################################################################################
-# Project nt2 - See toolbox/CMakeLists.txt for toolbox CMake scripts
+# Project nt2 that loads many modules
+# -- see modules/(<module>/+)CMakeLists.txt to build a single module.
 ################################################################################
+
 project(NT2)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
@@ -19,37 +21,8 @@ include(nt2.compiler.options)
 ################################################################################
 # Global Options
 ################################################################################
-set(CPACK_PACKAGE_NAME "NT2")
-set(CPACK_PACKAGE_VENDOR "Metascale")
-set(CPACK_PACKAGE_CONTACT "Metascale <contact@metascale.org>")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Numerical Template Toolbox")
-
-set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.rst")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.rst")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-
-set(CPACK_PACKAGE_VERSION_MAJOR "3")
-set(CPACK_PACKAGE_VERSION_MINOR "0")
-set(CPACK_PACKAGE_VERSION_PATCH "0")
-
-set(NT2_VERSION_NUMBER "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-set(NT2_VERSION ${NT2_VERSION_NUMBER})
-
-set(CPACK_PACKAGE_FILE_NAME "nt2-${NT2_VERSION}")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY nt2)
-
-# NSIS-specific
-set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/doc/source\\\\nt2.png")
-set(CPACK_NSIS_DISPLAY_NAME "NT2 - Numerical Template Toolbox")
-set(CPACK_NSIS_HELP_LINK "http:\\\\\\\\nt2.metascale.org")
-set(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\nt2.metascale.org")
-set(CPACK_NSIS_CONTACT "contact@metascale.org")
-
-set(CPACK_STRIP_FILES 1)
-set(CPACK_SOURCE_STRIP_FILES 1)
-set(CPACK_COMPONENTS_ALL_IN_ONE_PACKAGE 1)
-
-include(CPack)
+set(NT2_VERSION "3.0.0")
+include(nt2.package)
 
 ################################################################################
 # Add Documentation target
@@ -62,7 +35,14 @@ include(CPack)
 ################################################################################
 # Enable testing if using Makefile generator or instructed to do so
 ################################################################################
-if(CMAKE_GENERATOR MATCHES "Make" OR NT2_WITH_TESTS)
+if(CMAKE_GENERATOR MATCHES "Make")
+  set(NT2_WITH_TESTS_ 1)
+else()
+  set(NT2_WITH_TESTS_ 0)
+endif()
+
+option(NT2_WITH_TESTS "Enable benchmarks, unit and cover tests" ${NT2_WITH_TESTS_})
+if(NT2_WITH_TESTS)
   ENABLE_TESTING()
 endif()
 
@@ -71,14 +51,32 @@ endif()
 ################################################################################
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 
+set(NT2_MODULES_EXTRA "" CACHE STRING "Extra modules to load")
+set(NT2_MODULES_BLACKLIST "" CACHE STRING "Modules that should not be loaded")
+
+# We load all directories of modules/ for which a CMakeLists.txt is present;
+# if none is found in the directory, we search recursively until we find one.
 if(NOT NT2_MODULES)
   file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
-  foreach(${module} NT2_MODULES)
-    if(NOT EXISTS ${PROJECT_SOURCE_DIR}/modules/${module}/CMakeLists.txt)
+  set(i 0)
+  list(LENGTH NT2_MODULES len)
+  while(i LESS len)
+    list(GET NT2_MODULES ${i} module)
+    string(REPLACE "." "/" module_path ${module})
+    if(NOT EXISTS ${PROJECT_SOURCE_DIR}/modules/${module_path}/CMakeLists.txt)
       list(REMOVE_ITEM NT2_MODULES ${module})
+      file(GLOB NT2_MODULES_ RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/${module_path}/*/)
+      if(NT2_MODULES_)
+        string(REPLACE "/" "." NT2_MODULES_ ${NT2_MODULES_})
+        list(APPEND NT2_MODULES ${NT2_MODULES_})
+      endif()
+      list(LENGTH NT2_MODULES len)
+    else()
+      math(EXPR i "${i} + 1")
     endif()
-  endforeach()
+  endwhile()
 endif()
+
 if(NT2_MODULES_EXTRA)
   list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
   list(REMOVE_DUPLICATES "NT2_MODULES")
@@ -88,16 +86,17 @@ include(nt2.download)
 foreach(module ${NT2_MODULES})
   list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
   if(module_found LESS 0)
+    string(REPLACE "." "/" module_path ${module})
   
-    if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module})
+    if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       nt2_download_module(${module})
     endif()
   
-    if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module})
+    if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       message(STATUS "[nt2] module ${module} not found")
     else()
       message(STATUS "[nt2] loading module ${module}")
-      add_subdirectory(modules/${module})
+      add_subdirectory(modules/${module_path})
     endif()
     
   endif()
