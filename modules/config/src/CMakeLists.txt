@@ -9,10 +9,3 @@
 
 include(NT2Module)
 nt2_module_source_setup(config)
-
-################################################################################
-# Generate bootstrap.hpp
-################################################################################
-nt2_module_configure_file(bootstrap.hpp.cmake
-                          nt2/sdk/config/bootstrap.hpp
-                         )

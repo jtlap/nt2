@@ -9,15 +9,19 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_SSE_SSE4_1_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_SSE_SSE4_1_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_SSE4_1_SUPPORT)
+#if defined(__SSE4_1__)
+#  ifndef NT2_HAS_SSE4_1_SUPPORT
+#    define NT2_HAS_SSE4_1_SUPPORT
+#  endif
+#elif defined(NT2_HAS_SSE4_1_SUPPORT) && !defined(_MSC_VER)
+#  undef NT2_HAS_SSE4_1_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for SSE4_1
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__SSE4_1__) || defined(_MSC_VER)
+#if defined(NT2_HAS_SSE4_1_SUPPORT) && !defined(NT2_HAS_SSSE3_SUPPORT)
+#  define NT2_HAS_SSSE3_SUPPORT
+#endif
+
+#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_SSE4_1_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report  SSE4_1 discovery
@@ -43,6 +47,5 @@ NT2_WARNING(SSE4_1 SIMD extension detected)
 
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 
-#endif
 #endif
 #endif

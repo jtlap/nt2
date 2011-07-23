@@ -67,14 +67,13 @@ macro(nt2_simd_cpuid_check ext)
     set(NT2_HAS_${ext}_SUPPORT 0)
   endif()
 
-  # check whether the extension is supported by the compiler
-  # (to improve -- only really supports GCC)
-  if(NT2_HAS_${ext}_SUPPORT AND NOT NT2_COMPILER_MSVC)
+  if(NT2_HAS_${ext}_SUPPORT)
     check_cxx_compiler_flag("-m${ext_l}" HAS_GCC_${ext})
     if(HAS_GCC_${ext})
       set(NT2_SIMD_FLAGS "-m${ext_l}")
     else()
-      set(NT2_HAS_${ext}_SUPPORT 0)
+      # find a way to test if compiler really supports it?
+      set(NT2_SIMD_FLAGS "-DNT2_HAS_${ext}_SUPPORT")
     endif()
   endif()
       
@@ -110,5 +109,3 @@ function(nt2_simd_cpuid_find)
 endfunction()
 
 nt2_simd_cpuid_find()
-
-

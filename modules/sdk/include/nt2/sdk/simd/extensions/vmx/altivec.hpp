@@ -11,16 +11,15 @@
 
 #include <nt2/sdk/error/warning.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED)
+#if defined(__ALTIVEC__) || defined(__VEC__)
+#  ifndef NT2_HAS_VMX_SUPPORT
+#    define NT2_HAS_VMX_SUPPORT
+#  endif
+#elif defined(NT2_HAS_VMX_SUPPORT)
+#  undef NT2_HAS_VMX_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for active Altivec extension
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__ALTIVEC__) || defined(__VEC__)                                   \
- || defined(NT2_HAS_VMX_SUPPORT)
+#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_VMX_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report discovery of Altivec support
@@ -66,6 +65,5 @@ NT2_WARNING(AltiVec SIMD extension detected)
 
 #include <nt2/sdk/simd/extensions/meta/altivec.hpp>
 
-#endif
 #endif
 #endif

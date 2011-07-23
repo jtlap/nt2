@@ -16,7 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/version.hpp>
-#include <nt2/sdk/config/bootstrap.hpp>
 
 #include <nt2/sdk/config/compiler/gcc_xml.hpp>
 #include <nt2/extension/sdk/config/compiler.hpp>

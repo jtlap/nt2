@@ -16,7 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED)
 #include <nt2/sdk/simd/extensions/vmx/altivec.hpp>
 //#include <nt2/sdk/simd/extensions/vmx/spu.hpp>
 
@@ -24,5 +23,4 @@
 #include <nt2/sdk/simd/extensions/vmx/types.hpp>
 #endif
 
-#endif
 #endif

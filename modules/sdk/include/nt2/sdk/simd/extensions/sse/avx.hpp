@@ -9,15 +9,19 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_SSE_AVX_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_SSE_AVX_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_AVX_SUPPORT)
+#if defined(__AVX__)
+#  ifndef NT2_HAS_AVX_SUPPORT
+#    define NT2_HAS_AVX_SUPPORT
+#  endif
+#elif defined(NT2_HAS_AVX_SUPPORT) && !defined(_MSC_VER)
+#  undef NT2_HAS_AVX_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for AVX
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__AVX__) || defined(_MSC_VER)
+#if defined(NT2_HAS_AVX_SUPPORT) && !defined(NT2_HAS_SSE4_2_SUPPORT)
+#  define NT2_HAS_SSE4_2_SUPPORT
+#endif
+
+#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_AVX_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report AVX discovery
@@ -44,6 +48,5 @@ NT2_WARNING(AVX SIMD extension detected)
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 #include <nt2/sdk/simd/extensions/meta/avx.hpp>
 
-#endif
 #endif
 #endif

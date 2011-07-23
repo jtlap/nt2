@@ -9,15 +9,19 @@
 #ifndef NT2_SDK_SIMD_EXTENSIONS_SSE_SSE3_HPP_INCLUDED
 #define NT2_SDK_SIMD_EXTENSIONS_SSE_SSE3_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_SSE3_SUPPORT)
+#if defined(__SSE3__)
+#  ifndef NT2_HAS_SSE3_SUPPORT
+#    define NT2_HAS_SSE3_SUPPORT
+#  endif
+#elif defined(NT2_HAS_SSE3_SUPPORT) && !defined(_MSC_VER)
+#  undef NT2_HAS_SSE3_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for SSE3
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__SSE3__) || defined(_MSC_VER)
+#if defined(NT2_HAS_SSE3_SUPPORT) && !defined(NT2_HAS_SSE2_SUPPORT)
+#  define NT2_HAS_SSE2_SUPPORT
+#endif
+
+#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_SSE3_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report SSE3 discovery
@@ -43,6 +47,5 @@ NT2_WARNING(SSE3 SIMD extension detected)
 
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 
-#endif
 #endif
 #endif

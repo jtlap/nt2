@@ -6,47 +6,52 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_SIMD_EXTENSIONS_SSE_XOP_HPP_INCLUDED
-#define NT2_SDK_SIMD_EXTENSIONS_SSE_XOP_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_EXTENSIONS_SSE_FMA4_HPP_INCLUDED
+#define NT2_SDK_SIMD_EXTENSIONS_SSE_FMA4_HPP_INCLUDED
 
-#if defined(__XOP__)
-#  ifndef NT2_HAS_XOP_SUPPORT
-#    define NT2_HAS_XOP_SUPPORT
+#if defined(__FMA4__)
+#  ifndef NT2_HAS_FMA4_SUPPORT
+#    define NT2_HAS_FMA4_SUPPORT
 #  endif
-#elif defined(NT2_HAS_XOP_SUPPORT) && !defined(_MSC_VER)
-#  undef NT2_HAS_XOP_SUPPORT
+#elif defined(NT2_HAS_FMA4_SUPPORT) && !defined(_MSC_VER)
+#  undef NT2_HAS_FMA4_SUPPORT
 #endif
 
-#if defined(NT2_HAS_XOP_SUPPORT) && !defined(NT2_HAS_FMA4_SUPPORT)
-#  define NT2_HAS_FMA4_SUPPORT
+#ifdef NT2_HAS_FMA4_SUPPORT
+#  ifndef NT2_HAS_AVX_SUPPORT
+#    define NT2_HAS_AVX_SUPPORT
+#  endif
+#  ifndef NT2_HAS_SSE4A_SUPPORT
+#    define NT2_HAS_SSE4A_SUPPORT
+#  endif
 #endif
 
-#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_XOP_SUPPORT)
+#if !defined(NT2_SIMD_DETECTED) && defined(NT2_HAS_FMA4_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
-// Report XOP discovery
+// Report FMA4 discovery
 ////////////////////////////////////////////////////////////////////////////////
-NT2_WARNING(XOP SIMD extension detected)
+NT2_WARNING(FMA4 SIMD extension detected)
 
 ////////////////////////////////////////////////////////////////////////////////
-// XOP extensions flags
+// FMA4 extensions flags
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_SIMD_DETECTED
-#define NT2_SIMD_XOP
+#define NT2_SIMD_FMA4
 #define NT2_SIMD_SSE_FAMILY
-#define NT2_SIMD_STRING             "XOP"
-#define NT2_SIMD_STRING_LIST        "SSE2 SSE3 SSE4A SSSE3 SSE4_1 SSE4_2 AVX FMA4 XOP"
+#define NT2_SIMD_STRING             "FMA4"
+#define NT2_SIMD_STRING_LIST        "SSE2 SSE3 SSE4A SSSE3 SSE4_1 SSE4_2 AVX FMA4"
 #define NT2_SIMD_BYTES              32
 #define NT2_SIMD_BITS               256
 #define NT2_SIMD_CARDINALS          (2)(4)(8)(16)(32)
-#define NT2_SIMD_TAG_SEQ            (::nt2::tag::xop_)(::nt2::tag::sse_)
-#define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::xop_
-#define NT2_SIMD_DEFAULT_SITE       ::nt2::tag::xop_
+#define NT2_SIMD_TAG_SEQ            (::nt2::tag::avx_)(::nt2::tag::sse_)
+#define NT2_SIMD_DEFAULT_EXTENSION  ::nt2::tag::avx_
+#define NT2_SIMD_DEFAULT_SITE       ::nt2::tag::avx_
 
 #include <immintrin.h>
 
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
-#include <nt2/sdk/simd/extensions/meta/xop.hpp>
+#include <nt2/sdk/simd/extensions/meta/avx.hpp>
 
 #endif
 #endif
