@@ -24,8 +24,12 @@ namespace nt2 { namespace tag
   NT2_HIERARCHY_CLASS(sse_, cpu_);
   NT2_HIERARCHY_CLASS(sse2_, sse_);
   NT2_HIERARCHY_CLASS(sse3_, sse2_);
+  NT2_HIERARCHY_CLASS(sse4a_, sse3_);
+#ifdef NT2_ARCH_AMD
+  NT2_HIERARCHY_CLASS(ssse3_, sse4a_);
+#else
   NT2_HIERARCHY_CLASS(ssse3_, sse3_);
-  NT2_HIERARCHY_CLASS(sse4a_, ssse3_);
+#endif
   NT2_HIERARCHY_CLASS(sse4_1_, ssse3_);
   NT2_HIERARCHY_CLASS(sse4_2_, sse4_1_);
 } }
