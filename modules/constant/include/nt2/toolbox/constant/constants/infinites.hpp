@@ -8,28 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_INFINITES_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_INFINITES_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// Generating an infinite constant
-////////////////////////////////////////////////////////////////////////////////
-#include <nt2/include/simd.hpp>
-#include <nt2/sdk/constant/constant.hpp>
-#include <nt2/toolbox/constant/include.hpp>
-#include <nt2/sdk/constant/common.hpp>
-
-namespace nt2 { namespace tag
-{
-  struct inf_   {}; struct m_inf_ {}; struct nan_  {};
-} }
-
-namespace nt2
-{
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::inf_    , Inf   )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::m_inf_  , Minf  )
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::nan_    , Nan   )
-}
-
-#include <nt2/toolbox/constant/constants/scalar/infinites.hpp>
-#include <nt2/toolbox/constant/constants/simd/all/infinites.hpp>
-
+#include <nt2/toolbox/constant/constants/real.hpp>
+// TO DO replace with direct inclusion 
 #endif

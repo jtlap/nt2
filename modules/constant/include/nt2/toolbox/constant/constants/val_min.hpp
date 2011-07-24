@@ -8,22 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_VAL_MIN_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_VAL_MIN_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
-////////////////////////////////////////////////////////////////////////////////
-#include <nt2/include/simd.hpp>
-#include <nt2/sdk/constant/constant.hpp>
-#include <nt2/toolbox/constant/include.hpp>
-#include <nt2/sdk/constant/common.hpp>
-
-namespace nt2
-{
-  namespace tag { struct val_min_ {}; }
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::val_min_, Valmin)
-}
-
-#include <nt2/toolbox/constant/constants/scalar/val_min.hpp>
-#include <nt2/toolbox/constant/constants/simd/all/val_min.hpp>
+#include <nt2/toolbox/constant/constants/real.hpp>
+// TO DO replace with direct inclusion 
 
 #endif
