@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 #define NT2_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 
-#include <nt2/sdk/meta/from_bits.hpp>
+// #include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 
@@ -30,8 +30,9 @@ namespace nt2 { namespace meta
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;
       typedef typename meta::as_integer<type>::type       int_type;
-      typename meta::from_bits<type>::type that = { ~int_type(0) };
-      return splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<type,int_type>(~int_type(0))); 
+//       typename meta::from_bits<type>::type that = { ~int_type(0) };
+//       return splat<result_type>(that.value);
     }
   };
 } }
