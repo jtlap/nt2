@@ -9,8 +9,6 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHLI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHLI_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as_bits.hpp>
-
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_, (A0)(A1)
@@ -22,25 +20,21 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_bits<A0>::type type;
-      type that = {a0};
-      that.bits <<= a1;
-      return that.value;
+      return a0 << a1;
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_, (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
+                            , (scalar_< real_<A0> >)
+			      (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_bits<A0>::type type;
-      type that = {a0};
-      that.bits <<= a1;
-      return that.value;
+      typedef typename meta::as_integer<A0, unsigned>::type itype; 
+      return bitwise_cast<result_type,itype>(nt2::shli(bitwise_cast<itype,result_type>(a0),a1));
     }
   };
 } }

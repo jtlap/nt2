@@ -8,8 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHRAI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHRAI_HPP_INCLUDED
-
-#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace meta
@@ -40,10 +38,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_bits<A0, signed>::type type;
-      type that = {a0};
-      that.bits >>= a1;
-      return that.value;
+      typedef typename meta::as_integer<A0, unsigned>::type itype; 
+      return bitwise_cast<result_type,itype>(nt2::shrai(bitwise_cast<itype,result_type>(a0),a1));
     }
   };
 } }
