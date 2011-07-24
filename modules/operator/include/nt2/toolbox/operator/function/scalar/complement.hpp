@@ -10,7 +10,6 @@
 #define NT2_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2 { namespace meta
@@ -33,9 +32,8 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = ~t0.bits;
-      return t0.value;
+      typedef typename meta::as_integer<A0, unsigned>::type bts;
+      return bitwise_cast<A0, bts>(~bitwise_cast<bts, A0>(a0));
     }
   };
 } }

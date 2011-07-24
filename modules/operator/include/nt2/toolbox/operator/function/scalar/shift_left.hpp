@@ -8,9 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SHIFT_LEFT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SHIFT_LEFT_HPP_INCLUDED
-
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/as_bits.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -22,9 +20,8 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = t0.bits << a1;
-      return t0.value;
+      typedef typename meta::as_integer<A0, unsigned>::type itype; 
+      return bitwise_cast<result_type,itype>(nt2::shift_left(bitwise_cast<itype,result_type>(a0),a1));
     }
   };
 } }
