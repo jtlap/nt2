@@ -11,7 +11,6 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/constants/properties.hpp>
-#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/include/functions/is_positive.hpp>
 
 
@@ -30,15 +29,9 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_bits<A0, signed>::type type;
-      typedef typename meta::as_integer<A0, signed>::type itype;
-      type that = {a0};
-//       std::cout <<  "a0         " << a0                  << std::endl;
-//       std::cout <<  "is_positive(a0) " << is_positive(a0)                  << std::endl;
-//       std::cout << "that.bits " <<  that.bits          << std::endl;
-//       std::cout << "Signmask  " <<  Signmask<itype>()  << std::endl;
-//       std::cout << "S-that    " << Signmask<itype>()-that.bits << std::endl;
-      return is_positive(a0) ? that.bits : Signmask<itype>()-that.bits;
+      return is_positive(a0) ?
+	bitwise_cast<result_type, A0>(a0) :
+	Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 
     }
   };
 } }

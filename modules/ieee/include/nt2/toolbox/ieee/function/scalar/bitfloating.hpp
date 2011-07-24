@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_BITFLOATING_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_BITFLOATING_HPP_INCLUDED
-#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/constants/digits.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -24,15 +23,9 @@ namespace nt2 { namespace meta
  typedef typename meta::as_real<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type           rtype;
-      typedef typename meta::from_bits<rtype>::type       type;
-      typedef typename meta::from_bits<rtype>::bits_type  bits_type;
-      type that = { a0 >= Zero<A0>()
-                  ? bits_type(a0)
-                  : bits_type((1LL << (8*sizeof(A0)-1))-a0)
-                  };
-      // TOVERIFY PERFS
-      return that.value;
+      return a0 >= Zero<A0>() ?
+	bitwise_cast<result_type, A0>(a0) :
+	bitwise_cast<result_type, A0>((One<A0>() << (8*sizeof(A0)-1))-a0);
     }
   };
 
@@ -46,12 +39,10 @@ namespace nt2 { namespace meta
                              (scalar_<unsigned_<A0> > )
                             )
   {
- typedef typename meta::as_real<A0>::type result_type; 
+    typedef typename meta::as_real<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type rtype;
-      typename meta::from_bits<rtype, signed>::type  that =  {a0};
-      return that.value;
+      return bitwise_cast<result_type,A0>(a0); 
     }
   };
 } }

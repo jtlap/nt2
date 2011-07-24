@@ -30,14 +30,8 @@ namespace nt2 { namespace meta
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-       ignore_unused(a0);
-       return One<A0>();
-    }
+    NT2_FUNCTOR_CALL(1) { ignore_unused(a0); return One<A0>(); }
   };
 } }
 
@@ -52,19 +46,19 @@ namespace nt2 { namespace meta
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef typename meta::strip<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0,signed>::type int_type;
+      typedef typename meta::as_integer<A0,unsigned>::type int_type;
       if (is_eqz(a0)) return Mindenormal<A0>();
       const A0 x = nt2::abs(a0);
-      if (x == Inf<A0>()) return x; 
-      typename meta::as_bits<A0>::type aa = {x},  bb = aa;
-      --bb.bits;
-      ++aa.bits;
-      return nt2::min(x-bb.value, aa.value-x);
+      if (x == Inf<A0>()) return x;
+      int_type aa = bitwise_cast<int_type, A0>(x);
+      int_type bb = aa;
+      --bb;
+      ++aa;
+      return nt2::min(x-bitwise_cast<A0,int_type>(bb),
+		      bitwise_cast<A0,int_type>(aa)-x);
     }
   };
 } }

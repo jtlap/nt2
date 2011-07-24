@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SBITS_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTION_SCALAR_SBITS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_bits.hpp>
+//#include <nt2/sdk/meta/as_bits.hpp>
 
 
 
@@ -23,15 +23,8 @@ namespace nt2 { namespace meta
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef typename meta::as_integer<A0, signed>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      typedef typename meta::as_bits<A0, signed>::type type;
-      type that = {a0};
-      return that.bits;
-    }
+    NT2_FUNCTOR_CALL(1) { return bitwise_cast<result_type,A0>(a0); }
   };
 } }
 
