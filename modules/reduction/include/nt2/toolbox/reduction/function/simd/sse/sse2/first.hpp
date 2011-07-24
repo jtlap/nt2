@@ -9,9 +9,7 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_FIRST_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_FIRST_HPP_INCLUDED
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
@@ -63,8 +61,10 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
-      meta::from_bits<float>::type t = {_mm_cvtsi128_si32(simd::native_cast<type>(a0))};
-      return t.value;
+      typedef typename meta::scalar_of<type>::type stype;
+
+      stype tmp = {_mm_cvtsi128_si32(simd::native_cast<type>(a0))}; 
+      return nt2::bitwise_cast<result_type, stype>(tmp); 
     }
   };
 
@@ -82,7 +82,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
-      return _mm_cvtsi128_si32(simd::native_cast<type>(a0));
+      return bitwise_cast<result_type,float >(_mm_cvtsi128_si32(simd::native_cast<type>(a0)));
     }
   };
 
@@ -101,8 +101,7 @@ namespace nt2 { namespace meta
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
-      meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(a0))};
-      return t.bits;    
+      return bitwise_cast<result_type, double >(_mm_cvtsd_f64(simd::native_cast<rtype>(a0))); 
     }
   };
 
