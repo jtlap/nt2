@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_HYPOT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_HYPOT_HPP_INCLUDED
-#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/constants/real.hpp>
@@ -122,9 +121,11 @@ namespace nt2 { namespace meta
       {
         AA0 y1 = b_and(b, hypot_constants<AA0>::M1());
         AA0 y2 = b - y1;
-        typedef typename meta::from_bits<AA0, unsigned>::type type;
-        type that = {bits(a)+hypot_constants<AA0>::C3()};
-        AA0 t1 = that.value;
+	//         typedef typename meta::from_bits<AA0, unsigned>::type type;
+	//         type that = {bits(a)+hypot_constants<AA0>::C3()};
+        typedef typename meta::as_integer<AA0, unsigned>::type type;
+        AA0 t1 =  bitwise_cast<AA0, type>(bitwise_cast<type, AA0>(a)+hypot_constants<AA0>::C3());
+	  //        AA0 t1 = that.value;
         AA0 t2 = (a+a) - t1;
         w  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
       }
