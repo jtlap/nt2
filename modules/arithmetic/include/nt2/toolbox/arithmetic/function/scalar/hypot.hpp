@@ -121,7 +121,7 @@ namespace nt2 { namespace meta
       {
         AA0 y1 = b_and(b, hypot_constants<AA0>::M1());
         AA0 y2 = b - y1;
-	//         typedef typename meta::from_bits<AA0, unsigned>::type type;
+	//         typedef typename meta::f rom_bits<AA0, unsigned>::type type;
 	//         type that = {bits(a)+hypot_constants<AA0>::C3()};
         typedef typename meta::as_integer<AA0, unsigned>::type type;
         AA0 t1 =  bitwise_cast<AA0, type>(bitwise_cast<type, AA0>(a)+hypot_constants<AA0>::C3());

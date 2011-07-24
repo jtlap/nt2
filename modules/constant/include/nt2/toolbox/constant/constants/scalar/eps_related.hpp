@@ -9,8 +9,7 @@
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 
-#include <nt2/sdk/meta/from_bits.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/inclu de/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
@@ -33,9 +32,9 @@ NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
 {                                                                     \
   typedef typename A0::type result_type;                              \
   NT2_FUNCTOR_CALL(1)                                                 \
-  {                                                                   \
-    typename meta::from_bits<result_type>::type const that = {D};     \
-    return splat<result_type>(that.value);                            \
+  {							              \
+    return splat<result_type>(bitwise_cast<result_type,		      \
+			      nt2::uint64_t>(D);		      \
   }                                                                   \
 };                                                                    \
                                                                       \
@@ -46,8 +45,8 @@ NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
   typedef typename A0::type result_type;                              \
   NT2_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
-    typename meta::from_bits<result_type>::type const that = {F};     \
-    return splat<result_type>(that.value);                            \
+    return splat<result_type>(bitwise_cast<result_type,		      \
+			      nt2::uint32_t>(F);		      \
   }                                                                   \
 };                                                                    \
 /**/

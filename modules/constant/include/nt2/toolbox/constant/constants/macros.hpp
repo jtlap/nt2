@@ -11,9 +11,9 @@
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/functor/functor.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-  
+#include <boost/proto/proto.hpp>
+#include <nt2/sdk/constant/category.hpp>
 /*!
  * \file
  * \brief Defines the NT2_CONSTANT_IMPLEMENTATION macro
@@ -53,10 +53,10 @@ namespace nt2 {						 	        \
     typedef typename strip<A0>::type::type result_type;           \
     NT2_FUNCTOR_CALL(1)                                           \
     {                                                             \
+      typedef typename as_integer<result_type>::type itype;	  \
       ignore_unused(a0);                                          \
-      typename meta::from_bits<result_type>::type const		  \
-      that = {VAL};						  \
-      return splat<result_type>(that.value);                      \
+      return splat<result_type>(bitwise_cast<result_type,	  \
+				itype>(VAL));			  \
     }                                                             \
   };                                                              \
   /**/  
@@ -77,7 +77,6 @@ namespace nt2 { namespace meta {			  \
     NT2_STD_CONSTANT_STRUCT(NAME,float_,  FLOAT); 	  \
     NT2_STD_CONSTANT_STRUCT(NAME,integer_,INT);		  \
 } }							  \
-
 /**/
 
 
@@ -96,7 +95,7 @@ namespace nt2 { namespace meta {			  \
   NT2_STD_CONSTANT_TAG(NAME)				   \
   NT2_STD_CONSTANT_DEF(NAME)				   \
   NT2_STD_CONSTANT_FUNCTOR(NAME, HEXDOUBLE, HEXFLOAT, INT) \
-  /*  NT2_PROTOIZE_CONSTANT(NAME)			   */
+  NT2_PROTOIZE_CONSTANT(NAME)				   \
   /**/
 
 #endif

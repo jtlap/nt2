@@ -104,8 +104,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename meta::from_bits<result_type>::type const that = {D};
-      return splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type,nt2::uint64_t>(D)); 
     }
   };
 
@@ -119,8 +118,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename meta::from_bits<result_type>::type const that = {F};
-      return splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type,nt2::uint32_t>(F)); 
     }
   };
 } }

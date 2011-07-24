@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_SIGNMASK_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_SIGNMASK_HPP_INCLUDED
 
-#include <nt2/sdk/meta/from_bits.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
@@ -29,9 +28,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename meta::from_bits<result_type>::type const
-      that = {0x8000000000000000LL};
-      return splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type,
+				nt2::uint64_t>(0x8000000000000000ll)); 
     }
   };
 } }
@@ -46,8 +44,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename meta::from_bits<result_type>::type const that = {0x80000000};
-      return splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type,
+				nt2::uint32_t>(0x80000000)); 
     }
   };
 } }
