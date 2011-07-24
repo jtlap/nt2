@@ -16,111 +16,46 @@
 #include <nt2/sdk/constant/constant.hpp>
 #include <nt2/toolbox/constant/include.hpp>
 #include <nt2/sdk/constant/common.hpp>
+#include <nt2/toolbox/constant/constants/macros.hpp>
+#include <nt2/toolbox/constant/constants/localgen.hpp>
 
-namespace nt2 { namespace tag
-{
-  struct pi_          {};
-  struct sqrt_2_o_2_  {}; struct sqrt_2_      {};
-  struct gold_        {}; struct c_gold_      {};
-  struct m_half_      {}; struct m_zero_      {};
-  struct half_        {}; struct third_       {}; struct quarter_     {};
-  struct two_to_m10_  {}; struct two_to_nmb_  {}; struct split_factor_{};
+// specially generated constants
+#include <nt2/toolbox/constant/constants/scalar/val_max.hpp>
+#include <nt2/toolbox/constant/constants/scalar/val_min.hpp>
+#include <nt2/toolbox/constant/constants/scalar/signmask.hpp>
+#include <nt2/toolbox/constant/constants/scalar/max_left_shift.hpp>  
+#include <nt2/toolbox/constant/constants/false.hpp>
+#include <nt2/toolbox/constant/constants/true.hpp>
+#include <nt2/toolbox/constant/constants/scalar/ieee_spec.hpp>  
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Small type to gather real value bit patterns
-  //////////////////////////////////////////////////////////////////////////////
-  template<nt2::uint64_t D, nt2::uint32_t F> struct pattern {};
-} }
-
-namespace nt2 { namespace details
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Small type to gather real value bit patterns depending on target type
-  //////////////////////////////////////////////////////////////////////////////
-  template< class Target
-          , nt2::uint64_t Value
-          , class Select = typename meta::scalar_of<Target>::type
-          >
-  struct  pattern;
-
-  template<class Target, nt2::uint64_t Value>
-  struct pattern<Target, Value, float >
-  {
-    typedef tag::pattern<0,Value> type;
-  };
-
-  template<class Target, nt2::uint64_t Value>
-  struct pattern<Target, Value, double >
-  {
-    typedef tag::pattern<Value,0> type;
-  };
-}}
-
-namespace nt2
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Basic named constant
-  //////////////////////////////////////////////////////////////////////////////
-  NT2_CONSTANT_IMPLEMENTATION(tag::m_half_      , Mhalf       )
-  NT2_CONSTANT_IMPLEMENTATION(tag::m_zero_      , Mzero       )
-  NT2_CONSTANT_IMPLEMENTATION(tag::half_        , Half        )
-  NT2_CONSTANT_IMPLEMENTATION(tag::third_       , Third       )
-  NT2_CONSTANT_IMPLEMENTATION(tag::quarter_     , Quarter     )
-  NT2_CONSTANT_IMPLEMENTATION(tag::two_to_m10_  , Twotom10    )
-  NT2_CONSTANT_IMPLEMENTATION(tag::two_to_nmb_  , Two2nmb     )
-  NT2_CONSTANT_IMPLEMENTATION(tag::pi_          , Pi          )
-  NT2_CONSTANT_IMPLEMENTATION(tag::split_factor_, Splitfactor )
-  NT2_CONSTANT_IMPLEMENTATION(tag::sqrt_2_o_2_  , Sqrt_2o_2   )
-  NT2_CONSTANT_IMPLEMENTATION(tag::sqrt_2_      , Sqrt_2      )
-  NT2_CONSTANT_IMPLEMENTATION(tag::gold_        , Gold        )
-  NT2_CONSTANT_IMPLEMENTATION(tag::c_gold_      , Cgold       )
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Target, nt2::uint64_t D, nt2::uint32_t F> inline
-  typename meta::call<tag::pattern<D,F >(meta::as_<Target>)>::type
-  real_constant()
-  {
-    nt2::functor< tag::pattern<D,F> > callee;
-    return callee( nt2::meta::as_<Target>() );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns of float
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Target, nt2::uint32_t F> inline
-  typename meta::call<tag::pattern<0,F >(meta::as_<Target>)>::type
-  single_constant()
-  {
-    nt2::functor< tag::pattern<0,F> > callee;
-    return callee( nt2::meta::as_<Target>() );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns of double
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Target, nt2::uint64_t D> inline
-  typename meta::call<tag::pattern<D,0 >(meta::as_<Target>)>::type
-  double_constant()
-  {
-    nt2::functor< tag::pattern<D,0> > callee;
-    return callee( nt2::meta::as_<Target>() );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns dependant on target type
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, uint64_t V> inline
-  typename meta::call<typename details::pattern<T,V>::type(meta::as_<T>)>::type
-  Const()
-  {
-    nt2::functor< typename details::pattern<T,V>::type > callee;
-    return callee( nt2::meta::as_<T>() );
-  }
-}
-
-#include <nt2/toolbox/constant/constants/scalar/real.hpp>
+// standard constants
+NT2_MAKE_STD_CONSTANT(Mhalf         ,0xBFE0000000000000ll, 0xBF000000, 0 )
+NT2_MAKE_STD_CONSTANT(Mzero         ,0x8000000000000000ll, 0x80000000, 0 )
+NT2_MAKE_STD_CONSTANT(Half          ,0x3FE0000000000000ll, 0x3F000000, 0 )
+NT2_MAKE_STD_CONSTANT(Third         ,0x3FD5555555555555ll, 0x3EAAAAAB, 0 )
+NT2_MAKE_STD_CONSTANT(Quarter       ,0x3FD0000000000000ll, 0x3E800000, 0 )
+NT2_MAKE_STD_CONSTANT(Twotom10      ,0x3F50000000000000ll, 0x3a800000, 0 )
+NT2_MAKE_STD_CONSTANT(Two2nmb       ,0x4330000000000000ll, 0x4b000000, 0 )
+NT2_MAKE_STD_CONSTANT(Pi            ,0x400921fb54442d18ll, 0x40490fdb, 3 )
+NT2_MAKE_STD_CONSTANT(Splitfactor   ,0x41a0000000000000ll, 0x46000000, 0 )
+NT2_MAKE_STD_CONSTANT(Sqrt_2o_2     ,0x3fe6a09e667f3bcdll, 0x3f3504f3, 0 )
+NT2_MAKE_STD_CONSTANT(Sqrt_2        ,0x3ff6a09e667f3bccll, 0x3fb504f3, 1 )
+NT2_MAKE_STD_CONSTANT(Gold          ,0x3ff9e3779b97f4a8ll, 0x3fcf1bbd, 1 )
+NT2_MAKE_STD_CONSTANT(Cgold         ,0x3fd8722191a02d61ll, 0x3ec3910d, 0 )
+NT2_MAKE_STD_CONSTANT(Eps           ,0x3cb0000000000000ll, 0X34000000, 1 )
+NT2_MAKE_STD_CONSTANT(Halfeps       ,0x3ca0000000000000ll, 0x33800000, 1 )
+NT2_MAKE_STD_CONSTANT(Threeeps      ,0x3CC8000000000000ll, 0x34c00000, 3 )
+NT2_MAKE_STD_CONSTANT(Sqrteps       ,0x3e50000000000000ll, 0x39b504f3, 1 )
+NT2_MAKE_STD_CONSTANT(Fourthrooteps ,0x3f20000000000000ll, 0x3c9837f0, 1 )
+NT2_MAKE_STD_CONSTANT(Thirdrooteps  ,0x3ed965fea53d6e42ll, 0x3ba14518, 1 )
+NT2_MAKE_STD_CONSTANT(Mlogeps2      ,0x403205966f2b4f13ll, 0x40ff1402, 0 )
+NT2_MAKE_STD_CONSTANT(Mindenormal   ,0x1ll               , 0x1       , 1 )
+NT2_MAKE_STD_CONSTANT(Smallestposval,0x0010000000000000ll, 0x00800000, 1 )
+NT2_MAKE_STD_CONSTANT(Inf           ,0x7FF0000000000000ll, 0x7F800000, nt2::Valmax<result_type>())
+NT2_MAKE_STD_CONSTANT(Minf          ,0xFFF0000000000000ll, 0xFF800000, nt2::Valmin<result_type>())
+NT2_MAKE_STD_CONSTANT(Nan           ,0xFFFFFFFFFFFFFFFFll, 0xFFFFFFFF, 0)
+  
+//#include <nt2/toolbox/constant/constants/scalar/real.hpp>
 #include <nt2/toolbox/constant/constants/simd/all/real.hpp>
 
 #endif

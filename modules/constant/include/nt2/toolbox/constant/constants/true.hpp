@@ -15,8 +15,8 @@
 
 namespace nt2
 {
-  namespace tag { struct true_  {}; }
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::true_, True)
+  namespace tag { struct True  {}; }
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::True, True)
 }
 
 #include <nt2/toolbox/constant/constants/scalar/true.hpp>

@@ -17,10 +17,10 @@ namespace nt2
 {
   namespace tag
   {
-    struct false_  {};
+    struct False  {};
   }
   
-  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::false_, False)
+  NT2_CONSTANT_IMPLEMENTATION(nt2::tag::False, False)
 }
 
 #include <nt2/toolbox/constant/constants/scalar/false.hpp>

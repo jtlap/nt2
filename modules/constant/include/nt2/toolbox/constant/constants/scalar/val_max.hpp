@@ -8,16 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
-
-#include <nt2/sdk/meta/from_bits.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
 
+
+NT2_STD_CONSTANT_TAG(Valmax)
+NT2_STD_CONSTANT_DEF(Valmax)
+  
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::val_max_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Valmax,tag::cpu_
                             , (A0), (target_< scalar_< double_<A0> > > )
                             )
   {
@@ -35,7 +34,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::val_max_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Valmax,tag::cpu_
                             , (A0), (target_< scalar_< float_<A0> > > )
                             )
   {
@@ -53,7 +52,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::val_max_,tag::cpu_,(A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Valmax,tag::cpu_,(A0)
                             , (target_< scalar_< unsigned_<A0> > > )
                             )
   {
@@ -70,7 +69,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::val_max_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Valmax,tag::cpu_
                             , (A0), (target_< scalar_< signed_<A0> > > )
                             )
   {

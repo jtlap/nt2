@@ -13,7 +13,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
-#include <nt2/include/constants/properties.hpp>
+#include <nt2/include/constants/real.hpp>
 
 #define NT2_LOCAL(NAME,DOUBLE,FLOAT,ARITH)                            \
 namespace nt2 { namespace meta                                        \

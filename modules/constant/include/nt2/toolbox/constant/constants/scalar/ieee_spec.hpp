@@ -14,45 +14,61 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-#define LOCAL_CONST(TAG, D, F)                                        \
-NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+#define LOCAL_CONST(NAME, D, F, I)                                    \
+NT2_STD_CONSTANT_TAG(NAME)					      \
+NT2_STD_CONSTANT_DEF(NAME)					      \
+namespace nt2 { namespace meta				              \
+{								      \
+  NT2_FUNCTOR_IMPLEMENTATION(tag::NAME,tag::cpu_,(A0)		      \
                           , (target_< scalar_< double_<A0> > > )      \
                           )                                           \
-{                                                                     \
-  typedef typename as_integer < typename A0::type                     \
-                              , signed                                \
-                              >::type result_type;                    \
-  NT2_FUNCTOR_CALL(1)                                                 \
-  {                                                                   \
-    ignore_unused(a0);                                                \
-    return splat<result_type>(D);                                     \
-  }                                                                   \
-};                                                                    \
+  {								      \
+    typedef typename as_integer < typename A0::type		      \
+      , signed							      \
+      >::type result_type;					      \
+    NT2_FUNCTOR_CALL(1)                                               \
+    {								      \
+      ignore_unused(a0);					      \
+      return splat<result_type>(D);				      \
+    }								      \
+  };                                                                  \
                                                                       \
-NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
+  NT2_FUNCTOR_IMPLEMENTATION(tag::NAME,tag::cpu_,(A0)		      \
                           , (target_< scalar_< float_<A0> > > )       \
                           )                                           \
-{                                                                     \
-  typedef typename as_integer < typename A0::type                     \
+  {                                                                   \
+    typedef typename as_integer < typename A0::type		      \
                               , signed                                \
                               >::type result_type;                    \
-  NT2_FUNCTOR_CALL(1)                                                 \
+    NT2_FUNCTOR_CALL(1)                                               \
+    {                                                                 \
+      ignore_unused(a0);                                              \
+      return splat<result_type>(F);                                   \
+    }                                                                 \
+  };								      \
+  NT2_FUNCTOR_IMPLEMENTATION(tag::NAME,tag::cpu_,(A0)		      \
+			   , (target_< scalar_< integer_<A0> > > )    \
+                          )                                           \
   {                                                                   \
-    ignore_unused(a0);                                                \
-    return splat<result_type>(F);                                     \
-  }                                                                   \
-};                                                                    \
+    typedef typename as_integer < typename A0::type                   \
+                              , signed                                \
+                              >::type result_type;                    \
+    NT2_FUNCTOR_CALL(1)                                               \
+    {                                                                 \
+      ignore_unused(a0);                                              \
+      return splat<result_type>(I);                                   \
+    }                                                                 \
+  };								      \
+} }								      \
 /**/
 
-namespace nt2 { namespace meta
-{
-  LOCAL_CONST(tag::nb_mantissa_bits_,                  52,         23);
-  LOCAL_CONST(tag::nb_exponent_bits_,                  11,          8);
-  LOCAL_CONST(tag::max_exponent_    ,                1023,        127);
-  LOCAL_CONST(tag::min_exponent_    ,               -1022,       -126);
-  LOCAL_CONST(tag::nb_digits_       ,                  53,         24);
-  LOCAL_CONST(tag::ldexp_mask_      ,0x7FF0000000000000ll, 0x7F800000);
-} }
+LOCAL_CONST(Nbmantissabits ,                  52,         23, sizeof(A0));
+LOCAL_CONST(Nbexponentbits ,                  11,          8, 0);
+LOCAL_CONST(Maxexponent    ,                1023,        127, 0);
+LOCAL_CONST(Minexponent    ,               -1022,       -126, 0);
+LOCAL_CONST(Nbdigits       ,                  53,         24, 0);
+LOCAL_CONST(Ldexpmask      ,0x7FF0000000000000ll, 0x7F800000, 0);
+
 
 #undef LOCAL_CONST
 

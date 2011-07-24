@@ -13,10 +13,12 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
+NT2_STD_CONSTANT_TAG(Maxleftshift)
+NT2_STD_CONSTANT_DEF(Maxleftshift)
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::max_left_shift_, tag::cpu_,(A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Maxleftshift, tag::cpu_,(A0)
                             , (target_< scalar_< arithmetic_<A0> > >)
                             )
   {

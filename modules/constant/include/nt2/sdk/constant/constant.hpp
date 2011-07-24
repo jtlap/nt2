@@ -32,7 +32,7 @@ NAME()                                                  \
 {                                                       \
   typename nt2::make_functor<TAG, Target>::type callee; \
   return callee( nt2::meta::as_<Target>() );            \
-}							\
+}                                                       \
 /**/
 
 #endif

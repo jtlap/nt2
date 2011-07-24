@@ -15,9 +15,12 @@
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+NT2_STD_CONSTANT_TAG(Signmask)
+NT2_STD_CONSTANT_DEF(Signmask)
+
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::signmask_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< double_<A0> > >)
                             )
   {
@@ -35,7 +38,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::signmask_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< float_<A0> > > ) )
   {
     typedef typename strip<A0>::type::type result_type;
@@ -51,7 +54,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::signmask_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< unsigned_<A0> > > )
                             )
   {
@@ -67,7 +70,7 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::signmask_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< signed_<A0> > > )
                             )
   {

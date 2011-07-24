@@ -12,10 +12,12 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/details/ignore_unused.hpp>
 #include <nt2/include/functions/splat.hpp>
+// NT2_STD_CONSTANT_TAG(True)
+// NT2_STD_CONSTANT_DEF(True)
 
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::true_,tag::cpu_,(A0)
+  NT2_FUNCTOR_IMPLEMENTATION( tag::True,tag::cpu_,(A0)
                             , (target_< scalar_< fundamental_<A0> > >)
                             )
   {
