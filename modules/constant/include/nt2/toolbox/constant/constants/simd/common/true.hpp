@@ -29,7 +29,7 @@ namespace nt2 { namespace meta
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;
       typedef typename meta::as_integer<type>::type       int_type;
-      return splat<result_type>(bitwise_cast<type,int_type>(~int_type(0))); 
+      return splat<result_type>(bitwise_cast<type>(~int_type(0))); 
     }
   };
 } }

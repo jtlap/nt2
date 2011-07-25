@@ -25,8 +25,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<result_type>(bitwise_cast<result_type,
-				nt2::uint64_t>(0x7fefffffffffffffll)); 
+      return splat<result_type>(bitwise_cast<result_type>(0x7fefffffffffffffll)); 
     }
   };
 } }
@@ -42,8 +41,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<result_type>(bitwise_cast<result_type,
-				nt2::uint32_t>(0x7f7fffff)); 
+      return splat<result_type>(bitwise_cast<result_type>(0x7f7fffff)); 
     }
   };
 } }
