@@ -124,7 +124,7 @@ namespace nt2 { namespace meta
 	//         typedef typename meta::f rom_bits<AA0, unsigned>::type type;
 	//         type that = {bits(a)+hypot_constants<AA0>::C3()};
         typedef typename meta::as_integer<AA0, unsigned>::type type;
-        AA0 t1 =  bitwise_cast<AA0, type>(bitwise_cast<type, AA0>(a)+hypot_constants<AA0>::C3());
+        AA0 t1 =  bitwise_cast<AA0>(bitwise_cast<type>(a)+hypot_constants<AA0>::C3());
 	  //        AA0 t1 = that.value;
         AA0 t2 = (a+a) - t1;
         w  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
