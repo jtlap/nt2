@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_ROR_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_ROR_HPP_INCLUDED
-//#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>
 
@@ -36,10 +35,11 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, unsigned>::type itype;
-      const itype ia0 = bitwise_cast<itype, A0>(a0);
-      return bitwise_cast<A0,itype>(
-				    shri(ia0,a1) | shli(ia0, (sizeof(A0)*CHAR_BIT-a1))
-				    ); 
+      const itype ia0 = bitwise_cast<itype>(a0);
+      return bitwise_cast<result_type>(
+				       shri(ia0,a1) |
+				       shli(ia0, (sizeof(A0)*CHAR_BIT-a1))
+				       ); 
     }
   };
 } }

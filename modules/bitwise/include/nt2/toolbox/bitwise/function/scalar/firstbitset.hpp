@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FIRSTBITSET_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FIRSTBITSET_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/firstbitunset.hpp>
@@ -32,9 +31,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_bits<A0, signed>::type type;
-      type that = {a0};
-      return firstbitset(that.bits);
+      return firstbitset(bitwise_cast<result_type>(a0));
     }
   };
 } }
