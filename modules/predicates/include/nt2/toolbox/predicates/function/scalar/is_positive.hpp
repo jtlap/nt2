@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type itype; 
-      return bitwise_cast<itype, A0>(a0) >=  0; 
+      return bitwise_cast<itype>(a0) >=  0; 
     }
   };
 } }
