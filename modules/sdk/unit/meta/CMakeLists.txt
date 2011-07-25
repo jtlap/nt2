@@ -12,14 +12,12 @@ SET( SOURCES
     any.cpp
     as.cpp
     as_integer.cpp
-    as_bits.cpp
     as_real.cpp
     as_signed.cpp
     as_unsigned.cpp
     cardinal_of.cpp
     downgrade.cpp
     floating.cpp
-    from_bits.cpp
     fusion.cpp
     hierarchy.cpp
     is_result_of_supported.cpp
