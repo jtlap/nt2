@@ -68,10 +68,10 @@
 /**/
 #endif
 
-#define NT2__INT_CONVERT_TYPES  (nt2::int32_t)(nt2::int64_t) \
+#define NT2_INT_CONVERT_TYPES  (nt2::int32_t)(nt2::int64_t) \
 /**/
 
-#define NT2__UINT_CONVERT_TYPES  (nt2::uint32_t)(nt2::uint64_t) \
+#define NT2_UINT_CONVERT_TYPES  (nt2::uint32_t)(nt2::uint64_t) \
 /**/
 
 #define NT2_SIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
