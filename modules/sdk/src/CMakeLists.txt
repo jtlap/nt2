@@ -31,5 +31,6 @@ nt2_preprocess(sdk03.preprocess ${NT2_SDK_ROOT}/include/nt2/sdk/functor/functor.
               )
 
 if(NT2_PREPROCESS_ENABLED)              
-  add_custom_target(sdk.preprocess DEPENDS sdk0x.preprocess sdk03.preprocess)
+  add_custom_target(sdk.preprocess)
+  add_dependencies(sdk.preprocess sdk0x.preprocess sdk03.preprocess)
 endif()

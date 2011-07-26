@@ -9,6 +9,7 @@
 
 # only available since 2.8.3
 include(CMakeParseArguments OPTIONAL RESULT_VARIABLE CMakeParseArguments_FOUND)
+find_program(WAVE_EXECUTABLE wave $ENV{BOOST_ROOT}/dist/bin)
 
 macro(nt2_preprocess target)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
