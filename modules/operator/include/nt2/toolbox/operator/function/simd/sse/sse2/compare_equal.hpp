@@ -39,8 +39,7 @@ namespace nt2 { namespace meta
                               ((simd_<integer_<A0>,tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef bool result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_movemask_epi8(eq(a0,a1)) == 0X0FFFF;
