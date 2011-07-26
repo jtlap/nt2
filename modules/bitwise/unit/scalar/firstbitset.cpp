@@ -24,33 +24,7 @@
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
-{
-  
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(firstbitset(nt2::Inf<T>()), 8388608u);
-  NT2_TEST_EQUAL(firstbitset(nt2::Minf<T>()), 8388608u);
-  NT2_TEST_EQUAL(firstbitset(nt2::Nan<T>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(firstbitset(nt2::Signmask<T>()), nt2::One<r_t>()+nt2::Valmax<r_t>()/2);
-  NT2_TEST_EQUAL(firstbitset(nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for float
-
-NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
+NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::firstbitset;
@@ -74,7 +48,14 @@ NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
   NT2_TEST_EQUAL(firstbitset(nt2::Nan<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(firstbitset(nt2::Signmask<T>()), nt2::One<r_t>()+nt2::Valmax<r_t>()/2);
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for double
+
+  // specific values tests
+  NT2_TEST_EQUAL(firstbitset(nt2::Inf<T>()), 8388608u);
+  NT2_TEST_EQUAL(firstbitset(nt2::Minf<T>()), 8388608u);
+  NT2_TEST_EQUAL(firstbitset(nt2::Nan<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(firstbitset(nt2::Signmask<T>()), nt2::One<r_t>()+nt2::Valmax<r_t>()/2);
+  NT2_TEST_EQUAL(firstbitset(nt2::Zero<T>()), nt2::Zero<r_t>());
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

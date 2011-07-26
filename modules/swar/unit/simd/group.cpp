@@ -27,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( group_groupable__2_0,  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(double))
+NT2_TEST_CASE_TPL ( group_groupable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
 {
   using nt2::group;
   using nt2::tag::group_;

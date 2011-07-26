@@ -69,6 +69,7 @@ NT2_TEST_CASE_TPL ( bitwise_xor_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(bitwise_xor(nt2::Mone<T>(),nt2::Zero<T>()), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(bitwise_xor(nt2::One<T>(), nt2::One<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitwise_xor(nt2::One<T>(),nt2::Zero<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(bitwise_xor(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());

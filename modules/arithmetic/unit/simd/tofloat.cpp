@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
+NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::tofloat;
   using nt2::tag::tofloat_;
@@ -77,11 +77,9 @@ NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
 
 
   // specific values tests
-  NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for uint32_t
+} // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
+NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::tofloat;
   using nt2::tag::tofloat_;
@@ -102,58 +100,4 @@ NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
 
 
   // specific values tests
-  NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for uint64_t
-
-NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
-{
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(tofloat(nt2::Mone<vT>())[0], nt2::Mone<sr_t>());
-  NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int32_t
-
-NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
-{
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(tofloat(nt2::Mone<vT>())[0], nt2::Mone<sr_t>());
-  NT2_TEST_EQUAL(tofloat(nt2::One<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(tofloat(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int64_t
+} // end of test for uint_convert_

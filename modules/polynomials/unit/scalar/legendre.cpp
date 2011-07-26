@@ -93,6 +93,6 @@ NT2_TEST_CASE_TPL ( legendre_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(legendre(1,nt2::One<T>()), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(legendre(1,nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(legendre(1,nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for signed_int_

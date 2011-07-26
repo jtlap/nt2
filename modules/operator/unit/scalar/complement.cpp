@@ -68,6 +68,7 @@ NT2_TEST_CASE_TPL ( complement_integer__1_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(complement(nt2::Mone<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(complement(nt2::One<T>()), nt2::shli(nt2::Mone<r_t>(),1));
   NT2_TEST_EQUAL(complement(nt2::Three<T>()), nt2::shli(nt2::Mone<r_t>(),2));
   NT2_TEST_EQUAL(complement(nt2::Zero<T>()), nt2::Mone<r_t>());

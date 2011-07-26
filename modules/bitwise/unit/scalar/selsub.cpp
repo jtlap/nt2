@@ -72,8 +72,8 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(selsub(T(-1),T(4),T(2)), T(2));
-  NT2_TEST_EQUAL(selsub(T(0),T(4),T(2)), T(4));
+  NT2_TEST_EQUAL(selsub(T(-1),T(1),T(2)), T(-1));
+  NT2_TEST_EQUAL(selsub(T(0),T(1),T(2)), T(1));
   NT2_TEST_EQUAL(selsub(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for signed_int_
 

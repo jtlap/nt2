@@ -48,6 +48,7 @@ NT2_TEST_CASE_TPL ( modulo_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(modulo(nt2::Mone<vT>(),nt2::Zero<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(modulo(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(modulo(nt2::One<vT>(),nt2::Two<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(modulo(nt2::Zero<vT>(),nt2::Two<vT>())[0], nt2::Zero<sr_t>());

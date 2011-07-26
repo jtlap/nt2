@@ -27,7 +27,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(float)(double))
+NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  NT2_SIMD_GT16_TYPES)
 {
   using nt2::sort;
   using nt2::tag::sort_;

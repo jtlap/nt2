@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(hi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  NT2_SIMD_SIGNED_INT_GT_8_TYPES)
 {
   using nt2::hi;
   using nt2::tag::hi_;
@@ -77,56 +77,4 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
   // specific values tests
   NT2_TEST_EQUAL(hi(nt2::One<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(hi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int64_
-
-NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
-{
-  using nt2::hi;
-  using nt2::tag::hi_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<hi_(vT)>::type r_t;
-  typedef typename nt2::meta::call<hi_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(hi(nt2::One<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(hi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int32_
-
-NT2_TEST_CASE_TPL ( hi_int16__1_0,  (nt2::int16_t)(nt2::uint16_t))
-{
-  using nt2::hi;
-  using nt2::tag::hi_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<hi_(vT)>::type r_t;
-  typedef typename nt2::meta::call<hi_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(hi(nt2::One<vT>())[0], nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(hi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for int16_
+} // end of test for sintgt_8_
