@@ -27,7 +27,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, unsigned>::type bts;
-      return bitwise_cast<A0, bts>(b_or(b_not(bitwise_cast<bts>(a0)),
+      return bitwise_cast<A0>(b_or(b_not(bitwise_cast<bts>(a0)),
 					 bitwise_cast<bts>(a1)
 					 )
 				   ); 

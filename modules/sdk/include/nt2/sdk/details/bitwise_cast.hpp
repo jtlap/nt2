@@ -18,6 +18,10 @@
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/config/attributes.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <boost/utility/enable_if.hpp>
+
+#include <iostream>
+#include <nt2/sdk/details/type_id.hpp>
 
 namespace nt2 { namespace details
 {
@@ -27,9 +31,13 @@ namespace nt2 { namespace details
   struct memcpy_cast
   {
     template<typename To, typename From>
-    static NT2_FORCE_INLINE To call(From const& from)
+    static inline To call(From const& from)
     {
       To to;
+      
+      std::cout << "From = "; display_type(from); std::cout << std::endl;
+      std::cout << "To = "; display_type(to); std::cout << std::endl;
+      
       std::memcpy(&to, &from, sizeof(From));
       return to;
     }
@@ -71,10 +79,10 @@ namespace nt2 { namespace details
   struct bitwise_cast : memcpy_cast {};
 
   //============================================================================
-  // If To and From are not convertible, use C-style cast
+  // If To and From are convertible, use C-style cast
   //============================================================================
   template<typename To, typename From>
-  struct  bitwise_cast<To, From, typename boost::is_convertible<From, To>::type>
+  struct  bitwise_cast<To, From, typename boost::enable_if< boost::is_convertible<From, To> >::type>
         : convert_cast {};
 } }
 
@@ -105,7 +113,7 @@ namespace nt2
   template<typename To, typename From>
   NT2_FORCE_INLINE To bitwise_cast(From const& from)
   {
-    NT2_STATIC_ASSERT( sizeof(From) >= sizeof(To)
+    NT2_STATIC_ASSERT( sizeof(From) <= sizeof(To)
                      , NT2_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST
                      , "Target is of a larger size than source in nt2::bitwise_cast"
                      );
