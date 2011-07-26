@@ -48,7 +48,7 @@
                  'nt2::Nan<T>(),nt2::Nan<T>(),nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>(),nt2::Zero<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
-             'signed_int_   ' : {
+             'signed_int_' : {
                  'T(0),T(1),T(2)' : {'result' : 'T(1)','ulp_thresh' : '0.5',},
                  'T(-1),T(1),T(2)' : {'result' : 'T(-1)','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},

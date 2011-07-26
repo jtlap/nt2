@@ -30,7 +30,7 @@
                  'nt2::Three<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),2)','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                 },
-             'integer_   ' : {
+             'integer_' : {
                  'nt2::Mone<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),1)','ulp_thresh' : '0',},
                  'nt2::Three<T>()' : {'result' : 'nt2::shli(nt2::Mone<r_t>(),2)','ulp_thresh' : '0',},
