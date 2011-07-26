@@ -16,16 +16,16 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::abs_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
                       (A0),
-                      ((simd_<signed_<A0>,tag::xop_>))
+                      ((simd_<signed_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
  //      typedef typename meta::scalar_of<A0>::type sctype;
-//       typedef typename simd::native<sctype, tag::sse_ >  svtype;
+//       typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
 //       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
 //       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
 //       A0 that = { _mm256_insertf128_si256(that,boost::simd::abs(a00), 0)};
@@ -40,9 +40,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::abs_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
                       (A0),
-                      ((simd_<unsigned_<A0>,tag::xop_>))
+                      ((simd_<unsigned_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
@@ -54,9 +54,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::abs_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
                       (A0),
-                      ((simd_<real_<A0>,tag::xop_>))
+                      ((simd_<real_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;

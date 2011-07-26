@@ -25,12 +25,12 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
- BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::fast_ldexp_, tag::cpu_,(A0)(A1)(X)
+ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::fast_ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (tag::fast_ldexp_( simd_<arithmetic_<A0>,X>
+                                , (boost::simd::tag::fast_ldexp_( simd_<arithmetic_<A0>,X>
                                               , simd_<integer_<A1>,X>
                                               )
                                   )
@@ -49,7 +49,7 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_ and A1 scalar
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_ldexp_, tag::cpu_
 			      , (A0)(A1)(X)
 			      , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
 			      )
@@ -67,13 +67,13 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::fast_ldexp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::fast_ldexp_, tag::cpu_,
 				(A0)(A1)(X),
 				(boost::mpl::equal_to<boost::mpl::sizeof_<A0>,
 			  	                      boost::mpl::sizeof_<A1>
 				                      >
 				 ),
-				(tag::fast_ldexp_(simd_<real_<A0>,X>,
+				(boost::simd::tag::fast_ldexp_(simd_<real_<A0>,X>,
 						  simd_<integer_<A1>,X>)), 
 				((simd_<real_<A0>,X>))
 				((simd_<integer_<A1>,X>))
@@ -98,7 +98,7 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_ and A1 is scalar
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_ldexp_, tag::cpu_
 			      , (A0)(A1)(X)
 			      , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
 			      )

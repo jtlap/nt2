@@ -23,7 +23,7 @@
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::evaluate_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::evaluate_, tag::cpu_
                             , (A0)(X)(A1)(T)(C)(Tag)(S)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((expr_<A1,domain_< boost::simd::domain<T,C> >, Tag, S>))
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL(  tag::evaluate_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL(  boost::simd::tag::evaluate_,tag::cpu_
                                 , (class A0)(std::size_t N)
                                   (class A1)(class T)(class C)
                                   (class Tag)(class S)

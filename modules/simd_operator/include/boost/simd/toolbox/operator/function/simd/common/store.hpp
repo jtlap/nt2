@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , ((simd_< fundamental_<A0>, X >))
                               (iterator_< scalar_< fundamental_<A1> > >)

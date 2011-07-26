@@ -15,7 +15,7 @@
 
 #include <boost/simd/toolbox/operator/specific/compare_tags.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_equal_, compare_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_equal_, compare_eq    , 2 )

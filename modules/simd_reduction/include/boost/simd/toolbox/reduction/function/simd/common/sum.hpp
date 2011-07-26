@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0)(X),
                       ((simd_<arithmetic_<A0>,X>))
                      )
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type     type;
-      return boost::fusion::fold(a0,Zero<type>(),functor<tag::plus_>());
+      return boost::fusion::fold(a0,Zero<type>(),functor<boost::simd::tag::plus_>());
     }
   };
 } } }

@@ -13,7 +13,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<unsigned_<A0>,X>))
                               (scalar_< integer_<A1> >)
                             )
@@ -22,7 +22,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return shri(a0, a1); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<signed_<A0>,X>))
                               (scalar_< integer_<A1> >)
                             )
@@ -31,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      return map(functor<tag::shift_right_>(), a0, splat<A0>(a1));
+      return map(functor<boost::simd::tag::shift_right_>(), a0, splat<A0>(a1));
     }
   };
 } } }

@@ -13,7 +13,7 @@
 #include <boost/simd/toolbox/swar/include.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace dispatch { namespace tag
+namespace boost { namespace simd { namespace tag
   {         
     struct put_first_ {};
   }

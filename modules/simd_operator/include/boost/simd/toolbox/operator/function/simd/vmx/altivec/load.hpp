@@ -11,11 +11,11 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_<simd_<arithmetic_<A2>,tag::altivec_> >))
+                              ((target_<simd_<arithmetic_<A2>,boost::simd::tag::altivec_> >))
                             )
   {
 

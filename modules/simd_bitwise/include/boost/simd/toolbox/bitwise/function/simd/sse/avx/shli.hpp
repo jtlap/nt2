@@ -18,18 +18,18 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_DISPATCH(tag::shli_, tag::cpu_,
+BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::shli_, tag::cpu_,
                        (A0),
-                       ((simd_<arithmetic_<A0>,tag::avx_>))
-                       ((simd_<arithmetic_<A0>,tag::avx_>))
+                       ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                       ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                       );
 
 namespace boost { namespace simd { namespace ext
 {
   template<class Dummy>
-  struct call<tag::shli_(tag::simd_<tag::arithmetic_, tag::avx_),
-                         tag::simd_<tag::arithmetic_, tag::avx_)),
-              tag::cpu_, Dummy> : callable
+  struct call<boost::simd::tag::shli_(tag::simd_<tag::arithmetic_, tag::avx_),
+                         boost::simd::tag::simd_<tag::arithmetic_, tag::avx_)),
+              boost::simd::tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename meta::as_integer<sctype>::type sitype;
-      typedef typename simd::native<sitype, tag::sse_ >  isvtype;
+      typedef typename simd::native<sitype, boost::simd::tag::sse_ >  isvtype;
       typedef typename meta::as_integer<A0>::type  itype;
 
       isvtype a00 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 0)};

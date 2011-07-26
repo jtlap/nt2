@@ -16,10 +16,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_equal_, tag::sse4_1_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::sse4_1_
                             , (A0)
-                            , ((simd_<ints64_<A0>,tag::sse_>))
-                              ((simd_<ints64_<A0>,tag::sse_>))
+                            , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;

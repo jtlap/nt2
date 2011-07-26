@@ -57,7 +57,7 @@ namespace boost { namespace dispatch { namespace meta
     static inline int_type M1() { return (0xffffffff00000000ll);};
   };
 
- BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::hypot_, tag::cpu_,
+ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
                        (A0)(A1),
                        (scalar_<fundamental_<A0> >)(scalar_<fundamental_<A1> >)
                       )

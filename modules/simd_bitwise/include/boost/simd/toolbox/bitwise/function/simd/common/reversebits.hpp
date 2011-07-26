@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                             )
@@ -50,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
@@ -90,7 +90,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                             )
@@ -124,7 +124,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int32_<A0>,X>))
                             )

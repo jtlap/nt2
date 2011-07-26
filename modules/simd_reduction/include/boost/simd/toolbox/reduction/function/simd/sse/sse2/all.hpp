@@ -22,9 +22,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
                             , (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
@@ -43,9 +43,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
                             , (A0)
-                            , ((simd_<uint8_<A0>,tag::sse_>))
+                            , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
@@ -55,7 +55,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
-      typedef simd::native<utype,tag::sse_>                                 ttype;
+      typedef simd::native<utype,boost::simd::tag::sse_>                                 ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l))) == 0;
@@ -69,9 +69,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::all_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
                             , (A0)
-                            , ((simd_<int8_<A0>,tag::sse_>))
+                            , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
@@ -81,7 +81,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
       typedef typename meta::upgrade<stype>::type                           utype;
-      typedef simd::native<utype,tag::sse_>                                 ttype;
+      typedef simd::native<utype,boost::simd::tag::sse_>                                 ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l)))== 0;

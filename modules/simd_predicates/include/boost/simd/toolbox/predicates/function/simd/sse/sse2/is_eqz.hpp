@@ -14,16 +14,16 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_,(A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, tag::cpu_,(A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
-                            , ((simd_<int64_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, tag::cpu_, (A0)
+                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -31,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::int32_t_<A0>::type htype;
-      typedef simd::native<htype,tag::sse_> type;
+      typedef simd::native<htype,boost::simd::tag::sse_> type;
       const type tmp1 = is_eqz(simd::native_cast<type>(a0));
       const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
       return simd::native_cast<A0>(b_and(tmp1, tmp2));

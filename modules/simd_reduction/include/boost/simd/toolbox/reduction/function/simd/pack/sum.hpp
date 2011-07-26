@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::sum_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sum_, tag::cpu_
                             , (A0)(T)(Card)(Tag)(Sema)
                             , ((expr_<A0, domain_< simd::domain<T,Card> >, Tag, Sema>))
                             )

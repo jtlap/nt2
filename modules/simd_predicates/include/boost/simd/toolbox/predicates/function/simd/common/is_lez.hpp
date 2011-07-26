@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_lez_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_lez_, tag::cpu_,
                          (A0)(X),
                          ((simd_<signed_<A0>,X>))
                         )
@@ -33,7 +33,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_lez_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_lez_, tag::cpu_,
                          (A0)(X),
                          ((simd_<unsigned_<A0>,X>))
                         )

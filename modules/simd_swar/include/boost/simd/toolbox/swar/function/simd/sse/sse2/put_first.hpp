@@ -21,9 +21,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::put_first_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
-			      , ((simd_<double_<A0>,tag::sse_>))
+			      , ((simd_<double_<A0>,boost::simd::tag::sse_>))
 		  	        ((scalar_< integer_<A1> >))  
 			    )
   {
@@ -42,16 +42,16 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::put_first_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
-			      , ((simd_<type8_<A0>,tag::sse_>))
+			      , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
-	typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
+	typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
 	if(a1 > 7)
 	  {
 	    A0 t = { _mm_srli_si128(simd::native_cast<type64>(a0), 8 )};
@@ -64,9 +64,9 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::put_first_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
-			      , ((simd_<type64_<A0>,tag::sse_>))
+			      , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
@@ -85,17 +85,17 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type16_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::put_first_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
-			      , ((simd_<type16_<A0>,tag::sse_>))
+			      , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
-	typedef simd::native<typename meta::double__<A0>::type,tag::sse_>   rtype;
-	typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
+	typedef simd::native<typename meta::double__<A0>::type,boost::simd::tag::sse_>   rtype;
+	typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
 	if(a1 > 3)
 	  {
 	    A0 t = { _mm_srli_si128(simd::native_cast<type64>(a0), 8 )};
@@ -108,17 +108,17 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::put_first_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
-			      , ((simd_<type32_<A0>,tag::sse_>))
+			      , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
-	typedef simd::native<typename meta::double__<A0>::type,tag::sse_>   rtype;
-	typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_>  type64;
+	typedef simd::native<typename meta::double__<A0>::type,boost::simd::tag::sse_>   rtype;
+	typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
 	if(a1 > 1)
 	  {
 	    type64 z = simd::native_cast<type64>(a0);

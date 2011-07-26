@@ -13,9 +13,9 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/include.hpp>
 
-namespace boost { namespace dispatch { namespace tag { struct map_ {}; } } }
+namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,3)

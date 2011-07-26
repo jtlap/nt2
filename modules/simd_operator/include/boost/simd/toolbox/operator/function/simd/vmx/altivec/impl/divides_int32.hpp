@@ -17,9 +17,9 @@ namespace boost { namespace dispatch { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // a/b use a bit preserving algorithm from vecLib by Apple
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_, (A0)(A1)
-                            , ((simd_<ints32_<A0>,tag::altivec_>))
-                              ((simd_<ints32_<A1>,tag::altivec_>)) )
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)(A1)
+                            , ((simd_<ints32_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<ints32_<A1>,boost::simd::tag::altivec_>)) )
   {
     typedef A0 result_type;
 

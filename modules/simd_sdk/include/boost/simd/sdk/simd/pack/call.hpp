@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL(  tag::terminal_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
                                 , ((array_<scalar_< arithmetic_<Value > >,N>))

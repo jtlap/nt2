@@ -15,16 +15,16 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::cumsum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
-                         ((simd_<arithmetic_<A0>,tag::avx_>))
+                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename simd::native<sctype, tag::sse_ >  svtype;
+      typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a000 = { _mm256_extractf128_si256(a0, 0)};
       svtype a011 = { _mm256_extractf128_si256(a0, 1)};
       std::cout << " == a000 " << a000 << std::endl;
@@ -46,16 +46,16 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::cumsum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
-                         ((simd_<double_<A0>,tag::avx_>))
+                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename simd::native<sctype, tag::sse_ >  svtype;
+      typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a000 = { _mm256_extractf128_pd(a0, 0)};
       svtype a011 = { _mm256_extractf128_pd(a0, 1)};
       svtype a00 =  cumsum(a000);
@@ -72,9 +72,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::cumsum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
-                         ((simd_<float_<A0>,tag::avx_>))
+                         ((simd_<float_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
@@ -82,7 +82,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       cout << "pb lié à gcc 4.5 ?" << std::endl;
       typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename simd::native<sctype, tag::sse_ >  svtype;
+      typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       std::cout << " == a0 " << a0 << std::endl;
       svtype a011;
       a011=  _mm256_extractf128_ps(a0, 1);

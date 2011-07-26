@@ -13,12 +13,12 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::seladd_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
                                   )
-                                , (tag::seladd_
+                                , (boost::simd::tag::seladd_
                                     ( simd_<arithmetic_<A0>,X>
                                     , simd_<arithmetic_<A1>,X>
                                     , simd_<arithmetic_<A1>,X>

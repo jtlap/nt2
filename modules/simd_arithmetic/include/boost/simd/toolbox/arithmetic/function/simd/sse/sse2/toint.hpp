@@ -16,16 +16,16 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::toint_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::as_integer<A0>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
-                            , ((simd_<double_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::as_integer<A0>::type result_type;
@@ -40,8 +40,8 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::toint_, tag::cpu_ , (A0)
-                            , ((simd_<float_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)
+                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::as_integer<A0>::type result_type;

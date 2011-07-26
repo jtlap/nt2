@@ -19,9 +19,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_, (A0)(A1)
-                            , ((simd_<integer_<A0>,tag::altivec_>))
-                              ((simd_<integer_<A1>,tag::altivec_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
+                            , ((simd_<integer_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<integer_<A1>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;
@@ -35,9 +35,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shift_right_, tag::cpu_, (A0)(A1)
-                            , ((simd_<float_<A0>,tag::altivec_>))
-                              ((simd_<ints32_<A1>,tag::altivec_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
+                            , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<ints32_<A1>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;

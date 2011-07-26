@@ -16,11 +16,11 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
-			      , ((expr_<A0,Dom,tag::multiplies_,Sema>))(unspecified_<A1>)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
+			      , ((expr_<A0,Dom,boost::simd::tag::multiplies_,Sema>))(unspecified_<A1>)
 			      )
   {
-    typedef typename meta::call< tag::fma_(
+    typedef typename meta::call< boost::simd::tag::fma_(
 					   typename boost::proto::result_of::child_c<A0, 0>::type,
 					   typename boost::proto::result_of::child_c<A0, 1>::type,
 					   A1
@@ -32,11 +32,11 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
-			      , (unspecified_<A0>)((expr_<A1,Dom,tag::multiplies_,Sema>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::recognition_, (A0)(A1)(Dom)(Sema)
+			      , (unspecified_<A0>)((expr_<A1,Dom,boost::simd::tag::multiplies_,Sema>))
 			      )
   {
-    typedef typename meta::call< tag::fma_(
+    typedef typename meta::call< boost::simd::tag::fma_(
           typename boost::proto::result_of::child_c<A1, 0>::type,
           typename boost::proto::result_of::child_c<A1, 1>::type,
           A0

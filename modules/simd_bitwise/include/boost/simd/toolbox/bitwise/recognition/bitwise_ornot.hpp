@@ -16,14 +16,14 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_ , tag::recognition_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_ , tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , (unspecified_<A0>)
-                              ((expr_<A1,Dom,tag::complement_,Sema>))
+                              ((expr_<A1,Dom,boost::simd::tag::complement_,Sema>))
                             )
   {
     typedef typename
-            meta::call< tag::bitwise_ornot_ ( A0
+            meta::call< boost::simd::tag::bitwise_ornot_ ( A0
                                             , typename boost::proto::result_of::
                                                       child_c<A1, 0>::type
                                             )
@@ -35,14 +35,14 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::bitwise_or_ , tag::recognition_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_ , tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
-                            , ((expr_<A0,Dom,tag::complement_,Sema>))
+                            , ((expr_<A0,Dom,boost::simd::tag::complement_,Sema>))
                               (unspecified_<A1>)
                             )
   {
     typedef typename
-            meta::call< tag::bitwise_ornot_ ( A1
+            meta::call< boost::simd::tag::bitwise_ornot_ ( A1
                                             , typename boost::proto::result_of::
                                                       child_c<A0, 0>::type
                                             )

@@ -18,9 +18,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::lookup_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::lookup_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))((simd_<integer_<A1>,tag::sse_>))
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))((simd_<integer_<A1>,tag::sse_>))
                             )
   {
 

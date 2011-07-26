@@ -20,7 +20,7 @@
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A1> >)
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)
                               (mpl_integral_< scalar_< integer_<A1> > >)
@@ -58,7 +58,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_, tag::cpu_
                             , (A0)
                             , (scalar_< integer_<A0> >)
                             )
@@ -77,7 +77,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
                             , (mpl_integral_< scalar_< integer_<A0> > >)
                               (mpl_integral_< scalar_< integer_<A1> > >)
@@ -97,7 +97,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_, tag::cpu_
                             , (A0)
                             , (mpl_integral_< scalar_< integer_<A0> > >)
                             )
@@ -116,7 +116,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_, tag::cpu_
                             , (A0)(A1)
                             , (iterator_<unspecified_<A0> >)
                               (scalar_< integer_<A1> >)
@@ -136,7 +136,7 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_aligned_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_aligned_,tag::cpu_
                             , (A0)
                             , (iterator_<unspecified_<A0> >)
                             )

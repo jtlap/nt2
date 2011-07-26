@@ -35,9 +35,9 @@ BOOST_SIMD_WARNING(SSE4_1 SIMD extension detected)
 #define BOOST_SIMD_BYTES              16
 #define BOOST_SIMD_BITS               128
 #define BOOST_SIMD_CARDINALS          (2)(4)(8)(16)
-#define BOOST_SIMD_TAG_SEQ            (::boost::dispatch::tag::sse_)
-#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::dispatch::tag::sse_
-#define BOOST_SIMD_DEFAULT_SITE       ::boost::dispatch::tag::sse4_1_
+#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::sse_)
+#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::sse_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::sse4_1_
 
 #include <smmintrin.h>
 

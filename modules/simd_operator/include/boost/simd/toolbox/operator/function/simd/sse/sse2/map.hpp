@@ -35,16 +35,16 @@
 #define M5(z,n,t) (BOOST_PP_CAT(A,n))
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
 #define M3(z,n,t) details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(BOOST_PP_INC(n)))>,tag::sse_>))
-#define M1(z,n,t) ,tag::simd_<tag::arithmetic_,tag::sse_>
+#define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(BOOST_PP_INC(n)))>,boost::simd::tag::sse_>))
+#define M1(z,n,t) ,boost::simd::tag::simd_<tag::arithmetic_,tag::sse_>
 
 #define M0(z,n,t)                                                                   \
 namespace boost { namespace dispatch { namespace meta                                   \
 {                                                                                   \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_                            \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_                            \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n),M5,t)                 \
                             , (unspecified_<A0>)                                    \
-                              ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t)<A1>,tag::sse_>))  \
+                              ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t)<A1>,boost::simd::tag::sse_>))  \
                               BOOST_PP_REPEAT(BOOST_PP_DEC(n),M2,t)                 \
                             )                                                       \
   {                                                                                 \
@@ -59,7 +59,7 @@ namespace boost { namespace dispatch { namespace meta                           
                , typename meta::scalar_of<A1>::type                                 \
                >::type                                                              \
       stype;                                                                        \
-      typedef simd::native<stype, tag::sse_> result_type;                           \
+      typedef simd::native<stype, boost::simd::tag::sse_> result_type;                           \
                                                                                     \
     BOOST_DISPATCH_FUNCTOR_CALL(BOOST_PP_INC(n))                                        \
     {                                                                               \

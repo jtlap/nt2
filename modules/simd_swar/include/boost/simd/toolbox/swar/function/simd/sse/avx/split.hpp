@@ -20,9 +20,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::split_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, tag::cpu_,
                         (A0),
-                        ((simd_<arithmetic_<A0>,tag::avx_>))
+                        ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                            stype;
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
       typedef simd::native<utype,simd::avx_>                                ttype;
       typedef meta::is_floating_point<stype>                                 rtag;
       typedef simd::native<typename  meta::double_<A0>::type,simd::avx_>    dtype;
-      typedef typename boost::mpl::if_c < rtag::value
+      typedef typename boost::mpl::if_c < rboost::simd::tag::value
                                         , dtype, ttype>::type              rtype;
       typedef boost::fusion::tuple<rtype,rtype>                              result_type;
     
@@ -40,7 +40,7 @@ namespace boost { namespace dispatch { namespace meta
       typedef meta::is_floating_point<stype>                                 rtag;
       typedef typename meta::upgrade<stype>::type                  utype;
       typedef simd::native<utype,simd::avx_>                                ttype;
-      typedef typename boost::mpl::if_c<rtag::value,
+      typedef typename boost::mpl::if_c<rboost::simd::tag::value,
                                         simd::native<double,simd::avx_>, ttype>::type rtype;
       typename result_type                                                    res;
       typedef rtype                                                           tag;

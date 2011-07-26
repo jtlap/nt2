@@ -15,7 +15,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< integer_<A0> >)
                             )
   {
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::twopower_, tag::cpu_, (A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::twopower_, tag::cpu_, (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
   {

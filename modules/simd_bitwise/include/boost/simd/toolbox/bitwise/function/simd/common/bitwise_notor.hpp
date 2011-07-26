@@ -11,12 +11,12 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_notor_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_notor_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
                                   )
-                                , ( tag::bitwise_notor_
+                                , ( boost::simd::tag::bitwise_notor_
                                     ( simd_<arithmetic_<A0>,X>
                                     , simd_<arithmetic_<A1>,X>
                                     )

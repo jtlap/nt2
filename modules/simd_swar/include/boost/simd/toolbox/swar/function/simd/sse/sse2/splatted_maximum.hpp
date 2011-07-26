@@ -20,15 +20,15 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splatted_maximum_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_maximum_, tag::cpu_
                             , (A0)
-                            , ((simd_<ints16_<A0>,tag::sse_>))
+                            , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef typename simd::native<float, tag::sse_> ftype;
+      typedef typename simd::native<float, boost::simd::tag::sse_> ftype;
       A0 max1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          max1 = _mm_shufflelo_epi16(max1, _MM_SHUFFLE(1, 0, 3, 2));
          max1 = max(a0, max1);
@@ -46,9 +46,9 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::splatted_maximum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, tag::cpu_,
 			     (A0),
-			     ((simd_<double_<A0>,tag::sse_>))
+			     ((simd_<double_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
@@ -62,9 +62,9 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int64_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splatted_maximum_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_maximum_, tag::cpu_
 			      , (A0)
-			      , ((simd_<ints64_<A0>,tag::sse_>))
+			      , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
 			      )
   {
     typedef A0 result_type;
@@ -81,9 +81,9 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::splatted_maximum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, tag::cpu_,
 			     (A0),
-			     ((simd_<float_<A0>,tag::sse_>))
+			     ((simd_<float_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
@@ -100,9 +100,9 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::splatted_maximum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, tag::cpu_,
 			     (A0),
-			     ((simd_<ints8_<A0>,tag::sse_>))
+			     ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
@@ -115,9 +115,9 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int32_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::splatted_maximum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, tag::cpu_,
                                    (A0),
-                                   ((simd_<ints32_<A0>,tag::sse_>))
+                                   ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                                   )
   {
     typedef A0 result_type;

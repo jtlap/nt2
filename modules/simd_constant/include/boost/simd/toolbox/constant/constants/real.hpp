@@ -17,7 +17,7 @@
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 
-namespace boost { namespace dispatch { namespace tag
+namespace boost { namespace simd { namespace tag
 {
   struct pi_          {};
   struct sqrt_2_o_2_  {}; struct sqrt_2_      {};
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace tag
   template<boost::simd::uint64_t D, boost::simd::uint32_t F> struct pattern {};
 } } }
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace simd { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // Small type to gather real value bit patterns depending on target type
@@ -56,7 +56,7 @@ namespace boost { namespace dispatch { namespace details
   };
 } } }
 
-namespace boost { namespace dispatch 
+namespace boost { namespace simd 
 {
   //////////////////////////////////////////////////////////////////////////////
   // Basic named constant
@@ -79,7 +79,8 @@ namespace boost { namespace dispatch
   // Generic real value splatter from a bit patterns
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, boost::simd::uint64_t D, boost::simd::uint32_t F> inline
-  typename meta::call<tag::pattern<D,F >(meta::as_<Target>)>::type
+  typename boost::dispatch::meta::
+  call<tag::pattern<D,F >(boost::dispatch::meta::as_<Target>)>::type
   real_constant()
   {
     boost::dispatch::functor< tag::pattern<D,F> > callee;
@@ -90,7 +91,8 @@ namespace boost { namespace dispatch
   // Generic real value splatter from a bit patterns of float
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, boost::simd::uint32_t F> inline
-  typename meta::call<tag::pattern<0,F >(meta::as_<Target>)>::type
+  typename boost::dispatch::meta::
+  call<tag::pattern<0,F >(boost::dispatch::meta::as_<Target>)>::type
   single_constant()
   {
     boost::dispatch::functor< tag::pattern<0,F> > callee;
@@ -101,7 +103,8 @@ namespace boost { namespace dispatch
   // Generic real value splatter from a bit patterns of double
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, boost::simd::uint64_t D> inline
-  typename meta::call<tag::pattern<D,0 >(meta::as_<Target>)>::type
+  typename boost::dispatch::meta::
+  call<tag::pattern<D,0 >(boost::dispatch::meta::as_<Target>)>::type
   double_constant()
   {
     boost::dispatch::functor< tag::pattern<D,0> > callee;
@@ -112,7 +115,8 @@ namespace boost { namespace dispatch
   // Generic real value splatter from a bit patterns dependant on target type
   //////////////////////////////////////////////////////////////////////////////
   template<class T, uint64_t V> inline
-  typename meta::call<typename details::pattern<T,V>::type(meta::as_<T>)>::type
+  typename boost::dispatch::meta::
+  call<typename details::pattern<T,V>::type(boost::dispatch::meta::as_<T>)>::type
   Const()
   {
     boost::dispatch::functor< typename details::pattern<T,V>::type > callee;

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_SPECIFIC_COMPARE_TAGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_SPECIFIC_COMPARE_TAGS_HPP_INCLUDED
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag
   {

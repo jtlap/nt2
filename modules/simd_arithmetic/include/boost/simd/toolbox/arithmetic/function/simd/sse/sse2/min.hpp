@@ -13,9 +13,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
-                              ((simd_<arithmetic_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -25,9 +25,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_, (A0)
-                            , ((simd_<double_<A0>,tag::sse_>))
-                              ((simd_<double_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_, (A0)
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -37,9 +37,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_
                             , (A0)
-                            , ((simd_<float_<A0>,tag::sse_>))((simd_<float_<A0>,tag::sse_>))
+                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))((simd_<float_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -49,9 +49,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_
                             , (A0)
-                            , ((simd_<int16_<A0>,tag::sse_>))((simd_<int16_<A0>,tag::sse_>))
+                            , ((simd_<int16_<A0>,boost::simd::tag::sse_>))((simd_<int16_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -61,9 +61,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::min_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::min_, tag::cpu_
                             , (A0)
-                            , ((simd_<uint8_<A0>,tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
+                            , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,tag::sse_>))
                             )
   {
     typedef A0 result_type;

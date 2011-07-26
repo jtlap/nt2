@@ -31,15 +31,15 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<> struct is_simd_specific<__m256 , dispatch::tag::avx_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__m256d, dispatch::tag::avx_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__m256i, dispatch::tag::avx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256 , tag::avx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256d, tag::avx_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256i, tag::avx_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct  as_simd<T,dispatch::tag::avx_>
+  struct  as_simd<T,tag::avx_>
         : boost::mpl::if_ < boost::is_integral<T>
                           , __m256i
                           , typename  boost::mpl
@@ -57,9 +57,9 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag
   //////////////////////////////////////////////////////////////////////////////
-  template<class X> struct extension_of<__m256 ,X>  { typedef dispatch::tag::avx_ type; };
-  template<class X> struct extension_of<__m256d,X>  { typedef dispatch::tag::avx_ type; };
-  template<class X> struct extension_of<__m256i,X>  { typedef dispatch::tag::avx_ type; };
+  template<class X> struct extension_of<__m256 ,X>  { typedef tag::avx_ type; };
+  template<class X> struct extension_of<__m256d,X>  { typedef tag::avx_ type; };
+  template<class X> struct extension_of<__m256i,X>  { typedef tag::avx_ type; };
 } } }
 
 #endif

@@ -14,10 +14,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_notand_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::bitwise_notand_, tag::cpu_,
                                 (A0)(A1)(X),
                                 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>, boost::mpl::sizeof_<A1> >),
-                                (tag::bitwise_notand_( simd_<arithmetic_<A0>, X>
+                                (boost::simd::tag::bitwise_notand_( simd_<arithmetic_<A0>, X>
                                                      , simd_<arithmetic_<A1>, X>
                                                      )
                                 ), 

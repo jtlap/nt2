@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::prod_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prod_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type     type;
-      return boost::fusion::fold(a0,One<type>(),functor<tag::multiplies_>());
+      return boost::fusion::fold(a0,One<type>(),functor<boost::simd::tag::multiplies_>());
     }
   };
 } } }

@@ -20,9 +20,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N)                                      \
-template<BOOST_PP_ENUM_PARAMS(N,class A)> BOOST_SIMD_FORCE_INLINE                      \
-typename meta::call<TAG(                                         \
+#define BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N)                           \
+template<BOOST_PP_ENUM_PARAMS(N,class A)> BOOST_SIMD_FORCE_INLINE               \
+typename boost::dispatch::meta::call<TAG(                                       \
                     BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT) \
                                     )>::type                                    \
 NAME ( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) )                             \
@@ -31,16 +31,16 @@ NAME ( BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& a) )                             
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function body from TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_DISPATCH_FUNCTION_BODY(TAG,N)                  \
+#define BOOST_DISPATCH_FUNCTION_BODY(TAG,N)                   \
 typename boost::dispatch::make_functor<TAG, A0>::type callee; \
-return callee(BOOST_PP_ENUM_PARAMS(N,a));         \
+return callee(BOOST_PP_ENUM_PARAMS(N,a));                     \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(TAG,NAME,N)                   \
-BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N) { BOOST_DISPATCH_FUNCTION_BODY(TAG,N); }  \
+#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(TAG,NAME,N)                             \
+BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N) { BOOST_DISPATCH_FUNCTION_BODY(TAG,N); } \
 /**/
 
 #define BOOST_DISPATCH_FN_TYPES(z,n,t) BOOST_PP_SEQ_ELEM(n,t)
@@ -50,28 +50,28 @@ BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N) { BOOST_DISPATCH_FUNCTION_BODY(TAG
 // Generate a complete function implementation with a specific prototype
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME,ARGS,N)                  \
-template<BOOST_PP_ENUM_PARAMS(N, class A)> BOOST_SIMD_FORCE_INLINE               \
-typename meta::                                                           \
+template<BOOST_PP_ENUM_PARAMS(N, class A)> BOOST_SIMD_FORCE_INLINE                   \
+typename boost::dispatch::meta::                                                     \
 call<TAG(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),BOOST_DISPATCH_FN_TYPES,ARGS))>::type \
 NAME( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),BOOST_DISPATCH_FN_ARGS,ARGS) )           \
-{                                                                         \
+{                                                                                    \
   BOOST_DISPATCH_FUNCTION_BODY(TAG, BOOST_PP_SEQ_SIZE(ARGS) )                        \
-}                                                                         \
+}                                                                                    \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation for self modifying operator
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF_1(NAME,TAG)  \
-template<class A0> BOOST_SIMD_FORCE_INLINE                   \
-typename meta::call<TAG(A0&)>::type    \
-NAME( A0& a0 )  { BOOST_DISPATCH_FUNCTION_BODY(TAG,1) }          \
+#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF_1(NAME,TAG) \
+template<class A0> BOOST_SIMD_FORCE_INLINE                      \
+typename boost::dispatch::meta::call<TAG(A0&)>::type            \
+NAME( A0& a0 )  { BOOST_DISPATCH_FUNCTION_BODY(TAG,1) }         \
 /**/
 
-#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF_2(NAME,TAG)          \
-template<class A0,class A1> BOOST_SIMD_FORCE_INLINE                  \
-typename meta::call<TAG(A0&,A1 const&)>::type  \
-NAME( A0& a0, A1 const& a1 )  { BOOST_DISPATCH_FUNCTION_BODY(TAG,2) }    \
+#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF_2(NAME,TAG)       \
+template<class A0,class A1> BOOST_SIMD_FORCE_INLINE                   \
+typename boost::dispatch::meta::call<TAG(A0&,A1 const&)>::type        \
+NAME( A0& a0, A1 const& a1 )  { BOOST_DISPATCH_FUNCTION_BODY(TAG,2) } \
 /**/
 
 #define BOOST_DISPATCH_FN_REF(z,n,t) (BOOST_PP_CAT(A,BOOST_PP_INC(n)) const&)
@@ -83,14 +83,14 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME, \
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a method for self-operator overload
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_DISPATCH_FUNCTION_METHOD_SELF(NAME,TAG,SELF)             \
-template<class A0>  BOOST_SIMD_FORCE_INLINE                        \
-typename meta::call<TAG(SELF&,A0 const&)>::type \
-NAME( A0 const& a0 )                                        \
-{                                                           \
-  typename boost::dispatch::make_functor<TAG, A0>::type callee;         \
-  return callee(*this,a0);                                  \
-}                                                           \
+#define BOOST_DISPATCH_FUNCTION_METHOD_SELF(NAME,TAG,SELF)       \
+template<class A0>  BOOST_SIMD_FORCE_INLINE                      \
+typename boost::dispatch::meta::call<TAG(SELF&,A0 const&)>::type \
+NAME( A0 const& a0 )                                             \
+{                                                                \
+  typename boost::dispatch::make_functor<TAG, A0>::type callee;  \
+  return callee(*this,a0);                                       \
+}                                                                \
 /**/
 
 #endif

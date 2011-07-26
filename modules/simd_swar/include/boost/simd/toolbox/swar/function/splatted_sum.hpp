@@ -12,7 +12,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/include.hpp>
 
-namespace boost { namespace dispatch { namespace tag
+namespace boost { namespace simd { namespace tag
   {         
     struct splatted_sum_ {};
   }

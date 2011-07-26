@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A1> >)
 			      (scalar_< int32_<A2> >)
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::fast_frexp_, tag::cpu_, (A0)(A2)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
 			      (scalar_< int32_<A2> >)
                             )
@@ -47,7 +47,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
                             (A0),
                             (scalar_ < double_<A0> > )
                            )
@@ -68,7 +68,7 @@ namespace boost { namespace dispatch { namespace meta
 
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
                             (A0),
                             (scalar_ < float_<A0> > )
                            )

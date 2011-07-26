@@ -19,7 +19,7 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag { struct load_ {}; }
 
@@ -27,14 +27,14 @@ namespace boost { namespace dispatch
   // Load a data of type T from the memory zone given by (a0,a1)
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class A0,class A1> inline
-  typename meta::call<tag::load_ ( A0 const&, A1 const&
-                                                , meta::as_<T>
+  typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
+                                                , boost::dispatch::meta::as_<T>
                                                 )
                             >::type
   load(A0 const& a0,A1 const& a1 )
   {
-    typename make_functor<tag::load_, A0>::type callee;
-    return callee(a0,a1,meta::as_<T>());
+    typename boost::dispatch::make_functor<tag::load_, A0>::type callee;
+    return callee(a0,a1,boost::dispatch::meta::as_<T>());
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -42,15 +42,15 @@ namespace boost { namespace dispatch
   // level offset
   //////////////////////////////////////////////////////////////////////////////
   template<class T,int Offset, class A0,class A1> inline
-  typename meta::call<tag::load_ ( A0 const&, A1 const&
-                                                , meta::as_<T>
+  typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
+                                                , boost::dispatch::meta::as_<T>
                                                 , boost::mpl::int_<Offset>
                                                 )
                             >::type
   load(A0 const& a0,A1 const& a1 )
   {
-    typename make_functor<tag::load_, A0>::type callee;
-    return callee(a0,a1,meta::as_<T>(),boost::mpl::int_<Offset>());
+    typename boost::dispatch::make_functor<tag::load_, A0>::type callee;
+    return callee(a0,a1,boost::dispatch::meta::as_<T>(),boost::mpl::int_<Offset>());
   }
 } }
 

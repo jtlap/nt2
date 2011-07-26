@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/functor/functor.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag { struct evaluate_ {}; }
 

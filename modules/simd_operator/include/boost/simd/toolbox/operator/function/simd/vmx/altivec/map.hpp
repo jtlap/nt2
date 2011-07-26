@@ -27,12 +27,12 @@
 #define M5(z,n,t) (A##n)
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
 #define M3(z,n,t) details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <BOOST_PP_CAT(A, BOOST_PP_INC(n))>, tag::altivec_>))
+#define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <BOOST_PP_CAT(A, BOOST_PP_INC(n))>, boost::simd::tag::altivec_>))
 
 #define M0(z,n,t)                                                             \
 namespace boost { namespace dispatch { namespace meta                             \
 {                                                                             \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::map_,tag::cpu_                      \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_                      \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n), M5,t)          \
                             , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
                             )                                                 \
@@ -48,7 +48,7 @@ namespace boost { namespace dispatch { namespace meta                           
              , typename meta::scalar_of<A1>::type                             \
              >::type                                                          \
     stype;                                                                    \
-    typedef simd::native<stype, tag::altivec_> result_type;                   \
+    typedef simd::native<stype, boost::simd::tag::altivec_> result_type;                   \
                                                                               \
     BOOST_DISPATCH_FUNCTOR_CALL(BOOST_PP_INC(n))                              \
     {                                                                         \

@@ -17,7 +17,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::splat_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , (unspecified_<A0>)
                               ((target_< simd_< unspecified_<A1>, X > >))

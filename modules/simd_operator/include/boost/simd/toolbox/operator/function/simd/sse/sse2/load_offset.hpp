@@ -16,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::load_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -78,7 +78,7 @@ namespace boost { namespace dispatch { namespace meta
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-A3::value%card)           );
 
       typedef typename boost::simd::meta::as_simd< typename meta::scalar_of<result_type>::type
-                                    , tag::sse_
+                                    , boost::simd::tag::sse_
                                     >::type     raw_type;
 
       result_type a     = load<result_type>(a0,a1+offset);
@@ -103,7 +103,7 @@ namespace boost { namespace dispatch { namespace meta
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-std::size_t(-A3::value)%card));
 
       typedef typename boost::simd::meta::as_simd< typename meta::scalar_of<result_type>::type
-                                    , tag::sse_
+                                    , boost::simd::tag::sse_
                                     >::type     raw_type;
 
       result_type a     = load<result_type>(a0,a1-offset);

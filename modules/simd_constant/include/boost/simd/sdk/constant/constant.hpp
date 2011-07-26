@@ -25,14 +25,15 @@
  * \param NAME Name of the function to build
  */
 //==============================================================================
-#define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)           \
-template<class Target> inline                           \
-typename meta::call<TAG(boost::dispatch::meta::as_<Target>)>::type  \
-NAME()                                                  \
-{                                                       \
+#define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                \
+template<class Target> inline                                       \
+typename boost::dispatch::meta::                                    \
+call<TAG(boost::dispatch::meta::as_<Target>)>::type                 \
+NAME()                                                              \
+{                                                                   \
   typename boost::dispatch::make_functor<TAG, Target>::type callee; \
   return callee( boost::dispatch::meta::as_<Target>() );            \
-}                                                       \
+}                                                                   \
 /**/
 
 #endif

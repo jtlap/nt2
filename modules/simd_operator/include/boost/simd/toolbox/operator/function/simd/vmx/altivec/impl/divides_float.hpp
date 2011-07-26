@@ -13,9 +13,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_, (A0)
-                            , ((simd_<float_<A0>,tag::altivec_>))
-                              ((simd_<float_<A0>,tag::altivec_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)
+                            , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;

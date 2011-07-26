@@ -12,7 +12,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/predicates/include.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag
   {         

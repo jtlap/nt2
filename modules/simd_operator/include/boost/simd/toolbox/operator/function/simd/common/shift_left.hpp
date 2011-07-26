@@ -19,7 +19,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::shift_left_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::shift_left_, tag::cpu_,
                                   (A0)(A1)(X),
                                   ( boost::mpl::and_<
                                     boost::mpl::not_< boost::is_same<A0, A1> >
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
                                                 , boost::mpl::sizeof_<A1>
                                                 >
                                  >),
-                                  (tag::shift_left_ ( simd_<arithmetic_<A0>,X>
+                                  (boost::simd::tag::shift_left_ ( simd_<arithmetic_<A0>,X>
                                                     , simd_<integer_<A1>,X>
                                                     )
                                   ),

@@ -16,12 +16,12 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::negif_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::negif_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (tag::negif_( simd_<arithmetic_<A0>,X>
+                                , (boost::simd::tag::negif_( simd_<arithmetic_<A0>,X>
                                               , simd_<signed_<A1>,X>
                                               )
                                   )
@@ -33,12 +33,12 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return  sel(is_true(a0),-a1,a1); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::negif_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::negif_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (tag::negif_( simd_<arithmetic_<A0>,X>
+                                , (boost::simd::tag::negif_( simd_<arithmetic_<A0>,X>
                                               , simd_<real_<A1>,X>
                                               )
                                   )

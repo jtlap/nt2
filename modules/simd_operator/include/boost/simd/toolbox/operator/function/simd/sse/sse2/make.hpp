@@ -19,8 +19,8 @@
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
-                            , ((target_< simd_< double_<A0>, tag::sse_ > >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)
+                            , ((target_< simd_< double_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A0::type result_type;
@@ -39,8 +39,8 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
-                            , ((target_< simd_< ints64_<A0>, tag::sse_ > >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)
+                            , ((target_< simd_< ints64_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A0::type result_type;
@@ -65,8 +65,8 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
-                            , ((target_< simd_< float_<A0>, tag::sse_ > >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)
+                            , ((target_< simd_< float_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A0::type result_type;
@@ -85,8 +85,8 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
-                            , ((target_< simd_< ints32_<A0>, tag::sse_ > >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)
+                            , ((target_< simd_< ints32_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A0::type result_type;
@@ -105,8 +105,8 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
-                            , ((target_< simd_< ints16_<A0>, tag::sse_ > >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)
+                            , ((target_< simd_< ints16_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A0::type result_type;
@@ -129,8 +129,8 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::make_, tag::cpu_, (A0)
-                            , ((target_< simd_< ints8_<A0>, tag::sse_ > >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)
+                            , ((target_< simd_< ints8_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A0::type result_type;

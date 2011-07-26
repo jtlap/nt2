@@ -15,12 +15,12 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::rshl_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < cardinal_of<A0>
                                                         , cardinal_of<A1>
                                                         >
                                   )
-                                , (tag::rshl_ ( simd_<arithmetic_<A0>,X>
+                                , (boost::simd::tag::rshl_ ( simd_<arithmetic_<A0>,X>
                                               , simd_<integer_<A1>,X>
                                               )
                                   )
@@ -29,10 +29,10 @@ namespace boost { namespace dispatch { namespace meta
                                 )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return map(functor<tag::rshl_>(), a0, a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return map(functor<boost::simd::tag::rshl_>(), a0, a1); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::rshl_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))((scalar_ < integer_<A1> >))
                             )
   {

@@ -16,10 +16,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename meta::downgrade<A0>::type> >),
-                          (tag::group_(simd_<arithmetic_<A0>,X>
+                          (boost::simd::tag::group_(simd_<arithmetic_<A0>,X>
                                       ,simd_<arithmetic_<A0>,X>
                                       )
                           ), 

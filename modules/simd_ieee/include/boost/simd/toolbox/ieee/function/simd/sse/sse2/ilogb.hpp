@@ -23,9 +23,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
                         (A0),
-                        ((simd_<signed_<A0>,tag::sse_>))
+                        ((simd_<signed_<A0>,boost::simd::tag::sse_>))
                        )
   {
 //    typedef typename meta::scalar_of<A0>::type sA0;
@@ -45,9 +45,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
                         (A0),
-                        ((simd_<uint8_<A0>,tag::sse_>))
+                        ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                        )
   {
 //    typedef typename meta::scalar_of<A0>::type sA0;
@@ -85,9 +85,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
                         (A0),
-                        ((simd_<uint32_<A0>,tag::sse_>))
+                        ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                        )
   {
 //    typedef typename meta::scalar_of<A0>::type sA0;
@@ -141,9 +141,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
                         (A0),
-                        ((simd_<uint64_<A0>,tag::sse_>))
+                        ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
                        )
   {
 //    typedef typename meta::scalar_of<A0>::type sA0;
@@ -162,9 +162,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::ilogb_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
                         (A0),
-                        ((simd_<uint16_<A0>,tag::sse_>))
+                        ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                        )
   {
 //    typedef typename meta::scalar_of<A0>::type sA0;

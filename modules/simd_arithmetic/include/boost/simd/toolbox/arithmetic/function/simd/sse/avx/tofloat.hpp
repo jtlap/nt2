@@ -21,9 +21,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
-                          ((simd_<int32_<A0>,tag::avx_>))
+                          ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
@@ -40,9 +40,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
-                          ((simd_<uint64_<A0>,tag::avx_>))
+                          ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
@@ -59,9 +59,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
-                          ((simd_<real_<A0>,tag::avx_>))
+                          ((simd_<real_<A0>,boost::simd::tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
@@ -76,9 +76,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
-                          ((simd_<uint32_<A0>,tag::avx_>))
+                          ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 
@@ -102,9 +102,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::tofloat_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
-                          ((simd_<int64_<A0>,tag::avx_>))
+                          ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                          )
   {
  typedef typename meta::as_real<A0>::type  result_type; 

@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type8_<A0>,X>))
                             )
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type64_<A0>,X>))
                             )
@@ -62,7 +62,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0,unsigned>::type rtype;
-      return  simd::native_cast<rtype>(map(functor<tag::ffs_>(), simd::native_cast<rtype>(a0)));
+      return  simd::native_cast<rtype>(map(functor<boost::simd::tag::ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
 } } }
@@ -73,7 +73,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type16_<A0>,X>))
                             )
@@ -101,7 +101,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ffs_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type32_<A0>,X>))
                             )

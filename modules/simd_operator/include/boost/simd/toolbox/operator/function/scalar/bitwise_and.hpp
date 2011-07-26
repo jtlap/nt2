@@ -15,12 +15,12 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::bitwise_and_ , tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_and_ , tag::cpu_, (A0)(A1)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , tag::bitwise_and_ ( scalar_< fundamental_<A0> >
+                                , boost::simd::tag::bitwise_and_ ( scalar_< fundamental_<A0> >
                                                     , scalar_< fundamental_<A1> >
                                                     )
                                 , (scalar_< fundamental_<A0> >)

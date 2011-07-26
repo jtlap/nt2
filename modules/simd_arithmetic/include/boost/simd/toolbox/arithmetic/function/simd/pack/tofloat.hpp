@@ -19,9 +19,9 @@
 namespace boost { namespace simd
 {
   template<class T, class N> template<class Dummy>
-  struct  grammar_cases<T,N>::case_<tag::tofloat_, Dummy>
+  struct  grammar_cases<T,N>::case_<boost::simd::tag::tofloat_, Dummy>
         : boost::proto::
-          unary_expr< tag::tofloat_ , grammar<boost::proto::_, N> >
+          unary_expr< boost::simd::tag::tofloat_ , grammar<boost::proto::_, N> >
   {};
 } } }
 
@@ -31,9 +31,9 @@ namespace boost { namespace simd
 namespace boost { namespace dispatch { namespace meta
 {
   template<class Target>
-  struct  compute<tag::tofloat_,Target>
+  struct  compute<boost::simd::tag::tofloat_,Target>
         : boost::proto::
-          call< functor < tag::tofloat_
+          call< functor < boost::simd::tag::tofloat_
                         , Target
                         > ( compile< compute<boost::mpl::_1, Target> >
                             ( boost::proto::_child0
@@ -44,7 +44,7 @@ namespace boost { namespace dispatch { namespace meta
               >
   {};
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
                             , ((expr_<A0, domain_< simd::domain<T,C> >,Tag,S>))
                             )
   {
@@ -52,14 +52,14 @@ namespace boost { namespace dispatch { namespace meta
     // so we compute the destination domain so proto is A-OK with it.
     typedef typename meta::as_real<T>::type real_type;
     typedef typename boost::proto::result_of::
-    make_expr < tag::tofloat_ , simd::domain<real_type,C>
+    make_expr < boost::simd::tag::tofloat_ , simd::domain<real_type,C>
                               , typename meta::strip<A0>::type const&
               >::type result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<T>::type real_type;
-      return boost::proto::make_expr< tag::tofloat_
+      return boost::proto::make_expr< boost::simd::tag::tofloat_
                                     , simd::domain<real_type,C>
                                     , A0 const&
                                     >( boost::cref(a0) );

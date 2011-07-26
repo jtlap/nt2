@@ -15,10 +15,10 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(tag::bitwise_or_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::bitwise_or_, tag::cpu_,
                                 (A0)(A1)(X),
                                 (boost::mpl::not_< boost::is_same<A0, A1> >),
-                                (tag::bitwise_or_ ( simd_<arithmetic_<A0>,X>
+                                (boost::simd::tag::bitwise_or_ ( simd_<arithmetic_<A0>,X>
                                                   , simd_<arithmetic_<A1>,X>
                                                   )
                                 ),

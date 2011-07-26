@@ -13,7 +13,7 @@
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag { struct true_  {}; }
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::true_, True)

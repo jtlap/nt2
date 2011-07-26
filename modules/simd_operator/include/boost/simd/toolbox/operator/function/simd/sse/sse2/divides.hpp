@@ -19,10 +19,10 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
                             , (A0)
-                            , ((simd_<double_<A0>,tag::sse_>))
-                              ((simd_<double_<A0>,tag::sse_>))
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -34,10 +34,10 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
                             , (A0)
-                            , ((simd_<float_<A0>,tag::sse_>))
-                              ((simd_<float_<A0>,tag::sse_>))
+                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -49,10 +49,10 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::divides_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
                             , (A0)
-                            , ((simd_<integer_<A0>,tag::sse_>))
-                              ((simd_<integer_<A0>,tag::sse_>))
+                            , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -60,7 +60,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       const A0 iseqza1 = eq(a1, Zero<A0>());
-      return map( typename make_functor<tag::divides_,A0>::type()
+      return map( typename make_functor<boost::simd::tag::divides_,A0>::type()
                 , (a0-b_and(iseqza1, a0))
                 , (a1+b_and(iseqza1, One<A0>()))
                 );

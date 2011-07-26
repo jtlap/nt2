@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/operator/include.hpp>
 #include <boost/dispatch/meta/as.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag
   {
@@ -20,11 +20,11 @@ namespace boost { namespace dispatch
   }
   
   template<class T, class A0> inline
-  typename meta::call<tag::splat_(A0, meta::as_<T>)>::type
+  typename boost::dispatch::meta::call<tag::splat_(A0, boost::dispatch::meta::as_<T>)>::type
   splat(A0 const& a0)
   {
-    typename make_functor<tag::splat_, A0>::type callee;
-    return callee(a0, meta::as_<T>() );
+    typename boost::dispatch::make_functor<tag::splat_, A0>::type callee;
+    return callee(a0, boost::dispatch::meta::as_<T>() );
   }
 } }
 

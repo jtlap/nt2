@@ -14,7 +14,7 @@
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag { struct align_on_ {}; }
 
@@ -23,7 +23,7 @@ namespace boost { namespace dispatch
     ////////////////////////////////////////////////////////////////////////////
     // align_on(a0) aligns a0 on the default alignement value
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 1);
+    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 1);
 
     ////////////////////////////////////////////////////////////////////////////
     // align_on(a0,a1) aligns a0 on the first address multiple of a1

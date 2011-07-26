@@ -21,11 +21,11 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
 				  ,( 
 				     boost::is_same<typename meta::as_integer<A0>::type, A1>
 				  )
-                                , ( tag::fast_frexp_
+                                , ( boost::simd::tag::fast_frexp_
 				    ( simd_<real_<A0>,X> 
 				    , simd_<real_<A0>,X>
 				    , simd_<integer_<A1>,X>  
@@ -54,9 +54,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
 				 , ( boost::is_same<typename meta::as_integer<A0>::type, A1>)
-                                 , ( tag::fast_frexp_
+                                 , ( boost::simd::tag::fast_frexp_
 				     ( simd_<real_<A0>,X> 
 				     , simd_<integer_<A1>,X>  
 				     )
@@ -74,7 +74,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::fast_frexp_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
                              (A0)(X),
                              ((simd_<arithmetic_<A0>,X>))
                             )

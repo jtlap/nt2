@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::remquo_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     ((simd_<arithmetic_<A0>,X>))
@@ -45,14 +45,14 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
 				  ,( boost::mpl::and_ <
 				     boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A1> >, 
 				     boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A2> >,
 				     boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A3> >
 				     >
 				  )
-                                , ( tag::remquo_
+                                , ( boost::simd::tag::remquo_
 				    ( simd_<arithmetic_<A0>,X> 
 				      , simd_<arithmetic_<A1>,X>
 				      , simd_<integer_<A2>,X>  
@@ -76,9 +76,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  tag::remquo_, tag::cpu_,(A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(X)
 				  ,( boost::mpl::equal_to < meta::cardinal_of<A0>, meta::cardinal_of<A1> >)
-				  , ( tag::remquo_
+				  , ( boost::simd::tag::remquo_
 				      ( simd_<real_<A0>,X> 
 					, simd_<real_<A0>,X>
 					, simd_<real_<A0>,X>

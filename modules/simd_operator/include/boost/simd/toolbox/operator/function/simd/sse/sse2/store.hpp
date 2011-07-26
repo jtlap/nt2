@@ -18,9 +18,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((simd_< double_<A0>, tag::sse_ >))
+                            , ((simd_< double_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< double_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )
@@ -37,9 +37,9 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((simd_< float_<A0>, tag::sse_ >))
+                            , ((simd_< float_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< float_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )
@@ -56,9 +56,9 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_ , tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((simd_< integer_<A0>, tag::sse_ >))
+                            , ((simd_< integer_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< integer_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )

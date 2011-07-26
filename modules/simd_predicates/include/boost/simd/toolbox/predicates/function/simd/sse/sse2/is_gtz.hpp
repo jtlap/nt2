@@ -17,30 +17,30 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gtz_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return gt(a0,Zero<A0>()); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
-                          , ((simd_<unsigned_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gtz_, tag::cpu_, (A0)
+                          , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                           )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1){ return is_nez(a0); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_gtz_, tag::cpu_, (A0)
-                            , ((simd_<int64_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gtz_, tag::cpu_, (A0)
+                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef simd::native<typename meta::int32_t_<A0>::type, tag::sse_> type;
+      typedef simd::native<typename meta::int32_t_<A0>::type, boost::simd::tag::sse_> type;
       const type tmp1 = is_ltz(simd::native_cast<type>(a0));
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
       return b_not(simd::native_cast<A0>(tmp)); 

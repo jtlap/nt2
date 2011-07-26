@@ -15,9 +15,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type8_<A0>,tag::sse_>))
+                            , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typedef simd::native<typename meta::int64_t_<A0>::type,tag::sse_> gen_type;
+      typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_> gen_type;
       result_type const
       Mask1 = simd::
               native_cast<result_type>(integral_constant< gen_type
@@ -49,9 +49,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::shli_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type32_<A0>,tag::sse_>))
+                            , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -65,9 +65,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type64_<A0>,tag::sse_>))
+                            , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -81,9 +81,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shli_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<type16_<A0>,tag::sse_>))
+                            , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {

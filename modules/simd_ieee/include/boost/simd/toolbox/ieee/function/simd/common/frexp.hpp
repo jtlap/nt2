@@ -23,13 +23,13 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
 				  ,( boost::mpl::and_ <
 				     boost::is_same<A0,A1>, 
 				     boost::is_same<typename meta::as_integer<A0>::type, A2>
 				     >
 				  )
-                                , ( tag::frexp_
+                                , ( boost::simd::tag::frexp_
 				    ( simd_<real_<A0>,X> 
 				      , simd_<real_<A1>,X>
 				      , simd_<integer_<A2>,X>  
@@ -63,9 +63,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::frexp_, tag::cpu_, (A0)(A2)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)(X)
 				 , ( boost::is_same<typename meta::as_integer<A0>::type, A2>)
-                                 , ( tag::frexp_
+                                 , ( boost::simd::tag::frexp_
 				    ( simd_<real_<A0>,X> 
 				    , simd_<integer_<A2>,X>  
 				      )
@@ -83,7 +83,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::frexp_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {

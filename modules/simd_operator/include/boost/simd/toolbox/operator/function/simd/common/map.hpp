@@ -36,7 +36,7 @@
 #define M5(z,n,t)                                                            \
 namespace boost { namespace  dispatch {  namespace meta                      \
 {                                                                            \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::map_, tag::cpu_                \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_                \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)(X)             \
                             , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)    \
                             )                                                \

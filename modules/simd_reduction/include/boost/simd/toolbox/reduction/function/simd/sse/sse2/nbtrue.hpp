@@ -20,9 +20,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
                             , (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef typename simd::native<typename meta::int8_t_<A0>::type,tag::sse_> i8type;
+      typedef typename simd::native<typename meta::int8_t_<A0>::type,boost::simd::tag::sse_> i8type;
       i8type tmp = {is_nez(a0)};
       return boost::simd::popcnt(_mm_movemask_epi8(tmp))*meta::cardinal_of<A0>::value >> 4;
     }
@@ -43,9 +43,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
                             , (A0)
-                            , ((simd_<double_<A0>,tag::sse_>))
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
@@ -65,9 +65,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::nbtrue_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
                             , (A0)
-                            , ((simd_<float_<A0>,tag::sse_>))
+                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
 

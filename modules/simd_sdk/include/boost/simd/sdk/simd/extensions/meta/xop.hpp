@@ -30,14 +30,14 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, check if it's a SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<> struct is_simd_specific<__m256 , dispatch::tag::xop_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__m256d, dispatch::tag::xop_> : boost::mpl::true_ {};
-  template<> struct is_simd_specific<__m256i, dispatch::tag::xop_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256 , tag::xop_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256d, tag::xop_> : boost::mpl::true_ {};
+  template<> struct is_simd_specific<__m256i, tag::xop_> : boost::mpl::true_ {};
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct  as_simd<T,dispatch::tag::xop_>
+  template<class T> struct  as_simd<T,tag::xop_>
   {
     template<class Key, class Dummy=void> struct entry  { typedef dispatch::meta::na_ type; };
     template<class Dummy> struct entry<float    ,Dummy> { typedef __m256  type; };
@@ -56,9 +56,9 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag
   //////////////////////////////////////////////////////////////////////////////
-  template<class X> struct extension_of<__m256 ,X>  { typedef dispatch::tag::xop_ type; };
-  template<class X> struct extension_of<__m256d,X>  { typedef dispatch::tag::xop_ type; };
-  template<class X> struct extension_of<__m256i,X>  { typedef dispatch::tag::xop_ type; };
+  template<class X> struct extension_of<__m256 ,X>  { typedef tag::xop_ type; };
+  template<class X> struct extension_of<__m256d,X>  { typedef tag::xop_ type; };
+  template<class X> struct extension_of<__m256i,X>  { typedef tag::xop_ type; };
 } } }
 
 #endif

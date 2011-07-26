@@ -14,24 +14,24 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::is_eqz_, tag::cpu_, (A0)
-                            , ((simd_<int64_<A0>,tag::sse_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, tag::cpu_, (A0)
+                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef simd::native <typename  meta::int32_t_<A0>::type, tag::sse_ > itype;
-      typedef simd::native <typename  meta::float__<A0>::type , tag::sse_ > ftype;
+      typedef simd::native <typename  meta::int32_t_<A0>::type, boost::simd::tag::sse_ > itype;
+      typedef simd::native <typename  meta::float__<A0>::type , boost::simd::tag::sse_ > ftype;
       ftype tmp1
       = simd::native_cast<ftype>(eq(simd::native_cast<itype>(a0),Zero<itype>()));
       A0  l = simd::native_cast<A0>(_mm_moveldup_ps(tmp1));

@@ -16,18 +16,18 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_DISPATCH(tag::bitwise_andnot_, tag::cpu_,
+BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::bitwise_andnot_, tag::cpu_,
                                  (A0),
-                                 ((simd_<arithmetic_<A0>,tag::avx_>))
-                                 ((simd_<arithmetic_<A0>,tag::avx_>))
+                                 ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                                 ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                                 );
 
 namespace boost { namespace simd { namespace ext
 {
   template<class Dummy>
-  struct call<tag::bitwise_andnot_(tag::simd_<tag::arithmetic_, tag::avx_),
-                                   tag::simd_<tag::arithmetic_, tag::avx_)),
-              tag::cpu_, Dummy> : callable
+  struct call<boost::simd::tag::bitwise_andnot_(tag::simd_<tag::arithmetic_, tag::avx_),
+                                   boost::simd::tag::simd_<tag::arithmetic_, tag::avx_)),
+              boost::simd::tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -45,18 +45,18 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_DISPATCH(tag::bitwise_andnot_, tag::cpu_,
+BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::bitwise_andnot_, tag::cpu_,
                                  (A0),
-                                 ((simd_<double_<A0>,tag::avx_>))
-                                 ((simd_<double_<A0>,tag::avx_>))
+                                 ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                                 ((simd_<double_<A0>,boost::simd::tag::avx_>))
                                 );
 
 namespace boost { namespace simd { namespace ext
 {
   template<class Dummy>
-  struct call<tag::bitwise_andnot_(tag::simd_<tag::double_, tag::avx_),
-                                   tag::simd_<tag::double_, tag::avx_)),
-              tag::cpu_, Dummy> : callable
+  struct call<boost::simd::tag::bitwise_andnot_(tag::simd_<tag::double_, tag::avx_),
+                                   boost::simd::tag::simd_<tag::double_, tag::avx_)),
+              boost::simd::tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>
@@ -73,18 +73,18 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_DISPATCH(tag::bitwise_andnot_, tag::cpu_,
+BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::bitwise_andnot_, tag::cpu_,
                                  (A0),
-                                 ((simd_<float_<A0>,tag::avx_>))
-                                 ((simd_<float_<A0>,tag::avx_>))
+                                 ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                                 ((simd_<float_<A0>,boost::simd::tag::avx_>))
                                 );
 
 namespace boost { namespace simd { namespace ext
 {
   template<class Dummy>
-  struct call<tag::bitwise_andnot_(tag::simd_<tag::float_, tag::avx_),
-                                   tag::simd_<tag::float_, tag::avx_)),
-              tag::cpu_, Dummy> : callable
+  struct call<boost::simd::tag::bitwise_andnot_(tag::simd_<tag::float_, tag::avx_),
+                                   boost::simd::tag::simd_<tag::float_, tag::avx_)),
+              boost::simd::tag::cpu_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0,class A1>

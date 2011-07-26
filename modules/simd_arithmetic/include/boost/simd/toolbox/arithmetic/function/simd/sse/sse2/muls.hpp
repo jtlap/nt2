@@ -12,16 +12,16 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is int16_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, tag::cpu_,
 //                        (A0)(X),
 //                        ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
 //                       );
 // namespace boost { namespace simd { namespace ext
 // {
 //   template<class X, class Dummy>
-//   struct call<tag::muls_(tag::simd_<tag::int16_, X> ,
-// 			 tag::simd_<tag::int16_, X>),
-//               tag::cpu_, Dummy> : callable
+//   struct call<boost::simd::tag::muls_(tag::simd_<tag::int16_, X> ,
+// 			 boost::simd::tag::simd_<tag::int16_, X>),
+//               boost::simd::tag::cpu_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
@@ -43,16 +43,16 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is uint16_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(tag::muls_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, tag::cpu_,
 //                        (A0)(X),
 //                        ((simd_<uint16_<A0>,X>))((simd_<uint16_<A0>,X>))
 //                       );
 // namespace boost { namespace simd { namespace ext
 // {
 //   template<class X, class Dummy>
-//   struct call<tag::muls_(tag::simd_<tag::uint16_, X> ,
-// 			 tag::simd_<tag::uint16_, X>),
-//               tag::cpu_, Dummy> : callable
+//   struct call<boost::simd::tag::muls_(tag::simd_<tag::uint16_, X> ,
+// 			 boost::simd::tag::simd_<tag::uint16_, X>),
+//               boost::simd::tag::cpu_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>

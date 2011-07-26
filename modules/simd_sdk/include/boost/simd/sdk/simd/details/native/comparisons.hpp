@@ -27,12 +27,12 @@ OP(native<T,X> const& a0, native<T,X> const& a1)                         \
 
 namespace boost { namespace simd
 {
-  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_equal_        , operator== )
-  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_not_equal_    , operator!= )
-  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_less_         , operator<  )
-  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_greater_      , operator>  )
-  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_less_equal_   , operator<= )
-  BOOST_SIMD_MAKE_NATIVE_OP( boost::dispatch::tag::compare_greater_equal_, operator>= )
+  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_equal_        , operator== )
+  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_not_equal_    , operator!= )
+  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_less_         , operator<  )
+  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_greater_      , operator>  )
+  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_less_equal_   , operator<= )
+  BOOST_SIMD_MAKE_NATIVE_OP( tag::compare_greater_equal_, operator>= )
 } }
 
 #undef BOOST_SIMD_MAKE_NATIVE_OP

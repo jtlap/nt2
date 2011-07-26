@@ -13,9 +13,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::bitwise_or_, tag::cpu_, (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,tag::altivec_>))
-                              ((simd_<arithmetic_<A1>,tag::altivec_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, tag::cpu_, (A0)(A1)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<arithmetic_<A1>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;

@@ -12,7 +12,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/include.hpp>
 
-namespace boost { namespace dispatch {
+namespace boost { namespace simd {
   struct ascending_ {};
   struct descending_{};
   namespace tag

@@ -17,10 +17,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, tag::cpu_,
                          (A0),
-                         ((simd_<arithmetic_<A0>,tag::avx_>))
-                         ((simd_<arithmetic_<A0>,tag::avx_>))
+                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
@@ -37,10 +37,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, tag::cpu_,
                          (A0),
-                         ((simd_<double_<A0>,tag::avx_>))
-                         ((simd_<double_<A0>,tag::avx_>))
+                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
@@ -56,10 +56,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::is_ord_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, tag::cpu_,
                          (A0),
-                         ((simd_<float_<A0>,tag::avx_>))
-                         ((simd_<float_<A0>,tag::avx_>))
+                         ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                         ((simd_<float_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;

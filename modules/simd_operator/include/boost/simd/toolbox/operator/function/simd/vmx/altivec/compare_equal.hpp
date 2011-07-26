@@ -11,9 +11,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::compare_equal_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::altivec_>))
-                              ((simd_<arithmetic_<A0>,tag::altivec_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef bool result_type;

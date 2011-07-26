@@ -19,9 +19,9 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<ints16_<A0>,tag::sse_>))
+                      ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;
@@ -40,9 +40,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<double_<A0>,tag::sse_>))
+                      ((simd_<double_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;
@@ -59,9 +59,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<ints64_<A0>,tag::sse_>))
+                      ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;
@@ -78,9 +78,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<float_<A0>,tag::sse_>))
+                      ((simd_<float_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;
@@ -98,9 +98,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<ints8_<A0>,tag::sse_>))
+                      ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;
@@ -108,7 +108,7 @@ namespace boost { namespace dispatch { namespace meta
     
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return boost::fusion::fold(a0,0,functor<tag::plus_>());
+      return boost::fusion::fold(a0,0,functor<boost::simd::tag::plus_>());
     }
   };
 
@@ -117,9 +117,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::sum_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
-                      ((simd_<ints32_<A0>,tag::sse_>))
+                      ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;

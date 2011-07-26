@@ -23,12 +23,12 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (tag::ldexp_( simd_<arithmetic_<A0>,X>
+                                , (boost::simd::tag::ldexp_( simd_<arithmetic_<A0>,X>
                                               , simd_<integer_<A1>,X>
                                               )
                                   )
@@ -41,7 +41,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {
@@ -49,12 +49,12 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return rshl(a0, a1); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (tag::ldexp_( simd_<real_<A0>,X>
+                                , (boost::simd::tag::ldexp_( simd_<real_<A0>,X>
                                               , simd_<integer_<A1>,X>
                                               )
                                   )
@@ -83,7 +83,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::ldexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {

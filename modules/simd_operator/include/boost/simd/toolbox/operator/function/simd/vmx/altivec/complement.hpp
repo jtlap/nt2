@@ -11,8 +11,8 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::complement_, tag::cpu_, (A0)
-                            , ((simd_<arithmetic_<A0>,tag::altivec_>))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, tag::cpu_, (A0)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;

@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag { struct store_ {}; }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)

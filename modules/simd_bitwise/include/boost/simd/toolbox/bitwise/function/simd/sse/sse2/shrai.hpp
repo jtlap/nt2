@@ -20,9 +20,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int32_<A0>,tag::sse_>))
+                            , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -36,9 +36,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int16_<A0>,tag::sse_>))
+                            , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -52,9 +52,9 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int8_<A0>,tag::sse_>))
+                            , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -62,16 +62,16 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typedef simd::native<typename meta::int16_t_<A0>::type,tag::sse_> gen_type;
+      typedef simd::native<typename meta::int16_t_<A0>::type,boost::simd::tag::sse_> gen_type;
       gen_type a0h, a0l;
       boost::fusion::tie(a0l, a0h) = split(a0);
       return simd::native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::shrai_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
                             , (A0)(A1)
-                            , ((simd_<int64_<A0>,tag::sse_>))
+                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
                             )
   {

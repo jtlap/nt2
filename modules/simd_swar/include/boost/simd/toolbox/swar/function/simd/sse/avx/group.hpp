@@ -16,10 +16,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<double_<A0>,tag::avx_>))
-                        ((simd_<double_<A0>,tag::avx_>))
+                        ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<double_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -34,7 +34,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      typedef simd::native<float,tag::sse_ >   htype;
+      typedef simd::native<float,boost::simd::tag::sse_ >   htype;
       htype r0 = {_mm256_cvtpd_ps(a0)};
       htype r1 = {_mm256_cvtpd_ps(a1)};
       rtype r  = {_mm256_insertf128_ps(r, r0, 0)};
@@ -48,10 +48,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<int32_<A0>,tag::avx_>))
-                        ((simd_<int32_<A0>,tag::avx_>))
+                        ((simd_<int32_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -66,10 +66,10 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      //     typedef typename meta::same<A0,tag::sse_>::type htype;
-      typedef simd::native<typename meta::scalar_of<A0>::type,tag::sse_ >   htype;
-      typedef simd::native<typename meta::scalar_of<rtype>::type,tag::sse_ >   type;
-      //      typedef typename meta::same<rtype,tag::sse_>::type type;
+      //     typedef typename meta::same<A0,boost::simd::tag::sse_>::type htype;
+      typedef simd::native<typename meta::scalar_of<A0>::type,boost::simd::tag::sse_ >   htype;
+      typedef simd::native<typename meta::scalar_of<rtype>::type,boost::simd::tag::sse_ >   type;
+      //      typedef typename meta::same<rtype,boost::simd::tag::sse_>::type type;
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0 = {_mm_packs_epi32(a00, a01)};
@@ -89,10 +89,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<int16_<A0>,tag::avx_>))
-                        ((simd_<int16_<A0>,tag::avx_>))
+                        ((simd_<int16_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<int16_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -107,10 +107,10 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      //     typedef typename meta::same<A0,tag::sse_>::type htype;
-      typedef simd::native<typename meta::scalar_of<A0>::type,tag::sse_ >   htype;
-      typedef simd::native<typename meta::scalar_of<rtype>::type,tag::sse_ >   type;
-      //      typedef typename meta::same<rtype,tag::sse_>::type type;
+      //     typedef typename meta::same<A0,boost::simd::tag::sse_>::type htype;
+      typedef simd::native<typename meta::scalar_of<A0>::type,boost::simd::tag::sse_ >   htype;
+      typedef simd::native<typename meta::scalar_of<rtype>::type,boost::simd::tag::sse_ >   type;
+      //      typedef typename meta::same<rtype,boost::simd::tag::sse_>::type type;
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0   = {_mm_packs_epi16(a00, a01)};
@@ -128,10 +128,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<uint32_<A0>,tag::avx_>))
-                        ((simd_<uint32_<A0>,tag::avx_>))
+                        ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -146,10 +146,10 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      //     typedef typename meta::same<A0,tag::sse_>::type htype;
-      typedef simd::native<typename meta::scalar_of<A0>::type,tag::sse_ >   htype;
-      typedef simd::native<typename meta::scalar_of<rtype>::type,tag::sse_ >   type;
-      //      typedef typename meta::same<rtype,tag::sse_>::type type;
+      //     typedef typename meta::same<A0,boost::simd::tag::sse_>::type htype;
+      typedef simd::native<typename meta::scalar_of<A0>::type,boost::simd::tag::sse_ >   htype;
+      typedef simd::native<typename meta::scalar_of<rtype>::type,boost::simd::tag::sse_ >   type;
+      //      typedef typename meta::same<rtype,boost::simd::tag::sse_>::type type;
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0 = {_mm_packus_epi32(a00, a01)};
@@ -169,10 +169,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<int64_<A0>,tag::avx_>))
-                        ((simd_<int64_<A0>,tag::avx_>))
+                        ((simd_<int64_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -191,10 +191,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<uint64_<A0>,tag::avx_>))
-                        ((simd_<uint64_<A0>,tag::avx_>))
+                        ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -213,10 +213,10 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::group_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::group_, tag::cpu_,
                         (A0),
-                        ((simd_<uint16_<A0>,tag::avx_>))
-                        ((simd_<uint16_<A0>,tag::avx_>))
+                        ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -231,10 +231,10 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      //     typedef typename meta::same<A0,tag::sse_>::type htype;
-      typedef simd::native<typename meta::scalar_of<A0>::type,tag::sse_ >   htype;
-      typedef simd::native<typename meta::scalar_of<rtype>::type,tag::sse_ >   type;
-      //      typedef typename meta::same<rtype,tag::sse_>::type type;
+      //     typedef typename meta::same<A0,boost::simd::tag::sse_>::type htype;
+      typedef simd::native<typename meta::scalar_of<A0>::type,boost::simd::tag::sse_ >   htype;
+      typedef simd::native<typename meta::scalar_of<rtype>::type,boost::simd::tag::sse_ >   type;
+      //      typedef typename meta::same<rtype,boost::simd::tag::sse_>::type type;
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0   = {_mm_packus_epi16(a00, a01)};

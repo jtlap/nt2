@@ -15,7 +15,7 @@
 
 #include <boost/proto/tags.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace simd
 {
   namespace tag
   {

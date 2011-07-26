@@ -12,7 +12,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
 
-namespace boost { namespace dispatch { namespace tag
+namespace boost { namespace simd { namespace tag
   {         
     struct idivfloor_ {};
   }

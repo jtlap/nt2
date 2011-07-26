@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-    BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
+    BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::modf_, tag::cpu_, (A0)(A1)(A2)(X)
 				  ,( boost::mpl::and_ <
 				     boost::is_same<A0,A1>, 
 				     boost::is_same<A0,A2>
 				     >
 				  )
-                                , ( tag::modf_
+                                , ( boost::simd::tag::modf_
 				    ( simd_<arithmetic_<A0>,X> 
 				      , simd_<arithmetic_<A1>,X>
 				      , simd_<arithmetic_<A2>,X>  
@@ -43,9 +43,9 @@ namespace boost { namespace dispatch { namespace meta
       }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( tag::modf_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::modf_, tag::cpu_, (A0)(A1)(X)
 				  ,(boost::is_same<A0,A1>)
-                                , ( tag::modf_
+                                , ( boost::simd::tag::modf_
 				    ( simd_<arithmetic_<A0>,X> 
 				      , simd_<arithmetic_<A1>,X>
 				      )
@@ -63,7 +63,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 
     
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::modf_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )

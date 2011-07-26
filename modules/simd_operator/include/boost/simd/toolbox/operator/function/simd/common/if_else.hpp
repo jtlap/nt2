@@ -14,7 +14,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::if_else_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(X)
                             , ((simd_< fundamental_<A0>, X >))
                               ((simd_< fundamental_<A0>, X >))
                               ((simd_< fundamental_<A0>, X >))

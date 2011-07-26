@@ -18,8 +18,8 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::store_, tag::cpu_, (A0)(A1)(A2)
-                            , ((simd_< arithmetic_<A0>, tag::altivec_ >))
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_, tag::cpu_, (A0)(A1)(A2)
+                            , ((simd_< arithmetic_<A0>, boost::simd::tag::altivec_ >))
                               (iterator_< scalar_< arithmetic_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )

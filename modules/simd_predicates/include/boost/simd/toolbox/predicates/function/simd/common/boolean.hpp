@@ -14,7 +14,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::boolean_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                           )
   {
@@ -22,7 +22,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & One<A0>(); }
   };
 
-//  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::boolean_, tag::cpu_, (A0)(X)
+//  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
 //                            , ((simd_<int64_<A0>,X>))
 //                            )
 //  {
