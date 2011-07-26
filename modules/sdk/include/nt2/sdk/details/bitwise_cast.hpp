@@ -20,9 +20,6 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
 
-#include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
-
 namespace nt2 { namespace details
 {
   //============================================================================
@@ -31,13 +28,9 @@ namespace nt2 { namespace details
   struct memcpy_cast
   {
     template<typename To, typename From>
-    static inline To call(From const& from)
+    static NT2_FORCE_INLINE To call(From const& from)
     {
       To to;
-      
-      std::cout << "From = "; display_type(from); std::cout << std::endl;
-      std::cout << "To = "; display_type(to); std::cout << std::endl;
-      
       std::memcpy(&to, &from, sizeof(From));
       return to;
     }
