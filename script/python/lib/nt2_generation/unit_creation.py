@@ -50,7 +50,6 @@ class Create_tests(Nt2_tb_props) :
         'rturn' : {
             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-        'simd_types' : ['real_'],
         'type_defs' : [],
         'types' : ['real_'],
         }
@@ -92,11 +91,17 @@ class Create_tests(Nt2_tb_props) :
         r = ghg.get_gen_result()
         dl = bg.get_fct_dict_list()
         for rank,d in enumerate(dl) :
-            origin ="types" if mode == 'scalar' else 'simd_types'
+            
             df = d.get('functor',False)
             if not df : df = self.Default_df
             if df.get('no_simd_tests',False) : return []
-            types = bg.recover(origin,df,["real_"])
+            
+            types = []
+            if mode == 'simd':
+                types = bg.recover('simd_types',df,[])
+            if len(types) == 0:
+                types = bg.recover('types',df,['real_'])
+            
             ret_arity = int(df["ret_arity"])
             d_unit = d.get("unit",{})
             for typ in types :

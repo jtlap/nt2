@@ -35,7 +35,6 @@ class Base_gen(Nt2_fct_props) :
          'rturn' : {
              'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_'],
         }
