@@ -71,6 +71,6 @@ NT2_TEST_CASE_TPL ( negif_integer__2_0,  NT2_INTEGRAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(negif(T(0),T(1)), 1);
-  NT2_TEST_EQUAL(negif(T(1),T(1)), -1);
+  NT2_TEST_EQUAL(negif(T(1),T(1)), r_t(-1));
   NT2_TEST_EQUAL(negif(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for integer_

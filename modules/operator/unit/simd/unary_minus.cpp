@@ -78,6 +78,6 @@ NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(unary_minus(nt2::Mone<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(unary_minus(nt2::One<vT>())[0], nt2::Mone<sr_t>());
-  NT2_TEST_EQUAL(unary_minus(nt2::Two<vT>())[0], -nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(unary_minus(nt2::Two<vT>())[0], sr_t(-nt2::Two<sr_t>()));
   NT2_TEST_EQUAL(unary_minus(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for integer_

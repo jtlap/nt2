@@ -78,6 +78,6 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(negif(nt2::splat<vT>(0),nt2::splat<vT>(1))[0], 1);
-  NT2_TEST_EQUAL(negif(nt2::splat<vT>(1),nt2::splat<vT>(1))[0], -1);
+  NT2_TEST_EQUAL(negif(nt2::splat<vT>(1),nt2::splat<vT>(1))[0], sr_t(-1));
   NT2_TEST_EQUAL(negif(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for signed_int_
