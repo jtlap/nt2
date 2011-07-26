@@ -17,8 +17,6 @@
 #include <cstring>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <nt2/sdk/config/attributes.hpp>
-#include <boost/type_traits/is_convertible.hpp>
-#include <boost/utility/enable_if.hpp>
 
 namespace nt2 { namespace details
 {
@@ -70,13 +68,7 @@ namespace nt2 { namespace details
   //============================================================================
   template<typename To, typename From, typename Enable = void>
   struct bitwise_cast : memcpy_cast {};
-
-  //============================================================================
-  // If To and From are convertible, use C-style cast
-  //============================================================================
-  template<typename To, typename From>
-  struct  bitwise_cast<To, From, typename boost::enable_if< boost::is_convertible<From, To> >::type>
-        : convert_cast {};
+  
 } }
 
 namespace nt2
